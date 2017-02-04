@@ -1,0 +1,91 @@
+Package: prioritizr
+Type: Package
+Version: 0.1.2.9
+Package: prioritizr
+Title: Systematic Conservation Prioritization in R
+Description: Solve systematic reserve design problems using integer programming 
+    techniques. To solve problems most efficiently users can install the
+    'gurobi' optimizer (available from <http://www.gurobi.com/>).
+Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson', email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
+             person(c('Riched'), 'Schuster', email='mail@richard-schuster.com', role = c('aut')),
+             person(c('Matthew'), 'Strimas-Mackey', email='mstrimas@gmail.com', role = c('aut')),
+             person(c('Peter'), 'Arcese', email='peter.arcese@ubc.ca', role = c('aut')),             
+             person(c('Joeseph'), 'Bennett', email='joseph.bennett@carleton.ca', role = c('aut', 'cre')))
+Imports:
+    utils,
+    methods,
+    assertthat,
+    uuid,
+    R6,
+    Matrix,
+    slam,
+    rgeos,
+    parallel,
+    doParallel
+Suggests:
+    testthat,
+    knitr,
+    gurobi,
+    ape,
+    shiny,
+    rhandsontable,
+    RandomFields,
+    velox,
+    maptools,
+    spdep
+Depends:
+    R(>= 3.3.2),
+    raster,
+    sp
+LinkingTo: Rcpp, RcppEigen, BH
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+SystemRequirements: C++11
+URL: https://github.com/prioritizr/prioritizr
+BugReports: https://github.com/prioritizr/prioritizr/issues
+VignetteBuilder: knitr
+RoxygenNote: 5.0.1
+Collate:
+    'internal.R'
+    'ArrayParameter-class.R'
+    'ConservationModifier-class.R'
+    'ScalarParameter-class.R'
+    'Parameters-class.R'
+    'Decision-class.R'
+    'Constraint-class.R'
+    'Constraints-class.R'
+    'Objective-class.R'
+    'Target-class.R'
+    'ConservationProblem-class.R'
+    'OptimizationProblem-class.R'
+    'OptimizationProblem-methods.R'
+    'RcppExports.R'
+    'Solver-class.R'
+    'generics.R'
+    'boundary_matrix.R'
+    'build.R'
+    'compile.R'
+    'connected_constraint.R'
+    'connected_matrix.R'
+    'constraints.R'
+    'corridors_constraint.R'
+    'data.R'
+    'decisions.R'
+    'objectives.R'
+    'solvers.R'
+    'defaults.R'
+    'fragmentation_constraint.R'
+    'locked_in_constraint.R'
+    'locked_out_constraint.R'
+    'modify.R'
+    'operators.R'
+    'package.R'
+    'parallel.R'
+    'parameters.R'
+    'problem.R'
+    'rij_matrix.R'
+    'simulate.R'
+    'solve.R'
+    'targets.R'
+    'zzz.R'

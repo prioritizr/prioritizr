@@ -1,0 +1,15 @@
+---
+title: "placeholder"
+output:
+  rmarkdown::html_document:
+    toc: true
+    fig_caption: yes
+fontsize: 11pt
+vignette: >
+  %\VignetteIndexEntry{prioritizr}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+
+This is a place-holder document for the real vignette. The purpose of this document is so that the vignette can run code that would take too long to run on CRAN.
+
+ 

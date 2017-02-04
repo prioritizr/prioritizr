@@ -1,0 +1,14 @@
+---
+title: "Modify problems interactively"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  rmarkdown::html_document:
+    toc: true
+    fig_caption: true
+fontsize: 11pt
+vignette: >
+  %\VignetteIndexEntry{prioritizr}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+  
