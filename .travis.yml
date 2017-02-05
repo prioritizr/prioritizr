@@ -1,0 +1,62 @@
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: r
+sudo: required
+dist: trusty
+warnings_are_errors: true
+r:
+  - release
+  - devel
+
+os:
+  - linux
+  - osx
+
+matrix:
+  exclude:
+  - os: osx
+  - r: devel
+
+env:
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=FALSE
+
+apt_packages:
+  - r-cran-rgdal
+  - r-cran-rsymphony
+  - r-cran-rgeos
+  - libgeos-dev
+  - libgeos-c1
+  - curl
+  - qpdf 
+  - glpk-utils
+  - libglpk-dev
+  - glpk-doc
+
+before_install: 
+  - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
+  - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get --yes --force-yes update -qq; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "install.packages('sp')"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew tap coin-or-tools/coinor; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install symphony; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install pkg-config; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install glpk; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
+
+before_script:
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "install.packages('Rsymphony', type='source')"; fi;
+  - Rscript -e "install.packages('glpkAPI', configure.args='--with-glpk-lib=/usr/local/lib --with-glpk-include=/usr/local/include --enable-gmp=no')"
+  - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"
+
+r_packages:
+  - covr
+  - rmarkdown
+  - testthat
+
+after_success:
+  - Rscript -e 'covr::codecov()' 
