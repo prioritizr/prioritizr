@@ -8,8 +8,6 @@
 
 `prioritizr` is an R package for solving systematic conservation prioritization problems using the techniques of integer linear programming (ILP). In particular, both the minimum set cover (Marxan-like) and maximum coverage reserve design problems can be solved. The package offers a unified interface to a variety of commercial and open-source ILP solvers. In contrast to heuristic approaches, such as simulated annealing, the ILP algorithms used by `prioritizr` can find exact solutions to optimization problems.
 
-This package consists largely of two layers of functions: those that define a reserve design problem and those that solve a reserve design problem using any one of a variety of solvers. The details of the solvers are intentionally abstracted away so that the user requires minimal knowledge of the specific solvers or ILP in general.
-
 
 ```r
 plot(1)
