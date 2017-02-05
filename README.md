@@ -1,7 +1,7 @@
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/prioritizr/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/prioritizr/prioritizr)
-[![Coverage Status](https://codecov.io/github/mstrimas/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
+[![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
 # Conservation Prioritization with Integer Programming in R
@@ -18,3 +18,4 @@ plot(1)
 ![plot of chunk unnamed-chunk-1](inst/vign/readme-figure/unnamed-chunk-1-1.png)
 
 **This package is under development, please check back later.**
+

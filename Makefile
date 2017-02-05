@@ -19,9 +19,10 @@ readme:
 	sed -i -e '1ioutput: github_document\' gh-README.Rmd;\
 	sed -i -e '1ititle: prioritizr\' gh-README.Rmd;\
 	sed -i -e '1i---\' gh-README.Rmd;\
-	R --slave -e "knitr::knit('gh-README.Rmd')";\
+	R --slave -e "knitr::knit('gh-README.Rmd')"
 	mv -f inst/vign/gh-README.md ./README.md
 	mv -f inst/vign/figure inst/vign/readme-figure
+	rm -rf inst/vign/gh-README.Rmd
 	sed -i 1,5d README.md
 	sed -i 's|figure|inst/vign/readme-figure|g' README.md
 
