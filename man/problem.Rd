@@ -49,11 +49,17 @@ objectives using targets (see \code{\link{targets}}) and constraints
 (see \code{link{constraints}}).
 }
 \examples{
-# create problem using polygon planning unit data
-problem(sim_pu, sim_features)
-
 # create problem using raster planning unit data
-problem(tas_pu, tas_features)
+problem(sim_pu_raster, sim_features)
+
+# create problem using polygon planning unit data
+problem(sim_pu_polygons, sim_features)
+
+# create problem using line planning unit data
+problem(sim_pu_lines, sim_features)
+
+# create problem using point planning unit data
+problem(sim_pu_points, sim_features)
 
 }
 \seealso{

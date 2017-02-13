@@ -41,7 +41,7 @@ NULL
 #'
 #' @examples
 #' # create basic problem
-#' p <- problem(cost=sim_pu, features=sim_features) + 
+#' p <- problem(cost=sim_pu_raster, features=sim_features) + 
 #'   minimium_set_objective()
 #'
 #' # add relative targets
@@ -171,7 +171,7 @@ loglinear_targets <- function(x) {
 #'
 #' @examples
 #' # create problem
-#' p <- problem(cost=sim_pu, features=sim_features) + 
+#' p <- problem(cost=sim_pu_raster, features=sim_features) + 
 #'   maximum_coverage_objective() +
 #'   relative_targets(0.1)
 #' 

@@ -46,13 +46,13 @@ Here is a list of the available objectives and a description
 }
 \examples{
 # minimum set objective
-problem(sim_pu, sim_features) + minimum_set_objective()
+problem(sim_pu_raster, sim_features) + minimum_set_objective()
 
 # maximum coverage objective
-problem(sim_pu, sim_features) + maximum_coverage_objective(cost=20)
+problem(sim_pu_raster, sim_features) + maximum_coverage_objective(cost=20)
 
 # phylogenetic coverage objective
-problem(sim_pu, sim_features) + 
+problem(sim_pu_raster, sim_features) + 
  phylogenetic_coverage_objective(cost=20, tree=sim_phylogeny)
 
 }

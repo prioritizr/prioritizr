@@ -21,10 +21,10 @@ NULL
 #' @return \code{\link{Constraint}} object.
 #' 
 #' @examples
-#' problem(sim_pu, sim_features) +
+#' problem(sim_pu_raster, sim_features) +
 #'   minimum_set_objective() +
 #'   relative_targets(0.2) +
-#'   locked_out(sim_pu[sim_pu$class == 'urban'])
+#'   locked_out(sim_locked_out_raster)
 #'
 #' @seealso \code{\link{constraints}} for a list of all available constraints.
 #'

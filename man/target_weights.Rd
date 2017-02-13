@@ -29,7 +29,7 @@ Note that target weights can only be applied to a maximum coverage
 }
 \examples{
 # create problem
-p <- problem(cost=sim_pu, features=sim_features) + 
+p <- problem(cost=sim_pu_raster, features=sim_features) + 
   maximum_coverage_objective() +
   relative_targets(0.1)
 

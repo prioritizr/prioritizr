@@ -52,7 +52,7 @@ Targets can be specified using one of the functions below.
 }
 \examples{
 # create basic problem
-p <- problem(cost=sim_pu, features=sim_features) + 
+p <- problem(cost=sim_pu_raster, features=sim_features) + 
   minimium_set_objective()
 
 # add relative targets

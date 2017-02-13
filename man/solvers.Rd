@@ -40,7 +40,7 @@ Each solver uses a function from a different package for solving
 \examples{
 
 # create basic problem and use defaults
-p <- problem(cost=sim_pu, features=sim_features) + 
+p <- problem(cost=sim_pu_raster, features=sim_features) + 
   minimium_set_objective() + 
   relative_targets(0.1)
 

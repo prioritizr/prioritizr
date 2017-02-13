@@ -54,7 +54,7 @@ Each function represents a different type of decision. Below is a
 }
 \examples{
 # create basic problem and use defaults
-p <- problem(sim_pu, sim_features) + 
+p <- problem(sim_pu_raster, sim_features) + 
      minimium_set_objective() +
      relative_targets(0.1)
 

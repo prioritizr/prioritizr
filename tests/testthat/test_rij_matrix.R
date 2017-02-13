@@ -1,22 +1,22 @@
 context('rij matrix functions') 
 
 test_that('cost=Raster, features=RasterLayer', {
-  data(sim_pu, sim_features)
-  rij_matrix <- rij_matrix(sim_pu, sim_features[[1]])
+  data(sim_pu_raster, sim_features)
+  rij_matrix <- rij_matrix(sim_pu_raster, sim_features[[1]])
   expect_equal(rij_matrix, {
-    m <- matrix(sim_features[[1]][seq_len(raster::ncell(sim_pu))], ncol=1)
-    m[is.na(m)] <- 0
-    m <- as(m, 'dgTMatrix')
+    included <- raster::Which(!is.na(sim_pu_raster), cells=TRUE)
+    m <- as(matrix(sim_features[[1]][included], ncol=1), 'dgTMatrix')
     m
   })
 })
 
 
 test_that('cost=Raster, features=RasterStack', {
-  data(sim_pu, sim_features)
-  rij_matrix <- rij_matrix(sim_pu, sim_features)
+  data(sim_pu_raster, sim_features)
+  rij_matrix <- rij_matrix(sim_pu_raster, sim_features)
   expect_equal(rij_matrix, {
-    m <- sim_features[seq_len(raster::ncell(sim_pu))]
+    included <- raster::Which(!is.na(sim_pu_raster), cells=TRUE)
+    m <- sim_features[included]
     m[is.na(m)] <- 0
     m <- as(m, 'dgTMatrix')
     m
@@ -24,17 +24,15 @@ test_that('cost=Raster, features=RasterStack', {
 })
 
 test_that('cost=SpatialPolygons, features=RasterStack', {
-  data(tas_pu, tas_features)
-  tas_pu <- tas_pu[10:20,]
-  tas_features <- tas_features[[seq_len(10)]]
-  rij_matrix_1 <- rij_matrix(tas_pu, tas_features, fun=mean, na.rm=TRUE, velox=FALSE)
-  rij_matrix_2 <- rij_matrix(tas_pu, tas_features, fun=mean, velox=TRUE)
+  data(sim_pu_polygons, sim_features)
+  rij_matrix_1 <- rij_matrix(sim_pu_polygons, sim_features, fun=mean, na.rm=TRUE, velox=FALSE)
+  rij_matrix_2 <- rij_matrix(sim_pu_polygons, sim_features, fun=mean, velox=TRUE)
   set_number_of_threads(2)
-  rij_matrix_3 <- suppressWarnings(rij_matrix(tas_pu, tas_features, fun=mean, na.rm=TRUE, velox=FALSE))
-  rij_matrix_4 <- suppressWarnings(rij_matrix(tas_pu, tas_features, fun=mean, velox=TRUE))
+  rij_matrix_3 <- suppressWarnings(rij_matrix(sim_pu_polygons, sim_features, fun=mean, na.rm=TRUE, velox=FALSE))
+  rij_matrix_4 <- suppressWarnings(rij_matrix(sim_pu_polygons, sim_features, fun=mean, velox=TRUE))
   set_number_of_threads(1)
   expect_equal(rij_matrix_1, {
-    m <- raster::extract(tas_features, tas_pu, fun=mean, na.rm=TRUE, sp=FALSE)
+    m <- raster::extract(sim_features, sim_pu_polygons, fun=mean, na.rm=TRUE, sp=FALSE)
     m <- as(m, 'dgTMatrix')
     m
   })
@@ -45,15 +43,13 @@ test_that('cost=SpatialPolygons, features=RasterStack', {
 
  
 test_that('cost=SpatialLines, features=RasterStack', {
-  data(tas_pu, tas_features)
-  tas_pu <- as(tas_pu[10:20,], 'SpatialLines')
-  tas_features <- tas_features[[seq_len(10)]]
-  rij_matrix_1 <- rij_matrix(tas_pu, tas_features, fun=mean, na.rm=TRUE, velox=FALSE)
+  data(sim_pu_lines, sim_features)
+  rij_matrix_1 <- rij_matrix(sim_pu_lines, sim_features, fun=mean, na.rm=TRUE, velox=FALSE)
   set_number_of_threads(2)
-  rij_matrix_2 <- suppressWarnings(rij_matrix(tas_pu, tas_features, fun=mean, na.rm=TRUE, velox=FALSE))
+  rij_matrix_2 <- suppressWarnings(rij_matrix(sim_pu_lines, sim_features, fun=mean, na.rm=TRUE, velox=FALSE))
   set_number_of_threads(1)
   expect_equal(rij_matrix_1, {
-    m <- raster::extract(tas_features, tas_pu, fun=mean, na.rm=TRUE, sp=FALSE)
+    m <- raster::extract(sim_features, sim_pu_lines, fun=mean, na.rm=TRUE, sp=FALSE)
     m <- as(m, 'dgTMatrix')
     m
   })
@@ -61,12 +57,10 @@ test_that('cost=SpatialLines, features=RasterStack', {
 })
  
 test_that('cost=SpatialPoints, features=RasterStack', {
-  data(tas_pu, tas_features)
-  tas_pu <- rgeos::gCentroid(tas_pu[10:20,], byid=TRUE)
-  tas_features <- tas_features[[seq_len(10)]]
-  rij_matrix <- rij_matrix(tas_pu, tas_features)
+  data(sim_pu_points, sim_features)
+  rij_matrix <- rij_matrix(sim_pu_points, sim_features)
   expect_equal(rij_matrix, {
-    m <- raster::extract(tas_features, tas_pu, na.rm=TRUE, sp=FALSE)
+    m <- raster::extract(sim_features, sim_pu_points, na.rm=TRUE, sp=FALSE)
     m <- as(m, 'dgTMatrix')
     m
   })

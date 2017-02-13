@@ -35,7 +35,7 @@ If a \code{\link{OptimizationProblem}} is supplied, then the solution
 }
 \examples{
 # build minimal conservation problem
-p <- problem(sim_pu, sim_features) +
+p <- problem(sim_pu_raster, sim_features) +
   minimum_set_objective() +
   relative_targets(0.1)
 

@@ -23,7 +23,7 @@ methods::setMethod(
     } else {
         m <- plyr::llply(seq_len(raster::nlayers(y)), .parallel=FALSE,
                          function(i) {
-                          m <- m <- matrix(y[included], ncol=1)
+                          m <- matrix(y[included], ncol=1)
                           m[is.na(m)] <- 0
                           m <- as(m, 'dgTMatrix')
                          })

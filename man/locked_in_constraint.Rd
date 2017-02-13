@@ -28,10 +28,10 @@ If a \code{Spatial} object is supplied, any planning units that
   units that overlap with \code{TRUE} cells are locked into the solution.
 }
 \examples{
-problem(sim_pu, sim_features) +
+problem(sim_pu_raster, sim_features) +
   minimum_set_objective() +
   relative_targets(0.2) +
-  locked_in(sim_pu[sim_pu$class == 'protected'])
+  locked_in(sim_locked_in_raster)
 
 }
 \seealso{

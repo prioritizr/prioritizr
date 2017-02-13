@@ -1,0 +1,16 @@
+---
+title: "Tasmanian conservation planning scenario"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  rmarkdown::html_document:
+    toc: true
+    fig_caption: true
+fontsize: 11pt
+documentclass: article
+vignette: >
+  %\VignetteIndexEntry{prioritizr}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+--- 
+
+This vignette has a tutorial for conservation planning in Tasmania.

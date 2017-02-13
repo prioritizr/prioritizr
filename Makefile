@@ -1,10 +1,13 @@
-all: clean docs readme vigns site test check install
+all: clean data docs readme vigns site test check install
 
 clean:
+	rm -rf data/*
 	rm -rf docs/*
 	rm -rf inst/doc/*
 	rm -rf vignettes/*
 
+data:
+	Rscript --slave inst/extdata/simulate_data.R
 docs:
 	R --slave -e "devtools::document()"
 
@@ -52,10 +55,14 @@ check:
 	R --slave -e "devtools::check()"
 	R --slave -e "devtools::build_win()"
 
+checkwb:
+	R --slave -e "devtools::check()"
+	R --slave -e "devtools::build_win()"
+
 build:
 	R --slave -e "devtools::build()"
 
 install:
 	R --slave -e "devtools::install_local('../conserve')"
 
-.PHONY: clean install docs readme test check build 
+.PHONY: clean data docs readme site test check checkwb build  install 
