@@ -40,7 +40,6 @@ test_that('cost=SpatialPolygons, features=RasterStack', {
   expect_equal(rij_matrix_1, rij_matrix_3)
   expect_equal(rij_matrix_1, rij_matrix_4)  
 })
-
  
 test_that('cost=SpatialLines, features=RasterStack', {
   data(sim_pu_lines, sim_features)

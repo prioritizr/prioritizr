@@ -1,13 +1,13 @@
-#' @include internal.R Target-class.R
+#' @include internal.R Target-proto.R
 NULL
 
 #' Targets 
 #'
 #' After constructing a basic conservation \code{\link{problem}} that specifies
 #' the cost and feature data, it needs to have targets added to it. Targets 
-#' are used to specify the minimum amount or proportion of a feature's distribution
-#' that needs to be protected. Thus targets ensure that each species is 
-#' adequately represented in the reserve network.
+#' are used to specify the minimum amount or proportion of a feature's 
+#' distribution that needs to be protected. Thus targets ensure that each 
+#' species is adequately represented in the reserve network.
 #' 
 #' @param x \code{numeric} vector. 
 #' 
@@ -48,7 +48,7 @@ NULL
 #' p + relative_targets(0.1)
 #'
 #' # add absolute targets
-#' p + absolute_targets(0.1)
+#' p + absolute_targets(3)
 #'
 #' # add log-linear target
 #' p + loglinear_targets(c(1, 10, 0.9, 0.2))
@@ -62,24 +62,46 @@ relative_targets <- function(x) {
   assertthat::assert_that(inherits(x, 'numeric'),
                           all(x >= 0.0), all(x <= 1.0),
                           all(is.finite(x)))
-  Target$new(name='Relative targets',
-                 parameters=parameters(
-                  proportion_parameter_array(
-                    name='targets',
-                    as.numeric(x),
-                    seq_along(x))),
-                 data=list(),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  if (nrow(self$parameters$get('targets') > 1))
-                      assertthat::assert_that(
-                        nrow(self$parameters$get('targets') == 
-                        raster::nlayers(x$features)))
-                  invisible(TRUE)
-                 },
-                 apply = function(x) {
-                  stop('TODO: implement apply methed for relative_targets')
-                 })
+  pproto(
+    'Target',
+    Target,
+    name='Relative targets',
+    parameters=parameters(
+      proportion_parameter_array(
+        'targets',
+        as.double(x),
+        as.character(seq_along(x)))),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      n_targets <- nrow(self$parameters$get('targets'))
+      if (n_targets!=1)
+        invisible(assertthat::see_if(n_targets == x$get_number_of_features()))
+      invisible(TRUE)
+    },
+    synchronize = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      self$data$abundances <- x$feature_abundances()
+      p <- self$parameters$get('targets')
+      if (nrow(p)==1) {
+        targets <- rep(p[[1]], length(x$get_number_of_features()))
+      } else {
+        targets <- p[[1]]
+      }
+      self$parameters$parameters[[1]] <- proportion_parameter_array(
+        'targets', targets, x$get_feature_names())
+      invisible(TRUE)
+    },
+    postvalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      invisible(assertthat::see_if(
+        isTRUE(nrow(self$parameters$get('targets')) ==
+          x$get_number_of_features()),
+        isTRUE(all(rownames(self$parameters$get('targets')) ==
+          x$get_feature_names()))))
+    },            
+    output = function(self) {
+      self$parameters$get('targets')[[1]] * self$data$abundances
+    })
 }
 
 #' @rdname targets
@@ -88,64 +110,93 @@ absolute_targets <- function(x) {
   assertthat::assert_that(inherits(x, 'numeric'),
                           all(x >= 0),
                           all(is.finite(x)))
-  Target$new(name='Absolute targets',
-                 parameters=parameters(
-                  truncated_numeric_parameter_array(
-                    name='targets',
-                    as.numeric(x),
-                    seq_along(x))),
-                 data=list(),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  if (nrow(self$parameters$get('targets') > 1))
-                      assertthat::assert_that(
-                        nrow(self$parameters$get('targets') == 
-                        raster::nlayers(x$features)))
-                  invisible(TRUE)
-                 },
-                 apply = function(x) {
-                  stop('TODO: implement apply method for absolute_targets')
-                 })
+  pproto(
+    'Target',
+    Target,
+    name='Absolute targets',
+    parameters=parameters(
+      truncated_numeric_parameter_array(
+        x='targets', value=as.numeric(x), label=as.character(seq_along(x)))),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      n_targets <- nrow(self$parameters$get('targets'))
+      if (n_targets!=1)
+        invisible(assertthat::see_if(n_targets == x$get_number_of_features()))
+      invisible(TRUE)
+    },
+    synchronize = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      self$data$abundances <- x$feature_abundances()
+      p <- self$parameters$get('targets')
+      if (nrow(p)==1) {
+        targets <- rep(p[[1]], length(abundances))
+      } else {
+        targets <- p[[1]]
+      }
+      self$parameters$parameters[[1]] <- truncated_numeric_parameter_array(
+          x='targets', value=targets, label=x$get_feature_names(),
+          upper_limit=self$data$abundances)
+      invisible(TRUE)
+    },
+    postvalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      invisible(assertthat::see_if(
+        isTRUE(nrow(self$parameters$get('targets')) ==
+          x$get_number_of_features()),
+        isTRUE(all(rownames(self$parameters$get('targets')) ==
+          x$get_feature_names()))))
+    },
+    output = function(self) {
+      self$parameters$get('targets')[[1]]
+    })
 }
 
 #' @rdname targets
 #' @export
 loglinear_targets <- function(x) {
   assertthat::assert_that(inherits(x, 'numeric'),
-                          all(x >= 0),
-                          all(x[1:2]) >= 0.0,
-                          all(x[1:2]) <= 1.0,
-                          all(x[3:4]) >= 0.0,
-                          length(x==4),
-                          all(is.finite(x)))
-  Target$new(name='Log-linear targets',
-                 parameters=parameters(
-                  truncated_numeric_parameter(
-                    name='Minimum distribution threshold',
-                    x[1]),
-                  truncated_numeric_parameter(
-                    name='Maximum distribution threshold',
-                    x[2]),
-                  proportion_parameter(
-                    name='Target at minimum threshold', 
-                    x[3]),
-                  proportion_parameter(
-                    name='Target at maximum threshold', 
-                    x[3]),
-                ),
-                data=list(),
-                validate = function(x) {
-                  assertthat::assert_that(
-                    inherits(x, 'ConservationProblem'),
-                    self$parameters$get('Minimum distribution threshold') < 
-                      self$parameters$get('Maximum distribution threshold'),
-                    self$parameters$get('Target at minimum threshold') < 
-                      self$parameters$get('Target at maximum threshold'))
-                },
-                apply = function(x) {
-                  assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-                  stop('TODO: implement apply methed for loglinear_targets')
-                })
+                          isTRUE(all(x >= 0)),
+                          isTRUE(all(x[1:2] >= 0.0)),
+                          isTRUE(all(x[1:2] <= 1.0)),
+                          isTRUE(all(x[3:4] >= 0.0)),
+                          isTRUE(length(x)==4),
+                          assertthat::noNA(x))
+  pproto(
+    'Target',
+    Target,
+    name='Log-linear targets',
+    parameters=parameters(
+      truncated_numeric_parameter(
+        x='Minimum distribution threshold', value=x[1]),
+      truncated_numeric_parameter(
+        x='Maximum distribution threshold', value=x[2]),
+      proportion_parameter(
+        x='Target at minimum threshold', value=x[3]),
+      proportion_parameter(
+        x='Target at maximum threshold', value=x[4]),
+    ),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      assertthat::see_if(
+        self$parameters$get('Minimum distribution threshold') < 
+          self$parameters$get('Maximum distribution threshold'),
+        self$parameters$get('Target at minimum threshold') > 
+          self$parameters$get('Target at maximum threshold'))
+    },
+    synchronize = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      self$data$abundances <- x$feature_abundances()
+      invisible(TRUE)       
+    },
+    output = function(self) {
+      targets <- loglinear_interpolate(
+        self$data$abundances, 
+        self$parameters$get('Minimum distribution threshold'),
+        self$parameters$get('Target at minimum threshold'),
+        self$parameters$get('Maximum distribution threshold'),
+        self$parameters$get('Target at maximum threshold'))
+      targets * cs
+    })
 }
 
 #' Target weights
@@ -183,24 +234,43 @@ loglinear_targets <- function(x) {
 #'
 #' @export
 target_weights <- function(x) {
-  assertthat::assert_that(inherits(x, 'numeric'),
-                          all(x >= 0),
-                          all(is.finite(x)))
-  Constraint$new(name='Target weights',
-                 parameters=parameters(
-                  truncated_numeric_parameter_array(
-                    name='Target weights',
-                    as.numeric(x),
-                    seq_along(x))),
-                 data=list(),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  assertthat::assert_that(
-                    name(x$objective) == 'maximum_coverage_problem',
-                    nrow(self$parameters$get('Target weights')) ==
-                      raster::nlayers(x$features))
-                 },
-                 apply = function(x) {
-                  stop('TODO: function to apply target weights')
-                 })
+  assertthat::assert_that(
+    inherits(x, 'numeric'),
+    isTRUE(all(x >= 0)),
+    assertthat::noNA(x))
+  pproto(
+    'Constraint'
+    Constraint,
+    name='Target weights',
+    parameters=parameters(
+      truncated_numeric_parameter_array(
+        name='Target weights',
+        as.numeric(x),
+        as.character(seq_along(x)))),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      invisible(assertthat::see_if(
+        name(x$objective) == 'maximum_coverage_problem',
+        nrow(self$parameters$get('Target weights')) ==
+          x$get_number_of_features()))
+    },
+    synchronize = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      self$parameters$parameters$labels <- x$get_feature_names()
+      invisible(TRUE)
+    },
+    postvalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      invisible(assertthat::see_if(
+        name(x$objective) == 'maximum_coverage_problem',
+        nrow(self$parameters$get('Target weights')) ==
+          x$get_number_of_features(),
+        rownames(self$parameters$get('Target weights')) ==
+          x$get_feature_names()))
+    },
+    apply = function(self, x) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'))
+      invisible(rcpp_apply_target_weights(x,
+        self$parameters$get('Target weights')[[1]]))
+    })
 }

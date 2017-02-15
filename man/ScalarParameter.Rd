@@ -12,10 +12,11 @@ This class is used to represent a parameter has a single value.
 \itemize{
 \item{$id}{\code{character} identifier for parameter.}
 \item{$name}{\code{character} name of parameter.}
-\item{$value}{\code{vector} of values.}
-\item{$default}{\code{vector} of default values.}
-\item{$class}{\code{character} class of values.}
-\item{$range}{\code{vector} specifying minimum and maximum values.}
+\item{$value}{\code{numeric} scalar value.}
+\item{$default}{\code{numeric} scalar default value.}
+\item{$class}{\code{character} class of value.}
+\item{$lower_limit}{\code{numeric} scalar value minimum permitted value.}
+\item{$upper_limit}{\code{numeric} scalar value maximum permitted value.}
 \item{$widget}{\code{function} used to construct a
                \code{\link[shiny]{shiny}} interface for modifying values.}
 }
@@ -23,7 +24,8 @@ This class is used to represent a parameter has a single value.
 
 \section{Usage}{
  
-\preformatted{x <- ScalarParameter$new(name, value, default, class, range, widget)}
+\preformatted{x <- ScalarParameter$new(name, value, default, class, 
+                                       lower_limit, upper_limit, widget)}
 \code{x$print()}
 \code{x$show()}
 \code{x$validate(x)}

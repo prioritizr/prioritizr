@@ -29,6 +29,14 @@ rcpp_get_optimization_problem_modelsense <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_modelsense', PACKAGE = 'prioritizr', x)
 }
 
+rcpp_get_optimization_problem_number_of_planning_units <- function(x) {
+    .Call('prioritizr_rcpp_get_optimization_problem_number_of_planning_units', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_get_optimization_problem_number_of_features <- function(x) {
+    .Call('prioritizr_rcpp_get_optimization_problem_number_of_features', PACKAGE = 'prioritizr', x)
+}
+
 rcpp_get_optimization_problem_vtype <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_vtype', PACKAGE = 'prioritizr', x)
 }
@@ -53,16 +61,40 @@ rcpp_get_optimization_problem_ub <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_ub', PACKAGE = 'prioritizr', x)
 }
 
-rcpp_get_optimization_problem_pu_indices_in_obj <- function(x) {
-    .Call('prioritizr_rcpp_get_optimization_problem_pu_indices_in_obj', PACKAGE = 'prioritizr', x)
-}
-
 rcpp_get_optimization_problem_col_ids <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_col_ids', PACKAGE = 'prioritizr', x)
 }
 
 rcpp_get_optimization_problem_row_ids <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_row_ids', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_add_binary_decision <- function(x) {
+    .Call('prioritizr_rcpp_add_binary_decision', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_add_proportion_decision <- function(x) {
+    .Call('prioritizr_rcpp_add_proportion_decision', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_add_semicontinuous_decision <- function(x, upper) {
+    .Call('prioritizr_rcpp_add_semicontinuous_decision', PACKAGE = 'prioritizr', x, upper)
+}
+
+rcpp_add_rij_data <- function(x, planning_units, features, values, dim) {
+    .Call('prioritizr_rcpp_add_rij_data', PACKAGE = 'prioritizr', x, planning_units, features, values, dim)
+}
+
+rcpp_apply_minimum_set_objective <- function(x, targets, costs) {
+    .Call('prioritizr_rcpp_apply_minimum_set_objective', PACKAGE = 'prioritizr', x, targets, costs)
+}
+
+rcpp_apply_maximum_coverage_objective <- function(x, targets, costs, budget) {
+    .Call('prioritizr_rcpp_apply_maximum_coverage_objective', PACKAGE = 'prioritizr', x, targets, costs, budget)
+}
+
+rcpp_apply_target_weights <- function(x, weights) {
+    .Call('prioritizr_rcpp_apply_target_weights', PACKAGE = 'prioritizr', x, weights)
 }
 
 rcpp_boundary_data <- function(data, tolerance = 0.00001) {

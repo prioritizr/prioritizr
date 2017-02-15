@@ -1,11 +1,12 @@
-#' @include internal.R ArrayParameter-class.R ScalarParameter-class.R Parameters-class.R
+#' @include internal.R ArrayParameter-proto.R ScalarParameter-proto.R
+#'   Parameters-proto.R
 NULL
 
 #' Scalar parameters
 #'
 #' These functions are used to create parameters that consist of a single
-#' number. Parameters have a name, a value, a defined range of acceptable values,
-#' a default value, a class, and a \code{\link[shiny]{shiny}} widget for 
+#' number. Parameters have a name, a value, a defined range of acceptable
+#' values, a default value, a class, and a \code{\link[shiny]{shiny}} widget for 
 #' modifying them. If values are supplied to a parameter that are unacceptable
 #' then an error is thrown.
 #'
@@ -36,42 +37,59 @@ NULL
 
 #' @rdname scalar_parameters
 proportion_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='numeric',
-                range=c(0.0, 1.0), widget=shiny::sliderInput)
-} 
+  assertthat::assert_that(assertthat::is.string(x),
+    assertthat::is.scalar(value), isTRUE(value>=0), isTRUE(value<=1))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x, 
+    value=as.double(value), default=as.double(value), class='numeric',
+    lower_limit=0.0, upper_limit=1.0, widget=shiny::sliderInput)
+}
 
 #' @rdname scalar_parameters
 integer_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='integer',
-                range=as.integer(c(-.Machine$integer.max, .Machine$integer.max)),
-                widget=shiny::numericInput)
+  assertthat::assert_that(assertthat::is.string(x), 
+    assertthat::is.count(abs(value)))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x,
+    value=as.integer(value), default=as.integer(value), class='integer',
+    lower_limit=as.integer(-.Machine$integer.max), 
+    upper_limit=as.integer(.Machine$integer.max), widget=shiny::numericInput)
 } 
 
 #' @rdname scalar_parameters
 numeric_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='numeric',
-                range=c(.Machine$double.xmin, .Machine$double.xmax),
-                shiny::numericInput)
+  assertthat::assert_that(assertthat::is.string(x),
+    assertthat::is.scalar(value))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x,
+    value=as.double(value), default=as.double(value), class='numeric',
+    lower_limit=.Machine$double.xmin, upper_limit=.Machine$double.xmax,
+    widget=shiny::numericInput)
 }
 
 #' @rdname scalar_parameters
 truncated_numeric_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='numeric',
-                range=c(0.0, .Machine$double.xmax),
-                shiny::numericInput)
+  assertthat::assert_that(assertthat::is.string(x),
+    assertthat::is.scalar(value),isTRUE(value >= 0))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x,
+    value=as.double(value), default=as.double(value), class='numeric', 
+    lower_limit=0.0, upper_limit=.Machine$double.xmax,
+    widget=shiny::numericInput)
 }
 
 #' @rdname scalar_parameters
 truncated_integer_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='integer',
-                range=as.integer(c(0L, .Machine$integer.max)),
-                shiny::numericInput)
+  assertthat::assert_that(assertthat::is.string(x), assertthat::is.count(value))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x,
+    value=as.integer(value) default=as.integer(value), class='integer',
+    lower_limit=0L, upper_limit=as.integer(.Machine$integer.max),
+    widget=shiny::numericInput)
 }
 
 #' @rdname scalar_parameters
 binary_parameter <- function(x, value) {
-  ScalarParameter$new(name=x, value=value, default=value, class='integer',
-                  range=c(0L, 1L), widget=shiny::checkboxInput)
+  assertthat::assert_that(assertthat::is.string(x), assertthat::is.count(value),
+    isTRUE(value<=1), isTRUE(value>=0))
+  pproto('ScalarParameter', ScalarParameter, id=new_id(), name=x,
+    value=as.integer(value), default=as.integer(value), class='integer',
+    lower_limit=0L, upper_limit=1L, widget=shiny::checkboxInput)
 }
 
 #' Array parameters
@@ -105,16 +123,27 @@ NULL
 
 #' @rdname array_parameters
 proportion_parameter_array <- function(x, value, label) {
-  ArrayParameter$new(name = x, value=value, label=label, class='numeric',
-                     range=c(0.0, 1.0), default=value, length=length(value),
-                     widget=rhandsontable::rHandsontableOutput)
+  assertthat::assert_that(is.string(x), inherits(value, 'numeric'),
+    isTRUE(all(value >= 0)), isTRUE(all(value <= 1)), assertthat::noNA(value),
+    inherits(label, 'character'), assertthat::noNA(label),
+    length(value) == length(label))
+  pproto('ArrayParameter', ArrayParameter, name = x, value=as.double(value),
+    label=label, class='numeric', default=as.double(value), 
+    lower_limit=rep(0.0, length(value)), upper_limit=rep(1.0, length(value)),
+    length=length(value), widget=rhandsontable::rHandsontableOutput)
 }
 
 #' @rdname array_parameters
 truncated_numeric_parameter_array <- function(x, value, label) {
-  ArrayParameter$new(name = x, value=value, label=label, class='numeric',
-                     range=c(0.0, .Machine$double.xmax), default=value,
-                     length=length(value), widget=rhandsontable::rHandsontableOutput)
+  assertthat::assert_that(is.string(x), inherits(value, 'numeric'),
+    isTRUE(all(value >= 0)), assertthat::noNA(value),
+    inherits(label, 'character'), assertthat::noNA(label),
+    length(value) == length(label))
+  pproto('ArrayParameter', ArrayParameter, name = x, value=as.double(value),
+    label=label, class='numeric', lower_limit=rep(0.0, length(value)), 
+    upper_limit=rep(.Machine$double.xmax, length(value)),
+    default=as.double(value), length=length(value),
+    widget=rhandsontable::rHandsontableOutput)
 }
 
 #' Parameters
@@ -129,5 +158,9 @@ truncated_numeric_parameter_array <- function(x, value, label) {
 #' @seealso \code{\link{array_parameters}}, code{\link{scalar_parameters}}.
 #'
 #' @export
-parameters <- function(...) Parameters$new(...)
+parameters <- function(...) {
+  args <- list(...)
+  assertthat::assert_that(isTRUE(all(sapply(args, inherits, 'Parameter'))))
+  pproto('parameters', parameters, ...)
+} 
 

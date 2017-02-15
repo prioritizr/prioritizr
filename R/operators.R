@@ -1,4 +1,5 @@
-#' @include internal.R Solver-class.R ConservationProblem-class.R Constraint-class.R Objective-class.R Target-class.R
+#' @include internal.R Solver-proto.R ConservationProblem-proto.R 
+#'   Constraint-proto.R Objective-proto.R Target-proto.R
 NULL
 
 #' Operators
@@ -55,7 +56,9 @@ setMethod('+', signature('ConservationProblem', 'Solver'), function(e1,e2) {
 #' @rdname operators
 #' @export
 setMethod('+', signature('ConservationProblem', 'Constraint'), function(e1,e2) {
-  e2$validate(e1)
+  check(e2$prevalidate(e1))
+  e2$synchronize(e1)
+  check(e2$postvalidate(e1))
   e1$constraints$add(e2)
   e1
 })
@@ -65,7 +68,9 @@ setMethod('+', signature('ConservationProblem', 'Constraint'), function(e1,e2) {
 setMethod('+', signature('ConservationProblem', 'Objective'), function(e1,e2) {
   if (inherits(e1$solver, 'Objective'))
     warning('overwriting previously specified objective')
-  e2$validate(e1)
+  check(e2$prevalidate(e1))
+  e2$synchronize(e1)
+  check(e2$postvalidate(e1))
   e1$objective <- e2
   e1
 })
@@ -81,7 +86,9 @@ setMethod('+', signature('ConservationProblem', 'ConservationProblem'), function
 setMethod('+', signature('ConservationProblem', 'Target'), function(e1,e2) {
   if (inherits(e1$target, 'Target'))
     warning('overwriting previously specified targets')
-  e2$validate(e1)
+  check(e2$prevalidate(e1))
+  e2$synchronize(e1)
+  check(e2$postvalidate(e1))
   e1$target <- e2
   e1
 })

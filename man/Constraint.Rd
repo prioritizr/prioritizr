@@ -4,71 +4,10 @@
 \alias{Constraint}
 \title{Constraint class}
 \description{
-This class is used to represent a constraint that can be added to a 
-\code{\link{ConservationProblem}} object. \strong{This class represents a
-a constraint, to actually add constraints to a planning problem:
-use functions ending with "_constraint". Only experts should use this
-class directly.}
-}
-\section{Fields}{
-
-\itemize{
-\item{$name}{\code{character} name of constraint.}
-\item{$parameters}{\code{list} object used to customize the constraint.}
-\item{$data}{\code{list} object with data to constrain problem.}
-\item{$validate}{\code{function} used to validate that 
-                                 constraint data are appropriate given a 
-                                 \code{\link{ConservationProblem}} object.}
-\item{$apply}{\code{function} used to apply constraint to a 
-                          \code{\link{OptimizationProblem}} object.}
-}
-}
-
-\section{Usage}{
-
-\preformatted{x <- Constraint$new(name, parameters, data, validate, apply)}
-\code{x$print()}
-\code{x$show()}
-\code{x$repr()}
-
-\code{x$validate(cp)}
-\code{x$apply(op)}
-
-\code{x$get_parameter(id)}
-\code{x$get_all_parameters()}
-\code{x$set_parameter(id, value)}
-\code{x$render_parameter(id)}
-\code{x$render_all_parameters()}
-}
-
-\section{Arguments}{
-
-\describe{
-\item{id}{\code{id} object.}
-\item{value}{any object.}
-\item{cp}{\code{\link{ConservationProblem}} object.}
-\item{op}{\code{\link{OptimizationProblem}} object.}
-}
-}
-
-\section{Details}{
-
-\describe{
-\item{print}{print the object.}
-\item{show}{show the object.}
-\item{repr}{\code{character} representation of the object.}
-\item{validate}{validate that data used to formulate the constraints
-with data in a \code{ConservationProblem} object}
-\item{apply}{add constraint to a 
-      \code{\link{OptimizationProblem}} object.}
-\item{get_parameter}{retrieve the value of a parameter.}
-\item{get_all_parameters}{generate \code{list} containing all the 
-  parameters.}
-\item{set_parameter}{change the value of a parameter to new value.}
-\item{render_parameter}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{id}).}
-\item{render_all_parameters}{generate a \emph{shiny} \code{div}
-  containing all the parameters' widgets.}
-}
+This class is used to represent the costraints used when making a
+prioritization. \strong{This class represents a recipe, to actually
+add constraints to a planning problem, see the help page on
+\code{\link{constraints}}. Only experts should use this class directly.} This 
+class inherits from the \code{\link{ConservationModifier-class}}.
 }
 

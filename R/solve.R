@@ -1,4 +1,5 @@
-#' @include internal.R generics.R ConservationProblem-class.R OptimizationProblem-class.R compile.R
+#' @include internal.R generics.R ConservationProblem-proto.R
+#'   OptimizationProblem-proto.R compile.R
 NULL
 
 #' @export
@@ -13,10 +14,9 @@ methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
       a$solver <- default_solver()
     # compile and solve optimisation problem
     opt <- compile.ConservationProblem(a)
-    sol <- solve(opt, a$solver)
+    sol <- solve(opt, a$solver)[seq_len(opt$number_of_planning_units())]
     # extract solution and return Raster or Spatial object
-    pu <- a$cost
-    pu_sol <- sol[pu_indices_in_obj(opt)]
+    pu <- a$data$cost
     if (inherits(pu, 'RasterLayer')) {
       pu[Which(!is.na(pu))] <- pu_sol
     } else if (inherits(pu, 'Spatial')) {

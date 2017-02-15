@@ -2,21 +2,18 @@
 % Please edit documentation in R/problem.R
 \name{problem}
 \alias{problem}
-\alias{problem.RasterLater}
-\alias{problem.SpatialLinesDataFrame}
-\alias{problem.SpatialPolygonsDataFrame}
+\alias{problem.Raster}
+\alias{problem.Spatial}
 \title{Conservation planning problem}
 \usage{
 problem(x, features, ...)
 
-\method{problem}{RasterLater}(x, features, ...)
+\method{problem}{Raster}(x, features, ...)
 
-\method{problem}{SpatialPolygonsDataFrame}(x, features, cost_column = 1, ...)
-
-\method{problem}{SpatialLinesDataFrame}(x, features, cost_column = 1, ...)
+\method{problem}{Spatial}(x, features, cost_column = 1, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{RasterLayer-class}}, 
+\item{x}{\code{\link[raster]{Raster-class}}, 
 \code{\link[sp]{SpatialPolygonsDataFrame}}, or
 \code{\link[sp]{SpatialLinesDataFrame}} object specifying the planning
 units to use in the reserve design exercise and their corresponding cost.

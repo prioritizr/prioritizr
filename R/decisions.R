@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-class.R Decision-class.R
+#' @include internal.R Parameters-proto.R Decision-proto.R
 NULL
 
 #' Problem decision type
@@ -18,19 +18,19 @@ NULL
 #'   conservation problems.
 #'   \describe{
 #'      \item{binary_decision}{This is the classic decision of either 
-#'         prioritizing or not prioritizing a planning unit. Typically,
-#'         this decision has the assumed action of buying the planning 
-#'         unit to include in a protected area network.}
+#'        prioritizing or not prioritizing a planning unit. Typically,
+#'        this decision has the assumed action of buying the planning 
+#'        unit to include in a protected area network.}
 #'      \item{proportion_decision}{This is a relaxed decision where
-#'         a part of a planning unit can be prioritized. Typically, this
-#'         this decsion has the assumed action of buying a fraction of 
-#'         a planning unit to include in a protected area network.}
+#'        a part of a planning unit can be prioritized. Typically, this
+#'        this decsion has the assumed action of buying a fraction of 
+#'        a planning unit to include in a protected area network.}
 #'      \item{semicontinuous_decision}{This decision is similar to the 
-#'         \code{proportion_decision} except that it has an upper bound 
-#'         parameter. By default, the decision can range from prioritizing 
-#'          none (0 \%) to all (100 \%) of a planning unit. However, a upper 
-#'         bound can be specified to ensure that at most only a fraction 
-#'         (eg. 80 \%) of a planning unit can be preserved.}
+#'        \code{proportion_decision} except that it has an upper bound 
+#'        parameter. By default, the decision can range from prioritizing 
+#'         none (0 \%) to all (100 \%) of a planning unit. However, a upper 
+#'        bound can be specified to ensure that at most only a fraction 
+#'        (eg. 80 \%) of a planning unit can be preserved.}
 #'   }
 #'
 #' @return \code{\link{Decision}} object.
@@ -56,16 +56,11 @@ NULL
 #' @rdname decisions
 #' @export 
 binary_decision <- function() {
-  Decision$new('binary decision',
-    parameters=parameters(),
-    data=list(),
-    validate=function(x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      TRUE
-    }, 
-    apply=function(x) {
+  pproto('Decision', Decision, 
+    name='binary decision',
+    apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-      stop('TODO: binary_decision apply method')
+      invisible(rcpp_apply_binary_decision(x))
     }
   )
 }
@@ -73,42 +68,27 @@ binary_decision <- function() {
 #' @rdname decisions
 #' @export
 proportion_decision <- function() {
-  assertthat::assert_that(
-    assertthat::is.scalar(lower), assertthat::is.scalar(upper), 
-    lower >= 0, upper <= 1)
-  Decision$new('proportion decision',
-    parameters=parameters(),
-    data=list(),
-    validate=function(x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(TRUE)
-    }, 
-    apply=function(x) {
+  pproto('Decision', Decision, 
+    name='proportion decision',
+    apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-      stop('TODO: proportion_decision apply method')
+      invisible(rcpp_apply_proportion_decision(x))
     }
   )
 }
-
 
 #' @rdname decisions
 #' @export
 semicontinuous_decision <- function(upper=1) {
-  assertthat::assert_that(
-    assertthat::is.scalar(lower), assertthat::is.scalar(upper), 
-    lower >= 0, upper <= 1)
-  Decision$new('semicontinuous decision',
+  assertthat::assert_that(assertthat::is.scalar(upper), isTRUE(upper <= 1),
+    isTRUE(upper >= 0))
+  pproto('Decision', Decision, 
+    name='semicontinuous decision',
     parameters=parameters(proportion_parameter('Upper',upper)),
-    data=list(),
-    validate=function(x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'),
-                              self$parameters$get('Upper') <= 1.0)
-      invisible(TRUE)
-    }, 
-    apply=function(x) {
+    apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-      stop('TODO: semicontinuous_decision apply method')
+      invisible(rcpp_apply_semicontinuous_decision(x,
+        self$parameters$get('Upper')))
     }
   )
 }
-

@@ -1,5 +1,19 @@
- #' @include internal.R OptimizationProblem-class.R
+ #' @include internal.R OptimizationProblem-proto.R
 NULL
+
+#' New optimization problem
+#'
+#' Generate a new \code{\link{OptimizationProblem}} object.
+#'
+#' @return \code{\link{OptimizationProblem}} object.
+#'
+#' @seealso OptimizationProblem-methods
+#'
+#' @export
+new_optimization_problem <- function() {
+  pproto('OptimizationProblem', OptimizationProblem,
+    ptr=rcpp_new_optimization_problem())
+}
 
 #' Access data from optimization problem
 #' 
@@ -10,24 +24,43 @@ NULL
 #' @param x \code{\link{OptimizationProblem}} object.
 #'
 #' @details The functions return the following data:
+#'
 #' \describe{
+#'
 #' \item{nrow}{\code{integer} number of rows (constraints).}
+#'
 #' \item{ncol}{\code{integer} number of columns (decision variables).}
+#'
 #' \item{ncell}{\code{integer} number of cells.}
+#'
 #' \item{modelsense}{\code{character} describing if the problem is to be
 #'   maximized ('max') or minimized ('min').}
+#'
 #' \item{vtype}{\code{character} describing the type of each decision variable:
 #'   binary ('B'), semi-continuous ('S'), or continuous ('C')}
+#'
 #' \item{obj}{\code{numeric} vector specifying the objective function.}
-#' \item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the problem
-#'   matrix.}
+#'
+#' \item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
+#'   problem matrix.}
+#'
 #' \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}
-#' \item{sense}{\code{character} vector with the senses of the linear constraints
-#'   ('<=', '>=', '=').}
-#' \item{lb}{\code{numeric} lower bounds for decision variables. NA values indicate
-#'   no lower bound.}
-#' \item{ub}{\code{numeric} upper bounds for decision variables. NA values indicate
-#'   no upper bound.}
+#'
+#' \item{sense}{\code{character} vector with the senses of the linear
+#'   constraints ('<=', '>=', '=').}
+#'
+#' \item{lb}{\code{numeric} lower bounds for decision variables. \code{NA} 
+#'   values indicate no lower bound.}
+#'
+#' \item{ub}{\code{numeric} upper bounds for decision variables. NA values 
+#'   indicate no upper bound.}
+#'
+#' \item{number_of_planning_units}{\code{integer} number of planning units in
+#'   the problem.}
+#'
+#' \item{number_of_features}{\code{integer} number of features
+#'   the problem.}
+#'
 #' }
 #'
 #' @return \code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
@@ -61,7 +94,8 @@ methods::setGeneric('modelsense', function(x) standardGeneric('modelsense'))
 #' @name modelsense
 #' @usage modelsense(x)
 #' @export
-methods::setMethod('modelsense', 'OptimizationProblem', function(x) x$modelsense())
+methods::setMethod('modelsense', 'OptimizationProblem',
+  function(x) x$modelsense())
 
 #' @export
 methods::setGeneric('vtype', function(x) standardGeneric('vtype'))
@@ -127,13 +161,26 @@ methods::setGeneric('ub', function(x) standardGeneric('ub'))
 methods::setMethod('ub', 'OptimizationProblem', function(x) x$ub())
 
 #' @export
-methods::setGeneric('pu_indices_in_obj', function(x) standardGeneric('pu_indices_in_obj'))
+methods::setGeneric('number_of_features',
+  function(x) standardGeneric('number_of_features'))
 
 #' @rdname OptimizationProblem-methods
-#' @name pu_indices_in_obj
-#' @usage pu_indices_in_obj(x)
+#' @name number_of_features
+#' @usage number_of_features(x)
 #' @export
-methods::setMethod('pu_indices_in_obj', 'OptimizationProblem', function(x) x$pu_indices_in_obj())
+methods::setMethod('number_of_features', 'number_of_features',
+  function(x) x$number_of_features())
+
+#' @export
+methods::setGeneric('number_of_planning_units',
+  function(x) standardGeneric('number_of_planning_units'))
+
+#' @rdname OptimizationProblem-methods
+#' @name number_of_planning_units
+#' @usage number_of_planning_units(x)
+#' @export
+methods::setMethod('number_of_planning_units', 'number_of_planning_units',
+  function(x) x$number_of_planning_units())
 
 #' @export
 methods::setGeneric('column_ids', function(x) standardGeneric('column_ids'))
@@ -142,7 +189,8 @@ methods::setGeneric('column_ids', function(x) standardGeneric('column_ids'))
 #' @name column_ids
 #' @usage column_ids(x)
 #' @export
-methods::setMethod('column_ids', 'OptimizationProblem', function(x) x$column_ids())
+methods::setMethod('column_ids', 'OptimizationProblem',
+  function(x) x$column_ids())
 
 #' @export
 methods::setGeneric('row_ids', function(x) standardGeneric('row_ids'))
@@ -152,4 +200,3 @@ methods::setGeneric('row_ids', function(x) standardGeneric('row_ids'))
 #' @usage row_ids(x)
 #' @export
 methods::setMethod('row_ids', 'OptimizationProblem', function(x) x$row_ids())
-

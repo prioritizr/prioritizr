@@ -10,6 +10,8 @@ SEXP rcpp_new_optimization_problem(std::size_t nrow = 1000000, std::size_t ncol 
 // [[Rcpp::export]]
 SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
   std::string modelsense = Rcpp::as<std::string>(l["modelsense"]);
+  std::size_t number_of_features = Rcpp::as<std::size_t>(l["number_of_features"]);
+  std::size_t number_of_planning_units = Rcpp::as<std::size_t>(l["number_of_planning_units"]);
   std::vector<std::size_t> A_i = Rcpp::as<std::vector<std::size_t>>(l["A_i"]);
   std::vector<std::size_t> A_j = Rcpp::as<std::vector<std::size_t>>(l["A_j"]);
   std::vector<double> A_x = Rcpp::as<std::vector<double>>(l["A_x"]);
@@ -19,11 +21,10 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
   std::vector<double> rhs = Rcpp::as<std::vector<double>>(l["rhs"]);
   std::vector<std::string> sense = Rcpp::as<std::vector<std::string>>(l["sense"]);
   std::vector<std::string> vtype = Rcpp::as<std::vector<std::string>>(l["vtype"]);
-  std::vector<std::size_t> pu_indices_in_obj = Rcpp::as<std::vector<std::size_t>>(l["pu_indices_in_obj"]);
   std::vector<std::string> row_ids = Rcpp::as<std::vector<std::string>>(l["row_ids"]);
   std::vector<std::string> col_ids = Rcpp::as<std::vector<std::string>>(l["col_ids"]);
-  OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(modelsense,A_i,A_j,A_x,obj,lb,ub,rhs,sense,vtype,
-                          pu_indices_in_obj,row_ids,col_ids);
+  OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(modelsense,number_of_features, number_of_planning_units,
+                                                   A_i,A_j,A_x,obj,lb,ub,rhs,sense,vtype,row_ids,col_ids);
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x, true);
   return(ptr);
 }
@@ -54,6 +55,17 @@ std::string rcpp_get_optimization_problem_modelsense(SEXP x) {
 }
 
 // [[Rcpp::export]]
+std::size_t rcpp_get_optimization_problem_number_of_planning_units(SEXP x) {
+  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_number_of_planning_units);
+}
+
+// [[Rcpp::export]]
+std::size_t rcpp_get_optimization_problem_number_of_features(SEXP x) {
+  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_number_of_features);
+}
+
+
+// [[Rcpp::export]]
 std::vector<std::string> rcpp_get_optimization_problem_vtype(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_vtype);
 }
@@ -81,11 +93,6 @@ std::vector<double> rcpp_get_optimization_problem_lb(SEXP x) {
 // [[Rcpp::export]]
 std::vector<double> rcpp_get_optimization_problem_ub(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_ub);  
-}
- 
-// [[Rcpp::export]]
-std::vector<std::size_t> rcpp_get_optimization_problem_pu_indices_in_obj(SEXP x) {
-  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_pu_indices_in_obj);
 }
 
 // [[Rcpp::export]]

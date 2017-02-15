@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-class.R
+#' @include internal.R Constraint-proto.R
 NULL
 
 #' Corridors constraint
@@ -17,34 +17,33 @@ NULL
 #'
 #' @details TODO
 #'
-#' @return \code{\link{Constraint}} object.
+#' @return \code{\link{constraint}} object.
 #'
 #' @seealso \code{\link{constraints}} for a list of all available constraints.
 #'
 #' @export
 corridors_constraint <- function(x, targets) {
   # assert valid arguments
-  assertthat::assert_that(
-    inherits(x, 'RasterStack'),
+  assertthat::assert_that(inherits(x, 'RasterStack'), 
     inherits(targets, 'Target'),
     nrow(target$get('targets')) == raster::nlayers(x))
   # create new constraint object
-  Constraint$new(name='corridors',
-                 parameters=parameters(),
-                 data=list(friction=x, targets=targets),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'),
-                                          raster::compareRaster(self$data$friction,
-                                                                x$cost,
-                                                                res=TRUE, tol=1e-5,
-                                                                stopiffalse=FALSE),
-                                           raster::nlayers(self$data$friction) == 
-                                            raster::nlayers(x$features),
-                                           self$data$targets$validate(x))
-                  invisible(TRUE)
-                 },
-                 apply = function(x) {
-                  assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-                  stop('TODO: implement apply method for corridors_constraint')
-                 })
+  pproto(
+    'Constraint',
+    Constraint,
+    name='corridors',
+    parameters=parameters(target$parameters$parameters[[1]]),
+    data=list(friction=x, targets=targets),
+    prevalidate=function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'),
+      raster::compareRaster(self$data$friction, x$cost, res=TRUE, 
+        tolerance=1e-5, stopiffalse=FALSE),
+        raster::nlayers(self$data$friction) == x$number_of_features())
+      invisible(TRUE)
+    },
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(y, 'ConservationProblem'))
+      stop('TODO: implement apply method for corridors_constraint')
+    })
 }

@@ -8,30 +8,52 @@ This super-class is used to represent classes that in turn are used to
 modify a \code{\link{ConservationProblem}} object. Specifically, the
 \code{\link{Constraint}}, \code{\link{Decision}}, \code{\link{Objective}}
 and \code{\link{Target}} classes are inherit from this class. \strong{
-Only experts should use this class directly.}
+Only the most expert experts should use this class directly because changes
+to these class will have far reaching effects.}
 }
 \section{Fields}{
 
 \itemize{
 \item{$name}{\code{character} name of object.}
+
 \item{$parameters}{\code{list} object used to customize the modifier.}
+
 \item{$data}{\code{list} object with data.}
-\item{$validate}{\code{function} used to validate that parameters and 
-                                 data are compatible with a 
-                                 \code{\link{ConservationProblem}} object.}
+
+\item{$prevalidate}{\code{function} used to validate that parameters and 
+                     data are compatible with a 
+                     \code{\link{ConservationProblem}} object.}
+
+\item{$synchronize}{\code{function} used to synchronize the parameters and
+                  and data in the object with the data in a 
+                  \code{\link{ConservationProblem}}.}
+
+\item{$postvalidate}{\code{function} used to validate that parameters and 
+                     data are still compatible with a 
+                     \code{\link{ConservationProblem}} object after they 
+                      have been synchronized.}
+
+\item{$output}{\code{function} used to generate an output from the object.}
+
 \item{$apply}{\code{function} used to apply the modifier to a 
-                          \code{\link{OptimizationProblem}} object.}
+              \code{\link{OptimizationProblem}} object. In most cases, this 
+              involves calling a function written in \emph{Rcpp} to add
+              objectives, targets, or constraints to the 
+              \code{\link{OptimizationProblem}} object.}
+
 }
 }
 
 \section{Usage}{
 
-\preformatted{x <- ConservationModifier$new(name, parameters, data, validate, apply)}
+\preformatted{x <- ConservationModifier$new(...)}
 \code{x$print()}
 \code{x$show()}
 \code{x$repr()}
 
-\code{x$validate(cp)}
+\code{x$prevalidate(cp)}
+\code{x$synchronize(cp)}
+\code{x$postvalidate(cp)}
 \code{x$apply(op)}
 
 \code{x$get_parameter(id)}

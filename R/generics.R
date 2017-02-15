@@ -1,4 +1,5 @@
-#' @include internal.R ScalarParameter-class.R ArrayParameter-class.R Solver-class.R ConservationProblem-class.R OptimizationProblem-class.R 
+#' @include internal.R ScalarParameter-proto.R ArrayParameter-proto.R
+#'   Solver-proto.R ConservationProblem-proto.R OptimizationProblem-proto.R 
 NULL
 
 #' Compile a problem
@@ -103,7 +104,7 @@ repr.Constraints <- function(x, ...) x$repr()
 
 #' @rdname repr
 #' @export
-repr.waiver <- function(x, ...) '(defaults)'
+repr.waiver <- function(x, ...) '(default)'
 
 #' Show
 #'

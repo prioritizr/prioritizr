@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-class.R
+#' @include internal.R ConservationProblem-proto.R
 NULL
 
 #' Conservation planning problem
@@ -11,7 +11,7 @@ NULL
 #' objectives using targets (see \code{\link{targets}}) and constraints 
 #' (see \code{link{constraints}}).
 #'
-#' @param x \code{\link[raster]{RasterLayer-class}}, 
+#' @param x \code{\link[raster]{Raster-class}}, 
 #'   \code{\link[sp]{SpatialPolygonsDataFrame}}, or
 #'   \code{\link[sp]{SpatialLinesDataFrame}} object specifying the planning
 #'   units to use in the reserve design exercise and their corresponding cost.
@@ -54,49 +54,32 @@ problem <- function(x, features, ...) UseMethod('problem')
 
 #' @rdname problem
 #' @export
-problem.RasterLater <- function(x, features, ...) {
-  assertthat::assert_that(
-    inherits(x, 'Raster'),
-    inherits(features, 'Raster'))
-  assertthat::assert_that(
-    isTRUE(raster::cellStats(x, 'min') > 0),
+problem.Raster <- function(x, features, ...) {
+  assertthat::assert_that(inherits(x, 'Raster'), inherits(features, 'Raster'))
+  assertthat::assert_that(isTRUE(raster::cellStats(x, 'min') > 0),
     isTRUE(all(raster::cellStats(features, 'min') > 0)),
-    raster::nlayers(x) == 1,
-    raster::nlayers(features) >= 1,
-    raster::compareRaster(x, features, res=TRUE, tol=1e-5,
-                          stopiffalse=FALSE))
-    ConservationProblem$new(cost=x, features=features)
+    raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
+    raster::compareRaster(x, features, res=TRUE, tolerance=1e-5,
+      stopiffalse=FALSE))
+  pproto('ConservationProblem', ConservationProblem,
+    data=list(cost=x, features=features, rij_matrix=rij_matrix(x, features))) 
 }
 
 #' @rdname problem
 #' @export
-problem.SpatialPolygonsDataFrame <- function(x, features, cost_column = 1, ...) {
-  assertthat::assert_that(
-    inherits(x, 'SpatialPolygonsDataFrame'),
+problem.Spatial <- function(x, features, cost_column = 1, ...) {
+  assertthat::assert_that(inherits(x, 'Spatial'),
     inherits(features, 'Raster'))
   cost_column <- match.arg(cost_column, names(x))
+  features <- features[,cost_column]
+  features <- features[is.finite(features[[1]]),]
   assertthat::assert_that(
-    isTRUE(all(x[[cost_column]] > 0)),
-    isTRUE(all(raster::cellStats(features, 'min') > 0)),
+    isTRUE(all(x[[1]] > 0)),
+    isTRUE(all(raster::cellStats(features, 'min', na.rm=TRUE) > 0)),
     raster::nlayers(features) >= 1,
     raster::compareCRS(x@proj4string, features@crs),
-    rgeos::gIntersects(raster::extent(x), raster::extent(features)))
-    ConservationProblem$new(cost=x, features=features[,cost_column])
-}
-
-#' @rdname problem
-#' @export
-problem.SpatialLinesDataFrame <- function(x, features, cost_column = 1, ...) {
-  assertthat::assert_that(
-    inherits(x, 'SpatialLinesDataFrame'),
-    inherits(features, 'Raster'))
-  cost_column <- match.arg(cost_column, names(x))
-  assertthat::assert_that(
-    isTRUE(all(x[[cost_column]] > 0)),
-    isTRUE(all(raster::cellStats(features, 'min') > 0)),
-    raster::nlayers(features) >= 1,
-    raster::compareCRS(x@proj4string, features@crs),
-    rgeos::gIntersects(raster::extent(x), raster::extent(features)))
-    ConservationProblem$new(cost=x, features=features[,cost_column])
+    isTRUE(rgeos::gIntersects(raster::extent(x), raster::extent(features))))
+  pproto('ConservationProblem', ConservationProblem,
+    data=list(cost=x, features=features, rij_matrix=rij_matrix(x, features)))
 }
 

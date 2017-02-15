@@ -1,4 +1,5 @@
-#' @include internal.R Target-class.R Objective-class.R Constraints-class.R Decision-class.R
+#' @include internal.R Target-proto.R Objective-proto.R Constraints-proto.R
+#'   Decision-proto.R
 NULL
 
 #' @export
@@ -36,12 +37,15 @@ methods::setOldClass('ConservationProblem')
 #' }
 #'
 #' @section Usage:
-#' \preformatted{x <- ConservationProblem$new(cost, features)}
-#'
 #' \code{x$print()}
 #' \code{x$show()}
 #' \code{x$compile()}
 #' \code{x$solve()}
+#'
+#' \code{x$get_number_of_features()}
+#' \code{x$get_feature_names()}
+#' \code{x$get_costs()}
+#' \code{x$get_feature_abundances()}
 #'
 #' \code{x$get_constraint_parameter(id)} 
 #' \code{x$set_constraint_parameter(id, value)} 
@@ -73,113 +77,142 @@ methods::setOldClass('ConservationProblem')
 #' @section Details:
 #' \describe{
 #' \item{print}{print the object.}
+#'
 #' \item{show}{show the object.}
-#' \item{solve}{compile the object and into an 
-#'   \code{\link{OptimizationProblem}} and then solve it.}
+#'
+#' \item{solve}{compile the object and into an \code{\link{OptimizationProblem}}
+#'   and then solve it.}
+#'
+#' \item{get_number_of_features}{\code{integer} number of features in problem.}
+#'
+#' \item{get_feature_names}{\code{character} names of features in problem.}
+#'
+#' \item{get_costs{\code{numeric}} costs of each planning unit.}
+#'
+#' \item{get_feature_abundances}{\code{numeric} get total abundance of each 
+#'   feature in all the planning units.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the constraints in the object.}
+#'
 #' \item{set_constraint_parameter}{set the value of a parameter (specified by 
 #'   argument \code{id}) used in one of the constraints in the object to
-#'  \code{value}.}
-#' \item{render_constraint_parameter}{generate a \emph{shiny} widget to modify the
-#'   the value of a parameter (specified by argument \code{id}).}
+#'   \code{value}.}
+#'
+#' \item{render_constraint_parameter}{generate a \emph{shiny} widget to modify
+#'  the value of a parameter (specified by argument \code{id}).}
+#'
 #' \item{render_all_constraint_parameters}{generate a \emph{shiny} \code{div}
 #'   containing all the parameters' widgets.}
 #'
 #' \item{get_objective_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the objectives in the object.}
+#'
 #' \item{set_objective_parameter}{set the value of a parameter (specified by 
 #'   argument \code{id}) used in one of the objectives in the object to
 #'  \code{value}.}
-#' \item{render_objective_parameter}{generate a \emph{shiny} widget to modify the
+#'
+#' \item{render_objective_parameter}{generate a \emph{shiny} widget to modify
 #'   the value of a parameter (specified by argument \code{id}).}
+#'
 #' \item{render_all_objective_parameters}{generate a \emph{shiny} \code{div}
 #'   containing all the parameters' widgets.}
 #'
 #' \item{get_solver_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the solvers in the object.}
+#'
 #' \item{set_solver_parameter}{set the value of a parameter (specified by 
 #'   argument \code{id}) used in one of the solvers in the object to
 #'  \code{value}.}
+#'
 #' \item{render_solver_parameter}{generate a \emph{shiny} widget to modify the
 #'   the value of a parameter (specified by argument \code{id}).}
+#'
 #' \item{render_all_solver_parameters}{generate a \emph{shiny} \code{div}
 #'   containing all the parameters' widgets.}
+#'
 #' }
 #' @name ConservationProblem
 NULL
 
 #' @export
-ConservationProblem <- R6::R6Class('ConservationProblem',
-  public = list(
-    data = NULL,
-    objective = NULL,
-    decision = NULL,
-    targets = NULL,
-    constraints = NULL,
-    solver  = NULL,
-    initialize = function(cost, features) {
-      assertthat::assert_that(
-        inherits(cost, 'RasterLayer') || inherits(features, 'Spatial'),
-        inherits(features, 'Raster'))
-      self$data <- list(cost = cost, features=features)
-      self$objective <- waiver()
-      self$decision <- waiver()
-      self$targets <- waiver()
-      self$constraints <- Constraints$new()
-      self$solver <- waiver()
-    },
-    print = function() {
-      message(paste0('ConservationProblem object',
-'\n  objective:   ',repr(self$objective),
-'\n  decision:   ',repr(self$decision),
-'\n  cost:        ',round(raster::cellStats(self$cost, 'min'), 5), ', ',
-                    round(raster::cellStats(self$cost, 'min'), 5),
-                    '(min, max)',
-'\n  features:    ',raster::nlayers(self$features),
-'\n  targets:   ',repr(self$targets),
-'\n  constraints: ',repr(self$constraints),
-'\n  solver: ',repr(self$solver)))
-    },
-    show = function() {
-      self$show()
-    },
-    get_constraint_parameter = function(id) {
-      self$constraints$get_parameter(id)
-    },
-    set_constraint_parameter = function(id, value) {
-      self$constraints$set_parameter(id, value)
-    },
-    render_constraint_parameter = function(id) {
-      self$constraints$render_parameter(id)
-    },
-    render_all_constraint_parameters = function() {
-      self$constraints$render_all_parameter()
-    },
-    get_objective_parameter = function(id) {
-      self$objective$get_parameter(id)
-    },
-    set_objective_parameter = function(id, value) {
-      self$objective$set_parameter(id, value)
-    },
-    render_objective_parameter = function(id) {
-      self$objective$render_parameter(id)
-    },
-    render_all_objective_parameters = function() {
-      self$objective$render_all_parameter()
-    },
-    get_solver_parameter = function(id) {
-      self$solver$get_parameter(id)
-    },
-    set_solver_parameter = function(id, value) {
-      self$solver$set_parameter(id, value)
-    },
-    render_solver_parameter = function(id) {
-      self$solver$render_parameter(id)
-    },
-    render_all_solver_parameters = function() {
-      self$solver$render_all_parameter()
+ConservationProblem <- pproto(
+  'ConservationProblem',
+  data = list(),
+  objective = waiver(),
+  decision = waiver(),
+  targets = waiver(),
+  constraints = constraints(),
+  solver  = waiver(),
+  print = function(self) {
+    message(paste0('Conservation Problem',
+    '\n  objective:   ',repr(self$objective),
+    '\n  decision:    ',repr(self$decision),
+    '\n  cost:        ',paste(round(range(self$get_costs()), 5), collapse=', '),
+                        ' (min, max)',
+    '\n  features:    ',paste(self$get_feature_names(), collapse=', '),
+    '\n  targets:     ',repr(self$targets),
+    '\n  constraints: ',repr(self$constraints),
+    '\n  solver:      ',repr(self$solver)))
+  },
+  show = function(self) {
+    self$print()
+  },
+  repr = function(self) {
+    'ConservationProblem object'
+  },
+  get_costs = function(self) {
+    if (inherits(x, 'Raster')) {
+      self$data$cost[raster::Which(!is.na(self$data$cost))]
+    } else if (inherits(x, 'Spatial')) {
+      return(x[[1]])
+    } else {
+      stop('cost is of unknown class')
     }
-  )
-)
+  },
+  get_number_of_features = function(self) {
+    raster::nlayers(self$data$features)
+  },
+  get_feature_names = function(self) {
+    names(self$data$features)
+  },
+  get_feature_abundances = function(self) {
+    Matrix::colSums(self$data$rij_matrix)
+  },
+  get_constraint_parameter = function(self, id) {
+    self$constraints$get_parameter(id)
+  },
+  set_constraint_parameter = function(self, id, value) {
+    self$constraints$set_parameter(id, value)
+  },
+  render_constraint_parameter = function(self, id) {
+    self$constraints$render_parameter(id)
+  },
+  render_all_constraint_parameters = function(self) {
+    self$constraints$render_all_parameter()
+  },
+  get_objective_parameter = function(self, id) {
+    self$objective$get_parameter(id)
+  },
+  set_objective_parameter = function(self, id, value) {
+    self$objective$set_parameter(id, value)
+  },
+  render_objective_parameter = function(self, id) {
+    self$objective$render_parameter(id)
+  },
+  render_all_objective_parameters = function(self) {
+    self$objective$render_all_parameter()
+  },
+  get_solver_parameter = function(self, id) {
+    self$solver$get_parameter(id)
+  },
+  set_solver_parameter = function(self, id, value) {
+    self$solver$set_parameter(id, value)
+  },
+  render_solver_parameter = function(self, id) {
+    self$solver$render_parameter(id)
+  },
+  render_all_solver_parameters = function(self) {
+    self$solver$render_all_parameter()
+  })
+

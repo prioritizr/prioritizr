@@ -2,9 +2,8 @@
 
 S3method(as.id,character)
 S3method(compile,ConservationProblem)
-S3method(problem,RasterLater)
-S3method(problem,SpatialLinesDataFrame)
-S3method(problem,SpatialPolygonsDataFrame)
+S3method(problem,Raster)
+S3method(problem,Spatial)
 S3method(repr,Constraint)
 S3method(repr,Constraints)
 S3method(repr,Decision)

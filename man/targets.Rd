@@ -59,7 +59,7 @@ p <- problem(cost=sim_pu_raster, features=sim_features) +
 p + relative_targets(0.1)
 
 # add absolute targets
-p + absolute_targets(0.1)
+p + absolute_targets(3)
 
 # add log-linear target
 p + loglinear_targets(c(1, 10, 0.9, 0.2))

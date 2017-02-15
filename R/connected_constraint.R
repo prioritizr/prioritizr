@@ -1,4 +1,4 @@
-#' @include internal.R Constraint-class.R
+#' @include internal.R Constraint-proto.R
 NULL
 
 #' Connected constraint
@@ -8,23 +8,20 @@ NULL
 #' 
 #' @details TODO
 #'
-#' @return \code{\link{Constraint}} object.
+#' @return \code{\link{constraint}} object.
 #' 
 #' @seealso \code{\link{constraints}} for a list of all available constraints.
 #'
 #' @export
 connected_constraint <- function() {
   # create new constraint object
-  Constraint$new(name='connected',
-                 data=list(),
-                 parameters=parameters(binary_parameter('Connected', 1L)),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits('ConservationProblem'))
-                  invisible(TRUE)
-                 },
-                 apply = function(x) {
-                  assertthat::assert_that(inherits('OptimizationProblem'))
-                  stop('TODO: implement apply methed for connected_constraint')
-                 }
-  )
+  pproto(
+    'Constraint',
+    Constraint, 
+    parameters=parameters(binary_parameter('Connected', 1L)),
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits('OptimizationProblem'),
+        inherits(y, 'ConservationProblem'))
+      stop('TODO: implement apply methed for connected_constraint')
+    })
 }

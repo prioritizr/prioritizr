@@ -1,9 +1,8 @@
 Package: prioritizr
 Type: Package
 Version: 0.1.2.9
-Package: prioritizr
 Title: Systematic Conservation Prioritization in R
-Description: Solve systematic reserve design problems using integer programming 
+Description: Solve systematic reserve design problems using integer programming
     techniques. To solve problems most efficiently users can install the
     'gurobi' optimizer (available from <http://www.gurobi.com/>).
 Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson', email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
@@ -16,7 +15,7 @@ Imports:
     methods,
     assertthat,
     uuid,
-    R6,
+    proto,
     Matrix,
     slam,
     rgeos,
@@ -48,20 +47,22 @@ VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 Collate:
     'internal.R'
-    'ArrayParameter-class.R'
-    'ConservationModifier-class.R'
-    'ScalarParameter-class.R'
-    'Parameters-class.R'
-    'Decision-class.R'
-    'Constraint-class.R'
-    'Constraints-class.R'
-    'Objective-class.R'
-    'Target-class.R'
-    'ConservationProblem-class.R'
-    'OptimizationProblem-class.R'
+    'Parameter-proto.R'
+    'ArrayParameter-proto.R'
+    'ConservationModifier-proto.R'
+    'ScalarParameter-proto.R'
+    'Parameters-proto.R'
+    'Constraint-proto.R'
+    'Constraints-proto.R'
+    'Objective-proto.R'
+    'Target-proto.R'
+    'ConservationProblem-proto.R'
+    'Decision-proto.R'
+    'OptimizationProblem-proto.R'
     'OptimizationProblem-methods.R'
     'RcppExports.R'
-    'Solver-class.R'
+    'parameters.R'
+    'Solver-proto.R'
     'generics.R'
     'boundary_matrix.R'
     'build.R'
@@ -82,8 +83,8 @@ Collate:
     'operators.R'
     'package.R'
     'parallel.R'
-    'parameters.R'
     'problem.R'
+    'prproto.R'
     'rij_matrix.R'
     'simulate.R'
     'solve.R'

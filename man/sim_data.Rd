@@ -30,6 +30,8 @@ sim_pu_lines
 sim_pu_points
 
 sim_pu_raster
+
+sim_phylogeny
 }
 \description{
 This scenario involves making a prioritsation to adequately conserve

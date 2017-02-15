@@ -13,12 +13,13 @@ directly with this class.}
 \itemize{
 \item{$id}{\code{character} identifier for parameter.}
 \item{$name}{\code{character} name of parameter.}
-\item{$value}{\code{vector} of values.}
-\item{$label}{\code{character} names for each value.}
-\item{$default}{\code{vector} of default values.}
+\item{$value}{\code{numeric} \code{vector} of values.}
+\item{$label}{\code{character} \code{vector} of names for each value.}
+\item{$default}{\code{numeric} \code{vector} of default values.}
 \item{$length}{\code{integer} number of values.}
 \item{$class}{\code{character} class of values.}
-\item{$range}{\code{vector} specifying minimum and maximum values.}
+\item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum permitted values.}
+\item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum permitted values.}
 \item{$widget}{\code{function} used to construct a
                \code{\link[shiny]{shiny}} interface for modifying values.}
 }
@@ -26,8 +27,9 @@ directly with this class.}
 
 \section{Usage}{
  
-\preformatted{x <- ArrayParameter$new(name, value, default, length, 
-                                      class, range, widget)}
+\preformatted{x <- ArrayParameter$new(name, value, default, class, 
+                                      lower_limit, upper_limit,
+                                      length, widget)}
 \code{x$print()}
 \code{x$show()}
 \code{x$repr()}

@@ -1,4 +1,4 @@
-#' @include internal.R
+#' @include internal.R ConservationModifier-proto.R
 NULL
 
 #' Problem objective
@@ -44,7 +44,7 @@ NULL
 #'
 #' # phylogenetic coverage objective
 #' problem(sim_pu_raster, sim_features) + 
-#'  phylogenetic_coverage_objective(cost=20, tree=sim_phylogeny)
+#'   phylogenetic_coverage_objective(cost=20, tree=sim_phylogeny)
 #'
 #' @name objectives
 NULL
@@ -52,37 +52,37 @@ NULL
 #' @rdname objectives
 #' @export
 minimum_set_objective <- function() {
-  Objective$new(name='minimum set objective',
-                 parameters=parameters(),
-                 modelsense='min',
-                 data=list(),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  TRUE
-                 },
-                 apply = function(x) {
-                  stop('TODO: constrain_problem function for minimum_set_objective')
-                 })
+  pproto(
+    'Objective',
+    Objective
+    name='Minimum set objective',
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(x, 'ConservationProblem'))
+      invisible(rcpp_apply_minimum_set_objective(x, x$get_targets(),
+        x$get_costs()))
+    })
 }
 
 #' @rdname objectives
 #' @export
 maximum_coverage_objective <- function(budget) {
-  assertthat::assert_that(is.number(budget), 
-                          budget > 0.0)
-  Objective$new(name='maximum coverage objective',
-                 modelsense='max',
-                 parameters=parameters(
-                  truncated_numeric_parameter('budget', budget)),
-                 data=list(),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  # ensure budget is valid given cost raster
-                  assertthat::assert_that()
-                 },
-                 apply = function(x) {
-                  stop('TODO: apply function for maximum_coverage_objective')
-                 })
+  assertthat::assert_that(assertthat::is.scalar(budget), isTRUE(budget > 0.0))
+  pproto(
+    'Objective',
+    Objective,
+    name='Maximum coverage objective',
+    parameters=parameters(truncated_numeric_parameter('budget', budget)),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      assertthat::see_if(self$get_parameter('budget') <= sum(x$get_costs()))
+    },
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(x, 'ConservationProblem'))
+      invisible(rcpp_apply_maximum_coverage_objective(x, x$get_targets(),
+        x$get_costs()))
+    })
 }
 
 #' @rdname objectives
@@ -90,28 +90,24 @@ maximum_coverage_objective <- function(budget) {
 phylogenetic_coverage_objective <- function(budget, tree) {
   if (!'ape' %in% rownames(installed.packages()))
     stop('the "ape" package needs to be installed to use phylogenetic data')
-  assertthat::assert_that(is.number(budget), 
-                          budget > 0.0,
-                          inherits(tree, 'phylo'))
-  assertthat::assert_that(is.number(budget), 
-                          budget > 0.0)
-  Objective$new(name='phylogenetic coverage objective',
-                 modelsense='max',
-                 parameters=parameters(
-                  truncated_numeric_parameter('budget', budget)),
-                 data=list(tree=tree),
-                 validate = function(x) {
-                  assertthat::assert_that(inherits(x, 'ConservationProblem'))
-                  # verify that names of features in problem are associated
-                  # with leaves in tree
-                  
-                  # ensure budget is valid given cost raster
-                  
-                  stop('TODO: validate function for phylogenetic_coverage_objective')
-                 },
-                 apply = function(x) {
-                  stop('TODO: apply function for phylogenetic_coverage_objective')
-                 })
+  assertthat::assert_that(assertthat::is.scalar(budget), isTRUE(budget > 0.0),
+    inherits(tree, 'phylo'))
+  pproto(
+    'Objective'
+    Objective,
+    name='Phylogenetic coverage objective',
+    parameters=parameters(truncated_numeric_parameter('budget', budget)),
+    data=list(tree=tree),
+    prevalidate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      assertthat::see_if(self$get_parameter('budget') <= sum(x$get_costs()),
+        length(self$data$tree$tip.label) == x$get_number_of_features())
+    },
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(x, 'ConservationProblem'))    
+      stop('TODO: apply function for phylogenetic_coverage_objective')
+    })
 }
 
 

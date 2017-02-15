@@ -21,7 +21,6 @@ class OPTIMIZATIONPROBLEM
       _obj.reserve(ncol);
       _rhs.reserve(ncol);
       _vtype.reserve(ncol);
-      _pu_indices_in_obj.reserve(ncol);
       _col_ids.reserve(ncol);
       _lb.reserve(nrow);
       _ub.reserve(nrow);
@@ -29,6 +28,8 @@ class OPTIMIZATIONPROBLEM
       _row_ids.reserve(nrow);
     };
     OPTIMIZATIONPROBLEM(std::string modelsense, 
+                        std::size_t number_of_features, 
+                        std::size_t number_of_planning_units,                                                 
                         std::vector<std::size_t> A_i,
                         std::vector<std::size_t> A_j,
                         std::vector<double> A_x,
@@ -38,10 +39,11 @@ class OPTIMIZATIONPROBLEM
                         std::vector<double> rhs,
                         std::vector<std::string> sense,
                         std::vector<std::string> vtype,
-                        std::vector<std::size_t> pu_indices_in_obj, 
                         std::vector<std::string> row_ids,
                         std::vector<std::string> col_ids) :
                         _modelsense(modelsense),
+                        _number_of_features(number_of_features),
+                        _number_of_planning_units(number_of_planning_units),
                         _A_i(A_i),
                         _A_j(A_j),
                         _A_x(A_x),
@@ -51,7 +53,6 @@ class OPTIMIZATIONPROBLEM
                         _rhs(rhs),
                         _sense(sense),
                         _vtype(vtype),
-                        _pu_indices_in_obj(pu_indices_in_obj),
                         _row_ids(row_ids),
                         _col_ids(col_ids)
     {};
@@ -60,7 +61,8 @@ class OPTIMIZATIONPROBLEM
     // fields
     std::string _modelsense;
     
-    std::vector<std::size_t> _pu_indices_in_obj;
+    std::size_t _number_of_features;
+    std::size_t _number_of_planning_units;
     
     std::vector<std::size_t> _A_i;
     std::vector<std::size_t> _A_j;
@@ -78,11 +80,11 @@ class OPTIMIZATIONPROBLEM
     
     // methods
     inline const std::size_t nrow() const {
-      return(*std::max_element(_A_i.cbegin(), _A_i.cend()));
+      return(_rhs.size());
     }
 
     inline const std::size_t ncol() const {
-      return(*std::max_element(_A_j.cbegin(), _A_j.cend()));
+      return(_obj.size());
     }
 
     inline const std::size_t ncell() const {

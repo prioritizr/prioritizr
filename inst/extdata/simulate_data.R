@@ -41,7 +41,7 @@ rasterToLines <- function(x) {
 
 ## Simulate data
 # create landscape
-sim_landscape <- raster::setValues(raster::raster(ncol=20, nrow=20), 1)
+sim_landscape <- raster::setValues(raster::raster(ncol=10, nrow=10), 1)
 raster::extent(sim_landscape) <- c(0,1,0,1)
 sim_landscape@crs <- sp::CRS()
 
@@ -50,7 +50,7 @@ sim_pu_raster <- simulate_cost(sim_landscape, n=1)
 sim_pu_raster[raster::Which(sim_pu_raster==0)] <- NA
 
 # create feature distributions
-sim_features <- simulate_species(sim_landscape, n=10)
+sim_features <- simulate_species(sim_landscape, n=5)
 
 # generate locked in and out planning units
 cells <-  raster::Which(!is.na(sim_pu_raster), cells=TRUE)
@@ -77,6 +77,10 @@ names(sim_pu_polygons) <- c('cost', 'locked_in', 'locked_out')
 names(sim_pu_lines) <- c('cost', 'locked_in', 'locked_out')
 names(sim_pu_points) <- c('cost', 'locked_in', 'locked_out')
 
+# simulate species phylogeny
+sim_phylogeny <- ape::rtree(n=raster::nlayers(sim_features))
+sim_phylogeny$tip.labels <- names(sim_features)
+
 ## Export data
 # save data 
 save(sim_pu_raster, file='data/sim_pu_raster.rda', compress='xz')
@@ -86,3 +90,4 @@ save(sim_pu_polygons, file='data/sim_pu_polygons.rda', compress='xz')
 save(sim_pu_lines, file='data/sim_pu_lines.rda', compress='xz')
 save(sim_pu_points, file='data/sim_pu_points.rda', compress='xz')
 save(sim_features, file='data/sim_features.rda', compress='xz')
+save(sim_phylogeny, file='data/sim_phylogeny.rda', compress='xz')
