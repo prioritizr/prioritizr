@@ -1,12 +1,13 @@
-context('id')
+context('Id')
 
-test_that('id', {
+test_that('Id', {
   # constructor
   i <- new_id()  
   # methods
   i
   print(i)
   as.character(i)
+  expect_true(inherits(i, 'Id'))
   expect_true(i == i)
   expect_false(i == new_id())
 })

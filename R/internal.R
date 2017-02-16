@@ -1,14 +1,10 @@
-#' @import raster
-#' @import sp
-#' @useDynLib prioritizr
-NULL
 
 #' @export
 methods::setOldClass('waiver')
 
 #' Waiver
 #' 
-#' Create a "waiver" object. 
+#' Create a \code{waiver} object. 
 #' 
 #' @details This object is used to represent that the user has not manually 
 #' specified a setting, and so defaults should be used. By explictly 
@@ -16,13 +12,13 @@ methods::setOldClass('waiver')
 #' valid setting. The use of a "waiver" object was inspired by the
 #' \emph{ggplot2} package.
 #' 
-#' @return \code{object} of class "waiver".
+#' @return \code{object} of class \code{Waiver}.
 #'
 #' @noRd
-waiver <- function() structure(NULL, class = "waiver")
+waiver <- function() structure(NULL, class = "Waiver")
 
 #' @export
-methods::setOldClass('id')
+methods::setOldClass('Id')
 
 #' Identifier
 #'
@@ -30,16 +26,16 @@ methods::setOldClass('id')
 #'
 #' @details Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
 #'
-#' @return \code{id} object.
+#' @return \code{Id} object.
 #' 
 #' @seealso \code{\link[uuid]{UUIDgenerate}}.
 #'
-#' @aliases id
+#' @aliases Id
 #'
 #' @noRd
 new_id <- function() {
   x <- uuid::UUIDgenerate()
-  class(x) <- c('id', class(x))
+  class(x) <- c('Id', class(x))
   x
 }
 
@@ -103,8 +99,9 @@ loglinear_interpolate <- function(x, coordinate_one_x, coordinate_one_y,
 #' @return invisible \code{TRUE}.
 #'
 #' @noRd
-check <- function(x) {
+check_that <- function(x) {
   if (!isTRUE(x))
     stop(attr(x, 'msg')[1])
   invisible(TRUE)
 }
+

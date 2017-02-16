@@ -7,7 +7,7 @@
 connected_constraint()
 }
 \value{
-\code{\link{Constraint}} object.
+\code{\link{constraint}} object.
 }
 \description{
 This function adds a constraint to ensure that all selected

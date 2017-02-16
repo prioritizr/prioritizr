@@ -18,4 +18,4 @@ methods::setOldClass('Constraint')
 NULL
 
 #' @export
-Constraint <- pproto(NULL, ConservationModifier)
+Constraint <- pproto('Constraint', ConservationModifier)

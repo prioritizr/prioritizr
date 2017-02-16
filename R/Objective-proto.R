@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R ConservationModifier-proto.R
+#' @include internal.R pproto.R ConservationModifier-proto.R
 NULL
 
 #' @export
@@ -16,4 +16,4 @@ methods::setOldClass('Objective')
 NULL
 
 #' @export
-Objective <- pproto(NULL, ConservationModifier)
+Objective <- pproto('Objective', ConservationModifier)

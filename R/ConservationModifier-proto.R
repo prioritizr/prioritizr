@@ -1,4 +1,4 @@
-#' @include internal.R
+#' @include internal.R pproto.R parameters.R
 NULL
 
 #' @export
@@ -89,54 +89,53 @@ methods::setOldClass('ConservationModifier')
 #' @noRd
 ConservationModifier <- pproto(
   'ConservationModifier',
-    name = 'no name',
-    parameters = parameters(),
-    data = list(),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(TRUE)
-    },
-    postvalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(TRUE)
-    },
-    synchronize = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(TRUE)
-    },
-    apply = function(self, x, y) {
-      assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-      assertthat::assert_that(inherits(y, 'ConservationProblem'))
-      stop('no defined apply method')
-    },
-    output = function(self) {
-      stop('no defined output method')
-    },
-    print = function(self) {
-      message(self$repr())
-    },
-    show = function(self) {
-      self$print()
-    },
-    repr = function(self) {
-      paste0(self$name, repr(self$parameters))
-    },
-    get_parameter = function(self, x) {
-      self$parameters$get(x)
-    },
-    set_parameter = function(self, x, value) {
-      self$parameters$set(x, value)
-    },
-    render_parameter = function(self, x) {
-      self$parameters$render(x)
-    },
-    get_all_parameters = function(self) {
-      structure(lapply(self$parameters, function(x){x$value}),
-                .Names=sapply(self$parameters, function(x){x$name}),
-                id=sapply(self$parameters, function(x){x$id}))
-    },
-    render_all_parameters = function(self) {
-      shiny::div(class=class(self)[1],
-                 self$parameters$render_all())
-    })
+  name = character(0),
+  parameters = parameters(),
+  data = list(),
+  prevalidate = function(self, x) {
+    assertthat::assert_that(inherits(x, 'ConservationProblem'))
+    invisible(TRUE)
+  },
+  postvalidate = function(self, x) {
+    assertthat::assert_that(inherits(x, 'ConservationProblem'))
+    invisible(TRUE)
+  },
+  synchronize = function(self, x) {
+    assertthat::assert_that(inherits(x, 'ConservationProblem'))
+    invisible(TRUE)
+  },
+  apply = function(self, x, y) {
+    assertthat::assert_that(inherits(x, 'OptimizationProblem'))
+    assertthat::assert_that(inherits(y, 'ConservationProblem'))
+    stop('no defined apply method')
+  },
+  output = function(self) {
+    stop('no defined output method')
+  },
+  print = function(self) {
+    message(self$repr())
+  },
+  show = function(self) {
+    self$print()
+  },
+  repr = function(self) {
+    paste(self$name, gsub('[]', '', self$parameters$repr(), fixed=TRUE))
+  },
+  get_parameter = function(self, x) {
+    self$parameters$get(x)
+  },
+  set_parameter = function(self, x, value) {
+    self$parameters$set(x, value)
+  },
+  render_parameter = function(self, x) {
+    self$parameters$render(x)
+  },
+  get_all_parameters = function(self) {
+    structure(lapply(self$parameters, function(x){x$value}),
+      .Names=sapply(self$parameters, function(x){x$name}),
+      id=sapply(self$parameters, function(x){x$id}))
+  },
+  render_all_parameters = function(self) {
+    shiny::div(class=class(self)[1], self$parameters$render_all())
+  })
 

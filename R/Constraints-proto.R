@@ -1,8 +1,8 @@
-#' @include internal.R Constraint-proto.R
+#' @include internal.R pproto.R Constraint-proto.R
 NULL
 
 #' @export
-methods::setOldClass('Objective')
+methods::setOldClass('Constraints')
 
 #' Constraints prototype
 #'
@@ -60,7 +60,7 @@ Constraints <- pproto(
   constraints = list(),
   repr = function(self) {
     if (length(self$constraints)>0)
-      return(paste0('<', paste(sapply(self$constraints, function(x) {x$repr()}),
+      return(paste0('<', paste(sapply(self$constraints, function(z) {z$repr()}),
         collapse='\n'), '>'))
     return('<none>')
   },
@@ -77,7 +77,7 @@ Constraints <- pproto(
     }
     which(r)
   },  
-  add = function(self, x) {
+  add_constraint = function(self, x) {
     assertthat::assert_that(inherits(x), 'Constraint')
     self$constraints <- append(self$constraints, x)
   },

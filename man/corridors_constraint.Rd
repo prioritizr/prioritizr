@@ -14,7 +14,7 @@ surfaces for each feature.}
 permitted throughout the prioritisation.}
 }
 \value{
-\code{\link{Constraint}} object.
+\code{\link{constraint}} object.
 }
 \description{
 This function adds corridor constraints using friction rasters that

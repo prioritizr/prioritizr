@@ -9,8 +9,9 @@
 \alias{ncell}
 \alias{ncol}
 \alias{nrow}
+\alias{number_of_features}
+\alias{number_of_planning_units}
 \alias{obj}
-\alias{pu_indices_in_obj}
 \alias{rhs}
 \alias{row_ids}
 \alias{sense}
@@ -40,7 +41,9 @@ lb(x)
 
 ub(x)
 
-pu_indices_in_obj(x)
+number_of_features(x)
+
+number_of_planning_units(x)
 
 column_ids(x)
 
@@ -60,24 +63,43 @@ usage.
 }
 \details{
 The functions return the following data:
+
 \describe{
+
 \item{nrow}{\code{integer} number of rows (constraints).}
+
 \item{ncol}{\code{integer} number of columns (decision variables).}
+
 \item{ncell}{\code{integer} number of cells.}
+
 \item{modelsense}{\code{character} describing if the problem is to be
   maximized ('max') or minimized ('min').}
+
 \item{vtype}{\code{character} describing the type of each decision variable:
   binary ('B'), semi-continuous ('S'), or continuous ('C')}
+
 \item{obj}{\code{numeric} vector specifying the objective function.}
-\item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the problem
-  matrix.}
+
+\item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
+  problem matrix.}
+
 \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}
-\item{sense}{\code{character} vector with the senses of the linear constraints
-  ('<=', '>=', '=').}
-\item{lb}{\code{numeric} lower bounds for decision variables. NA values indicate
-  no lower bound.}
-\item{ub}{\code{numeric} upper bounds for decision variables. NA values indicate
-  no upper bound.}
+
+\item{sense}{\code{character} vector with the senses of the linear
+  constraints ('<=', '>=', '=').}
+
+\item{lb}{\code{numeric} lower bounds for decision variables. \code{NA} 
+  values indicate no lower bound.}
+
+\item{ub}{\code{numeric} upper bounds for decision variables. NA values 
+  indicate no upper bound.}
+
+\item{number_of_planning_units}{\code{integer} number of planning units in
+  the problem.}
+
+\item{number_of_features}{\code{integer} number of features
+  the problem.}
+
 }
 }
 

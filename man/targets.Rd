@@ -2,6 +2,7 @@
 % Please edit documentation in R/targets.R
 \name{targets}
 \alias{absolute_targets}
+\alias{default_targets}
 \alias{loglinear_targets}
 \alias{relative_targets}
 \alias{targets}
@@ -12,6 +13,8 @@ relative_targets(x)
 absolute_targets(x)
 
 loglinear_targets(x)
+
+default_targets()
 }
 \arguments{
 \item{x}{\code{numeric} vector.}
@@ -20,35 +23,46 @@ loglinear_targets(x)
 \code{\link{Constraint}} object containing the target data.
 }
 \description{
-After constructing a basic conservation \code{\link{problem}} that specifies
-the cost and feature data, it needs to have targets added to it. Targets 
-are used to specify the minimum amount or proportion of a feature's distribution
-that needs to be protected. Thus targets ensure that each species is 
-adequately represented in the reserve network.
+Targets are used to specify the minimum amount or proportion of a feature's 
+distribution that needs to be protected. Below is a list of different 
+targets that can be added to a conservation planning \code{\link{problem}}.
 }
 \details{
-Targets can be specified using one of the functions below.
-  \describe{
-    \item{relative_targets}{Targets are expressed as a proportion (between 0
-      and 1) of the maximum level of representation in the study area.
-      The argument to \code{x} should have a single value if all features
-      have the same target. Otherwise, the vector should have a value for
-      each feature. In this case, targets are assigned to features based
-      on the their position in the argument to \code{x} and the
-      \code{feature} when specifying the problem.}
-    \item{absolute_targets}{Targets are expressed as the actual value that
-      needs to be represented in the prioritisation. The argument to 
-      \code{x} is treated the same as for \code{relative_targets}.}
-    \item{loglinear_targets}{Targets are expressed as a proportion (between 0
-      and 1) which is calculated using a log-linear equation and four
-      tuning parameters (as used in XXX \emph{et al.} XXX). The first
-      tuning parameter specifies the first cut-off range size,
-      and the second the second cut-off range size, the third argument
-      specifies the target required for species with a range size equal
-      to or less than the first cut-off range size, and the fourth
-      argument specifies the target required for species with a range
-      size equal to or greater than the required range size.}
- }
+\describe{
+  \item{\code{relative_targets}}{Targets are expressed as a proportion 
+    (between 0
+    and 1) of the maximum level of representation in the study area.
+    The argument to \code{x} should have a single value if all features
+    have the same target. Otherwise, the vector should have a value for
+    each feature. In this case, targets are assigned to features based
+    on the their position in the argument to \code{x} and the
+    \code{feature} when specifying the problem.}
+
+\item{\code{absolute_targets}}{Targets are expressed as the actual value 
+    that needs to be represented in the prioritisation. The argument to 
+    \code{x} is treated the same as for \code{relative_targets}.}
+
+\item{\code{loglinear_targets}}{Targets are expressed as a proportion 
+    (between 0
+    and 1) which is calculated using a log-linear equation and four
+    tuning parameters (as used in XXX \emph{et al.} XXX). The first
+    tuning parameter specifies the first cut-off range size,
+    and the second the second cut-off range size, the third argument
+    specifies the target required for species with a range size equal
+    to or less than the first cut-off range size, and the fourth
+    argument specifies the target required for species with a range
+    size equal to or greater than the required range size.}
+
+\item{\code{default_targets}}{The default targets are used when targets
+    have not explicitly been set using the above functions.
+    The targets used in to construct conservation planning problem have 
+    a profound affect on the solution. Relying on the default targets
+    will result in an error because \emph{"Let the computer find out" is 
+    a poor strategy and usually reflects the fact that the researcher did 
+    not bother to think clearly about the problem of interest and its 
+    scientific setting (Burnham and Anderson, 2002).}}
+
+}
 }
 \examples{
 # create basic problem

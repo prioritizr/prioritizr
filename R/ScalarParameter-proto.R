@@ -1,4 +1,4 @@
-#' @include internal.R Parameter-proto.R
+#' @include internal.R pproto.R Parameter-proto.R
 NULL
 
 #' @export
@@ -56,7 +56,7 @@ NULL
 
 #' @export
 ScalarParameter <- pproto(
-  NULL,
+  'ScalarParameter',
   Parameter,
   repr = function(self) {
     paste0(self$name, ' (', self$value, ')')
@@ -73,17 +73,18 @@ ScalarParameter <- pproto(
     self$value
   },
   set = function(self, x) {
-    check(self$validate(x))
+    check_that(self$validate(x))
     self$value <- x
   },
   render = function(self, ...) {
     # get all possible arguments
     args <- list(inputId=self$id, label=self$name, value=self$value,
-                  min=self$lower_limit, max=self$upper_limit)
+      min=self$lower_limit, max=self$upper_limit)
+    f <- do.call(getFromNamespace,
+      as.list(rev(strsplit(self$widget, '::')[[1]])))
     # subset to include only valid arguments
-    args <- args[intersect(names(args),
-                            names(as.list(args(self$widget))))]
-    do.call(self$widget, append(args, list(...)))
+    args <- args[intersect(names(args), names(as.list(args(f))))]
+    do.call(f, append(args, list(...)))
   })
 
 

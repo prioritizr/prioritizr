@@ -1,4 +1,5 @@
-#' @include internal.R Parameter-proto.R
+#' @include internal.R pproto.R Parameter-proto.R
+NULL
 
 #' @export
 methods::setOldClass('ArrayParameter')
@@ -66,27 +67,29 @@ NULL
 
 #' @export
 ArrayParameter <- pproto(
-  'ArrayParameter', 
+  'ArrayParameter',
   Parameter,
-  label = NULL,
-  length = NULL,
+  label = character(0),
+  length = 0,
   repr = function(self) {
     paste0(self$name, ' (min: ', min(self$value), ', max: ',
       max(self$value), ')')
   },
   validate = function(self, x) {
     assertthat:::assert_that(inherits(x, 'data.frame'))
-    invisible(assertthat::see_if(identical(names(x),'value'),
-                        ncol(x)==1,
-                        nrow(x)==self$length,
-                        inherits(x[[1]], self$class),
-                        setequal(self$label, rownames(x)),
-                        sum(!is.finite(x[[1]]))==0,
-                        isTRUE(all(x[[1]] >= self$lower_limit)),
-                        isTRUE(all(x[[1]] <= self$upper_limit))))
+    invisible(assertthat::see_if(
+      identical(names(x),'value'),
+      all(is.finite(x[[1]])),
+      ncol(x)==1,
+      nrow(x)==self$length,
+      inherits(x[[1]], self$class),
+      setequal(self$label, rownames(x)),
+      sum(!is.finite(x[[1]]))==0,
+      isTRUE(all(x[[1]] >= self$lower_limit)),
+      isTRUE(all(x[[1]] <= self$upper_limit))))
   },
   set = function(self, x) {
-    check(self$validate(x))
+    check_that(self$validate(x))
     self$value <- x[[1]][match(rownames(x), self$label)]
   },
   get = function(self) {
@@ -96,5 +99,7 @@ ArrayParameter <- pproto(
               class = "data.frame")
   },
   render = function(self, ...) {
-    do.call(self$widget, list(outputId=self$id))
+    f <- do.call(getFromNamespace,
+      as.list(rev(strsplit(self$widget, '::')[[1]])))
+    do.call(f, list(outputId=self$id))
   })

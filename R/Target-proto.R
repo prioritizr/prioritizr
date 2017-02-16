@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R ConservationModifier-proto.R
+#' @include internal.R pproto.R Parameters-proto.R ConservationModifier-proto.R
 NULL
 
 #' @export
@@ -16,5 +16,5 @@ methods::setOldClass('Target')
 #'
 #' @noRd
 Target <- pproto(
-  NULL,
+  'Target',
   ConservationModifier)

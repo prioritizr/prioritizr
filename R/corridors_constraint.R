@@ -29,7 +29,7 @@ corridors_constraint <- function(x, targets) {
     nrow(target$get('targets')) == raster::nlayers(x))
   # create new constraint object
   pproto(
-    'Constraint',
+    'CorridorsConstraint',
     Constraint,
     name='corridors',
     parameters=parameters(target$parameters$parameters[[1]]),

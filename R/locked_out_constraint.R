@@ -9,8 +9,7 @@ NULL
 #' prioritised.
 #' 
 #' @param x \code{\link[raster]{RasterLayer-class}},  
-#'   \code{\link[sp]{SpatialPolygons}}, or \code{\link[sp]{SpatialPolygons}} 
-#'   object.
+#'   \code{\link[sp]{Spatial-class}} object.
 #'
 #' @details If a \code{Spatial} object is supplied, any planning units that
 #'   overlap with argument \code{x} cannot be prioritised. If a
@@ -26,7 +25,7 @@ NULL
 #'   relative_targets(0.2) +
 #'   locked_out(sim_locked_out_raster)
 #'
-#' @seealso \code{\link{constraints}} for a list of all available constraints.
+#' @seealso \code{\link{constraints}} for all of the available constraints.
 #'
 #' @export
 locked_out_constraint <- function(x) {
@@ -38,7 +37,7 @@ locked_out_constraint <- function(x) {
       raster::nlayers(x)==1)
   # create new constraint object
   pproto(
-    'Constraint',
+    'LockedOutConstraint',
     Constraint,
     name='locked out',
     data=list(locked_out=x),
@@ -65,8 +64,11 @@ locked_out_constraint <- function(x) {
       } else if (inherits(self$data$locked_out, 'Spatial')) {
         stop('TODO: implement locked out constraint for Spatial data')
       } else if (inherits(self$data$locked_out, 'integer')) {
+        assertthat::assert_that(max(self$data$locked_out) <= length(pu_status))
         pu_status[self$data$locked_out] <- 1L
       } else if (inherits(self$data$locked_out, 'logical')) {
+        assertthat::assert_that(which(max(self$data$locked_out)) <= 
+          length(pu_status))
         pu_status[self$data$locked_out] <- 1L
       } else {
         stop('Locked out data not recognized')
@@ -81,4 +83,3 @@ locked_out_constraint <- function(x) {
       stop('TODO: implement apply method for locked_out_constraint')
     })
 }
-

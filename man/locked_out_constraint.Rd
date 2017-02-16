@@ -8,8 +8,7 @@ locked_out_constraint(x)
 }
 \arguments{
 \item{x}{\code{\link[raster]{RasterLayer-class}},
-\code{\link[sp]{SpatialPolygons}}, or \code{\link[sp]{SpatialPolygons}} 
-object.}
+\code{\link[sp]{Spatial-class}} object.}
 }
 \value{
 \code{\link{Constraint}} object.
@@ -35,6 +34,6 @@ problem(sim_pu_raster, sim_features) +
 
 }
 \seealso{
-\code{\link{constraints}} for a list of all available constraints.
+\code{\link{constraints}} for all of the available constraints.
 }
 

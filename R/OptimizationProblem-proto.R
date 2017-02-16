@@ -1,4 +1,4 @@
-#' @include internal.R Parameters-proto.R
+#' @include internal.R pproto.R Parameters-proto.R
 NULL
 
 #' @export
@@ -94,7 +94,7 @@ NULL
 #' @export
 OptimizationProblem <- pproto(
   'OptimizationProblem',
-  ptr = NULL
+  ptr = NULL,
   print = function() {
     if (self$ncol()>0) {
     cv <- table(self$vtype())

@@ -26,6 +26,6 @@ affect the solution.
 This function requires the \code{\link[shiny]{shiny}} R package to be installed.
 }
 \seealso{
-\code{\link{build}} to create conservation planning problems.
+\code{\link{construct}} to create conservation planning problems.
 }
 

@@ -15,7 +15,6 @@ Imports:
     methods,
     assertthat,
     uuid,
-    proto,
     Matrix,
     slam,
     rgeos,
@@ -35,6 +34,7 @@ Suggests:
     prioritizrdata
 Depends:
     R(>= 3.3.2),
+    proto,
     raster,
     sp
 LinkingTo: Rcpp, RcppEigen, BH
@@ -47,35 +47,36 @@ VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 Collate:
     'internal.R'
+    'pproto.R'
     'Parameter-proto.R'
     'ArrayParameter-proto.R'
-    'ConservationModifier-proto.R'
-    'ScalarParameter-proto.R'
     'Parameters-proto.R'
+    'ScalarParameter-proto.R'
+    'parameters.R'
+    'ConservationModifier-proto.R'
     'Constraint-proto.R'
     'Constraints-proto.R'
-    'Objective-proto.R'
-    'Target-proto.R'
-    'ConservationProblem-proto.R'
+    'Solver-proto.R'
+    'solvers.R'
     'Decision-proto.R'
+    'decisions.R'
+    'Objective-proto.R'
+    'objectives.R'
+    'Target-proto.R'
+    'targets.R'
+    'ConservationProblem-proto.R'
     'OptimizationProblem-proto.R'
     'OptimizationProblem-methods.R'
     'RcppExports.R'
-    'parameters.R'
-    'Solver-proto.R'
     'generics.R'
     'boundary_matrix.R'
-    'build.R'
     'compile.R'
     'connected_constraint.R'
     'connected_matrix.R'
     'constraints.R'
+    'construct.R'
     'corridors_constraint.R'
     'data.R'
-    'decisions.R'
-    'objectives.R'
-    'solvers.R'
-    'defaults.R'
     'fragmentation_constraint.R'
     'locked_in_constraint.R'
     'locked_out_constraint.R'
@@ -83,10 +84,8 @@ Collate:
     'operators.R'
     'package.R'
     'parallel.R'
-    'problem.R'
-    'prproto.R'
+    'problems.R'
     'rij_matrix.R'
     'simulate.R'
     'solve.R'
-    'targets.R'
     'zzz.R'

@@ -1,7 +1,7 @@
  #' @include internal.R OptimizationProblem-proto.R
 NULL
 
-#' New optimization problem
+#' Optimization problem
 #'
 #' Generate a new \code{\link{OptimizationProblem}} object.
 #'
@@ -10,7 +10,7 @@ NULL
 #' @seealso OptimizationProblem-methods
 #'
 #' @export
-new_optimization_problem <- function() {
+optimization_problem <- function() {
   pproto('OptimizationProblem', OptimizationProblem,
     ptr=rcpp_new_optimization_problem())
 }
@@ -168,7 +168,7 @@ methods::setGeneric('number_of_features',
 #' @name number_of_features
 #' @usage number_of_features(x)
 #' @export
-methods::setMethod('number_of_features', 'number_of_features',
+methods::setMethod('number_of_features', 'OptimizationProblem',
   function(x) x$number_of_features())
 
 #' @export
@@ -179,7 +179,7 @@ methods::setGeneric('number_of_planning_units',
 #' @name number_of_planning_units
 #' @usage number_of_planning_units(x)
 #' @export
-methods::setMethod('number_of_planning_units', 'number_of_planning_units',
+methods::setMethod('number_of_planning_units', 'OptimizationProblem',
   function(x) x$number_of_planning_units())
 
 #' @export

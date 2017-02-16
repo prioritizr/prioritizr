@@ -2,20 +2,25 @@
 % Please edit documentation in R/parameters.R
 \name{array_parameters}
 \alias{array_parameters}
+\alias{binary_parameter_array}
+\alias{numeric_parameter_array}
 \alias{proportion_parameter_array}
-\alias{truncated_numeric_parameter_array}
 \title{Array parameters}
 \usage{
-proportion_parameter_array(x, value, label)
+proportion_parameter_array(name, value, label)
 
-truncated_numeric_parameter_array(x, value, label)
+numeric_parameter_array(name, value, label,
+  lower_limit = rep(.Machine$double.xmin, length(value)),
+  upper_limit = rep(.Machine$double.xmax, length(value)))
+
+binary_parameter_array(name, value, label)
 }
 \arguments{
-\item{x}{\code{character} name of parameter.}
+\item{name}{\code{character} name of parameter.}
 
 \item{value}{\code{vector} of values.}
 
-\item{label}{\code{character} vector of values to label values with.}
+\item{label}{\code{character} \code{vector} of labels for each value.}
 }
 \value{
 \code{\link{ArrayParameter}} object.
@@ -30,12 +35,17 @@ then an error is thrown.
 }
 \details{
 Below is a list of parameter generating functions and a brief 
-   description of each.
+  description of each.
+
 \describe{
+
   \item{proportion_parameter_array}{array of \code{numeric} values that 
     between zero and one.}
-  \item{truncated_numeric_parameter_array}{array of \code{numeric} values
-    that are bounded at zero.}
+
+  \item{numeric_parameter_array}{array of \code{numeric} values.}
+
+  \item{binary_parameter_array}{array of \code{integer} values
+    that can only be zero or one.}
 }
 }
 

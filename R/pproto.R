@@ -43,11 +43,13 @@ pproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
     inherits(`_inherit`, 'pproto') || is.null(`_inherit`))
   if (!is.null(`_inherit`)) {
     x <- `_inherit`$proto(...)
+    class(x) <- class(`_inherit`)
   } else {
     x <- proto::proto(...)
     class(x) <- c('pproto', class(x))
   }
-  if (is.null(`_class`))
+  if (!is.null(`_class`))
     class(x) <- c(`_class`, class(x))
   x
 }
+

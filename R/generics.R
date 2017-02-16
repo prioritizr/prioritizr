@@ -65,47 +65,6 @@ compile <- function(x, ...) UseMethod('compile')
 #' @name solve
 NULL
 
-#' Object representation
-#'
-#' Generate a \code{character} representation of an object.
-#'
-#' @param x object.
-#'
-#' @param ... not used.
-#' 
-#' @return \code{character} object.
-#'
-#' @export
-repr <- function(x, ...) UseMethod('repr')
-
-#' @rdname repr
-#' @export
-repr.Objective <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.Decision <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.Parameter <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.Parameters <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.Constraint <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.Constraints <- function(x, ...) x$repr()
-
-#' @rdname repr
-#' @export
-repr.waiver <- function(x, ...) '(default)'
-
 #' Show
 #'
 #' Show an object.
@@ -125,7 +84,7 @@ methods::setMethod('show', 'ConservationProblem',
                    function(object) object$show())
 
 #' @export
-methods::setMethod('show', 'id',
+methods::setMethod('show', 'Id',
                    function(object) print(object))
 
 #' @export
@@ -133,11 +92,7 @@ methods::setMethod('show', 'OptimizationProblem',
                    function(object) object$show())
 
 #' @export
-methods::setMethod('show', 'ScalarParameter',
-                   function(object) object$show())
-
-#' @export
-methods::setMethod('show', 'ArrayParameter',
+methods::setMethod('show', 'Parameter',
                    function(object) object$show())
 
 #' @export

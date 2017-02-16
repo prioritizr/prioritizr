@@ -1,4 +1,4 @@
-#' @include internal.R
+#' @include internal.R pproto.R
 
 #' @export
 methods::setOldClass('Parameter')
@@ -43,20 +43,21 @@ NULL
 
 #' @export
 Parameter <- pproto(
-    id = NULL,
-    name = NULL,
-    value = NULL,
-    default = NULL,
-    class = NULL,
-    upper_limit = NULL,
-    lower_limit = NULL,
-    widget = NULL,
-    print = function() {
+    'Parameter',
+    id = structure(NULL, class='I'),
+    name = character(0),
+    value = numeric(0),
+    default = numeric(0),
+    class = character(0),
+    upper_limit = numeric(0),
+    lower_limit = numeric(0),
+    widget = function(...) {stop('no widget defined')},
+    print = function(self) {
       message(self$repr())
     },
-    show = function() {
+    show = function(self) {
       self$print()
     },
-    reset = function() {
+    reset = function(self) {
       self$value <- self$default
     })

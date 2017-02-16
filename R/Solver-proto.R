@@ -1,4 +1,4 @@
-#' @include internal.R parameters.R
+#' @include internal.R pproto.R parameters.R 
 NULL
 
 #' @export
@@ -46,17 +46,18 @@ NULL
 
 #' @export
 Solver <- pproto(
-  name = NULL,
-  solve = NULL,
-  parameters = NULL,
+  'Solver',
+  name = character(0),
+  solve = function(...) {stop('solver is missing a solve method')},
+  parameters = parameters(),
   print = function(self) {
-    message(x$repr())
+    message(self$repr())
   }, 
   show = function(self) {
     self$print()
   },
   repr = function(self) {
-    paste0(self$name, repr(x$parameters))
+    paste(self$name, self$parameters$repr())
   },
   get_paramter = function(self, x) {
     self$parameters$get(x)

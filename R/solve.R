@@ -1,5 +1,4 @@
-#' @include internal.R generics.R ConservationProblem-proto.R
-#'   OptimizationProblem-proto.R compile.R
+#' @include internal.R generics.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
 NULL
 
 #' @export
@@ -25,4 +24,3 @@ methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
     pu
   }
 )
-

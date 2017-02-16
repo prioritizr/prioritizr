@@ -20,5 +20,5 @@ NULL
 
 #' @export
 Decision <- pproto(
-  NULL,
+  'Decision',
   ConservationModifier)

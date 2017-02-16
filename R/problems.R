@@ -61,7 +61,7 @@ problem.Raster <- function(x, features, ...) {
     raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
     raster::compareRaster(x, features, res=TRUE, tolerance=1e-5,
       stopiffalse=FALSE))
-  pproto('ConservationProblem', ConservationProblem,
+  pproto(NULL, ConservationProblem,
     data=list(cost=x, features=features, rij_matrix=rij_matrix(x, features))) 
 }
 
@@ -71,15 +71,16 @@ problem.Spatial <- function(x, features, cost_column = 1, ...) {
   assertthat::assert_that(inherits(x, 'Spatial'),
     inherits(features, 'Raster'))
   cost_column <- match.arg(cost_column, names(x))
-  features <- features[,cost_column]
-  features <- features[is.finite(features[[1]]),]
+  x <- x[,cost_column]
+  x <- x[is.finite(x[[1]]),]
   assertthat::assert_that(
     isTRUE(all(x[[1]] > 0)),
     isTRUE(all(raster::cellStats(features, 'min', na.rm=TRUE) > 0)),
     raster::nlayers(features) >= 1,
     raster::compareCRS(x@proj4string, features@crs),
-    isTRUE(rgeos::gIntersects(raster::extent(x), raster::extent(features))))
-  pproto('ConservationProblem', ConservationProblem,
+    isTRUE(rgeos::gIntersects(as(raster::extent(x), 'SpatialPolygons'),
+      as(raster::extent(features), 'SpatialPolygons'))))
+  pproto(NULL, ConservationProblem,
     data=list(cost=x, features=features, rij_matrix=rij_matrix(x, features)))
 }
 

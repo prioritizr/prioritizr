@@ -1,5 +1,4 @@
-#' @include internal.R Parameters-proto.R ScalarParameter-proto.R
-#'   ArrayPameter-proto.R
+#' @include internal.R pproto.R
 NULL
 
 #' @export
@@ -65,10 +64,11 @@ Parameters <- pproto(
     self$print()
   },
   repr = function(self) {
-    if (length(self$parameters)>0)
-      return(paste0('[ ',paste(sapply(self$parameters, 
+    if (self$length()>0)
+      return(paste0('[',paste(sapply(
+        self$parameters, 
         function(x) {x$repr()}), collapse=', '), ']'))
-    return('(defaults)')
+    return('[]')
   },
   find = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
@@ -76,30 +76,30 @@ Parameters <- pproto(
       i <- match(x, sapply(self$parameters, function(x) x$id))
       if (!is.finite(i))
         stop('parameter with matching id not found')
-      if (length(i) > 1)
+      if (base::length(i) > 1)
         stop('multiple parameters with the same id')
     } else {
       i <- match(x, sapply(self$parameters, function(x) x$name))
       if (!is.finite(i))
         stop('parameter with matching name not found')
-      if (length(i) > 1)
+      if (base::length(i) > 1)
         stop('multiple parameters with the same name')
     }
     i
   },  
   length = function(self) {
-    length(self$parameters)
+    base::length(self$parameters)
   },
   names = function(self) {
     sapply(self$parameters, function(x) x$name)
   },
   get = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    self$parameters[[private$find(x)]]$get()
+    self$parameters[[self$find(x)]]$get()
   },
   set = function(self, x, value) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    self$parameters[[private$find(x)]]$set(value)
+    self$parameters[[self$find(x)]]$set(value)
     invisible()
   },
   add = function(self, x) {
@@ -109,12 +109,12 @@ Parameters <- pproto(
   },
   reset = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    self$parameters[[private$find(x)]]$reset()
+    self$parameters[[self$find(x)]]$reset()
     invisible()
   },
   render = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    self$parameters[[private$find(x)]]$render()
+    self$parameters[[self$find(x)]]$render()
   },
   render_all = function(self) {
     do.call(shiny::div, 

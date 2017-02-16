@@ -24,11 +24,11 @@ fragmentation_constraint <- function(x) {
     is.finite(x))
   # create new constraint object
   pproto(
-    'Constraint'
+    'FragmentationConstraint',
     Constraint,
     name='fragmentation constraint',
-    parameters=parameters(truncated_numeric_parameter('Fragmentation penalty',
-      x)),
+    parameters=parameters(numeric_parameter('Fragmentation penalty', x, 
+      lower_limit=0)),
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(x, 'ConservationProblem'))

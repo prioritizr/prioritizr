@@ -6,24 +6,21 @@
 \alias{numeric_parameter}
 \alias{proportion_parameter}
 \alias{scalar_parameters}
-\alias{truncated_integer_parameter}
-\alias{truncated_numeric_parameter}
 \title{Scalar parameters}
 \usage{
-proportion_parameter(x, value)
+proportion_parameter(name, value)
 
-integer_parameter(x, value)
+integer_parameter(name, value,
+  lower_limit = as.integer(-.Machine$integer.max),
+  upper_limit = as.integer(.Machine$integer.max))
 
-numeric_parameter(x, value)
+numeric_parameter(name, value, lower_limit = .Machine$double.xmin,
+  upper_limit = .Machine$double.xmax)
 
-truncated_numeric_parameter(x, value)
-
-truncated_integer_parameter(x, value)
-
-binary_parameter(x, value)
+binary_parameter(name, value)
 }
 \arguments{
-\item{x}{\code{character} name of parameter.}
+\item{name}{\code{character} name of parameter.}
 
 \item{value}{\code{integer} or \code{double} value depending on the
 parameter.}
@@ -33,27 +30,26 @@ parameter.}
 }
 \description{
 These functions are used to create parameters that consist of a single
-number. Parameters have a name, a value, a defined range of acceptable values,
-a default value, a class, and a \code{\link[shiny]{shiny}} widget for 
+number. Parameters have a name, a value, a defined range of acceptable
+values, a default value, a class, and a \code{\link[shiny]{shiny}} widget for 
 modifying them. If values are supplied to a parameter that are unacceptable
 then an error is thrown.
 }
 \details{
 Below is a list of parameter generating functions and a brief 
-         description of each.
+  description of each.
+
 \describe{
-\item{proportion_parameter}{A parameter that is a double bounded between
-                            zero and one.)}
-\item{integer_parameter}{A parameter that is an integer with no bounds 
-                         (except those imposed by the host system.))}
-\item{numeric_parameter}{A parameter that is a double with no bounds 
-                         (except those imposed by the host system.))}
-\item{truncated_numeric_parameter}{A parameter that is a double that has
-                         a lower bound of zero.}
-\item{truncated_integer_parameter}{A parameter that is an integer that has
-                         a lower bound of zero.}
-\item{binary_parameter}{A parameter that is restricted to integer values of
-                         zero or one.}
+
+\item{proportion_parameter}{A parameter that is a \code{double} and bounded
+  between zero and one.}
+
+\item{integer_parameter}{A parameter that is a \code{integer}.}
+
+\item{numeric_parameter}{A parameter that is a \code{double}.}
+
+\item{binary_parameter}{A parameter that is restricted to \code{integer}
+  values of zero or one.}
 }
 }
 

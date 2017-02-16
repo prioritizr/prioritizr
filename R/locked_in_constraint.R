@@ -38,7 +38,7 @@ locked_in_constraint <- function(x) {
       raster::nlayers(x)==1)
   # create new constraint object
   pproto(
-    'Constraint',
+    'LockedInConstraint',
     Constraint,
     name='locked in',
     data=list(locked_in=x),
@@ -65,8 +65,11 @@ locked_in_constraint <- function(x) {
       } else if (inherits(self$data$locked_in, 'Spatial')) {
         stop('TODO: implement locked in constraint for Spatial data')
       } else if (inherits(self$data$locked_in, 'integer')) {
+        assertthat::assert_that(max(self$data$locked_out) <= length(pu_status))
         pu_status[self$data$locked_in] <- 1L
       } else if (inherits(self$data$locked_in, 'logical')) {
+        assertthat::assert_that(which(max(self$data$locked_out)) <= 
+          length(pu_status))
         pu_status[self$data$locked_in] <- 1L
       } else {
         stop('Locked in data not recognized')

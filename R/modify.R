@@ -18,7 +18,7 @@ NULL
 #'
 #' @return \code{\link{ConservationProblem}} object.
 #' 
-#' @seealso \code{\link{build}} to create conservation planning problems.
+#' @seealso \code{\link{construct}} to create conservation planning problems.
 #'
 #' @export
 modify <- function(x, overwrite=TRUE) {

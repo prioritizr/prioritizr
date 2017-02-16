@@ -2,7 +2,7 @@ context('OptimizationProblem')
 
 test_that('new problem', {
   # data
-  x <- OptimizationProblem$new()
+  x <- optimization_problem()
   # tests
   expect_equal(ncell(x), 0)
 })
@@ -18,7 +18,7 @@ test_that('get methods', {
     lb = c(12,13,14),
     ub = c(15,16,17),
     rhs = c(18,19,20),
-    number_of_species = 100,
+    number_of_features = 200,
     number_of_planning_units = 100,
     sense = c('=', '=', '='),
     vtype = c('b', 's', 'c'),
@@ -37,8 +37,8 @@ test_that('get methods', {
   expect_equal(rcpp_get_optimization_problem_sense(x), l$sense)
   expect_equal(rcpp_get_optimization_problem_lb(x), l$lb)
   expect_equal(rcpp_get_optimization_problem_ub(x), l$ub)
-  expect_equal(rcpp_get_optimization_problem_number_of_species(x),
-               l$number_of_species)
+  expect_equal(rcpp_get_optimization_problem_number_of_features(x),
+               l$number_of_features)
   expect_equal(rcpp_get_optimization_problem_number_of_planning_units(x),
                l$number_of_planning_units)
   expect_equal(rcpp_get_optimization_problem_col_ids(x), l$col_ids)

@@ -1,5 +1,4 @@
-#' @include internal.R Target-proto.R Objective-proto.R Constraints-proto.R
-#'   Decision-proto.R
+#' @include internal.R pproto.R targets.R objectives.R decisions.R solvers.R Constraints-proto.R
 NULL
 
 #' @export
@@ -24,16 +23,23 @@ methods::setOldClass('ConservationProblem')
 #'
 #' @section Fields:
 #' \itemize{
+#'
 #' \item{$data}{\code{list} object containing data.}
+#'
 #' \item{$objective}{\code{\link{Objective}} object used to represent how
 #'   the targets relate to the solution.}
+#'
 #' \item{$decision}{\code{\link{Decision}} object used to represent the type
 #'   of decision made on planning units.}
+#'
 #' \item{$targets}{\code{\link{Target}} object used to represent
 #'   representation targets for features.}
+#'
 #' \item{$constraints}{\code{\link{Constraints}} object used to represent
 #'   additional \link{Constraint}s that the problem is subject to.}
+#'
 #' \item{$solver}{\code{\link{Solver}} object used to solve the problem.}
+#'
 #' }
 #'
 #' @section Usage:
@@ -42,10 +48,11 @@ methods::setOldClass('ConservationProblem')
 #' \code{x$compile()}
 #' \code{x$solve()}
 #'
-#' \code{x$get_number_of_features()}
-#' \code{x$get_feature_names()}
-#' \code{x$get_costs()}
-#' \code{x$get_feature_abundances()}
+#' \code{x$number_of_features()}
+#' \code{x$number_of_planning_units()}
+#' \code{x$feature_names()}
+#' \code{x$costs()}
+#' \code{x$feature_abundances_in_planning_units()}
 #'
 #' \code{x$get_constraint_parameter(id)} 
 #' \code{x$set_constraint_parameter(id, value)} 
@@ -63,15 +70,20 @@ methods::setOldClass('ConservationProblem')
 #' \code{x$render_all_solver_parameters()}
 #'
 #' @section Arguments:
+#'
 #' \describe{
+#'
 #' \item{cost}{\code{\link[raster]{RasterLayer-class}}, 
 #'   \code{\link{SpatialPolygonsDataFrame}}, or 
 #'   \code{\link{SpatialLinesDataFrame}} object showing spatial representation
 #'   of the planning units and their cost.}
+#'
 #' \item{features}{\code{\link[raster]{RasterStack-class}} object showing
 #'   distribution of features.}
 #' \item{id}{\code{\link{id}} object that refers to a specific parameter.}
+#'
 #' \item{value}{object that the parameter value should become.}
+#'
 #' }
 #'
 #' @section Details:
@@ -80,17 +92,16 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{solve}{compile the object and into an \code{\link{OptimizationProblem}}
-#'   and then solve it.}
+#' \item{number_of_features}{\code{integer} number of features.}
 #'
-#' \item{get_number_of_features}{\code{integer} number of features in problem.}
+#' \item{number_of_planning_units}{\code{integer} number of planning units.}
 #'
-#' \item{get_feature_names}{\code{character} names of features in problem.}
+#' \item{feature_names}{\code{character} names of features in problem.}
 #'
-#' \item{get_costs{\code{numeric}} costs of each planning unit.}
+#' \item{costs}{\code{numeric} costs of each planning unit.}
 #'
-#' \item{get_feature_abundances}{\code{numeric} get total abundance of each 
-#'   feature in all the planning units.}
+#' \item{feature_abundances_in_planning_units}{\code{numeric} get total abundance
+#'   of each feature in all the planning units.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the constraints in the object.}
@@ -139,21 +150,21 @@ NULL
 ConservationProblem <- pproto(
   'ConservationProblem',
   data = list(),
-  objective = waiver(),
-  decision = waiver(),
-  targets = waiver(),
-  constraints = constraints(),
-  solver  = waiver(),
+  objective = default_objective(),
+  decision = default_decision(),
+  targets = default_targets(),
+  constraints = Constraints,
+  solver  = default_solver(),
   print = function(self) {
     message(paste0('Conservation Problem',
-    '\n  objective:   ',repr(self$objective),
-    '\n  decision:    ',repr(self$decision),
-    '\n  cost:        ',paste(round(range(self$get_costs()), 5), collapse=', '),
-                        ' (min, max)',
-    '\n  features:    ',paste(self$get_feature_names(), collapse=', '),
-    '\n  targets:     ',repr(self$targets),
-    '\n  constraints: ',repr(self$constraints),
-    '\n  solver:      ',repr(self$solver)))
+    '\n  objective:      ',self$objective$repr(),
+    '\n  decision:       ',self$decision$repr(),
+    '\n  planning units: ',self$number_of_planning_units(),', ',
+     paste(round(range(self$costs()), 5), collapse=', '), ' (n, min cost, max cost)',
+    '\n  features:       ',paste(self$feature_names(), collapse=', '),
+    '\n  targets:        ',self$targets$repr(),
+    '\n  constraints:    ',self$constraints$repr(),
+    '\n  solver:         ',self$solver$repr()))
   },
   show = function(self) {
     self$print()
@@ -161,22 +172,31 @@ ConservationProblem <- pproto(
   repr = function(self) {
     'ConservationProblem object'
   },
-  get_costs = function(self) {
-    if (inherits(x, 'Raster')) {
-      self$data$cost[raster::Which(!is.na(self$data$cost))]
-    } else if (inherits(x, 'Spatial')) {
-      return(x[[1]])
+  costs = function(self) {
+    if (inherits(self$data$cost, 'Raster')) {
+      return(self$data$cost[raster::Which(!is.na(self$data$cost))])
+    } else if (inherits(self$data$cost, 'Spatial')) {
+      return(self$data$cost[[1]])
     } else {
       stop('cost is of unknown class')
     }
   },
-  get_number_of_features = function(self) {
+  number_of_planning_units = function(self) {
+    if (inherits(self$data$cost, 'Raster')) {
+      return(raster::cellStats(raster::Which(!is.na(self$data$cost)), 'sum'))
+    } else if (inherits(self$data$cost, 'Spatial')) {
+      return(nrow(self$data$cost))
+    } else {
+      stop('cost is of unknown class')
+    }    
+  },
+  number_of_features = function(self) {
     raster::nlayers(self$data$features)
   },
-  get_feature_names = function(self) {
+  feature_names = function(self) {
     names(self$data$features)
   },
-  get_feature_abundances = function(self) {
+  feature_abundances_in_planning_units = function(self) {
     Matrix::colSums(self$data$rij_matrix)
   },
   get_constraint_parameter = function(self, id) {
@@ -215,4 +235,3 @@ ConservationProblem <- pproto(
   render_all_solver_parameters = function(self) {
     self$solver$render_all_parameter()
   })
-

@@ -2,21 +2,21 @@
 % Please edit documentation in R/fragmentation_constraint.R
 \name{fragmentation_constraint}
 \alias{fragmentation_constraint}
-\title{Fragmentation constraints}
+\title{Fragmentation penalty}
 \usage{
 fragmentation_constraint(x)
 }
 \arguments{
 \item{x}{\code{numeric} penalty for fragmentation. This
 is equivalent to the boundary length modifier (BLM)
-parameter used in Marxan.}
+parameter in Marxan.}
 }
 \value{
 \code{\link{Constraint}} object.
 }
 \description{
-This function adds constraints to reduce fragmentation
-in a prioritisation by penalising solutions with too
+This function adds penalties to reduce fragmentation
+in a prioritisation by punishing solutions with
 many exposed edges.
 }
 \details{
