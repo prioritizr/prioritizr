@@ -2,13 +2,13 @@
 % Please edit documentation in R/generics.R
 \name{is}
 \alias{is}
-\alias{is.id}
-\alias{is.waiver}
+\alias{is.Id}
+\alias{is.Waiver}
 \title{Is it?}
 \usage{
-is.id(x)
+is.Id(x)
 
-is.waiver(x)
+is.Waiver(x)
 }
 \arguments{
 \item{x}{Object.}

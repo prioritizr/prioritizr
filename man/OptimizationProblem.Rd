@@ -38,7 +38,7 @@ class directly.}
 \code{x$number_of_features()}
 
 \code{x$row_ids()}
-\code{x$column_ids()}
+\code{x$col_ids()}
 }
 
 \section{Arguments}{
@@ -85,7 +85,7 @@ class directly.}
 \item{number_of_planning_units}{\code{integer} number of planning units in 
   the problem.}
 
-\item{column_ids}{\code{character} constraint ids for each column in the 
+\item{col_ids}{\code{character} constraint ids for each column in the 
   model matrix.}
 
 \item{row_ids}{\code{character} constraint ids for each row in the model

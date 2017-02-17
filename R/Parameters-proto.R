@@ -72,7 +72,7 @@ Parameters <- pproto(
   },
   find = function(self, x) {
     assertthat::assert_that(assertthat::is.string(x) || is.id(x))
-    if (inherits(x, 'id')) {
+    if (inherits(x, 'Id')) {
       i <- match(x, sapply(self$parameters, function(x) x$id))
       if (!is.finite(i))
         stop('parameter with matching id not found')

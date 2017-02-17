@@ -3,13 +3,12 @@ NULL
 
 #' Problem solvers
 #'
-#' The software and configurations used to solve a conservation planning 
-#' problem. Below is a list of different solvers that can be used.
-#' \strong{Only a single solver type should be added  to a 
-#' \code{ConservationProblem} object}.
+#' Specify the software and configurations used to solve a conservation planning 
+#' problem. Below is a list of different solvers that can be added to a 
+#' \code{\link{ConservationProblem}} object.
 #'
 #' \describe{
-#'   \item{\code{gurobi_solver}}{\href{http://gurobi.com}{Gurobi} is a
+#'   \item{\code{add_gurobi_solver}}{\href{http://gurobi.com}{Gurobi} is a
 #'   state-of-the-art commercial optimization software with an R package
 #'   interface. It is by far the fastest of the solvers available in this
 #'   package, however, it is also the only one that isn't free. That said, free
@@ -17,7 +16,7 @@ NULL
 #'   distributed with the Gurobi software suite. This solver uses the
 #'   \code{gurobi} package to solve problems.}
 #'
-#'   \item{\code{rsymphony_solver}}{
+#'   \item{\code{add_rsymphony_solver}}{
 #'   \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
 #'   integer programming solver that is part of the Computational Infrastructure
 #'   for Operations Research (COIN-OR) project, an initiative to promote
@@ -25,9 +24,8 @@ NULL
 #'   includes linear programming). The \code{Rsymphony} package provides an
 #'   interface to COIN-OR and is available on CRAN. This solver uses the
 #'   \code{Rsymphony} package to solve problems.}
-#'
 #' 
-#'  \item{\code{lpsymphony_solver}}{The \code{lpsymphony} package provides a
+#'  \item{\code{add_lpsymphony_solver}}{The \code{lpsymphony} package provides a
 #'    different interface to the COIN-OR software suite. Unlike the 
 #'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
 #'    through 
@@ -40,6 +38,8 @@ NULL
 #'    currently installed on the system.}}
 #'
 #' }
+#'
+#' @param x \code{\link{ConservationProblem}} object.
 #'
 #' @param gap \code{numeric} relative gap to optimality. The optimizer will
 #'   terminate when the difference between the upper and lower objective
@@ -65,22 +65,23 @@ NULL
 #' @examples
 #'
 #' # create basic problem and use defaults
-#' p <- problem(cost=sim_pu_raster, features=sim_features) + 
-#'   minimium_set_objective() + 
-#'   relative_targets(0.1)
+#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
+#'   add_minimium_set_objective() %>%
+#'   add_relative_targets(0.1)
 #'
-#' # add lpsymphony solver with default parameters
-#' p + lpsymphony_solver()
+#' # add rsymphony solver with default parameters
+#' p %>% add_lpsymphony_solver()
 #'
-#' # add lpsymphony solver with custom parameters
-#' p + lpsymphony_solver(gap=0.1, time_limit=100)
+#' # add rsymphony solver with custom parameters
+#' p %>% add_lpsymphony_solver(gap=0.1, time_limit=100)
 #'
 #' \dontrun{
 #' # add gurobi solver
-#' p + gurobi_solver(MIPGap=0.1, Presolve=2, TimeLimit=100)
+#' p %>% add_gurobi_solver(gap=0.1, presolve=2, time_limit=100)
 #'
-#' # add Rsymhpony solver
-#' p + absolute_targets(gap=0.1, time_limit=100)
+#' # add lpsolver solver
+#' p %>% add_lpsymphony_solver(gap=0.1, time_limit=100)
+#'
 #' }
 #'
 #' @name solvers
@@ -88,9 +89,18 @@ NULL
 
 #' @rdname solvers
 #' @export
-gurobi_solver <- function(gap=0.1, time_limit=.Machine$integer.max, presolve=2,
-                          threads=1) {
-  pproto(
+add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
+                              presolve=2,threads=1) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'),
+    isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1),
+    isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))), 
+    assertthat::is.count(time_limit), isTRUE(all(is.finite(presolve))), 
+    assertthat::is.count(presolve), isTRUE(presolve <= 2), 
+    isTRUE(all(is.finite(threads))), assertthat::is.count(threads),
+    isTRUE(threads <= parallel::detectCores()))
+  # add solver
+  x$add_solver(pproto(
     'GurobiSolver',
     Solver,
     name='gurobi',
@@ -114,15 +124,27 @@ gurobi_solver <- function(gap=0.1, time_limit=.Machine$integer.max, presolve=2,
       p <- as.list(self$parameters)
       names(p) <- c('Presolve', 'MIPGap', 'TimeLimit', 'Threads')
       do.call(gurobi::gurobi, append(list(model), p))$x
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname solvers
 #' @export
-lpsymphony_solver <- function(gap=0.1, time_limit=-1, verbosity=1,
-                              first_feasible=0) {
-  # return solver object
-  pproto(
+add_lpsymphony_solver <- function(x, gap=0.1, time_limit=-1, verbosity=1,
+                                  first_feasible=0) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'),
+    isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1), 
+    isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
+    assertthat::is.scalar(time_limit),
+    assertthat::is.count(time_limit) || isTRUE(time_limit==-1),
+    isTRUE(all(is.finite(verbosity))), assertthat::is.count(abs(verbosity)),
+    isTRUE(verbosity <= 1), isTRUE(verbosity >= -2),
+    assertthat::is.scalar(first_feasible), isTRUE(first_feasible<=1),
+    isTRUE(first_feasible>=0))
+  # add solver
+  x$add_solver(pproto(
     'LpsymphonySolver',
     Solver,
     name='lpsymphony',
@@ -145,14 +167,27 @@ lpsymphony_solver <- function(gap=0.1, time_limit=-1, verbosity=1,
       args <- append(model, as.list(self$parameters))
       args$first_feasible <- as.logical(args$first_feasible)
       do.call(lpsymphony::symphony_solve_LP, args)$solution
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname solvers
 #' @export
-rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
+add_rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
                              verbosity=1) {
-  pproto(
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'),
+    isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1), 
+    isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
+    assertthat::is.scalar(time_limit),
+    assertthat::is.count(time_limit) || isTRUE(time_limit==-1),
+    isTRUE(all(is.finite(verbosity))), assertthat::is.count(abs(verbosity)),
+    isTRUE(verbosity <= 1), isTRUE(verbosity >= -2),
+    assertthat::is.scalar(first_feasible), isTRUE(first_feasible<=1),
+    isTRUE(first_feasible>=0))
+  # add solver
+  x$add_solver(pproto(
     'RsymphonySolver',
     Solver,
     name='rsymphony',
@@ -174,22 +209,20 @@ rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
       args <- append(model, as.list(self$parameters))
       args$first_feasible <- as.logical(args$first_feasible)
       do.call(Rsymphony::Rsymphony_solve_LP, args)$solution
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname solvers
 #' @export
-default_solver <- function() {
-  if (assertthat::assert_that(requireNamespace("gurobi", quietly = TRUE))) {
-    return(gurobi_solver())
-  } else if (assertthat::assert_that(requireNamespace("lpsymphony",
-             quietly = TRUE))) {
-    return(lpsymphony_solver())
-  } else if (assertthat::assert_that(requireNamespace("Rsymphony",
-             quietly = TRUE))) {
-    return(rsymphony_solver())
+add_default_solver <- function(x) {
+  if (requireNamespace("gurobi", quietly = TRUE)) {
+    return(add_gurobi_solver(x))
+  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
+    return(add_lpsymphony_solver(x))
   } else {
-    return(lpsolve_solver())
+    return(add_rsymphony_solver(x))
   }
 }
 

@@ -1,6 +1,6 @@
 
 #' @export
-methods::setOldClass('waiver')
+methods::setOldClass('Waiver')
 
 #' Waiver
 #' 
@@ -105,3 +105,90 @@ check_that <- function(x) {
   invisible(TRUE)
 }
 
+#' As triplet dataframe
+#'
+#' Convert a sparse matrix to a triplet \code{data.frame}.
+#'
+#' @param x \code{Matrix} object.
+#'
+#' @noRd
+as_triplet_dataframe <- function(x) {
+  data.frame(i=x@i, j=x@j, x=x@x)
+}
+
+
+#' Parallel extract
+#'
+#' Extract data from a \code{\link[raster]{Raster-class}} object using 
+#' a \code{\link[sp]{Spatial-class}} object using parallel processing.
+#'
+#' @param x \code{\link[raster]{Raster-class}} object.
+#'
+#' @param y \code{\link[sp]{Spatial-class}} object.
+#'
+#' @param fun \code{function} to compute values.
+#'
+#' @param ... additional arguments passed to \code{\link[raster]{extract}}.
+#'
+#' @details This function is essentially a wrapper for 
+#'   \code{\link[raster]{extract}}. To enable parallel processing,
+#'   use the \code{\link{set_number_of_threads}} function.
+#'
+#' @return \code{data.frame}, \code{matrix}, or \code{list} object 
+#'   depending on the arguments.
+#'
+#' @noRd
+parallelized_extract <- function(x, y, fun=mean, ...) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, 'Raster'), inherits(y, 'Spatial'),
+      inherits(fun, 'function'), raster::compareCRS(x@crs, y@proj4string),
+      rgeos::gIntersects(as(raster::extent(x[[1]]), 'SpatialPolygons'),
+        as(raster::extent(y), 'SpatialPolygons')), is.parallel())
+  # data processing
+  args <- list(...)
+  parallel::clusterExport(.pkgenv$cluster, c('x', 'y', 'fun', 'args'),
+      envir=environment())
+  m <- plyr::llply(distribute_load(length(y)), .parallel=TRUE,
+    function(i) {
+      return(do.call(raster::extract, 
+        append(list(x=x, y=y[i,], fun=fun), args)))
+    })
+  parallel::clusterEvalQ(.pkgenv$cluster, 
+    {rm('x', 'y', 'fun', 'args')})
+  # combine parallel runs
+  if (inherits(m[[1]], c('matrix', 'data.frame'))) {
+    m <- do.call(rbind, m)
+  } else {
+    m <- do.call(append, m)
+  }
+  # return result
+  return(m)
+}
+
+#' Velox extract
+#'
+#' This function is a wrapper for \code{\link{velox}{VeloxRaster-extract}}.
+#' 
+#' @param x \code{\link[raster]{Raster-class}} object.
+#'
+#' @param y \code{\link[sp]{Spatial-class}} object.
+#'
+#' @param fun \code{function} to compute values.
+#'
+#' @param df \code{logical} should results be returned as a \code{data.frame}?
+#'
+#' @param ... not used.
+#'
+#' @return \code{matrix} or \code{data.frame} depending on arguments.
+#'
+#' @noRd
+velox_extract <- function(x, y, fun, df=FALSE, ...) {
+  assertthat::assert_that(inherits(x, 'Raster'), inherits(y, 'SpatialPolygons'),
+    inherits(fun, 'function'), assertthat::is.flag(df))
+  m <- velox::velox(x)$extract(y, fun)
+  if (df) {
+    m <- cbind(data.frame(ID=seq_along(length(y))), as.data.frame(m))
+    names(m) <- c('ID', names(x))
+  }
+  return(m)
+}

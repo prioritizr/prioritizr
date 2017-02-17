@@ -3,7 +3,7 @@
 \name{OptimizationProblem-methods}
 \alias{A}
 \alias{OptimizationProblem-methods}
-\alias{column_ids}
+\alias{col_ids}
 \alias{lb}
 \alias{modelsense}
 \alias{ncell}
@@ -45,7 +45,7 @@ number_of_features(x)
 
 number_of_planning_units(x)
 
-column_ids(x)
+col_ids(x)
 
 row_ids(x)
 }

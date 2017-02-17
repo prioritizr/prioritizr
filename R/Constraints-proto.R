@@ -82,15 +82,15 @@ Constraints <- pproto(
     self$constraints <- append(self$constraints, x)
   },
   get_parameter = function(self, id) {
-    assertthat::assert_that(inherits(id), 'id')
+    assertthat::assert_that(inherits(id), 'Id')
     self$constraints[[self$find_parameter(id)]]$get_parameter(id)
   },
   set_parameter = function(self, id, value) {
-    assertthat::assert_that(inherits(id), 'id')
+    assertthat::assert_that(inherits(id), 'Id')
     self$constraints[[self$find_parameter(id)]]$set_parameter(id, value)
   },
   render_parameter = function(self, id, value) {
-    assertthat::assert_that(inherits(id), 'id')
+    assertthat::assert_that(inherits(id), 'Id')
     self$constraints[[self$find_parameter(id)]]$render_parameter(id)
   },
   render_all_parameters = function(self) {

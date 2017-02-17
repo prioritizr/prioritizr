@@ -10,19 +10,19 @@ NULL
 #'
 #' \describe{
 #'
-#'   \item{\code{minimum_set_objective}}{The objective here is to find the 
+#'   \item{\code{add_minimum_set_objective}}{The objective here is to find the 
 #'     the solution that fulfills all the targets and constraints for 
 #'     the smallest cost. This objective is similar to that used in Marxan.}
 #'
-#'   \item{\code{maximum_coverage_objective}}{The objective here is to find the
+#'   \item{\code{add_maximum_coverage_objective}}{The objective here is to find
 #'     the solution that fulfills as many targets as possible while ensuring
 #'     that the cost of the solution does not exceed budget and that all
 #'     constraints are met. This objective is similar to that used in
 #'     Cabeza et al. XXXX.}
 #'
-#'   \item{\code{phylogenetic_coverage_objective}}{This objective is similar to 
-#'     \code{maximum_coverage_objective} except that emphasis is placed
-#'     on preserving as much of a representative sample a phylogenetic
+#'   \item{\code{add_phylogenetic_coverage_objective}}{This objective is 
+#'     similar to \code{maximum_coverage_objective} except that emphasis is 
+#'     placed on preserving as much of a representative sample a phylogenetic
 #'     tree as possible given a budget. This objective requires the
 #'     "ape" R package to be installed.}
 #'
@@ -35,6 +35,8 @@ NULL
 #'
 #'  }
 #'
+#' @param x \code{\link{ConservationProblem}} object.
+#'
 #' @param budget \code{numeric} value specifying the maximum expenditure of 
 #'   the prioritization.
 #'
@@ -45,83 +47,103 @@ NULL
 #'   \code{\link{targets}}.
 #'
 #' @examples
-#' # minimum set objective
-#' problem(sim_pu_raster, sim_features) + minimum_set_objective()
+#' # create problem
+#' p <- problem(sim_pu_raster, sim_features)
+#' 
+#  # add minimum set objective
+#' p %>% minimum_set_objective()
 #'
 #' # maximum coverage objective
-#' problem(sim_pu_raster, sim_features) + maximum_coverage_objective(cost=20)
+#' p %>% maximum_coverage_objective(20)
 #'
 #' # phylogenetic coverage objective
-#' problem(sim_pu_raster, sim_features) + 
-#'   phylogenetic_coverage_objective(cost=20, tree=sim_phylogeny)
+#' p %>% phylogenetic_coverage_objective(20, sim_phylogeny)
 #'
 #' @name objectives
 NULL
 
 #' @rdname objectives
 #' @export
-minimum_set_objective <- function() {
-  pproto(
+add_minimum_set_objective <- function(x) {
+  # assert argument is valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'))
+  # add objective to problem
+  x$add_objective(pproto(
     'MinimumSetObjective',
     Objective,
     name='Minimum set objective',
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
-        inherits(x, 'ConservationProblem'))
-      invisible(rcpp_apply_minimum_set_objective(x, x$get_targets(),
-        x$get_costs()))
-    })
+        inherits(y, 'ConservationProblem'))
+      invisible(rcpp_apply_minimum_set_objective(x$ptr, y$feature_targets(),
+        y$planning_unit_costs()))
+    }))
+  # return probem
+  return(x)
 }
 
 #' @rdname objectives
 #' @export
-maximum_coverage_objective <- function(budget) {
-  assertthat::assert_that(assertthat::is.scalar(budget), isTRUE(budget > 0.0))
-  pproto(
+add_maximum_coverage_objective <- function(x, budget) {
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'), 
+    isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
+    isTRUE(budget > 0.0))
+  # make parameter
+  p <- numeric_parameter('budget', budget, lower_bound=0, 
+    upper_limit=sum(x$planning_unit_costs()))
+  # add objective to problem
+  x$add_objective(pproto(
     'MaximumCoverageObjective',
     Objective,
     name='Maximum coverage objective',
-    parameters=parameters(numeric_parameter('budget', budget)),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      assertthat::see_if(self$get_parameter('budget') <= sum(x$get_costs()))
-    },
+    parameters=parameters(p),
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
-        inherits(x, 'ConservationProblem'))
-      invisible(rcpp_apply_maximum_coverage_objective(x, x$get_targets(),
-        x$get_costs()))
-    })
+        inherits(y, 'ConservationProblem'))
+      invisible(rcpp_apply_maximum_coverage_objective(x$ptr, y$feature_targets(),
+        x$planning_unit_costs()))
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname objectives
 #' @export
-phylogenetic_coverage_objective <- function(budget, tree) {
+add_phylogenetic_coverage_objective <- function(x, budget, tree) {
+  # check that dependencies are installed
   if (!requireNamespace('ape'))
     stop('the "ape" package needs to be installed to use phylogenetic data')
-  assertthat::assert_that(assertthat::is.scalar(budget), isTRUE(budget > 0.0),
-    inherits(tree, 'phylo'))
-  pproto(
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'), 
+    isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
+    isTRUE(budget > 0.0), inherits(tree, 'phylo'), 
+    length(self$data$tree$tip.label) == x$number_of_features())
+  # make parameter
+  p <- numeric_parameter('budget', budget, lower_limit=0,
+    upper_limit=sum(x$planning_unit_costs()))
+  # add objective to problem
+  x$add_objective(pproto(
     'PhylogeneticCoverageObjective',
     Objective,
     name='Phylogenetic coverage objective',
-    parameters=parameters(numeric_parameter('budget', budget, lower_limit=0)),
+    parameters=parameters(p),
     data=list(tree=tree),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      assertthat::see_if(self$get_parameter('budget') <= sum(x$get_costs()),
-        length(self$data$tree$tip.label) == x$get_number_of_features())
-    },
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(x, 'ConservationProblem'))    
       stop('TODO: apply function for phylogenetic_coverage_objective')
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname objectives
 #' @export
-default_objective <- function() {
-  pproto('DefaultObjective', Objective, name='none specified')
+add_default_objective <- function(x) {
+  # assert argument is valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'))
+  # throw error because objectives must be explicitly defined
+  stop('problem is missing an objective and this must be explicitly defined')
 }
 

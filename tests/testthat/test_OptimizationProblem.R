@@ -2,7 +2,7 @@ context('OptimizationProblem')
 
 test_that('new problem', {
   # data
-  x <- optimization_problem()
+  x <- new_optimization_problem()
   # tests
   expect_equal(ncell(x), 0)
 })

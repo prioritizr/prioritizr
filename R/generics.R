@@ -154,12 +154,12 @@ NULL
 
 #' @rdname as
 #' @export
-as.id <- function(x, ...) UseMethod('as.id')
+as.id <- function(x, ...) UseMethod('as.Id')
 
 #' @rdname as
 #' @export
-as.id.character <- function(x, ...) {
-  class(x) <- c('id', class(x))
+as.Id.character <- function(x, ...) {
+  class(x) <- c('Id', class(x))
   x
 }
 
@@ -183,11 +183,11 @@ NULL
 
 #' @rdname is
 #' @export
-is.id <- function(x) inherits(x, 'id')
+is.Id <- function(x) inherits(x, 'Id')
 
 #' @rdname is
 #' @export
-is.waiver <- function(x) inherits(x, 'waiver')
+is.Waiver <- function(x) inherits(x, 'Waiver')
 
 
 #' \code{rij} matrix
@@ -319,3 +319,29 @@ methods::setGeneric('connected_matrix',
                     signature=methods::signature('x'),
                     function(x, ...) standardGeneric('connected_matrix'))
 
+
+#' Fast extract
+#'
+#' Extract data from a \code{\link[raster]{Raster-class}} object from a 
+#' \code{\link[sp]{Spatial-class}} object using performance enhancing tricks.
+#'
+#' @param x \code{\link[raster]{Raster-class}} object.
+#'
+#' @param y \code{\link[sp]{Spatial-class}} object.
+#'
+#' @param fun \code{function} to compute values.
+#'
+#' @param ... additional arguments passed to \code{\link[raster]{extract}}.
+#'
+#' @return \code{data.frame}, \code{matrix}, or \code{list} object 
+#'   depending on the arguments.
+#'
+#' @seealso \code{\link[raster]{extract}},
+#'   \code{\link[velox]{VeloxRaster_extract}}
+#'
+#' @name fast_extract
+#'
+#' @export
+methods::setGeneric('fast_extract',
+                    signature=methods::signature('x', 'y'),
+                    function(x, y, ...) standardGeneric('fast_extract'))

@@ -5,7 +5,7 @@ test_that('proportion_parameter', {
   # methods
   x$show()
   x$print()
-  expect_is(x$repr(), 'character')
+  expect_is(x$repr(), 'character')  
   expect_equal(x$name , 'test')
   expect_true(inherits(x$id, 'Id'))
   expect_equal(x$lower_limit, 0)
@@ -304,8 +304,7 @@ test_that('parameters', {
   # methods
   x$show()
   x$print()
-  expect_equal(repr(x), '[p1 (0.5), p2 (min: 0, max: 10)]')
-  expect_is(x$repr(), 'character')
+  expect_equal(x$repr(), '[p1 (0.5), p2 (min: 0, max: 10)]')
   expect_equal(x$names(), c(p1$name, p2$name))
   expect_equal(x$get(p1$id), p1$get())
   expect_equal(x$get(p1$name), p1$get())

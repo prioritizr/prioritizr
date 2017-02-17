@@ -69,20 +69,36 @@ rcpp_get_optimization_problem_row_ids <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_row_ids', PACKAGE = 'prioritizr', x)
 }
 
-rcpp_add_binary_decision <- function(x) {
-    .Call('prioritizr_rcpp_add_binary_decision', PACKAGE = 'prioritizr', x)
+rcpp_apply_binary_decision <- function(x) {
+    .Call('prioritizr_rcpp_apply_binary_decision', PACKAGE = 'prioritizr', x)
 }
 
-rcpp_add_proportion_decision <- function(x) {
-    .Call('prioritizr_rcpp_add_proportion_decision', PACKAGE = 'prioritizr', x)
+rcpp_apply_proportion_decision <- function(x) {
+    .Call('prioritizr_rcpp_apply_proportion_decision', PACKAGE = 'prioritizr', x)
 }
 
-rcpp_add_semicontinuous_decision <- function(x, upper) {
-    .Call('prioritizr_rcpp_add_semicontinuous_decision', PACKAGE = 'prioritizr', x, upper)
+rcpp_apply_semicontinuous_decision <- function(x, upper) {
+    .Call('prioritizr_rcpp_apply_semicontinuous_decision', PACKAGE = 'prioritizr', x, upper)
 }
 
-rcpp_add_rij_data <- function(x, planning_units, features, values, dim) {
-    .Call('prioritizr_rcpp_add_rij_data', PACKAGE = 'prioritizr', x, planning_units, features, values, dim)
+rcpp_add_rij_data <- function(x, rij, dim) {
+    .Call('prioritizr_rcpp_add_rij_data', PACKAGE = 'prioritizr', x, rij, dim)
+}
+
+rcpp_apply_clumping_constraint <- function(x, boundary_matrix, penalty, edge_factor) {
+    .Call('prioritizr_rcpp_apply_clumping_constraint', PACKAGE = 'prioritizr', x, boundary_matrix, penalty, edge_factor)
+}
+
+rcpp_apply_connected_constraint <- function(x, boundary_matrix) {
+    .Call('prioritizr_rcpp_apply_connected_constraint', PACKAGE = 'prioritizr', x, boundary_matrix)
+}
+
+rcpp_apply_locked_in_constraint <- function(x, status) {
+    .Call('prioritizr_rcpp_apply_locked_in_constraint', PACKAGE = 'prioritizr', x, status)
+}
+
+rcpp_apply_locked_out_constraint <- function(x, status) {
+    .Call('prioritizr_rcpp_apply_locked_out_constraint', PACKAGE = 'prioritizr', x, status)
 }
 
 rcpp_apply_minimum_set_objective <- function(x, targets, costs) {

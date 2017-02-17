@@ -37,7 +37,7 @@ methods::setOldClass('OptimizationProblem')
 #' \code{x$number_of_features()}
 #'
 #' \code{x$row_ids()}
-#' \code{x$column_ids()}
+#' \code{x$col_ids()}
 #'
 #' @section Arguments:
 #' \describe{
@@ -80,7 +80,7 @@ methods::setOldClass('OptimizationProblem')
 #' \item{number_of_planning_units}{\code{integer} number of planning units in 
 #'   the problem.}
 #'
-#' \item{column_ids}{\code{character} constraint ids for each column in the 
+#' \item{col_ids}{\code{character} constraint ids for each column in the 
 #'   model matrix.}
 #'
 #' \item{row_ids}{\code{character} constraint ids for each row in the model
@@ -95,15 +95,15 @@ NULL
 OptimizationProblem <- pproto(
   'OptimizationProblem',
   ptr = NULL,
-  print = function() {
+  print = function(self) {
     if (self$ncol()>0) {
     cv <- table(self$vtype())
-    cv <- paste(paste(unname(cv), paste('(', names(cv), ')')),
+    cv <- paste(paste(unname(cv), paste0('(', names(cv), ')')),
           collapse=', ')
     message('optimization problem',
       '\n  model sense: ', self$modelsense(), 
       '\n  dimensions:  ', self$nrow(), ', ', self$ncol(), ', ', self$ncell(), 
-                          '(nrow, ncol, ncell)',
+                          ' (nrow, ncol, ncell)',
       '\n  variables:    ',cv)
     } else {
       message('optimization problem (empty)')
@@ -151,10 +151,10 @@ OptimizationProblem <- pproto(
   number_of_planning_units = function(self) {
   rcpp_get_optimization_problem_number_of_planning_units(self$ptr) 
   },
-  column_ids = function(self) {
-    rcpp_get_optimization_problem_column_ids(self$ptr)
+  col_ids = function(self) {
+    rcpp_get_optimization_problem_col_ids(self$ptr)
   },
   row_ids = function(self) {
-    rcpp_get_optimization_problem_column_ids(self$ptr)
+    rcpp_get_optimization_problem_row_ids(self$ptr)
   })
 

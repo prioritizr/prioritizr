@@ -33,254 +33,231 @@ NULL
 #'     size equal to or greater than the required range size.}
 #'
 #'   \item{\code{default_targets}}{The default targets are used when targets
-#'     have not explicitly been set using the above functions.
-#'     The targets used in to construct conservation planning problem have 
-#'     a profound affect on the solution. Relying on the default targets
-#'     will result in an error because \emph{"Let the computer find out" is 
-#'     a poor strategy and usually reflects the fact that the researcher did 
-#'     not bother to think clearly about the problem of interest and its 
-#'     scientific setting (Burnham and Anderson, 2002).}}
+#'     have not explicitly been set using the above functions. The creators
+#'     of this package do not believe that there can be any sensible default
+#'     targets. Thus relying on the default target will yield an error. }
 #'
 #'  }
 #'
-#' @param x \code{numeric} vector. 
+#' @param x \code{\link{ConservationProblem}} object.
 #' 
-#' @return \code{\link{Constraint}} object containing the target data.
+#' @param targets \code{numeric} targets for features. If all features should
+#'   have the same target, \code{targets} can be a single number. Otherwise, 
+#'   \code{targets} should be a \code{numeric} \code{vector} specifying a 
+#'   target for each feature.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{problem}}, 
-#'  \code{\link{target_weights}}.
+#' @param lower_bound_amount \code{numeric} lower bound for the total amount
+#'   of the features.
+#'
+#' @param lower_bound_target \code{numeric} relative target that should be 
+#'   applied to features with a total amount that is less 
+#'  than or equal to \code{lower_bound_amount}.
+#'
+#' @param upper_bound_target \code{numeric} upper bound for the total amount
+#'   of features.
+#'
+#' @param upper_bound_target \code{numeric} relative target that should be 
+#'   applied to features with a total amount that is greater
+#'   than or equal to \code{upper_bound_amount}.
+#'
+#' @return \code{\link{ConservationProblem}} object with the target added
+#'   to it.
+#'
+#' @seealso \code{\link{constraints}}, \code{\link{objectives}},
+#'   \code{\link{problem}}, \code{\link{target_weights}}.
 #'
 #' @examples
 #' # create basic problem
-#' p <- problem(cost=sim_pu_raster, features=sim_features) + 
+#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
 #'   minimium_set_objective()
 #'
 #' # add relative targets
-#' p + relative_targets(0.1)
+#' p %>% relative_targets(0.1)
 #'
 #' # add absolute targets
-#' p + absolute_targets(3)
+#' p %>% absolute_targets(3)
 #'
 #' # add log-linear target
-#' p + loglinear_targets(c(1, 10, 0.9, 0.2))
+#' p %>% loglinear_targets(c(1, 10, 0.9, 0.2))
 #'
 #' @name targets
 NULL
 
 #' @rdname targets
 #' @export
-relative_targets <- function(x) {
-  assertthat::assert_that(inherits(x, 'numeric'),
-    all(x >= 0.0), all(x <= 1.0), all(is.finite(x)))
-  pproto(
+add_relative_targets <- function(x, targets) {
+  # assert that arguments are valid
+  assertthat::assert_that(
+    inherits(x, 'ConservationProblem'),
+    inherits(targets, 'numeric'), isTRUE(all(is.finite(targets))), 
+    isTRUE(all(targets >= 0.0)),  isTRUE(all(targets <= 1.0)), 
+    isTRUE(length(targets) > 0))
+  # assert that targets are compatible with problem
+  if (length(targets) != 1)
+    assertthat::assert_that(length(targets) == x$number_of_features())
+  # create target parameters
+  if (length(targets)==1) {
+    targets <- rep(targets, x$number_of_features())
+  }
+  targets <- proportion_parameter_array('targets', targets, x$feature_names())
+  # add targets to problem
+  x$add_targets(pproto(
     'RelativeTargets',
     Target,
     name='Relative targets',
-    parameters=parameters(
-      proportion_parameter_array(
-        'targets',
-        as.double(x),
-        as.character(seq_along(x)))),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      n_targets <- nrow(self$parameters$get('targets'))
-      if (n_targets!=1)
-        invisible(assertthat::see_if(n_targets == x$number_of_features()))
-      invisible(TRUE)
-    },
-    synchronize = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      self$data$abundances <- x$feature_abundances_in_planning_units()
-      p <- self$parameters$get('targets')
-      if (nrow(p)==1) {
-        targets <- rep(p[[1]], x$number_of_features())
-      } else {
-        targets <- p[[1]]
-      }
-      self$parameters$parameters[[1]] <- proportion_parameter_array(
-        'targets', targets, x$feature_names())
-      invisible(TRUE)
-    },
-    postvalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(assertthat::see_if(
-        isTRUE(nrow(self$parameters$get('targets')) ==
-          x$number_of_features()),
-        isTRUE(all(rownames(self$parameters$get('targets')) ==
-          x$feature_names()))))
-    },            
+    data = list(abundances=x$feature_abundances_in_planning_units()),
+    parameters=parameters(targets),
     output = function(self) {
       self$parameters$get('targets')[[1]] * self$data$abundances
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname targets
 #' @export
-absolute_targets <- function(x) {
-  assertthat::assert_that(inherits(x, 'numeric'), all(x >= 0), 
-    all(is.finite(x)))
-  pproto(
+add_absolute_targets <- function(x, targets) {
+  # assert that arguments are valid
+  assertthat::assert_that(
+    inherits(x, 'ConservationProblem'),
+    inherits(targets, 'numeric'), isTRUE(all(is.finite(targets))), 
+    isTRUE(all(targets >= 0.0)), isTRUE(length(targets) > 0))
+  # assert that targets are compatible with problem
+  if (length(targets)==1) {
+    targets <- rep(targets, x$number_of_features())
+  }
+  assertthat::assert_that(length(targets)==x$number_of_features(),
+    isTRUE(all(targets <= x$feature_abundances_in_planning_units())))
+  # create target parameters
+  targets <- numeric_parameter_array('targets', targets, x$feature_names(),
+    lower_limit=rep(0, x$number_of_features()), 
+    upper_limit=x$feature_abundances_in_planning_units())
+  # add targets to problem  
+  x$add_targets(pproto(
     'AbsoluteTargets',
     Target,
     name='Absolute targets',
-    parameters=parameters(
-      numeric_parameter_array(
-        'targets', value=as.numeric(x), label=as.character(seq_along(x)),
-        lower_limit=rep(0, length(x)))),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      n_targets <- nrow(self$parameters$get('targets'))
-      if (n_targets!=1)
-        invisible(assertthat::see_if(n_targets == x$number_of_features()))
-      invisible(TRUE)
-    },
-    synchronize = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      self$data$abundances <- x$feature_abundances_in_planning_units()
-      p <- self$parameters$get('targets')
-      if (nrow(p)==1) {
-        targets <- rep(p[[1]], x$number_of_features())
-      } else {
-        targets <- p[[1]]
-      }
-      self$parameters$parameters[[1]] <- numeric_parameter_array(
-          'targets', value=targets, label=x$feature_names(),
-          lower_limit=rep(0, length(targets)),
-          upper_limit=self$data$abundances)
-      invisible(TRUE)
-    },
-    postvalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(assertthat::see_if(
-        isTRUE(nrow(self$parameters$get('targets')) ==
-          x$number_of_features()),
-        isTRUE(all(rownames(self$parameters$get('targets')) ==
-          x$feature_names()))))
-    },
+    parameters=parameters(targets),
     output = function(self) {
       self$parameters$get('targets')[[1]]
-    })
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname targets
 #' @export
-loglinear_targets <- function(x) {
-  assertthat::assert_that(inherits(x, 'numeric'),
-                          isTRUE(all(x >= 0)),
-                          isTRUE(all(x[1:2] >= 0.0)),
-                          isTRUE(all(x[1:2] <= 1.0)),
-                          isTRUE(all(x[3:4] >= 0.0)),
-                          isTRUE(length(x)==4),
-                          assertthat::noNA(x))
-  pproto(
+add_loglinear_targets <- function(x, lower_bound_amount, 
+                                  lower_bound_target,
+                                  upper_bound_amount, 
+                                  upper_bound_target) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'),
+    isTRUE(all(is.finite(lower_bound_amount))), 
+    assertthat::is.scalar(lower_bound_amount), isTRUE(lower_bound_amount>=0),
+    isTRUE(all(is.finite(upper_bound_amount))),
+    assertthat::is.scalar(upper_bound_amount), isTRUE(upper_bound_amount>=0),
+    isTRUE(all(is.finite(lower_bound_target))), 
+    assertthat::is.scalar(lower_bound_target), 
+    isTRUE(lower_bound_target>=0), isTRUE(lower_bound_target<=1),
+    isTRUE(all(is.finite(upper_bound_target))), 
+    assertthat::is.scalar(upper_bound_target), 
+    isTRUE(upper_bound_target>=0), isTRUE(upper_bound_target<=1),
+    isTRUE(upper_bound_amount > lower_bound_amount))
+  # create parameters
+  p <- parameters(
+    numeric_parameter('Amount at lower bound', value=lower_bound_amount,
+      lower_limit=0),
+    numeric_parameter('Amount at upper bound', value=upper_bound_amount,
+      lower_limit=0),
+    proportion_parameter('Target at lower bound', value=lower_bound_target),
+    proportion_parameter('Target at upper bound', value=upper_bound_target))
+  # add targets to problem
+  x$add_targets(pproto(
     'LogLinearTargets',
     Target,
     name='Log-linear targets',
-    parameters=parameters(
-      numeric_parameter('Minimum distribution threshold', value=x[1],
-        lower_limit=0),
-      numeric_parameter('Maximum distribution threshold', value=x[2],
-        lower_limit=0),
-      proportion_parameter('Target at minimum threshold', value=x[3]),
-      proportion_parameter('Target at maximum threshold', value=x[4])
-    ),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      assertthat::see_if(
-        self$parameters$get('Minimum distribution threshold') < 
-          self$parameters$get('Maximum distribution threshold'),
-        self$parameters$get('Target at minimum threshold') > 
-          self$parameters$get('Target at maximum threshold'))
-    },
-    synchronize = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      self$data$abundances <- x$feature_abundances_in_planning_units()
-      invisible(TRUE)       
-    },
+    parameter=p,
+    data=list(abundances = x$feature_abundances_in_planning_units()),
     output = function(self) {
-      targets <- loglinear_interpolate(
-        self$data$abundances, 
-        self$parameters$get('Minimum distribution threshold'),
-        self$parameters$get('Target at minimum threshold'),
-        self$parameters$get('Maximum distribution threshold'),
-        self$parameters$get('Target at maximum threshold'))
-      targets * cs
-    })
+      loglinear_interpolate(self$data$abundances, 
+        self$parameters$get('Amount at lower bound'),
+        self$parameters$get('Target at lower bound'),
+        self$parameters$get('Amount at upper bound'),
+        self$parameters$get('Target at upper bound')) * self$data$abundances
+    }))
+  # return problem
+  return(x)
 }
 
 #' @rdname targets
 #' @export
-default_targets <- function()
-  pproto('DefaultTargets', Target, name='none specified')
+add_default_targets <- function(x) {
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'))
+  # throw error because targets must be chosen by the user
+  stop('problem is missing targets and they must be explicitly defined')
+}
 
 #' Target weights
 #' 
 #' Targets are used to express the minimum amount or poportion of a 
-#' feature's distribution required to preserve it in a protected area
-#' network. However, when using a maximum coverage problem with a pre-specified
-#' budget, it may not be possible to preserve all features. Target weights can
+#' feature's distribution that is required for it to be adequately conserved
+#' in a protected area network. However, when using a maximum coverage problem 
+#' it may not be possible to preserve all features. Target weights can
 #' be used to favour the representation of some features over other features
 #' when making decisions about how the budget should be allocated.
 #' 
-#' @param x \code{numeric} target weights. Higher values for a feature indicate
-#'   that it is more desireable to represent the feature in a network. Weights
-#'   cannot have negative values.
+#' @param x \code{\link{ConservationProblem}} object.
 #'
-#' @details Note that target weights can only be applied to a maximum coverage
+#' @param weights \code{numeric} target weights. Higher values for a feature 
+#'   indicate that it is more desireable to represent the feature in a network. 
+#'   Weights cannot have negative values.
+#'
+#' @details Target weights can only be applied to a maximum coverage
 #'   type of planning problem (eg. \code{\link{maximum_coverage_objective}},
 #'   \code{\link{phylogenetic_coverage_objective}}).
 #'
-#' @return \code{\link{Constraint}} object containing the weight data.
+#' @return \code{\link{ConservationProblem}} object with the target weights
+#'   added to it.
 #'
 #' @seealso \code{\link{targets}}.
 #'
 #' @examples
 #' # create problem
-#' p <- problem(cost=sim_pu_raster, features=sim_features) + 
-#'   maximum_coverage_objective() +
+#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
+#'   maximum_coverage_objective() %>%
 #'   relative_targets(0.1)
 #' 
 #' # create weights based on rarity (1/number occurrences)
 #' w <- 1/raster::cellStats(sim_features, 'sum') 
 #'
 #' # add weight the targets in a problem
-#' p <- p + target_weights(w)
+#' p %>% target_weights(w)
 #'
 #' @export
-target_weights <- function(x) {
-  assertthat::assert_that(inherits(x, 'numeric'), isTRUE(all(x >= 0)),
-    assertthat::noNA(x))
-  pproto(
+target_weights <- function(x, weights) {
+  # assert that arguments are valid
+  assertthat::assert_that(
+    inherits(x, 'ConservationProblem'),
+    inherits(weights, 'numeric'), isTRUE(all(is.finite(weights))), 
+    isTRUE(all(weights >= 0.0)), isTRUE(length(weights) > 0))
+  # assert that weights are compatible with problem
+  assertthat::assert_that(length(weights) == x$number_of_features())
+  # create weight parameters
+  weights <- numeric_parameter_array('weights', weights, x$feature_names(),
+    lower_limit = rep(0, x$number_of_features()))
+  # add targets to problem
+  x$add_constraint(pproto(
     'TargetWeights',
     Constraint,
     name='Target weights',
-    parameters=parameters(
-      numeric_parameter_array(name='Target weights', as.numeric(x), 
-        as.character(seq_along(x)), lower_limit=rep(0, length(x)))),
-    prevalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(assertthat::see_if(
-        name(x$objective) == 'maximum_coverage_problem',
-        nrow(self$parameters$get('Target weights')) ==
-          x$number_of_features()))
-    },
-    synchronize = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      self$parameters$parameters$labels <- x$feature_names()
-      invisible(TRUE)
-    },
-    postvalidate = function(self, x) {
-      assertthat::assert_that(inherits(x, 'ConservationProblem'))
-      invisible(assertthat::see_if(
-        name(x$objective) == 'maximum_coverage_problem',
-        nrow(self$parameters$get('Target weights')) ==
-          x$number_of_features(),
-        rownames(self$parameters$get('Target weights')) ==
-          x$feature_names()))
-    },
+    parameters=parameters(weights),
     apply = function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
       invisible(rcpp_apply_target_weights(x,
         self$parameters$get('Target weights')[[1]]))
-    })
+    }))
+  # return problem
+  return(x)
 }

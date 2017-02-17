@@ -6,7 +6,7 @@ Description: Solve systematic reserve design problems using integer programming
     techniques. To solve problems most efficiently users can install the
     'gurobi' optimizer (available from <http://www.gurobi.com/>).
 Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson', email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
-             person(c('Riched'), 'Schuster', email='mail@richard-schuster.com', role = c('aut')),
+             person(c('Richard'), 'Schuster', email='mail@richard-schuster.com', role = c('aut')),
              person(c('Matthew'), 'Strimas-Mackey', email='mstrimas@gmail.com', role = c('aut')),
              person(c('Peter'), 'Arcese', email='peter.arcese@ubc.ca', role = c('aut')),             
              person(c('Joeseph'), 'Bennett', email='joseph.bennett@carleton.ca', role = c('aut', 'cre')))
@@ -15,11 +15,12 @@ Imports:
     methods,
     assertthat,
     uuid,
-    Matrix,
     slam,
+    Matrix,
     rgeos,
     parallel,
-    doParallel
+    doParallel,
+    magrittr
 Suggests:
     testthat,
     knitr,
@@ -68,23 +69,24 @@ Collate:
     'OptimizationProblem-proto.R'
     'OptimizationProblem-methods.R'
     'RcppExports.R'
+    'add_clumping_constraint.R'
+    'add_connected_constraint.R'
+    'add_corridors_constraint.R'
+    'add_locked_in_constraint.R'
+    'add_locked_out_constraint.R'
     'generics.R'
     'boundary_matrix.R'
     'compile.R'
-    'connected_constraint.R'
     'connected_matrix.R'
     'constraints.R'
     'construct.R'
-    'corridors_constraint.R'
     'data.R'
-    'fragmentation_constraint.R'
-    'locked_in_constraint.R'
-    'locked_out_constraint.R'
-    'modify.R'
-    'operators.R'
-    'package.R'
     'parallel.R'
-    'problems.R'
+    'fast_extract.R'
+    'modify.R'
+    'package.R'
+    'pipe.R'
+    'problem.R'
     'rij_matrix.R'
     'simulate.R'
     'solve.R'

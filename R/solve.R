@@ -9,8 +9,8 @@ methods::setMethod('solve', signature(a='OptimizationProblem', b='Solver'),
 methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
   function(a, b) {
     # assign solver
-    if (inherits(a$solver, 'waiver'))
-      a$solver <- default_solver()
+    if (inherits(a$solver, 'Waiver'))
+      a <- add_default_solver(a)
     # compile and solve optimisation problem
     opt <- compile.ConservationProblem(a)
     sol <- solve(opt, a$solver)[seq_len(opt$number_of_planning_units())]

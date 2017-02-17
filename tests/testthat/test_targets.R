@@ -3,8 +3,7 @@ context('targets')
 test_that('relative_targets (n=1)', {
   # create objects
   data(sim_pu_raster, sim_features)
-  p <- problem(sim_pu_raster, sim_features)  
-  x <- relative_targets(0.1)
+  p <- problem(sim_pu_raster, sim_features) %>% add_relative_targets(0.1)
   # basic tests
   print(x)
   x

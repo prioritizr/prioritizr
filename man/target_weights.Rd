@@ -4,40 +4,43 @@
 \alias{target_weights}
 \title{Target weights}
 \usage{
-target_weights(x)
+target_weights(x, weights)
 }
 \arguments{
-\item{x}{\code{numeric} target weights. Higher values for a feature indicate
-that it is more desireable to represent the feature in a network. Weights
-cannot have negative values.}
+\item{x}{\code{\link{ConservationProblem}} object.}
+
+\item{weights}{\code{numeric} target weights. Higher values for a feature 
+indicate that it is more desireable to represent the feature in a network. 
+Weights cannot have negative values.}
 }
 \value{
-\code{\link{Constraint}} object containing the weight data.
+\code{\link{ConservationProblem}} object with the target weights
+  added to it.
 }
 \description{
 Targets are used to express the minimum amount or poportion of a 
-feature's distribution required to preserve it in a protected area
-network. However, when using a maximum coverage problem with a pre-specified
-budget, it may not be possible to preserve all features. Target weights can
+feature's distribution that is required for it to be adequately conserved
+in a protected area network. However, when using a maximum coverage problem 
+it may not be possible to preserve all features. Target weights can
 be used to favour the representation of some features over other features
 when making decisions about how the budget should be allocated.
 }
 \details{
-Note that target weights can only be applied to a maximum coverage
+Target weights can only be applied to a maximum coverage
   type of planning problem (eg. \code{\link{maximum_coverage_objective}},
   \code{\link{phylogenetic_coverage_objective}}).
 }
 \examples{
 # create problem
-p <- problem(cost=sim_pu_raster, features=sim_features) + 
-  maximum_coverage_objective() +
+p <- problem(cost=sim_pu_raster, features=sim_features) \%>\%
+  maximum_coverage_objective() \%>\%
   relative_targets(0.1)
 
 # create weights based on rarity (1/number occurrences)
 w <- 1/raster::cellStats(sim_features, 'sum') 
 
 # add weight the targets in a problem
-p <- p + target_weights(w)
+p \%>\% target_weights(w)
 
 }
 \seealso{

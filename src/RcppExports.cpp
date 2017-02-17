@@ -195,52 +195,100 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_add_binary_decision
-bool rcpp_add_binary_decision(SEXP x);
-RcppExport SEXP prioritizr_rcpp_add_binary_decision(SEXP xSEXP) {
+// rcpp_apply_binary_decision
+bool rcpp_apply_binary_decision(SEXP x);
+RcppExport SEXP prioritizr_rcpp_apply_binary_decision(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_binary_decision(x));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_binary_decision(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_add_proportion_decision
-bool rcpp_add_proportion_decision(SEXP x);
-RcppExport SEXP prioritizr_rcpp_add_proportion_decision(SEXP xSEXP) {
+// rcpp_apply_proportion_decision
+bool rcpp_apply_proportion_decision(SEXP x);
+RcppExport SEXP prioritizr_rcpp_apply_proportion_decision(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_proportion_decision(x));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_proportion_decision(x));
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_add_semicontinuous_decision
-bool rcpp_add_semicontinuous_decision(SEXP x, double upper);
-RcppExport SEXP prioritizr_rcpp_add_semicontinuous_decision(SEXP xSEXP, SEXP upperSEXP) {
+// rcpp_apply_semicontinuous_decision
+bool rcpp_apply_semicontinuous_decision(SEXP x, double upper);
+RcppExport SEXP prioritizr_rcpp_apply_semicontinuous_decision(SEXP xSEXP, SEXP upperSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_semicontinuous_decision(x, upper));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_semicontinuous_decision(x, upper));
     return rcpp_result_gen;
 END_RCPP
 }
 // rcpp_add_rij_data
-bool rcpp_add_rij_data(SEXP x, Rcpp::IntegerVector planning_units, Rcpp::IntegerVector features, Rcpp::NumericVector values, Rcpp::IntegerVector dim);
-RcppExport SEXP prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP planning_unitsSEXP, SEXP featuresSEXP, SEXP valuesSEXP, SEXP dimSEXP) {
+bool rcpp_add_rij_data(SEXP x, Rcpp::DataFrame rij, Rcpp::IntegerVector dim);
+RcppExport SEXP prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rijSEXP, SEXP dimSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type planning_units(planning_unitsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type features(featuresSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type values(valuesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type rij(rijSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type dim(dimSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_rij_data(x, planning_units, features, values, dim));
+    rcpp_result_gen = Rcpp::wrap(rcpp_add_rij_data(x, rij, dim));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_clumping_constraint
+bool rcpp_apply_clumping_constraint(SEXP x, Rcpp::DataFrame boundary_matrix, double penalty, double edge_factor);
+RcppExport SEXP prioritizr_rcpp_apply_clumping_constraint(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type boundary_matrix(boundary_matrixSEXP);
+    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< double >::type edge_factor(edge_factorSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_clumping_constraint(x, boundary_matrix, penalty, edge_factor));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_connected_constraint
+bool rcpp_apply_connected_constraint(SEXP x, Rcpp::DataFrame boundary_matrix);
+RcppExport SEXP prioritizr_rcpp_apply_connected_constraint(SEXP xSEXP, SEXP boundary_matrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type boundary_matrix(boundary_matrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_connected_constraint(x, boundary_matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_locked_in_constraint
+bool rcpp_apply_locked_in_constraint(SEXP x, Rcpp::IntegerVector status);
+RcppExport SEXP prioritizr_rcpp_apply_locked_in_constraint(SEXP xSEXP, SEXP statusSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type status(statusSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_in_constraint(x, status));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_locked_out_constraint
+bool rcpp_apply_locked_out_constraint(SEXP x, Rcpp::IntegerVector status);
+RcppExport SEXP prioritizr_rcpp_apply_locked_out_constraint(SEXP xSEXP, SEXP statusSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type status(statusSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_out_constraint(x, status));
     return rcpp_result_gen;
 END_RCPP
 }

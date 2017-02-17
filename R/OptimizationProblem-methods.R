@@ -10,7 +10,7 @@ NULL
 #' @seealso OptimizationProblem-methods
 #'
 #' @export
-optimization_problem <- function() {
+new_optimization_problem <- function() {
   pproto('OptimizationProblem', OptimizationProblem,
     ptr=rcpp_new_optimization_problem())
 }
@@ -183,14 +183,14 @@ methods::setMethod('number_of_planning_units', 'OptimizationProblem',
   function(x) x$number_of_planning_units())
 
 #' @export
-methods::setGeneric('column_ids', function(x) standardGeneric('column_ids'))
+methods::setGeneric('col_ids', function(x) standardGeneric('col_ids'))
 
 #' @rdname OptimizationProblem-methods
-#' @name column_ids
-#' @usage column_ids(x)
+#' @name col_ids
+#' @usage col_ids(x)
 #' @export
-methods::setMethod('column_ids', 'OptimizationProblem',
-  function(x) x$column_ids())
+methods::setMethod('col_ids', 'OptimizationProblem',
+  function(x) x$col_ids())
 
 #' @export
 methods::setGeneric('row_ids', function(x) standardGeneric('row_ids'))

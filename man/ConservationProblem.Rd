@@ -49,11 +49,18 @@ class directly.}
 \code{x$compile()}
 \code{x$solve()}
 
-\code{x$number_of_features()}
 \code{x$number_of_planning_units()}
+\code{x$planning_unit_costs()}
+\code{x$number_of_features()}
 \code{x$feature_names()}
-\code{x$costs()}
-\code{x$feature_abundances()}
+\code{x$feature_abundances_in_planning_units()}
+\code{x$feature_targets()}
+
+\code{x$add_objective(obj)}
+\code{x$add_decision(dec)}
+\code{x$add_solver(sol)}
+\code{x$add_constraint(con)}
+\code{x$add_targets(targ)}
 
 \code{x$get_constraint_parameter(id)} 
 \code{x$set_constraint_parameter(id, value)} 
@@ -76,6 +83,16 @@ class directly.}
 
 \describe{
 
+\item{obj}{\code{\link{Objective}} object.}
+
+\item{dec}{\code{\link{Decision}} object.}
+
+\item{con}{\code{\link{Constraint}} object.}
+
+\item{sol}{\code{\link{Solver}} object.}
+
+\item{targ}{\code{\link{Targets}} object.}
+
 \item{cost}{\code{\link[raster]{RasterLayer-class}}, 
   \code{\link{SpatialPolygonsDataFrame}}, or 
   \code{\link{SpatialLinesDataFrame}} object showing spatial representation
@@ -97,16 +114,28 @@ class directly.}
 
 \item{show}{show the object.}
 
-\item{number_of_features}{\code{integer} number of features.}
-
 \item{number_of_planning_units}{\code{integer} number of planning units.}
+
+\item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
+
+\item{number_of_features}{\code{integer} number of features.}
 
 \item{feature_names}{\code{character} names of features in problem.}
 
-\item{costs}{\code{numeric} costs of each planning unit.}
+\item{feature_abundances_in_planning_units}{\code{numeric} get total 
+  abundance of each feature in all the planning units.}
 
-\item{feature_abundances}{\code{numeric} get total abundance of each 
-  feature in all the planning units.}
+\item{feature_targets}{\code{numeric} targets for each feature.}
+
+\item{add_objective}{add an objective to the problem.}
+
+\item{add_decision}{add a decision to the problem.}
+
+\item{add_solver}{add a solver to the problem.}
+
+\item{add_constraint}{add a constraint to the problem.}
+
+\item{add_targets}{add targets to the problem.}
 
 \item{get_constraint_parameter}{get the value of a parameter (specified by
   argument \code{id}) used in one of the constraints in the object.}

@@ -48,11 +48,18 @@ methods::setOldClass('ConservationProblem')
 #' \code{x$compile()}
 #' \code{x$solve()}
 #'
-#' \code{x$number_of_features()}
 #' \code{x$number_of_planning_units()}
+#' \code{x$planning_unit_costs()}
+#' \code{x$number_of_features()}
 #' \code{x$feature_names()}
-#' \code{x$costs()}
 #' \code{x$feature_abundances_in_planning_units()}
+#' \code{x$feature_targets()}
+#'
+#' \code{x$add_objective(obj)}
+#' \code{x$add_decision(dec)}
+#' \code{x$add_solver(sol)}
+#' \code{x$add_constraint(con)}
+#' \code{x$add_targets(targ)}
 #'
 #' \code{x$get_constraint_parameter(id)} 
 #' \code{x$set_constraint_parameter(id, value)} 
@@ -73,6 +80,16 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \describe{
 #'
+#' \item{obj}{\code{\link{Objective}} object.}
+#'
+#' \item{dec}{\code{\link{Decision}} object.}
+#'
+#' \item{con}{\code{\link{Constraint}} object.}
+#'
+#' \item{sol}{\code{\link{Solver}} object.}
+#'
+#' \item{targ}{\code{\link{Targets}} object.}
+#'
 #' \item{cost}{\code{\link[raster]{RasterLayer-class}}, 
 #'   \code{\link{SpatialPolygonsDataFrame}}, or 
 #'   \code{\link{SpatialLinesDataFrame}} object showing spatial representation
@@ -92,16 +109,28 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{number_of_features}{\code{integer} number of features.}
-#'
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
+#'
+#' \item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
+#'
+#' \item{number_of_features}{\code{integer} number of features.}
 #'
 #' \item{feature_names}{\code{character} names of features in problem.}
 #'
-#' \item{costs}{\code{numeric} costs of each planning unit.}
+#' \item{feature_abundances_in_planning_units}{\code{numeric} get total 
+#'   abundance of each feature in all the planning units.}
 #'
-#' \item{feature_abundances_in_planning_units}{\code{numeric} get total abundance
-#'   of each feature in all the planning units.}
+#' \item{feature_targets}{\code{numeric} targets for each feature.}
+#'
+#' \item{add_objective}{add an objective to the problem.}
+#'
+#' \item{add_decision}{add a decision to the problem.}
+#'
+#' \item{add_solver}{add a solver to the problem.}
+#'
+#' \item{add_constraint}{add a constraint to the problem.}
+#'
+#' \item{add_targets}{add targets to the problem.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the constraints in the object.}
@@ -150,36 +179,38 @@ NULL
 ConservationProblem <- pproto(
   'ConservationProblem',
   data = list(),
-  objective = default_objective(),
-  decision = default_decision(),
-  targets = default_targets(),
-  constraints = Constraints,
-  solver  = default_solver(),
+  objective = waiver(),
+  decision = waiver(),
+  targets = waiver(),
+  constraints = pproto(NULL, Constraints),
+  solver  = waiver(),
   print = function(self) {
+    r <- sapply(list(self$objective, self$targets), function(x) {
+      if (is.Waiver(x))
+        return('none specified')
+      return(x$repr())
+    })
+    d <- sapply(list(self$solver, self$decision), function(x) {
+      if (is.Waiver(x))
+        return('default')
+      return(x$repr())
+    })
     message(paste0('Conservation Problem',
-    '\n  objective:      ',self$objective$repr(),
-    '\n  decision:       ',self$decision$repr(),
     '\n  planning units: ',self$number_of_planning_units(),', ',
-     paste(round(range(self$costs()), 5), collapse=', '), ' (n, min cost, max cost)',
+     paste(round(range(self$planning_unit_costs()), 5), collapse=', '), 
+     ' (n, min cost, max cost)',
     '\n  features:       ',paste(self$feature_names(), collapse=', '),
-    '\n  targets:        ',self$targets$repr(),
+    '\n  objective:      ',r[1],
+    '\n  targets:        ',r[2],
+    '\n  decision:       ',d[2],
     '\n  constraints:    ',self$constraints$repr(),
-    '\n  solver:         ',self$solver$repr()))
+    '\n  solver:         ',d[1]))
   },
   show = function(self) {
     self$print()
   },
   repr = function(self) {
     'ConservationProblem object'
-  },
-  costs = function(self) {
-    if (inherits(self$data$cost, 'Raster')) {
-      return(self$data$cost[raster::Which(!is.na(self$data$cost))])
-    } else if (inherits(self$data$cost, 'Spatial')) {
-      return(self$data$cost[[1]])
-    } else {
-      stop('cost is of unknown class')
-    }
   },
   number_of_planning_units = function(self) {
     if (inherits(self$data$cost, 'Raster')) {
@@ -190,6 +221,16 @@ ConservationProblem <- pproto(
       stop('cost is of unknown class')
     }    
   },
+  planning_unit_costs = function(self) {
+    if (inherits(self$data$cost, 'Raster')) {
+      return(self$data$cost[raster::Which(!is.na(self$data$cost))])
+    } else if (inherits(self$data$cost, c('SpatialPolygonsDataFrame',
+              'SpatialLinesDataFrame', 'SpatialPointsDataFrame'))) {
+      return(self$data$cost[[self$data$cost_column]])
+    } else {
+      stop('cost is of unknown class')
+    }
+  },
   number_of_features = function(self) {
     raster::nlayers(self$data$features)
   },
@@ -197,7 +238,45 @@ ConservationProblem <- pproto(
     names(self$data$features)
   },
   feature_abundances_in_planning_units = function(self) {
-    Matrix::colSums(self$data$rij_matrix)
+    Matrix::rowSums(self$data$rij_matrix)
+  },
+  feature_targets = function(self) {
+    if (is.Waiver(self$targets))
+      stop('problem is missing targets')
+    self$targets$output()
+  },
+  add_solver = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Solver'))
+    if (!is.Waiver(self$solver))
+      warning('overwriting previously defined solver')
+    self$solver <- x
+    invisible(TRUE)
+  },
+  add_targets = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Target'))
+    if (!is.Waiver(self$targets))
+      warning('overwriting previously defined targets')
+    self$targets <- x
+    invisible(TRUE)
+  },
+  add_objective = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Objective'))
+    if (!is.Waiver(self$objective))
+      warning('overwriting previously defined objective')
+    self$objective <- x
+    invisible(TRUE)
+  },
+  add_decision = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Decision'))
+    if (!is.Waiver(self$decision))
+      warning('overwriting previously defined decision')
+    self$decision <- x
+    invisible(TRUE)
+  },
+  add_constraint = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Constraint'))
+    self$constraint$add(x)
+    invisible(TRUE)
   },
   get_constraint_parameter = function(self, id) {
     self$constraints$get_parameter(id)

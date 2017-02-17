@@ -2,14 +2,14 @@
 % Please edit documentation in R/generics.R
 \name{as}
 \alias{as}
+\alias{as.Id.character}
 \alias{as.id}
-\alias{as.id.character}
 \alias{as.list.Parameters}
 \title{Coerce object to another object}
 \usage{
 as.id(x, ...)
 
-\method{as.id}{character}(x, ...)
+as.Id.character(x, ...)
 
 as.list.Parameters(x, ...)
 }
