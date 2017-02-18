@@ -8,7 +8,8 @@ using namespace Rcpp;
 #include "functions.h"
 
 // [[Rcpp::export]]
-Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x, std::size_t n_preallocate=10000) {
+Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x, 
+                                       std::size_t n_preallocate=10000) {
   // initialization
   std::vector<std::size_t> I;
   I.reserve(n_preallocate);
@@ -20,14 +21,18 @@ Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x, std::size_t n_preallocate=1
   
   // main processing
   int n;
+  SEXP tmp;
   Rcpp::NumericVector v;
   for (std::size_t i=0; i!=x.size(); ++i) {
     n = std::stoi(x_names[i]);
-    v = Rcpp::as<Rcpp::NumericVector>(x[i]);
-    for (std::size_t j=0; j!=v.size(); ++j) {
-      if (n!=v[j]) {
-        I.push_back(v[j]);
-        J.push_back(n);
+    tmp = x[i];
+    if (!Rf_isNull(tmp)) {
+      v = Rcpp::as<Rcpp::NumericVector>(tmp);
+      for (std::size_t j=0; j!=v.size(); ++j) {
+        if (n!=v[j]) {
+          I.push_back(v[j]);
+          J.push_back(n);
+        }
       }
     }
   }

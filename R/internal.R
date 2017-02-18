@@ -187,7 +187,7 @@ velox_extract <- function(x, y, fun, df=FALSE, ...) {
     inherits(fun, 'function'), assertthat::is.flag(df))
   m <- velox::velox(x)$extract(y, fun)
   if (df) {
-    m <- cbind(data.frame(ID=seq_along(length(y))), as.data.frame(m))
+    m <- cbind(data.frame(ID=seq_len(length(y))), as.data.frame(m))
     names(m) <- c('ID', names(x))
   }
   return(m)

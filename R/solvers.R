@@ -9,21 +9,21 @@ NULL
 #'
 #' \describe{
 #'   \item{\code{add_gurobi_solver}}{\href{http://gurobi.com}{Gurobi} is a
-#'   state-of-the-art commercial optimization software with an R package
-#'   interface. It is by far the fastest of the solvers available in this
-#'   package, however, it is also the only one that isn't free. That said, free
-#'   academic licenses are available. The \code{gurobi} package is 
-#'   distributed with the Gurobi software suite. This solver uses the
-#'   \code{gurobi} package to solve problems.}
+#'     state-of-the-art commercial optimization software with an R package
+#'     interface. It is by far the fastest of the solvers available in this
+#'     package, however, it is also the only one that isn't free. That said, 
+#'     free academic licenses are available. The \code{gurobi} package is 
+#'     distributed with the Gurobi software suite. This solver uses the
+#'     \code{gurobi} package to solve problems.}
 #'
 #'   \item{\code{add_rsymphony_solver}}{
-#'   \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
-#'   integer programming solver that is part of the Computational Infrastructure
-#'   for Operations Research (COIN-OR) project, an initiative to promote
-#'   development of open-source tools for operations research (a field that
-#'   includes linear programming). The \code{Rsymphony} package provides an
-#'   interface to COIN-OR and is available on CRAN. This solver uses the
-#'   \code{Rsymphony} package to solve problems.}
+#'     \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
+#'     integer programming solver that is part of the Computational 
+#'     Infrastructure for Operations Research (COIN-OR) project, an initiative 
+#'     to promote development of open-source tools for operations research (a 
+#'     field that includes linear programming). The \code{Rsymphony} package 
+#'     provides an interface to COIN-OR and is available on CRAN. This solver 
+#'     uses the \code{Rsymphony} package to solve problems.}
 #' 
 #'  \item{\code{add_lpsymphony_solver}}{The \code{lpsymphony} package provides a
 #'    different interface to the COIN-OR software suite. Unlike the 
@@ -87,10 +87,13 @@ NULL
 #' @name solvers
 NULL
 
+#' @export
+methods::setClass('GurobiSolver', contains='Solver')
+
 #' @rdname solvers
 #' @export
 add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
-                              presolve=2,threads=1) {
+                              presolve=2, threads=1, first_feasible=0) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, 'ConservationProblem'),
     isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1),
@@ -98,19 +101,23 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
     assertthat::is.count(time_limit), isTRUE(all(is.finite(presolve))), 
     assertthat::is.count(presolve), isTRUE(presolve <= 2), 
     isTRUE(all(is.finite(threads))), assertthat::is.count(threads),
-    isTRUE(threads <= parallel::detectCores()))
+    isTRUE(threads <= parallel::detectCores()),
+    assertthat::is.scalar(first_feasible), 
+    isTRUE(first_feasible==1 | first_feasible==0),
+    requireNamespace('gurobi', quietly=TRUE))
   # add solver
   x$add_solver(pproto(
     'GurobiSolver',
     Solver,
-    name='gurobi',
+    name='Gurobi',
     parameters=parameters(
       integer_parameter('presolve', presolve, lower_limit=0L, upper_limit=2L),
       proportion_parameter('gap', gap),
-      integer_parameter('time_limit', time_limit, lower_limit=-1, 
-        upper_limit=.Machine$integer.max),
+      integer_parameter('time_limit', time_limit, lower_limit=-1L, 
+        upper_limit=as.integer(.Machine$integer.max)),
       integer_parameter('threads', threads, lower_limit=1L, 
-        upper_limit=parallel::detectCores())),
+        upper_limit=parallel::detectCores()),
+      binary_parameter('first feasible', first_feasible)),
     solve=function(self, x) {
       model <- list(
         modelsense = x$modelsense(),
@@ -122,12 +129,20 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
         lb = x$lb(),
         ub = x$ub())
       p <- as.list(self$parameters)
-      names(p) <- c('Presolve', 'MIPGap', 'TimeLimit', 'Threads')
-      do.call(gurobi::gurobi, append(list(model), p))$x
+      names(p) <- c('Presolve', 'MIPGap', 'TimeLimit', 'Threads',
+        'SolutionLimit')
+      if (p$SolutionLimit==0)
+        p$SolutionLimit <- NULL
+      x <- do.call(gurobi::gurobi, list(model=model, params=p))$x
+      if (file.exists('gurobi.log')) unlink('gurobi.log')
+      return(x)
     }))
   # return problem
   return(x)
 }
+
+#' @export
+methods::setClass('LpsymphonySolver', contains='Solver')
 
 #' @rdname solvers
 #' @export
@@ -141,15 +156,16 @@ add_lpsymphony_solver <- function(x, gap=0.1, time_limit=-1, verbosity=1,
     assertthat::is.count(time_limit) || isTRUE(time_limit==-1),
     isTRUE(all(is.finite(verbosity))), assertthat::is.count(abs(verbosity)),
     isTRUE(verbosity <= 1), isTRUE(verbosity >= -2),
-    assertthat::is.scalar(first_feasible), isTRUE(first_feasible<=1),
-    isTRUE(first_feasible>=0))
+    assertthat::is.scalar(first_feasible), 
+    isTRUE(first_feasible==1 || isTRUE(first_feasible==0)),
+    requireNamespace('lpsymphony', quietly=TRUE))
   # add solver
   x$add_solver(pproto(
     'LpsymphonySolver',
     Solver,
-    name='lpsymphony',
+    name='Lpsymphony',
     parameters=parameters(
-      integer_parameter('verbosity', verbosity, lower_limit=-2L, 
+      integer_parameter('verbosity', verbosity, lower_limit=-2L,     
         upper_limit=1L),
       proportion_parameter('gap',gap),
       integer_parameter('time_limit', time_limit, lower_limit=-1,
@@ -158,23 +174,27 @@ add_lpsymphony_solver <- function(x, gap=0.1, time_limit=-1, verbosity=1,
     solve=function(self, x) {
       model = list(
         obj = x$obj(),
-        mat = x$A(),
+        mat = as.matrix(x$A()),
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),
         bounds = list(lower = x$lb(), upper=x$ub()),
         max = x$modelsense()=='max')
-      args <- append(model, as.list(self$parameters))
-      args$first_feasible <- as.logical(args$first_feasible)
-      do.call(lpsymphony::symphony_solve_LP, args)$solution
+      p <- as.list(self$parameters)
+      names(p)[2] <- 'gap_limit'
+      p$first_feasible <- as.logical(p$first_feasible)
+      do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))$solution
     }))
   # return problem
   return(x)
 }
 
+#' @export
+methods::setClass('RsymphonySolver', contains='Solver')
+
 #' @rdname solvers
 #' @export
-add_rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
+add_rsymphony_solver <- function(x, gap=0.1, time_limit=-1, first_feasible=0,
                              verbosity=1) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, 'ConservationProblem'),
@@ -184,13 +204,14 @@ add_rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
     assertthat::is.count(time_limit) || isTRUE(time_limit==-1),
     isTRUE(all(is.finite(verbosity))), assertthat::is.count(abs(verbosity)),
     isTRUE(verbosity <= 1), isTRUE(verbosity >= -2),
-    assertthat::is.scalar(first_feasible), isTRUE(first_feasible<=1),
-    isTRUE(first_feasible>=0))
+    assertthat::is.scalar(first_feasible), 
+    isTRUE(first_feasible==1 || isTRUE(first_feasible==0)),
+    requireNamespace('Rsymphony', quietly=TRUE))
   # add solver
   x$add_solver(pproto(
     'RsymphonySolver',
     Solver,
-    name='rsymphony',
+    name='Rsymphony',
     parameters=parameters(
       integer_parameter('verbosity', verbosity, lower_limit=-2L, upper_limit=1L),
       proportion_parameter('gap',gap),
@@ -200,15 +221,16 @@ add_rsymphony_solver <- function(gap=0.1, time_limit=-1, first_feasible=0,
     solve=function(self, x) {
       model = list(
         obj = x$obj(),
-        mat = x$A(),
+        mat = as.matrix(x$A()),
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),
         bounds = list(lower = x$lb(), upper=x$ub()),
         max = x$modelsense()=='max')
-      args <- append(model, as.list(self$parameters))
-      args$first_feasible <- as.logical(args$first_feasible)
-      do.call(Rsymphony::Rsymphony_solve_LP, args)$solution
+      p <- as.list(self$parameters)
+      names(p)[2] <- 'gap_limit'
+      p$first_feasible <- as.logical(p$first_feasible)
+      do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))$solution
     }))
   # return problem
   return(x)

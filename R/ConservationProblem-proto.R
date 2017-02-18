@@ -48,6 +48,7 @@ methods::setOldClass('ConservationProblem')
 #' \code{x$compile()}
 #' \code{x$solve()}
 #'
+#' \code{x$number_of_total_units()}
 #' \code{x$number_of_planning_units()}
 #' \code{x$planning_unit_costs()}
 #' \code{x$number_of_features()}
@@ -110,6 +111,9 @@ methods::setOldClass('ConservationProblem')
 #' \item{show}{show the object.}
 #'
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
+#'
+#' \item{number_of_total_units}{\code{integer} number of units in the cost
+#'   data including units that have NA values for cost.}
 #'
 #' \item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
 #'
@@ -195,10 +199,11 @@ ConservationProblem <- pproto(
         return('default')
       return(x$repr())
     })
+    cs <- round(range(self$planning_unit_costs()), 5)
     message(paste0('Conservation Problem',
-    '\n  planning units: ',self$number_of_planning_units(),', ',
-     paste(round(range(self$planning_unit_costs()), 5), collapse=', '), 
-     ' (n, min cost, max cost)',
+    '\n  planning units: ',class(self$data$cost)[1],' (', 
+      self$number_of_planning_units(),' units)',
+    '\n  cost:           min: ',cs[1], ', max: ',cs[2],
     '\n  features:       ',paste(self$feature_names(), collapse=', '),
     '\n  objective:      ',r[1],
     '\n  targets:        ',r[2],
@@ -220,6 +225,15 @@ ConservationProblem <- pproto(
     } else {
       stop('cost is of unknown class')
     }    
+  },
+  number_of_total_units = function(self) {
+    if (inherits(self$data$cost, 'Raster')) {
+      return(raster::ncell(self$data$cost))
+    } else if (inherits(self$data$cost, 'Spatial')) {
+      return(nrow(self$data$cost))
+    } else {
+      stop('cost is of unknown class')
+    }
   },
   planning_unit_costs = function(self) {
     if (inherits(self$data$cost, 'Raster')) {
@@ -275,7 +289,7 @@ ConservationProblem <- pproto(
   },
   add_constraint = function(self, x) {
     assertthat::assert_that(inherits(x, 'Constraint'))
-    self$constraint$add(x)
+    self$constraints$add(x)
     invisible(TRUE)
   },
   get_constraint_parameter = function(self, id) {

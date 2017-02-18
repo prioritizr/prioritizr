@@ -49,6 +49,9 @@ sim_landscape@crs <- sp::CRS()
 sim_pu_raster <- simulate_cost(sim_landscape, n=1)
 sim_pu_raster[raster::Which(sim_pu_raster==0)] <- NA
 
+# make 10 cells in the raster NA
+sim_pu_raster[sample.int(raster::ncell(sim_pu_raster), size=10)] <- NA
+
 # create feature distributions
 sim_features <- simulate_species(sim_landscape, n=5)
 
@@ -77,6 +80,14 @@ names(sim_pu_polygons) <- c('cost', 'locked_in', 'locked_out')
 names(sim_pu_lines) <- c('cost', 'locked_in', 'locked_out')
 names(sim_pu_points) <- c('cost', 'locked_in', 'locked_out')
 
+# convert integer values to boolean values
+sim_pu_polygons$locked_in <- as.logical(sim_pu_polygons$locked_in)
+sim_pu_polygons$locked_out <- as.logical(sim_pu_polygons$locked_out)
+sim_pu_lines$locked_in <- as.logical(sim_pu_lines$locked_in)
+sim_pu_lines$locked_out <- as.logical(sim_pu_lines$locked_out)
+sim_pu_points$locked_in <- as.logical(sim_pu_points$locked_in)
+sim_pu_points$locked_out <- as.logical(sim_pu_points$locked_out)
+
 # simulate species phylogeny
 sim_phylogeny <- ape::rtree(n=raster::nlayers(sim_features))
 sim_phylogeny$tip.labels <- names(sim_features)
@@ -84,8 +95,8 @@ sim_phylogeny$tip.labels <- names(sim_features)
 ## Export data
 # save data 
 save(sim_pu_raster, file='data/sim_pu_raster.rda', compress='xz')
-save(sim_locked_in_raster, file='data/sim_pu_locked_in_raster.rda', compress='xz')
-save(sim_locked_out_raster, file='data/sim_pu_locked_out_raster.rda', compress='xz')
+save(sim_locked_in_raster, file='data/sim_locked_in_raster.rda', compress='xz')
+save(sim_locked_out_raster, file='data/sim_locked_out_raster.rda', compress='xz')
 save(sim_pu_polygons, file='data/sim_pu_polygons.rda', compress='xz')
 save(sim_pu_lines, file='data/sim_pu_lines.rda', compress='xz')
 save(sim_pu_points, file='data/sim_pu_points.rda', compress='xz')

@@ -1,12 +1,13 @@
 #include "optimization_problem.h"
  
 // [[Rcpp::export]]
-bool rcpp_apply_minimum_set_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs) {
+bool rcpp_apply_minimum_set_objective(SEXP x, Rcpp::NumericVector targets,
+                                      Rcpp::NumericVector costs) {
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
     ptr->_obj.push_back(costs[i]);
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_sense.push_back("<=");
+    ptr->_sense.push_back(">=");
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
     ptr->_rhs.push_back(targets[i]);
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
@@ -18,7 +19,9 @@ bool rcpp_apply_minimum_set_objective(SEXP x, Rcpp::NumericVector targets, Rcpp:
 }
 
 // [[Rcpp::export]]
-bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget) {
+bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets,
+                                           Rcpp::NumericVector costs, 
+                                           double budget) {
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // model rhs
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
@@ -28,21 +31,30 @@ bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets, 
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
     ptr->_sense.push_back(">=");
   ptr->_sense.push_back("<=");
-  // add in small number to objective for planning unit variables to break ties in solution
+  // add in small number to objective for planning unit variables to break ties
+  // in solution
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
     ptr->_obj.push_back(1.0e-10);
   // add in default species weights (species treated equally)
-  for (std::size_t i=ptr->_number_of_planning_units; i < (ptr->_number_of_planning_units+ptr->_number_of_features); ++i)
+  for (std::size_t i=ptr->_number_of_planning_units;
+       i < (ptr->_number_of_planning_units+ptr->_number_of_features); 
+       ++i)
     ptr->_obj.push_back(1.0);
-  // add in upper and lower bounds for the decision variables representing if each species
-  // is adequately conserved
-  for (std::size_t i=ptr->_number_of_planning_units; i < (ptr->_number_of_planning_units+ptr->_number_of_features); ++i)
+  // add in upper and lower bounds for the decision variables representing if
+  // each species is adequately conserved
+  for (std::size_t i=ptr->_number_of_planning_units;
+       i < (ptr->_number_of_planning_units+ptr->_number_of_features);
+       ++i)
     ptr->_ub.push_back(1.0);
-  for (std::size_t i=ptr->_number_of_planning_units; i < (ptr->_number_of_planning_units+ptr->_number_of_features); ++i)
+  for (std::size_t i=ptr->_number_of_planning_units;
+       i < (ptr->_number_of_planning_units+ptr->_number_of_features);
+       ++i)
     ptr->_lb.push_back(0.0);
-  // add in binary variable types for variables representing if each species is adequately
-  // conserved
-  for (std::size_t i=ptr->_number_of_planning_units; i < (ptr->_number_of_planning_units+ptr->_number_of_features); ++i)
+  // add in binary variable types for variables representing if each species is
+  // adequately conserved
+  for (std::size_t i=ptr->_number_of_planning_units;
+       i < (ptr->_number_of_planning_units+ptr->_number_of_features);
+       ++i)
     ptr->_vtype.push_back("B");
   // add in model matrix values for species targets
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
@@ -50,7 +62,7 @@ bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets, 
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
     ptr->_A_j.push_back(ptr->_number_of_planning_units+i);
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_A_x.push_back(targets[i]);
+    ptr->_A_x.push_back(-1.0 * targets[i]);
   // add in budget constraints
   for (std::size_t j=0; j<(ptr->_number_of_planning_units); ++j)
     ptr->_A_i.push_back(ptr->_number_of_features);
@@ -61,7 +73,9 @@ bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets, 
   // add in row and col ids
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
     ptr->_col_ids.push_back("pu");
-  for (std::size_t i=ptr->_number_of_planning_units; i<(ptr->_number_of_planning_units+ptr->_number_of_features); ++i)
+  for (std::size_t i=ptr->_number_of_planning_units;
+       i<(ptr->_number_of_planning_units+ptr->_number_of_features);
+       ++i)
     ptr->_col_ids.push_back("spp_met");
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
     ptr->_row_ids.push_back("spp_target");

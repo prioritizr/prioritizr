@@ -90,7 +90,7 @@ add_maximum_coverage_objective <- function(x, budget) {
     isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
     isTRUE(budget > 0.0))
   # make parameter
-  p <- numeric_parameter('budget', budget, lower_bound=0, 
+  p <- numeric_parameter('budget', budget, lower_limit=0, 
     upper_limit=sum(x$planning_unit_costs()))
   # add objective to problem
   x$add_objective(pproto(
@@ -102,7 +102,7 @@ add_maximum_coverage_objective <- function(x, budget) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(y, 'ConservationProblem'))
       invisible(rcpp_apply_maximum_coverage_objective(x$ptr, y$feature_targets(),
-        x$planning_unit_costs()))
+        y$planning_unit_costs(), self$parameters$get('budget')))
     }))
   # return problem
   return(x)

@@ -12,14 +12,14 @@ add_binary_decision(x)
 
 add_proportion_decision(x)
 
-add_semicontinuous_decision(x, upper)
+add_semicontinuous_decision(x, upper_limit)
 
 add_default_decision(x)
 }
 \arguments{
 \item{x}{\code{ConservationProblem} object.}
 
-\item{upper}{\code{numeric} value specifying the maximum proportion
+\item{upper_limit}{\code{numeric} value specifying the maximum proportion
 of a planning unit that can be reserved (eg. set to 0.8 for 80 \%).}
 }
 \value{
@@ -76,12 +76,12 @@ p2 <- p \%>\% binary_decision()
 p3 <- p \%>\% proportion_decision()
 
 # specify a semicontinuous decision type
-p4 <- p \%>\% semicontinuous_decision(upper=0.5)
+p4 <- p \%>\% semicontinuous_decision(upper_limit=0.5)
 
 # solve problem
 s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
 names(s) <- c('default decision (binary)', 'binary decision',
-  'proportion decision', 'semicontinuous decision (upper=0.5)')
+  'proportion decision', 'semicontinuous decision (upper_limit=0.5)')
 
 # plot solutions
 plot(s)

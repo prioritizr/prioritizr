@@ -11,7 +11,7 @@ NULL
 #'
 #' @export
 new_optimization_problem <- function() {
-  pproto('OptimizationProblem', OptimizationProblem,
+  pproto(NULL, OptimizationProblem,
     ptr=rcpp_new_optimization_problem())
 }
 

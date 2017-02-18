@@ -2,6 +2,27 @@
 #'   Solver-proto.R ConservationProblem-proto.R OptimizationProblem-proto.R 
 NULL
 
+#' Find intersecting units
+#'
+#' Determine the units in any given spatial data object that intersect
+#' with any of the units in another spatial data object.
+#'
+#' @param x Object.
+#'
+#' @param y Object.
+#'
+#' @return the units in \code{x} that intersect with \code{y}.
+#'
+#' @name intersecting_units
+NULL
+
+#' @export
+methods::setGeneric('intersecting_units', 
+                    signature=methods::signature('x', 'y'),
+                    function(x, y) 
+                      standardGeneric('intersecting_units'))
+
+
 #' Compile a problem
 #' 
 #' Compile a \code{\link{ConservationProblem}} into an
@@ -345,3 +366,160 @@ methods::setGeneric('connected_matrix',
 methods::setGeneric('fast_extract',
                     signature=methods::signature('x', 'y'),
                     function(x, y, ...) standardGeneric('fast_extract'))
+
+#' Add locked in constraints
+#'
+#' Add constraints constraints to lock in planning units
+#' so that they are selected in the solution. For example, it may
+#' be desirable to lock in planning units already within existing
+#' protected areas so that the solutions fills in the gaps in the existing
+#' reserve network.
+#' 
+#' @param x \code{\link{ConservationProblem}} object.
+#'
+#' @param locked_in Object that determines which planning units that should be 
+#'   locked in. See details for more information.
+#'
+#' @details The locked in planning units can be specified in several 
+#'   different ways:
+#'
+#'   \describe{
+#'   
+#'   \item{\code{integer} \code{vector}}{indices for which planning units should
+#'     be locked in.}
+#'
+#'   \item{\code{character}}{column name in the attribute table with 
+#'     \code{logical} values indicating if planning units should be locked in. 
+#'     Note that \code{locked_in} can only a \code{character} if the planning
+#'     units in \code{x} are a \code{\link{SpatialPolygonsDataFrame-class}}, 
+#'     \code{\link{SpatialLinesDataFrame-class}}, or 
+#'     \code{\link{SpatialPointsDataFrame-class}} object.}
+#'
+#'   \item{\code{\link[raster]{Raster-class}} object}{Planning units in \code{x} 
+#'     that intersect with cells in \code{y} that are not equal to zero and 
+#'     not \code{NA} are locked in.}
+#'
+#'   \item{\code{\link[sp]{Spatial-class}} object.}{planning units in \code{x} 
+#'     that spatially intersect with \code{locked_in} are locked in.}
+#'
+#'  }
+#'
+#' @return \code{\link{ConservationProblem}} object.
+#'
+#' @examples
+#' # create basic problem
+#' p <- problem(sim_pu_polygons, sim_features) %>%
+#'   add_minimum_set_objective() %>%
+#'   add_relative_targets(0.2)
+#'
+#' # create problem with added locked in constraints using integers
+#' p2 <- p %>% add_locked_in_constraint(which(sim_pu_polygons$locked_in))
+#'
+#' # create problem with added locked in constraints using a field name
+#' p3 <- p %>% add_locked_in_constraint('locked_in')
+#'
+#' # create problem with added locked in constraints using raster data
+#' p4 <- p %>% add_locked_in_constraint(sim_locked_in_raster)
+#'
+#' # create problem with added locked in constraints using spatial polygons data
+#' locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1,]
+#' p5 <- p %>% add_locked_in_constraint(locked_in)
+#'
+#' # solve problems
+#' s <- stack(solve(p), solve(p2), solve(p3), solve(p4), solve(p5))
+#' names(s) <- c('basic solution', 'locked in (integer input)', 
+#'               'locked in (character input)', 'locked in (raster input)', 
+#'               'locked in (polygons input)')
+#'
+#' # plot solutions
+#' plot(s)
+#' 
+#' @seealso \code{\link{constraints}} for all the available constraints.
+#'
+#' @name add_locked_in_constraint
+NULL
+
+#' @export
+methods::setGeneric('add_locked_in_constraint', 
+                    signature=methods::signature('x', 'locked_in'),
+                    function(x, locked_in) 
+                      standardGeneric('add_locked_in_constraint'))
+
+
+#' Add locked out constraints
+#'
+#' Add constraints to ensure that certain planning units are locked out 
+#' from the solution. For example, it may be useful to lock out planning 
+#' units that have been substantially altered by anthropogenic development,
+#' and so contain little remaining habitat.
+#' 
+#' @param x \code{\link{ConservationProblem}} object.
+#'
+#' @param locked_in Object that determines which planning units that should be 
+#'   locked out. See details for more information.
+#'
+#' @details The locked out planning units can be specified in several 
+#'   different ways:
+#'
+#'   \describe{
+#'   
+#'   \item{\code{integer} \code{vector}}{indices for which planning units should
+#'     be locked out.}
+#'
+#'   \item{\code{character}}{column name in the attribute table with 
+#'     \code{logical} values indicating if planning units should be locked out. 
+#'     Note that \code{locked_out} can only a \code{character} if the planning
+#'     units in \code{x} are a \code{\link{SpatialPolygonsDataFrame-class}}, 
+#'     \code{\link{SpatialLinesDataFrame-class}}, or 
+#'     \code{\link{SpatialPointsDataFrame-class}} object.}
+#'
+#'   \item{\code{\link{Raster-class}} object}{with \code{logical} cells values. 
+#'     Planning units in \code{x} that spatially intersect with at least one 
+#'     \code{TRUE} pixel are locked in.}
+#'
+#'   \item{\code{\link{Spatial-class}} object.}{planning units in \code{x} that
+#'     spatially intersect with \code{locked_in} are locked in.}
+#'
+#'  }
+#'
+#' @return \code{\link{ConservationProblem}} object.
+#'
+#' @examples
+#' # create basic problem
+#' p <- problem(sim_pu_polygons, sim_features) %>%
+#'   add_minimum_set_objective() %>%
+#'   add_relative_targets(0.2)
+#'
+#' # create problem with added locked out constraints using integers
+#' p2 <- p %>% add_locked_out_constraint(which(sim_pu_polygons$locked_in))
+#'
+#' # create problem with added locked out constraints using a field name
+#' p3 <- p %>% add_locked_out_constraint('locked_out')
+#'
+#' # create problem with added locked out constraints using raster data
+#' p4 <- p %>% add_locked_out_constraint(sim_locked_out_raster)
+#'
+#' # create problem with added locked out constraints using spatial polygons 
+#' # data
+#' locked_out <- sim_locked_in_polygons[sim_pu_polygons$locked_out == 1,]
+#' p5 <- p %>% add_locked_out_constraint(locked_out)
+#'
+#' # solve problems
+#' s <- stack(solve(p), solve(p2), solve(p3), solve(p4), solve(p5))
+#' names(s) <- c('basic solution', 'locked out (integer input)', 
+#'               'locked out (character input)', 'locked out (raster input)', 
+#'               'locked out (polygons input)')
+#'
+#' # plot solutions
+#' plot(s)
+#' 
+#' @seealso \code{\link{constraints}} for all the available constraints.
+#'
+#' @name add_locked_out_constraint
+NULL
+
+#' @export
+methods::setGeneric('add_locked_out_constraint', 
+                    signature=methods::signature('x', 'locked_out'),
+                    function(x, locked_out) 
+                      standardGeneric('add_locked_out_constraint'))

@@ -93,12 +93,12 @@ rcpp_apply_connected_constraint <- function(x, boundary_matrix) {
     .Call('prioritizr_rcpp_apply_connected_constraint', PACKAGE = 'prioritizr', x, boundary_matrix)
 }
 
-rcpp_apply_locked_in_constraint <- function(x, status) {
-    .Call('prioritizr_rcpp_apply_locked_in_constraint', PACKAGE = 'prioritizr', x, status)
+rcpp_apply_locked_in_constraint <- function(x, indices) {
+    .Call('prioritizr_rcpp_apply_locked_in_constraint', PACKAGE = 'prioritizr', x, indices)
 }
 
-rcpp_apply_locked_out_constraint <- function(x, status) {
-    .Call('prioritizr_rcpp_apply_locked_out_constraint', PACKAGE = 'prioritizr', x, status)
+rcpp_apply_locked_out_constraint <- function(x, indices) {
+    .Call('prioritizr_rcpp_apply_locked_out_constraint', PACKAGE = 'prioritizr', x, indices)
 }
 
 rcpp_apply_minimum_set_objective <- function(x, targets, costs) {

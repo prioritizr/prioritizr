@@ -104,7 +104,7 @@ OptimizationProblem <- pproto(
       '\n  model sense: ', self$modelsense(), 
       '\n  dimensions:  ', self$nrow(), ', ', self$ncol(), ', ', self$ncell(), 
                           ' (nrow, ncol, ncell)',
-      '\n  variables:    ',cv)
+      '\n  variables:   ',cv)
     } else {
       message('optimization problem (empty)')
     }
@@ -131,7 +131,9 @@ OptimizationProblem <- pproto(
     rcpp_get_optimization_problem_obj(self$ptr)
   },
   A = function(self) {
-    rcpp_get_optimization_problem_A(self$ptr)
+    x <- rcpp_get_optimization_problem_A(self$ptr)
+    Matrix::sparseMatrix(i=x$i, j=x$j, x=x$x, index1=FALSE,
+      giveCsparse=FALSE)
   },
   rhs = function(self) {
     rcpp_get_optimization_problem_rhs(self$ptr)
@@ -146,10 +148,10 @@ OptimizationProblem <- pproto(
     rcpp_get_optimization_problem_ub(self$ptr)
   },
   number_of_features = function(self) {
-  rcpp_get_optimization_problem_number_of_features(self$ptr) 
+    rcpp_get_optimization_problem_number_of_features(self$ptr) 
   },
   number_of_planning_units = function(self) {
-  rcpp_get_optimization_problem_number_of_planning_units(self$ptr) 
+    rcpp_get_optimization_problem_number_of_planning_units(self$ptr) 
   },
   col_ids = function(self) {
     rcpp_get_optimization_problem_col_ids(self$ptr)

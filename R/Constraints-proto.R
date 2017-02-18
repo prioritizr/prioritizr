@@ -77,8 +77,8 @@ Constraints <- pproto(
     }
     which(r)
   },  
-  add_constraint = function(self, x) {
-    assertthat::assert_that(inherits(x), 'Constraint')
+  add = function(self, x) {
+    assertthat::assert_that(inherits(x, 'Constraint'))
     self$constraints <- append(self$constraints, x)
   },
   get_parameter = function(self, id) {

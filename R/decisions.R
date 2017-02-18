@@ -37,7 +37,7 @@ NULL
 #'
 #' @param x \code{ConservationProblem} object.
 #'
-#' @param upper \code{numeric} value specifying the maximum proportion
+#' @param upper_limit \code{numeric} value specifying the maximum proportion
 #'   of a planning unit that can be reserved (eg. set to 0.8 for 80 \%).
 #'
 #' @details Only a single decision should be added to a 
@@ -59,12 +59,12 @@ NULL
 #' p3 <- p %>% proportion_decision()
 #' 
 #' # specify a semicontinuous decision type
-#' p4 <- p %>% semicontinuous_decision(upper=0.5)
+#' p4 <- p %>% semicontinuous_decision(upper_limit=0.5)
 #'
 #' # solve problem
 #' s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
 #' names(s) <- c('default decision (binary)', 'binary decision',
-#'   'proportion decision', 'semicontinuous decision (upper=0.5)')
+#'   'proportion decision', 'semicontinuous decision (upper_limit=0.5)')
 #'
 #' # plot solutions
 #' plot(s)
@@ -79,7 +79,7 @@ add_binary_decision <- function(x) {
   assertthat::assert_that(inherits(x, 'ConservationProblem'))
   # add decision
   x$add_decision(pproto('BinaryDecision', Decision, 
-    name='binary decision',
+    name='Binary decision',
     apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
       invisible(rcpp_apply_binary_decision(x$ptr))
@@ -96,7 +96,7 @@ add_proportion_decision <- function(x) {
   assertthat::assert_that(inherits(x, 'ConservationProblem'))
   # add decision  
   x$add_decision(pproto('ProportionDecision', Decision, 
-    name='proportion decision',
+    name='Proportion decision',
     apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
       invisible(rcpp_apply_proportion_decision(x$ptr))
@@ -108,19 +108,19 @@ add_proportion_decision <- function(x) {
 
 #' @rdname decisions
 #' @export
-add_semicontinuous_decision <- function(x, upper) {
+add_semicontinuous_decision <- function(x, upper_limit) {
   # assert arguments are valid
   assertthat::assert_that(inherits(x, 'ConservationProblem'), 
-    isTRUE(all(is.finite(upper))), assertthat::is.scalar(upper), 
-    isTRUE(upper <= 1), isTRUE(upper >= 0))
+    isTRUE(all(is.finite(upper_limit))), assertthat::is.scalar(upper_limit), 
+    isTRUE(upper_limit <= 1), isTRUE(upper_limit >= 0))
   # add decision to problem
   x$add_decision(pproto('SemiContinuousDecision', Decision, 
-    name='semicontinuous decision',
-    parameters=parameters(proportion_parameter('Upper',upper)),
+    name='Semicontinuous decision',
+    parameters=parameters(proportion_parameter('upper limit', upper_limit)),
     apply=function(self, x) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'))
       invisible(rcpp_apply_semicontinuous_decision(x$ptr,
-        self$parameters$get('Upper')))
+        self$parameters$get('upper limit')))
     }))
   # return problem
   return(x)

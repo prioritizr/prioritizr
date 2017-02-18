@@ -6,7 +6,7 @@ methods::setMethod('fast_extract', signature(x='Raster', y='SpatialPolygons'),
   function(x, y, fun=mean, velox=requireNamespace('velox'), ...) {
     # assert arguments are valid
     assertthat::assert_that(inherits(x, 'Raster'), inherits(y, 'SpatialPolygons'),
-      inherits(fun, 'function'),
+      isTRUE(is.null(fun) || inherits(fun, 'function')),
       assertthat::is.flag(velox), raster::compareCRS(x@crs, y@proj4string),
       rgeos::gIntersects(as(raster::extent(x[[1]]), 'SpatialPolygons'),
       as(raster::extent(y), 'SpatialPolygons')))
@@ -14,7 +14,7 @@ methods::setMethod('fast_extract', signature(x='Raster', y='SpatialPolygons'),
       stop('the velox R package needs to be installed to use velox')
     # data processing
     args <- list(...)
-    if (velox & !isTRUE(args$cellnumbers) & !isTRUE(args$sp)) {
+    if (velox & !(isTRUE(args$cellnumbers) || isTRUE(args$sp))) {
       if (inherits(x, 'RasterBrick'))
         x <- raster::stack(x)
       if (is.parallel()) {

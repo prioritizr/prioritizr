@@ -63,9 +63,8 @@ problem.Raster <- function(x, features, ...) {
       stopiffalse=FALSE))
   if (inherits(x, c('RasterStack', 'RasterBrick')))
     x <- x[[1]]
-  pproto(NULL, ConservationProblem,
-    data=list(cost=x, features=features,
-    rij_matrix=rij_matrix(x, features))) 
+  pproto(NULL, ConservationProblem, constraints=pproto(NULL, Constraints),
+    data=list(cost=x, features=features, rij_matrix=rij_matrix(x, features))) 
 }
 
 #' @rdname problem
@@ -82,7 +81,7 @@ problem.Spatial <- function(x, features, cost_column = names(x)[1], ...) {
     raster::compareCRS(x@proj4string, features@crs),
     isTRUE(rgeos::gIntersects(as(raster::extent(x), 'SpatialPolygons'),
       as(raster::extent(features), 'SpatialPolygons'))))
-  pproto(NULL, ConservationProblem,
+  pproto(NULL, ConservationProblem, constraints=pproto(NULL, Constraints),
     data=list(cost=x, features=features, cost_column = cost_column,
       rij_matrix=rij_matrix(x[,cost_column], features)))
 }

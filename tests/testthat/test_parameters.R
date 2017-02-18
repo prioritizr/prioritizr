@@ -120,7 +120,7 @@ test_that('binary_parameter', {
   # errors
   expect_error(binary_parameter('test', NA_real_))
   expect_error(binary_parameter('test', Inf))
-  expect_error(binary_parameter('test', 0))
+  expect_error(binary_parameter('test', 5L))
   expect_error(binary_parameter('test', -1L))
   expect_error(x$set(NA_real_))
   expect_error(x$set(Inf))

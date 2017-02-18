@@ -49,6 +49,7 @@ class directly.}
 \code{x$compile()}
 \code{x$solve()}
 
+\code{x$number_of_total_units()}
 \code{x$number_of_planning_units()}
 \code{x$planning_unit_costs()}
 \code{x$number_of_features()}
@@ -115,6 +116,9 @@ class directly.}
 \item{show}{show the object.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
+
+\item{number_of_total_units}{\code{integer} number of units in the cost
+  data including units that have NA values for cost.}
 
 \item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
 

@@ -9,12 +9,12 @@
 \title{Problem solvers}
 \usage{
 add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
-  presolve = 2, threads = 1)
+  presolve = 2, threads = 1, first_feasible = 0)
 
 add_lpsymphony_solver(x, gap = 0.1, time_limit = -1, verbosity = 1,
   first_feasible = 0)
 
-add_rsymphony_solver(gap = 0.1, time_limit = -1, first_feasible = 0,
+add_rsymphony_solver(x, gap = 0.1, time_limit = -1, first_feasible = 0,
   verbosity = 1)
 
 add_default_solver(x)
@@ -51,21 +51,21 @@ problem. Below is a list of different solvers that can be added to a
 \details{
 \describe{
   \item{\code{add_gurobi_solver}}{\href{http://gurobi.com}{Gurobi} is a
-  state-of-the-art commercial optimization software with an R package
-  interface. It is by far the fastest of the solvers available in this
-  package, however, it is also the only one that isn't free. That said, free
-  academic licenses are available. The \code{gurobi} package is 
-  distributed with the Gurobi software suite. This solver uses the
-  \code{gurobi} package to solve problems.}
+    state-of-the-art commercial optimization software with an R package
+    interface. It is by far the fastest of the solvers available in this
+    package, however, it is also the only one that isn't free. That said, 
+    free academic licenses are available. The \code{gurobi} package is 
+    distributed with the Gurobi software suite. This solver uses the
+    \code{gurobi} package to solve problems.}
 
 \item{\code{add_rsymphony_solver}}{
-  \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
-  integer programming solver that is part of the Computational Infrastructure
-  for Operations Research (COIN-OR) project, an initiative to promote
-  development of open-source tools for operations research (a field that
-  includes linear programming). The \code{Rsymphony} package provides an
-  interface to COIN-OR and is available on CRAN. This solver uses the
-  \code{Rsymphony} package to solve problems.}
+    \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
+    integer programming solver that is part of the Computational 
+    Infrastructure for Operations Research (COIN-OR) project, an initiative 
+    to promote development of open-source tools for operations research (a 
+    field that includes linear programming). The \code{Rsymphony} package 
+    provides an interface to COIN-OR and is available on CRAN. This solver 
+    uses the \code{Rsymphony} package to solve problems.}
 
 \item{\code{add_lpsymphony_solver}}{The \code{lpsymphony} package provides a
    different interface to the COIN-OR software suite. Unlike the 

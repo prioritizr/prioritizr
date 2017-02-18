@@ -49,10 +49,10 @@ integer_parameter <- function(name, value,
                               lower_limit=as.integer(-.Machine$integer.max),
                               upper_limit=as.integer(.Machine$integer.max)) {
   assertthat::assert_that(assertthat::is.string(name), is.finite(value),
-    assertthat::is.count(abs(value)))
+    assertthat::is.scalar(value), isTRUE(round(value)==value))
   pproto('IntegerParameter', ScalarParameter, id=new_id(), name=name,
     value=as.integer(value), default=as.integer(value), class='integer',
-    lower_limit=lower_limit, upper_limit=upper_limit,
+    lower_limit=as.integer(lower_limit), upper_limit=as.integer(upper_limit),
     widget='shiny::numericInput')
 } 
 
@@ -64,15 +64,14 @@ numeric_parameter <- function(name, value,
     assertthat::is.scalar(value), is.finite(value))
   pproto('NumericParameter', ScalarParameter, id=new_id(), name=name,
     value=as.double(value), default=as.double(value), class='numeric',
-    lower_limit=lower_limit, upper_limit=upper_limit,
+    lower_limit=as.double(lower_limit), upper_limit=as.double(upper_limit),
     widget='shiny::numericInput')
 }
 
 #' @rdname scalar_parameters
 binary_parameter <- function(name, value) {
   assertthat::assert_that(assertthat::is.string(name),
-    isTRUE(value<=1), isTRUE(value>=0), is.finite(value),
-    assertthat::is.count(value))
+    assertthat::is.scalar(value), isTRUE(value==1 | value==0), is.finite(value))
   pproto('BinaryParameter', ScalarParameter, id=new_id(), name=name,
     value=as.integer(value), default=as.integer(value), class='integer',
     lower_limit=0L, upper_limit=1L, widget='shiny::checkboxInput')
@@ -146,9 +145,9 @@ numeric_parameter_array <- function(name, value, label,
 #' @rdname array_parameters
 binary_parameter_array <- function(name, value, label) {
   assertthat::assert_that(assertthat::is.string(name),
-    inherits(value, 'numeric'), isTRUE(all(value==round(value))),
-    isTRUE(all(value >= 0)),isTRUE(all(value <= 1)), 
+    inherits(value, 'numeric'), 
     assertthat::noNA(value), all(is.finite(value)),
+    isTRUE(all(value==1 | value==0)),
     inherits(label, 'character'), assertthat::noNA(label),
     length(value) == length(label))
   pproto('BinaryParameterArray', ArrayParameter, id=new_id(),
