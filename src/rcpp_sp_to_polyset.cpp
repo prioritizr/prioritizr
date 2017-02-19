@@ -1,9 +1,4 @@
-#include <Rcpp.h>
-// [[Rcpp::plugins(cpp11)]]
-
-using namespace Rcpp;
-
-
+#include "prioritizr.h"
 #include <vector>
 
 // [[Rcpp::export]]

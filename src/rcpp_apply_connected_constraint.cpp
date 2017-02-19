@@ -1,3 +1,4 @@
+#include "prioritizr.h"
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]

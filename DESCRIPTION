@@ -38,7 +38,7 @@ Depends:
     proto,
     raster,
     sp
-LinkingTo: Rcpp, RcppArmadillo
+LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true
 SystemRequirements: C++11
@@ -69,7 +69,7 @@ Collate:
     'OptimizationProblem-proto.R'
     'OptimizationProblem-methods.R'
     'RcppExports.R'
-    'add_bounary_constraint.R'
+    'add_boundary_constraint.R'
     'add_connected_constraint.R'
     'add_corridors_constraint.R'
     'generics.R'

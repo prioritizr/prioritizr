@@ -1,11 +1,7 @@
 #ifndef OPTIMIZATION_PROBLEM_H
 #define OPTIMIZATION_PROBLEM_H
 
-#include <Rcpp.h>
-// [[Rcpp::plugins(cpp11)]]
-
-using namespace Rcpp;
-
+#include "prioritizr.h"
 #include <vector>
 #include <algorithm>
  

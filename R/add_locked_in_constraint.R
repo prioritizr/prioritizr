@@ -1,7 +1,8 @@
 #' @include internal.R generics.R Constraint-proto.R intersecting_units.R
 NULL
 
-#' @export
+#' @name add_locked_in_constraint
+#' @rdname add_locked_in_constraint
 methods::setMethod('add_locked_in_constraint', 
   methods::signature('ConservationProblem', 'numeric'),
   function(x, locked_in) {
@@ -40,12 +41,11 @@ methods::setMethod('add_locked_in_constraint',
         }
         invisible(TRUE)
       }))
-    # return problem
-    return(x)
   }
 )
 
-#' @export
+#' @name add_locked_in_constraint
+#' @rdname add_locked_in_constraint
 methods::setMethod('add_locked_in_constraint', 
   methods::signature('ConservationProblem', 'character'),
   function(x, locked_in) {
@@ -61,7 +61,8 @@ methods::setMethod('add_locked_in_constraint',
   }
 )
 
-#' @export
+#' @name add_locked_in_constraint
+#' @rdname add_locked_in_constraint
 methods::setMethod('add_locked_in_constraint', 
   methods::signature('ConservationProblem', 'Spatial'),
   function(x, locked_in) {
@@ -73,7 +74,8 @@ methods::setMethod('add_locked_in_constraint',
   }
 )
 
-#' @export
+#' @name add_locked_in_constraint
+#' @rdname add_locked_in_constraint
 methods::setMethod('add_locked_in_constraint', 
   methods::signature('ConservationProblem', 'Raster'),
   function(x, locked_in) {

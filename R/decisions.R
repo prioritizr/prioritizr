@@ -85,8 +85,6 @@ add_binary_decision <- function(x) {
       invisible(rcpp_apply_binary_decision(x$ptr))
     }
   ))
-  # return problem
-  return(x)
 }
 
 #' @rdname decisions
@@ -102,8 +100,6 @@ add_proportion_decision <- function(x) {
       invisible(rcpp_apply_proportion_decision(x$ptr))
     }
   ))
-  # return problem
-  return(x)
 }
 
 #' @rdname decisions
@@ -122,8 +118,6 @@ add_semicontinuous_decision <- function(x, upper_limit) {
       invisible(rcpp_apply_semicontinuous_decision(x$ptr,
         self$parameters$get('upper limit')))
     }))
-  # return problem
-  return(x)
 }
 
 

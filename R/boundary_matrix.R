@@ -1,7 +1,8 @@
 #' @include internal.R generics.R
 NULL
 
-#' @export
+#' @name boundary_matrix
+#' @rdname boundary_matrix
 methods::setMethod(
   'boundary_matrix',
   signature(x='Raster'),
@@ -38,7 +39,8 @@ methods::setMethod(
   as(m, 'dsCMatrix')
 })
 
-#' @export
+#' @name boundary_matrix
+#' @rdname boundary_matrix
 methods::setMethod(
   'boundary_matrix',
   signature(x='SpatialPolygons'),
@@ -55,7 +57,8 @@ methods::setMethod(
                          symmetric=TRUE)
 })
 
-#' @export
+#' @name boundary_matrix
+#' @rdname boundary_matrix
 methods::setMethod(
   'boundary_matrix',
   signature(x='SpatialLines'),
@@ -65,7 +68,8 @@ methods::setMethod(
       'See ?constraints for alternative constraints.')
 })
 
-#' @export
+#' @name boundary_matrix
+#' @rdname boundary_matrix
 methods::setMethod(
   'boundary_matrix',
   signature(x='SpatialPoints'),

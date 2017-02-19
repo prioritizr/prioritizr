@@ -1,3 +1,4 @@
+#include "prioritizr.h"
 #include "rcpp_boundary_data.h"
 
 // [[Rcpp::export]]

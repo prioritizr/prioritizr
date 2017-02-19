@@ -1,12 +1,14 @@
 #' @include internal.R generics.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
 NULL
 
-#' @export
+#' @name @solve
+#' @rdname solve
 methods::setMethod('solve', signature(a='OptimizationProblem', b='Solver'),
   function(a, b) b$solve(a)
 )
 
-#' @export
+#' @name @solve
+#' @rdname solve
 methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
   function(a, b) {
     # assign solver

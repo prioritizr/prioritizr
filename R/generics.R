@@ -36,12 +36,15 @@ methods::setGeneric('intersecting_units',
 #'
 #' @examples
 #' # build minimal conservation problem
-#' p <- problem(sim_pu_raster, sim_features) +
-#'   minimum_set_objective() +
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'   minimum_set_objective() %>%
 #'   relative_targets(0.1)
 #'
-#' # compile the optimization problem
-#' compile(p)
+#' # compile the conservation problem into an optimization problem
+#' o <- compile(p)
+#'
+#' # print the optimization problem
+#' print(o)
 #'
 #' @export
 compile <- function(x, ...) UseMethod('compile')
@@ -76,14 +79,19 @@ compile <- function(x, ...) UseMethod('compile')
 #'
 #' @examples
 #' # build minimal conservation problem
-#' p <- problem(sim_pu_raster, sim_features) +
-#'   minimum_set_objective() +
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'   minimum_set_objective() %>%
 #'   relative_targets(0.1)
 #'
 #' # solve the problem
-#' solve(p)
+#' s <- solve(p)
+#'
+#' # print the solution
+#' print(s)
 #'
 #' @name solve
+#' @importFrom Matrix solve
+#' @exportMethod solve
 NULL
 
 #' Show
@@ -96,27 +104,33 @@ NULL
 #' @name show
 NULL
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'ConservationModifier',
                    function(object) object$show())
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'ConservationProblem',
                    function(object) object$show())
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'Id',
                    function(object) print(object))
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'OptimizationProblem',
                    function(object) object$show())
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'Parameter',
                    function(object) object$show())
 
-#' @export
+#' @name show
+#' @rdname show
 methods::setMethod('show', 'Solver', function(object) object$show())
 
 #' Print
@@ -268,6 +282,8 @@ is.Waiver <- function(x) inherits(x, 'Waiver')
 #'
 #' @name rij_matrix
 #'
+#' @exportMethod rij_matrix
+#'
 #' @export
 methods::setGeneric('rij_matrix', 
                     signature=methods::signature('x', 'y'),
@@ -302,6 +318,8 @@ methods::setGeneric('rij_matrix',
 #'
 #' @name boundary_matrix
 #'
+#' @exportMethod boundary_matrix
+#'
 #' @export
 methods::setGeneric('boundary_matrix', 
                     signature=methods::signature('x'),
@@ -335,6 +353,8 @@ methods::setGeneric('boundary_matrix',
 #'
 #' @name connected_matrix
 #'
+#' @exportMethod connected_matrix
+#'
 #' @export
 methods::setGeneric('connected_matrix', 
                     signature=methods::signature('x'),
@@ -361,6 +381,8 @@ methods::setGeneric('connected_matrix',
 #'   \code{\link[velox]{VeloxRaster_extract}}
 #'
 #' @name fast_extract
+#'
+#' @exportMethod fast_extract
 #'
 #' @export
 methods::setGeneric('fast_extract',
@@ -437,8 +459,9 @@ methods::setGeneric('fast_extract',
 #' @seealso \code{\link{constraints}} for all the available constraints.
 #'
 #' @name add_locked_in_constraint
-NULL
-
+#'
+#' @exportMethod add_locked_in_constraint
+#'
 #' @export
 methods::setGeneric('add_locked_in_constraint', 
                     signature=methods::signature('x', 'locked_in'),
@@ -516,8 +539,9 @@ methods::setGeneric('add_locked_in_constraint',
 #' @seealso \code{\link{constraints}} for all the available constraints.
 #'
 #' @name add_locked_out_constraint
-NULL
-
+#'
+#' @exportMethod add_locked_out_constraint
+#'
 #' @export
 methods::setGeneric('add_locked_out_constraint', 
                     signature=methods::signature('x', 'locked_out'),

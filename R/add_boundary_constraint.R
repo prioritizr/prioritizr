@@ -27,19 +27,18 @@ NULL
 #'   add_minimum_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'
-#' # create problem with added boundary constraints such that outer edges
-#' # receive the same penalty as inner edges
+#' # create problem with low boundary penalties
 #' p2 <- p %>% add_boundary_constraint(5, 1)
 #'
-#' # create problem with added boundary constraints such that outer edges
+#' # create problem with high boundary penalties
 #' # receive half the penalty as inner edges
-#' p3 <- p %>% add_boundary_constraint(5, 0.5)
+#' p3 <- p %>% add_boundary_constraint(100, 1)
 #'
 #' # solve problems
+#' solve(p)
 #' s <- stack(solve(p), solve(p2), solve(p3))
-#' names(s) <- c('basic solution', 
-#'   'solution with boundary constraints (edge_factor=1)',
-#'   'solution with boundary constraints (edge_factor=0.5)')
+#' names(s) <- c('basic solution', 'small boundary constraints', 
+#'               'high boundary constraints')
 #'
 #' # plot solutions
 #' plot(s)
@@ -73,12 +72,11 @@ add_boundary_constraint <- function(x, penalty, edge_factor) {
         # manually coerce boundary matrix to 'dgCMatrix' class so that
         # elements in the lower diagonal are not filled in
         class(b) <- 'dgCMatrix'
-        rcpp_apply_boundary_constraint(x$ptr, b, self$parameters$get('Penalty'),
-          self$parameters$get('Edge factor'))
+        o1 <<- b
+        rcpp_apply_boundary_constraint(x$ptr, b, self$parameters$get('penalty'),
+          self$parameters$get('edge factor'))
       }
       invisible(TRUE)
     }))
-  # return problem
-  return(x)
 }
 

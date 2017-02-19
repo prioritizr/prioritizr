@@ -78,8 +78,6 @@ add_minimum_set_objective <- function(x) {
       invisible(rcpp_apply_minimum_set_objective(x$ptr, y$feature_targets(),
         y$planning_unit_costs()))
     }))
-  # return probem
-  return(x)
 }
 
 #' @rdname objectives
@@ -104,8 +102,6 @@ add_maximum_coverage_objective <- function(x, budget) {
       invisible(rcpp_apply_maximum_coverage_objective(x$ptr, y$feature_targets(),
         y$planning_unit_costs(), self$parameters$get('budget')))
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname objectives
@@ -134,8 +130,6 @@ add_phylogenetic_coverage_objective <- function(x, budget, tree) {
         inherits(x, 'ConservationProblem'))    
       stop('TODO: apply function for phylogenetic_coverage_objective')
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname objectives

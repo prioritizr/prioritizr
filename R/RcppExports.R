@@ -85,8 +85,8 @@ rcpp_add_rij_data <- function(x, rij) {
     .Call('prioritizr_rcpp_add_rij_data', PACKAGE = 'prioritizr', x, rij)
 }
 
-rcpp_apply_clumping_constraint <- function(x, boundary_matrix, penalty, edge_factor) {
-    .Call('prioritizr_rcpp_apply_clumping_constraint', PACKAGE = 'prioritizr', x, boundary_matrix, penalty, edge_factor)
+rcpp_apply_boundary_constraint <- function(x, boundary_matrix, penalty, edge_factor) {
+    .Call('prioritizr_rcpp_apply_boundary_constraint', PACKAGE = 'prioritizr', x, boundary_matrix, penalty, edge_factor)
 }
 
 rcpp_apply_connected_constraint <- function(x, boundary_matrix) {

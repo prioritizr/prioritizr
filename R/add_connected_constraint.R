@@ -14,6 +14,7 @@ NULL
 #' @seealso \code{\link{constraints}} for all the available constraints.
 #'
 #' @examples
+#' \dontrun{
 #' # create basic problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_minimum_set_objective() %>%
@@ -28,7 +29,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s)
-#'
+#' }
 #' @export
 add_connected_constraint <- function(x) {
   # assert argumnt is valid
@@ -49,6 +50,4 @@ add_connected_constraint <- function(x) {
           as_triplet_dataframe(x$connected_matrix()))
       invisible(TRUE)
     }))
-  # return problem
-  return(x)
 }

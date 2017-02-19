@@ -1,7 +1,8 @@
 #' @include internal.R generics.R
 NULL
 
-#' @export
+#' @name connected_matrix
+#' @rdname connected_matrix
 methods::setMethod(
   'connected_matrix',
   signature(x='Raster'),
@@ -22,7 +23,8 @@ methods::setMethod(
   return(m[include,include])
 })
 
-#' @export
+#' @name connected_matrix
+#' @rdname connected_matrix
 methods::setMethod(
   'connected_matrix',
   signature(x='SpatialPolygons'),
@@ -36,7 +38,8 @@ methods::setMethod(
   return(m)
 })
 
-#' @export
+#' @name connected_matrix
+#' @rdname connected_matrix
 methods::setMethod(
   'connected_matrix',
   signature(x='SpatialLines'),
@@ -50,7 +53,8 @@ methods::setMethod(
   return(m)  
 })
 
-#' @export
+#' @name connected_matrix
+#' @rdname connected_matrix
 methods::setMethod(
   'connected_matrix',
   signature(x='SpatialPoints'),

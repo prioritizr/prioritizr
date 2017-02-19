@@ -1,18 +1,13 @@
 #ifndef RCPP_BOUNDARY_DATA_H
 #define RCPP_BOUNDARY_DATA_H
 
-#include <Rcpp.h>
-// [[Rcpp::plugins(cpp11)]]
-
-using namespace Rcpp;
-
+#include "prioritizr.h"
 #include <vector>
 #include <string>
 #include <algorithm>
 #include <unordered_map>
 #include <boost/functional/hash.hpp>
 #include <boost/unordered_set.hpp>
-
 #include "functions.h"
 
 class LINE
@@ -79,7 +74,6 @@ class PUPAIR
   double _length;
   PUPAIRID _id;
 };
-
 
 #endif
 

@@ -110,8 +110,6 @@ add_relative_targets <- function(x, targets) {
     output = function(self) {
       self$parameters$get('targets')[[1]] * self$data$abundances
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname targets
@@ -141,8 +139,6 @@ add_absolute_targets <- function(x, targets) {
     output = function(self) {
       self$parameters$get('targets')[[1]]
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname targets
@@ -186,8 +182,6 @@ add_loglinear_targets <- function(x, lower_bound_amount,
         self$parameters$get('Amount at upper bound'),
         self$parameters$get('Target at upper bound')) * self$data$abundances
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname targets
@@ -258,6 +252,4 @@ target_weights <- function(x, weights) {
       invisible(rcpp_apply_target_weights(x,
         self$parameters$get('Target weights')[[1]]))
     }))
-  # return problem
-  return(x)
 }

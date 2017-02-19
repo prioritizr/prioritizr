@@ -1,7 +1,8 @@
 #' @include internal.R generics.R parallel.R
 NULL
 
-#' @export
+#' @name fast_extract
+#' @rdname fast_extract
 methods::setMethod('fast_extract', signature(x='Raster', y='SpatialPolygons'), 
   function(x, y, fun=mean, velox=requireNamespace('velox'), ...) {
     # assert arguments are valid
@@ -44,7 +45,8 @@ methods::setMethod('fast_extract', signature(x='Raster', y='SpatialPolygons'),
   }
 )
 
-#' @export
+#' @name fast_extract
+#' @rdname fast_extract
 methods::setMethod('fast_extract', signature(x='Raster', y='SpatialLines'), 
   function(x, y, fun=mean, ...) {
     # assert that arguments are valid
@@ -63,7 +65,8 @@ methods::setMethod('fast_extract', signature(x='Raster', y='SpatialLines'),
   }
 )
 
-#' @export
+#' @name fast_extract
+#' @rdname fast_extract
 methods::setMethod('fast_extract', signature(x='Raster', y='SpatialPoints'), 
   function(x, y, fun=mean, ...) {
     # assert that arguments are valid

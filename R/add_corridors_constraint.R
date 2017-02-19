@@ -26,11 +26,12 @@ NULL
 #'
 #' @examples
 #' # create problem with corridors constraint
+#' \dontrun{
 #' problem(sim_pu_raster, sim_features) %>%
 #'   add_minimum_set_objective() %>%
 #'   add_relative_targets(0.2) %>%
 #'   add_corridors_constraint(0.2, sim_locked_in_raster)
-#'
+#' }
 #' @export
 add_corridors_constraint <- function(x, targets, friction) {
   # assert valid arguments
@@ -55,6 +56,4 @@ add_corridors_constraint <- function(x, targets, friction) {
         inherits(y, 'ConservationProblem'))
       stop('TODO: implement apply method for add_corridors_constraint')
     }))
-  # return problem
-  return(x)
 }

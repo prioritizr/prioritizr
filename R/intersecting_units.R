@@ -1,7 +1,8 @@
 #' @include internal.R generics.R
 NULL
 
-#' @export
+#' @name intersecting_units
+#' @rdname intersecting_units
 methods::setMethod('intersecting_units',
   methods::signature(x='Raster', y='Raster'),
   function(x, y) {
@@ -20,7 +21,8 @@ methods::setMethod('intersecting_units',
   }
 )
 
-#' @export
+#' @name intersecting_units
+#' @rdname intersecting_units
 methods::setMethod('intersecting_units',
   methods::signature(x='Spatial', y='Spatial'),
   function(x, y) {
@@ -41,7 +43,8 @@ methods::setMethod('intersecting_units',
   }
 )
 
-#' @export
+#' @name @solve
+#' @rdname solve
 methods::setMethod('intersecting_units',
   methods::signature(x='Raster', y='Spatial'),
   function(x, y) {
@@ -59,7 +62,8 @@ methods::setMethod('intersecting_units',
   }
 )
 
-#' @export
+#' @name intersecting_units
+#' @rdname intersecting_units
 methods::setMethod('intersecting_units',
   methods::signature(x='Spatial', y='Raster'),
   function(x, y) {

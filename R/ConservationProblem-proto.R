@@ -126,15 +126,15 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{feature_targets}{\code{numeric} targets for each feature.}
 #'
-#' \item{add_objective}{add an objective to the problem.}
+#' \item{add_objective}{return a copy with the objective added to the problem.}
 #'
-#' \item{add_decision}{add a decision to the problem.}
+#' \item{add_decision}{return a copy with the decision to the problem.}
 #'
-#' \item{add_solver}{add a solver to the problem.}
+#' \item{add_solver}{return a copy with the solver to the problem.}
 #'
-#' \item{add_constraint}{add a constraint to the problem.}
+#' \item{add_constraint}{return a copy with the constraint to the problem.}
 #'
-#' \item{add_targets}{add targets to the problem.}
+#' \item{add_targets}{return a copy with the targets to the problem.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the constraints in the object.}
@@ -263,34 +263,31 @@ ConservationProblem <- pproto(
     assertthat::assert_that(inherits(x, 'Solver'))
     if (!is.Waiver(self$solver))
       warning('overwriting previously defined solver')
-    self$solver <- x
-    invisible(TRUE)
-  },
+    pproto(NULL, self, solver=x)
+    },
   add_targets = function(self, x) {
     assertthat::assert_that(inherits(x, 'Target'))
     if (!is.Waiver(self$targets))
       warning('overwriting previously defined targets')
-    self$targets <- x
-    invisible(TRUE)
+    pproto(NULL, self, targets=x)
   },
   add_objective = function(self, x) {
     assertthat::assert_that(inherits(x, 'Objective'))
     if (!is.Waiver(self$objective))
       warning('overwriting previously defined objective')
-    self$objective <- x
-    invisible(TRUE)
+    pproto(NULL, self, objective=x)
   },
   add_decision = function(self, x) {
     assertthat::assert_that(inherits(x, 'Decision'))
     if (!is.Waiver(self$decision))
       warning('overwriting previously defined decision')
-    self$decision <- x
-    invisible(TRUE)
+    pproto(NULL, self, decision=x)
   },
   add_constraint = function(self, x) {
     assertthat::assert_that(inherits(x, 'Constraint'))
-    self$constraints$add(x)
-    invisible(TRUE)
+    p <- pproto(NULL, self)
+    p$constraints$add(x)
+    return(p)
   },
   get_constraint_parameter = function(self, id) {
     self$constraints$get_parameter(id)

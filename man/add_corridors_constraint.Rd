@@ -30,11 +30,12 @@ minimum dispersal capability across the solution.
 }
 \examples{
 # create problem with corridors constraint
+\dontrun{
 problem(sim_pu_raster, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
   add_relative_targets(0.2) \%>\%
   add_corridors_constraint(0.2, sim_locked_in_raster)
-
+}
 }
 \seealso{
 \code{\link{constraints}} for all the available constraints.

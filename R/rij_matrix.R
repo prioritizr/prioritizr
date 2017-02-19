@@ -1,7 +1,8 @@
 #' @include internal.R generics.R fast_extract.R
 NULL
 
-#' @export
+#' @name rij_matrix
+#' @rdname rij_matrix
 methods::setMethod('rij_matrix', signature(x='Raster', y='Raster'),
   function(x, y, ...) {
     # assert that arguments are valid
@@ -33,7 +34,8 @@ methods::setMethod('rij_matrix', signature(x='Raster', y='Raster'),
     return(Matrix::t(m))
 })
 
-#' @export
+#' @name rij_matrix
+#' @rdname rij_matrix
 methods::setMethod('rij_matrix', signature(x='Spatial', y='Raster'),
   function(x, y, fun=sum, velox=requireNamespace('velox'), ...) {
     m <- fast_extract(x=y, y=x, fun=fun, velox=velox, df=FALSE, sp=FALSE)

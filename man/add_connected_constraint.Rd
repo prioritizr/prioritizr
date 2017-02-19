@@ -18,6 +18,7 @@ Add constraints to a conservation problem to ensure that all selected
 planning units are connected.
 }
 \examples{
+\dontrun{
 # create basic problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
@@ -32,7 +33,7 @@ names(s) <- c('basic solution', 'connected solution')
 
 # plot solutions
 plot(s)
-
+}
 }
 \seealso{
 \code{\link{constraints}} for all the available constraints.

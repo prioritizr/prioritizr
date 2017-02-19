@@ -1,9 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include <Rcpp.h>
-using namespace Rcpp;
-
+#include "prioritizr.h"
 #include <vector>
 #include <math.h>
 #include <string>

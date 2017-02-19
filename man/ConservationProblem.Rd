@@ -131,15 +131,15 @@ class directly.}
 
 \item{feature_targets}{\code{numeric} targets for each feature.}
 
-\item{add_objective}{add an objective to the problem.}
+\item{add_objective}{return a copy with the objective added to the problem.}
 
-\item{add_decision}{add a decision to the problem.}
+\item{add_decision}{return a copy with the decision to the problem.}
 
-\item{add_solver}{add a solver to the problem.}
+\item{add_solver}{return a copy with the solver to the problem.}
 
-\item{add_constraint}{add a constraint to the problem.}
+\item{add_constraint}{return a copy with the constraint to the problem.}
 
-\item{add_targets}{add targets to the problem.}
+\item{add_targets}{return a copy with the targets to the problem.}
 
 \item{get_constraint_parameter}{get the value of a parameter (specified by
   argument \code{id}) used in one of the constraints in the object.}

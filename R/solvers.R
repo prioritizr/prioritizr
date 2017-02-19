@@ -137,8 +137,6 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
       if (file.exists('gurobi.log')) unlink('gurobi.log')
       return(x)
     }))
-  # return problem
-  return(x)
 }
 
 #' @export
@@ -185,8 +183,6 @@ add_lpsymphony_solver <- function(x, gap=0.1, time_limit=-1, verbosity=1,
       p$first_feasible <- as.logical(p$first_feasible)
       do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))$solution
     }))
-  # return problem
-  return(x)
 }
 
 #' @export
@@ -232,8 +228,6 @@ add_rsymphony_solver <- function(x, gap=0.1, time_limit=-1, first_feasible=0,
       p$first_feasible <- as.logical(p$first_feasible)
       do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))$solution
     }))
-  # return problem
-  return(x)
 }
 
 #' @rdname solvers

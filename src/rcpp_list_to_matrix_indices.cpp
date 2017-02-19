@@ -1,11 +1,6 @@
-#include <Rcpp.h>
-// [[Rcpp::plugins(cpp11)]]
-
-using namespace Rcpp;
-
-
-#include <vector>
+#include "prioritizr.h"
 #include "functions.h"
+#include <vector>
 
 // [[Rcpp::export]]
 Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x, 

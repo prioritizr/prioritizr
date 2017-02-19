@@ -241,9 +241,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_clumping_constraint
-bool rcpp_apply_clumping_constraint(SEXP x, arma::sp_mat boundary_matrix, double penalty, double edge_factor);
-RcppExport SEXP prioritizr_rcpp_apply_clumping_constraint(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
+// rcpp_apply_boundary_constraint
+bool rcpp_apply_boundary_constraint(SEXP x, arma::sp_mat boundary_matrix, double penalty, double edge_factor);
+RcppExport SEXP prioritizr_rcpp_apply_boundary_constraint(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -251,7 +251,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
     Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
     Rcpp::traits::input_parameter< double >::type edge_factor(edge_factorSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_clumping_constraint(x, boundary_matrix, penalty, edge_factor));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_boundary_constraint(x, boundary_matrix, penalty, edge_factor));
     return rcpp_result_gen;
 END_RCPP
 }
