@@ -18,8 +18,7 @@ compile.ConservationProblem <- function(x, ...) {
     x <- add_default_solver(x)
   op <- new_optimization_problem()
   # add rij data to optimization problem
-  rcpp_add_rij_data(op$ptr, as_triplet_dataframe(x$data$rij_matrix),
-    dim(x$data$rij_matrix))
+  rcpp_add_rij_data(op$ptr, x$data$rij_matrix)
   # add decision types to optimization problem
   x$decision$apply(op)
   # add objective to optimization problem

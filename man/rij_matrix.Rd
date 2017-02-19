@@ -31,7 +31,7 @@ is installed. Note that this only used when \code{x} is a
 \item{...}{not used.}
 }
 \value{
-\code{\link{Matrix}{dgTMatrix-class}} object.
+\code{\link{Matrix}{dgCMatrix-class}} object.
 }
 \description{
 Generate a \code{rij} matrix using spatial data sets. The \code{rij}

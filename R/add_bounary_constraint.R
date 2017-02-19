@@ -1,7 +1,7 @@
 #' @include internal.R Constraint-proto.R
 NULL
 
-#' Add clumping constraints
+#' Add boundary constraints
 #'
 #' Add constraints to a conservation problem that favor solutions that clump
 #' selected planning units together into contiguous reserves.
@@ -27,24 +27,25 @@ NULL
 #'   add_minimum_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'
-#' # create problem with added clumping constraints with outer edges
-#' # recieving the same penalty as inner edges
-#' p2 <- p %>% add_clumping_constraint(5, 1)
+#' # create problem with added boundary constraints such that outer edges
+#' # receive the same penalty as inner edges
+#' p2 <- p %>% add_boundary_constraint(5, 1)
 #'
-#' # create problem with added clumping constraints with outer edges
-#' # recieving half the penalty as inner edges
-#' p3 <- p %>% add_clumping_constraint(5, 0.5)
+#' # create problem with added boundary constraints such that outer edges
+#' # receive half the penalty as inner edges
+#' p3 <- p %>% add_boundary_constraint(5, 0.5)
 #'
 #' # solve problems
 #' s <- stack(solve(p), solve(p2), solve(p3))
-#' names(s) <- c('basic solution', 'clumped solution (edge_factor=1)',
-#'               'clumped solution (edge_factor=0.5)',
+#' names(s) <- c('basic solution', 
+#'   'solution with boundary constraints (edge_factor=1)',
+#'   'solution with boundary constraints (edge_factor=0.5)')
 #'
 #' # plot solutions
 #' plot(s)
 #'
 #' @export
-add_clumping_constraint <- function(x, penalty, edge_factor) {
+add_boundary_constraint <- function(x, penalty, edge_factor) {
   # assert valid arguments
   assertthat::assert_that(inherits(x, 'ConservationProblem'),
     isTRUE(all(is.finite(penalty))), assertthat::is.scalar(penalty), 
@@ -53,23 +54,28 @@ add_clumping_constraint <- function(x, penalty, edge_factor) {
     isTRUE(edge_factor >= 0), isTRUE(edge_factor <= 1))
   # create parameters
   p <- parameters(
-    binary_parameter('Apply constraint?', 1L),
-    numeric_parameter('Penalty', penalty, lower_limit=0),
-    proportion_parameter('Edge factor', edge_factor))
+    binary_parameter('apply constraint?', 1L),
+    numeric_parameter('penalty', penalty, lower_limit=0),
+    proportion_parameter('edge factor', edge_factor))
   # create new constraint object
   x$add_constraint(pproto(
-    'ClumpingConstraint',
+    'BoundaryConstraint',
     Constraint,
-    name='Clumping constraint',
+    name='Boundary constraint',
     parameters=p,
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
-        inherits(x, 'ConservationProblem'))
-      if (self$parameters$get('Apply constraint?')==1)
-        rcpp_apply_clumping_constraint(x$ptr,
-          as_triplet_data_frame(x$boundary_matrix()),
-          self$parameters$get('Penalty'),
+        inherits(y, 'ConservationProblem'))
+      if (isTRUE(self$parameters$get('apply constraint?')==1) &
+          isTRUE(self$parameters$get('penalty') > 1e-10)) {
+        # create boundary matrix
+        b <- boundary_matrix(y$data$cost)
+        # manually coerce boundary matrix to 'dgCMatrix' class so that
+        # elements in the lower diagonal are not filled in
+        class(b) <- 'dgCMatrix'
+        rcpp_apply_boundary_constraint(x$ptr, b, self$parameters$get('Penalty'),
           self$parameters$get('Edge factor'))
+      }
       invisible(TRUE)
     }))
   # return problem

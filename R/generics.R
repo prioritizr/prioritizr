@@ -264,7 +264,7 @@ is.Waiver <- function(x) inherits(x, 'Waiver')
 #'
 #' @seealso \code{\link{set_number_of_threads}}, \code{\link[velox]{velox}}.
 #' 
-#' @return \code{\link{Matrix}{dgTMatrix-class}} object.
+#' @return \code{\link{Matrix}{dgCMatrix-class}} object.
 #'
 #' @name rij_matrix
 #'
@@ -298,7 +298,7 @@ methods::setGeneric('rij_matrix',
 #'   that have no neighbors (eg. for edges of planning units found along the 
 #'   coastline).
 #'
-#' @return \code{\link{Matrix}{dgTMatrix-class}} object.
+#' @return \code{\link{Matrix}{dsCMatrix-class}} object.
 #'
 #' @name boundary_matrix
 #'
@@ -331,7 +331,7 @@ methods::setGeneric('boundary_matrix',
 #'   indicating if two planning units are connected. Cells along the 
 #'   diagonal are zero to reduce computation burden.
 #'
-#' @return \code{\link{Matrix}{dgTMatrix-class}} object.
+#' @return \code{\link{Matrix}{dsCMatrix-class}} object.
 #'
 #' @name connected_matrix
 #'

@@ -12,7 +12,7 @@ test_that('raster planning unit data', {
   expect_equal(x$planning_unit_costs(),
     sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   expect_equal(x$feature_abundances_in_planning_units(), 
-    unname(raster::cellStats(raster::mask(sim_features, sim_pu_raster), 'sum')))
+    raster::cellStats(raster::mask(sim_features, sim_pu_raster), 'sum'))
   expect_error(x$feature_targets())
   expect_equal(problem(sim_pu_raster, sim_pu_raster)$number_of_features(), 1L)
 })

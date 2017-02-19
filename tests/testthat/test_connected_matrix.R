@@ -8,6 +8,7 @@ test_that('RasterLayer', {
   s <- boundary_matrix(raster::rasterToPolygons(x, n=4))
   s[s > 0] <- 1
   # tests
+  expect_true(inherits(m, 'dsCMatrix'))
   expect_true(all(as.matrix(m)[upper.tri(m)] == as.matrix(s)[upper.tri(s)]))
 })
 
@@ -19,6 +20,7 @@ test_that('SpatialPolygons', {
   x <- raster::rasterToPolygons(r, n=4)
   m <- connected_matrix(x)
   # tests
+  expect_true(inherits(m, 'dsCMatrix'))
   expect_true(all(as.matrix(m)[upper.tri(m)] == as.matrix(s)[upper.tri(s)]))
 })
 
@@ -50,6 +52,7 @@ test_that('SpatialLines', {
     x=c(1, 1),
     dims=c(4,4), symmetric=TRUE)
   # tests
+  expect_true(inherits(m, 'dsCMatrix'))
   expect_true(all(m==s))
 })
 
@@ -68,5 +71,6 @@ test_that('SpatialPoints', {
     x=c(1,1),
     dims=c(4,4), symmetric=TRUE, giveCsparse=FALSE)
   # tests
+  expect_true(inherits(m, 'dsCMatrix'))
   expect_true(all(m==s))
 })

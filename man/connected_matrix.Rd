@@ -20,7 +20,7 @@ the distance that planning units have to be within in order
 to qualify as being connected.}
 }
 \value{
-\code{\link{Matrix}{dgTMatrix-class}} object.
+\code{\link{Matrix}{dsCMatrix-class}} object.
 }
 \description{
 Generate a matrix showing which planning units are connected.

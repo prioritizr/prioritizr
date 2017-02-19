@@ -1,23 +1,19 @@
+#include <RcppArmadillo.h>
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_add_rij_data(SEXP x, Rcpp::DataFrame rij, Rcpp::IntegerVector dim) {
+bool rcpp_add_rij_data(SEXP x, arma::sp_mat rij) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // assign indices
-  ptr->_number_of_features = static_cast<std::size_t>(dim[0]);
-  ptr->_number_of_planning_units = static_cast<std::size_t>(dim[1]);
-  // extract columns from dataframe
-  Rcpp::IntegerVector features = rij["i"];
-  Rcpp::IntegerVector planning_units = rij["j"];
-  Rcpp::NumericVector values = rij["x"];  
+  ptr->_number_of_features = static_cast<std::size_t>(rij.n_rows);
+  ptr->_number_of_planning_units = static_cast<std::size_t>(rij.n_cols);
   // assign decision matrix variables
-  for (auto i=features.begin(); i!=features.end(); ++i)
-    ptr->_A_i.push_back(*i);
-  for (auto i=planning_units.begin(); i!=planning_units.end(); ++i)
-    ptr->_A_j.push_back(*i);  
-  for (auto i=values.begin(); i!=values.end(); ++i)
-    ptr->_A_x.push_back(*i);
+  for (auto it=rij.begin(); it!=rij.end(); ++it) {
+    ptr->_A_i.push_back(it.row());
+    ptr->_A_j.push_back(it.col());  
+    ptr->_A_x.push_back(*it);
+  }
   // return result
   return true;
 }

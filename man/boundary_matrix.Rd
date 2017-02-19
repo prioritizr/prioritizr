@@ -15,7 +15,7 @@ layer.}
 Defaults to 4. Valid values are 4 and 6.}
 }
 \value{
-\code{\link{Matrix}{dgTMatrix-class}} object.
+\code{\link{Matrix}{dsCMatrix-class}} object.
 }
 \description{
 Generate a boundary matrix showing the shared and exposed edges of 

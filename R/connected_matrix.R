@@ -18,8 +18,8 @@ methods::setMethod(
   # coerce to sparse matrix object
   m <- Matrix::forceSymmetric(Matrix::sparseMatrix(i=m[,1], j=m[,2], x=rep(1, nrow(m)),
                                                    dims=rep(raster::ncell(x), 2)))
-  m <- m[include,include]
-  as(m, 'dsTMatrix')
+  # return included planning units
+  return(m[include,include])
 })
 
 #' @export
@@ -32,7 +32,8 @@ methods::setMethod(
   m <- rcpp_list_to_matrix_indices(rgeos::gIntersects(x, byid=TRUE,
                                                    returnDense=FALSE))
   m <- Matrix::forceSymmetric(Matrix::sparseMatrix(i=m$i, j=m$j, x=m$x))
-  as(m, 'dsTMatrix')
+  # return matrix
+  return(m)
 })
 
 #' @export
@@ -45,7 +46,8 @@ methods::setMethod(
   m <- rcpp_list_to_matrix_indices(rgeos::gIntersects(x, byid=TRUE, 
                                                       returnDense=FALSE))
   m <- Matrix::forceSymmetric(Matrix::sparseMatrix(i=m$i, j=m$j, x=m$x))
-  as(m, 'dsTMatrix')
+  # return matrix
+  return(m)  
 })
 
 #' @export
@@ -61,6 +63,7 @@ methods::setMethod(
   diag(m) <- 0
   m <- Matrix::Matrix(m,sparse=TRUE)
   m <- Matrix::forceSymmetric(m)
-  as(m, 'dsTMatrix')
+  # return matrix
+  return(m)  
 })
  

@@ -6,10 +6,10 @@ methods::setMethod(
   'boundary_matrix',
   signature(x='Raster'),
   function(x, ...) {
+  # assert that arguments are valid
     assertthat::assert_that(inherits(x, 'Raster'))
     assertthat::assert_that(
       isTRUE(raster::nlayers(x)==1))
-
   # indices of cells with finite values
   include <- raster::Which(is.finite(x), cells=TRUE)
   # find the neighboring indices of these cells
@@ -34,7 +34,8 @@ methods::setMethod(
   # if cells don't have four neighbors then set the diagonal to be the total
   # perimeter of the cell minus the boundaries of its neighbors
   diag(m) <- (sum(raster::res(x))*2) - Matrix::colSums(m)
-  as(m, 'dsTMatrix')
+  # return matrix
+  as(m, 'dsCMatrix')
 })
 
 #' @export
@@ -42,12 +43,16 @@ methods::setMethod(
   'boundary_matrix',
   signature(x='SpatialPolygons'),
   function(x, ...) {
+    # assert that arguments are valid
     assertthat::assert_that(inherits(x, 'SpatialPolygons'))
-  x <- rcpp_boundary_data(rcpp_sp_to_polyset(x@polygons, 'Polygons'))$data
-  if (length(x$warnings) > 0)
-    sapply(x$warnings, warning)
-  Matrix::sparseMatrix(i=x[[1]], j=x[[2]], x=x[[3]], giveCsparse=FALSE,
-                       symmetric=TRUE)
+    # calculate boundary data
+    x <- rcpp_boundary_data(rcpp_sp_to_polyset(x@polygons, 'Polygons'))$data
+    # show warnings generated if any
+    if (length(x$warnings) > 0)
+      sapply(x$warnings, warning)
+    # return result
+    Matrix::sparseMatrix(i=x[[1]], j=x[[2]], x=x[[3]], giveCsparse=TRUE,
+                         symmetric=TRUE)
 })
 
 #' @export
@@ -56,7 +61,8 @@ methods::setMethod(
   signature(x='SpatialLines'),
   function(x, ...) {
     assertthat::assert_that(inherits(x, 'SpatialLines'))
-    stop('Planning units represented by lines have no boundaries. See ?connected_constraint for an alternative.')
+    stop('Planning units represented by lines have no boundaries. ',
+      'See ?constraints for alternative constraints.')
 })
 
 #' @export
@@ -65,5 +71,6 @@ methods::setMethod(
   signature(x='SpatialPoints'),
   function(x, ...) {
     assertthat::assert_that(inherits(x, 'SpatialPoints'))
-    stop('Planning units represented by points have no boundaries. See ?connected_constraint for an alternative.')
+    stop('Planning units represented by points have no boundaries. ',
+      'See ?constraints alternative constraints.')
 })

@@ -18,20 +18,18 @@ test_that('SpatialPolygons (squares)', {
 test_that('SpatialPolygons (hexagons)', {
   # data
   set.seed(401)
-  x <- sp::HexPoints2SpatialPolygons(sp::spsample(as(raster::extent(c(0, 5, 0, 5)),
-                                                     'SpatialPolygons'),
-                                                  type='hexagonal', cellsize=1 * sqrt(3)))
+  x <- sp::spsample(as(raster::extent(c(0, 5, 0, 5)), 'SpatialPolygons'),
+                    type='hexagonal', cellsize=1 * sqrt(3))
+  x <- sp::HexPoints2SpatialPolygons(x)
   b <- boundary_matrix(x)
-  b <- data.frame(b@j, b@i, b@x)
-  b <- b[order(b[[1]], b[[2]]),]
-  s <- data.frame(
+  s <- Matrix::sparseMatrix(
     i=c(0,0,0,1,1,1,1,2,2,3,3,3,3,4,4,4,5,5,6,6,7),
     j=c(0,1,3,1,2,3,4,2,4,3,4,5,6,4,6,7,5,6,6,7,7),
-    x=c(4,1,1,2,1,1,1,4,1,1,1,1,1,1,1,1,4,1,2,1,4))
+    x=c(4,1,1,2,1,1,1,4,1,1,1,1,1,1,1,1,4,1,2,1,4), 
+    index1=FALSE, symmetric=TRUE)
   # tests
-  expect_equal(b[[1]], s[[1]])
-  expect_equal(b[[2]], s[[2]])
-  expect_equal(b[[3]], s[[3]])
+  expect_true(inherits(b, 'dsCMatrix'))
+  expect_true(min(b-s) < 1e-10)
 })
 
 test_that('RasterLayer', {
