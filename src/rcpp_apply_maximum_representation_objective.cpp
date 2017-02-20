@@ -1,26 +1,8 @@
 #include "prioritizr.h"
-#include "optimization_problem.h"
- 
-// [[Rcpp::export]]
-bool rcpp_apply_minimum_set_objective(SEXP x, Rcpp::NumericVector targets,
-                                      Rcpp::NumericVector costs) {
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
-  for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
-    ptr->_obj.push_back(costs[i]);
-  for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_sense.push_back(">=");
-  for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_rhs.push_back(targets[i]);
-  for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
-    ptr->_col_ids.push_back("pu");
-  for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_row_ids.push_back("spp_target");
-  ptr->_modelsense="min";
-  return true;
-}
+#include "optimization_problem.h" 
 
 // [[Rcpp::export]]
-bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets,
+bool rcpp_apply_maximum_representation_objective(SEXP x, Rcpp::NumericVector targets,
                                            Rcpp::NumericVector costs, 
                                            double budget) {
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
@@ -82,13 +64,5 @@ bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets,
     ptr->_row_ids.push_back("spp_target");
   ptr->_row_ids.push_back("budget");
   ptr->_modelsense="max";
-  return true;
-}
-
-// [[Rcpp::export]]
-bool rcpp_apply_target_weights(SEXP x, Rcpp::NumericVector weights) {
-  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
-  for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
-    ptr->_obj[i+ptr->_number_of_planning_units] = weights[i];
   return true;
 }

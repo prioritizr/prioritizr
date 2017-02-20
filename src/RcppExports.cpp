@@ -267,6 +267,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_feature_weights
+bool rcpp_apply_feature_weights(SEXP x, Rcpp::NumericVector weights);
+RcppExport SEXP prioritizr_rcpp_apply_feature_weights(SEXP xSEXP, SEXP weightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type weights(weightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_feature_weights(x, weights));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_locked_in_constraint
 bool rcpp_apply_locked_in_constraint(SEXP x, Rcpp::IntegerVector indices);
 RcppExport SEXP prioritizr_rcpp_apply_locked_in_constraint(SEXP xSEXP, SEXP indicesSEXP) {
@@ -291,6 +303,34 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_maximum_coverage_objective
+bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector abundances, Rcpp::NumericVector costs, double budget);
+RcppExport SEXP prioritizr_rcpp_apply_maximum_coverage_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type abundances(abundancesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_maximum_coverage_objective(x, abundances, costs, budget));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_maximum_representation_objective
+bool rcpp_apply_maximum_representation_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget);
+RcppExport SEXP prioritizr_rcpp_apply_maximum_representation_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_maximum_representation_objective(x, targets, costs, budget));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_minimum_set_objective
 bool rcpp_apply_minimum_set_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs);
 RcppExport SEXP prioritizr_rcpp_apply_minimum_set_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP) {
@@ -301,32 +341,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_minimum_set_objective(x, targets, costs));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_maximum_coverage_objective
-bool rcpp_apply_maximum_coverage_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget);
-RcppExport SEXP prioritizr_rcpp_apply_maximum_coverage_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_maximum_coverage_objective(x, targets, costs, budget));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_target_weights
-bool rcpp_apply_target_weights(SEXP x, Rcpp::NumericVector weights);
-RcppExport SEXP prioritizr_rcpp_apply_target_weights(SEXP xSEXP, SEXP weightsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type weights(weightsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_target_weights(x, weights));
     return rcpp_result_gen;
 END_RCPP
 }

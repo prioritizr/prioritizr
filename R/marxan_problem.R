@@ -26,7 +26,7 @@
 #'   needs to be conserved), or "absolute" (eg. 100 meaning that 100 units of a 
 #'   feature need to be conserved) amounts. 
 #'
-#' @inheritParams add_boundary_constraints
+#' @inheritParams add_boundary_constraint
 #'
 #' @param ... not used
 #'
@@ -34,6 +34,7 @@
 #'   indicating if which planning units were prioritized.
 #'
 #' @examples
+#' \dontrun{
 #' # create Marxan problem using spatial data
 #' data(sim_pu_raster, sim_features)
 #' p <- marxan_problem(sim_pu_raster, sim_features, 0.2, 'relative', 1, 0.5)
@@ -50,6 +51,7 @@
 #'
 #' # count number of selected planning units
 #' print(sum(s))
+#' }
 #'
 #' @name marxan_problem
 #'
@@ -60,16 +62,8 @@ marxan_problem <- function(x, ...) UseMethod('marxan_problem')
 #' @export
 marxan_problem.default <- function(x, features, targets, 
                                   targets_type=c('relative', 'absolute'), 
+                                  locked_in = waiver(), locked_out = waiver(),
                                   penalty=0, edge_factor=0.5, ...) {
-  # assert arguments are valid
-  assertthat::assert_that(
-    (inherits(x, 'Raster') & raster::nlayers(x)==1) || (inherits(x, 'Spatial')),
-    inherits(feature, 'Raster'), 
-    is.numeric(targets),  isTRUE(all(is.finite(targets))), 
-    assertthat::is.scalar(penalty), is.finite(penalty), isTRUE(penalty >= 0),
-    assertthat::is.scalar(edge_factor), is.finite(edge_factor), 
-    isTRUE(edge_factor >= 0), isTRUE(edge_factor <= 1))
-  targets_type <- match.arg(targets_type)
   # create problem
   p <- problem(x, features) %>%
     minimum_set_objective() %>%
@@ -78,6 +72,10 @@ marxan_problem.default <- function(x, features, targets,
     p <- p %>% add_relative_targets(targets)
   if (targets_type=='absolute')
     p <- p %>% add_absolute_targets(targets)
+  if (!is.Waiver(locked_in))
+    p <- p %>% add_locked_in_constraint(locked_in)
+  if (!is.Waiver(locked_out))
+    p <- p %>% add_locked_out_constraint(locked_out)
   # return problem
   return(p)
 }
@@ -87,3 +85,4 @@ marxan_problem.default <- function(x, features, targets,
 marxan_problem.character <- function(x, ...) {
   stop('TODO: implement this')
 }
+

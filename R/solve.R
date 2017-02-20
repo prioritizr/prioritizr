@@ -46,15 +46,17 @@ NULL
 #' @importFrom Matrix solve
 #'
 #' @exportMethod solve
+#'
+#' @export
 NULL
 
-#' @name @solve
+#' @name solve
 #' @rdname solve
 methods::setMethod('solve', signature(a='OptimizationProblem', b='Solver'),
   function(a, b) b$solve(a)
 )
 
-#' @name @solve
+#' @name solve
 #' @rdname solve
 methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
   function(a, b) {

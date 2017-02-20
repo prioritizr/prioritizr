@@ -61,12 +61,11 @@ NULL
 #'
 #' # solve problems
 #' s <- stack(solve(p), solve(p2), solve(p3), solve(p4), solve(p5))
-#' names(s) <- c('basic solution', 'locked in (integer input)', 
-#'               'locked in (character input)', 'locked in (raster input)', 
-#'               'locked in (polygons input)')
-#'
+#' 
 #' # plot solutions
-#' plot(s)
+#' plot(s, main = c('basic solution', 'locked in (integer input)', 
+#'                  'locked in (character input)', 'locked in (raster input)', 
+#'                  'locked in (polygons input)'))
 #' 
 #' @seealso \code{\link{constraints}} for all the available constraints.
 #'

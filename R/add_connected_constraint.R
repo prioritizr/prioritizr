@@ -25,10 +25,9 @@ NULL
 #'
 #' # solve problems
 #' s <- stack(solve(p), solve(p2))
-#' names(s) <- c('basic solution', 'connected solution')
 #'
 #' # plot solutions
-#' plot(s)
+#' plot(s, main=c('basic solution', 'connected solution'))
 #' }
 #' @export
 add_connected_constraint <- function(x) {

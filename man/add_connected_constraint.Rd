@@ -29,10 +29,9 @@ p2 <- p \%>\% add_connected_constraint()
 
 # solve problems
 s <- stack(solve(p), solve(p2))
-names(s) <- c('basic solution', 'connected solution')
 
 # plot solutions
-plot(s)
+plot(s, main=c('basic solution', 'connected solution'))
 }
 }
 \seealso{

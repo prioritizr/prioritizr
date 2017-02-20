@@ -3,8 +3,9 @@
 \name{objectives}
 \alias{add_default_objective}
 \alias{add_maximum_coverage_objective}
+\alias{add_maximum_representation_objective}
 \alias{add_minimum_set_objective}
-\alias{add_phylogenetic_coverage_objective}
+\alias{add_phylogenetic_representation_objective}
 \alias{objectives}
 \title{Problem objective}
 \usage{
@@ -12,7 +13,9 @@ add_minimum_set_objective(x)
 
 add_maximum_coverage_objective(x, budget)
 
-add_phylogenetic_coverage_objective(x, budget, tree)
+add_maximum_representation_objective(x, budget)
+
+add_phylogenetic_representation_objective(x, budget, tree)
 
 add_default_objective(x)
 }
@@ -37,14 +40,18 @@ objectives that are available.
     the solution that fulfills all the targets and constraints for 
     the smallest cost. This objective is similar to that used in Marxan.}
 
-\item{\code{add_maximum_coverage_objective}}{The objective here is to find
-    the solution that fulfills as many targets as possible while ensuring
-    that the cost of the solution does not exceed budget and that all
-    constraints are met. This objective is similar to that used in
-    Cabeza et al. XXXX.}
+\item{\code{add_maximum_coverage_objective}}{The objective here is to
+    find the solution that secures as much of each feature as possible
+    whilst not exceeding the budget.}
 
-\item{\code{add_phylogenetic_coverage_objective}}{This objective is 
-    similar to \code{maximum_coverage_objective} except that emphasis is 
+\item{\code{add_maximum_representation_objective}}{The objective here is 
+    to find the solution that fulfills as many targets as possible while 
+    ensuring that the cost of the solution does not exceed budget and that 
+    all constraints are met. This objective was inspired by the conservation
+    problem defined in Cabeza et al. XXXX.}
+
+\item{\code{add_phylogenetic_representation_objective}}{This objective is 
+    similar to \code{maximum_targets_objective} except that emphasis is 
     placed on preserving as much of a representative sample a phylogenetic
     tree as possible given a budget. This objective requires the
     "ape" R package to be installed.}
@@ -59,16 +66,30 @@ objectives that are available.
 }
 }
 \examples{
-# create problem
-p <- problem(sim_pu_raster, sim_features)
+# load data
+data(sim_pu_raster, sim_features, sim_phlyogeny)
 
-p \%>\% minimum_set_objective()
+# create base problem
+p <- problem(sim_pu_raster, sim_features) \%>\%
+ add_relative_targets(0.1)
 
-# maximum coverage objective
-p \%>\% maximum_coverage_objective(20)
+p1 <- p \%>\% add_minimum_set_objective()
 
-# phylogenetic coverage objective
-p \%>\% phylogenetic_coverage_objective(20, sim_phylogeny)
+# create problem with added maximum coverage objective
+p2 <- p \%>\% add_maximum_coverage_objective(20)
+
+# create problem with added maximum targets objective
+p3 <- p \%>\% add_maximum_representation_objective(20)
+
+# create problem with added phylogenetic representation objective
+p4 <- p \%>\% add_phylogenetic_representation_objective(20, sim_phylogeny)
+
+# solve problems
+s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+
+# plot solutions
+plot(s, main=c('minimum set', 'maximum coverage', 'maximum representation',
+               'phylogenetic representation'))
 
 }
 \seealso{

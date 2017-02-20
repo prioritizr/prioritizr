@@ -9,8 +9,8 @@
 marxan_problem(x, ...)
 
 \method{marxan_problem}{default}(x, features, targets,
-  targets_type = c("relative", "absolute"), penalty = 0,
-  edge_factor = 0.5, ...)
+  targets_type = c("relative", "absolute"), locked_in = waiver(),
+  locked_out = waiver(), penalty = 0, edge_factor = 0.5, ...)
 
 \method{marxan_problem}{character}(x, ...)
 }
@@ -31,6 +31,15 @@ in the solution.}
 are expressed as "relative" (eg. 0.2 meaning that 20 \% of a feature 
 needs to be conserved), or "absolute" (eg. 100 meaning that 100 units of a 
 feature need to be conserved) amounts.}
+
+\item{penalty}{\code{numeric} penalty for exposed edges. This
+is equivalent to the
+\href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary 
+length modifier (BLM)} parameter in \href{marxan.net}{Marxan}.}
+
+\item{edge_factor}{\code{numeric} proportion to scale edges that do
+not have any neighboring planning units. For example, an edge factor
+of \code{0.5} is commonly used for planning units along the coast line.}
 }
 \value{
 \code{link{ConservationProblem}} or \code{logical} \code{vector}
@@ -47,6 +56,7 @@ can be used to read such files and solve the Marxan problems using
 exact algorithm solvers.
 }
 \examples{
+\dontrun{
 # create Marxan problem using spatial data
 data(sim_pu_raster, sim_features)
 p <- marxan_problem(sim_pu_raster, sim_features, 0.2, 'relative', 1, 0.5)
@@ -63,6 +73,7 @@ s <- marxan_problem(file)
 
 # count number of selected planning units
 print(sum(s))
+}
 
 }
 

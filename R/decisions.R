@@ -63,11 +63,10 @@ NULL
 #'
 #' # solve problem
 #' s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
-#' names(s) <- c('default decision (binary)', 'binary decision',
-#'   'proportion decision', 'semicontinuous decision (upper_limit=0.5)')
 #'
 #' # plot solutions
-#' plot(s)
+#' plot(s, main = c('default (binary)', 'binary', 'proportion', 
+#'                  'semicontinuous (upper=0.5)')
 #'
 #' @name decisions
 NULL

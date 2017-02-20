@@ -93,6 +93,10 @@ rcpp_apply_connected_constraint <- function(x, boundary_matrix) {
     .Call('prioritizr_rcpp_apply_connected_constraint', PACKAGE = 'prioritizr', x, boundary_matrix)
 }
 
+rcpp_apply_feature_weights <- function(x, weights) {
+    .Call('prioritizr_rcpp_apply_feature_weights', PACKAGE = 'prioritizr', x, weights)
+}
+
 rcpp_apply_locked_in_constraint <- function(x, indices) {
     .Call('prioritizr_rcpp_apply_locked_in_constraint', PACKAGE = 'prioritizr', x, indices)
 }
@@ -101,16 +105,16 @@ rcpp_apply_locked_out_constraint <- function(x, indices) {
     .Call('prioritizr_rcpp_apply_locked_out_constraint', PACKAGE = 'prioritizr', x, indices)
 }
 
+rcpp_apply_maximum_coverage_objective <- function(x, abundances, costs, budget) {
+    .Call('prioritizr_rcpp_apply_maximum_coverage_objective', PACKAGE = 'prioritizr', x, abundances, costs, budget)
+}
+
+rcpp_apply_maximum_representation_objective <- function(x, targets, costs, budget) {
+    .Call('prioritizr_rcpp_apply_maximum_representation_objective', PACKAGE = 'prioritizr', x, targets, costs, budget)
+}
+
 rcpp_apply_minimum_set_objective <- function(x, targets, costs) {
     .Call('prioritizr_rcpp_apply_minimum_set_objective', PACKAGE = 'prioritizr', x, targets, costs)
-}
-
-rcpp_apply_maximum_coverage_objective <- function(x, targets, costs, budget) {
-    .Call('prioritizr_rcpp_apply_maximum_coverage_objective', PACKAGE = 'prioritizr', x, targets, costs, budget)
-}
-
-rcpp_apply_target_weights <- function(x, weights) {
-    .Call('prioritizr_rcpp_apply_target_weights', PACKAGE = 'prioritizr', x, weights)
 }
 
 rcpp_boundary_data <- function(data, tolerance = 0.00001) {

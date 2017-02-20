@@ -14,14 +14,18 @@ NULL
 #'     the solution that fulfills all the targets and constraints for 
 #'     the smallest cost. This objective is similar to that used in Marxan.}
 #'
-#'   \item{\code{add_maximum_coverage_objective}}{The objective here is to find
-#'     the solution that fulfills as many targets as possible while ensuring
-#'     that the cost of the solution does not exceed budget and that all
-#'     constraints are met. This objective is similar to that used in
-#'     Cabeza et al. XXXX.}
+#'   \item{\code{add_maximum_coverage_objective}}{The objective here is to
+#'     find the solution that secures as much of each feature as possible
+#'     whilst not exceeding the budget.}
 #'
-#'   \item{\code{add_phylogenetic_coverage_objective}}{This objective is 
-#'     similar to \code{maximum_coverage_objective} except that emphasis is 
+#'   \item{\code{add_maximum_representation_objective}}{The objective here is 
+#'     to find the solution that fulfills as many targets as possible while 
+#'     ensuring that the cost of the solution does not exceed budget and that 
+#'     all constraints are met. This objective was inspired by the conservation
+#'     problem defined in Cabeza et al. XXXX.}
+#'
+#'   \item{\code{add_phylogenetic_representation_objective}}{This objective is 
+#'     similar to \code{maximum_targets_objective} except that emphasis is 
 #'     placed on preserving as much of a representative sample a phylogenetic
 #'     tree as possible given a budget. This objective requires the
 #'     "ape" R package to be installed.}
@@ -47,17 +51,31 @@ NULL
 #'   \code{\link{targets}}.
 #'
 #' @examples
-#' # create problem
-#' p <- problem(sim_pu_raster, sim_features)
+#' # load data
+#' data(sim_pu_raster, sim_features, sim_phlyogeny)
+#'
+#' # create base problem
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'  add_relative_targets(0.1)
 #' 
-#  # add minimum set objective
-#' p %>% minimum_set_objective()
+#  # create problem with added minimum set objective
+#' p1 <- p %>% add_minimum_set_objective()
 #'
-#' # maximum coverage objective
-#' p %>% maximum_coverage_objective(20)
+#' # create problem with added maximum coverage objective
+#' p2 <- p %>% add_maximum_coverage_objective(20)
 #'
-#' # phylogenetic coverage objective
-#' p %>% phylogenetic_coverage_objective(20, sim_phylogeny)
+#' # create problem with added maximum targets objective
+#' p3 <- p %>% add_maximum_representation_objective(20)
+#'
+#' # create problem with added phylogenetic representation objective
+#' p4 <- p %>% add_phylogenetic_representation_objective(20, sim_phylogeny)
+#'
+#' # solve problems
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+#'
+#' # plot solutions
+#' plot(s, main=c('minimum set', 'maximum coverage', 'maximum representation',
+#'                'phylogenetic representation'))
 #'
 #' @name objectives
 NULL
@@ -83,13 +101,13 @@ add_minimum_set_objective <- function(x) {
 #' @rdname objectives
 #' @export
 add_maximum_coverage_objective <- function(x, budget) {
-  # assert arguments are valid
+  # assert argument is valid
   assertthat::assert_that(inherits(x, 'ConservationProblem'), 
     isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
     isTRUE(budget > 0.0))
   # make parameter
   p <- numeric_parameter('budget', budget, lower_limit=0, 
-    upper_limit=sum(x$planning_unit_costs()))
+    upper_limit=sum(x$planning_unit_costs()))    
   # add objective to problem
   x$add_objective(pproto(
     'MaximumCoverageObjective',
@@ -99,14 +117,40 @@ add_maximum_coverage_objective <- function(x, budget) {
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(y, 'ConservationProblem'))
-      invisible(rcpp_apply_maximum_coverage_objective(x$ptr, y$feature_targets(),
+      invisible(rcpp_apply_maximum_coverage_objective(x$ptr, 
+        y$feature_abundances_in_planning_units(),
         y$planning_unit_costs(), self$parameters$get('budget')))
     }))
 }
 
 #' @rdname objectives
 #' @export
-add_phylogenetic_coverage_objective <- function(x, budget, tree) {
+add_maximum_representation_objective <- function(x, budget) {
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, 'ConservationProblem'), 
+    isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
+    isTRUE(budget > 0.0))
+  # make parameter
+  p <- numeric_parameter('budget', budget, lower_limit=0, 
+    upper_limit=sum(x$planning_unit_costs()))
+  # add objective to problem
+  x$add_objective(pproto(
+    'MaximumRepresentationObjective',
+    Objective,
+    name='Maximum representation objective',
+    parameters=parameters(p),
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(y, 'ConservationProblem'))
+      invisible(rcpp_apply_maximum_representation_objective(x$ptr, 
+        y$feature_targets(), y$planning_unit_costs(), 
+        self$parameters$get('budget')))
+    }))
+}
+
+#' @rdname objectives
+#' @export
+add_phylogenetic_representation_objective <- function(x, budget, tree) {
   # check that dependencies are installed
   if (!requireNamespace('ape'))
     stop('the "ape" package needs to be installed to use phylogenetic data')
@@ -120,15 +164,15 @@ add_phylogenetic_coverage_objective <- function(x, budget, tree) {
     upper_limit=sum(x$planning_unit_costs()))
   # add objective to problem
   x$add_objective(pproto(
-    'PhylogeneticCoverageObjective',
+    'PhylogeneticRepresentationObjective',
     Objective,
-    name='Phylogenetic coverage objective',
+    name='Phylogenetic representation objective',
     parameters=parameters(p),
     data=list(tree=tree),
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(x, 'ConservationProblem'))    
-      stop('TODO: apply function for phylogenetic_coverage_objective')
+      stop('TODO: apply function for phylogenetic_representation_objective')
     }))
 }
 

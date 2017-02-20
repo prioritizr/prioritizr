@@ -66,137 +66,213 @@ new_optimization_problem <- function() {
 #' @return \code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
 #'         \code{numeric} vector, or scalar \code{integer}.
 #'
-#' @name OptimizationProblem-methods
+#' @name OptimizationProblemMethods
 NULL
 
-#' @rdname OptimizationProblem-methods
-#' @name nrow
+#' @rdname OptimizationProblemMethods
+#'
 #' @usage nrow(x)
-#' @export
+#'
+#' @importFrom raster nrow
+#'
+#' @exportMethod nrow
 methods::setMethod('nrow', 'OptimizationProblem', function(x) x$nrow())
 
 #' @rdname OptimizationProblem-methods
-#' @name ncol
+#'
 #' @usage ncol(x)
+#'
+#' @importFrom raster ncol
+#'
+#' @exportMethod ncol
+#'
 #' @export
 methods::setMethod('ncol', 'OptimizationProblem', function(x) x$ncol())
 
 #' @rdname OptimizationProblem-methods
-#' @name ncell
+#'
 #' @usage ncell(x)
+#'
+#' @importFrom raster ncol
+#'
+#' @exportMethod ncol
+#'
 #' @export
 methods::setMethod('ncell', 'OptimizationProblem', function(x) x$ncell())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod modelsense
+#'
 #' @export
 methods::setGeneric('modelsense', function(x) standardGeneric('modelsense'))
 
+
 #' @rdname OptimizationProblem-methods
-#' @name modelsense
+#'
 #' @usage modelsense(x)
+#'
 #' @export
 methods::setMethod('modelsense', 'OptimizationProblem',
   function(x) x$modelsense())
 
+
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod vtype
+#'  
 #' @export
 methods::setGeneric('vtype', function(x) standardGeneric('vtype'))
 
 #' @rdname OptimizationProblem-methods
-#' @name vtype
+#'
 #' @usage vtype(x)
+#'
 #' @export
 methods::setMethod('vtype', 'OptimizationProblem', function(x) x$vtype())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod obj
+#'
 #' @export
 methods::setGeneric('obj', function(x) standardGeneric('obj'))
 
 #' @rdname OptimizationProblem-methods
-#' @name obj
+#'
 #' @usage obj(x)
+#'
 #' @export
 methods::setMethod('obj', 'OptimizationProblem', function(x) x$obj())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod A
+#'
 #' @export
 methods::setGeneric('A', function(x) standardGeneric('A'))
 
 #' @rdname OptimizationProblem-methods
-#' @name A
+#'
 #' @usage A(x)
+#'
 #' @export
 methods::setMethod('A', 'OptimizationProblem', function(x) x$A())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod rhs
+#'
 #' @export
 methods::setGeneric('rhs', function(x) standardGeneric('rhs'))
 
 #' @rdname OptimizationProblem-methods
-#' @name rhs
+#'
 #' @usage rhs(x)
+#'
 #' @export
 methods::setMethod('rhs', 'OptimizationProblem', function(x) x$rhs())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod sense
+#'
 #' @export
 methods::setGeneric('sense', function(x) standardGeneric('sense'))
 
 #' @rdname OptimizationProblem-methods
-#' @name sense
+#'
 #' @usage sense(x)
+#'
 #' @export
 methods::setMethod('sense', 'OptimizationProblem', function(x) x$sense())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod lb
+#'
 #' @export
 methods::setGeneric('lb', function(x) standardGeneric('lb'))
 
 #' @rdname OptimizationProblem-methods
-#' @name lb
+#'
 #' @usage lb(x)
+#'
 #' @export
 methods::setMethod('lb', 'OptimizationProblem', function(x) x$lb())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod ub
+#'
 #' @export
 methods::setGeneric('ub', function(x) standardGeneric('ub'))
 
 #' @rdname OptimizationProblem-methods
-#' @name ub
+#'
 #' @usage ub(x)
+#'
 #' @export
 methods::setMethod('ub', 'OptimizationProblem', function(x) x$ub())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod number_of_features
+#'
 #' @export
 methods::setGeneric('number_of_features',
   function(x) standardGeneric('number_of_features'))
 
 #' @rdname OptimizationProblem-methods
-#' @name number_of_features
+#'
 #' @usage number_of_features(x)
+#'
 #' @export
 methods::setMethod('number_of_features', 'OptimizationProblem',
   function(x) x$number_of_features())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod number_of_planning_units
+#'
 #' @export
 methods::setGeneric('number_of_planning_units',
   function(x) standardGeneric('number_of_planning_units'))
 
 #' @rdname OptimizationProblem-methods
-#' @name number_of_planning_units
+#'
 #' @usage number_of_planning_units(x)
+#'
 #' @export
 methods::setMethod('number_of_planning_units', 'OptimizationProblem',
   function(x) x$number_of_planning_units())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod col_ids
+#'
 #' @export
 methods::setGeneric('col_ids', function(x) standardGeneric('col_ids'))
 
 #' @rdname OptimizationProblem-methods
-#' @name col_ids
+#'
 #' @usage col_ids(x)
+#'
 #' @export
 methods::setMethod('col_ids', 'OptimizationProblem',
   function(x) x$col_ids())
 
+#' @rdname OptimizationProblem-methods
+#'
+#' @exportMethod row_ids
+#'
 #' @export
 methods::setGeneric('row_ids', function(x) standardGeneric('row_ids'))
 
 #' @rdname OptimizationProblem-methods
-#' @name row_ids
+#'
 #' @usage row_ids(x)
+#'
 #' @export
 methods::setMethod('row_ids', 'OptimizationProblem', function(x) x$row_ids())
+

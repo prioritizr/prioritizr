@@ -72,6 +72,7 @@ Collate:
     'add_boundary_constraint.R'
     'add_connected_constraint.R'
     'add_corridors_constraint.R'
+    'add_feature_weights.R'
     'intersecting_units.R'
     'add_locked_in_constraint.R'
     'add_locked_out_constraint.R'

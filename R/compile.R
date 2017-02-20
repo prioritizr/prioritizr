@@ -32,10 +32,15 @@ compile <- function(x, ...) UseMethod('compile')
 compile.ConservationProblem <- function(x, ...) {
   # assert arguments are valid
   assertthat::assert_that(inherits(x, 'ConservationProblem'))
+  # sanity checks
+  if (inherits(x$objective, 'MaximumCoverageObjective') & 
+      !is.Waiver(x$targets))
+    warning('ignoring targets since the maximum coverage objective function ',
+      'doesn\'t use targets')
   # replace waivers with defaults
   if (is.Waiver(x$objective))
     x <- add_default_objective(x)
-  if (is.Waiver(x$targets))
+  if (is.Waiver(x$targets) & !inherits(x$objective, 'MaximumCoverageObjective'))
     x <- add_default_targets(x)
   if (is.Waiver(x$decision))
     x <- add_default_decision(x)

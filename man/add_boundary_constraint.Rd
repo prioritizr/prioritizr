@@ -41,11 +41,10 @@ p3 <- p \%>\% add_boundary_constraint(100, 1)
 # solve problems
 solve(p)
 s <- stack(solve(p), solve(p2), solve(p3))
-names(s) <- c('basic solution', 'small boundary constraints', 
-              'high boundary constraints')
 
 # plot solutions
-plot(s)
+plot(s, main = c('basic solution', 'small boundary constraints', 
+                 'high boundary constraints'))
 
 }
 \seealso{
