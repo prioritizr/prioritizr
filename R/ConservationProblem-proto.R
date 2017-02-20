@@ -45,8 +45,10 @@ methods::setOldClass('ConservationProblem')
 #' @section Usage:
 #' \code{x$print()}
 #' \code{x$show()}
-#' \code{x$compile()}
-#' \code{x$solve()}
+#' \code{x$repr()}
+#'
+#' \code{x$get_data(name)}
+#' \code{x$set_data(name, value)}
 #'
 #' \code{x$number_of_total_units()}
 #' \code{x$number_of_planning_units()}
@@ -61,6 +63,8 @@ methods::setOldClass('ConservationProblem')
 #' \code{x$add_solver(sol)}
 #' \code{x$add_constraint(con)}
 #' \code{x$add_targets(targ)}
+#'
+#' \code{x$constraint_calculations()}
 #'
 #' \code{x$get_constraint_parameter(id)} 
 #' \code{x$set_constraint_parameter(id, value)} 
@@ -81,15 +85,19 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \describe{
 #'
-#' \item{obj}{\code{\link{Objective}} object.}
+#' \item{name}{\code{character} name for object}
 #'
-#' \item{dec}{\code{\link{Decision}} object.}
+#' \item{value}{any object}
 #'
-#' \item{con}{\code{\link{Constraint}} object.}
+#' \item{obj}{\code{\link{Objective}} object}
 #'
-#' \item{sol}{\code{\link{Solver}} object.}
+#' \item{dec}{\code{\link{Decision}} object}
 #'
-#' \item{targ}{\code{\link{Targets}} object.}
+#' \item{con}{\code{\link{Constraint}} object}
+#'
+#' \item{sol}{\code{\link{Solver}} object}
+#'
+#' \item{targ}{\code{\link{Targets}} object}
 #'
 #' \item{cost}{\code{\link[raster]{RasterLayer-class}}, 
 #'   \code{\link{SpatialPolygonsDataFrame}}, or 
@@ -110,6 +118,16 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{show}{show the object.}
 #'
+#' \item{repr}{return \code{character} representation of the object.}
+#'
+#' \item{get_data}{return an object stored in the \code{data} field with
+#'   the corresponding \code{name}. If the object is not present in the 
+#'   \code{data} field, a \code{\link{waiver}} object is returned.}
+#'
+#' \item{set_data}{store an object stored in the \code{data} field with
+#'   the corresponding name. If an object with that name already 
+#'   exists then the object is overwritten.}
+#'
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
 #'
 #' \item{number_of_total_units}{\code{integer} number of units in the cost
@@ -126,15 +144,23 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{feature_targets}{\code{numeric} targets for each feature.}
 #'
-#' \item{add_objective}{return a copy with the objective added to the problem.}
+#' \item{add_objective}{return a new  \code{ConservationProblem} with the 
+#'   objective added to it.}
 #'
-#' \item{add_decision}{return a copy with the decision to the problem.}
+#' \item{add_decision}{return a new \code{ConservationProblem} object 
+#'   with the decision added to it.}
 #'
-#' \item{add_solver}{return a copy with the solver to the problem.}
+#' \item{add_solver}{return a new \code{ConservationProblem} object with the 
+#'   solver added to it.}
 #'
-#' \item{add_constraint}{return a copy with the constraint to the problem.}
+#' \item{add_constraint}{return a new \code{ConservationProblem} object with 
+#'   the constraint added to it.}
 #'
 #' \item{add_targets}{return a copy with the targets to the problem.}
+#'
+#' \item{run_all_constraint_calculations}{run all constraint calculations. This is
+#'   useful when making copies if a problem with the same constraints
+#'   so that the same calculations are not performed multiple times.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
 #'   argument \code{id}) used in one of the constraints in the object.}
@@ -217,6 +243,17 @@ ConservationProblem <- pproto(
   repr = function(self) {
     'ConservationProblem object'
   },
+  get_data = function(self, x) {
+    assertthat::assert_that(assertthat::is.string(x))
+    if (!x %in% names(self$data))
+      return(waiver())
+    return(self$data[[x]])
+  },
+  set_data = function(self, x, value) {
+    assertthat::assert_that(assertthat::is.string(x))
+    self$data[[x]] <- value
+    invisible()
+  },  
   number_of_planning_units = function(self) {
     if (inherits(self$data$cost, 'Raster')) {
       return(raster::cellStats(raster::Which(!is.na(self$data$cost)), 'sum'))

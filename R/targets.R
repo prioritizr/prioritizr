@@ -108,7 +108,7 @@ add_relative_targets <- function(x, targets) {
     data = list(abundances=x$feature_abundances_in_planning_units()),
     parameters=parameters(targets),
     output = function(self) {
-      self$parameters$get('targets')[[1]] * self$data$abundances
+      self$parameters$get('targets')[[1]] * self$get_data('abundances')
     }))
 }
 
@@ -180,7 +180,8 @@ add_loglinear_targets <- function(x, lower_bound_amount,
         self$parameters$get('Amount at lower bound'),
         self$parameters$get('Target at lower bound'),
         self$parameters$get('Amount at upper bound'),
-        self$parameters$get('Target at upper bound')) * self$data$abundances
+        self$parameters$get('Target at upper bound')) * 
+          self$get_data('abundances')
     }))
 }
 

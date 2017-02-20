@@ -1,5 +1,33 @@
-#' @include internal.R generics.R parallel.R
+#' @include internal.R parallel.R
 NULL
+
+#' Fast extract
+#'
+#' Extract data from a \code{\link[raster]{Raster-class}} object from a 
+#' \code{\link[sp]{Spatial-class}} object using performance enhancing tricks.
+#'
+#' @param x \code{\link[raster]{Raster-class}} object.
+#'
+#' @param y \code{\link[sp]{Spatial-class}} object.
+#'
+#' @param fun \code{function} to compute values.
+#'
+#' @param ... additional arguments passed to \code{\link[raster]{extract}}.
+#'
+#' @return \code{data.frame}, \code{matrix}, or \code{list} object 
+#'   depending on the arguments.
+#'
+#' @seealso \code{\link[raster]{extract}},
+#'   \code{\link[velox]{VeloxRaster_extract}}
+#'
+#' @name fast_extract
+#'
+#' @exportMethod fast_extract
+#'
+#' @export
+methods::setGeneric('fast_extract',
+                    signature=methods::signature('x', 'y'),
+                    function(x, y, ...) standardGeneric('fast_extract'))
 
 #' @name fast_extract
 #' @rdname fast_extract

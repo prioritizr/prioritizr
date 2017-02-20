@@ -1,5 +1,40 @@
-#' @include internal.R generics.R
+#' @include internal.R 
 NULL
+
+#' Connected matrix
+#'
+#' Generate a matrix showing which planning units are connected.
+#' 
+#' @param x \code{\link[raster]{Raster-class}} or 
+#'   \code{\link[sp]{Spatial-class}} object. Note that if \code{x} is a 
+#'   \code{\link[raster]{Raster-class}} object then it must have only one
+#'   layer.
+#' 
+#' @param directions \code{integer} If \code{x} is a
+#'   \code{\link[raster]{Raster-class}} object, the number of directions
+#'    in which cells should be connected: 4 (rook's case), 8 (queen's case), 
+#'    16 (knight and one-cell queen moves), or 'bishop' to connect cells with
+#'    one-cell diagonal moves. 
+
+#' @param distance \code{numeric} If \code{x} is a \code{SpatialPoints} object,
+#'   the distance that planning units have to be within in order
+#'   to qualify as being connected.
+#' 
+#' @details This function returns a matrix. Cells along the off-diagonal 
+#'   indicating if two planning units are connected. Cells along the 
+#'   diagonal are zero to reduce computation burden.
+#'
+#' @return \code{\link{Matrix}{dsCMatrix-class}} object.
+#'
+#' @name connected_matrix
+#'
+#' @exportMethod connected_matrix
+#'
+#' @export
+methods::setGeneric('connected_matrix', 
+                    signature=methods::signature('x'),
+                    function(x, ...) standardGeneric('connected_matrix'))
+
 
 #' @name connected_matrix
 #' @rdname connected_matrix

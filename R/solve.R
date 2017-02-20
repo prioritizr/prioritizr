@@ -1,4 +1,51 @@
-#' @include internal.R generics.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
+#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
+NULL
+
+#' Solve a problem
+#'
+#' Solve a \code{\link{ConservationProblem}} or an \code{OptimizationProblem}.
+#'
+#' @param a \code{\link{ConservationProblem}} or an \code{OptimizationProblem}
+#'   object.
+#'
+#' @param b \code{\link{Solver}} object. Not need if \code{a} is an
+#'   \code{\link{ConservationProblem}} object.
+#'
+#' @details If a \code{\link{OptimizationProblem}} is supplied, then the solution
+#'   is returned as a \code{logical} showing the status of each planning unit.
+#'   If a \code{\link{ConservationProblem}} is supplied, then the 
+#'   solution is returned in the format of the cost data contained inside it:
+#'   \itemize{
+#'   \item{\code{\link[raster]{RasterLayer-class}}}{the solution is returned as a
+#'      \code{\link[raster]{RasterLayer-class}} object. Cell values denote the 
+#'      decision.}
+#'   \item{\code{Spatial}}{the solution is returned as a 
+#'      \code{\link{SpatialPolygonsDataFrame}} or
+#'      \code{\link{SpatialLinesDataFrame}} with a "Solution" column containing
+#'      the decision values.}
+#'   }
+#'
+#' @return A \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial}}, or a 
+#'   \code{numeric} vector containing the solution depending on the
+#'   argument to \code{a}.
+#'
+#' @examples
+#' # build minimal conservation problem
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'   minimum_set_objective() %>%
+#'   relative_targets(0.1)
+#'
+#' # solve the problem
+#' s <- solve(p)
+#'
+#' # print the solution
+#' print(s)
+#'
+#' @name solve
+#'
+#' @importFrom Matrix solve
+#'
+#' @exportMethod solve
 NULL
 
 #' @name @solve

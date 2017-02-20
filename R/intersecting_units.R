@@ -1,5 +1,26 @@
-#' @include internal.R generics.R
+#' @include internal.R
 NULL
+
+#' Find intersecting units
+#'
+#' Determine the units in any given spatial data object that intersect
+#' with any of the units in another spatial data object.
+#'
+#' @param x Object.
+#'
+#' @param y Object.
+#'
+#' @return the units in \code{x} that intersect with \code{y}.
+#'
+#' @name intersecting_units
+#'
+#' @exportMethod intersecting_units
+#'
+#' @export
+methods::setGeneric('intersecting_units', 
+                    signature=methods::signature('x', 'y'),
+                    function(x, y) 
+                      standardGeneric('intersecting_units'))
 
 #' @name intersecting_units
 #' @rdname intersecting_units

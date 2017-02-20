@@ -19,6 +19,4 @@ methods::setOldClass('Decision')
 NULL
 
 #' @export
-Decision <- pproto(
-  'Decision',
-  ConservationModifier)
+Decision <- pproto('Decision', ConservationModifier)

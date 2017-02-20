@@ -1,5 +1,42 @@
-#' @include internal.R generics.R
+#' @include internal.R 
 NULL
+
+
+#' Boundary matrix
+#'
+#' Generate a boundary matrix showing the shared and exposed edges of 
+#' planning units. \strong{This function assumes the 
+#' data are in a projected coordinate system where distances can
+#' be correctly calculated. Thus spatial data in a longitude/latitude
+#' coordinate system should be reprojected prior to using this function.}
+#' 
+#' @param x \code{\link[raster]{Raster-class}},
+#'   \code{\link[sp]{SpatialLines-class}}, or
+#'   \code{\link[sp]{SpatialPolygons-class}} object. Note that if \code{x} is a 
+#'   \code{\link[raster]{Raster-class}} object then it must have only one
+#'   layer.
+#' 
+#' @param edges \code{integer} number of edges that each planning unit has when
+#'   argument to \code{x} is a \code{\link[raster]{Raster-class}} object. 
+#'  Defaults to 4. Valid values are 4 and 6.
+#' 
+#' @details This function returns a matrix. Cells along the off-diagonal 
+#'   indicating the length of the shared boundary between two planning units. 
+#'   Cells along the diagonal indicate length of a given planning unit's edges 
+#'   that have no neighbors (eg. for edges of planning units found along the 
+#'   coastline).
+#'
+#' @return \code{\link{Matrix}{dsCMatrix-class}} object.
+#'
+#' @name boundary_matrix
+#'
+#' @exportMethod boundary_matrix
+#'
+#' @export
+methods::setGeneric('boundary_matrix', 
+                    signature=methods::signature('x'),
+                    function(x, ...) standardGeneric('boundary_matrix'))
+
 
 #' @name boundary_matrix
 #' @rdname boundary_matrix

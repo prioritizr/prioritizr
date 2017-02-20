@@ -62,19 +62,28 @@ add_boundary_constraint <- function(x, penalty, edge_factor) {
     Constraint,
     name='Boundary constraint',
     parameters=p,
+    calculate=function(self, x) {
+        assertthat::assert_that(inherits(x, 'ConservationProblem'))
+        if (is.Waiver(x$get_data('boundary_matrix'))) {
+          # create boundary matrix
+          m <- boundary_matrix(x$get_data('cost'))
+          # manually coerce boundary matrix to 'dgCMatrix' class so that
+          # elements in the lower diagonal are not filled in
+          class(m) <- 'dgCMatrix'
+          # store data
+          x$set_data('boundary_matrix', m)
+        }
+        # return invisible
+        invisible()
+    },
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(y, 'ConservationProblem'))
       if (isTRUE(self$parameters$get('apply constraint?')==1) &
           isTRUE(self$parameters$get('penalty') > 1e-10)) {
-        # create boundary matrix
-        b <- boundary_matrix(y$data$cost)
-        # manually coerce boundary matrix to 'dgCMatrix' class so that
-        # elements in the lower diagonal are not filled in
-        class(b) <- 'dgCMatrix'
-        o1 <<- b
-        rcpp_apply_boundary_constraint(x$ptr, b, self$parameters$get('penalty'),
-          self$parameters$get('edge factor'))
+        # apply constraint
+        rcpp_apply_boundary_constraint(x$ptr, y$get_data('boundary_matrix'), 
+          self$parameters$get('penalty'), self$parameters$get('edge factor'))
       }
       invisible(TRUE)
     }))

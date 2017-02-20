@@ -41,13 +41,25 @@ add_connected_constraint <- function(x) {
     'ConnectedConstraint',
     Constraint, 
     name='Connected constraint',
-    parameters=parameters(binary_parameter('Apply constraint?', 1L)),
+    parameters=parameters(binary_parameter('apply constraint?', 1L)),
+    calculate = function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      if (is.Waiver(x$get_data('connected_matrix'))) {
+        # create matrix
+        m <- connected_matrix(y$data$cost)
+        # manually coerce boundary matrix to 'dgCMatrix' class so that
+        # elements in the lower diagonal are not filled in
+        class(m) <- 'dgCMatrix'
+        # store data
+        x$set_data('connected_matrix', m)
+      }
+      invisible(TRUE)
+    },
     apply = function(self, x, y) {
-      assertthat::assert_that(inherits('OptimizationProblem'),
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(y, 'ConservationProblem'))
       if (self$parameters$get('Apply constraint?')==1)
-        rcpp_apply_clumping_constraint(x$ptr, 
-          as_triplet_dataframe(x$connected_matrix()))
+        rcpp_apply_clumping_constraint(x$ptr, y$get_data('connected_matrix'))
       invisible(TRUE)
     }))
 }
