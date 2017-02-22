@@ -2,9 +2,12 @@
 NULL
 
 #' @import raster
+#'
 #' @import sp
-#' @import proto
-#' @useDynLib prioritizr
+#'
+#' @import prioritizrutils
+#'
+#' @import prioritizrshiny
 NULL
 
 #' prioritizr
@@ -12,5 +15,6 @@ NULL
 #' TODO package documentation
 #'
 #' @name prioritizr
+#'
 #' @docType package
 NULL

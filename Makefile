@@ -32,12 +32,11 @@ readme:
 vigns:
 	mkdir -p vignettes
 	cp -f inst/vign/*.Rmd vignettes/
+	rm vignettes/placeholder.Rmd
 	R --slave -e "devtools::load_all();devtools::build_vignettes()"
 	rm -rf vignettes/*
 	mkdir -p vignettes
-	cp -f inst/vign/placeholder.Rmd vignettes/syntax.Rmd
-	cp -f inst/vign/placeholder.Rmd vignettes/build.Rmd
-	cp -f inst/vign/placeholder.Rmd vignettes/modify.Rmd
+	cp -f inst/vign/placeholder.Rmd vignettes/prioritizr.Rmd
 	cp -f inst/vign/placeholder.Rmd vignettes/README.Rmd
 	touch inst/doc/*
 
@@ -52,17 +51,15 @@ test:
 	R --slave -e "devtools::test()" > test.log 2>&1
 
 check:
-	R --slave -e "devtools::check()"
-	R --slave -e "devtools::build_win()"
+	R --slave -e "devtools::check()" > check.log 2>&1
 
 checkwb:
-	R --slave -e "devtools::check()"
 	R --slave -e "devtools::build_win()"
 
 build:
 	R --slave -e "devtools::build()"
 
 install:
-	R --slave -e "devtools::install_local('../conserve')"
+	R --slave -e "devtools::install_local('../prioritizr')"
 
 .PHONY: clean data docs readme site test check checkwb build  install 

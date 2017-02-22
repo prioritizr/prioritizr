@@ -22,16 +22,24 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 apt_packages:
-  - r-cran-rgdal
-  - r-cran-rsymphony
-  - r-cran-rgeos
   - libgeos-dev
   - libgeos-c1
   - curl
   - qpdf 
-  - glpk-utils
-  - libglpk-dev
-  - glpk-doc
+  - coinor-libcgl-dev
+  - coinor-libclp-dev
+  - coinor-libcoinutils-dev
+  - coinor-libosi-dev
+  - coinor-libsymphony-dev
+  - coinor-libsymphony-doc
+  - r-cran-rgdal
+  - r-cran-rgeos
+  - r-cran-rsymphony
+
+r_github_packages:
+  - prioritizrdata
+  - prioritizrutils
+  - prioritizrshiny
 
 before_install: 
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
@@ -44,13 +52,11 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew tap coin-or-tools/coinor; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install symphony; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install pkg-config; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install glpk; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 before_script:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "install.packages('Rsymphony', type='source')"; fi;
-  - Rscript -e "install.packages('glpkAPI', configure.args='--with-glpk-lib=/usr/local/lib --with-glpk-include=/usr/local/include --enable-gmp=no')"
   - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"
 
 r_packages:
