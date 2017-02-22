@@ -28,16 +28,20 @@
 #'
 #' @inheritParams add_boundary_constraint
 #'
+#' @inheritParams add_locked_in_constraint
+#'
+#' @inheritParams add_locked_out_constraint
+#'
 #' @param ... not used
 #'
 #' @return \code{link{ConservationProblem}} or \code{logical} \code{vector}
 #'   indicating if which planning units were prioritized.
 #'
 #' @examples
-#' \dontrun{
 #' # create Marxan problem using spatial data
 #' data(sim_pu_raster, sim_features)
-#' p <- marxan_problem(sim_pu_raster, sim_features, 0.2, 'relative', 1, 0.5)
+#' p <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2, 
+#'                     targets_type='relative', penalty=1, edge_factor=0.5)
 #'
 #' # solve problem
 #' s <- solve(p)
@@ -45,6 +49,7 @@
 #' # show solution
 #' plot(s)
 #'
+#' \dontrun{
 #' # create and solve Marxan problem using Marxan input files
 #' file <- system.file('extdata/input.dat', package='prioritizr')
 #' s <- marxan_problem(file)
@@ -66,8 +71,8 @@ marxan_problem.default <- function(x, features, targets,
                                   penalty=0, edge_factor=0.5, ...) {
   # create problem
   p <- problem(x, features) %>%
-    minimum_set_objective() %>%
-    add_boundary_constraints(penalty, edge_factor)
+    add_minimum_set_objective() %>%
+    add_boundary_constraint(penalty, edge_factor)
   if (targets_type=='relative')
     p <- p %>% add_relative_targets(targets)
   if (targets_type=='absolute')

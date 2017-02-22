@@ -32,8 +32,10 @@ NULL
 #' @examples
 #' # build minimal conservation problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   minimum_set_objective() %>%
-#'   relative_targets(0.1)
+#'   add_minimum_set_objective() %>%
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decision() %>%
+#'   add_default_solver()
 #'
 #' # solve the problem
 #' s <- solve(p)
@@ -51,13 +53,19 @@ NULL
 NULL
 
 #' @name solve
+#'
 #' @rdname solve
+#'
+#' @usage solve(a,b) # OptimizationProblem,Solver
 methods::setMethod('solve', signature(a='OptimizationProblem', b='Solver'),
   function(a, b) b$solve(a)
 )
 
 #' @name solve
+#'
 #' @rdname solve
+#'
+#' @usage solve(a,b) # ConservationProblem,missing
 methods::setMethod('solve', signature(a='ConservationProblem', b='missing'),
   function(a, b) {
     # assign solver

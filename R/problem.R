@@ -57,7 +57,7 @@ problem <- function(x, features, ...) UseMethod('problem')
 problem.Raster <- function(x, features, ...) {
   assertthat::assert_that(inherits(x, 'Raster'), inherits(features, 'Raster'))
   assertthat::assert_that(isTRUE(raster::cellStats(x, 'min') > 0),
-    isTRUE(all(raster::cellStats(features, 'min') > 0)),
+    isTRUE(all(raster::cellStats(features, 'max') > 0)),
     raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
     raster::compareRaster(x, features, res=TRUE, tolerance=1e-5,
       stopiffalse=FALSE))
@@ -76,7 +76,7 @@ problem.Spatial <- function(x, features, cost_column = names(x)[1], ...) {
   x <- x[is.finite(x[[cost_column]]),]
   assertthat::assert_that(
     isTRUE(all(x[[1]] > 0)),
-    isTRUE(all(raster::cellStats(features, 'min', na.rm=TRUE) > 0)),
+    isTRUE(all(raster::cellStats(features, 'max', na.rm=TRUE) > 0)),
     raster::nlayers(features) >= 1,
     raster::compareCRS(x@proj4string, features@crs),
     isTRUE(rgeos::gIntersects(as(raster::extent(x), 'SpatialPolygons'),

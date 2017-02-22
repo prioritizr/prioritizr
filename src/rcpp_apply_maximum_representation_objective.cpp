@@ -14,10 +14,11 @@ bool rcpp_apply_maximum_representation_objective(SEXP x, Rcpp::NumericVector tar
   for (std::size_t i=0; i<(ptr->_number_of_features); ++i)
     ptr->_sense.push_back(">=");
   ptr->_sense.push_back("<=");
-  // add in small number to objective for planning unit variables to break ties
-  // in solution
+  // add in small negative number to objective for planning unit variables to 
+  // break ties in solution and select solution with cheapest cost
+  double cost_scale = (1.0e-10/(*std::min_element(costs.begin(), costs.end())));
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
-    ptr->_obj.push_back(1.0e-10);
+    ptr->_obj.push_back(costs[i] * cost_scale);    
   // add in default species weights (species treated equally)
   for (std::size_t i=ptr->_number_of_planning_units;
        i < (ptr->_number_of_planning_units+ptr->_number_of_features); 

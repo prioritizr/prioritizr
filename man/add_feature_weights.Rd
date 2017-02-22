@@ -28,24 +28,27 @@ allocated.
 }
 \details{
 Weights can only be applied to a budget-limited 
-  type of planning problem (ie. \code{\link{maximum_coverage_objective}},
-  \code{\link{maximum_representation_objective}}, and
-  \code{\link{phylogenetic_representation_objective}}).
+  type of planning problem (ie. \code{\link{add_maximum_coverage_objective}},
+  and \code{\link{add_maximum_representation_objective}}.
 }
 \examples{
 # create problem
-p <- problem(cost=sim_pu_raster, features=sim_features) \%>\%
-  maximum_coverage_objective() \%>\%
-  relative_targets(0.1)
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+  add_maximum_coverage_objective(budget=5000)
 
 # create weights based on rarity (1/number occurrences)
-w <- 1/raster::cellStats(sim_features, 'sum') 
+w <- 1/raster::cellStats(sim_features, 'sum') * 100
 
-# add weight the targets in a problem
-p \%>\% add_feature_weights(w)
+# create new problem with added weights according to rarity
+p2 <- p1 \%>\% add_feature_weights(w)
+
+# solve solutions
+s <- stack(solve(p1), solve(p2))
+
+# plot solutions
+plot(s, main = c('equal weights', 'rarity weights'))
 
 }
 \seealso{
 \code{\link{targets}}.
 }
-

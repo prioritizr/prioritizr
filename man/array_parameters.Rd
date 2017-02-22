@@ -2,9 +2,9 @@
 % Please edit documentation in R/parameters.R
 \name{array_parameters}
 \alias{array_parameters}
-\alias{binary_parameter_array}
-\alias{numeric_parameter_array}
 \alias{proportion_parameter_array}
+\alias{numeric_parameter_array}
+\alias{binary_parameter_array}
 \title{Array parameters}
 \usage{
 proportion_parameter_array(name, value, label)
@@ -21,6 +21,14 @@ binary_parameter_array(name, value, label)
 \item{value}{\code{vector} of values.}
 
 \item{label}{\code{character} \code{vector} of labels for each value.}
+
+\item{lower_limit}{\code{vector} of values show the minimum acceptable
+value for each element in \code{value}. This arguments defaults to the 
+smallest possible number on the system.}
+
+\item{upper_limit}{\code{vector} of values show the maximum acceptable
+value for each element in \code{value}. This arguments defaults to the 
+largest  possible number on the system.}
 }
 \value{
 \code{\link{ArrayParameter}} object.
@@ -48,4 +56,3 @@ Below is a list of parameter generating functions and a brief
     that can only be zero or one.}
 }
 }
-

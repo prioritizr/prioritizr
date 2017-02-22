@@ -31,4 +31,3 @@ the output will contain values between zero and one.
 \seealso{
 \code{\link{simulate_data}}.
 }
-

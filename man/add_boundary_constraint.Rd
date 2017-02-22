@@ -50,4 +50,3 @@ plot(s, main = c('basic solution', 'small boundary constraints',
 \seealso{
 \code{\link{constraints}} for a list of all available constraints.
 }
-

@@ -8,4 +8,3 @@
 \description{
 TODO package documentation
 }
-

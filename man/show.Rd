@@ -2,6 +2,12 @@
 % Please edit documentation in R/misc.R
 \name{show}
 \alias{show}
+\alias{show}
+\alias{show}
+\alias{show}
+\alias{show}
+\alias{show}
+\alias{show}
 \title{Show}
 \arguments{
 \item{object}{An object.}
@@ -12,4 +18,3 @@ An object.
 \description{
 Show an object.
 }
-

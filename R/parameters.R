@@ -13,9 +13,17 @@ NULL
 #' 
 #' @param value \code{integer} or \code{double} value depending on the
 #'    parameter.
-#' 
+#'
+#' @param lower_limit \code{integer} or \code{double} value representing 
+#'   the smallest acceptable value for \code{value}. This arguments defaults to 
+#'   the smallest possible number on the system.
+#'
+#' @param upper_limit \code{integer} or \code{double} value representing 
+#'   the largest acceptable value for \code{value}. This arguments defaults to 
+#'   the largest possible number on the system.
+#'
 #' @details Below is a list of parameter generating functions and a brief 
-#'   description of each.
+#'   description of each. 
 #'
 #' \describe{
 #'
@@ -91,7 +99,15 @@ binary_parameter <- function(name, value) {
 #' @param value \code{vector} of values.
 #'
 #' @param label \code{character} \code{vector} of labels for each value.
-#' 
+#'
+#' @param lower_limit \code{vector} of values show the minimum acceptable
+#'   value for each element in \code{value}. This arguments defaults to the 
+#'   smallest possible number on the system.
+#'
+#' @param upper_limit \code{vector} of values show the maximum acceptable
+#'   value for each element in \code{value}. This arguments defaults to the 
+#'   largest  possible number on the system.
+#'   
 #' @details Below is a list of parameter generating functions and a brief 
 #'   description of each.
 #'
@@ -162,7 +178,7 @@ binary_parameter_array <- function(name, value, label) {
 #'
 #' Create a collection of parameter objects.
 #' 
-#' ... \code{\link{ArrayParameter}} and/or 
+#' @param ... \code{\link{ArrayParameter}} and/or 
 #'   \code{\link{ScalarParameter}}) objects to store in collection.
 #'
 #' @return \code{\link{Parameters}} object.

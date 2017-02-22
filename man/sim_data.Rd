@@ -3,14 +3,22 @@
 \docType{data}
 \name{sim_data}
 \alias{sim_data}
+\alias{sim_pu_polygons}
+\alias{sim_pu_points}
+\alias{sim_pu_lines}
+\alias{sim_pu_raster}
+\alias{sim_phylogeny}
 \alias{sim_features}
 \alias{sim_locked_in_raster}
 \alias{sim_locked_out_raster}
-\alias{sim_phylogeny}
+\alias{sim_features}
+\alias{sim_pu_polygons}
 \alias{sim_pu_lines}
 \alias{sim_pu_points}
-\alias{sim_pu_polygons}
 \alias{sim_pu_raster}
+\alias{sim_phylogeny}
+\alias{sim_locked_in_raster}
+\alias{sim_locked_out_raster}
 \title{Simulated conservation planning data}
 \format{\describe{
 
@@ -105,4 +113,3 @@ dev.off()
 
 }
 \keyword{datasets}
-

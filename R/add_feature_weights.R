@@ -19,9 +19,8 @@ NULL
 #'   Weights cannot have negative values.
 #'
 #' @details Weights can only be applied to a budget-limited 
-#'   type of planning problem (ie. \code{\link{maximum_coverage_objective}},
-#'   \code{\link{maximum_representation_objective}}, and
-#'   \code{\link{phylogenetic_representation_objective}}).
+#'   type of planning problem (ie. \code{\link{add_maximum_coverage_objective}},
+#'   and \code{\link{add_maximum_representation_objective}}.
 #'
 #' @return \code{\link{ConservationProblem}} object with the weights
 #'   added to it.
@@ -30,15 +29,20 @@ NULL
 #'
 #' @examples
 #' # create problem
-#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
-#'   maximum_coverage_objective() %>%
-#'   relative_targets(0.1)
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
+#'   add_maximum_coverage_objective(budget=5000)
 #' 
 #' # create weights based on rarity (1/number occurrences)
-#' w <- 1/raster::cellStats(sim_features, 'sum') 
+#' w <- 1/raster::cellStats(sim_features, 'sum') * 100
 #'
-#' # add weight the targets in a problem
-#' p %>% add_feature_weights(w)
+#' # create new problem with added weights according to rarity
+#' p2 <- p1 %>% add_feature_weights(w)
+#'
+#' # solve solutions
+#' s <- stack(solve(p1), solve(p2))
+#'
+#' # plot solutions
+#' plot(s, main = c('equal weights', 'rarity weights'))
 #'
 #' @export
 add_feature_weights <- function(x, weights) {
@@ -57,9 +61,10 @@ add_feature_weights <- function(x, weights) {
     Constraint,
     name='Feature weights',
     parameters=parameters(weights),
-    apply = function(self, x) {
-      assertthat::assert_that(inherits(x, 'OptimizationProblem'))
-      invisible(rcpp_apply_feature_weights(x,
+    apply = function(self, x, y) {
+      assertthat::assert_that(inherits(x, 'OptimizationProblem'),
+        inherits(y, 'ConservationProblem'))
+      invisible(rcpp_apply_feature_weights(x$ptr,
         self$parameters$get('weights')[[1]]))
     }))
 }

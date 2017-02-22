@@ -10,4 +10,3 @@ a recipe to make an objective, to actually add an objective to a planning
 problem: see \code{\link{objectives}}. Only experts should use this
 class directly.}
 }
-

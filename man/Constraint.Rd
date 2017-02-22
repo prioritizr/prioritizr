@@ -8,9 +8,8 @@ This prototype is used to represent the costraints used when making a
 prioritization. \strong{This prototype represents a recipe, to actually
 add constraints to a planning problem, see the help page on
 \code{\link{constraints}}. Only experts should use this class directly.} This 
-prototype inherits from the \code{\link{ConservationModifier-prototype}}.
+prototype inherits from the \code{\link{ConservationModifier}}.
 }
 \seealso{
-\code{\link{ConservationModifier-prototype}}.
+\code{\link{ConservationModifier}}.
 }
-

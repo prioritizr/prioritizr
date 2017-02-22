@@ -2,6 +2,9 @@
 % Please edit documentation in R/fast_extract.R
 \name{fast_extract}
 \alias{fast_extract}
+\alias{fast_extract}
+\alias{fast_extract}
+\alias{fast_extract}
 \title{Fast extract}
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} object.}
@@ -24,4 +27,3 @@ Extract data from a \code{\link[raster]{Raster-class}} object from a
 \code{\link[raster]{extract}},
   \code{\link[velox]{VeloxRaster_extract}}
 }
-

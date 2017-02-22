@@ -53,7 +53,7 @@ NULL
 #'   applied to features with a total amount that is less 
 #'  than or equal to \code{lower_bound_amount}.
 #'
-#' @param upper_bound_target \code{numeric} upper bound for the total amount
+#' @param upper_bound_amount \code{numeric} upper bound for the total amount
 #'   of features.
 #'
 #' @param upper_bound_target \code{numeric} relative target that should be 
@@ -64,21 +64,28 @@ NULL
 #'   to it.
 #'
 #' @seealso \code{\link{constraints}}, \code{\link{objectives}},
-#'   \code{\link{problem}}, \code{\link{target_weights}}.
+#'   \code{\link{problem}}, \code{\link{add_feature_weights}}.
 #'
 #' @examples
 #' # create basic problem
-#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
-#'   minimium_set_objective()
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'   add_minimum_set_objective()
 #'
-#' # add relative targets
-#' p %>% relative_targets(0.1)
+#' # create problem with added relative targets
+#' p1 <- p %>% add_relative_targets(0.1)
 #'
-#' # add absolute targets
-#' p %>% absolute_targets(3)
+#' # create problem with added absolute targets
+#' p2 <- p %>% add_absolute_targets(3)
 #'
-#' # add log-linear target
-#' p %>% loglinear_targets(c(1, 10, 0.9, 0.2))
+#' # create problem with added log-linear target
+#' p3 <- p %>% add_loglinear_targets(10, 0.9, 100, 0.2)
+#'
+#' # solve solutions
+#' s <- stack(solve(p1), solve(p2), solve(p3))
+#'
+#' # plot solutions
+#' plot(s, main=c('relative targets', 'absolute targets', 
+#'                'loglinear targets'))
 #'
 #' @name targets
 NULL
@@ -162,25 +169,25 @@ add_loglinear_targets <- function(x, lower_bound_amount,
     isTRUE(upper_bound_amount > lower_bound_amount))
   # create parameters
   p <- parameters(
-    numeric_parameter('Amount at lower bound', value=lower_bound_amount,
+    numeric_parameter('amount at lower bound', value=lower_bound_amount,
       lower_limit=0),
-    numeric_parameter('Amount at upper bound', value=upper_bound_amount,
+    numeric_parameter('amount at upper bound', value=upper_bound_amount,
       lower_limit=0),
-    proportion_parameter('Target at lower bound', value=lower_bound_target),
-    proportion_parameter('Target at upper bound', value=upper_bound_target))
+    proportion_parameter('target at lower bound', value=lower_bound_target),
+    proportion_parameter('target at upper bound', value=upper_bound_target))
   # add targets to problem
   x$add_targets(pproto(
     'LogLinearTargets',
     Target,
     name='Log-linear targets',
-    parameter=p,
+    parameters=p,
     data=list(abundances = x$feature_abundances_in_planning_units()),
     output = function(self) {
       loglinear_interpolate(self$data$abundances, 
-        self$parameters$get('Amount at lower bound'),
-        self$parameters$get('Target at lower bound'),
-        self$parameters$get('Amount at upper bound'),
-        self$parameters$get('Target at upper bound')) * 
+        self$parameters$get('amount at lower bound'),
+        self$parameters$get('target at lower bound'),
+        self$parameters$get('amount at upper bound'),
+        self$parameters$get('target at upper bound')) * 
           self$get_data('abundances')
     }))
 }

@@ -40,4 +40,3 @@ problem(sim_pu_raster, sim_features) \%>\%
 \seealso{
 \code{\link{constraints}} for all the available constraints.
 }
-

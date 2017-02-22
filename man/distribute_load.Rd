@@ -24,6 +24,6 @@ This function returns a \code{list} containing an element for
   specifying the indices that a thread should process.
 }
 \seealso{
-\code{\link{number_of_threads}}, \code{\link{is.parallel}}.
+\code{\link{get_number_of_threads}}, 
+  \code{\link{set_number_of_threads}}, \code{\link{is.parallel}}.
 }
-

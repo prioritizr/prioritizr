@@ -54,7 +54,7 @@ This prototype is used to represent a parameter has a single value.
               parameter values.}
 }
 }
+
 \seealso{
 \code{\link{Parameter}}, \code{\link{ArrayParameter}}.
 }
-

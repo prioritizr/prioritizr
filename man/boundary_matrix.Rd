@@ -2,6 +2,10 @@
 % Please edit documentation in R/boundary_matrix.R
 \name{boundary_matrix}
 \alias{boundary_matrix}
+\alias{boundary_matrix}
+\alias{boundary_matrix}
+\alias{boundary_matrix}
+\alias{boundary_matrix}
 \title{Boundary matrix}
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
@@ -31,4 +35,3 @@ This function returns a matrix. Cells along the off-diagonal
   that have no neighbors (eg. for edges of planning units found along the 
   coastline).
 }
-

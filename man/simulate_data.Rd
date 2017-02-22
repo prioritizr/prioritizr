@@ -31,4 +31,3 @@ Simulate spatially auto-correlated data using random fields.
 \code{\link[RandomFields]{RFsimulate}},
   \code{\link{simulate_cost}}, \code{\link{simulate_species}}.
 }
-

@@ -2,6 +2,8 @@
 % Please edit documentation in R/rij_matrix.R
 \name{rij_matrix}
 \alias{rij_matrix}
+\alias{rij_matrix}
+\alias{rij_matrix}
 \title{\code{rij} matrix}
 \arguments{
 \item{x}{\code{\link[raster]{RasterLayer-class}} or
@@ -61,4 +63,3 @@ The sparse matrix represents the spatial intersection between the
 \seealso{
 \code{\link{set_number_of_threads}}, \code{\link[velox]{velox}}.
 }
-

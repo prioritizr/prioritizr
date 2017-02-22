@@ -2,21 +2,21 @@
 % Please edit documentation in R/constraints.R
 \name{constraints}
 \alias{constraints}
-\title{Conservation problem constraint}
+\title{Conservation problem constraints}
 \description{
 TODO
 }
 \details{
 \describe{
-  \item{\code{\link{locked_in_constraint}}}{TODO description}
+  \item{\code{\link{add_boundary_constraint}}}{TODO description}
 
-\item{\code{\link{locked_out_constraint}}}{TODO description}
+\item{\code{\link{add_connected_constraint}}}{TODO description}
 
-\item{\code{\link{connected_constraint}}}{TODO description}
+\item{\code{\link{add_corridors_constraint}}}{TODO description}
 
-\item{\code{\link{corridors_constraint}}}{TODO description}
+\item{\code{\link{add_locked_in_constraint}}}{TODO description}
 
-\item{\code{\link{fragmentation_constraint}}}{TODO description}
+\item{\code{\link{add_locked_out_constraint}}}{TODO description}
+
 }
 }
-

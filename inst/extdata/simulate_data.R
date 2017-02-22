@@ -2,6 +2,8 @@
 # initialize session
 set.seed(500)
 devtools::load_all()
+library(RandomFields)
+RFoptions(seed=500)
 
 # define functions
 rasterToLines <- function(x) {
@@ -90,7 +92,7 @@ sim_pu_points$locked_out <- as.logical(sim_pu_points$locked_out)
 
 # simulate species phylogeny
 sim_phylogeny <- ape::rtree(n=raster::nlayers(sim_features))
-sim_phylogeny$tip.labels <- names(sim_features)
+sim_phylogeny$tip.label <- names(sim_features)
 
 ## Export data
 # save data 

@@ -2,6 +2,10 @@
 % Please edit documentation in R/intersecting_units.R
 \name{intersecting_units}
 \alias{intersecting_units}
+\alias{intersecting_units}
+\alias{intersecting_units}
+\alias{intersecting_units}
+\alias{intersecting_units}
 \title{Find intersecting units}
 \arguments{
 \item{x}{Object.}
@@ -15,4 +19,3 @@ the units in \code{x} that intersect with \code{y}.
 Determine the units in any given spatial data object that intersect
 with any of the units in another spatial data object.
 }
-

@@ -1,20 +1,21 @@
 #' @include internal.R
 NULL
 
-#' Conservation problem constraint
+#' Conservation problem constraints
 #' 
 #' TODO 
 #'
 #' \describe{
-#'   \item{\code{\link{locked_in_constraint}}}{TODO description}
+#'   \item{\code{\link{add_boundary_constraint}}}{TODO description}
 #'
-#'   \item{\code{\link{locked_out_constraint}}}{TODO description}
+#'   \item{\code{\link{add_connected_constraint}}}{TODO description}
 #'
-#'   \item{\code{\link{connected_constraint}}}{TODO description}
+#'   \item{\code{\link{add_corridors_constraint}}}{TODO description}
 #'
-#'   \item{\code{\link{corridors_constraint}}}{TODO description}
+#'   \item{\code{\link{add_locked_in_constraint}}}{TODO description}
 #'
-#'   \item{\code{\link{fragmentation_constraint}}}{TODO description}
+#'   \item{\code{\link{add_locked_out_constraint}}}{TODO description}
+#'
 #' }
 #'
 #' @name constraints

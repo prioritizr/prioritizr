@@ -62,13 +62,14 @@ NULL
 #' p1 <- p %>% add_minimum_set_objective()
 #'
 #' # create problem with added maximum coverage objective
-#' p2 <- p %>% add_maximum_coverage_objective(20)
+#' # note that this objective does not use targets
+#' p2 <- p %>% add_maximum_coverage_objective(5000)
 #'
 #' # create problem with added maximum targets objective
-#' p3 <- p %>% add_maximum_representation_objective(20)
+#' p3 <- p %>% add_maximum_representation_objective(5000)
 #'
 #' # create problem with added phylogenetic representation objective
-#' p4 <- p %>% add_phylogenetic_representation_objective(20, sim_phylogeny)
+#' p4 <- p %>% add_phylogenetic_representation_objective(5000, sim_phylogeny)
 #'
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
@@ -118,7 +119,7 @@ add_maximum_coverage_objective <- function(x, budget) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
         inherits(y, 'ConservationProblem'))
       invisible(rcpp_apply_maximum_coverage_objective(x$ptr, 
-        y$feature_abundances_in_planning_units(),
+        unname(y$feature_abundances_in_planning_units()),
         y$planning_unit_costs(), self$parameters$get('budget')))
     }))
 }
@@ -158,7 +159,8 @@ add_phylogenetic_representation_objective <- function(x, budget, tree) {
   assertthat::assert_that(inherits(x, 'ConservationProblem'), 
     isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget), 
     isTRUE(budget > 0.0), inherits(tree, 'phylo'), 
-    length(self$data$tree$tip.label) == x$number_of_features())
+    length(tree$tip.label) == x$number_of_features(),
+    setequal(tree$tip.label, x$feature_names()))
   # make parameter
   p <- numeric_parameter('budget', budget, lower_limit=0,
     upper_limit=sum(x$planning_unit_costs()))
@@ -169,10 +171,25 @@ add_phylogenetic_representation_objective <- function(x, budget, tree) {
     name='Phylogenetic representation objective',
     parameters=parameters(p),
     data=list(tree=tree),
+    calculate=function(self, x) {
+      assertthat::assert_that(inherits(x, 'ConservationProblem'))
+      # get tree
+      tr <- self$get_data('tree')
+      # order rows to match order of features in problem
+      pos <- match(tr$tip.label, x$feature_names())
+      # convert tree into matrix showing which species in which
+      # branches and store the result
+      self$set_data('branch_matrix', branch_matrix(tr)[pos,])
+      invisible(TRUE)
+    },
     apply = function(self, x, y) {
       assertthat::assert_that(inherits(x, 'OptimizationProblem'),
-        inherits(x, 'ConservationProblem'))    
-      stop('TODO: apply function for phylogenetic_representation_objective')
+        inherits(y, 'ConservationProblem'))
+      invisible(rcpp_apply_phylogenetic_representation_objective(x$ptr, 
+        y$feature_targets(), y$planning_unit_costs(), 
+        self$parameters$get('budget'), self$get_data('branch_matrix'), 
+        self$get_data('tree')$edge.length
+        ))
     }))
 }
 

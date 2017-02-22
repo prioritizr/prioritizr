@@ -49,7 +49,7 @@ site:
 	rm -rf inst/doc/*
 
 test:
-	R --slave -e "devtools::test()"
+	R --slave -e "devtools::test()" > test.log 2>&1
 
 check:
 	R --slave -e "devtools::check()"

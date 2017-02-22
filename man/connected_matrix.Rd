@@ -2,6 +2,10 @@
 % Please edit documentation in R/connected_matrix.R
 \name{connected_matrix}
 \alias{connected_matrix}
+\alias{connected_matrix}
+\alias{connected_matrix}
+\alias{connected_matrix}
+\alias{connected_matrix}
 \title{Connected matrix}
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} or 
@@ -30,4 +34,3 @@ This function returns a matrix. Cells along the off-diagonal
   indicating if two planning units are connected. Cells along the 
   diagonal are zero to reduce computation burden.
 }
-

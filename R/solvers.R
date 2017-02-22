@@ -8,6 +8,7 @@ NULL
 #' \code{\link{ConservationProblem}} object.
 #'
 #' \describe{
+#'
 #'   \item{\code{add_gurobi_solver}}{\href{http://gurobi.com}{Gurobi} is a
 #'     state-of-the-art commercial optimization software with an R package
 #'     interface. It is by far the fastest of the solvers available in this
@@ -29,13 +30,13 @@ NULL
 #'    different interface to the COIN-OR software suite. Unlike the 
 #'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
 #'    through 
-#'    \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}
-#'    {Bioconductor}. On Windows and Mac, \code{lpsymphony} may be easier to
+#'    \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}. 
+#'    On Windows and Mac, \code{lpsymphony} may be easier to
 #'    may be easier to install. This solver uses the \code{lpsymphony} package 
 #'    to solve.}
 #'
-#' \item{\code{default_solver}{This solver uses the best software installed 
-#'    currently installed on the system.}}
+#'  \item{\code{default_solver}}{This solver uses the best software installed 
+#'    currently installed on the system.}
 #'
 #' }
 #'
@@ -58,22 +59,30 @@ NULL
 #'   solution is not an arbitrary solution, rather it is derived from the 
 #'   relaxed solution, and is therefore often reasonably close to optimality.
 #'
+#' @param verbosity \code{integer} how verbose should the solver be when
+#'   reporting progress on solving the problem?
+#'
 #' @param threads \code{integer} number of threads to use for the
 #'   optimization algorithm. The default value of 1 will result in only 
-#'   one thread being used. Currently only implemented for \code{gurobi_solver}.
+#'   one thread being used.
 #'
+#' @param presolve \code{integer} number indicating how intensively the 
+#'   solver should try to simplify the problem before solving it. The default
+#'   value of 2 indicates to that the solver should be very aggressive in 
+#'   trying to simplify the problem. 
+#' 
 #' @examples
 #'
-#' # create basic problem and use defaults
-#' p <- problem(cost=sim_pu_raster, features=sim_features) %>%
-#'   add_minimium_set_objective() %>%
+#' # create basic problem with defaults
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'   add_minimum_set_objective() %>%
 #'   add_relative_targets(0.1)
 #'
-#' # add rsymphony solver with default parameters
-#' p %>% add_lpsymphony_solver()
+#' # add rsymphony solver with default settings
+#' p %>% add_rsymphony_solver()
 #'
-#' # add rsymphony solver with custom parameters
-#' p %>% add_lpsymphony_solver(gap=0.1, time_limit=100)
+#' # add rsymphony solver with custom settings
+#' p %>% add_rsymphony_solver(gap=0.05, time_limit=100)
 #'
 #' \dontrun{
 #' # add gurobi solver

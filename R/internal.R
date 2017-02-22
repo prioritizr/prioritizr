@@ -17,28 +17,6 @@ methods::setOldClass('Waiver')
 #' @noRd
 waiver <- function() structure(NULL, class = "Waiver")
 
-#' @export
-methods::setOldClass('Id')
-
-#' Identifier
-#'
-#' Generate a new unique identifier.
-#'
-#' @details Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
-#'
-#' @return \code{Id} object.
-#' 
-#' @seealso \code{\link[uuid]{UUIDgenerate}}.
-#'
-#' @aliases Id
-#'
-#' @noRd
-new_id <- function() {
-  x <- uuid::UUIDgenerate()
-  class(x) <- c('Id', class(x))
-  x
-}
-
 #' Log-linear interpolation
 #' 
 #' Loglinearly interpolate values. 

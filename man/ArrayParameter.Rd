@@ -65,7 +65,7 @@ directly with this class.}
   parameter values.}
 }
 }
+
 \seealso{
 \code{\link{ScalarParameter}}, \code{\link{Parameter}}.
 }
-

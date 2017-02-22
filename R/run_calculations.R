@@ -1,4 +1,5 @@
 #' @include internal.R ConservationProblem-proto.R ConservationModifier-proto.R
+NULL
 
 #' Run calculations
 #' 
@@ -15,7 +16,9 @@
 #'   anything. To use this function with \code{\link{pipe}} operators, use the
 #'   \code{\%T>\%} operator and not the \code{\%>\%} operator.
 #'
-#' @return None. 
+#' @return None.
+#'
+#' @seealso \code{\link{tee}}.
 #'
 #' @examples
 #'
@@ -25,7 +28,7 @@
 #' # create a conservation problem with no targets
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_minimum_set_objective() %>%
-#'   add_boundary_constraints(10, 0.5)
+#'   add_boundary_constraint(10, 0.5)
 #'
 #' # create a copies of p and add targets
 #' p1 <- p %>% add_relative_targets(0.1)
@@ -46,7 +49,7 @@
 #' # preliminary calculations. Note how we use the \%T>\% operator here.
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_minimum_set_objective() %>%
-#'   add_boundary_constraints(10, 0.5) %T>%
+#'   add_boundary_constraint(10, 0.5) %T>%
 #'   run_calculations()
 #'
 #' # create a copies of p and add targets just like before
@@ -66,12 +69,12 @@
 #' # calculations before making copies of the problem with slightly
 #' # different constraints.
 #'
-#' @name run_calculations
-#
 #' @export
 run_calculations <- function(x) {
   assertthat::assert_that(inherits(x, 'ConservationProblem'))
-  x$decision$calculate(x)
+  if (!is.Waiver(x$decision))
+    x$decision$calculate(x)
+  if (!is.Waiver(x$objective))
   x$objective$calculate(x)
   for (i in seq_along(x$constraints$constraints))
     x$constraints$constraints[[i]]$calculate(x)

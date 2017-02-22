@@ -97,7 +97,7 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{sol}{\code{\link{Solver}} object}
 #'
-#' \item{targ}{\code{\link{Targets}} object}
+#' \item{targ}{\code{\link{Target}} object}
 #'
 #' \item{cost}{\code{\link[raster]{RasterLayer-class}}, 
 #'   \code{\link{SpatialPolygonsDataFrame}}, or 
@@ -106,7 +106,7 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{features}{\code{\link[raster]{RasterStack-class}} object showing
 #'   distribution of features.}
-#' \item{id}{\code{\link{id}} object that refers to a specific parameter.}
+#' \item{id}{\code{Id} object that refers to a specific parameter.}
 #'
 #' \item{value}{object that the parameter value should become.}
 #'
@@ -122,7 +122,7 @@ methods::setOldClass('ConservationProblem')
 #'
 #' \item{get_data}{return an object stored in the \code{data} field with
 #'   the corresponding \code{name}. If the object is not present in the 
-#'   \code{data} field, a \code{\link{waiver}} object is returned.}
+#'   \code{data} field, a \code{waiver} object is returned.}
 #'
 #' \item{set_data}{store an object stored in the \code{data} field with
 #'   the corresponding name. If an object with that name already 

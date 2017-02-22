@@ -63,4 +63,3 @@ problem(sim_pu_points, sim_features)
 \code{\link{constraints}}, \code{\link{objectives}},
  \code{\link{targets}}.
 }
-

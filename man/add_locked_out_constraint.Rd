@@ -2,11 +2,15 @@
 % Please edit documentation in R/add_locked_out_constraint.R
 \name{add_locked_out_constraint}
 \alias{add_locked_out_constraint}
+\alias{add_locked_out_constraint}
+\alias{add_locked_out_constraint}
+\alias{add_locked_out_constraint}
+\alias{add_locked_out_constraint}
 \title{Add locked out constraint}
 \arguments{
 \item{x}{\code{\link{ConservationProblem}} object.}
 
-\item{locked_in}{Object that determines which planning units that should be 
+\item{locked_out}{Object that determines which planning units that should be 
 locked out. See details for more information.}
 }
 \value{
@@ -45,35 +49,49 @@ The locked out planning units can be specified in several
 }
 \examples{
 # create basic problem
-p <- problem(sim_pu_polygons, sim_features) \%>\%
+p1 <- problem(sim_pu_polygons, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
   add_relative_targets(0.2)
 
 # create problem with added locked out constraints using integers
-p2 <- p \%>\% add_locked_out_constraint(which(sim_pu_polygons$locked_in))
+p2 <- p1 \%>\% add_locked_out_constraint(which(sim_pu_polygons$locked_in))
 
 # create problem with added locked out constraints using a field name
-p3 <- p \%>\% add_locked_out_constraint('locked_out')
+p3 <- p1 \%>\% add_locked_out_constraint('locked_out')
 
 # create problem with added locked out constraints using raster data
-p4 <- p \%>\% add_locked_out_constraint(sim_locked_out_raster)
+p4 <- p1 \%>\% add_locked_out_constraint(sim_locked_out_raster)
 
 # create problem with added locked out constraints using spatial polygons 
 # data
-locked_out <- sim_locked_in_polygons[sim_pu_polygons$locked_out == 1,]
-p5 <- p \%>\% add_locked_out_constraint(locked_out)
+locked_out <- sim_pu_polygons[sim_pu_polygons$locked_out == 1,]
+p5 <- p1 \%>\% add_locked_out_constraint(locked_out)
 
 # solve problems
-s <- stack(solve(p), solve(p2), solve(p3), solve(p4), solve(p5))
-names(s) <- c('basic solution', 'locked out (integer input)', 
-              'locked out (character input)', 'locked out (raster input)', 
-              'locked out (polygons input)')
+s1 <- solve(p1)
+s2 <- solve(p2)
+s3 <- solve(p3)
+s4 <- solve(p4)
+s5 <- solve(p5)
 
 # plot solutions
-plot(s)
+par(mfrow=c(3,2))
+plot(s1, main='none locked out')
+plot(s1[s1$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s2, main='locked out (integer input)')
+plot(s2[s2$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s3, main='locked out (character input)')
+plot(s3[s3$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s4, main='locked out (raster input)')
+plot(s4[s4$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s5, main='locked out (polygon input)')
+plot(s5[s5$solution==1,], col='darkgreen', add=TRUE)
 
 }
 \seealso{
 \code{\link{constraints}} for all the available constraints.
 }
-

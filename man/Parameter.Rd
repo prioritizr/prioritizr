@@ -40,7 +40,7 @@ directly with this class.}
 \item{reset}{update the parameter values to be the default values.}
 }
 }
+
 \seealso{
 \code{\link{ScalarParameter}}.
 }
-

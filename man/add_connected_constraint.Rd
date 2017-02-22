@@ -37,4 +37,3 @@ plot(s, main=c('basic solution', 'connected solution'))
 \seealso{
 \code{\link{constraints}} for all the available constraints.
 }
-

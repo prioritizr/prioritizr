@@ -32,4 +32,3 @@ it returns spatially autocorrelated integer values.
 \seealso{
 \code{\link{simulate_data}}.
 }
-

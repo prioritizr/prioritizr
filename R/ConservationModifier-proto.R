@@ -69,7 +69,7 @@ methods::setOldClass('ConservationModifier')
 #'
 #' \item{get_data}{return an object stored in the \code{data} field with
 #'   the corresponding \code{name}. If the object is not present in the 
-#'   \code{data} field, a \code{\link{waiver}} object is returned.}
+#'   \code{data} field, a \code{waiver} object is returned.}
 #'
 #' \item{set_data}{store an object stored in the \code{data} field with
 #'   the corresponding name. If an object with that name already 
@@ -104,7 +104,9 @@ methods::setOldClass('ConservationModifier')
 #'
 #' }
 #'
-#' @noRd
+#' @name ConservationModifier
+#'
+#' @export
 ConservationModifier <- pproto(
   'ConservationModifier',
   name = character(0),

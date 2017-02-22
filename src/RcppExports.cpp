@@ -195,40 +195,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_binary_decision
-bool rcpp_apply_binary_decision(SEXP x);
-RcppExport SEXP prioritizr_rcpp_apply_binary_decision(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_binary_decision(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_proportion_decision
-bool rcpp_apply_proportion_decision(SEXP x);
-RcppExport SEXP prioritizr_rcpp_apply_proportion_decision(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_proportion_decision(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_semicontinuous_decision
-bool rcpp_apply_semicontinuous_decision(SEXP x, double upper);
-RcppExport SEXP prioritizr_rcpp_apply_semicontinuous_decision(SEXP xSEXP, SEXP upperSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_semicontinuous_decision(x, upper));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_add_rij_data
 bool rcpp_add_rij_data(SEXP x, arma::sp_mat rij);
 RcppExport SEXP prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rijSEXP) {
@@ -264,6 +230,40 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< Rcpp::DataFrame >::type boundary_matrix(boundary_matrixSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_connected_constraint(x, boundary_matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_binary_decision
+bool rcpp_apply_binary_decision(SEXP x);
+RcppExport SEXP prioritizr_rcpp_apply_binary_decision(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_binary_decision(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_proportion_decision
+bool rcpp_apply_proportion_decision(SEXP x);
+RcppExport SEXP prioritizr_rcpp_apply_proportion_decision(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_proportion_decision(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_semicontinuous_decision
+bool rcpp_apply_semicontinuous_decision(SEXP x, double upper);
+RcppExport SEXP prioritizr_rcpp_apply_semicontinuous_decision(SEXP xSEXP, SEXP upperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_semicontinuous_decision(x, upper));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -344,6 +344,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_phylogenetic_representation_objective
+bool rcpp_apply_phylogenetic_representation_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget, arma::sp_mat branch_matrix, Rcpp::NumericVector branch_lengths);
+RcppExport SEXP prioritizr_rcpp_apply_phylogenetic_representation_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_phylogenetic_representation_objective(x, targets, costs, budget, branch_matrix, branch_lengths));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_boundary_data
 Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, double tolerance);
 RcppExport SEXP prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP toleranceSEXP) {
@@ -353,6 +369,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::DataFrame >::type data(dataSEXP);
     Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_boundary_data(data, tolerance));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_branch_matrix
+arma::sp_mat rcpp_branch_matrix(Rcpp::List x);
+RcppExport SEXP prioritizr_rcpp_branch_matrix(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_branch_matrix(x));
     return rcpp_result_gen;
 END_RCPP
 }

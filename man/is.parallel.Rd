@@ -17,4 +17,3 @@ up.
 \seealso{
 \code{\link{set_number_of_threads}}.
 }
-

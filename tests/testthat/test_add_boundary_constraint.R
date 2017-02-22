@@ -193,7 +193,6 @@ test_that('maximum coverage objective (binary decisions)', {
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_binary_decision() %>%
     add_boundary_constraint(2, 0.5)
   o <- compile(p)
@@ -256,25 +255,21 @@ test_that('maximum coverage objective (binary decisions)', {
   data(sim_pu_raster, sim_features)
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_binary_decision() %>% 
     add_boundary_constraint(-5, 0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_binary_decision() %>% 
     add_boundary_constraint(9, -0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_binary_decision() %>% 
     add_boundary_constraint(NA, 0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_binary_decision() %>% 
     add_boundary_constraint(9, NA)
   }) 
@@ -285,7 +280,6 @@ test_that('maximum coverage objective (semicontinuous decisions)', {
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_semicontinuous_decision(0.3) %>%
     add_boundary_constraint(2, 0.5)
   o <- compile(p)
@@ -352,25 +346,21 @@ test_that('maximum coverage objective (semicontinuous decisions)', {
   data(sim_pu_raster, sim_features)
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_semicontinuous_decision(0.2) %>% 
     add_boundary_constraint(-5, 0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_semicontinuous_decision(0.2) %>% 
     add_boundary_constraint(9, -0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_semicontinuous_decision(0.2) %>% 
     add_boundary_constraint(NA, 0.5)
   }) 
   expect_error({p <- problem(sim_pu_raster, sim_features) %>%
     add_maximum_coverage_objective(budget=10000) %>%
-    add_relative_targets(0.1) %>%
     add_semicontinuous_decision(0.2) %>% 
     add_boundary_constraint(9, NA)
   })

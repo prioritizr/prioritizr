@@ -2,6 +2,10 @@
 % Please edit documentation in R/add_locked_in_constraint.R
 \name{add_locked_in_constraint}
 \alias{add_locked_in_constraint}
+\alias{add_locked_in_constraint}
+\alias{add_locked_in_constraint}
+\alias{add_locked_in_constraint}
+\alias{add_locked_in_constraint}
 \title{Add locked in constraints}
 \arguments{
 \item{x}{\code{\link{ConservationProblem}} object.}
@@ -46,33 +50,48 @@ The locked in planning units can be specified in several
 }
 \examples{
 # create basic problem
-p <- problem(sim_pu_polygons, sim_features) \%>\%
+p1 <- problem(sim_pu_polygons, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
   add_relative_targets(0.2)
 
 # create problem with added locked in constraints using integers
-p2 <- p \%>\% add_locked_in_constraint(which(sim_pu_polygons$locked_in))
+p2 <- p1 \%>\% add_locked_in_constraint(which(sim_pu_polygons$locked_in))
 
 # create problem with added locked in constraints using a field name
-p3 <- p \%>\% add_locked_in_constraint('locked_in')
+p3 <- p1 \%>\% add_locked_in_constraint('locked_in')
 
 # create problem with added locked in constraints using raster data
-p4 <- p \%>\% add_locked_in_constraint(sim_locked_in_raster)
+p4 <- p1 \%>\% add_locked_in_constraint(sim_locked_in_raster)
 
 # create problem with added locked in constraints using spatial polygons data
 locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1,]
-p5 <- p \%>\% add_locked_in_constraint(locked_in)
+p5 <- p1 \%>\% add_locked_in_constraint(locked_in)
 
 # solve problems
-s <- stack(solve(p), solve(p2), solve(p3), solve(p4), solve(p5))
+s1 <- solve(p1)
+s2 <- solve(p2)
+s3 <- solve(p3)
+s4 <- solve(p4)
+s5 <- solve(p5)
 
 # plot solutions
-plot(s, main = c('basic solution', 'locked in (integer input)', 
-                 'locked in (character input)', 'locked in (raster input)', 
-                 'locked in (polygons input)'))
+par(mfrow=c(3,2))
+plot(s1, main='none locked out')
+plot(s1[s1$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s2, main='locked out (integer input)')
+plot(s2[s2$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s3, main='locked out (character input)')
+plot(s3[s3$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s4, main='locked out (raster input)')
+plot(s4[s4$solution==1,], col='darkgreen', add=TRUE)
+
+plot(s5, main='locked out (polygon input)')
+plot(s5[s5$solution==1,], col='darkgreen', add=TRUE)
 
 }
 \seealso{
 \code{\link{constraints}} for all the available constraints.
 }
-

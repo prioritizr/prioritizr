@@ -2,6 +2,7 @@
 % Please edit documentation in R/run_calculations.R
 \name{run_calculations}
 \alias{run_calculations}
+\title{Run calculations}
 \usage{
 run_calculations(x)
 }
@@ -10,6 +11,13 @@ run_calculations(x)
 }
 \value{
 None.
+}
+\description{
+Execute preliminary calculations in a conservation problem and store the
+results for later reuse. This function is useful when creating slightly 
+different versions of the same conservation planning problem that involve 
+the same constraints, because means that the same calculations will not be 
+run multiple times.
 }
 \details{
 This function is used for the effect of modifying the input
@@ -25,7 +33,7 @@ This function is used for the effect of modifying the input
 # create a conservation problem with no targets
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
-  add_boundary_constraints(10, 0.5)
+  add_boundary_constraint(10, 0.5)
 
 # create a copies of p and add targets
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -46,7 +54,7 @@ s1 <- system.time({solve(p1); solve(p2); solve(p3)})
 # preliminary calculations. Note how we use the \\\%T>\\\% operator here.
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_minimum_set_objective() \%>\%
-  add_boundary_constraints(10, 0.5) \%T>\%
+  add_boundary_constraint(10, 0.5) \%T>\%
   run_calculations()
 
 # create a copies of p and add targets just like before
@@ -67,4 +75,6 @@ print(s2) # time spent after running preliminary calculations
 # different constraints.
 
 }
-
+\seealso{
+\code{\link{tee}}.
+}

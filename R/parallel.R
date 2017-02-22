@@ -21,6 +21,7 @@ NULL
 #' @seealso \code{\link{is.parallel}}.
 #'
 #' @name parallel
+#' @aliases set_number_of_threads get_number_of_threads
 NULL
 
 #' @rdname parallel
@@ -81,7 +82,8 @@ is.parallel <- function() {
 #'
 #' @return \code{list} object.
 #'
-#' @seealso \code{\link{number_of_threads}}, \code{\link{is.parallel}}.
+#' @seealso \code{\link{get_number_of_threads}}, 
+#'   \code{\link{set_number_of_threads}}, \code{\link{is.parallel}}.
 #'
 #' @export
 distribute_load <- function(x, n=get_number_of_threads()) {

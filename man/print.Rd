@@ -2,13 +2,13 @@
 % Please edit documentation in R/misc.R
 \name{print}
 \alias{print}
-\alias{print.ArrayParameter}
 \alias{print.ConservationModifier}
 \alias{print.ConservationProblem}
+\alias{print.id}
 \alias{print.OptimizationProblem}
 \alias{print.ScalarParameter}
+\alias{print.ArrayParameter}
 \alias{print.Solver}
-\alias{print.id}
 \title{Print}
 \usage{
 print.ConservationModifier(x, ...)
@@ -36,4 +36,3 @@ An object.
 \description{
 Print an object.
 }
-

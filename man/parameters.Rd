@@ -6,17 +6,16 @@
 \usage{
 parameters(...)
 }
+\arguments{
+\item{...}{\code{\link{ArrayParameter}} and/or 
+\code{\link{ScalarParameter}}) objects to store in collection.}
+}
 \value{
 \code{\link{Parameters}} object.
 }
 \description{
 Create a collection of parameter objects.
 }
-\details{
-... \code{\link{ArrayParameter}} and/or 
-  \code{\link{ScalarParameter}}) objects to store in collection.
-}
 \seealso{
 \code{\link{array_parameters}}, code{\link{scalar_parameters}}.
 }
-

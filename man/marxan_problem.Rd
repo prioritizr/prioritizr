@@ -2,8 +2,8 @@
 % Please edit documentation in R/marxan_problem.R
 \name{marxan_problem}
 \alias{marxan_problem}
-\alias{marxan_problem.character}
 \alias{marxan_problem.default}
+\alias{marxan_problem.character}
 \title{Marxan conservation problem}
 \usage{
 marxan_problem(x, ...)
@@ -32,6 +32,12 @@ are expressed as "relative" (eg. 0.2 meaning that 20 \% of a feature
 needs to be conserved), or "absolute" (eg. 100 meaning that 100 units of a 
 feature need to be conserved) amounts.}
 
+\item{locked_in}{Object that determines which planning units that should be 
+locked in. See details for more information.}
+
+\item{locked_out}{Object that determines which planning units that should be 
+locked out. See details for more information.}
+
 \item{penalty}{\code{numeric} penalty for exposed edges. This
 is equivalent to the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary 
@@ -56,10 +62,10 @@ can be used to read such files and solve the Marxan problems using
 exact algorithm solvers.
 }
 \examples{
-\dontrun{
 # create Marxan problem using spatial data
 data(sim_pu_raster, sim_features)
-p <- marxan_problem(sim_pu_raster, sim_features, 0.2, 'relative', 1, 0.5)
+p <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2, 
+                    targets_type='relative', penalty=1, edge_factor=0.5)
 
 # solve problem
 s <- solve(p)
@@ -67,6 +73,7 @@ s <- solve(p)
 # show solution
 plot(s)
 
+\dontrun{
 # create and solve Marxan problem using Marxan input files
 file <- system.file('extdata/input.dat', package='prioritizr')
 s <- marxan_problem(file)
@@ -76,4 +83,3 @@ print(sum(s))
 }
 
 }
-

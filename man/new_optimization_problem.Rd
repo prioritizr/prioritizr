@@ -15,4 +15,3 @@ Generate a new \code{\link{OptimizationProblem}} object.
 \seealso{
 OptimizationProblem-methods
 }
-

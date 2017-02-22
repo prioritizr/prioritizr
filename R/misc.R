@@ -1,4 +1,4 @@
-#' @include internal.R ScalarParameter-proto.R ArrayParameter-proto.R Solver-proto.R ConservationProblem-proto.R OptimizationProblem-proto.R 
+#' @include internal.R ScalarParameter-proto.R ArrayParameter-proto.R Solver-proto.R ConservationProblem-proto.R OptimizationProblem-proto.R Id.R
 NULL
 
 #' Show
@@ -96,17 +96,6 @@ NULL
 
 #' @rdname as
 #' @export
-as.id <- function(x, ...) UseMethod('as.Id')
-
-#' @rdname as
-#' @export
-as.Id.character <- function(x, ...) {
-  class(x) <- c('Id', class(x))
-  x
-}
-
-#' @rdname as
-#' @export
 as.list.Parameters <- function(x, ...)
   structure(lapply(x$parameters, function(x) x$value),
             .Names=sapply(x$parameters, function(x) x$name),
@@ -122,13 +111,3 @@ as.list.Parameters <- function(x, ...)
 #' 
 #' @name is
 NULL
-
-#' @rdname is
-#' @export
-is.Id <- function(x) inherits(x, 'Id')
-
-#' @rdname is
-#' @export
-is.Waiver <- function(x) inherits(x, 'Waiver')
-
-

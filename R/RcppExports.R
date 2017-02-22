@@ -69,18 +69,6 @@ rcpp_get_optimization_problem_row_ids <- function(x) {
     .Call('prioritizr_rcpp_get_optimization_problem_row_ids', PACKAGE = 'prioritizr', x)
 }
 
-rcpp_apply_binary_decision <- function(x) {
-    .Call('prioritizr_rcpp_apply_binary_decision', PACKAGE = 'prioritizr', x)
-}
-
-rcpp_apply_proportion_decision <- function(x) {
-    .Call('prioritizr_rcpp_apply_proportion_decision', PACKAGE = 'prioritizr', x)
-}
-
-rcpp_apply_semicontinuous_decision <- function(x, upper) {
-    .Call('prioritizr_rcpp_apply_semicontinuous_decision', PACKAGE = 'prioritizr', x, upper)
-}
-
 rcpp_add_rij_data <- function(x, rij) {
     .Call('prioritizr_rcpp_add_rij_data', PACKAGE = 'prioritizr', x, rij)
 }
@@ -91,6 +79,18 @@ rcpp_apply_boundary_constraint <- function(x, boundary_matrix, penalty, edge_fac
 
 rcpp_apply_connected_constraint <- function(x, boundary_matrix) {
     .Call('prioritizr_rcpp_apply_connected_constraint', PACKAGE = 'prioritizr', x, boundary_matrix)
+}
+
+rcpp_apply_binary_decision <- function(x) {
+    .Call('prioritizr_rcpp_apply_binary_decision', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_apply_proportion_decision <- function(x) {
+    .Call('prioritizr_rcpp_apply_proportion_decision', PACKAGE = 'prioritizr', x)
+}
+
+rcpp_apply_semicontinuous_decision <- function(x, upper) {
+    .Call('prioritizr_rcpp_apply_semicontinuous_decision', PACKAGE = 'prioritizr', x, upper)
 }
 
 rcpp_apply_feature_weights <- function(x, weights) {
@@ -117,8 +117,16 @@ rcpp_apply_minimum_set_objective <- function(x, targets, costs) {
     .Call('prioritizr_rcpp_apply_minimum_set_objective', PACKAGE = 'prioritizr', x, targets, costs)
 }
 
+rcpp_apply_phylogenetic_representation_objective <- function(x, targets, costs, budget, branch_matrix, branch_lengths) {
+    .Call('prioritizr_rcpp_apply_phylogenetic_representation_objective', PACKAGE = 'prioritizr', x, targets, costs, budget, branch_matrix, branch_lengths)
+}
+
 rcpp_boundary_data <- function(data, tolerance = 0.00001) {
     .Call('prioritizr_rcpp_boundary_data', PACKAGE = 'prioritizr', data, tolerance)
+}
+
+rcpp_branch_matrix <- function(x) {
+    .Call('prioritizr_rcpp_branch_matrix', PACKAGE = 'prioritizr', x)
 }
 
 rcpp_list_to_matrix_indices <- function(x, n_preallocate = 10000L) {

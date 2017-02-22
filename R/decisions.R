@@ -49,24 +49,24 @@ NULL
 #' @examples
 #' # create basic problem and using the default decision (binary)
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'      minimium_set_objective() %>%
-#'      relative_targets(0.1)
+#'      add_minimum_set_objective() %>%
+#'      add_relative_targets(0.1)
 #'
 #' # manually specify a binary decision type 
-#' p2 <- p %>% binary_decision()
+#' p2 <- p %>% add_binary_decision()
 #'
 #' # specify a proportion decision type
-#' p3 <- p %>% proportion_decision()
+#' p3 <- p %>% add_proportion_decision()
 #' 
 #' # specify a semicontinuous decision type
-#' p4 <- p %>% semicontinuous_decision(upper_limit=0.5)
+#' p4 <- p %>% add_semicontinuous_decision(upper_limit=0.5)
 #'
 #' # solve problem
 #' s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
 #'
 #' # plot solutions
 #' plot(s, main = c('default (binary)', 'binary', 'proportion', 
-#'                  'semicontinuous (upper=0.5)')
+#'                  'semicontinuous (upper=0.5)'))
 #'
 #' @name decisions
 NULL

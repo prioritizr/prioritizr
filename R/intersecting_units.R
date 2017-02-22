@@ -64,8 +64,8 @@ methods::setMethod('intersecting_units',
   }
 )
 
-#' @name @solve
-#' @rdname solve
+#' @name intersecting_units
+#' @rdname intersecting_units
 methods::setMethod('intersecting_units',
   methods::signature(x='Raster', y='Spatial'),
   function(x, y) {
