@@ -10,6 +10,7 @@
 # log files
 gurobi.log
 test.log
+check.log
 
 # system files
 .directory

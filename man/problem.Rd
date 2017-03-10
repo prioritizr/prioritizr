@@ -4,6 +4,7 @@
 \alias{problem}
 \alias{problem.Raster}
 \alias{problem.Spatial}
+\alias{problem.data.frame}
 \title{Conservation planning problem}
 \usage{
 problem(x, features, ...)
@@ -11,52 +12,116 @@ problem(x, features, ...)
 \method{problem}{Raster}(x, features, ...)
 
 \method{problem}{Spatial}(x, features, cost_column = names(x)[1], ...)
+
+\method{problem}{data.frame}(x, features, rij, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}}, 
-\code{\link[sp]{SpatialPolygonsDataFrame}}, or
-\code{\link[sp]{SpatialLinesDataFrame}} object specifying the planning
-units to use in the reserve design exercise and their corresponding cost.
-It may be desirable to exlcude some planning units from the analysis, for
-example those outside the study area. To exclude planning units, set the
-cost for those raster cells to \code{NA}.}
+\item{x}{\code{\link[raster]{Raster-class}},
+\code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
+\code{\link[sp]{SpatialLinesDataFrame-class}} object specifying the
+planning units to use in the reserve design exercise and their
+corresponding cost. It may be desirable to exclude some planning units
+from the analysis, for example those outside the study area. To exclude
+planning units, set the cost for those raster cells to \code{NA}.}
 
-\item{features}{\code{\link[raster]{Raster-class}} object showing the 
-distribution of conservation features. Missing values (i.e. \code{NA}s) 
-can be used to indicate the absence of a feature in a particular cell 
-instead of explicitly setting these cells to zero.}
+\item{features}{The correct argument for \code{features} depends on the
+ input to \code{x}.
+ \describe{
+   \item{\code{\link[raster]{Raster-class}},
+     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+     object showing the distribution of conservation features. Missing
+     values (i.e. \code{NA} values) can be used to indicate the absence of
+     a feature in a particular cell instead of explicitly setting these
+     cells to zero.}
+   \item{\code{data.frame}}{\code{data.frame} object containing information
+     on the features. The argument to \code{feature_data} must follow the
+     conventions used by Marxan. Each row corresponds to a different
+     feature. It must also contain the following columns:
+     \describe{
+       \item{\code{"id"}}{\code{integer} unique identifier for each feature
+         These identifiers are used in the argument to \code{rij}.}
+       \item{\code{"name"}}{\code{character} name for each feature.}
+       \item{\code{"prop"}}{\code{numeric} relative target for each feature
+         (optional).}
+       \item{\code{"amount"}}{\code{numeric} absolute target for each
+         feature (optional).}
+      }
+   }
+}}
 
-\item{...}{additional arguments.}
+\item{...}{not used.}
 
-\item{cost_column}{\code{character} name or \code{integer} indicating the 
-column in the attribute table of a \code{\link[sp]{Spatial-class}} object 
+\item{cost_column}{\code{character} name or \code{integer} indicating the
+column in the attribute table of a \code{\link[sp]{Spatial-class}} object
 with the cost data.}
+
+\item{rij}{\code{data.frame} containing information on the amount of
+each feature in each planning unit. This argument is only used argument to
+\code{x} is a \code{data.frame}. Similar to \code{features}, the
+argument to \code{rij} must follow the conventions used by
+Marxan. It must contain the following columns:
+\describe{
+  \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+  \item{\code{"species"}}{\code{integer} feature identifier.}
+  \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+    planning unit.}
+ }}
 }
 \value{
-A \code{\link{ConservationProblem}} object containing the basic data
-  used to build a prioritization problem.
+A \code{\link{ConservationProblem-class}} object containing the
+  basic data used to build a prioritization problem.
 }
 \description{
 Create a systematic conservation planning problem. This function is used to
-specify the basic data used in a spatial prioritization problem: the 
-spatial distribution of the planning units and their costs, as well as 
-the features (eg. species, ecosystems) that need to be conserved. After 
-constructing this object, it can be customized to meet specific 
-objectives using targets (see \code{\link{targets}}) and constraints 
-(see \code{link{constraints}}).
+specify the basic data used in a spatial prioritization problem: the
+spatial distribution of the planning units and their costs, as well as
+the features (eg. species, ecosystems) that need to be conserved. After
+constructing this object, it can be customized to meet specific
+objectives using targets (see \code{\link{targets}}) and constraints
+(see \code{\link{constraints}}).
 }
 \examples{
 # create problem using raster planning unit data
-problem(sim_pu_raster, sim_features)
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+ add_min_set_objective() \%>\%
+ add_relative_targets(0.2) \%>\%
+ add_binary_decisions()
 
 # create problem using polygon planning unit data
-problem(sim_pu_polygons, sim_features)
+p2 <- problem(sim_pu_polygons, sim_features) \%>\%
+ add_min_set_objective() \%>\%
+ add_relative_targets(0.2) \%>\%
+ add_binary_decisions()
 
 # create problem using line planning unit data
-problem(sim_pu_lines, sim_features)
+p3 <- problem(sim_pu_lines, sim_features) \%>\%
+ add_min_set_objective() \%>\%
+ add_relative_targets(0.2) \%>\%
+ add_binary_decisions()
 
 # create problem using point planning unit data
-problem(sim_pu_points, sim_features)
+p4 <- problem(sim_pu_points, sim_features) \%>\%
+ add_min_set_objective() \%>\%
+ add_relative_targets(0.2) \%>\%
+ add_binary_decisions()
+
+\donttest{
+# solve problems
+s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
+
+# plot solutions
+par(mfrow=c(2,2))
+plot(s[[1]], main = "raster data")
+
+plot(s[[2]], main = "polygon data")
+plot(s[[2]][s[[2]]$solution == 1, ], col = "darkgreen", add = TRUE)
+
+plot(s[[3]], main = "line data")
+lines(s[[3]][s[[3]]$solution == 1, ], col = "darkgreen", lwd = 2)
+
+plot(s[[4]], main = "point data", pch = 19)
+points(s[[4]][s[[4]]$solution == 1, ], col = "darkgreen", cex = 2, pch = 19)
+}
 
 }
 \seealso{

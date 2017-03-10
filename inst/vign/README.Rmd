@@ -1,16 +1,13 @@
 ---
-title: "README"
+title: "readme"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   rmarkdown::html_document:
     toc: true
     fig_caption: true
-fontsize: 11pt
-documentclass: article
 vignette: >
   %\VignetteIndexEntry{prioritizr}
   %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
 ---
 
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
@@ -19,13 +16,136 @@ vignette: >
 [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
-# Conservation Prioritization with Integer Programming in R
+# Systematic conservation prioritization in R
 
-`prioritizr` is an R package for solving systematic conservation prioritization problems using the techniques of integer linear programming (ILP). In particular, both the minimum set cover (Marxan-like) and maximum coverage reserve design problems can be solved. The package offers a unified interface to a variety of commercial and open-source ILP solvers. In contrast to heuristic approaches, such as simulated annealing, the ILP algorithms used by `prioritizr` can find exact solutions to optimization problems.
+_Prioritizr_ is an _R_ package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by _prioritizr_ are guaranteed to find optimal solutions. This package also has the functionality to read [Marxan](http://marxan.net/) input data and find much cheaper solutions in a much shorter period of time than _Marxan_ ([Beyer _et al. 2016_](http://marxan.net/downloads/papers/beyer_etal_2015.pdf)). Check out the [_prioritizrshiny_ _R_ package](https://github.com/prioritizr/prioritizrshiny) to interactively build and customize conservation planning problems.
 
-```{r}
-plot(1)
+## Overview
+
+This package largely consists of five main types of functions. These functions are used to:
+- create a new reserve design [problem](https://prioritizr.github.io/prioritizr/reference/problem.html) by specifying the planning units and features of conservation interest (eg. species, eco-systems).
+- add an [objective](https://prioritizr.github.io/prioritizr/reference/objectives.html) to a reserve design problem. For example, the [`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html) function can used to specify that the overall goal of the prioritization is to adequately represent each feature for minimal cost.
+- add [`constraints`](https://prioritizr.github.io/prioritizr/reference/constraints.html) to a problem to obtain better solutions. For example, the [`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html) function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.
+- add [`penalties`](https://prioritizr.github.io/prioritizr/reference/penalties.html) to a problem to penalize ineffective solutions. For example, the [`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html) function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.
+- add [`decisions`](https://prioritizr.github.io/prioritizr/reference/decisions.html) to a problem to specify the nature of the conservation decision on the planning units. For example, the [`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html) function specifies that planning units are either prioritized or not. Whereas,  the [`add_proportion_decisions`](https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html) can be used to specify the a proportion of each
+planning unit can be prioritized.
+- [`solve`](https://prioritizr.github.io/prioritizr/reference/solve.html) a conservation problem.
+
+The currently supported solvers are listed below. Each must be installed separately from this package. The details of the solvers are intentionally abstracted away so that minimal knowledge is required to use a given solver.
+
+- [Gurobi:](http://gurobi.com) Install the [_gurobi_ _R_ package](http://www.gurobi.com/products/modeling-languages/r) to use this solver.
+- [SYMPHONY:](https://projects.coin-or.org/SYMPHONY) Install either the [_Rsymphony_](https://CRAN.R-project.org/package=Rsymphony) or [_lpsymphony_](https://bioconductor.riken.jp/packages/3.3/bioc/html/lpsymphony.html) _R_ packages to use this solver.
+
+## Installation
+
+To install the developmental version of _prioritizr_, use the following _R_ code:
+
+```{r, eval = FALSE}
+if (!require(devtools))
+  install.packages("devtools")
+devtools::install_github("prioritizr/prioritizr")
 ```
 
-**This package is under development, please check back later.**
+## Citation
 
+```
+Hanson JO, Schuster R, Strimas-Mackey M, Arcese P, Bennett J (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.
+```
+
+## Example usage
+
+Here we will provide a simple example on using this package to solve conservation problems. We will use one of the built-in simulated data sets that is distributed with the package. First, we will load the _prioritizr_ package.
+```{r, eval = FALSE}
+# load package
+library(prioritizr)
+```
+
+```{r, include = FALSE}
+devtools::load_all()
+```
+
+We will use the `sim_pu_polygons` object to represent our planning units. Although _prioritizr_ can support many different types of planning unit data, here our planning units are represented as polygons in a vector format (ie. `SpatialPolygonsDataFrame`). Each polygon represents a planning unit. This object contains `r length(sim_pu_polygons)` planning units. The attribute table associates each planning unit an acquisition cost ("cost" column), and a value indicating if the unit is inside a simulated protected area ("locked_in" column). Let's explore the planning unit data.
+
+```{r}
+# load planning unit data
+data(sim_pu_polygons)
+
+# show the first 20 rows in the attribute table
+head(sim_pu_polygons@data)
+
+# plot the planning units and colour by acquisition cost
+spplot(sim_pu_polygons, "cost")
+
+# plot the planning units and show which planning units are inside protected
+# areas. Units inside protected areas are shown in yellow.
+spplot(sim_pu_polygons, "locked_in")
+```
+
+Biodiversity features are represented using a stack of raster data (ie. `RasterStack` objects). A `RasterStack` represents a collection of `RasterLayers` with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each `RasterLayer` in the stack describes the distribution of a biodiversity feature.
+
+In our example, the `sim_features` object is a `RasterStack` object that contains `r raster::nlayers(sim_features)` layers. Each `RasterLayer` describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.
+
+```{r}
+# load feature data
+data(sim_features)
+# plot the distribution of suitable habitat for each feature
+plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))))
+```
+
+We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions (`[add_binary_decisions](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)`).
+
+```{r}
+# create problem
+p1 <- problem(sim_pu_polygons, features = sim_features, cost_name = "cost") %>%
+  add_min_set_objective() %>%
+  add_relative_targets(0.2) %>%
+  add_binary_decisions()
+```
+
+After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. *It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com).*
+
+```{r, results = "asis", message = FALSE}
+# solve the problem
+s1 <- solve(p1)
+# plot the solution
+s1$solution <- factor(s1$solution)
+spplot(s1, "solution", col.regions = c('grey80', 'darkgreen'))
+```
+
+Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our vector data contains information on which planning units are inside protected areas in the `"locked_in"` column, we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
+
+```{r, results = "asis", message = FALSE}
+# create problem with locked in constraints added to it
+p2 <- p1 %>% add_locked_in_constraints("locked_in")
+# solve the problem
+s2 <- solve(p2)
+# plot the solution
+s2$solution <- factor(s2$solution)
+spplot(s2, "solution", col.regions = c('grey80', 'darkgreen'))
+```
+
+This solution is an improvement over the the previous solution. However, it is also highly fragmented. As a consequence, implementing this solution may be associated with increased management costs and be susceptible to edge effects. We can further constrain the solution by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (ie. boundary length modifier; BLM), and an edge factor of 50 % so that planning units along the coastline are not overly penalized.
+
+```{r, results = "asis", message = FALSE}
+# create problem with boundary penalties added to it
+p3 <- p2 %>% add_boundary_penalties(penalty = 500, edge_factor = 0.5)
+# solve the problem
+s3 <- solve(p3)
+# plot the solution
+s3$solution <- factor(s3$solution)
+spplot(s3, "solution", col.regions = c('grey80', 'darkgreen'))
+```
+
+This solution is even better then the previous solution. However, we are not content just yet. This solution does not maintain connectivity between reserves, and so species may have limited ability to disperse throughout the reserve network. To avoid this, we can add connected constraints ([`add_connected_constraints`](https://prioritizr.github.io/prioritizr/reference/add_connected_constraints.html)).
+
+```{r, results = "asis", message = FALSE}
+# create problem with connected constraints
+p4 <- p3 %>% add_connected_constraints()
+# solve the problem
+s4 <- solve(p4)
+# plot the solution
+s4$solution <- factor(s4$solution)
+spplot(s4, "solution", col.regions = c('grey80', 'darkgreen'))
+```
+
+This short example demonstrates how the _prioritizr_ package can be used to build a minimal conservation problem, and how constraints can be iteratively added to the problem to obtain a solution that fulfils the needs of the conservation planner. Here, we explored several constraints using the minimum set objective. The _prioritizr_ package provides many other constraints and also different objectives that can be used to build a conservation problem.

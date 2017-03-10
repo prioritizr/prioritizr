@@ -27,6 +27,22 @@ from the random fields simulation.}
 \description{
 Simulate spatially auto-correlated data using random fields.
 }
+\examples{
+\dontrun{
+
+# create raster
+r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
+values(r) <- 1
+
+# simulate data using a Gaussian field
+d <- simulate_data(r, n = 1, model = RandomFields::RMgauss())
+
+# plot simulated data
+plot(d, main = "random Gaussian field")
+
+}
+
+}
 \seealso{
 \code{\link[RandomFields]{RFsimulate}},
   \code{\link{simulate_cost}}, \code{\link{simulate_species}}.

@@ -2,29 +2,7 @@
 % Please edit documentation in R/misc.R
 \name{print}
 \alias{print}
-\alias{print.ConservationModifier}
-\alias{print.ConservationProblem}
-\alias{print.id}
-\alias{print.OptimizationProblem}
-\alias{print.ScalarParameter}
-\alias{print.ArrayParameter}
-\alias{print.Solver}
 \title{Print}
-\usage{
-print.ConservationModifier(x, ...)
-
-print.ConservationProblem(x, ...)
-
-print.id(x, ...)
-
-print.OptimizationProblem(x, ...)
-
-print.ScalarParameter(x, ...)
-
-print.ArrayParameter(x, ...)
-
-print.Solver(x, ...)
-}
 \arguments{
 \item{x}{An object.}
 

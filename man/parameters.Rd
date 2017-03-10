@@ -7,15 +7,28 @@
 parameters(...)
 }
 \arguments{
-\item{...}{\code{\link{ArrayParameter}} and/or 
-\code{\link{ScalarParameter}}) objects to store in collection.}
+\item{...}{\code{\link{Parameter-class}} objects.}
 }
 \value{
-\code{\link{Parameters}} object.
+\code{\link{Parameters-class}} object.
 }
 \description{
-Create a collection of parameter objects.
+Create a new collection of \code{Parameter} objects.
+}
+\examples{
+
+# create two Parameter objects
+p1 <- binary_parameter("parameter one", 1)
+print(p1)
+
+p2 <- numeric_parameter("parameter two", 5)
+print(p2)
+
+# store Parameter objects in a Parameters object
+p <- parameters(p1, p2)
+print(p)
+
 }
 \seealso{
-\code{\link{array_parameters}}, code{\link{scalar_parameters}}.
+\code{\link{array_parameters}}, \code{\link{scalar_parameters}}.
 }

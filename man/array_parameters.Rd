@@ -3,17 +3,22 @@
 \name{array_parameters}
 \alias{array_parameters}
 \alias{proportion_parameter_array}
-\alias{numeric_parameter_array}
 \alias{binary_parameter_array}
+\alias{integer_parameter_array}
+\alias{numeric_parameter_array}
 \title{Array parameters}
 \usage{
 proportion_parameter_array(name, value, label)
 
+binary_parameter_array(name, value, label)
+
+integer_parameter_array(name, value, label,
+  lower_limit = rep(as.integer(-.Machine$integer.max), length(value)),
+  upper_limit = rep(as.integer(.Machine$integer.max), length(value)))
+
 numeric_parameter_array(name, value, label,
   lower_limit = rep(.Machine$double.xmin, length(value)),
   upper_limit = rep(.Machine$double.xmax, length(value)))
-
-binary_parameter_array(name, value, label)
 }
 \arguments{
 \item{name}{\code{character} name of parameter.}
@@ -22,37 +27,101 @@ binary_parameter_array(name, value, label)
 
 \item{label}{\code{character} \code{vector} of labels for each value.}
 
-\item{lower_limit}{\code{vector} of values show the minimum acceptable
-value for each element in \code{value}. This arguments defaults to the 
+\item{lower_limit}{\code{vector} of values denoting the minimum acceptable
+value for each element in \code{value}. Defaults to the
 smallest possible number on the system.}
 
-\item{upper_limit}{\code{vector} of values show the maximum acceptable
-value for each element in \code{value}. This arguments defaults to the 
+\item{upper_limit}{\code{vector} of values denoting the maximum acceptable
+value for each element in \code{value}. Defaults to the
 largest  possible number on the system.}
 }
 \value{
-\code{\link{ArrayParameter}} object.
+\code{\link{ArrayParameter-class}} object.
 }
 \description{
-These functions are used to create parameters that consist of multiple
-numbers. Parameters have a name, multiple values, a label for each 
-value, defalt values, a defined range of acceptable values, a class, 
-and a function for generating a \code{\link[shiny]{shiny}} widget to
-modify them. If values are supplied to a parameter that are unacceptable,
-then an error is thrown.
+Create parameters that consist of multiple numbers. If an attempt is made
+to create a parameter with conflicting settings then an error will be thrown.
 }
 \details{
-Below is a list of parameter generating functions and a brief 
+Below is a list of parameter generating functions and a brief
   description of each.
-
 \describe{
 
-  \item{proportion_parameter_array}{array of \code{numeric} values that 
-    between zero and one.}
+  \item{proportion_parameter_array}{a parameter that consists of multiple
+   \code{numeric} values that are between zero and one.}
 
-  \item{numeric_parameter_array}{array of \code{numeric} values.}
+  \item{binary_parameter_array}{a parameter that consists of multiple
+    \code{integer} values that are either zero or one.}
 
-  \item{binary_parameter_array}{array of \code{integer} values
-    that can only be zero or one.}
+  \item{integer_parameter_array}{a parameter that consists of multiple
+    \code{integer} values.}
+
+  \item{numeric_parameter_array}{a parameter that consists of multiple
+    \code{numeric} values.}
+
 }
+}
+\examples{
+# proportion parameter array
+p1 <- proportion_parameter_array('prop_array', c(0.1, 0.2, 0.3),
+                                 letters[1:3])
+print(p1) # print it
+p1$get() # get value
+p1$id # get id
+invalid <- data.frame(value = 1:3, row.names=letters[1:3]) # invalid values
+p1$validate(invalid) # check invalid input is invalid
+valid <- data.frame(value = c(0.4, 0.5, 0.6), row.names=letters[1:3]) # valid
+p1$validate(valid) # check valid input is valid
+p1$set(valid) # change value to valid input
+print(p1)
+
+# binary parameter array
+p2 <- binary_parameter_array('bin_array', c(0L, 1L, 0L), letters[1:3])
+print(p2) # print it
+p2$get() # get value
+p2$id # get id
+invalid <- data.frame(value = 1:3, row.names=letters[1:3]) # invalid values
+p2$validate(invalid) # check invalid input is invalid
+valid <- data.frame(value = c(0L, 0L, 0L), row.names=letters[1:3]) # valid
+p2$validate(valid) # check valid input is valid
+p2$set(valid) # change value to valid input
+print(p2)
+
+# integer parameter array
+p3 <- integer_parameter_array('int_array', c(1:3), letters[1:3])
+print(p3) # print it
+p3$get() # get value
+p3$id # get id
+invalid <- data.frame(value = rnorm(3), row.names=letters[1:3]) # invalid
+p3$validate(invalid) # check invalid input is invalid
+valid <- data.frame(value = 5:7, row.names=letters[1:3]) # valid
+p3$validate(valid) # check valid input is valid
+p3$set(valid) # change value to valid input
+print(p3)
+
+# numeric parameter array
+p4 <- numeric_parameter_array('dbl_array', c(0.1, 4, -5), letters[1:3])
+print(p4) # print it
+p4$get() # get value
+p4$id # get id
+invalid <- data.frame(value = c(NA, 1, 2), row.names=letters[1:3]) # invalid
+p4$validate(invalid) # check invalid input is invalid
+valid <- data.frame(value = c(1, 2, 3), row.names=letters[1:3]) # valid
+p4$validate(valid) # check valid input is valid
+p4$set(valid) # change value to valid input
+print(p4)
+
+# numeric parameter array with lower bounds
+p5 <- numeric_parameter_array('b_dbl_array', c(0.1, 4, -5), letters[1:3],
+                              lower_limit=c(0, 1, 2))
+print(p5) # print it
+p5$get() # get value
+p5$id# get id
+invalid <- data.frame(value = c(-1, 5, 5), row.names=letters[1:3]) # invalid
+p5$validate(invalid) # check invalid input is invalid
+valid <- data.frame(value = c(0, 1, 2), row.names=letters[1:3]) # valid
+p5$validate(valid) # check valid input is valid
+p5$set(valid) # change value to valid input
+print(p5)
+
 }

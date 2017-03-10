@@ -2,28 +2,83 @@
 % Please edit documentation in R/fast_extract.R
 \name{fast_extract}
 \alias{fast_extract}
+\alias{fast_extract,Raster,SpatialLines-method}
+\alias{fast_extract,Raster,SpatialPoints-method}
+\alias{fast_extract,Raster,SpatialPolygons-method}
 \alias{fast_extract}
 \alias{fast_extract}
 \alias{fast_extract}
 \title{Fast extract}
+\usage{
+\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean,
+  velox = requireNamespace("velox", quietly = TRUE), ...)
+
+\S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = mean, ...)
+
+\S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = mean, ...)
+}
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} object.}
 
 \item{y}{\code{\link[sp]{Spatial-class}} object.}
 
-\item{fun}{\code{function} to compute values.}
+\item{fun}{\code{function} used to summarize values. Defaults to
+\code{\link{sum}}. Note that this only used when \code{x} is a
+\code{\link[sp]{SpatialPolygons-class}} or a
+\code{\link[sp]{SpatialLines-class}} object. This function must
+have an \code{na.rm} argument.}
+
+\item{velox}{\code{logical} should the \code{\link[velox]{velox}}
+be used for geoprocessing? Defaults to \code{TRUE} if the package
+is installed. Note that this only used when \code{x} is a
+\code{\link[sp]{SpatialPolygons-class}} object.}
 
 \item{...}{additional arguments passed to \code{\link[raster]{extract}}.}
 }
 \value{
-\code{data.frame}, \code{matrix}, or \code{list} object 
+\code{data.frame}, \code{matrix}, or \code{list} object
   depending on the arguments.
 }
 \description{
-Extract data from a \code{\link[raster]{Raster-class}} object from a 
+Extract data from a \code{\link[raster]{Raster-class}} object from a
 \code{\link[sp]{Spatial-class}} object using performance enhancing tricks.
+}
+\details{
+Spatial analyses will be conducted using the
+  \code{\link[velox]{velox}} package if it is installed. Additionally,
+  multiple threads can be used to speed up computation using the
+  \code{\link{set_number_of_threads}} function.
+}
+\examples{
+\donttest{
+# load data
+data(sim_pu_polygons, sim_features)
+
+# we will investigate severals ways for extracting values from a raster
+# using polygons. Specifically, for each band in the raster,
+# for each polygon in the vector layer, calculate the average
+# of the cells that are inside the polygon.
+
+# perform the extraction using the standard raster::extract function
+system.time({result <- fast_extract(sim_features, sim_pu_polygons)})
+
+# perform extract using the fast_extract function augmented using the
+# "velox" package
+system.time({result <- fast_extract(sim_features, sim_pu_polygons,
+                                    velox = TRUE)})
+
+# perform extract using the fast_extract function with "velox" package
+# and using two threads for processing. Note that this might be slower
+# due to overheads but should yield faster processing times on larger
+# spatial data sets
+set_number_of_threads(2)
+system.time({result <- fast_extract(sim_features, sim_pu_polygons,
+                                    velox = TRUE)})
+set_number_of_threads(1)
+}
+
 }
 \seealso{
 \code{\link[raster]{extract}},
-  \code{\link[velox]{VeloxRaster_extract}}
+  \code{\link[velox]{VeloxRaster_extract}}.
 }

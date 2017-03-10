@@ -36,11 +36,6 @@ apt_packages:
   - r-cran-rgeos
   - r-cran-rsymphony
 
-r_github_packages:
-  - prioritizrdata
-  - prioritizrutils
-  - prioritizrshiny
-
 before_install: 
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
   - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile

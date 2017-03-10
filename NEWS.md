@@ -1,4 +1,8 @@
-# prioritizr 0.1.2.9
+# prioritizr 1.0.0.0 (unreleased)
+
+- R interface fully functional
+
+# prioritizr 0.1.2.9 (unreleased)
 
 - package re-implementation
 
@@ -12,4 +16,4 @@
 
 # prioritizr 0.1.1 (unreleased)
 
-- Initial package version
+- initial package version

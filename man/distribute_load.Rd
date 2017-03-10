@@ -15,15 +15,57 @@ distribute_load(x, n = get_number_of_threads())
 \code{list} object.
 }
 \description{
-This function helps with distributing a work load among processors
-for parallel processing by returning a list with index that
+Utility function for distributing computations among a pool of workers
+for parallel processing.
 }
 \details{
 This function returns a \code{list} containing an element for
-  each thread. Each element contains a \code{integer} vector 
-  specifying the indices that a thread should process.
+  each worker. Each element contains a \code{integer} \code{vector}
+  specifying the indices that the worker should process.
+}
+\examples{
+
+# imagine that we have 10 jobs that need processing. For simplicity,
+# our jobs will involve adding 1 to each element in 1:10.
+values <- 1:10
+
+# we could complete this processing using the following vectorized code
+result <- 1 + 1:10
+print(result)
+
+# however, if our jobs were complex then we would be better off using
+# functionals
+result <- lapply(1:10, function(x) x + 1)
+print(result)
+
+# we could do one better, and use the "plyr" package to handle the
+# processing
+result <- plyr::llply(1:10, function(x) x + 1)
+print(result)
+
+# we could also use the parallel processing options available through "plyr"
+# to use more computation resources to complete the jobs (note that since
+# these jobs are very quick to process this is actually slower).
+cl <- parallel::makeCluster(2, "PSOCK")
+doParallel::registerDoParallel(cl)
+result <- plyr::llply(1:10, function(x) x + 1, .parallel = TRUE)
+cl <- parallel::stopCluster(cl)
+print(result)
+
+# however this approach iterates over each element individually, we could
+# use the distribute_load function to split the N jobs up into K super
+# jobs, and evaluate each super job using vectorized code.
+x <- 1:10
+cl <- parallel::makeCluster(2, "PSOCK")
+parallel::clusterExport(cl, 'x', envir = environment())
+doParallel::registerDoParallel(cl)
+l <- distribute_load(length(x), n = 2)
+result <- plyr::llply(l, function(i) x[i] + 1, .parallel = TRUE)
+cl <- parallel::stopCluster(cl)
+print(result)
+
 }
 \seealso{
-\code{\link{get_number_of_threads}}, 
+\code{\link{get_number_of_threads}},
   \code{\link{set_number_of_threads}}, \code{\link{is.parallel}}.
 }

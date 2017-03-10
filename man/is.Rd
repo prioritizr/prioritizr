@@ -14,7 +14,7 @@ is.Waiver(x)
 \item{x}{Object.}
 }
 \value{
-\code{logical} indicatig if it inherits from the class.
+\code{logical} indicating if it inherits from the class.
 }
 \description{
 Test if an object inherits from a class.

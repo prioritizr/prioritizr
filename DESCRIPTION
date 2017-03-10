@@ -1,34 +1,115 @@
 Package: prioritizr
 Type: Package
-Version: 0.1.2.9
+Version: 1.0.0
 Title: Systematic Conservation Prioritization in R
-Description: Solve systematic reserve design problems using integer programming
-    techniques. To solve problems most efficiently users can install the
-    'gurobi' optimizer (available from <http://www.gurobi.com/>).
-Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson', email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
-             person(c('Richard'), 'Schuster', email='mail@richard-schuster.com', role = c('aut')),
-             person(c('Matthew'), 'Strimas-Mackey', email='mstrimas@gmail.com', role = c('aut')),
-             person(c('Peter'), 'Arcese', email='peter.arcese@ubc.ca', role = c('aut')),             
-             person(c('Joeseph'), 'Bennett', email='joseph.bennett@carleton.ca', role = c('aut', 'cre')))
+Description: Conservation prioritization using integer
+    programming techniques. To solve large-scale problems, users
+    should install the 'gurobi' optimizer
+    (available from <http://www.gurobi.com/>).
+Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson',
+               email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
+             person(c('Richard'), 'Schuster',
+               email='mail@richard-schuster.com', role = c('aut')),
+             person(c('Matthew'), 'Strimas-Mackey',
+               email='mstrimas@gmail.com', role = c('aut')),
+             person(c('Peter'), 'Arcese',
+               email='peter.arcese@ubc.ca', role = c('aut')),
+             person(c('Joeseph'), 'Bennett',
+               email='joseph.bennett@carleton.ca', role = c('aut', 'cre')))
 Imports:
     utils,
-    methods
+    methods,
+    proto,
+    assertthat,
+    uuid,
+    Matrix,
+    rgeos,
+    plyr,
+    parallel,
+    doParallel,
+    magrittr
 Suggests:
     testthat,
     knitr,
+    ape,
+    data.table,
+    shiny,
+    rhandsontable,
+    RandomFields,
+    velox,
+    maptools,
+    PBSmapping,
+    spdep,
+    gurobi,
+    lpsymphony,
+    Rsymphony,
     prioritizrdata
 Depends:
     R(>= 3.3.2),
     raster,
-    sp,
-    prioritizrutils,
-    prioritizrshiny
+    sp
+LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true
+SystemRequirements: C++11
 URL: https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Collate: 
+Remotes:
+  prioritizr/prioritizrdata
+Collate:
     'internal.R'
+    'pproto.R'
+    'Parameter-proto.R'
+    'ArrayParameter-proto.R'
+    'Parameters-proto.R'
+    'ScalarParameter-proto.R'
+    'parameters.R'
+    'ConservationModifier-proto.R'
+    'Penalty-proto.R'
+    'Constraint-proto.R'
+    'Collection-proto.R'
+    'ConservationProblem-proto.R'
+    'Decision-proto.R'
+    'Id.R'
+    'Objective-proto.R'
+    'OptimizationProblem-proto.R'
+    'OptimizationProblem-methods.R'
+    'RcppExports.R'
+    'Solver-proto.R'
+    'Target-proto.R'
+    'add_boundary_penalties.R'
+    'add_connected_constraints.R'
+    'add_connectivity_penalties.R'
+    'add_corridor_constraints.R'
+    'add_feature_weights.R'
+    'intersecting_units.R'
+    'add_locked_in_constraints.R'
+    'add_locked_out_constraints.R'
+    'add_neighbor_contraints.R'
+    'boundary_matrix.R'
+    'branch_matrix.R'
+    'compile.R'
+    'connected_matrix.R'
+    'connectivity_matrix.R'
+    'constraints.R'
+    'data.R'
+    'decisions.R'
+    'parallel.R'
+    'fast_extract.R'
+    'magrittr-operators.R'
+    'marxan_problem.R'
+    'misc.R'
+    'objectives.R'
     'package.R'
+    'penalties.R'
+    'problem.R'
+    'rij_matrix.R'
+    'run_calculations.R'
+    'simulate.R'
+    'solve.R'
+    'solvers.R'
+    'targets.R'
+    'waiver.R'
+    'zzz.R'

@@ -16,6 +16,20 @@ Generate a new unique identifier.
 \details{
 Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
 }
+\examples{
+# create new id
+i <- new_id()
+
+# print id
+print(i)
+
+# convert to character
+as.character(i)
+
+# check if it is an Id object
+is.Id(i)
+
+}
 \seealso{
 \code{\link[uuid]{UUIDgenerate}}.
 }

@@ -7,28 +7,48 @@
 \usage{
 compile(x, ...)
 
-\method{compile}{ConservationProblem}(x, ...)
+\method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem}} object.}
+\item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{...}{not used.}
+
+\item{compressed_formulation}{\code{logical} should the conservation problem
+compiled into a compressed version of a planning problem?
+If \code{TRUE} then the problem is expressed using the compressed
+formulation. If \code{FALSE} then the problem is expressed using the
+expanded formulation. If \code{NA}, then the compressed is used unless one
+of the constraints requires the expanded formulation. This argument
+defaults to \code{NA}.}
 }
 \value{
-\code{OptimizationProblem} object.
+\code{\link{OptimizationProblem-class}} object.
 }
 \description{
-Compile a \code{\link{ConservationProblem}} into an
-\code{OptimizationProblem}.
+Compile a \code{\link{ConservationProblem-class}} into an
+\code{\link{OptimizationProblem-class}} object.
+}
+\details{
+\strong{In nearly all cases, the default argument to
+  \code{formulation} should be used}. The only situation where manually
+  setting the argument to \code{formulation} is desirable is during testing.
+  Manually setting the argument to \code{formulation} will at best
+  have no effect on the problem. At worst, it may result in
+  an error, a misspecified problem, or unnecessarily long
+  solve times.
 }
 \examples{
 # build minimal conservation problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_minimum_set_objective() \%>\%
+  add_min_set_objective() \%>\%
   add_relative_targets(0.1)
 
 # compile the conservation problem into an optimization problem
 o <- compile(p)
+
+# print the optimization problem
+print(o)
 
 # print the optimization problem
 print(o)

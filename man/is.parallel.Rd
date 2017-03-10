@@ -8,12 +8,30 @@ is.parallel()
 }
 \value{
 \code{logical} indicating if parallel computations will be
-  performed in parallel.
+  performed in parallel where possible.
 }
 \description{
-This function determines if parallel processing capabilities have been set 
-up.
+This function determines if parallel processing capabilities have been
+initialized.
+}
+\examples{
+
+# set number of threads to 2
+set_number_of_threads(2)
+# get number of threads
+get_number_of_threads()
+
+# check that parallel processing is active
+is.parallel()
+
+# reset number of threads to 1
+set_number_of_threads(1)
+
+# check that parallel processing has been deactivated
+is.parallel()
+
 }
 \seealso{
-\code{\link{set_number_of_threads}}.
+\code{\link{set_number_of_threads}},
+  \code{\link{get_number_of_threads}}.
 }

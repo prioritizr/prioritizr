@@ -3,21 +3,27 @@
 \name{marxan_problem}
 \alias{marxan_problem}
 \alias{marxan_problem.default}
+\alias{marxan_problem.data.frame}
 \alias{marxan_problem.character}
 \title{Marxan conservation problem}
 \usage{
 marxan_problem(x, ...)
 
 \method{marxan_problem}{default}(x, features, targets,
-  targets_type = c("relative", "absolute"), locked_in = waiver(),
-  locked_out = waiver(), penalty = 0, edge_factor = 0.5, ...)
+  targets_type = c("relative", "absolute"), locked_in = NULL,
+  locked_out = NULL, penalty = 0, edge_factor = 0.5, ...)
+
+\method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL, blm = 0,
+  asymmetric_connectivity = FALSE, ...)
 
 \method{marxan_problem}{character}(x, ...)
 }
 \arguments{
 \item{x}{\code{character} file path for Marxan input file (typically
-called \emph{input.dat}) or a \code{\link[sp]{Spatial-class}} or 
-\code{\link[raster]{Raster-class}} object containing planning unit data.}
+called \code{"input.dat"}), a \code{data.frame} object containing
+planning unit data following conventions (ie. \code{"pu.dat"}), or a
+\code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
+object containing planning unit data.}
 
 \item{...}{not used}
 
@@ -28,58 +34,113 @@ data on the distribution of features across the study area.}
 in the solution.}
 
 \item{targets_type}{\code{character} name indicating if the \code{targets}
-are expressed as "relative" (eg. 0.2 meaning that 20 \% of a feature 
-needs to be conserved), or "absolute" (eg. 100 meaning that 100 units of a 
-feature need to be conserved) amounts.}
+are expressed as \code{"relative"} (eg. \code{0.2} meaning that 20 \% of a
+feature needs to be conserved), or \code{"absolute"} (eg. \code{200}
+meaning that 200 units of a feature need to be conserved) amounts.}
 
-\item{locked_in}{Object that determines which planning units that should be 
+\item{locked_in}{Object that determines which planning units that should be
 locked in. See details for more information.}
 
-\item{locked_out}{Object that determines which planning units that should be 
+\item{locked_out}{Object that determines which planning units that should be
 locked out. See details for more information.}
 
 \item{penalty}{\code{numeric} penalty for exposed edges. This
 is equivalent to the
-\href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary 
-length modifier (BLM)} parameter in \href{marxan.net}{Marxan}.}
+\href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
+parameter in \href{http://marxan.net}{Marxan}.}
 
 \item{edge_factor}{\code{numeric} proportion to scale edges that do
 not have any neighboring planning units. For example, an edge factor
 of \code{0.5} is commonly used for planning units along the coast line.}
+
+\item{spec}{\code{data.frame} containing information on the features.
+The argument to \code{spec} must follow the conventions used by
+Marxan for the species data file (conventionally called \code{"spec.dat"}).
+Each row corresponds to a different feature. It must also contain
+the following columns:
+\describe{
+  \item{\code{"id"}}{\code{integer} unique identifier for each feature
+    These identifiers are used in the argument to \code{rij_data}.}
+  \item{\code{"name"}}{\code{character} name for each feature.}
+  \item{\code{"prop"}}{\code{numeric} relative target for each feature
+     (optional).}'
+  \item{\code{"amount"}}{\code{numeric} absolute target for each
+      feature (optional).}
+}}
+
+\item{puvspr}{\code{data.frame} containing information on the amount of
+each feature in each planning unit. The argument to
+\code{puvspr} must follow the conventions used in the Marxan input data
+file (conventionally called \code{"puvspr.dat"}). It must contain the
+following columns:
+\describe{
+  \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+  \item{\code{"species"}}{\code{integer} feature identifier.}
+  \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+    planning unit.}
+}}
+
+\item{bound}{\code{data.frame} containing information on the
+planning units' boundaries or the connectivity between planning units.
+The argument to \code{bound} must follow the
+conventions used in the Marxan input data file (conventionally called
+\code{"bound.dat"}). It must contain the following columns:
+\describe{
+  \item{\code{"id1"}}{\code{integer} planning unit identifier.}
+  \item{\code{"id2"}}{\code{integer} planning unit identifier.}
+  \item{\code{"boundary"}}{\code{numeric} length of shared boundary
+    between planning units, or the strength of the connectivity between
+    the two planning units.}
+}}
+
+\item{blm}{\code{numeric} boundary length modifier. This argument only
+has an effect when argument to \code{x} is a \code{data.frame}. Defaults
+to zero.}
+
+\item{asymmetric_connectivity}{\code{logical} does the argument
+to \code{bound} denote asymmetric connectivity between planning units?
+This argument only has an effect when argument to \code{bound} is a
+\code{data.frame}. Defaults to \code{FALSE}.}
 }
 \value{
-\code{link{ConservationProblem}} or \code{logical} \code{vector}
-  indicating if which planning units were prioritized.
+\code{\link{ConservationProblem-class}} object.
 }
 \description{
-Create a Marxan conservation problem. Although users are encouraged to 
-build and tailor conservation planning problems to suit their own needs, 
-sometimes it is easier to just use a more familiar "canned" approach. To
-address this need, this function provides a convenient wrapper for generating
+Create a Marxan conservation problem. Although users are encouraged to
+build and tailor conservation planning problems to suit their own needs,
+sometimes it is easier to use a more familiar "canned" approach. This
+function provides a convenient wrapper for generating
 and solving Marxan-style conservation problems. If users already have
 their conservation planning data in the Marxan input format, this function
-can be used to read such files and solve the Marxan problems using 
-exact algorithm solvers.
+can also be used to read Marxan data files and solve the Marxan-style
+problems using exact algorithm solvers.
 }
 \examples{
+
 # create Marxan problem using spatial data
 data(sim_pu_raster, sim_features)
-p <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2, 
-                    targets_type='relative', penalty=1, edge_factor=0.5)
+p1 <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2,
+                     targets_type="relative", penalty=1,
+                     edge_factor=0.5)
 
+\donttest{
 # solve problem
-s <- solve(p)
+s1 <- solve(p1)
 
 # show solution
-plot(s)
+plot(s1)
+}
 
-\dontrun{
-# create and solve Marxan problem using Marxan input files
-file <- system.file('extdata/input.dat', package='prioritizr')
-s <- marxan_problem(file)
+# create Marxan problem using Marxan input files
+input_file <- system.file("extdata/input.dat", package="prioritizr")
+p2 <- marxan_problem(input_file)
 
-# count number of selected planning units
-print(sum(s))
+\donttest{
+# solve problem
+s2 <- solve(p2)
+
+# count number of selected planning units in solution
+print(sum(s2))
 }
 
 }

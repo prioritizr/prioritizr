@@ -29,6 +29,22 @@ from the random fields simulation.}
 This function generates cost layers using random field models. By default,
 it returns spatially autocorrelated integer values.
 }
+\examples{
+\dontrun{
+
+# create raster
+r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
+values(r) <- 1
+
+# simulate data
+cost <- simulate_cost(r)
+
+# plot simulated species
+plot(cost, main = "simulated cost data")
+
+}
+
+}
 \seealso{
 \code{\link{simulate_data}}.
 }

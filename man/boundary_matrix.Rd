@@ -2,36 +2,78 @@
 % Please edit documentation in R/boundary_matrix.R
 \name{boundary_matrix}
 \alias{boundary_matrix}
-\alias{boundary_matrix}
-\alias{boundary_matrix}
-\alias{boundary_matrix}
-\alias{boundary_matrix}
+\alias{boundary_matrix.Raster}
+\alias{boundary_matrix.SpatialPolygons}
+\alias{boundary_matrix.SpatialLines}
+\alias{boundary_matrix.SpatialPoints}
+\alias{boundary_matrix.data.frame}
 \title{Boundary matrix}
+\usage{
+boundary_matrix(x, ...)
+
+\method{boundary_matrix}{Raster}(x, ...)
+
+\method{boundary_matrix}{SpatialPolygons}(x, ...)
+
+\method{boundary_matrix}{SpatialLines}(x, ...)
+
+\method{boundary_matrix}{SpatialPoints}(x, ...)
+
+\method{boundary_matrix}{data.frame}(x, ...)
+}
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
 \code{\link[sp]{SpatialLines-class}}, or
-\code{\link[sp]{SpatialPolygons-class}} object. Note that if \code{x} is a 
+\code{\link[sp]{SpatialPolygons-class}} object. If \code{x} is a
 \code{\link[raster]{Raster-class}} object then it must have only one
 layer.}
 
-\item{edges}{\code{integer} number of edges that each planning unit has when
- argument to \code{x} is a \code{\link[raster]{Raster-class}} object. 
-Defaults to 4. Valid values are 4 and 6.}
+\item{...}{not used.}
 }
 \value{
 \code{\link{Matrix}{dsCMatrix-class}} object.
 }
 \description{
-Generate a boundary matrix showing the shared and exposed edges of 
-planning units. \strong{This function assumes the 
-data are in a projected coordinate system where distances can
-be correctly calculated. Thus spatial data in a longitude/latitude
-coordinate system should be reprojected prior to using this function.}
+Generate a boundary matrix describing the shared and exposed edges of
+planning units.
 }
 \details{
-This function returns a matrix. Cells along the off-diagonal 
-  indicating the length of the shared boundary between two planning units. 
-  Cells along the diagonal indicate length of a given planning unit's edges 
-  that have no neighbors (eg. for edges of planning units found along the 
-  coastline).
+This function returns a \code{\link[Matrix]{dsCMatrix-class}}
+  symmetric sparse matrix. Cells on the off-diagonal indicate the length of
+  the shared boundary between two different planning units. Cells on the
+  diagonal indicate length of a given planning unit"s edges that have no
+  neighbors (eg. for edges of planning units found along the
+  coastline). \strong{This function assumes the data are in a coordinate
+  system where Euclidean distances accurately describe the proximity
+  between two points on the earth}. Thus spatial data in a longitude/latitude
+  coordinate system (aka \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
+  should be reprojected to another coordinate system before using this
+  function.
+}
+\examples{
+## load data
+data(sim_pu_raster, sim_pu_polygons)
+
+## create boundary matrix using raster data
+# crop raster to 9 cells
+r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
+# make boundary matrix
+bm_raster <- boundary_matrix(r)
+
+## create boundary matrix using polygon data
+# subset 9 polygons
+ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+# make boundary matrix
+bm_ply <- boundary_matrix(ply)
+
+# plot raster and connected matrix
+par(mfrow=c(1, 2))
+plot(r, main = "raster")
+plot(raster(as.matrix(bm_raster)), main = "boundary matrix")
+
+# plot polygons and connected matrix
+par(mfrow=c(1, 2))
+plot(r, main = "polygons")
+plot(raster(as.matrix(bm_ply)), main = "boundary matrix")
+
 }

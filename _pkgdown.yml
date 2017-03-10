@@ -1,0 +1,15 @@
+template:
+  params:
+    bootswatch: cerulean
+
+authors:
+  Jeffrey O Hanson:
+    href: http://jeffrey-hanson.com
+  Richard Schuster:
+    href: http://arcese.forestry.ubc.ca.people/richard-schuster/
+  Matthew Strimas-Mackey:
+    href: http://strimas.com
+  Peter Arcese:
+    href: http://arcese.forestry.ubc.ca
+  Joeseph Bennet:
+    href: http://joesephrbennett.wordpress.com

@@ -2,20 +2,81 @@
 % Please edit documentation in R/intersecting_units.R
 \name{intersecting_units}
 \alias{intersecting_units}
+\alias{intersecting_units,Raster,Raster-method}
+\alias{intersecting_units,Raster,Spatial-method}
+\alias{intersecting_units,Spatial,Raster-method}
+\alias{intersecting_units,Spatial,Spatial-method}
+\alias{intersecting_units,data.frame,ANY-method}
+\alias{intersecting_units}
 \alias{intersecting_units}
 \alias{intersecting_units}
 \alias{intersecting_units}
 \alias{intersecting_units}
 \title{Find intersecting units}
-\arguments{
-\item{x}{Object.}
+\usage{
+intersecting_units(x, y, ...) # x=Raster, y=Raster
 
-\item{y}{Object.}
+intersecting_units(x, y, ...) # x=Spatial, y=Spatial
+
+intersecting_units(x, y, ...) # x=Raster, y=Spatial
+
+intersecting_units(x, y, ...) # x=Spatial, y=Raster
+
+intersecting_units(x, y, ...) # x=data.frame, y=ANY
+}
+\arguments{
+\item{x}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
+
+\item{y}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
+
+\item{...}{not used.}
 }
 \value{
-the units in \code{x} that intersect with \code{y}.
+\code{integer} indices of the units in \code{x} that intersect with
+  \code{y}.
 }
 \description{
-Determine the units in any given spatial data object that intersect
+Determine the units in a given spatial data object that intersect
 with any of the units in another spatial data object.
+}
+\details{
+The \code{\link{set_number_of_threads}} can be used to distribute
+  computations among multiple threads and potentially reduce run time.
+}
+\examples{
+## create data
+r <- raster(matrix(1:9, byrow = TRUE, ncol=3))
+r_with_holes <- r
+r_with_holes[c(1, 5, 9)] <- NA
+ply <- rasterToPolygons(r)
+ply_with_holes <- rasterToPolygons(r_with_holes)
+
+## intersect raster with raster
+par(mfrow = c(1, 2))
+plot(r, main = 'x=Raster')
+plot(r_with_holes, main = 'y=Raster')
+print(intersecting_units(r, r_with_holes))
+
+## intersect raster with polygons
+par(mfrow = c(1, 2))
+plot(r, main = 'x=Raster')
+plot(ply_with_holes, main = 'y=Spatial')
+print(intersecting_units(r, ply_with_holes))
+
+## intersect polygons with raster
+par(mfrow = c(1, 2))
+plot(ply, main = 'x=Spatial')
+plot(r_with_holes, main = 'y=Raster')
+print(intersecting_units(ply, r_with_holes))
+
+## intersect polygons with polygons
+par(mfrow = c(1, 2))
+plot(ply, main = 'x=Spatial')
+plot(ply_with_holes, main = 'y=Spatial')
+print(intersecting_units(ply, ply_with_holes))
+
+}
+\seealso{
+\code{\link{fast_extract}}, \code{\link{set_number_of_threads}},
+  \code{\link{get_number_of_threads}}.
 }

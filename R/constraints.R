@@ -1,0 +1,50 @@
+#' @include internal.R
+NULL
+
+#' Conservation problem constraints
+#'
+#' TODO
+#'
+#' \describe{
+#'
+#'   \item{\code{\link{add_connected_constraints}}}{
+#' Add constraints to a conservation problem to ensure that all selected
+#' planning units are spatially connected to each other.
+#'   }
+#'
+#'   \item{\code{\link{add_corridor_constraints}}}{
+#' It is important to maintain connectivity between reserves. However,
+#' some areas are more difficult for species to traverse then other areas.
+#' As a consequence, even though reserves may be connected, species may
+#' not be able to move between reserves if the areas connecting them
+#' are barriers to dispersal.
+#'
+#' This function adds constraints to ensure that corridors connect
+#' reserves and that individuals from all species can utilize the
+#' corridors. Friction \code{\link[raster]{Raster-class}} objects area
+#' used to show each difficult areas are to traverse.
+#' }
+#'
+#'   \item{\code{\link{add_locked_in_constraints}}}{
+#' Add constraints to ensure that they are prioritized in the solution.
+#' For example, it may be desirable to lock in planning units that are
+#' inside existing protected areas so that the solution fills in the gaps in the
+#' existing reserve network.
+#' }
+#'
+#'   \item{\code{\link{add_locked_out_constraints}}}{
+#' Add constraints to ensure that certain planning units are not prioritized
+#' in the solution. For example, it may be useful to lock out planning
+#' units that have been degraded and are not longer suitable for conserving
+#' species.
+#' }
+#'
+#'   \item{\code{\link{add_neighbor_constraints}}}{
+#' Add constraints to a conservation problem to ensure that all selected
+#' planning units have at least a certain number of neighbors.
+#' }
+#'
+#' }
+#'
+#' @name constraints
+NULL

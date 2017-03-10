@@ -7,54 +7,54 @@
 run_calculations(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem}} object}
+\item{x}{\code{\link{ConservationProblem-class}} object}
 }
 \value{
 None.
 }
 \description{
 Execute preliminary calculations in a conservation problem and store the
-results for later reuse. This function is useful when creating slightly 
-different versions of the same conservation planning problem that involve 
-the same constraints, because means that the same calculations will not be 
+results for later reuse. This function is useful when creating slightly
+different versions of the same conservation planning problem that involve
+the same constraints, because means that the same calculations will not be
 run multiple times.
 }
 \details{
 This function is used for the effect of modifying the input
-  \code{\link{ConservationProblem}} object. As such, it does not return
+  \code{\link{ConservationProblem-class}} object. As such, it does not return
   anything. To use this function with \code{\link{pipe}} operators, use the
   \code{\%T>\%} operator and not the \code{\%>\%} operator.
 }
 \examples{
-
-# Let us imagine a scenario where we wanted to understand the effect of 
+\donttest{
+# Let us imagine a scenario where we wanted to understand the effect of
 # setting different targets on our solution.
 
 # create a conservation problem with no targets
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_minimum_set_objective() \%>\%
-  add_boundary_constraint(10, 0.5)
+  add_min_set_objective() \%>\%
+  add_boundary_penalties(10, 0.5)
 
 # create a copies of p and add targets
 p1 <- p \%>\% add_relative_targets(0.1)
 p2 <- p \%>\% add_relative_targets(0.2)
 p3 <- p \%>\% add_relative_targets(0.3)
 
-# now solve each of the different problems and record the time spent 
+# now solve each of the different problems and record the time spent
 # solving them
 s1 <- system.time({solve(p1); solve(p2); solve(p3)})
 
-# This approach is inefficient. Since these problems all share the same 
+# This approach is inefficient. Since these problems all share the same
 # planning units it is actually performing the same calculations three times.
-# To avoid this, we can use the "run_calculations" function before creating 
-# the copies. Normally, R runs the calculations just before solving the 
+# To avoid this, we can use the "run_calculations" function before creating
+# the copies. Normally, R runs the calculations just before solving the
 # problem
 
 # recreate a conservation problem with no targets and tell R run the
 # preliminary calculations. Note how we use the \\\%T>\\\% operator here.
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_minimum_set_objective() \%>\%
-  add_boundary_constraint(10, 0.5) \%T>\%
+  add_min_set_objective() \%>\%
+  add_boundary_penalties(10, 0.5) \%T>\%
   run_calculations()
 
 # create a copies of p and add targets just like before
@@ -62,7 +62,7 @@ p1 <- p \%>\% add_relative_targets(0.1)
 p2 <- p \%>\% add_relative_targets(0.2)
 p3 <- p \%>\% add_relative_targets(0.3)
 
-# solve each of the different problems and record the time spent 
+# solve each of the different problems and record the time spent
 # solving them
 s2 <- system.time({solve(p1); solve(p2); solve(p3)})
 
@@ -70,9 +70,10 @@ s2 <- system.time({solve(p1); solve(p2); solve(p3)})
 print(s1) # time spent without running preliminary calculations
 print(s2) # time spent after running preliminary calculations
 
-# As we can see, we can save a lot of time by running the preliminary 
+# As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.
+}
 
 }
 \seealso{
