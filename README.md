@@ -104,10 +104,6 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
      nr = 1)
 ```
 
-```
-## Error in graphics::par(old.par): invalid value specified for graphical parameter "pin"
-```
-
 ![plot of chunk unnamed-chunk-5](inst/vign/readme-figure/unnamed-chunk-5-1.png)
 
 We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions (`[add_binary_decisions](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)`).
@@ -333,7 +329,7 @@ s4 <- solve(p4)
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.22 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.18 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
