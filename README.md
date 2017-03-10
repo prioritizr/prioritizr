@@ -83,13 +83,14 @@ spplot(sim_pu_polygons, "cost")
 
 ![plot of chunk unnamed-chunk-4](inst/vign/readme-figure/unnamed-chunk-4-1.png)
 
+
 ```r
 # plot the planning units and show which planning units are inside protected
 # areas. Units inside protected areas are shown in yellow.
 spplot(sim_pu_polygons, "locked_in")
 ```
 
-![plot of chunk unnamed-chunk-4](inst/vign/readme-figure/unnamed-chunk-4-2.png)
+![plot of chunk unnamed-chunk-5](inst/vign/readme-figure/unnamed-chunk-5-1.png)
 
 Biodiversity features are represented using a stack of raster data (ie. `RasterStack` objects). A `RasterStack` represents a collection of `RasterLayers` with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each `RasterLayer` in the stack describes the distribution of a biodiversity feature.
 
@@ -104,7 +105,7 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
      nr = 1)
 ```
 
-![plot of chunk unnamed-chunk-5](inst/vign/readme-figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-6](inst/vign/readme-figure/unnamed-chunk-6-1.png)
 
 We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions (`[add_binary_decisions](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)`).
 
@@ -164,7 +165,7 @@ s1$solution <- factor(s1$solution)
 spplot(s1, "solution", col.regions = c('grey80', 'darkgreen'))
 ```
 
-![plot of chunk unnamed-chunk-7](inst/vign/readme-figure/unnamed-chunk-7-1.png)
+![plot of chunk unnamed-chunk-8](inst/vign/readme-figure/unnamed-chunk-8-1.png)
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our vector data contains information on which planning units are inside protected areas in the `"locked_in"` column, we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
 
@@ -215,7 +216,7 @@ s2$solution <- factor(s2$solution)
 spplot(s2, "solution", col.regions = c('grey80', 'darkgreen'))
 ```
 
-![plot of chunk unnamed-chunk-8](inst/vign/readme-figure/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-9](inst/vign/readme-figure/unnamed-chunk-9-1.png)
 
 This solution is an improvement over the the previous solution. However, it is also highly fragmented. As a consequence, implementing this solution may be associated with increased management costs and be susceptible to edge effects. We can further constrain the solution by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (ie. boundary length modifier; BLM), and an edge factor of 50 % so that planning units along the coastline are not overly penalized.
 
@@ -258,7 +259,7 @@ s3 <- solve(p3)
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.06 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -274,7 +275,7 @@ s3$solution <- factor(s3$solution)
 spplot(s3, "solution", col.regions = c('grey80', 'darkgreen'))
 ```
 
-![plot of chunk unnamed-chunk-9](inst/vign/readme-figure/unnamed-chunk-9-1.png)
+![plot of chunk unnamed-chunk-10](inst/vign/readme-figure/unnamed-chunk-10-1.png)
 
 This solution is even better then the previous solution. However, we are not content just yet. This solution does not maintain connectivity between reserves, and so species may have limited ability to disperse throughout the reserve network. To avoid this, we can add connected constraints ([`add_connected_constraints`](https://prioritizr.github.io/prioritizr/reference/add_connected_constraints.html)).
 
@@ -329,7 +330,7 @@ s4 <- solve(p4)
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.18 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.19 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
@@ -345,6 +346,6 @@ s4$solution <- factor(s4$solution)
 spplot(s4, "solution", col.regions = c('grey80', 'darkgreen'))
 ```
 
-![plot of chunk unnamed-chunk-10](inst/vign/readme-figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](inst/vign/readme-figure/unnamed-chunk-11-1.png)
 
 This short example demonstrates how the _prioritizr_ package can be used to build a minimal conservation problem, and how constraints can be iteratively added to the problem to obtain a solution that fulfils the needs of the conservation planner. Here, we explored several constraints using the minimum set objective. The _prioritizr_ package provides many other constraints and also different objectives that can be used to build a conservation problem.

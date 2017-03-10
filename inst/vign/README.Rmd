@@ -80,7 +80,9 @@ head(sim_pu_polygons@data)
 
 # plot the planning units and colour by acquisition cost
 spplot(sim_pu_polygons, "cost")
+```
 
+```{r, fig.height = h, fig.width = w}
 # plot the planning units and show which planning units are inside protected
 # areas. Units inside protected areas are shown in yellow.
 spplot(sim_pu_polygons, "locked_in")
