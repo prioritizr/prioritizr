@@ -259,7 +259,7 @@ s3 <- solve(p3)
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.07 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -330,7 +330,7 @@ s4 <- solve(p4)
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.19 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.18 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 

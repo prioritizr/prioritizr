@@ -92,7 +92,7 @@ Biodiversity features are represented using a stack of raster data (ie. `RasterS
 
 In our example, the `sim_features` object is a `RasterStack` object that contains `r raster::nlayers(sim_features)` layers. Each `RasterLayer` describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.
 
-```{r, fig.height = h}
+```{r, fig.height = h / 2, fig.width = h * 2}
 # load feature data
 data(sim_features)
 # plot the distribution of suitable habitat for each feature
