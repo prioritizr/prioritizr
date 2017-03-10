@@ -65,8 +65,8 @@ library(prioritizr)
 
 ```{r, include = FALSE}
 devtools::load_all()
-h = 10
-w = 10
+h = 5
+w = 5
 ```
 
 We will use the `sim_pu_polygons` object to represent our planning units. Although _prioritizr_ can support many different types of planning unit data, here our planning units are represented as polygons in a vector format (ie. `SpatialPolygonsDataFrame`). Each polygon represents a planning unit. This object contains `r length(sim_pu_polygons)` planning units. The attribute table associates each planning unit an acquisition cost ("cost" column), and a value indicating if the unit is inside a simulated protected area ("locked_in" column). Let's explore the planning unit data.
