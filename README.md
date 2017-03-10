@@ -107,7 +107,7 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
 
 ![plot of chunk unnamed-chunk-6](inst/vign/readme-figure/unnamed-chunk-6-1.png)
 
-We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions (`[add_binary_decisions](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)`).
+We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions (`1add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)).
 
 
 ```r
@@ -118,7 +118,7 @@ p1 <- problem(sim_pu_polygons, features = sim_features, cost_name = "cost") %>%
   add_binary_decisions()
 ```
 
-After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. *It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com).*
+After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com).**
 
 
 ```r
@@ -162,7 +162,7 @@ s1 <- solve(p1)
 ```r
 # plot the solution
 s1$solution <- factor(s1$solution)
-spplot(s1, "solution", col.regions = c('grey80', 'darkgreen'))
+spplot(s1, "solution", col.regions = c('grey90', 'darkgreen'))
 ```
 
 ![plot of chunk unnamed-chunk-8](inst/vign/readme-figure/unnamed-chunk-8-1.png)
@@ -213,7 +213,7 @@ s2 <- solve(p2)
 ```r
 # plot the solution
 s2$solution <- factor(s2$solution)
-spplot(s2, "solution", col.regions = c('grey80', 'darkgreen'))
+spplot(s2, "solution", col.regions = c('grey90', 'darkgreen'))
 ```
 
 ![plot of chunk unnamed-chunk-9](inst/vign/readme-figure/unnamed-chunk-9-1.png)
@@ -272,7 +272,7 @@ s3 <- solve(p3)
 ```r
 # plot the solution
 s3$solution <- factor(s3$solution)
-spplot(s3, "solution", col.regions = c('grey80', 'darkgreen'))
+spplot(s3, "solution", col.regions = c('grey90', 'darkgreen'))
 ```
 
 ![plot of chunk unnamed-chunk-10](inst/vign/readme-figure/unnamed-chunk-10-1.png)
@@ -343,7 +343,7 @@ s4 <- solve(p4)
 ```r
 # plot the solution
 s4$solution <- factor(s4$solution)
-spplot(s4, "solution", col.regions = c('grey80', 'darkgreen'))
+spplot(s4, "solution", col.regions = c('grey90', 'darkgreen'))
 ```
 
 ![plot of chunk unnamed-chunk-11](inst/vign/readme-figure/unnamed-chunk-11-1.png)
