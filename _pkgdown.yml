@@ -1,4 +1,4 @@
-template:
+templates:
   params:
     bootswatch: cerulean
 
@@ -12,4 +12,4 @@ authors:
   Peter Arcese:
     href: http://arcese.forestry.ubc.ca
   Joeseph Bennet:
-    href: http://joesephrbennett.wordpress.com
+    href: https://josephrbennett.wordpress.com/

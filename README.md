@@ -1,10 +1,11 @@
+# Systematic conservation prioritization in R
+
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
 [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr)
 [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
-# Systematic conservation prioritization in R
 
 _Prioritizr_ is an _R_ package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by _prioritizr_ are guaranteed to find optimal solutions. This package also has the functionality to read [Marxan](http://marxan.net/) input data and find much cheaper solutions in a much shorter period of time than _Marxan_ ([Beyer _et al. 2016_](http://marxan.net/downloads/papers/beyer_etal_2015.pdf)). Check out the [_prioritizrshiny_ _R_ package](https://github.com/prioritizr/prioritizrshiny) to interactively build and customize conservation planning problems.
 
@@ -15,7 +16,7 @@ This package largely consists of six main types of functions. These functions ar
 - add an [objective](https://prioritizr.github.io/prioritizr/reference/objectives.html) to a reserve design problem. For example, the [`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html) function can used to specify that the overall goal of the prioritization is to adequately represent each feature for minimal cost.
 - add [constraints](https://prioritizr.github.io/prioritizr/reference/constraints.html) to a problem to obtain better solutions. For example, the [`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html) function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.
 - add [penalties](https://prioritizr.github.io/prioritizr/reference/penalties.html) to a problem to penalize ineffective solutions. For example, the [`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html) function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.
-- add [decisions](https://prioritizr.github.io/prioritizr/reference/decisions.html) to a problem to specify the nature of the conservation decision on the planning units. For example, the [`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html) function specifies that planning units are either prioritized or not. Whereas,  the [`add_proportion_decisions`](https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html) can be used to specify the a proportion of each
+- add [decisions](https://prioritizr.github.io/prioritizr/reference/decisions.html) to a problem to specify the nature of the conservation decision on the planning units. For example, the [`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html) function specifies that planning units are either prioritized or not. Whereas,  the [`add_proportion_decisions`](https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html) can be used to specify that a proportion of each
 planning unit can be prioritized.
 - [solve](https://prioritizr.github.io/prioritizr/reference/solve.html) a conservation problem.
 
@@ -78,7 +79,8 @@ head(sim_pu_polygons@data)
 
 ```r
 # plot the planning units and colour by acquisition cost
-spplot(sim_pu_polygons, "cost")
+spplot(sim_pu_polygons, "cost", main = "Planning unit cost",
+       xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-4](inst/vign/readme-figure/unnamed-chunk-4-1.png)
@@ -87,7 +89,8 @@ spplot(sim_pu_polygons, "cost")
 ```r
 # plot the planning units and show which planning units are inside protected
 # areas. Units inside protected areas are shown in yellow.
-spplot(sim_pu_polygons, "locked_in")
+spplot(sim_pu_polygons, "locked_in", main = "Planning units in protected areas",
+       xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-5](inst/vign/readme-figure/unnamed-chunk-5-1.png)
@@ -162,7 +165,8 @@ s1 <- solve(p1)
 ```r
 # plot the solution
 s1$solution <- factor(s1$solution)
-spplot(s1, "solution", col.regions = c('grey90', 'darkgreen'))
+spplot(s1, "solution", col.regions = c('grey90', 'darkgreen'),
+       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-8](inst/vign/readme-figure/unnamed-chunk-8-1.png)
@@ -213,7 +217,8 @@ s2 <- solve(p2)
 ```r
 # plot the solution
 s2$solution <- factor(s2$solution)
-spplot(s2, "solution", col.regions = c('grey90', 'darkgreen'))
+spplot(s2, "solution", col.regions = c('grey90', 'darkgreen'),
+       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-9](inst/vign/readme-figure/unnamed-chunk-9-1.png)
@@ -259,7 +264,7 @@ s3 <- solve(p3)
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.06 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -272,7 +277,8 @@ s3 <- solve(p3)
 ```r
 # plot the solution
 s3$solution <- factor(s3$solution)
-spplot(s3, "solution", col.regions = c('grey90', 'darkgreen'))
+spplot(s3, "solution", col.regions = c('grey90', 'darkgreen'),
+       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-10](inst/vign/readme-figure/unnamed-chunk-10-1.png)
@@ -330,7 +336,7 @@ s4 <- solve(p4)
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.18 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.13 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
@@ -343,7 +349,8 @@ s4 <- solve(p4)
 ```r
 # plot the solution
 s4$solution <- factor(s4$solution)
-spplot(s4, "solution", col.regions = c('grey90', 'darkgreen'))
+spplot(s4, "solution", col.regions = c('grey90', 'darkgreen'),
+       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
 ![plot of chunk unnamed-chunk-11](inst/vign/readme-figure/unnamed-chunk-11-1.png)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Systematic Conservation Prioritization in R • prioritizr</title>
-<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="jquery.sticky-kit.min.js"></script><script src="pkgdown.js"></script><!-- mathjax --><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -56,24 +56,23 @@
       
       </header><div class="row">
   <div class="contents col-md-9">
-    
-
-<div id="systematic-conservation-prioritization-in-r" class="section level1">
+    <div id="systematic-conservation-prioritization-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#systematic-conservation-prioritization-in-r" class="anchor"> </a>Systematic conservation prioritization in R</h1></div>
+
 <p><em>Prioritizr</em> is an <em>R</em> package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by <em>prioritizr</em> are guaranteed to find optimal solutions. This package also has the functionality to read <a href="http://marxan.net/">Marxan</a> input data and find much cheaper solutions in a much shorter period of time than <em>Marxan</em> (<a href="http://marxan.net/downloads/papers/beyer_etal_2015.pdf">Beyer <em>et al. 2016</em></a>). Check out the <a href="https://github.com/prioritizr/prioritizrshiny"><em>prioritizrshiny</em> <em>R</em> package</a> to interactively build and customize conservation planning problems.</p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"> </a>Overview</h2>
-<p>This package largely consists of five main types of functions. These functions are used to:</p>
+<p>This package largely consists of six main types of functions. These functions are used to:</p>
 <ul>
 <li>create a new reserve design <a href="https://prioritizr.github.io/prioritizr/reference/problem.html">problem</a> by specifying the planning units and features of conservation interest (eg. species, eco-systems).</li>
 <li>add an <a href="https://prioritizr.github.io/prioritizr/reference/objectives.html">objective</a> to a reserve design problem. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a> function can used to specify that the overall goal of the prioritization is to adequately represent each feature for minimal cost.</li>
-<li>add <a href="https://prioritizr.github.io/prioritizr/reference/constraints.html"><code>constraints</code></a> to a problem to obtain better solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a> function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.</li>
-<li>add <a href="https://prioritizr.github.io/prioritizr/reference/penalties.html"><code>penalties</code></a> to a problem to penalize ineffective solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a> function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.</li>
-<li>add <a href="https://prioritizr.github.io/prioritizr/reference/decisions.html"><code>decisions</code></a> to a problem to specify the nature of the conservation decision on the planning units. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a> function specifies that planning units are either prioritized or not. Whereas, the <a href="https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html"><code>add_proportion_decisions</code></a> can be used to specify the a proportion of each planning unit can be prioritized.</li>
+<li>add <a href="https://prioritizr.github.io/prioritizr/reference/constraints.html">constraints</a> to a problem to obtain better solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a> function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.</li>
+<li>add <a href="https://prioritizr.github.io/prioritizr/reference/penalties.html">penalties</a> to a problem to penalize ineffective solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a> function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.</li>
+<li>add <a href="https://prioritizr.github.io/prioritizr/reference/decisions.html">decisions</a> to a problem to specify the nature of the conservation decision on the planning units. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a> function specifies that planning units are either prioritized or not. Whereas, the <a href="https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html"><code>add_proportion_decisions</code></a> can be used to specify that a proportion of each planning unit can be prioritized.</li>
 <li>
-<a href="https://prioritizr.github.io/prioritizr/reference/solve.html"><code>solve</code></a> a conservation problem.</li>
+<a href="https://prioritizr.github.io/prioritizr/reference/solve.html">solve</a> a conservation problem.</li>
 </ul>
 <p>The currently supported solvers are listed below. Each must be installed separately from this package. The details of the solvers are intentionally abstracted away so that minimal knowledge is required to use a given solver.</p>
 <ul>
@@ -94,7 +93,9 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"> </a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Arcese P, Bennett J (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Arcese P, Bennett J (2017).
+prioritizr: Systematic Conservation Prioritization in R. R package version
+1.0.0. https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
@@ -116,116 +117,217 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 ## 5 214.0419     FALSE      FALSE
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and colour by acquisition cost</span>
-<span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"cost"</span>)</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
+<span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"cost"</span>, <span class="dt">main =</span> <span class="st">"Planning unit cost"</span>,
+       <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and show which planning units are inside protected</span>
 <span class="co"># areas. Units inside protected areas are shown in yellow.</span>
-<span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"locked_in"</span>)</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-4-2.png" alt="plot of chunk unnamed-chunk-4"></p>
+<span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"locked_in"</span>, <span class="dt">main =</span> <span class="st">"Planning units in protected areas"</span>,
+       <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
 <p>Biodiversity features are represented using a stack of raster data (ie. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a biodiversity feature.</p>
 <p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains 5 layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load feature data</span>
 <span class="kw">data</span>(sim_features)
 <span class="co"># plot the distribution of suitable habitat for each feature</span>
-<span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))))</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
-<p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<code>[add_binary_decisions](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)</code>).</p>
+<span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))),
+     <span class="dt">nr =</span> <span class="dv">1</span>)</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
+<p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<code>1add_binary_decisions</code>](<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html" class="uri">https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html</a>)).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features, <span class="dt">cost_name =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/objectives.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/targets.html">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/decisions.html">add_binary_decisions</a></span>()</code></pre></div>
-<p>After we have built a <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <em>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>.</em></p>
+<p>After we have built a <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve the problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html">solve</a></span>(p1)</code></pre></div>
-<p>Optimize a model with 5 rows, 90 columns and 450 nonzeros Variable types: 0 continuous, 90 integer (90 binary) Coefficient statistics: Matrix range [2e-01, 9e-01] Objective range [2e+02, 2e+02] Bounds range [1e+00, 1e+00] RHS range [6e+00, 1e+01] Found heuristic solution: objective 4135.27 Presolve time: 0.00s Presolved: 5 rows, 90 columns, 450 nonzeros Variable types: 0 continuous, 90 integer (90 binary) Presolved: 5 rows, 90 columns, 450 nonzeros</p>
-<p>Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">Nodes    <span class="op">|</span><span class="st">    </span>Current Node    <span class="op">|</span><span class="st">     </span>Objective Bounds      <span class="op">|</span><span class="st">     </span>Work</code></pre></div>
-<p>Expl Unexpl | Obj Depth IntInf | Incumbent BestBd Gap | It/Node Time</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"> <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">3490.34813</span>    <span class="dv">0</span>    <span class="dv">4</span> <span class="fl">4135.27447</span> <span class="fl">3490.34813</span>  <span class="fl">15.6</span>%     <span class="op">-</span><span class="st">    </span>0s</code></pre></div>
-<p>H 0 0 3597.0951275 3490.34813 2.97% - 0s</p>
-<p>Explored 0 nodes (17 simplex iterations) in 0.00 seconds Thread count was 1 (of 4 available processors)</p>
-<p>Solution count 2: 3597.1 4135.27 Pool objective bound 3490.35</p>
-<p>Optimal solution found (tolerance 1.00e-01) Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</p>
+<pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Variable types: 0 continuous, 90 integer (90 binary)
+## Coefficient statistics:
+##   Matrix range     [2e-01, 9e-01]
+##   Objective range  [2e+02, 2e+02]
+##   Bounds range     [1e+00, 1e+00]
+##   RHS range        [6e+00, 1e+01]
+## Found heuristic solution: objective 4135.27
+## Presolve time: 0.00s
+## Presolved: 5 rows, 90 columns, 450 nonzeros
+## Variable types: 0 continuous, 90 integer (90 binary)
+## Presolved: 5 rows, 90 columns, 450 nonzeros
+## 
+## 
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+## 
+##     Nodes    |    Current Node    |     Objective Bounds      |     Work
+##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+## 
+##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
+## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
+## 
+## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+## Thread count was 1 (of 4 available processors)
+## 
+## Solution count 2: 3597.1 4135.27 
+## Pool objective bound 3490.35
+## 
+## Optimal solution found (tolerance 1.00e-01)
+## Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s1<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution)
-<span class="kw">spplot</span>(s1, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey80'</span>, <span class="st">'darkgreen'</span>))</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
+<span class="kw">spplot</span>(s1, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
+       <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8"></p>
 <p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our vector data contains information on which planning units are inside protected areas in the <code>"locked_in"</code> column, we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with locked in constraints added to it</span>
 p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
 <span class="co"># solve the problem</span>
 s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html">solve</a></span>(p2)</code></pre></div>
-<p>Optimize a model with 5 rows, 90 columns and 450 nonzeros Variable types: 0 continuous, 90 integer (90 binary) Coefficient statistics: Matrix range [2e-01, 9e-01] Objective range [2e+02, 2e+02] Bounds range [1e+00, 1e+00] RHS range [6e+00, 1e+01] Found heuristic solution: objective 4020.2 Presolve removed 0 rows and 10 columns Presolve time: 0.00s Presolved: 5 rows, 80 columns, 400 nonzeros Variable types: 0 continuous, 80 integer (80 binary) Presolved: 5 rows, 80 columns, 400 nonzeros</p>
-<p>Root relaxation: objective 3.620461e+03, 11 iterations, 0.00 seconds</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">Nodes    <span class="op">|</span><span class="st">    </span>Current Node    <span class="op">|</span><span class="st">     </span>Objective Bounds      <span class="op">|</span><span class="st">     </span>Work</code></pre></div>
-<p>Expl Unexpl | Obj Depth IntInf | Incumbent BestBd Gap | It/Node Time</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"> <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">3620.46082</span>    <span class="dv">0</span>    <span class="dv">3</span> <span class="fl">4020.20382</span> <span class="fl">3620.46082</span>  <span class="fl">9.94</span>%     <span class="op">-</span><span class="st">    </span>0s</code></pre></div>
-<p>Explored 0 nodes (11 simplex iterations) in 0.00 seconds Thread count was 1 (of 4 available processors)</p>
-<p>Solution count 1: 4020.2 Pool objective bound 3620.46</p>
-<p>Optimal solution found (tolerance 1.00e-01) Best objective 4.020203818008e+03, best bound 3.620460824006e+03, gap 9.9434%</p>
+<pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Variable types: 0 continuous, 90 integer (90 binary)
+## Coefficient statistics:
+##   Matrix range     [2e-01, 9e-01]
+##   Objective range  [2e+02, 2e+02]
+##   Bounds range     [1e+00, 1e+00]
+##   RHS range        [6e+00, 1e+01]
+## Found heuristic solution: objective 4020.2
+## Presolve removed 0 rows and 10 columns
+## Presolve time: 0.00s
+## Presolved: 5 rows, 80 columns, 400 nonzeros
+## Variable types: 0 continuous, 80 integer (80 binary)
+## Presolved: 5 rows, 80 columns, 400 nonzeros
+## 
+## 
+## Root relaxation: objective 3.620461e+03, 11 iterations, 0.00 seconds
+## 
+##     Nodes    |    Current Node    |     Objective Bounds      |     Work
+##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+## 
+##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
+## 
+## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Thread count was 1 (of 4 available processors)
+## 
+## Solution count 1: 4020.2 
+## Pool objective bound 3620.46
+## 
+## Optimal solution found (tolerance 1.00e-01)
+## Best objective 4.020203818008e+03, best bound 3.620460824006e+03, gap 9.9434%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s2<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution)
-<span class="kw">spplot</span>(s2, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey80'</span>, <span class="st">'darkgreen'</span>))</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8"></p>
+<span class="kw">spplot</span>(s2, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
+       <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
 <p>This solution is an improvement over the the previous solution. However, it is also highly fragmented. As a consequence, implementing this solution may be associated with increased management costs and be susceptible to edge effects. We can further constrain the solution by adding penalties that punish overly fragmented solutions (<a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a>). Here we will use a penalty factor of 1 (ie. boundary length modifier; BLM), and an edge factor of 50 % so that planning units along the coastline are not overly penalized.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with boundary penalties added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)
 <span class="co"># solve the problem</span>
 s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html">solve</a></span>(p3)</code></pre></div>
-<p>Optimize a model with 293 rows, 234 columns and 1026 nonzeros Variable types: 0 continuous, 234 integer (234 binary) Coefficient statistics: Matrix range [2e-01, 1e+00] Objective range [1e+02, 4e+02] Bounds range [1e+00, 1e+00] RHS range [6e+00, 1e+01] Found heuristic solution: objective 6420.2 Presolve removed 72 rows and 46 columns Presolve time: 0.00s Presolved: 221 rows, 188 columns, 832 nonzeros Variable types: 0 continuous, 188 integer (188 binary) Presolved: 221 rows, 188 columns, 832 nonzeros</p>
-<p>Root relaxation: objective 5.477092e+03, 245 iterations, 0.00 seconds</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">Nodes    <span class="op">|</span><span class="st">    </span>Current Node    <span class="op">|</span><span class="st">     </span>Objective Bounds      <span class="op">|</span><span class="st">     </span>Work</code></pre></div>
-<p>Expl Unexpl | Obj Depth IntInf | Incumbent BestBd Gap | It/Node Time</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"> <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5477.09167</span>    <span class="dv">0</span>   <span class="dv">89</span> <span class="fl">6420.20382</span> <span class="fl">5477.09167</span>  <span class="fl">14.7</span>%     <span class="op">-</span><span class="st">    </span>0s</code></pre></div>
-<p>H 0 0 6230.2475434 5477.09167 12.1% - 0s H 0 0 6162.3460667 5477.09167 11.1% - 0s 0 0 5493.46801 0 108 6162.34607 5493.46801 10.9% - 0s 0 0 5513.60658 0 93 6162.34607 5513.60658 10.5% - 0s H 0 0 5878.3503827 5513.60658 6.20% - 0s</p>
-<p>Cutting planes: Gomory: 1</p>
-<p>Explored 0 nodes (278 simplex iterations) in 0.08 seconds Thread count was 1 (of 4 available processors)</p>
-<p>Solution count 4: 5878.35 6162.35 6230.25 6420.2 Pool objective bound 5513.61</p>
-<p>Optimal solution found (tolerance 1.00e-01) Best objective 5.878350382730e+03, best bound 5.513606581997e+03, gap 6.2049%</p>
+<pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+## Variable types: 0 continuous, 234 integer (234 binary)
+## Coefficient statistics:
+##   Matrix range     [2e-01, 1e+00]
+##   Objective range  [1e+02, 4e+02]
+##   Bounds range     [1e+00, 1e+00]
+##   RHS range        [6e+00, 1e+01]
+## Found heuristic solution: objective 6420.2
+## Presolve removed 72 rows and 46 columns
+## Presolve time: 0.00s
+## Presolved: 221 rows, 188 columns, 832 nonzeros
+## Variable types: 0 continuous, 188 integer (188 binary)
+## Presolved: 221 rows, 188 columns, 832 nonzeros
+## 
+## 
+## Root relaxation: objective 5.477092e+03, 245 iterations, 0.00 seconds
+## 
+##     Nodes    |    Current Node    |     Objective Bounds      |     Work
+##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+## 
+##      0     0 5477.09167    0   89 6420.20382 5477.09167  14.7%     -    0s
+## H    0     0                    6230.2475434 5477.09167  12.1%     -    0s
+## H    0     0                    6162.3460667 5477.09167  11.1%     -    0s
+##      0     0 5493.46801    0  108 6162.34607 5493.46801  10.9%     -    0s
+##      0     0 5513.60658    0   93 6162.34607 5513.60658  10.5%     -    0s
+## H    0     0                    5878.3503827 5513.60658  6.20%     -    0s
+## 
+## Cutting planes:
+##   Gomory: 1
+## 
+## Explored 0 nodes (278 simplex iterations) in 0.04 seconds
+## Thread count was 1 (of 4 available processors)
+## 
+## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
+## Pool objective bound 5513.61
+## 
+## Optimal solution found (tolerance 1.00e-01)
+## Best objective 5.878350382730e+03, best bound 5.513606581997e+03, gap 6.2049%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s3<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s3<span class="op">$</span>solution)
-<span class="kw">spplot</span>(s3, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey80'</span>, <span class="st">'darkgreen'</span>))</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+<span class="kw">spplot</span>(s3, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
+       <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
 <p>This solution is even better then the previous solution. However, we are not content just yet. This solution does not maintain connectivity between reserves, and so species may have limited ability to disperse throughout the reserve network. To avoid this, we can add connected constraints (<a href="https://prioritizr.github.io/prioritizr/reference/add_connected_constraints.html"><code>add_connected_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with connected constraints</span>
 p4 &lt;-<span class="st"> </span>p3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_connected_constraints.html">add_connected_constraints</a></span>()
 <span class="co"># solve the problem</span>
 s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html">solve</a></span>(p4)</code></pre></div>
-<p>Optimize a model with 655 rows, 506 columns and 2293 nonzeros Variable types: 0 continuous, 506 integer (506 binary) Coefficient statistics: Matrix range [2e-01, 1e+00] Objective range [1e+02, 4e+02] Bounds range [1e+00, 1e+00] RHS range [1e+00, 1e+01] Presolve removed 187 rows and 129 columns Presolve time: 0.01s Presolved: 468 rows, 377 columns, 1688 nonzeros Variable types: 0 continuous, 377 integer (376 binary) Presolved: 468 rows, 377 columns, 1688 nonzeros</p>
-<p>Root relaxation: objective 5.647064e+03, 500 iterations, 0.01 seconds</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">Nodes    <span class="op">|</span><span class="st">    </span>Current Node    <span class="op">|</span><span class="st">     </span>Objective Bounds      <span class="op">|</span><span class="st">     </span>Work</code></pre></div>
-<p>Expl Unexpl | Obj Depth IntInf | Incumbent BestBd Gap | It/Node Time</p>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r"> <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5647.06401</span>    <span class="dv">0</span>  <span class="dv">153</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5647.06401</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5890.44226</span>    <span class="dv">0</span>   <span class="dv">78</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5890.44226</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5929.07276</span>    <span class="dv">0</span>  <span class="dv">120</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5929.07276</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5961.21299</span>    <span class="dv">0</span>  <span class="dv">117</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5961.21299</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5966.92740</span>    <span class="dv">0</span>  <span class="dv">112</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5966.92740</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5979.36953</span>    <span class="dv">0</span>  <span class="dv">115</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5979.36953</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5996.08152</span>    <span class="dv">0</span>  <span class="dv">125</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5996.08152</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">5996.08152</span>    <span class="dv">0</span>  <span class="dv">125</span>          <span class="op">-</span><span class="st"> </span><span class="fl">5996.08152</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6004.87609</span>    <span class="dv">0</span>  <span class="dv">108</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6004.87609</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6005.23390</span>    <span class="dv">0</span>  <span class="dv">107</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6005.23390</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6006.41853</span>    <span class="dv">0</span>  <span class="dv">123</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6006.41853</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6006.58145</span>    <span class="dv">0</span>  <span class="dv">122</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6006.58145</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6006.67025</span>    <span class="dv">0</span>  <span class="dv">122</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6006.67025</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s
- <span class="dv">0</span>     <span class="dv">0</span> <span class="fl">6006.67025</span>    <span class="dv">0</span>  <span class="dv">121</span>          <span class="op">-</span><span class="st"> </span><span class="fl">6006.67025</span>      <span class="op">-</span><span class="st">     </span><span class="op">-</span><span class="st">    </span>0s</code></pre></div>
-<p>H 0 0 12170.818346 6006.67025 50.6% - 0s 0 2 6009.61026 0 121 12170.8183 6009.61026 50.6% - 0s</p>
-<ul>
-<li>9 7 7 6451.9495997 6009.61026 6.86% 23.4 0s</li>
-</ul>
-<p>Cutting planes: Gomory: 5 MIR: 2 Zero half: 22</p>
-<p>Explored 10 nodes (1090 simplex iterations) in 0.22 seconds Thread count was 1 (of 4 available processors)</p>
-<p>Solution count 2: 6451.95 12170.8 Pool objective bound 6009.61</p>
-<p>Optimal solution found (tolerance 1.00e-01) Best objective 6.451949599667e+03, best bound 6.009610264212e+03, gap 6.8559%</p>
+<pre><code>## Optimize a model with 655 rows, 506 columns and 2293 nonzeros
+## Variable types: 0 continuous, 506 integer (506 binary)
+## Coefficient statistics:
+##   Matrix range     [2e-01, 1e+00]
+##   Objective range  [1e+02, 4e+02]
+##   Bounds range     [1e+00, 1e+00]
+##   RHS range        [1e+00, 1e+01]
+## Presolve removed 187 rows and 129 columns
+## Presolve time: 0.01s
+## Presolved: 468 rows, 377 columns, 1688 nonzeros
+## Variable types: 0 continuous, 377 integer (376 binary)
+## Presolved: 468 rows, 377 columns, 1688 nonzeros
+## 
+## 
+## Root relaxation: objective 5.647064e+03, 500 iterations, 0.01 seconds
+## 
+##     Nodes    |    Current Node    |     Objective Bounds      |     Work
+##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+## 
+##      0     0 5647.06401    0  153          - 5647.06401      -     -    0s
+##      0     0 5890.44226    0   78          - 5890.44226      -     -    0s
+##      0     0 5929.07276    0  120          - 5929.07276      -     -    0s
+##      0     0 5961.21299    0  117          - 5961.21299      -     -    0s
+##      0     0 5966.92740    0  112          - 5966.92740      -     -    0s
+##      0     0 5979.36953    0  115          - 5979.36953      -     -    0s
+##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
+##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
+##      0     0 6004.87609    0  108          - 6004.87609      -     -    0s
+##      0     0 6005.23390    0  107          - 6005.23390      -     -    0s
+##      0     0 6006.41853    0  123          - 6006.41853      -     -    0s
+##      0     0 6006.58145    0  122          - 6006.58145      -     -    0s
+##      0     0 6006.67025    0  122          - 6006.67025      -     -    0s
+##      0     0 6006.67025    0  121          - 6006.67025      -     -    0s
+## H    0     0                    12170.818346 6006.67025  50.6%     -    0s
+##      0     2 6009.61026    0  121 12170.8183 6009.61026  50.6%     -    0s
+## *    9     7               7    6451.9495997 6009.61026  6.86%  23.4    0s
+## 
+## Cutting planes:
+##   Gomory: 5
+##   MIR: 2
+##   Zero half: 22
+## 
+## Explored 10 nodes (1090 simplex iterations) in 0.13 seconds
+## Thread count was 1 (of 4 available processors)
+## 
+## Solution count 2: 6451.95 12170.8 
+## Pool objective bound 6009.61
+## 
+## Optimal solution found (tolerance 1.00e-01)
+## Best objective 6.451949599667e+03, best bound 6.009610264212e+03, gap 6.8559%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s4<span class="op">$</span>solution)
-<span class="kw">spplot</span>(s4, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey80'</span>, <span class="st">'darkgreen'</span>))</code></pre></div>
-<p><img src="inst/vign/readme-figure/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
+<span class="kw">spplot</span>(s4, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
+       <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<p><img src="readme-figure/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
 <p>This short example demonstrates how the <em>prioritizr</em> package can be used to build a minimal conservation problem, and how constraints can be iteratively added to the problem to obtain a solution that fulfils the needs of the conservation planner. Here, we explored several constraints using the minimum set objective. The <em>prioritizr</em> package provides many other constraints and also different objectives that can be used to build a conservation problem.</p>
 </div>
 </div>
-
   </div>
 
   <div class="col-md-3" id="sidebar">

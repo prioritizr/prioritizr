@@ -53,6 +53,8 @@ site:
 	R --slave -e "pkgdown::build_reference()"
 	R --slave -e "pkgdown::build_articles()"
 	R --slave -e "pkgdown::build_news()"
+	cp -R inst/vign/readme-figure docs/
+	sed -i 's|img src="inst/vign/readme-figure|img src="readme-figure|g' docs/index.html
 	rm -rf vignettes/*
 	rm -rf inst/doc/*
 
