@@ -71,14 +71,15 @@ test_that("invalid input", {
       add_neighbor_constraints(2) %>%
       compile()
   })
-  # expect_error({
-  #   # create infeasible problem
-  #   data(sim_pu_polygons, sim_features)
-  #   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12), ]
-  #   s <- problem(sim_pu_polygons, sim_features) %>%
-  #     add_min_set_objective() %>%
-  #     add_relative_targets(0.2) %>%
-  #     add_neighbor_constraints(100) %>%
-  #     solve()
-  # })
+  expect_error({
+    # create infeasible problem
+    data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- sim_pu_polygons[c(1:2), ]
+    s <- problem(sim_pu_polygons, sim_features) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.2) %>%
+      add_neighbor_constraints(100) %>%
+      add_rsymphony_solver() %>%
+      solve()
+  })
 })
