@@ -5,9 +5,9 @@ test_that("compile", {
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
   p <- problem(sim_pu_polygons, sim_features) %>%
-   add_min_set_objective() %>%
-   add_relative_targets(0.2) %>%
-   add_neighbor_constraints(1)
+    add_min_set_objective() %>%
+    add_relative_targets(0.2) %>%
+    add_neighbor_constraints(1)
   # compile problem
   o <- compile(p)
   n_pu <- length(sim_pu_polygons)
@@ -33,10 +33,10 @@ test_that("solve", {
   data(sim_pu_polygons, sim_features)
   # create problem
   p <- problem(sim_pu_polygons, sim_features) %>%
-   add_min_set_objective() %>%
-   add_relative_targets(0.1) %>%
-   add_neighbor_constraints(3) %>%
-   add_default_solver(time_limit = 5)
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_neighbor_constraints(3) %>%
+    add_default_solver(time_limit = 5)
   # solve problem
   s <- solve(p)
   # check that selected planning units have three neighbors
@@ -52,32 +52,33 @@ test_that("invalid input", {
     data(sim_pu_polygons, sim_features)
     # create problem
     p <- problem(sim_pu_polygons, sim_features) %>%
-     add_min_set_objective() %>%
-     add_relative_targets(0.2) %>%
-     add_neighbor_constraints(-3)
+      add_min_set_objective() %>%
+      add_relative_targets(0.2) %>%
+      add_neighbor_constraints(-3)
   })
   expect_error({
     data(sim_pu_polygons, sim_features)
     # create problem
     p <- problem(sim_pu_polygons, sim_features) %>%
-     add_min_set_objective() %>%
-     add_relative_targets(0.2) %>%
-     add_neighbor_constraints(NA)
+      add_min_set_objective() %>%
+      add_relative_targets(0.2) %>%
+      add_neighbor_constraints(NA)
   })
   expect_error({
     # create problem
     path <- system.file("extdata/input.dat", package = "prioritizr")
     p <- marxan_problem(path) %>%
-     add_neighbor_constraints(2) %>%
-     compile()
+      add_neighbor_constraints(2) %>%
+      compile()
   })
   expect_error({
     # create infeasible problem
     data(sim_pu_polygons, sim_features)
+    sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12), ]
     s <- problem(sim_pu_polygons, sim_features) %>%
-     add_min_set_objective() %>%
-     add_relative_targets(0.2) %>%
-     add_neighbor_constraints(100) %>%
-     solve()
+      add_min_set_objective() %>%
+      add_relative_targets(0.2) %>%
+      add_neighbor_constraints(100) %>%
+      solve()
   })
 })
