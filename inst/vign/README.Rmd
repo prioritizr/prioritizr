@@ -50,9 +50,9 @@ devtools::install_github("prioritizr/prioritizr")
 ## Citation
 
 ```
-Hanson JO, Schuster R, Strimas-Mackey M, Arcese P, Bennett J (2017).
-prioritizr: Systematic Conservation Prioritization in R. R package version
-1.0.0. https://github.com/prioritizr/prioritizr.
+Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J,
+Possingham HP (2017). prioritizr: Systematic Conservation Prioritization
+in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.
 ```
 
 ## Example usage

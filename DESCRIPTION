@@ -9,13 +9,17 @@ Description: Conservation prioritization using integer
 Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson',
                email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
              person(c('Richard'), 'Schuster',
-               email='mail@richard-schuster.com', role = c('aut')),
+               email='mail@richard-schuster.com', role = c('aut', 'cre')),
              person(c('Matthew'), 'Strimas-Mackey',
                email='mstrimas@gmail.com', role = c('aut')),
+             person(c('Matthew', 'E'), 'Watts',
+               email='m.watts@uq.edu.au', role = c('aut')),
              person(c('Peter'), 'Arcese',
                email='peter.arcese@ubc.ca', role = c('aut')),
              person(c('Joeseph'), 'Bennett',
-               email='joseph.bennett@carleton.ca', role = c('aut', 'cre')))
+               email='joseph.bennett@carleton.ca', role = c('aut')),
+             person(c('Hugh', 'P'), 'Possingham',
+               email='hugh.possingham@tnc.org', role = c('aut')))
 Imports:
     utils,
     methods,
