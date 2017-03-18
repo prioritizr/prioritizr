@@ -133,7 +133,7 @@ in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code><
 <span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))),
      <span class="dt">nr =</span> <span class="dv">1</span>)</code></pre></div>
 <p><img src="readme-figure/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
-<p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<code>1add_binary_decisions</code>](<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html" class="uri">https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html</a>)).</p>
+<p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features, <span class="dt">cost_name =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/objectives.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
@@ -164,7 +164,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -252,7 +252,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.06 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -312,7 +312,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.14 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.27 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
