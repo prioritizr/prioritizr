@@ -89,7 +89,7 @@ methods::setMethod(
       assertthat::is.flag(velox), raster::compareCRS(x@crs, y@proj4string),
       rgeos::gIntersects(methods::as(raster::extent(x[[1]]), "SpatialPolygons"),
         methods::as(raster::extent(y), "SpatialPolygons")))
-    if (velox & !requireNamespace("velox"))
+    if (velox & !requireNamespace("velox", quietly = TRUE))
       stop("the velox R package needs to be installed to use velox")
     # data processing
     args <- list(...)
