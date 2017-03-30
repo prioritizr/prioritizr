@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -83,7 +85,7 @@
     
     <p>Create a Marxan conservation problem. Although users are encouraged to
 build and tailor conservation planning problems to suit their own needs,
-sometimes it is easier to use a more familiar &quot;canned&quot; approach. This
+sometimes it is easier to use a more familiar "canned" approach. This
 function provides a convenient wrapper for generating
 and solving Marxan-style conservation problems. If users already have
 their conservation planning data in the Marxan input format, this function
@@ -106,94 +108,117 @@ problems using exact algorithm solvers.</p>
 <span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code>character</code> file path for Marxan input file (typically
-called <code>&quot;input.dat&quot;</code>), a <code>data.frame</code> object containing
-planning unit data following conventions (ie. <code>&quot;pu.dat&quot;</code>), or a
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code>character</code> file path for Marxan input file (typically
+called <code>"input.dat"</code>), a <code>data.frame</code> object containing
+planning unit data following conventions (ie. <code>"pu.dat"</code>), or a
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>
-object containing planning unit data.</dd>
-      <dt>...</dt>
-      <dd>not used</dd>
-      <dt>features</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object containing
-data on the distribution of features across the study area.</dd>
-      <dt>targets</dt>
-      <dd><code>numeric</code> amount of each feature to be represented
-in the solution.</dd>
-      <dt>targets_type</dt>
-      <dd><code>character</code> name indicating if the <code>targets</code>
-are expressed as <code>&quot;relative&quot;</code> (eg. <code>0.2</code> meaning that 20 % of a
-feature needs to be conserved), or <code>&quot;absolute&quot;</code> (eg. <code>200</code>
-meaning that 200 units of a feature need to be conserved) amounts.</dd>
-      <dt>locked_in</dt>
-      <dd>Object that determines which planning units that should be
-locked in. See details for more information.</dd>
-      <dt>locked_out</dt>
-      <dd>Object that determines which planning units that should be
-locked out. See details for more information.</dd>
-      <dt>penalty</dt>
-      <dd><code>numeric</code> penalty for exposed edges. This
+object containing planning unit data.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used</p></td>
+    </tr>
+    <tr>
+      <th>features</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object containing
+data on the distribution of features across the study area.</p></td>
+    </tr>
+    <tr>
+      <th>targets</th>
+      <td><p><code>numeric</code> amount of each feature to be represented
+in the solution.</p></td>
+    </tr>
+    <tr>
+      <th>targets_type</th>
+      <td><p><code>character</code> name indicating if the <code>targets</code>
+are expressed as <code>"relative"</code> (eg. <code>0.2</code> meaning that 20 % of a
+feature needs to be conserved), or <code>"absolute"</code> (eg. <code>200</code>
+meaning that 200 units of a feature need to be conserved) amounts.</p></td>
+    </tr>
+    <tr>
+      <th>locked_in</th>
+      <td><p>Object that determines which planning units that should be
+locked in. See details for more information.</p></td>
+    </tr>
+    <tr>
+      <th>locked_out</th>
+      <td><p>Object that determines which planning units that should be
+locked out. See details for more information.</p></td>
+    </tr>
+    <tr>
+      <th>penalty</th>
+      <td><p><code>numeric</code> penalty for exposed edges. This
 is equivalent to the
-<a href = 'boundary length modifier (BLM)'>http://marxan.net/downloads/uq_marxan_web_2/module2.html</a>
-parameter in <a href = 'Marxan'>http://marxan.net</a>.</dd>
-      <dt>edge_factor</dt>
-      <dd><code>numeric</code> proportion to scale edges that do
+<a href = 'http://marxan.net/downloads/uq_marxan_web_2/module2.html'>boundary length modifier (BLM)</a>
+parameter in <a href = 'http://marxan.net'>Marxan</a>.</p></td>
+    </tr>
+    <tr>
+      <th>edge_factor</th>
+      <td><p><code>numeric</code> proportion to scale edges that do
 not have any neighboring planning units. For example, an edge factor
-of <code>0.5</code> is commonly used for planning units along the coast line.</dd>
-      <dt>spec</dt>
-      <dd><code>data.frame</code> containing information on the features.
+of <code>0.5</code> is commonly used for planning units along the coast line.</p></td>
+    </tr>
+    <tr>
+      <th>spec</th>
+      <td><p><code>data.frame</code> containing information on the features.
 The argument to <code>spec</code> must follow the conventions used by
-Marxan for the species data file (conventionally called <code>&quot;spec.dat&quot;</code>).
+Marxan for the species data file (conventionally called <code>"spec.dat"</code>).
 Each row corresponds to a different feature. It must also contain
-the following columns:
-<dl class='dl-horizontal'>
-  <dt><code>&quot;id&quot;</code></dt><dd><code>integer</code> unique identifier for each feature
-    These identifiers are used in the argument to <code>rij_data</code>.</dd>
-  <dt><code>&quot;name&quot;</code></dt><dd><code>character</code> name for each feature.</dd>
-  <dt><code>&quot;prop&quot;</code></dt><dd><code>numeric</code> relative target for each feature
-     (optional).</dd>&#39;
-  <dt><code>&quot;amount&quot;</code></dt><dd><code>numeric</code> absolute target for each
-      feature (optional).</dd>
-</dl>
-</dd>
-      <dt>puvspr</dt>
-      <dd><code>data.frame</code> containing information on the amount of
+the following columns:</p><dl class='dl-horizontal'>
+  <dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
+    These identifiers are used in the argument to <code>rij_data</code>.</p></dd>
+  <dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
+  <dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
+     (optional).</p></dd>'
+  <dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
+      feature (optional).</p></dd>
+</dl></td>
+    </tr>
+    <tr>
+      <th>puvspr</th>
+      <td><p><code>data.frame</code> containing information on the amount of
 each feature in each planning unit. The argument to
 <code>puvspr</code> must follow the conventions used in the Marxan input data
-file (conventionally called <code>&quot;puvspr.dat&quot;</code>). It must contain the
-following columns:
-<dl class='dl-horizontal'>
-  <dt><code>&quot;pu&quot;</code></dt><dd><code>integer</code> planning unit identifier.</dd>
-  <dt><code>&quot;species&quot;</code></dt><dd><code>integer</code> feature identifier.</dd>
-  <dt><code>&quot;amount&quot;</code></dt><dd><code>numeric</code> amount of the feature in the
-    planning unit.</dd>
-</dl>
-</dd>
-      <dt>bound</dt>
-      <dd><code>data.frame</code> containing information on the
-planning units&#39; boundaries or the connectivity between planning units.
+file (conventionally called <code>"puvspr.dat"</code>). It must contain the
+following columns:</p><dl class='dl-horizontal'>
+  <dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+  <dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
+  <dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+    planning unit.</p></dd>
+</dl></td>
+    </tr>
+    <tr>
+      <th>bound</th>
+      <td><p><code>data.frame</code> containing information on the
+planning units' boundaries or the connectivity between planning units.
 The argument to <code>bound</code> must follow the
 conventions used in the Marxan input data file (conventionally called
-<code>&quot;bound.dat&quot;</code>). It must contain the following columns:
-<dl class='dl-horizontal'>
-  <dt><code>&quot;id1&quot;</code></dt><dd><code>integer</code> planning unit identifier.</dd>
-  <dt><code>&quot;id2&quot;</code></dt><dd><code>integer</code> planning unit identifier.</dd>
-  <dt><code>&quot;boundary&quot;</code></dt><dd><code>numeric</code> length of shared boundary
+<code>"bound.dat"</code>). It must contain the following columns:</p><dl class='dl-horizontal'>
+  <dt><code>"id1"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+  <dt><code>"id2"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+  <dt><code>"boundary"</code></dt><dd><p><code>numeric</code> length of shared boundary
     between planning units, or the strength of the connectivity between
-    the two planning units.</dd>
-</dl>
-</dd>
-      <dt>blm</dt>
-      <dd><code>numeric</code> boundary length modifier. This argument only
+    the two planning units.</p></dd>
+</dl></td>
+    </tr>
+    <tr>
+      <th>blm</th>
+      <td><p><code>numeric</code> boundary length modifier. This argument only
 has an effect when argument to <code>x</code> is a <code>data.frame</code>. Defaults
-to zero.</dd>
-      <dt>asymmetric_connectivity</dt>
-      <dd><code>logical</code> does the argument
+to zero.</p></td>
+    </tr>
+    <tr>
+      <th>asymmetric_connectivity</th>
+      <td><p><code>logical</code> does the argument
 to <code>bound</code> denote asymmetric connectivity between planning units?
 This argument only has an effect when argument to <code>bound</code> is a
-<code>data.frame</code>. Defaults to <code>FALSE</code>.</dd>
-    </dl>
+<code>data.frame</code>. Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -208,6 +233,7 @@ This argument only has an effect when argument to <code>bound</code> is a
                      <span class='kw'>targets_type</span><span class='kw'>=</span><span class='st'>"relative"</span>, <span class='kw'>penalty</span><span class='kw'>=</span><span class='fl'>1</span>,
                      <span class='kw'>edge_factor</span><span class='kw'>=</span><span class='fl'>0.5</span>)
 
+
 <span class='co'># solve problem</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
@@ -217,7 +243,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4137.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -231,7 +257,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;      0     0 3493.55127    0    6 4137.27447 3493.55127  15.6%     -    0s
 #&gt; H    0     0                    3600.5951275 3493.55127  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (164 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (164 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3600.6 4137.27 
@@ -246,6 +272,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 <span class='no'>input_file</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/input.dat"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"prioritizr"</span>)
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>input_file</span>)
 
+
 <span class='co'># solve problem</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
 #&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
@@ -259,13 +286,13 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.22153e+10
 #&gt; Presolve removed 2491 rows and 1608 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.18s
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; Variable types: 0 continuous, 5172 integer (5172 binary)
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.07 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -273,7 +300,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (3825 simplex iterations) in 0.08 seconds
+#&gt; Explored 0 nodes (3825 simplex iterations) in 0.34 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 
@@ -301,7 +328,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

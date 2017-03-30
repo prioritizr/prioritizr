@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,12 +90,17 @@ planning units are spatially connected to each other.</p>
     <pre><span class='fu'>add_connected_constraints</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</dd>
-      <dt>...</dt>
-      <dd>arguments passed to <code><a href='connected_matrix.html'>connected_matrix</a></code>.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='connected_matrix.html'>connected_matrix</a></code>.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -113,6 +120,7 @@ planning units are spatially connected to each other.</p>
 
 <span class='co'># create problem with added connected constraints</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()
+
 
 <span class='co'># solve problems</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -182,7 +190,7 @@ planning units are spatially connected to each other.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 187 nodes (3277 simplex iterations) in 0.16 seconds
+#&gt; Explored 187 nodes (3277 simplex iterations) in 0.30 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 3715.32 3967.26 4133.12 ... 4535.45
@@ -211,7 +219,7 @@ planning units are spatially connected to each other.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

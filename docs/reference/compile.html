@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,20 +93,27 @@
 <span class='fu'>compile</span>(<span class='no'>x</span>, <span class='kw'>compressed_formulation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</dd>
-      <dt>...</dt>
-      <dd>not used.</dd>
-      <dt>compressed_formulation</dt>
-      <dd><code>logical</code> should the conservation problem
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used.</p></td>
+    </tr>
+    <tr>
+      <th>compressed_formulation</th>
+      <td><p><code>logical</code> should the conservation problem
 compiled into a compressed version of a planning problem?
 If <code>TRUE</code> then the problem is expressed using the compressed
 formulation. If <code>FALSE</code> then the problem is expressed using the
 expanded formulation. If <code>NA</code>, then the compressed is used unless one
 of the constraints requires the expanded formulation. This argument
-defaults to <code>NA</code>.</dd>
-    </dl>
+defaults to <code>NA</code>.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -159,7 +168,7 @@ defaults to <code>NA</code>.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

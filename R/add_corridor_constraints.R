@@ -128,10 +128,10 @@ add_corridor_constraints <- function(x, connectivities, thresholds,
     assertthat::assert_that(
         length(connectivities) == x$number_of_features(),
         all(vapply(connectivities, inherits, logical(1), "dsCMatrix")),
-        all(vapply(connectivities, ncol, logical(1)) ==
-            x$number_of_planning_units),
-        all(vapply(connectivities, nrow, logical(1)) ==
-            x$number_of_planning_units))
+        all(vapply(connectivities, ncol, integer(1)) ==
+            x$number_of_planning_units()),
+        all(vapply(connectivities, nrow, integer(1)) ==
+            x$number_of_planning_units()))
   # if thresholds is a single number than repeat it for each feature
   if (length(thresholds) == 1)
     thresholds <- rep(thresholds, x$number_of_features())
@@ -158,7 +158,7 @@ add_corridor_constraints <- function(x, connectivities, thresholds,
     data = d,
     calculate = function(self, x) {
       # generate connectivity data
-      if (is.Waiver(x$get_data("connectivity_matrices"))) {
+      if (is.Waiver(self$get_data("connectivity_matrices"))) {
         # obtain cost data
         cost <- x$get_data("cost")
         # obtain args for connectivity matrix

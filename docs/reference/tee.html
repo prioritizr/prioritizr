@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,19 +83,22 @@
     </div>
 
     
-    <p>This package uses the &quot;tee&quot; operator (%T&gt;%) to modify objects.</p>
+    <p>This package uses the "tee" operator (%T&gt;%) to modify objects.</p>
     
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>lhs, rhs</dt>
-      <dd>An object and a function.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>lhs, rhs</th>
+      <td><p>An object and a function.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>%T&gt;%</code>, <code><a href='%>%.html'>pipe</a></code>.</p>
+    <p><code>%T&gt;%</code>, <code><a href='pipe.html'>pipe</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -114,7 +119,7 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e2</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># but if we use the tee operator then the result contains a copy of "e"</span>
 <span class='no'>e3</span> <span class='kw'>&lt;-</span> <span class='no'>e</span> <span class='kw'>%T&gt;%</span> <span class='fu'>f</span>()
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e3</span>)</div><div class='output co'>#&gt; &lt;environment: 0x2010bfd8&gt;</div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e3</span>)</div><div class='output co'>#&gt; &lt;environment: 0x8cce538&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -132,7 +137,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

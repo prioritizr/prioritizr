@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -101,14 +103,18 @@ boundary are associated with greater connectivity.</p>
   <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>included</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object representing planning units. If
 <code>x</code> is a <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must
-contain a single band.</dd>
-      <dt>y</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object showing the conductance
+contain a single band.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object showing the conductance
 of different areas across the study area, or a <code>character</code> object
 denoting a column name in the attribute table of <code>x</code> that contains
 the conductance values. Note that argument to <code>y</code> can only be a
@@ -116,23 +122,30 @@ the conductance values. Note that argument to <code>y</code> can only be a
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object. Additionally, note that if
 argument to <code>x</code> is a <code>Raster-class</code> object then
 argument to <code>y</code> must have the same spatial properties as it
-(ie. coordinate system, extent, resolution).</dd>
-      <dt>boundary_data</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> object containing
+(ie. coordinate system, extent, resolution).</p></td>
+    </tr>
+    <tr>
+      <th>boundary_data</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> object containing
 the shared boundary lengths between planning units. This argument defaults
-to <code>NULL</code> so that the boundary data will be automatically calculated.</dd>
-      <dt>included</dt>
-      <dd><code>integer</code> <code>vector</code> indicating which cells in argument
+to <code>NULL</code> so that the boundary data will be automatically calculated.</p></td>
+    </tr>
+    <tr>
+      <th>included</th>
+      <td><p><code>integer</code> <code>vector</code> indicating which cells in argument
 to <code>x</code> are planning units. This argument is only used when <code>x</code>
 is a <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object. It defaults to <code>NULL</code>
-so that the cell indices are calculated automatically.</dd>
-      <dt>...</dt>
-      <dd>arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> for extracting
+so that the cell indices are calculated automatically.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> for extracting
 and calculating the conductance for each unit. These arguments
 are only used if argument to <code>x</code> is a <code>link[sp]{Spatial-class}</code>
 object and argument to <code>y</code> is a <code>Raster-class</code>
-object.</dd>
-    </dl>
+object.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -198,7 +211,7 @@ object.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

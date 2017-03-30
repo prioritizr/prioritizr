@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a new  â€” pproto ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Create a new <code>pproto</code> object â€” pproto ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -77,7 +79,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a new </h1>
+    <h1>Create a new <code>pproto</code> object</h1>
     </div>
 
     
@@ -88,17 +90,24 @@ from the <code>ggproto</code> system used in the <code>ggplot2</code> package.</
     <pre><span class='fu'>pproto</span>(<span class='kw'>`_class`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>`_inherit`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>_class</dt>
-      <dd>Class name to assign to the object. This is stored as the class
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>_class</th>
+      <td><p>Class name to assign to the object. This is stored as the class
 attribute of the object. This is optional: if <code>NULL</code> (the default),
-no class name will be added to the object.</dd>
-      <dt>_inherit</dt>
-      <dd><code>ggproto</code> object to inherit from. If <code>NULL</code>, don&quot;t
-inherit from any object.</dd>
-      <dt>...</dt>
-      <dd>A list of members to add to the new <code>pproto</code> object.</dd>
-    </dl>
+no class name will be added to the object.</p></td>
+    </tr>
+    <tr>
+      <th>_inherit</th>
+      <td><p><code>ggproto</code> object to inherit from. If <code>NULL</code>, don"t
+inherit from any object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>A list of members to add to the new <code>pproto</code> object.</p></td>
+    </tr>
+    </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -133,7 +142,7 @@ inherit from any object.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

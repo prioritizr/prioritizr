@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -81,7 +83,7 @@
     </div>
 
     
-    <p>Targets are used to specify the minimum amount or proportion of a feature&quot;s
+    <p>Targets are used to specify the minimum amount or proportion of a feature"s
 distribution that needs to be protected. Below is a list of different
 targets that can be added to a conservation planning <code><a href='problem.html'>problem</a></code>.</p>
     
@@ -100,33 +102,48 @@ targets that can be added to a conservation planning <code><a href='problem.html
   <span class='no'>upper_bound_amount</span>, <span class='no'>upper_bound_target</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</dd>
-      <dt>lower_bound_amount</dt>
-      <dd><code>numeric</code> lower bound for the total amount
-of the features.</dd>
-      <dt>lower_bound_target</dt>
-      <dd><code>numeric</code> relative target that should be
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>lower_bound_amount</th>
+      <td><p><code>numeric</code> lower bound for the total amount
+of the features.</p></td>
+    </tr>
+    <tr>
+      <th>lower_bound_target</th>
+      <td><p><code>numeric</code> relative target that should be
  applied to features with a total amount that is less
-than or equal to <code>lower_bound_amount</code>.</dd>
-      <dt>upper_bound_amount</dt>
-      <dd><code>numeric</code> upper bound for the total amount
-of features.</dd>
-      <dt>upper_bound_target</dt>
-      <dd><code>numeric</code> relative target that should be
+than or equal to <code>lower_bound_amount</code>.</p></td>
+    </tr>
+    <tr>
+      <th>upper_bound_amount</th>
+      <td><p><code>numeric</code> upper bound for the total amount
+of features.</p></td>
+    </tr>
+    <tr>
+      <th>upper_bound_target</th>
+      <td><p><code>numeric</code> relative target that should be
 applied to features with a total amount that is greater
-than or equal to <code>upper_bound_amount</code>.</dd>
-      <dt>targets</dt>
-      <dd><code>numeric</code> targets for features. If all features should
+than or equal to <code>upper_bound_amount</code>.</p></td>
+    </tr>
+    <tr>
+      <th>targets</th>
+      <td><p><code>numeric</code> targets for features. If all features should
 have the same target, <code>targets</code> can be a single number. Otherwise,
 <code>targets</code> should be a <code>numeric</code> <code>vector</code> specifying a
 target for each feature. Alternatively, if the features in
 <code>x</code> were specified using a <code>data.frame</code> object, then
-argument to <code>targets</code> may refer to a column name.</dd>
-      <dt>...</dt>
-      <dd>not used.</dd>
-    </dl>
+argument to <code>targets</code> may refer to a column name.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -135,23 +152,23 @@ argument to <code>targets</code> may refer to a column name.</dd>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><dl class='dl-horizontal'></p>
-    <p><dt><code>default_targets</code></dt><dd>The default targets are used when targets
+    <dl class='dl-horizontal'>
+    <dt><code>default_targets</code></dt><dd><p>The default targets are used when targets
     have not explicitly been set using the above functions. The creators
     of this package do not believe that there can be any sensible default
-    targets. Thus relying on the default target will yield an error. </dd></p>
-    <p><dt><code>relative_targets</code></dt><dd>Targets are expressed as a proportion
+    targets. Thus relying on the default target will yield an error.</p></dd>
+    <dt><code>relative_targets</code></dt><dd><p>Targets are expressed as a proportion
     (between 0
     and 1) of the maximum level of representation in the study area.
     The argument to <code>x</code> should have a single value if all features
     have the same target. Otherwise, the vector should have a value for
     each feature. In this case, targets are assigned to features based
     on the their position in the argument to <code>x</code> and the
-    <code>feature</code> when specifying the problem.</dd></p>
-    <p><dt><code>absolute_targets</code></dt><dd>Targets are expressed as the actual value
+    <code>feature</code> when specifying the problem.</p></dd>
+    <dt><code>absolute_targets</code></dt><dd><p>Targets are expressed as the actual value
     that needs to be represented in the prioritization. The argument to
-    <code>x</code> is treated the same as for <code>relative_targets</code>.</dd></p>
-    <p><dt><code>loglinear_targets</code></dt><dd>Targets are expressed as a proportion
+    <code>x</code> is treated the same as for <code>relative_targets</code>.</p></dd>
+    <dt><code>loglinear_targets</code></dt><dd><p>Targets are expressed as a proportion
     (between 0
     and 1) which is calculated using a log-linear equation and four
     tuning parameters (as used in XXX <em>et al.</em> XXX). The first
@@ -160,8 +177,8 @@ argument to <code>targets</code> may refer to a column name.</dd>
     specifies the target required for species with a range size equal
     to or less than the first cut-off range size, and the fourth
     argument specifies the target required for species with a range
-    size equal to or greater than the required range size.</dd></p>
-    <p></dl></p>
+    size equal to or greater than the required range size.</p></dd>
+    </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -186,6 +203,7 @@ argument to <code>targets</code> may refer to a column name.</dd>
 <span class='co'># create problem with added log-linear target</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_loglinear_targets</span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>)
 
+
 <span class='co'># solve solutions</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -209,7 +227,7 @@ argument to <code>targets</code> may refer to a column name.</dd>
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
@@ -304,7 +322,7 @@ argument to <code>targets</code> may refer to a column name.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

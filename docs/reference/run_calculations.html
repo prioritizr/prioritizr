@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,10 +93,13 @@ run multiple times.</p>
     <pre><span class='fu'>run_calculations</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -104,16 +109,17 @@ run multiple times.</p>
 
     <p>This function is used for the effect of modifying the input
   <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object. As such, it does not return
-  anything. To use this function with <code><a href='%>%.html'>pipe</a></code> operators, use the
+  anything. To use this function with <code><a href='pipe.html'>pipe</a></code> operators, use the
   <code>%T&gt;%</code> operator and not the <code>%&gt;%</code> operator.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='%T>%.html'>tee</a></code>.</p>
+    <p><code><a href='tee.html'>tee</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Let us imagine a scenario where we wanted to understand the effect of</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># Let us imagine a scenario where we wanted to understand the effect of</span>
 <span class='co'># setting different targets on our solution.</span>
 
 <span class='co'># create a conservation problem with no targets</span>
@@ -150,7 +156,7 @@ run multiple times.</p>
 #&gt;      0     0 1742.89982    0   11 2161.26789 1742.89982  19.4%     -    0s
 #&gt; H    0     0                    1809.1387001 1742.89982  3.66%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (197 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (197 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1809.14 2161.27 
@@ -180,7 +186,7 @@ run multiple times.</p>
 #&gt;      0     0 3520.50952    0   13 4155.27447 3520.50952  15.3%     -    0s
 #&gt; H    0     0                    3625.9198496 3520.50952  2.91%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (214 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (214 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3625.92 4155.27 
@@ -196,13 +202,13 @@ run multiple times.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [8e+00, 2e+01]
 #&gt; Found heuristic solution: objective 6193.03
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.323621e+03, 232 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.323621e+03, 232 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -210,7 +216,7 @@ run multiple times.</p>
 #&gt;      0     0 5323.62085    0   19 6193.03484 5323.62085  14.0%     -    0s
 #&gt; H    0     0                    5464.4806512 5323.62085  2.58%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (232 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (232 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 5464.48 6193.03 
@@ -246,7 +252,7 @@ run multiple times.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 7e+00]
 #&gt; Found heuristic solution: objective 2161.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -260,7 +266,7 @@ run multiple times.</p>
 #&gt;      0     0 1742.89982    0   11 2161.26789 1742.89982  19.4%     -    0s
 #&gt; H    0     0                    1809.1387001 1742.89982  3.66%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (197 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (197 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1809.14 2161.27 
@@ -276,7 +282,7 @@ run multiple times.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4155.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -290,7 +296,7 @@ run multiple times.</p>
 #&gt;      0     0 3520.50952    0   13 4155.27447 3520.50952  15.3%     -    0s
 #&gt; H    0     0                    3625.9198496 3520.50952  2.91%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (214 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (214 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3625.92 4155.27 
@@ -306,13 +312,13 @@ run multiple times.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [8e+00, 2e+01]
 #&gt; Found heuristic solution: objective 6193.03
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.323621e+03, 232 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.323621e+03, 232 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -320,7 +326,7 @@ run multiple times.</p>
 #&gt;      0     0 5323.62085    0   19 6193.03484 5323.62085  14.0%     -    0s
 #&gt; H    0     0                    5464.4806512 5323.62085  2.58%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (232 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (232 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 5464.48 6193.03 
@@ -330,8 +336,8 @@ run multiple times.</p>
 #&gt; Best objective 5.464480651178e+03, best bound 5.323620845374e+03, gap 2.5777%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.308   0.096   0.399 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.284   0.072   0.355 </div><div class='input'>
+#&gt;   0.784   0.164   0.968 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.852   0.236   1.113 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span></div></pre>
@@ -355,7 +361,7 @@ run multiple times.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

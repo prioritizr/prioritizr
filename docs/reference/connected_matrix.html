@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -102,25 +104,34 @@
 <span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object. Note that if <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must have only one
-layer.</dd>
-      <dt>...</dt>
-      <dd>not used.</dd>
-      <dt>directions</dt>
-      <dd><code>integer</code> If <code>x</code> is a
+layer.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used.</p></td>
+    </tr>
+    <tr>
+      <th>directions</th>
+      <td><p><code>integer</code> If <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, the number of directions
- in which cells should be connected: 4 (rook&quot;s case), 8 (queen&quot;s case),
- 16 (knight and one-cell queen moves), or &quot;bishop&quot; to connect cells with
- one-cell diagonal moves.</dd>
-      <dt>distance</dt>
-      <dd><code>numeric</code> If <code>x</code> is a
+ in which cells should be connected: 4 (rook"s case), 8 (queen"s case),
+ 16 (knight and one-cell queen moves), or "bishop" to connect cells with
+ one-cell diagonal moves.</p></td>
+    </tr>
+    <tr>
+      <th>distance</th>
+      <td><p><code>numeric</code> If <code>x</code> is a
 <code>SpatialPoints-class</code> object, the distance that planning units
-have to be within in order to qualify as being connected.</dd>
-    </dl>
+have to be within in order to qualify as being connected.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -198,7 +209,7 @@ have to be within in order to qualify as being connected.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

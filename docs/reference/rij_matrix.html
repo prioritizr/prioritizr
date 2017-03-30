@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -91,19 +93,26 @@ each planning unit.</p>
 <span class='fu'>rij_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=Spatial, y=Raster</span></pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code> or
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code> or
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object representing the
-planning units</dd>
-      <dt>y</dt>
-      <dd><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object representing the
-features</dd>
-      <dt>...</dt>
-      <dd>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> if
+planning units</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object representing the
+features</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> if
 argument to <code>x</code> inherits from a <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>
-object.</dd>
-    </dl>
+object.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -117,14 +126,14 @@ object.</dd>
   of the feature in the planning unit. For example, the amount of the
   third species in the second planning unit would be contained in the
   cell in the third column and in the second column.</p>
-    <p>This function can take a long to run for big data sets. To reduce
+<p>This function can take a long to run for big data sets. To reduce
   processing time, the <code><a href='parallel.html'>set_number_of_threads</a></code> function
   can be used to allocate more computational resources. Additionally,
   dealing with planning units represented with
   <code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygons'>SpatialPolygonsDataFrame</a></code> object, the
   <code><a href='http://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code> package can be installed to reduce
   processing time.</p>
-    <p>Generally, processing <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> data takes much
+<p>Generally, processing <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> data takes much
   longer to process then <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> data, and
   so it is recommended to use <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> data
   for planning units where possible.</p>
@@ -163,7 +172,7 @@ object.</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

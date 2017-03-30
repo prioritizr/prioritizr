@@ -144,7 +144,7 @@ s1 <- solve(p1)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -204,7 +204,7 @@ s2 <- solve(p2)
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -243,7 +243,7 @@ s3 <- solve(p3)
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -264,7 +264,7 @@ s3 <- solve(p3)
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -336,7 +336,7 @@ s4 <- solve(p4)
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.27 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.26 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 

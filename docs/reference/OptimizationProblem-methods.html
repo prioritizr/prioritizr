@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -116,10 +118,13 @@
 <span class='fu'>row_ids</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</dd>
-    </dl>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -129,31 +134,30 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The functions return the following data:</p>
-    <p><dl class='dl-horizontal'></p>
-    <p><dt>nrow</dt><dd><code>integer</code> number of rows (constraints).</dd></p>
-    <p><dt>ncol</dt><dd><code>integer</code> number of columns (decision variables).</dd></p>
-    <p><dt>ncell</dt><dd><code>integer</code> number of cells.</dd></p>
-    <p><dt>modelsense</dt><dd><code>character</code> describing if the problem is to be
-  maximized (<code>&quot;max&quot;</code>) or minimized (<code>&quot;min&quot;</code>).</dd></p>
-    <p><dt>vtype</dt><dd><code>character</code> describing the type of each decision variable:
-  binary (<code>&quot;B&quot;</code>), semi-continuous (<code>&quot;S&quot;</code>), or continuous
-  (<code>&quot;C&quot;</code>)</dd></p>
-    <p><dt>obj</dt><dd><code>numeric</code> vector specifying the objective function.</dd></p>
-    <p><dt>A</dt><dd><code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code> matrix object defining the
-  problem matrix.</dd></p>
-    <p><dt>rhs</dt><dd><code>numeric</code> vector with right-hand-side linear constraints</dd></p>
-    <p><dt>sense</dt><dd><code>character</code> vector with the senses of the linear
-  constraints (<code>&quot;&lt;=&quot;</code>, <code>&quot;&gt;=&quot;</code>, <code>&quot;=&quot;</code>).</dd></p>
-    <p><dt>lb</dt><dd><code>numeric</code> lower bound for each decision variable. Missing data
-  values (<code>NA</code>) indicate no lower bound for a given variable.</dd></p>
-    <p><dt>ub</dt><dd><code>numeric</code> upper bounds for each decision variable. Missing data
-  values (<code>NA</code>) indicate no upper bound for a given variable.</dd></p>
-    <p><dt>number_of_planning_units</dt><dd><code>integer</code> number of planning units in
-  the problem.</dd></p>
-    <p><dt>number_of_features</dt><dd><code>integer</code> number of features
-  the problem.</dd></p>
-    <p></dl></p>
+    <p>The functions return the following data:</p><dl class='dl-horizontal'>
+    <dt>nrow</dt><dd><p><code>integer</code> number of rows (constraints).</p></dd>
+    <dt>ncol</dt><dd><p><code>integer</code> number of columns (decision variables).</p></dd>
+    <dt>ncell</dt><dd><p><code>integer</code> number of cells.</p></dd>
+    <dt>modelsense</dt><dd><p><code>character</code> describing if the problem is to be
+  maximized (<code>"max"</code>) or minimized (<code>"min"</code>).</p></dd>
+    <dt>vtype</dt><dd><p><code>character</code> describing the type of each decision variable:
+  binary (<code>"B"</code>), semi-continuous (<code>"S"</code>), or continuous
+  (<code>"C"</code>)</p></dd>
+    <dt>obj</dt><dd><p><code>numeric</code> vector specifying the objective function.</p></dd>
+    <dt>A</dt><dd><p><code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code> matrix object defining the
+  problem matrix.</p></dd>
+    <dt>rhs</dt><dd><p><code>numeric</code> vector with right-hand-side linear constraints</p></dd>
+    <dt>sense</dt><dd><p><code>character</code> vector with the senses of the linear
+  constraints (<code>"&lt;="</code>, <code>"&gt;="</code>, <code>"="</code>).</p></dd>
+    <dt>lb</dt><dd><p><code>numeric</code> lower bound for each decision variable. Missing data
+  values (<code>NA</code>) indicate no lower bound for a given variable.</p></dd>
+    <dt>ub</dt><dd><p><code>numeric</code> upper bounds for each decision variable. Missing data
+  values (<code>NA</code>) indicate no upper bound for a given variable.</p></dd>
+    <dt>number_of_planning_units</dt><dd><p><code>integer</code> number of planning units in
+  the problem.</p></dd>
+    <dt>number_of_features</dt><dd><p><code>integer</code> number of features
+  the problem.</p></dd>
+    </dl>
     
 
   </div>
@@ -172,7 +176,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

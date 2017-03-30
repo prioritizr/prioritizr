@@ -77,6 +77,6 @@ build:
 	R --slave -e "devtools::build()"
 
 install:
-	R --slave -e "devtools::install_local('../conserve')"
+	R --slave -e "devtools::install_local('../prioritizr')"
 
 .PHONY: clean data docs readme site test check checkwb build  install man

@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -98,13 +100,19 @@ problem. Below is a list of different solvers that can be added to a
   <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</dd>
-      <dt>...</dt>
-      <dd>arguments passed to the default solver.</dd>
-      <dt>gap</dt>
-      <dd><code>numeric</code> gap to optimality. This gap is relative when
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>arguments passed to the default solver.</p></td>
+    </tr>
+    <tr>
+      <th>gap</th>
+      <td><p><code>numeric</code> gap to optimality. This gap is relative when
 solving problems using <code>gurobi</code>, and will cause the optimizer to
 terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
@@ -114,65 +122,76 @@ between the bounds is 1 percent of the upper bound. But for other solvers
 deviance from the optimal objective. For example, solving a
 minimum set objective problem with a gap of 5 will cause the solver
 to terminate when the cost of the solution is within 5 cost units
-from the optimal solution.</dd>
-      <dt>time_limit</dt>
-      <dd><code>numeric</code> time limit in seconds to run the optimizer.
+from the optimal solution.</p></td>
+    </tr>
+    <tr>
+      <th>time_limit</th>
+      <td><p><code>numeric</code> time limit in seconds to run the optimizer.
 The solver will return the current best solution when this time limit is
-exceeded.</dd>
-      <dt>presolve</dt>
-      <dd><code>integer</code> number indicating how intensively the
+exceeded.</p></td>
+    </tr>
+    <tr>
+      <th>presolve</th>
+      <td><p><code>integer</code> number indicating how intensively the
 solver should try to simplify the problem before solving it. The default
 value of 2 indicates to that the solver should be very aggressive in
-trying to simplify the problem.</dd>
-      <dt>threads</dt>
-      <dd><code>integer</code> number of threads to use for the
+trying to simplify the problem.</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p><code>integer</code> number of threads to use for the
 optimization algorithm. The default value of 1 will result in only
-one thread being used.</dd>
-      <dt>first_feasible</dt>
-      <dd><code>logical</code> should the first feasible solution be
+one thread being used.</p></td>
+    </tr>
+    <tr>
+      <th>first_feasible</th>
+      <td><p><code>logical</code> should the first feasible solution be
 be returned? If <code>first_feasible</code> is set to <code>TRUE</code>, the solver
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.</dd>
-      <dt>verbosity</dt>
-      <dd><code>integer</code> how verbose should the solver be when
-reporting progress on solving the problem?</dd>
-    </dl>
+relaxed solution, and is therefore often reasonably close to optimality.</p></td>
+    </tr>
+    <tr>
+      <th>verbosity</th>
+      <td><p><code>integer</code> how verbose should the solver be when
+reporting progress on solving the problem?</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><dl class='dl-horizontal'></p>
-    <p><dt><code>default_solver</code></dt><dd>This solver uses the best software
-   currently installed on the system.</dd></p>
-    <p><dt><code>add_gurobi_solver</code></dt><dd><a href = 'Gurobi'>http://gurobi.com</a> is a
+    <dl class='dl-horizontal'>
+    <dt><code>default_solver</code></dt><dd><p>This solver uses the best software
+   currently installed on the system.</p></dd>
+    <dt><code>add_gurobi_solver</code></dt><dd><p><a href = 'http://gurobi.com'>Gurobi</a> is a
     state-of-the-art commercial optimization software with an R package
     interface. It is by far the fastest of the solvers available in this
     package, however, it is also the only solver that is not freely
     available. That said, licenses are available to academics at no cost. The
     <code>gurobi</code> package is distributed with the Gurobi software suite.
-    This solver uses the <code>gurobi</code> package to solve problems.</dd></p>
-    <p><dt><code>add_rsymphony_solver</code></dt><dd>
-    <a href = 'SYMPHONY'>https://projects.coin-or.org/SYMPHONY</a> is an open-source
+    This solver uses the <code>gurobi</code> package to solve problems.</p></dd>
+    <dt><code>add_rsymphony_solver</code></dt><dd><p><a href = 'https://projects.coin-or.org/SYMPHONY'>SYMPHONY</a> is an open-source
     integer programming solver that is part of the Computational
     Infrastructure for Operations Research (COIN-OR) project, an initiative
     to promote development of open-source tools for operations research (a
     field that includes linear programming). The <code>Rsymphony</code> package
     provides an interface to COIN-OR and is available on CRAN. This solver
-    uses the <code>Rsymphony</code> package to solve problems.</dd></p>
-    <p><dt><code>add_lpsymphony_solver</code></dt><dd>The <code>lpsymphony</code> package provides a
+    uses the <code>Rsymphony</code> package to solve problems.</p></dd>
+    <dt><code>add_lpsymphony_solver</code></dt><dd><p>The <code>lpsymphony</code> package provides a
    different interface to the COIN-OR software suite. Unlike the
    <code>Rsymhpony</code> package, the <code>lpsymphony</code> package is distributed
    through
-   <a href = 'Bioconductor'>http://bioconducto/packages/release/bioc/html/lpsymphony.html</a>.
+   <a href = 'http://bioconducto/packages/release/bioc/html/lpsymphony.html'>Bioconductor</a>.
    On Windows and Mac, <code>lpsymphony</code> may be easier to
    may be easier to install. This solver uses the <code>lpsymphony</code> package
-   to solve.</dd></p>
-    <p></dl></p>
+   to solve.</p></dd>
+    </dl>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load packages</span>
+    <pre class="examples"><div class='input'>
+<span class='co'># load packages</span>
 <span class='fu'>require</span>(<span class='no'>gurobi</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>lpsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lpsymphony</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>Rsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
@@ -231,7 +250,7 @@ reporting progress on solving the problem?</dd>
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
@@ -266,7 +285,7 @@ reporting progress on solving the problem?</dd>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -58,12 +58,12 @@
   <div class="contents col-md-9">
     <div id="systematic-conservation-prioritization-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#systematic-conservation-prioritization-in-r" class="anchor"> </a>Systematic conservation prioritization in R</h1></div>
+<a href="#systematic-conservation-prioritization-in-r" class="anchor"></a>Systematic conservation prioritization in R</h1></div>
 
 <p><em>Prioritizr</em> is an <em>R</em> package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by <em>prioritizr</em> are guaranteed to find optimal solutions. This package also has the functionality to read <a href="http://marxan.net/">Marxan</a> input data and find much cheaper solutions in a much shorter period of time than <em>Marxan</em> (<a href="http://marxan.net/downloads/papers/beyer_etal_2015.pdf">Beyer <em>et al. 2016</em></a>). Check out the <a href="https://github.com/prioritizr/prioritizrshiny"><em>prioritizrshiny</em> <em>R</em> package</a> to interactively build and customize conservation planning problems.</p>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#overview" class="anchor"> </a>Overview</h2>
+<a href="#overview" class="anchor"></a>Overview</h2>
 <p>This package largely consists of six main types of functions. These functions are used to:</p>
 <ul>
 <li>create a new reserve design <a href="https://prioritizr.github.io/prioritizr/reference/problem.html">problem</a> by specifying the planning units and features of conservation interest (eg. species, eco-systems).</li>
@@ -84,7 +84,7 @@
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"> </a>Installation</h2>
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p>To install the developmental version of <em>prioritizr</em>, use the following <em>R</em> code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(devtools))
   <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
@@ -92,14 +92,14 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#citation" class="anchor"> </a>Citation</h2>
+<a href="#citation" class="anchor"></a>Citation</h2>
 <pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J,
 Possingham HP (2017). prioritizr: Systematic Conservation Prioritization
 in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-usage" class="anchor"> </a>Example usage</h2>
+<a href="#example-usage" class="anchor"></a>Example usage</h2>
 <p>Here we will provide a simple example on using this package to solve conservation problems. We will use one of the built-in simulated data sets that is distributed with the package. First, we will load the <em>prioritizr</em> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load package</span>
 <span class="kw">library</span>(prioritizr)</code></pre></div>
@@ -156,7 +156,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -204,7 +204,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -231,7 +231,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -252,7 +252,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -312,7 +312,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.27 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.26 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
@@ -351,10 +351,11 @@ s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="k
 <li>Matthew E Watts <br><small class="roles"> Author </small> </li>
 <li>
 <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a> <br><small class="roles"> Author </small> </li>
-<li>Joeseph Bennett <br><small class="roles"> Author </small> </li>
+<li>
+<a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a> <br><small class="roles"> Author </small> </li>
 <li>Hugh P Possingham <br><small class="roles"> Author </small> </li>
 </ul>
-<html><body>
+<div>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
@@ -363,13 +364,13 @@ s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="k
 <li><a href="https://codecov.io/github/prioritizr/prioritizr?branch=master"><img src="https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master" alt="Coverage Status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=prioritizr"><img src="http://www.r-pkg.org/badges/version/prioritizr" alt="CRAN_Status_Badge"></a></li>
 </ul>
-</body></html>
+</div>
 </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://arcese.forestry.ubc.ca.people/richard-schuster/">Richard Schuster</a>, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://arcese.forestry.ubc.ca.people/richard-schuster/">Richard Schuster</a>, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

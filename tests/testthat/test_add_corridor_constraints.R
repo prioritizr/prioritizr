@@ -148,7 +148,93 @@ test_that("solve", {
   expect_equal(raster::values(s), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
 })
 
-test_that("input inputs", {
+test_that("list input (compile)", {
+  spp1.habitat <- raster::raster(matrix(c(
+    5, 0, 5,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3))
+  spp2.habitat <- raster::raster(matrix(c(
+    2, 2, 0,
+    0, 0, 0,
+    20, 0, 20), byrow = TRUE, ncol = 3))
+  spp1.conductance <- raster::raster(matrix(c(
+    9, 9, 9,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3))
+  spp2.conductance <- raster::raster(matrix(c(
+    1, 1, 0,
+    0, 0, 0,
+    1, 1, 1), byrow = TRUE, ncol = 3))
+  cost <- raster::setValues(spp1.conductance, 1)
+  features <- raster::stack(spp1.habitat, spp2.habitat)
+  conductance <- raster::stack(spp1.conductance, spp2.conductance)
+  connectivity_matrices <- list(connectivity_matrix(cost, spp1.conductance),
+                                connectivity_matrix(cost, spp2.conductance))
+  # create problem
+  p1 <- problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_corridor_constraints(connectivity_matrices,
+                             rep(0.8, nlayers(features))) %>%
+    compile()
+  p2 <- problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_corridor_constraints(conductance, rep(0.8, nlayers(features))) %>%
+    compile()
+  # test that compiled problems are equivalent
+  expect_equal(p1$rhs(), p2$rhs())
+  expect_equal(p1$sense(), p2$sense())
+  expect_equal(p1$modelsense(), p2$modelsense())
+  expect_true(all(p1$A() == p2$A()))
+  expect_equal(p1$obj(), p2$obj())
+  expect_equal(p1$row_ids(), p2$row_ids())
+  expect_equal(p1$col_ids(), p2$col_ids())
+})
+
+test_that("list input (solve)", {
+  skip_on_cran()
+  spp1.habitat <- raster::raster(matrix(c(
+    5, 0, 5,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3))
+  spp2.habitat <- raster::raster(matrix(c(
+    2, 2, 0,
+    0, 0, 0,
+    20, 0, 20), byrow = TRUE, ncol = 3))
+  spp1.conductance <- raster::raster(matrix(c(
+    9, 9, 9,
+    0, 0, 0,
+    0, 0, 0), byrow = TRUE, ncol = 3))
+  spp2.conductance <- raster::raster(matrix(c(
+    1, 1, 0,
+    0, 0, 0,
+    1, 1, 1), byrow = TRUE, ncol = 3))
+  cost <- raster::setValues(spp1.conductance, 1)
+  features <- raster::stack(spp1.habitat, spp2.habitat)
+  conductance <- raster::stack(spp1.conductance, spp2.conductance)
+  conductance_matrices <- list(connectivity_matrix(cost, spp1.conductance),
+                               connectivity_matrix(cost, spp2.conductance))
+  # create problem
+  p1 <- problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_corridor_constraints(conductance_matrices,
+                             rep(0.8, nlayers(features))) %>%
+    add_default_solver(time_limit = 5) %>%
+    solve()
+  p2 <- problem(cost, features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_corridor_constraints(conductance,
+                             rep(0.8, nlayers(features))) %>%
+    add_default_solver(time_limit = 5) %>%
+    solve()
+  # test that compiled problems are equivalent
+  expect_equal(raster::values(p1), raster::values(p2))
+})
+
+test_that("invalid inputs", {
   expect_error({
     data(sim_pu_raster, sim_features)
     problem(sim_pu_raster, sim_features) %>%

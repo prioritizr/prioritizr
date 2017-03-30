@@ -31,6 +31,8 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -88,26 +90,34 @@ selected planning units together into contiguous reserves.</p>
     <pre><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>edge_factor</span>, <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</dd>
-      <dt>penalty</dt>
-      <dd><code>numeric</code> penalty for exposed edges. This
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+    </tr>
+    <tr>
+      <th>penalty</th>
+      <td><p><code>numeric</code> penalty for exposed edges. This
 is equivalent to the
-<a href = 'boundary length modifier (BLM)'>http://marxan.net/downloads/uq_marxan_web_2/module2.html</a>
-parameter in <a href = 'Marxan'>http://marxan.net</a>.</dd>
-      <dt>edge_factor</dt>
-      <dd><code>numeric</code> proportion to scale edges that do
+<a href = 'http://marxan.net/downloads/uq_marxan_web_2/module2.html'>boundary length modifier (BLM)</a>
+parameter in <a href = 'http://marxan.net'>Marxan</a>.</p></td>
+    </tr>
+    <tr>
+      <th>edge_factor</th>
+      <td><p><code>numeric</code> proportion to scale edges that do
 not have any neighboring planning units. For example, an edge factor
-of <code>0.5</code> is commonly used for planning units along the coast line.</dd>
-      <dt>boundary_data</dt>
-      <dd><code>matrix</code>, <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/Matrix'>Matrix</a></code>, or
+of <code>0.5</code> is commonly used for planning units along the coast line.</p></td>
+    </tr>
+    <tr>
+      <th>boundary_data</th>
+      <td><p><code>matrix</code>, <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/Matrix'>Matrix</a></code>, or
 <code>data.frame</code> object showing the shared boundary lengths
 between planning units. If <code>boundary_data</code> is a matrix then
 each row and column denote a planning unit and cell values
 represent their shared boundary. If <code>boundary_data</code> is
-<code>data.frame</code> then it must have the columns <code>&quot;id1&quot;</code>,
-<code>&quot;id2&quot;</code>, and <code>&quot;boundary&quot;</code>, where each row shows
+<code>data.frame</code> then it must have the columns <code>"id1"</code>,
+<code>"id2"</code>, and <code>"boundary"</code>, where each row shows
 the shared boundary between two planning units (as per the standard
 Marxan input format). This argument is required
 if the planning units in <code>x</code> are stored in a <code>data.frame</code>
@@ -115,8 +125,9 @@ object. Otherwise, it is optional and the boundary data will be
 automatically calculated. Note that the <code>boundary_data</code> must be
 denote symmetric relationships between planning units. If
 asymmetric relationships are required, use the
-<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</dd>
-    </dl>
+<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -140,6 +151,7 @@ asymmetric relationships are required, use the
 <span class='co'># create problem with high boundary penalties but outer edges receive</span>
 <span class='co'># half the penalty as inner edges</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>0.5</span>)
+
 
 <span class='co'># solve problems</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -254,7 +266,7 @@ asymmetric relationships are required, use the
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
