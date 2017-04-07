@@ -1,3 +1,7 @@
+# prioritizr 1.0.0.2 (unreleased)
+
+- fix #13
+
 # prioritizr 1.0.0.1 (unreleased)
 
 - fix #8

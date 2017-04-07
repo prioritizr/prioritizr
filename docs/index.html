@@ -93,9 +93,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J,
-Possingham HP (2017). prioritizr: Systematic Conservation Prioritization
-in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.0.2.
+https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
@@ -119,12 +118,12 @@ in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and colour by acquisition cost</span>
 <span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"cost"</span>, <span class="dt">main =</span> <span class="st">"Planning unit cost"</span>,
        <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-4-1.png" alt="plot of chunk unnamed-chunk-4"></p>
+<p><img src="readme-figure/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and show which planning units are inside protected</span>
 <span class="co"># areas. Units inside protected areas are shown in yellow.</span>
 <span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"locked_in"</span>, <span class="dt">main =</span> <span class="st">"Planning units in protected areas"</span>,
        <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5"></p>
+<p><img src="readme-figure/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
 <p>Biodiversity features are represented using a stack of raster data (ie. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a biodiversity feature.</p>
 <p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains 5 layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load feature data</span>
@@ -132,7 +131,7 @@ in R. R package version 1.0.0. https://github.com/prioritizr/prioritizr.</code><
 <span class="co"># plot the distribution of suitable habitat for each feature</span>
 <span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))),
      <span class="dt">nr =</span> <span class="dv">1</span>)</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6"></p>
+<p><img src="readme-figure/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7"></p>
 <p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features, <span class="dt">cost_name =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
@@ -156,7 +155,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.490348e+03, 17 iterations, 0.01 seconds
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -164,7 +163,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -176,7 +175,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 s1<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s1, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8"></p>
+<p><img src="readme-figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
 <p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our vector data contains information on which planning units are inside protected areas in the <code>"locked_in"</code> column, we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with locked in constraints added to it</span>
 p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
@@ -204,7 +203,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.01 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -216,7 +215,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 s2<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s2, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9"></p>
+<p><img src="readme-figure/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
 <p>This solution is an improvement over the the previous solution. However, it is also highly fragmented. As a consequence, implementing this solution may be associated with increased management costs and be susceptible to edge effects. We can further constrain the solution by adding penalties that punish overly fragmented solutions (<a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a>). Here we will use a penalty factor of 1 (ie. boundary length modifier; BLM), and an edge factor of 50 % so that planning units along the coastline are not overly penalized.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with boundary penalties added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)
@@ -231,7 +230,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -252,7 +251,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.10 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -264,7 +263,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 s3<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s3<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s3, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10"></p>
+<p><img src="readme-figure/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
 <p>This solution is even better then the previous solution. However, we are not content just yet. This solution does not maintain connectivity between reserves, and so species may have limited ability to disperse throughout the reserve network. To avoid this, we can add connected constraints (<a href="https://prioritizr.github.io/prioritizr/reference/add_connected_constraints.html"><code>add_connected_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with connected constraints</span>
 p4 &lt;-<span class="st"> </span>p3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_connected_constraints.html">add_connected_constraints</a></span>()
@@ -312,7 +311,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 22
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.26 seconds
+## Explored 10 nodes (1090 simplex iterations) in 0.24 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6451.95 12170.8 
@@ -324,7 +323,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s4<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s4, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="readme-figure/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11"></p>
+<p><img src="readme-figure/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12"></p>
 <p>This short example demonstrates how the <em>prioritizr</em> package can be used to build a minimal conservation problem, and how constraints can be iteratively added to the problem to obtain a solution that fulfils the needs of the conservation planner. Here, we explored several constraints using the minimum set objective. The <em>prioritizr</em> package provides many other constraints and also different objectives that can be used to build a conservation problem.</p>
 </div>
 </div>
