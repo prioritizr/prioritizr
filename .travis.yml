@@ -24,8 +24,10 @@ env:
 apt_packages:
   - libgeos-dev
   - libgeos-c1
+  - libproj-dev
+  - libgdal-dev  
   - curl
-  - qpdf 
+  - qpdf
   - coinor-libcgl-dev
   - coinor-libclp-dev
   - coinor-libcoinutils-dev
@@ -36,7 +38,7 @@ apt_packages:
   - r-cran-rgeos
   - r-cran-rsymphony
 
-before_install: 
+before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
   - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get --yes --force-yes update -qq; fi;
@@ -60,7 +62,7 @@ r_packages:
   - testthat
 
 after_success:
-  - Rscript -e 'covr::codecov()' 
+  - Rscript -e 'covr::codecov()'
 
 notifications:
   email:
