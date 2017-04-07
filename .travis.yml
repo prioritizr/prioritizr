@@ -25,7 +25,7 @@ apt_packages:
   - libgeos-dev
   - libgeos-c1
   - libproj-dev
-  - libgdal-dev  
+  - libgdal-dev
   - curl
   - qpdf
   - coinor-libcgl-dev
