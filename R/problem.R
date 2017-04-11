@@ -12,12 +12,13 @@ NULL
 #' (see \code{\link{constraints}}).
 #'
 #' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
-#'   \code{\link[sp]{SpatialLinesDataFrame-class}} object specifying the
-#'   planning units to use in the reserve design exercise and their
-#'   corresponding cost. It may be desirable to exclude some planning units
-#'   from the analysis, for example those outside the study area. To exclude
-#'   planning units, set the cost for those raster cells to \code{NA}.
+#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}},
+#'   \code{\link[sp]{SpatialLinesDataFrame-class}}, or 
+#'   \code{\link{data.frame}} object, or \code{\link{numeric}} vector,
+#'   specifying the planning units to use in the reserve design exercise and 
+#'   their corresponding cost. It may be desirable to exclude some planning 
+#'   units from the analysis, for example those outside the study area. To 
+#'   exclude planning units, set the cost for those raster cells to \code{NA}.
 #'
 #' @param features The correct argument for \code{features} depends on the
 #'   input to \code{x}.
@@ -28,10 +29,11 @@ NULL
 #'       values (i.e. \code{NA} values) can be used to indicate the absence of
 #'       a feature in a particular cell instead of explicitly setting these
 #'       cells to zero.}
-#'     \item{\code{data.frame}}{\code{data.frame} object containing information
-#'       on the features. The argument to \code{feature_data} must follow the
-#'       conventions used by Marxan. Each row corresponds to a different
-#'       feature. It must also contain the following columns:
+#'     \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object 
+#'       containing information on the features. The argument to 
+#'       \code{feature_data} must follow the conventions used by Marxan. Each 
+#'       row corresponds to a different feature. It must also contain the 
+#'       following columns:
 #'       \describe{
 #'         \item{\code{"id"}}{\code{integer} unique identifier for each feature
 #'           These identifiers are used in the argument to \code{rij}.}
@@ -59,6 +61,10 @@ NULL
 #'      \item{\code{"amount"}}{\code{numeric} amount of the feature in the
 #'        planning unit.}
 #'     }
+#'     
+#' @param rij_matrix \code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
+#'    object specifying the amount of each feature (rows) within each planning 
+#'    unit (columns). Only used when \code{x} is a numeric vector of costs.
 #'
 #' @param ... not used.
 #'
@@ -92,10 +98,19 @@ NULL
 #'  add_min_set_objective() %>%
 #'  add_relative_targets(0.2) %>%
 #'  add_binary_decisions()
-#'
+#'  
+#' # alternatively one can supply pre-processed, aspatial data
+#' costs <- sim_pu_polygons$cost
+#' features <- data.frame(id = 1:nlayers(sim_features),
+#'                        name = names(sim_features))
+#' rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
+#' p5 <- problem(costs, features, rij_matrix = rij_mat) %>% 
+#'  add_min_set_objective() %>%
+#'  add_relative_targets(0.2) %>%
+#'  add_binary_decisions()
 #' \donttest{
 #' # solve problems
-#' s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
+#' s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 #'
 #' # plot solutions
 #' par(mfrow=c(2,2))
@@ -198,6 +213,40 @@ problem.data.frame <- function(x, features, rij, ...) {
     penalties = pproto(NULL, Collection),
     data = list(cost = x, features = features, cost_column = "cost",
                 rij_matrix = rij_mat))
+  # return problem
+  return(p)
+}
+
+#' @rdname problem
+#' @method problem numeric
+#' @export
+problem.numeric <- function(x, features, rij_matrix, ...) {
+  # assert that arguments are valid
+  assertthat::assert_that(
+    # data types
+    is.numeric(x), all(is.finite(x)),
+    inherits(features, "data.frame"),
+    inherits(rij_matrix, c("dgCMatrix", "dgTMatrix", "matrix")),
+    # features$id
+    assertthat::has_name(features, "id"), is.numeric(features$id),
+    all(is.finite(features$id)), anyDuplicated(features$id) == 0,
+    # features$name
+    assertthat::has_name(features, "name"),
+    is.character(features$name) || is.factor(features$name),
+    all(!is.na(features$name)), anyDuplicated(features$name) == 0,
+    # correct matrix dimensions
+    nrow(rij_matrix) == nrow(features),
+    ncol(rij_matrix) == length(x))
+  # convert to sparse matrix if necessary
+  if (!inherits(rij_matrix, "dgCMatrix")) {
+    rij_matrix <- methods::as(rij_matrix, "dgCMatrix") 
+  }
+  # create new problem object
+  p <- pproto(NULL, ConservationProblem,
+              constraints = pproto(NULL, Collection),
+              penalties = pproto(NULL, Collection),
+              data = list(cost = x, features = features,
+                          rij_matrix = rij_matrix))
   # return problem
   return(p)
 }

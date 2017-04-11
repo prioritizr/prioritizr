@@ -284,6 +284,8 @@ ConservationProblem <- pproto(
       return(raster::cellStats(raster::Which(!is.na(self$data$cost)), "sum"))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
+    } else if (is.numeric(self$data$cost)) {
+      return(length(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
@@ -293,6 +295,8 @@ ConservationProblem <- pproto(
       return(raster::ncell(self$data$cost))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
+    } else if (is.numeric(self$data$cost)) {
+      return(length(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
@@ -304,6 +308,8 @@ ConservationProblem <- pproto(
                "SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
                "SpatialPointsDataFrame"))) {
       return(self$data$cost[[self$data$cost_column]])
+    } else if (is.numeric(self$data$cost)) {
+      return(self$data$cost)
     } else {
       stop("cost is of unknown class")
     }
