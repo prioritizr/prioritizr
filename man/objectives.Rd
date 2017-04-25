@@ -3,107 +3,56 @@
 \name{objectives}
 \alias{objectives}
 \alias{add_default_objective}
-\alias{add_min_set_objective}
-\alias{add_max_cover_objective}
-\alias{add_max_features_objective}
-\alias{add_max_phylo_objective}
 \title{Problem objective}
 \usage{
 add_default_objective(x)
-
-add_min_set_objective(x)
-
-add_max_cover_objective(x, budget)
-
-add_max_features_objective(x, budget)
-
-add_max_phylo_objective(x, budget, tree)
-}
-\arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
-
-\item{budget}{\code{numeric} value specifying the maximum expenditure of
-the prioritization.}
-
-\item{tree}{\code{\link[ape]{phylo}} object specifying a phylogenetic tree}
 }
 \description{
-Conservation planning problems involve minimizing or maximizing an objective.
-For instance, the planner may require a solution that conserves
-enough habitat for each species while minimizing the overall cost of the
-reserve network. Alternatively, the planner may require a solution
-that maximizes the number of conserved species while ensuring that the cost
-of the reserve network does not exceed the budget. The problem objective
-specifies the overall goal of the problem.
+A problem objective is used to specify the overall goal of the problem. 
+All conservation planning problems involve minimizing or maximizing some 
+kind of objective. For instance, the planner may require a solution that 
+conserves enough habitat for each species while minimizing the overall cost 
+of the reserve network. Alternatively, the planner may require a solution 
+that maximizes the number of conserved species while ensuring that the cost 
+of the reserve network does not exceed the budget.
 }
 \details{
-All conservation planning problems require an objective in order to
-be solved. While some users may feel that explicitly defining an objective
-for a conservation problem adds some element of arbitrariness or
-subjectivity to the decision making process, we remind them that "canned"
-decision support tools (such as Marxan or Zonation) also have objectives. The
-key difference here is that instead of choosing between different software
-programs here the user is explicitly choosing their objective within the
-single environment. See below for a list of the objectives that can be
-added to a conservation problem.
+While some users may feel that explicitly defining an objective for a 
+conservation problem adds some element of arbitrariness or subjectivity to 
+the decision making process, we remind them that "canned" decision support 
+tools (such as Marxan or Zonation) also have objectives. The key difference 
+here is that instead of choosing between different software programs here 
+the user is explicitly choosing their objective within the single 
+environment.
+
+Please note that failing to specify an objective will return a default 
+error message when solving. The following objectives can be applied to a 
+conservation planning problem.
 
 \describe{
 
-  \item{\code{add_default_objective}}{This objective is used when no objective
-    has been explicitly specified by the user. This will result in an error
-    because there is no sensible default.}
+\item{\code{add_min_set_objective}}{Set an objective to find the 
+  solution that fulfills all the targets and constraints for the smallest 
+  cost. This objective is similar to that used in Marxan.}
 
-  \item{\code{add_min_set_objective}}{The objective here is to find the
-    the solution that fulfills all the targets and constraints for
-    the smallest cost. This objective is similar to that used in Marxan.}
+\item{\code{add_max_cover_objective}}{Set an objective to find the 
+  solution that secures as much of each feature as possible without 
+  exceeding the budget.}
 
-  \item{\code{add_max_cover_objective}}{The objective here is to
-    find the solution that secures as much of each feature as possible
-    whilst not exceeding the budget.}
+\item{\code{add_max_features_objective}}{Set an objective to find to find 
+  the solution that fulfills as many targets as possible while ensuring that 
+  the cost of the solution does not exceed budget and that all constraints 
+  are met. This objective was inspired by the conservation problem defined 
+  in Cabeza and Moilanen (2001).}
 
-  \item{\code{add_max_features_objective}}{The objective here is
-    to find the solution that fulfills as many targets as possible while
-    ensuring that the cost of the solution does not exceed budget and that
-    all constraints are met. This objective was inspired by the conservation
-    problem defined in Cabeza et al. XXXX.}
+\item{\code{add_max_phylo_objective}}{Set an objective to find to find the 
+  solution that fulfills as much of a representative sample a phylogenetic 
+  tree as possible given a budget. This objective is similar 
+  to \code{add_max_features_objective} except that emphasis is placed 
+  on phylogenetic representation rather than target representation. This 
+  objective requires the "ape" R package to be installed.}
 
-  \item{\code{add_max_phylo_objective}}{This objective is
-    similar to \code{add_max_features_objective} except that emphasis is
-    placed on preserving as much of a representative sample a phylogenetic
-    tree as possible given a budget. This objective requires the
-    "ape" R package to be installed.}
-
- }
 }
-\examples{
-# load data
-data(sim_pu_raster, sim_features, sim_phylogeny)
-
-# create base problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
- add_relative_targets(0.1)
-
-p1 <- p \%>\% add_min_set_objective()
-
-# create problem with added maximum coverage objective
-# note that this objective does not use targets
-p2 <- p \%>\% add_max_cover_objective(5000)
-
-# create problem with added maximum feature representation objective
-p3 <- p \%>\% add_max_features_objective(5000)
-
-# create problem with added maximum phylogenetic representation objective
-p4 <- p \%>\% add_max_phylo_objective(5000, sim_phylogeny)
-
-\donttest{
-# solve problems
-s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
-
-# plot solutions
-plot(s, main=c("minimum set", "maximum coverage", "maximum representation",
-               "phylogenetic representation"))
-}
-
 }
 \seealso{
 \code{\link{constraints}}, \code{\link{problem}},
