@@ -15,15 +15,8 @@ NULL
 #'
 #' @details
 #' A problem objective is used to specify the overall goal of the 
-#' conservation planning problem. All conservation planning problems require an objective in order to
-#' be solved. While some users may feel that explicitly defining an objective
-#' for a conservation problem adds some element of arbitrariness or
-#' subjectivity to the decision making process, we remind them that "canned"
-#' decision support tools (such as Marxan or Zonation) also have objectives. The
-#' key difference here is that instead of choosing between different software
-#' programs here the user is explicitly choosing their objective within the
-#' single environment. 
-#' 
+#' conservation planning problem. All conservation planning problems require 
+#' adding objectives and targets, or solving will return an error.
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{constraints}}, \code{\link{problem}},
 #'   \code{\link{targets}}.
@@ -60,6 +53,7 @@ NULL
 #' @name add_max_features_objective
 NULL
 
+#' @rdname add_max_features_objective
 #' @export
 add_max_features_objective <- function(x, budget) {
   # assert arguments are valid

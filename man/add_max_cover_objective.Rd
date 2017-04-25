@@ -2,7 +2,11 @@
 % Please edit documentation in R/add_max_cover_objective.R
 \name{add_max_cover_objective}
 \alias{add_max_cover_objective}
+\alias{add_max_cover_objective}
 \title{Add Maximum Coverage Objective}
+\usage{
+add_max_cover_objective(x, budget)
+}
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
@@ -15,14 +19,8 @@ without exceeding the budget.
 }
 \details{
 A problem objective is used to specify the overall goal of the 
-conservation planning problem. All conservation planning problems require an objective in order to
-be solved. While some users may feel that explicitly defining an objective
-for a conservation problem adds some element of arbitrariness or
-subjectivity to the decision making process, we remind them that "canned"
-decision support tools (such as Marxan or Zonation) also have objectives. The
-key difference here is that instead of choosing between different software
-programs here the user is explicitly choosing their objective within the
-single environment.
+conservation planning problem. All conservation planning problems require 
+adding objectives and targets, or solving will return an error.
 }
 \examples{
 # load data

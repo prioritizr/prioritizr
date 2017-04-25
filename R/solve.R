@@ -94,6 +94,8 @@ methods::setMethod(
       pu[raster::Which(!is.na(pu))] <- sol
     } else if (inherits(pu, c("data.frame", "Spatial"))) {
       pu$solution <- sol
+    } else if (is.numeric(pu)) {
+      pu <- sol
     } else {
       stop("planning unit data is of an unrecognized class")
     }

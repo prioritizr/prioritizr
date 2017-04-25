@@ -5,6 +5,7 @@
 \alias{problem.Raster}
 \alias{problem.Spatial}
 \alias{problem.data.frame}
+\alias{problem.numeric}
 \title{Conservation planning problem}
 \usage{
 problem(x, features, ...)
@@ -14,15 +15,18 @@ problem(x, features, ...)
 \method{problem}{Spatial}(x, features, cost_column = names(x)[1], ...)
 
 \method{problem}{data.frame}(x, features, rij, ...)
+
+\method{problem}{numeric}(x, features, rij_matrix, ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
-\code{\link[sp]{SpatialLinesDataFrame-class}} object specifying the
-planning units to use in the reserve design exercise and their
-corresponding cost. It may be desirable to exclude some planning units
-from the analysis, for example those outside the study area. To exclude
-planning units, set the cost for those raster cells to \code{NA}.}
+\code{\link[sp]{SpatialPolygonsDataFrame-class}},
+\code{\link[sp]{SpatialLinesDataFrame-class}}, or 
+\code{\link{data.frame}} object, or \code{\link{numeric}} vector,
+specifying the planning units to use in the reserve design exercise and 
+their corresponding cost. It may be desirable to exclude some planning 
+units from the analysis, for example those outside the study area. To 
+exclude planning units, set the cost for those raster cells to \code{NA}.}
 
 \item{features}{The correct argument for \code{features} depends on the
  input to \code{x}.
@@ -33,10 +37,11 @@ planning units, set the cost for those raster cells to \code{NA}.}
      values (i.e. \code{NA} values) can be used to indicate the absence of
      a feature in a particular cell instead of explicitly setting these
      cells to zero.}
-   \item{\code{data.frame}}{\code{data.frame} object containing information
-     on the features. The argument to \code{feature_data} must follow the
-     conventions used by Marxan. Each row corresponds to a different
-     feature. It must also contain the following columns:
+   \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object 
+     containing information on the features. The argument to 
+     \code{feature_data} must follow the conventions used by Marxan. Each 
+     row corresponds to a different feature. It must also contain the 
+     following columns:
      \describe{
        \item{\code{"id"}}{\code{integer} unique identifier for each feature
          These identifiers are used in the argument to \code{rij}.}
@@ -66,6 +71,10 @@ Marxan. It must contain the following columns:
   \item{\code{"amount"}}{\code{numeric} amount of the feature in the
     planning unit.}
  }}
+
+\item{rij_matrix}{\code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
+object specifying the amount of each feature (rows) within each planning 
+unit (columns). Only used when \code{x} is a numeric vector of costs.}
 }
 \value{
 A \code{\link{ConservationProblem-class}} object containing the
@@ -104,10 +113,19 @@ p4 <- problem(sim_pu_points, sim_features) \%>\%
  add_min_set_objective() \%>\%
  add_relative_targets(0.2) \%>\%
  add_binary_decisions()
-
+ 
+# alternatively one can supply pre-processed, aspatial data
+costs <- sim_pu_polygons$cost
+features <- data.frame(id = 1:nlayers(sim_features),
+                       name = names(sim_features))
+rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
+p5 <- problem(costs, features, rij_matrix = rij_mat) \%>\% 
+ add_min_set_objective() \%>\%
+ add_relative_targets(0.2) \%>\%
+ add_binary_decisions()
 \donttest{
 # solve problems
-s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
+s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 
 # plot solutions
 par(mfrow=c(2,2))
