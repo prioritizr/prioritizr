@@ -24,7 +24,7 @@ Please note that failing to specify an objective will return a default
 error message when solving.
 }
 \details{
-The following objectives can be added to a conservation planning problem:
+The following objectives can be added to a conservation planning \code{\link{problem}}:
 
 \describe{
 
