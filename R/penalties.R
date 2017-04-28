@@ -3,7 +3,14 @@ NULL
 
 #' Conservation problem penalties
 #'
-#' TODO
+#' A penalty can be applied to a conservation planning \code{problem} to penalize 
+#' ineffective solutions. A penalty acts as a tradeoff to the \code{objective} 
+#' being minimized or maximized, and thereby may increase the cost of 
+#' the soution.  For example, when a boundary length penalty is applied 
+#' there is an explicit tradeoff between fragmentation and cost. A 
+#' \code{constraint} may also be used as a mechanism to increase solution 
+#' connectivity, but instead of penalizing fragmentation, a constraint makes 
+#' certain solutions invalid and therefore does not necessarily affect solution cost.
 #'
 #' \describe{
 #'
@@ -25,5 +32,6 @@ NULL
 #'
 #' @name penalties
 #'
-#' @seealso constraints
+#' @seealso \code{\link{constraints}}, \code{\link{objectives}},
+#'   \code{\link{problem}}
 NULL

@@ -46,5 +46,8 @@ NULL
 #'
 #' }
 #'
+#' @seealso \code{\link{penalties}}, \code{\link{objectives}},
+#'   \code{\link{problem}}
+#'
 #' @name constraints
 NULL
