@@ -3,10 +3,10 @@ NULL
 
 #' Add Binary Decisions
 #'
-#' Add a binary decision to a conservation planning \code{\link{problem}}. 
-#' This is the classic decision of either prioritizing or not prioritizing a 
-#' planning unit. Typically, this decision has the assumed action of buying 
-#' the planning unit to include in a protected area network. If no decision is 
+#' Add a binary decision to a conservation planning \code{\link{problem}}.
+#' This is the classic decision of either prioritizing or not prioritizing a
+#' planning unit. Typically, this decision has the assumed action of buying
+#' the planning unit to include in a protected area network. If no decision is
 #' added to a problem then this decision class will be used by default.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
@@ -14,16 +14,16 @@ NULL
 #' @details
 #' Conservation planning problems involve making decisions on planning units.
 #' These decisions are then associated with actions (eg. turning a planning
-#' unit into a protected area). If no decision is explicitly added to a problem, 
-#' then the binary decision class will be used by default. Only a single decision 
+#' unit into a protected area). If no decision is explicitly added to a problem,
+#' then the binary decision class will be used by default. Only a single decision
 #' should be added to a
 #' \code{ConservationProblem} object. \strong{If multiple decisions are added
 #' to a problem object, then the last one to be added will be used.}
 #'
 #' @return \code{\link{Decision-class}} object.
 #'
-#' @seealso \code{\link{decisions}}, \code{\link{add_proportion_decisions}}, 
-#' \code{\link{add_semicontinuous_decisions}}, \code{\link{constraints}}, 
+#' @seealso \code{\link{decisions}}, \code{\link{add_proportion_decisions}},
+#' \code{\link{add_semicontinuous_decisions}}, \code{\link{constraints}},
 #' \code{\link{problem}}, \code{\link{targets}}, \code{\link{objectives}}
 #'
 #' @examples
@@ -52,11 +52,6 @@ NULL
 #'
 #' @name add_binary_decisions
 NULL
-
-#' @export
-add_default_decisions <- function(x) {
-  add_binary_decisions(x)
-}
 
 #' @rdname add_binary_decisions
 #' @export

@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -83,101 +83,32 @@
     </div>
 
     
-    <p>Targets are used to specify the minimum amount or proportion of a feature"s
-distribution that needs to be protected. Below is a list of different
-targets that can be added to a conservation planning <code><a href='problem.html'>problem</a></code>.</p>
+    <p>Targets are used to specify the minimum amount or proportion of a feature's
+distribution that needs to be protected.</p>
     
 
-    <pre><span class='fu'>add_default_targets</span>(<span class='no'>x</span>)
-
-<span class='fu'>add_relative_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>, <span class='no'>...</span>) <span class='co'># x=ConservationProblem, targets=numeric</span>
-
-<span class='fu'>add_relative_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>, <span class='no'>...</span>) <span class='co'># x=ConservationProblem, targets=character</span>
-
-<span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>, <span class='no'>...</span>) <span class='co'># x=ConservationProblem, targets=numeric</span>
-
-<span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>, <span class='no'>...</span>) <span class='co'># x=ConservationProblem, targets=character</span>
-
-<span class='fu'>add_loglinear_targets</span>(<span class='no'>x</span>, <span class='no'>lower_bound_amount</span>, <span class='no'>lower_bound_target</span>,
-  <span class='no'>upper_bound_amount</span>, <span class='no'>upper_bound_target</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
-    </tr>
-    <tr>
-      <th>lower_bound_amount</th>
-      <td><p><code>numeric</code> lower bound for the total amount
-of the features.</p></td>
-    </tr>
-    <tr>
-      <th>lower_bound_target</th>
-      <td><p><code>numeric</code> relative target that should be
- applied to features with a total amount that is less
-than or equal to <code>lower_bound_amount</code>.</p></td>
-    </tr>
-    <tr>
-      <th>upper_bound_amount</th>
-      <td><p><code>numeric</code> upper bound for the total amount
-of features.</p></td>
-    </tr>
-    <tr>
-      <th>upper_bound_target</th>
-      <td><p><code>numeric</code> relative target that should be
-applied to features with a total amount that is greater
-than or equal to <code>upper_bound_amount</code>.</p></td>
-    </tr>
-    <tr>
-      <th>targets</th>
-      <td><p><code>numeric</code> targets for features. If all features should
-have the same target, <code>targets</code> can be a single number. Otherwise,
-<code>targets</code> should be a <code>numeric</code> <code>vector</code> specifying a
-target for each feature. Alternatively, if the features in
-<code>x</code> were specified using a <code>data.frame</code> object, then
-argument to <code>targets</code> may refer to a column name.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>not used.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the target added
-  to it.</p>
-    
+        
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <dl class='dl-horizontal'>
-    <dt><code>default_targets</code></dt><dd><p>The default targets are used when targets
-    have not explicitly been set using the above functions. The creators
-    of this package do not believe that there can be any sensible default
-    targets. Thus relying on the default target will yield an error.</p></dd>
-    <dt><code>relative_targets</code></dt><dd><p>Targets are expressed as a proportion
-    (between 0
-    and 1) of the maximum level of representation in the study area.
-    The argument to <code>x</code> should have a single value if all features
-    have the same target. Otherwise, the vector should have a value for
-    each feature. In this case, targets are assigned to features based
-    on the their position in the argument to <code>x</code> and the
-    <code>feature</code> when specifying the problem.</p></dd>
-    <dt><code>absolute_targets</code></dt><dd><p>Targets are expressed as the actual value
-    that needs to be represented in the prioritization. The argument to
-    <code>x</code> is treated the same as for <code>relative_targets</code>.</p></dd>
-    <dt><code>loglinear_targets</code></dt><dd><p>Targets are expressed as a proportion
-    (between 0
-    and 1) which is calculated using a log-linear equation and four
-    tuning parameters (as used in XXX <em>et al.</em> XXX). The first
-    tuning parameter specifies the first cut-off range size,
-    and the second the second cut-off range size, the third argument
-    specifies the target required for species with a range size equal
-    to or less than the first cut-off range size, and the fourth
-    argument specifies the target required for species with a range
-    size equal to or greater than the required range size.</p></dd>
+    <p>Please note that failing to specify targets will return a default
+error message when solving.</p>
+    <p>The following list contains the targets can be added to a conservation planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horizontal'>
+    <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion (between 0 and 1)
+  of the maximum level of representation of features in the study area. The argument
+  to <code>x</code> should have a single value if all features have the same target. Otherwise,
+  the vector should have a value for each feature. In this case, targets are assigned to
+  features based on their position in the argument to <code>x</code> and the <code>feature</code>
+  when specifying the problem.</p></dd>
+    <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets expressed as the actual value
+  of features in the study area that need to be represented in the prioritization. The
+  argument to <code>x</code> is treated the same as for <code>add_relative_targets</code>.</p></dd>
+    <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion (between 0 and 1)
+  and calculated using a log-linear equation and four tuning parameters (as used in
+  Rodrigues <em>et al.</em> 2004). The first tuning parameter specifies the first cut-off
+  range size, and the second specifies the second cut-off range size, the third argument
+  specifies the target required for species with a range size equal to or less than the
+  first cut-off range size, and the fourth argument specifies the target required for
+  species with a range size equal to or greater than the required range size.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -186,143 +117,22 @@ argument to <code>targets</code> may refer to a column name.</p></td>
   <code><a href='problem.html'>problem</a></code>, <code><a href='add_feature_weights.html'>add_feature_weights</a></code>.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
-
-<span class='co'># create basic problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>()
-
-<span class='co'># create problem with added relative targets</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
-
-<span class='co'># create problem with added absolute targets</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='fl'>3</span>)
-
-<span class='co'># create problem with added log-linear target</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_loglinear_targets</span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>)
-
-
-<span class='co'># solve solutions</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.27
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
-#&gt; Pool objective bound 1726.52
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 3e+00]
-#&gt; Found heuristic solution: objective 2146.27
-#&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.653883e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1653.88301    0    1 2146.27408 1653.88301  22.9%     -    0s
-#&gt; H    0     0                    1675.5220184 1653.88301  1.29%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1675.52 2146.27 
-#&gt; Pool objective bound 1653.88
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.675522018446e+03, best bound 1.653883005209e+03, gap 1.2915%
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+01, 2e+01]
-#&gt; Found heuristic solution: objective 11313.9
-#&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.976387e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9976.38729    0    1 11313.8582 9976.38729  11.8%     -    0s
-#&gt; H    0     0                    10122.464537 9976.38729  1.44%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 10122.5 11313.9 
-#&gt; Pool objective bound 9976.39
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.012246453733e+04, best bound 9.976387293336e+03, gap 1.4431%</div><div class='input'>
-<span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>,
-               <span class='st'>"log-linear targets"</span>))</div><img src='targets-4.png' alt='' width='540' height='400' /><div class='input'>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

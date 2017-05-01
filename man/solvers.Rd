@@ -6,7 +6,7 @@
 \description{
 Specify the software and configurations used to solve a conservation planning
 problem. Below is a list of different solvers that can be added to a
-\code{\link{ConservationProblem-class}} object. By default the best available 
+\code{\link{ConservationProblem-class}} object. By default the best available
 software currently installed on the system will be used.
 }
 \details{
@@ -37,7 +37,7 @@ software currently installed on the system will be used.
    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
    through
    \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
-   On Windows and Mac, \code{lpsymphony} may be easier to install. 
+   On Windows and Mac, \code{lpsymphony} may be easier to install.
    This solver uses the \code{lpsymphony} package
    to solve.}
 

@@ -3,25 +3,25 @@ NULL
 
 #' Add Maximum Phylogenetic Representation Objective
 #'
-#' Set an objective to find to find the solution that fulfills as much 
+#' Set an objective to find to find the solution that fulfills as much
 #' of a representative sample a phylogenetic tree as possible given a budget.
-#' This objective is similar to \code{add_max_features_objective} except that 
-#' emphasis is placed on phylogenetic representation rather than target 
+#' This objective is similar to \code{add_max_features_objective} except that
+#' emphasis is placed on phylogenetic representation rather than target
 #' representation. This objective requires the "ape" R package to be installed.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
-#' 
+#'
 #' @param budget \code{numeric} value specifying the maximum expenditure of
 #' the prioritization.
-#' 
+#'
 #' @param tree \code{\link[ape]{phylo}} object specifying a phylogenetic tree
 #' for the conservation features.
 #'
 #' @details
-#' A problem objective is used to specify the overall goal of the 
-#' conservation planning problem. All conservation planning problems require 
+#' A problem objective is used to specify the overall goal of the
+#' conservation planning problem. All conservation planning problems require
 #' adding objectives and targets, or solving will return an error.
-#' 
+#'
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{constraints}}, \code{\link{problem}},
 #'   \code{\link{targets}}.
@@ -37,7 +37,7 @@ NULL
 #  # create problem with added minimum set objective
 #' p1 <- p %>% add_min_set_objective()
 #' # create problem with added maximum coverage objective
-#' note that this objective does not use targets
+#' # note that this objective does not use targets
 #' p2 <- p %>% add_max_cover_objective(5000)
 #'
 #' # create problem with added maximum feature representation objective

@@ -39,12 +39,12 @@ NULL
 #'   constraints, regardless of solution quality. Note that the first feasible
 #'   solution is not an arbitrary solution, rather it is derived from the
 #'   relaxed solution, and is therefore often reasonably close to optimality.
-#'   
-#'   @param verbosity \code{integer} how verbose should the solver be when
+#'
+#' @param verbosity \code{integer} how verbose should the solver be when
 #'   reporting progress on solving the problem?
 #'
 #' @param ... arguments passed to the default solver.
-#' 
+#'
 #' @seealso \code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_lsymphony_solver}}
 #'
 #' @examples

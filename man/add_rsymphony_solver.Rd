@@ -32,9 +32,9 @@ be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.
+relaxed solution, and is therefore often reasonably close to optimality.}
 
-@param verbosity \code{integer} how verbose should the solver be when
+\item{verbosity}{\code{integer} how verbose should the solver be when
 reporting progress on solving the problem?}
 
 \item{...}{arguments passed to the default solver.}

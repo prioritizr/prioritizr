@@ -18,8 +18,8 @@ Set an objective to find the solution that secures as much of each feature as po
 without exceeding the budget.
 }
 \details{
-A problem objective is used to specify the overall goal of the 
-conservation planning problem. All conservation planning problems require 
+A problem objective is used to specify the overall goal of the
+conservation planning problem. All conservation planning problems require
 adding objectives and targets, or solving will return an error.
 }
 \examples{
@@ -32,7 +32,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
 
 p1 <- p \%>\% add_min_set_objective()
 # create problem with added maximum coverage objective
-note that this objective does not use targets
+# note that this objective does not use targets
 p2 <- p \%>\% add_max_cover_objective(5000)
 
 # create problem with added maximum feature representation objective

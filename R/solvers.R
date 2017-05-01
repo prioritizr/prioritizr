@@ -5,8 +5,8 @@ NULL
 #'
 #' Specify the software and configurations used to solve a conservation planning
 #' problem. Below is a list of different solvers that can be added to a
-#' \code{\link{ConservationProblem-class}} object. By default the best available 
-#' software currently installed on the system will be used. 
+#' \code{\link{ConservationProblem-class}} object. By default the best available
+#' software currently installed on the system will be used.
 #'
 #' \describe{
 #'
@@ -35,25 +35,11 @@ NULL
 #'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
 #'    through
 #'    \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
-#'    On Windows and Mac, \code{lpsymphony} may be easier to install. 
+#'    On Windows and Mac, \code{lpsymphony} may be easier to install.
 #'    This solver uses the \code{lpsymphony} package
 #'    to solve.}
 #'
 #' }
 #'
-#'
 #' @name solvers
 NULL
-
-#' @export
-add_default_solver <- function(x, ...) {
-  if (requireNamespace("gurobi", quietly = TRUE)) {
-    return(add_gurobi_solver(x, ...))
-  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
-    return(add_rsymphony_solver(x, ...))
-  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
-    return(add_lpsymphony_solver(x, ...))
-  } else {
-    stop("no optimization problem solvers found on system.")
-  }
-}
