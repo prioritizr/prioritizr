@@ -1,9 +1,17 @@
+# prioritizr 1.0.0.4 (unreleased)
+
+- compatibility with R 3.4.0
+- replace `structure(NULL, ...)` with `structure(list(), ...)`
+- register compiled library files
+- remove duplicate definition of `new_waiver` from internal.R
+- tests check if prioritizrdata package not installed and skip if it isn't
+
 # prioritizr 1.0.0.3 (unreleased)
 
 - fix missing links in documentation
 - fix typos in roxygen2 parameters
-- move add_default_decisions and add_default_solver to own help file
-- make add_default_objectives and add_default_targets private functions
+- move `add_default_decisions` and `add_default_solver` to own help file
+- make `add_default_objectives` and `add_default_targets` private functions
 
 # prioritizr 1.0.0.2 (unreleased)
 

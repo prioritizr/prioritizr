@@ -58,7 +58,7 @@ NULL
 #' @export
 Parameter <- pproto(
   "Parameter",
-  id = structure(NULL, class = "ID"),
+  id = structure(list(), class = "ID"),
   name = character(0),
   value = numeric(0),
   default = numeric(0),
