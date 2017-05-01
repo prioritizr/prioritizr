@@ -1,3 +1,7 @@
+# prioritizr 1.0.0.5 (unreleased)
+
+- fix building issue due to incorrect file order in DESCRIPTION
+
 # prioritizr 1.0.0.4 (unreleased)
 
 - compatibility with R 3.4.0
