@@ -27,7 +27,8 @@ locked in. See details for more information.}
 Add constraints to ensure that they are prioritized in the solution.
 For example, it may be desirable to lock in planning units that are
 inside existing protected areas so that the solution fills in the gaps in the
-existing reserve network.
+existing reserve network. If specific planning units should be locked out 
+of a solution, use \code{\link{add_locked_out_constraints}}.
 }
 \details{
 The locked in planning units can be specified in several
@@ -102,5 +103,5 @@ plot(s5[s5$solution==1,], col="darkgreen", add=TRUE)
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{penalties}}.
+\code{\link{constraints}}, \code{\link{add_locked_out_constraints}}, \code{\link{penalties}}.
 }

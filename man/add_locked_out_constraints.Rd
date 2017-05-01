@@ -27,7 +27,8 @@ locked out. See details for more information.}
 Add constraints to ensure that certain planning units are not prioritized
 in the solution. For example, it may be useful to lock out planning
 units that have been degraded and are not longer suitable for conserving
-species.
+species. If specific planning units should be locked in to the solution, 
+use \code{\link{add_locked_in_constraints}}.
 }
 \details{
 The locked out planning units can be specified in several
@@ -103,5 +104,5 @@ plot(s5[s5$solution==1,], col="darkgreen", add=TRUE)
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{penalties}}.
+\code{\link{constraints}}, \code{\link{penalties}}, \code{\link{add_locked_in_constraints}}.
 }

@@ -59,5 +59,6 @@ plot(s[[4]][s[[4]]$solution==1, ], col = "darkgreen", add = TRUE)
 
 }
 \seealso{
-\code{\link{constraints}} for all the available constraints.
+\code{\link{constraints}} for all the available constraints,
+ and \code{\link{penalties}}.
 }

@@ -19,6 +19,7 @@ cannot have negative values.}
 }
 \description{
 Conservation planning problems that aim to maximize the representation of
+features may not be able to conserve all of them if the budget is not high
 enough. In such budget-limited problems, it may be desirable to prefer the
 representation of some features over others. Weights can be be applied to
 a problem to favor the representation of some features over others when

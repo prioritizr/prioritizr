@@ -18,7 +18,7 @@ parameter in \href{http://marxan.net}{Marxan}.}
 not have any neighboring planning units. For example, an edge factor
 of \code{0.5} is commonly used for planning units along the coast line.}
 
-\item{boundary_data}{\code{matrix}, \code{\link[Matrix]{Matrix}}, or
+\item{boundary_data}{A \code{matrix} or
 \code{data.frame} object showing the shared boundary lengths
 between planning units. If \code{boundary_data} is a matrix then
 each row and column denote a planning unit and cell values
@@ -39,7 +39,14 @@ asymmetric relationships are required, use the
 }
 \description{
 Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves.
+selected planning units together into contiguous reserves. Uses shared boundary 
+length as a measure of connectivity, equivelant to the boundary length modifier 
+(BLM) in \href{http://marxan.net}{Marxan}. 
+Boundary data is calculated automatically unless the planning units in 
+\code{x} are stored in a \code{data.frame}, in which case boundary data must 
+be added as a \code{matrix} or \code{data.frame}. This function can only be used 
+for symmetric relationships between planning units; for asymmetric relationships 
+use the \code{\link{add_connectivity_penalties}} function.
 }
 \examples{
 # create basic problem
@@ -65,5 +72,6 @@ plot(s, main = c("basic solution", "small penalties", "high penalties"))
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{penalties}}.
+\code{\link{constraints}}, \code{\link{add_connectivity_penalties}},
+\code{\link{penalties}}.
 }

@@ -31,7 +31,7 @@ layer.}
 
 \item{directions}{\code{integer} If \code{x} is a
 \code{\link[raster]{Raster-class}} object, the number of directions
- in which cells should be connected: 4 (rook"s case), 8 (queen"s case),
+ in which cells should be connected: 4 (rook's case), 8 (queen's case),
  16 (knight and one-cell queen moves), or "bishop" to connect cells with
  one-cell diagonal moves.}
 
@@ -43,7 +43,9 @@ have to be within in order to qualify as being connected.}
 \code{\link[Matrix]{dsCMatrix-class}} object.
 }
 \description{
-Create a matrix showing which planning units are spatially connected.
+Create a matrix showing which planning units are spatially connected. Created 
+automatically when \code{\link{add_connected_constraints}} is added to a 
+\code{ConservationProblem} object.
 }
 \details{
 This function returns a \code{\link[Matrix]{dgCMatrix-class}} sparse

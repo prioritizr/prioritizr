@@ -11,25 +11,29 @@ add_connectivity_penalties(x, penalty, connectivity_data)
 
 \item{penalty}{\code{numeric} penalty for missing connections between
 planning units. This is equivalent to the connectivity strength modifier
-(CSM; (XXX et al. XXXX). Defaults to one so that penalties are the
+(CSM; (Beger et al. 2010)). Defaults to one so that penalties are the
 same as the values in the \code{data}.}
 
-\item{connectivity_data}{\code{data.frame}, \code{matrix}, \code{\link[Matrix]{Matrix}}
+\item{connectivity_data}{A \code{data.frame} or \code{matrix} 
 object that shows the strength of connectivity between consecutive planning
-units. If \code{data} is a matrix, then rows and columns represent
-each planing unit and the cell values represent the connectivity between
-them. If \code{data} is a \code{data.frame} the column names
-be \code{"id1"}, \code{"id2"}, \code{"boundary"} where each row
-shows the connectivity between two planning units (following the Marxan
-format). The data can be describe symmetric or asymmetric
-connectivity between planning units.}
+ units. If \code{connectivity_data} is a matrix, then rows and columns represent
+ each planing unit and the cell values represent the connectivity between
+ them. If \code{connectivity_data} is a \code{data.frame} the column names must
+ be \code{"id1"}, \code{"id2"}, \code{"boundary"}, where each row
+ shows the connectivity between two planning units (following the Marxan
+ format). The data can be used to denote symmetric or asymmetric
+ relationships between planning units.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Add penalties to a conservation problem to favor solutions that select
-planning units with high connectivity between them.
+Add constraints to a conservation problem to favor solutions that select
+planning units with high connectivity between them. Uses connectivity data 
+in the form of a \code{matrix} or \code{data.frame} object, where strength 
+of connectivity is a value such as the inverse distance between consecutive 
+planning units. This function can be used for symmetric or asymmetric 
+relationships between planning units.
 }
 \examples{
 # load data
@@ -86,5 +90,6 @@ points(s[[4]][s[[4]]$solution==1, ], col = "darkgreen", pch=19, cex = 1.5)
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{penalties}}.
+\code{\link{constraints}}, \code{\link{add_boundary_penalties}},
+ \code{\link{penalties}}.
 }
