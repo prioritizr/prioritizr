@@ -34,9 +34,10 @@ test_that("SpatialPolygons (hexagons)", {
 })
 
 test_that("SpatialPolygons (real data - simple shapes)", {
+  skip_if_not_installed("prioritizrdata")
   # load data
   data(tas_pu, package = "prioritizrdata")
-  x <- tas_pu[c(300, 279),]
+  x <- tas_pu[c(300, 279), ]
   b <- boundary_matrix(x)
   # calculate total length
   total_length <- rgeos::gLength(x, byid = TRUE)

@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R parameters.R
+#' @include internal.R waiver.R pproto.R parameters.R
 NULL
 
 #' @export

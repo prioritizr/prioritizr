@@ -1,10 +1,10 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with lsymphony
+#' Add a SYMPHONY solver with lpsymphony
 #'
 #' Specify the use of a SYMPHONY algorithm to solve a
-#' \code{\link{ConservationProblem-class}} object. Requires the \code{lsymphony} package.
+#' \code{\link{ConservationProblem-class}} object. Requires the \code{lpsymphony} package.
 #'
 #' @details
 #'    The \code{lpsymphony} package provides a
@@ -15,7 +15,7 @@ NULL
 #'    On Windows and Mac, \code{lpsymphony}
 #'    may be easier to install. This solver uses the \code{lpsymphony} package
 #'    to solve.
-#'    
+#'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param gap \code{numeric} gap to optimality. This gap is relative when
@@ -40,12 +40,12 @@ NULL
 #'   constraints, regardless of solution quality. Note that the first feasible
 #'   solution is not an arbitrary solution, rather it is derived from the
 #'   relaxed solution, and is therefore often reasonably close to optimality.
-#'   
-#'   @param verbosity \code{integer} how verbose should the solver be when
+#'
+#' @param verbosity \code{integer} how verbose should the solver be when
 #'   reporting progress on solving the problem?
 #'
 #' @param ... arguments passed to the default solver.
-#' 
+#'
 #' @seealso \code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_rsymphony_solver}}
 #'
 #' @examples

@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -101,7 +101,10 @@ objectives using targets (see <code><a href='targets.html'>targets</a></code>) a
 <span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='kw'>cost_column</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>x</span>)[<span class='fl'>1</span>], <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>rij</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>rij</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for numeric</span>
+<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>rij_matrix</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,12 +112,13 @@ objectives using targets (see <code><a href='targets.html'>targets</a></code>) a
     <tr>
       <th>x</th>
       <td><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>,
-<code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygonsDataFrame-class'>SpatialPolygonsDataFrame-class</a></code>, or
-<code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialLinesDataFrame-class'>SpatialLinesDataFrame-class</a></code> object specifying the
-planning units to use in the reserve design exercise and their
-corresponding cost. It may be desirable to exclude some planning units
-from the analysis, for example those outside the study area. To exclude
-planning units, set the cost for those raster cells to <code>NA</code>.</p></td>
+<code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygonsDataFrame-class'>SpatialPolygonsDataFrame-class</a></code>,
+<code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialLinesDataFrame-class'>SpatialLinesDataFrame-class</a></code>, or 
+<code>data.frame</code> object, or <code>numeric</code> vector,
+specifying the planning units to use in the reserve design exercise and 
+their corresponding cost. It may be desirable to exclude some planning 
+units from the analysis, for example those outside the study area. To 
+exclude planning units, set the cost for those raster cells to <code>NA</code>.</p></td>
     </tr>
     <tr>
       <th>features</th>
@@ -126,10 +130,11 @@ planning units, set the cost for those raster cells to <code>NA</code>.</p></td>
      values (i.e. <code>NA</code> values) can be used to indicate the absence of
      a feature in a particular cell instead of explicitly setting these
      cells to zero.</p></dd>
-   <dt><code>data.frame</code></dt><dd><p><code>data.frame</code> object containing information
-     on the features. The argument to <code>feature_data</code> must follow the
-     conventions used by Marxan. Each row corresponds to a different
-     feature. It must also contain the following columns:
+   <dt><code>data.frame</code> or <code>numeric</code></dt><dd><p><code>data.frame</code> object 
+     containing information on the features. The argument to 
+     <code>feature_data</code> must follow the conventions used by Marxan. Each 
+     row corresponds to a different feature. It must also contain the 
+     following columns:
      <dl class='dl-horizontal'>
        <dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
          These identifiers are used in the argument to <code>rij</code>.</p></dd>
@@ -164,6 +169,12 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
     planning unit.</p></dd>
  </dl></td>
     </tr>
+    <tr>
+      <th>rij_matrix</th>
+      <td><p><code>matrix</code> or <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code>
+object specifying the amount of each feature (rows) within each planning 
+unit (columns). Only used when <code>x</code> is a numeric vector of costs.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -180,31 +191,40 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create problem using raster planning unit data</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='decisions.html'>add_binary_decisions</a></span>()
+ <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using polygon planning unit data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='decisions.html'>add_binary_decisions</a></span>()
+ <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using line planning unit data</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_lines</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='decisions.html'>add_binary_decisions</a></span>()
+ <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using point planning unit data</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='decisions.html'>add_binary_decisions</a></span>()
+ <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
+<span class='co'># alternatively one can supply pre-processed, aspatial data</span>
+<span class='no'>costs</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>$<span class='no'>cost</span>
+<span class='no'>features</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fu'>nlayers</span>(<span class='no'>sim_features</span>),
+                       <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>sim_features</span>))
+<span class='no'>rij_mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>costs</span>, <span class='no'>features</span>, <span class='kw'>rij_matrix</span> <span class='kw'>=</span> <span class='no'>rij_mat</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+ <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -226,7 +246,7 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -256,7 +276,7 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -286,7 +306,7 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
 #&gt;      0     0 3487.86441    0    4 4135.27447 3487.86441  15.7%     -    0s
 #&gt; H    0     0                    3593.1766995 3487.86441  2.93%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (10 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (10 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3593.18 4135.27 
@@ -316,7 +336,37 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 3597.1 4135.27 
+#&gt; Pool objective bound 3490.35
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 4135.27
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
+#&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
+#&gt; 
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -355,7 +405,7 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

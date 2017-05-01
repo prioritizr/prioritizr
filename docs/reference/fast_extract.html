@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -159,12 +159,12 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.252   0.000   0.250 </div><div class='input'>
+#&gt;    0.16    0.00    0.16 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.264   0.000   0.263 </div><div class='input'>
+#&gt;   0.164   0.000   0.163 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
@@ -172,7 +172,7 @@ is installed. Note that this only used when <code>x</code> is a
 <span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.044   0.000   4.129 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
+#&gt;   0.020   0.000   2.512 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -193,7 +193,7 @@ is installed. Note that this only used when <code>x</code> is a
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

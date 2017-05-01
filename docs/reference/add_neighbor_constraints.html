@@ -11,8 +11,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -120,8 +120,8 @@ must have.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='objectives.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>1</span>)
@@ -172,7 +172,7 @@ must have.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4073.37
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
@@ -186,7 +186,7 @@ must have.</p></td>
 #&gt;      0     0 3490.88205    0    6 4073.36976 3490.88205  14.3%     -    0s
 #&gt; H    0     0                    3589.0089332 3490.88205  2.73%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (19 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (19 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3589.01 4073.37 
@@ -202,7 +202,7 @@ must have.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 5156.23
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
@@ -216,7 +216,7 @@ must have.</p></td>
 #&gt;      0     0 3492.47490    0    6 5156.23161 3492.47490  32.3%     -    0s
 #&gt; H    0     0                    3620.8724397 3492.47490  3.55%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (24 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (24 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3620.87 5156.23 
@@ -233,7 +233,7 @@ must have.</p></td>
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 6184.3
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
 #&gt; Variable types: 0 continuous, 89 integer (89 binary)
 #&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
@@ -247,7 +247,7 @@ must have.</p></td>
 #&gt;      0     0 3503.05480    0   19 6184.30172 3503.05480  43.4%     -    0s
 #&gt; H    0     0                    3646.0966743 3503.05480  3.92%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (30 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (30 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3646.1 6184.3 
@@ -288,7 +288,7 @@ must have.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joeseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

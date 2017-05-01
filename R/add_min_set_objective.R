@@ -9,9 +9,9 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @details
-#' A problem objective is used to specify the overall goal of the 
-#' conservation planning problem. All conservation planning problems require 
-#' adding objectives and targets, or solving will return an error.  
+#' A problem objective is used to specify the overall goal of the
+#' conservation planning problem. All conservation planning problems require
+#' adding objectives and targets, or solving will return an error.
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{constraints}}, \code{\link{problem}},
 #'   \code{\link{targets}}.
@@ -27,7 +27,7 @@ NULL
 #  # create problem with added minimum set objective
 #' p1 <- p %>% add_min_set_objective()
 #' # create problem with added maximum coverage objective
-#' note that this objective does not use targets
+#' # note that this objective does not use targets
 #' p2 <- p %>% add_max_cover_objective(5000)
 #'
 #' # create problem with added maximum feature representation objective

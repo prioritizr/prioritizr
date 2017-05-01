@@ -3,19 +3,19 @@ NULL
 
 #' Add Maximum Feature Representation Objective
 #'
-#' Set an objective to find to find the solution that fulfills as many targets 
-#' as possible while ensuring that the cost of the solution does not exceed 
-#' budget and that all constraints are met. This objective was inspired by the 
+#' Set an objective to find to find the solution that fulfills as many targets
+#' as possible while ensuring that the cost of the solution does not exceed
+#' budget and that all constraints are met. This objective was inspired by the
 #' conservation problem defined in Cabeza and Moilanen (2001).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
-#' 
+#'
 #' @param budget \code{numeric} value specifying the maximum expenditure of
 #' the prioritization.
 #'
 #' @details
-#' A problem objective is used to specify the overall goal of the 
-#' conservation planning problem. All conservation planning problems require 
+#' A problem objective is used to specify the overall goal of the
+#' conservation planning problem. All conservation planning problems require
 #' adding objectives and targets, or solving will return an error.
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{constraints}}, \code{\link{problem}},
@@ -32,7 +32,7 @@ NULL
 #  # create problem with added minimum set objective
 #' p1 <- p %>% add_min_set_objective()
 #' # create problem with added maximum coverage objective
-#' note that this objective does not use targets
+#' # note that this objective does not use targets
 #' p2 <- p %>% add_max_cover_objective(5000)
 #'
 #' # create problem with added maximum feature representation objective

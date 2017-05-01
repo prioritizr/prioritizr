@@ -1,3 +1,6 @@
+#' @include internal.R
+NULL
+
 #' @export
 methods::setOldClass("Waiver")
 
@@ -24,4 +27,4 @@ methods::setOldClass("Waiver")
 #' is.Waiver(w)
 #'
 #' @export
-new_waiver <- function() structure(NULL, class = "Waiver")
+new_waiver <- function() structure(list(), class = "Waiver")
