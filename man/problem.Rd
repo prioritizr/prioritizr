@@ -26,7 +26,8 @@ problem(x, features, ...)
 specifying the planning units to use in the reserve design exercise and 
 their corresponding cost. It may be desirable to exclude some planning 
 units from the analysis, for example those outside the study area. To 
-exclude planning units, set the cost for those raster cells to \code{NA}.}
+exclude planning units, set the cost for those raster cells to \code{NA},
+or use the \code{add_locked_out_constraint}.}
 
 \item{features}{The correct argument for \code{features} depends on the
  input to \code{x}.
@@ -86,8 +87,67 @@ specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (eg. species, ecosystems) that need to be conserved. After
 constructing this object, it can be customized to meet specific
-objectives using targets (see \code{\link{targets}}) and constraints
-(see \code{\link{constraints}}).
+goals using \code{\link{objectives}}, 
+\code{\link{targets}}, \code{\link{constraints}}, and \code{\link{penalties}}.
+  
+The basic prioritizr workflow starts with formulating the
+\code{problem}, then adding \code{objectives} and \code{targets}, 
+as well as \code{constraints} and \code{penalties} as needed.
+Alternative decision formats can be specified using the 
+\code{\link{decisions}} functions, 
+otherwise the package will default to binary selection of planning units. 
+Lastly, the type of solving algorithm must be specified 
+(see \code{\link{solvers}}). Once formulated, the problem is solved 
+using the \code{solve()} function, which will return 
+a \code{RasterLayer-class},
+\code{Spatial-class}, or a \code{numeric} vector 
+containing the solution depending on the \code{ConservationProblem-class}
+}
+\details{
+A reserve design exercise starts by dividing the study region 
+into planning units (typically square or hexagonal cells) and, for 
+each planning unit, assigning values that quantify socioeconomic 
+cost and conservation benefit for a set of conservation features. The 
+cost can be the acquisition cost of the land, the cost of management, 
+the opportunity cost of foregone commercial activities (e.g. from logging 
+or agriculture), or simply the area. The conservation features are 
+typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or 
+cloud forest). The benefit that each feature derives from a planning unit 
+can take a variety of forms, but is typically either occupancy (i.e. 
+presence or absence) or area of occurrence within each planning unit. 
+Finally, in some types of reserve design models, for each conservation 
+feature, representation targets must be set, such as 20% of the current 
+extent of cloud forest or 10,000km^2 of Clouded Leopard habitat 
+(see \code{\link{targets}}).
+
+The goal of the reserve design exercise is then to optimize the trade-off 
+between conservation benefit and socioeconomic cost, i.e. to get the most 
+benefit for your limited conservation funds. In general, the goal of an 
+optimization problem is to minimize an objective function over a set of 
+decision variables, subject to a series of constraints. The decision variables 
+are what we control, usually there is one binary variable for each planning 
+unit specifying whether or not to protect that unit (but other approaches are 
+available, see \code{\link{decisions}}). The constraints can be thought 
+of as rules that need to be followed, for example, that the reserve must 
+stay within a certain budget or meet the representation targets.
+
+Integer linear programming (ILP) is the subset of optimization algorithms used in 
+this package to solve reserve design problems. The general form of an ILP problem 
+can be expressed in matrix notation as:
+
+\deqn{\mathit{Minimize}\: \mathbf{c}^{\mathbf{T}}\mathbf{x} \: \mathit{subject\, to}
+ \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =, or \le b}
+
+Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are 
+vectors of known coefficients, and \emph{A} is the \strong{constraint matrix}. 
+The final term specifies a series of \strong{structural constaints} where 
+relational operators for the constraint can be either \eqn{\ge, =, or \le} 
+the coefficients. For example, in the minimum set cover problem, \emph{c} 
+would be a vector of costs for each planning unit, \emph{b} a vector of targets 
+for each conservation feature, the relational operator would be \eqn{\ge} for 
+all features, and \emph{A} would be the representation matrix with 
+\eqn{A_{ij}=r_{ij}}{Aij = rij}, the representation level of feature \emph{i} 
+in planning unit \emph{j}.
 }
 \examples{
 # create problem using raster planning unit data
@@ -144,5 +204,5 @@ points(s[[4]][s[[4]]$solution == 1, ], col = "darkgreen", cex = 2, pch = 19)
 }
 \seealso{
 \code{\link{constraints}}, \code{\link{objectives}},
- \code{\link{targets}}.
+ \code{\link{targets}}, \code{\link{decisions}}, \code{\link{solvers}}.
 }

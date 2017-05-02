@@ -55,5 +55,5 @@ plot(s, main = c("equal weights", "rarity weights"))
 
 }
 \seealso{
-\code{\link{targets}}.
+\code{\link{targets}}, \code{\link{objectives}}.
 }
