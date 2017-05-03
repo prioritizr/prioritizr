@@ -109,5 +109,5 @@ plot(s, main = titles)
 
 }
 \seealso{
-\code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_lsymphony_solver}}
+\code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_lpsymphony_solver}}
 }

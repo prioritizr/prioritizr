@@ -51,7 +51,7 @@ NULL
 #'
 #' @param ... arguments passed to the default solver.
 #'
-#' @seealso \code{\link{solvers}}, \code{\link{add_rsymphony_solver}}, \code{\link{add_lsymphony_solver}}
+#' @seealso \code{\link{solvers}}, \code{\link{add_rsymphony_solver}}, \code{\link{add_lpsymphony_solver}}
 #' 
 #' @examples
 #' \donttest{

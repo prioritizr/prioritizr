@@ -7,8 +7,8 @@ NULL
 #' specify the basic data used in a spatial prioritization problem: the
 #' spatial distribution of the planning units and their costs, as well as
 #' the features (eg. species, ecosystems) that need to be conserved. After
-#' constructing this object, it can be customized to meet specific
-#' goals using \code{\link{objectives}}, 
+#' constructing this \code{ConservationProblem-class} object, it can be 
+#' customized to meet specific goals using \code{\link{objectives}}, 
 #' \code{\link{targets}}, \code{\link{constraints}}, and \code{\link{penalties}}.
 #'   
 #' The basic prioritizr workflow starts with formulating the

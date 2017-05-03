@@ -7,6 +7,8 @@ NULL
 #' problem. Below is a list of different solvers that can be added to a
 #' \code{\link{ConservationProblem-class}} object. By default the best available
 #' software currently installed on the system will be used.
+#' 
+#' One of gurobi, Rsymphony, or lsymphony packages must be installed prior to solving.
 #'
 #' \describe{
 #'
@@ -43,3 +45,5 @@ NULL
 #'
 #' @name solvers
 NULL
+
+

@@ -10,6 +10,8 @@ problem. Below is a list of different solvers that can be added to a
 software currently installed on the system will be used.
 }
 \details{
+One of gurobi, Rsymphony, or lsymphony packages must be installed prior to solving.
+
 \describe{
 
 \item{\code{default_solver}}{This solver uses the best software
