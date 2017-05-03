@@ -19,8 +19,27 @@ without exceeding the budget.
 }
 \details{
 A problem objective is used to specify the overall goal of the
-conservation planning problem. All conservation planning problems require
-adding objectives and targets, or solving will return an error.
+conservation planning problem. Please note that \strong{all conservation planning 
+problems formulated in the prioritizr package require the addition of both 
+objectives and targets}. Failing to do so will return a default error message 
+when solving.
+
+The maximum coverage problem seeks to find the set of planning units that 
+maximizes the overall level of representation across a suite of conservation 
+features, while keeping cost within a fixed budget. This problem is roughly 
+the opposite of what the conservation planning software Marxan does. 
+
+The maximum coverage problem can be stated mathematically, for \emph{n} 
+planning units and \emph{m} conservation features, as:
+
+\deqn{\text{Maximize} \sum_{i=1}^{m} \sum_{j=1}^{n} x_j r_{ij} + \text{ subject to } 
+\sum_{i=1}^{n}x_i c_i \leq B}{Maximize \sum^m \sum^n (xj*rij) subject to \sum^n 
+(xi*ci) \le B}
+
+where \eqn{x_i}{xi} is a binary decision variable specifying whether planning unit 
+\emph{i} has been selected (1) or not (0), \eqn{c_i}{ci} is the cost of planning unit 
+\emph{i}, \eqn{r_ij}{rij} is the representation level of feature \emph{i} in planning 
+unit \emph{j}, and \emph{B} is the budget.
 }
 \examples{
 # load data

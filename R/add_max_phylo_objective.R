@@ -19,8 +19,36 @@ NULL
 #'
 #' @details
 #' A problem objective is used to specify the overall goal of the
-#' conservation planning problem. All conservation planning problems require
-#' adding objectives and targets, or solving will return an error.
+#' conservation planning problem. Please note that \strong{all conservation planning 
+#' problems formulated in the prioritizr package require the addition of both 
+#' objectives and targets}. Failing to do so will return a default error message 
+#' when solving.
+#' 
+#' The maximum phylogenetic representation problem is similar to the maximum features 
+#' problem in that it allows for both a budget and targets to be set. This problem finds the 
+#' set of planning units that meets representation targets for a phylogenetic tree while 
+#' staying within a fixed budget. If multiple solutions can meet all targets while 
+#' staying within budget, the cheapest solution is chosen. 
+#' 
+#' The maximum target coverage problem (and by extension, the maximum phylogenetic problem)
+#' can be stated mathematically, for \emph{n} planning units and \emph{m} conservation 
+#' features, as:
+#' 
+#' \deqn{\text{Maximize} \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j 
+#' \text{ subject to } \sum_{i=1}^{n}x_i c_i \leq B \space \text{and} \space 
+#' \sum_{j=1}^{n} x_j r_{ij}\geq y_iT_i \space \forall \space i}{Maximize 
+#' -a\sum^n (xi*ci) + \sum^m (yi) subject to \sum^n (xi*ci) \le B and \sum^n 
+#' (xj*rij) \ge yi*Ti for all i}
+#' 
+#' where \eqn{x_i}{xi} is a binary decision variable specifying whether planning unit 
+#' \emph{i} has been selected (1) or not (0), \eqn{y_i}{yi} is a binary decision variable 
+#' specifying whether the target for species \emph{i} should be met, \eqn{c_i}{ci} is 
+#' the cost of planning unit \emph{i}, \eqn{r_ij}{rij} is the representation level of 
+#' feature \emph{i} in planning unit \emph{j}, \emph{B} is the budget, and \eqn{T_i}{Ti} 
+#' is the target for feature \emph{i}. Finally, the factor \emph{a} is chosen so that the 
+#' first term of the objective function is much smaller than the second. This ensures that 
+#' the reserve cost only plays a role in distinguishing between solutions that meet the 
+#' same number of targets.
 #'
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{constraints}}, \code{\link{problem}},
