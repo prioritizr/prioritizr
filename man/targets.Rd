@@ -9,7 +9,9 @@ distribution that needs to be protected.
 }
 \details{
 Please note that failing to specify targets will return a default
-error message when solving.
+error message when solving.The exception is the maximum cover problem 
+(see \code{\link{add_max_cover_objective}}), which maximizes all features 
+in the solution and therefore does not require targets.
 
 
 The following list contains the targets can be added to a conservation planning \code{\link{problem}}.

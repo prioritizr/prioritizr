@@ -20,7 +20,7 @@ test_that("cluster functions", {
   expect_error(set_number_of_threads(-5))
   expect_error(set_number_of_threads(NA_integer_))
   expect_error(set_number_of_threads("1"))
-  expect_error(set_number_of_threads(parallel::detectCores() + 1))
+  expect_error(set_number_of_threads(parallel::detectCores(TRUE) + 1))
 })
 
 test_that("disribute load", {

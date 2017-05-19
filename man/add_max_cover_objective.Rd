@@ -15,13 +15,13 @@ the prioritization.}
 }
 \description{
 Set an objective to find the solution that secures as much of each feature as possible
-without exceeding the budget.
+without exceeding the budget. This type of objective does not require the addition of targets.
 }
 \details{
 A problem objective is used to specify the overall goal of the
 conservation planning problem. Please note that \strong{all conservation planning 
-problems formulated in the prioritizr package require the addition of both 
-objectives and targets}. Failing to do so will return a default error message 
+problems formulated in the prioritizr package require the addition of
+objectives}. Failing to do so will return a default error message 
 when solving.
 
 The maximum coverage problem seeks to find the set of planning units that 

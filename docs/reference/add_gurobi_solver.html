@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -84,10 +84,11 @@
 
     
     <p>Specify the use of a Gurobi algorithm to solve a
-<code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object. Requires the <code>gurobi</code> package.</p>
+<code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object. Requires the <code>gurobi</code>
+package.</p>
     
 
-    <pre><span class='fu'>add_gurobi_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
+    <pre class="usage"><span class='fu'>add_gurobi_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
   <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
@@ -157,7 +158,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='solvers.html'>solvers</a></code>, <code><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></code>, <code><a href='add_lsymphony_solver.html'>add_lsymphony_solver</a></code></p>
+    <p><code><a href='solvers.html'>solvers</a></code>, <code><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></code>, <code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></code></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

@@ -7,7 +7,9 @@ NULL
 #' distribution that needs to be protected.
 #'
 #' Please note that failing to specify targets will return a default
-#' error message when solving.
+#' error message when solving.The exception is the maximum cover problem 
+#' (see \code{\link{add_max_cover_objective}}), which maximizes all features 
+#' in the solution and therefore does not require targets. 
 #'
 #' @details
 #' The following list contains the targets can be added to a conservation planning \code{\link{problem}}.
@@ -40,3 +42,11 @@ NULL
 #'
 #' @name targets
 NULL
+
+add_default_targets <- function(x) {
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, "ConservationProblem"))
+  # throw error because targets must be chosen by the user
+  stop("problem is missing targets and they must be explicitly defined")
+}
+

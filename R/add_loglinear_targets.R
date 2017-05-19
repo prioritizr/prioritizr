@@ -11,7 +11,8 @@ NULL
 #' and the fourth argument specifies the target required for species with a range 
 #' size equal to or greater than the required range size.
 #' 
-#' Note that targets must be added to a \code{problem} or solving will return an error.
+#' Note that with the exception of the maximum cover problem, targets must 
+#' be added to a \code{\link{problem}} or solving will return an error.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'   
@@ -34,7 +35,9 @@ NULL
 #' @details
 #' Targets are used to specify the minimum amount or proportion of a feature's
 #' distribution that needs to be protected. All conservation planning problems require 
-#' adding objectives and targets, or solving will return an error.
+#' adding targets with the exception of the maximum cover problem 
+#' (see \code{\link{add_max_cover_objective}}), which maximizes all features 
+#' in the solution and therefore does not require targets. 
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the target added
 #'   to it.

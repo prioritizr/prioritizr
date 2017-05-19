@@ -1,3 +1,9 @@
+# prioritizr 1.0.1.0 (unreleased)
+
+- fix issue where `parallel::detectCores()` returns `NA` on some systems
+  preventing users from using the Gurobi solver--even when one thread is
+  specified
+
 # prioritizr 1.0.0.5 (unreleased)
 
 - fix building issue due to incorrect file order in DESCRIPTION

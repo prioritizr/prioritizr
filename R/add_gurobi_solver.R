@@ -4,7 +4,8 @@ NULL
 #' Add a Gurobi Solver
 #'
 #' Specify the use of a Gurobi algorithm to solve a
-#' \code{\link{ConservationProblem-class}} object. Requires the \code{gurobi} package.
+#' \code{\link{ConservationProblem-class}} object. Requires the \code{gurobi}
+#' package.
 #'
 #' @details
 #'  \href{http://gurobi.com}{Gurobi} is a
@@ -52,7 +53,7 @@ NULL
 #' @param ... arguments passed to the default solver.
 #'
 #' @seealso \code{\link{solvers}}, \code{\link{add_rsymphony_solver}}, \code{\link{add_lpsymphony_solver}}
-#' 
+#'
 #' @examples
 #' \donttest{
 #' # load packages
@@ -120,12 +121,15 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
                               presolve=2, threads=1, first_feasible=0) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1),
+                          isTRUE(all(is.finite(gap))),
+                          assertthat::is.scalar(gap), isTRUE(gap <= 1),
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
-                          assertthat::is.count(time_limit), isTRUE(all(is.finite(presolve))),
+                          assertthat::is.count(time_limit),
+                          isTRUE(all(is.finite(presolve))),
                           assertthat::is.count(presolve), isTRUE(presolve <= 2),
-                          isTRUE(all(is.finite(threads))), assertthat::is.count(threads),
-                          isTRUE(threads <= parallel::detectCores()),
+                          isTRUE(all(is.finite(threads))),
+                          assertthat::is.count(threads),
+                          isTRUE(threads <= parallel::detectCores(TRUE)),
                           assertthat::is.scalar(first_feasible),
                           isTRUE(first_feasible == 1 | first_feasible == 0),
                           requireNamespace("gurobi", quietly = TRUE))
@@ -141,7 +145,7 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
                         upper_limit = as.integer(.Machine$integer.max)),
       integer_parameter("threads", threads, lower_limit = 1L,
-                        upper_limit = parallel::detectCores()),
+                        upper_limit = parallel::detectCores(TRUE)),
       binary_parameter("first_feasible", first_feasible)),
     solve = function(self, x) {
       model <- list(
@@ -165,5 +169,3 @@ add_gurobi_solver <- function(x, gap=0.1, time_limit=.Machine$integer.max,
       return(x)
     }))
 }
-
-
