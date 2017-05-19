@@ -50,7 +50,7 @@ NULL
 set_number_of_threads <- function(x=1L) {
   assertthat::assert_that(assertthat::is.count(x),
                           x > 0,
-                          x <= parallel::detectCores())
+                          x <= parallel::detectCores(TRUE))
   # stop existing cluster if detected
   if (!is.null(.pkgenv$cluster)) {
     parallel::stopCluster(.pkgenv$cluster)

@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -86,10 +86,11 @@
     <p>Add constraints to ensure that certain planning units are not prioritized
 in the solution. For example, it may be useful to lock out planning
 units that have been degraded and are not longer suitable for conserving
-species.</p>
+species. If specific planning units should be locked in to the solution, 
+use <code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code>.</p>
     
 
-    <pre><span class='fu'>add_locked_out_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_out</span>)</pre>
+    <pre class="usage"><span class='fu'>add_locked_out_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_out</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -132,7 +133,7 @@ locked out. See details for more information.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='penalties.html'>penalties</a></code>.</p>
+    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='penalties.html'>penalties</a></code>, <code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

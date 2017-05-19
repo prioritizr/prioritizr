@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -84,10 +84,17 @@
 
     
     <p>Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves.</p>
+selected planning units together into contiguous reserves. Uses shared boundary 
+length as a measure of connectivity, equivelant to the boundary length modifier 
+(BLM) in <a href = 'http://marxan.net'>Marxan</a>. 
+Boundary data is calculated automatically unless the planning units in 
+<code>x</code> are stored in a <code>data.frame</code>, in which case boundary data must 
+be added as a <code>matrix</code> or <code>data.frame</code>. This function can only be used 
+for symmetric relationships between planning units; for asymmetric relationships 
+use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
     
 
-    <pre><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>edge_factor</span>, <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>edge_factor</span>, <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -111,7 +118,7 @@ of <code>0.5</code> is commonly used for planning units along the coast line.</p
     </tr>
     <tr>
       <th>boundary_data</th>
-      <td><p><code>matrix</code>, <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/Matrix'>Matrix</a></code>, or
+      <td><p>A <code>matrix</code> or
 <code>data.frame</code> object showing the shared boundary lengths
 between planning units. If <code>boundary_data</code> is a matrix then
 each row and column denote a planning unit and cell values
@@ -135,7 +142,8 @@ asymmetric relationships are required, use the
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='penalties.html'>penalties</a></code>.</p>
+    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code>,
+<code><a href='penalties.html'>penalties</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -206,7 +214,7 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3511.77011    0   10 4152.27447 3511.77011  15.4%     -    0s
 #&gt; H    0     0                    3611.0142184 3511.77011  2.75%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (182 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (182 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3611.01 4152.27 

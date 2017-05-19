@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -87,12 +87,25 @@
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (eg. species, ecosystems) that need to be conserved. After
-constructing this object, it can be customized to meet specific
-objectives using targets (see <code><a href='targets.html'>targets</a></code>) and constraints
-(see <code><a href='constraints.html'>constraints</a></code>).</p>
+constructing this <code>ConservationProblem-class</code> object, it can be 
+customized to meet specific goals using <code><a href='objectives.html'>objectives</a></code>, 
+<code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and <code><a href='penalties.html'>penalties</a></code>.
+
+    The basic prioritizr workflow starts with formulating the
+<code>problem</code>, then adding <code>objectives</code> and <code>targets</code>, 
+as well as <code>constraints</code> and <code>penalties</code> as needed.
+Alternative decision formats can be specified using the 
+<code><a href='decisions.html'>decisions</a></code> functions, 
+otherwise the package will default to binary selection of planning units. 
+Lastly, the type of solving algorithm must be specified 
+(see <code><a href='solvers.html'>solvers</a></code>). Once formulated, the problem is solved 
+using the <code>solve()</code> function, which will return 
+a <code>RasterLayer-class</code>,
+<code>Spatial-class</code>, or a <code>numeric</code> vector 
+containing the solution depending on the <code>ConservationProblem-class</code></p>
     
 
-    <pre><span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Raster</span>
 <span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
@@ -118,7 +131,8 @@ objectives using targets (see <code><a href='targets.html'>targets</a></code>) a
 specifying the planning units to use in the reserve design exercise and 
 their corresponding cost. It may be desirable to exclude some planning 
 units from the analysis, for example those outside the study area. To 
-exclude planning units, set the cost for those raster cells to <code>NA</code>.</p></td>
+exclude planning units, set the cost for those raster cells to <code>NA</code>,
+or use the <code>add_locked_out_constraint</code>.</p></td>
     </tr>
     <tr>
       <th>features</th>
@@ -182,10 +196,53 @@ unit (columns). Only used when <code>x</code> is a numeric vector of costs.</p><
     <p>A <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object containing the
   basic data used to build a prioritization problem.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>A reserve design exercise starts by dividing the study region 
+into planning units (typically square or hexagonal cells) and, for 
+each planning unit, assigning values that quantify socioeconomic 
+cost and conservation benefit for a set of conservation features. The 
+cost can be the acquisition cost of the land, the cost of management, 
+the opportunity cost of foregone commercial activities (e.g. from logging 
+or agriculture), or simply the area. The conservation features are 
+typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or 
+cloud forest). The benefit that each feature derives from a planning unit 
+can take a variety of forms, but is typically either occupancy (i.e. 
+presence or absence) or area of occurrence within each planning unit. 
+Finally, in some types of reserve design models, for each conservation 
+feature, representation targets must be set, such as 20<!-- % of the current  -->
+extent of cloud forest or 10,000km^2 of Clouded Leopard habitat 
+(see <code><a href='targets.html'>targets</a></code>).</p>
+<p>The goal of the reserve design exercise is then to optimize the trade-off 
+between conservation benefit and socioeconomic cost, i.e. to get the most 
+benefit for your limited conservation funds. In general, the goal of an 
+optimization problem is to minimize an objective function over a set of 
+decision variables, subject to a series of constraints. The decision variables 
+are what we control, usually there is one binary variable for each planning 
+unit specifying whether or not to protect that unit (but other approaches are 
+available, see <code><a href='decisions.html'>decisions</a></code>). The constraints can be thought 
+of as rules that need to be followed, for example, that the reserve must 
+stay within a certain budget or meet the representation targets.</p>
+<p>Integer linear programming (ILP) is the subset of optimization algorithms used in 
+this package to solve reserve design problems. The general form of an ILP problem 
+can be expressed in matrix notation as:
+    $$\mathit{Minimize}\: \mathbf{c}^{\mathbf{T}}\mathbf{x} \: \mathit{subject\, to}
+ \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
+<p>Where <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are 
+vectors of known coefficients, and <em>A</em> is the <strong>constraint matrix</strong>. 
+The final term specifies a series of <strong>structural constaints</strong> where 
+relational operators for the constraint can be either \(\ge, =, or \le\) 
+the coefficients. For example, in the minimum set cover problem, <em>c</em> 
+would be a vector of costs for each planning unit, <em>b</em> a vector of targets 
+for each conservation feature, the relational operator would be \(\ge\) for 
+all features, and <em>A</em> would be the representation matrix with 
+\(A_{ij}=r_{ij}\), the representation level of feature <em>i</em> 
+in planning unit <em>j</em>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='targets.html'>targets</a></code>.</p>
+ <code><a href='targets.html'>targets</a></code>, <code><a href='decisions.html'>decisions</a></code>, <code><a href='solvers.html'>solvers</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -394,6 +451,8 @@ unit (columns). Only used when <code>x</code> is a numeric vector of costs.</p><
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

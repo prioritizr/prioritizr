@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -84,13 +84,14 @@
 
     
     <p>Conservation planning problems that aim to maximize the representation of
+features may not be able to conserve all of them if the budget is not high
 enough. In such budget-limited problems, it may be desirable to prefer the
 representation of some features over others. Weights can be be applied to
 a problem to favor the representation of some features over others when
 making decisions about how the budget should be allocated.</p>
     
 
-    <pre><span class='fu'>add_feature_weights</span>(<span class='no'>x</span>, <span class='no'>weights</span>)</pre>
+    <pre class="usage"><span class='fu'>add_feature_weights</span>(<span class='no'>x</span>, <span class='no'>weights</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -124,7 +125,7 @@ cannot have negative values.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='targets.html'>targets</a></code>.</p>
+    <p><code><a href='targets.html'>targets</a></code>, <code><a href='objectives.html'>objectives</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

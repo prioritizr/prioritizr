@@ -47,7 +47,8 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 }
 \description{
 Specify the use of a Gurobi algorithm to solve a
-\code{\link{ConservationProblem-class}} object. Requires the \code{gurobi} package.
+\code{\link{ConservationProblem-class}} object. Requires the \code{gurobi}
+package.
 }
 \details{
 \href{http://gurobi.com}{Gurobi} is a

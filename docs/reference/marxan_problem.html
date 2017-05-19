@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -93,7 +93,7 @@ can also be used to read Marxan data files and solve the Marxan-style
 problems using exact algorithm solvers.</p>
     
 
-    <pre><span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>targets</span>,
@@ -286,13 +286,13 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.22153e+10
 #&gt; Presolve removed 2491 rows and 1608 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; Variable types: 0 continuous, 5172 integer (5172 binary)
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -300,7 +300,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (3825 simplex iterations) in 0.09 seconds
+#&gt; Explored 0 nodes (3825 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 

@@ -1,4 +1,4 @@
-all: clean data docs test check install
+all: clean data docs test check
 
 clean:
 	rm -rf man/*

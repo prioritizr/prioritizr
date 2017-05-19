@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -87,7 +87,7 @@
 planning units are spatially connected to each other.</p>
     
 
-    <pre><span class='fu'>add_connected_constraints</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>add_connected_constraints</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -109,7 +109,8 @@ planning units are spatially connected to each other.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code> for all the available constraints.</p>
+    <p><code><a href='constraints.html'>constraints</a></code> for all the available constraints,
+ and <code><a href='penalties.html'>penalties</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -176,28 +177,26 @@ planning units are spatially connected to each other.</p>
 #&gt;      0     0 3550.01923    0  133          - 3550.01923      -     -    0s
 #&gt;      0     0 3552.25228    0  146          - 3552.25228      -     -    0s
 #&gt;      0     0 3553.40931    0  147          - 3553.40931      -     -    0s
-#&gt;      0     0 3554.97777    0  134          - 3554.97777      -     -    0s
+#&gt;      0     0 3554.97777    0  135          - 3554.97777      -     -    0s
 #&gt;      0     0 3555.21419    0  146          - 3555.21419      -     -    0s
 #&gt;      0     0 3555.21419    0  144          - 3555.21419      -     -    0s
 #&gt; H    0     0                    4535.4516740 3555.21419  21.6%     -    0s
 #&gt;      0     2 3555.30806    0  144 4535.45167 3555.30806  21.6%     -    0s
-#&gt; *   19    19              12    4191.3969799 3555.31447  15.2%  23.2    0s
-#&gt; H   83    42                    4133.1195332 3557.03839  13.9%  15.4    0s
-#&gt; *  130    62              17    3967.2562495 3560.45324  10.3%  16.1    0s
-#&gt; H  187    49                    3715.3228990 3561.56376  4.14%  15.0    0s
+#&gt; *   19    19              12    4191.3969799 3555.31447  15.2%  24.2    0s
+#&gt; H   87    39                    3919.1108740 3557.03839  9.24%  15.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
-#&gt;   Zero half: 5
+#&gt;   Zero half: 3
 #&gt; 
-#&gt; Explored 187 nodes (3277 simplex iterations) in 0.20 seconds
+#&gt; Explored 87 nodes (1784 simplex iterations) in 0.12 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 3715.32 3967.26 4133.12 ... 4535.45
-#&gt; Pool objective bound 3561.56
+#&gt; Solution count 3: 3919.11 4191.4 4535.45 
+#&gt; Pool objective bound 3557.04
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.715322898951e+03, best bound 3.561563760337e+03, gap 4.1385%</div><div class='input'>
+#&gt; Best objective 3.919110873989e+03, best bound 3.557038388867e+03, gap 9.2386%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><img src='add_connected_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>

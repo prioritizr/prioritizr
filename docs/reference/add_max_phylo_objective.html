@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -90,7 +90,7 @@ emphasis is placed on phylogenetic representation rather than target
 representation. This objective requires the "ape" R package to be installed.</p>
     
 
-    <pre><span class='fu'>add_max_phylo_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>, <span class='no'>tree</span>)</pre>
+    <pre class="usage"><span class='fu'>add_max_phylo_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>, <span class='no'>tree</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -114,8 +114,30 @@ for the conservation features.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A problem objective is used to specify the overall goal of the
-conservation planning problem. All conservation planning problems require
-adding objectives and targets, or solving will return an error.</p>
+conservation planning problem. Please note that <strong>all conservation planning 
+problems formulated in the prioritizr package require the addition of both 
+objectives and targets</strong>. Failing to do so will return a default error message 
+when solving.</p>
+<p>The maximum phylogenetic representation problem is similar to the maximum features 
+problem in that it allows for both a budget and targets to be set. This problem finds the 
+set of planning units that meets representation targets for a phylogenetic tree while 
+staying within a fixed budget. If multiple solutions can meet all targets while 
+staying within budget, the cheapest solution is chosen.</p>
+<p>The maximum target coverage problem (and by extension, the maximum phylogenetic problem)
+can be stated mathematically, for <em>n</em> planning units and <em>m</em> conservation 
+features, as:
+    $$\text{Maximize} \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j 
+\text{ subject to } \sum_{i=1}^{n}x_i c_i \leq B \space \text{and} \space 
+\sum_{j=1}^{n} x_j r_{ij}\geq y_iT_i \space \forall \space i$$</p>
+<p>where \(x_i\) is a binary decision variable specifying whether planning unit 
+<em>i</em> has been selected (1) or not (0), \(y_i\) is a binary decision variable 
+specifying whether the target for species <em>i</em> should be met, \(c_i\) is 
+the cost of planning unit <em>i</em>, \(r_ij\) is the representation level of 
+feature <em>i</em> in planning unit <em>j</em>, <em>B</em> is the budget, and \(T_i\) 
+is the target for feature <em>i</em>. Finally, the factor <em>a</em> is chosen so that the 
+first term of the objective function is much smaller than the second. This ensures that 
+the reserve cost only plays a role in distinguishing between solutions that meet the 
+same number of targets.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -220,8 +242,8 @@ adding objectives and targets, or solving will return an error.</p>
 #&gt; Pool objective bound 5
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.000000002557e+00, best bound 5.000000009623e+00, gap 0.0000%
-#&gt; Optimize a model with 14 rows, 103 columns and 566 nonzeros
+#&gt; Best objective 5.000000002557e+00, best bound 5.000000009723e+00, gap 0.0000%
+#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -231,9 +253,9 @@ adding objectives and targets, or solving will return an error.</p>
 #&gt; Found heuristic solution: objective 2.55673e-09
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 556 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 556 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
 #&gt; 
 #&gt; 
 #&gt; Root relaxation: objective 4.353296e+00, 7 iterations, 0.00 seconds

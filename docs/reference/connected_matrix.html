@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -83,10 +83,12 @@
     </div>
 
     
-    <p>Create a matrix showing which planning units are spatially connected.</p>
+    <p>Create a matrix showing which planning units are spatially connected. Created 
+automatically when <code><a href='add_connected_constraints.html'>add_connected_constraints</a></code> is added to a 
+<code>ConservationProblem</code> object.</p>
     
 
-    <pre><span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Raster</span>
 <span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>4L</span>, <span class='no'>...</span>)
@@ -121,7 +123,7 @@ layer.</p></td>
       <th>directions</th>
       <td><p><code>integer</code> If <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, the number of directions
- in which cells should be connected: 4 (rook"s case), 8 (queen"s case),
+ in which cells should be connected: 4 (rook's case), 8 (queen's case),
  16 (knight and one-cell queen moves), or "bishop" to connect cells with
  one-cell diagonal moves.</p></td>
     </tr>

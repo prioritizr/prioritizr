@@ -42,7 +42,7 @@ devtools::install_github("prioritizr/prioritizr")
 
 
 ```
-Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.0.3.
+Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.1.0.
 https://github.com/prioritizr/prioritizr.
 ```
 
@@ -152,7 +152,7 @@ s1 <- solve(p1)
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -308,42 +308,41 @@ s4 <- solve(p4)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.647064e+03, 500 iterations, 0.01 seconds
+## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 5647.06401    0  153          - 5647.06401      -     -    0s
 ##      0     0 5890.44226    0   78          - 5890.44226      -     -    0s
-##      0     0 5929.07276    0  120          - 5929.07276      -     -    0s
+##      0     0 5929.07276    0  118          - 5929.07276      -     -    0s
 ##      0     0 5961.21299    0  117          - 5961.21299      -     -    0s
-##      0     0 5966.92740    0  112          - 5966.92740      -     -    0s
-##      0     0 5979.36953    0  115          - 5979.36953      -     -    0s
-##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
-##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
-##      0     0 6004.87609    0  108          - 6004.87609      -     -    0s
-##      0     0 6005.23390    0  107          - 6005.23390      -     -    0s
-##      0     0 6006.41853    0  123          - 6006.41853      -     -    0s
-##      0     0 6006.58145    0  122          - 6006.58145      -     -    0s
-##      0     0 6006.67025    0  122          - 6006.67025      -     -    0s
-##      0     0 6006.67025    0  121          - 6006.67025      -     -    0s
-## H    0     0                    12170.818346 6006.67025  50.6%     -    0s
-##      0     2 6009.61026    0  121 12170.8183 6009.61026  50.6%     -    0s
-## *    9     7               7    6451.9495997 6009.61026  6.86%  23.4    0s
+##      0     0 5966.92740    0  111          - 5966.92740      -     -    0s
+##      0     0 5979.36953    0  114          - 5979.36953      -     -    0s
+##      0     0 5996.08152    0  123          - 5996.08152      -     -    0s
+##      0     0 5996.08152    0  124          - 5996.08152      -     -    0s
+##      0     0 6003.71693    0  111          - 6003.71693      -     -    0s
+##      0     0 6004.31256    0  114          - 6004.31256      -     -    0s
+##      0     0 6005.27478    0  119          - 6005.27478      -     -    0s
+##      0     0 6005.27478    0  118          - 6005.27478      -     -    0s
+## H    0     0                    11466.064558 6005.27478  47.6%     -    0s
+##      0     2 6007.14204    0  118 11466.0646 6007.14204  47.6%     -    0s
+## H   14    12                    7072.0624262 6013.11003  15.0%  16.5    0s
+## H   66    22                    6469.1727465 6051.84783  6.45%  15.5    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
-##   MIR: 2
-##   Zero half: 22
+##   MIR: 1
+##   Zero half: 23
 ## 
-## Explored 10 nodes (1090 simplex iterations) in 0.16 seconds
+## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 6451.95 12170.8 
-## Pool objective bound 6009.61
+## Solution count 3: 6469.17 7072.06 11466.1 
+## Pool objective bound 6051.85
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 6.451949599667e+03, best bound 6.009610264212e+03, gap 6.8559%
+## Best objective 6.469172746541e+03, best bound 6.051847827392e+03, gap 6.4510%
 ```
 
 ```r

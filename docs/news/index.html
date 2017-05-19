@@ -25,7 +25,7 @@
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -84,14 +84,40 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-1-0-1-0-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-0-unreleased" class="anchor"></a>prioritizr 1.0.1.0 (unreleased)</h1>
+<ul>
+<li>fix issue where <code>parallel::detectCores()</code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver–even when one thread is specified</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-0-5-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-0-5-unreleased" class="anchor"></a>prioritizr 1.0.0.5 (unreleased)</h1>
+<ul>
+<li>fix building issue due to incorrect file order in DESCRIPTION</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-0-4-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-0-4-unreleased" class="anchor"></a>prioritizr 1.0.0.4 (unreleased)</h1>
+<ul>
+<li>compatibility with R 3.4.0</li>
+<li>replace <code>structure(NULL, ...)</code> with <code>structure(list(), ...)</code>
+</li>
+<li>register compiled library files</li>
+<li>remove duplicate definition of <code>new_waiver</code> from internal.R</li>
+<li>tests check if prioritizrdata package not installed and skip if it isn’t</li>
+</ul>
+</div>
     <div id="prioritizr-1-0-0-3-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-3-unreleased" class="anchor"></a>prioritizr 1.0.0.3 (unreleased)</h1>
 <ul>
 <li>fix missing links in documentation</li>
 <li>fix typos in roxygen2 parameters</li>
-<li>move add_default_decisions and add_default_solver to own help file</li>
-<li>make add_default_objectives and add_default_targets private functions</li>
+<li>move <code>add_default_decisions</code> and <code>add_default_solver</code> to own help file</li>
+<li>make <code>add_default_objectives</code> and <code>add_default_targets</code> private functions</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-2-unreleased" class="section level1">
@@ -150,6 +176,9 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-1-0-1-0-unreleased">1.0.1.0</a></li>
+        <li><a href="#prioritizr-1-0-0-5-unreleased">1.0.0.5</a></li>
+        <li><a href="#prioritizr-1-0-0-4-unreleased">1.0.0.4</a></li>
         <li><a href="#prioritizr-1-0-0-3-unreleased">1.0.0.3</a></li>
         <li><a href="#prioritizr-1-0-0-2-unreleased">1.0.0.2</a></li>
         <li><a href="#prioritizr-1-0-0-1-unreleased">1.0.0.1</a></li>
