@@ -38,8 +38,8 @@ are barriers to dispersal.
 
 This function adds constraints to ensure that corridors connect
 reserves and that individuals from all species can utilize the
-corridors. Friction \code{\link[raster]{Raster-class}} objects area
-used to show each difficult areas are to traverse.
+corridors. Friction \code{\link[raster]{Raster-class}} objects are
+used to identify difficult areas to traverse.
 }
 
   \item{\code{\link{add_locked_in_constraints}}}{
