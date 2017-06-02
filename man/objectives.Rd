@@ -42,7 +42,7 @@ The following objectives can be added to a conservation planning \code{\link{pro
   are met. This objective was inspired by the conservation problem defined
   in Cabeza and Moilanen (2001).}
 
-  \item{\code{\link{add_max_phylo_objective}}}{Set an objective to find to find the
+  \item{\code{\link{add_max_phylo_objective}}}{Set an objective to find the
   solution that fulfills as much of a representative sample a phylogenetic
   tree as possible given a budget. This objective is similar
   to \code{add_max_features_objective} except that emphasis is placed

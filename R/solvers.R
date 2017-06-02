@@ -12,7 +12,7 @@ NULL
 #'
 #' \describe{
 #'
-#'  \item{\code{default_solver}}{This solver uses the best software
+#'  \item{\code{add_default_solver}}{This solver uses the best software
 #'    currently installed on the system.}
 #'
 #'   \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{Gurobi} is a
