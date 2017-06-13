@@ -6,7 +6,7 @@ output:
     fig_caption: true
 fontsize: 11pt
 documentclass: article
-vignette: >
+vignette: 
   %\VignetteIndexEntry{quick_start}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
@@ -95,6 +95,7 @@ The formulation of different data input types is detailed below.
 #### Shapefile Input
 
 If the planning unit data is contained in a shapefile, R will convert this into spatial-class object, where attribute data can be called from a data frame. _Prioritizr_ recognizes point, line, or polygon inputs. The spatial-class problem object is more flexible than the problem formulated for raster inputs, because planning units can be irregularly shaped and cost data can be incorporated from spatial, raster, and data frame sources. However, spatial-class problem objects can require more computation time and solve less efficiently than raster objects. The example dataset we use here contains the option to use any of the three spatial-class inputs.  
+
 ```{r, fig.align='center', fig.height = h * 1, fig.width = w * 3, echo=FALSE}
 # load feature data
 data(sim_pu_polygons)
@@ -124,6 +125,7 @@ p3 <- problem(sim_pu_points, sim_features, cost_column = sim_pu_points$cost) #po
 #### Raster Input
 
 If the planning unit data input is a raster, then the argument to `x` should be a single-band raster where each pixel is a planning unit containing the corresponding cost information. For example, in the `sim_pu_raster` object, the cell value denotes the simulated cost of acquiring that pixel. Raster-class problem objects have the advantage of solving more efficiently than spatial-class problem objects, but planning units must be regularly shaped, which is not always feasible. 
+
 ```{r, fig.height = h * 1, fig.width = w * 1, fig.align='center', echo=FALSE}
 # load feature data
 data(sim_pu_raster)
@@ -200,6 +202,7 @@ p4 <- problem(sim_pu_raster, sim_features) %>%
 The `%>%` notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the [prioritizr]() vignette. 
 
 ### Add Targets
+
 Most conservation planning problems require the addition of targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. There are three types of targets available in _prioritizr_: __relative targets__, where targets are set as a proportion (between 0 and 1) of the maximum level of representation of features in the study area; __absolute targets__, where targets are expressed as the actual value of features in the study area that need to be represented; and __log-linear targets__, where targets are expressed as a proportion (between 0 and 1) and calculated using a log-linear equation and four tuning parameters related to range size. This last target type is based on the approach used in [Rodrigues et al. (2004)](https://academic.oup.com/bioscience/article/54/12/1092/329532/Global-Gap-Analysis-Priority-Regions-for-Expanding).
 
 We can add targets to our simulated `problem` object in the same way that objectives are added. The `%>%` notation tells the package which problem to attach the objectives and targets to.
@@ -316,7 +319,6 @@ s <- stack(solve(p.1), solve(p.2), solve(p.3))
 # plot solutions
 plot(s, main = c("no connectivity requirement", "connected constraint", "boundary penalty"))
 ```
-
 
 ### Specify the type of decision variable
 Conservation planning problems involve making decisions on planning units. These decisions are then associated with actions (eg. turning a planning unit into a protected area). __If no decision is explicitly added to a problem, then the binary decision class will be used by default__. This applies to scenarios where you can either purchase all of the land inside a given planning unit or none of the land inside a given planning unit. If it is desireable to acquire part of a planning unit, you can use the __proportion decision__ option or the __semicontinuous decision__ option.
