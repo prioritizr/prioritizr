@@ -15,6 +15,8 @@ vignette: >
 # Systematic Conservation Prioritization in R
 
  _Prioritizr_ is an _R_ package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the ILP algorithms used by _prioritizr_ are guaranteed to find optimal solutions. This package also has the functionality to read [Marxan](http://marxan.net/) input data and find much cheaper solutions in a much shorter period of time than Marxan ([Beyer _et al. 2016_](http://marxan.net/downloads/papers/beyer_etal_2015.pdf)).
+ 
+For a walk-through of the functions available in the prioritizr package and their usage with a simulated dataset, refer to the [Quickstart Guide](quick_start.html).
 
 ## Background
 ### Systematic conservation prioritization

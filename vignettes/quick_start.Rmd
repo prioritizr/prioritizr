@@ -7,14 +7,14 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{quick_start}
+  %\VignetteIndexEntry{prioritizr}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---
 
 ## Introduction
 
-This vignette is intended to provide a general walk-through of the functions available in the _prioritizr_ package and their usage. Users should be familiar with the basic terminology and principles of systematic conservation prioritization. Please refer to the [Prioritizr Basics](prioritizr.html) vignette for more on the theory and mathematics behind the _prioritizr_ package. 
+This vignette is intended to provide a general walk-through of the functions available in the _prioritizr_ package and their usage. Users should be familiar with the basic terminology and principles of systematic conservation prioritization. Please refer to the full [prioritizr]() vignette for more on the theory and mathematics behind the _prioritizr_ package. 
 
 ## Installation
 
@@ -94,8 +94,7 @@ The formulation of different data input types is detailed below.
 
 #### Shapefile Input
 
-If the planning unit data is contained in a shapefile, R will convert this into spatial-class object, where attribute data can be called from a data frame. _Prioritizr_ recognizes point, line, or polygon inputs. The spatial-class problem object is more flexible than the problem formulated for raster inputs, because planning units can be irregularly shaped and cost data can be incorporated from spatial, raster, and data frame sources. However, spatial-class problem objects can require more computation time and solve less efficiently than raster objects. The example dataset we use here contains the option to use any of the three spatial-class inputs.  
-
+If the planning unit data is contained in a shapefile, R will convert this into spatial-class object, where attribute data can be called from a data frame. _Prioritizr_ recognizes point, line, or polygon inputs. Cost can be included as an attribute of the spatial-class object, or as a numeric vector aligned with planning unit ID (_CHECK_). The example dataset we use here contains the option to use any of the three spatial-class inputs.  
 ```{r, fig.align='center', fig.height = h * 1, fig.width = w * 3, echo=FALSE}
 # load feature data
 data(sim_pu_polygons)
@@ -114,8 +113,7 @@ In this example dataset, all of the simulated spatial-class objects contain the 
 head(sim_pu_polygons)
 ```
 
-To create a conservation problem object to which you can add targets, constraints, etc., use the `problem` function with the spatial-class planning unit object and the features object as arguments. In this example we use the `sim_features` raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the Marxan_problem section in this tutorial), cost must be explicitly defined using the `cost_column` argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, dataframe, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.
-
+To create a conservation problem object to which you can add targets, constraints, etc., use the `problem` function with the spatial-class planning unit object and the features object as arguments. In this example we use the `sim_features` raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns (_CHECK_). Note that cost does not have to be explicitly included as an argument if it is already the key attribute in the planning unit layer. However, you may have to identify the cost column within the planning unit attribute table using the optional `cost_column` argument. This argument also applies if cost is contained within a separate vector or data frame.
 ```{r, eval = FALSE}
 p1 <- problem(sim_pu_polygons, sim_features, cost_column = sim_pu_polygons$cost) #polygons
 p2 <- problem(sim_pu_lines, sim_features, cost_column = sim_pu_lines$cost) #lines
@@ -124,8 +122,7 @@ p3 <- problem(sim_pu_points, sim_features, cost_column = sim_pu_points$cost) #po
 
 #### Raster Input
 
-If the planning unit data input is a raster, then the argument to `x` should be a single-band raster where each pixel is a planning unit containing the corresponding cost information. For example, in the `sim_pu_raster` object, the cell value denotes the simulated cost of acquiring that pixel. Raster-class problem objects have the advantage of solving more efficiently than spatial-class problem objects, but planning units must be regularly shaped, which is not always feasible. 
-
+If the planning unit data input is a raster, then the argument to `x` should be a single-band raster where each pixel is a planning unit containing the corresponding cost information. For example, in the `sim_pu_raster` object, the cell value denotes the simulated cost of acquiring that pixel.
 ```{r, fig.height = h * 1, fig.width = w * 1, fig.align='center', echo=FALSE}
 # load feature data
 data(sim_pu_raster)
@@ -133,7 +130,7 @@ data(sim_pu_raster)
 plot(sim_pu_raster, main = "Raster")
 ```
 
-The argument to `features` must be a raster-class object with the same spatial properties as the planning unit raster (i.e. spatial extent, coordinate system, dimensionality, and resolution). In this example, we again use the `sim_features` object. To create a conservation problem class object, use the same notation as with spatial-class input. Note that the cost data can not be included as a separate argument to the `problem` function in this case. 
+The argument to `features` must be a raster-class object with the same spatial properties as the planning unit raster (_CHECK_). In this example, we again use the `sim_features` object. To create a conservation problem class object, use the same notation as with spatial-class input. Note that the cost data can not be included as a separate argument to the `problem` function in this case. 
 
 ```{r, eval = FALSE}
 #raster planning units
@@ -154,9 +151,7 @@ Because dataframe and numeric vector input formats do not include spatial data, 
 * "species": Feature identifier matching the ID used in the argument to `features`.
 * "amount": Amount of the feature in the planning unit.
 
-For numeric vector inputs, the argument to `rij_matrix` can be a simple Matrix-class object specifying the amount of each feature (rows) within each planning unit (columns). 
-
-Because the formatting for data frame and numeric vector problem objects follows the Marxan input file specifications, users may wish to use the `marxan_problem` function instead of the `problem` function; which allows users to quickly and easily solve Marxan problems with a single function. Although this method does not provide as many customizations, it may be more convenient for users already familiar with Marxan problems or with existing Marxan data files. For more details see the __Marxan Problem__ section at the end of this tutorial. 
+For numeric vector inputs, the argument to `rij_matrix` can be a simple Matrix-class object specifying the amount of each feature (rows) within each planning unit (columns).
 
 Note: If the input to problem are spatial data such as a raster or a spatial-class object, the RIJ matrix is calculated automatically.
 
@@ -202,8 +197,7 @@ p4 <- problem(sim_pu_raster, sim_features) %>%
 The `%>%` notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the [prioritizr]() vignette. 
 
 ### Add Targets
-
-Most conservation planning problems require the addition of targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. There are three types of targets available in _prioritizr_: __relative targets__, where targets are set as a proportion (between 0 and 1) of the maximum level of representation of features in the study area; __absolute targets__, where targets are expressed as the actual value of features in the study area that need to be represented; and __log-linear targets__, where targets are expressed as a proportion (between 0 and 1) and calculated using a log-linear equation and four tuning parameters related to range size. This last target type is based on the approach used in [Rodrigues et al. (2004)](https://academic.oup.com/bioscience/article/54/12/1092/329532/Global-Gap-Analysis-Priority-Regions-for-Expanding).
+Most conservation planning problems require the addition of targets. Targets are used to specify the minimum amount or proportion of a feature's distribution that needs to be protected. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. There are three types of targets available in _prioritizr_: __relative targets__, where targets are set as a proportion (between 0 and 1) of the maximum level of representation of features in the study area; __absolute targets__, where targets are expressed as the actual value of features in the study area that need to be represented; and __log-linear targets__, where targets are expressed as a proportion (between 0 and 1) and calculated using a log-linear equation and four tuning parameters related to range size. This last target type was developed by [Rodrigues et al. (2004)](https://academic.oup.com/bioscience/article/54/12/1092/329532/Global-Gap-Analysis-Priority-Regions-for-Expanding) for situations where range size is thought to (_CHECK_)
 
 We can add targets to our simulated `problem` object in the same way that objectives are added. The `%>%` notation tells the package which problem to attach the objectives and targets to.
 
@@ -320,6 +314,7 @@ s <- stack(solve(p.1), solve(p.2), solve(p.3))
 plot(s, main = c("no connectivity requirement", "connected constraint", "boundary penalty"))
 ```
 
+
 ### Specify the type of decision variable
 Conservation planning problems involve making decisions on planning units. These decisions are then associated with actions (eg. turning a planning unit into a protected area). __If no decision is explicitly added to a problem, then the binary decision class will be used by default__. This applies to scenarios where you can either purchase all of the land inside a given planning unit or none of the land inside a given planning unit. If it is desireable to acquire part of a planning unit, you can use the __proportion decision__ option or the __semicontinuous decision__ option.
 
@@ -355,18 +350,7 @@ plot(s5, col.regions = c('grey90', 'darkgreen'),
 
 We can plot this solution because the planning unit input data are spatially linked. The output format will always match the planning unit data input in problem formulation. For example, the solution for a problem with planning units in a shapefile would be a spatial-class object with an attribute indicating if each planning unit was selected in the solution. If the planning units were in a dataframe, the solution would be a table indicating whether each planning unit was selected or not. 
 
-The `solve` function automatically compresses and compiles the problem from a `ConservationProblem-class` object into an `OptimizationProblem-class` object, which is a series of matrices and tables specifically designed for integer linear programming algorithms to work with. The `compile` function can be used to manually compress a problem object into an Optimization problem, but this is not recommended unless the user is familiar with the formatting of the Optimization problem and wishes to manipulate it directly. The `solve` function intentionally abstracts away the optimization process to produce solutions efficiently.
+The `solve` function automatically compresses and compiles the problem from a `ConservationProblem-class` object into an `OptimizationProblem-class` object. The `compile` function can be used to manually compress a problem object into an Optimization problem, which can be useful if (_CHECK_).
 
-### Additional customizations
-If the functions available in _prioritizr_ do not meet the specific needs of a project it is possible to create parameters using the `parameters` functions. Only experts should work directly with these functions.
-
-## The Marxan problem
-Although users are encouraged to build and tailor conservation planning problems to suit their own needs using the `problem` function, sometimes it is easier to use a more familiar "canned" approach. The `marxan_problem` function provides a convenient wrapper for generating and solving Marxan-style conservation problems. If users already have their conservation planning data in the Marxan input format, this function can also be used to read Marxan data files and solve the Marxan-style problems using exact algorithm solvers.
-
-With the `marxan_problem` function, targets, boundary length penalties, and locked in/out constraints are included as arguments in the initial problem formulation, rather than added with separate functions. The options available are limited to those that would be available with Marxan - users wishing for greater flexibility should use the `problem` function instead.  Problems formulated with  `marxan_problem` are always minimum set problems. A Marxan problem is solved in the same way as a problem object, and therefore still requires the installation of one of the solver packages.
-
-_prioritizr_ contains Marxan input files that can be used as an example dataset.
-
-```{r, eval=FALSE}
-marxan_problem()
-```
+## Additional customizations
+Make your own parameters? (_CHECK_)
