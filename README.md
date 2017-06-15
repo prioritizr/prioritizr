@@ -1,3 +1,4 @@
+
 # Systematic conservation prioritization in R
 
 [![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip)
@@ -11,9 +12,10 @@ _Prioritizr_ is an _R_ package for solving systematic conservation prioritizatio
 
 ## Overview
 
-This package largely consists of six main types of functions. These functions are used to:
-- create a new reserve design [problem](https://prioritizr.github.io/prioritizr/reference/problem.html) by specifying the planning units and features of conservation interest (eg. species, eco-systems).
+This package largely consists of seven main types of functions. These functions are used to:
+- create a new reserve design [problem](https://prioritizr.github.io/prioritizr/reference/problem.html) by specifying the planning units and features of conservation interest (eg. species, ecosystems).
 - add an [objective](https://prioritizr.github.io/prioritizr/reference/objectives.html) to a reserve design problem. For example, the [`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html) function can used to specify that the overall goal of the prioritization is to adequately represent each feature for minimal cost.
+- add [targets](https://prioritizr.github.io/prioritizr/reference/targets.html) to a problem to identify how much of each feature is desired in solutions
 - add [constraints](https://prioritizr.github.io/prioritizr/reference/constraints.html) to a problem to obtain better solutions. For example, the [`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html) function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.
 - add [penalties](https://prioritizr.github.io/prioritizr/reference/penalties.html) to a problem to penalize ineffective solutions. For example, the [`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html) function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.
 - add [decisions](https://prioritizr.github.io/prioritizr/reference/decisions.html) to a problem to specify the nature of the conservation decision on the planning units. For example, the [`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html) function specifies that planning units are either prioritized or not. Whereas,  the [`add_proportion_decisions`](https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html) can be used to specify that a proportion of each
@@ -138,13 +140,13 @@ s1 <- solve(p1)
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 4135.27
-## Presolve time: 0.00s
+## Presolve time: 0.17s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.16 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -152,7 +154,7 @@ s1 <- solve(p1)
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.64 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -204,7 +206,7 @@ s2 <- solve(p2)
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -243,35 +245,33 @@ s3 <- solve(p3)
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.03s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.477092e+03, 245 iterations, 0.00 seconds
+## Root relaxation: objective 5.477092e+03, 281 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 5477.09167    0   89 6420.20382 5477.09167  14.7%     -    0s
 ## H    0     0                    6230.2475434 5477.09167  12.1%     -    0s
-## H    0     0                    6162.3460667 5477.09167  11.1%     -    0s
-##      0     0 5493.46801    0  108 6162.34607 5493.46801  10.9%     -    0s
-##      0     0 5513.60658    0   93 6162.34607 5513.60658  10.5%     -    0s
-## H    0     0                    5878.3503827 5513.60658  6.20%     -    0s
+## H    0     0                    6104.1256561 5477.09167  10.3%     -    0s
+##      0     0 5499.60449    0  108 6104.12566 5499.60449  9.90%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
+## Explored 0 nodes (303 simplex iterations) in 0.64 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
-## Pool objective bound 5513.61
+## Solution count 3: 6104.13 6230.25 6420.2 
+## Pool objective bound 5499.6
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 5.878350382730e+03, best bound 5.513606581997e+03, gap 6.2049%
+## Best objective 6.104125656072e+03, best bound 5.499604493322e+03, gap 9.9035%
 ```
 
 ```r
@@ -302,13 +302,13 @@ s4 <- solve(p4)
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 187 rows and 129 columns
-## Presolve time: 0.01s
+## Presolve time: 0.03s
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## Variable types: 0 continuous, 377 integer (376 binary)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
+## Root relaxation: objective 5.647064e+03, 490 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -319,30 +319,28 @@ s4 <- solve(p4)
 ##      0     0 5961.21299    0  117          - 5961.21299      -     -    0s
 ##      0     0 5966.92740    0  111          - 5966.92740      -     -    0s
 ##      0     0 5979.36953    0  114          - 5979.36953      -     -    0s
-##      0     0 5996.08152    0  123          - 5996.08152      -     -    0s
 ##      0     0 5996.08152    0  124          - 5996.08152      -     -    0s
-##      0     0 6003.71693    0  111          - 6003.71693      -     -    0s
+##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
+##      0     0 6003.71693    0  112          - 6003.71693      -     -    0s
 ##      0     0 6004.31256    0  114          - 6004.31256      -     -    0s
-##      0     0 6005.27478    0  119          - 6005.27478      -     -    0s
 ##      0     0 6005.27478    0  118          - 6005.27478      -     -    0s
-## H    0     0                    11466.064558 6005.27478  47.6%     -    0s
-##      0     2 6007.14204    0  118 11466.0646 6007.14204  47.6%     -    0s
-## H   14    12                    7072.0624262 6013.11003  15.0%  16.5    0s
-## H   66    22                    6469.1727465 6051.84783  6.45%  15.5    0s
+##      0     0 6005.27478    0  117          - 6005.27478      -     -    0s
+## H    0     0                    10971.761587 6005.27478  45.3%     -    0s
+## H    0     0                    6257.3975689 6005.27478  4.03%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
 ##   MIR: 1
 ##   Zero half: 23
 ## 
-## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
+## Explored 0 nodes (845 simplex iterations) in 0.60 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 6469.17 7072.06 11466.1 
-## Pool objective bound 6051.85
+## Solution count 2: 6257.4 10971.8 
+## Pool objective bound 6005.27
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 6.469172746541e+03, best bound 6.051847827392e+03, gap 6.4510%
+## Best objective 6.257397568898e+03, best bound 6.005274778301e+03, gap 4.0292%
 ```
 
 ```r

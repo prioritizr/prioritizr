@@ -1,5 +1,5 @@
 ---
-title: "prioritizr"
+title: "Prioritizr Basics"
 output:
   rmarkdown::html_document:
     toc: true
@@ -7,7 +7,7 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{prioritizr}
+  %\VignetteIndexEntry{prioritizr_basics}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 ---

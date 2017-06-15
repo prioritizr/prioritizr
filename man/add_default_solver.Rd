@@ -12,7 +12,8 @@ add_default_solver(x, ...)
 \item{...}{arguments passed to the default solver.}
 }
 \description{
-TODO
+Finds the best solver currently installed on the system and uses it. 
+In decreasing order of preference: gurobi, Rsymphony, then lpsymphony.
 }
 \seealso{
 \code{\link{solvers}}.

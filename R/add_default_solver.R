@@ -3,7 +3,8 @@ NULL
 
 #' Default solver
 #'
-#' TODO
+#' Finds the best solver currently installed on the system and uses it. 
+#' In decreasing order of preference: gurobi, Rsymphony, then lpsymphony.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
