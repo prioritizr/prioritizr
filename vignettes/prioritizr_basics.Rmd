@@ -27,11 +27,11 @@ For a walk-through of the functions available in the prioritizr package and thei
 
 A reserve design exercise starts by dividing the study region into **planning units** (typically square or hexagonal cells) and, for each planning unit, assigning values that quantify socioeconomic cost and conservation benefit for a set of conservation features. The **cost** can be the acquisition cost of the land, the cost of management, the opportunity cost of foregone commercial activities (e.g. from logging or agriculture), or simply the area. The **conservation features** are typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or cloud forest). The benefit that each feature derives from a planning unit can take a variety of forms, but is typically either occupancy (i.e. presence or absence) or area of occurrence within each planning unit. Finally, in some types of reserve design models, for each conservation feature, representation targets must be set, such as 20% of the current extent of cloud forest or 10,000km<sup>2</sup> of Clouded Leopard habitat.
 
-![Figure 1. Example feature distributions on a raster grid of 100x100 planning units, from simulated spatially auto-correlated random fields](prioritizr-figure/simulated_spp_dist.png)
+<img src="prioritizr-figure/simulated_spp_dist.png" alt="Example feature distributions on a raster grid of 100x100 planning units, from simulated spatially auto-correlated random fields" style="width: 600px;"><p class="caption">Figure 1. Example feature distributions on a raster grid of 100x100 planning units, from simulated spatially auto-correlated random fields</p>
 
 The goal of the reserve design exercise is then to optimize the trade-off between conservation benefit and socioeconomic cost, i.e. to get the most benefit for your limited conservation funds. Different reserve design models achieve this in different ways. In the minimum set cover model used by Marxan, the goal is to find the set of planning units that meets the representation targets while minimizing cost. Alternatively, in the maximum coverage model, the goal is to maximum the overall representation of conservation features while keeping cost within a fixed budget. Other approaches are possible that build on these basic models.
 
-![Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 planning units](prioritizr-figure/simulated_cost.png)
+<img src="prioritizr-figure/simulated_cost.png" alt="Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 planning units" style="width: 600px;"><p class="caption">Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 planning units</p>
 
 ### Mathematical formulation
 
