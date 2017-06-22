@@ -64,10 +64,11 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>This package largely consists of six main types of functions. These functions are used to:</p>
+<p>This package largely consists of seven main types of functions. These functions are used to:</p>
 <ul>
-<li>create a new reserve design <a href="https://prioritizr.github.io/prioritizr/reference/problem.html">problem</a> by specifying the planning units and features of conservation interest (eg. species, eco-systems).</li>
+<li>create a new reserve design <a href="https://prioritizr.github.io/prioritizr/reference/problem.html">problem</a> by specifying the planning units and features of conservation interest (eg. species, ecosystems).</li>
 <li>add an <a href="https://prioritizr.github.io/prioritizr/reference/objectives.html">objective</a> to a reserve design problem. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a> function can used to specify that the overall goal of the prioritization is to adequately represent each feature for minimal cost.</li>
+<li>add <a href="https://prioritizr.github.io/prioritizr/reference/targets.html">targets</a> to a problem to identify how much of each feature is desired in solutions</li>
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/constraints.html">constraints</a> to a problem to obtain better solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a> function can be used to ensure that specific planning units will be prioritized. This can be useful when identifying new places to add to an exsiting reserve network.</li>
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/penalties.html">penalties</a> to a problem to penalize ineffective solutions. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a> function can be used to add penalties to the problem that result in solutions being clumpped into contiguous reserves.</li>
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/decisions.html">decisions</a> to a problem to specify the nature of the conservation decision on the planning units. For example, the <a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a> function specifies that planning units are either prioritized or not. Whereas, the <a href="https://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html"><code>add_proportion_decisions</code></a> can be used to specify that a proportion of each planning unit can be prioritized.</li>
@@ -93,7 +94,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.1.0.
+<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.1.0.
 https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
@@ -163,7 +164,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -190,7 +191,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 4020.2
 ## Presolve removed 0 rows and 10 columns
-## Presolve time: 0.00s
+## Presolve time: 0.02s
 ## Presolved: 5 rows, 80 columns, 400 nonzeros
 ## Variable types: 0 continuous, 80 integer (80 binary)
 ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -203,7 +204,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -230,35 +231,33 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.477092e+03, 245 iterations, 0.00 seconds
+## Root relaxation: objective 5.477092e+03, 281 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 5477.09167    0   89 6420.20382 5477.09167  14.7%     -    0s
 ## H    0     0                    6230.2475434 5477.09167  12.1%     -    0s
-## H    0     0                    6162.3460667 5477.09167  11.1%     -    0s
-##      0     0 5493.46801    0  108 6162.34607 5493.46801  10.9%     -    0s
-##      0     0 5513.60658    0   93 6162.34607 5513.60658  10.5%     -    0s
-## H    0     0                    5878.3503827 5513.60658  6.20%     -    0s
+## H    0     0                    6104.1256561 5477.09167  10.3%     -    0s
+##      0     0 5499.60449    0  108 6104.12566 5499.60449  9.90%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
+## Explored 0 nodes (303 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
-## Pool objective bound 5513.61
+## Solution count 3: 6104.13 6230.25 6420.2 
+## Pool objective bound 5499.6
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 5.878350382730e+03, best bound 5.513606581997e+03, gap 6.2049%</code></pre>
+## Best objective 6.104125656072e+03, best bound 5.499604493322e+03, gap 9.9035%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s3<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s3<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s3, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
@@ -277,13 +276,13 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 187 rows and 129 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## Variable types: 0 continuous, 377 integer (376 binary)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
+## Root relaxation: objective 5.647064e+03, 490 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -294,30 +293,28 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 5961.21299    0  117          - 5961.21299      -     -    0s
 ##      0     0 5966.92740    0  111          - 5966.92740      -     -    0s
 ##      0     0 5979.36953    0  114          - 5979.36953      -     -    0s
-##      0     0 5996.08152    0  123          - 5996.08152      -     -    0s
 ##      0     0 5996.08152    0  124          - 5996.08152      -     -    0s
-##      0     0 6003.71693    0  111          - 6003.71693      -     -    0s
+##      0     0 5996.08152    0  125          - 5996.08152      -     -    0s
+##      0     0 6003.71693    0  112          - 6003.71693      -     -    0s
 ##      0     0 6004.31256    0  114          - 6004.31256      -     -    0s
-##      0     0 6005.27478    0  119          - 6005.27478      -     -    0s
 ##      0     0 6005.27478    0  118          - 6005.27478      -     -    0s
-## H    0     0                    11466.064558 6005.27478  47.6%     -    0s
-##      0     2 6007.14204    0  118 11466.0646 6007.14204  47.6%     -    0s
-## H   14    12                    7072.0624262 6013.11003  15.0%  16.5    0s
-## H   66    22                    6469.1727465 6051.84783  6.45%  15.5    0s
+##      0     0 6005.27478    0  117          - 6005.27478      -     -    0s
+## H    0     0                    10971.761587 6005.27478  45.3%     -    0s
+## H    0     0                    6257.3975689 6005.27478  4.03%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
 ##   MIR: 1
 ##   Zero half: 23
 ## 
-## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
+## Explored 0 nodes (845 simplex iterations) in 0.28 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 6469.17 7072.06 11466.1 
-## Pool objective bound 6051.85
+## Solution count 2: 6257.4 10971.8 
+## Pool objective bound 6005.27
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 6.469172746541e+03, best bound 6.051847827392e+03, gap 6.4510%</code></pre>
+## Best objective 6.257397568898e+03, best bound 6.005274778301e+03, gap 4.0292%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the solution</span>
 s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="kw">factor</span>(s4<span class="op">$</span>solution)
 <span class="kw">spplot</span>(s4, <span class="st">"solution"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
@@ -344,6 +341,7 @@ s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="k
 <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a> <br><small class="roles"> Author </small> </li>
 <li>
 <a href="http://arcese.forestry.ubc.ca.people/richard-schuster/">Richard Schuster</a> <br><small class="roles"> Author, maintainer </small> </li>
+<li>Nina Morrell <br><small class="roles"> Author </small> </li>
 <li>
 <a href="http://strimas.com">Matthew Strimas-Mackey</a> <br><small class="roles"> Author </small> </li>
 <li>Matthew E Watts <br><small class="roles"> Author </small> </li>
@@ -366,7 +364,7 @@ s4<span class="op">$</span>solution &lt;-<span class="st"> </span><span class="k
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://arcese.forestry.ubc.ca.people/richard-schuster/">Richard Schuster</a>, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://arcese.forestry.ubc.ca.people/richard-schuster/">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

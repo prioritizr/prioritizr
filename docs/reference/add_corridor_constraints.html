@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add corridor constraints â€” add_corridor_constraints ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Add corridor constraints — add_corridor_constraints â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -219,7 +220,7 @@ the planning units in argument to <code>x</code> inherit from a
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
@@ -234,59 +235,64 @@ the planning units in argument to <code>x</code> inherit from a
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 7e+00]
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
 #&gt; Variable types: 0 continuous, 982 integer (982 binary)
 #&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.048985e+03, 1616 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 2.048985e+03, 1544 iterations, 0.13 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2048.98539    0  348          - 2048.98539      -     -    0s
-#&gt;      0     0 2100.00339    0  492          - 2100.00339      -     -    0s
-#&gt;      0     0 2110.10012    0  555          - 2110.10012      -     -    0s
-#&gt;      0     0 2130.68116    0  535          - 2130.68116      -     -    0s
-#&gt;      0     0 2130.68116    0  535          - 2130.68116      -     -    0s
-#&gt;      0     0 2130.87718    0  506          - 2130.87718      -     -    0s
-#&gt;      0     0 2130.87718    0  512          - 2130.87718      -     -    0s
-#&gt;      0     0 2130.87718    0  490          - 2130.87718      -     -    0s
-#&gt; H    0     0                    7749.0535193 2130.87718  72.5%     -    0s
-#&gt; H    0     0                    6737.8560804 2130.87718  68.4%     -    0s
-#&gt;      0     2 2131.24235    0  490 6737.85608 2131.24235  68.4%     -    0s
-#&gt; H   22    21                    3740.7352076 2131.92658  43.0%   112    0s
-#&gt; H   27    18                    3734.1081322 2131.92658  42.9%  93.6    0s
-#&gt; H   45    20                    3727.3087038 2131.92658  42.8%  59.9    0s
-#&gt; H  109    48                    3533.9390452 2202.59549  37.7%  65.2    0s
-#&gt; H  129    67                    3491.8468118 2202.59549  36.9%  73.8    0s
-#&gt; H  135    69                    3491.8009837 2202.59549  36.9%  71.7    0s
-#&gt; H  140    69                    3490.5397990 2202.59549  36.9%  69.3    0s
-#&gt; H  207    64                    2899.3277247 2219.39637  23.5%  66.7    1s
-#&gt; H  264    81                    2890.4394060 2233.46327  22.7%  62.9    1s
-#&gt; H  283    77                    2712.2135538 2234.94131  17.6%  61.8    1s
-#&gt; H  289    77                    2711.1848219 2234.94131  17.6%  61.0    1s
-#&gt; H  291    76                    2709.5526161 2234.94131  17.5%  60.8    1s
-#&gt; H  293    76                    2705.7323865 2234.94131  17.4%  60.5    1s
-#&gt; H  318    78                    2700.5467843 2248.54866  16.7%  62.8    1s
-#&gt; H  373    85                    2698.8647923 2257.24287  16.4%  63.2    1s
-#&gt; H  427   117                    2694.2993470 2263.94794  16.0%  61.5    1s
-#&gt; H  483   136                    2689.6520822 2268.48836  15.7%  58.7    2s
-#&gt; H  671   214                    2685.4231851 2289.75108  14.7%  57.2    2s
-#&gt;   1481   368 2609.11722   13  309 2685.42319 2375.47525  11.5%  56.8    5s
-#&gt; H 1562   374                    2682.5397318 2377.82901  11.4%  59.1    8s
-#&gt; H 1867   379                    2680.8577398 2377.82901  11.3%  57.4    9s
-#&gt;   2165   440 2647.90521   30  308 2680.85774 2377.82901  11.3%  56.3   10s
+#&gt;      0     0 2048.98539    0  347          - 2048.98539      -     -    0s
+#&gt;      0     0 2106.67934    0  486          - 2106.67934      -     -    0s
+#&gt;      0     0 2120.75038    0  582          - 2120.75038      -     -    0s
+#&gt;      0     0 2130.54568    0  541          - 2130.54568      -     -    1s
+#&gt;      0     0 2131.62586    0  551          - 2131.62586      -     -    1s
+#&gt;      0     0 2133.94525    0  522          - 2133.94525      -     -    1s
+#&gt;      0     0 2134.09598    0  547          - 2134.09598      -     -    1s
+#&gt;      0     0 2137.22449    0  509          - 2137.22449      -     -    2s
+#&gt;      0     0 2137.75668    0  519          - 2137.75668      -     -    2s
+#&gt;      0     0 2137.75668    0  521          - 2137.75668      -     -    2s
+#&gt;      0     0 2137.75668    0  505          - 2137.75668      -     -    2s
+#&gt; H    0     0                    7535.2184413 2137.75668  71.6%     -    3s
+#&gt; H    0     0                    3903.3646943 2137.75668  45.2%     -    3s
+#&gt;      0     2 2137.81804    0  505 3903.36469 2137.81804  45.2%     -    3s
+#&gt; *   50    30              35    3545.3018130 2138.41330  39.7%  78.1    4s
+#&gt;     74    49 2997.87577   16   94 3545.30181 2165.09794  38.9%  91.7    5s
+#&gt; H   83    56                    3505.3533093 2165.09794  38.2%  84.4    5s
+#&gt; *   90    50              28    3275.1765272 2165.09794  33.9%  78.9    5s
+#&gt; H  143    60                    2697.8459424 2199.56738  18.5%  80.3    6s
+#&gt; H  145    60                    2695.9813390 2199.56738  18.4%  79.5    6s
+#&gt; H  172    76                    2694.2993470 2204.17182  18.2%  73.0    6s
+#&gt;    382   148 2630.78779   13  166 2694.29935 2271.19311  15.7%  69.2   10s
+#&gt; H  443   164                    2693.9913747 2276.28434  15.5%  67.8   10s
+#&gt; H  675   216                    2690.5707218 2312.39948  14.1%  66.1   14s
+#&gt;    712   226 2587.14129   11  288 2690.57072 2315.76864  13.9%  66.1   15s
+#&gt;    993   288 2461.84515    9  304 2690.57072 2341.92399  13.0%  65.5   20s
+#&gt;   1030   296 2497.43337    9  347 2690.57072 2343.96403  12.9%  65.0   25s
+#&gt; H 1031   282                    2680.8577398 2343.96403  12.6%  64.9   26s
+#&gt;   1034   285 2343.96403   16  413 2680.85774 2343.96403  12.6%  67.5   30s
+#&gt;   1113   315 2343.96403   35  365 2680.85774 2343.96403  12.6%  71.0   35s
+#&gt;   1427   291 2531.74650   35  373 2680.85774 2343.96403  12.6%  69.6   40s
+#&gt;   1683   291 2510.11429   28  150 2680.85774 2343.96403  12.6%  69.3   45s
+#&gt;   2021   357 2623.15413   29  217 2680.85774 2343.96403  12.6%  67.2   50s
+#&gt;   2416   468     cutoff   26      2680.85774 2343.96403  12.6%  64.7   55s
+#&gt;   2892   626 2577.96990   34  423 2680.85774 2357.46031  12.1%  61.7   60s
+#&gt;   3511   820 2629.08586   29  157 2680.85774 2377.60888  11.3%  57.8   65s
+#&gt;   3966   932 2576.43613   45   50 2680.85774 2396.50757  10.6%  56.2   70s
+#&gt;   4438  1015 2655.50040   30  144 2680.85774 2406.66246  10.2%  55.3   75s
 #&gt; 
-#&gt; Explored 3087 nodes (166560 simplex iterations) in 12.24 seconds
+#&gt; Explored 4700 nodes (258754 simplex iterations) in 77.45 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 2680.86 2682.54 2685.42 ... 2711.18
-#&gt; Pool objective bound 2412.98
+#&gt; Solution count 10: 2680.86 2690.57 2693.99 ... 3903.36
+#&gt; Pool objective bound 2414.06
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.680857739841e+03, best bound 2.412983228038e+03, gap 9.9921%</div><div class='input'>
+#&gt; Best objective 2.680857739841e+03, best bound 2.414062940516e+03, gap 9.9518%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"solution with corridors"</span>))</div><img src='add_corridor_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
 
@@ -312,7 +318,7 @@ the planning units in argument to <code>x</code> inherit from a
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

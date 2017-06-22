@@ -44,7 +44,7 @@ devtools::install_github("prioritizr/prioritizr")
 
 
 ```
-Hanson JO, Schuster R, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.1.0.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.1.0.
 https://github.com/prioritizr/prioritizr.
 ```
 
@@ -140,13 +140,13 @@ s1 <- solve(p1)
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 4135.27
-## Presolve time: 0.17s
+## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 3.490348e+03, 17 iterations, 0.16 seconds
+## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -154,7 +154,7 @@ s1 <- solve(p1)
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.64 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -193,7 +193,7 @@ s2 <- solve(p2)
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 4020.2
 ## Presolve removed 0 rows and 10 columns
-## Presolve time: 0.00s
+## Presolve time: 0.02s
 ## Presolved: 5 rows, 80 columns, 400 nonzeros
 ## Variable types: 0 continuous, 80 integer (80 binary)
 ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -206,7 +206,7 @@ s2 <- solve(p2)
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.02 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -245,13 +245,13 @@ s3 <- solve(p3)
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.03s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.477092e+03, 281 iterations, 0.02 seconds
+## Root relaxation: objective 5.477092e+03, 281 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -264,7 +264,7 @@ s3 <- solve(p3)
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (303 simplex iterations) in 0.64 seconds
+## Explored 0 nodes (303 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 6104.13 6230.25 6420.2 
@@ -302,13 +302,13 @@ s4 <- solve(p4)
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 187 rows and 129 columns
-## Presolve time: 0.03s
+## Presolve time: 0.02s
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## Variable types: 0 continuous, 377 integer (376 binary)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.647064e+03, 490 iterations, 0.05 seconds
+## Root relaxation: objective 5.647064e+03, 490 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -333,7 +333,7 @@ s4 <- solve(p4)
 ##   MIR: 1
 ##   Zero half: 23
 ## 
-## Explored 0 nodes (845 simplex iterations) in 0.60 seconds
+## Explored 0 nodes (845 simplex iterations) in 0.28 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6257.4 10971.8 

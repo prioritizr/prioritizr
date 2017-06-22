@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Distribute load â€” distribute_load ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Distribute load — distribute_load â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -198,7 +199,7 @@ for parallel processing.</p>
 <span class='co'># these jobs are very quick to process this is actually slower).</span>
 <span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>makeCluster</span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
 <span class='kw'>doParallel</span><span class='kw'>::</span><span class='fu'>registerDoParallel</span>(<span class='no'>cl</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
@@ -237,7 +238,7 @@ for parallel processing.</p>
 <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>clusterExport</span>(<span class='no'>cl</span>, <span class='st'>'x'</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
 <span class='kw'>doParallel</span><span class='kw'>::</span><span class='fu'>registerDoParallel</span>(<span class='no'>cl</span>)
 <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>distribute_load</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='no'>l</span>, <span class='kw'>function</span>(<span class='no'>i</span>) <span class='no'>x</span>[<span class='no'>i</span>] + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='no'>l</span>, <span class='kw'>function</span>(<span class='no'>i</span>) <span class='no'>x</span>[<span class='no'>i</span>] + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2 3 4 5 6
 #&gt; 
@@ -265,7 +266,7 @@ for parallel processing.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a SYMPHONY solver with lpsymphony â€” add_lsymphony_solver ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Add a SYMPHONY solver with lpsymphony — add_lsymphony_solver â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -157,8 +158,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
     <pre class="examples"><div class='input'>
 <span class='co'># load packages</span>
 <span class='fu'>require</span>(<span class='no'>gurobi</span>)
-<span class='fu'>require</span>(<span class='no'>lpsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lpsymphony</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>Rsymphony</span>)
-
+<span class='fu'>require</span>(<span class='no'>lpsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lpsymphony</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called 'lpsymphony'</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>Rsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called 'Rsymphony'</span></div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
@@ -216,7 +216,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
@@ -232,7 +232,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
 }
 
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>titles</span>)</div><img src='add_lsymphony_solver-7.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>titles</span>)</div><img src='add_lsymphony_solver-10.png' alt='' width='540' height='400' /><div class='input'>
 
 </div></pre>
   </div>
@@ -253,7 +253,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
