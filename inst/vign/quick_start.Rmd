@@ -338,7 +338,7 @@ Finally, A `problem` object that is formulated to your specifications can be sol
 
 Use the `solve` function to produce a solution.
 
-```{r, eval = TRUE, results='hide', message=FALSE, fig.align='center'}
+```{r, eval = TRUE, results='hide', message=FALSE, fig.align='center', fig.height = h, fig.width = w}
 #formulate the problem
 p5 <- problem(sim_pu_raster, sim_features) %>%
   add_min_set_objective() %>%
@@ -401,7 +401,7 @@ mp3 <- marxan_problem(x = sim_pu_polygons, features = sim_features,
                       targets = 0.2, targets_type = "relative", 
                       locked_in = sim_locked_in_raster)
 ms3 <- solve(mp3)
-spplot(ms3, zcol = 'solution')
+spplot(ms3, zcol = 'solution', main='Solution')
 ```
 
 ## Post-Processing Solutions
