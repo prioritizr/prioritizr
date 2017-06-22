@@ -36,6 +36,7 @@ readme:
 vigns:
 	mkdir -p vignettes
 	cp -f inst/vign/*.Rmd vignettes/
+	rm -rf inst/vign/prioritizr-figure
 	rm vignettes/placeholder.Rmd
 	rm vignettes/README.Rmd
 	R --slave -e "devtools::build_vignettes()"

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Relative Targets â€” add_relative_targets ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Add Relative Targets — add_relative_targets â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -124,10 +125,13 @@ argument to <code>targets</code> may refer to a column name.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that targets must be added to a <code>problem</code> or solving will return an error.</p>
+    <p>Note that with the exception of the maximum cover problem, targets must 
+be added to a <code><a href='problem.html'>problem</a></code> or solving will return an error.</p>
     <p>Targets are used to specify the minimum amount or proportion of a feature's
 distribution that needs to be protected. All conservation planning problems require 
-adding objectives and targets, or solving will return an error.</p>
+adding targets with the exception of the maximum cover problem 
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features 
+in the solution and therefore does not require targets.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -176,7 +180,7 @@ adding objectives and targets, or solving will return an error.</p>
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
@@ -207,7 +211,7 @@ adding objectives and targets, or solving will return an error.</p>
 #&gt;      0     0 1653.88301    0    1 2146.27408 1653.88301  22.9%     -    0s
 #&gt; H    0     0                    1675.5220184 1653.88301  1.29%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (1 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1675.52 2146.27 
@@ -238,7 +242,7 @@ adding objectives and targets, or solving will return an error.</p>
 #&gt;      0     0 9976.38729    0    1 11313.8582 9976.38729  11.8%     -    0s
 #&gt; H    0     0                    10122.464537 9976.38729  1.44%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (1 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 10122.5 11313.9 
@@ -271,7 +275,7 @@ adding objectives and targets, or solving will return an error.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

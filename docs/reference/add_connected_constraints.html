@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add connected constraints â€” add_connected_constraints ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Add connected constraints — add_connected_constraints â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -132,7 +133,7 @@ planning units are spatially connected to each other.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4135.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
@@ -146,7 +147,7 @@ planning units are spatially connected to each other.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -161,42 +162,42 @@ planning units are spatially connected to each other.</p>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.538290e+03, 288 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.538290e+03, 279 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3538.29032    0   76          - 3538.29032      -     -    0s
-#&gt;      0     0 3549.97098    0  129          - 3549.97098      -     -    0s
-#&gt;      0     0 3550.01923    0  133          - 3550.01923      -     -    0s
-#&gt;      0     0 3552.25228    0  146          - 3552.25228      -     -    0s
-#&gt;      0     0 3553.40931    0  147          - 3553.40931      -     -    0s
-#&gt;      0     0 3554.97777    0  135          - 3554.97777      -     -    0s
-#&gt;      0     0 3555.21419    0  146          - 3555.21419      -     -    0s
-#&gt;      0     0 3555.21419    0  144          - 3555.21419      -     -    0s
-#&gt; H    0     0                    4535.4516740 3555.21419  21.6%     -    0s
-#&gt;      0     2 3555.30806    0  144 4535.45167 3555.30806  21.6%     -    0s
-#&gt; *   19    19              12    4191.3969799 3555.31447  15.2%  24.2    0s
-#&gt; H   87    39                    3919.1108740 3557.03839  9.24%  15.0    0s
+#&gt;      0     0 3549.96981    0  129          - 3549.96981      -     -    0s
+#&gt;      0     0 3550.02510    0  133          - 3550.02510      -     -    0s
+#&gt;      0     0 3552.43451    0  148          - 3552.43451      -     -    0s
+#&gt;      0     0 3553.57838    0  144          - 3553.57838      -     -    0s
+#&gt;      0     0 3554.93382    0  143          - 3554.93382      -     -    0s
+#&gt;      0     0 3555.05478    0  147          - 3555.05478      -     -    0s
+#&gt;      0     0 3555.05478    0  146          - 3555.05478      -     -    0s
+#&gt; H    0     0                    4219.3059401 3555.05478  15.7%     -    0s
+#&gt;      0     2 3555.06153    0  146 4219.30594 3555.06153  15.7%     -    0s
+#&gt; H   24    23                    3968.6515674 3555.24183  10.4%  23.1    0s
+#&gt; *   78    60              37    3916.1613028 3555.71048  9.20%  16.0    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
+#&gt;   Gomory: 5
 #&gt;   Zero half: 3
 #&gt; 
-#&gt; Explored 87 nodes (1784 simplex iterations) in 0.12 seconds
+#&gt; Explored 79 nodes (1720 simplex iterations) in 0.57 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 3919.11 4191.4 4535.45 
-#&gt; Pool objective bound 3557.04
+#&gt; Solution count 3: 3916.16 3968.65 4219.31 
+#&gt; Pool objective bound 3555.71
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.919110873989e+03, best bound 3.557038388867e+03, gap 9.2386%</div><div class='input'>
+#&gt; Best objective 3.916161302811e+03, best bound 3.555710478862e+03, gap 9.2042%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><img src='add_connected_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
 </div></pre>
@@ -218,7 +219,7 @@ planning units are spatially connected to each other.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

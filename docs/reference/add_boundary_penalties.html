@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add boundary penalties â€” add_boundary_penalties ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Add boundary penalties — add_boundary_penalties â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -184,7 +185,7 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -200,13 +201,13 @@ asymmetric relationships are required, use the
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4152.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.511770e+03, 182 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.511770e+03, 182 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -214,7 +215,7 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3511.77011    0   10 4152.27447 3511.77011  15.4%     -    0s
 #&gt; H    0     0                    3611.0142184 3511.77011  2.75%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (182 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (182 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3611.01 4152.27 
@@ -230,28 +231,28 @@ asymmetric relationships are required, use the
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 4235.27
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.615902e+03, 296 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.615902e+03, 314 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3615.90153    0   88 4235.27447 3615.90153  14.6%     -    0s
-#&gt; H    0     0                    3737.1285111 3615.90153  3.24%     -    0s
+#&gt; H    0     0                    3922.5134078 3615.90153  7.82%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (296 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (314 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3737.13 4235.27 
+#&gt; Solution count 2: 3922.51 4235.27 
 #&gt; Pool objective bound 3615.9
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.737128511084e+03, best bound 3.615901532029e+03, gap 3.2439%</div><div class='input'>
+#&gt; Best objective 3.922513407802e+03, best bound 3.615901532029e+03, gap 7.8167%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>))</div><img src='add_boundary_penalties-4.png' alt='' width='540' height='400' /><div class='input'>
 
@@ -274,7 +275,7 @@ asymmetric relationships are required, use the
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

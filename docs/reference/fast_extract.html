@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fast extract â€” fast_extract ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>Fast extract — fast_extract â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -159,20 +160,20 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.084   0.000   0.084 </div><div class='input'>
+#&gt;    0.56    0.00    0.59 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.084   0.000   0.084 </div><div class='input'>
+#&gt;    0.52    0.00    0.53 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
 <span class='co'># spatial data sets</span>
 <span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.000   2.605 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
+                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;    0.01    0.06    6.57 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -193,7 +194,7 @@ is installed. Note that this only used when <code>x</code> is a
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

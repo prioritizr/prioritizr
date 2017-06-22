@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>prioritizr â€” prioritizr ü¾Œ¦”¼ü¾Œƒ ¼ü¾Œ¦„¼ prioritizr</title>
+<title>prioritizr — prioritizr â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -83,23 +84,52 @@
     </div>
 
     
-    <p>TODO package documentation</p>
+    <p><em>Prioritizr</em> is an R package for solving systematic conservation 
+prioritization problems using integer linear programming (ILP) techniques. 
+The package offers a flexible interface for creating conservation problems 
+using a range of different objectives and constraints that can be tailored 
+to the specific needs of the conservation planner. Conservation problems 
+can be solved using a variety of commercial and open-source exact algorithm 
+solvers. In contrast to the algorithms conventionally used to solve 
+conservation problems, such as greedy heuristics or simulated annealing, 
+the ILP algorithms used by prioritizr are guaranteed to find optimal 
+solutions. This package also has the functionality to read 
+<a href = 'http://marxan.net/'>Marxan</a> input data and find much cheaper 
+solutions in a much shorter period of time than Marxan.
+
+    The supplemental <em>prioritizrdata</em> package can be downloaded with 
+<em>prioritizr</em> for example datasets and worked examples of 
+formulating conservation planning problems. See the 
+<a href = 'https://github.com/prioritizr'>github repository</a> for more details.</p>
     
 
         
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The following vignettes are available for further reading:</p><dl class='dl-horizontal'>
+    <dt><a href = 'docs/prioritizr.html'>Prioritizr Basics</a></dt><dd><p>Provides background information 
+on the concepts and terminology of systematic conservation prioritization underlying 
+the functions in this package.</p></dd>
+    <dt><a href = 'docs/quick_start.html'>Quickstart Guide</a></dt><dd><p>Provides a walk-through 
+of the functions available in the prioritizr package and their usage with a simulated dataset.
+Users should be familiar with the basic terminology of systematic conservation priortization.</p></dd>
+    </dl>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
