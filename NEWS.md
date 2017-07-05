@@ -1,3 +1,7 @@
+# prioritizr 1.0.1.1 (unreleased)
+
+- add roxygen2 to package SUGGESTS for building vignettes
+
 # prioritizr 1.0.1.0 (unreleased)
 
 - fix issue where `parallel::detectCores()` returns `NA` on some systems
