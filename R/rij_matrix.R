@@ -98,7 +98,7 @@ methods::setMethod(
             m[is.na(m)] <- 0
             m <- methods::as(m, "dgCMatrix")
           })
-      m <- do.call(rbind, m)
+      m <- Reduce(rbind, m[-1], m[[1]])
     }
     # return result
     return(m)
