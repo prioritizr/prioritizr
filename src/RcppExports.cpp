@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // rcpp_new_optimization_problem
 SEXP rcpp_new_optimization_problem(std::size_t nrow, std::size_t ncol, std::size_t ncell);
-RcppExport SEXP prioritizr_rcpp_new_optimization_problem(SEXP nrowSEXP, SEXP ncolSEXP, SEXP ncellSEXP) {
+RcppExport SEXP _prioritizr_rcpp_new_optimization_problem(SEXP nrowSEXP, SEXP ncolSEXP, SEXP ncellSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,7 +21,7 @@ END_RCPP
 }
 // rcpp_predefined_optimization_problem
 SEXP rcpp_predefined_optimization_problem(Rcpp::List l);
-RcppExport SEXP prioritizr_rcpp_predefined_optimization_problem(SEXP lSEXP) {
+RcppExport SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP lSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,7 +32,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_ncol
 std::size_t rcpp_get_optimization_problem_ncol(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_ncol(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_ncol(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_nrow
 std::size_t rcpp_get_optimization_problem_nrow(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_nrow(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_nrow(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -54,7 +54,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_ncell
 std::size_t rcpp_get_optimization_problem_ncell(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_ncell(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_ncell(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -65,7 +65,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_A
 Rcpp::List rcpp_get_optimization_problem_A(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_A(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_A(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -76,7 +76,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_modelsense
 std::string rcpp_get_optimization_problem_modelsense(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_modelsense(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_modelsense(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -87,7 +87,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_number_of_planning_units
 std::size_t rcpp_get_optimization_problem_number_of_planning_units(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_number_of_planning_units(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_number_of_planning_units(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -98,7 +98,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_number_of_features
 std::size_t rcpp_get_optimization_problem_number_of_features(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_number_of_features(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_number_of_features(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -109,7 +109,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_vtype
 std::vector<std::string> rcpp_get_optimization_problem_vtype(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_vtype(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_vtype(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -120,7 +120,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_obj
 std::vector<double> rcpp_get_optimization_problem_obj(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_obj(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_obj(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -131,7 +131,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_rhs
 std::vector<double> rcpp_get_optimization_problem_rhs(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_rhs(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_rhs(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -142,7 +142,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_sense
 std::vector<std::string> rcpp_get_optimization_problem_sense(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_sense(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_sense(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -153,7 +153,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_lb
 std::vector<double> rcpp_get_optimization_problem_lb(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_lb(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_lb(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -164,7 +164,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_ub
 std::vector<double> rcpp_get_optimization_problem_ub(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_ub(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_ub(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -175,7 +175,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_col_ids
 std::vector<std::string> rcpp_get_optimization_problem_col_ids(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_col_ids(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_col_ids(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -186,7 +186,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_row_ids
 std::vector<std::string> rcpp_get_optimization_problem_row_ids(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_row_ids(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_row_ids(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -197,7 +197,7 @@ END_RCPP
 }
 // rcpp_get_optimization_problem_compressed_formulation
 bool rcpp_get_optimization_problem_compressed_formulation(SEXP x);
-RcppExport SEXP prioritizr_rcpp_get_optimization_problem_compressed_formulation(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_compressed_formulation(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -208,7 +208,7 @@ END_RCPP
 }
 // rcpp_add_rij_data
 bool rcpp_add_rij_data(SEXP x, arma::sp_mat rij, bool compressed_formulation);
-RcppExport SEXP prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rijSEXP, SEXP compressed_formulationSEXP) {
+RcppExport SEXP _prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rijSEXP, SEXP compressed_formulationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -221,7 +221,7 @@ END_RCPP
 }
 // rcpp_apply_asymmetric_boundary_constraints
 bool rcpp_apply_asymmetric_boundary_constraints(SEXP x, arma::sp_mat boundary_matrix, double penalty, double edge_factor);
-RcppExport SEXP prioritizr_rcpp_apply_asymmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_asymmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -235,7 +235,7 @@ END_RCPP
 }
 // rcpp_apply_connected_constraints
 bool rcpp_apply_connected_constraints(SEXP x, arma::sp_mat connected_matrix);
-RcppExport SEXP prioritizr_rcpp_apply_connected_constraints(SEXP xSEXP, SEXP connected_matrixSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP xSEXP, SEXP connected_matrixSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -247,7 +247,7 @@ END_RCPP
 }
 // rcpp_apply_corridor_constraints
 bool rcpp_apply_corridor_constraints(SEXP x, Rcpp::List connected_matrix_list, Rcpp::NumericVector threshold);
-RcppExport SEXP prioritizr_rcpp_apply_corridor_constraints(SEXP xSEXP, SEXP connected_matrix_listSEXP, SEXP thresholdSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_corridor_constraints(SEXP xSEXP, SEXP connected_matrix_listSEXP, SEXP thresholdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -260,7 +260,7 @@ END_RCPP
 }
 // rcpp_apply_binary_decisions
 bool rcpp_apply_binary_decisions(SEXP x);
-RcppExport SEXP prioritizr_rcpp_apply_binary_decisions(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_binary_decisions(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -271,7 +271,7 @@ END_RCPP
 }
 // rcpp_apply_proportion_decisions
 bool rcpp_apply_proportion_decisions(SEXP x);
-RcppExport SEXP prioritizr_rcpp_apply_proportion_decisions(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_proportion_decisions(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -282,7 +282,7 @@ END_RCPP
 }
 // rcpp_apply_semicontinuous_decisions
 bool rcpp_apply_semicontinuous_decisions(SEXP x, double upper);
-RcppExport SEXP prioritizr_rcpp_apply_semicontinuous_decisions(SEXP xSEXP, SEXP upperSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_semicontinuous_decisions(SEXP xSEXP, SEXP upperSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -294,7 +294,7 @@ END_RCPP
 }
 // rcpp_apply_feature_weights
 bool rcpp_apply_feature_weights(SEXP x, Rcpp::NumericVector weights);
-RcppExport SEXP prioritizr_rcpp_apply_feature_weights(SEXP xSEXP, SEXP weightsSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_feature_weights(SEXP xSEXP, SEXP weightsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -306,7 +306,7 @@ END_RCPP
 }
 // rcpp_apply_locked_in_constraints
 bool rcpp_apply_locked_in_constraints(SEXP x, Rcpp::IntegerVector indices);
-RcppExport SEXP prioritizr_rcpp_apply_locked_in_constraints(SEXP xSEXP, SEXP indicesSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_locked_in_constraints(SEXP xSEXP, SEXP indicesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -318,7 +318,7 @@ END_RCPP
 }
 // rcpp_apply_locked_out_constraints
 bool rcpp_apply_locked_out_constraints(SEXP x, Rcpp::IntegerVector indices);
-RcppExport SEXP prioritizr_rcpp_apply_locked_out_constraints(SEXP xSEXP, SEXP indicesSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_locked_out_constraints(SEXP xSEXP, SEXP indicesSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -330,7 +330,7 @@ END_RCPP
 }
 // rcpp_apply_max_cover_objective
 bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericVector abundances, Rcpp::NumericVector costs, double budget);
-RcppExport SEXP prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -344,7 +344,7 @@ END_RCPP
 }
 // rcpp_apply_max_features_objective
 bool rcpp_apply_max_features_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget);
-RcppExport SEXP prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -358,7 +358,7 @@ END_RCPP
 }
 // rcpp_apply_max_phylo_objective
 bool rcpp_apply_max_phylo_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget, arma::sp_mat branch_matrix, Rcpp::NumericVector branch_lengths);
-RcppExport SEXP prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -374,7 +374,7 @@ END_RCPP
 }
 // rcpp_apply_min_set_objective
 bool rcpp_apply_min_set_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs);
-RcppExport SEXP prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -387,7 +387,7 @@ END_RCPP
 }
 // rcpp_apply_neighbor_constraints
 bool rcpp_apply_neighbor_constraints(SEXP x, arma::sp_mat connected_matrix, int k);
-RcppExport SEXP prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_matrixSEXP, SEXP kSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_matrixSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -400,7 +400,7 @@ END_RCPP
 }
 // rcpp_apply_symmetric_boundary_constraints
 bool rcpp_apply_symmetric_boundary_constraints(SEXP x, arma::sp_mat boundary_matrix, double penalty, double edge_factor);
-RcppExport SEXP prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
+RcppExport SEXP _prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -414,7 +414,7 @@ END_RCPP
 }
 // rcpp_boundary_data
 Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, double tolerance);
-RcppExport SEXP prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP toleranceSEXP) {
+RcppExport SEXP _prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP toleranceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -426,7 +426,7 @@ END_RCPP
 }
 // rcpp_branch_matrix
 arma::sp_mat rcpp_branch_matrix(Rcpp::List x);
-RcppExport SEXP prioritizr_rcpp_branch_matrix(SEXP xSEXP) {
+RcppExport SEXP _prioritizr_rcpp_branch_matrix(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -437,7 +437,7 @@ END_RCPP
 }
 // rcpp_list_to_matrix_indices
 Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x, std::size_t n_preallocate);
-RcppExport SEXP prioritizr_rcpp_list_to_matrix_indices(SEXP xSEXP, SEXP n_preallocateSEXP) {
+RcppExport SEXP _prioritizr_rcpp_list_to_matrix_indices(SEXP xSEXP, SEXP n_preallocateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -449,7 +449,7 @@ END_RCPP
 }
 // rcpp_sp_to_polyset
 Rcpp::DataFrame rcpp_sp_to_polyset(Rcpp::List x, std::string slot, std::size_t n_preallocate);
-RcppExport SEXP prioritizr_rcpp_sp_to_polyset(SEXP xSEXP, SEXP slotSEXP, SEXP n_preallocateSEXP) {
+RcppExport SEXP _prioritizr_rcpp_sp_to_polyset(SEXP xSEXP, SEXP slotSEXP, SEXP n_preallocateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

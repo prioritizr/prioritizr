@@ -1,0 +1,7 @@
+# Compact shared object libraries: http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries
+
+strippedLib: $(SHLIB)
+	if test -e "/usr/bin/strip"; then /usr/bin/strip --strip-debug $(SHLIB); fi
+
+.phony: strippedLib
+

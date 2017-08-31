@@ -1,3 +1,21 @@
+# prioritizr 1.0.1.3 (unreleased)
+
+- Fix bugs `add_absolute_targets` and add_relative_targets` related to their
+  standardGeneric being incorrectly defined
+- Reduce installation size using Dirk Eddelbuettel's awesome advice:
+  http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries
+- Fix bug in `add_corridor_targets` when argument  `connectivities` is a `list`.
+  The elements in the list are assumed to be `dsCMatrix` objects
+  (aka symmetric sparse matrices in a compressed format) and are coerced
+  to `dgCMatrix` objects to reduce computational burden. There was a typo,
+  however, and so the objects were coerced to `dgCmatrix` and not `dgCMatrix`.
+  This evidently was ok in earlier versions of the RcppArmadillo and/or
+  Matrix packages but not in the most recent versions.
+
+# prioritizr 1.0.1.2 (unreleased)
+
+- fix #21
+
 # prioritizr 1.0.1.1 (unreleased)
 
 - add roxygen2 to package SUGGESTS for building vignettes
@@ -34,7 +52,8 @@
 # prioritizr 1.0.0.1 (unreleased)
 
 - fix #8
-- fix bug in `add_corridor_constraints` that fails to actually add the constraints with argument to `connectivity` is a list
+- fix bug in `add_corridor_constraints` that fails to actually add the
+  constraints with argument to `connectivity` is a list
 - fix bug in `make install` command so that it now actually installs the package
 - fix link to Joe's website in the package's website
 

@@ -143,7 +143,7 @@ add_corridor_constraints <- function(x, connectivities, thresholds,
   d <- list(args = list(...))
   if (inherits(connectivities, "list")) {
     for (i in seq_along(connectivities))
-      class(connectivities[[i]]) <- "dgCmatrix"
+      class(connectivities[[i]]) <- "dgCMatrix"
     d$connectivity_matrices <- connectivities
   } else {
     d$conductances <- connectivities

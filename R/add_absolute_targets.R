@@ -73,7 +73,7 @@ NULL
 methods::setGeneric(
   "add_absolute_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets, ...) methods::standardGeneric("add_absolute_targets"))
+  function(x, targets, ...) standardGeneric("add_absolute_targets"))
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets

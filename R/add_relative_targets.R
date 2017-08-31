@@ -77,7 +77,7 @@ NULL
 methods::setGeneric(
   "add_relative_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets, ...) methods::standardGeneric("add_relative_targets"))
+  function(x, targets, ...) standardGeneric("add_relative_targets"))
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
