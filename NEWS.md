@@ -1,3 +1,8 @@
+# prioritizr 1.0.1.4 (unreleased)
+
+- Fix bug in `problem.data.frame` that meant that it did not check for missing
+  values in `rij$pu`.
+
 # prioritizr 1.0.1.3 (unreleased)
 
 - Fix bugs `add_absolute_targets` and add_relative_targets` related to their

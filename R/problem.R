@@ -255,7 +255,7 @@ problem.data.frame <- function(x, features, rij, ...) {
     all(rij$species %in% features$id),
     # rij$pu
     assertthat::has_name(rij, "pu"), is.numeric(rij$pu),
-    all(is.finite(rij$x)), all(rij$pu %in% x$id),
+    all(is.finite(rij$pu)), all(rij$pu %in% x$id),
     # rij$amount
     assertthat::has_name(rij, "amount"), is.numeric(rij$amount),
     all(is.finite(rij$amount)))
