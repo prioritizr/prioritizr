@@ -1,18 +1,12 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
-
+/* Disable run-time debugging for faster code */
 #define BOOST_DISABLE_ASSERTS true
 
-/* Disable run-time debugging for faster code */
-// #define ARMA_NO_DEBUG
-
-
+/* Load header files, set plugins, load Rcpp namespace */
 #include <RcppArmadillo.h>
-
 // [[Rcpp::plugins(cpp11)]]
-
 using namespace Rcpp;
 
 #endif
- 

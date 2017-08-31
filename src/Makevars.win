@@ -1,0 +1,2 @@
+# Set 64 bit words to increase matrix dimensionality
+PKG_CPPFLAGS += -DARMA_64BIT_WORD=1 -DARMA_NO_DEBUG=1

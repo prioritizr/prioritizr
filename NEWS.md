@@ -1,3 +1,10 @@
+# prioritizr 1.0.1.5 (unreleased)
+
+- Enable 64 bit Armadillo flag. This increases the maximum size of problems
+  that can be solved.
+- Disable bound-checks in Armadillo matrix operations. This should reduce
+  processing time when running the `priortizr::compile` function.
+
 # prioritizr 1.0.1.4 (unreleased)
 
 - Fix bug in `problem.data.frame` that meant that it did not check for missing
