@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -148,31 +169,31 @@ the largest possible number on the system.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># proportion parameter</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>proportion_parameter</span>(<span class='st'>'prop'</span>, <span class='fl'>0.5</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: aac0072a-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5611d2b0-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
 <span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>0.1</span>) <span class='co'># check if 0.1 is a validate input</span>
 <span class='no'>p1</span>$<span class='fu'>set</span>(<span class='fl'>0.1</span>) <span class='co'># change value to 0.1</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># binary parameter</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_parameter</span>(<span class='st'>'bin'</span>, <span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: aac9f3f2-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5613a892-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>1L</span>) <span class='co'># check if 1L is a validate input</span>
 <span class='no'>p2</span>$<span class='fu'>set</span>(<span class='fl'>1L</span>) <span class='co'># change value to 1L</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># integer parameter</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>integer_parameter</span>(<span class='st'>'int'</span>, <span class='fl'>5L</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: aad3a604-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>5.6</span>) <span class='co'># check if 5.6 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5614e126-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>5.6</span>) <span class='co'># check if 5.6 is a validate input</span>
 <span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>2L</span>) <span class='co'># check if 2L is a validate input</span>
 <span class='no'>p3</span>$<span class='fu'>set</span>(<span class='fl'>2L</span>) <span class='co'># change value to 2L</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>int (2)</span></div><div class='input'>
 <span class='co'># numeric parameter</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'dbl'</span>, -<span class='fl'>7.6</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: aadd1d7e-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>NA</span>) <span class='co'># check if NA is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5616b622-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>NA</span>) <span class='co'># check if NA is a validate input</span>
 <span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>8.9</span>) <span class='co'># check if 8.9 is a validate input</span>
 <span class='no'>p4</span>$<span class='fu'>set</span>(<span class='fl'>8.9</span>) <span class='co'># change value to 8.9</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>dbl (8.9)</span></div><div class='input'>
 <span class='co'># numeric parameter with lower bounds</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'bdbl'</span>, <span class='fl'>6</span>, <span class='kw'>lower_limit</span><span class='kw'>=</span><span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: aae471d2-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>validate</span>(-<span class='fl'>10</span>) <span class='co'># check if -10 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5617ed94-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>validate</span>(-<span class='fl'>10</span>) <span class='co'># check if -10 is a validate input</span>
 <span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='fl'>90</span>) <span class='co'># check if 90 is a validate input</span>
 <span class='no'>p5</span>$<span class='fu'>set</span>(<span class='fl'>90</span>) <span class='co'># change value to 8.9</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>bdbl (90)</span></div><div class='input'>
@@ -195,7 +216,7 @@ the largest possible number on the system.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

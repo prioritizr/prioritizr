@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -124,7 +145,7 @@ as the threshold for each feature. Otherwise, if <code>threshold</code> is a
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> if
+      <td><p>additional arguments passed to <code>fast_extract</code> if
 the planning units in argument to <code>x</code> inherit from a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterStack-class</a></code> object.</p></td>
     </tr>
@@ -188,115 +209,17 @@ the planning units in argument to <code>x</code> inherit from a
 
 <span class='co'># create a basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
 
 <span class='co'># create problem with added corridor constraints to ensure that</span>
 <span class='co'># planning units used to represent features are connected by</span>
 <span class='co'># planning units with habitat that is suitable for that feature</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_corridor_constraints</span>(<span class='no'>sim_features</span>, <span class='fl'>0.5</span>)
-
-
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.27
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
-#&gt; Pool objective bound 1726.52
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
-#&gt; Optimize a model with 1172 rows, 982 columns and 3838 nonzeros
-#&gt; Variable types: 0 continuous, 982 integer (982 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 7e+00]
-#&gt; Presolve time: 0.04s
-#&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
-#&gt; Variable types: 0 continuous, 982 integer (982 binary)
-#&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.048985e+03, 1544 iterations, 0.13 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2048.98539    0  347          - 2048.98539      -     -    0s
-#&gt;      0     0 2106.67934    0  486          - 2106.67934      -     -    0s
-#&gt;      0     0 2120.75038    0  582          - 2120.75038      -     -    0s
-#&gt;      0     0 2130.54568    0  541          - 2130.54568      -     -    1s
-#&gt;      0     0 2131.62586    0  551          - 2131.62586      -     -    1s
-#&gt;      0     0 2133.94525    0  522          - 2133.94525      -     -    1s
-#&gt;      0     0 2134.09598    0  547          - 2134.09598      -     -    1s
-#&gt;      0     0 2137.22449    0  509          - 2137.22449      -     -    2s
-#&gt;      0     0 2137.75668    0  519          - 2137.75668      -     -    2s
-#&gt;      0     0 2137.75668    0  521          - 2137.75668      -     -    2s
-#&gt;      0     0 2137.75668    0  505          - 2137.75668      -     -    2s
-#&gt; H    0     0                    7535.2184413 2137.75668  71.6%     -    3s
-#&gt; H    0     0                    3903.3646943 2137.75668  45.2%     -    3s
-#&gt;      0     2 2137.81804    0  505 3903.36469 2137.81804  45.2%     -    3s
-#&gt; *   50    30              35    3545.3018130 2138.41330  39.7%  78.1    4s
-#&gt;     74    49 2997.87577   16   94 3545.30181 2165.09794  38.9%  91.7    5s
-#&gt; H   83    56                    3505.3533093 2165.09794  38.2%  84.4    5s
-#&gt; *   90    50              28    3275.1765272 2165.09794  33.9%  78.9    5s
-#&gt; H  143    60                    2697.8459424 2199.56738  18.5%  80.3    6s
-#&gt; H  145    60                    2695.9813390 2199.56738  18.4%  79.5    6s
-#&gt; H  172    76                    2694.2993470 2204.17182  18.2%  73.0    6s
-#&gt;    382   148 2630.78779   13  166 2694.29935 2271.19311  15.7%  69.2   10s
-#&gt; H  443   164                    2693.9913747 2276.28434  15.5%  67.8   10s
-#&gt; H  675   216                    2690.5707218 2312.39948  14.1%  66.1   14s
-#&gt;    712   226 2587.14129   11  288 2690.57072 2315.76864  13.9%  66.1   15s
-#&gt;    993   288 2461.84515    9  304 2690.57072 2341.92399  13.0%  65.5   20s
-#&gt;   1030   296 2497.43337    9  347 2690.57072 2343.96403  12.9%  65.0   25s
-#&gt; H 1031   282                    2680.8577398 2343.96403  12.6%  64.9   26s
-#&gt;   1034   285 2343.96403   16  413 2680.85774 2343.96403  12.6%  67.5   30s
-#&gt;   1113   315 2343.96403   35  365 2680.85774 2343.96403  12.6%  71.0   35s
-#&gt;   1427   291 2531.74650   35  373 2680.85774 2343.96403  12.6%  69.6   40s
-#&gt;   1683   291 2510.11429   28  150 2680.85774 2343.96403  12.6%  69.3   45s
-#&gt;   2021   357 2623.15413   29  217 2680.85774 2343.96403  12.6%  67.2   50s
-#&gt;   2416   468     cutoff   26      2680.85774 2343.96403  12.6%  64.7   55s
-#&gt;   2892   626 2577.96990   34  423 2680.85774 2357.46031  12.1%  61.7   60s
-#&gt;   3511   820 2629.08586   29  157 2680.85774 2377.60888  11.3%  57.8   65s
-#&gt;   3966   932 2576.43613   45   50 2680.85774 2396.50757  10.6%  56.2   70s
-#&gt;   4438  1015 2655.50040   30  144 2680.85774 2406.66246  10.2%  55.3   75s
-#&gt; 
-#&gt; Explored 4700 nodes (258754 simplex iterations) in 77.45 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 10: 2680.86 2690.57 2693.99 ... 3903.36
-#&gt; Pool objective bound 2414.06
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.680857739841e+03, best bound 2.414062940516e+03, gap 9.9518%</div><div class='input'>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_corridor_constraints</span>(<span class='no'>sim_features</span>, <span class='fl'>0.5</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"solution with corridors"</span>))</div><img src='add_corridor_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
-
-
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"solution with corridors"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(s, main = c("basic solution", "solution with corridors")): object 's' not found</span></div><div class='input'>
+</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -318,7 +241,7 @@ the planning units in argument to <code>x</code> inherit from a
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

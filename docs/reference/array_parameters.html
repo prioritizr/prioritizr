@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -155,7 +176,7 @@ largest  possible number on the system.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop_array (min: 0.1, max: 0.3)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   0.2
-#&gt; c   0.3</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 82f19ad8-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
+#&gt; c   0.3</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 343710b0-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
 <span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
 <span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.4</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
 <span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
@@ -166,7 +187,7 @@ largest  possible number on the system.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin_array (min: 0, max: 1)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
 #&gt; a     0
 #&gt; b     1
-#&gt; c     0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 83021868-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
+#&gt; c     0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 343a1de6-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
 <span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0L</span>, <span class='fl'>0L</span>, <span class='fl'>0L</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
@@ -177,7 +198,7 @@ largest  possible number on the system.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int_array (min: 1, max: 3)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
 #&gt; a     1
 #&gt; b     2
-#&gt; c     3</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 830d032c-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>3</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
+#&gt; c     3</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 343c8ee6-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>3</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
 <span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
 <span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>7</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
 <span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
@@ -188,7 +209,7 @@ largest  possible number on the system.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   4.0
-#&gt; c  -5.0</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 8314f3e8-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>NA</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
+#&gt; c  -5.0</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 343ed264-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>NA</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
 <span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
 <span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
 <span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
@@ -200,7 +221,7 @@ largest  possible number on the system.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>b_dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   4.0
-#&gt; c  -5.0</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span><span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 831d1f28-5700-11e7-bf17-fdf4fe50dada</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
+#&gt; c  -5.0</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span><span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 343ff75c-91c7-11e7-96ac-add6468a72d3</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
 <span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
 <span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
 <span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
@@ -225,7 +246,7 @@ largest  possible number on the system.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

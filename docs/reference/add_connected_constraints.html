@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -117,90 +138,14 @@ planning units are spatially connected to each other.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with added connected constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()
-
-
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 4135.27
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
-#&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3597.1 4135.27 
-#&gt; Pool objective bound 3490.35
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
-#&gt; Optimize a model with 237 rows, 234 columns and 1203 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.538290e+03, 279 iterations, 0.02 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3538.29032    0   76          - 3538.29032      -     -    0s
-#&gt;      0     0 3549.96981    0  129          - 3549.96981      -     -    0s
-#&gt;      0     0 3550.02510    0  133          - 3550.02510      -     -    0s
-#&gt;      0     0 3552.43451    0  148          - 3552.43451      -     -    0s
-#&gt;      0     0 3553.57838    0  144          - 3553.57838      -     -    0s
-#&gt;      0     0 3554.93382    0  143          - 3554.93382      -     -    0s
-#&gt;      0     0 3555.05478    0  147          - 3555.05478      -     -    0s
-#&gt;      0     0 3555.05478    0  146          - 3555.05478      -     -    0s
-#&gt; H    0     0                    4219.3059401 3555.05478  15.7%     -    0s
-#&gt;      0     2 3555.06153    0  146 4219.30594 3555.06153  15.7%     -    0s
-#&gt; H   24    23                    3968.6515674 3555.24183  10.4%  23.1    0s
-#&gt; *   78    60              37    3916.1613028 3555.71048  9.20%  16.0    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 5
-#&gt;   Zero half: 3
-#&gt; 
-#&gt; Explored 79 nodes (1720 simplex iterations) in 0.57 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 3916.16 3968.65 4219.31 
-#&gt; Pool objective bound 3555.71
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.916161302811e+03, best bound 3.555710478862e+03, gap 9.2042%</div><div class='input'>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><img src='add_connected_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
-</div></pre>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(s, main = c("basic solution", "connected solution")): object 's' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -219,7 +164,7 @@ planning units are spatially connected to each other.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

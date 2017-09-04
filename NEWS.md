@@ -1,3 +1,7 @@
+# prioritizr 1.0.1.6 (unreleased)
+
+- Minor update to https://prioritizr.github.io/prioritizr/
+
 # prioritizr 1.0.1.5 (unreleased)
 
 - Enable 64 bit Armadillo flag. This increases the maximum size of problems

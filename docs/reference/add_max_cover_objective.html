@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -136,132 +157,23 @@ unit <em>j</em>, and <em>B</em> is the budget.</p>
 
 <span class='co'># create base problem</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+ <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
 
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_min_set_objective</span>()
 <span class='co'># create problem with added maximum coverage objective</span>
 <span class='co'># note that this objective does not use targets</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_cover_objective</span>(<span class='fl'>5000</span>)
 
 <span class='co'># create problem with added maximum feature representation objective</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>5000</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_features_objective</span>(<span class='fl'>5000</span>)
 
 <span class='co'># create problem with added maximum phylogenetic representation objective</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: ape</span></div><div class='input'>
-
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.27
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
-#&gt; Pool objective bound 1726.52
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn"t use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-10, 1e+00]
-#&gt;   Bounds range     [1e+00, 7e+01]
-#&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective -0
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 7.459075e+01, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
-#&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 74.121 -0 
-#&gt; Pool objective bound 74.5908
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-10, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective 5
-#&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: 5 
-#&gt; Pool objective bound 5
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.000000002557e+00, best bound 5.000000009723e+00, gap 0.0000%
-#&gt; Optimize a model with 14 rows, 103 columns and 566 nonzeros
-#&gt; Variable types: 0 continuous, 103 integer (103 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-10, 9e-01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective 2.55673e-09
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 556 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 556 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 4.353296e+00, 7 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    4.35330    0    1    0.00000    4.35330      -     -    0s
-#&gt; H    0     0                       4.3532957    4.35330  0.00%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (8 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 4.3533 2.55673e-09 
-#&gt; Pool objective bound 4.3533
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.353295744592e+00, best bound 4.353295744592e+00, gap 0.0000%</div><div class='input'>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: ape</span></div><div class='input'>
+</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum representation"</span>,
-               <span class='st'>"phylogenetic representation"</span>))</div><img src='add_max_cover_objective-8.png' alt='' width='540' height='400' /><div class='input'>
-
+               <span class='st'>"phylogenetic representation"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(s, main = c("minimum set", "maximum coverage", "maximum representation",     "phylogenetic representation")): object 's' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -281,7 +193,7 @@ unit <em>j</em>, and <em>B</em> is the budget.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

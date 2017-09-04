@@ -52,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../articles/prioritizr.html">Get Started</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -122,8 +143,8 @@ must have.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>1</span>)
@@ -132,145 +153,15 @@ must have.</p></td>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>2</span>)
 
 <span class='co'># create problem with constraints that require 3 neighbors</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>)
-
-
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 4135.27
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
-#&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3597.1 4135.27 
-#&gt; Pool objective bound 3490.35
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
-#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 4073.37
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.490882e+03, 19 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3490.88205    0    6 4073.36976 3490.88205  14.3%     -    0s
-#&gt; H    0     0                    3588.3775615 3490.88205  2.72%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (19 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3588.38 4073.37 
-#&gt; Pool objective bound 3490.88
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.588377561507e+03, best bound 3.490882045634e+03, gap 2.7170%
-#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 5156.23
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.492475e+03, 24 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3492.47490    0    6 5156.23161 3492.47490  32.3%     -    0s
-#&gt; H    0     0                    3620.8724397 3492.47490  3.55%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (24 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3620.87 5156.23 
-#&gt; Pool objective bound 3492.47
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.620872439690e+03, best bound 3.492474904344e+03, gap 3.5460%
-#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 3e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 6184.3
-#&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
-#&gt; Variable types: 0 continuous, 89 integer (89 binary)
-#&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.503055e+03, 30 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3503.05480    0   19 6184.30172 3503.05480  43.4%     -    0s
-#&gt; H    0     0                    3646.0966743 3503.05480  3.92%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (30 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3646.1 6184.3 
-#&gt; Pool objective bound 3503.05
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.646096674255e+03, best bound 3.503054799250e+03, gap 3.9232%</div><div class='input'>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"basic solution"</span>)
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"1 neighbor"</span>)
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"2 neighbors"</span>)
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"3 neighbors"</span>)</div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><img src='add_neighbor_constraints-5.png' alt='' width='540' height='400' /><div class='input'>
-
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"basic solution"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[1]], main = "basic solution"): object 's' not found</span></div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[1]][s[[1]]$solution == 1, ], col = "darkgreen", add = TRUE): object 's' not found</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"1 neighbor"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[2]], main = "1 neighbor"): object 's' not found</span></div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[2]][s[[2]]$solution == 1, ], col = "darkgreen", add = TRUE): object 's' not found</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"2 neighbors"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[3]], main = "2 neighbors"): object 's' not found</span></div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[3]][s[[3]]$solution == 1, ], col = "darkgreen", add = TRUE): object 's' not found</span></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"3 neighbors"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[4]], main = "3 neighbors"): object 's' not found</span></div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s[[4]][s[[4]]$solution == 1, ], col = "darkgreen", add = TRUE): object 's' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -290,7 +181,7 @@ must have.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
