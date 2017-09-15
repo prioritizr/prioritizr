@@ -1,7 +1,7 @@
 
 header <- dashboardHeader(
   
-  title = "prioritzrshiny"
+  title = "prioritizr Shiny"
 )
 
 body <-  dashboardBody(
@@ -33,7 +33,7 @@ body <-  dashboardBody(
     ),
     column(width = 7,
            tabBox(
-             title = "Oyt",
+             title = "Out",
              id = "tabset2", width = NULL,height = "600px", 
              tabPanel("Problem", 
                leafletOutput("mymap")#,height=600)
@@ -48,7 +48,7 @@ body <-  dashboardBody(
       # Title can include an icon
       title = tagList(shiny::icon("gear"), "Solve the problem"),
       p("If you are happy with your specification, go ahead and solve your conservation problem."),
-      actionButton("mrun","Solve teh prioritizr problem")
+      actionButton("mrun","Solve the prioritizr problem")
       
     ))
   )

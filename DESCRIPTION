@@ -53,7 +53,10 @@ Suggests:
 Depends:
     R(>= 3.3.2),
     raster,
-    sp
+    sp,
+    shiny,
+    shinydashboard,
+    leaflet
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true
@@ -129,6 +132,7 @@ Collate:
     'package.R'
     'penalties.R'
     'problem.R'
+    'prshiny.R'
     'rij_matrix.R'
     'run_calculations.R'
     'simulate.R'

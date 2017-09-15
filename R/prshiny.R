@@ -25,7 +25,7 @@ NULL
 #' @aliases prioritizrshiny
 #'
 #' @name prshiny
-#' @docType methods
+#' @export
 NULL
 
 prshiny <- function(app) {
