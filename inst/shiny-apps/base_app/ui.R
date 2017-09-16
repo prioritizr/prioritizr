@@ -45,9 +45,10 @@ body <-  dashboardBody(
     ),
     column(width = 7,
            tabBox(
-             title = "Out",
+             title = "",
              id = "tabset2", width = NULL,height = "600px", 
-             tabPanel("Problem", 
+             tabPanel("Set Targets", "Set your prioritization targets"),
+             tabPanel("Results", 
                leafletOutput("mymap")#,height=600)
            )
     ))
