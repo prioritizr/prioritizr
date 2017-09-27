@@ -1,3 +1,8 @@
+# prioritizr 1.0.2.0 (unreleased)
+
+- Passes CRAN checks on Winbuilder.
+- Added roxygen2 to Suggests for Travis CI.
+
 # prioritizr 1.0.1.6 (unreleased)
 
 - Simplify vignette workflow. Vignettes can now be compiled by using
