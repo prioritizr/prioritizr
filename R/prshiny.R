@@ -1,8 +1,8 @@
 NULL
 
-#' Run one of the Shiy apps for prioritizr
+#' Run one of the Shiny apps for prioritizr
 #'
-#' Description of the prshiny function.
+#' This function is still under-development.
 #'
 #' @param x string for the app directory object.
 #'
@@ -13,15 +13,18 @@ NULL
 #'
 #' @return Starts a Shiny app wrapper for prioritzr functions.
 #'
-#' @seealso \code{\link{problem}},  \code{\link{objectives}}, \code{\link{targets}}.
+#' @seealso \code{\link{problem}},  \code{\link{objectives}},  \code{\link{targets}}.
 #'
 #' @examples
 #' # list available shiny apps
+#' \dontrun{
 #' prshiny()
 #'
-#' # run the basic app
-#' prshiny("base_app")
-#'
+#' if (interactive()) {
+#'   # run the basic app
+#'   prshiny("base_app")
+#' }
+#' }
 #' @aliases prioritizrshiny
 #'
 #' @name prshiny

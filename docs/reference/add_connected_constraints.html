@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add connected constraints — add_connected_constraints â€¢ prioritizr</title>
+<title>Add connected constraints <U+2014> add_connected_constraints <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../articles/prioritizr.html">Get Started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -138,14 +116,90 @@ planning units are spatially connected to each other.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with added connected constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()
+
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 4135.27
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
+#&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
+#&gt; 
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 3597.1 4135.27 
+#&gt; Pool objective bound 3490.35
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
+#&gt; Optimize a model with 237 rows, 234 columns and 1203 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Presolve time: 0.02s
+#&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.538290e+03, 288 iterations, 0.01 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3538.29032    0   76          - 3538.29032      -     -    0s
+#&gt;      0     0 3549.97098    0  129          - 3549.97098      -     -    0s
+#&gt;      0     0 3550.01923    0  133          - 3550.01923      -     -    0s
+#&gt;      0     0 3552.25228    0  146          - 3552.25228      -     -    0s
+#&gt;      0     0 3553.40931    0  147          - 3553.40931      -     -    0s
+#&gt;      0     0 3554.97777    0  135          - 3554.97777      -     -    0s
+#&gt;      0     0 3555.21419    0  146          - 3555.21419      -     -    0s
+#&gt;      0     0 3555.21419    0  144          - 3555.21419      -     -    0s
+#&gt; H    0     0                    4535.4516740 3555.21419  21.6%     -    0s
+#&gt;      0     2 3555.30806    0  144 4535.45167 3555.30806  21.6%     -    0s
+#&gt; *   19    19              12    4191.3969799 3555.31447  15.2%  24.2    0s
+#&gt; H   87    39                    3919.1108740 3557.03839  9.24%  15.0    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 4
+#&gt;   Zero half: 3
+#&gt; 
+#&gt; Explored 87 nodes (1784 simplex iterations) in 0.55 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 3919.11 4191.4 4535.45 
+#&gt; Pool objective bound 3557.04
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.919110873989e+03, best bound 3.557038388867e+03, gap 9.2386%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(s, main = c("basic solution", "connected solution")): object 's' not found</span></div></pre>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><img src='add_connected_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

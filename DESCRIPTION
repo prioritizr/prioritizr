@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 1.0.1.6
+Version: 1.0.2.0
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -27,19 +27,21 @@ Imports:
     methods,
     proto,
     assertthat,
+    data.table,
     uuid,
     Matrix,
     rgeos,
     plyr,
     parallel,
     doParallel,
-    magrittr
+    magrittr,
+    shiny,
+    shinydashboard,
+    leaflet
 Suggests:
     testthat,
     knitr,
     ape,
-    data.table,
-    shiny,
     rhandsontable,
     RandomFields,
     velox,
@@ -49,14 +51,12 @@ Suggests:
     gurobi,
     lpsymphony,
     Rsymphony,
+    rmarkdown,
     prioritizrdata
 Depends:
     R(>= 3.3.2),
     raster,
-    sp,
-    shiny,
-    shinydashboard,
-    leaflet
+    sp
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true

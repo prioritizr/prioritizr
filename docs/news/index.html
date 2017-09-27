@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -85,11 +84,77 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-1-0-1-6-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-6-unreleased" class="anchor"></a>prioritizr 1.0.1.6 (unreleased)</h1>
+<ul>
+<li>Simplify vignette workflow. Vignettes can now be compiled by using <code>devtools::build_vignettes()</code>. Earlier versions needed the vignettes to be compiled using the <em>Makefile</em> to copy files around to avoid tangled R code causing failures during R CMD CHECK. Although no longer needed, the vignettes can still be compiled using the shell command <code>make vigns</code> if desired.</li>
+<li>The <em>README.Rmd</em> now lives in the top-level directory following standard practices. It should now be complied using <code>rmarkdown::render("README.Rmd")</code> or using the shell command <code>make readme</code>. Note that the figures for <code>README.md</code> can be found in the directory <code>man/figures</code>.</li>
+<li>The example for <code>prshiny</code> will now only be run if executed during an interactive R session. Prior to this R CMD CHECK would hang.</li>
+<li>UTF-8 math characters in vignettes have been replaced with with MathJax compatible latex expressions.</li>
+<li>R code in the vignettes has been linted to follow the package<e2>&lt;80&gt;&lt;99&gt;s style guide.</e2>
+</li>
+<li>Fix example in vignette <em>quick_start.Rmd</em> showing how to run <code>marxan_problem</code> using input <code>data.frame</code> objects.</li>
+<li>Fix bug in vignette <em>quick_start.Rmd</em> counting number of selected planning units</li>
+<li>Make the <em>data.table</em> package automatically installed when <em>prioritizr</em> is installed. Address issue #18.</li>
+<li>Move <em>shiny</em>, <em>shinydashboard</em>, and <em>leaflet</em> packages to Imports to avoid polluting users environment.</li>
+<li>Update preliminary versions of the shiny apps to call functions from other packages explicitly.</li>
+<li>
+<em>README.Rmd</em> tweaks to make it look prettier on website</li>
+<li>lint objective function definition files</li>
+<li>remove <e2>&lt;80&gt;&lt;9c&gt;\text<e2>&lt;80&gt;&lt;9d&gt; latex sequences from objective function definition files because CRAN doesn<e2>&lt;80&gt;&lt;99&gt;t support <em>amsmath</em> extensions in equations.</e2></e2></e2>
+</li>
+<li>update examples in objective function files to only show relevant objectives</li>
+<li>added <em>rmarkdown</em> package to Suggests following <a href="https://www.rforge.net/doc/packages/knitr/vignette_engines.html">recommended practices</a>
+</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-1-5-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-5-unreleased" class="anchor"></a>prioritizr 1.0.1.5 (unreleased)</h1>
+<ul>
+<li>Enable 64 bit Armadillo flag. This increases the maximum size of problems that can be solved.</li>
+<li>Disable bound-checks in Armadillo matrix operations. This should reduce processing time when running the <code>priortizr::compile</code> function.</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-1-4-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-4-unreleased" class="anchor"></a>prioritizr 1.0.1.4 (unreleased)</h1>
+<ul>
+<li>Fix bug in <code>problem.data.frame</code> that meant that it did not check for missing values in <code>rij$pu</code>.</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-1-3-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-3-unreleased" class="anchor"></a>prioritizr 1.0.1.3 (unreleased)</h1>
+<ul>
+<li>Fix bugs <code>add_absolute_targets</code> and add_relative_targets` related to their standardGeneric being incorrectly defined</li>
+<li>Reduce installation size using Dirk Eddelbuettel<e2>&lt;80&gt;&lt;99&gt;s awesome advice: <a href="http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries" class="uri">http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries</a>
+</e2>
+</li>
+<li>Fix bug in <code>add_corridor_targets</code> when argument <code>connectivities</code> is a <code>list</code>. The elements in the list are assumed to be <code>dsCMatrix</code> objects (aka symmetric sparse matrices in a compressed format) and are coerced to <code>dgCMatrix</code> objects to reduce computational burden. There was a typo, however, and so the objects were coerced to <code>dgCmatrix</code> and not <code>dgCMatrix</code>. This evidently was ok in earlier versions of the RcppArmadillo and/or Matrix packages but not in the most recent versions.</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-1-2-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-2-unreleased" class="anchor"></a>prioritizr 1.0.1.2 (unreleased)</h1>
+<ul>
+<li>fix #21</li>
+</ul>
+</div>
+    <div id="prioritizr-1-0-1-1-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-1-0-1-1-unreleased" class="anchor"></a>prioritizr 1.0.1.1 (unreleased)</h1>
+<ul>
+<li>add roxygen2 to package SUGGESTS for building vignettes</li>
+</ul>
+</div>
     <div id="prioritizr-1-0-1-0-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-1-0-unreleased" class="anchor"></a>prioritizr 1.0.1.0 (unreleased)</h1>
 <ul>
-<li>fix issue where <code>parallel::detectCores()</code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver–even when one thread is specified</li>
+<li>fix issue where <code>parallel::detectCores()</code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver<e2>&lt;80&gt;&lt;93&gt;even when one thread is specified</e2>
+</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-5-unreleased" class="section level1">
@@ -108,7 +173,8 @@
 </li>
 <li>register compiled library files</li>
 <li>remove duplicate definition of <code>new_waiver</code> from internal.R</li>
-<li>tests check if prioritizrdata package not installed and skip if it isn’t</li>
+<li>tests check if prioritizrdata package not installed and skip if it isn<e2>&lt;80&gt;&lt;99&gt;t</e2>
+</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-3-unreleased" class="section level1">
@@ -135,7 +201,8 @@
 <li>fix #8</li>
 <li>fix bug in <code>add_corridor_constraints</code> that fails to actually add the constraints with argument to <code>connectivity</code> is a list</li>
 <li>fix bug in <code>make install</code> command so that it now actually installs the package</li>
-<li>fix link to Joe’s website in the package’s website</li>
+<li>fix link to Joe<e2>&lt;80&gt;&lt;99&gt;s website in the package<e2>&lt;80&gt;&lt;99&gt;s website</e2></e2>
+</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-0-unreleased" class="section level1">
@@ -177,6 +244,12 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-1-0-1-6-unreleased">1.0.1.6</a></li>
+        <li><a href="#prioritizr-1-0-1-5-unreleased">1.0.1.5</a></li>
+        <li><a href="#prioritizr-1-0-1-4-unreleased">1.0.1.4</a></li>
+        <li><a href="#prioritizr-1-0-1-3-unreleased">1.0.1.3</a></li>
+        <li><a href="#prioritizr-1-0-1-2-unreleased">1.0.1.2</a></li>
+        <li><a href="#prioritizr-1-0-1-1-unreleased">1.0.1.1</a></li>
         <li><a href="#prioritizr-1-0-1-0-unreleased">1.0.1.0</a></li>
         <li><a href="#prioritizr-1-0-0-5-unreleased">1.0.0.5</a></li>
         <li><a href="#prioritizr-1-0-0-4-unreleased">1.0.0.4</a></li>
@@ -195,7 +268,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://arcese.forestry.ubc.ca.people/richard-schuster/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

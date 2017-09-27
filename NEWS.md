@@ -1,6 +1,36 @@
 # prioritizr 1.0.1.6 (unreleased)
 
-- Minor update to https://prioritizr.github.io/prioritizr/
+- Simplify vignette workflow. Vignettes can now be compiled by using
+  `devtools::build_vignettes()`. Earlier versions needed the vignettes to be
+  compiled using the _Makefile_ to copy files around to avoid tangled R code
+  causing failures during R CMD CHECK. Although no longer needed, the vignettes
+  can still be compiled using the shell command `make vigns` if
+  desired.
+- The _README.Rmd_ now lives in the top-level directory following standard
+  practices. It should now be complied using `rmarkdown::render("README.Rmd")`
+  or using the shell command `make readme`. Note that the figures for
+  `README.md` can be found in the directory `man/figures`.
+- The example for `prshiny` will now only be run if executed during an
+  interactive R session. Prior to this R CMD CHECK would hang.
+- UTF-8 math characters in vignettes have been replaced with with MathJax
+  compatible latex expressions.
+- R code in the vignettes has been linted to follow the package's style guide.
+- Fix example in vignette _quick_start.Rmd_ showing how to run `marxan_problem`
+  using input `data.frame` objects.
+- Fix bug in vignette _quick_start.Rmd_ counting number of selected planning
+  units
+- Make the _data.table_ package automatically installed when _prioritizr_ is
+  installed. Address issue #18.
+- Move _shiny_, _shinydashboard_, and _leaflet_ packages to Imports to avoid
+  polluting users environment.
+- Update preliminary versions of the shiny apps to call functions from other
+  packages explicitly.
+- _README.Rmd_ tweaks to make it look prettier on website
+- lint objective function definition files
+- remove "\text" latex sequences from objective function definition files
+  because CRAN doesn't support _amsmath_ extensions in equations.
+- update examples in objective function files to only show relevant objectives
+- added _rmarkdown_ package to Suggests following [recommended practices](https://www.rforge.net/doc/packages/knitr/vignette_engines.html)
 
 # prioritizr 1.0.1.5 (unreleased)
 

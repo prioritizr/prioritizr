@@ -225,12 +225,7 @@ marxan_problem.character <- function(x, ...) {
     }
     x <- file.path(input_dir, x)
     if (file.exists(x)) {
-      if (requireNamespace("data.table", quietly = TRUE)) {
         return(data.table::fread(x, data.table = FALSE))
-      } else {
-        stop("the \"data.table\" package needs to be installed to load Marxan",
-             " data files.")
-      }
     } else if (force) {
       stop("file path in ", field, " field does not exist")
     } else {

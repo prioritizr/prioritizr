@@ -29,31 +29,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../articles/prioritizr.html">Get Started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
-    </li>
-  </ul>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -101,14 +80,15 @@
 <div id="reserve-design" class="section level3">
 <h3 class="hasAnchor">
 <a href="#reserve-design" class="anchor"></a>Reserve design</h3>
-<p>A reserve design exercise starts by dividing the study region into <strong>planning units</strong> (typically square or hexagonal cells) and, for each planning unit, assigning values that quantify socioeconomic cost and conservation benefit for a set of conservation features. The <strong>cost</strong> can be the acquisition cost of the land, the cost of management, the opportunity cost of foregone commercial activities (e.g. from logging or agriculture), or simply the area. The <strong>conservation features</strong> are typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or cloud forest). The benefit that each feature derives from a planning unit can take a variety of forms, but is typically either occupancy (i.e. presence or absence) or area of occurrence within each planning unit. Finally, in some types of reserve design models, for each conservation feature, representation targets must be set, such as 20% of the current extent of cloud forest or 10,000km<sup>2</sup> of Clouded Leopard habitat.</p>
-<img src="prioritizr-figure/simulated_spp_dist.png" alt="Example feature distributions on a raster grid of 100x100 planning units, from simulated spatially auto-correlated random fields" style="width: 600px;"><p class="caption">
-Figure 1. Example feature distributions on a raster grid of 100x100 planning units, from simulated spatially auto-correlated random fields
-</p>
+<p>A reserve design exercise starts by dividing the study region into <strong>planning units</strong> (typically square or hexagonal cells) and, for each planning unit, assigning values that quantify socioeconomic cost and conservation benefit for a set of conservation features. The <strong>cost</strong> can be the acquisition cost of the land, the cost of management, the opportunity cost of foregone commercial activities (e.g. from logging or agriculture), or simply the area. The <strong>conservation features</strong> are typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or cloud forest). The benefit that each feature derives from a planning unit can take a variety of forms, but is typically either occupancy (i.e. presence or absence) or area of occurrence within each planning unit. Finally, in some types of reserve design models, for each conservation feature, representation targets must be set, such as 20% of the current extent of cloud forest or 10,000 km<sup>2</sup> of Clouded Leopard habitat.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load feature data</span>
+<span class="kw">data</span>(sim_features)
+<span class="co"># plot the distribution of suitable habitat for each feature</span>
+<span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))),
+     <span class="dt">nr =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="prioritizr_basics_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>The goal of the reserve design exercise is then to optimize the trade-off between conservation benefit and socioeconomic cost, i.e. to get the most benefit for your limited conservation funds. Different reserve design models achieve this in different ways. In the minimum set cover model used by Marxan, the goal is to find the set of planning units that meets the representation targets while minimizing cost. Alternatively, in the maximum coverage model, the goal is to maximum the overall representation of conservation features while keeping cost within a fixed budget. Other approaches are possible that build on these basic models.</p>
-<img src="prioritizr-figure/simulated_cost.png" alt="Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 planning units" style="width: 600px;"><p class="caption">
-Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 planning units
-</p>
+<p><img src="prioritizr_basics_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
 </div>
 <div id="mathematical-formulation" class="section level3">
 <h3 class="hasAnchor">
@@ -119,7 +99,7 @@ Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 p
 <p><span class="math display">\[\text{Minimize} \space \boldsymbol{c}^\text{T} \boldsymbol{x} \space
 \space \text{subject to} \space A\boldsymbol{x}
 \space \Box \space \boldsymbol{b}\]</span></p>
-<p>where <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are vectors of known coefficients, and <em>A</em> is the constraint matrix. The final term specifies a series of structural constaints and the □◻ symbol is used to indicate that the relational operators for the constraint can be either <em>≥</em>, <em>=</em>, or <em>≤</em>. For the minimum set cover problem described above, <em>c</em> would be a vector of costs for each planning unit, <em>b</em> a vector of targets for each conservation feature, box would be <em>≥</em> for all features, and <em>A</em> would be the representation matrix with <em>A<sub>ij</sub>=r<sub>ij</sub></em> the representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
+<p>where <span class="math inline">\(x\)</span> is a vector of decision variables, <span class="math inline">\(c\)</span> and <span class="math inline">\(b\)</span> are vectors of known coefficients, and <span class="math inline">\(A\)</span> is the constraint matrix. The final term specifies a series of structural constaints and the symbol is used to indicate that the relational operators for the constraint can be either <span class="math inline">\(\geq\)</span>, <span class="math inline">\(=\)</span>, or <span class="math inline">\(\leq\)</span>. For the minimum set cover problem described above, <span class="math inline">\(c\)</span> would be a vector of costs for each planning unit, <span class="math inline">\(b\)</span> a vector of targets for each conservation feature, box would be <span class="math inline">\(\geq\)</span> for all features, and <span class="math inline">\(A\)</span> would be the representation matrix with <span class="math inline">\(A_{ij} = r_{ij}\)</span> the representation level of feature <span class="math inline">\(i\)</span> in planning unit <span class="math inline">\(j\)</span>.</p>
 <p>These exact ILP algorithms are implemented in a variety of commercial and open source solvers and <code>prioritzr</code> provides a unified interface to some of these solvers. The intention is to abstract away the details of these solvers so that the user requires minimal knowledge of the specific solvers or ILP in general. The currently supported solvers are as follows. Each must be installed separately from this package to be accessible.</p>
 <ul>
 <li>
@@ -139,27 +119,27 @@ Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 p
 <h3 class="hasAnchor">
 <a href="#the-minimum-set-objective" class="anchor"></a>The Minimum Set Objective</h3>
 <p>In the context of systematic reserve design, the minimum set objective function seeks to find the set of planning units that minimizes the overall cost of a reserve network, while meeting a set of representation targets for the conservation features. This objective is equivalent to a simplified Marxan reserve design problem, with the Boundary Length Modifier (BLM) set to zero.</p>
-<p>The reserve design problem for the minimum set objective function can be expressed mathematically for <em>n</em> planning units as:</p>
+<p>The reserve design problem for the minimum set objective function can be expressed mathematically for <span class="math inline">\(n\)</span> planning units as:</p>
 <p><span class="math display">\[\text{Minimize} \sum_{i=1}^{n}x_i c_i + \text{ subject to } \sum_{j=1}^{n}x_j r_{ij} \geq T_i \space \forall \space i\]</span></p>
-<p>Where where <em>x<sub>i</sub></em> is a binary decision variable specifying whether planning unit <em>i</em> has been selected (1) or not (0), <em>c<sub>i</sub></em> is the cost of planning unit <em>i</em>, <em>r<sub>ij</sub></em> is the representation level of feature <em>i</em> in planning unit <em>j</em>, and <em>T<sub>i</sub></em> is the target for feature <em>i</em>. The first term is the objective function and the second is the set of constraints. In words this says ‘find the set of planning units that meets all the representation targets while minimizing the overall cost’.</p>
+<p>Where where <span class="math inline">\(x_i\)</span> is a binary decision variable specifying whether planning unit <span class="math inline">\(i\)</span> has been selected (1) or not (0), <span class="math inline">\(c_i\)</span> is the cost of planning unit <span class="math inline">\(i\)</span>, <span class="math inline">\(r_{ij}\)</span> is the representation level of feature <span class="math inline">\(i\)</span> in planning unit <span class="math inline">\(j\)</span>, and <span class="math inline">\(T_i\)</span> is the target for feature <span class="math inline">\(i\)</span>. The first term is the objective function and the second is the set of constraints. In words this says ’find the set of planning units that meets all the representation targets while minimizing the overall cost.</p>
 </div>
 <div id="the-maximum-cover-objective" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-maximum-cover-objective" class="anchor"></a>The Maximum Cover Objective</h3>
 <p>The maximum coverage problem seeks to find the set of planning units that maximizes the overall level of representation across a suite of conservation features, while keeping cost within a fixed budget. This problem is roughly the opposite of what the conservation planning software Marxan does.</p>
-<p>The maximum coverage problem can be stated mathematically, for <em>n</em> planning units and <em>m</em> conservation features, as:</p>
+<p>The maximum coverage problem can be stated mathematically, for <span class="math inline">\(n\)</span> planning units and <span class="math inline">\(m\)</span> conservation features, as:</p>
 <p><span class="math display">\[\text{Maximize} \sum_{i=1}^{m} \sum_{j=1}^{n} x_j r_{ij} + \text{ subject to } \sum_{i=1}^{n}x_i c_i \leq B\]</span></p>
-<p>Where <em>x<sub>i</sub></em> is a binary decision variable specifying whether planning unit <em>i</em> has been selected (1) or not (0), <em>c<sub>i</sub></em> is the cost of planning unit <em>i</em>, <em>r<sub>ij</sub></em> is the representation level of feature <em>i</em> in planning unit <em>j</em>, and <em>B</em> is the budget.</p>
+<p>Where <span class="math inline">\(x_i\)</span> is a binary decision variable specifying whether planning unit <span class="math inline">\(i\)</span> has been selected (1) or not (0), <span class="math inline">\(c_i\)</span> is the cost of planning unit <span class="math inline">\(i\)</span>, <span class="math inline">\(r_{ij}\)</span> is the representation level of feature <span class="math inline">\(i\)</span> in planning unit <span class="math inline">\(j\)</span>, and <span class="math inline">\(B\)</span> is the budget.</p>
 </div>
 <div id="the-maximum-feature-objective" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-maximum-feature-objective" class="anchor"></a>The Maximum Feature Objective</h3>
 <p>The maximum target coverage problem is a hybrid between the minimum set and maximum cover problems in that it allows for both a budget and targets to be set. This problem finds the set of planning units that meets representation targets for the most species while staying within a fixed budget. If multiple solutions can meet all targets while staying within budget, the cheapest solution is chosen. This objective was inspired by the conservation problem defined in <a href="http://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(01)02125-5">Cabeza and Moilanen (2001)</a>.</p>
-<p>The maximum target coverage problem can be stated mathematically, for <em>n</em> planning units and <em>m</em> conservation features, as:</p>
+<p>The maximum target coverage problem can be stated mathematically, for <span class="math inline">\(n\)</span> planning units and <span class="math inline">\(m\)</span> conservation features, as:</p>
 <p><span class="math display">\[\text{Maximize} \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j\]</span></p>
 <p>Subject to:</p>
 <p><span class="math display">\[\sum_{i=1}^{n}x_i c_i \leq B \space \text{and} \space \sum_{j=1}^{n} x_j r_{ij} \geq y_iT_i \space \forall \space i\]</span></p>
-<p>where <em>x<sub>i</sub></em> is a binary decision variable specifying whether planning unit <em>i</em> has been selected (1) or not (0), <em>y<sub>ij</sub></em> is a binary decision variable specifying whether the target for species <em>i</em> should be met, <em>c<sub>i</sub></em> is the cost of planning unit <em>i</em>, <em>r<sub>ij</sub></em> is the representation level of feature <em>i</em> in planning unit <em>j</em>, <em>B</em> is the budget, and <em>T<sub>i</sub></em> is the target for feature <em>i</em>. Finally, the factor a is chosen so that the first term of the objective function is much smaller than the second. This ensures that the reserve cost only plays a role in distinguishing between solutions that meet the same number of targets.</p>
+<p>where <span class="math inline">\(x_i\)</span> is a binary decision variable specifying whether planning unit <span class="math inline">\(i\)</span> has been selected (1) or not (0), <span class="math inline">\(y_{ij}\)</span> is a binary decision variable specifying whether the target for species <span class="math inline">\(i\)</span> should be met, <span class="math inline">\(c_i\)</span> is the cost of planning unit <span class="math inline">\(i\)</span>, <span class="math inline">\(r_{ij}\)</span> is the representation level of feature <span class="math inline">\(i\)</span> in planning unit <span class="math inline">\(j\)</span>, <span class="math inline">\(B\)</span> is the budget, and <span class="math inline">\(T_i\)</span> is the target for feature <span class="math inline">\(i\)</span>. Finally, the factor a is chosen so that the first term of the objective function is much smaller than the second. This ensures that the reserve cost only plays a role in distinguishing between solutions that meet the same number of targets.</p>
 </div>
 <div id="the-maximum-phylogeny-objective" class="section level3">
 <h3 class="hasAnchor">
@@ -175,7 +155,7 @@ Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 p
 <ol style="list-style-type: decimal">
 <li><strong>The project area and a list of all of the planning units contained within it</strong></li>
 </ol>
-<p>Examples of planning units within a project area include a map of planning unit boundaries (a ‘cadastral layer’), delineated watersheds, or a user-defined grid placed over the project area. Acceptible input formats include rasters, polygon or polyline shapefiles, data frames, or numeric vectors specifying the planning units to use in the reserve design exercise</p>
+<p>Examples of planning units within a project area include a map of planning unit boundaries (a ‘cadastral layer’), delineated watersheds, or a user-defined grid placed over the project area. Acceptable input formats include rasters, polygon or polyline shapefiles, data frames, or numeric vectors specifying the planning units to use in the reserve design exercise</p>
 <ol start="2" style="list-style-type: decimal">
 <li><strong>The cost associated with each planning unit</strong></li>
 </ol>
@@ -184,7 +164,7 @@ Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 p
 <li><strong>A list of biodiversity features</strong></li>
 </ol>
 <p>‘Biodiversity features’ may refer to bird and plant species distributions, specific habitat types, or special elements identified and mapped within the planning area of interest. These data are typically organized as tables, wherein each planning unit is associated with an index of abundance, a probability of occurrence, or the presence/absence of a particular biodiversity feature of interest. In <code>prioritizr</code>, the input format of features must correspond with the input format of the project area. If the planning units are a raster, then the features must be a <code>RasterStack</code> object. If the planning units are input as a data frame object, then features must also be a data frame, following the conventions of Marxan. In the latter case, an RIJ matrix must be also constructed that identifies the amount of each feature in each planning unit.</p>
-<p>For more detailed information on how data are incorporated into problem formulation in prioritizr, and for several worked examples on a simulated dataset, consult the <a href="">Quick Start</a> vignette. You may also wish to refer to the vignettes provided in the supplemental <em>prioritizrdata</em> package, which use <em>prioritizr</em> functions to work through the real-world examples from <a href="">Tasmania</a> and <a href="">Salt Spring Island</a>.</p>
+<p>For more detailed information on how data are incorporated into problem formulation in prioritizr, and for several worked examples on a simulated dataset, consult the <a href="">Quick Start</a> vignette. You may also wish to refer to the vignettes provided in the supplemental <a href="https://github.com/prioritizr/prioritizrdata"><em>prioritizrdata</em> package</a>, which use <em>prioritizr</em> functions to work through the real-world examples from Tasmania and Salt Spring Island.</p>
 </div>
 </div>
 </div>
@@ -192,8 +172,7 @@ Figure 2. Simulated example of a cost distribution on a raster grid of 100x100 p
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#systematic-conservation-prioritization-in-r">Systematic Conservation Prioritization in R</a><ul class="nav nav-pills nav-stacked">

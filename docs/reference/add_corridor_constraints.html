@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add corridor constraints — add_corridor_constraints â€¢ prioritizr</title>
+<title>Add corridor constraints <U+2014> add_corridor_constraints <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../articles/prioritizr.html">Get Started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">The Prioritizr Quick-Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -145,7 +123,7 @@ as the threshold for each feature. Otherwise, if <code>threshold</code> is a
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to <code>fast_extract</code> if
+      <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> if
 the planning units in argument to <code>x</code> inherit from a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterStack-class</a></code> object.</p></td>
     </tr>
@@ -209,17 +187,118 @@ the planning units in argument to <code>x</code> inherit from a
 
 <span class='co'># create a basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
 
 <span class='co'># create problem with added corridor constraints to ensure that</span>
 <span class='co'># planning units used to represent features are connected by</span>
 <span class='co'># planning units with habitat that is suitable for that feature</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_corridor_constraints</span>(<span class='no'>sim_features</span>, <span class='fl'>0.5</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in add_default_solver(a): no optimization problem solvers found on system.</span></div><div class='input'>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_corridor_constraints</span>(<span class='no'>sim_features</span>, <span class='fl'>0.5</span>)
+
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2145.27
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
+#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt; 
+#&gt; Explored 0 nodes (11 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; Pool objective bound 1726.52
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
+#&gt; Optimize a model with 1172 rows, 982 columns and 3838 nonzeros
+#&gt; Variable types: 0 continuous, 982 integer (982 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 7e+00]
+#&gt; Presolve time: 0.04s
+#&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
+#&gt; Variable types: 0 continuous, 982 integer (982 binary)
+#&gt; Presolved: 1172 rows, 982 columns, 3838 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 2.048985e+03, 1616 iterations, 0.14 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 2048.98539    0  348          - 2048.98539      -     -    0s
+#&gt;      0     0 2100.00339    0  492          - 2100.00339      -     -    0s
+#&gt;      0     0 2110.10012    0  555          - 2110.10012      -     -    0s
+#&gt;      0     0 2130.68116    0  535          - 2130.68116      -     -    1s
+#&gt;      0     0 2130.68116    0  535          - 2130.68116      -     -    1s
+#&gt;      0     0 2130.87718    0  506          - 2130.87718      -     -    1s
+#&gt;      0     0 2130.87718    0  512          - 2130.87718      -     -    1s
+#&gt;      0     0 2130.87718    0  490          - 2130.87718      -     -    1s
+#&gt; H    0     0                    7749.0535193 2130.87718  72.5%     -    2s
+#&gt; H    0     0                    6737.8560804 2130.87718  68.4%     -    2s
+#&gt;      0     2 2131.24235    0  490 6737.85608 2131.24235  68.4%     -    2s
+#&gt; H   22    21                    3740.7352076 2131.92658  43.0%   112    3s
+#&gt; H   27    18                    3734.1081322 2131.92658  42.9%  93.6    3s
+#&gt; H   45    20                    3727.3087038 2131.92658  42.8%  59.9    3s
+#&gt; H  109    48                    3533.9390452 2202.59549  37.7%  65.2    4s
+#&gt; H  129    67                    3491.8468118 2202.59549  36.9%  73.8    4s
+#&gt; H  135    69                    3491.8009837 2202.59549  36.9%  71.7    4s
+#&gt; H  140    69                    3490.5397990 2202.59549  36.9%  69.3    4s
+#&gt;    146    68 2997.71808    5  146 3490.53980 2208.14620  36.7%  76.3    5s
+#&gt; H  207    64                    2899.3277247 2219.39637  23.5%  66.7    5s
+#&gt; H  264    81                    2890.4394060 2233.46327  22.7%  62.9    6s
+#&gt; H  283    77                    2712.2135538 2234.94131  17.6%  61.8    6s
+#&gt; H  289    77                    2711.1848219 2234.94131  17.6%  61.0    6s
+#&gt; H  291    76                    2709.5526161 2234.94131  17.5%  60.8    6s
+#&gt; H  293    76                    2705.7323865 2234.94131  17.4%  60.5    6s
+#&gt; H  318    78                    2700.5467843 2248.54866  16.7%  62.8    7s
+#&gt; H  373    85                    2698.8647923 2257.24287  16.4%  63.2    8s
+#&gt; H  427   117                    2694.2993470 2263.94794  16.0%  61.5    9s
+#&gt; H  483   136                    2689.6520822 2268.48836  15.7%  58.7   10s
+#&gt; H  671   214                    2685.4231851 2289.75108  14.7%  57.2   12s
+#&gt;    812   238 2498.14664    9  191 2685.42319 2306.81774  14.1%  57.1   15s
+#&gt;   1108   273 2432.17008    7  441 2685.42319 2346.91112  12.6%  58.5   20s
+#&gt;   1531   376 2622.18086   37  490 2685.42319 2377.82901  11.5%  56.3   27s
+#&gt;   1533   377 2450.85437   15  348 2685.42319 2377.82901  11.5%  56.2   30s
+#&gt;   1538   381 2377.82901   17  353 2685.42319 2377.82901  11.5%  58.6   35s
+#&gt; H 1562   374                    2682.5397318 2377.82901  11.4%  59.1   38s
+#&gt;   1644   397 2571.40400   26  122 2682.53973 2377.82901  11.4%  59.2   40s
+#&gt; H 1867   379                    2680.8577398 2377.82901  11.3%  57.4   43s
+#&gt;   1936   390 2406.30063   22  257 2680.85774 2377.82901  11.3%  57.8   45s
+#&gt;   2373   427 2507.46716   27  201 2680.85774 2377.82901  11.3%  56.1   50s
+#&gt;   2781   525 2535.56481   28  446 2680.85774 2391.80645  10.8%  53.9   55s
+#&gt; 
+#&gt; Explored 3087 nodes (166560 simplex iterations) in 58.11 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 10: 2680.86 2682.54 2685.42 ... 2711.18
+#&gt; Pool objective bound 2412.98
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 2.680857739841e+03, best bound 2.412983228038e+03, gap 9.9921%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"solution with corridors"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plot(s, main = c("basic solution", "solution with corridors")): object 's' not found</span></div><div class='input'>
-</div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"solution with corridors"</span>))</div><img src='add_corridor_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
+
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

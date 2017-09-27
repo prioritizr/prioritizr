@@ -1,75 +1,75 @@
-  
-header <- dashboardHeader(
-  
+
+header <- shinydashboard::dashboardHeader(
+
   title = "prioritizr Shiny"
 )
 
-body <-  dashboardBody(
-  fluidRow(
-    column(width = 5,
-           tabBox(
+body <-  shinydashboard::dashboardBody(
+  shiny::fluidRow(
+    shiny::column(width = 5,
+           shinydashboard::tabBox(
              title = "",
              # The id lets us use input$tabset1 on the server to find the current tab
-             id = "tabset1", width = NULL,height = "600px", 
-             tabPanel("Problem", 
-               h4("Create a conservation problem"),
-               p("By specifying the inputs below you can supply data to generate the problem"),
-               br(),
-               fileInput('x', 'x',multiple=TRUE),
-               fileInput('features', 'features',multiple=TRUE),
-               fileInput('rij', 'rij (optional)',multiple=TRUE),
-               fileInput('rij_matrix', 'rij_matrix (optional)',multiple=TRUE),
-               
+             id = "tabset1", width = NULL,height = "600px",
+             shiny::tabPanel("Problem",
+               shiny::h4("Create a conservation problem"),
+               shiny::p("By specifying the inputs below you can supply data to generate the problem"),
+               shiny::br(),
+               shiny::fileInput('x', 'x',multiple=TRUE),
+               shiny::fileInput('features', 'features',multiple=TRUE),
+               shiny::fileInput('rij', 'rij (optional)',multiple=TRUE),
+               shiny::fileInput('rij_matrix', 'rij_matrix (optional)',multiple=TRUE),
+
                tags$hr(),
-               actionButton("rproblem","Create the prioritizr problem")
-               
+               shiny::actionButton("rproblem","Create the prioritizr problem")
+
 
                ),
-             tabPanel("Objective", 
-                      h4("Select an objective function for the conservation problem"),
-                      radioButtons("objective", label = "Please choose the objective function you 
+             shiny::tabPanel("Objective",
+                      shiny::h4("Select an objective function for the conservation problem"),
+                      shiny::radioButtons("objective", label = "Please choose the objective function you
                                    want to add to conservation problem.",
-                                   choices = list("Minimum set objective (basic Marxan objective)" = 1, 
-                                                  "Maximum cover (set budget)" = 2, 
+                                   choices = list("Minimum set objective (basic Marxan objective)" = 1,
+                                                  "Maximum cover (set budget)" = 2,
                                                   "Maximum features (combination of min set and max cover)" = 3,
-                                                  "Maximum phylogeny (silimar to max features, but emphasises phylogenetic representation" = 4), 
+                                                  "Maximum phylogeny (silimar to max features, but emphasises phylogenetic representation" = 4),
                                    selected = 1,
                                    width = "90%"),
                       tags$hr(),
-                      actionButton("robjetive","Add the selected objective to the prioritizr problem")),
-             tabPanel("Targets", "Tab content Targets"),
-             tabPanel("Constraints", "Tab content Constraints"),
-             tabPanel("Penalties", "Tab content Penalties")
-             
+                      shiny::actionButton("robjetive","Add the selected objective to the prioritizr problem")),
+             shiny::tabPanel("Targets", "Tab content Targets"),
+             shiny::tabPanel("Constraints", "Tab content Constraints"),
+             shiny::tabPanel("Penalties", "Tab content Penalties")
+
            )
     ),
-    column(width = 7,
-           tabBox(
+    shiny::column(width = 7,
+           shinydashboard::tabBox(
              title = "",
-             id = "tabset2", width = NULL,height = "600px", 
-             tabPanel("Set Targets", "Set your prioritization targets"),
-             tabPanel("Results", 
-               leafletOutput("mymap")#,height=600)
+             id = "tabset2", width = NULL,height = "600px",
+             shiny::tabPanel("Set Targets", "Set your prioritization targets"),
+             shiny::tabPanel("Results",
+               leaflet::leafletOutput("mymap")#,height=600)
            )
     ))
-    
+
   ),
 
-  fluidRow(
-    column(width = 5,
-    box(width = NULL, solidHeader = TRUE,
+  shiny::fluidRow(
+    shiny::column(width = 5,
+    shinydashboard::box(width = NULL, solidHeader = TRUE,
       # Title can include an icon
-      title = tagList(shiny::icon("gear"), "Solve the problem"),
-      p("If you are happy with your specification, go ahead and solve your conservation problem."),
-      actionButton("rsolve","Solve the prioritizr problem")
-      
+      title = shiny::tagList(shiny::icon("gear"), "Solve the problem"),
+      shiny::p("If you are happy with your specification, go ahead and solve your conservation problem."),
+      shiny::actionButton("rsolve","Solve the prioritizr problem")
+
     ))
   )
 )
 
 
-dashboardPage(
+shinydashboard::dashboardPage(
   header,
-  dashboardSidebar(disable = TRUE),
+  shinydashboard::dashboardSidebar(disable = TRUE),
   body
 )
