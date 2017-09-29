@@ -1,3 +1,7 @@
+# prioritizr 1.0.2.1 (unreleased)
+
+- Fix #20.
+
 # prioritizr 1.0.2.0 (unreleased)
 
 - Passes CRAN checks on Winbuilder.

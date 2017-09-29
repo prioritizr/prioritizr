@@ -245,7 +245,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 1
     ## 
-    ## Explored 0 nodes (278 simplex iterations) in 0.04 seconds
+    ## Explored 0 nodes (278 simplex iterations) in 0.07 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -286,7 +286,7 @@ s4 <- solve(p4)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.647064e+03, 519 iterations, 0.02 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -313,7 +313,7 @@ s4 <- solve(p4)
     ##   MIR: 1
     ##   Zero half: 23
     ## 
-    ## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
+    ## Explored 67 nodes (1856 simplex iterations) in 0.26 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 6469.17 7072.06 11466.1 

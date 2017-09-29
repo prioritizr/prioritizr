@@ -7,30 +7,30 @@ NULL
 #' specify the basic data used in a spatial prioritization problem: the
 #' spatial distribution of the planning units and their costs, as well as
 #' the features (eg. species, ecosystems) that need to be conserved. After
-#' constructing this \code{ConservationProblem-class} object, it can be 
-#' customized to meet specific goals using \code{\link{objectives}}, 
+#' constructing this \code{ConservationProblem-class} object, it can be
+#' customized to meet specific goals using \code{\link{objectives}},
 #' \code{\link{targets}}, \code{\link{constraints}}, and \code{\link{penalties}}.
-#'   
+#'
 #' The basic prioritizr workflow starts with formulating the
-#' \code{problem}, then adding \code{objectives} and \code{targets}, 
+#' \code{problem}, then adding \code{objectives} and \code{targets},
 #' as well as \code{constraints} and \code{penalties} as needed.
-#' Alternative decision formats can be specified using the 
-#' \code{\link{decisions}} functions, 
-#' otherwise the package will default to binary selection of planning units. 
-#' Lastly, the type of solving algorithm must be specified 
-#' (see \code{\link{solvers}}). Once formulated, the problem is solved 
-#' using the \code{solve()} function, which will return 
+#' Alternative decision formats can be specified using the
+#' \code{\link{decisions}} functions,
+#' otherwise the package will default to binary selection of planning units.
+#' Lastly, the type of solving algorithm must be specified
+#' (see \code{\link{solvers}}). Once formulated, the problem is solved
+#' using the \code{solve()} function, which will return
 #' a \code{RasterLayer-class},
-#' \code{Spatial-class}, or a \code{numeric} vector 
+#' \code{Spatial-class}, or a \code{numeric} vector
 #' containing the solution depending on the \code{ConservationProblem-class}
 #'
 #' @param x \code{\link[raster]{Raster-class}},
 #'   \code{\link[sp]{SpatialPolygonsDataFrame-class}},
-#'   \code{\link[sp]{SpatialLinesDataFrame-class}}, or 
+#'   \code{\link[sp]{SpatialLinesDataFrame-class}}, or
 #'   \code{\link{data.frame}} object, or \code{\link{numeric}} vector,
-#'   specifying the planning units to use in the reserve design exercise and 
-#'   their corresponding cost. It may be desirable to exclude some planning 
-#'   units from the analysis, for example those outside the study area. To 
+#'   specifying the planning units to use in the reserve design exercise and
+#'   their corresponding cost. It may be desirable to exclude some planning
+#'   units from the analysis, for example those outside the study area. To
 #'   exclude planning units, set the cost for those raster cells to \code{NA},
 #'   or use the \code{add_locked_out_constraint}.
 #'
@@ -43,10 +43,10 @@ NULL
 #'       values (i.e. \code{NA} values) can be used to indicate the absence of
 #'       a feature in a particular cell instead of explicitly setting these
 #'       cells to zero.}
-#'     \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object 
-#'       containing information on the features. The argument to 
-#'       \code{feature_data} must follow the conventions used by Marxan. Each 
-#'       row corresponds to a different feature. It must also contain the 
+#'     \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object
+#'       containing information on the features. The argument to
+#'       \code{feature_data} must follow the conventions used by Marxan. Each
+#'       row corresponds to a different feature. It must also contain the
 #'       following columns:
 #'       \describe{
 #'         \item{\code{"id"}}{\code{integer} unique identifier for each feature
@@ -75,56 +75,56 @@ NULL
 #'      \item{\code{"amount"}}{\code{numeric} amount of the feature in the
 #'        planning unit.}
 #'     }
-#'     
+#'
 #' @param rij_matrix \code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
-#'    object specifying the amount of each feature (rows) within each planning 
+#'    object specifying the amount of each feature (rows) within each planning
 #'    unit (columns). Only used when \code{x} is a numeric vector of costs.
 #'
 #' @param ... not used.
-#' 
-#' @details A reserve design exercise starts by dividing the study region 
-#' into planning units (typically square or hexagonal cells) and, for 
-#' each planning unit, assigning values that quantify socioeconomic 
-#' cost and conservation benefit for a set of conservation features. The 
-#' cost can be the acquisition cost of the land, the cost of management, 
-#' the opportunity cost of foregone commercial activities (e.g. from logging 
-#' or agriculture), or simply the area. The conservation features are 
-#' typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or 
-#' cloud forest). The benefit that each feature derives from a planning unit 
-#' can take a variety of forms, but is typically either occupancy (i.e. 
-#' presence or absence) or area of occurrence within each planning unit. 
-#' Finally, in some types of reserve design models, for each conservation 
-#' feature, representation targets must be set, such as 20% of the current 
-#' extent of cloud forest or 10,000km^2 of Clouded Leopard habitat 
+#'
+#' @details A reserve design exercise starts by dividing the study region
+#' into planning units (typically square or hexagonal cells) and, for
+#' each planning unit, assigning values that quantify socioeconomic
+#' cost and conservation benefit for a set of conservation features. The
+#' cost can be the acquisition cost of the land, the cost of management,
+#' the opportunity cost of foregone commercial activities (e.g. from logging
+#' or agriculture), or simply the area. The conservation features are
+#' typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
+#' cloud forest). The benefit that each feature derives from a planning unit
+#' can take a variety of forms, but is typically either occupancy (i.e.
+#' presence or absence) or area of occurrence within each planning unit.
+#' Finally, in some types of reserve design models, for each conservation
+#' feature, representation targets must be set, such as 20% of the current
+#' extent of cloud forest or 10,000km^2 of Clouded Leopard habitat
 #' (see \code{\link{targets}}).
-#' 
-#' The goal of the reserve design exercise is then to optimize the trade-off 
-#' between conservation benefit and socioeconomic cost, i.e. to get the most 
-#' benefit for your limited conservation funds. In general, the goal of an 
-#' optimization problem is to minimize an objective function over a set of 
-#' decision variables, subject to a series of constraints. The decision variables 
-#' are what we control, usually there is one binary variable for each planning 
-#' unit specifying whether or not to protect that unit (but other approaches are 
-#' available, see \code{\link{decisions}}). The constraints can be thought 
-#' of as rules that need to be followed, for example, that the reserve must 
+#'
+#' The goal of the reserve design exercise is then to optimize the trade-off
+#' between conservation benefit and socioeconomic cost, i.e. to get the most
+#' benefit for your limited conservation funds. In general, the goal of an
+#' optimization problem is to minimize an objective function over a set of
+#' decision variables, subject to a series of constraints. The decision variables
+#' are what we control, usually there is one binary variable for each planning
+#' unit specifying whether or not to protect that unit (but other approaches are
+#' available, see \code{\link{decisions}}). The constraints can be thought
+#' of as rules that need to be followed, for example, that the reserve must
 #' stay within a certain budget or meet the representation targets.
-#' 
-#' Integer linear programming (ILP) is the subset of optimization algorithms used in 
-#' this package to solve reserve design problems. The general form of an ILP problem 
+#'
+#' Integer linear programming (ILP) is the subset of optimization algorithms used in
+#' this package to solve reserve design problems. The general form of an ILP problem
 #' can be expressed in matrix notation as:
-#' 
+#'
 #' \deqn{\mathit{Minimize}\: \mathbf{c}^{\mathbf{T}}\mathbf{x} \: \mathit{subject\, to}
 #'  \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =, or \le b}
 #'
-#' Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are 
-#' vectors of known coefficients, and \emph{A} is the \strong{constraint matrix}. 
-#' The final term specifies a series of \strong{structural constaints} where 
-#' relational operators for the constraint can be either \eqn{\ge, =, or \le} 
-#' the coefficients. For example, in the minimum set cover problem, \emph{c} 
-#' would be a vector of costs for each planning unit, \emph{b} a vector of targets 
-#' for each conservation feature, the relational operator would be \eqn{\ge} for 
-#' all features, and \emph{A} would be the representation matrix with 
-#' \eqn{A_{ij}=r_{ij}}{Aij = rij}, the representation level of feature \emph{i} 
+#' Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
+#' vectors of known coefficients, and \emph{A} is the \strong{constraint matrix}.
+#' The final term specifies a series of \strong{structural constaints} where
+#' relational operators for the constraint can be either \eqn{\ge, =, or \le}
+#' the coefficients. For example, in the minimum set cover problem, \emph{c}
+#' would be a vector of costs for each planning unit, \emph{b} a vector of targets
+#' for each conservation feature, the relational operator would be \eqn{\ge} for
+#' all features, and \emph{A} would be the representation matrix with
+#' \eqn{A_{ij}=r_{ij}}{Aij = rij}, the representation level of feature \emph{i}
 #' in planning unit \emph{j}.
 #'
 #' @return A \code{\link{ConservationProblem-class}} object containing the
@@ -157,13 +157,13 @@ NULL
 #'  add_min_set_objective() %>%
 #'  add_relative_targets(0.2) %>%
 #'  add_binary_decisions()
-#'  
+#'
 #' # alternatively one can supply pre-processed, aspatial data
 #' costs <- sim_pu_polygons$cost
 #' features <- data.frame(id = 1:nlayers(sim_features),
 #'                        name = names(sim_features))
 #' rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
-#' p5 <- problem(costs, features, rij_matrix = rij_mat) %>% 
+#' p5 <- problem(costs, features, rij_matrix = rij_mat) %>%
 #'  add_min_set_objective() %>%
 #'  add_relative_targets(0.2) %>%
 #'  add_binary_decisions()
@@ -265,7 +265,8 @@ problem.data.frame <- function(x, features, rij, ...) {
   # create rij matrix
   rij_mat <- Matrix::sparseMatrix(i = rij$species, j = rij$pu,
                                   x = rij$amount, giveCsparse = TRUE,
-                                  index1 = TRUE, use.last.ij = FALSE)
+                                  index1 = TRUE, use.last.ij = FALSE,
+                                  dims = c(nrow(features), nrow(x)))
   # create new problem object
   p <- pproto(NULL, ConservationProblem,
     constraints = pproto(NULL, Collection),
@@ -298,7 +299,7 @@ problem.numeric <- function(x, features, rij_matrix, ...) {
     ncol(rij_matrix) == length(x))
   # convert to sparse matrix if necessary
   if (!inherits(rij_matrix, "dgCMatrix")) {
-    rij_matrix <- methods::as(rij_matrix, "dgCMatrix") 
+    rij_matrix <- methods::as(rij_matrix, "dgCMatrix")
   }
   # create new problem object
   p <- pproto(NULL, ConservationProblem,

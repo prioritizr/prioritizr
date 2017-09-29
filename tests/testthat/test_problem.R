@@ -72,6 +72,30 @@ test_that("SpatialPointsDataFrame planning unit data", {
   expect_equal(problem(sim_pu_points, sim_pu_raster)$number_of_features(), 1L)
 })
 
+test_that("data.frame planning unit data", {
+  # simulate data
+  pu <- data.frame(id = seq_len(10), cost = runif(10))
+  species <- data.frame(id = seq_len(5), name = letters[1:5], targets = 0.5)
+  rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
+  rij$amount <- runif(nrow(rij))
+  # create problem
+  x <- problem(pu, species, rij, "cost")
+  print(x)
+  x
+  # run tests
+  expect_equal(x$feature_names(), letters[1:5])
+  expect_equal(x$number_of_features(), 5)
+  expect_equal(x$number_of_planning_units(), 10)
+  expect_equal(x$planning_unit_costs(), pu$cost)
+  expect_equal(x$data$rij_matrix,
+               Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]], x = rij[[3]],
+                                    dims = c(5, 10)))
+  expect_equal(x$feature_abundances_in_planning_units(),
+    Matrix::rowSums(Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]],
+                                         x = rij[[3]])))
+  expect_error(x$feature_targets())
+})
+
 test_that("invalid problem inputs", {
   # check that errors are thrown if invalid arguments
   data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
@@ -108,7 +132,6 @@ test_that("invalid problem inputs", {
   expect_error(problem(sim_pu_lines, sim_features))
   expect_error(problem(sim_pu_points, sim_features))
 })
-
 
 test_that("inheritance", {
   data(sim_pu_raster, sim_features)
