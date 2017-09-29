@@ -288,7 +288,7 @@ run multiple times.</p>
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.520510e+03, 214 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.520510e+03, 214 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -296,7 +296,7 @@ run multiple times.</p>
 #&gt;      0     0 3520.50952    0   13 4155.27447 3520.50952  15.3%     -    0s
 #&gt; H    0     0                    3625.9198496 3520.50952  2.91%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (214 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (214 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3625.92 4155.27 
@@ -336,8 +336,8 @@ run multiple times.</p>
 #&gt; Best objective 5.464480651178e+03, best bound 5.323620845374e+03, gap 2.5777%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.536   0.168   0.692 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.476   0.184   0.630 </div><div class='input'>
+#&gt;   0.616   0.192   0.797 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.464   0.156   0.600 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span></div></pre>

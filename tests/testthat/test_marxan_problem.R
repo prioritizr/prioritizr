@@ -122,6 +122,49 @@ test_that("character filename input (solve symmetric boundary penalties)", {
   s <- solve(p)
 })
 
+test_that("character filename input (absolute INPUTDIR path)", {
+  skip_on_cran()
+  # set up input.dat with absolute file paths
+  path <- file.path(tempfile(fileext = ".dat"))
+  f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
+  f[grep("INPUTDIR", f, fixed = TRUE)] <- paste("INPUTDIR",
+    system.file("extdata/input", package = "prioritizr"))
+  writeLines(f, path)
+  # make problem
+  p <- marxan_problem(path) %>%
+       add_default_solver(time_limit = 5)
+  # check that problem can be solved
+  s <- solve(p)
+})
+
+test_that("character filename input (absolute file paths)", {
+  skip_on_cran()
+  # set up input.dat with absolute file paths
+  path <- file.path(tempfile(fileext = ".dat"))
+  f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
+  f[grep("INPUTDIR", f, fixed = TRUE)] <- ""
+  f[grep("SPECNAME", f, fixed = TRUE)] <- paste("SPECNAME",
+                                          system.file("extdata/input/spec.dat",
+                                                      package = "prioritizr"))
+  f[grep("PUNAME", f, fixed = TRUE)] <- paste("PUNAME",
+                                        system.file("extdata/input/pu.dat",
+                                                    package = "prioritizr"))
+  f[grep("PUVSPRNAME", f, fixed = TRUE)] <- paste("PUVSPRNAME",
+                                            system.file(
+                                              "extdata/input/puvspr.dat",
+                                              package = "prioritizr"))
+  f[grep("BOUNDNAME", f, fixed = TRUE)] <- paste("BOUNDNAME",
+                                           system.file(
+                                             "extdata/input/bound.dat",
+                                              package = "prioritizr"))
+  writeLines(f, path)
+  # make problem
+  p <- marxan_problem(path) %>%
+       add_default_solver(time_limit = 5)
+  # check that problem can be solved
+  s <- solve(p)
+})
+
 test_that("data.frame input (compile asymmetric boundary penalties)", {
   ## make problem
   # load data
@@ -158,10 +201,10 @@ test_that("data.frame input (compile asymmetric boundary penalties)", {
   Matrix::diag(c_data) <- 0
   c_data <- as(c_data, "dgTMatrix")
   c_data <- Matrix::sparseMatrix(i = c_data@i[c_data@x != 0],
-                                j = c_data@j[c_data@x != 0],
-                                x = c_data@x[c_data@x != 0],
-                                giveCsparse = FALSE, index1 = FALSE,
-                                dims = c(n_pu, n_pu))
+                                 j = c_data@j[c_data@x != 0],
+                                 x = c_data@x[c_data@x != 0],
+                                 giveCsparse = FALSE, index1 = FALSE,
+                                 dims = c(n_pu, n_pu))
   # objectives for boundary decision variables
   b_obj <- o$obj()[n_pu + seq_len(length(c_data@i))]
   # upper bound for boundary decision variables

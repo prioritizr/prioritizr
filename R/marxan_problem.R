@@ -223,9 +223,10 @@ marxan_problem.character <- function(x, ...) {
         stop("input file does not contain ", field, " field")
       return(NULL)
     }
-    x <- file.path(input_dir, x)
     if (file.exists(x)) {
-        return(data.table::fread(x, data.table = FALSE))
+      return(data.table::fread(x, data.table = FALSE))
+    } else if (file.exists(file.path(input_dir, x))) {
+      return(data.table::fread(file.path(input_dir, x), data.table = FALSE))
     } else if (force) {
       stop("file path in ", field, " field does not exist")
     } else {
@@ -237,8 +238,14 @@ marxan_problem.character <- function(x, ...) {
   x <- readLines(x)
   # parse working directory
   base_input_dir <- parse_field("INPUTDIR", x)
-  if (!is.na(base_input_dir))
+  if (!is.na(base_input_dir)) {
+    if ((substr(base_input_dir, 1, 1) == "/")  || # absolute path on unix
+        (substr(base_input_dir, 2, 2) == ":")) { # absolute path on Windows
+      input_dir <- base_input_dir
+    } else {
       input_dir <- file.path(input_dir, base_input_dir)
+    }
+  }
   # parse data
   pu_data <- load_file("PUNAME", x, input_dir)
   spec_data <- load_file("SPECNAME", x, input_dir)
