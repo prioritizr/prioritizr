@@ -89,7 +89,8 @@ spatial distribution of the planning units and their costs, as well as
 the features (eg. species, ecosystems) that need to be conserved. After
 constructing this <code>ConservationProblem-class</code> object, it can be
 customized to meet specific goals using <code><a href='objectives.html'>objectives</a></code>,
-<code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and <code><a href='penalties.html'>penalties</a></code>.</p>
+<code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and
+<code><a href='penalties.html'>penalties</a></code>.</p>
     
 
     <pre class="usage"><span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
@@ -216,27 +217,29 @@ extent of cloud forest or 10,000km^2 of Clouded Leopard habitat
 between conservation benefit and socioeconomic cost, i.e. to get the most
 benefit for your limited conservation funds. In general, the goal of an
 optimization problem is to minimize an objective function over a set of
-decision variables, subject to a series of constraints. The decision variables
+decision variables, subject to a series of constraints. The decision
+variables
 are what we control, usually there is one binary variable for each planning
 unit specifying whether or not to protect that unit (but other approaches are
 available, see <code><a href='decisions.html'>decisions</a></code>). The constraints can be thought
 of as rules that need to be followed, for example, that the reserve must
 stay within a certain budget or meet the representation targets.</p>
-<p>Integer linear programming (ILP) is the subset of optimization algorithms used in
-this package to solve reserve design problems. The general form of an ILP problem
-can be expressed in matrix notation as:
-    $$\mathit{Minimize}\: \mathbf{c}^{\mathbf{T}}\mathbf{x} \: \mathit{subject\, to}
- \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
+<p>Integer linear programming (ILP) is the subset of optimization algorithms
+used in this package to solve reserve design problems. The general form of
+an ILP problem can be expressed in matrix notation as:
+    $$\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
+\mathit{subject \space to} \space
+\mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
 <p>Where <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are
-vectors of known coefficients, and <em>A</em> is the <strong>constraint matrix</strong>.
-The final term specifies a series of <strong>structural constaints</strong> where
-relational operators for the constraint can be either \(\ge, =, or \le\)
-the coefficients. For example, in the minimum set cover problem, <em>c</em>
-would be a vector of costs for each planning unit, <em>b</em> a vector of targets
-for each conservation feature, the relational operator would be \(\ge\) for
-all features, and <em>A</em> would be the representation matrix with
-\(A_{ij}=r_{ij}\), the representation level of feature <em>i</em>
-in planning unit <em>j</em>.</p>
+vectors of known coefficients, and <em>A</em> is the <strong>constraint
+matrix</strong>. The final term specifies a series of <strong>structural constaints</strong>
+where relational operators for the constraint can be either \(\ge, =, or
+\le\) the coefficients. For example, in the minimum set cover problem,
+<em>c</em> would be a vector of costs for each planning unit, <em>b</em> a
+vector of targets for each conservation feature, the relational operator
+would be \(\ge\) for all features, and <em>A</em> would be the
+representation matrix with \(A_{ij}=r_{ij}\), the
+representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

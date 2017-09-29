@@ -33,9 +33,10 @@ the opposite of what the conservation planning software Marxan does.
 The maximum coverage problem can be stated mathematically, for \eqn{n}{n}
 planning units and \eqn{m}{m} conservation features, as:
 
-\deqn{Max. \space \sum_{i=1}^{m} \sum_{j=1}^{n} x_j r_{ij} \space s.t. \space
-\sum_{i=1}^{n}x_i c_i \leq B}{Max. \sum^m \sum^n (xj*rij) s.t. \sum^n
-(xi*ci) \le B}
+\deqn{\mathit{Maximize} \space \sum_{i=1}^{m} \sum_{j=1}^{n} x_j r_{ij}
+\space \mathit{subject \space to} \space
+\sum_{i=1}^{n}x_i c_i \leq B}{Maximize \sum^m \sum^n (xj*rij) subject to
+\sum^n (xi*ci) \le B}
 
 where \eqn{x_i}{xi} is a binary decision variable specifying whether
 planning unit \eqn{i}{i} has been selected (1) or not (0), \eqn{c_i}{ci} is #' the cost of planning unit \eqn{i}{i}, \eqn{r_ij}{rij} is the representation

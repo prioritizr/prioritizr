@@ -1,3 +1,9 @@
+# prioritizr 1.0.2.3 (unreleased)
+
+- `ConservationProblem$print()` now only prints the first three species names
+  and a count of the total number of features. This update means that `ConservationProblem` objects with lots of features can now safely be printed without polluting the R console.
+- Attempt to make equations in help files prettier.
+
 # prioritizr 1.0.2.2 (unreleased)
 
 - Fix #19.

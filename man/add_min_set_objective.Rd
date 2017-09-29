@@ -31,9 +31,10 @@ reserve design problem, with the Boundary Length Modifier (BLM) set to zero.
 The reserve design problem for the minimum set objective can be expressed
 mathematically for \emph{n} planning units as:
 
-\deqn{Min. \space \sum_{i=1}^{n}x_i c_i \space s.t. \space \sum_{j=1}^{n}x_j
-r_{ij}\geq T_i \space \forall \space i}{Min. \sum^n(xi*ci) s.t. \sum^n(j*rij)
-\ge Ti for all i}
+\deqn{\mathit{Minimize} \space \sum_{i=1}^{n}x_i c_i \space
+\mathit{subject \space to} \space
+\sum_{j=1}^{n}x_j r_{ij}\geq T_i \space \forall \space i}{Minimize
+\sum^n(xi*ci) subject to \sum^n(j*rij) \ge Ti for all i}
 
 where \eqn{x_i}{xi} is a binary decision variable specifying whether planning
 unit \eqn{i}{i} has been selected (1) or not (0), \eqn{c_i}{ci} is the cost

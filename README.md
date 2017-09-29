@@ -39,7 +39,7 @@ devtools::install_github("prioritizr/prioritizr")
 Citation
 --------
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.2.2. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 1.0.2.3. https://github.com/prioritizr/prioritizr.
 
 Example usage
 -------------
@@ -286,7 +286,7 @@ s4 <- solve(p4)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.647064e+03, 519 iterations, 0.02 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -313,7 +313,7 @@ s4 <- solve(p4)
     ##   MIR: 1
     ##   Zero half: 23
     ## 
-    ## Explored 67 nodes (1856 simplex iterations) in 0.25 seconds
+    ## Explored 67 nodes (1856 simplex iterations) in 0.26 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 6469.17 7072.06 11466.1 

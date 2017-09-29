@@ -43,10 +43,11 @@ phylogenetic problem) can be stated mathematically, for \eqn{n}{n} planning
 units and \eqn{m}{m} conservation
 features, as:
 
-\deqn{Max. \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j \space
-s.t. \space \sum_{i=1}^{n}x_i c_i \leq B \space \& \space
-\sum_{j=1}^{n} x_j r_{ij}\geq y_iT_i \space \forall \space i}{Max.
--a\sum^n (xi*ci) + \sum^m (yi) s.t. \sum^n (xi*ci) \le B \& \sum^n
+\deqn{\mathit{Maximize} \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j
+\space \mathit{subject \space to} \space
+\sum_{i=1}^{n}x_i c_i \leq B \space \& \space
+\sum_{j=1}^{n} x_j r_{ij}\geq y_iT_i \space \forall \space i}{Maximize
+-a\sum^n (xi*ci) + \sum^m (yi) subject to \sum^n (xi*ci) \le B \& \sum^n
 (xj*rij) \ge yi*Ti for all i}
 
 where \eqn{x_i}{xi} is a binary decision variable specifying whether

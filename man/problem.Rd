@@ -88,7 +88,8 @@ spatial distribution of the planning units and their costs, as well as
 the features (eg. species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
 customized to meet specific goals using \code{\link{objectives}},
-\code{\link{targets}}, \code{\link{constraints}}, and \code{\link{penalties}}.
+\code{\link{targets}}, \code{\link{constraints}}, and
+\code{\link{penalties}}.
 }
 \details{
 The basic prioritizr workflow starts with formulating the
@@ -124,30 +125,33 @@ The goal of the reserve design exercise is then to optimize the trade-off
 between conservation benefit and socioeconomic cost, i.e. to get the most
 benefit for your limited conservation funds. In general, the goal of an
 optimization problem is to minimize an objective function over a set of
-decision variables, subject to a series of constraints. The decision variables
+decision variables, subject to a series of constraints. The decision
+variables
 are what we control, usually there is one binary variable for each planning
 unit specifying whether or not to protect that unit (but other approaches are
 available, see \code{\link{decisions}}). The constraints can be thought
 of as rules that need to be followed, for example, that the reserve must
 stay within a certain budget or meet the representation targets.
 
-Integer linear programming (ILP) is the subset of optimization algorithms used in
-this package to solve reserve design problems. The general form of an ILP problem
-can be expressed in matrix notation as:
+Integer linear programming (ILP) is the subset of optimization algorithms
+used in this package to solve reserve design problems. The general form of
+an ILP problem can be expressed in matrix notation as:
 
-\deqn{\mathit{Minimize}\: \mathbf{c}^{\mathbf{T}}\mathbf{x} \: \mathit{subject\, to}
- \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =, or \le b}
+\deqn{\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
+\mathit{subject \space to} \space
+\mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =,
+or \le b}
 
 Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
-vectors of known coefficients, and \emph{A} is the \strong{constraint matrix}.
-The final term specifies a series of \strong{structural constaints} where
-relational operators for the constraint can be either \eqn{\ge, =, or \le}
-the coefficients. For example, in the minimum set cover problem, \emph{c}
-would be a vector of costs for each planning unit, \emph{b} a vector of targets
-for each conservation feature, the relational operator would be \eqn{\ge} for
-all features, and \emph{A} would be the representation matrix with
-\eqn{A_{ij}=r_{ij}}{Aij = rij}, the representation level of feature \emph{i}
-in planning unit \emph{j}.
+vectors of known coefficients, and \emph{A} is the \strong{constraint
+matrix}. The final term specifies a series of \strong{structural constaints}
+where relational operators for the constraint can be either \eqn{\ge, =, or
+\le} the coefficients. For example, in the minimum set cover problem,
+\emph{c} would be a vector of costs for each planning unit, \emph{b} a
+vector of targets for each conservation feature, the relational operator
+would be \eqn{\ge} for all features, and \emph{A} would be the
+representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
+representation level of feature \emph{i} in planning unit \emph{j}.
 }
 \examples{
 # create problem using raster planning unit data

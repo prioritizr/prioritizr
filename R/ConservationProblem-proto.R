@@ -250,11 +250,19 @@ ConservationProblem <- pproto(
       return(x$repr())
     }, character(1))
     cs <- round(range(self$planning_unit_costs()), 5)
+    f <- self$feature_names()
+    nf <- length(f)
+    if (length(f) <= 4) {
+      f <- f[seq_len(min(length(f), 4))]
+    } else {
+      f <- c(f[seq_len(min(length(f), 3))], "...")
+    }
+    f <- paste0(paste(f, collapse = ", "), " (", nf, " features)")
     message(paste0("Conservation Problem",
     "\n  planning units: ", class(self$data$cost)[1], " (",
       self$number_of_planning_units(), " units)",
     "\n  cost:           min: ", cs[1], ", max: ", cs[2],
-    "\n  features:       ", paste(self$feature_names(), collapse = ", "),
+    "\n  features:       ", f,
     "\n  objective:      ", r[1],
     "\n  targets:        ", r[2],
     "\n  decisions:      ", d[2],
