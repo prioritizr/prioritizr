@@ -12,6 +12,7 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
   std::string modelsense = Rcpp::as<std::string>(l["modelsense"]);
   std::size_t number_of_features = Rcpp::as<std::size_t>(l["number_of_features"]);
   std::size_t number_of_planning_units = Rcpp::as<std::size_t>(l["number_of_planning_units"]);
+  std::vector<std::size_t> planning_unit_indices = Rcpp::as<std::vector<std::size_t>>(l["planning_unit_indices"]);
   std::vector<std::size_t> A_i = Rcpp::as<std::vector<std::size_t>>(l["A_i"]);
   std::vector<std::size_t> A_j = Rcpp::as<std::vector<std::size_t>>(l["A_j"]);
   std::vector<double> A_x = Rcpp::as<std::vector<double>>(l["A_x"]);
@@ -25,8 +26,8 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
   std::vector<std::string> row_ids = Rcpp::as<std::vector<std::string>>(l["row_ids"]);
   std::vector<std::string> col_ids = Rcpp::as<std::vector<std::string>>(l["col_ids"]);
   OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(modelsense,number_of_features, number_of_planning_units,
-                                                   A_i,A_j,A_x,obj,lb,ub,rhs,sense,vtype,row_ids,col_ids,
-                                                   compressed_formulation);
+                      planning_unit_indices, A_i,A_j, A_x, obj, lb, ub, rhs,
+                      sense, vtype, row_ids, col_ids, compressed_formulation);
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x, true);
   return(ptr);
 }
@@ -44,6 +45,12 @@ std::size_t rcpp_get_optimization_problem_nrow(SEXP x) {
 // [[Rcpp::export]]
 std::size_t rcpp_get_optimization_problem_ncell(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->ncell());
+}
+
+// [[Rcpp::export]]
+std::vector<std::size_t> rcpp_get_optimization_problem_planning_unit_indices(
+                                                                      SEXP x) {
+  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_planning_unit_indices);
 }
 
 // [[Rcpp::export]]
@@ -65,7 +72,6 @@ std::size_t rcpp_get_optimization_problem_number_of_planning_units(SEXP x) {
 std::size_t rcpp_get_optimization_problem_number_of_features(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_number_of_features);
 }
-
 
 // [[Rcpp::export]]
 std::vector<std::string> rcpp_get_optimization_problem_vtype(SEXP x) {
@@ -110,4 +116,58 @@ std::vector<std::string> rcpp_get_optimization_problem_row_ids(SEXP x) {
 // [[Rcpp::export]]
 bool rcpp_get_optimization_problem_compressed_formulation(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_compressed_formulation);
+}
+
+// extract multiple elements from a vector
+template <typename T1, typename T2>
+T1 extract_elements(T1 x, T2 &indices) {
+  // initialize new vector
+  T1 r(indices.size());
+  // fill new vector
+  for (std::size_t i = 0; i < indices.size(); ++i)
+    r[i] = x[indices[i]];
+  // return new vector
+  return r;
+}
+
+// wrapper around R's RNG so that users can use set.seed() in R
+// console to make analyses reproducible
+// obtained from here: http://gallery.rcpp.org/articles/stl-random-shuffle/
+inline int rand_wrapper(const int n) { return floor(unif_rand()*n); }
+
+// [[Rcpp::export]]
+void rcpp_set_optimization_problem_shuffled(SEXP x) {
+  // initialization
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr =
+    Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  // extract planning unit indices
+  std::vector<std::size_t> new_order(ptr->ncol());
+  std::iota(new_order.begin(), new_order.end(), 0);
+  // shuffle planning units
+  std::random_shuffle(new_order.begin(), new_order.end(), rand_wrapper);
+  // update data in optimization problem
+  ptr->_obj = extract_elements<std::vector<double>,
+                               std::vector<std::size_t>>(ptr->_obj, new_order);
+  ptr->_col_ids = extract_elements<std::vector<std::string>,
+                                   std::vector<std::size_t>>(ptr->_col_ids,
+                                                             new_order);
+  ptr->_vtype  = extract_elements<std::vector<std::string>,
+                                  std::vector<std::size_t>>(ptr->_vtype,
+                                                            new_order);
+  ptr->_lb = extract_elements<std::vector<double>,
+                              std::vector<std::size_t>>(ptr->_lb, new_order);
+  ptr->_ub = extract_elements<std::vector<double>,
+                              std::vector<std::size_t>>(ptr->_ub, new_order);
+  Rcpp::IntegerVector new_j = Rcpp::match(
+    Rcpp::IntegerVector(ptr->_A_j.begin(), ptr->_A_j.end()),
+    Rcpp::IntegerVector(new_order.begin(), new_order.end())) - 1;
+  ptr->_A_j = std::vector<std::size_t>(new_j.begin(), new_j.end());
+  Rcpp::IntegerVector new_pu = Rcpp::match(
+    Rcpp::IntegerVector(ptr->_planning_unit_indices.begin(),
+                        ptr->_planning_unit_indices.end()),
+    Rcpp::IntegerVector(new_order.begin(), new_order.end())) - 1;
+  ptr->_planning_unit_indices = std::vector<std::size_t>(new_pu.begin(),
+                                                         new_pu.end());
+  // finished
+  return;
 }

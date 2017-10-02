@@ -1,3 +1,8 @@
+# prioritizr 1.0.2.4-1 (experimental)
+
+- `solve` will now randomly shuffle variables in a `OptimizationProblem` object
+  prior to solving it.
+
 # prioritizr 1.0.2.3 (unreleased)
 
 - `ConservationProblem$print()` now only prints the first three species names

@@ -63,6 +63,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_get_optimization_problem_planning_unit_indices
+std::vector<std::size_t> rcpp_get_optimization_problem_planning_unit_indices(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_planning_unit_indices(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_get_optimization_problem_planning_unit_indices(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_get_optimization_problem_A
 Rcpp::List rcpp_get_optimization_problem_A(SEXP x);
 RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_A(SEXP xSEXP) {
@@ -204,6 +215,16 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_get_optimization_problem_compressed_formulation(x));
     return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_set_optimization_problem_shuffled
+void rcpp_set_optimization_problem_shuffled(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_set_optimization_problem_shuffled(x);
+    return R_NilValue;
 END_RCPP
 }
 // rcpp_add_rij_data

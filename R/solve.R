@@ -81,13 +81,16 @@ methods::setMethod(
     # assign solver
     if (inherits(a$solver, "Waiver"))
       a <- add_default_solver(a)
-    # compile and solve optimisation problem
+    # compile problem
     opt <- compile.ConservationProblem(a, ...)
-    sol <- solve(opt, a$solver)[seq_len(opt$number_of_planning_units())]
+    # shuffle planning units
+    opt$shuffle_columns()
+    # solve optimisation
+    sol <- solve(opt, a$solver)[opt$planning_unit_indices() + 1]
     # check that solution is valid
     if (is.null(sol)) {
       stop("conservation problem is infeasible")
-     }
+    }
     # extract solution and return Raster or Spatial object
     pu <- a$data$cost
     if (inherits(pu, "Raster")) {

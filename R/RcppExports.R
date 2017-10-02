@@ -21,6 +21,10 @@ rcpp_get_optimization_problem_ncell <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_ncell`, x)
 }
 
+rcpp_get_optimization_problem_planning_unit_indices <- function(x) {
+    .Call(`_prioritizr_rcpp_get_optimization_problem_planning_unit_indices`, x)
+}
+
 rcpp_get_optimization_problem_A <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_A`, x)
 }
@@ -71,6 +75,10 @@ rcpp_get_optimization_problem_row_ids <- function(x) {
 
 rcpp_get_optimization_problem_compressed_formulation <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_compressed_formulation`, x)
+}
+
+rcpp_set_optimization_problem_shuffled <- function(x) {
+    invisible(.Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x))
 }
 
 rcpp_add_rij_data <- function(x, rij, compressed_formulation) {

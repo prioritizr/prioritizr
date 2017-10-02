@@ -11,6 +11,9 @@ bool rcpp_add_rij_data(SEXP x, arma::sp_mat rij, bool compressed_formulation) {
   // assign indices
   ptr->_number_of_features = static_cast<std::size_t>(rij.n_rows);
   ptr->_number_of_planning_units = static_cast<std::size_t>(rij.n_cols);
+  ptr->_planning_unit_indices.resize(ptr->_number_of_planning_units);
+  std::iota(ptr->_planning_unit_indices.begin(),
+            ptr->_planning_unit_indices.end(), 0);
   ptr->_compressed_formulation = compressed_formulation;
   // add rij data and preliminary constraints
   if (compressed_formulation) {

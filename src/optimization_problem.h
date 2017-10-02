@@ -11,6 +11,7 @@ class OPTIMIZATIONPROBLEM
     // constructor
     OPTIMIZATIONPROBLEM(){};
     OPTIMIZATIONPROBLEM(std::size_t nrow, std::size_t ncol, std::size_t ncell) {
+      _planning_unit_indices.reserve(ncol);
       _A_i.reserve(ncell);
       _A_j.reserve(ncell);
       _A_x.reserve(ncell);
@@ -26,6 +27,7 @@ class OPTIMIZATIONPROBLEM
     OPTIMIZATIONPROBLEM(std::string modelsense,
                         std::size_t number_of_features,
                         std::size_t number_of_planning_units,
+                        std::vector<std::size_t> planning_unit_indices,
                         std::vector<std::size_t> A_i,
                         std::vector<std::size_t> A_j,
                         std::vector<double> A_x,
@@ -41,6 +43,7 @@ class OPTIMIZATIONPROBLEM
                         _modelsense(modelsense),
                         _number_of_features(number_of_features),
                         _number_of_planning_units(number_of_planning_units),
+                        _planning_unit_indices(planning_unit_indices),
                         _A_i(A_i),
                         _A_j(A_j),
                         _A_x(A_x),
@@ -61,7 +64,7 @@ class OPTIMIZATIONPROBLEM
 
     std::size_t _number_of_features;
     std::size_t _number_of_planning_units;
-
+    std::vector<std::size_t> _planning_unit_indices;
     std::vector<std::size_t> _A_i;
     std::vector<std::size_t> _A_j;
     std::vector<double> _A_x;
