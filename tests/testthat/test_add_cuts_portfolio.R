@@ -58,6 +58,9 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   s <- suppressWarnings(tryCatch(solve(p),
                 warning = function(w) return(list(solve(p), w$message))))
+  print("here1")
+  print(s)
+  print("here2")
   warn <- s[[2]]
   s <- s[[1]]
   # output checks
