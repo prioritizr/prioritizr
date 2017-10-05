@@ -63,6 +63,11 @@ test_that("solve (number_solutions outside limit)", {
   print("here2")
   warn <- s[[2]]
   s <- s[[1]]
+  print("here3")
+  print(s)
+  print("here4")
+  print(warn)
+  print("here5")
   # output checks
   expect_is(s, "RasterLayer")
   expect_true(raster::nlayers(s) == 1)
