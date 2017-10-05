@@ -41,6 +41,7 @@ test_that("solve (number_solutions within feasible limit)", {
 
 test_that("solve (number_solutions outside limit)", {
   skip_on_cran()
+  skip_on_travis()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
@@ -58,16 +59,8 @@ test_that("solve (number_solutions outside limit)", {
   # solve problem
   s <- suppressWarnings(tryCatch(solve(p),
                 warning = function(w) return(list(solve(p), w$message))))
-  print("here1")
-  print(s)
-  print("here2")
   warn <- s[[2]]
   s <- s[[1]]
-  print("here3")
-  print(s)
-  print("here4")
-  print(warn)
-  print("here5")
   # output checks
   expect_is(s, "RasterLayer")
   expect_true(raster::nlayers(s) == 1)

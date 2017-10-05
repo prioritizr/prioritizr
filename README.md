@@ -40,7 +40,7 @@ devtools::install_github("prioritizr/prioritizr")
 Citation
 --------
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.0.1. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.0.2. https://github.com/prioritizr/prioritizr.
 
 Example usage
 -------------
@@ -163,7 +163,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.001969099
+    ## 0.002454042
 
 ``` r
 # extract message returned from solver
@@ -270,7 +270,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 1
     ## 
-    ## Explored 0 nodes (278 simplex iterations) in 0.04 seconds
+    ## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -338,7 +338,7 @@ s4 <- solve(p4)
     ##   MIR: 1
     ##   Zero half: 23
     ## 
-    ## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
+    ## Explored 67 nodes (1856 simplex iterations) in 0.16 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 6469.17 7072.06 11466.1 
