@@ -16,6 +16,7 @@ test_that("compile", {
 })
 
 test_that("solve", {
+  skip_on_cran()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
@@ -39,6 +40,7 @@ test_that("solve", {
 })
 
 test_that("solve (no duplicates)", {
+  skip_on_cran()
   # create data
   set.seed(500)
   cost <- raster::raster(matrix(c(1, 1, 0.5, NA), ncol = 2))
@@ -63,6 +65,7 @@ test_that("solve (no duplicates)", {
 })
 
 test_that("solve (parallel processing)", {
+  skip_on_cran()
   # create data
   set.seed(500)
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))

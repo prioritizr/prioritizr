@@ -18,6 +18,7 @@ test_that("compile", {
 })
 
 test_that("solve (number_solutions within feasible limit)", {
+  skip_on_cran()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
   features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 2)),
@@ -39,6 +40,7 @@ test_that("solve (number_solutions within feasible limit)", {
 })
 
 test_that("solve (number_solutions outside limit)", {
+  skip_on_cran()
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),

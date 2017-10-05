@@ -1,3 +1,8 @@
+# prioritizr 2.0.0.1 (unreleased)
+
+- Skip `add_cuts_portfolio` and `add_shuffle_portfolio` tests on 
+  CRAN.
+
 # prioritizr 2.0.0.0 (unreleased)
 
 - This version breaks compatibility with previous releases because
