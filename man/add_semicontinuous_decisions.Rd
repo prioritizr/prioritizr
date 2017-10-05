@@ -11,26 +11,27 @@ add_semicontinuous_decisions(x, upper_limit)
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{upper_limit}{\code{numeric} value specifying the maximum proportion
-of a planning unit that can be reserved (eg. set to 0.8 for 80 \%).}
+of a planning unit that can be reserved (e.g. set to 0.8 for 80 \%).}
 }
 \value{
 \code{\link{Decision-class}} object.
 }
 \description{
-Add a semi-continuous decision to a conservation planning \code{\link{problem}}.
-This is a relaxed decision where a part of a planning unit can be prioritized,
-as opposed to the entire planning unit, which is the default function
-(see \code{\link{add_binary_decisions}}).
-This decision is similar to the \code{\link{add_proportion_decisions}} function
-except that it has an upper bound parameter. By default, the decision can
-range from prioritizing none (0 \%) to all (100 \%) of a planning unit.
-However, a upperbound can be specified to ensure that at most only a fraction (eg. 80 \%)
-of a planning unit can be preserved. This type of decision may be useful
-when it is not practical to conserve the entire planning unit.
+Add a semi-continuous decision to a conservation planning
+\code{\link{problem}}. This is a relaxed decision where a part of a planning
+unit can be prioritized, as opposed to the entire planning unit, which is
+the default function (see \code{\link{add_binary_decisions}}).
+This decision is similar to the \code{\link{add_proportion_decisions}}
+function except that it has an upper bound parameter. By default, the
+decision can range from prioritizing none (0 \%) to all (100 \%) of a
+planning unit. However, a upper bound can be specified to ensure that at most
+only a fraction (e.g. 80 \%) of a planning unit can be preserved. This type
+of decision may be useful when it is not practical to conserve the entire
+planning unit.
 }
 \details{
 Conservation planning problems involve making decisions on planning units.
-These decisions are then associated with actions (eg. turning a planning
+These decisions are then associated with actions (e.g. turning a planning
 unit into a protected area). If no decision is explicitly added to a problem,
 then the binary decision class will be used by default.Only a single decision
 should be added to a
@@ -63,7 +64,5 @@ plot(s, main = c("default (binary)", "binary", "proportion",
 
 }
 \seealso{
-\code{\link{decisions}}, \code{\link{add_binary_decisions}},
-\code{\link{add_proportion_decisions}}, \code{\link{constraints}},
-\code{\link{problem}}, \code{\link{targets}}, \code{\link{objectives}}
+\code{\link{decisions}}.
 }

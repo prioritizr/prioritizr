@@ -86,7 +86,7 @@
     <p>Create a systematic conservation planning problem. This function is used to
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
-the features (eg. species, ecosystems) that need to be conserved. After
+the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this <code>ConservationProblem-class</code> object, it can be
 customized to meet specific goals using <code><a href='objectives.html'>objectives</a></code>,
 <code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and
@@ -186,7 +186,7 @@ unit (columns). Only used when <code>x</code> is a numeric vector of costs.</p><
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The basic prioritizr workflow starts with formulating the
+    <p>The basic prioritizr work flow starts with formulating the
 <code>problem</code>, then adding <code>objectives</code> and <code>targets</code>,
 as well as <code>constraints</code> and <code>penalties</code> as needed.
 Alternative decision formats can be specified using the
@@ -232,7 +232,7 @@ an ILP problem can be expressed in matrix notation as:
 \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
 <p>Where <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are
 vectors of known coefficients, and <em>A</em> is the <strong>constraint
-matrix</strong>. The final term specifies a series of <strong>structural constaints</strong>
+matrix</strong>. The final term specifies a series of <strong>structural constraints</strong>
 where relational operators for the constraint can be either \(\ge, =, or
 \le\) the coefficients. For example, in the minimum set cover problem,
 <em>c</em> would be a vector of costs for each planning unit, <em>b</em> a
@@ -243,8 +243,10 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='targets.html'>targets</a></code>, <code><a href='decisions.html'>decisions</a></code>, <code><a href='solvers.html'>solvers</a></code>.</p>
+    <p><code><a href='constraints.html'>constraints</a></code>,  <code><a href='decisions.html'>decisions</a></code>,
+ <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
+ <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -305,7 +307,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -438,12 +440,13 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster data"</span>)
 
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygon data"</span>)
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"line data"</span>)
-<span class='fu'>lines</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'>lines</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"point data"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><img src='problem-5.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"point data"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+       <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>)</div><img src='problem-5.png' alt='' width='540' height='400' /><div class='input'>
 
 </div></pre>
   </div>

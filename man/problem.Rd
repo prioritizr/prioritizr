@@ -85,14 +85,14 @@ A \code{\link{ConservationProblem-class}} object containing the
 Create a systematic conservation planning problem. This function is used to
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
-the features (eg. species, ecosystems) that need to be conserved. After
+the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
 customized to meet specific goals using \code{\link{objectives}},
 \code{\link{targets}}, \code{\link{constraints}}, and
 \code{\link{penalties}}.
 }
 \details{
-The basic prioritizr workflow starts with formulating the
+The basic prioritizr work flow starts with formulating the
 \code{problem}, then adding \code{objectives} and \code{targets},
 as well as \code{constraints} and \code{penalties} as needed.
 Alternative decision formats can be specified using the
@@ -144,7 +144,7 @@ or \le b}
 
 Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
 vectors of known coefficients, and \emph{A} is the \strong{constraint
-matrix}. The final term specifies a series of \strong{structural constaints}
+matrix}. The final term specifies a series of \strong{structural constraints}
 where relational operators for the constraint can be either \eqn{\ge, =, or
 \le} the coefficients. For example, in the minimum set cover problem,
 \emph{c} would be a vector of costs for each planning unit, \emph{b} a
@@ -196,17 +196,20 @@ par(mfrow=c(2,2))
 plot(s[[1]], main = "raster data")
 
 plot(s[[2]], main = "polygon data")
-plot(s[[2]][s[[2]]$solution == 1, ], col = "darkgreen", add = TRUE)
+plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s[[3]], main = "line data")
-lines(s[[3]][s[[3]]$solution == 1, ], col = "darkgreen", lwd = 2)
+lines(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", lwd = 2)
 
 plot(s[[4]], main = "point data", pch = 19)
-points(s[[4]][s[[4]]$solution == 1, ], col = "darkgreen", cex = 2, pch = 19)
+points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", cex = 2,
+       pch = 19)
 }
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{objectives}},
- \code{\link{targets}}, \code{\link{decisions}}, \code{\link{solvers}}.
+\code{\link{constraints}},  \code{\link{decisions}},
+ \code{\link{objectives}} \code{\link{penalties}},
+ \code{\link{portfolios}}, \code{\link{problem}},
+ \code{\link{solvers}}, \code{\link{targets}}.
 }

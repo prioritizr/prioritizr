@@ -56,7 +56,7 @@ s <- solve(p)
 print(s)
 
 # plot solution
-plot(s, main="solution")
+plot(s, main = "solution")
 }
 
 }

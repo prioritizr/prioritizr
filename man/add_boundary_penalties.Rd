@@ -39,14 +39,14 @@ asymmetric relationships are required, use the
 }
 \description{
 Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves. Uses shared boundary 
-length as a measure of connectivity, equivelant to the boundary length modifier 
-(BLM) in \href{http://marxan.net}{Marxan}. 
-Boundary data is calculated automatically unless the planning units in 
-\code{x} are stored in a \code{data.frame}, in which case boundary data must 
-be added as a \code{matrix} or \code{data.frame}. This function can only be used 
-for symmetric relationships between planning units; for asymmetric relationships 
-use the \code{\link{add_connectivity_penalties}} function.
+selected planning units together into contiguous reserves. Uses shared
+boundary length as a measure of connectivity, equivalent to the boundary
+length modifier  (BLM) in \href{http://marxan.net}{Marxan}.
+Boundary data is calculated automatically unless the planning units in
+\code{x} are stored in a \code{data.frame}, in which case boundary data must
+be added as a \code{matrix} or \code{data.frame}. This function can only be
+used for symmetric relationships between planning units; for asymmetric
+relationships use the \code{\link{add_connectivity_penalties}} function.
 }
 \examples{
 # create basic problem
@@ -72,6 +72,5 @@ plot(s, main = c("basic solution", "small penalties", "high penalties"))
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{add_connectivity_penalties}},
 \code{\link{penalties}}.
 }

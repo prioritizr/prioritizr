@@ -67,7 +67,7 @@ test_that("solve", {
   # solve problem
   s <- solve(p)
   # check that all selected planning units at least one neighbor
-  n_neighbors <- vapply(rgeos::gIntersects(s[s$solution == 1, ], byid = TRUE,
+  n_neighbors <- vapply(rgeos::gIntersects(s[s$solution_1 == 1, ], byid = TRUE,
                                            returnDense = FALSE),
                         length,
                         integer(1))

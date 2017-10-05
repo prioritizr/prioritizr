@@ -30,6 +30,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_optimization_problem_as_list
+Rcpp::List rcpp_optimization_problem_as_list(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_optimization_problem_as_list(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_get_optimization_problem_ncol
 std::size_t rcpp_get_optimization_problem_ncol(SEXP x);
 RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_ncol(SEXP xSEXP) {
@@ -203,6 +214,17 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_get_optimization_problem_compressed_formulation(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_set_optimization_problem_shuffled
+Rcpp::IntegerVector rcpp_set_optimization_problem_shuffled(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_set_optimization_problem_shuffled(x));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -432,6 +454,18 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_branch_matrix(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_forbid_solution
+bool rcpp_forbid_solution(SEXP x, Rcpp::IntegerVector solution);
+RcppExport SEXP _prioritizr_rcpp_forbid_solution(SEXP xSEXP, SEXP solutionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type solution(solutionSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_forbid_solution(x, solution));
     return rcpp_result_gen;
 END_RCPP
 }

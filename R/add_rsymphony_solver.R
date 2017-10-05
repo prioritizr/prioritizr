@@ -4,7 +4,8 @@ NULL
 #' Add a SYMPHONY solver with Rsymphony
 #'
 #' Specify the use of a SYMPHONY algorithm to solve a
-#' \code{\link{ConservationProblem-class}} object. Requires the \code{Rsymphony} package.
+#' \code{\link{ConservationProblem-class}} object. Requires the
+#' \code{Rsymphony} package.
 #'
 #' @details
 #'     \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
@@ -23,7 +24,7 @@ NULL
 #'   function bounds is less than the gap times the upper bound. For example, a
 #'   value of 0.01 will result in the optimizer stopping when the difference
 #'   between the bounds is 1 percent of the upper bound. But for other solvers
-#'   (eg. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
+#'   (e.g. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
 #'   deviance from the optimal objective. For example, solving a
 #'   minimum set objective problem with a gap of 5 will cause the solver
 #'   to terminate when the cost of the solution is within 5 cost units
@@ -40,66 +41,31 @@ NULL
 #'   solution is not an arbitrary solution, rather it is derived from the
 #'   relaxed solution, and is therefore often reasonably close to optimality.
 #'
-#' @param verbosity \code{integer} how verbose should the solver be when
-#'   reporting progress on solving the problem?
+#' @param verbose \code{logical} should information be printed while solving
+#'  optimization problems? Defaults to \code{TRUE}.
 #'
-#' @param ... arguments passed to the default solver.
-#'
-#' @seealso \code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_lpsymphony_solver}}
+#' @seealso \code{\link{solvers}}.
 #'
 #' @examples
 #' \donttest{
-#' # load packages
-#' require(gurobi)
-#' require(lpsymphony)
-#' require(Rsymphony)
-#'
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
-#' # create basic problem
+#' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1)
+#'   add_relative_targets(0.1) %>%
+#'   add_binary_decisions()
 #'
-#' # create vector to store plot titles
-#' titles <- c()
-#'
-#' # create empty stack to store solutions
-#' s <- stack()
-#'
-#' # create problem with added rsymphony solver and limit the time spent
-#' # searching for the optimal solution to 2 seconds
+#' # if the package is installed then add solver and generate solution
 #' if (requireNamespace("Rsymphony", quietly = TRUE)) {
-#'   titles <- c(titles, "Rsymphony (2s)")
-#'   p1 <- p %>% add_rsymphony_solver(time_limit = 2)
-#'   s <- addLayer(s, solve(p1))
-#' }
+#'   # specify solver and generate solution
+#'   s <- p %>% add_rsymphony_solver(time_limit = 10) %>%
+#'              solve()
 #'
-#' # create problem with added rsymphony solver and limit the time spent
-#' # searching for the optimal solution to 5 seconds
-#' if (requireNamespace("Rsymphony", quietly = TRUE)) {
-#'   titles <- c(titles, "Rsymphony (5s)")
-#'   p2 <- p %>% add_rsymphony_solver(time_limit = 5)
-#'   s <- addLayer(s, solve(p2))
+#'   # plot solutions
+#'   plot(stack(sim_pu_raster, s), main = c("planning units", "solution"))
 #' }
-#'
-#' # if the gurobi is installed: create problem with added gurobi solver
-#' if (requireNamespace("gurobi", quietly = TRUE)) {
-#'   titles <- c(titles, "gurobi (5s)")
-#'   p3 <- p %>% add_gurobi_solver(gap = 0.1, presolve = 2, time_limit = 5)
-#'   s <- addLayer(s, solve(p3))
-#' }
-#'
-#' # if the lpsymphony is installed: create problem with added lpsymphony solver
-#' if (requireNamespace("lpsymphony", quietly = TRUE)) {
-#'   titles <- c(titles, "lpsymphony")
-#'   p4 <- p %>% add_lpsymphony_solver(gap = 0.1, time_limit = 5)
-#'   s <- addLayer(s, solve(p4))
-#' }
-#'
-#' # plot solutions
-#' plot(s, main = titles)
 #' }
 #'
 #' @name add_rsymphony_solver
@@ -110,18 +76,20 @@ methods::setClass("RsymphonySolver", contains = "Solver")
 
 #' @rdname add_rsymphony_solver
 #' @export
-add_rsymphony_solver <- function(x, gap=0.1, time_limit=-1, first_feasible=0,
-                                 verbosity=1) {
+add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
+                                 first_feasible = 0, verbose = TRUE) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(gap))), assertthat::is.scalar(gap), isTRUE(gap <= 1),
+                          isTRUE(all(is.finite(gap))),
+                          assertthat::is.scalar(gap), isTRUE(gap <= 1),
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.scalar(time_limit),
-                          assertthat::is.count(time_limit) || isTRUE(time_limit == -1),
-                          isTRUE(all(is.finite(verbosity))), assertthat::is.count(abs(verbosity)),
-                          isTRUE(verbosity <= 1), isTRUE(verbosity >= -2),
+                          assertthat::is.count(time_limit) || isTRUE(time_limit
+                            == -1),
+                          assertthat::is.flag(verbose),
                           assertthat::is.scalar(first_feasible),
-                          isTRUE(first_feasible == 1 || isTRUE(first_feasible == 0)),
+                          isTRUE(first_feasible == 1 || isTRUE(first_feasible
+                            == 0)),
                           requireNamespace("Rsymphony", quietly = TRUE))
   # add solver
   x$add_solver(pproto(
@@ -129,12 +97,11 @@ add_rsymphony_solver <- function(x, gap=0.1, time_limit=-1, first_feasible=0,
     Solver,
     name = "Rsymphony",
     parameters = parameters(
-      integer_parameter("verbosity", verbosity, lower_limit = -2L,
-                        upper_limit = 1L),
       proportion_parameter("gap", gap),
       integer_parameter("time_limit", time_limit, lower_limit = -1,
                         upper_limit = .Machine$integer.max),
-      binary_parameter("first_feasible", first_feasible)),
+      binary_parameter("first_feasible", first_feasible),
+      binary_parameter("verbose", verbose)),
     solve = function(self, x) {
       model <- list(
         obj = x$obj(),
@@ -146,13 +113,23 @@ add_rsymphony_solver <- function(x, gap=0.1, time_limit=-1, first_feasible=0,
                       upper = list(ind = seq_along(x$ub()), val = x$ub())),
         max = x$modelsense() == "max")
       p <- as.list(self$parameters)
+      p$verbosity <- -1
+      if (!p$verbose)
+        p$verbosity <- -2
+      p <- p[names(p) != "verbose"]
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       names(p)[which(names(p) == "gap")] <- "gap_limit"
       p$first_feasible <- as.logical(p$first_feasible)
-      s <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
-      if (names(s$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+      start_time <- Sys.time()
+      x <- do.call(Rsymphony::Rsymphony_solve_LP, append(model, p))
+      end_time <- Sys.time()
+      if (is.null(x$solution) ||
+          names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
-      return(s$solution)
+      return(list(x = x$solution, objective = x$objval,
+                  status = as.character(x$status),
+                  runtime = as.double(end_time - start_time,
+                                      format = "seconds")))
     }))
 }

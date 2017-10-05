@@ -84,7 +84,7 @@
 
     
     <p>Conservation planning problems involve making decisions on planning units.
-These decisions are then associated with actions (eg. turning a planning
+These decisions are then associated with actions (e.g. turning a planning
 unit into a protected area). If no decision is explicitly added to a problem,
 then the binary decision class will be used by default.</p>
     
@@ -96,33 +96,34 @@ then the binary decision class will be used by default.</p>
 <code>ConservationProblem</code> object. <strong>If multiple decisions are added
 to a problem object, then the last one to be added will be used.</strong> Below is a
 list of decisions that can be added to a conservation planning problem.</p><dl class='dl-horizontal'>
-    <dt><code><a href='add_binary_decisions.html'>add_binary_decisions</a></code></dt><dd><p>Add a binary decision to a conservation
-  planning <code>problem</code>. This is the classic decision of either
-  prioritizing or not prioritizing a planning unit. Typically, this
+    <dt><code><a href='add_binary_decisions.html'>add_binary_decisions</a></code></dt><dd><p>Add a binary decision to a
+  conservation planning <code>problem</code>. This is the classic decision of
+  either prioritizing or not prioritizing a planning unit. Typically, this
   decision has the assumed action of buying the planning unit to include
   in a protected area network. If no decision is added to a problem object
   then this decision class will be used by default.</p></dd>
-    <dt><code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code></dt><dd><p>Add a proportion decision to a
-  conservation planning <code>problem</code>. This is a relaxed decision
+    <dt><code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code></dt><dd><p>Add a proportion decision to
+  a conservation planning <code>problem</code>. This is a relaxed decision
   where a part of a planning unit can be prioritized, as opposed to the
   default of the entire planning unit. Typically, this this decision
   has the assumed action of buying a fraction of a planning unit to
   include in a protected area network.</p></dd>
     <dt><code><a href='add_semicontinuous_decisions.html'>add_semicontinuous_decisions</a></code></dt><dd><p>Add a semi-continuous
-  decision to a conservation planning <code>problem</code>. This decision is similar to
-    <code>add_proportion_decision</code> except that it has an upper bound
-    parameter. By default, the decision can range from prioritizing
-    none (0 %) to all (100 %) of a planning unit. However, a upper
-    bound can be specified to ensure that at most only a fraction
-    (eg. 80 %) of a planning unit can be preserved. This type of
-    decision may be useful when it is not practical to conserve the
-    entire planning unit.</p></dd>
+  decision to a conservation planning <code>problem</code>. This decision is
+  similar to <code>add_proportion_decision</code> except that it has an upper bound
+  parameter. By default, the decision can range from prioritizing
+  none (0 %) to all (100 %) of a planning unit. However, a upper
+  bound can be specified to ensure that at most only a fraction
+  (e.g. 80 %) of a planning unit can be preserved. This type of
+  decision may be useful when it is not practical to conserve the
+  entire planning unit.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='problem.html'>problem</a></code>,
-<code><a href='targets.html'>targets</a></code>, <code><a href='objectives.html'>objectives</a></code></p>
+    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
+ <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
+ <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
   </div>

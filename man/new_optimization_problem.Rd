@@ -10,7 +10,15 @@ new_optimization_problem()
 \code{\link{OptimizationProblem-class}} object.
 }
 \description{
-Generate a new \code{\link{OptimizationProblem-class}} object.
+Generate a new empty \code{\link{OptimizationProblem-class}} object.
+}
+\examples{
+# create empty OptimizationProblem object
+x <- new_optimization_problem()
+
+# print new object
+print(x)
+
 }
 \seealso{
 \code{\link{OptimizationProblem-methods}}

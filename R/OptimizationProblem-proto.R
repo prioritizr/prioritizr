@@ -52,6 +52,8 @@ methods::setOldClass("OptimizationProblem")
 #'
 #' \code{x$col_ids()}
 #'
+#' \code{x$compressed_formulation()}
+#'
 #' @section Arguments:
 #' \describe{
 #' \item{ptr}{\code{externalptr} object.}
@@ -98,6 +100,13 @@ methods::setOldClass("OptimizationProblem")
 #'
 #' \item{row_ids}{\code{character} names describing each constraint (row) in
 #'   in the model matrix.}
+#'
+#' \code{x$compressed_formulation()} is the optimization problem formulated
+#'   using a compressed version of the rij matrix?
+#'
+#' \item{shuffle_columns}{randomly shuffle the columns in the problem. This
+#'   should almost never be called manually and only should only be called
+#'  after the optimization problem has been fully constructed.}
 #'
 #' }
 #'
@@ -174,4 +183,10 @@ OptimizationProblem <- pproto(
   },
   row_ids = function(self) {
     rcpp_get_optimization_problem_row_ids(self$ptr)
-  })
+  },
+  compressed_formulation = function(self) {
+    rcpp_get_optimization_problem_compressed_formulation(self$ptr)
+  },
+  shuffle_columns = function(self) {
+    rcpp_set_optimization_problem_shuffled(self$ptr)
+})

@@ -13,8 +13,7 @@ NULL
 #' @return \code{\link{ConservationProblem-class}} object with the constraint
 #'   added to it.
 #'
-#' @seealso \code{\link{constraints}} for all the available constraints,
-#'  and \code{\link{penalties}}.
+#' @seealso \code{\link{constraints}}.
 #'
 #' @examples
 #' # create basic problem

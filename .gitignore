@@ -11,6 +11,8 @@
 gurobi.log
 test.log
 check.log
+spell.log
+gp.log
 
 # system files
 .directory

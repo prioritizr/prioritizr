@@ -83,11 +83,11 @@
     </div>
 
     
-    <p>Set targets as a proportion (between 0 and 1) of the maximum level of 
-representation of features in the study area. The argument to <code>x</code> 
-should have a single value if all features have the same target. Otherwise, 
-the vector should have a value for each feature. In this case, targets are 
-assigned to features based on their position in the argument to <code>x</code> 
+    <p>Set targets as a proportion (between 0 and 1) of the maximum level of
+representation of features in the study area. The argument to <code>x</code>
+should have a single value if all features have the same target. Otherwise,
+the vector should have a value for each feature. In this case, targets are
+assigned to features based on their position in the argument to <code>x</code>
 and the <code>feature</code> when specifying the problem.</p>
     
 
@@ -124,18 +124,17 @@ argument to <code>targets</code> may refer to a column name.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that with the exception of the maximum cover problem, targets must 
+    <p>Note that with the exception of the maximum cover problem, targets must
 be added to a <code><a href='problem.html'>problem</a></code> or solving will return an error.</p>
     <p>Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems require 
-adding targets with the exception of the maximum cover problem 
-(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features 
+distribution that needs to be protected. All conservation planning problems
+require adding targets with the exception of the maximum cover problem
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
 in the solution and therefore does not require targets.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
-  <code><a href='problem.html'>problem</a></code>, <code><a href='add_absolute_targets.html'>add_absolute_targets</a></code>,  <code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code>.</p>
+    <p><code><a href='targets.html'>targets</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

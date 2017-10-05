@@ -84,10 +84,10 @@
 
     
     <p>Add constraints to a conservation problem to favor solutions that select
-planning units with high connectivity between them. Uses connectivity data 
-in the form of a <code>matrix</code> or <code>data.frame</code> object, where strength 
-of connectivity is a value such as the inverse distance between consecutive 
-planning units. This function can be used for symmetric or asymmetric 
+planning units with high connectivity between them. Uses connectivity data
+in the form of a <code>matrix</code> or <code>data.frame</code> object, where strength
+of connectivity is a value such as the inverse distance between consecutive
+planning units. This function can be used for symmetric or asymmetric
 relationships between planning units.</p>
     
 
@@ -109,12 +109,12 @@ same as the values in the <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>connectivity_data</th>
-      <td><p>A <code>data.frame</code> or <code>matrix</code> 
+      <td><p>A <code>data.frame</code> or <code>matrix</code>
 object that shows the strength of connectivity between consecutive planning
- units. If <code>connectivity_data</code> is a matrix, then rows and columns represent
- each planing unit and the cell values represent the connectivity between
- them. If <code>connectivity_data</code> is a <code>data.frame</code> the column names must
- be <code>"id1"</code>, <code>"id2"</code>, <code>"boundary"</code>, where each row
+ units. If <code>connectivity_data</code> is a matrix, then rows and columns
+ represent each planing unit and the cell values represent the connectivity
+ between them. If <code>connectivity_data</code> is a <code>data.frame</code> the column
+ names must be <code>"id1"</code>, <code>"id2"</code>, <code>"boundary"</code>, where each row
  shows the connectivity between two planning units (following the Marxan
  format). The data can be used to denote symmetric or asymmetric
  relationships between planning units.</p></td>
@@ -127,8 +127,7 @@ object that shows the strength of connectivity between consecutive planning
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='add_boundary_penalties.html'>add_boundary_penalties</a></code>,
- <code><a href='penalties.html'>penalties</a></code>.</p>
+    <p><code><a href='penalties.html'>penalties</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -204,7 +203,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 5015.66
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; Variable types: 0 continuous, 362 integer (362 binary)
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -218,18 +217,18 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;      0     0 4147.43940    0  362 5015.66327 4147.43940  17.3%     -    0s
 #&gt;      0     0 4183.62077    0  358 5015.66327 4183.62077  16.6%     -    0s
 #&gt;      0     0 4190.03640    0  358 5015.66327 4190.03640  16.5%     -    0s
-#&gt;      0     0 4219.41274    0  355 5015.66327 4219.41274  15.9%     -    1s
-#&gt;      0     0 4222.42529    0  357 5015.66327 4222.42529  15.8%     -    1s
-#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    1s
-#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    1s
-#&gt; H    0     0                    4877.7369961 4257.29074  12.7%     -    1s
-#&gt; H    0     0                    4733.2451668 4257.29074  10.1%     -    1s
-#&gt;      0     2 4257.46222    0  353 4733.24517 4257.46222  10.1%     -    1s
+#&gt;      0     0 4219.41274    0  355 5015.66327 4219.41274  15.9%     -    0s
+#&gt;      0     0 4222.42529    0  357 5015.66327 4222.42529  15.8%     -    0s
+#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    0s
+#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    0s
+#&gt; H    0     0                    4877.7369961 4257.29074  12.7%     -    0s
+#&gt; H    0     0                    4733.2451668 4257.29074  10.1%     -    0s
+#&gt;      0     2 4257.46222    0  353 4733.24517 4257.46222  10.1%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 2 nodes (1043 simplex iterations) in 1.32 seconds
+#&gt; Explored 2 nodes (1043 simplex iterations) in 0.70 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4733.25 4877.74 5015.66 
@@ -245,7 +244,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 5896.05
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; Variable types: 0 continuous, 362 integer (362 binary)
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -260,17 +259,17 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;      0     0 4667.52745    0  358 5896.05207 4667.52745  20.8%     -    0s
 #&gt;      0     0 4730.31629    0  355 5896.05207 4730.31629  19.8%     -    0s
 #&gt;      0     0 4733.44273    0  359 5896.05207 4733.44273  19.7%     -    0s
-#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    1s
-#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    1s
-#&gt;      0     2 4795.97881    0  355 5896.05207 4795.97881  18.7%     -    1s
-#&gt; H   57    47                    5711.4944876 4869.67737  14.7%  28.7    1s
-#&gt; H   99    66                    5673.3734453 4929.84612  13.1%  29.1    1s
-#&gt; H  138    73                    5575.6103195 4964.00523  11.0%  27.0    1s
+#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    0s
+#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    0s
+#&gt;      0     2 4795.97881    0  355 5896.05207 4795.97881  18.7%     -    0s
+#&gt; H   57    47                    5711.4944876 4869.67737  14.7%  28.7    0s
+#&gt; H   99    66                    5673.3734453 4929.84612  13.1%  29.1    0s
+#&gt; H  138    73                    5575.6103195 4964.00523  11.0%  27.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
 #&gt; 
-#&gt; Explored 164 nodes (5134 simplex iterations) in 1.44 seconds
+#&gt; Explored 164 nodes (5134 simplex iterations) in 0.78 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 5575.61 5673.37 5711.49 5896.05 
@@ -286,7 +285,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 5784.07
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; Variable types: 0 continuous, 362 integer (362 binary)
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -298,20 +297,20 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4597.43940    0  362 5784.06522 4597.43940  20.5%     -    0s
-#&gt;      0     0 4650.99515    0  358 5784.06522 4650.99515  19.6%     -    1s
-#&gt;      0     0 4685.67744    0  356 5784.06522 4685.67744  19.0%     -    1s
-#&gt;      0     0 4690.23756    0  357 5784.06522 4690.23756  18.9%     -    1s
-#&gt;      0     0 4736.15987    0  353 5784.06522 4736.15987  18.1%     -    1s
-#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    1s
-#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    1s
-#&gt; H    0     0                    5446.4165700 4752.87472  12.7%     -    1s
-#&gt;      0     2 4753.34087    0  356 5446.41657 4753.34087  12.7%     -    1s
-#&gt; H   14    14                    5283.3495723 4760.84670  9.89%  38.4    1s
+#&gt;      0     0 4650.99515    0  358 5784.06522 4650.99515  19.6%     -    0s
+#&gt;      0     0 4685.67744    0  356 5784.06522 4685.67744  19.0%     -    0s
+#&gt;      0     0 4690.23756    0  357 5784.06522 4690.23756  18.9%     -    0s
+#&gt;      0     0 4736.15987    0  353 5784.06522 4736.15987  18.1%     -    0s
+#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    0s
+#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    0s
+#&gt; H    0     0                    5446.4165700 4752.87472  12.7%     -    0s
+#&gt;      0     2 4753.34087    0  356 5446.41657 4753.34087  12.7%     -    0s
+#&gt; H   14    14                    5283.3495723 4760.84670  9.89%  38.4    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 14 nodes (1281 simplex iterations) in 1.57 seconds
+#&gt; Explored 14 nodes (1281 simplex iterations) in 0.90 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 5283.35 5446.42 5784.07 
@@ -322,16 +321,20 @@ object that shows the strength of connectivity between consecutive planning
 <span class='co'># plot solutions</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"basic solution"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"basic solution"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"small penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"small penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"high penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"high penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"asymmetric connectivity"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><img src='add_connectivity_penalties-5.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"asymmetric connectivity"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,
+       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><img src='add_connectivity_penalties-5.png' alt='' width='540' height='400' /><div class='input'>
 
 </div></pre>
   </div>

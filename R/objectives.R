@@ -20,11 +20,12 @@ NULL
 #' the user is explicitly choosing their objective within the single
 #' environment.
 #'
-#' \strong{Please note that failing to specify an objective will return a default
-#' error message when solving.}
+#' \strong{Please note that failing to specify an objective will return a
+#' default error message when solving.}
 #'
 #' @details
-#' The following objectives can be added to a conservation planning \code{\link{problem}}:
+#' The following objectives can be added to a conservation planning
+#' \code{\link{problem}}:
 #'
 #' \describe{
 #'
@@ -36,11 +37,11 @@ NULL
 #'   solution that secures as much of each feature as possible without
 #'   exceeding the budget.}
 #'
-#'   \item{\code{\link{add_max_features_objective}}}{Set an objective to find to find
-#'   the solution that fulfills as many targets as possible while ensuring that
-#'   the cost of the solution does not exceed budget and that all constraints
-#'   are met. This objective was inspired by the conservation problem defined
-#'   in Cabeza and Moilanen (2001).}
+#'   \item{\code{\link{add_max_features_objective}}}{Set an objective to find
+#'   to find the solution that fulfills as many targets as possible while
+#'   ensuring that the cost of the solution does not exceed budget and that all
+#'   constraints are met. This objective was inspired by the conservation
+#'   problem defined in Cabeza and Moilanen (2001).}
 #'
 #'   \item{\code{\link{add_max_phylo_objective}}}{Set an objective to find the
 #'   solution that fulfills as much of a representative sample a phylogenetic
@@ -51,8 +52,9 @@ NULL
 #'
 #'  }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{problem}},
-#'   \code{\link{targets}}.
+#' @seealso \code{\link{constraints}}, \code{\link{decisions}},
+#'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
+#'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
 #'
 #' @name objectives

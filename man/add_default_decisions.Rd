@@ -13,5 +13,5 @@ add_default_decisions(x)
 TODO
 }
 \seealso{
-\code{\link{solvers}}.
+\code{\link{decisions}}.
 }

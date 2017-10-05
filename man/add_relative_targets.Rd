@@ -32,22 +32,22 @@ argument to \code{targets} may refer to a column name.}
   to it.
 }
 \description{
-Set targets as a proportion (between 0 and 1) of the maximum level of 
-representation of features in the study area. The argument to \code{x} 
-should have a single value if all features have the same target. Otherwise, 
-the vector should have a value for each feature. In this case, targets are 
-assigned to features based on their position in the argument to \code{x} 
+Set targets as a proportion (between 0 and 1) of the maximum level of
+representation of features in the study area. The argument to \code{x}
+should have a single value if all features have the same target. Otherwise,
+the vector should have a value for each feature. In this case, targets are
+assigned to features based on their position in the argument to \code{x}
 and the \code{feature} when specifying the problem.
 }
 \details{
-Note that with the exception of the maximum cover problem, targets must 
+Note that with the exception of the maximum cover problem, targets must
 be added to a \code{\link{problem}} or solving will return an error.
 
 
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems require 
-adding targets with the exception of the maximum cover problem 
-(see \code{\link{add_max_cover_objective}}), which maximizes all features 
+distribution that needs to be protected. All conservation planning problems
+require adding targets with the exception of the maximum cover problem
+(see \code{\link{add_max_cover_objective}}), which maximizes all features
 in the solution and therefore does not require targets.
 }
 \examples{
@@ -78,6 +78,5 @@ plot(s, main=c("relative targets", "absolute targets",
 
 }
 \seealso{
-\code{\link{targets}}, \code{\link{constraints}}, \code{\link{objectives}},
-  \code{\link{problem}}, \code{\link{add_absolute_targets}},  \code{\link{add_loglinear_targets}}.
+\code{\link{targets}}.
 }

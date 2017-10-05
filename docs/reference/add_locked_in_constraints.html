@@ -86,7 +86,7 @@
     <p>Add constraints to ensure that they are prioritized in the solution.
 For example, it may be desirable to lock in planning units that are
 inside existing protected areas so that the solution fills in the gaps in the
-existing reserve network. If specific planning units should be locked out 
+existing reserve network. If specific planning units should be locked out
 of a solution, use <code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code>.</p>
     
 
@@ -121,7 +121,7 @@ locked in. See details for more information.</p></td>
     indicating if planning units should be locked in. This option is
     only available if the planning units in <code>x</code> are a
     <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object. The column in the attribute
-    table should have <code>logical</code>  (ie. <code>TRUE</code> or <code>FALSE</code>)
+    table should have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
     values indicating if the planning unit is to be locked in.</p></dd>
     <dt><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object</dt><dd><p>planning units in <code>x</code>
     that intersect with cells in <code>y</code> are locked in. Specifically,
@@ -133,7 +133,7 @@ locked in. See details for more information.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code>, <code><a href='penalties.html'>penalties</a></code>.</p>
+    <p><code><a href='constraints.html'>constraints</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -304,21 +304,21 @@ locked in. See details for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.020203818008e+03, best bound 3.620460824006e+03, gap 9.9434%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>par</span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
-<span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"none locked in"</span>)
-<span class='fu'>plot</span>(<span class='no'>s1</span>[<span class='no'>s1</span>$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>,], <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"darkgreen"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>,<span class='fl'>2</span>))
+<span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"none locked in"</span>)
+<span class='fu'>plot</span>(<span class='no'>s1</span>[<span class='no'>s1</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in (integer input)"</span>)
-<span class='fu'>plot</span>(<span class='no'>s2</span>[<span class='no'>s2</span>$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>,], <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"darkgreen"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (integer input)"</span>)
+<span class='fu'>plot</span>(<span class='no'>s2</span>[<span class='no'>s2</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s3</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in (character input)"</span>)
-<span class='fu'>plot</span>(<span class='no'>s3</span>[<span class='no'>s3</span>$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>,], <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"darkgreen"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'>plot</span>(<span class='no'>s3</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (character input)"</span>)
+<span class='fu'>plot</span>(<span class='no'>s3</span>[<span class='no'>s3</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in (raster input)"</span>)
-<span class='fu'>plot</span>(<span class='no'>s4</span>[<span class='no'>s4</span>$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>,], <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"darkgreen"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'>plot</span>(<span class='no'>s4</span>[<span class='no'>s4</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in (polygon input)"</span>)
-<span class='fu'>plot</span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution</span><span class='kw'>==</span><span class='fl'>1</span>,], <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"darkgreen"</span>, <span class='kw'>add</span><span class='kw'>=</span><span class='fl'>TRUE</span>)</div><img src='add_locked_in_constraints-12.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>plot</span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><img src='add_locked_in_constraints-12.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

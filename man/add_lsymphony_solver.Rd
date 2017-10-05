@@ -5,8 +5,8 @@
 \alias{add_lpsymphony_solver}
 \title{Add a SYMPHONY solver with lpsymphony}
 \usage{
-add_lpsymphony_solver(x, gap = 0.1, time_limit = -1, verbosity = 1,
-  first_feasible = 0)
+add_lpsymphony_solver(x, gap = 0.1, time_limit = -1, first_feasible = 0,
+  verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -17,7 +17,7 @@ terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
 between the bounds is 1 percent of the upper bound. But for other solvers
-(eg. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
+(e.g. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
 deviance from the optimal objective. For example, solving a
 minimum set objective problem with a gap of 5 will cause the solver
 to terminate when the cost of the solution is within 5 cost units
@@ -27,9 +27,6 @@ from the optimal solution.}
 The solver will return the current best solution when this time limit is
 exceeded.}
 
-\item{verbosity}{\code{integer} how verbose should the solver be when
-reporting progress on solving the problem?}
-
 \item{first_feasible}{\code{logical} should the first feasible solution be
 be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
 will return the first solution it encounters that meets all the
@@ -37,78 +34,46 @@ constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
 relaxed solution, and is therefore often reasonably close to optimality.}
 
-\item{...}{arguments passed to the default solver.}
+\item{verbose}{\code{logical} should information be printed while solving
+optimization problems? Defaults to \code{TRUE}.}
 }
 \description{
 Specify the use of a SYMPHONY algorithm to solve a
-\code{\link{ConservationProblem-class}} object. Requires the \code{lpsymphony} package.
+\code{\link{ConservationProblem-class}} object. Requires the
+\code{lpsymphony} package.
 }
 \details{
 The \code{lpsymphony} package provides a
    different interface to the COIN-OR software suite. Unlike the
    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-   through
-   \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
+   through \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
    On Windows and Mac, \code{lpsymphony}
    may be easier to install. This solver uses the \code{lpsymphony} package
    to solve.
 }
 \examples{
 \donttest{
-# load packages
-require(gurobi)
-require(lpsymphony)
-require(Rsymphony)
-
 # load data
 data(sim_pu_raster, sim_features)
 
-# create basic problem
+# create problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
-  add_relative_targets(0.1)
+  add_relative_targets(0.1) \%>\%
+  add_binary_decisions()
 
-# create vector to store plot titles
-titles <- c()
-
-# create empty stack to store solutions
-s <- stack()
-
-# create problem with added rsymphony solver and limit the time spent
-# searching for the optimal solution to 2 seconds
-if (requireNamespace("Rsymphony", quietly = TRUE)) {
-  titles <- c(titles, "Rsymphony (2s)")
-  p1 <- p \%>\% add_rsymphony_solver(time_limit = 2)
-  s <- addLayer(s, solve(p1))
-}
-
-# create problem with added rsymphony solver and limit the time spent
-# searching for the optimal solution to 5 seconds
-if (requireNamespace("Rsymphony", quietly = TRUE)) {
-  titles <- c(titles, "Rsymphony (5s)")
-  p2 <- p \%>\% add_rsymphony_solver(time_limit = 5)
-  s <- addLayer(s, solve(p2))
-}
-
-# if the gurobi is installed: create problem with added gurobi solver
-if (requireNamespace("gurobi", quietly = TRUE)) {
-  titles <- c(titles, "gurobi (5s)")
-  p3 <- p \%>\% add_gurobi_solver(gap = 0.1, presolve = 2, time_limit = 5)
-  s <- addLayer(s, solve(p3))
-}
-
-# if the lpsymphony is installed: create problem with added lpsymphony solver
+# if the package is installed then add solver and generate solution
 if (requireNamespace("lpsymphony", quietly = TRUE)) {
-  titles <- c(titles, "lpsymphony")
-  p4 <- p \%>\% add_lpsymphony_solver(gap = 0.1, time_limit = 5)
-  s <- addLayer(s, solve(p4))
-}
+  # specify solver and generate solution
+  s <- p \%>\% add_lpsymphony_solver(time_limit = 5) \%>\%
+             solve()
 
-# plot solutions
-plot(s, main = titles)
+  # plot solutions
+  plot(stack(sim_pu_raster, s), main = c("planning units", "solution"))
+}
 }
 
 }
 \seealso{
-\code{\link{solvers}}, \code{\link{add_gurobi_solver}}, \code{\link{add_rsymphony_solver}}
+\code{\link{solvers}}.
 }

@@ -13,18 +13,16 @@ NULL
 #'
 #' @details
 #' Conservation planning problems involve making decisions on planning units.
-#' These decisions are then associated with actions (eg. turning a planning
+#' These decisions are then associated with actions (e.g. turning a planning
 #' unit into a protected area). If no decision is explicitly added to a problem,
-#' then the binary decision class will be used by default. Only a single decision
-#' should be added to a
-#' \code{ConservationProblem} object. \strong{If multiple decisions are added
-#' to a problem object, then the last one to be added will be used.}
+#' then the binary decision class will be used by default. Only a single
+#' decision should be added to a \code{ConservationProblem} object. \strong{If
+#' multiple decisions are added to a problem object, then the last one to be
+#' added will be used.}
 #'
 #' @return \code{\link{Decision-class}} object.
 #'
-#' @seealso \code{\link{decisions}}, \code{\link{add_proportion_decisions}},
-#' \code{\link{add_semicontinuous_decisions}}, \code{\link{constraints}},
-#' \code{\link{problem}}, \code{\link{targets}}, \code{\link{objectives}}
+#' @seealso \code{\link{decisions}}.
 #'
 #' @examples
 #' # create basic problem and using the default decision (binary)
@@ -62,7 +60,8 @@ add_binary_decisions <- function(x) {
   x$add_decisions(pproto("BinaryDecision", Decision,
                          name = "Binary decision",
                          apply = function(self, x) {
-                           assertthat::assert_that(inherits(x, "OptimizationProblem"))
+                           assertthat::assert_that(inherits(x,
+                                                   "OptimizationProblem"))
                            invisible(rcpp_apply_binary_decisions(x$ptr))
                          }
   ))

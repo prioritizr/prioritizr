@@ -13,7 +13,7 @@ NULL
 #'
 #' @return Starts a Shiny app wrapper for prioritzr functions.
 #'
-#' @seealso \code{\link{problem}},  \code{\link{objectives}},  \code{\link{targets}}.
+#' @seealso \code{\link{problem}}.
 #'
 #' @examples
 #' # list available shiny apps
@@ -34,22 +34,16 @@ NULL
 prshiny <- function(app) {
   # locate all the shiny apps that exist
   validapps <- list.files(system.file("shiny-apps", package = "prioritizr"))
-
-  validappsMsg <-
-    paste0(
-      "Valid apps are: '",
-      paste(validapps, collapse = "', '"),
-      "'")
-
+  validappsMsg <- paste0("Valid apps are: '",
+                         paste(validapps, collapse = "', '"), "'")
   # if an invalid app is given, throw an error
   if (missing(app) || !nzchar(app) ||
       !app %in% validapps) {
     stop(
-      'Please run `prshiny()` with a valid app as an argument.\n',
+      "Please run prshiny() with a valid app as an argument.\n",
       validappsMsg,
       call. = FALSE)
   }
-
   # find and launch the app
   appDir <- system.file("shiny-apps", app, package = "prioritizr")
   shiny::runApp(appDir, display.mode = "normal")

@@ -95,7 +95,7 @@ test_that("character locked in data (solve)", {
     add_default_solver(time_limit = 5) %>%
     solve()
   # check that the solution obeys constraints as expected
-  expect_true(all(s$solution[which(sim_pu_polygons$locked_in)] == 1))
+  expect_true(all(s$solution_1[which(sim_pu_polygons$locked_in)] == 1))
 })
 
 test_that("raster locked in data (compile)", {
@@ -225,5 +225,5 @@ test_that("spatial locked in data (solve)", {
     add_default_solver(time_limit = 5) %>%
     solve()
   locked_in_units <- which(sim_pu_polygons$locked_in)
-  expect_true(all(s$solution[locked_in_units] == 1))
+  expect_true(all(s$solution_1[locked_in_units] == 1))
 })

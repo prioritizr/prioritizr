@@ -84,6 +84,7 @@ In _prioritizr_, the type of objective function must be manually specified. Whil
 _prioritizr_ currently handles four types of prioritization objective functions: minimum set coverage, maximum coverage, a hybrid model called maximum target coverage, and a variant of the maximum target model designed specifically for phylogenetic representation.
 
 ### The Minimum Set Objective
+
 In the context of systematic reserve design, the minimum set objective function seeks to find the set of planning units that minimizes the overall cost of a reserve network, while meeting a set of representation targets for the conservation features. This objective is equivalent to a simplified Marxan reserve design problem, with the Boundary Length Modifier (BLM) set to zero.
 
 The reserve design problem for the minimum set objective function can be expressed mathematically for $n$ planning units as:
@@ -103,6 +104,7 @@ $$\text{Maximize} \sum_{i=1}^{m} \sum_{j=1}^{n} x_j r_{ij} + \text{ subject to }
 Where $x_i$ is a binary decision variable specifying whether planning unit $i$ has been selected (1) or not (0), $c_i$ is the cost of planning unit $i$, $r_{ij}$ is the representation level of feature $i$ in planning unit $j$, and $B$ is the budget.
 
 ### The Maximum Feature Objective
+
 The maximum target coverage problem is a hybrid between the minimum set and maximum cover problems in that it allows for both a budget and targets to be set. This problem finds the set of planning units that meets representation targets for the most species while staying within a fixed budget. If multiple solutions can meet all targets while staying within budget, the cheapest solution is chosen. This objective was inspired by the conservation problem defined in [Cabeza and Moilanen (2001)](http://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(01)02125-5).
 
 The maximum target coverage problem can be stated mathematically, for $n$ planning units and $m$ conservation features, as:
@@ -116,11 +118,13 @@ $$\sum_{i=1}^{n}x_i c_i \leq B \space \text{and} \space \sum_{j=1}^{n} x_j r_{ij
 where $x_i$ is a binary decision variable specifying whether planning unit $i$ has been selected (1) or not (0), $y_{ij}$ is a binary decision variable specifying whether the target for species $i$ should be met, $c_i$ is the cost of planning unit $i$, $r_{ij}$ is the representation level of feature $i$ in planning unit $j$, $B$ is the budget, and $T_i$ is the target for feature $i$. Finally, the factor a is chosen so that the first term of the objective function is much smaller than the second. This ensures that the reserve cost only plays a role in distinguishing between solutions that meet the same number of targets.
 
 ### The Maximum Phylogeny Objective
+
 The maximum phylogenetic representation problem is similar to the maximum features problem in that it allows for both a budget and targets to be set. This problem finds the set of planning units that meets representation targets for a phylogenetic tree while staying within a fixed budget. If multiple solutions can meet all targets while staying within budget, the cheapest solution is chosen.
 
 The maximum phylogenetic objective can be stated mathematically in the same way that the maximum feature objective, but uses a phylogenetic tree rather than biodiversity features. In _prioritizr_, this objective requires the installation of the `ape` package, designed for working with phylogenetic data.
 
 ## Preparing your data
+
 To use your own data with prioritizr, you first need to prepare your dataset. If the `solve` function doesn't run correctly, the first thing to check should be your own data. That is, one or more files may be malformed and not in compliance with the specification. The three types of data input that must be provided to `prioritizr` are summarized below.
 
 1. **The project area and a list of all of the planning units contained within it**
@@ -135,4 +139,4 @@ Because minimizing the costs of conservation is generally a goal of stakeholders
 
 'Biodiversity features' may refer to bird and plant species distributions, specific habitat types, or special elements identified and mapped within the planning area of interest. These data are typically organized as tables, wherein each planning unit is associated with an index of abundance, a probability of occurrence, or the presence/absence of a particular biodiversity feature of interest. In `prioritizr`, the input format of features must correspond with the input format of the project area. If the planning units are a raster, then the features must be a `RasterStack` object. If the planning units are input as a data frame object, then features must also be a data frame, following the conventions of Marxan. In the latter case, an RIJ matrix must be also constructed that identifies the amount of each feature in each planning unit.
 
-For more detailed information on how data are incorporated into problem formulation in prioritizr, and for several worked examples on a simulated dataset, consult the [Quick Start]() vignette. You may also wish to refer to the vignettes provided in the supplemental [_prioritizrdata_ package](https://github.com/prioritizr/prioritizrdata), which use _prioritizr_ functions to work through the real-world examples from Tasmania and Salt Spring Island.
+For more detailed information on how data are incorporated into problem formulation in _prioritizr_, and for several worked examples on a simulated dataset, consult the [Quick Start](https://prioritizr.github.io/prioritizr/articles/quick_start.html) vignette. You may also wish to refer to the vignettes provided in the supplemental [_prioritizrdata_ package](https://github.com/prioritizr/prioritizrdata), which use _prioritizr_ functions to work through the real-world examples from Tasmania and Salt Spring Island.

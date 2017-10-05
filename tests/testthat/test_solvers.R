@@ -43,7 +43,7 @@ test_that("add_rsymphony_solver", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_rsymphony_solver(time_limit = 5)
+    add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -62,7 +62,7 @@ test_that("add_lpsymphony_solver", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_lpsymphony_solver(time_limit = 5)
+    add_lpsymphony_solver(first_feasible = TRUE, verbose = FALSE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -80,7 +80,7 @@ test_that("add_gurobi_solver", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_gurobi_solver(time_limit = 5)
+    add_gurobi_solver(time_limit = 5, verbose = TRUE)
   s <- solve(p)
   # check that solution has correct properties
   expect_is(s, "Raster")

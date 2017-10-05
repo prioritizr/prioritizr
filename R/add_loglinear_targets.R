@@ -3,19 +3,20 @@ NULL
 
 #' Add Loglinear Targets
 #'
-#' Set targets as a proportion (between 0 and 1) and calculated using a log-linear 
-#' equation and four tuning parameters (as used in Rodrigues \emph{et al.} 2004). The 
-#' first tuning parameter specifies the first cut-off range size, and the second specifies 
-#' the second cut-off range size, the third argument specifies the target required 
-#' for species with a range size equal to or less than the first cut-off range size, 
-#' and the fourth argument specifies the target required for species with a range 
-#' size equal to or greater than the required range size.
-#' 
-#' Note that with the exception of the maximum cover problem, targets must 
+#' Set targets as a proportion (between 0 and 1) and calculated using a
+#' log-linear  equation and four tuning parameters (as used in Rodrigues
+#' \emph{et al.} 2004). The first tuning parameter specifies the first cut-off
+#' range size, and the second specifies  the second cut-off range size, the
+#' third argument specifies the target required  for species with a range size
+#' equal to or less than the first cut-off range size,  and the fourth argument
+#' specifies the target required for species with a range  size equal to or
+#' greater than the required range size.
+#'
+#' Note that with the exception of the maximum cover problem, targets must
 #' be added to a \code{\link{problem}} or solving will return an error.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
-#'   
+#'
 #' @param lower_bound_amount \code{numeric} lower bound for the total amount
 #'   of the features.
 #'
@@ -31,19 +32,18 @@ NULL
 #'   than or equal to \code{upper_bound_amount}.
 #'
 #' @param ... not used.
-#' 
+#'
 #' @details
 #' Targets are used to specify the minimum amount or proportion of a feature's
-#' distribution that needs to be protected. All conservation planning problems require 
-#' adding targets with the exception of the maximum cover problem 
-#' (see \code{\link{add_max_cover_objective}}), which maximizes all features 
-#' in the solution and therefore does not require targets. 
+#' distribution that needs to be protected. All conservation planning problems
+#' require adding targets with the exception of the maximum cover problem
+#' (see \code{\link{add_max_cover_objective}}), which maximizes all features
+#' in the solution and therefore does not require targets.
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the target added
 #'   to it.
 #'
-#' @seealso \code{\link{targets}}, \code{\link{constraints}}, \code{\link{objectives}},
-#'   \code{\link{problem}}, \code{\link{add_relative_targets}}, \code{\link{add_absolute_targets}}.
+#' @seealso \code{\link{targets}}.
 #'
 #' @examples
 #' # load data
@@ -71,7 +71,7 @@ NULL
 #'                "log-linear targets"))
 #' }
 #'
-#'  
+#'
 #' @name add_loglinear_targets
 #'
 #' @docType methods
@@ -86,15 +86,19 @@ add_loglinear_targets <- function(x, lower_bound_amount,
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(lower_bound_amount))),
-                          assertthat::is.scalar(lower_bound_amount), isTRUE(lower_bound_amount >= 0),
+                          assertthat::is.scalar(lower_bound_amount),
+                          isTRUE(lower_bound_amount >= 0),
                           isTRUE(all(is.finite(upper_bound_amount))),
-                          assertthat::is.scalar(upper_bound_amount), isTRUE(upper_bound_amount >= 0),
+                          assertthat::is.scalar(upper_bound_amount),
+                          isTRUE(upper_bound_amount >= 0),
                           isTRUE(all(is.finite(lower_bound_target))),
                           assertthat::is.scalar(lower_bound_target),
-                          isTRUE(lower_bound_target >= 0), isTRUE(lower_bound_target <= 1),
+                          isTRUE(lower_bound_target >= 0),
+                          isTRUE(lower_bound_target <= 1),
                           isTRUE(all(is.finite(upper_bound_target))),
                           assertthat::is.scalar(upper_bound_target),
-                          isTRUE(upper_bound_target >= 0), isTRUE(upper_bound_target <= 1),
+                          isTRUE(upper_bound_target >= 0),
+                          isTRUE(upper_bound_target <= 1),
                           isTRUE(upper_bound_amount > lower_bound_amount))
   # create parameters
   p <- parameters(

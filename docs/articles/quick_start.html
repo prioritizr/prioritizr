@@ -88,6 +88,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/constraints.html">constraints</a> to a problem to obtain better solutions.</li>
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/penalties.html">penalties</a> to a problem to penalize ineffective solutions.</li>
 <li>add <a href="https://prioritizr.github.io/prioritizr/reference/decisions.html">decisions</a> to a problem to specify the nature of the conservation decision on the planning units.</li>
+<li>add methods to generate a <a href="https://prioritizr.github.io/prioritizr/reference/portfolios.html">portfolio</a> of solutions.</li>
 <li>
 <a href="https://prioritizr.github.io/prioritizr/reference/solve.html">solve</a> a conservation problem.</li>
 </ul>
@@ -102,8 +103,8 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow" class="anchor"></a>Workflow</h2>
-<p>The basic workflow for the <em>prioritizer</em> package starts with the creation of a <code>problem</code>, which specifies the user-defined input data on planning units, features, and costs. This new problem object can then be formulated by adding <code>targets</code> and <code>objectives</code>. All problems require an objective, which specifies the fundamental kind of conservation prioritization approach that will be used. Most problems require the addition of representation targets for input features as well, with the exception of the maximum cover problem (i.e. if the <code>add_max_cover_objective</code> function has been used), which seeks to maximize the features in the solution and therefore does not require targets for individual features.</p>
-<p>Depending on the needs of the user, <code>constraints</code> and <code>penalties</code> can be added next. This includes the options to <strong>lock in</strong> or <strong>lock out</strong> particular planning units, or penalize solutions with low connectivity (similar to the boundary lenth modifier used in Marxan). Alternative decision formats can also be specified using the <code>decisions</code> functions, otherwise the package will default to binary selection of planning units. Lastly, the type of solving algorithm must be specified by installing one of the supported solving packages and adding the solver to the problem using one of the <code>solvers</code> functions.</p>
+<p>The basic work flow for the <em>prioritizer</em> package starts with the creation of a <code>problem</code>, which specifies the user-defined input data on planning units, features, and costs. This new problem object can then be formulated by adding <code>targets</code> and <code>objectives</code>. All problems require an objective, which specifies the fundamental kind of conservation prioritization approach that will be used. Most problems require the addition of representation targets for input features as well, with the exception of the maximum cover problem (i.e. if the <code>add_max_cover_objective</code> function has been used), which seeks to maximize the features in the solution and therefore does not require targets for individual features.</p>
+<p>Depending on the needs of the user, <code>constraints</code> and <code>penalties</code> can be added next. This includes the options to <strong>lock in</strong> or <strong>lock out</strong> particular planning units, or penalize solutions with low connectivity (similar to the boundary length modifier used in Marxan). Alternative decision formats can also be specified using the <code>decisions</code> functions, otherwise the package will default to binary selection of planning units. Lastly, the type of solving algorithm must be specified by installing one of the supported solving packages and adding the solver to the problem using one of the <code>solvers</code> functions.</p>
 <p>A problem object is solved using the <code>solve</code> function, which will return a raster-class object, spatial-class object, or a numeric vector containing the solution depending on the object class initially provided in problem formulation. Additional parameters can be created and customized according to the specific needs of the user.</p>
 <p>We will work through the problem formulation process with a simple example that uses one of the built-in simulated data sets that is distributed within the package. First, load the <em>prioritizr</em> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load prioritizr package</span>
@@ -115,7 +116,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="problem-formulation" class="section level3">
 <h3 class="hasAnchor">
 <a href="#problem-formulation" class="anchor"></a>Problem Formulation</h3>
-<p>A reserve design exercise starts by determining the spatial extent of the planning units in your study area. The <code>problem</code> function is used to specify the basic data used in a spatial prioritization problem: the spatial distribution of the planning units and their costs, as well as the features (eg. species, ecosystems) that need to be conserved. <em>Prioritizr</em> supports inputs as rasters, shapefiles, dataframes from uploaded .csv files, or numeric vectors. Note that the type of input provided to the package for the planning units will also be the type of data file returned in the solution.</p>
+<p>A reserve design exercise starts by determining the spatial extent of the planning units in your study area. The <code>problem</code> function is used to specify the basic data used in a spatial prioritization problem: the spatial distribution of the planning units and their costs, as well as the features (eg. species, ecosystems) that need to be conserved. <em>Prioritizr</em> supports a range of input data formats including rasters, shapefiles, tables, and arrays. Note that the type of input provided to the package for the planning units will also be the type of data file returned in the solution.</p>
 <p>The general usage of the problem function is <code>p &lt;- problem(x, features, ...)</code></p>
 <p>Where <code>x</code> is the input for planning units, <code>features</code> are the biodiversity features to be used, and <code>...</code> are additional arguments depending on the input to <code>x</code>.</p>
 <p>In this simulated example, biodiversity features are represented using a stack of raster data (ie. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a biodiversity feature.</p>
@@ -138,7 +139,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 ## 4 208.9322     FALSE       TRUE
 ## 5 214.0419     FALSE      FALSE
 ## 6 213.7636     FALSE      FALSE</code></pre>
-<p>To create a conservation problem object to which you can add targets, constraints, etc., use the <code>problem</code> function with the spatial-class planning unit object and the features object as arguments. In this example we use the <code>sim_features</code> raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the <em>Marxan problem</em> section in this tutorial), cost must be explicitly defined using the <code>cost_column</code> argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, dataframe, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.</p>
+<p>To create a conservation problem object to which you can add targets, constraints, etc., use the <code>problem</code> function with the spatial-class planning unit object and the features object as arguments. In this example we use the <code>sim_features</code> raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the <em>Marxan problem</em> section in this tutorial), cost must be explicitly defined using the <code>cost_column</code> argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, <code>data.frame</code>, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># polygons</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_polygons, sim_features,
               <span class="dt">cost_column =</span> sim_pu_polygons<span class="op">$</span>cost)
@@ -157,17 +158,17 @@ p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># raster planning units</span>
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features)</code></pre></div>
 </div>
-<div id="dataframe-or-numeric-vector-input" class="section level4">
+<div id="data-frame-or-numeric-vector-input" class="section level4">
 <h4 class="hasAnchor">
-<a href="#dataframe-or-numeric-vector-input" class="anchor"></a>Dataframe or Numeric Vector Input</h4>
-<p>Planning unit data can also be uploaded from a .csv file into a dataframe, or entered into a numeric vector. The argument to <code>x</code> should contain one row for each planning unit with its corresponding cost. The argument to <code>features</code> must also be a dataframe or matrix, following the conventions used by Marxan. Each row corresponds to a different feature, and must contain the following columns:</p>
+<a href="#data-frame-or-numeric-vector-input" class="anchor"></a><code>data.frame</code> or Numeric Vector Input</h4>
+<p>Planning unit data can also be uploaded from a .csv file into a <code>data.frame</code>, or entered into a numeric vector. The argument to <code>x</code> should contain one row for each planning unit with its corresponding cost. The argument to <code>features</code> must also be a <code>data.frame</code> or matrix, following the conventions used by Marxan. Each row corresponds to a different feature, and must contain the following columns:</p>
 <ul>
 <li>“id”: Unique identifier for each feature.</li>
 <li>“name”: Name for each feature.</li>
 <li>“prop”: Relative target for each feature (optional). Targets can also be added using the <code>targets</code> functions.</li>
 <li>“amount”: Absolute target for each feature (optional).</li>
 </ul>
-<p>Because dataframe and numeric vector input formats do not include spatial data, you will need to include a table specifying the quantity of each feature in each planning unit. This is called a representation matrix or RIJ matrix, and is identified in the <code>problem</code> function by the argument <code>rij</code> (dataframe) or <code>rij_matrix</code> (numeric vector). For dataframe inputs, the argument to <code>rij</code> must follow the conventions used by Marxan. It must contain the following columns:</p>
+<p>Because <code>data.frame</code> and numeric vector input formats do not include spatial data, you will need to include a table specifying the quantity of each feature in each planning unit. This is called a representation matrix or RIJ matrix, and is identified in the <code>problem</code> function by the argument <code>rij</code> (<code>data.frame</code>) or <code>rij_matrix</code> (numeric vector). For <code>data.frame</code> inputs, the argument to <code>rij</code> must follow the conventions used by Marxan. It must contain the following columns:</p>
 <ul>
 <li>“pu”: Planning unit identifier.</li>
 <li>“species”: Feature identifier matching the ID used in the argument to <code>features</code>.</li>
@@ -193,8 +194,7 @@ p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 
 <span class="co"># create new problem object based on an existing problem object:</span>
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features)
-p5 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>()</code></pre></div>
+p5 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>()</code></pre></div>
 <ul>
 <li>
 <strong>Maximum cover objective</strong>: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.</li>
@@ -228,20 +228,16 @@ p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 
 <span class="co"># Or, create new problem objects to try different target types</span>
 <span class="co"># create problem with added relative targets</span>
-p.r &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>)
+p.r &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>)
 
 <span class="co"># create problem with added absolute targets</span>
-p.a &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw"><a href="../reference/add_absolute_targets.html">add_absolute_targets</a></span>(<span class="dv">3</span>)
+p.a &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_absolute_targets.html">add_absolute_targets</a></span>(<span class="dv">3</span>)
 
 <span class="co"># create problem with added log-linear target</span>
-p.l &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw"><a href="../reference/add_loglinear_targets.html">add_loglinear_targets</a></span>(<span class="dv">10</span>, <span class="fl">0.9</span>, <span class="dv">100</span>, <span class="fl">0.2</span>)</code></pre></div>
+p.l &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_loglinear_targets.html">add_loglinear_targets</a></span>(<span class="dv">10</span>, <span class="fl">0.9</span>, <span class="dv">100</span>, <span class="fl">0.2</span>)</code></pre></div>
 <p>Targets can be a single value applied to all features, or you can use a vector of values corresponding to each feature. For example, you may wish to place a greater emphasis on Feature 1 than the other features contained in <code>sim_features</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># vary targets by feature</span>
-p.r2 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">        </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</code></pre></div>
+p.r2 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</code></pre></div>
 <p>As with the objective funtions, when multiple targets are added to the same problem object, only the most recent target setting is used. If a maximum cover objective is used, then targets do not need to be set, as all features will be maximized.</p>
 </div>
 <div id="add-constraints" class="section level3">
@@ -271,34 +267,30 @@ p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 <p><img src="quick_start_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>The constraint notation is thus dependant on where the planning unit mask data are contained. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with added locked in constraints using integers</span>
-p.lock1 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="kw">which</span>(sim_pu_polygons<span class="op">$</span>locked_in))
+p.lock1 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="kw">which</span>(sim_pu_polygons<span class="op">$</span>locked_in))
 
 <span class="co"># create problem with added locked in constraints using a field name</span>
-p.lock2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
+p.lock2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
 
 <span class="co"># create problem with added locked in constraints using raster data</span>
-p.lock3 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">           </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(sim_locked_in_raster)</code></pre></div>
+p.lock3 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(sim_locked_in_raster)</code></pre></div>
 </div>
 <div id="add-penalties" class="section level3">
 <h3 class="hasAnchor">
 <a href="#add-penalties" class="anchor"></a>Add Penalties</h3>
-<p>A highly fragmented solution may be associated with increased management costs and be susceptible to edge effects. A penalty can be applied to a conservation planning <code>problem</code> to penalize solutions with low connectivity between planning units. This acts as an explicit tradeoff with the objective being minimized or maximized, and thereby increases the cost of the soution. For example, when the a boundary length penalty is added (equivelant to a boundary length modifier in Marxan), solution fragmentation decreases but solution cost increases.</p>
+<p>A highly fragmented solution may be associated with increased management costs and be susceptible to edge effects. A penalty can be applied to a conservation planning <code>problem</code> to penalize solutions with low connectivity between planning units. This acts as an explicit trade-off with the objective being minimized or maximized, and thereby increases the cost of the solution. For example, when the a boundary length penalty is added (equivalent to a boundary length modifier in Marxan), solution fragmentation decreases but solution cost increases.</p>
 <p>There are two types of penalty available in <em>prioritizr</em>:</p>
 <ul>
 <li>
-<code>add_boundary_penalties</code>: Add penalties to a conservation problem to favor solutions that clump selected planning units together into contiguous reserves. Uses shared boundary length as a measure of connectivity, equivelant to the boundary length modifier (BLM) in Marxan. Boundary data is calculated automatically unless the planning units in the problem object are stored in a dataframe, in which case boundary data must be explicitly added as a matrix or dataframe. This function can only be used for symmetric relationships between planning units.</li>
+<code>add_boundary_penalties</code>: Add penalties to a conservation problem to favor solutions that clump selected planning units together into contiguous reserves. Uses shared boundary length as a measure of connectivity, equivalent to the boundary length modifier (BLM) in Marxan. Boundary data is calculated automatically unless the planning units in the problem object are stored in a <code>data.frame</code>, in which case boundary data must be explicitly added as a matrix or <code>data.frame</code>. This function can only be used for symmetric relationships between planning units.</li>
 <li>
-<code>add_connectivity_penalties</code>: Add constraints to a conservation problem to favor solutions that select planning units with high connectivity between them. Uses connectivity data in the form of a matrix or dataframe object, where strength of connectivity is a value such as the inverse distance between consecutive planning units. This function can be used for symmetric or asymmetric relationships between planning units.</li>
+<code>add_connectivity_penalties</code>: Add constraints to a conservation problem to favor solutions that select planning units with high connectivity between them. Uses connectivity data in the form of a <code>matrix</code> or <code>data.frame</code> object, where strength of connectivity is a value such as the inverse distance between consecutive planning units. This function can be used for symmetric or asymmetric relationships between planning units.</li>
 </ul>
 <p>For example, we can apply a boundary penalty to our simulate problem using a high penalty factor of 500 (ie. boundary length modifier; BLM), and an edge factor of 50% so that planning units along the coastline are not overly penalized.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with boundary penalties added to it</span>
-pBLM &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span>
-<span class="st">        </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)</code></pre></div>
+pBLM &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)</code></pre></div>
 <p>A penalty can be applied to a problem that already has one or more constraints added, but users are cautioned that overly restrictive constraints and penalties can lead to a solving error.</p>
-<p>For example, the following solutions are for three minimum set problems, with targets set to 20% for all features, using binary decision making and a gurobi solver. The solutions differ only by the constraints or penalties added.</p>
+<p>For example, the following solutions are for three minimum set problems, with targets set to 20% for all features, using binary decision making and a Gurobi solver. The solutions differ only by the constraints or penalties added.</p>
 </div>
 <div id="specify-the-type-of-decision-variable" class="section level3">
 <h3 class="hasAnchor">
@@ -337,10 +329,10 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 
 <span class="co"># solve the problem</span>
 s5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p5)
-<span class="kw">plot</span>(s5, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
+<span class="kw">plot</span>(s5, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-22-1.png" width="336" style="display: block; margin: auto;"></p>
-<p>We can plot this solution because the planning unit input data are spatially linked. The output format will always match the planning unit data input in problem formulation. For example, the solution for a problem with planning units in a shapefile would be a spatial-class object with an attribute indicating if each planning unit was selected in the solution. If the planning units were in a dataframe, the solution would be a table indicating whether each planning unit was selected or not.</p>
+<p>We can plot this solution because the planning unit input data are spatially linked. The output format will always match the planning unit data input in problem formulation. For example, the solution for a problem with planning units in a shapefile would be a spatial-class object with an attribute indicating if each planning unit was selected in the solution. If the planning units were in a <code>data.frame</code>, the solution would be a table indicating whether each planning unit was selected or not.</p>
 <p>The <code>solve</code> function automatically compresses and compiles the problem from a <code>ConservationProblem-class</code> object into an <code>OptimizationProblem-class</code> object, which is a series of matrices and tables specifically designed for integer linear programming algorithms to work with. The <code>compile</code> function can be used to manually compress a problem object into an Optimization problem, but this is not recommended unless the user is familiar with the formatting of the Optimization problem and wishes to manipulate it directly. The <code>solve</code> function intentionally abstracts away the optimization process for simplicity.</p>
 </div>
 <div id="additional-customizations" class="section level3">
@@ -361,13 +353,13 @@ input &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span cl
 mp1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(input)
 ms1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(mp1)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(ms1)</code></pre></div>
-<pre><code>##   id       cost status    xloc     yloc locked_in locked_out solution
-## 1  3        0.0      0 1116623 -4493479     FALSE      FALSE        0
-## 2 30   752727.5      0 1110623 -4496943     FALSE      FALSE        0
-## 3 56  3734907.5      0 1092623 -4500408     FALSE      FALSE        1
-## 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE        0
-## 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE        0
-## 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE        0</code></pre>
+<pre><code>##   id       cost status    xloc     yloc locked_in locked_out solution_1
+## 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0
+## 2 30   752727.5      0 1110623 -4496943     FALSE      FALSE          0
+## 3 56  3734907.5      0 1092623 -4500408     FALSE      FALSE          1
+## 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE          0
+## 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE          0
+## 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</code></pre>
 <p>Marxan input files can also be supplied individually.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pu &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata/input/pu.dat"</span>, <span class="dt">package =</span> <span class="st">"prioritizr"</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw">read.table</span>(<span class="dt">sep =</span> <span class="st">","</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)
@@ -385,14 +377,14 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
                       <span class="dt">targets =</span> <span class="fl">0.2</span>, <span class="dt">targets_type =</span> <span class="st">"relative"</span>,
                       <span class="dt">locked_in =</span> sim_locked_in_raster)
 ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(mp3)
-<span class="kw">spplot</span>(ms3, <span class="dt">zcol =</span> <span class="st">"solution"</span>, <span class="dt">main =</span> <span class="st">"Solution"</span>)</code></pre></div>
+<span class="kw">spplot</span>(ms3, <span class="dt">zcol =</span> <span class="st">"solution_1"</span>, <span class="dt">main =</span> <span class="st">"Solution"</span>)</code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 <div id="post-processing-solutions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#post-processing-solutions" class="anchor"></a>Post-Processing Solutions</h2>
-<p>There are several options for post-processing solutions if you’re interested in conducting additional analyses beyond plotting. Post-processing can be done efficiently by exporting solutions into GIS software platforms such as ArcGIS and QGIS, but it is also possible to calculate statistics on spatial layers within R. Some handy functions for raster solutions include <code>zonal</code> and <code>extract</code> from the raster package; <code>zonal</code> when the features are rasters, and <code>extract</code> when the features are spatial layers. <code>cellStats</code> and <code>layerStats</code> may also be useful functions.</p>
-<p>For solutions from Marxan input files, post-processing can be done as if it were a dataframe.</p>
+<p>There are several options for post-processing solutions if you’re interested in conducting additional analyses beyond plotting. Post-processing can be done efficiently by exporting solutions into GIS software platforms such as <a href="https://www.arcgis.com/features/index.html">ArcGIS</a> and <a href="http://www.qgis.org/en/site/">QGIS</a>, but it is also possible to calculate statistics on spatial layers within R. Some handy functions for raster solutions include <code>zonal</code> and <code>extract</code> from the raster package; <code>zonal</code> when the features are rasters, and <code>extract</code> when the features are spatial layers. The <code>cellStats</code> and <code>layerStats</code> functions from the <em>raster</em> package are also useful.</p>
+<p>For solutions from Marxan input files, post-processing can be done as if it were a <code>data.frame</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count number of planning units used to represent each feature</span>
 <span class="kw">zonal</span>(s5, sim_features[[<span class="dv">1</span>]], <span class="dt">fun =</span> sum) <span class="co"># feature 1</span></code></pre></div>
 <pre><code>##      zone value
@@ -413,7 +405,7 @@ ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.h
 ## [1,]    0     0
 ## [2,]    1     9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count number of selected planning units</span>
-<span class="kw">sum</span>(ms1<span class="op">$</span>solution <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
+<span class="kw">sum</span>(ms1<span class="op">$</span>solution_<span class="dv">1</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 455</code></pre>
 </div>
 </div>

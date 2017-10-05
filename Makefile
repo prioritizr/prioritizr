@@ -1,10 +1,14 @@
-all: clean data docs test check
+all: clean initc data docs test check
 
 clean:
 	rm -rf man/*
 	rm -rf data/*
 	rm -rf docs/*
 	rm -rf inst/doc/*
+
+initc:
+	R --slave -e "Rcpp::compileAttributes()"
+	R --slave -e "tools::package_native_routine_registration_skeleton('.', 'src/init.c', character_only = FALSE)"
 
 docs: man readme site vigns
 
@@ -30,13 +34,17 @@ test:
 check:
 	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
 	R --slave -e "devtools::check()" >> check.log 2>&1
-	# echo "\n===== SPELL CHECK =====\n" >> check.log 2>&1
-	# R --slave -e "devtools::spell_check(ignore = as.character(read.table('inst/extdata/dictionary.txt')[[1]]))" >> check.log 2>&1
-	# echo "\n===== GOOD PRACTICE CHECK =====\n" >> check.log 2>&1
-	# R --slave -e "goodpractice::gp()" >> check.log 2>&1
 
-checkwb:
+spellcheck:
+	echo "\n===== SPELL CHECK =====\n" > spell.log 2>&1
+	R --slave -e "devtools::spell_check(ignore = readLines('inst/extdata/dictionary.txt'))" >> spell.log 2>&1
+
+wbcheck:
 	R --slave -e "devtools::build_win()"
+
+gpcheck:
+	echo "\n===== GOOD PRACTICES CHECK =====\n" > gp.log 2>&1
+	R --slave -e "goodpractice::gp(checks = setdiff(goodpractice::all_checks(), c('covr', 'cyclocomp', 'no_description_depends', 'no_import_package_as_a_whole')), quiet = FALSE)" >> gp.log 2>&1
 
 build:
 	R --slave -e "devtools::build()"
@@ -44,4 +52,4 @@ build:
 install:
 	R --slave -e "devtools::install_local('../prioritizr')"
 
-.PHONY: clean data docs readme site test check checkwb build  install man
+.PHONY: initc clean data docs readme site test check checkwb build  install man

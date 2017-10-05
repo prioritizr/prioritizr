@@ -21,7 +21,7 @@ marxan_problem(x, ...)
 \arguments{
 \item{x}{\code{character} file path for Marxan input file (typically
 called \code{"input.dat"}), a \code{data.frame} object containing
-planning unit data following conventions (ie. \code{"pu.dat"}), or a
+planning unit data following conventions (i.e. \code{"pu.dat"}), or a
 \code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
 object containing planning unit data.}
 
@@ -34,8 +34,8 @@ data on the distribution of features across the study area.}
 in the solution.}
 
 \item{targets_type}{\code{character} name indicating if the \code{targets}
-are expressed as \code{"relative"} (eg. \code{0.2} meaning that 20 \% of a
-feature needs to be conserved), or \code{"absolute"} (eg. \code{200}
+are expressed as \code{"relative"} (e.g. \code{0.2} meaning that 20 \% of a
+feature needs to be conserved), or \code{"absolute"} (e.g. \code{200}
 meaning that 200 units of a feature need to be conserved) amounts.}
 
 \item{locked_in}{Object that determines which planning units that should be

@@ -14,12 +14,12 @@ planning units. This is equivalent to the connectivity strength modifier
 (CSM; (Beger et al. 2010)). Defaults to one so that penalties are the
 same as the values in the \code{data}.}
 
-\item{connectivity_data}{A \code{data.frame} or \code{matrix} 
+\item{connectivity_data}{A \code{data.frame} or \code{matrix}
 object that shows the strength of connectivity between consecutive planning
- units. If \code{connectivity_data} is a matrix, then rows and columns represent
- each planing unit and the cell values represent the connectivity between
- them. If \code{connectivity_data} is a \code{data.frame} the column names must
- be \code{"id1"}, \code{"id2"}, \code{"boundary"}, where each row
+ units. If \code{connectivity_data} is a matrix, then rows and columns
+ represent each planing unit and the cell values represent the connectivity
+ between them. If \code{connectivity_data} is a \code{data.frame} the column
+ names must be \code{"id1"}, \code{"id2"}, \code{"boundary"}, where each row
  shows the connectivity between two planning units (following the Marxan
  format). The data can be used to denote symmetric or asymmetric
  relationships between planning units.}
@@ -29,10 +29,10 @@ object that shows the strength of connectivity between consecutive planning
 }
 \description{
 Add constraints to a conservation problem to favor solutions that select
-planning units with high connectivity between them. Uses connectivity data 
-in the form of a \code{matrix} or \code{data.frame} object, where strength 
-of connectivity is a value such as the inverse distance between consecutive 
-planning units. This function can be used for symmetric or asymmetric 
+planning units with high connectivity between them. Uses connectivity data
+in the form of a \code{matrix} or \code{data.frame} object, where strength
+of connectivity is a value such as the inverse distance between consecutive
+planning units. This function can be used for symmetric or asymmetric
 relationships between planning units.
 }
 \examples{
@@ -75,21 +75,24 @@ s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
 # plot solutions
 par(mfrow=c(2,2))
 
-plot(s[[1]], pch=19, main="basic solution", cex = 1.5)
-points(s[[1]][s[[1]]$solution==1, ], col = "darkgreen", pch = 19, cex = 1.5)
+plot(s[[1]], pch = 19, main = "basic solution", cex = 1.5)
+points(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
+       cex = 1.5)
 
-plot(s[[2]], pch=19, main="small penalties", cex = 1.5)
-points(s[[2]][s[[2]]$solution==1, ], col = "darkgreen", pch = 19, cex = 1.5)
+plot(s[[2]], pch = 19, main = "small penalties", cex = 1.5)
+points(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
+       cex = 1.5)
 
-plot(s[[3]], pch=19, main="high penalties", cex = 1.5)
-points(s[[3]][s[[3]]$solution==1, ], col = "darkgreen", pch = 19, cex = 1.5)
+plot(s[[3]], pch = 19, main = "high penalties", cex = 1.5)
+points(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
+       cex = 1.5)
 
-plot(s[[4]], pch=19, main="asymmetric connectivity", cex = 1.5)
-points(s[[4]][s[[4]]$solution==1, ], col = "darkgreen", pch=19, cex = 1.5)
+plot(s[[4]], pch = 19, main = "asymmetric connectivity", cex = 1.5)
+points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", pch=19,
+       cex = 1.5)
 }
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{add_boundary_penalties}},
- \code{\link{penalties}}.
+\code{\link{penalties}}.
 }

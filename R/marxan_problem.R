@@ -14,7 +14,7 @@ NULL
 #'
 #' @param x \code{character} file path for Marxan input file (typically
 #'   called \code{"input.dat"}), a \code{data.frame} object containing
-#'   planning unit data following conventions (ie. \code{"pu.dat"}), or a
+#'   planning unit data following conventions (i.e. \code{"pu.dat"}), or a
 #'   \code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
 #'   object containing planning unit data.
 #'
@@ -25,8 +25,8 @@ NULL
 #'   in the solution.
 #'
 #' @param targets_type \code{character} name indicating if the \code{targets}
-#'   are expressed as \code{"relative"} (eg. \code{0.2} meaning that 20 \% of a
-#'   feature needs to be conserved), or \code{"absolute"} (eg. \code{200}
+#'   are expressed as \code{"relative"} (e.g. \code{0.2} meaning that 20 \% of a
+#'   feature needs to be conserved), or \code{"absolute"} (e.g. \code{200}
 #'   meaning that 200 units of a feature need to be conserved) amounts.
 #'
 #' @param spec \code{data.frame} containing information on the features.

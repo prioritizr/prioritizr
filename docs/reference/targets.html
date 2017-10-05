@@ -91,32 +91,39 @@ distribution that needs to be protected.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Please note that failing to specify targets will return a default
-error message when solving.The exception is the maximum cover problem 
-(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features 
+error message when solving.The exception is the maximum cover problem
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
 in the solution and therefore does not require targets.</p>
-    <p>The following list contains the targets can be added to a conservation planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horizontal'>
-    <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion (between 0 and 1)
-  of the maximum level of representation of features in the study area. The argument
-  to <code>x</code> should have a single value if all features have the same target. Otherwise,
-  the vector should have a value for each feature. In this case, targets are assigned to
-  features based on their position in the argument to <code>x</code> and the <code>feature</code>
-  when specifying the problem.</p></dd>
-    <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets expressed as the actual value
-  of features in the study area that need to be represented in the prioritization. The
-  argument to <code>x</code> is treated the same as for <code>add_relative_targets</code>.</p></dd>
-    <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion (between 0 and 1)
-  and calculated using a log-linear equation and four tuning parameters (as used in
-  Rodrigues <em>et al.</em> 2004). The first tuning parameter specifies the first cut-off
-  range size, and the second specifies the second cut-off range size, the third argument
-  specifies the target required for species with a range size equal to or less than the
-  first cut-off range size, and the fourth argument specifies the target required for
-  species with a range size equal to or greater than the required range size.</p></dd>
+    <p>The following list contains the targets can be added to a conservation
+planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horizontal'>
+    <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion
+  (between 0 and 1) of the maximum level of representation of features in
+  the study area. The argument to <code>x</code> should have a single value if all
+  features have the same target. Otherwise, the vector should have a value
+  for each feature. In this case, targets are assigned to
+  features based on their position in the argument to <code>x</code> and the
+  <code>feature</code> when specifying the problem.</p></dd>
+    <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets expressed as the
+  actual value of features in the study area that need to be represented in
+  the prioritization. The argument to <code>x</code> is treated the same as for
+  <code>add_relative_targets</code>.</p></dd>
+    <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion
+  (between 0 and 1) and calculated using a log-linear equation and four
+  tuning parameters (as used in Rodrigues <em>et al.</em> 2004). The first
+  tuning parameter specifies the first cut-off range size, and the second
+  specifies the second cut-off range size, the third argument
+  specifies the target required for species with a range size equal to or
+  less than the first cut-off range size, and the fourth argument specifies
+  the target required for species with a range size equal to or greater than
+  the required range size.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
-  <code><a href='problem.html'>problem</a></code>, <code><a href='add_feature_weights.html'>add_feature_weights</a></code>.</p>
+    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
+ <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
+ <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
+ <code><a href='solvers.html'>solvers</a></code>.</p>
     
 
   </div>

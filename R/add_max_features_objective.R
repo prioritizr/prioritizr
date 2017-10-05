@@ -47,8 +47,7 @@ NULL
 #' chosen so that the first term of the objective function is much smaller than #' the second. This ensures that the reserve cost only plays a role in
 #' distinguishing between solutions that meet the same number of targets.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{constraints}},
-#'   \code{\link{problem}}, \code{\link{targets}}.
+#' @seealso \code{\link{objectives}}.
 #'
 #' @examples
 #' # load data

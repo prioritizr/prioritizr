@@ -22,16 +22,16 @@ NULL
 #'   \code{\link[sp]{Spatial-class}} object. Additionally, note that if
 #'   argument to \code{x} is a \code{\link{Raster-class}} object then
 #'   argument to \code{y} must have the same spatial properties as it
-#'   (ie. coordinate system, extent, resolution).
+#'   (i.e. coordinate system, extent, resolution).
 #'
 #' @param boundary_data \code{\link[Matrix]{dsCMatrix-class}} object containing
 #'   the shared boundary lengths between planning units. This argument defaults
 #'   to \code{NULL} so that the boundary data will be automatically calculated.
 #'
-#' @param included \code{integer} \code{vector} indicating which cells in argument
-#'   to \code{x} are planning units. This argument is only used when \code{x}
-#'   is a \code{\link[raster]{Raster-class}} object. It defaults to \code{NULL}
-#'   so that the cell indices are calculated automatically.
+#' @param included \code{integer} \code{vector} indicating which cells in
+#'   argument to \code{x} are planning units. This argument is only used when
+#'   \code{x} is a \code{\link[raster]{Raster-class}} object. It defaults to
+#'   \code{NULL} so that the cell indices are calculated automatically.
 #'
 #' @param ... arguments passed to \code{\link{fast_extract}} for extracting
 #'   and calculating the conductance for each unit. These arguments

@@ -41,17 +41,17 @@ NULL
 #' # plot solutions
 #' par(mfrow=c(2,2))
 #'
-#' plot(s[[1]], main="basic solution")
-#' plot(s[[1]][s[[1]]$solution==1, ], col = "darkgreen", add = TRUE)
+#' plot(s[[1]], main = "basic solution")
+#' plot(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s[[2]], main="1 neighbor")
-#' plot(s[[2]][s[[2]]$solution==1, ], col = "darkgreen", add = TRUE)
+#' plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s[[3]], main="2 neighbors")
-#' plot(s[[3]][s[[3]]$solution==1, ], col = "darkgreen", add = TRUE)
+#' plot(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s[[4]], main="3 neighbors")
-#' plot(s[[4]][s[[4]]$solution==1, ], col = "darkgreen", add = TRUE)
+#' plot(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #' }
 #'
 #' @export

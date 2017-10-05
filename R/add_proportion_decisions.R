@@ -3,28 +3,27 @@ NULL
 
 #' Add Proportion Decisions
 #'
-#' Add a proportion decision to a conservation planning \code{\link{problem}}. 
-#' This is a relaxed decision where a part of a planning unit can be prioritized, 
-#' as opposed to the entire planning unit, which is the default function (see \code{\link{add_binary_decisions}}). 
-#' Typically, this this decision has the assumed action of buying a fraction 
+#' Add a proportion decision to a conservation planning \code{\link{problem}}.
+#' This is a relaxed decision where a part of a planning unit can be
+#' prioritized,  as opposed to the entire planning unit, which is the default
+#' function (see \code{\link{add_binary_decisions}}).
+#' Typically, this this decision has the assumed action of buying a fraction
 #' of a planning unit to include in a protected area network.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @details
 #' Conservation planning problems involve making decisions on planning units.
-#' These decisions are then associated with actions (eg. turning a planning
-#' unit into a protected area). If no decision is explicitly added to a problem, 
-#' then the binary decision class will be used by default.Only a single decision 
+#' These decisions are then associated with actions (e.g. turning a planning
+#' unit into a protected area). If no decision is explicitly added to a problem,
+#' then the binary decision class will be used by default.Only a single decision
 #' should be added to a
 #' \code{ConservationProblem} object. \strong{If multiple decisions are added
 #' to a problem object, then the last one to be added will be used.}
 #'
 #' @return \code{\link{Decision-class}} object.
 #'
-#' @seealso \code{\link{decisions}}, \code{\link{add_binary_decisions}}, 
-#' \code{\link{add_semicontinuous_decisions}}, \code{\link{constraints}}, 
-#' \code{\link{problem}}, \code{\link{targets}}, \code{\link{objectives}}
+#' @seealso \code{\link{decisions}}.
 #'
 #' @examples
 #' # create basic problem and using the default decision (binary)
@@ -62,7 +61,8 @@ add_proportion_decisions <- function(x) {
   x$add_decisions(pproto("ProportionDecision", Decision,
                          name = "Proportion decision",
                          apply = function(self, x) {
-                           assertthat::assert_that(inherits(x, "OptimizationProblem"))
+                           assertthat::assert_that(inherits(x,
+                                                   "OptimizationProblem"))
                            invisible(rcpp_apply_proportion_decisions(x$ptr))
                          }
   ))

@@ -9,6 +9,10 @@ rcpp_predefined_optimization_problem <- function(l) {
     .Call(`_prioritizr_rcpp_predefined_optimization_problem`, l)
 }
 
+rcpp_optimization_problem_as_list <- function(x) {
+    .Call(`_prioritizr_rcpp_optimization_problem_as_list`, x)
+}
+
 rcpp_get_optimization_problem_ncol <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_ncol`, x)
 }
@@ -71,6 +75,10 @@ rcpp_get_optimization_problem_row_ids <- function(x) {
 
 rcpp_get_optimization_problem_compressed_formulation <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_compressed_formulation`, x)
+}
+
+rcpp_set_optimization_problem_shuffled <- function(x) {
+    .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x)
 }
 
 rcpp_add_rij_data <- function(x, rij, compressed_formulation) {
@@ -143,6 +151,10 @@ rcpp_boundary_data <- function(data, tolerance = 0.00001) {
 
 rcpp_branch_matrix <- function(x) {
     .Call(`_prioritizr_rcpp_branch_matrix`, x)
+}
+
+rcpp_forbid_solution <- function(x, solution) {
+    .Call(`_prioritizr_rcpp_forbid_solution`, x, solution)
 }
 
 rcpp_list_to_matrix_indices <- function(x, n_preallocate = 10000L) {

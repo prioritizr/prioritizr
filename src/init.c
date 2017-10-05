@@ -26,6 +26,7 @@ extern SEXP _prioritizr_rcpp_apply_semicontinuous_decisions(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary_data(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
+extern SEXP _prioritizr_rcpp_forbid_solution(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_A(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_col_ids(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_compressed_formulation(SEXP);
@@ -44,7 +45,9 @@ extern SEXP _prioritizr_rcpp_get_optimization_problem_ub(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_vtype(SEXP);
 extern SEXP _prioritizr_rcpp_list_to_matrix_indices(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_new_optimization_problem(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_optimization_problem_as_list(SEXP);
 extern SEXP _prioritizr_rcpp_predefined_optimization_problem(SEXP);
+extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP);
 extern SEXP _prioritizr_rcpp_sp_to_polyset(SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -66,6 +69,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_symmetric_boundary_constraints",              (DL_FUNC) &_prioritizr_rcpp_apply_symmetric_boundary_constraints,              4},
     {"_prioritizr_rcpp_boundary_data",                                     (DL_FUNC) &_prioritizr_rcpp_boundary_data,                                     2},
     {"_prioritizr_rcpp_branch_matrix",                                     (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                     1},
+    {"_prioritizr_rcpp_forbid_solution",                                   (DL_FUNC) &_prioritizr_rcpp_forbid_solution,                                   2},
     {"_prioritizr_rcpp_get_optimization_problem_A",                        (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_A,                        1},
     {"_prioritizr_rcpp_get_optimization_problem_col_ids",                  (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_col_ids,                  1},
     {"_prioritizr_rcpp_get_optimization_problem_compressed_formulation",   (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_compressed_formulation,   1},
@@ -84,7 +88,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_get_optimization_problem_vtype",                    (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_vtype,                    1},
     {"_prioritizr_rcpp_list_to_matrix_indices",                            (DL_FUNC) &_prioritizr_rcpp_list_to_matrix_indices,                            2},
     {"_prioritizr_rcpp_new_optimization_problem",                          (DL_FUNC) &_prioritizr_rcpp_new_optimization_problem,                          3},
+    {"_prioritizr_rcpp_optimization_problem_as_list",                      (DL_FUNC) &_prioritizr_rcpp_optimization_problem_as_list,                      1},
     {"_prioritizr_rcpp_predefined_optimization_problem",                   (DL_FUNC) &_prioritizr_rcpp_predefined_optimization_problem,                   1},
+    {"_prioritizr_rcpp_set_optimization_problem_shuffled",                 (DL_FUNC) &_prioritizr_rcpp_set_optimization_problem_shuffled,                 1},
     {"_prioritizr_rcpp_sp_to_polyset",                                     (DL_FUNC) &_prioritizr_rcpp_sp_to_polyset,                                     3},
     {NULL, NULL, 0}
 };
