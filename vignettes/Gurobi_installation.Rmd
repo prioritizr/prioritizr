@@ -10,7 +10,7 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{Prioritizr Basics}
+  %\VignetteIndexEntry{Prioritizr Gurobi Installation}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

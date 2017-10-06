@@ -1,3 +1,8 @@
+# prioritizr 2.0.2.0 (unreleased)
+
+- Included vignette on Gurobi solver installation and testing.
+
+
 # prioritizr 2.0.1.0 (unreleased)
 
 - Fixed bug where `Spatial*DataFrame` input to `marxan_problem`  would always
