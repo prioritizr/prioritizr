@@ -3,8 +3,9 @@ context("marxan_problem")
 test_that("spatial data input (compile)", {
   # make problems
   p1 <- marxan_problem(sim_pu_polygons, features = sim_features, targets = 0.2,
-    targets_type = "relative", penalty = 1, edge_factor = 0.5)
-  p2 <- problem(sim_pu_polygons, features = sim_features) %>%
+                       targets_type = "relative", penalty = 1,
+                       edge_factor = 0.5, cost_column = "cost")
+  p2 <- problem(sim_pu_polygons, features = sim_features, "cost") %>%
           add_min_set_objective() %>%
           add_relative_targets(0.2) %>%
           add_boundary_penalties(1, 0.5)
@@ -29,7 +30,8 @@ test_that("spatial data input (solve)", {
   # make problem
   data(sim_pu_polygons, sim_features)
   p <- marxan_problem(sim_pu_polygons, features = sim_features, targets = 0.2,
-    targets_type = "relative", penalty = 1, edge_factor = 0.5) %>%
+                      targets_type = "relative", penalty = 1, edge_factor = 0.5,
+                      cost_column = "cost") %>%
       add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)

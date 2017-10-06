@@ -18,7 +18,7 @@ NULL
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
 #'   diagonal indicate length of a given planning unit"s edges that have no
-#'   neighbors (eg. for edges of planning units found along the
+#'   neighbors (e.g. for edges of planning units found along the
 #'   coastline). \strong{This function assumes the data are in a coordinate
 #'   system where Euclidean distances accurately describe the proximity
 #'   between two points on the earth}. Thus spatial data in a longitude/latitude

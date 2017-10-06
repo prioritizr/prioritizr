@@ -84,6 +84,43 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-2-0-1-0-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-2-0-1-0-unreleased" class="anchor"></a>prioritizr 2.0.1.0 (unreleased)</h1>
+<ul>
+<li>Fixed bug where <code>Spatial*DataFrame</code> input to <code>marxan_problem</code> would always use the first column in the attribute table for the cost data. <strong>This bug is serious</strong> so analysis that used <code>Spatial*DataFrame</code> inputs in <code>marxan_problem</code> should be rerun.</li>
+<li>Added functionality to use feature abundance/occurrence data stored as columns in the planning unit data when constructing <code>problem</code> objects.</li>
+</ul>
+</div>
+    <div id="prioritizr-2-0-0-2-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-2-0-0-2-unreleased" class="anchor"></a>prioritizr 2.0.0.2 (unreleased)</h1>
+<ul>
+<li>Skip <code>add_cuts_portfolio</code> on Travis.</li>
+</ul>
+</div>
+    <div id="prioritizr-2-0-0-1-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-2-0-0-1-unreleased" class="anchor"></a>prioritizr 2.0.0.1 (unreleased)</h1>
+<ul>
+<li>Skip <code>add_cuts_portfolio</code> and <code>add_shuffle_portfolio</code> tests on CRAN.</li>
+</ul>
+</div>
+    <div id="prioritizr-2-0-0-0-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-2-0-0-0-unreleased" class="anchor"></a>prioritizr 2.0.0.0 (unreleased)</h1>
+<ul>
+<li>This version breaks compatibility with previous releases because solutions in <code>data.frame</code> and <code>Spatial*DataFrame</code> objects are now stored in columns named <e2>&lt;80&gt;&lt;9c&gt;solution_*" (e.g. <e2>&lt;80&gt;&lt;9c&gt;solution_1<e2>&lt;80&gt;&lt;9d&gt;) to store multiple solutions.</e2></e2></e2>
+</li>
+<li>Added support for multiple solutions (#23).</li>
+<li>Solutions now contain additional information in stored in the object<e2>&lt;80&gt;&lt;99&gt;s attributes (#24). See README.Rmd for examples on accessing this information.</e2>
+</li>
+<li>Tidy examples in <em>add_gurobi_solver.R</em>, <em>add_lpsymphony_solver.R</em>, <em>add_rsymphony_solver.R</em>, and <em>solvers.R</em>.</li>
+<li>Add logical <code>verbose</code> argument to all solvers. This replaces the <code>verbosity</code> argument in <code>add_lpsymphony_solver</code> and <code>add_rsymphony_solver</code>.</li>
+<li>The verbosity of information presented when solving problems using <code>add_lpsymphony_solver</code> and <code>add_rsymphony_solver</code> is reduced.</li>
+<li>Assorted spelling mistakes have been fixed.</li>
+</ul>
+</div>
     <div id="prioritizr-1-0-2-3-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-2-3-unreleased" class="anchor"></a>prioritizr 1.0.2.3 (unreleased)</h1>
@@ -91,6 +128,7 @@
 <li>
 <code>ConservationProblem$print()</code> now only prints the first three species names and a count of the total number of features. This update means that <code>ConservationProblem</code> objects with lots of features can now safely be printed without polluting the R console.</li>
 <li>Attempt to make equations in help files prettier.</li>
+<li>Fix bug where lpsymhpony and Rsymphony solvers would return solutions containing NA values if they did not find a feasible solution within the argument to <code>time_limit</code>.</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-2-2-unreleased" class="section level1">
@@ -132,11 +170,11 @@
 <li>Update preliminary versions of the shiny apps to call functions from other packages explicitly.</li>
 <li>
 <em>README.Rmd</em> tweaks to make it look prettier on website</li>
-<li>lint objective function definition files</li>
-<li>remove <e2>&lt;80&gt;&lt;9c&gt;\text<e2>&lt;80&gt;&lt;9d&gt; latex sequences from objective function definition files because CRAN doesn<e2>&lt;80&gt;&lt;99&gt;t support <em>amsmath</em> extensions in equations.</e2></e2></e2>
+<li>Lint objective function definition files</li>
+<li>Remove <e2>&lt;80&gt;&lt;9c&gt;\text<e2>&lt;80&gt;&lt;9d&gt; latex sequences from objective function definition files because CRAN doesn<e2>&lt;80&gt;&lt;99&gt;t support <em>amsmath</em> extensions in equations.</e2></e2></e2>
 </li>
-<li>update examples in objective function files to only show relevant objectives</li>
-<li>added <em>rmarkdown</em> package to Suggests following <a href="https://www.rforge.net/doc/packages/knitr/vignette_engines.html">recommended practices</a>
+<li>Update examples in objective function files to only show relevant objectives</li>
+<li>Added <em>rmarkdown</em> package to Suggests following <a href="https://www.rforge.net/doc/packages/knitr/vignette_engines.html">recommended practices</a>
 </li>
 </ul>
 </div>
@@ -170,21 +208,21 @@
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-1-2-unreleased" class="anchor"></a>prioritizr 1.0.1.2 (unreleased)</h1>
 <ul>
-<li>fix #21</li>
+<li>Fix #21.</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-1-1-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-1-1-unreleased" class="anchor"></a>prioritizr 1.0.1.1 (unreleased)</h1>
 <ul>
-<li>add roxygen2 to package SUGGESTS for building vignettes</li>
+<li>Add roxygen2 to package SUGGESTS for building vignettes.</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-1-0-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-1-0-unreleased" class="anchor"></a>prioritizr 1.0.1.0 (unreleased)</h1>
 <ul>
-<li>fix issue where <code>parallel::detectCores()</code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver<e2>&lt;80&gt;&lt;93&gt;even when one thread is specified</e2>
+<li>Fix issue where <code>parallel::detectCores()</code> returns <code>NA</code> on some systems preventing users from using the Gurobi solver<e2>&lt;80&gt;&lt;93&gt;even when one thread is specified.</e2>
 </li>
 </ul>
 </div>
@@ -192,19 +230,18 @@
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-5-unreleased" class="anchor"></a>prioritizr 1.0.0.5 (unreleased)</h1>
 <ul>
-<li>fix building issue due to incorrect file order in DESCRIPTION</li>
+<li>Fix building issue due to incorrect file order in DESCRIPTION.</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-4-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-4-unreleased" class="anchor"></a>prioritizr 1.0.0.4 (unreleased)</h1>
 <ul>
-<li>compatibility with R 3.4.0</li>
-<li>replace <code>structure(NULL, ...)</code> with <code>structure(list(), ...)</code>
-</li>
-<li>register compiled library files</li>
-<li>remove duplicate definition of <code>new_waiver</code> from internal.R</li>
-<li>tests check if prioritizrdata package not installed and skip if it isn<e2>&lt;80&gt;&lt;99&gt;t</e2>
+<li>Compatibility with R 3.4.0.</li>
+<li>Replace <code>structure(NULL, ...)</code> with <code>structure(list(), ...)</code>.</li>
+<li>Register compiled library files.</li>
+<li>Remove duplicate definition of <code>new_waiver</code> from internal.R.</li>
+<li>Tests check if prioritizrdata package not installed and skip if it isn<e2>&lt;80&gt;&lt;99&gt;t.</e2>
 </li>
 </ul>
 </div>
@@ -212,27 +249,27 @@
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-3-unreleased" class="anchor"></a>prioritizr 1.0.0.3 (unreleased)</h1>
 <ul>
-<li>fix missing links in documentation</li>
-<li>fix typos in roxygen2 parameters</li>
-<li>move <code>add_default_decisions</code> and <code>add_default_solver</code> to own help file</li>
-<li>make <code>add_default_objectives</code> and <code>add_default_targets</code> private functions</li>
+<li>Fix missing links in documentation</li>
+<li>Fix typos in roxygen2 parameters</li>
+<li>Move <code>add_default_decisions</code> and <code>add_default_solver</code> to own help file</li>
+<li>Make <code>add_default_objectives</code> and <code>add_default_targets</code> private functions</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-2-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-2-unreleased" class="anchor"></a>prioritizr 1.0.0.2 (unreleased)</h1>
 <ul>
-<li>fix #13</li>
+<li>Fix #13</li>
 </ul>
 </div>
     <div id="prioritizr-1-0-0-1-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-1-unreleased" class="anchor"></a>prioritizr 1.0.0.1 (unreleased)</h1>
 <ul>
-<li>fix #8</li>
-<li>fix bug in <code>add_corridor_constraints</code> that fails to actually add the constraints with argument to <code>connectivity</code> is a list</li>
-<li>fix bug in <code>make install</code> command so that it now actually installs the package</li>
-<li>fix link to Joe<e2>&lt;80&gt;&lt;99&gt;s website in the package<e2>&lt;80&gt;&lt;99&gt;s website</e2></e2>
+<li>Fix #8.</li>
+<li>Fix bug in <code>add_corridor_constraints</code> that fails to actually add the constraints with argument to <code>connectivity</code> is a list.</li>
+<li>Fix bug in <code>make install</code> command so that it now actually installs the package.</li>
+<li>Fix link to Joe<e2>&lt;80&gt;&lt;99&gt;s website in the package<e2>&lt;80&gt;&lt;99&gt;s website.</e2></e2>
 </li>
 </ul>
 </div>
@@ -240,32 +277,32 @@
 <h1 class="hasAnchor">
 <a href="#prioritizr-1-0-0-0-unreleased" class="anchor"></a>prioritizr 1.0.0.0 (unreleased)</h1>
 <ul>
-<li>R interface fully functional</li>
+<li>R interface fully functional.</li>
 </ul>
 </div>
     <div id="prioritizr-0-1-2-9-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-0-1-2-9-unreleased" class="anchor"></a>prioritizr 0.1.2.9 (unreleased)</h1>
 <ul>
-<li>package re-implementation</li>
+<li>Package re-implementation.</li>
 </ul>
 </div>
     <div id="prioritizr-0-1-2" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-0-1-2" class="anchor"></a>prioritizr 0.1.2</h1>
 <ul>
-<li>prepare for CRAN submission</li>
-<li>add continuous integration</li>
-<li>fixed various bugs</li>
-<li>introduce maximum target coverage model</li>
-<li>add full vignette in addition to quickstart guide</li>
+<li>Prepare for CRAN submission.</li>
+<li>Add continuous integration.</li>
+<li>Fixed various bugs.</li>
+<li>Introduce maximum target coverage model.</li>
+<li>Add full vignette in addition to quickstart guide.</li>
 </ul>
 </div>
     <div id="prioritizr-0-1-1-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-0-1-1-unreleased" class="anchor"></a>prioritizr 0.1.1 (unreleased)</h1>
 <ul>
-<li>initial package version</li>
+<li>Initial package version.</li>
 </ul>
 </div>
     </div>
@@ -275,6 +312,10 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-2-0-1-0-unreleased">2.0.1.0</a></li>
+        <li><a href="#prioritizr-2-0-0-2-unreleased">2.0.0.2</a></li>
+        <li><a href="#prioritizr-2-0-0-1-unreleased">2.0.0.1</a></li>
+        <li><a href="#prioritizr-2-0-0-0-unreleased">2.0.0.0</a></li>
         <li><a href="#prioritizr-1-0-2-3-unreleased">1.0.2.3</a></li>
         <li><a href="#prioritizr-1-0-2-2-unreleased">1.0.2.2</a></li>
         <li><a href="#prioritizr-1-0-2-1-unreleased">1.0.2.1</a></li>

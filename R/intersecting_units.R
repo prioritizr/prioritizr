@@ -66,7 +66,7 @@ methods::setGeneric("intersecting_units",
                       standardGeneric("intersecting_units"))
 
 #' @name intersecting_units
-#' @usage intersecting_units(x, y, ...) # x=Raster, y=Raster
+#' @usage \S4method{intersecting_units}{Raster,Raster}(x, y, ...)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
@@ -88,7 +88,7 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage intersecting_units(x, y, ...) # x=Spatial, y=Spatial
+#' @usage \S4method{intersecting_units}{Spatial,Spatial}(x, y, ...)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
@@ -113,7 +113,7 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage intersecting_units(x, y, ...) # x=Raster, y=Spatial
+#' @usage \S4method{intersecting_units}{Raster,Spatial}(x, y, ...)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
@@ -137,7 +137,7 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage intersecting_units(x, y, ...) # x=Spatial, y=Raster
+#' @usage \S4method{intersecting_units}{Spatial,Raster}(x, y, ...)
 #' @rdname intersecting_units
 methods::setMethod("intersecting_units",
   methods::signature(x = "Spatial", y = "Raster"),
@@ -161,7 +161,7 @@ methods::setMethod("intersecting_units",
 )
 
 #' @name intersecting_units
-#' @usage intersecting_units(x, y, ...) # x=data.frame, y=ANY
+#' @usage \S4method{intersecting_units}{data.frame,ANY}(x, y, ...)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",

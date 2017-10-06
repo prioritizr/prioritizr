@@ -22,12 +22,12 @@ added to a problem then this decision class will be used by default.
 }
 \details{
 Conservation planning problems involve making decisions on planning units.
-These decisions are then associated with actions (eg. turning a planning
+These decisions are then associated with actions (e.g. turning a planning
 unit into a protected area). If no decision is explicitly added to a problem,
-then the binary decision class will be used by default. Only a single decision
-should be added to a
-\code{ConservationProblem} object. \strong{If multiple decisions are added
-to a problem object, then the last one to be added will be used.}
+then the binary decision class will be used by default. Only a single
+decision should be added to a \code{ConservationProblem} object. \strong{If
+multiple decisions are added to a problem object, then the last one to be
+added will be used.}
 }
 \examples{
 # create basic problem and using the default decision (binary)
@@ -55,7 +55,5 @@ plot(s, main = c("default (binary)", "binary", "proportion",
 
 }
 \seealso{
-\code{\link{decisions}}, \code{\link{add_proportion_decisions}},
-\code{\link{add_semicontinuous_decisions}}, \code{\link{constraints}},
-\code{\link{problem}}, \code{\link{targets}}, \code{\link{objectives}}
+\code{\link{decisions}}.
 }

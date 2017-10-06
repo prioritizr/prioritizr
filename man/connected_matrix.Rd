@@ -43,9 +43,9 @@ have to be within in order to qualify as being connected.}
 \code{\link[Matrix]{dsCMatrix-class}} object.
 }
 \description{
-Create a matrix showing which planning units are spatially connected. Created 
-automatically when \code{\link{add_connected_constraints}} is added to a 
-\code{ConservationProblem} object.
+Create a matrix showing which planning units are spatially connected.
+Created automatically when \code{\link{add_connected_constraints}} is added
+to a \code{ConservationProblem} object.
 }
 \details{
 This function returns a \code{\link[Matrix]{dgCMatrix-class}} sparse

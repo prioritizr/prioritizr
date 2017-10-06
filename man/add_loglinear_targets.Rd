@@ -33,23 +33,24 @@ than or equal to \code{upper_bound_amount}.}
   to it.
 }
 \description{
-Set targets as a proportion (between 0 and 1) and calculated using a log-linear 
-equation and four tuning parameters (as used in Rodrigues \emph{et al.} 2004). The 
-first tuning parameter specifies the first cut-off range size, and the second specifies 
-the second cut-off range size, the third argument specifies the target required 
-for species with a range size equal to or less than the first cut-off range size, 
-and the fourth argument specifies the target required for species with a range 
-size equal to or greater than the required range size.
+Set targets as a proportion (between 0 and 1) and calculated using a
+log-linear  equation and four tuning parameters (as used in Rodrigues
+\emph{et al.} 2004). The first tuning parameter specifies the first cut-off
+range size, and the second specifies  the second cut-off range size, the
+third argument specifies the target required  for species with a range size
+equal to or less than the first cut-off range size,  and the fourth argument
+specifies the target required for species with a range  size equal to or
+greater than the required range size.
 }
 \details{
-Note that with the exception of the maximum cover problem, targets must 
+Note that with the exception of the maximum cover problem, targets must
 be added to a \code{\link{problem}} or solving will return an error.
 
 
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems require 
-adding targets with the exception of the maximum cover problem 
-(see \code{\link{add_max_cover_objective}}), which maximizes all features 
+distribution that needs to be protected. All conservation planning problems
+require adding targets with the exception of the maximum cover problem
+(see \code{\link{add_max_cover_objective}}), which maximizes all features
 in the solution and therefore does not require targets.
 }
 \examples{
@@ -78,9 +79,8 @@ plot(s, main=c("relative targets", "absolute targets",
                "log-linear targets"))
 }
 
- 
+
 }
 \seealso{
-\code{\link{targets}}, \code{\link{constraints}}, \code{\link{objectives}},
-  \code{\link{problem}}, \code{\link{add_relative_targets}}, \code{\link{add_absolute_targets}}.
+\code{\link{targets}}.
 }

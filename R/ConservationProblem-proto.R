@@ -8,13 +8,13 @@ methods::setOldClass("ConservationProblem")
 #'
 #' This class is used to represent conservation planning problems. A
 #' conservation planning problem has spatially explicit planning units.
-#' A prioritization involves making a decision on each planning unit (eg. is
+#' A prioritization involves making a decision on each planning unit (e.g. is
 #' the planning unit going to be turned into a protected area?). Each
 #' planning unit is associated with a cost that represents the cost incurred
 #' by applying the decision to the planning unit. The problem also has a set
 #' of representation targets for each feature. Further, it also has
 #' constraints used to ensure that the solution meets additional
-#' objectives (eg. certain areas are locked into the solution). Finally,
+#' objectives (e.g. certain areas are locked into the solution). Finally,
 #' a conservation planning problem--unlike an optimization problem--also
 #' requires a method to solve the problem. \strong{This class represents a
 #' planning problem, to actually build and then solve a planning problem,
@@ -40,6 +40,9 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \item{$constraints}{\code{\link{Collection-class}} object used to represent
 #'   additional \code{\link{constraints}} that the problem is subject to.}
+#'
+#' \item{$portfolio}{\code{\link{Portfolio-class}} object used to represent
+#'   the method for generating a portfolio of solutions.}
 #'
 #' \item{$solver}{\code{\link{Solver-class}} object used to solve the problem.}
 #'
@@ -74,6 +77,8 @@ methods::setOldClass("ConservationProblem")
 #' \code{x$add_objective(obj)}
 #'
 #' \code{x$add_decisions(dec)}
+#'
+#' \code{x$add_portfolio(pol)}
 #'
 #' \code{x$add_solver(sol)}
 #'
@@ -118,6 +123,8 @@ methods::setOldClass("ConservationProblem")
 #' \item{dec}{\code{\link{Decision-class}} object.}
 #'
 #' \item{con}{\code{\link{Constraint-class}} object.}
+#'
+#' \item{pol}{\code{\link{Portfolio-class}} object.}
 #'
 #' \item{sol}{\code{\link{Solver-class}} object.}
 #'
@@ -175,6 +182,9 @@ methods::setOldClass("ConservationProblem")
 #' \item{add_decisions}{return a new \code{\link{ConservationProblem-class}}
 #'   object with the decision added to it.}
 #'
+#' \item{add_portfolio}{return a new \code{\link{ConservationProblem-class}}
+#'   object with the portfolio method added to it.}
+#'
 #' \item{add_solver}{return a new \code{\link{ConservationProblem-class}} object
 #'   with the solver added to it.}
 #'
@@ -194,35 +204,46 @@ methods::setOldClass("ConservationProblem")
 #'  the value of a parameter (specified by argument \code{id}).}
 #'
 #' \item{render_all_constraint_parameters}{generate a \emph{shiny} \code{div}
-#'   containing all the parameters" widgets.}
+#'   containing all the parameters' widgets.}
 #'
 #' \item{get_objective_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in one of the objectives in the object.}
+#'   argument \code{id}) used in the object's objective.}
 #'
 #' \item{set_objective_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in one of the objectives in the object to
-#'  \code{value}.}
+#'   argument \code{id}) used in the object's objective to \code{value}.}
 #'
 #' \item{render_objective_parameter}{generate a \emph{shiny} widget to modify
 #'   the value of a parameter (specified by argument \code{id}).}
 #'
 #' \item{render_all_objective_parameters}{generate a \emph{shiny} \code{div}
-#'   containing all the parameters" widgets.}
+#'   containing all the parameters' widgets.}
 #'
 #' \item{get_solver_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in one of the solvers in the object.}
+#'   argument \code{id}) used in the object's solver.}
 #'
 #' \item{set_solver_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in one of the solvers in the object to
-#'  \code{value}.}
+#'   argument \code{id}) used in the object's solver to \code{value}.}
 #'
-#' \item{render_solver_parameter}{generate a \emph{shiny} widget to modify the
+#' \item{render_solver_parameter}{generate a \emph{shiny} widget to modify
 #'   the value of a parameter (specified by argument \code{id}).}
 #'
 #' \item{render_all_solver_parameters}{generate a \emph{shiny} \code{div}
-#'   containing all the parameters" widgets.}
+#'   containing all the parameters' widgets.}
+#'
+#' \item{get_portfolio_parameter}{get the value of a parameter (specified by
+#'   argument \code{id}) used in the object's portfolio.}
+#'
+#' \item{set_portfolio_parameter}{set the value of a parameter (specified by
+#'   argument \code{id}) used in objects' solver to \code{value}.}
+#'
+#' \item{render_portfolio_parameter}{generate a \emph{shiny} widget to modify
+#'   the value of a parameter (specified by argument \code{id}).}
+#'
+#' \item{render_all_portfolio_parameters}{generate a \emph{shiny} \code{div}
+#'   containing all the parameters' widgets.}
 #'
 #' }
+#'
 #' @name ConservationProblem-class
 #'
 #' @aliases ConservationProblem
@@ -237,6 +258,7 @@ ConservationProblem <- pproto(
   targets = new_waiver(),
   constraints = pproto(NULL, Collection),
   penalties = pproto(NULL, Collection),
+  portfolio  = new_waiver(),
   solver  = new_waiver(),
   print = function(self) {
     r <- vapply(list(self$objective, self$targets), function(x) {
@@ -244,7 +266,7 @@ ConservationProblem <- pproto(
         return("none specified")
       return(x$repr())
     }, character(1))
-    d <- vapply(list(self$solver, self$decisions), function(x) {
+    d <- vapply(list(self$solver, self$decisions, self$portfolio), function(x) {
       if (is.Waiver(x))
         return("default")
       return(x$repr())
@@ -268,6 +290,7 @@ ConservationProblem <- pproto(
     "\n  decisions:      ", d[2],
     "\n  constraints:    ", self$constraints$repr(),
     "\n  penalties:      ", self$penalties$repr(),
+    "\n  portfolio:      ", d[3],
     "\n  solver:         ", d[1]))
   },
   show = function(self) {
@@ -327,6 +350,8 @@ ConservationProblem <- pproto(
       return(raster::nlayers(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
+    } else if (inherits(self$data$features, "character")) {
+      return(length(self$data$features))
     } else {
       stop("feature data is of an unrecognized class")
     }
@@ -336,6 +361,8 @@ ConservationProblem <- pproto(
       return(names(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
+    } else if (inherits(self$data$features, "character")) {
+      return(self$data$features)
     } else {
       stop("feature data is of an unrecognized class")
     }
@@ -348,12 +375,18 @@ ConservationProblem <- pproto(
       stop("problem is missing targets")
     self$targets$output()
   },
+  add_portfolio = function(self, x) {
+    assertthat::assert_that(inherits(x, "Portfolio"))
+    if (!is.Waiver(self$portfolio))
+      warning("overwriting previously defined portfolio")
+    pproto(NULL, self, portfolio = x)
+  },
   add_solver = function(self, x) {
     assertthat::assert_that(inherits(x, "Solver"))
     if (!is.Waiver(self$solver))
       warning("overwriting previously defined solver")
     pproto(NULL, self, solver = x)
-    },
+  },
   add_targets = function(self, x) {
     assertthat::assert_that(inherits(x, "Target"))
     if (!is.Waiver(self$targets))
@@ -419,6 +452,18 @@ ConservationProblem <- pproto(
   },
   render_all_solver_parameters = function(self) {
     self$solver$render_all_parameter()
+  },
+  get_portfolio_parameter = function(self, id) {
+    self$portfolio$get_parameter(id)
+  },
+  set_portfolio_parameter = function(self, id, value) {
+    self$portfolio$set_parameter(id, value)
+  },
+  render_portfolio_parameter = function(self, id) {
+    self$portfolio$render_parameter(id)
+  },
+  render_all_portfolio_parameters = function(self) {
+    self$portfolio$render_all_parameter()
   },
   get_penalty_parameter = function(self, id) {
     self$penalty$get_parameter(id)

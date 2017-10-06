@@ -115,7 +115,8 @@ problem. Data are stored in memory and accessed using an external pointer.
     <code>x$number_of_planning_units()</code>
     <code>x$number_of_features()</code>
     <code>x$row_ids()</code>
-    <code>x$col_ids()</code></p>
+    <code>x$col_ids()</code>
+    <code>x$compressed_formulation()</code></p>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
 
@@ -149,6 +150,11 @@ problem. Data are stored in memory and accessed using an external pointer.
   (column) in the model matrix.</p></dd>
     <dt>row_ids</dt><dd><p><code>character</code> names describing each constraint (row) in
   in the model matrix.</p></dd>
+    x$compressed_formulation() is the optimization problem formulated
+  using a compressed version of the rij matrix?
+    <dt>shuffle_columns</dt><dd><p>randomly shuffle the columns in the problem. This
+  should almost never be called manually and only should only be called
+ after the optimization problem has been fully constructed.</p></dd>
     </dl>
     
 

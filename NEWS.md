@@ -1,8 +1,49 @@
+# prioritizr 2.0.1.0 (unreleased)
+
+- Fixed bug where `Spatial*DataFrame` input to `marxan_problem`  would always
+  use the first column in the attribute table for the cost data. **This bug is
+  serious** so analysis that used `Spatial*DataFrame` inputs in
+  `marxan_problem` should be rerun.
+- Added functionality to use feature abundance/occurrence data stored as
+  columns in the planning unit data when constructing `problem` objects.
+
+# prioritizr 2.0.0.2 (unreleased)
+
+- Skip `add_cuts_portfolio` on Travis.
+
+# prioritizr 2.0.0.1 (unreleased)
+
+- Skip `add_cuts_portfolio` and `add_shuffle_portfolio` tests on
+  CRAN.
+
+# prioritizr 2.0.0.0 (unreleased)
+
+- This version breaks compatibility with previous releases because
+  solutions in `data.frame` and `Spatial*DataFrame` objects
+  are now stored in columns named "solution_*" (e.g. "solution_1")
+  to store multiple solutions.
+- Added support for multiple solutions (#23).
+- Solutions now contain additional information in stored in the object's
+  attributes (#24). See README.Rmd for examples on accessing this
+  information.
+- Tidy examples in _add_gurobi_solver.R_, _add_lpsymphony_solver.R_,
+  _add_rsymphony_solver.R_, and _solvers.R_.
+- Add logical `verbose` argument to all solvers. This replaces the `verbosity`
+  argument in `add_lpsymphony_solver` and `add_rsymphony_solver`.
+- The verbosity of information presented when solving problems using
+  `add_lpsymphony_solver` and `add_rsymphony_solver` is reduced.
+- Assorted spelling mistakes have been fixed.
+
 # prioritizr 1.0.2.3 (unreleased)
 
 - `ConservationProblem$print()` now only prints the first three species names
-  and a count of the total number of features. This update means that `ConservationProblem` objects with lots of features can now safely be printed without polluting the R console.
+  and a count of the total number of features. This update means that
+  `ConservationProblem` objects with lots of features can now safely be printed
+  without polluting the R console.
 - Attempt to make equations in help files prettier.
+- Fix bug where lpsymhpony and Rsymphony solvers would return solutions
+  containing NA values if they did not find a feasible solution within
+  the argument to `time_limit`.
 
 # prioritizr 1.0.2.2 (unreleased)
 
@@ -45,11 +86,12 @@
 - Update preliminary versions of the shiny apps to call functions from other
   packages explicitly.
 - _README.Rmd_ tweaks to make it look prettier on website
-- lint objective function definition files
-- remove "\text" latex sequences from objective function definition files
+- Lint objective function definition files
+- Remove "\text" latex sequences from objective function definition files
   because CRAN doesn't support _amsmath_ extensions in equations.
-- update examples in objective function files to only show relevant objectives
-- added _rmarkdown_ package to Suggests following [recommended practices](https://www.rforge.net/doc/packages/knitr/vignette_engines.html)
+- Update examples in objective function files to only show relevant objectives
+- Added _rmarkdown_ package to Suggests following [recommended
+  practices](https://www.rforge.net/doc/packages/knitr/vignette_engines.html)
 
 # prioritizr 1.0.1.5 (unreleased)
 
@@ -79,65 +121,66 @@
 
 # prioritizr 1.0.1.2 (unreleased)
 
-- fix #21
+- Fix #21.
 
 # prioritizr 1.0.1.1 (unreleased)
 
-- add roxygen2 to package SUGGESTS for building vignettes
+- Add roxygen2 to package SUGGESTS for building vignettes.
 
 # prioritizr 1.0.1.0 (unreleased)
 
-- fix issue where `parallel::detectCores()` returns `NA` on some systems
+- Fix issue where `parallel::detectCores()` returns `NA` on some systems
   preventing users from using the Gurobi solver--even when one thread is
-  specified
+  specified.
 
 # prioritizr 1.0.0.5 (unreleased)
 
-- fix building issue due to incorrect file order in DESCRIPTION
+- Fix building issue due to incorrect file order in DESCRIPTION.
 
 # prioritizr 1.0.0.4 (unreleased)
 
-- compatibility with R 3.4.0
-- replace `structure(NULL, ...)` with `structure(list(), ...)`
-- register compiled library files
-- remove duplicate definition of `new_waiver` from internal.R
-- tests check if prioritizrdata package not installed and skip if it isn't
+- Compatibility with R 3.4.0.
+- Replace `structure(NULL, ...)` with `structure(list(), ...)`.
+- Register compiled library files.
+- Remove duplicate definition of `new_waiver` from internal.R.
+- Tests check if prioritizrdata package not installed and skip if it isn't.
 
 # prioritizr 1.0.0.3 (unreleased)
 
-- fix missing links in documentation
-- fix typos in roxygen2 parameters
-- move `add_default_decisions` and `add_default_solver` to own help file
-- make `add_default_objectives` and `add_default_targets` private functions
+- Fix missing links in documentation
+- Fix typos in roxygen2 parameters
+- Move `add_default_decisions` and `add_default_solver` to own help file
+- Make `add_default_objectives` and `add_default_targets` private functions
 
 # prioritizr 1.0.0.2 (unreleased)
 
-- fix #13
+- Fix #13
 
 # prioritizr 1.0.0.1 (unreleased)
 
-- fix #8
-- fix bug in `add_corridor_constraints` that fails to actually add the
-  constraints with argument to `connectivity` is a list
-- fix bug in `make install` command so that it now actually installs the package
-- fix link to Joe's website in the package's website
+- Fix #8.
+- Fix bug in `add_corridor_constraints` that fails to actually add the
+  constraints with argument to `connectivity` is a list.
+- Fix bug in `make install` command so that it now actually installs the
+  package.
+- Fix link to Joe's website in the package's website.
 
 # prioritizr 1.0.0.0 (unreleased)
 
-- R interface fully functional
+- R interface fully functional.
 
 # prioritizr 0.1.2.9 (unreleased)
 
-- package re-implementation
+- Package re-implementation.
 
 # prioritizr 0.1.2
 
-- prepare for CRAN submission
-- add continuous integration
-- fixed various bugs
-- introduce maximum target coverage model
-- add full vignette in addition to quickstart guide
+- Prepare for CRAN submission.
+- Add continuous integration.
+- Fixed various bugs.
+- Introduce maximum target coverage model.
+- Add full vignette in addition to quickstart guide.
 
 # prioritizr 0.1.1 (unreleased)
 
-- initial package version
+- Initial package version.

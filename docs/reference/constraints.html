@@ -83,24 +83,29 @@
     </div>
 
     
-    <p>A constraint can be added to a conservation planning problem as a way to make certain 
-solutions invalid, given a cutoff criteria. Used when specific planning units or 
-configurations of planning units are undesireable or inefficient.</p>
+    <p>A constraint can be added to a conservation planning problem as a way to
+make certain  solutions invalid, given a cutoff criteria. Used when specific
+planning units or configurations of planning units are undesirable or
+inefficient.</p>
     
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Like a penalty, a constraint can be used as a mechanism to increase 
-connectivity between planning units, but works by eliminating all solutions without a certain 
-degree of connectivity, rather than penalizing poorly connected solutions. 
-The solution cost will likely be less affected by applying a constraint than a penalty.
-Use the <code>add_connected_constraints</code>, <code>add_corridor_constraints</code>, or 
-<code>add_neighbor_constraints</code> functions for connectivity considerations, or see <code><a href='penalties.html'>penalties</a></code>.</p>
-<p>Constraints can also be used to lock in or lock out certain planning units from the solution, 
-such as protected areas or degraded land. Use the <code>add_locked_in_constraints</code> 
-and <code>add_locked_out_constraints</code> functions to do this.</p>
-<p>Below are the constraints that can be added to a <code>ConservationProblem</code> object.</p><dl class='dl-horizontal'>
+    <p>Like a penalty, a constraint can be used as a mechanism to increase
+connectivity between planning units, but works by eliminating all solutions
+without a certain degree of connectivity, rather than penalizing poorly
+connected solutions. The solution cost will likely be less affected by
+applying a constraint than a penalty. Use the
+<code>add_connected_constraints</code>, <code>add_corridor_constraints</code>, or
+<code>add_neighbor_constraints</code> functions for connectivity considerations,
+or see <code><a href='penalties.html'>penalties</a></code>.</p>
+<p>Constraints can also be used to lock in or lock out certain planning units
+from the solution, such as protected areas or degraded land. Use the
+<code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code>
+functions to do this.</p>
+<p>Below are the constraints that can be added to a <code>ConservationProblem</code>
+object.</p><dl class='dl-horizontal'>
     <dt><code><a href='add_connected_constraints.html'>add_connected_constraints</a></code></dt><dd><p>Add constraints to a conservation problem to ensure that all selected
 planning units are spatially connected to each other.</p></dd>
     <dt><code><a href='add_corridor_constraints.html'>add_corridor_constraints</a></code></dt><dd><p>It is important to maintain connectivity between reserves. However,
@@ -126,8 +131,9 @@ planning units have at least a certain number of neighbors.</p></dd>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='penalties.html'>penalties</a></code>, <code><a href='objectives.html'>objectives</a></code>, <code><a href='targets.html'>targets</a></code>,
-  <code><a href='problem.html'>problem</a></code></p>
+    <p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
+ <code><a href='penalties.html'>penalties</a></code>, code<a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem</a></code>,
+ <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
   </div>

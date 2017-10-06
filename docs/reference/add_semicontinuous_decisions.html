@@ -83,16 +83,17 @@
     </div>
 
     
-    <p>Add a semi-continuous decision to a conservation planning <code><a href='problem.html'>problem</a></code>.
-This is a relaxed decision where a part of a planning unit can be prioritized,
-as opposed to the entire planning unit, which is the default function
-(see <code><a href='add_binary_decisions.html'>add_binary_decisions</a></code>).
-This decision is similar to the <code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code> function
-except that it has an upper bound parameter. By default, the decision can
-range from prioritizing none (0 %) to all (100 %) of a planning unit.
-However, a upperbound can be specified to ensure that at most only a fraction (eg. 80 %)
-of a planning unit can be preserved. This type of decision may be useful
-when it is not practical to conserve the entire planning unit.</p>
+    <p>Add a semi-continuous decision to a conservation planning
+<code><a href='problem.html'>problem</a></code>. This is a relaxed decision where a part of a planning
+unit can be prioritized, as opposed to the entire planning unit, which is
+the default function (see <code><a href='add_binary_decisions.html'>add_binary_decisions</a></code>).
+This decision is similar to the <code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code>
+function except that it has an upper bound parameter. By default, the
+decision can range from prioritizing none (0 %) to all (100 %) of a
+planning unit. However, a upper bound can be specified to ensure that at most
+only a fraction (e.g. 80 %) of a planning unit can be preserved. This type
+of decision may be useful when it is not practical to conserve the entire
+planning unit.</p>
     
 
     <pre class="usage"><span class='fu'>add_semicontinuous_decisions</span>(<span class='no'>x</span>, <span class='no'>upper_limit</span>)</pre>
@@ -107,7 +108,7 @@ when it is not practical to conserve the entire planning unit.</p>
     <tr>
       <th>upper_limit</th>
       <td><p><code>numeric</code> value specifying the maximum proportion
-of a planning unit that can be reserved (eg. set to 0.8 for 80 %).</p></td>
+of a planning unit that can be reserved (e.g. set to 0.8 for 80 %).</p></td>
     </tr>
     </table>
     
@@ -118,7 +119,7 @@ of a planning unit that can be reserved (eg. set to 0.8 for 80 %).</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Conservation planning problems involve making decisions on planning units.
-These decisions are then associated with actions (eg. turning a planning
+These decisions are then associated with actions (e.g. turning a planning
 unit into a protected area). If no decision is explicitly added to a problem,
 then the binary decision class will be used by default.Only a single decision
 should be added to a
@@ -127,9 +128,7 @@ to a problem object, then the last one to be added will be used.</strong></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='decisions.html'>decisions</a></code>, <code><a href='add_binary_decisions.html'>add_binary_decisions</a></code>,
-<code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code>, <code><a href='constraints.html'>constraints</a></code>,
-<code><a href='problem.html'>problem</a></code>, <code><a href='targets.html'>targets</a></code>, <code><a href='objectives.html'>objectives</a></code></p>
+    <p><code><a href='decisions.html'>decisions</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

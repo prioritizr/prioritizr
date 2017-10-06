@@ -114,13 +114,13 @@ problems using exact algorithm solvers.</p>
       <th>x</th>
       <td><p><code>character</code> file path for Marxan input file (typically
 called <code>"input.dat"</code>), a <code>data.frame</code> object containing
-planning unit data following conventions (ie. <code>"pu.dat"</code>), or a
+planning unit data following conventions (i.e. <code>"pu.dat"</code>), or a
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>
 object containing planning unit data.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>not used</p></td>
+      <td><p>arguments passed to <code><a href='problem.html'>problem</a></code>.</p></td>
     </tr>
     <tr>
       <th>features</th>
@@ -135,8 +135,8 @@ in the solution.</p></td>
     <tr>
       <th>targets_type</th>
       <td><p><code>character</code> name indicating if the <code>targets</code>
-are expressed as <code>"relative"</code> (eg. <code>0.2</code> meaning that 20 % of a
-feature needs to be conserved), or <code>"absolute"</code> (eg. <code>200</code>
+are expressed as <code>"relative"</code> (e.g. <code>0.2</code> meaning that 20 % of a
+feature needs to be conserved), or <code>"absolute"</code> (e.g. <code>200</code>
 meaning that 200 units of a feature need to be conserved) amounts.</p></td>
     </tr>
     <tr>
@@ -229,9 +229,9 @@ This argument only has an effect when argument to <code>bound</code> is a
     <pre class="examples"><div class='input'>
 <span class='co'># create Marxan problem using spatial data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>features</span><span class='kw'>=</span><span class='no'>sim_features</span>, <span class='kw'>targets</span><span class='kw'>=</span><span class='fl'>0.2</span>,
-                     <span class='kw'>targets_type</span><span class='kw'>=</span><span class='st'>"relative"</span>, <span class='kw'>penalty</span><span class='kw'>=</span><span class='fl'>1</span>,
-                     <span class='kw'>edge_factor</span><span class='kw'>=</span><span class='fl'>0.5</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='no'>sim_features</span>, <span class='kw'>targets</span> <span class='kw'>=</span> <span class='fl'>0.2</span>,
+                     <span class='kw'>targets_type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>, <span class='kw'>penalty</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+                     <span class='kw'>edge_factor</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
 
 
 <span class='co'># solve problem</span>
@@ -286,13 +286,13 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.22153e+10
 #&gt; Presolve removed 2491 rows and 1608 columns
-#&gt; Presolve time: 0.09s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; Variable types: 0 continuous, 5172 integer (5172 binary)
 #&gt; Presolved: 7584 rows, 5172 columns, 17242 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 3825 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -300,7 +300,7 @@ This argument only has an effect when argument to <code>bound</code> is a
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (3825 simplex iterations) in 0.15 seconds
+#&gt; Explored 0 nodes (3825 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 

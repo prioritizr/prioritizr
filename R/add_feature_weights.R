@@ -17,7 +17,7 @@ NULL
 #'   cannot have negative values.
 #'
 #' @details Weights can only be applied to a budget-limited
-#'   type of planning problem (ie. \code{\link{add_max_cover_objective}},
+#'   type of planning problem (i.e. \code{\link{add_max_cover_objective}},
 #'   and \code{\link{add_max_features_objective}}. Weights can also
 #'   be applied to problems that aim to maximize phylogenetic representation
 #'   (\code{\link{add_max_phylo_objective}}) to favor the

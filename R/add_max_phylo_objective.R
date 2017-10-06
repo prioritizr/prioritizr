@@ -56,8 +56,7 @@ NULL
 #' a role in distinguishing between solutions that meet the same number of
 #' targets.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{constraints}},
-#'   \code{\link{problem}}, \code{\link{targets}}.
+#' @seealso \code{\link{objectives}}.
 #'
 #' @examples
 #' # load data
@@ -88,7 +87,8 @@ add_max_phylo_objective <- function(x, budget, tree) {
     stop("the \"ape\" package needs to be installed to use phylogenetic data")
   # assert arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
-                          isTRUE(all(is.finite(budget))), assertthat::is.scalar(budget),
+                          isTRUE(all(is.finite(budget))),
+                          assertthat::is.scalar(budget),
                           isTRUE(budget > 0.0), inherits(tree, "phylo"),
                           length(tree$tip.label) == x$number_of_features(),
                           setequal(tree$tip.label, x$feature_names()))

@@ -87,15 +87,20 @@
 with any of the units in another spatial data object.</p>
     
 
-    <pre class="usage"><span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=Raster, y=Raster</span>
+    <pre class="usage"><span class='co'># S4 method for Raster,Raster</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=Spatial, y=Spatial</span>
+<span class='co'># S4 method for Spatial,Spatial</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=Raster, y=Spatial</span>
+<span class='co'># S4 method for Raster,Spatial</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=Spatial, y=Raster</span>
+<span class='co'># S4 method for Spatial,Raster</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>) <span class='co'># x=data.frame, y=ANY</span></pre>
+<span class='co'># S4 method for data.frame,ANY</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">

@@ -7,7 +7,7 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @seealso \code{\link{solvers}}.
+#' @seealso \code{\link{decisions}}.
 #'
 #' @export
 add_default_decisions <- function(x) {

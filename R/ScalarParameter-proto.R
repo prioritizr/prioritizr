@@ -21,7 +21,7 @@ methods::setOldClass("ScalarParameter")
 #' \item{$default}{\code{numeric} scalar default value.}
 #'
 #' \item{$class}{\code{character} name of the class that \code{$value} should
-#'   inherit from (eg. \code{integer}).}
+#'   inherit from (e.g. \code{integer}).}
 #'
 #' \item{$lower_limit}{\code{numeric} scalar value that is the minimum value
 #'   that \code{$value} is permitted to be.}

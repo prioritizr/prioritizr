@@ -83,44 +83,45 @@
     </div>
 
     
-    <p>A penalty can be applied to a conservation planning <code>problem</code> to penalize 
-solutions with low connectivity between planning units. A penalty acts as an explicit 
-tradeoff with the <code>objective</code> 
-being minimized or maximized, and thereby increases the cost of 
-the soution.  For example, when the <code>add_boundary_penalties</code> function is added, 
-solution fragmentation decreases but solution 
-cost increases.</p>
+    <p>A penalty can be applied to a conservation planning <code>problem</code> to
+penalize solutions with low connectivity between planning units. A penalty #' acts as an explicit tradeoff with the objective
+being minimized or maximized, and thereby increases the cost of
+the solution.  For example, when the <code>add_boundary_penalties</code> function
+is added, solution fragmentation decreases but solution cost increases.</p>
     
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Both penalties and constraints can be used as mechanisms to increase solution connectivity, 
-but instead of penalizing solutions with low connectivity, 
-a constraint acts as a cutoff to make certain solutions invalid. 
-Applying a constraint does not necessarily affect solution cost, while applying a penalty does. Below 
-are the penalties that can be added to a <code>ConservationProblem</code> object.</p><dl class='dl-horizontal'>
+    <p>Both penalties and constraints can be used as mechanisms to increase
+  solution connectivity, but instead of penalizing solutions with low
+  connectivity, a constraint acts as a cutoff to make certain solutions
+  invalid. Applying a constraint does not necessarily affect solution cost,
+  while applying a penalty does. Below are the penalties that can be added to
+  a <code>ConservationProblem</code> object.</p>
+<p></p><dl class='dl-horizontal'>
     <dt><code><a href='add_boundary_penalties.html'>add_boundary_penalties</a></code></dt><dd><p>Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves. Uses shared boundary 
-length as a measure of connectivity, equivelant to the boundary length modifier 
-(BLM) in <a href = 'http://marxan.net'>Marxan</a>. 
-Boundary data is calculated automatically unless the planning units in 
-<code>x</code> are stored in a <code>data.frame</code>, in which case boundary data must 
-be added as a <code>matrix</code> or <code>data.frame</code>. This function can only be used 
-for symmetric relationships between planning units; for asymmetric relationships 
-use <code>add_connectivity_penalties</code>.</p></dd>
-    <dt><code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code></dt><dd><p>Add constraints to a conservation problem to favor solutions that select
-planning units with high connectivity between them. Uses connectivity data 
-in the form of a <code>matrix</code> or <code>data.frame</code> object, where strength 
-of connectivity is a value such as the inverse distance between consecutive 
-planning units. This function can be used for symmetric or asymmetric 
-relationships between planning units.</p></dd>
+    selected planning units together into contiguous reserves. Uses shared
+    boundary length as a measure of connectivity, equivalent to the
+    boundary length modifier (BLM) in <a href = 'http://marxan.net'>Marxan</a>.
+    Boundary data is calculated automatically unless the planning units in
+    <code>x</code> are stored in a <code>data.frame</code>, in which case boundary data
+    must be added as a <code>matrix</code> or <code>data.frame</code>. This function
+    can only be used for symmetric relationships between planning units;
+    for asymmetric relationships use <code>add_connectivity_penalties</code>.</p></dd>
+    <dt><code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code></dt><dd><p>Add constraints to a conservation problem to favor solutions that
+    select planning units with high connectivity between them. Uses
+    connectivity data in the form of a <code>matrix</code> or <code>data.frame</code>
+    object, where strength of connectivity is a value such as the inverse
+    distance between consecutive planning units. This function can be used
+    for symmetric or asymmetric relationships between planning units.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>, <code><a href='targets.html'>targets</a></code>,
-  <code><a href='problem.html'>problem</a></code></p>
+    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
+ <code><a href='objectives.html'>objectives</a></code> <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
+ <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
   </div>

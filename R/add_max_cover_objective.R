@@ -37,8 +37,7 @@ NULL
 #' level of feature \eqn{i}{i} in planning unit \eqn{j}{j}, and \eqn{B}{B} is
 #' the budget.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{constraints}},
-#'   \code{\link{problem}}, \code{\link{targets}}.
+#' @seealso \code{\link{objectives}}.
 #'
 #' @examples
 #' # load data

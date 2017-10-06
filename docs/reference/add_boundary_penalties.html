@@ -84,14 +84,14 @@
 
     
     <p>Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves. Uses shared boundary 
-length as a measure of connectivity, equivelant to the boundary length modifier 
-(BLM) in <a href = 'http://marxan.net'>Marxan</a>. 
-Boundary data is calculated automatically unless the planning units in 
-<code>x</code> are stored in a <code>data.frame</code>, in which case boundary data must 
-be added as a <code>matrix</code> or <code>data.frame</code>. This function can only be used 
-for symmetric relationships between planning units; for asymmetric relationships 
-use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
+selected planning units together into contiguous reserves. Uses shared
+boundary length as a measure of connectivity, equivalent to the boundary
+length modifier  (BLM) in <a href = 'http://marxan.net'>Marxan</a>.
+Boundary data is calculated automatically unless the planning units in
+<code>x</code> are stored in a <code>data.frame</code>, in which case boundary data must
+be added as a <code>matrix</code> or <code>data.frame</code>. This function can only be
+used for symmetric relationships between planning units; for asymmetric
+relationships use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
     
 
     <pre class="usage"><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>edge_factor</span>, <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -142,8 +142,7 @@ asymmetric relationships are required, use the
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code>,
-<code><a href='penalties.html'>penalties</a></code>.</p>
+    <p><code><a href='penalties.html'>penalties</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -214,7 +213,7 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3511.77011    0   10 4152.27447 3511.77011  15.4%     -    0s
 #&gt; H    0     0                    3611.0142184 3511.77011  2.75%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (182 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (182 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3611.01 4152.27 

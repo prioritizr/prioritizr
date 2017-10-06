@@ -17,6 +17,7 @@
 \alias{number_of_planning_units}
 \alias{col_ids}
 \alias{row_ids}
+\alias{compressed_formulation}
 \alias{ncell,OptimizationProblem-method}
 \alias{A,OptimizationProblem-method}
 \alias{col_ids,OptimizationProblem-method}
@@ -32,6 +33,9 @@
 \alias{sense,OptimizationProblem-method}
 \alias{ub,OptimizationProblem-method}
 \alias{vtype,OptimizationProblem-method}
+\alias{compressed_formulation,OptimizationProblem-method}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
@@ -90,6 +94,8 @@ number_of_planning_units(x)
 col_ids(x)
 
 row_ids(x)
+
+compressed_formulation(x)
 }
 \arguments{
 \item{x}{\code{\link{OptimizationProblem-class}} object.}
@@ -134,8 +140,8 @@ The functions return the following data:
 \item{lb}{\code{numeric} lower bound for each decision variable. Missing data
   values (\code{NA}) indicate no lower bound for a given variable.}
 
-\item{ub}{\code{numeric} upper bounds for each decision variable. Missing data
-  values (\code{NA}) indicate no upper bound for a given variable.}
+\item{ub}{\code{numeric} upper bounds for each decision variable. Missing
+  data values (\code{NA}) indicate no upper bound for a given variable.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units in
   the problem.}

@@ -2,21 +2,31 @@
 % Please edit documentation in R/problem.R
 \name{problem}
 \alias{problem}
-\alias{problem.Raster}
-\alias{problem.Spatial}
-\alias{problem.data.frame}
-\alias{problem.numeric}
+\alias{problem,Raster,Raster-method}
+\alias{problem,Spatial,Raster-method}
+\alias{problem,data.frame,data.frame-method}
+\alias{problem,numeric,data.frame-method}
+\alias{problem,data.frame,character-method}
+\alias{problem,Spatial,character-method}
+\alias{problem}
+\alias{problem}
+\alias{problem}
+\alias{problem}
+\alias{problem}
+\alias{problem}
 \title{Conservation planning problem}
 \usage{
-problem(x, features, ...)
+\S4method{problem}{Raster,Raster}(x, features, ...)
 
-\method{problem}{Raster}(x, features, ...)
+\S4method{problem}{Spatial,Raster}(x, features, cost_column, ...)
 
-\method{problem}{Spatial}(x, features, cost_column = names(x)[1], ...)
+\S4method{problem}{data.frame,data.frame}(x, features, rij, ...)
 
-\method{problem}{data.frame}(x, features, rij, ...)
+\S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
 
-\method{problem}{numeric}(x, features, rij_matrix, ...)
+\S4method{problem}{data.frame,character}(x, features, cost_column, ...)
+
+\S4method{problem}{Spatial,character}(x, features, cost_column, ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
@@ -30,36 +40,41 @@ exclude planning units, set the cost for those raster cells to \code{NA},
 or use the \code{add_locked_out_constraint}.}
 
 \item{features}{The correct argument for \code{features} depends on the
- input to \code{x}.
- \describe{
-   \item{\code{\link[raster]{Raster-class}},
-     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
-     object showing the distribution of conservation features. Missing
-     values (i.e. \code{NA} values) can be used to indicate the absence of
-     a feature in a particular cell instead of explicitly setting these
-     cells to zero.}
-   \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object
-     containing information on the features. The argument to
-     \code{feature_data} must follow the conventions used by Marxan. Each
-     row corresponds to a different feature. It must also contain the
-     following columns:
-     \describe{
-       \item{\code{"id"}}{\code{integer} unique identifier for each feature
-         These identifiers are used in the argument to \code{rij}.}
-       \item{\code{"name"}}{\code{character} name for each feature.}
-       \item{\code{"prop"}}{\code{numeric} relative target for each feature
-         (optional).}
-       \item{\code{"amount"}}{\code{numeric} absolute target for each
-         feature (optional).}
-      }
-   }
-}}
+  input to \code{x}.
+  \describe{
+    \item{\code{\link[raster]{Raster-class}},
+      \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+      object showing the distribution of conservation features. Missing
+      values (i.e. \code{NA} values) can be used to indicate the absence of
+      a feature in a particular cell instead of explicitly setting these
+      cells to zero.}
 
-\item{...}{not used.}
+    \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+      with column names that correspond to the abundance or occurrence of
+      different features in each planning unit.}
+
+    \item{\code{\link{Spatial}}, \code{data.frame} or
+      \code{numeric}}{\code{data.frame} object
+      containing information on the features. The argument to
+      \code{feature_data} must follow the conventions used by Marxan. Each
+      row corresponds to a different feature. It must also contain the
+      following columns:
+      \describe{
+        \item{\code{"id"}}{\code{integer} unique identifier for each feature
+          These identifiers are used in the argument to \code{rij}.}
+        \item{\code{"name"}}{\code{character} name for each feature.}
+        \item{\code{"prop"}}{\code{numeric} relative target for each feature
+          (optional).}
+        \item{\code{"amount"}}{\code{numeric} absolute target for each
+          feature (optional).}
+       }
+    }
+ }}
 
 \item{cost_column}{\code{character} name or \code{integer} indicating the
-column in the attribute table of a \code{\link[sp]{Spatial-class}} object
-with the cost data.}
+column with the cost data. This argument must be supplied when the
+argument to \code{x} is a \code{link{Spatial}} or \code{\link{data.frame}}
+object.}
 
 \item{rij}{\code{data.frame} containing information on the amount of
 each feature in each planning unit. This argument is only used argument to
@@ -76,6 +91,8 @@ Marxan. It must contain the following columns:
 \item{rij_matrix}{\code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
 object specifying the amount of each feature (rows) within each planning
 unit (columns). Only used when \code{x} is a numeric vector of costs.}
+
+\item{...}{not used.}
 }
 \value{
 A \code{\link{ConservationProblem-class}} object containing the
@@ -85,14 +102,14 @@ A \code{\link{ConservationProblem-class}} object containing the
 Create a systematic conservation planning problem. This function is used to
 specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
-the features (eg. species, ecosystems) that need to be conserved. After
+the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
 customized to meet specific goals using \code{\link{objectives}},
 \code{\link{targets}}, \code{\link{constraints}}, and
 \code{\link{penalties}}.
 }
 \details{
-The basic prioritizr workflow starts with formulating the
+The basic prioritizr work flow starts with formulating the
 \code{problem}, then adding \code{objectives} and \code{targets},
 as well as \code{constraints} and \code{penalties} as needed.
 Alternative decision formats can be specified using the
@@ -144,7 +161,7 @@ or \le b}
 
 Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
 vectors of known coefficients, and \emph{A} is the \strong{constraint
-matrix}. The final term specifies a series of \strong{structural constaints}
+matrix}. The final term specifies a series of \strong{structural constraints}
 where relational operators for the constraint can be either \eqn{\ge, =, or
 \le} the coefficients. For example, in the minimum set cover problem,
 \emph{c} would be a vector of costs for each planning unit, \emph{b} a
@@ -156,57 +173,79 @@ representation level of feature \emph{i} in planning unit \emph{j}.
 \examples{
 # create problem using raster planning unit data
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
- add_min_set_objective() \%>\%
- add_relative_targets(0.2) \%>\%
- add_binary_decisions()
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
 # create problem using polygon planning unit data
-p2 <- problem(sim_pu_polygons, sim_features) \%>\%
- add_min_set_objective() \%>\%
- add_relative_targets(0.2) \%>\%
- add_binary_decisions()
+p2 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
 # create problem using line planning unit data
-p3 <- problem(sim_pu_lines, sim_features) \%>\%
- add_min_set_objective() \%>\%
- add_relative_targets(0.2) \%>\%
- add_binary_decisions()
+p3 <- problem(sim_pu_lines, sim_features, "cost") \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
 # create problem using point planning unit data
-p4 <- problem(sim_pu_points, sim_features) \%>\%
- add_min_set_objective() \%>\%
- add_relative_targets(0.2) \%>\%
- add_binary_decisions()
+p4 <- problem(sim_pu_points, sim_features, "cost") \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
-# alternatively one can supply pre-processed, aspatial data
+# add columns to polygon planning unit data representing the abundance
+# of species inside them
+sim_pu_polygons$spp_1 <- rpois(length(sim_pu_polygons), 5)
+sim_pu_polygons$spp_2 <- rpois(length(sim_pu_polygons), 8)
+sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
+
+# create problem using pre-processed data when feature abundances are
+# stored in the columns of an attribute table for a spatial vector data set
+p5 <- problem(sim_pu_polygons, features = c("spp_1", "spp_2", "spp_3"),
+              "cost") \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
+
+# alternatively one can supply pre-processed aspatial data
 costs <- sim_pu_polygons$cost
-features <- data.frame(id = 1:nlayers(sim_features),
+features <- data.frame(id = seq_len(nlayers(sim_features)),
                        name = names(sim_features))
 rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
-p5 <- problem(costs, features, rij_matrix = rij_mat) \%>\%
- add_min_set_objective() \%>\%
- add_relative_targets(0.2) \%>\%
- add_binary_decisions()
+p6 <- problem(costs, features, rij_matrix = rij_mat) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
+
 \donttest{
 # solve problems
-s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
 
-# plot solutions
+# plot solutions for problems associated with spatial data
 par(mfrow=c(2,2))
 plot(s[[1]], main = "raster data")
 
 plot(s[[2]], main = "polygon data")
-plot(s[[2]][s[[2]]$solution == 1, ], col = "darkgreen", add = TRUE)
+plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s[[3]], main = "line data")
-lines(s[[3]][s[[3]]$solution == 1, ], col = "darkgreen", lwd = 2)
+lines(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", lwd = 2)
 
 plot(s[[4]], main = "point data", pch = 19)
-points(s[[4]][s[[4]]$solution == 1, ], col = "darkgreen", cex = 2, pch = 19)
+points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", cex = 2,
+       pch = 19)
+
+# show solutions for problems associated with aspatial data
+print(p6)
+
 }
 
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{objectives}},
- \code{\link{targets}}, \code{\link{decisions}}, \code{\link{solvers}}.
+\code{\link{constraints}},  \code{\link{decisions}},
+ \code{\link{objectives}} \code{\link{penalties}},
+ \code{\link{portfolios}}, \code{\link{problem}},
+ \code{\link{solvers}}, \code{\link{targets}}.
 }

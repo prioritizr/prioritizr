@@ -3,9 +3,9 @@ NULL
 
 #' Connected matrix
 #'
-#' Create a matrix showing which planning units are spatially connected. Created 
-#' automatically when \code{\link{add_connected_constraints}} is added to a 
-#' \code{ConservationProblem} object.
+#' Create a matrix showing which planning units are spatially connected.
+#' Created automatically when \code{\link{add_connected_constraints}} is added
+#' to a \code{ConservationProblem} object.
 #'
 #' @param x \code{\link[raster]{Raster-class}} or
 #'   \code{\link[sp]{Spatial-class}} object. Note that if \code{x} is a

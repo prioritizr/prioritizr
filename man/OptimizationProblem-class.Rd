@@ -53,6 +53,8 @@ problem. Data are stored in memory and accessed using an external pointer.
 \code{x$row_ids()}
 
 \code{x$col_ids()}
+
+\code{x$compressed_formulation()}
 }
 
 \section{Arguments}{
@@ -104,6 +106,13 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 \item{row_ids}{\code{character} names describing each constraint (row) in
   in the model matrix.}
+
+\code{x$compressed_formulation()} is the optimization problem formulated
+  using a compressed version of the rij matrix?
+
+\item{shuffle_columns}{randomly shuffle the columns in the problem. This
+  should almost never be called manually and only should only be called
+ after the optimization problem has been fully constructed.}
 
 }
 }

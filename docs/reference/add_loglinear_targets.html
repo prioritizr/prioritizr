@@ -83,13 +83,14 @@
     </div>
 
     
-    <p>Set targets as a proportion (between 0 and 1) and calculated using a log-linear 
-equation and four tuning parameters (as used in Rodrigues <em>et al.</em> 2004). The 
-first tuning parameter specifies the first cut-off range size, and the second specifies 
-the second cut-off range size, the third argument specifies the target required 
-for species with a range size equal to or less than the first cut-off range size, 
-and the fourth argument specifies the target required for species with a range 
-size equal to or greater than the required range size.</p>
+    <p>Set targets as a proportion (between 0 and 1) and calculated using a
+log-linear  equation and four tuning parameters (as used in Rodrigues
+<em>et al.</em> 2004). The first tuning parameter specifies the first cut-off
+range size, and the second specifies  the second cut-off range size, the
+third argument specifies the target required  for species with a range size
+equal to or less than the first cut-off range size,  and the fourth argument
+specifies the target required for species with a range  size equal to or
+greater than the required range size.</p>
     
 
     <pre class="usage"><span class='fu'>add_loglinear_targets</span>(<span class='no'>x</span>, <span class='no'>lower_bound_amount</span>, <span class='no'>lower_bound_target</span>,
@@ -137,18 +138,17 @@ than or equal to <code>upper_bound_amount</code>.</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that with the exception of the maximum cover problem, targets must 
+    <p>Note that with the exception of the maximum cover problem, targets must
 be added to a <code><a href='problem.html'>problem</a></code> or solving will return an error.</p>
     <p>Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems require 
-adding targets with the exception of the maximum cover problem 
-(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features 
+distribution that needs to be protected. All conservation planning problems
+require adding targets with the exception of the maximum cover problem
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
 in the solution and therefore does not require targets.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, <code><a href='objectives.html'>objectives</a></code>,
-  <code><a href='problem.html'>problem</a></code>, <code><a href='add_relative_targets.html'>add_relative_targets</a></code>, <code><a href='add_absolute_targets.html'>add_absolute_targets</a></code>.</p>
+    <p><code><a href='targets.html'>targets</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -266,7 +266,7 @@ in the solution and therefore does not require targets.</p>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>,
                <span class='st'>"log-linear targets"</span>))</div><img src='add_loglinear_targets-4.png' alt='' width='540' height='400' /><div class='input'>
 
- 
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

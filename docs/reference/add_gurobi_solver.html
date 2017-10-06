@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a Gurobi Solver <U+2014> add_gurobi_solver <e2><80><a2> prioritizr</title>
+<title>Add a Gurobi solver <U+2014> add_gurobi_solver <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -79,7 +79,7 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a Gurobi Solver</h1>
+    <h1>Add a Gurobi solver</h1>
     </div>
 
     
@@ -89,7 +89,7 @@ package.</p>
     
 
     <pre class="usage"><span class='fu'>add_gurobi_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
-  <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+  <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -106,7 +106,7 @@ terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
 between the bounds is 1 percent of the upper bound. But for other solvers
-(eg. <code>Rsymhpony</code>), this gap is absolute and expresses the acceptable
+(e.g. <code>Rsymhpony</code>), this gap is absolute and expresses the acceptable
 deviance from the optimal objective. For example, solving a
 minimum set objective problem with a gap of 5 will cause the solver
 to terminate when the cost of the solution is within 5 cost units
@@ -138,11 +138,13 @@ be returned? If <code>first_feasible</code> is set to <code>TRUE</code>, the sol
 will return the first solution it encounters that meets all the
 constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
-relaxed solution, and is therefore often reasonably close to optimality.</p></td>
+relaxed solution, and is therefore often reasonably close to optimality.
+Defaults to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>arguments passed to the default solver.</p></td>
+      <th>verbose</th>
+      <td><p><code>logical</code> should information be printed while solving
+optimization problems?</p></td>
     </tr>
     </table>
     
@@ -158,48 +160,28 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='solvers.html'>solvers</a></code>, <code><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></code>, <code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></code></p>
+    <p><code><a href='solvers.html'>solvers</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='co'># load packages</span>
-<span class='fu'>require</span>(<span class='no'>gurobi</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>lpsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: lpsymphony</span></div><div class='output co'>#&gt; <span class='warning'>Warning: there is no package called 'lpsymphony'</span></div><div class='input'><span class='fu'>require</span>(<span class='no'>Rsymphony</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
-<span class='co'># create basic problem</span>
+<span class='co'># create problem</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
-<span class='co'># create vector to store plot titles</span>
-<span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>()
-
-<span class='co'># create empty stack to store solutions</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>()
-
-<span class='co'># create problem with added rsymphony solver and limit the time spent</span>
-<span class='co'># searching for the optimal solution to 2 seconds</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"Rsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (2s)"</span>)
-  <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>))
-}
-
-<span class='co'># create problem with added rsymphony solver and limit the time spent</span>
-<span class='co'># searching for the optimal solution to 5 seconds</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"Rsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (5s)"</span>)
-  <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))
-}
-
-<span class='co'># if the gurobi is installed: create problem with added gurobi solver</span>
+<span class='co'># if the package is installed then add solver and generate solution</span>
 <span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"gurobi"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"gurobi (5s)"</span>)
-  <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_gurobi_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))
+  <span class='co'># specify solver and generate solution</span>
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_gurobi_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
+             <span class='fu'><a href='solve.html'>solve</a></span>()
+
+  <span class='co'># plot solutions</span>
+  <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>))
 }</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -229,16 +211,7 @@ relaxed solution, and is therefore often reasonably close to optimality.</p></td
 #&gt; Pool objective bound 1726.52
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='input'>
-<span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"lpsymphony"</span>)
-  <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))
-}
-
-<span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='no'>titles</span>)</div><img src='add_gurobi_solver-12.png' alt='' width='540' height='400' /><div class='input'>
+#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><img src='add_gurobi_solver-3.png' alt='' width='540' height='400' /><div class='input'>
 
 </div></pre>
   </div>

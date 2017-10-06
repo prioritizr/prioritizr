@@ -6,8 +6,8 @@ NULL
 #' Add constraints to ensure that they are prioritized in the solution.
 #' For example, it may be desirable to lock in planning units that are
 #' inside existing protected areas so that the solution fills in the gaps in the
-#' existing reserve network. If specific planning units should be locked out 
-#' of a solution, use \code{\link{add_locked_out_constraints}}. 
+#' existing reserve network. If specific planning units should be locked out
+#' of a solution, use \code{\link{add_locked_out_constraints}}.
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
 #'
@@ -28,7 +28,7 @@ NULL
 #'     indicating if planning units should be locked in. This option is
 #'     only available if the planning units in \code{x} are a
 #'     \code{\link[sp]{Spatial-class}} object. The column in the attribute
-#'     table should have \code{logical}  (ie. \code{TRUE} or \code{FALSE})
+#'     table should have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
 #'     values indicating if the planning unit is to be locked in.}
 #'
 #'   \item{\code{\link[raster]{Raster-class}} object}{planning units in \code{x}
@@ -45,7 +45,7 @@ NULL
 #'
 #' @examples
 #' # create basic problem
-#' p1 <- problem(sim_pu_polygons, sim_features) %>%
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'
@@ -71,24 +71,24 @@ NULL
 #' s5 <- solve(p5)
 #'
 #' # plot solutions
-#' par(mfrow=c(3,2))
-#' plot(s1, main="none locked in")
-#' plot(s1[s1$solution==1,], col="darkgreen", add=TRUE)
+#' par(mfrow = c(3,2))
+#' plot(s1, main = "none locked in")
+#' plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
-#' plot(s2, main="locked in (integer input)")
-#' plot(s2[s2$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s2, main = "locked in (integer input)")
+#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
-#' plot(s3, main="locked in (character input)")
-#' plot(s3[s3$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s3, main = "locked in (character input)")
+#' plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s4, main="locked in (raster input)")
-#' plot(s4[s4$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s5, main="locked in (polygon input)")
-#' plot(s5[s5$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #' }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{add_locked_out_constraints}}, \code{\link{penalties}}.
+#' @seealso \code{\link{constraints}}.
 #'
 #' @name add_locked_in_constraints
 #'
@@ -103,8 +103,8 @@ methods::setGeneric("add_locked_in_constraints",
                     function(x, locked_in)
                       standardGeneric("add_locked_in_constraints"))
 
-
 #' @name add_locked_in_constraints
+#' @usage \S4method{add_locked_in_constraints}{ConservationProblem,numeric}(x, locked_in)
 #' @rdname add_locked_in_constraints
 methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "numeric"),
@@ -158,6 +158,7 @@ methods::setMethod("add_locked_in_constraints",
 )
 
 #' @name add_locked_in_constraints
+#' @usage \S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
 #' @rdname add_locked_in_constraints
 methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "character"),
@@ -176,6 +177,7 @@ methods::setMethod("add_locked_in_constraints",
 )
 
 #' @name add_locked_in_constraints
+#' @usage \S4method{add_locked_in_constraints}{ConservationProblem,Spatial}(x, locked_in)
 #' @rdname add_locked_in_constraints
 methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "Spatial"),
@@ -189,6 +191,7 @@ methods::setMethod("add_locked_in_constraints",
 )
 
 #' @name add_locked_in_constraints
+#' @usage \S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 #' @rdname add_locked_in_constraints
 methods::setMethod("add_locked_in_constraints",
   methods::signature("ConservationProblem", "Raster"),

@@ -70,7 +70,7 @@ NULL
 #'      if the planning units in argument to \code{x} inherit from a
 #'      \code{\link[raster]{Raster-class}} object, then the argument to
 #'      code{conductance} must have the same spatial properties as the
-#'      planning units (ie. coordinate system, extent, resolution).}
+#'      planning units (i.e. coordinate system, extent, resolution).}
 #'
 #'   \item{\code{list} of \code{\link[Matrix]{dsCMatrix-class}} matrices}{
 #'      Each element in the list corresponds to a different feature. Each
@@ -82,7 +82,7 @@ NULL
 #'
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{penalties}}.
+#' @seealso \code{\link{constraints}}.
 #'
 #' @examples
 #' # load data

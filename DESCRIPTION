@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 1.0.2.3
+Version: 2.0.1.0
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -87,6 +87,7 @@ Collate:
     'Objective-proto.R'
     'OptimizationProblem-proto.R'
     'OptimizationProblem-methods.R'
+    'Portfolio-proto.R'
     'RcppExports.R'
     'Solver-proto.R'
     'Target-proto.R'
@@ -96,8 +97,10 @@ Collate:
     'add_connected_constraints.R'
     'add_connectivity_penalties.R'
     'add_corridor_constraints.R'
+    'add_cuts_portfolio.R'
     'add_default_decisions.R'
     'add_default_objective.R'
+    'add_default_portfolio.R'
     'add_default_solver.R'
     'add_default_targets.R'
     'add_feature_weights.R'
@@ -116,6 +119,7 @@ Collate:
     'add_relative_targets.R'
     'add_rsymphony_solver.R'
     'add_semicontinuous_decisions.R'
+    'add_shuffle_portfolio.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'compile.R'
@@ -132,6 +136,7 @@ Collate:
     'objectives.R'
     'package.R'
     'penalties.R'
+    'portfolios.R'
     'problem.R'
     'prshiny.R'
     'rij_matrix.R'

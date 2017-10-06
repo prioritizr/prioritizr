@@ -33,16 +33,16 @@ the conductance values. Note that argument to \code{y} can only be a
 \code{\link[sp]{Spatial-class}} object. Additionally, note that if
 argument to \code{x} is a \code{\link{Raster-class}} object then
 argument to \code{y} must have the same spatial properties as it
-(ie. coordinate system, extent, resolution).}
+(i.e. coordinate system, extent, resolution).}
 
 \item{boundary_data}{\code{\link[Matrix]{dsCMatrix-class}} object containing
 the shared boundary lengths between planning units. This argument defaults
 to \code{NULL} so that the boundary data will be automatically calculated.}
 
-\item{included}{\code{integer} \code{vector} indicating which cells in argument
-to \code{x} are planning units. This argument is only used when \code{x}
-is a \code{\link[raster]{Raster-class}} object. It defaults to \code{NULL}
-so that the cell indices are calculated automatically.}
+\item{included}{\code{integer} \code{vector} indicating which cells in
+argument to \code{x} are planning units. This argument is only used when
+\code{x} is a \code{\link[raster]{Raster-class}} object. It defaults to
+\code{NULL} so that the cell indices are calculated automatically.}
 
 \item{...}{arguments passed to \code{\link{fast_extract}} for extracting
 and calculating the conductance for each unit. These arguments

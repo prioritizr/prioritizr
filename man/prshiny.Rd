@@ -30,5 +30,5 @@ if (interactive()) {
 }
 }
 \seealso{
-\code{\link{problem}},  \code{\link{objectives}},  \code{\link{targets}}.
+\code{\link{problem}}.
 }

@@ -3,11 +3,11 @@ NULL
 
 #' Add Absolute Targets
 #'
-#' Set targets expressed as the actual value of features in the study area 
-#' that need to be represented in the prioritization. The argument to 
+#' Set targets expressed as the actual value of features in the study area
+#' that need to be represented in the prioritization. The argument to
 #' \code{x} is treated the same as for \code{\link{add_relative_targets}}.
-#' 
-#' Note that with the exception of the maximum cover problem, targets must 
+#'
+#' Note that with the exception of the maximum cover problem, targets must
 #' be added to a \code{\link{problem}} or solving will return an error.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
@@ -20,19 +20,18 @@ NULL
 #'   argument to \code{targets} may refer to a column name.
 #'
 #' @param ... not used.
-#' 
+#'
 #' @details
 #' Targets are used to specify the minimum amount or proportion of a feature's
-#' distribution that needs to be protected. All conservation planning problems require 
-#' adding targets with the exception of the maximum cover problem 
-#' (see \code{\link{add_max_cover_objective}}), which maximizes all features 
-#' in the solution and therefore does not require targets. 
+#' distribution that needs to be protected. All conservation planning problems
+#' require adding targets with the exception of the maximum cover problem
+#' (see \code{\link{add_max_cover_objective}}), which maximizes all features
+#' in the solution and therefore does not require targets.
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the target added
 #'   to it.
 #'
-#' @seealso \code{\link{targets}}, \code{\link{constraints}}, \code{\link{objectives}},
-#'   \code{\link{problem}},  \code{\link{add_relative_targets}}, \code{\link{add_loglinear_targets}}.
+#' @seealso \code{\link{targets}}.
 #'
 #' @examples
 #' # load data
@@ -61,7 +60,7 @@ NULL
 #' }
 #'
 #' @aliases add_absolute_targets-method add_absolute_targets,ConservationProblem,numeric-method add_absolute_targets,ConservationProblem,character-method
-#' 
+#'
 #' @name add_absolute_targets
 #' @docType methods
 NULL
@@ -91,12 +90,13 @@ methods::setMethod(
     if (length(targets) == 1) {
       targets <- rep(targets, x$number_of_features())
     }
-    assertthat::assert_that(length(targets) == x$number_of_features(),
-                            isTRUE(all(targets <= x$feature_abundances_in_planning_units())))
+    assertthat::assert_that(
+      length(targets) == x$number_of_features(),
+      isTRUE(all(targets <= x$feature_abundances_in_planning_units())))
     # create target parameters
     targets <- numeric_parameter_array("targets", targets, x$feature_names(),
-                                       lower_limit = rep(0, x$number_of_features()),
-                                       upper_limit = x$feature_abundances_in_planning_units())
+      lower_limit = rep(0, x$number_of_features()),
+      upper_limit = x$feature_abundances_in_planning_units())
     # add targets to problem
     x$add_targets(pproto(
       "AbsoluteTargets",
@@ -116,8 +116,8 @@ methods::setMethod("add_absolute_targets",
                    function(x, targets, ...) {
                      # assert that arguments are valid
                      assertthat::assert_that(inherits(x, "ConservationProblem"),
-                                             inherits(x$data$features, "data.frame"),
-                                             assertthat::has_name(x$data$features, targets))
+                       inherits(x$data$features, "data.frame"),
+                       assertthat::has_name(x$data$features, targets))
                      # add targets
                      add_absolute_targets(x, x$data$features[[targets]])
                    })

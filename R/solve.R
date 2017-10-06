@@ -48,7 +48,7 @@ NULL
 #' print(s)
 #'
 #' # plot solution
-#' plot(s, main="solution")
+#' plot(s, main = "solution")
 #' }
 #'
 #' @name solve
@@ -78,27 +78,71 @@ methods::setMethod(
   "solve",
   signature(a = "ConservationProblem", b = "missing"),
   function(a, b, ...) {
+    ## solve problem
     # assign solver
     if (inherits(a$solver, "Waiver"))
       a <- add_default_solver(a)
+    if (inherits(a$portfolio, "Waiver"))
+      a <- add_default_portfolio(a)
     # compile and solve optimisation problem
     opt <- compile.ConservationProblem(a, ...)
-    sol <- solve(opt, a$solver)[seq_len(opt$number_of_planning_units())]
+    sol <- a$portfolio$run(opt, a$solver)
     # check that solution is valid
     if (is.null(sol)) {
       stop("conservation problem is infeasible")
-     }
-    # extract solution and return Raster or Spatial object
+    }
+    ## format solutions
+    # create solution data
     pu <- a$data$cost
     if (inherits(pu, "Raster")) {
-      pu[raster::Which(!is.na(pu))] <- sol
+      # RasterLayer planning units
+      ret <- lapply(sol, function(s) {
+        pu[raster::Which(!is.na(pu))] <-
+          s[[1]][seq_len(a$number_of_planning_units())]
+        return(pu)
+      })
+      ret <- raster::stack(ret)
+      if (length(sol) == 1)
+        ret <- ret[[1]]
+      names(ret) <- paste0("solution_", seq_along(sol))
     } else if (inherits(pu, c("data.frame", "Spatial"))) {
-      pu$solution <- sol
+      # Spatial* or data.frame planning units
+      sol2 <- vapply(sol, `[[`, numeric(length(sol[[1]][[1]])), 1)
+      sol2 <- sol2[seq_len(a$number_of_planning_units()), , drop = FALSE]
+      sol2 <- stats::setNames(as.data.frame(sol2), paste0("solution_",
+                                                          seq_along(sol)))
+      if (inherits(pu, "Spatial")) {
+        ret <- pu
+        ret@data <- cbind(ret@data, sol2)
+      } else {
+        ret <- cbind(pu, sol2)
+      }
     } else if (is.numeric(pu)) {
-      pu <- sol
+      # numeric planning units
+      if (length(sol) == 1) {
+        ret <- pu
+        ret[!is.na(pu)] <- sol[[1]][seq_len(a$number_of_planning_units())]
+      } else {
+        ret <- matrix(NA, ncol = length(pu), nrow = length(sol))
+        colnames(ret) <- paste0("solution_", seq_along(sol))
+        ret_cols <- rep(seq_along(sol), each = sum(!is.na(pu)))
+        ret_rows <- rep(which(!is.na(pu)), length(sol))
+        sol2 <- vapply(sol, `[[`, numeric(length(sol[[1]][[1]])), 1)
+        sol2 <- sol2[seq_len(a$number_of_planning_units()), , drop = FALSE]
+        ret[matrix(c(ret_rows, ret_cols), ncol = 2)] <- c(sol2)
+      }
     } else {
       stop("planning unit data is of an unrecognized class")
     }
-    return(pu)
+    # add attributes
+    attr(ret, "objective") <- stats::setNames(vapply(sol, `[[`, numeric(1), 2),
+                                              paste0("solution_",
+                                                     seq_along(sol)))
+    attr(ret, "status") <- stats::setNames(vapply(sol, `[[`, character(1), 3),
+                                           paste0("solution_", seq_along(sol)))
+    attr(ret, "runtime") <- stats::setNames(vapply(sol, `[[`, numeric(1), 4),
+                                            paste0("solution_", seq_along(sol)))
+    # return object
+    return(ret)
   }
 )

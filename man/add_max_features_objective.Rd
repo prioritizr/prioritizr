@@ -73,6 +73,5 @@ plot(s, main = "solution")
 
 }
 \seealso{
-\code{\link{objectives}}, \code{\link{constraints}},
-  \code{\link{problem}}, \code{\link{targets}}.
+\code{\link{objectives}}.
 }

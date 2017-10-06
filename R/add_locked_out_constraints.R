@@ -6,7 +6,7 @@ NULL
 #' Add constraints to ensure that certain planning units are not prioritized
 #' in the solution. For example, it may be useful to lock out planning
 #' units that have been degraded and are not longer suitable for conserving
-#' species. If specific planning units should be locked in to the solution, 
+#' species. If specific planning units should be locked in to the solution,
 #' use \code{\link{add_locked_in_constraints}}.
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
@@ -28,7 +28,7 @@ NULL
 #'     indicating if planning units should be locked out. This option is
 #'     only available if the planning units in \code{x} are a
 #'     \code{\link[sp]{Spatial-class}} object. The column in the attribute
-#'     table should have \code{logical}  (ie. \code{TRUE} or \code{FALSE})
+#'     table should have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
 #'     values indicating if the planning unit is to be locked out.}
 #'
 #'   \item{\code{\link[raster]{Raster-class}} object}{planning units in \code{x}
@@ -45,7 +45,7 @@ NULL
 #'
 #' @examples
 #' # create basic problem
-#' p1 <- problem(sim_pu_polygons, sim_features) %>%
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'
@@ -72,24 +72,24 @@ NULL
 #' s5 <- solve(p5)
 #'
 #' # plot solutions
-#' par(mfrow=c(3,2))
-#' plot(s1, main="none locked out")
-#' plot(s1[s1$solution==1,], col="darkgreen", add=TRUE)
+#' par(mfrow = c(3, 2))
+#' plot(s1, main = "none locked out")
+#' plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s2, main="locked out (integer input)")
-#' plot(s2[s2$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' plot(s3, main="locked out (character input)")
-#' plot(s3[s3$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
-#' plot(s4, main="locked out (raster input)")
-#' plot(s4[s4$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s4, main = "locked out (raster input)")
+#' plot(s4[s4$solution == 1, ], col = "darkgreen", add = TRUE)
 #'
-#' plot(s5, main="locked out (polygon input)")
-#' plot(s5[s5$solution==1,], col="darkgreen", add=TRUE)
+#' plot(s5, main = "locked out (polygon input)")
+#' plot(s5[s5$solution == 1, ], col = "darkgreen", add = TRUE)
 #' }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{penalties}}, \code{\link{add_locked_in_constraints}}.
+#' @seealso \code{\link{constraints}}.
 #'
 #' @name add_locked_out_constraints
 #'
@@ -105,6 +105,7 @@ methods::setGeneric("add_locked_out_constraints",
 
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,numeric}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "numeric"),
@@ -158,6 +159,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,character}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "character"),
@@ -175,6 +177,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Spatial"),
@@ -188,6 +191,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Raster"),

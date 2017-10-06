@@ -12,4 +12,7 @@ cran-comments.md
 _pkgdown.yml
 check.log
 test.log
+gp.log
+spell.log
 README.Rmd
+inst/extdata/dictionary.txt
