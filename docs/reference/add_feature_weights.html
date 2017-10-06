@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add feature weights <U+2014> add_feature_weights <e2><80><a2> prioritizr</title>
+<title>Add feature weights — add_feature_weights â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -116,10 +138,10 @@ cannot have negative values.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Weights can only be applied to a budget-limited
-  type of planning problem (i.e. <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>,
-  and <code><a href='add_max_features_objective.html'>add_max_features_objective</a></code>. Weights can also
+  type of planning problem (i.e. <code>add_max_cover_objective</code>,
+  and <code>add_max_features_objective</code>. Weights can also
   be applied to problems that aim to maximize phylogenetic representation
-  (<code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code>) to favor the
+  (<code>add_max_phylo_objective</code>) to favor the
   representation of specific features over the representation of
   some phylogenetic branches.</p>
     
@@ -130,18 +152,15 @@ cannot have negative values.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span>(<span class='kw'>budget</span><span class='kw'>=</span><span class='fl'>5000</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_max_cover_objective</span>(<span class='kw'>budget</span><span class='kw'>=</span><span class='fl'>5000</span>)
 
 <span class='co'># create weights based on rarity (1/number occurrences)</span>
 <span class='no'>w</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span> / <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>1000</span>
 
 <span class='co'># create new problem with added weights according to rarity</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w</span>)
-
-
-<span class='co'># solve solutions</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w</span>)</div><div class='input'><span class='co'># solve solutions</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -164,11 +183,10 @@ cannot have negative values.</p></td>
 #&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
 #&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 74.121 -0 
-#&gt; Pool objective bound 74.5908
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%
@@ -195,17 +213,15 @@ cannot have negative values.</p></td>
 #&gt;      0     0 1285.78361    0    1   -0.00000 1285.78361      -     -    0s
 #&gt; H    0     0                    1283.9252003 1285.78361  0.14%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1283.93 -0 
-#&gt; Pool objective bound 1285.78
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.283925200296e+03, best bound 1.285783605656e+03, gap 0.1447%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>))</div><img src='add_feature_weights-4.png' alt='' width='540' height='400' /><div class='input'>
-
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>))</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

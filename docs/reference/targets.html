@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Targets <U+2014> targets <e2><80><a2> prioritizr</title>
+<title>Targets — targets â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -92,22 +114,22 @@ distribution that needs to be protected.</p>
 
     <p>Please note that failing to specify targets will return a default
 error message when solving.The exception is the maximum cover problem
-(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
+(see <code>add_max_cover_objective</code>), which maximizes all features
 in the solution and therefore does not require targets.</p>
     <p>The following list contains the targets can be added to a conservation
-planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horizontal'>
-    <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion
+planning <code>problem</code>.</p><dl class='dl-horizontal'>
+    <dt><code>add_relative_targets</code></dt><dd><p>Set targets as a proportion
   (between 0 and 1) of the maximum level of representation of features in
   the study area. The argument to <code>x</code> should have a single value if all
   features have the same target. Otherwise, the vector should have a value
   for each feature. In this case, targets are assigned to
   features based on their position in the argument to <code>x</code> and the
   <code>feature</code> when specifying the problem.</p></dd>
-    <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets expressed as the
+    <dt><code>add_absolute_targets</code></dt><dd><p>Set targets expressed as the
   actual value of features in the study area that need to be represented in
   the prioritization. The argument to <code>x</code> is treated the same as for
   <code>add_relative_targets</code>.</p></dd>
-    <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion
+    <dt><code>add_loglinear_targets</code></dt><dd><p>Set targets as a proportion
   (between 0 and 1) and calculated using a log-linear equation and four
   tuning parameters (as used in Rodrigues <em>et al.</em> 2004). The first
   tuning parameter specifies the first cut-off range size, and the second
@@ -122,7 +144,7 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 
     <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
  <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
+ <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
  <code><a href='solvers.html'>solvers</a></code>.</p>
     
 

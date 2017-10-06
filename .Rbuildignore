@@ -16,3 +16,4 @@ gp.log
 spell.log
 README.Rmd
 inst/extdata/dictionary.txt
+^_pkgdown\.yml$

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Is parallel? <U+2014> is.parallel <e2><80><a2> prioritizr</title>
+<title>Is parallel? — is.parallel â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -96,20 +118,20 @@ initialized.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='parallel.html'>set_number_of_threads</a></code>,
-  <code><a href='parallel.html'>get_number_of_threads</a></code>.</p>
+    <p><code>set_number_of_threads</code>,
+  <code>get_number_of_threads</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'># set number of threads to 2</span>
-<span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
+<span class='fu'>set_number_of_threads</span>(<span class='fl'>2</span>)
 <span class='co'># get number of threads</span>
-<span class='fu'><a href='parallel.html'>get_number_of_threads</a></span>()</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
+<span class='fu'>get_number_of_threads</span>()</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
 <span class='co'># check that parallel processing is active</span>
 <span class='fu'>is.parallel</span>()</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># reset number of threads to 1</span>
-<span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)
+<span class='fu'>set_number_of_threads</span>(<span class='fl'>1</span>)
 
 <span class='co'># check that parallel processing has been deactivated</span>
 <span class='fu'>is.parallel</span>()</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>

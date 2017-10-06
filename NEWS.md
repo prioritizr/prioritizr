@@ -1,3 +1,8 @@
+# prioritizr 2.0.2.1 (unreleased)
+
+- Removed shiny functions for now to prep for CRAN release
+- rebuilt website and documentation
+
 # prioritizr 2.0.2.0 (unreleased)
 
 - Included vignette on Gurobi solver installation and testing.

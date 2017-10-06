@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -81,7 +103,7 @@
     <div class="page-header">
       <h1>
         Reference
-        <small>version&nbsp;2.0.1.0</small>
+        <small>version&nbsp;2.0.2.1</small>
       </h1>
     </div>
 
@@ -259,15 +281,15 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="ArrayParameter-class.html">ArrayParameter-class</a></code> </p>
-          </td>
-          <td><p>Array Parameter prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="array_parameters.html">proportion_parameter_array</a></code> <code><a href="array_parameters.html">binary_parameter_array</a></code> <code><a href="array_parameters.html">integer_parameter_array</a></code> <code><a href="array_parameters.html">numeric_parameter_array</a></code> </p>
           </td>
           <td><p>Array parameters</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ArrayParameter-class.html">ArrayParameter-class</a></code> </p>
+          </td>
+          <td><p>Array Parameter prototype</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -469,7 +491,7 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="pipe.html">%&gt;%</a></code> </p>
+            <p><code><a href="pipe.html">%>%</a></code> </p>
           </td>
           <td><p>Pipe operator</p></td>
         </tr><tr>
@@ -517,12 +539,6 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="prshiny.html">prshiny</a></code> </p>
-          </td>
-          <td><p>Run one of the Shiny apps for prioritizr</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="rij_matrix.html">rij_matrix</a></code> </p>
           </td>
           <td><p>Feature by planning unit matrix</p></td>
@@ -535,15 +551,15 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="ScalarParameter-class.html">ScalarParameter-class</a></code> </p>
-          </td>
-          <td><p>Scalar Parameter prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="scalar_parameters.html">proportion_parameter</a></code> <code><a href="scalar_parameters.html">binary_parameter</a></code> <code><a href="scalar_parameters.html">integer_parameter</a></code> <code><a href="scalar_parameters.html">numeric_parameter</a></code> </p>
           </td>
           <td><p>Scalar parameters</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="ScalarParameter-class.html">ScalarParameter-class</a></code> </p>
+          </td>
+          <td><p>Scalar Parameter prototype</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -553,7 +569,7 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="sim_data.html">data</a></code> </p>
+            <p><code><a href="sim_data.html">data</a></code> <code><a href="sim_data.html">sim_features</a></code> <code><a href="sim_data.html">sim_pu_polygons</a></code> <code><a href="sim_data.html">sim_pu_lines</a></code> <code><a href="sim_data.html">sim_pu_points</a></code> <code><a href="sim_data.html">sim_pu_raster</a></code> <code><a href="sim_data.html">sim_phylogeny</a></code> <code><a href="sim_data.html">sim_locked_in_raster</a></code> <code><a href="sim_data.html">sim_locked_out_raster</a></code> </p>
           </td>
           <td><p>Simulated conservation planning data</p></td>
         </tr><tr>
@@ -577,15 +593,15 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="Solver-class.html">Solver-class</a></code> </p>
-          </td>
-          <td><p>Solver prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
             <p><code><a href="solve.html">solve</a></code> </p>
           </td>
           <td><p>Solve a problem</p></td>
+        </tr><tr>
+          <!--  -->
+          <td>
+            <p><code><a href="Solver-class.html">Solver-class</a></code> </p>
+          </td>
+          <td><p>Solver prototype</p></td>
         </tr><tr>
           <!--  -->
           <td>
@@ -607,7 +623,7 @@
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="tee.html">%T&gt;%</a></code> </p>
+            <p><code><a href="tee.html">%T>%</a></code> </p>
           </td>
           <td><p>Tee operator</p></td>
         </tr>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>prioritizr <U+2014> prioritizr <e2><80><a2> prioritizr</title>
+<title>prioritizr — prioritizr â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -93,7 +115,7 @@ solvers. In contrast to the algorithms conventionally used to solve
 conservation problems, such as greedy heuristics or simulated annealing,
 the ILP algorithms used by prioritizr are guaranteed to find optimal
 solutions. This package also has the functionality to read
-<a href = 'http://marxan.net/'>Marxan</a> input data and find much cheaper
+<a href='http://marxan.net/'>Marxan</a> input data and find much cheaper
 solutions in a much shorter period of time than Marxan.</p>
     
 
@@ -103,13 +125,13 @@ solutions in a much shorter period of time than Marxan.</p>
     <p>The supplemental <em>prioritizrdata</em> package can be downloaded with
 <em>prioritizr</em> for example datasets and worked examples of
 formulating conservation planning problems. See the
-<a href = 'https://github.com/prioritizr/prioritizr'>online code repository</a> for
+<a href='https://github.com/prioritizr/prioritizr'>online code repository</a> for
 more details.</p>
     <p>The following vignettes are available for further reading:</p><dl class='dl-horizontal'>
-    <dt><a href = 'https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html'>Prioritizr Basics</a></dt><dd><p>Provides background information on the concepts and
+    <dt><a href='https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html'>Prioritizr Basics</a></dt><dd><p>Provides background information on the concepts and
 terminology of systematic conservation prioritization underlying the
 functions in this package.</p></dd>
-    <dt><a href = 'https://prioritizr.github.io/prioritizr/articles/quick_start.html'>Quickstart Guide</a></dt><dd><p>Provides a walk-through of the functions available in the
+    <dt><a href='https://prioritizr.github.io/prioritizr/articles/quick_start.html'>Quickstart Guide</a></dt><dd><p>Provides a walk-through of the functions available in the
 prioritizr package and their usage with a simulated dataset. Users should be
 familiar with the basic terminology of systematic conservation
 prioritization.</p></dd>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a Bender's cuts portfolio <U+2014> add_cuts_portfolio <e2><80><a2> prioritizr</title>
+<title>Add a Bender's cuts portfolio — add_cuts_portfolio â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -120,16 +142,13 @@ different solutions. Defaults to 10.</p></td>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'>add_binary_decisions</span>() <span class='kw'>%&gt;%</span>
      <span class='fu'>add_cuts_portfolio</span>(<span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-
-<span class='co'># solve problem and generate 10 solutions within 20 % of optimality</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='co'># solve problem and generate 10 solutions within 20 % of optimality</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -150,11 +169,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt; 
 #&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 1: 2145.27 
-#&gt; Pool objective bound 1726.52
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 2.145267891035e+03, best bound 1.726522151579e+03, gap 19.5195%
@@ -181,11 +199,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1726.52215    0    4 2192.25508 1726.52215  21.2%     -    0s
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2192.26 
-#&gt; Pool objective bound 1726.52
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
@@ -212,11 +229,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1726.92222    0    4 2218.62220 1726.92222  22.2%     -    0s
 #&gt; H    0     0                    1790.3782232 1726.92222  3.54%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1790.38 2218.62 
-#&gt; Pool objective bound 1726.92
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.790378223248e+03, best bound 1.726922222654e+03, gap 3.5443%
@@ -243,11 +259,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1733.68939    0    6 2218.62220 1733.68939  21.9%     -    0s
 #&gt; H    0     0                    1790.8682527 1733.68939  3.19%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (15 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1790.87 2218.62 
-#&gt; Pool objective bound 1733.69
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.790868252717e+03, best bound 1.733689385637e+03, gap 3.1928%
@@ -274,11 +289,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1735.25406    0    4 2218.62220 1735.25406  21.8%     -    0s
 #&gt; H    0     0                    1792.0446307 1735.25406  3.17%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (18 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (18 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.04 2218.62 
-#&gt; Pool objective bound 1735.25
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.792044630681e+03, best bound 1.735254058708e+03, gap 3.1690%
@@ -305,11 +319,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1736.53443    0    8 2218.62220 1736.53443  21.7%     -    0s
 #&gt; H    0     0                    1803.6304438 1736.53443  3.72%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (23 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.04 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1803.63 2218.62 
-#&gt; Pool objective bound 1736.53
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.803630443815e+03, best bound 1.736534431355e+03, gap 3.7201%
@@ -336,11 +349,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1738.39205    0    8 2218.62220 1738.39205  21.6%     -    0s
 #&gt; H    0     0                    1797.5983927 1738.39205  3.29%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (27 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (27 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1797.6 2218.62 
-#&gt; Pool objective bound 1738.39
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.797598392691e+03, best bound 1.738392051819e+03, gap 3.2936%
@@ -367,11 +379,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1739.95859    0   10 2218.62220 1739.95859  21.6%     -    0s
 #&gt; H    0     0                    1797.4991959 1739.95859  3.20%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (29 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (29 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1797.5 2218.62 
-#&gt; Pool objective bound 1739.96
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.797499195866e+03, best bound 1.739958593029e+03, gap 3.2011%
@@ -398,11 +409,10 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1740.18924    0   11 2231.14713 1740.18924  22.0%     -    0s
 #&gt; H    0     0                    1793.7532847 1740.18924  2.99%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (25 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (25 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1793.75 2231.15 
-#&gt; Pool objective bound 1740.19
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.793753284652e+03, best bound 1.740189244165e+03, gap 2.9861%
@@ -429,17 +439,15 @@ different solutions. Defaults to 10.</p></td>
 #&gt;      0     0 1740.19757    0   12 2231.14713 1740.19757  22.0%     -    0s
 #&gt; H    0     0                    1804.1580712 1740.19757  3.55%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (31 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 1804.16 2231.15 
-#&gt; Pool objective bound 1740.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 1.804158071218e+03, best bound 1.740197569565e+03, gap 3.5452%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>)</div><img src='add_cuts_portfolio-4.png' alt='' width='540' height='400' /><div class='input'>
-</div></pre>
+<span class='fu'>plot</span>(<span class='no'>s</span>)</div><div class='img'><img src='add_cuts_portfolio-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

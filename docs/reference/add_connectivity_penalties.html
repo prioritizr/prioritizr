@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add connectivity penalties <U+2014> add_connectivity_penalties <e2><80><a2> prioritizr</title>
+<title>Add connectivity penalties — add_connectivity_penalties â€¢ prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,7 +23,8 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -51,10 +52,31 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../articles/index.html">Articles</a>
+  <a href="../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
+    </li>
+    <li>
+      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
+    </li>
+    <li>
+      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -142,9 +164,9 @@ object that shows the strength of connectivity between consecutive planning
 <span class='no'>sc_matrix</span>[<span class='no'>sc_matrix</span> <span class='kw'>&lt;</span> <span class='fl'>0.85</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 
 <span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with low connectivity penalties</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>25</span>, <span class='no'>sc_matrix</span>)
@@ -161,11 +183,8 @@ object that shows the strength of connectivity between consecutive planning
 <span class='no'>ac_matrix</span>[<span class='no'>even_units</span>, <span class='no'>odd_units</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span> * <span class='no'>ac_matrix</span>[<span class='no'>even_units</span>, <span class='no'>odd_units</span>]
 
 <span class='co'># create problem with asymmetric connectivity and high penalties</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>50</span>, <span class='no'>ac_matrix</span>)
-
-
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>50</span>, <span class='no'>ac_matrix</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -187,11 +206,10 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
-#&gt; Pool objective bound 3490.35
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
@@ -202,6 +220,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Objective range  [4e+01, 4e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 20737.2
 #&gt; Found heuristic solution: objective 5015.66
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -209,33 +228,31 @@ object that shows the strength of connectivity between consecutive planning
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.147439e+03, 548 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 4.147439e+03, 143 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4147.43940    0  362 5015.66327 4147.43940  17.3%     -    0s
-#&gt;      0     0 4183.62077    0  358 5015.66327 4183.62077  16.6%     -    1s
-#&gt;      0     0 4190.03640    0  358 5015.66327 4190.03640  16.5%     -    1s
-#&gt;      0     0 4219.41274    0  355 5015.66327 4219.41274  15.9%     -    1s
-#&gt;      0     0 4222.42529    0  357 5015.66327 4222.42529  15.8%     -    1s
-#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    1s
-#&gt;      0     0 4257.29074    0  353 5015.66327 4257.29074  15.1%     -    1s
-#&gt; H    0     0                    4877.7369961 4257.29074  12.7%     -    1s
-#&gt; H    0     0                    4733.2451668 4257.29074  10.1%     -    1s
-#&gt;      0     2 4257.46222    0  353 4733.24517 4257.46222  10.1%     -    1s
+#&gt;      0     0 4182.70372    0  358 5015.66327 4182.70372  16.6%     -    0s
+#&gt;      0     0 4195.35430    0  358 5015.66327 4195.35430  16.4%     -    0s
+#&gt;      0     0 4210.98574    0  358 5015.66327 4210.98574  16.0%     -    0s
+#&gt;      0     0 4228.06331    0  357 5015.66327 4228.06331  15.7%     -    0s
+#&gt; H    0     0                    4784.8766287 4228.06331  11.6%     -    0s
+#&gt; H    0     0                    4727.1926293 4228.06331  10.6%     -    0s
+#&gt;      0     2 4229.74984    0  357 4727.19263 4229.74984  10.5%     -    0s
+#&gt; H   27    27                    4670.0413942 4232.34845  9.37%  38.6    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
+#&gt;   Gomory: 3
 #&gt; 
-#&gt; Explored 2 nodes (1043 simplex iterations) in 1.29 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 27 nodes (1377 simplex iterations) in 0.55 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 4733.25 4877.74 5015.66 
-#&gt; Pool objective bound 4262.07
+#&gt; Solution count 5: 4670.04 4727.19 4784.88 ... 20737.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.733245166780e+03, best bound 4.262066006045e+03, gap 9.9547%
+#&gt; Best objective 4.670041394163e+03, best bound 4.232348454544e+03, gap 9.3724%
 #&gt; Optimize a model with 549 rows, 362 columns and 1538 nonzeros
 #&gt; Variable types: 0 continuous, 362 integer (362 binary)
 #&gt; Coefficient statistics:
@@ -243,6 +260,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Objective range  [9e+01, 6e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 22987.2
 #&gt; Found heuristic solution: objective 5896.05
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -250,33 +268,34 @@ object that shows the strength of connectivity between consecutive planning
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.597439e+03, 526 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 4.597439e+03, 132 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4597.43940    0  362 5896.05207 4597.43940  22.0%     -    0s
 #&gt;      0     0 4667.52745    0  358 5896.05207 4667.52745  20.8%     -    0s
-#&gt;      0     0 4730.31629    0  355 5896.05207 4730.31629  19.8%     -    1s
-#&gt;      0     0 4733.44273    0  359 5896.05207 4733.44273  19.7%     -    1s
-#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    1s
-#&gt;      0     0 4795.81320    0  355 5896.05207 4795.81320  18.7%     -    1s
-#&gt;      0     2 4795.97881    0  355 5896.05207 4795.97881  18.7%     -    1s
-#&gt; H   57    47                    5711.4944876 4869.67737  14.7%  28.7    1s
-#&gt; H   99    66                    5673.3734453 4929.84612  13.1%  29.1    1s
-#&gt; H  138    73                    5575.6103195 4964.00523  11.0%  27.0    1s
+#&gt;      0     0 4667.52745    0  358 5896.05207 4667.52745  20.8%     -    0s
+#&gt;      0     0 4730.69867    0  355 5896.05207 4730.69867  19.8%     -    0s
+#&gt;      0     0 4739.79019    0  356 5896.05207 4739.79019  19.6%     -    0s
+#&gt;      0     0 4760.22497    0  356 5896.05207 4760.22497  19.3%     -    0s
+#&gt;      0     0 4805.76782    0  353 5896.05207 4805.76782  18.5%     -    0s
+#&gt;      0     0 4805.76782    0  353 5896.05207 4805.76782  18.5%     -    0s
+#&gt; H    0     0                    5688.3300728 4805.76782  15.5%     -    0s
+#&gt; H    0     0                    5571.3009654 4805.76782  13.7%     -    0s
+#&gt;      0     2 4806.08730    0  353 5571.30097 4806.08730  13.7%     -    0s
+#&gt; H   56    41                    5524.9864950 4913.06496  11.1%  37.8    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
+#&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 164 nodes (5134 simplex iterations) in 1.35 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 99 nodes (4508 simplex iterations) in 0.64 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 4: 5575.61 5673.37 5711.49 5896.05 
-#&gt; Pool objective bound 5035.36
+#&gt; Solution count 5: 5524.99 5571.3 5688.33 ... 22987.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.575610319456e+03, best bound 5.035363389308e+03, gap 9.6895%
+#&gt; Best objective 5.524986494953e+03, best bound 4.986768341785e+03, gap 9.7415%
 #&gt; Optimize a model with 549 rows, 362 columns and 1538 nonzeros
 #&gt; Variable types: 0 continuous, 362 integer (362 binary)
 #&gt; Coefficient statistics:
@@ -284,6 +303,7 @@ object that shows the strength of connectivity between consecutive planning
 #&gt;   Objective range  [7e+01, 6e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 22987.2
 #&gt; Found heuristic solution: objective 5784.07
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
@@ -291,33 +311,34 @@ object that shows the strength of connectivity between consecutive planning
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.597439e+03, 535 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 4.597439e+03, 202 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4597.43940    0  362 5784.06522 4597.43940  20.5%     -    0s
-#&gt;      0     0 4650.99515    0  358 5784.06522 4650.99515  19.6%     -    1s
-#&gt;      0     0 4685.67744    0  356 5784.06522 4685.67744  19.0%     -    1s
-#&gt;      0     0 4690.23756    0  357 5784.06522 4690.23756  18.9%     -    1s
-#&gt;      0     0 4736.15987    0  353 5784.06522 4736.15987  18.1%     -    1s
-#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    1s
-#&gt;      0     0 4752.87472    0  356 5784.06522 4752.87472  17.8%     -    1s
-#&gt; H    0     0                    5446.4165700 4752.87472  12.7%     -    1s
-#&gt;      0     2 4753.34087    0  356 5446.41657 4753.34087  12.7%     -    1s
-#&gt; H   14    14                    5283.3495723 4760.84670  9.89%  38.4    1s
+#&gt;      0     0 4650.00544    0  358 5784.06522 4650.00544  19.6%     -    0s
+#&gt;      0     0 4704.19878    0  355 5784.06522 4704.19878  18.7%     -    0s
+#&gt;      0     0 4721.67841    0  355 5784.06522 4721.67841  18.4%     -    0s
+#&gt;      0     0 4767.48504    0  352 5784.06522 4767.48504  17.6%     -    0s
+#&gt;      0     0 4786.45727    0  345 5784.06522 4786.45727  17.2%     -    0s
+#&gt;      0     0 4789.15075    0  347 5784.06522 4789.15075  17.2%     -    0s
+#&gt;      0     0 4789.15075    0  347 5784.06522 4789.15075  17.2%     -    0s
+#&gt; H    0     0                    5662.6124769 4789.15075  15.4%     -    0s
+#&gt;      0     2 4790.40547    0  347 5662.61248 4790.40547  15.4%     -    0s
+#&gt; H   27    27                    5411.7167514 4790.40547  11.5%  30.0    0s
+#&gt; H   54    46                    5379.1698184 4813.02763  10.5%  31.7    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
+#&gt;   Gomory: 6
 #&gt; 
-#&gt; Explored 14 nodes (1281 simplex iterations) in 1.87 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 85 nodes (3379 simplex iterations) in 0.72 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 5283.35 5446.42 5784.07 
-#&gt; Pool objective bound 4760.85
+#&gt; Solution count 5: 5379.17 5411.72 5662.61 ... 22987.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.283349572292e+03, best bound 4.760846704629e+03, gap 9.8896%</div><div class='input'>
+#&gt; Best objective 5.379169818411e+03, best bound 4.863847627804e+03, gap 9.5800%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
 
@@ -334,8 +355,7 @@ object that shows the strength of connectivity between consecutive planning
        <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
 
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"asymmetric connectivity"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,
-       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><img src='add_connectivity_penalties-5.png' alt='' width='540' height='400' /><div class='input'>
-
+       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='img'><img src='add_connectivity_penalties-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

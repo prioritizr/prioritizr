@@ -40,7 +40,7 @@ devtools::install_github("prioritizr/prioritizr")
 Citation
 --------
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.1.0. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.1. https://github.com/prioritizr/prioritizr.
 
 Example usage
 -------------
@@ -141,11 +141,10 @@ s1 <- solve(p1)
     ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
     ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
     ## 
-    ## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
-    ## Thread count was 1 (of 4 available processors)
+    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+    ## Thread count was 1 (of 16 available processors)
     ## 
     ## Solution count 2: 3597.1 4135.27 
-    ## Pool objective bound 3490.35
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
     ## Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
@@ -164,7 +163,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.003053904
+    ## 0.003009796
 
 ``` r
 # extract message returned from solver
@@ -214,11 +213,10 @@ s2 <- solve(p2)
     ## 
     ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
     ## 
-    ## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
-    ## Thread count was 1 (of 4 available processors)
+    ## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+    ## Thread count was 1 (of 16 available processors)
     ## 
     ## Solution count 1: 4020.2 
-    ## Pool objective bound 3620.46
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
     ## Best objective 4.020203818008e+03, best bound 3.620460824006e+03, gap 9.9434%
@@ -248,6 +246,7 @@ s3 <- solve(p3)
     ##   Objective range  [1e+02, 4e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
+    ## Found heuristic solution: objective 20287.2
     ## Found heuristic solution: objective 6420.2
     ## Presolve removed 72 rows and 46 columns
     ## Presolve time: 0.00s
@@ -256,29 +255,21 @@ s3 <- solve(p3)
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.477092e+03, 245 iterations, 0.00 seconds
+    ## Root relaxation: objective 5.477092e+03, 121 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
     ##      0     0 5477.09167    0   89 6420.20382 5477.09167  14.7%     -    0s
-    ## H    0     0                    6230.2475434 5477.09167  12.1%     -    0s
-    ## H    0     0                    6162.3460667 5477.09167  11.1%     -    0s
-    ##      0     0 5493.46801    0  108 6162.34607 5493.46801  10.9%     -    0s
-    ##      0     0 5513.60658    0   93 6162.34607 5513.60658  10.5%     -    0s
-    ## H    0     0                    5878.3503827 5513.60658  6.20%     -    0s
+    ## H    0     0                    5963.8421871 5477.09167  8.16%     -    0s
     ## 
-    ## Cutting planes:
-    ##   Gomory: 1
+    ## Explored 1 nodes (121 simplex iterations) in 0.01 seconds
+    ## Thread count was 1 (of 16 available processors)
     ## 
-    ## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
-    ## Thread count was 1 (of 4 available processors)
-    ## 
-    ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
-    ## Pool objective bound 5513.61
+    ## Solution count 3: 5963.84 6420.2 20287.2 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 5.878350382730e+03, best bound 5.513606581997e+03, gap 6.2049%
+    ## Best objective 5.963842187126e+03, best bound 5.477091668218e+03, gap 8.1617%
 
 ``` r
 # plot the solution
@@ -306,47 +297,57 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 187 rows and 129 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.00s
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## Variable types: 0 continuous, 377 integer (376 binary)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.647064e+03, 519 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.647064e+03, 334 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
     ##      0     0 5647.06401    0  153          - 5647.06401      -     -    0s
     ##      0     0 5890.44226    0   78          - 5890.44226      -     -    0s
-    ##      0     0 5929.07276    0  118          - 5929.07276      -     -    0s
+    ##      0     0 5890.47965    0   84          - 5890.47965      -     -    0s
+    ##      0     0 5955.81681    0  116          - 5955.81681      -     -    0s
     ##      0     0 5961.21299    0  117          - 5961.21299      -     -    0s
-    ##      0     0 5966.92740    0  111          - 5966.92740      -     -    0s
-    ##      0     0 5979.36953    0  114          - 5979.36953      -     -    0s
-    ##      0     0 5996.08152    0  123          - 5996.08152      -     -    0s
-    ##      0     0 5996.08152    0  124          - 5996.08152      -     -    0s
-    ##      0     0 6003.71693    0  111          - 6003.71693      -     -    0s
-    ##      0     0 6004.31256    0  114          - 6004.31256      -     -    0s
-    ##      0     0 6005.27478    0  119          - 6005.27478      -     -    0s
-    ##      0     0 6005.27478    0  118          - 6005.27478      -     -    0s
-    ## H    0     0                    11466.064558 6005.27478  47.6%     -    0s
-    ##      0     2 6007.14204    0  118 11466.0646 6007.14204  47.6%     -    0s
-    ## H   14    12                    7072.0624262 6013.11003  15.0%  16.5    0s
-    ## H   66    22                    6469.1727465 6051.84783  6.45%  15.5    0s
+    ##      0     0 5962.20129    0  119          - 5962.20129      -     -    0s
+    ##      0     0 5962.20129    0  119          - 5962.20129      -     -    0s
+    ##      0     0 5970.47709    0  110          - 5970.47709      -     -    0s
+    ##      0     0 5973.62595    0  112          - 5973.62595      -     -    0s
+    ##      0     0 5975.96010    0  119          - 5975.96010      -     -    0s
+    ##      0     0 5993.08173    0  127          - 5993.08173      -     -    0s
+    ##      0     0 6000.64312    0  120          - 6000.64312      -     -    0s
+    ##      0     0 6001.64677    0  126          - 6001.64677      -     -    0s
+    ##      0     0 6001.67965    0  127          - 6001.67965      -     -    0s
+    ##      0     0 6005.68765    0  114          - 6005.68765      -     -    0s
+    ##      0     0 6005.70873    0  115          - 6005.70873      -     -    0s
+    ##      0     0 6009.34202    0  117          - 6009.34202      -     -    0s
+    ##      0     0 6009.54033    0  114          - 6009.54033      -     -    0s
+    ##      0     0 6010.24752    0  122          - 6010.24752      -     -    0s
+    ##      0     0 6010.48660    0  104          - 6010.48660      -     -    0s
+    ##      0     0 6012.89021    0  112          - 6012.89021      -     -    0s
+    ##      0     0 6012.89021    0  110          - 6012.89021      -     -    0s
+    ## H    0     0                    12169.667322 6012.89021  50.6%     -    0s
+    ##      0     2 6013.70070    0  110 12169.6673 6013.70070  50.6%     -    0s
+    ## H   13    13                    6873.1743958 6020.56496  12.4%  20.5    0s
+    ## *   15    11               9    6801.3893648 6020.56496  11.5%  18.0    0s
+    ## H   26    13                    6469.1727465 6024.62441  6.87%  17.2    0s
     ## 
     ## Cutting planes:
-    ##   Gomory: 5
+    ##   Gomory: 4
     ##   MIR: 1
-    ##   Zero half: 23
+    ##   Zero half: 26
     ## 
-    ## Explored 67 nodes (1856 simplex iterations) in 0.16 seconds
-    ## Thread count was 1 (of 4 available processors)
+    ## Explored 27 nodes (1240 simplex iterations) in 0.13 seconds
+    ## Thread count was 1 (of 16 available processors)
     ## 
-    ## Solution count 3: 6469.17 7072.06 11466.1 
-    ## Pool objective bound 6051.85
+    ## Solution count 4: 6469.17 6801.39 6873.17 12169.7 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 6.469172746541e+03, best bound 6.051847827392e+03, gap 6.4510%
+    ## Best objective 6.469172746541e+03, best bound 6.024624405213e+03, gap 6.8718%
 
 ``` r
 # plot the solution
