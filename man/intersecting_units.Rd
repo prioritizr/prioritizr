@@ -14,15 +14,15 @@
 \alias{intersecting_units}
 \title{Find intersecting units}
 \usage{
-intersecting_units(x, y, ...) # x=Raster, y=Raster
+\S4method{intersecting_units}{Raster,Raster}(x, y, ...)
 
-intersecting_units(x, y, ...) # x=Spatial, y=Spatial
+\S4method{intersecting_units}{Spatial,Spatial}(x, y, ...)
 
-intersecting_units(x, y, ...) # x=Raster, y=Spatial
+\S4method{intersecting_units}{Raster,Spatial}(x, y, ...)
 
-intersecting_units(x, y, ...) # x=Spatial, y=Raster
+\S4method{intersecting_units}{Spatial,Raster}(x, y, ...)
 
-intersecting_units(x, y, ...) # x=data.frame, y=ANY
+\S4method{intersecting_units}{data.frame,ANY}(x, y, ...)
 }
 \arguments{
 \item{x}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}

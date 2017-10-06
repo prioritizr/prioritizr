@@ -11,9 +11,9 @@
 \alias{add_relative_targets}
 \title{Add Relative Targets}
 \usage{
-add_relative_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
+\S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets, ...)
 
-add_relative_targets(x, targets, ...) # x=ConservationProblem, targets=character
+\S4method{add_relative_targets}{ConservationProblem,character}(x, targets, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

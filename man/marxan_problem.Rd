@@ -25,7 +25,7 @@ planning unit data following conventions (i.e. \code{"pu.dat"}), or a
 \code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
 object containing planning unit data.}
 
-\item{...}{not used}
+\item{...}{arguments passed to \code{\link{problem}}.}
 
 \item{features}{\code{\link[raster]{Raster-class}} object containing
 data on the distribution of features across the study area.}
@@ -119,9 +119,9 @@ problems using exact algorithm solvers.
 
 # create Marxan problem using spatial data
 data(sim_pu_raster, sim_features)
-p1 <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2,
-                     targets_type="relative", penalty=1,
-                     edge_factor=0.5)
+p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
+                     targets_type = "relative", penalty = 1,
+                     edge_factor = 0.5)
 
 \donttest{
 # solve problem

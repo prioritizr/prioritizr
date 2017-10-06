@@ -4,7 +4,7 @@ test_that("compile", {
   # create problem
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
    add_min_set_objective() %>%
    add_relative_targets(0.2) %>%
    add_connected_constraints()
@@ -59,7 +59,7 @@ test_that("solve", {
   skip_on_cran()
   data(sim_pu_polygons, sim_features)
   # create problem
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
    add_min_set_objective() %>%
    add_relative_targets(0.1) %>%
    add_connected_constraints() %>%

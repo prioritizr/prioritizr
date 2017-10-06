@@ -141,13 +141,12 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <p>To create a conservation problem object to which you can add targets, constraints, etc., use the <code>problem</code> function with the spatial-class planning unit object and the features object as arguments. In this example we use the <code>sim_features</code> raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the <em>Marxan problem</em> section in this tutorial), cost must be explicitly defined using the <code>cost_column</code> argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, <code>data.frame</code>, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># polygons</span>
-p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_polygons, sim_features,
-              <span class="dt">cost_column =</span> sim_pu_polygons<span class="op">$</span>cost)
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_polygons, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 <span class="co"># lines</span>
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_lines, sim_features, <span class="dt">cost_column =</span> sim_pu_lines<span class="op">$</span>cost)
+p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_lines, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 
 <span class="co"># points</span>
-p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_points, sim_features, <span class="dt">cost_column =</span> sim_pu_points<span class="op">$</span>cost)</code></pre></div>
+p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_points, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)</code></pre></div>
 </div>
 <div id="raster-input" class="section level4">
 <h4 class="hasAnchor">
@@ -375,7 +374,7 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 <p>The simulated dataset we use here can be read as a Marxan problem. A problem with no boundary penalty, but a locked in constraint, would be formulated as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mp3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(<span class="dt">x =</span> sim_pu_polygons, <span class="dt">features =</span> sim_features,
                       <span class="dt">targets =</span> <span class="fl">0.2</span>, <span class="dt">targets_type =</span> <span class="st">"relative"</span>,
-                      <span class="dt">locked_in =</span> sim_locked_in_raster)
+                      <span class="dt">locked_in =</span> sim_locked_in_raster, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(mp3)
 <span class="kw">spplot</span>(ms3, <span class="dt">zcol =</span> <span class="st">"solution_1"</span>, <span class="dt">main =</span> <span class="st">"Solution"</span>)</code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>

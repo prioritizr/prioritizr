@@ -64,7 +64,7 @@ methods::setGeneric("rij_matrix",
                     function(x, y, ...) standardGeneric("rij_matrix"))
 
 #' @name rij_matrix
-#' @usage rij_matrix(x, y, ...) # x=Raster, y=Raster
+#' @usage \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 #' @rdname rij_matrix
 methods::setMethod(
   "rij_matrix",
@@ -105,7 +105,7 @@ methods::setMethod(
 })
 
 #' @name rij_matrix
-#' @usage rij_matrix(x, y, ...) # x=Spatial, y=Raster
+#' @usage \S4method{rij_matrix}{Spatial,Raster}(x, y, ...)
 #' @rdname rij_matrix
 methods::setMethod(
   "rij_matrix",

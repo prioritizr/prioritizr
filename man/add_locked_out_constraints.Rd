@@ -13,6 +13,14 @@
 \title{Add locked out constraints}
 \usage{
 add_locked_out_constraints(x, locked_out)
+
+\S4method{add_locked_out_constraints}{ConservationProblem,numeric}(x, locked_out)
+
+\S4method{add_locked_out_constraints}{ConservationProblem,character}(x, locked_out)
+
+\S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
+
+\S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -58,7 +66,7 @@ The locked out planning units can be specified in several
 }
 \examples{
 # create basic problem
-p1 <- problem(sim_pu_polygons, sim_features) \%>\%
+p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.2)
 

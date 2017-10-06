@@ -1,10 +1,19 @@
+# prioritizr 2.0.1.0 (unreleased)
+
+- Fixed bug where `Spatial*DataFrame` input to `marxan_problem`  would always
+  use the first column in the attribute table for the cost data. **This bug is
+  serious** so analysis that used `Spatial*DataFrame` inputs in
+  `marxan_problem` should be rerun.
+- Added functionality to use feature abundance/occurrence data stored as
+  columns in the planning unit data when constructing `problem` objects.
+
 # prioritizr 2.0.0.2 (unreleased)
 
 - Skip `add_cuts_portfolio` on Travis.
 
 # prioritizr 2.0.0.1 (unreleased)
 
-- Skip `add_cuts_portfolio` and `add_shuffle_portfolio` tests on 
+- Skip `add_cuts_portfolio` and `add_shuffle_portfolio` tests on
   CRAN.
 
 # prioritizr 2.0.0.0 (unreleased)

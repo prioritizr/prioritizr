@@ -44,7 +44,13 @@ NULL
 #'       values (i.e. \code{NA} values) can be used to indicate the absence of
 #'       a feature in a particular cell instead of explicitly setting these
 #'       cells to zero.}
-#'     \item{\code{data.frame} or \code{numeric}}{\code{data.frame} object
+#'
+#'     \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+#'       with column names that correspond to the abundance or occurrence of
+#'       different features in each planning unit.}
+#'
+#'     \item{\code{\link{Spatial}}, \code{data.frame} or
+#'       \code{numeric}}{\code{data.frame} object
 #'       containing information on the features. The argument to
 #'       \code{feature_data} must follow the conventions used by Marxan. Each
 #'       row corresponds to a different feature. It must also contain the
@@ -62,8 +68,9 @@ NULL
 #'  }
 #'
 #' @param cost_column \code{character} name or \code{integer} indicating the
-#'   column in the attribute table of a \code{\link[sp]{Spatial-class}} object
-#'   with the cost data.
+#'   column with the cost data. This argument must be supplied when the
+#'   argument to \code{x} is a \code{link{Spatial}} or \code{\link{data.frame}}
+#'   object.
 #'
 #' @param rij \code{data.frame} containing information on the amount of
 #'    each feature in each planning unit. This argument is only used argument to
@@ -139,45 +146,66 @@ NULL
 #'  \code{\link{portfolios}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
+#' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method
+#'
+#' @exportMethod problem
+#'
+#' @name problem
+#'
 #' @examples
 #' # create problem using raster planning unit data
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'  add_min_set_objective() %>%
-#'  add_relative_targets(0.2) %>%
-#'  add_binary_decisions()
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
 #'
 #' # create problem using polygon planning unit data
-#' p2 <- problem(sim_pu_polygons, sim_features) %>%
-#'  add_min_set_objective() %>%
-#'  add_relative_targets(0.2) %>%
-#'  add_binary_decisions()
+#' p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
 #'
 #' # create problem using line planning unit data
-#' p3 <- problem(sim_pu_lines, sim_features) %>%
-#'  add_min_set_objective() %>%
-#'  add_relative_targets(0.2) %>%
-#'  add_binary_decisions()
+#' p3 <- problem(sim_pu_lines, sim_features, "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
 #'
 #' # create problem using point planning unit data
-#' p4 <- problem(sim_pu_points, sim_features) %>%
-#'  add_min_set_objective() %>%
-#'  add_relative_targets(0.2) %>%
-#'  add_binary_decisions()
+#' p4 <- problem(sim_pu_points, sim_features, "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
 #'
-#' # alternatively one can supply pre-processed, aspatial data
+#' # add columns to polygon planning unit data representing the abundance
+#' # of species inside them
+#' sim_pu_polygons$spp_1 <- rpois(length(sim_pu_polygons), 5)
+#' sim_pu_polygons$spp_2 <- rpois(length(sim_pu_polygons), 8)
+#' sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
+#'
+#' # create problem using pre-processed data when feature abundances are
+#' # stored in the columns of an attribute table for a spatial vector data set
+#' p5 <- problem(sim_pu_polygons, features = c("spp_1", "spp_2", "spp_3"),
+#'               "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
+#'
+#' # alternatively one can supply pre-processed aspatial data
 #' costs <- sim_pu_polygons$cost
-#' features <- data.frame(id = 1:nlayers(sim_features),
+#' features <- data.frame(id = seq_len(nlayers(sim_features)),
 #'                        name = names(sim_features))
 #' rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
-#' p5 <- problem(costs, features, rij_matrix = rij_mat) %>%
-#'  add_min_set_objective() %>%
-#'  add_relative_targets(0.2) %>%
-#'  add_binary_decisions()
+#' p6 <- problem(costs, features, rij_matrix = rij_mat) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
+#'
 #' \donttest{
 #' # solve problems
-#' s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+#' s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
 #'
-#' # plot solutions
+#' # plot solutions for problems associated with spatial data
 #' par(mfrow=c(2,2))
 #' plot(s[[1]], main = "raster data")
 #'
@@ -190,130 +218,207 @@ NULL
 #' plot(s[[4]], main = "point data", pch = 19)
 #' points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", cex = 2,
 #'        pch = 19)
+#'
+#' # show solutions for problems associated with aspatial data
+#' print(p6)
+#'
 #' }
 #'
 #' @export
-problem <- function(x, features, ...) UseMethod("problem")
+methods::setGeneric("problem",
+                    signature = methods::signature("x", "features"),
+                    function(x, features, ...) standardGeneric("problem"))
 
+#' @name problem
+#' @usage \S4method{problem}{Raster,Raster}(x, features, ...)
 #' @rdname problem
-#' @method problem Raster
-#' @export
-problem.Raster <- function(x, features, ...) {
-  assertthat::assert_that(inherits(x, "Raster"), inherits(features, "Raster"))
-  assertthat::assert_that(isTRUE(raster::cellStats(x, "min") > 0),
-    isTRUE(all(raster::cellStats(features, "max") > 0)),
-    raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
-    raster::compareRaster(x, features, res = TRUE, tolerance = 1e-5,
-      stopiffalse = FALSE))
-  if (inherits(x, c("RasterStack", "RasterBrick")))
-    x <- x[[1]]
-  pproto(NULL, ConservationProblem,
-   constraints = pproto(NULL, Collection), penalties = pproto(NULL, Collection),
-                        data = list(cost = x, features = features,
-                                    rij_matrix = rij_matrix(x, features)))
-}
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Raster", features = "Raster"),
+  function(x, features, ...) {
+    assertthat::assert_that(inherits(x, "Raster"), inherits(features, "Raster"))
+    assertthat::assert_that(isTRUE(raster::cellStats(x, "min") > 0),
+      isTRUE(all(raster::cellStats(features, "max") > 0)),
+      raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
+      raster::compareRaster(x, features, res = TRUE, tolerance = 1e-5,
+        stopiffalse = FALSE))
+    if (inherits(x, c("RasterStack", "RasterBrick")))
+      x <- x[[1]]
+    pproto(NULL, ConservationProblem,
+           constraints = pproto(NULL, Collection),
+           penalties = pproto(NULL, Collection),
+           data = list(cost = x, features = features,
+                       rij_matrix = rij_matrix(x, features)))
+})
 
+#' @name problem
+#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, ...)
 #' @rdname problem
-#' @method problem Spatial
-#' @export
-problem.Spatial <- function(x, features, cost_column = names(x)[1], ...) {
-  assertthat::assert_that(inherits(x, c("SpatialPolygonsDataFrame",
-    "SpatialLinesDataFrame", "SpatialPointsDataFrame")))
-  cost_column <- match.arg(cost_column, names(x))
-  x <- x[is.finite(x[[cost_column]]), ]
-  assertthat::assert_that(
-    isTRUE(all(x[[1]] > 0)),
-    isTRUE(all(raster::cellStats(features, "max", na.rm = TRUE) > 0)),
-    raster::nlayers(features) >= 1,
-    raster::compareCRS(x@proj4string, features@crs),
-    isTRUE(rgeos::gIntersects(methods::as(raster::extent(x), "SpatialPolygons"),
-      methods::as(raster::extent(features), "SpatialPolygons"))))
-  pproto(NULL, ConservationProblem,
-    constraints = pproto(NULL, Collection),
-    penalties = pproto(NULL, Collection),
-    data = list(cost = x, features = features, cost_column = cost_column,
-                rij_matrix = rij_matrix(x[, cost_column], features)))
-}
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Spatial", features = "Raster"),
+  function(x, features, cost_column, ...) {
+    assertthat::assert_that(
+      inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
+                    "SpatialPointsDataFrame")),
+      assertthat::is.string(cost_column))
+    cost_column <- match.arg(cost_column, names(x))
+    x <- x[is.finite(x[[cost_column]]), ]
+    assertthat::assert_that(
+      isTRUE(all(x[[cost_column]] > 0)),
+      length(x) > 0,
+      isTRUE(all(raster::cellStats(features, "max", na.rm = TRUE) > 0)),
+      raster::nlayers(features) >= 1,
+      raster::compareCRS(x@proj4string, features@crs),
+      isTRUE(rgeos::gIntersects(methods::as(raster::extent(x),
+                                            "SpatialPolygons"),
+        methods::as(raster::extent(features), "SpatialPolygons"))))
+    pproto(NULL, ConservationProblem,
+      constraints = pproto(NULL, Collection),
+      penalties = pproto(NULL, Collection),
+      data = list(cost = x, features = features, cost_column = cost_column,
+                  rij_matrix = rij_matrix(x[, cost_column], features)))
+})
 
+#' @name problem
+#' @usage \S4method{problem}{data.frame,data.frame}(x, features, rij, ...)
 #' @rdname problem
-#' @method problem data.frame
-#' @export
-problem.data.frame <- function(x, features, rij, ...) {
-  # assert that arguments are valid
-  assertthat::assert_that(
-    # inputs are data.frames
-    inherits(x, "data.frame"), inherits(features, "data.frame"),
-    inherits(rij, "data.frame"),
-    # x$cost
-    assertthat::has_name(x, "cost"), is.numeric(x$cost), all(is.finite(x$cost)),
-    # x$id
-    assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
-    anyDuplicated(x$id) == 0,
-    # features$id
-    assertthat::has_name(features, "id"), is.numeric(features$id),
-    all(is.finite(features$id)), anyDuplicated(features$id) == 0,
-    # features$name
-    assertthat::has_name(features, "name"),
-    is.character(features$name) || is.factor(features$name),
-    all(!is.na(features$name)), anyDuplicated(features$name) == 0,
-    # rij$species
-    assertthat::has_name(rij, "species"), is.numeric(rij$species),
-    all(is.finite(rij$species)),
-    all(rij$species %in% features$id),
-    # rij$pu
-    assertthat::has_name(rij, "pu"), is.numeric(rij$pu),
-    all(is.finite(rij$pu)), all(rij$pu %in% x$id),
-    # rij$amount
-    assertthat::has_name(rij, "amount"), is.numeric(rij$amount),
-    all(is.finite(rij$amount)))
-  # standardize ids
-  rij$pu <- match(rij$pu, x$id)
-  rij$species <- match(rij$species, features$id)
-  # create rij matrix
-  rij_mat <- Matrix::sparseMatrix(i = rij$species, j = rij$pu,
-                                  x = rij$amount, giveCsparse = TRUE,
-                                  index1 = TRUE, use.last.ij = FALSE,
-                                  dims = c(nrow(features), nrow(x)))
-  # create new problem object
-  p <- pproto(NULL, ConservationProblem,
-    constraints = pproto(NULL, Collection),
-    penalties = pproto(NULL, Collection),
-    data = list(cost = x, features = features, cost_column = "cost",
-                rij_matrix = rij_mat))
-  # return problem
-  return(p)
-}
+methods::setMethod(
+  "problem",
+  methods::signature(x = "data.frame", features = "data.frame"),
+  function(x, features, rij, ...) {
+    # assert that arguments are valid
+    assertthat::assert_that(
+      # inputs are data.frames
+      inherits(x, "data.frame"), inherits(features, "data.frame"),
+      inherits(rij, "data.frame"),
+      # x$cost
+      assertthat::has_name(x, "cost"), is.numeric(x$cost),
+      all(is.finite(x$cost)),
+      # x$id
+      assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
+      anyDuplicated(x$id) == 0,
+      # features$id
+      assertthat::has_name(features, "id"), is.numeric(features$id),
+      all(is.finite(features$id)), anyDuplicated(features$id) == 0,
+      # features$name
+      assertthat::has_name(features, "name"),
+      is.character(features$name) || is.factor(features$name),
+      all(!is.na(features$name)), anyDuplicated(features$name) == 0,
+      # rij$species
+      assertthat::has_name(rij, "species"), is.numeric(rij$species),
+      all(is.finite(rij$species)),
+      all(rij$species %in% features$id),
+      # rij$pu
+      assertthat::has_name(rij, "pu"), is.numeric(rij$pu),
+      all(is.finite(rij$pu)), all(rij$pu %in% x$id),
+      # rij$amount
+      assertthat::has_name(rij, "amount"), is.numeric(rij$amount),
+      all(is.finite(rij$amount)))
+    # standardize ids
+    rij$pu <- match(rij$pu, x$id)
+    rij$species <- match(rij$species, features$id)
+    # create rij matrix
+    rij_mat <- Matrix::sparseMatrix(i = rij$species, j = rij$pu,
+                                    x = rij$amount, giveCsparse = TRUE,
+                                    index1 = TRUE, use.last.ij = FALSE,
+                                    dims = c(nrow(features), nrow(x)))
+    # create new problem object
+    p <- pproto(NULL, ConservationProblem,
+      constraints = pproto(NULL, Collection),
+      penalties = pproto(NULL, Collection),
+      data = list(cost = x, features = features, cost_column = "cost",
+                  rij_matrix = rij_mat))
+    # return problem
+    return(p)
+})
 
+#' @name problem
+#' @usage \S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
 #' @rdname problem
-#' @method problem numeric
-#' @export
-problem.numeric <- function(x, features, rij_matrix, ...) {
-  # assert that arguments are valid
-  assertthat::assert_that(
-    # data types
-    is.numeric(x), all(is.finite(x)),
-    inherits(features, "data.frame"),
-    inherits(rij_matrix, c("dgCMatrix", "dgTMatrix", "matrix")),
-    # features$id
-    assertthat::has_name(features, "id"), is.numeric(features$id),
-    all(is.finite(features$id)), anyDuplicated(features$id) == 0,
-    # features$name
-    assertthat::has_name(features, "name"),
-    is.character(features$name) || is.factor(features$name),
-    all(!is.na(features$name)), anyDuplicated(features$name) == 0,
-    # correct matrix dimensions
-    nrow(rij_matrix) == nrow(features),
-    ncol(rij_matrix) == length(x))
-  # convert to sparse matrix if necessary
-  if (!inherits(rij_matrix, "dgCMatrix")) {
-    rij_matrix <- methods::as(rij_matrix, "dgCMatrix")
-  }
-  # create new problem object
-  p <- pproto(NULL, ConservationProblem,
-              constraints = pproto(NULL, Collection),
-              penalties = pproto(NULL, Collection),
-              data = list(cost = x, features = features,
-                          rij_matrix = rij_matrix))
-  # return problem
-  return(p)
-}
+methods::setMethod(
+  "problem",
+  methods::signature(x = "numeric", features = "data.frame"),
+  function(x, features, rij_matrix, ...) {
+    # assert that arguments are valid
+    assertthat::assert_that(
+      # data types
+      is.numeric(x), all(is.finite(x)),
+      inherits(features, "data.frame"),
+      inherits(rij_matrix, c("dgCMatrix", "dgTMatrix", "matrix")),
+      # features$id
+      assertthat::has_name(features, "id"), is.numeric(features$id),
+      all(is.finite(features$id)), anyDuplicated(features$id) == 0,
+      # features$name
+      assertthat::has_name(features, "name"),
+      is.character(features$name) || is.factor(features$name),
+      all(!is.na(features$name)), anyDuplicated(features$name) == 0,
+      # correct matrix dimensions
+      nrow(rij_matrix) == nrow(features),
+      ncol(rij_matrix) == length(x))
+    # convert to sparse matrix if necessary
+    if (!inherits(rij_matrix, "dgCMatrix")) {
+      rij_matrix <- methods::as(rij_matrix, "dgCMatrix")
+    }
+    # create new problem object
+    p <- pproto(NULL, ConservationProblem,
+                constraints = pproto(NULL, Collection),
+                penalties = pproto(NULL, Collection),
+                data = list(cost = x, features = features,
+                            rij_matrix = rij_matrix))
+    # return problem
+    return(p)
+})
+
+#' @name problem
+#' @usage \S4method{problem}{data.frame,character}(x, features, cost_column, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "data.frame", features = "character"),
+  function(x, features, cost_column, ...) {
+    assertthat::assert_that(assertthat::is.string(cost_column))
+    cost_column <- match.arg(cost_column, names(x))
+    x <- x[is.finite(x[[cost_column]]), ]
+    assertthat::assert_that(
+      isTRUE(all(x[[cost_column]] > 0)),
+      length(x) > 0,
+      all(features %in% names(x)),
+      all(colSums(!is.na(as.matrix(x[, features, drop = FALSE]))) > 0))
+    # create rij matrix
+    rij_mat <- t(as.matrix(x[, features, drop = FALSE]))
+    rij_mat[is.na(rij_mat)] <- 0
+    rij_mat <- methods::as(rij_mat, "sparseMatrix")
+    pproto(NULL, ConservationProblem,
+      constraints = pproto(NULL, Collection),
+      penalties = pproto(NULL, Collection),
+      data = list(cost = x, features = features, cost_column = cost_column,
+                  rij_matrix = rij_mat))
+})
+
+#' @name problem
+#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Spatial", features = "character"),
+  function(x, features, cost_column, ...) {
+    assertthat::assert_that(inherits(x, c("SpatialPolygonsDataFrame",
+      "SpatialLinesDataFrame", "SpatialPointsDataFrame")))
+    cost_column <- match.arg(cost_column, names(x))
+    x <- x[is.finite(x[[cost_column]]), ]
+    assertthat::assert_that(
+      isTRUE(all(x[[cost_column]] > 0)),
+      length(x) > 0,
+      all(features %in% names(x)),
+      all(colSums(!is.na(as.matrix(x@data[, features, drop = FALSE]))) > 0))
+    # create rij matrix
+    rij_mat <- t(as.matrix(x@data[, features, drop = FALSE]))
+    rij_mat[is.na(rij_mat)] <- 0
+    rij_mat <- methods::as(rij_mat, "sparseMatrix")
+    pproto(NULL, ConservationProblem,
+      constraints = pproto(NULL, Collection),
+      penalties = pproto(NULL, Collection),
+      data = list(cost = x, features = features, cost_column = cost_column,
+                  rij_matrix = rij_mat))
+})

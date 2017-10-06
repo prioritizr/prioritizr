@@ -21,7 +21,7 @@ NULL
 #'
 #' @examples
 #' # create basic problem
-#' p1 <- problem(sim_pu_polygons, sim_features) %>%
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'

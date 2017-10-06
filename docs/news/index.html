@@ -84,6 +84,14 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-2-0-1-0-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-2-0-1-0-unreleased" class="anchor"></a>prioritizr 2.0.1.0 (unreleased)</h1>
+<ul>
+<li>Fixed bug where <code>Spatial*DataFrame</code> input to <code>marxan_problem</code> would always use the first column in the attribute table for the cost data. <strong>This bug is serious</strong> so analysis that used <code>Spatial*DataFrame</code> inputs in <code>marxan_problem</code> should be rerun.</li>
+<li>Added functionality to use feature abundance/occurrence data stored as columns in the planning unit data when constructing <code>problem</code> objects.</li>
+</ul>
+</div>
     <div id="prioritizr-2-0-0-2-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-2-0-0-2-unreleased" class="anchor"></a>prioritizr 2.0.0.2 (unreleased)</h1>
@@ -304,6 +312,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-2-0-1-0-unreleased">2.0.1.0</a></li>
         <li><a href="#prioritizr-2-0-0-2-unreleased">2.0.0.2</a></li>
         <li><a href="#prioritizr-2-0-0-1-unreleased">2.0.0.1</a></li>
         <li><a href="#prioritizr-2-0-0-0-unreleased">2.0.0.0</a></li>

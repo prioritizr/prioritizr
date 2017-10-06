@@ -45,7 +45,7 @@ NULL
 #'
 #' @examples
 #' # create basic problem
-#' p1 <- problem(sim_pu_polygons, sim_features) %>%
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.2)
 #'
@@ -105,6 +105,7 @@ methods::setGeneric("add_locked_out_constraints",
 
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,numeric}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "numeric"),
@@ -158,6 +159,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,character}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "character"),
@@ -175,6 +177,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Spatial"),
@@ -188,6 +191,7 @@ methods::setMethod("add_locked_out_constraints",
 )
 
 #' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
 #' @rdname add_locked_out_constraints
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Raster"),

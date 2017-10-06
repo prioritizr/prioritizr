@@ -21,7 +21,7 @@ test_that("add_default_solver (spatial cost data)", {
   skip_on_cran()
   # make data
   data(sim_pu_polygons, sim_features)
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%

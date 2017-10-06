@@ -350,6 +350,8 @@ ConservationProblem <- pproto(
       return(raster::nlayers(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
+    } else if (inherits(self$data$features, "character")) {
+      return(length(self$data$features))
     } else {
       stop("feature data is of an unrecognized class")
     }
@@ -359,6 +361,8 @@ ConservationProblem <- pproto(
       return(names(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
+    } else if (inherits(self$data$features, "character")) {
+      return(self$data$features)
     } else {
       stop("feature data is of an unrecognized class")
     }

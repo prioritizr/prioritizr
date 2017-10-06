@@ -40,7 +40,7 @@ devtools::install_github("prioritizr/prioritizr")
 Citation
 --------
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.0.2. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.1.0. https://github.com/prioritizr/prioritizr.
 
 Example usage
 -------------
@@ -105,10 +105,11 @@ We want to develop a reserve network that will secure 20 % of the distribution f
 
 ``` r
 # create problem
-p1 <- problem(sim_pu_polygons, features = sim_features, cost_name = "cost") %>%
-  add_min_set_objective() %>%
-  add_relative_targets(0.2) %>%
-  add_binary_decisions()
+p1 <- problem(sim_pu_polygons, features = sim_features,
+              cost_column = "cost") %>%
+      add_min_set_objective() %>%
+      add_relative_targets(0.2) %>%
+      add_binary_decisions()
 ```
 
 After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, *prioritizr* will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the *gurobi* *R* package to solve problems quickly](http://gurobi.com).**
@@ -163,7 +164,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.002454042
+    ## 0.003053904
 
 ``` r
 # extract message returned from solver

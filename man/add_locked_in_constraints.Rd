@@ -13,6 +13,14 @@
 \title{Add locked in constraints}
 \usage{
 add_locked_in_constraints(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,numeric}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,Spatial}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -58,7 +66,7 @@ The locked in planning units can be specified in several
 }
 \examples{
 # create basic problem
-p1 <- problem(sim_pu_polygons, sim_features) \%>\%
+p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.2)
 

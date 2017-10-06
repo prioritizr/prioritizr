@@ -84,7 +84,7 @@ NULL
 #'
 #' @inheritParams add_locked_out_constraints
 #'
-#' @param ... not used
+#' @param ... arguments passed to \code{\link{problem}}.
 #'
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
@@ -92,9 +92,9 @@ NULL
 #'
 #' # create Marxan problem using spatial data
 #' data(sim_pu_raster, sim_features)
-#' p1 <- marxan_problem(sim_pu_raster, features=sim_features, targets=0.2,
-#'                      targets_type="relative", penalty=1,
-#'                      edge_factor=0.5)
+#' p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
+#'                      targets_type = "relative", penalty = 1,
+#'                      edge_factor = 0.5)
 #'
 #' \donttest{
 #' # solve problem
@@ -129,9 +129,9 @@ marxan_problem.default <- function(x, features, targets,
                                   locked_in = NULL, locked_out = NULL,
                                   penalty = 0, edge_factor = 0.5, ...) {
   # create problem
-  p <- problem(x, features) %>%
-    add_min_set_objective() %>%
-    add_boundary_penalties(penalty, edge_factor)
+  p <- problem(x, features, ...) %>%
+       add_min_set_objective() %>%
+       add_boundary_penalties(penalty, edge_factor)
   if (targets_type == "relative")
     p <- p %>% add_relative_targets(targets)
   if (targets_type == "absolute")
@@ -166,7 +166,7 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
   if (!assertthat::has_name(spec, "name"))
     spec$name <- paste0("feature.", seq_len(nrow(spec)))
   # create problem
-  p <- problem(x, spec, puvspr) %>%
+  p <- problem(x, spec, puvspr, cost_column = "cost") %>%
     add_min_set_objective()
   # add locked in/out constraints
   if (sum(x$locked_in) > 0)

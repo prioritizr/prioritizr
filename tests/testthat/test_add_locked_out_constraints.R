@@ -49,7 +49,7 @@ test_that("integer locked out data (solve)", {
 test_that("character locked out data (compile)", {
   # create problem
   data(sim_pu_polygons, sim_features)
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
@@ -93,7 +93,7 @@ test_that("character locked out data (solve)", {
   skip_on_cran()
   # create problem
   data(sim_pu_polygons, sim_features)
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
@@ -180,7 +180,7 @@ test_that("raster locked out data (solve)", {
 test_that("spatial locked out data (compile)", {
   # create problem
   data(sim_pu_polygons, sim_features)
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
@@ -224,7 +224,7 @@ test_that("spatial locked out data (solve)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   locked_ply <- sim_pu_polygons[sim_pu_polygons$locked_out, ]
-  p <- problem(sim_pu_polygons, sim_features) %>%
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%

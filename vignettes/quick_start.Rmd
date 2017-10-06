@@ -126,13 +126,12 @@ To create a conservation problem object to which you can add targets, constraint
 
 ```{r, eval = FALSE}
 # polygons
-p1 <- problem(sim_pu_polygons, sim_features,
-              cost_column = sim_pu_polygons$cost)
+p1 <- problem(sim_pu_polygons, sim_features, cost_column = "cost")
 # lines
-p2 <- problem(sim_pu_lines, sim_features, cost_column = sim_pu_lines$cost)
+p2 <- problem(sim_pu_lines, sim_features, cost_column = "cost")
 
 # points
-p3 <- problem(sim_pu_points, sim_features, cost_column = sim_pu_points$cost)
+p3 <- problem(sim_pu_points, sim_features, cost_column = "cost")
 ```
 
 #### Raster Input
@@ -423,7 +422,7 @@ The simulated dataset we use here can be read as a Marxan problem. A problem wit
 ```{r, results = "hide", fig.height = h * 0.7}
 mp3 <- marxan_problem(x = sim_pu_polygons, features = sim_features,
                       targets = 0.2, targets_type = "relative",
-                      locked_in = sim_locked_in_raster)
+                      locked_in = sim_locked_in_raster, cost_column = "cost")
 ms3 <- solve(mp3)
 spplot(ms3, zcol = "solution_1", main = "Solution")
 ```

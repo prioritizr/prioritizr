@@ -90,7 +90,19 @@ existing reserve network. If specific planning units should be locked out
 of a solution, use <code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code>.</p>
     
 
-    <pre class="usage"><span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)</pre>
+    <pre class="usage"><span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+
+<span class='co'># S4 method for ConservationProblem,numeric</span>
+<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+
+<span class='co'># S4 method for ConservationProblem,character</span>
+<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+
+<span class='co'># S4 method for ConservationProblem,Spatial</span>
+<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+
+<span class='co'># S4 method for ConservationProblem,Raster</span>
+<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -138,7 +150,7 @@ locked in. See details for more information.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
 

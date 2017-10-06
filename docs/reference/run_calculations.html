@@ -156,7 +156,7 @@ run multiple times.</p>
 #&gt;      0     0 1742.89982    0   11 2161.26789 1742.89982  19.4%     -    0s
 #&gt; H    0     0                    1809.1387001 1742.89982  3.66%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (197 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (197 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1809.14 2161.27 
@@ -266,7 +266,7 @@ run multiple times.</p>
 #&gt;      0     0 1742.89982    0   11 2161.26789 1742.89982  19.4%     -    0s
 #&gt; H    0     0                    1809.1387001 1742.89982  3.66%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (197 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (197 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1809.14 2161.27 
@@ -336,8 +336,8 @@ run multiple times.</p>
 #&gt; Best objective 5.464480651178e+03, best bound 5.323620845374e+03, gap 2.5777%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.460   0.172   0.658 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.384   0.196   0.619 </div><div class='input'>
+#&gt;   0.628   0.208   0.850 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.564   0.216   0.772 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span></div></pre>

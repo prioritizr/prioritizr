@@ -80,7 +80,7 @@ methods::setGeneric(
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
-#' @usage add_relative_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
+#' @usage \S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets, ...)
 methods::setMethod("add_relative_targets",
                    methods::signature("ConservationProblem", "numeric"),
                    function(x, targets, ...) {
@@ -118,7 +118,7 @@ methods::setMethod("add_relative_targets",
 
 #' @name add_relative_targets
 #' @rdname add_relative_targets
-#' @usage add_relative_targets(x, targets, ...) # x=ConservationProblem, targets=character
+#' @usage \S4method{add_relative_targets}{ConservationProblem,character}(x, targets, ...)
 methods::setMethod(
   "add_relative_targets",
   methods::signature("ConservationProblem", "character"),

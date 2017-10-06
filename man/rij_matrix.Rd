@@ -8,9 +8,9 @@
 \alias{rij_matrix}
 \title{Feature by planning unit matrix}
 \usage{
-rij_matrix(x, y, ...) # x=Raster, y=Raster
+\S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
-rij_matrix(x, y, ...) # x=Spatial, y=Raster
+\S4method{rij_matrix}{Spatial,Raster}(x, y, ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{RasterLayer-class}} or

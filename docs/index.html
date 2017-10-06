@@ -100,7 +100,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.0.2. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.1.0. https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
@@ -140,10 +140,11 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>We want to develop a reserve network that will secure 20 % of the distribution for each feature for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features, <span class="dt">cost_name =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw"><a href="reference/add_binary_decisions.html">add_binary_decisions</a></span>()</code></pre></div>
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features,
+              <span class="dt">cost_column =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="reference/add_binary_decisions.html">add_binary_decisions</a></span>()</code></pre></div>
 <p>After we have built a <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve the problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html">solve</a></span>(p1)</code></pre></div>
@@ -169,7 +170,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 0 nodes (17 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (17 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -183,8 +184,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   3597.095</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
-<pre><code>## solution_1 
-## 0.00197506</code></pre>
+<pre><code>##  solution_1 
+## 0.005737066</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract message returned from solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -221,7 +222,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 0 nodes (11 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -269,7 +270,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   Gomory: 1
 ## 
-## Explored 0 nodes (278 simplex iterations) in 0.05 seconds
+## Explored 0 nodes (278 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5878.35 6162.35 6230.25 6420.2 
@@ -328,7 +329,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 1
 ##   Zero half: 23
 ## 
-## Explored 67 nodes (1856 simplex iterations) in 0.14 seconds
+## Explored 67 nodes (1856 simplex iterations) in 0.17 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 6469.17 7072.06 11466.1 
