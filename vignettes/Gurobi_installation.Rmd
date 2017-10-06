@@ -112,33 +112,65 @@ print(result$x)
 
 If R doesn't give you any error message you have successfully installed the Gurobi solver and can now use it with _prioritizr_. 
 
-## Gurobi installation on Linux
+## Gurobi R package installation on Linux
 
+Before talking about the R package installation it's important to bring up some points about the gurobi software installation on Linux, that could cause some issues for users.
 
-cd /opt  
-sudo tar xvfz gurobi6.5.0_linux64.tar.gz  
+Once you have downloaded the Gurobi optimizer from [here](http://www.gurobi.com/downloads/gurobi-optimizer) and decided to extract Gurobi in the standard /opt directory you will have Gurobi installed here:
 
-_add this to ~/.bashrc_  
+_/opt/gurobi751_  
+
+We now have to now make the Gurobi solver dicoverable. If you are isung the bash shell, add the following  _~/.bashrc_
+  
+``` {r, eval = FALSE}
   export GUROBI_HOME="/opt/gurobi650/linux64"  
   export PATH="${PATH}:${GUROBI_HOME}/bin"  
   export LD_LIBRARY_PATH="${GUROBI_HOME}/lib"  
+```  
 
-rsession-ld-library-path=/opt/gurobi650/linux64/lib  
+Once that is done you need to logout and login again. When you have logged into your Linux system again, open a terminal and add your Gurobi license from above: 
+  
+`grbgetkey 2b695a2e-aac7-11e7-be25-0a4522cc772c`
+  
+Now you are ready to install the Gurobi _R_ package.  
+In an R session run the folowing code:  
+
+``` {r, eval = FALSE}
+install.packages(c('slam'), repos='https://cran.rstudio.com/')
+install.packages('/opt/gurobi650/linux64/R/gurobi_6.5-0_R_x86_64-unknown-linux-gnu.tar.gz', repos=NULL)
+```
+
+Just as on a Windows system you can try out if Gurobi is working from R with the following code:  
+
+```{r}
+library('gurobi')
+
+model <- list()
+
+model$A          <- matrix(c(1,2,3,1,1,0), nrow=2, ncol=3, byrow=T)
+model$obj        <- c(1,1,2)
+model$modelsense <- "max"
+model$rhs        <- c(4,1)
+model$sense      <- c('<', '>')
+model$vtype      <- 'B'
+
+params <- list(OutputFlag=0)
+
+result <- gurobi(model, params)
+
+print('Solution:')
+print(result$objval)
+print(result$x)
+```
 
 
-_need new licence for new install_  
-grbgetkey 3e3e4daf-99be-475d-54b0-56bd060db65e  
 
-sudo su --c "R -e \"install.packages(c('slam'), repos='https://cran.rstudio.com/')\""  
-sudo su --c "R -e \"install.packages('/opt/gurobi650/linux64/R/gurobi_6.5-0_R_x86_64-unknown-linux-gnu.tar.gz', repos=NULL)\""  
+In case you are using [RStudio](https://www.rstudio.com/products/rstudio/) on Linux, you might need to add the following line to _/etc/rstudio/rserver.conf_
 
-_maybe use this_  
-sudo chown -R rschust:rschust /opt/gurobi650  
 
-_add to this file for Gurobi to work with RStudio Server_  
-sudo nano /etc/rstudio/rserver.conf  
+`rsession-ld-library-path=/opt/gurobi650/linux64/lib`
 
-rsession-ld-library-path=/opt/gurobi650/linux64/lib  
+If everything works, you are good to go to test prioritzr with the Gurobi solver with the example below.
 
 
 ## Gurobi installation on Mac OS X
