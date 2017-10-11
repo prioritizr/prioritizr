@@ -36,7 +36,6 @@ To stop processing data in parallel, set the number of
   threads to one.
 }
 \examples{
-
 # set number of threads to 2
 set_number_of_threads(2)
 # get number of threads

@@ -31,6 +31,7 @@ test_that("proportion_parameter", {
   expect_error(x$set(Inf))
   expect_error(x$set(-5))
   expect_error(x$set(5))
+  expect_error()
 })
 
 test_that("integer_parameter", {

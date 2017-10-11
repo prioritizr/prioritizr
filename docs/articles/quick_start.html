@@ -29,31 +29,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -96,7 +75,7 @@
 <p>To install the developmental version of <em>prioritizr</em>, use the following <em>R</em> code:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(devtools))
   <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"prioritizr/prioritizr"</span>)</code></pre></div>
 </div>
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
@@ -118,12 +97,12 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <li>
 <a href="http://gurobi.com">Gurobi:</a> Install the <a href="http://www.gurobi.com/products/modeling-languages/r"><em>gurobi</em> <em>R</em> package</a> to use this solver.</li>
 <li>
-<a href="https://projects.coin-or.org/SYMPHONY">SYMPHONY:</a> Install either the <a href="https://CRAN.R-project.org/package=Rsymphony"><em>Rsymphony</em></a> or <a href="https://bioconductor.riken.jp/packages/3.3/bioc/html/lpsymphony.html"><em>lpsymphony</em></a> <em>R</em> packages to use this solver.</li>
+<a href="https://projects.coin-or.org/SYMPHONY">SYMPHONY:</a> Install either the <a href="https://CRAN.R-project.org/package=Rsymphony"><em>Rsymphony</em></a> or <a href="https://doi.org/doi:10.18129/B9.bioc.lpsymphony"><em>lpsymphony</em></a> <em>R</em> packages to use this solver.</li>
 </ul>
 </div>
-<div id="workflow" class="section level2">
+<div id="work-flow" class="section level2">
 <h2 class="hasAnchor">
-<a href="#workflow" class="anchor"></a>Workflow</h2>
+<a href="#work-flow" class="anchor"></a>Work flow</h2>
 <p>The basic work flow for the <em>prioritizer</em> package starts with the creation of a <code>problem</code>, which specifies the user-defined input data on planning units, features, and costs. This new problem object can then be formulated by adding <code>targets</code> and <code>objectives</code>. All problems require an objective, which specifies the fundamental kind of conservation prioritization approach that will be used. Most problems require the addition of representation targets for input features as well, with the exception of the maximum cover problem (i.e. if the <code>add_max_cover_objective</code> function has been used), which seeks to maximize the features in the solution and therefore does not require targets for individual features.</p>
 <p>Depending on the needs of the user, <code>constraints</code> and <code>penalties</code> can be added next. This includes the options to <strong>lock in</strong> or <strong>lock out</strong> particular planning units, or penalize solutions with low connectivity (similar to the boundary length modifier used in Marxan). Alternative decision formats can also be specified using the <code>decisions</code> functions, otherwise the package will default to binary selection of planning units. Lastly, the type of solving algorithm must be specified by installing one of the supported solving packages and adding the solver to the problem using one of the <code>solvers</code> functions.</p>
 <p>A problem object is solved using the <code>solve</code> function, which will return a raster-class object, spatial-class object, or a numeric vector containing the solution depending on the object class initially provided in problem formulation. Additional parameters can be created and customized according to the specific needs of the user.</p>
@@ -141,7 +120,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <p>The general usage of the problem function is <code>p &lt;- problem(x, features, ...)</code></p>
 <p>Where <code>x</code> is the input for planning units, <code>features</code> are the biodiversity features to be used, and <code>...</code> are additional arguments depending on the input to <code>x</code>.</p>
 <p>In this simulated example, biodiversity features are represented using a stack of raster data (ie. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (ie. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a biodiversity feature.</p>
-<p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains <code><a href="http://www.rdocumentation.org/packages/raster/topics/nlayers">raster::nlayers(sim_features)</a></code> layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.</p>
+<p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains <code>raster::nlayers(sim_features)</code> layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.</p>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-5-1.png" width="1092" style="display: block; margin: auto;"></p>
 <p>We use a simulated dataset in this tutorial, but to use your own data with prioritizr, you first need to prepare your dataset. <strong>This is the most important part of the <em>prioritizr</em> workflow, and where most errors are likely to arise.</strong> If the <code>solve</code> function doesn’t run correctly, the first thing to check should be that your data are not malformed and comply with the problem formulation specifications.</p>
 <p>The formulation of different data input types is detailed below.</p>
@@ -162,12 +141,12 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <p>To create a conservation problem object to which you can add targets, constraints, etc., use the <code>problem</code> function with the spatial-class planning unit object and the features object as arguments. In this example we use the <code>sim_features</code> raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the <em>Marxan problem</em> section in this tutorial), cost must be explicitly defined using the <code>cost_column</code> argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, <code>data.frame</code>, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># polygons</span>
-p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_polygons, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_polygons, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 <span class="co"># lines</span>
-p2 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_lines, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
+p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_lines, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 
 <span class="co"># points</span>
-p3 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_points, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)</code></pre></div>
+p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_points, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)</code></pre></div>
 </div>
 <div id="raster-input" class="section level4">
 <h4 class="hasAnchor">
@@ -176,7 +155,7 @@ p3 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_points, 
 <p><img src="quick_start_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>The argument to <code>features</code> must be a raster-class object with the same spatial properties as the planning unit raster (i.e. spatial extent, coordinate system, dimensionality, and resolution). In this example, we again use the <code>sim_features</code> object. To create a conservation problem class object, use the same notation as with spatial-class input. Note that the cost data can not be included as a separate argument to the <code>problem</code> function in this case.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># raster planning units</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features)</code></pre></div>
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features)</code></pre></div>
 </div>
 <div id="data-frame-or-numeric-vector-input" class="section level4">
 <h4 class="hasAnchor">
@@ -209,31 +188,31 @@ p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <strong>Minimum set objective</strong>: Used to find a solution that fulfills all the targets and constraints for the smallest cost. This objective is similar to that used in Marxan. For example, we can add a minimum set objective to our simulated raster problem as follows:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem object from scratch</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>()
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>()
 
 <span class="co"># create new problem object based on an existing problem object:</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features)
-p5 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_min_set_objective</span>()</code></pre></div>
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features)
+p5 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>()</code></pre></div>
 <ul>
 <li>
 <strong>Maximum cover objective</strong>: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_max_cover_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_max_cover_objective.html">add_max_cover_objective</a></span>(<span class="dt">budget =</span> <span class="dv">5000</span>)</code></pre></div>
 <ul>
 <li>
 <strong>Maximum features objective</strong>: Used to find a solution that fulfills as many targets as possible while ensuring that the cost of the solution does not exceed budget and that all constraints are met. This objective was inspired by the conservation problem defined in <a href="http://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(01)02125-5">Cabeza and Moilanen (2001)</a>. Like the maximum cover objective, a budget must be specified as an argument to the maximum features objective function.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_max_features_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_max_features_objective.html">add_max_features_objective</a></span>(<span class="dt">budget =</span> <span class="dv">5000</span>)</code></pre></div>
 <ul>
 <li>
 <strong>Maximum phylogenetic representation objective</strong>: Used to find a solution that fulfills as much of a representative sample a phylogenetic tree as possible given a budget. This objective is similar to the maximum features objective except that emphasis is placed on phylogenetic representation rather than target representation. This objective requires the <code>ape</code> R package to be installed. In the simulated dataset contained in the prioritizr package there is the sample phylogenetic data object <code>sim_phylogeny</code>.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(sim_phylogeny) <span class="co">#load simulated phylogeny data</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_max_phylo_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>, <span class="dt">tree =</span> sim_phylogeny)</code></pre></div>
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_max_phylo_objective.html">add_max_phylo_objective</a></span>(<span class="dt">budget =</span> <span class="dv">5000</span>, <span class="dt">tree =</span> sim_phylogeny)</code></pre></div>
 <p>The <code>%&gt;%</code> notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the <a href="prioritizr_basics.html">Prioritizr Basics</a> vignette.</p>
 </div>
 <div id="add-targets" class="section level3">
@@ -242,22 +221,22 @@ p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <p>Most conservation planning problems require the addition of targets. Targets are used to specify the minimum amount or proportion of a feature’s distribution that needs to be protected. For example, we may want to develop a reserve network that will secure 20% of the distribution for each feature for minimal cost. There are three types of targets available in <em>prioritizr</em>: <strong>relative targets</strong>, where targets are set as a proportion (between 0 and 1) of the maximum level of representation of features in the study area; <strong>absolute targets</strong>, where targets are expressed as the actual value of features in the study area that need to be represented; and <strong>log-linear targets</strong>, where targets are expressed as a proportion (between 0 and 1) and calculated using a log-linear equation and four tuning parameters related to range size. This last target type is based on the approach used in <a href="https://academic.oup.com/bioscience/article/54/12/1092/329532/Global-Gap-Analysis-Priority-Regions-for-Expanding">Rodrigues et al. (2004)</a>.</p>
 <p>We can add targets to our simulated <code>problem</code> object in the same way that objectives are added. The <code>%&gt;%</code> notation tells the package which problem to attach the objectives and targets to.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add relative targets to existing problem</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>)
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>)
 
 <span class="co"># Or, create new problem objects to try different target types</span>
 <span class="co"># create problem with added relative targets</span>
-p.r &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>)
+p.r &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>)
 
 <span class="co"># create problem with added absolute targets</span>
-p.a &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_absolute_targets</span>(<span class="dv">3</span>)
+p.a &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_absolute_targets.html">add_absolute_targets</a></span>(<span class="dv">3</span>)
 
 <span class="co"># create problem with added log-linear target</span>
-p.l &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_loglinear_targets</span>(<span class="dv">10</span>, <span class="fl">0.9</span>, <span class="dv">100</span>, <span class="fl">0.2</span>)</code></pre></div>
+p.l &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_loglinear_targets.html">add_loglinear_targets</a></span>(<span class="dv">10</span>, <span class="fl">0.9</span>, <span class="dv">100</span>, <span class="fl">0.2</span>)</code></pre></div>
 <p>Targets can be a single value applied to all features, or you can use a vector of values corresponding to each feature. For example, you may wish to place a greater emphasis on Feature 1 than the other features contained in <code>sim_features</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># vary targets by feature</span>
-p.r2 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_relative_targets</span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</code></pre></div>
+p.r2 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>))</code></pre></div>
 <p>As with the objective funtions, when multiple targets are added to the same problem object, only the most recent target setting is used. If a maximum cover objective is used, then targets do not need to be set, as all features will be maximized.</p>
 </div>
 <div id="add-constraints" class="section level3">
@@ -278,22 +257,22 @@ p.r2 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class=
 </ul>
 <p>Add constraints to a conservation problem in the same way that targets and objectives are added.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># add relative targets to existing problem</span>
-p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_connected_constraints.html">add_connected_constraints</a></span>()</code></pre></div>
 <p>Both penalties and constraints can be used as mechanisms to increase solution connectivity, but instead of penalizing solutions with low connectivity, a constraint acts as a cutoff to make certain solutions invalid. Applying a constraint does not necessarily affect solution cost, while applying a penalty does.</p>
 <p>The <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> are useful for masking particular planning units in or out. There are several ways to identify planning units for masking. In our simulated dataset, the <code>sim_pu_polygons</code> Spatial-class object contains a <code>locked_in</code> and <code>locked_out</code> attribute to identify which planning units should always be included in solutions or never included in solutions, respectively. Alternatively, you may wish to use a separate raster layer as a mask, such as the <code>sim_locked_in_raster</code> or <code>sim_locked_out_raster</code> contained in the simulated dataset.</p>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>The constraint notation is thus dependant on where the planning unit mask data are contained. For example:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem with added locked in constraints using integers</span>
-p.lock1 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_locked_in_constraints</span>(<span class="kw">which</span>(sim_pu_polygons<span class="op">$</span>locked_in))
+p.lock1 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="kw">which</span>(sim_pu_polygons<span class="op">$</span>locked_in))
 
 <span class="co"># create problem with added locked in constraints using a field name</span>
-p.lock2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_locked_in_constraints</span>(<span class="st">"locked_in"</span>)
+p.lock2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
 
 <span class="co"># create problem with added locked in constraints using raster data</span>
-p.lock3 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_locked_in_constraints</span>(sim_locked_in_raster)</code></pre></div>
+p.lock3 &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(sim_locked_in_raster)</code></pre></div>
 </div>
 <div id="add-penalties" class="section level3">
 <h3 class="hasAnchor">
@@ -340,15 +319,15 @@ pBLM &lt;-<span class="st"> </span>p4 <span class="op">%&gt;%</span><span class=
 </ul>
 <p>Use the <code>solve</code> function to produce a solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># formulate the problem</span>
-p5 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_gurobi_solver</span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
 
 <span class="co"># solve the problem</span>
-s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)
+s5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p5)
 <span class="kw">plot</span>(s5, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-22-1.png" width="336" style="display: block; margin: auto;"></p>
@@ -371,7 +350,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># complete input file</span>
 input &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"extdata/input.dat"</span>, <span class="dt">package =</span> <span class="st">"prioritizr"</span>)
 mp1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(input)
-ms1 &lt;-<span class="st"> </span><span class="kw">solve</span>(mp1)</code></pre></div>
+ms1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(mp1)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>(ms1)</code></pre></div>
 <pre><code>##   id       cost status    xloc     yloc locked_in locked_out solution_1
 ## 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0
@@ -396,7 +375,7 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mp3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(<span class="dt">x =</span> sim_pu_polygons, <span class="dt">features =</span> sim_features,
                       <span class="dt">targets =</span> <span class="fl">0.2</span>, <span class="dt">targets_type =</span> <span class="st">"relative"</span>,
                       <span class="dt">locked_in =</span> sim_locked_in_raster, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
-ms3 &lt;-<span class="st"> </span><span class="kw">solve</span>(mp3)
+ms3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(mp3)
 <span class="kw">spplot</span>(ms3, <span class="dt">zcol =</span> <span class="st">"solution_1"</span>, <span class="dt">main =</span> <span class="st">"Solution"</span>)</code></pre></div>
 <p><img src="quick_start_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -414,8 +393,8 @@ ms3 &lt;-<span class="st"> </span><span class="kw">solve</span>(mp3)
 ## [1,]    0     9</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">zonal</span>(s5, sim_features[[<span class="dv">3</span>]], <span class="dt">fun =</span> sum) <span class="co"># feature 3</span></code></pre></div>
 <pre><code>##      zone value
-## [1,]    0     0
-## [2,]    1     9</code></pre>
+## [1,]    0     2
+## [2,]    1     7</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">zonal</span>(s5, sim_features[[<span class="dv">4</span>]], <span class="dt">fun =</span> sum) <span class="co"># feature 4</span></code></pre></div>
 <pre><code>##      zone value
 ## [1,]    0     7
@@ -433,13 +412,12 @@ ms3 &lt;-<span class="st"> </span><span class="kw">solve</span>(mp3)
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#installation">Installation</a></li>
       <li><a href="#overview">Overview</a></li>
-      <li><a href="#workflow">Workflow</a></li>
+      <li><a href="#work-flow">Work flow</a></li>
       <li><a href="#the-marxan-problem">The Marxan problem</a></li>
       <li><a href="#post-processing-solutions">Post-Processing Solutions</a></li>
       </ul>

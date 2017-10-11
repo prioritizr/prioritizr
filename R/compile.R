@@ -40,9 +40,6 @@ NULL
 #' # print the optimization problem
 #' print(o)
 #'
-#' # print the optimization problem
-#' print(o)
-#'
 #' @export
 compile <- function(x, ...) UseMethod("compile")
 
@@ -57,7 +54,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   if (inherits(x$objective, "MaximumCoverageObjective") &
       !is.Waiver(x$targets))
     warning("ignoring targets since the maximum coverage objective function ",
-            "doesn\"t use targets")
+            "doesn't use targets")
   # replace waivers with defaults
   if (is.Waiver(x$objective))
     x <- add_default_objective(x)

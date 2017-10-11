@@ -94,20 +94,20 @@ data(sim_pu_raster, sim_features)
 
 # create a basic problem
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.1)
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1)
 
 # create problem with added corridor constraints to ensure that
 # planning units used to represent features are connected by
 # planning units with habitat that is suitable for that feature
 p2 <- p1 \%>\% add_corridor_constraints(sim_features, 0.5)
-
 \donttest{
 # solve problems
 s <- stack(solve(p1), solve(p2))
 
 # plot solutions
-plot(s, main = c("basic solution", "solution with corridors"))
+plot(s, main = c("basic solution", "solution with corridors"), axes = FALSE,
+     box = FALSE)
 
 }
 

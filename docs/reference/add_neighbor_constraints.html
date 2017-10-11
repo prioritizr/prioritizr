@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add neighbor constraints — add_neighbor_constraints â€¢ prioritizr</title>
+<title>Add neighbor constraints <U+2014> add_neighbor_constraints <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -134,6 +112,17 @@ must have.</p></td>
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraint
   added to it.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The mathematical ideas that underpin this function inspired by
+Billionnet (2013).</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Billionnet A (2013) Mathematical optimization ideas for biodiversity
+conservation. <em>European Journal of Operational Research</em>, 231:
+514--534.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='constraints.html'>constraints</a></code> for all the available constraints,
@@ -142,9 +131,9 @@ must have.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>1</span>)
@@ -153,8 +142,11 @@ must have.</p></td>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>2</span>)
 
 <span class='co'># create problem with constraints that require 3 neighbors</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>)
+
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -177,7 +169,7 @@ must have.</p></td>
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
 #&gt; 
@@ -206,7 +198,7 @@ must have.</p></td>
 #&gt;      0     0 3490.88205    0    6 3871.39444 3490.88205  9.83%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (19 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3871.39 4135.27 
 #&gt; 
@@ -234,7 +226,7 @@ must have.</p></td>
 #&gt;      0     0 3492.47490    0    6 3822.18820 3492.47490  8.63%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (24 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3822.19 
 #&gt; 
@@ -255,7 +247,7 @@ must have.</p></td>
 #&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.503055e+03, 30 iterations, 0.10 seconds
+#&gt; Root relaxation: objective 3.503055e+03, 30 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -263,15 +255,15 @@ must have.</p></td>
 #&gt;      0     0 3503.05480    0   19 6180.38262 3503.05480  43.3%     -    0s
 #&gt; H    0     0                    3646.0966743 3503.05480  3.92%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (30 simplex iterations) in 0.11 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (30 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3646.1 6180.38 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.646096674255e+03, best bound 3.503054799250e+03, gap 3.9232%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>par</span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
 
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"basic solution"</span>)
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
@@ -282,7 +274,8 @@ must have.</p></td>
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"2 neighbors"</span>)
 <span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"3 neighbors"</span>)</div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='add_neighbor_constraints-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"3 neighbors"</span>)</div><div class='input'><span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><img src='add_neighbor_constraints-5.png' alt='' width='540' height='400' /><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -291,6 +284,10 @@ must have.</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

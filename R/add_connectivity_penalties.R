@@ -4,17 +4,13 @@ NULL
 #' Add connectivity penalties
 #'
 #' Add constraints to a conservation problem to favor solutions that select
-#' planning units with high connectivity between them. Uses connectivity data
-#' in the form of a \code{matrix} or \code{data.frame} object, where strength
-#' of connectivity is a value such as the inverse distance between consecutive
-#' planning units. This function can be used for symmetric or asymmetric
-#' relationships between planning units.
+#' planning units with high connectivity between them.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param penalty \code{numeric} penalty for missing connections between
 #'  planning units. This is equivalent to the connectivity strength modifier
-#'  (CSM; (Beger et al. 2010)). Defaults to one so that penalties are the
+#'  (CSM; Beger \emph{et al.} 2010). Defaults to one so that penalties are the
 #'  same as the values in the \code{data}.
 #'
 #' @param connectivity_data A \code{data.frame} or \code{matrix}
@@ -29,7 +25,18 @@ NULL
 #'
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
+#' @details This function uses connectivity data in the form of a \code{matrix}
+#' or \code{data.frame} object, where strength of connectivity is a value such
+#' as the inverse distance between consecutive planning units. This function
+#' can be used for symmetric or asymmetric relationships between planning units
+#' and is inspired by Beger \emph{et al.} (2010).
+#'
 #' @seealso \code{\link{penalties}}.
+#'
+#' @references
+#' Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
+#' Incorporating asymmetric connectivity into spatial decision making for
+#' conservation, \emph{Conservation Letters}, 3: 359--368.
 #'
 #' @examples
 #' # load data
@@ -39,13 +46,13 @@ NULL
 #' # two planning units is the inverse distance between them
 #' sc_matrix <- (1 / (as.matrix(dist(sim_pu_points@coords)) + 1))
 #'
-#' # remove connections between planning unitswith little connectivity
+#' # remove connections between planning units with little connectivity
 #' sc_matrix[sc_matrix < 0.85] <- 0
 #'
 #' # create basic problem
 #' p1 <- problem(sim_pu_points, sim_features, "cost") %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.2)
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2)
 #'
 #' # create problem with low connectivity penalties
 #' p2 <- p1 %>% add_connectivity_penalties(25, sc_matrix)
@@ -69,7 +76,7 @@ NULL
 #' s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
 #' # plot solutions
-#' par(mfrow=c(2,2))
+#' par(mfrow = c(2,2), mar = c(0, 0, 4.1, 0))
 #'
 #' plot(s[[1]], pch = 19, main = "basic solution", cex = 1.5)
 #' points(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", pch = 19,

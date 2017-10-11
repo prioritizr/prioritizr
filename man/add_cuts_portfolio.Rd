@@ -40,8 +40,9 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
 s <- solve(p)
 
 # plot solution
-plot(s)
+plot(s, axes = FALSE, box = FALSE)
 }
+
 }
 \seealso{
 \code{\link{portfolios}}.

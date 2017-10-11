@@ -112,6 +112,12 @@ ScalarParameter <- pproto(
     # get all possible arguments
     args <- list(inputId = self$id, label = self$name, value = self$value,
       min = self$lower_limit, max = self$upper_limit)
+    # check that widget dependency installed
+    pkg <- strsplit(self$widget, "::")[[1]][[1]]
+    if (!requireNamespace(pkg, quietly = TRUE))
+      stop(paste0("the \"", pkg, "\" R package must be installed to render",
+                  " this parameter."))
+    # extract function
     f <- do.call(getFromNamespace,
       as.list(rev(strsplit(self$widget, "::")[[1]])))
     # subset to include only valid arguments

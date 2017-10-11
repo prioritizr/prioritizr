@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find intersecting units — intersecting_units â€¢ prioritizr</title>
+<title>Find intersecting units <U+2014> intersecting_units <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -148,13 +126,13 @@ with any of the units in another spatial data object.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>set_number_of_threads</code> can be used to distribute
+    <p>The <code><a href='parallel.html'>set_number_of_threads</a></code> can be used to distribute
   computations among multiple threads and potentially reduce run time.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>fast_extract</code>, <code>set_number_of_threads</code>,
-  <code>get_number_of_threads</code>.</p>
+    <p><code><a href='fast_extract.html'>fast_extract</a></code>, <code><a href='parallel.html'>set_number_of_threads</a></code>,
+  <code><a href='parallel.html'>get_number_of_threads</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -168,19 +146,19 @@ with any of the units in another spatial data object.</p>
 <span class='co'>## intersect raster with raster</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'x=Raster'</span>)
-<span class='fu'>plot</span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Raster'</span>)</div><div class='img'><img src='intersecting_units-5.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Raster'</span>)</div><img src='intersecting_units-2.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'>## intersect raster with polygons</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'x=Raster'</span>)
-<span class='fu'>plot</span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Spatial'</span>)</div><div class='img'><img src='intersecting_units-6.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Spatial'</span>)</div><img src='intersecting_units-6.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'>## intersect polygons with raster</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'>plot</span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'x=Spatial'</span>)
-<span class='fu'>plot</span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Raster'</span>)</div><div class='img'><img src='intersecting_units-7.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Raster'</span>)</div><img src='intersecting_units-10.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'>## intersect polygons with polygons</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'>plot</span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'x=Spatial'</span>)
-<span class='fu'>plot</span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Spatial'</span>)</div><div class='img'><img src='intersecting_units-8.png' alt='' width='700' height='432.632880098887' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>'y=Spatial'</span>)</div><img src='intersecting_units-14.png' alt='' width='540' height='400' /><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

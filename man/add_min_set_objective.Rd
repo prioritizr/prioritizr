@@ -13,7 +13,7 @@ add_min_set_objective(x)
 \description{
 Set an objective to find the solution that fulfills all the targets and
 constraints for the smallest cost. This objective is similar to that used in
-Marxan.
+Marxan and is detailed in Rodrigues \emph{et al.} (2000).
 }
 \details{
 A problem objective is used to specify the overall goal of the
@@ -26,24 +26,26 @@ In the context of systematic reserve design, the minimum set objective
 seeks to find the set of planning units that minimizes the overall cost of
 a reserve network, while meeting a set of representation targets for the
 conservation features. This objective is equivalent to a simplified Marxan
-reserve design problem, with the Boundary Length Modifier (BLM) set to zero.
+reserve design problem with the Boundary Length Modifier (BLM) set to zero.
 
-The reserve design problem for the minimum set objective can be expressed
-mathematically for \emph{n} planning units as:
+The minimum set objective for the reserve design problem can be expressed
+mathematically for a set of planning units (\eqn{I}{I} indexed by
+\eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
-\deqn{\mathit{Minimize} \space \sum_{i=1}^{n}x_i c_i \space
-\mathit{subject \space to} \space
-\sum_{j=1}^{n}x_j r_{ij}\geq T_i \space \forall \space i}{Minimize
-\sum^n(xi*ci) subject to \sum^n(j*rij) \ge Ti for all i}
+\deqn{\mathit{Minimize} \space \sum_{i = 1}^{I} x_i c_i \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} \geq T_j \space \forall \space j \in J}{
+Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
+j in J}
 
-where \eqn{x_i}{xi} is a binary decision variable specifying whether planning
-unit \eqn{i}{i} has been selected (1) or not (0), \eqn{c_i}{ci} is the cost
-of planning unit \eqn{i}{i}, \eqn{r_ij}{rij} is the representation level of
-feature \eqn{i}{i} in planning unit \emph{j}{j}, and \eqn{T_i}{Ti} is the
-target for feature \eqn{i}{i}. The first term is the objective function and
-the second is the set of constraints. In words this says find the set of
-planning units that meets #' all the representation targets while minimizing
-the overall cost.
+Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g. specifying
+whether planning unit \eqn{i}{i} has been selected (1) or not (0)),
+\eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, \eqn{r_{ij}}{rij} is
+the amount of feature \eqn{j}{j} in planning unit \eqn{i}{i}, and
+\eqn{T_j}{Tj} is the target for feature \eqn{j}{j}. The first term is the
+objective function and the second is the set of constraints. In words this
+says find the set of planning units that meets all the representation
+targets while minimizing the overall cost.
 }
 \examples{
 # load data
@@ -54,14 +56,19 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
      add_relative_targets(0.1) \%>\%
      add_binary_decisions()
-
 \donttest{
 # solve problem
 s <- solve(p)
 
 # plot solution
-plot(s, main = "solution")
+plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
+
+}
+\references{
+Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
+efficiency, and accountability: adapting reserve selection algorithms to
+more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
 \code{\link{objectives}}, \code{\link{constraints}},

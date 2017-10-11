@@ -5,7 +5,6 @@ environment:
     _R_CHECK_FORCE_SUGGESTS_: false
   matrix:
   - R_version: release
-  - R_version: devel
 
 # Download script file from GitHub
 init:

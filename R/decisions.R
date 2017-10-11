@@ -45,6 +45,32 @@ NULL
 #'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
+#' @examples
+#' # load data
+#' data(sim_pu_raster, sim_features)
+#'
+#' # create basic problem and using the default decision types (binary)
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1)
+#'
+#' # create problem with manually specified binary decisions
+#' p2 <- p1 %>% add_binary_decisions()
+#'
+#' # create problem with proportion decisions
+#' p3 <- p1 %>% add_proportion_decisions()
+#'
+#' # create problem with semicontinuous decisions
+#' p4 <- p1 %>% add_semicontinuous_decisions(upper_limit=0.5)
+#'
+#' \donttest{
+#' # solve problem
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+#'
+#' # plot solutions
+#' plot(s, main = c("default (binary)", "binary", "proportion",
+#'                  "semicontinuous (upper=0.5)"))
+#' }
 #'
 #' @name decisions
 NULL

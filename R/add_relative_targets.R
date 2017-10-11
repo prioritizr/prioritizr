@@ -40,26 +40,24 @@ NULL
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
-#' # create basic problem
+#' # create base problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective()
+#'      add_min_set_objective() %>%
+#'      add_binary_decisions()
 #'
-#' # create problem with added relative targets
+#' # create problem with 10 % targets
 #' p1 <- p %>% add_relative_targets(0.1)
 #'
-#' # create problem with added absolute targets
-#' p2 <- p %>% add_absolute_targets(3)
-#'
-#' # create problem with added log-linear target
-#' p3 <- p %>% add_loglinear_targets(10, 0.9, 100, 0.2)
-#'
+#' # create problem with varying targets for each feature
+#' targets <- c(0.1, 0.2, 0.3, 0.4, 0.5)
+#' p2 <- p %>% add_relative_targets(targets)
 #' \donttest{
-#' # solve solutions
-#' s <- stack(solve(p1), solve(p2), solve(p3))
+#' # solve problem
+#' s <- stack(solve(p1), solve(p2))
 #'
-#' # plot solutions
-#' plot(s, main=c("relative targets", "absolute targets",
-#'                "log-linear targets"))
+#' # plot solution
+#' plot(s, main = c("10 % targets", "varying targets"), axes = FALSE,
+#'      box = FALSE)
 #' }
 #'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,character-method

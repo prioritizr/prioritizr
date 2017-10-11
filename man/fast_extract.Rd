@@ -10,8 +10,7 @@
 \alias{fast_extract}
 \title{Fast extract}
 \usage{
-\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean,
-  velox = requireNamespace("velox", quietly = TRUE), ...)
+\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean, velox = requireNamespace("velox", quietly = TRUE), ...)
 
 \S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = mean, ...)
 
@@ -50,10 +49,9 @@ Spatial analyses will be conducted using the
   \code{\link{set_number_of_threads}} function.
 }
 \examples{
-\donttest{
 # load data
 data(sim_pu_polygons, sim_features)
-
+\donttest{
 # we will investigate severals ways for extracting values from a raster
 # using polygons. Specifically, for each band in the raster,
 # for each polygon in the vector layer, calculate the average

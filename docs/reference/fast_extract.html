@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fast extract — fast_extract â€¢ prioritizr</title>
+<title>Fast extract <U+2014> fast_extract <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -110,8 +88,7 @@
     
 
     <pre class="usage"><span class='co'># S4 method for Raster,SpatialPolygons</span>
-<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>,
-  <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fu'>requireNamespace</span>(<span class='st'>"velox"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='no'>...</span>)
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fu'>requireNamespace</span>(<span class='st'>"velox"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='no'>...</span>)
 
 <span class='co'># S4 method for Raster,SpatialLines</span>
 <span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='no'>...</span>)
@@ -140,7 +117,7 @@ have an <code>na.rm</code> argument.</p></td>
     </tr>
     <tr>
       <th>velox</th>
-      <td><p><code>logical</code> should the <code>velox</code>
+      <td><p><code>logical</code> should the <code><a href='http://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code>
 be used for geoprocessing? Defaults to <code>TRUE</code> if the package
 is installed. Note that this only used when <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> object.</p></td>
@@ -159,14 +136,14 @@ is installed. Note that this only used when <code>x</code> is a
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Spatial analyses will be conducted using the
-  <code>velox</code> package if it is installed. Additionally,
+  <code><a href='http://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code> package if it is installed. Additionally,
   multiple threads can be used to speed up computation using the
-  <code>set_number_of_threads</code> function.</p>
+  <code><a href='parallel.html'>set_number_of_threads</a></code> function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='http://www.rdocumentation.org/packages/raster/topics/extract'>extract</a></code>,
-  <code>VeloxRaster_extract</code>.</p>
+  <code><a href='http://www.rdocumentation.org/packages/velox/topics/VeloxRaster_extract'>VeloxRaster_extract</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -180,19 +157,20 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    1.10    0.00    1.16 </div><div class='input'>
+#&gt;   0.084   0.000   0.083 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='error'>Error in .local(x, y, ...): the velox R package needs to be installed to use velox</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0 0 0</span></div><div class='input'>
+                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.084   0.000   0.083 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
 <span class='co'># spatial data sets</span>
-<span class='fu'>set_number_of_threads</span>(<span class='fl'>2</span>)
+<span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='error'>Error in .local(x, y, ...): the velox R package needs to be installed to use velox</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0 0 0</span></div><div class='input'><span class='fu'>set_number_of_threads</span>(<span class='fl'>1</span>)</div><div class='input'>
-</div></pre>
+                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.020   0.000   1.974 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

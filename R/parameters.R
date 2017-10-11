@@ -329,7 +329,6 @@ numeric_parameter_array <- function(name, value, label,
 #' @seealso \code{\link{array_parameters}}, \code{\link{scalar_parameters}}.
 #'
 #' @examples
-#'
 #' # create two Parameter objects
 #' p1 <- binary_parameter("parameter one", 1)
 #' print(p1)

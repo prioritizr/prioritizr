@@ -36,7 +36,8 @@ NULL
 #'  \item{\code{\link{add_lpsymphony_solver}}}{The \code{lpsymphony} package
 #'    provides a different interface to the COIN-OR software suite. Unlike the
 #'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-#'    through \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
+#'    through
+#'    \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
 #'    On Windows and Mac, \code{lpsymphony} may be easier to install.
 #'    This solver uses the \code{lpsymphony} package
 #'    to solve.}
@@ -98,7 +99,7 @@ NULL
 #' }
 #'
 #' # plot solutions
-#' plot(s, main = titles)
+#' plot(s, main = titles, axes = FALSE, box = FALSE)
 #' }
 #'
 NULL

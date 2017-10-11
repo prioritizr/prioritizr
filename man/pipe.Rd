@@ -8,7 +8,7 @@
 \item{lhs, rhs}{An object and a function.}
 }
 \description{
-This package uses the pipe operator (\%>\%) to turn code into a series of 
+This package uses the pipe operator (\%>\%) to turn code into a series of
 imperative procedures.
 }
 \examples{
@@ -21,7 +21,7 @@ mean(runif(100))
 # reset the seed
 set.seed(500)
 
-# repeat the previous procedure but use the pipe operator instead of nesting 
+# repeat the previous procedure but use the pipe operator instead of nesting
 # function calls inside each other.
 runif(100) \%>\% mean()
 

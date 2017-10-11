@@ -84,19 +84,23 @@ cm_pts <- connected_matrix(pts, distance = 0.1)
 par(mfrow = c(4,2))
 
 # plot raster and connected matrix
-plot(r, main = "raster")
-plot(raster(as.matrix(cm_raster)), main = "connected matrix")
+plot(r, main = "raster", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(cm_raster)), main = "connected matrix", axes = FALSE,
+     box = FALSE)
 
 # plot polygons and connected matrix
-plot(r, main = "polygons")
-plot(raster(as.matrix(cm_ply)), main = "connected matrix")
+plot(r, main = "polygons", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(cm_ply)), main = "connected matrix", axes = FALSE,
+    box = FALSE)
 
 # plot lines and connected matrix
-plot(r, main = "lines")
-plot(raster(as.matrix(cm_lns)), main = "connected matrix")
+plot(r, main = "lines", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(cm_lns)), main = "connected matrix", axes = FALSE,
+     box = FALSE)
 
 # plot points and connected matrix
-plot(r, main = "points")
-plot(raster(as.matrix(cm_pts)), main = "connected matrix")
+plot(r, main = "points", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(cm_pts)), main = "connected matrix", axes = FALSE,
+     box = FALSE)
 
 }

@@ -17,7 +17,8 @@ h = 3.5
 w = 3.5
 is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
              "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
-knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
+                      root.dir = normalizePath("../.."))
 ```
 
 ## Introduction
@@ -54,9 +55,9 @@ This package largely consists of seven main types of functions. These functions 
 The currently supported solvers are listed below. Each must be installed separately from this package. The details of the solvers are intentionally abstracted away so that minimal knowledge is required to use a given solver. However, one of the following R packages must be installed before a conservation problem can be solved.
 
 * [Gurobi:](http://gurobi.com) Install the [_gurobi_ _R_ package](http://www.gurobi.com/products/modeling-languages/r) to use this solver.
-* [SYMPHONY:](https://projects.coin-or.org/SYMPHONY) Install either the [_Rsymphony_](https://CRAN.R-project.org/package=Rsymphony) or [_lpsymphony_](https://bioconductor.riken.jp/packages/3.3/bioc/html/lpsymphony.html) _R_ packages to use this solver.
+* [SYMPHONY:](https://projects.coin-or.org/SYMPHONY) Install either the [_Rsymphony_](https://CRAN.R-project.org/package=Rsymphony) or [_lpsymphony_](https://doi.org/doi:10.18129/B9.bioc.lpsymphony) _R_ packages to use this solver.
 
-## Workflow
+## Work flow
 
 The basic work flow for the _prioritizer_ package starts with the creation of a `problem`, which specifies the user-defined input data on planning units, features, and costs. This new problem object can then be formulated by adding `targets` and `objectives`. All problems require an objective, which specifies the fundamental kind of conservation prioritization approach that will be used. Most problems require the addition of representation targets for input features as well, with the exception of the maximum cover problem (i.e. if the `add_max_cover_objective` function has been used), which seeks to maximize the features in the solution and therefore does not require targets for individual features.
 

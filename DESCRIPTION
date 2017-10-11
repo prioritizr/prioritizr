@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 2.0.2.1
+Version: 2.0.2.2
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -40,6 +40,8 @@ Suggests:
     knitr,
     roxygen2,
     ape,
+    shiny,
+    xtable,
     rhandsontable,
     RandomFields,
     velox,
@@ -49,8 +51,7 @@ Suggests:
     gurobi,
     lpsymphony,
     Rsymphony,
-    rmarkdown,
-    prioritizrdata
+    rmarkdown
 Depends:
     R(>= 3.3.2),
     raster,
@@ -63,8 +64,6 @@ URL: https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Remotes:
-  prioritizr/prioritizrdata
 Collate:
     'internal.R'
     'pproto.R'

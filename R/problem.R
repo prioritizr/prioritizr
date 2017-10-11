@@ -203,25 +203,31 @@ NULL
 #'
 #' \donttest{
 #' # solve problems
-#' s <- list(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
+#' s1 <- solve(p1)
+#' s2 <- solve(p2)
+#' s3 <- solve(p3)
+#' s4 <- solve(p4)
+#' s5 <- solve(p5)
+#' s6 <- solve(p6)
 #'
 #' # plot solutions for problems associated with spatial data
-#' par(mfrow=c(2,2))
-#' plot(s[[1]], main = "raster data")
+#' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
+#' plot(s1, main = "raster data", axes = FALSE, box = FALSE)
 #'
-#' plot(s[[2]], main = "polygon data")
-#' plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' plot(s2, main = "polygon data")
+#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
-#' plot(s[[3]], main = "line data")
-#' lines(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", lwd = 2)
+#' plot(s3, main = "line data")
+#' lines(s3[s3$solution_1 == 1, ], col = "darkgreen", lwd = 2)
 #'
-#' plot(s[[4]], main = "point data", pch = 19)
-#' points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", cex = 2,
-#'        pch = 19)
+#' plot(s4, main = "point data", pch = 19)
+#' points(s4[s4$solution_1 == 1, ], col = "darkgreen", cex = 2, pch = 19)
+#'
+#' plot(s5, main = "preprocessed data", pch = 19)
+#' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
 #' # show solutions for problems associated with aspatial data
-#' print(p6)
-#'
+#' str(s6)
 #' }
 #'
 #' @export

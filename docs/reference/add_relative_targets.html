@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add Relative Targets — add_relative_targets â€¢ prioritizr</title>
+<title>Add Relative Targets <U+2014> add_relative_targets <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -149,11 +127,11 @@ argument to <code>targets</code> may refer to a column name.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that with the exception of the maximum cover problem, targets must
-be added to a <code>problem</code> or solving will return an error.</p>
+be added to a <code><a href='problem.html'>problem</a></code> or solving will return an error.</p>
     <p>Targets are used to specify the minimum amount or proportion of a feature's
 distribution that needs to be protected. All conservation planning problems
 require adding targets with the exception of the maximum cover problem
-(see <code>add_max_cover_objective</code>), which maximizes all features
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
 in the solution and therefore does not require targets.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -165,19 +143,20 @@ in the solution and therefore does not require targets.</p>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
-<span class='co'># create basic problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>()
+<span class='co'># create base problem</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
-<span class='co'># create problem with added relative targets</span>
+<span class='co'># create problem with 10 % targets</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
 
-<span class='co'># create problem with added absolute targets</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='fl'>3</span>)
+<span class='co'># create problem with varying targets for each feature</span>
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0.1</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='no'>targets</span>)
 
-<span class='co'># create problem with added log-linear target</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_loglinear_targets</span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>)</div><div class='input'><span class='co'># solve solutions</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='co'># solve problem</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -200,7 +179,7 @@ in the solution and therefore does not require targets.</p>
 #&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.77 2145.27 
 #&gt; 
@@ -212,8 +191,8 @@ in the solution and therefore does not require targets.</p>
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 3e+00]
-#&gt; Found heuristic solution: objective 2146.27
+#&gt;   RHS range        [6e+00, 3e+01]
+#&gt; Found heuristic solution: objective 8607.8
 #&gt; Presolve removed 3 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
@@ -221,54 +200,24 @@ in the solution and therefore does not require targets.</p>
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.653883e+03, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 8.168475e+03, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1653.88301    0    1 2146.27408 1653.88301  22.9%     -    0s
-#&gt; H    0     0                    1675.5220184 1653.88301  1.29%     -    0s
+#&gt;      0     0 8168.47513    0    1 8607.79560 8168.47513  5.10%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1675.52 2146.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.675522018446e+03, best bound 1.653883005209e+03, gap 1.2915%
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+01, 2e+01]
-#&gt; Found heuristic solution: objective 11313.9
-#&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.976387e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9976.38729    0    1 11313.8582 9976.38729  11.8%     -    0s
-#&gt; H    0     0                    10122.464537 9976.38729  1.44%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
-#&gt; 
-#&gt; Solution count 2: 10122.5 11313.9 
+#&gt; Solution count 1: 8607.8 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.012246453733e+04, best bound 9.976387293336e+03, gap 1.4431%</div><div class='input'>
-<span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>,
-               <span class='st'>"log-linear targets"</span>))</div><div class='img'><img src='add_relative_targets-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+#&gt; Best objective 8.607795601738e+03, best bound 8.168475134874e+03, gap 5.1038%</div><div class='input'>
+<span class='co'># plot solution</span>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"10 % targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_relative_targets-4.png' alt='' width='540' height='400' /><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

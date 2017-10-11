@@ -67,8 +67,8 @@ The locked out planning units can be specified in several
 \examples{
 # create basic problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.2)
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2)
 
 # create problem with added locked out constraints using integers
 p2 <- p1 \%>\% add_locked_out_constraints(which(sim_pu_polygons$locked_in))
@@ -81,9 +81,8 @@ p4 <- p1 \%>\% add_locked_out_constraints(sim_locked_out_raster)
 
 # create problem with added locked out constraints using spatial polygons
 # data
-locked_out <- sim_pu_polygons[sim_pu_polygons$locked_out == 1,]
+locked_out <- sim_pu_polygons[sim_pu_polygons$locked_out == 1, ]
 p5 <- p1 \%>\% add_locked_out_constraints(locked_out)
-
 \donttest{
 # solve problems
 s1 <- solve(p1)
@@ -93,7 +92,7 @@ s4 <- solve(p4)
 s5 <- solve(p5)
 
 # plot solutions
-par(mfrow = c(3, 2))
+par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
 plot(s1, main = "none locked out")
 plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
@@ -104,10 +103,10 @@ plot(s3, main="locked out (character input)")
 plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s4, main = "locked out (raster input)")
-plot(s4[s4$solution == 1, ], col = "darkgreen", add = TRUE)
+plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s5, main = "locked out (polygon input)")
-plot(s5[s5$solution == 1, ], col = "darkgreen", add = TRUE)
+plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 }
 
 }

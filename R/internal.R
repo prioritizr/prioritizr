@@ -178,7 +178,7 @@ parallelized_extract <- function(x, y, fun=mean, ...) {
 #' @return \code{matrix} or \code{data.frame} depending on arguments.
 #'
 #' @noRd
-velox_extract <- function(x, y, fun, df=FALSE, ...) {
+velox_extract <- function(x, y, fun, df = FALSE, ...) {
   assertthat::assert_that(inherits(x, "Raster"), inherits(y, "SpatialPolygons"),
     inherits(fun, "function"), assertthat::is.flag(df))
   m <- velox::velox(x)$extract(y, fun)

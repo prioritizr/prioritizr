@@ -29,31 +29,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -81,7 +60,7 @@
       <h1>Gurobi installation for use in prioritzr</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2017-10-06</h4>
+            <h4 class="date">2017-10-08</h4>
           </div>
 
     
@@ -153,7 +132,7 @@ model<span class="op">$</span>vtype      &lt;-<span class="st"> 'B'</span>
 
 params &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">OutputFlag=</span><span class="dv">0</span>)
 
-result &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/gurobi/topics/gurobi">gurobi</a></span>(model, params)
+result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, params)
 
 <span class="kw"><a href="../reference/print.html">print</a></span>(<span class="st">'Solution:'</span>)</code></pre></div>
 <pre><code>## [1] "Solution:"</code></pre>
@@ -193,7 +172,7 @@ model<span class="op">$</span>vtype      &lt;-<span class="st"> 'B'</span>
 
 params &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">OutputFlag=</span><span class="dv">0</span>)
 
-result &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/gurobi/topics/gurobi">gurobi</a></span>(model, params)
+result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, params)
 
 <span class="kw"><a href="../reference/print.html">print</a></span>(<span class="st">'Solution:'</span>)</code></pre></div>
 <pre><code>## [1] "Solution:"</code></pre>
@@ -219,13 +198,13 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocum
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(prioritizr)
 
 <span class="co"># formulate the problem</span>
-p &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_gurobi_solver</span>()
+p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
 
 <span class="co"># solve the problem</span>
-s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)
+s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p)
 
 <span class="kw">plot</span>(s, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
@@ -237,8 +216,7 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li>

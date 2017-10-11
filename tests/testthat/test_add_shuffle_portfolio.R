@@ -86,3 +86,52 @@ test_that("solve (parallel processing)", {
   for (i in seq_len(raster::nlayers(s)))
     expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
 })
+
+test_that("solve (SpatialPolygonsDataFrame)", {
+  skip_on_cran()
+  # create data
+  data(sim_pu_polygons, sim_features)
+  # create problem
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(2) %>%
+       add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+       add_default_solver(gap = 0.2)
+  # solve problem
+  s <- solve(p)
+  # output checks
+  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_true(all(paste0("solution_", seq_len(10)) %in% names(s)))
+  for (i in seq_len(10)) {
+    curr_s <- s[s[[paste0("solution_", i)]] ==  1, ]
+    expect_true(all(colSums(raster::extract(sim_features, curr_s,
+                                            fun = "sum")) >= 2))
+  }
+})
+
+test_that("solve (numeric)", {
+  skip_on_cran()
+  # create data
+  data(sim_pu_polygons, sim_features)
+  costs <- sim_pu_polygons$cost
+  features <- data.frame(id = seq_len(nlayers(sim_features)),
+                         name = names(sim_features))
+  rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
+  # create problem
+  p <- problem(costs, features, rij_matrix = rij_mat) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(2) %>%
+       add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+       add_binary_decisions()
+  # solve problem
+  s <- solve(p)
+  # output checks
+  expect_is(s, "matrix")
+  expect_equal(nrow(s), 10)
+  expect_equal(ncol(s), length(costs))
+  expect_true(all(paste0("solution_", seq_len(10)) %in% rownames(s)))
+  for (i in seq_len(10)) {
+    curr_s <- which(s[i, ] == 1)
+    expect_true(all(rowSums(rij_mat[, curr_s, drop = FALSE]) >= 2))
+  }
+})

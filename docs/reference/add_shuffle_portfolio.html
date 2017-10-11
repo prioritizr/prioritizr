@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a shuffle portfolio — add_shuffle_portfolio â€¢ prioritizr</title>
+<title>Add a shuffle portfolio <U+2014> add_shuffle_portfolio <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -153,12 +131,15 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
      <span class='fu'>add_shuffle_portfolio</span>(<span class='fl'>10</span>, <span class='kw'>remove_duplicates</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='co'># solve problem and generate 10 solutions within 20 % of optimality</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+
+<span class='co'># solve problem and generate 10 solutions within 20 % of optimality</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -179,8 +160,8 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt; 
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.03 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4135.27 
 #&gt; 
@@ -208,7 +189,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3920.88435 3490.34813  11.0%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3920.88 
 #&gt; 
@@ -236,7 +217,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3886.46533 3490.34813  10.2%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3886.47 
 #&gt; 
@@ -264,7 +245,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3904.10897 3490.34813  10.6%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3904.11 
 #&gt; 
@@ -292,7 +273,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3902.69260 3490.34813  10.6%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3902.69 
 #&gt; 
@@ -320,7 +301,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 4110.89239 3490.34813  15.1%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4110.89 
 #&gt; 
@@ -348,7 +329,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 4131.04921 3490.34813  15.5%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4131.05 
 #&gt; 
@@ -376,7 +357,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3925.70394 3490.34813  11.1%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3925.7 
 #&gt; 
@@ -404,7 +385,7 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3905.92526 3490.34813  10.6%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3905.93 
 #&gt; 
@@ -432,14 +413,15 @@ be removed? Defaults to <code>TRUE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 3904.92598 3490.34813  10.6%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3904.93 
 #&gt; 
 #&gt; Optimal solution found (tolerance 2.00e-01)
 #&gt; Best objective 3.904925981764e+03, best bound 3.490348127696e+03, gap 10.6168%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>)</div><div class='img'><img src='add_shuffle_portfolio-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_shuffle_portfolio-4.png' alt='' width='540' height='400' /><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

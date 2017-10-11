@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>prioritizr — prioritizr â€¢ prioritizr</title>
+<title>prioritizr <U+2014> prioritizr <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -106,36 +84,53 @@
 
     
     <p><em>Prioritizr</em> is an R package for solving systematic conservation
-prioritization problems using integer linear programming (ILP) techniques.
-The package offers a flexible interface for creating conservation problems
-using a range of different objectives and constraints that can be tailored
-to the specific needs of the conservation planner. Conservation problems
-can be solved using a variety of commercial and open-source exact algorithm
-solvers. In contrast to the algorithms conventionally used to solve
-conservation problems, such as greedy heuristics or simulated annealing,
-the ILP algorithms used by prioritizr are guaranteed to find optimal
-solutions. This package also has the functionality to read
-<a href='http://marxan.net/'>Marxan</a> input data and find much cheaper
-solutions in a much shorter period of time than Marxan.</p>
+planning problems. By using integer linear programming (ILP)
+techniques, this package offers a flexible interface for creating
+reserve selection problems that can be tailored to the specific needs of the
+conservation planner (Rodrigues <em>et al.</em> 2000; Billionnet 2013).
+Conservation problems can be solved using a variety of commercial and
+open-source exact algorithm solvers. In contrast to the algorithms
+conventionally used to solve conservation problems, such as greedy
+heuristics or simulated annealing, the exact algorithms used by
+<em>prioritizr</em> are guaranteed to find optimal solutions. This package
+also has the functionality to read <a href = 'http://marxan.net/'>Marxan</a> input
+data (Ball <em>et al.</em> 2009) and find much better solutions in a much
+shorter period of time than Marxan  (Beyer <em>et al.</em> 2016). See the
+<a href = 'https://github.com/prioritizr/prioritizr'>online code repository</a>
+for more information.</p>
     
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The supplemental <em>prioritizrdata</em> package can be downloaded with
-<em>prioritizr</em> for example datasets and worked examples of
-formulating conservation planning problems. See the
-<a href='https://github.com/prioritizr/prioritizr'>online code repository</a> for
-more details.</p>
-    <p>The following vignettes are available for further reading:</p><dl class='dl-horizontal'>
-    <dt><a href='https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html'>Prioritizr Basics</a></dt><dd><p>Provides background information on the concepts and
-terminology of systematic conservation prioritization underlying the
-functions in this package.</p></dd>
-    <dt><a href='https://prioritizr.github.io/prioritizr/articles/quick_start.html'>Quickstart Guide</a></dt><dd><p>Provides a walk-through of the functions available in the
-prioritizr package and their usage with a simulated dataset. Users should be
-familiar with the basic terminology of systematic conservation
-prioritization.</p></dd>
+    <p>This package contains vignettes that introduce systematic
+conservation planning and basic usage of the <em>prioritizr</em> package. The
+ supplemental
+<a href = 'https://github.com/prioritizr/prioritizrdata'><em>prioritizrdata</em></a>
+package contains further example datasets and worked examples. The vignettes
+in this package are listed below.</p><dl class='dl-horizontal'>
+<dt><a href = 'https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html'>Prioritizr Basics</a></dt><dd><p>Background information
+ on the concepts and terminology that underpin systematic conservation
+ planning and their usage in this package.</p></dd>
+<dt><a href = 'https://prioritizr.github.io/prioritizr/articles/quick_start.html'>Quickstart Guide</a></dt><dd><p>Short walk-through of the
+  <em>prioritizr</em> package with a simulated dataset.</p></dd>
     </dl>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
+Software for spatial conservation prioritisation</em> in Spatial conservation
+prioritisation: Quantitative methods and computational tools. Eds Moilanen
+A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
+<p>Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+<em>Ecological Modelling</em>, 228: 14--22.</p>
+<p>Billionnet A (2013) Mathematical optimization ideas for biodiversity
+conservation. <em>European Journal of Operational Research</em>, 231:
+514--534.</p>
+<p>Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
+efficiency, and accountability: adapting reserve selection algorithms to
+more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
     
 
   </div>
@@ -144,6 +139,8 @@ prioritization.</p></dd>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
           </ul>
 
   </div>

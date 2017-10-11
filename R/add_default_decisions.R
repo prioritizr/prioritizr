@@ -1,9 +1,11 @@
 #' @include internal.R Parameters-proto.R Decision-proto.R
 NULL
 
-#' Default decisions
+#' Add default decisions
 #'
-#' TODO
+#' This function adds the default decision types to a conservation planning
+#' \code{\link{problem}}. The default types are binary and  are added using
+#' the \code{\link{add_binary_decisions}} function.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

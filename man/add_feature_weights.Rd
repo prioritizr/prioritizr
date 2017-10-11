@@ -21,9 +21,9 @@ cannot have negative values.}
 Conservation planning problems that aim to maximize the representation of
 features may not be able to conserve all of them if the budget is not high
 enough. In such budget-limited problems, it may be desirable to prefer the
-representation of some features over others. Weights can be be applied to
-a problem to favor the representation of some features over others when
-making decisions about how the budget should be allocated.
+representation of some features over other features. Weights can be
+applied to a problem to favor the representation of some features over other
+features when making decisions about how the budget should be allocated.
 }
 \details{
 Weights can only be applied to a budget-limited
@@ -36,21 +36,25 @@ Weights can only be applied to a budget-limited
 }
 \examples{
 # create problem
-p1 <- problem(sim_pu_raster, sim_features) \%>\%
-  add_max_cover_objective(budget=5000)
+p <- problem(sim_pu_raster, sim_features) \%>\%
+     add_max_cover_objective(budget = 5000)
 
-# create weights based on rarity (1/number occurrences)
-w <- 1 / cellStats(sim_features, "sum") * 1000
+# problem problem with features weighted according to rarity
+# (1 / number occurrences)
+w1 <- 1 / cellStats(sim_features, "sum") * 1000
+p1 <- p \%>\% add_feature_weights(w1)
 
-# create new problem with added weights according to rarity
-p2 <- p1 \%>\% add_feature_weights(w)
-
+# problem problem with features weighted according to manually specified
+# weights
+w2  <- c(0.1, 0.2, 0.3, 0.4, 0.5)
+p2 <- p \%>\% add_feature_weights(w2)
 \donttest{
 # solve solutions
-s <- stack(solve(p1), solve(p2))
+s <- stack(solve(p), solve(p1), solve(p2))
 
 # plot solutions
-plot(s, main = c("equal weights", "rarity weights"))
+plot(s, main = c("equal weights", "rarity weights", "manual weights"),
+     axes = FALSE, box = FALSE)
 }
 
 }

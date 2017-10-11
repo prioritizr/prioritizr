@@ -49,14 +49,16 @@ NULL
 #' bm_ply <- boundary_matrix(ply)
 #'
 #' # plot raster and connected matrix
-#' par(mfrow=c(1, 2))
-#' plot(r, main = "raster")
-#' plot(raster(as.matrix(bm_raster)), main = "boundary matrix")
+#' par(mfrow = c(1, 2))
+#' plot(r, main = "raster", axes = FALSE, box = FALSE)
+#' plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
+#'      axes = FALSE, box = FALSE)
 #'
 #' # plot polygons and connected matrix
-#' par(mfrow=c(1, 2))
-#' plot(r, main = "polygons")
-#' plot(raster(as.matrix(bm_ply)), main = "boundary matrix")
+#' par(mfrow = c(1, 2))
+#' plot(r, main = "polygons", axes = FALSE, box = FALSE)
+#' plot(raster(as.matrix(bm_ply)), main = "boundary matrix", axes = FALSE,
+#'      box = FALSE)
 #'
 #' @export
 boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")

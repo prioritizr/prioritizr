@@ -1,12 +1,27 @@
+# prioritizr 2.0.2.2 (unreleased)
+
+- Broad-scale improvements to documentation.
+- Fix documentation for `add_max_phylo_objective` (#24).
+- Update Gurobi Installation vignette.
+- Remove _prioritizrdata_ from package Suggests.
+- Add _shiny_ and _xtable_ to Suggests for rendering parameters.
+- Added code for `ScalarParameter` and `ArrayParameter` prototypes to check t
+  that  functions for generating widgets have their dependencies installed.
+- URLs for _lpsymphony_ on Bioconductor now use the package's DOI.
+- Add more comprehensive tests to portfolios.
+- Fix bug when `numeric` planning unit data and portfolios that caused the
+  `solve` to throw an error.
+- Remove R-devel from AppVeyor testing because it fails for unreproducible
+  reasons.
+
 # prioritizr 2.0.2.1 (unreleased)
 
-- Removed shiny functions for now to prep for CRAN release
-- rebuilt website and documentation
+- Removed shiny functions for now to prep for CRAN release.
+- Rebuilt website and documentation.
 
 # prioritizr 2.0.2.0 (unreleased)
 
 - Included vignette on Gurobi solver installation and testing.
-
 
 # prioritizr 2.0.1.0 (unreleased)
 

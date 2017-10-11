@@ -9,7 +9,7 @@ NULL
 #'
 #' @seealso \code{\link{portfolios}}.
 #'
-#' @export
+#' @noRd
 add_default_portfolio <- function(x) {
   return(add_shuffle_portfolio(x, 1))
 }

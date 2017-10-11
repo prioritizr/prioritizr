@@ -26,8 +26,7 @@ NULL
 #'   \code{\link{simulate_cost}}, \code{\link{simulate_species}}.
 #'
 #' @examples
-#' \dontrun{
-#'
+#' \donttest{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1
@@ -37,7 +36,6 @@ NULL
 #'
 #' # plot simulated data
 #' plot(d, main = "random Gaussian field")
-#'
 #' }
 #'
 #' @export
@@ -81,8 +79,7 @@ simulate_data <- function(x, n, model, transform = identity, ...) {
 #' @seealso \code{\link{simulate_data}}.
 #'
 #' @examples
-#' \dontrun{
-#'
+#' \donttest{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1
@@ -92,7 +89,6 @@ simulate_data <- function(x, n, model, transform = identity, ...) {
 #'
 #' # plot simulated species
 #' plot(spp, main = "simulated species distributions")
-#'
 #' }
 #'
 #' @export
@@ -113,8 +109,7 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #' @seealso \code{\link{simulate_data}}.
 #'
 #' @examples
-#' \dontrun{
-#'
+#' \donttest{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1
@@ -124,7 +119,6 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #'
 #' # plot simulated species
 #' plot(cost, main = "simulated cost data")
-#'
 #' }
 #'
 #' @export

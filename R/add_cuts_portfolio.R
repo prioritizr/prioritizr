@@ -35,8 +35,9 @@ NULL
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s)
+#' plot(s, axes = FALSE, box = FALSE)
 #' }
+#'
 #' @name add_cuts_portfolio
 NULL
 

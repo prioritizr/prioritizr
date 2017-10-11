@@ -101,8 +101,8 @@ methods::setOldClass("OptimizationProblem")
 #' \item{row_ids}{\code{character} names describing each constraint (row) in
 #'   in the model matrix.}
 #'
-#' \code{x$compressed_formulation()} is the optimization problem formulated
-#'   using a compressed version of the rij matrix?
+#' \item{compressed_formulation}{is the optimization problem formulated
+#'   using a compressed version of the rij matrix?}
 #'
 #' \item{shuffle_columns}{randomly shuffle the columns in the problem. This
 #'   should almost never be called manually and only should only be called

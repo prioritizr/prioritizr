@@ -15,7 +15,6 @@ This function determines if parallel processing capabilities have been
 initialized.
 }
 \examples{
-
 # set number of threads to 2
 set_number_of_threads(2)
 # get number of threads

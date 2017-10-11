@@ -48,7 +48,7 @@ NULL
 #' print(s)
 #'
 #' # plot solution
-#' plot(s, main = "solution")
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
 #'
 #' @name solve
@@ -120,13 +120,12 @@ methods::setMethod(
     } else if (is.numeric(pu)) {
       # numeric planning units
       if (length(sol) == 1) {
-        ret <- pu
-        ret[!is.na(pu)] <- sol[[1]][seq_len(a$number_of_planning_units())]
+        ret[!is.na(pu)] <- sol[[1]][[1]][seq_len(a$number_of_planning_units())]
       } else {
         ret <- matrix(NA, ncol = length(pu), nrow = length(sol))
-        colnames(ret) <- paste0("solution_", seq_along(sol))
-        ret_cols <- rep(seq_along(sol), each = sum(!is.na(pu)))
-        ret_rows <- rep(which(!is.na(pu)), length(sol))
+        rownames(ret) <- paste0("solution_", seq_along(sol))
+        ret_rows <- rep(seq_along(sol), each = sum(!is.na(pu)))
+        ret_cols <- rep(which(!is.na(pu)), length(sol))
         sol2 <- vapply(sol, `[[`, numeric(length(sol[[1]][[1]])), 1)
         sol2 <- sol2[seq_len(a$number_of_planning_units()), , drop = FALSE]
         ret[matrix(c(ret_rows, ret_cols), ncol = 2)] <- c(sol2)

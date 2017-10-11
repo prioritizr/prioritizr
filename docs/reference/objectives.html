@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Problem objective — objectives â€¢ prioritizr</title>
+<title>Problem objective <U+2014> objectives <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -128,19 +106,18 @@ default error message when solving.</strong></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following objectives can be added to a conservation planning
-<code>problem</code>:</p><dl class='dl-horizontal'>
-    <dt><code>add_min_set_objective</code></dt><dd><p>Set an objective to find the
+<code><a href='problem.html'>problem</a></code>:</p><dl class='dl-horizontal'>
+    <dt><code><a href='add_min_set_objective.html'>add_min_set_objective</a></code></dt><dd><p>Set an objective to find the
   solution that fulfills all the targets and constraints for the smallest
   cost. This objective is similar to that used in Marxan.</p></dd>
-    <dt><code>add_max_cover_objective</code></dt><dd><p>Set an objective to find the
+    <dt><code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code></dt><dd><p>Set an objective to find the
   solution that secures as much of each feature as possible without
   exceeding the budget.</p></dd>
-    <dt><code>add_max_features_objective</code></dt><dd><p>Set an objective to find
+    <dt><code><a href='add_max_features_objective.html'>add_max_features_objective</a></code></dt><dd><p>Set an objective to find
   to find the solution that fulfills as many targets as possible while
   ensuring that the cost of the solution does not exceed budget and that all
-  constraints are met. This objective was inspired by the conservation
-  problem defined in Cabeza and Moilanen (2001).</p></dd>
-    <dt><code>add_max_phylo_objective</code></dt><dd><p>Set an objective to find the
+  constraints are met.</p></dd>
+    <dt><code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code></dt><dd><p>Set an objective to find the
   solution that fulfills as much of a representative sample a phylogenetic
   tree as possible given a budget. This objective is similar
   to <code>add_max_features_objective</code> except that emphasis is placed
@@ -151,10 +128,141 @@ default error message when solving.</strong></p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
  <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># load data</span>
+<span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>)
+
+<span class='co'># create base problem</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+
+ <span class='co'># create problem with added minimum set objective</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>()
+
+<span class='co'># create problem with added maximum coverage objective</span>
+<span class='co'># note that this objective does not use targets</span>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span>(<span class='fl'>5000</span>)
+
+<span class='co'># create problem with added maximum feature representation objective</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>5000</span>)
+
+<span class='co'># create problem with added maximum phylogenetic representation objective</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>)
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2145.27
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
+#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Variable types: 5 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [1e-10, 1e+00]
+#&gt;   Bounds range     [1e+00, 7e+01]
+#&gt;   RHS range        [5e+03, 5e+03]
+#&gt; Found heuristic solution: objective -0
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 7.459075e+01, 1 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
+#&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 74.121 -0 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%
+#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [1e-10, 1e+00]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [5e+03, 5e+03]
+#&gt; Found heuristic solution: objective 5
+#&gt; 
+#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 1: 5 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 5.000000002557e+00, best bound 5.000000009723e+00, gap 0.0000%
+#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+#&gt; Variable types: 0 continuous, 103 integer (103 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [1e-10, 9e-01]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [5e+03, 5e+03]
+#&gt; Found heuristic solution: objective 2.55673e-09
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Variable types: 0 continuous, 98 integer (98 binary)
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 4.353296e+00, 7 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0    4.35330    0    1    0.00000    4.35330      -     -    0s
+#&gt; H    0     0                       4.3532957    4.35330  0.00%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (8 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 4.3533 2.55673e-09 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 4.353295744699e+00, best bound 4.353295744699e+00, gap 0.0000%</div><div class='input'>
+<span class='co'># plot solutions</span>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum representation"</span>,
+                 <span class='st'>"phylogenetic representation"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='objectives-6.png' alt='' width='540' height='400' /><div class='input'>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -163,7 +271,9 @@ default error message when solving.</strong></p>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

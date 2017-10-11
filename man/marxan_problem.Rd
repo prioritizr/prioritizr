@@ -106,17 +106,20 @@ This argument only has an effect when argument to \code{bound} is a
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Create a Marxan conservation problem. Although users are encouraged to
-build and tailor conservation planning problems to suit their own needs,
-sometimes it is easier to use a more familiar "canned" approach. This
-function provides a convenient wrapper for generating
-and solving Marxan-style conservation problems. If users already have
-their conservation planning data in the Marxan input format, this function
-can also be used to read Marxan data files and solve the Marxan-style
-problems using exact algorithm solvers.
+Create a Marxan conservation problem.
+}
+\details{
+Although users are encouraged to build and tailor conservation planning
+problems to suit their own needs, sometimes it is easier to use a more
+familiar "canned" approach. This function provides a convenient wrapper for
+generating and solving Marxan-style conservation problems. If users already
+have their conservation planning data in the Marxan input format, this
+function can also be used to read Marxan data files and solve the
+Marxan-style problems using exact algorithm solvers. For more information on
+see the \href{http://marxan.net}{official Marxan website} and Ball
+\emph{et al.} (2009).
 }
 \examples{
-
 # create Marxan problem using spatial data
 data(sim_pu_raster, sim_features)
 p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
@@ -128,7 +131,7 @@ p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
 s1 <- solve(p1)
 
 # show solution
-plot(s1)
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
 }
 
 # create Marxan problem using Marxan input files
@@ -143,4 +146,10 @@ s2 <- solve(p2)
 print(sum(s2))
 }
 
+}
+\references{
+Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
+Software for spatial conservation prioritisation} in Spatial conservation
+prioritisation: Quantitative methods and computational tools. Eds Moilanen
+A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 }

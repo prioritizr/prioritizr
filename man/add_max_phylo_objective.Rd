@@ -21,8 +21,8 @@ Set an objective to find to find the solution that fulfills as much
 of a representative sample a phylogenetic tree as possible given a budget.
 This objective is similar to \code{\link{add_max_features_objective}} except
 that emphasis is placed on phylogenetic representation rather than target
-representation. This objective requires the \emph{ape} package to be
-installed.
+representation, and inspired by Faith (1992) and Rodrigues \emph{et al.}
+(2002). This objective requires the \emph{ape} package to be installed.
 }
 \details{
 A problem objective is used to specify the overall goal of the
@@ -38,29 +38,38 @@ targets for a phylogenetic tree while staying within a fixed budget. If
 multiple solutions can meet all targets while staying within budget, the
 cheapest solution is chosen.
 
-The maximum target coverage problem (and by extension, the maximum
-phylogenetic problem) can be stated mathematically, for \eqn{n}{n} planning
-units and \eqn{m}{m} conservation
-features, as:
+The maximum phylogenetic representation objective for the reserve design
+problem can be expressed mathematically for a set of planning units
+(\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed
+by \eqn{j}{j}) as:
 
-\deqn{\mathit{Maximize} \space -a\sum_{i=1}^{n} x_i c_i + \sum_{j=1}^{m}y_j
-\space \mathit{subject \space to} \space
-\sum_{i=1}^{n}x_i c_i \leq B \space \& \space
-\sum_{j=1}^{n} x_j r_{ij}\geq y_iT_i \space \forall \space i}{Maximize
--a\sum^n (xi*ci) + \sum^m (yi) subject to \sum^n (xi*ci) \le B \& \sum^n
-(xj*rij) \ge yi*Ti for all i}
+\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} s \space c_i +
+\sum_{j = 1}^{J} m_b l_b \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} >= y_j t_j \forall j \in J \\
+m_b <= y_j \forall j \in T(b) \\
+\sum_{i = 1}^{I} x_i c_i \leq B}{
+Maximize sum_i^I (s * ci) + sum_j^J (mb * lb) subject to sum_i^I (xi * rij)
+>= (yj * tj) for all j in J & mb <= yj for all j in T(b) & sum_i^I (xi * ci)
+<= B}
 
-where \eqn{x_i}{xi} is a binary decision variable specifying whether
-planning unit \eqn{i}{i} has been selected (1) or not (0), \eqn{y_i}{yi} is
-a binary decision variable specifying whether the target for species
-\eqn{i}{i} should be met, \eqn{c_i}{ci} is the cost of planning unit
-\eqn{i}, \eqn{r_ij}{rij} is the representation level of
-feature \eqn{i} in planning unit \eqn{j}{}j, \eqn{B}{B} is the budget, and
-\eqn{T_i}{Ti} is the target for feature \eqn{i}{i}. Finally, the factor
-\eqn{a}{a} is chosen so that the first term of the objective function is
-much smaller than the second. This ensures that the reserve cost only plays
-a role in distinguishing between solutions that meet the same number of
-targets.
+Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+(0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
+\eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
+\eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
+the target \eqn{t_j}{tj} for feature \eqn{j}{j}. Additionally,
+\eqn{T}{T} represents a phylogenetic tree containing features \eqn{j}{j}
+and has the branches \eqn{b} associated within lengths \eqn{l_b}{lb}.
+The binary variable \eqn{m_b}{mb} denotes if
+at least one feature associated with the branch \eqn{b}{b} has met its
+representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
+the features \eqn{j}{j} associated with branch \eqn{b}{b} using
+\eqn{T(b)}{T(b)}. Finally, \eqn{B}{B} is the budget allocated for the
+solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
+\eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
+will return a cheapest solution when there are multiple solutions that
+represent the same amount of all features within the budget.
 }
 \examples{
 # load data
@@ -71,15 +80,22 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
      add_max_phylo_objective(5000, sim_phylogeny) \%>\%
      add_relative_targets(0.1) \%>\%
      add_binary_decisions()
-
 \donttest{
 # solve problem
 s <- solve(p)
 
 # plot solution
-plot(s, main = "solution")
+plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
 
+}
+\references{
+Faith DP (1992) Conservation evaluation and phylogenetic diversity.
+\emph{Biological Conservation}, 61: 1--10.
+
+Rodrigues ASL and Gaston KJ (2002) Maximising phylogenetic diversity in the
+selection of networks of conservation areas. \emph{Biological Conservation},
+105: 103--111.
 }
 \seealso{
 \code{\link{objectives}}.

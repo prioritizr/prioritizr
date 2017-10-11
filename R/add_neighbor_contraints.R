@@ -13,17 +13,25 @@ NULL
 #'
 #' @param ... arguments passed to \code{\link{connected_matrix}}.
 #'
+#' @details The mathematical ideas that underpin this function inspired by
+#' Billionnet (2013).
+#'
 #' @return \code{\link{ConservationProblem-class}} object with the constraint
 #'   added to it.
 #'
 #' @seealso \code{\link{constraints}} for all the available constraints,
 #'  and \code{\link{penalties}}.
 #'
+#' @references
+#' Billionnet A (2013) Mathematical optimization ideas for biodiversity
+#' conservation. \emph{European Journal of Operational Research}, 231:
+#' 514--534.
+#'
 #' @examples
 #' # create basic problem
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.2)
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2)
 #'
 #' # create problem with constraints that require 1 neighbor
 #' p2 <- p1 %>% add_neighbor_constraints(1)
@@ -39,7 +47,7 @@ NULL
 #' s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
 #' # plot solutions
-#' par(mfrow=c(2,2))
+#' par(mfrow = c(2,2), mar = c(0, 0, 4.1, 0))
 #'
 #' plot(s[[1]], main = "basic solution")
 #' plot(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)

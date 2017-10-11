@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Distribute load — distribute_load â€¢ prioritizr</title>
+<title>Distribute load <U+2014> distribute_load <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -109,7 +87,7 @@
 for parallel processing.</p>
     
 
-    <pre class="usage"><span class='fu'>distribute_load</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'>get_number_of_threads</span>())</pre>
+    <pre class="usage"><span class='fu'>distribute_load</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fu'><a href='parallel.html'>get_number_of_threads</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -136,8 +114,8 @@ for parallel processing.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>get_number_of_threads</code>,
-  <code>set_number_of_threads</code>, <code><a href='is.parallel.html'>is.parallel</a></code>.</p>
+    <p><code><a href='parallel.html'>get_number_of_threads</a></code>,
+  <code><a href='parallel.html'>set_number_of_threads</a></code>, <code><a href='is.parallel.html'>is.parallel</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -184,7 +162,7 @@ for parallel processing.</p>
 #&gt; </div><div class='input'>
 <span class='co'># we could do one better, and use the "plyr" package to handle the</span>
 <span class='co'># processing</span>
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/llply'>llply</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>)
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
@@ -218,9 +196,9 @@ for parallel processing.</p>
 <span class='co'># we could also use the parallel processing options available through "plyr"</span>
 <span class='co'># to use more computation resources to complete the jobs (note that since</span>
 <span class='co'># these jobs are very quick to process this is actually slower).</span>
-<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/makeCluster'>makeCluster</a></span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
-<span class='kw pkg'>doParallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/doParallel/topics/registerDoParallel'>registerDoParallel</a></span>(<span class='no'>cl</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/llply'>llply</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/makeCluster'>stopCluster</a></span>(<span class='no'>cl</span>)
+<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>makeCluster</span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
+<span class='kw'>doParallel</span><span class='kw'>::</span><span class='fu'>registerDoParallel</span>(<span class='no'>cl</span>)
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
@@ -255,11 +233,11 @@ for parallel processing.</p>
 <span class='co'># use the distribute_load function to split the N jobs up into K super</span>
 <span class='co'># jobs, and evaluate each super job using vectorized code.</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
-<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/makeCluster'>makeCluster</a></span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
-<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/clusterApply'>clusterExport</a></span>(<span class='no'>cl</span>, <span class='st'>'x'</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
-<span class='kw pkg'>doParallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/doParallel/topics/registerDoParallel'>registerDoParallel</a></span>(<span class='no'>cl</span>)
+<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>makeCluster</span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
+<span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>clusterExport</span>(<span class='no'>cl</span>, <span class='st'>'x'</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>environment</span>())
+<span class='kw'>doParallel</span><span class='kw'>::</span><span class='fu'>registerDoParallel</span>(<span class='no'>cl</span>)
 <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>distribute_load</span>(<span class='fu'>length</span>(<span class='no'>x</span>), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/llply'>llply</a></span>(<span class='no'>l</span>, <span class='kw'>function</span>(<span class='no'>i</span>) <span class='no'>x</span>[<span class='no'>i</span>] + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: ‘.fun(piece, ...)’</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/parallel/topics/makeCluster'>stopCluster</a></span>(<span class='no'>cl</span>)
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw'>plyr</span><span class='kw'>::</span><span class='fu'>llply</span>(<span class='no'>l</span>, <span class='kw'>function</span>(<span class='no'>i</span>) <span class='no'>x</span>[<span class='no'>i</span>] + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw'>parallel</span><span class='kw'>::</span><span class='fu'>stopCluster</span>(<span class='no'>cl</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2 3 4 5 6
 #&gt; 

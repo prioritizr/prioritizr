@@ -9,7 +9,7 @@ NULL
 #' range size, and the second specifies  the second cut-off range size, the
 #' third argument specifies the target required  for species with a range size
 #' equal to or less than the first cut-off range size,  and the fourth argument
-#' specifies the target required for species with a range  size equal to or
+#' specifies the target required for species with a range size equal to or
 #' greater than the required range size.
 #'
 #' Note that with the exception of the maximum cover problem, targets must
@@ -45,32 +45,28 @@ NULL
 #'
 #' @seealso \code{\link{targets}}.
 #'
+#' @references
+#' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,
+#' Chanson JS, Fishpool LDC, da Fonseca GAB, Gaston KJ, and others (2004)
+#' Global gap analysis: priority regions for expanding the global
+#' protected-area network. \emph{BioScience}, 54: 1092--1100.
+#'
 #' @examples
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
-#' # create basic problem
+#' # create problem using loglinear targets
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective()
-#'
-#' # create problem with added relative targets
-#' p1 <- p %>% add_relative_targets(0.1)
-#'
-#' # create problem with added absolute targets
-#' p2 <- p %>% add_absolute_targets(3)
-#'
-#' # create problem with added log-linear target
-#' p3 <- p %>% add_loglinear_targets(10, 0.9, 100, 0.2)
-#'
+#'      add_min_set_objective() %>%
+#'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
+#'      add_binary_decisions()
 #' \donttest{
-#' # solve solutions
-#' s <- stack(solve(p1), solve(p2), solve(p3))
+#' # solve problem
+#' s <- solve(p)
 #'
-#' # plot solutions
-#' plot(s, main=c("relative targets", "absolute targets",
-#'                "log-linear targets"))
+#' # plot solution
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
-#'
 #'
 #' @name add_loglinear_targets
 #'

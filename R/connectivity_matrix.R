@@ -46,7 +46,7 @@ NULL
 #'   \code{\link[raster]{Raster-class}} object then cells in \code{x} that
 #'   contain missing (\code{NA}) values are omitted from the returned matrix.
 #'   Furthermore, all cells along the diagonal are missing values since
-#'   a planing unit does not have any share connectivity with itself.
+#'   a planing unit does not share connectivity with itself.
 #'
 #' @return \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix object.
 #'
@@ -70,9 +70,10 @@ NULL
 #' cm_raster <- connectivity_matrix(r, cd)
 #' # plot data and matrix
 #' par(mfrow = c(1,3))
-#' plot(r, main = "planning units")
-#' plot(cd, main = "conductivity")
-#' plot(raster(as.matrix(cm_raster)), main = "connectivity")
+#' plot(r, main = "planning units", axes = FALSE, box = FALSE)
+#' plot(cd, main = "conductivity", axes = FALSE, box = FALSE)
+#' plot(raster(as.matrix(cm_raster)), main = "connectivity", axes = FALSE,
+#'      box = FALSE)
 #'
 #' ## create connectivity matrix using polygon planning unit data
 #' # subset 9 polygons
@@ -82,8 +83,9 @@ NULL
 #' # plot data and matrix
 #' par(mfrow = c(1,3))
 #' plot(ply, main = "planning units")
-#' plot(sim_features[[1]], main = "conductivity")
-#' plot(raster(as.matrix(cm_ply)), main = "connectivity")
+#' plot(sim_features[[1]], main = "conductivity", axes = FALSE, box = FALSE)
+#' plot(raster(as.matrix(cm_ply)), main = "connectivity", axes = FALSE,
+#'      box = FALSE)
 #'
 #' @aliases connectivity_matrix,Spatial,character-method connectivity_matrix,Spatial,Raster-method connectivity_matrix,Raster,Raster-method
 #'

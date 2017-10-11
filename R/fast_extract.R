@@ -39,10 +39,9 @@ NULL
 #' @exportMethod fast_extract
 #'
 #' @examples
-#' \donttest{
 #' # load data
 #' data(sim_pu_polygons, sim_features)
-#'
+#' \donttest{
 #' # we will investigate severals ways for extracting values from a raster
 #' # using polygons. Specifically, for each band in the raster,
 #' # for each polygon in the vector layer, calculate the average
@@ -74,8 +73,7 @@ methods::setGeneric("fast_extract",
                     function(x, y, ...) standardGeneric("fast_extract"))
 
 #' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean,
-#'   velox = requireNamespace("velox", quietly = TRUE), ...)
+#' @usage \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean, velox = requireNamespace("velox", quietly = TRUE), ...)
 #' @rdname fast_extract
 methods::setMethod(
     "fast_extract",

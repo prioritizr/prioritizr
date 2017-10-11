@@ -25,10 +25,37 @@ NULL
 #'
 #'   }
 #'
-#' @name portfolios
-#'
 #' @seealso \code{\link{constraints}},  \code{\link{decisions}},
 #'  \code{\link{objectives}} \code{\link{penalties}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
+#' @examples
+#' # load data
+#' data(sim_pu_raster, sim_features)
+#'
+#' # create problem
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions() %>%
+#'      add_default_solver(gap = 0.2, verbose = FALSE)
+#'
+#' # create problem with cuts portfolio
+#' p1 <- p %>% add_cuts_portfolio(4)
+#'
+#' # create problem with shuffle portfolio
+#' p2 <- p %>% add_shuffle_portfolio(4)
+#' \donttest{
+#' # solve problems and create portfolios of solutions within 20 % of optimality
+#' # using different emthods
+#' s <- list(solve(p1), solve(p2))
+#'
+#' # plot solutions from cuts portfolio
+#' plot(s[[1]], axes = FALSE, box = FALSE)
+#'
+#' # plot solutions from cuts portfolio
+#' plot(s[[2]], axes = FALSE, box = FALSE)
+#' }
+#'
+#' @name portfolios
 NULL

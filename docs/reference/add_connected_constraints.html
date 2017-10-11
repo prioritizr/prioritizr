@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add connected constraints — add_connected_constraints â€¢ prioritizr</title>
+<title>Add connected constraints <U+2014> add_connected_constraints <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -129,6 +107,16 @@ planning units are spatially connected to each other.</p>
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraint
   added to it.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The mathematical ideas that underpin this function inspired by
+ \"Onal and Briers (2006).</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>\"Onal H and Briers RA (2006) Optimal selection of a connected
+reserve network. <em>Operations Research</em>, 54: 379--388.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='constraints.html'>constraints</a></code>.</p>
@@ -136,13 +124,15 @@ planning units are spatially connected to each other.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
 
 <span class='co'># create problem with added connected constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connected_constraints</span>()
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -165,7 +155,7 @@ planning units are spatially connected to each other.</p>
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
 #&gt; 
@@ -184,38 +174,40 @@ planning units are spatially connected to each other.</p>
 #&gt; Presolved: 237 rows, 234 columns, 1203 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.538290e+03, 279 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.538290e+03, 288 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3538.29032    0   76          - 3538.29032      -     -    0s
-#&gt;      0     0 3549.96981    0  129          - 3549.96981      -     -    0s
-#&gt;      0     0 3550.02510    0  133          - 3550.02510      -     -    0s
-#&gt;      0     0 3552.43451    0  148          - 3552.43451      -     -    0s
-#&gt;      0     0 3553.57838    0  144          - 3553.57838      -     -    0s
-#&gt;      0     0 3554.69492    0  151          - 3554.69492      -     -    0s
-#&gt;      0     0 3554.85204    0  147          - 3554.85204      -     -    0s
-#&gt;      0     0 3555.35517    0  140          - 3555.35517      -     -    0s
-#&gt;      0     0 3555.35517    0  140          - 3555.35517      -     -    0s
-#&gt; H    0     0                    13236.029069 3555.35517  73.1%     -    0s
-#&gt;      0     2 3555.36669    0  140 13236.0291 3555.36669  73.1%     -    0s
-#&gt; H   27    25                    3965.2911001 3556.34846  10.3%  22.6    0s
-#&gt; *   86    71              40    3918.8759017 3557.38440  9.22%  16.6    0s
+#&gt;      0     0 3549.97098    0  129          - 3549.97098      -     -    0s
+#&gt;      0     0 3550.01923    0  133          - 3550.01923      -     -    0s
+#&gt;      0     0 3552.25228    0  146          - 3552.25228      -     -    0s
+#&gt;      0     0 3553.40931    0  147          - 3553.40931      -     -    0s
+#&gt;      0     0 3554.79171    0  145          - 3554.79171      -     -    0s
+#&gt;      0     0 3554.98930    0  143          - 3554.98930      -     -    0s
+#&gt;      0     0 3554.98930    0  143          - 3554.98930      -     -    0s
+#&gt; H    0     0                    4179.1811806 3554.98930  14.9%     -    0s
+#&gt;      0     2 3555.05067    0  143 4179.18118 3555.05067  14.9%     -    0s
+#&gt; H   36    32                    3957.1112168 3555.05067  10.2%  20.7    0s
+#&gt; H   55    40                    3955.0621748 3555.05067  10.1%  15.9    0s
+#&gt; H  137    96                    3954.0976874 3556.49447  10.1%  14.9    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
+#&gt;   Gomory: 7
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 87 nodes (1922 simplex iterations) in 0.13 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 171 nodes (2861 simplex iterations) in 0.15 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 3918.88 3965.29 13236 
+#&gt; Solution count 4: 3954.1 3955.06 3957.11 4179.18 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.918875901656e+03, best bound 3.557384395479e+03, gap 9.2244%</div><div class='input'>
+#&gt; Best objective 3.954097687430e+03, best bound 3.559591532447e+03, gap 9.9771%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>))</div><div class='img'><img src='add_connected_constraints-2.png' alt='' width='700' height='432.632880098887' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_connected_constraints-4.png' alt='' width='540' height='400' /><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -223,6 +215,10 @@ planning units are spatially connected to each other.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

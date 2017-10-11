@@ -67,8 +67,8 @@ The locked in planning units can be specified in several
 \examples{
 # create basic problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.2)
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2)
 
 # create problem with added locked in constraints using integers
 p2 <- p1 \%>\% add_locked_in_constraints(which(sim_pu_polygons$locked_in))
@@ -80,9 +80,8 @@ p3 <- p1 \%>\% add_locked_in_constraints("locked_in")
 p4 <- p1 \%>\% add_locked_in_constraints(sim_locked_in_raster)
 
 # create problem with added locked in constraints using spatial polygons data
-locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1,]
+locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1, ]
 p5 <- p1 \%>\% add_locked_in_constraints(locked_in)
-
 \donttest{
 # solve problems
 s1 <- solve(p1)
@@ -92,7 +91,7 @@ s4 <- solve(p4)
 s5 <- solve(p5)
 
 # plot solutions
-par(mfrow = c(3,2))
+par(mfrow = c(3,2), mar = c(0, 0, 4.1, 0))
 plot(s1, main = "none locked in")
 plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 

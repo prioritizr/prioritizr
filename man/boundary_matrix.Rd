@@ -67,13 +67,15 @@ ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 bm_ply <- boundary_matrix(ply)
 
 # plot raster and connected matrix
-par(mfrow=c(1, 2))
-plot(r, main = "raster")
-plot(raster(as.matrix(bm_raster)), main = "boundary matrix")
+par(mfrow = c(1, 2))
+plot(r, main = "raster", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
+     axes = FALSE, box = FALSE)
 
 # plot polygons and connected matrix
-par(mfrow=c(1, 2))
-plot(r, main = "polygons")
-plot(raster(as.matrix(bm_ply)), main = "boundary matrix")
+par(mfrow = c(1, 2))
+plot(r, main = "polygons", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(bm_ply)), main = "boundary matrix", axes = FALSE,
+     box = FALSE)
 
 }

@@ -68,9 +68,9 @@ Data for making spatial prioritizations using simulated data.
     data. Pixel values are binary and indicate if planning units should
     be locked in.}
 
-\item{\code{sim_locked_out_raster}}{Planning units are represented as raster
-    data. Pixel values are binary and indicate if planning units should
-    be locked out.}
+\item{\code{sim_locked_out_raster}}{Planning units are represented as
+    raster data. Pixel values are binary and indicate if planning units
+    should be locked out.}
 
 \item{\code{sim_pu_polygons}}{Planning units represented as polygon data.
     The attribute table contains data indicating the expenditure required

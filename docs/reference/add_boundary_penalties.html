@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add boundary penalties — add_boundary_penalties â€¢ prioritizr</title>
+<title>Add boundary penalties <U+2014> add_boundary_penalties <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -106,14 +84,7 @@
 
     
     <p>Add penalties to a conservation problem to favor solutions that clump
-selected planning units together into contiguous reserves. Uses shared
-boundary length as a measure of connectivity, equivalent to the boundary
-length modifier  (BLM) in <a href='http://marxan.net'>Marxan</a>.
-Boundary data is calculated automatically unless the planning units in
-<code>x</code> are stored in a <code>data.frame</code>, in which case boundary data must
-be added as a <code>matrix</code> or <code>data.frame</code>. This function can only be
-used for symmetric relationships between planning units; for asymmetric
-relationships use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
+selected planning units together into contiguous reserves.</p>
     
 
     <pre class="usage"><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>edge_factor</span>, <span class='kw'>boundary_data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -129,8 +100,8 @@ relationships use the <code><a href='add_connectivity_penalties.html'>add_connec
       <th>penalty</th>
       <td><p><code>numeric</code> penalty for exposed edges. This
 is equivalent to the
-<a href='http://marxan.net/downloads/uq_marxan_web_2/module2.html'>boundary length modifier (BLM)</a>
-parameter in <a href='http://marxan.net'>Marxan</a>.</p></td>
+<a href = 'http://marxan.net/downloads/uq_marxan_web_2/module2.html'>boundary length modifier (BLM)</a>
+parameter in <a href = 'http://marxan.net'>Marxan</a>.</p></td>
     </tr>
     <tr>
       <th>edge_factor</th>
@@ -162,6 +133,29 @@ asymmetric relationships are required, use the
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>These penalties use shared boundary length as a measure of
+connectivity, equivalent to the boundary length modifier  (BLM) in
+<a href = 'http://marxan.net'>Marxan</a>. Boundary data is calculated automatically
+unless the planning units in <code>x</code> are stored in a <code>data.frame</code>, in
+which case boundary data must be added as a <code>matrix</code> or
+<code>data.frame</code>. This function can only be used for symmetric
+relationships between planning units; for asymmetric
+relationships use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.
+This function is inspired by Ball <em>et al.</em> (2009) and Beyer
+<em>et al.</em> (2016).</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
+Software for spatial conservation prioritisation</em> in Spatial conservation
+prioritisation: Quantitative methods and computational tools. Eds Moilanen
+A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
+<p>Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+<em>Ecological Modelling</em>, 228: 14--22.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='penalties.html'>penalties</a></code>.</p>
@@ -169,18 +163,20 @@ asymmetric relationships are required, use the
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>()
 
 <span class='co'># create problem with low boundary penalties</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>5</span>, <span class='fl'>1</span>)
 
 <span class='co'># create problem with high boundary penalties but outer edges receive</span>
 <span class='co'># half the penalty as inner edges</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>0.5</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>0.5</span>)
+
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -203,7 +199,7 @@ asymmetric relationships are required, use the
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
 #&gt; 
@@ -232,8 +228,8 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3511.77011    0   10 4152.27447 3511.77011  15.4%     -    0s
 #&gt; H    0     0                    3611.0142184 3511.77011  2.75%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (47 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (47 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3611.01 4152.27 18523.2 
 #&gt; 
@@ -254,7 +250,7 @@ asymmetric relationships are required, use the
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.615902e+03, 140 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.615902e+03, 134 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -262,15 +258,17 @@ asymmetric relationships are required, use the
 #&gt;      0     0 3615.90153    0   88 4235.27447 3615.90153  14.6%     -    0s
 #&gt; H    0     0                    3773.9457929 3615.90153  4.19%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (140 simplex iterations) in 0.04 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (134 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3773.95 4235.27 18667.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.773945792872e+03, best bound 3.615901532029e+03, gap 4.1878%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>))</div><div class='img'><img src='add_boundary_penalties-2.png' alt='' width='700' height='432.632880098887' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>),
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_boundary_penalties-4.png' alt='' width='540' height='400' /><div class='input'>
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -279,6 +277,10 @@ asymmetric relationships are required, use the
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

@@ -30,27 +30,17 @@ multiple decisions are added to a problem object, then the last one to be
 added will be used.}
 }
 \examples{
-# create basic problem and using the default decision (binary)
+# create problem with binary decisions
 p <- problem(sim_pu_raster, sim_features) \%>\%
-       add_min_set_objective() \%>\%
-       add_relative_targets(0.1)
-
-# manually specify a binary decision type
-p2 <- p \%>\% add_binary_decisions()
-
-# specify a proportion decision type
-p3 <- p \%>\% add_proportion_decisions()
-
-# specify a semicontinuous decision type
-p4 <- p \%>\% add_semicontinuous_decisions(upper_limit=0.5)
-
+     add_min_set_objective() \%>\%
+     add_relative_targets(0.1) \%>\%
+     add_binary_decisions()
 \donttest{
 # solve problem
-s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
+s <- solve(p)
 
 # plot solutions
-plot(s, main = c("default (binary)", "binary", "proportion",
-                 "semicontinuous (upper=0.5)"))
+plot(s, main = "solution")
 }
 
 }

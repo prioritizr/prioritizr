@@ -50,7 +50,4 @@ o <- compile(p)
 # print the optimization problem
 print(o)
 
-# print the optimization problem
-print(o)
-
 }

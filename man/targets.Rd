@@ -21,28 +21,44 @@ planning \code{\link{problem}}.
 
   \item{\code{\link{add_relative_targets}}}{Set targets as a proportion
   (between 0 and 1) of the maximum level of representation of features in
-  the study area. The argument to \code{x} should have a single value if all
-  features have the same target. Otherwise, the vector should have a value
-  for each feature. In this case, targets are assigned to
-  features based on their position in the argument to \code{x} and the
-  \code{feature} when specifying the problem.}
+  the study area.}
 
   \item{\code{\link{add_absolute_targets}}}{Set targets expressed as the
   actual value of features in the study area that need to be represented in
-  the prioritization. The argument to \code{x} is treated the same as for
-  \code{add_relative_targets}.}
+  the prioritization.}
 
   \item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
   (between 0 and 1) and calculated using a log-linear equation and four
-  tuning parameters (as used in Rodrigues \emph{et al.} 2004). The first
-  tuning parameter specifies the first cut-off range size, and the second
-  specifies the second cut-off range size, the third argument
-  specifies the target required for species with a range size equal to or
-  less than the first cut-off range size, and the fourth argument specifies
-  the target required for species with a range size equal to or greater than
-  the required range size.}
+  tuning parameters.}
 
  }
+}
+\examples{
+# load data
+data(sim_pu_raster, sim_features)
+
+# create base problem
+p <- problem(sim_pu_raster, sim_features) \%>\%
+     add_min_set_objective() \%>\%
+     add_binary_decisions()
+
+# create problem with added relative targets
+p1 <- p \%>\% add_relative_targets(0.1)
+
+# create problem with added absolute targets
+p2 <- p \%>\% add_absolute_targets(3)
+
+# create problem with added loglinear targets
+p3 <- p \%>\% add_loglinear_targets(10, 0.9, 100, 0.2)
+\donttest{
+# solve problem
+s <- stack(solve(p1), solve(p2), solve(p3))
+
+# plot solution
+plot(s, axes = FALSE, box = FALSE,
+     main = c("relative targets", "absolute targets", "loglinear targets"))
+}
+
 }
 \seealso{
 \code{\link{constraints}}, \code{\link{decisions}},

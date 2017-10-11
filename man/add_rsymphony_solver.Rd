@@ -52,7 +52,6 @@ Specify the use of a SYMPHONY algorithm to solve a
     uses the \code{Rsymphony} package to solve problems.
 }
 \examples{
-\donttest{
 # load data
 data(sim_pu_raster, sim_features)
 
@@ -61,7 +60,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1) \%>\%
   add_binary_decisions()
-
+\donttest{
 # if the package is installed then add solver and generate solution
 if (requireNamespace("Rsymphony", quietly = TRUE)) {
   # specify solver and generate solution
@@ -69,7 +68,8 @@ if (requireNamespace("Rsymphony", quietly = TRUE)) {
              solve()
 
   # plot solutions
-  plot(stack(sim_pu_raster, s), main = c("planning units", "solution"))
+  plot(stack(sim_pu_raster, s), main = c("planning units", "solution"),
+       axes = FALSE, box = FALSE)
 }
 }
 

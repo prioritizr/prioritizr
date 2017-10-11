@@ -5,10 +5,9 @@ NULL
 #'
 #' Add a proportion decision to a conservation planning \code{\link{problem}}.
 #' This is a relaxed decision where a part of a planning unit can be
-#' prioritized,  as opposed to the entire planning unit, which is the default
-#' function (see \code{\link{add_binary_decisions}}).
-#' Typically, this this decision has the assumed action of buying a fraction
-#' of a planning unit to include in a protected area network.
+#' prioritized as opposed to the entire planning unit. Typically, this decision
+#' has the assumed action of buying a fraction of a planning unit to include in
+#  a protected area system.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -16,37 +15,27 @@ NULL
 #' Conservation planning problems involve making decisions on planning units.
 #' These decisions are then associated with actions (e.g. turning a planning
 #' unit into a protected area). If no decision is explicitly added to a problem,
-#' then the binary decision class will be used by default.Only a single decision
-#' should be added to a
-#' \code{ConservationProblem} object. \strong{If multiple decisions are added
-#' to a problem object, then the last one to be added will be used.}
+#' then the binary decision class will be used by default. Only a single
+#' decision should be added to a \code{ConservationProblem} object. \strong{If
+#' multiple decisions are added to a problem object, then the last one to be
+#' added will be used.}
 #'
 #' @return \code{\link{Decision-class}} object.
 #'
 #' @seealso \code{\link{decisions}}.
 #'
 #' @examples
-#' # create basic problem and using the default decision (binary)
+#' # create problem with proportion decisions
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'        add_min_set_objective() %>%
-#'        add_relative_targets(0.1)
-#'
-#' # manually specify a binary decision type
-#' p2 <- p %>% add_binary_decisions()
-#'
-#' # specify a proportion decision type
-#' p3 <- p %>% add_proportion_decisions()
-#'
-#' # specify a semicontinuous decision type
-#' p4 <- p %>% add_semicontinuous_decisions(upper_limit=0.5)
-#'
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_proportion_decisions()
 #' \donttest{
 #' # solve problem
-#' s <- stack(solve(p), solve(p2), solve(p3), solve(p4))
+#' s <- solve(p)
 #'
 #' # plot solutions
-#' plot(s, main = c("default (binary)", "binary", "proportion",
-#'                  "semicontinuous (upper=0.5)"))
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
 #'
 #' @name add_proportion_decisions

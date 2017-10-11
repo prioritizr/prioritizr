@@ -29,8 +29,7 @@ Generates a random set of species using random field models. By default,
 the output will contain values between zero and one.
 }
 \examples{
-\dontrun{
-
+\donttest{
 # create raster
 r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 values(r) <- 1
@@ -40,7 +39,6 @@ spp <- simulate_species(r, 4)
 
 # plot simulated species
 plot(spp, main = "simulated species distributions")
-
 }
 
 }

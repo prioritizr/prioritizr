@@ -8,12 +8,12 @@
 \item{lhs, rhs}{An object and a function.}
 }
 \description{
-This package uses the "tee" operator (\%T>\%) to modify objects.
+This package uses the "tee" operator (\code{\%T>\%}) to modify objects.
 }
 \examples{
 # the tee operator returns the left-hand side of the result and can be
 # useful when dealing with mutable objects. In this example we want
-# to use the function "f" to modify the object "e" and capture the 
+# to use the function "f" to modify the object "e" and capture the
 # result
 
 # create an empty environment
@@ -22,7 +22,7 @@ e <- new.env()
 # create a function to modify an environment and return NULL
 f <- function(x) {x$a <- 5; return(NULL)}
 
-# if we use the pipe operator we won't capture the result since "f"() 
+# if we use the pipe operator we won't capture the result since "f"()
 # returns a NULL
 e2 <- e \%>\% f()
 print(e2)

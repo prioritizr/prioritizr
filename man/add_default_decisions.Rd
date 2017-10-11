@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_default_decisions.R
 \name{add_default_decisions}
 \alias{add_default_decisions}
-\title{Default decisions}
+\title{Add default decisions}
 \usage{
 add_default_decisions(x)
 }
@@ -10,7 +10,9 @@ add_default_decisions(x)
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 }
 \description{
-TODO
+This function adds the default decision types to a conservation planning
+\code{\link{problem}}. The default types are binary and  are added using
+the \code{\link{add_binary_decisions}} function.
 }
 \seealso{
 \code{\link{decisions}}.

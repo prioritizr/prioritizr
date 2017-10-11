@@ -4,14 +4,7 @@ NULL
 #' Add boundary penalties
 #'
 #' Add penalties to a conservation problem to favor solutions that clump
-#' selected planning units together into contiguous reserves. Uses shared
-#' boundary length as a measure of connectivity, equivalent to the boundary
-#' length modifier  (BLM) in \href{http://marxan.net}{Marxan}.
-#' Boundary data is calculated automatically unless the planning units in
-#' \code{x} are stored in a \code{data.frame}, in which case boundary data must
-#' be added as a \code{matrix} or \code{data.frame}. This function can only be
-#' used for symmetric relationships between planning units; for asymmetric
-#' relationships use the \code{\link{add_connectivity_penalties}} function.
+#' selected planning units together into contiguous reserves.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -40,16 +33,37 @@ NULL
 #'   asymmetric relationships are required, use the
 #'   \code{\link{add_connectivity_penalties}} function.
 #'
+#' @details These penalties use shared boundary length as a measure of
+#' connectivity, equivalent to the boundary length modifier  (BLM) in
+#' \href{http://marxan.net}{Marxan}. Boundary data is calculated automatically
+#' unless the planning units in \code{x} are stored in a \code{data.frame}, in
+#' which case boundary data must be added as a \code{matrix} or
+#' \code{data.frame}. This function can only be used for symmetric
+#' relationships between planning units; for asymmetric
+#' relationships use the \code{\link{add_connectivity_penalties}} function.
+#' This function is inspired by Ball \emph{et al.} (2009) and Beyer
+#' \emph{et al.} (2016).
+#'
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
 #' @seealso \code{\link{penalties}}.
 #'
+#' @references
+#' Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
+#' Software for spatial conservation prioritisation} in Spatial conservation
+#' prioritisation: Quantitative methods and computational tools. Eds Moilanen
+#' A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
+#'
+#' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+#' conservation planning problems with integer linear programming.
+#' \emph{Ecological Modelling}, 228: 14--22.
+#'
 #' @examples
 #' # create basic problem
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.2) %>%
-#'   add_default_solver()
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_default_solver()
 #'
 #' # create problem with low boundary penalties
 #' p2 <- p1 %>% add_boundary_penalties(5, 1)
@@ -57,13 +71,13 @@ NULL
 #' # create problem with high boundary penalties but outer edges receive
 #' # half the penalty as inner edges
 #' p3 <- p1 %>% add_boundary_penalties(50, 0.5)
-#'
 #' \donttest{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3))
 #'
 #' # plot solutions
-#' plot(s, main = c("basic solution", "small penalties", "high penalties"))
+#' plot(s, main = c("basic solution", "small penalties", "high penalties"),
+#'      axes = FALSE, box = FALSE)
 #' }
 #'
 #' @export

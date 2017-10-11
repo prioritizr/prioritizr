@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conservation problem constraints — constraints â€¢ prioritizr</title>
+<title>Conservation problem constraints <U+2014> constraints <e2><80><a2> prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -23,8 +23,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -52,31 +51,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Gurobi_installation.html">Gurobi installation for use in prioritzr</a>
-    </li>
-    <li>
-      <a href="../articles/prioritizr_basics.html">Prioritizr Basics</a>
-    </li>
-    <li>
-      <a href="../articles/quick_start.html">Prioritizr Quick Start Guide</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Articles</a>
 </li>
 <li>
   <a href="../news/index.html">News</a>
@@ -128,36 +106,218 @@ from the solution, such as protected areas or degraded land. Use the
 functions to do this.</p>
 <p>Below are the constraints that can be added to a <code>ConservationProblem</code>
 object.</p><dl class='dl-horizontal'>
-    <dt><code><a href='add_connected_constraints.html'>add_connected_constraints</a></code></dt><dd><p>Add constraints to a conservation problem to ensure that all selected
-planning units are spatially connected to each other.</p></dd>
-    <dt><code><a href='add_corridor_constraints.html'>add_corridor_constraints</a></code></dt><dd><p>It is important to maintain connectivity between reserves. However,
-some areas are more difficult for species to traverse then other areas.
-As a consequence, even though reserves may be connected, species may
-not be able to move between reserves if the areas connecting them
-are barriers to dispersal.
-    This function adds constraints to ensure that corridors connect
-reserves and that individuals from all species can utilize the
-corridors. Friction <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> objects are
-used to identify difficult areas to traverse.</p></dd>
-    <dt><code>add_locked_in_constraints</code></dt><dd><p>Add constraints to ensure that they are prioritized in the solution.
-For example, it may be desirable to lock in planning units that are
-inside existing protected areas so that the solution fills in the gaps in the
-existing reserve network.</p></dd>
-    <dt><code>add_locked_out_constraints</code></dt><dd><p>Add constraints to ensure that certain planning units are not prioritized
-in the solution. For example, it may be useful to lock out planning
-units that have been degraded and are not longer suitable for conserving
-species.</p></dd>
-    <dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></code></dt><dd><p>Add constraints to a conservation problem to ensure that all selected
-planning units have at least a certain number of neighbors.</p></dd>
-    </dl>
+  <dt><code><a href='add_connected_constraints.html'>add_connected_constraints</a></code></dt><dd><p>Add constraints to a
+    conservation problem to ensure that all selected
+    planning units are spatially connected to each other.</p></dd>
+    <dt><code><a href='add_corridor_constraints.html'>add_corridor_constraints</a></code></dt><dd><p>Adds constraints to ensure
+    that all planning units used to represent features form a contiguous
+    reserve.</p></dd>
+    <dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code></dt><dd><p>Add constraints to ensure
+    that certain planning units are present in the solution.</p></dd>
+    <dt><code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code></dt><dd><p>Add constraints to ensure
+    that certain planning units are absent from the solution.</p></dd>
+    <dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></code></dt><dd><p>Add constraints to a
+    conservation problem to ensure that all selected planning units have at
+    least a certain number of neighbors.</p></dd>
+</dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='penalties.html'>penalties</a></code>, code<a href='portfolios.html'>portfolios</a>, <code>problem</code>,
+ <code><a href='penalties.html'>penalties</a></code>, code<a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem</a></code>,
  <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># load data</span>
+<span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
+
+<span class='co'># create base problem with no additional constraints</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+
+<span class='co'># create problem with locked in constraints</span>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></span>(<span class='st'>"locked_in"</span>)
+
+<span class='co'># create problem with locked in constraints</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></span>(<span class='st'>"locked_out"</span>)
+
+<span class='co'># create problem with neighbor constraints</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></span>(<span class='fl'>2</span>)
+
+<span class='co'># create problem with connected constraints</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_connected_constraints.html'>add_connected_constraints</a></span>()
+
+<span class='co'># solve problems</span>
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2145.27
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
+#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2064.06
+#&gt; 
+#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 1: 2064.06 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 2.064062491654e+03, best bound 2.064062491654e+03, gap 0.0000%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2146.91
+#&gt; Presolve removed 0 rows and 10 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
+#&gt; Variable types: 0 continuous, 80 integer (80 binary)
+#&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.728735e+03, 17 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1728.73504    0    4 2146.91226 1728.73504  19.5%     -    0s
+#&gt; H    0     0                    1788.8037266 1728.73504  3.36%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 1788.8 2146.91 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.788803726584e+03, best bound 1.728735037805e+03, gap 3.3580%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 3620.3
+#&gt; Found heuristic solution: objective 2290.82
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.730221e+03, 20 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1730.22107    0   11 2290.82169 1730.22107  24.5%     -    0s
+#&gt; H    0     0                    1827.4860225 1730.22107  5.32%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (20 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 1827.49 2290.82 3620.3 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.827486022483e+03, best bound 1.730221065272e+03, gap 5.3223%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 367 rows, 362 columns and 1717 nonzeros
+#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 7e+00]
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 367 rows, 362 columns, 1717 nonzeros
+#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Presolved: 367 rows, 362 columns, 1717 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.729939e+03, 290 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1729.93910    0   44          - 1729.93910      -     -    0s
+#&gt;      0     0 1731.65464    0   62          - 1731.65464      -     -    0s
+#&gt;      0     0 1732.85428    0   34          - 1732.85428      -     -    0s
+#&gt;      0     0 1780.99525    0   80          - 1780.99525      -     -    0s
+#&gt;      0     0 1781.22372    0   83          - 1781.22372      -     -    0s
+#&gt;      0     0 1781.73755    0  100          - 1781.73755      -     -    0s
+#&gt;      0     0 1782.15858    0   73          - 1782.15858      -     -    0s
+#&gt;      0     0 1783.46971    0   51          - 1783.46971      -     -    0s
+#&gt;      0     0 1783.55440    0   52          - 1783.55440      -     -    0s
+#&gt;      0     0 1783.56655    0   50          - 1783.56655      -     -    0s
+#&gt;      0     0 1783.61401    0   48          - 1783.61401      -     -    0s
+#&gt;      0     0 1783.62589    0   53          - 1783.62589      -     -    0s
+#&gt;      0     0 1783.73786    0   49          - 1783.73786      -     -    0s
+#&gt;      0     0 1783.73786    0   47          - 1783.73786      -     -    0s
+#&gt; H    0     0                    12949.792228 1783.73786  86.2%     -    0s
+#&gt;      0     2 1783.83368    0   46 12949.7922 1783.83368  86.2%     -    0s
+#&gt; H   27    23                    2088.2726997 1783.83368  14.6%  35.7    0s
+#&gt; H   29     7                    1812.7236582 1783.83368  1.59%  33.4    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 6
+#&gt;   Cover: 1
+#&gt;   MIR: 2
+#&gt;   Zero half: 1
+#&gt; 
+#&gt; Explored 29 nodes (1816 simplex iterations) in 0.14 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 1812.72 2088.27 12949.8 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.812723658244e+03, best bound 1.783833680718e+03, gap 1.5937%</div><div class='input'>
+<span class='co'># plot solutions</span>
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
+<span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)
+<span class='fu'>plot</span>(<span class='no'>s1</span>[<span class='no'>s1</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in"</span>)
+<span class='fu'>plot</span>(<span class='no'>s2</span>[<span class='no'>s2</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>plot</span>(<span class='no'>s3</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked out"</span>)
+<span class='fu'>plot</span>(<span class='no'>s3</span>[<span class='no'>s3</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"neighbor"</span>)
+<span class='fu'>plot</span>(<span class='no'>s4</span>[<span class='no'>s4</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected"</span>)
+<span class='fu'>plot</span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><img src='constraints-12.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -166,7 +326,9 @@ planning units have at least a certain number of neighbors.</p></dd>
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

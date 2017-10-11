@@ -29,7 +29,6 @@ NULL
 #' @name parallel
 #'
 #' @examples
-#'
 #' # set number of threads to 2
 #' set_number_of_threads(2)
 #
@@ -85,7 +84,6 @@ get_number_of_threads <- function() {
 #'   \code{\link{get_number_of_threads}}.
 #'
 #' @examples
-#'
 #' # set number of threads to 2
 #' set_number_of_threads(2)
 #

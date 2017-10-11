@@ -11,7 +11,8 @@ NULL
 #'    The \code{lpsymphony} package provides a
 #'    different interface to the COIN-OR software suite. Unlike the
 #'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-#'    through \href{http://bioconducto/packages/release/bioc/html/lpsymphony.html}{Bioconductor}.
+#'    through
+#'    \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
 #'    On Windows and Mac, \code{lpsymphony}
 #'    may be easier to install. This solver uses the \code{lpsymphony} package
 #'    to solve.
@@ -47,7 +48,6 @@ NULL
 #' @seealso \code{\link{solvers}}.
 #'
 #' @examples
-#' \donttest{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
@@ -56,7 +56,7 @@ NULL
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.1) %>%
 #'   add_binary_decisions()
-#'
+#' \donttest{
 #' # if the package is installed then add solver and generate solution
 #' if (requireNamespace("lpsymphony", quietly = TRUE)) {
 #'   # specify solver and generate solution
