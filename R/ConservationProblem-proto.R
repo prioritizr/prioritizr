@@ -288,8 +288,8 @@ ConservationProblem <- pproto(
     "\n  objective:      ", r[1],
     "\n  targets:        ", r[2],
     "\n  decisions:      ", d[2],
-    "\n  constraints:    ", self$constraints$repr(),
-    "\n  penalties:      ", self$penalties$repr(),
+    "\n  constraints:    ", align_text(self$constraints$repr(), 19),
+    "\n  penalties:      ", align_text(self$penalties$repr(), 19),
     "\n  portfolio:      ", d[3],
     "\n  solver:         ", d[1]))
   },
