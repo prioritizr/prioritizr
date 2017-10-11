@@ -64,7 +64,8 @@
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 <div id="systematic-conservation-prioritization-in-r" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#systematic-conservation-prioritization-in-r" class="anchor"></a>Systematic conservation prioritization in R</h1></div>
+<a href="#systematic-conservation-prioritization-in-r" class="anchor"></a>Systematic conservation prioritization in R <img src="reference/figures/logo.png" align="right" width="10%">
+</h1></div>
 
 <p><em>Prioritizr</em> is an <em>R</em> package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by <em>prioritizr</em> are guaranteed to find optimal solutions. This package also has the functionality to read <a href="http://marxan.net/">Marxan</a> input data and find much cheaper solutions in a much shorter period of time than <em>Marxan</em> (<a href="http://marxan.net/downloads/papers/beyer_etal_2015.pdf">Beyer <em>et al. 2016</em></a>). Check out the <a href="https://github.com/prioritizr/prioritizrshiny"><em>prioritizrshiny</em> <em>R</em> package</a> to interactively build and customize conservation planning problems.</p>
 <div id="overview" class="section level2">
@@ -100,7 +101,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.2. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.3. https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
@@ -184,7 +185,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.002004862</code></pre>
+## 0.002342939</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract message returned from solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -329,7 +330,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 23
 ## 
-## Explored 27 nodes (1243 simplex iterations) in 0.14 seconds
+## Explored 27 nodes (1243 simplex iterations) in 0.16 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6482.4 12281.1 

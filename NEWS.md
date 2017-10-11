@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.3 (unreleased)
+
+- Add logo to README files and package website (#31).
+
 # prioritizr 2.0.2.2 (unreleased)
 
 - Broad-scale improvements to documentation.
