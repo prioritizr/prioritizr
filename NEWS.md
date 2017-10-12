@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.4 (unreleased)
+
+- Minor tweaks to vignettes.
+
 # prioritizr 2.0.2.3 (unreleased)
 
 - Add logo to README files and package website (#31).
