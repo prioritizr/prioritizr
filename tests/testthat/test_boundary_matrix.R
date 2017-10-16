@@ -30,7 +30,7 @@ test_that("SpatialPolygons (hexagons)", {
     index1 = FALSE, symmetric = TRUE)
   # tests
   expect_true(inherits(b, "dsCMatrix"))
-  expect_true(min(b - s) < 1e-10)
+  expect_true(abs(min(b - s)) < 1e-10)
 })
 
 test_that("SpatialPolygons (real data - simple shapes)", {
@@ -52,7 +52,7 @@ test_that("SpatialPolygons (real data - simple shapes)", {
     index1 = FALSE, symmetric = TRUE)
   # tests
   expect_true(inherits(b, "dsCMatrix"))
-  expect_true(min(b - s) < 1e-10)
+  expect_true(abs(min(b - s)) < 1e-8)
 })
 
 test_that("SpatialPolygons (real data - complex shapes)", {
@@ -74,7 +74,33 @@ test_that("SpatialPolygons (real data - complex shapes)", {
     index1 = FALSE, symmetric = TRUE)
   # tests
   expect_true(inherits(b, "dsCMatrix"))
-  expect_true(min(b - s) < 1e-10)
+  expect_true(abs(min(b - s)) < 1e-8)
+})
+
+test_that("SpatialPolygons (vertices not aligned)", {
+  # data
+ x <- raster::spPolygons(
+   matrix(c(0,  0, 3,  3,  0, -1, 1, 1, -1, -1), ncol = 2),
+   matrix(c(0, 0, 3, 3, 0, 1, 3, 3, 1, 1), ncol = 2),
+   matrix(c(3, 3, 5, 5, 3, 0, 3, 3, 0, 0), ncol = 2))
+  # make boundary matrix
+  b <- boundary_matrix(x)
+  # make correct matrix
+  s <- matrix(nrow = 3, ncol = 3)
+  for (i in seq_len(3)) {
+    for (j in seq_len(3)) {
+      if (i != j)
+        s[i, j] <- rgeos::gLength(rgeos::gIntersection(
+                     methods::as(x[i, ], "SpatialLines"),
+                     methods::as(x[j, ], "SpatialLines")))
+    }
+  }
+  total_length <- rgeos::gLength(x, byid = TRUE)
+  diag(s) <- total_length - rowSums(s, na.rm = TRUE)
+  s <- Matrix::Matrix(s, sparse = TRUE)
+  # tests
+  expect_true(inherits(b, "dsCMatrix"))
+  expect_true(abs(min(b - s)) < 1e-8)
 })
 
 test_that("RasterLayer", {

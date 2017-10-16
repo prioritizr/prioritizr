@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.5 (unreleased)
+
+- Fix bug in `boundary_matrix` calculations (#30).
+
 # prioritizr 2.0.2.4 (unreleased)
 
 - Minor tweaks to vignettes.

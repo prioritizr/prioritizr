@@ -15,9 +15,6 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data,
 
   // calculation vars
   std::size_t tol = static_cast<std::size_t>(round(log10(1.0 / tolerance)));
-
-  std::vector<std::size_t> pos(PID.size());
-  std::iota(pos.begin(), pos.end(), 1);
   boost::unordered_set<LINEID> line_id;
   line_id.reserve(PID.size()*10);
   std::unordered_multimap<LINEID, LINE, boost::hash<LINEID>> line_UMMAP;
@@ -35,18 +32,45 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data,
   warnings.reserve(PID.size()*10);
 
   //// preliminary processing
-  // generate lines
-  int currPIdFirstElement = 0;
+  // add in vertices for shared edges that do not have matching vertices
   LINE currLine;
+  int currPidStart = 0;
+  {
+    std::size_t i = 1;
+    std::size_t j = 0;
+    while (i != PID.size()) {
+      if (PID[i] == PID[currPidStart]) {
+        j = 0;
+        while (j != PID.size()) {
+          if (PID[currPidStart] != PID[j]) {
+            if (is_between(X[i], Y[i], X[i-1], Y[i-1], X[j], Y[j])) {
+              PID.insert(PID.begin() + i, PID[i]);
+              X.insert(X.begin() + i, X[j]);
+              Y.insert(Y.begin() + i, Y[j]);
+            }
+          }
+          ++j;
+        }
+      } else {
+        currPidStart = i;
+      }
+      ++i;
+    }
+  }
+
+  // generate lines
+  std::vector<std::size_t> pos(PID.size());
+  std::iota(pos.begin(), pos.end(), 1);
+  currPidStart = 0;
   for (std::size_t i = 1; i != PID.size(); ++i) {
-    if (PID[i] == PID[currPIdFirstElement]) {
+    if (PID[i] == PID[currPidStart]) {
       currLine = LINE(PID[i], pos[i], pos[i-1], X[i], Y[i], X[i-1],
-                    Y[i-1], tol);
+                      Y[i-1], tol);
       line_UMMAP.insert(std::pair<LINEID, LINE>(currLine._id,
                                                 currLine));
       line_id.insert(currLine._id);
     } else {
-      currPIdFirstElement = i;
+      currPidStart = i;
     }
   }
 
