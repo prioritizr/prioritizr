@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.6 (unreleased)
+
+- Makevars now compatible with Mac OSX Sierra (#33).
+
 # prioritizr 2.0.2.5 (unreleased)
 
 - Fix bug in `boundary_matrix` calculations (#30).
