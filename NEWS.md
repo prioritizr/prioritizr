@@ -1,3 +1,9 @@
+# prioritizr 2.0.2.7 (unreleased)
+
+- Fix bug in `apply_boundary_penalties` and `add_connectivity_penalties`
+  causing the function to throw an error when the number of boundaries/edges is
+  less than the number of planning units.
+
 # prioritizr 2.0.2.6 (unreleased)
 
 - Makevars now compatible with Mac OSX Sierra (#33).

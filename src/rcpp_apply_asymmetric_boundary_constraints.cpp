@@ -29,7 +29,7 @@ bool rcpp_apply_asymmetric_boundary_constraints(SEXP x,
   std::size_t curr_i, curr_j;
   std::vector<double> total_boundaries(ptr->_number_of_planning_units, 0.0);
   std::unordered_map<PUPAIRID, double, boost::hash<PUPAIRID>> edges;
-  edges.reserve(boundary_matrix.n_nonzero - ptr->_number_of_planning_units);
+  edges.reserve(boundary_matrix.n_nonzero);
   double curr_value;
   std::unordered_map<PUPAIRID, double, boost::hash<PUPAIRID>>::iterator curr_itr;
   PUPAIR curr_pu_pair;

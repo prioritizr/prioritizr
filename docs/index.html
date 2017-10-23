@@ -101,7 +101,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.6. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.7. https://github.com/prioritizr/prioritizr.</code></pre>
 </div>
 <div id="example-usage" class="section level2">
 <h2 class="hasAnchor">
@@ -185,7 +185,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.002058029</code></pre>
+## 0.003073215</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract message returned from solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -289,7 +289,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 187 rows and 129 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## Variable types: 0 continuous, 377 integer (376 binary)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
@@ -330,7 +330,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 23
 ## 
-## Explored 27 nodes (1243 simplex iterations) in 0.15 seconds
+## Explored 27 nodes (1243 simplex iterations) in 0.25 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6482.4 12281.1 

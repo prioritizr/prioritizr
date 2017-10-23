@@ -238,7 +238,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
 #&gt; 
-#&gt; Explored 1 nodes (399 simplex iterations) in 0.45 seconds
+#&gt; Explored 1 nodes (399 simplex iterations) in 0.80 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 4718.62 4776.5 4849.92 ... 20737.2
@@ -275,12 +275,12 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; H    0     0                    5865.0680200 4770.54049  18.7%     -    0s
 #&gt;      0     2 4770.77576    0  354 5865.06802 4770.77576  18.7%     -    0s
 #&gt; H   54    41                    5703.9501465 4846.92721  15.0%  40.9    0s
-#&gt; H   81    35                    5519.1219496 4981.03299  9.75%  43.7    0s
+#&gt; H   81    35                    5519.1219496 4981.03299  9.75%  43.7    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt; 
-#&gt; Explored 81 nodes (3859 simplex iterations) in 0.50 seconds
+#&gt; Explored 81 nodes (3859 simplex iterations) in 1.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 5519.12 5703.95 5865.07 ... 22987.2
@@ -302,33 +302,32 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.597439e+03, 211 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.597439e+03, 212 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4597.43940    0  362 5784.06522 4597.43940  20.5%     -    0s
-#&gt;      0     0 4650.00544    0  358 5784.06522 4650.00544  19.6%     -    0s
-#&gt;      0     0 4692.79243    0  356 5784.06522 4692.79243  18.9%     -    0s
-#&gt;      0     0 4704.07075    0  356 5784.06522 4704.07075  18.7%     -    0s
-#&gt;      0     0 4733.46381    0  358 5784.06522 4733.46381  18.2%     -    0s
-#&gt;      0     0 4737.65224    0  349 5784.06522 4737.65224  18.1%     -    0s
-#&gt;      0     0 4737.65224    0  349 5784.06522 4737.65224  18.1%     -    0s
-#&gt; H    0     0                    5427.4217935 4737.65224  12.7%     -    0s
-#&gt; H    0     0                    5399.8532992 4737.65224  12.3%     -    0s
-#&gt;      0     2 4737.80696    0  349 5399.85330 4737.80696  12.3%     -    0s
-#&gt; H   27    17                    5283.3495723 4738.36152  10.3%  31.1    0s
+#&gt;      0     0 4651.39100    0  358 5784.06522 4651.39100  19.6%     -    0s
+#&gt;      0     0 4671.09810    0  358 5784.06522 4671.09810  19.2%     -    0s
+#&gt;      0     0 4720.44587    0  356 5784.06522 4720.44587  18.4%     -    0s
+#&gt;      0     0 4736.01025    0  355 5784.06522 4736.01025  18.1%     -    0s
+#&gt;      0     0 4771.27190    0  353 5784.06522 4771.27190  17.5%     -    0s
+#&gt;      0     0 4771.41889    0  354 5784.06522 4771.41889  17.5%     -    0s
+#&gt; H    0     0                    5482.6197517 4771.41889  13.0%     -    1s
+#&gt;      0     2 4771.83068    0  354 5482.61975 4771.83068  13.0%     -    1s
+#&gt; H   27    26                    5371.7767228 4771.83068  11.2%  37.0    1s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
+#&gt;   Gomory: 6
 #&gt; 
-#&gt; Explored 30 nodes (1528 simplex iterations) in 0.56 seconds
+#&gt; Explored 56 nodes (2730 simplex iterations) in 1.25 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 5283.35 5399.85 5427.42 ... 22987.2
+#&gt; Solution count 4: 5371.78 5482.62 5784.07 22987.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.283349572292e+03, best bound 4.778218938841e+03, gap 9.5608%</div><div class='input'>
+#&gt; Best objective 5.371776722768e+03, best bound 4.839806508005e+03, gap 9.9031%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
 

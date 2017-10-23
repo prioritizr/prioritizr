@@ -26,11 +26,11 @@ bool rcpp_apply_symmetric_boundary_constraints(SEXP x,
   // extract data from the boundary matrix
   std::vector<double> total_boundaries(ptr->_number_of_planning_units, 0.0);
   std::vector<std::size_t> pu_i;
-  pu_i.reserve(boundary_matrix.n_nonzero - ptr->_number_of_planning_units);
+  pu_i.reserve(boundary_matrix.n_nonzero);
   std::vector<std::size_t> pu_j;
-  pu_j.reserve(boundary_matrix.n_nonzero - ptr->_number_of_planning_units);
+  pu_j.reserve(boundary_matrix.n_nonzero);
   std::vector<double> pu_b;
-  pu_b.reserve(boundary_matrix.n_nonzero - ptr->_number_of_planning_units);
+  pu_b.reserve(boundary_matrix.n_nonzero);
   std::size_t curr_i, curr_j;
   double curr_value;
   for (arma::sp_mat::const_iterator it=boundary_matrix.begin();
