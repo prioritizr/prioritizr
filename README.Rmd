@@ -58,9 +58,13 @@ w = 3.5
 
 ## Citation
 
+To cite package '_prioritizr_' in publications please use:
+
 ```{r, echo  = FALSE, result = "asis", comment = ""}
 cat(paste0("Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version ",packageDescription("prioritizr")$Version,". https://github.com/prioritizr/prioritizr.\n"))
 ```
+
+Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use _prioritizr_, so please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the list.
 
 ## Example usage
 

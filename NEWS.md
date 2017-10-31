@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.9 (unreleased)
+
+- Added vignette to record publications that use _prioritizr_ (#35).
+
 # prioritizr 2.0.2.8 (unreleased)
 
 - Unit tests now compatible with development version of _testthat_ (#34).
