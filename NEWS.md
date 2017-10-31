@@ -1,3 +1,7 @@
+# prioritizr 2.0.2.8 (unreleased)
+
+- Unit tests now compatible with development version of _testthat_ (#34).
+
 # prioritizr 2.0.2.7 (unreleased)
 
 - Fix bug in `apply_boundary_penalties` and `add_connectivity_penalties`

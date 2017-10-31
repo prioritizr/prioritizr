@@ -31,7 +31,7 @@ test_that("proportion_parameter", {
   expect_error(x$set(Inf))
   expect_error(x$set(-5))
   expect_error(x$set(5))
-  expect_error()
+  expect_error(x$set("a"))
 })
 
 test_that("integer_parameter", {
@@ -65,6 +65,7 @@ test_that("integer_parameter", {
   expect_error(x$set(Inf))
   expect_error(x$set(-5.5))
   expect_error(x$set(5.5))
+  expect_error(x$set("a"))
 })
 
 test_that("numeric_parameter", {
@@ -93,6 +94,7 @@ test_that("numeric_parameter", {
   expect_error(numeric_parameter("test", Inf))
   expect_error(x$set(NA_real_))
   expect_error(x$set(Inf))
+  expect_error(x$set("a"))
 })
 
 test_that("binary_parameter", {
@@ -126,6 +128,7 @@ test_that("binary_parameter", {
   expect_error(x$set(Inf))
   expect_error(x$set(0))
   expect_error(x$set(-1L))
+  expect_error(x$set("a"))
 })
 
 test_that("proportion_parameter_array", {
