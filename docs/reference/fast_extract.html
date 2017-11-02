@@ -157,12 +157,12 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.084   0.000   0.084 </div><div class='input'>
+#&gt;   0.220   0.000   0.223 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.100   0.000   0.101 </div><div class='input'>
+#&gt;   0.220   0.000   0.221 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
@@ -170,7 +170,7 @@ is installed. Note that this only used when <code>x</code> is a
 <span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.028   0.004   2.374 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
+#&gt;   0.032   0.008   4.991 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -1,3 +1,7 @@
+# prioritizr 2.0.3 (released)
+
+- Initial release on CRAN.
+
 # prioritizr 2.0.2.9 (unreleased)
 
 - Added vignette to record publications that use _prioritizr_ (#35).

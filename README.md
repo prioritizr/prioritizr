@@ -3,7 +3,7 @@
 Systematic conservation prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 ======================================================================================================
 
-[![Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](http://www.repostatus.org/badges/latest/wip.svg)](http://www.repostatus.org/#wip) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
 *Prioritizr* is an *R* package for solving systematic conservation prioritization problems using integer linear programming (ILP) techniques. The package offers a flexible interface for creating conservation problems using a range of different objectives and constraints that can be tailored to the specific needs of the conservation planner. Conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as greedy heuristics or simulated annealing, the exact algorithms used by *prioritizr* are guaranteed to find optimal solutions. This package also has the functionality to read [Marxan](http://marxan.net/) input data and find much cheaper solutions in a much shorter period of time than *Marxan* ([Beyer *et al. 2016*](http://marxan.net/downloads/papers/beyer_etal_2015.pdf)). Check out the [*prioritizrshiny* *R* package](https://github.com/prioritizr/prioritizrshiny) to interactively build and customize conservation planning problems.
 
@@ -42,7 +42,7 @@ Citation
 
 To cite package '*prioritizr*' in publications please use:
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.9. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.3. https://github.com/prioritizr/prioritizr.
 
 Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use *prioritizr*, so please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the list.
 
@@ -145,7 +145,7 @@ s1 <- solve(p1)
     ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
     ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
     ## 
-    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (17 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3597.1 4135.27 
@@ -166,8 +166,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.003256083
+    ## solution_1 
+    ## 0.00683403
 
 ``` r
 # extract message returned from solver
@@ -217,7 +217,7 @@ s2 <- solve(p2)
     ## 
     ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
     ## 
-    ## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (11 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 1: 4020.2 
@@ -253,13 +253,13 @@ s3 <- solve(p3)
     ## Found heuristic solution: objective 20287.2
     ## Found heuristic solution: objective 6420.2
     ## Presolve removed 72 rows and 46 columns
-    ## Presolve time: 0.00s
+    ## Presolve time: 0.01s
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
     ## Variable types: 0 continuous, 188 integer (188 binary)
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.477092e+03, 124 iterations, 0.00 seconds
+    ## Root relaxation: objective 5.477092e+03, 124 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -268,7 +268,7 @@ s3 <- solve(p3)
     ## H    0     0                    6154.1018384 5477.09167  11.0%     -    0s
     ## H    0     0                    5944.9791739 5477.09167  7.87%     -    0s
     ## 
-    ## Explored 1 nodes (124 simplex iterations) in 0.02 seconds
+    ## Explored 1 nodes (124 simplex iterations) in 0.05 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5944.98 6154.1 6420.2 20287.2 
@@ -302,13 +302,13 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 187 rows and 129 columns
-    ## Presolve time: 0.00s
+    ## Presolve time: 0.02s
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## Variable types: 0 continuous, 377 integer (376 binary)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.647064e+03, 348 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.647064e+03, 348 iterations, 0.02 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -343,7 +343,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 23
     ## 
-    ## Explored 27 nodes (1243 simplex iterations) in 0.18 seconds
+    ## Explored 27 nodes (1243 simplex iterations) in 0.49 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 6482.4 12281.1 

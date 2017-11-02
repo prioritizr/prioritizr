@@ -102,7 +102,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>To cite package ‘<em>prioritizr</em>’ in publications please use:</p>
-<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.2.9. https://github.com/prioritizr/prioritizr.</code></pre>
+<pre><code>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 2.0.3. https://github.com/prioritizr/prioritizr.</code></pre>
 <p>Additionally, we keep a <a href="https://prioritizr.github.io/prioritizr/articles/publication_record.html">record of publications</a> that use <em>prioritizr</em>, so please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the list.</p>
 </div>
 <div id="example-usage" class="section level2">
@@ -173,7 +173,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 ## 
-## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (17 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3597.1 4135.27 
@@ -187,7 +187,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.002309084</code></pre>
+## 0.006756067</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract message returned from solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -224,7 +224,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## 
 ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
 ## 
-## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (11 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 1: 4020.2 
@@ -251,13 +251,13 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Found heuristic solution: objective 20287.2
 ## Found heuristic solution: objective 6420.2
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.477092e+03, 124 iterations, 0.00 seconds
+## Root relaxation: objective 5.477092e+03, 124 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -266,7 +266,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## H    0     0                    6154.1018384 5477.09167  11.0%     -    0s
 ## H    0     0                    5944.9791739 5477.09167  7.87%     -    0s
 ## 
-## Explored 1 nodes (124 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (124 simplex iterations) in 0.05 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5944.98 6154.1 6420.2 20287.2 
@@ -291,13 +291,13 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 187 rows and 129 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## Variable types: 0 continuous, 377 integer (376 binary)
 ## Presolved: 468 rows, 377 columns, 1688 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.647064e+03, 348 iterations, 0.01 seconds
+## Root relaxation: objective 5.647064e+03, 348 iterations, 0.02 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -332,7 +332,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   MIR: 2
 ##   Zero half: 23
 ## 
-## Explored 27 nodes (1243 simplex iterations) in 0.19 seconds
+## Explored 27 nodes (1243 simplex iterations) in 0.49 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 6482.4 12281.1 
@@ -378,7 +378,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="http://www.repostatus.org/#wip"><img src="http://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP - Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
+<li><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
 <li><a href="https://travis-ci.org/prioritizr/prioritizr"><img src="https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux" alt="Travis Build Status"></a></li>
 <li><a href="https://ci.appveyor.com/project/jeffreyhanson/prioritizr"><img src="https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows" alt="AppVeyor Build Status"></a></li>
 <li><a href="https://codecov.io/github/prioritizr/prioritizr?branch=master"><img src="https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master" alt="Coverage Status"></a></li>
