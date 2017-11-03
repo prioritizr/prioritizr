@@ -333,7 +333,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -361,7 +361,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -389,7 +389,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3487.86441    0    4 4135.27447 3487.86441  15.7%     -    0s
 #&gt; H    0     0                    3593.1766995 3487.86441  2.93%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3593.18 4135.27 
@@ -417,7 +417,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -445,7 +445,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 2641.30066    0    2 3735.04777 2641.30066  29.3%     -    0s
 #&gt; H    0     0                    2680.4719984 2641.30066  1.46%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2680.47 3735.05 
@@ -473,13 +473,13 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</div><div class='output co'>#&gt; <span class='error'>Error in solve(p6): object 'ret' not found</span></div><div class='input'>
+#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</div><div class='input'>
 <span class='co'># plot solutions for problems associated with spatial data</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster data"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -497,9 +497,15 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 <span class='fu'>plot</span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='co'># show solutions for problems associated with aspatial data</span>
-<span class='fu'>str</span>(<span class='no'>s6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in str(s6): object 's6' not found</span></div><div class='input'>
+<span class='fu'>str</span>(<span class='no'>s6</span>)</div><div class='output co'>#&gt;  atomic [1:90] 0 0 0 1 0 0 1 0 0 1 ...
+#&gt;  - attr(*, "objective")= Named num 3597
+#&gt;   ..- attr(*, "names")= chr "solution_1"
+#&gt;  - attr(*, "status")= Named chr "OPTIMAL"
+#&gt;   ..- attr(*, "names")= chr "solution_1"
+#&gt;  - attr(*, "runtime")= Named num 0.00435
+#&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'>
 
-</div><img src='problem-17.png' alt='' width='540' height='400' /></pre>
+</div><img src='problem-16.png' alt='' width='540' height='400' /></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

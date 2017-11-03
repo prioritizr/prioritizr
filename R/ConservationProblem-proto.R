@@ -368,7 +368,7 @@ ConservationProblem <- pproto(
     }
   },
   feature_abundances_in_planning_units = function(self) {
-    Matrix::rowSums(self$data$rij_matrix)
+    Matrix::rowSums(self$data$rij_matrix, na.rm = TRUE)
   },
   feature_targets = function(self) {
     if (is.Waiver(self$targets))

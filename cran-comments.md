@@ -18,15 +18,17 @@
 
 * Packages suggested but not available for checking: 'gurobi'
 
-  The 'gurobi' R package is distributed with the Gurobi software suite. The
-  package DESCRIPTION contains information on installing this packages.
+  The 'gurobi' R package is distributed with the Gurobi software suite. To help
+  users install this package, the package DESCRIPTION contains installation
+  information. Additionally, there is a package vignette dedicated to walking
+  users through the installation process.
 
 * checking installed package size
-    installed size is  8.1Mb
+    installed size is  5.2Mb
     sub-directories of 1Mb or more:
-      libs   7.2Mb
+      doc   3.6Mb
 
-  The package makes extensive use of compiled code to reduce processing time.
+  The package contains multiple vignettes to teach users how to use it.
 
 ## Downstream dependencies
 

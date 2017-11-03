@@ -364,6 +364,7 @@ methods::setMethod(
       ncol(rij_matrix) == length(x))
     # convert to sparse matrix if necessary
     if (!inherits(rij_matrix, "dgCMatrix")) {
+      rij_matrix[which(is.na(rij_matrix))] <- 0
       rij_matrix <- methods::as(rij_matrix, "dgCMatrix")
     }
     # create new problem object

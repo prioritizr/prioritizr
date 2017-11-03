@@ -1,6 +1,14 @@
-# prioritizr 2.0.3 (released)
+# prioritizr 2.0.3.1 (unreleased)
 
-- Initial release on CRAN.
+- Fix bug when solving problems with `numeric` vector data that caused an error.
+- Fix bug in compiling problems with `numeric` vector input with rij data
+  containing NA values.
+- Added unit tests for solving problems with various input formats.
+- Updated package sizes reported in cran-comments.
+
+# prioritizr 2.0.3 (unreleased)
+
+- Initial release candidate for CRAN. Release postponed due to bug report.
 
 # prioritizr 2.0.2.9 (unreleased)
 

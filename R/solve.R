@@ -120,6 +120,7 @@ methods::setMethod(
     } else if (is.numeric(pu)) {
       # numeric planning units
       if (length(sol) == 1) {
+        ret <- pu
         ret[!is.na(pu)] <- sol[[1]][[1]][seq_len(a$number_of_planning_units())]
       } else {
         ret <- matrix(NA, ncol = length(pu), nrow = length(sol))

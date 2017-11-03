@@ -76,30 +76,6 @@ test_that("x=SpatialPointsDataFrame, y=RasterStack", {
                        "cost")$number_of_features(), 1L)
 })
 
-test_that("x=data.frame, y=data.frame", {
-  # simulate data
-  pu <- data.frame(id = seq_len(10), cost = runif(10))
-  species <- data.frame(id = seq_len(5), name = letters[1:5], targets = 0.5)
-  rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
-  rij$amount <- runif(nrow(rij))
-  # create problem
-  x <- problem(pu, species, rij, "cost")
-  print(x)
-  x
-  # run tests
-  expect_equal(x$feature_names(), letters[1:5])
-  expect_equal(x$number_of_features(), 5)
-  expect_equal(x$number_of_planning_units(), 10)
-  expect_equal(x$planning_unit_costs(), pu$cost)
-  expect_equal(x$data$rij_matrix,
-               Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]], x = rij[[3]],
-                                    dims = c(5, 10)))
-  expect_equal(x$feature_abundances_in_planning_units(),
-    Matrix::rowSums(Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]],
-                                         x = rij[[3]])))
-  expect_error(x$feature_targets())
-})
-
 test_that("x=SpatialPolygons, y=character", {
   # simulate data
   data(sim_pu_polygons)
@@ -127,6 +103,54 @@ test_that("x=SpatialPolygons, y=character", {
   expect_error(x$feature_targets())
 })
 
+test_that("x=data.frame, y=data.frame", {
+  # simulate data
+  pu <- data.frame(id = seq_len(10), cost = runif(10))
+  species <- data.frame(id = seq_len(5), name = letters[1:5], targets = 0.5)
+  rij <- expand.grid(pu = seq_len(9), species = seq_len(5))
+  rij$amount <- runif(nrow(rij))
+  # create problem
+  x <- problem(pu, species, rij, "cost")
+  print(x)
+  x
+  # run tests
+  expect_equal(x$feature_names(), letters[1:5])
+  expect_equal(x$number_of_features(), 5)
+  expect_equal(x$number_of_planning_units(), 10)
+  expect_equal(x$planning_unit_costs(), pu$cost)
+  expect_equal(x$data$rij_matrix,
+               Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]], x = rij[[3]],
+                                    dims = c(5, 10)))
+  expect_equal(x$feature_abundances_in_planning_units(),
+    Matrix::rowSums(Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]],
+                                         x = rij[[3]])))
+  expect_error(x$feature_targets())
+})
+
+test_that("x=numeric, y=data.frame, rij=data.frame", {
+  # simulate data
+  pu <- data.frame(id = seq_len(10), cost = runif(10),
+                   spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+  # create problem
+  x <- problem(pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+               t(pu[, 3:4]))
+  print(x)
+  x
+  # run tests
+  expect_equal(x$feature_names(), c("spp1", "spp2"))
+  expect_equal(x$number_of_features(), 2)
+  expect_equal(x$number_of_planning_units(), 10)
+  expect_equal(x$planning_unit_costs(), pu$cost)
+  expect_true(all(x$data$rij_matrix ==
+                  Matrix::sparseMatrix(i = c(rep(1, 10), rep(2, 9)),
+                                    j = c(1:10, 1:9),
+                                    x = c(pu$spp1, pu$spp2[1:9]),
+                                    dims = c(2, 10))))
+  expect_equal(x$feature_abundances_in_planning_units(),
+               colSums(pu[, c("spp1", "spp2")], na.rm = TRUE))
+  expect_error(x$feature_targets())
+})
+
 test_that("x=data.frame, y=character", {
   # simulate data
   pu <- data.frame(id = seq_len(10), cost = runif(10),
@@ -149,7 +173,6 @@ test_that("x=data.frame, y=character", {
                colSums(pu[, c("spp1", "spp2")], na.rm = TRUE))
   expect_error(x$feature_targets())
 })
-
 
 test_that("invalid problem inputs", {
   # check that errors are thrown if invalid arguments
