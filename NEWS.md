@@ -1,3 +1,7 @@
+# prioritizr 2.0.4 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 2.0.3.1 (unreleased)
 
 - Fix bug when solving problems with `numeric` vector data that caused an error.
