@@ -112,6 +112,7 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
         bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
                       upper = list(ind = seq_along(x$ub()), val = x$ub())),
         max = x$modelsense() == "max")
+      p <- as.list(self$parameters)
       p$verbosity <- -1
       if (!p$verbose)
         p$verbosity <- -2
@@ -123,11 +124,11 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       start_time <- Sys.time()
       s <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
       end_time <- Sys.time()
-      if (is.null(x$solution) ||
-          names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+      if (is.null(s$solution) ||
+          names(s$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
-      return(list(x = x$solution, objective = x$objval,
-                  status = as.character(x$status),
+      return(list(x = s$solution, objective = s$objval,
+                  status = as.character(s$status),
                   runtime = as.double(end_time - start_time,
                                       format = "seconds")))
     }))

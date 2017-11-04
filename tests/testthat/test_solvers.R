@@ -36,8 +36,8 @@ test_that("add_default_solver (spatial cost data)", {
 
 test_that("add_rsymphony_solver", {
   skip_on_cran()
-  # make data
   skip_if_not_installed("Rsymphony")
+  # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%

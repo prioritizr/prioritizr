@@ -1,6 +1,11 @@
-# prioritizr 2.0.4 (released)
+# prioritizr 2.0.4.1 (unreleased)
 
-- Release candidate for CRAN.
+- Fix bug with `add_lpsymphony_solver` causing error when attempting to solve
+  problems.
+
+# prioritizr 2.0.4 (unreleased)
+
+- Release candidate for CRAN. Release postponed due to bug report.
 
 # prioritizr 2.0.3.1 (unreleased)
 
