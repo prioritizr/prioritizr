@@ -1,3 +1,14 @@
+# prioritizr 3.0.0.0 (unreleased)
+
+- The `add_max_cover_objective` function has been renamed to the `add_max_utility_objective`,
+  because the formulation does not follow the historical formulation of the maximum coverage 
+  reserve selection problem (#38).
+- The `add_max_cover_objective` function now follows the historical maximum coverage objective.
+  This fundamentally changes `add_max_cover_objective` function and breaks compatibility
+  with previous version of _prioritizr_ (#38).
+- Modify _lpsymphony_ examples and tests to skip on Linux operating systems.
+- Add tests to unit tests that were being skipped in new version of _testthat_.
+
 # prioritizr 2.0.4.1 (unreleased)
 
 - Fix bug with `add_lpsymphony_solver` causing error when attempting to solve

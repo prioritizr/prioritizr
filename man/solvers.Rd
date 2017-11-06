@@ -87,9 +87,12 @@ if (requireNamespace("gurobi", quietly = TRUE)) {
 }
 
 # if the lpsymphony is installed: create problem with added lpsymphony solver
-if (requireNamespace("lpsymphony", quietly = TRUE)) {
+# note that this solver is skipped on Linux systems due to instability
+# issues
+if (requireNamespace("lpsymphony", quietly = TRUE) &
+    isTRUE(Sys.info()[["sysname"]] != "Linux")) {
   titles <- c(titles, "lpsymphony")
-  p4 <- p \%>\% add_lpsymphony_solver(gap = 0.1, time_limit = 5)
+  p4 <- p \%>\% add_lpsymphony_solver(gap = 0.1, time_limit = 10)
   s <- addLayer(s, solve(p4))
 }
 

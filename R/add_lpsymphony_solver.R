@@ -58,7 +58,10 @@ NULL
 #'   add_binary_decisions()
 #' \donttest{
 #' # if the package is installed then add solver and generate solution
-#' if (requireNamespace("lpsymphony", quietly = TRUE)) {
+#' # note that this solver is skipped on Linux systems due to instability
+#' # issues
+#' if (requireNamespace("lpsymphony", quietly = TRUE) &
+#'     isTRUE(Sys.info()[["sysname"]] != "Linux")) {
 #'   # specify solver and generate solution
 #'   s <- p %>% add_lpsymphony_solver(time_limit = 5) %>%
 #'              solve()

@@ -2,9 +2,9 @@ context("add_shuffle_portfolio")
 
 test_that("compile", {
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -13,14 +13,16 @@ test_that("compile", {
        add_default_solver(gap = 0.2)
   # compile problem
   cmp <- compile(p)
+  # tests
+  expect_is(cmp, "OptimizationProblem")
 })
 
 test_that("solve", {
   skip_on_cran()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   locked_in <- 2
   # create problem
   p <- problem(cost, features) %>%
@@ -43,9 +45,9 @@ test_that("solve (no duplicates)", {
   skip_on_cran()
   # create data
   set.seed(500)
-  cost <- raster::raster(matrix(c(1, 1, 0.5, NA), ncol = 2))
-  features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  cost <- raster::raster(matrix(c(1, 1, 0.5, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
@@ -68,9 +70,9 @@ test_that("solve (parallel processing)", {
   skip_on_cran()
   # create data
   set.seed(500)
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%

@@ -35,6 +35,10 @@ test_that("spatial data input (solve)", {
       add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)
+  # tests
+  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_true("solution_1" %in% names(s))
+  expect_true(is.numeric(s$solution_1))
 })
 
 test_that("character filename input (compile symmetric boundary penalties)", {
@@ -122,6 +126,10 @@ test_that("character filename input (solve symmetric boundary penalties)", {
     add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)
+  # tests
+  expect_is(s, "data.frame")
+  expect_true("solution_1" %in% names(s))
+  expect_true(is.numeric(s$solution_1))
 })
 
 test_that("character filename input (absolute INPUTDIR path)", {
@@ -137,6 +145,10 @@ test_that("character filename input (absolute INPUTDIR path)", {
        add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)
+  # tests
+  expect_is(s, "data.frame")
+  expect_true("solution_1" %in% names(s))
+  expect_true(is.numeric(s$solution_1))
 })
 
 test_that("character filename input (absolute file paths)", {
@@ -165,6 +177,10 @@ test_that("character filename input (absolute file paths)", {
        add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)
+  # tests
+  expect_is(s, "data.frame")
+  expect_true("solution_1" %in% names(s))
+  expect_true(is.numeric(s$solution_1))
 })
 
 test_that("data.frame input (compile asymmetric boundary penalties)", {
@@ -268,4 +284,8 @@ test_that("data.frame input (solve symmetric boundary penalties)", {
     add_default_solver(time_limit = 5)
   # check that problem can be solved
   s <- solve(p)
+  # tests
+  expect_is(s, "data.frame")
+  expect_true("solution_1" %in% names(s))
+  expect_true(is.numeric(s$solution_1))
 })

@@ -16,9 +16,10 @@ extern SEXP _prioritizr_rcpp_apply_corridor_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_in_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_out_constraints(SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_features_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_proportion_decisions(SEXP);
@@ -59,9 +60,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_feature_weights",                             (DL_FUNC) &_prioritizr_rcpp_apply_feature_weights,                             2},
     {"_prioritizr_rcpp_apply_locked_in_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_locked_in_constraints,                       2},
     {"_prioritizr_rcpp_apply_locked_out_constraints",                      (DL_FUNC) &_prioritizr_rcpp_apply_locked_out_constraints,                      2},
-    {"_prioritizr_rcpp_apply_max_cover_objective",                         (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                         4},
+    {"_prioritizr_rcpp_apply_max_cover_objective",                         (DL_FUNC) &_prioritizr_rcpp_apply_max_cover_objective,                         3},
     {"_prioritizr_rcpp_apply_max_features_objective",                      (DL_FUNC) &_prioritizr_rcpp_apply_max_features_objective,                      4},
     {"_prioritizr_rcpp_apply_max_phylo_objective",                         (DL_FUNC) &_prioritizr_rcpp_apply_max_phylo_objective,                         6},
+    {"_prioritizr_rcpp_apply_max_utility_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                       4},
     {"_prioritizr_rcpp_apply_min_set_objective",                           (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                           3},
     {"_prioritizr_rcpp_apply_neighbor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_neighbor_constraints,                        3},
     {"_prioritizr_rcpp_apply_proportion_decisions",                        (DL_FUNC) &_prioritizr_rcpp_apply_proportion_decisions,                        1},

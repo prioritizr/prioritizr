@@ -1,4 +1,4 @@
-  context("add_connectivity_penalties")
+context("add_connectivity_penalties")
 
 test_that("minimum set objective (compile binary decisions)", {
   ## make data
@@ -118,6 +118,9 @@ test_that("minimum set objective (solve binary decisions)", {
     add_connectivity_penalties(1, c_matrix) %>%
     add_default_solver(time_limit = 5) %>%
     solve()
+  # tests
+  expect_is(s, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s))) %in% c(0, 1)))
 })
 
 test_that("maximum representation objective (compile binary decisions)", {
@@ -231,11 +234,14 @@ test_that("maximum representation objective (solve binary decisions)", {
   c_matrix <- boundary_matrix(sim_pu_raster)
   class(c_matrix) <- "dgCMatrix"
   # check that the solution is feasible
-  p <- problem(sim_pu_raster, sim_features) %>%
-    add_max_features_objective(budget = 5000) %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_connectivity_penalties(1, c_matrix) %>%
-    add_default_solver(time_limit = 5) %>%
-    solve()
+  s <- problem(sim_pu_raster, sim_features) %>%
+       add_max_features_objective(budget = 5000) %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_connectivity_penalties(1, c_matrix) %>%
+       add_default_solver(time_limit = 5) %>%
+       solve()
+  # tests
+  expect_is(s, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s))) %in% c(0, 1)))
 })

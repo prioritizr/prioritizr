@@ -196,9 +196,12 @@ solving.</p><dl class='dl-horizontal'>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='input'>
 <span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='co'># note that this solver is skipped on Linux systems due to instability</span>
+<span class='co'># issues</span>
+<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;</span>
+    <span class='fu'>isTRUE</span>(<span class='fu'>Sys.info</span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"lpsymphony"</span>)
-  <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+  <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))
 }
 

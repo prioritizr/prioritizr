@@ -351,16 +351,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_max_cover_objective
-bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericVector abundances, Rcpp::NumericVector costs, double budget);
-RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericVector costs, double budget);
+RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type abundances(abundancesSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
     Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, abundances, costs, budget));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -391,6 +390,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets, costs, budget, branch_matrix, branch_lengths));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_max_utility_objective
+bool rcpp_apply_max_utility_objective(SEXP x, Rcpp::NumericVector abundances, Rcpp::NumericVector costs, double budget);
+RcppExport SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP xSEXP, SEXP abundancesSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type abundances(abundancesSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_utility_objective(x, abundances, costs, budget));
     return rcpp_result_gen;
 END_RCPP
 }

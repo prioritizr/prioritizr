@@ -161,16 +161,17 @@ optimization problems? Defaults to <code>TRUE</code>.</p></td>
   <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># if the package is installed then add solver and generate solution</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='co'># note that this solver is skipped on Linux systems due to instability</span>
+<span class='co'># issues</span>
+<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;</span>
+    <span class='fu'>isTRUE</span>(<span class='fu'>Sys.info</span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='co'># specify solver and generate solution</span>
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_lpsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
              <span class='fu'><a href='solve.html'>solve</a></span>()
 
   <span class='co'># plot solutions</span>
   <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>))
-}</div><img src='add_lsymphony_solver-2.png' alt='' width='540' height='400' /><div class='input'>
-
-</div></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

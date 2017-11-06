@@ -105,6 +105,9 @@ test_that("minimum set objective (solve binary decisions)", {
     add_boundary_penalties(2, 0.5) %>%
     add_default_solver(time_limit = 5) %>%
     solve()
+  # tests
+  expect_is(s, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s))) %in% c(0, 1)))
 })
 
 test_that("maximum coverage objective (compile binary decisions)", {
@@ -207,4 +210,7 @@ test_that("maximum coverage objective (solve binary decisions)", {
     add_boundary_penalties(2, 0.5) %>%
     add_default_solver(time_limit = 5) %>%
     solve()
+  # tests
+  expect_is(s, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s))) %in% c(0, 1)))
 })

@@ -123,6 +123,9 @@ default error message when solving.</strong></p>
   to <code>add_max_features_objective</code> except that emphasis is placed
   on phylogenetic representation rather than target representation. This
   objective requires the "ape" R package to be installed.</p></dd>
+    <dt><code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code></dt><dd><p>Set an objective to find the
+  solution that secures as much of each feature as possible without
+  exceeding the budget.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -153,8 +156,13 @@ default error message when solving.</strong></p>
 <span class='co'># create problem with added maximum phylogenetic representation objective</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>)
 
+<span class='co'># create problem with added maximum utility objective</span>
+<span class='co'># note that this objective does not use targets</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span>(<span class='fl'>5000</span>)
+
+
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -183,35 +191,21 @@ default error message when solving.</strong></p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
 #&gt;   Objective range  [1e-10, 1e+00]
-#&gt;   Bounds range     [1e+00, 7e+01]
+#&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective -0
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; Found heuristic solution: objective 5
 #&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 7.459075e+01, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
-#&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 74.121 -0 
+#&gt; Solution count 1: 5 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%
+#&gt; Best objective 5.000000002557e+00, best bound 5.000000009723e+00, gap 0.0000%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
@@ -251,16 +245,46 @@ default error message when solving.</strong></p>
 #&gt;      0     0    4.35330    0    1    0.00000    4.35330      -     -    0s
 #&gt; H    0     0                       4.3532957    4.35330  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (8 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (8 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4.3533 2.55673e-09 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.353295744699e+00, best bound 4.353295744699e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 4.353295744699e+00, best bound 4.353295744699e+00, gap 0.0000%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Variable types: 5 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [1e-10, 1e+00]
+#&gt;   Bounds range     [1e+00, 7e+01]
+#&gt;   RHS range        [5e+03, 5e+03]
+#&gt; Found heuristic solution: objective -0
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 7.459075e+01, 1 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
+#&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 74.121 -0 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum representation"</span>,
-                 <span class='st'>"phylogenetic representation"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='objectives-6.png' alt='' width='540' height='400' /><div class='input'>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum representation"</span>,
+              <span class='st'>"phylogenetic representation"</span>, <span class='st'>"maximum utility"</span>))</div><img src='objectives-8.png' alt='' width='540' height='400' /><div class='input'>
 
 </div></pre>
   </div>

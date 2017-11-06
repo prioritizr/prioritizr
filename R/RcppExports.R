@@ -121,8 +121,8 @@ rcpp_apply_locked_out_constraints <- function(x, indices) {
     .Call(`_prioritizr_rcpp_apply_locked_out_constraints`, x, indices)
 }
 
-rcpp_apply_max_cover_objective <- function(x, abundances, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, abundances, costs, budget)
+rcpp_apply_max_cover_objective <- function(x, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, costs, budget)
 }
 
 rcpp_apply_max_features_objective <- function(x, targets, costs, budget) {
@@ -131,6 +131,10 @@ rcpp_apply_max_features_objective <- function(x, targets, costs, budget) {
 
 rcpp_apply_max_phylo_objective <- function(x, targets, costs, budget, branch_matrix, branch_lengths) {
     .Call(`_prioritizr_rcpp_apply_max_phylo_objective`, x, targets, costs, budget, branch_matrix, branch_lengths)
+}
+
+rcpp_apply_max_utility_objective <- function(x, abundances, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, costs, budget)
 }
 
 rcpp_apply_min_set_objective <- function(x, targets, costs) {

@@ -257,7 +257,7 @@ p4 &lt;- problem(sim_pu_raster, sim_features) %&gt;%
 p4 &lt;- problem(sim_pu_raster, sim_features)
 p5 &lt;- p4 %&gt;% add_min_set_objective()</code></pre>
 <ul>
-<li><strong>Maximum cover objective</strong>: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.</li>
+<li><strong>Maximum cover objective</strong>: Used to represent one instance of as many features as possible within a given budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.</li>
 </ul>
 <pre class="r"><code>p4 &lt;- problem(sim_pu_raster, sim_features) %&gt;%
       add_max_cover_objective(budget = 5000)</code></pre>
@@ -272,6 +272,9 @@ p5 &lt;- p4 %&gt;% add_min_set_objective()</code></pre>
 <pre class="r"><code>data(sim_phylogeny) #load simulated phylogeny data
 p4 &lt;- problem(sim_pu_raster, sim_features) %&gt;%
       add_max_phylo_objective(budget = 5000, tree = sim_phylogeny)</code></pre>
+<ul>
+<li><strong>Maximum utility objective</strong>: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.</li>
+</ul>
 <p>The <code>%&gt;%</code> notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the <a href="prioritizr_basics.html">Prioritizr Basics</a> vignette.</p>
 </div>
 <div id="add-targets" class="section level3">

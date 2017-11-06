@@ -49,6 +49,10 @@ NULL
 #'   on phylogenetic representation rather than target representation. This
 #'   objective requires the "ape" R package to be installed.}
 #'
+#'   \item{\code{\link{add_max_utility_objective}}}{Set an objective to find the
+#'   solution that secures as much of each feature as possible without
+#'   exceeding the budget.}
+#'
 #'  }
 #'
 #' @seealso \code{\link{constraints}}, \code{\link{decisions}},
@@ -75,13 +79,19 @@ NULL
 #'
 #' # create problem with added maximum phylogenetic representation objective
 #' p4 <- p %>% add_max_phylo_objective(5000, sim_phylogeny)
+#'
+#' # create problem with added maximum utility objective
+#' # note that this objective does not use targets
+#' p5 <- p %>% add_max_utility_objective(5000)
+#'
 #' \donttest{
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
 #'
 #' # plot solutions
-#' plot(s, main = c("minimum set", "maximum coverage", "maximum representation",
-#'                  "phylogenetic representation"), axes = FALSE, box = FALSE)
+#' plot(s, axes = FALSE, box = FALSE,
+#'      main = c("minimum set", "maximum coverage", "maximum representation",
+#'               "phylogenetic representation", "maximum utility"))
 #' }
 #'
 #' @name objectives

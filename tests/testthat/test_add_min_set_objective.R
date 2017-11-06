@@ -25,11 +25,11 @@ test_that("compile (compressed formulation)", {
 test_that("solve (compressed formulation)", {
   skip_on_cran()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
           add_min_set_objective() %>%
@@ -88,11 +88,11 @@ test_that("compile (expanded formulation)", {
 test_that("solve (expanded formulation)", {
   skip_on_cran()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 2))
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
           add_min_set_objective() %>%

@@ -2,11 +2,9 @@ context("solve")
 
 test_that("x=Raster, y=RasterStack", {
   # simulate data
-  costs <- raster::raster(matrix(c(1, 2, NA, 3), byrow = TRUE, ncol = 2))
-  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), byrow = TRUE,
-                                                            ncol = 2)),
-                       raster::raster(matrix(c(NA, 0, 1, 1), byrow = TRUE,
-                                                            ncol = 2)))
+  costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), ncol = 4)),
+                       raster::raster(matrix(c(NA, 0, 1, 1), ncol = 4)))
   # solve problem
   s <- problem(costs, spp) %>%
        add_min_set_objective() %>%

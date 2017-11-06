@@ -53,12 +53,11 @@ test_that("solution (compressed formulation)", {
   skip_on_cran()
   budget <- 4.23
   # create data
-  cost <- raster::raster(matrix(c(1, 2, NA, 4), ncol = 2))
-  locked_in <- 2
+  cost <- raster::raster(matrix(c(1, 2, NA, 4), ncol = 4))
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)),
-                            raster::raster(matrix(c(0, 0, 0, 2), ncol = 2)))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)),
+                            raster::raster(matrix(c(0, 0, 0, 2), ncol = 4)))
   tr <- list(tip.label = c("layer.1", "layer.2", "layer.3"),
              edge.length = c(1, 1, 1, 100),
              Nnode = 2L,
@@ -74,13 +73,12 @@ test_that("solution (compressed formulation)", {
   p <- problem(cost, features) %>%
     add_max_phylo_objective(budget = budget, tree = tr) %>%
     add_absolute_targets(c(2, 12, 2)) %>%
-    add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(time_limit = 5)
   # solve problem
   s <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, NA, 0, 1))
+  expect_equal(raster::values(s), c(0, 0, NA, 1))
 })
 
 test_that("compile (expanded formulation)", {
@@ -151,13 +149,12 @@ test_that("compile (expanded formulation)", {
 test_that("solution (expanded formulation)", {
   skip_on_cran()
   # create data
-  cost <- raster::raster(matrix(c(1, 2, NA, 4), ncol = 2))
+  cost <- raster::raster(matrix(c(1, 2, NA, 4), ncol = 4))
   budget <- 4.23
-  locked_in <- 2
   locked_out <- 1
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 2)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 2)),
-                            raster::raster(matrix(c(0, 0, 0, 2), ncol = 2)))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)),
+                            raster::raster(matrix(c(0, 0, 0, 2), ncol = 4)))
   tr <- list(tip.label = c("layer.1", "layer.2", "layer.3"),
              edge.length = c(1, 1, 1, 100),
              Nnode = 2L,
@@ -173,13 +170,12 @@ test_that("solution (expanded formulation)", {
   p <- problem(cost, features) %>%
     add_max_phylo_objective(budget = budget, tree = tr) %>%
     add_absolute_targets(c(2, 12, 2)) %>%
-    add_locked_in_constraints(locked_in) %>%
     add_locked_out_constraints(locked_out) %>%
     add_default_solver(time_limit = 5)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, NA, 0, 1))
+  expect_equal(raster::values(s), c(0, 0, NA, 1))
 })
 
 test_that("invalid inputs", {

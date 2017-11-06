@@ -83,9 +83,11 @@
     </div>
 
     
-    <p>Set an objective to find the solution that secures as much of each feature
-as possible without exceeding the budget. This type of objective does not
-require the addition of targets.</p>
+    <p>Set an objective to find the solution aims to represent one instance of
+as many features as possible within a given budget. This type of objective
+does not require the addition of targets. The mathematical formulation
+underpinning this function is different from versions prior to 3.0.0.0;
+see Details section for more information.</p>
     
 
     <pre class="usage"><span class='fu'>add_max_cover_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>)</pre>
@@ -112,27 +114,51 @@ planning problems formulated in the prioritizr package require the addition
 of objectives</strong>. Failing to do so will return a default error message
 when solving.</p>
 <p>The maximum coverage problem seeks to find the set of planning units that
-maximizes the overall level of representation across a suite of conservation
-features, while keeping cost within a fixed budget. This problem is roughly
-the opposite of what the conservation planning software Marxan does.</p>
+maximizes the number of represented features, while keeping cost within a
+fixed budget. Here, features are treated as being represented if
+the reserve system contains any non-zero amount of the feature
+(specifically, an amount greater than 1). One
+situation where these problem formulation could be useful is when dealing
+with binary biodiversity data which indicate the presence of suitable
+habitat. Check out the <code><a href='add_max_features_objective.html'>add_max_features_objective</a></code> for a more
+generalized formulation which can accommodate user-specified representation
+targets.</p>
+<p>In versions prior to 3.0.0.0, this objective function was implemented a
+different mathematical formulation. This formulation is based on the
+historical maximum coverage reserve selection formulation (Church &amp; Velle
+1974; Church <em>et al.</em> 1996). To access the formulation used in versions
+prior to 3.0.0.0, please see the <code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code>
+function.</p>
 <p>The maximum coverage objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\(I\) indexed by
 \(i\)) and a set of features (\(J\) indexed by \(j\)) as:
     $$\mathit{Maximize} \space \sum_{i = 1}^{I} s \space c_i +
-\sum_{j = 1}^{J} a_j w_j \\
-\mathit{subject \space to} \\ a_j = \sum_{i = 1}^{I} x_i r_{ij} \space
-\forall j \in J \\ \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
+\sum_{j = 1}^{J} y_j w_j \\
+\mathit{subject \space to} \\
+\sum_{i = 1}^{I} x_i r_{ij} &gt;= y_j \times 1 \forall j \in J \\
+\sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning unit
-\(i\), \(A_j\) is the amount of feature \(j\) represented in
-in the solution, and \(w_j\) is the weight for feature \(j\)
-(defaults to 1 for all features; see <code><a href='add_feature_weights.html'>add_feature_weights</a></code>
-to specify weights). Additionally, \(B\) is the budget allocated for
-the solution, \(c_i\) is the cost of planning unit \(i\), and
-\(s\) is a scaling factor used to shrink the costs so that the problem
-will return a cheapest solution when there are multiple solutions that
-represent the same amount of all features within the budget.</p>
+\(i\), \(y_j\) indicates if the solution has meet
+the target \(t_j\) for feature \(j\), and \(w_j\) is the
+weight for feature \(j\) (defaults to 1 for all features; see
+<code><a href='add_feature_weights.html'>add_feature_weights</a></code> to specify weights). Additionally,
+\(B\) is the budget allocated for the solution, \(c_i\) is the
+cost of planning unit \(i\), and \(s\) is a scaling factor used to
+shrink the costs so that the problem will return a cheapest solution when
+there are multiple solutions that represent the same amount of all features
+within the budget.</p>
+<p>Note that this formulation is functionally equivalent to the
+<code><a href='add_max_features_objective.html'>add_max_features_objective</a></code> function with absolute targets
+set to 1.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Church RL and Velle CR (1974) The maximum covering location problem.
+<em>Regional Science</em>, 32: 101--118.</p>
+<p>Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
+covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -143,42 +169,49 @@ represent the same amount of all features within the budget.</p>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
+<span class='co'># set a 90th percentile threshold to the feature data</span>
+<span class='no'>sim_features_binary</span> <span class='kw'>&lt;-</span> <span class='no'>sim_features</span>
+<span class='no'>thresholds</span> <span class='kw'>&lt;-</span> <span class='kw'>raster</span><span class='kw'>::</span><span class='fu'>quantile</span>(<span class='no'>sim_features</span>, <span class='kw'>probs</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+                               <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_len</span>(<span class='kw'>raster</span><span class='kw'>::</span><span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)))
+  <span class='no'>sim_features_binary</span><span class='kw'>[[</span><span class='no'>i</span>]] <span class='kw'>&lt;-</span> <span class='fu'>as.numeric</span>(<span class='kw'>raster</span><span class='kw'>::</span><span class='fu'>values</span>(<span class='no'>sim_features</span><span class='kw'>[[</span><span class='no'>i</span>]]) <span class='kw'>&gt;</span>
+                                         <span class='no'>thresholds</span><span class='kw'>[[</span><span class='no'>i</span>]])
+
 <span class='co'># create problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features_binary</span>) <span class='kw'>%&gt;%</span>
      <span class='fu'>add_max_cover_objective</span>(<span class='fl'>5000</span>) <span class='kw'>%&gt;%</span>
      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 140 nonzeros
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Matrix range     [1e+00, 2e+02]
 #&gt;   Objective range  [1e-10, 1e+00]
-#&gt;   Bounds range     [1e+00, 7e+01]
+#&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective -0
-#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Found heuristic solution: objective 3
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
+#&gt; Presolved: 6 rows, 95 columns, 140 nonzeros
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
+#&gt; Presolve removed 0 rows and 57 columns
+#&gt; Presolved: 6 rows, 38 columns, 83 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.459075e+01, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.000000e+00, 7 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0   74.59075    0    1   -0.00000   74.59075      -     -    0s
-#&gt; H    0     0                      74.1209659   74.59075  0.63%     -    0s
+#&gt; *    0     0               0       5.0000000    5.00000  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (7 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 74.121 -0 
+#&gt; Solution count 2: 5 3 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%</div><div class='input'>
+#&gt; Best objective 5.000000002567e+00, best bound 5.000000002567e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_max_cover_objective-4.png' alt='' width='540' height='400' /><div class='input'>
 
@@ -191,6 +224,8 @@ represent the same amount of all features within the budget.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

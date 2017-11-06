@@ -84,6 +84,16 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-3-0-0-0-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-3-0-0-0-unreleased" class="anchor"></a>prioritizr 3.0.0.0 (unreleased)</h1>
+<ul>
+<li>The <code>add_max_cover_objective</code> function has been renamed to the <code>add_max_utility_objective</code>, because the formulation does not follow the historical formulation of the maximum coverage reserve selection problem (#38).</li>
+<li>The <code>add_max_cover_objective</code> function now follows the historical maximum coverage objective. This fundamentally changes <code>add_max_cover_objective</code> function and breaks compatibility with previous version of <em>prioritizr</em> (#38).</li>
+<li>Modify <em>lpsymphony</em> examples and tests to skip on Linux operating systems.</li>
+<li>Add tests to unit tests that were being skipped in new version of <em>testthat</em>.</li>
+</ul>
+</div>
     <div id="prioritizr-2-0-4-1-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-2-0-4-1-unreleased" class="anchor"></a>prioritizr 2.0.4.1 (unreleased)</h1>
@@ -424,6 +434,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-3-0-0-0-unreleased">3.0.0.0</a></li>
         <li><a href="#prioritizr-2-0-4-1-unreleased">2.0.4.1</a></li>
         <li><a href="#prioritizr-2-0-4-unreleased">2.0.4</a></li>
         <li><a href="#prioritizr-2-0-3-1-unreleased">2.0.3.1</a></li>

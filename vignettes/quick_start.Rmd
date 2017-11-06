@@ -192,7 +192,7 @@ p4 <- problem(sim_pu_raster, sim_features)
 p5 <- p4 %>% add_min_set_objective()
 ```
 
-* __Maximum cover objective__: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
+* __Maximum cover objective__: Used to represent one instance of as many features as possible within a given budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
 
 ```{r, eval = FALSE}
 p4 <- problem(sim_pu_raster, sim_features) %>%
@@ -213,6 +213,8 @@ data(sim_phylogeny) #load simulated phylogeny data
 p4 <- problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_objective(budget = 5000, tree = sim_phylogeny)
 ```
+
+* __Maximum utility objective__: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
 
 The `%>%` notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the [Prioritizr Basics](prioritizr_basics.html) vignette.
 
