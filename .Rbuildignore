@@ -9,6 +9,7 @@ NEWS.md
 .gitkeep
 ^Makefile$
 cran-comments.md
+CRAN-RELEASE
 _pkgdown.yml
 check.log
 test.log
