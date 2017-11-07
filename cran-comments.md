@@ -1,3 +1,8 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Resolved the invalid URL http://bioconducto/packages/release/bioc/html/lpsymphony.html to http://bioconductor.org/packages/release/bioc/html/lpsymphony.html
+
 # Comments for submission to CRAN
 
 ## Test environments
