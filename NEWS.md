@@ -1,3 +1,7 @@
+# prioritizr 3.0.1 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 3.0.0.0 (unreleased)
 
 - The `add_max_cover_objective` function has been renamed to the `add_max_utility_objective`,
