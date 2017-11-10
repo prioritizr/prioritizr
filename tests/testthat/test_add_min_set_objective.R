@@ -24,6 +24,7 @@ test_that("compile (compressed formulation)", {
 
 test_that("solve (compressed formulation)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
@@ -36,7 +37,7 @@ test_that("solve (compressed formulation)", {
           add_absolute_targets(c(2, 10)) %>%
           add_locked_in_constraints(locked_in) %>%
           add_locked_out_constraints(locked_out) %>%
-          add_default_solver(time_limit = 5)
+          add_default_solver(gap = 0)
   # solve problem
   s <- solve(p)
   # test for correct solution
@@ -87,6 +88,7 @@ test_that("compile (expanded formulation)", {
 
 test_that("solve (expanded formulation)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2
@@ -99,7 +101,7 @@ test_that("solve (expanded formulation)", {
           add_absolute_targets(c(2, 10)) %>%
           add_locked_in_constraints(locked_in) %>%
           add_locked_out_constraints(locked_out) %>%
-          add_default_solver(time_limit = 5)
+          add_default_solver(gap = 0)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution

@@ -46,6 +46,9 @@ gpcheck:
 	echo "\n===== GOOD PRACTICES CHECK =====\n" > gp.log 2>&1
 	R --slave -e "goodpractice::gp(checks = setdiff(goodpractice::all_checks(), c('covr', 'cyclocomp', 'no_description_depends', 'no_import_package_as_a_whole')), quiet = FALSE)" >> gp.log 2>&1
 
+solarischeck:
+	R --slave -e "rhub::check(platform = 'solaris-x86-patched', email = 'jeffrey.hanson@uqconnect.edu.au', show_status = FALSE)"
+
 build:
 	R --slave -e "devtools::build()"
 

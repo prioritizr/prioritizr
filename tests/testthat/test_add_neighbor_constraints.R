@@ -30,8 +30,9 @@ test_that("compile", {
 
 test_that("solve", {
   skip_on_cran()
-  data(sim_pu_polygons, sim_features)
+  skip_if_not(any_solvers_installed())
   # create problem
+  data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%

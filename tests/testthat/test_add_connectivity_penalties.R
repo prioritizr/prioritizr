@@ -106,6 +106,7 @@ test_that("minimum set objective (compile binary decisions)", {
 
 test_that("minimum set objective (solve binary decisions)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_raster, sim_features)
   c_matrix <- boundary_matrix(sim_pu_raster)
@@ -229,6 +230,7 @@ test_that("maximum representation objective (compile binary decisions)", {
 
 test_that("maximum representation objective (solve binary decisions)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   ## make data
   data(sim_pu_raster, sim_features)
   c_matrix <- boundary_matrix(sim_pu_raster)

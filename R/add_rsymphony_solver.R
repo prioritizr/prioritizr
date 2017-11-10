@@ -18,16 +18,10 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param gap \code{numeric} gap to optimality. This gap is relative when
-#'   solving problems using \code{gurobi}, and will cause the optimizer to
-#'   terminate when the difference between the upper and lower objective
-#'   function bounds is less than the gap times the upper bound. For example, a
-#'   value of 0.01 will result in the optimizer stopping when the difference
-#'   between the bounds is 1 percent of the upper bound. But for other solvers
-#'   (e.g. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
-#'   deviance from the optimal objective. For example, solving a
-#'   minimum set objective problem with a gap of 5 will cause the solver
-#'   to terminate when the cost of the solution is within 5 cost units
+#' @param gap \code{numeric} gap to optimality. This gap is absolute and
+#'   expresses the acceptable deviance from the optimal objective. For example,
+#'   solving a minimum set objective problem with a gap of 5 will cause the
+#'   solver to terminate when the cost of the solution is within 5 cost units
 #'   from the optimal solution.
 #'
 #' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
@@ -81,7 +75,7 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap), isTRUE(gap <= 1),
+                          assertthat::is.scalar(gap),
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.scalar(time_limit),
                           assertthat::is.count(time_limit) || isTRUE(time_limit
@@ -97,7 +91,7 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
     Solver,
     name = "Rsymphony",
     parameters = parameters(
-      proportion_parameter("gap", gap),
+      numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1,
                         upper_limit = .Machine$integer.max),
       binary_parameter("first_feasible", first_feasible),
@@ -111,7 +105,7 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
         types = x$vtype(),
         bounds = list(lower = list(ind = seq_along(x$lb()), val = x$lb()),
                       upper = list(ind = seq_along(x$ub()), val = x$ub())),
-        max = x$modelsense() == "max")
+        max = isTRUE(x$modelsense() == "max"))
       p <- as.list(self$parameters)
       p$verbosity <- -1
       if (!p$verbose)

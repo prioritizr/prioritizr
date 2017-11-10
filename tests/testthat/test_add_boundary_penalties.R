@@ -96,6 +96,7 @@ test_that("minimum set objective (compile binary decisions)", {
 
 test_that("minimum set objective (solve binary decisions)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # check that solution is feasible
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%
@@ -202,6 +203,7 @@ test_that("maximum coverage objective (compile binary decisions)", {
 
 test_that("maximum coverage objective (solve binary decisions)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # check that solution is feasible
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%

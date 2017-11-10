@@ -1,6 +1,8 @@
 context("solve")
 
 test_that("x=Raster, y=RasterStack", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # simulate data
   costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
   spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), ncol = 4)),
@@ -20,6 +22,9 @@ test_that("x=Raster, y=RasterStack", {
 })
 
 test_that("x=SpatialPolygonsDataFrame, y=RasterStack", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
+  # make data
   costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost <- c(1, 2, NA, 3)
@@ -40,6 +45,9 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack", {
 })
 
 test_that("x=SpatialPolygonsDataFrame, y=character", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
+  # make data
   costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost <- c(1, 2, NA, 3)
@@ -58,6 +66,8 @@ test_that("x=SpatialPolygonsDataFrame, y=character", {
 })
 
 test_that("x=data.frame, y=data.frame", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # simulate data
   pu <- data.frame(id = seq_len(4), cost = c(1, 2, 1000, 3))
   species <- data.frame(id = seq_len(2), name = letters[1:2])
@@ -76,6 +86,8 @@ test_that("x=data.frame, y=data.frame", {
 })
 
 test_that("x=numeric, y=data.frame", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # simulate data
   pu <- data.frame(id = seq_len(4), cost = c(1, 2, 1000, 3))
   species <- data.frame(id = seq_len(2), name = letters[1:2])

@@ -220,3 +220,19 @@ align_text <- function(x, n) {
   return(gsub("\n", paste0("\n", paste(rep(" ", n), collapse = "")), x,
               fixed = TRUE))
 }
+
+#' Any solvers installed?
+#'
+#' Test if any solvers are installed.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \code{Rsymphony}, \code{lpsymphony}, \code{gurobi}.
+#'
+#' @return \code{logical} value indicating if any solvers are installed.
+#'
+#' @noRd
+any_solvers_installed <- function() {
+  any(c(requireNamespace("Rsymphony", quietly = TRUE),
+        requireNamespace("lpsymphony", quietly = TRUE),
+        requireNamespace("gurobi", quietly = TRUE)))
+}

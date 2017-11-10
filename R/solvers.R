@@ -16,8 +16,8 @@ NULL
 #'  \item{\code{add_default_solver}}{This solver uses the best software
 #'    currently installed on the system.}
 #'
-#'   \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{Gurobi} is a
-#'     state-of-the-art commercial optimization software with an R package
+#'   \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{Gurobi} is
+#'     a state-of-the-art commercial optimization software with an R package
 #'     interface. It is by far the fastest of the solvers available in this
 #'     package, however, it is also the only solver that is not freely
 #'     available. That said, licenses are available to academics at no cost. The

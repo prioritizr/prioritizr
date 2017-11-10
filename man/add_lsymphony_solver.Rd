@@ -11,16 +11,10 @@ add_lpsymphony_solver(x, gap = 0.1, time_limit = -1, first_feasible = 0,
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{gap}{\code{numeric} gap to optimality. This gap is relative when
-solving problems using \code{gurobi}, and will cause the optimizer to
-terminate when the difference between the upper and lower objective
-function bounds is less than the gap times the upper bound. For example, a
-value of 0.01 will result in the optimizer stopping when the difference
-between the bounds is 1 percent of the upper bound. But for other solvers
-(e.g. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
-deviance from the optimal objective. For example, solving a
-minimum set objective problem with a gap of 5 will cause the solver
-to terminate when the cost of the solution is within 5 cost units
+\item{gap}{\code{numeric} gap to optimality. This gap is absolute and
+expresses the acceptable deviance from the optimal objective. For example,
+solving a minimum set objective problem with a gap of 5 will cause the
+solver to terminate when the cost of the solution is within 5 cost units
 from the optimal solution.}
 
 \item{time_limit}{\code{numeric} time limit in seconds to run the optimizer.

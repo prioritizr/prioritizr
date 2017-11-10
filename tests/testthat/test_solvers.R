@@ -2,6 +2,7 @@ context("solvers")
 
 test_that("add_default_solver (raster cost data)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -19,6 +20,7 @@ test_that("add_default_solver (raster cost data)", {
 
 test_that("add_default_solver (spatial cost data)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%

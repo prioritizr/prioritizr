@@ -24,6 +24,7 @@ test_that("integer locked in data (compile)", {
 
 test_that("integer locked in data (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%
@@ -85,6 +86,7 @@ test_that("character locked in data (compile)", {
 
 test_that("character locked in data (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
   s <- problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -156,6 +158,7 @@ test_that("raster locked in data (compile)", {
 
 test_that("raster locked in data (compile)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_locked_in_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%
@@ -215,6 +218,7 @@ test_that("spatial locked in data (compile)", {
 
 test_that("spatial locked in data (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
   s <- problem(sim_pu_polygons, sim_features, "cost") %>%

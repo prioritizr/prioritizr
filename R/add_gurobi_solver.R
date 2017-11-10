@@ -23,12 +23,7 @@ NULL
 #'   terminate when the difference between the upper and lower objective
 #'   function bounds is less than the gap times the upper bound. For example, a
 #'   value of 0.01 will result in the optimizer stopping when the difference
-#'   between the bounds is 1 percent of the upper bound. But for other solvers
-#'   (e.g. \code{Rsymhpony}), this gap is absolute and expresses the acceptable
-#'   deviance from the optimal objective. For example, solving a
-#'   minimum set objective problem with a gap of 5 will cause the solver
-#'   to terminate when the cost of the solution is within 5 cost units
-#'   from the optimal solution.
+#'   between the bounds is 1 percent of the upper bound.
 #'
 #' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
 #'   The solver will return the current best solution when this time limit is
@@ -91,7 +86,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
-                          assertthat::is.scalar(gap), isTRUE(gap <= 1),
+                          assertthat::is.scalar(gap),
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.count(time_limit),
                           isTRUE(all(is.finite(presolve))),
@@ -109,7 +104,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     Solver,
     name = "Gurobi",
     parameters = parameters(
-      proportion_parameter("gap", gap),
+      numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
                         upper_limit = as.integer(.Machine$integer.max)),
       integer_parameter("presolve", presolve, lower_limit = 0L,

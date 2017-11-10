@@ -27,6 +27,7 @@ test_that("spatial data input (compile)", {
 
 test_that("spatial data input (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make problem
   data(sim_pu_polygons, sim_features)
   p <- marxan_problem(sim_pu_polygons, features = sim_features, targets = 0.2,
@@ -120,6 +121,7 @@ test_that("character filename input (compile symmetric boundary penalties)", {
 
 test_that("character filename input (solve symmetric boundary penalties)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   p <- marxan_problem(path) %>%
@@ -134,6 +136,7 @@ test_that("character filename input (solve symmetric boundary penalties)", {
 
 test_that("character filename input (absolute INPUTDIR path)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
   f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
@@ -153,6 +156,7 @@ test_that("character filename input (absolute INPUTDIR path)", {
 
 test_that("character filename input (absolute file paths)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
   f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
@@ -270,6 +274,7 @@ test_that("data.frame input (compile asymmetric boundary penalties)", {
 
 test_that("data.frame input (solve symmetric boundary penalties)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   wd <- system.file("extdata/input", package = "prioritizr")

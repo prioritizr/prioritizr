@@ -1,15 +1,24 @@
+# prioritizr 3.0.1.1 (unreleased)
+
+- Unit tests for `add_*_objectives` now pass when executed with slow solvers
+  (partially addressing #40).
+- `compile` now works when no solvers are installed (#41).
+- gap arguments in `add_*_solvers` are now unbounded and can accept values
+  larger than 1 (#44).
+
 # prioritizr 3.0.1 (released)
 
 - Release candidate for CRAN.
 
 # prioritizr 3.0.0.0 (unreleased)
 
-- The `add_max_cover_objective` function has been renamed to the `add_max_utility_objective`,
-  because the formulation does not follow the historical formulation of the maximum coverage 
-  reserve selection problem (#38).
-- The `add_max_cover_objective` function now follows the historical maximum coverage objective.
-  This fundamentally changes `add_max_cover_objective` function and breaks compatibility
-  with previous version of _prioritizr_ (#38).
+- The `add_max_cover_objective` function has been renamed to the
+  `add_max_utility_objective`, because the formulation does not follow the
+  historical formulation of the maximum coverage  reserve selection problem
+  (#38).
+- The `add_max_cover_objective` function now follows the historical maximum
+  coverage objective. This fundamentally changes `add_max_cover_objective`
+  function and breaks compatibility with previous version of _prioritizr_ (#38).
 - Modify _lpsymphony_ examples and tests to skip on Linux operating systems.
 - Add tests to unit tests that were being skipped in new version of _testthat_.
 

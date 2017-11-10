@@ -115,6 +115,7 @@ test_that("compile", {
 
 test_that("solve", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   spp1.habitat <- raster::raster(matrix(c(
     5, 0, 5,
@@ -194,6 +195,8 @@ test_that("list input (compile)", {
 
 test_that("list input (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
+  # make data
   spp1.habitat <- raster::raster(matrix(c(
     5, 0, 5,
     0, 0, 0,

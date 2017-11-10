@@ -21,6 +21,7 @@ test_that("compile", {
 
 test_that("solve (number_solutions within feasible limit)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   features <- raster::stack(raster::raster(matrix(c(2, 2, 1, 0), ncol = 4)),
@@ -44,6 +45,7 @@ test_that("solve (number_solutions within feasible limit)", {
 test_that("solve (number_solutions outside limit)", {
   skip_on_cran()
   skip_on_travis()
+  skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),

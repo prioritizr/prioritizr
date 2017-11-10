@@ -17,6 +17,7 @@ test_that("add_binary_decisions (compile)", {
 
 test_that("add_binary_decisions (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%
@@ -46,6 +47,7 @@ test_that("add_proportion_decisions (compile)", {
 
 test_that("add_proportion_decisions (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%
@@ -81,6 +83,7 @@ test_that("add_semicontinuous_decisions (compile)", {
 
 test_that("add_semicontinuous_decisions (solve)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
   s <- problem(sim_pu_raster, sim_features) %>%

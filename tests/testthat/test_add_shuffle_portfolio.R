@@ -19,6 +19,7 @@ test_that("compile", {
 
 test_that("solve", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
@@ -43,6 +44,7 @@ test_that("solve", {
 
 test_that("solve (no duplicates)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   set.seed(500)
   cost <- raster::raster(matrix(c(1, 1, 0.5, NA), ncol = 4))
@@ -68,6 +70,7 @@ test_that("solve (no duplicates)", {
 
 test_that("solve (parallel processing)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   set.seed(500)
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -91,6 +94,7 @@ test_that("solve (parallel processing)", {
 
 test_that("solve (SpatialPolygonsDataFrame)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons, sim_features)
   # create problem
@@ -113,6 +117,7 @@ test_that("solve (SpatialPolygonsDataFrame)", {
 
 test_that("solve (numeric)", {
   skip_on_cran()
+  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons, sim_features)
   costs <- sim_pu_polygons$cost
