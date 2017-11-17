@@ -1,3 +1,8 @@
+# prioritizr 3.0.2 (released)
+
+- Release candidate for CRAN.
+
+
 # prioritizr 3.0.1.1 (unreleased)
 
 - Unit tests for `add_*_objectives` now pass when executed with slow solvers
