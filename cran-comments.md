@@ -13,9 +13,9 @@
 
 * checking installed package size
 
-    installed size is  6.8Mb
+    installed size is  6.7Mb
     sub-directories of 1Mb or more:
-      doc    3.4Mb
+      doc    3.3Mb
       libs   2.3Mb
 
   The package contains multiple vignettes to teach users how to use it.
