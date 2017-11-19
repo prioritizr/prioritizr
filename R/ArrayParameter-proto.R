@@ -106,7 +106,7 @@ ArrayParameter <- pproto(
       max(self$value), ")")
   },
   validate = function(self, x) {
-    assertthat:::assert_that(inherits(x, "data.frame"))
+    assertthat::assert_that(inherits(x, "data.frame"))
     invisible(assertthat::see_if(
       identical(names(x), "value"),
       all(is.finite(x[[1]])),
