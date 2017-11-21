@@ -21,7 +21,7 @@ os:
 matrix:
   exclude:
     - os: osx
-    - r: devel
+      r: devel
 
 env:
   global:
