@@ -88,6 +88,11 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
                           isTRUE(first_feasible == 1 || isTRUE(first_feasible
                             == 0)),
                           requireNamespace("lpsymphony", quietly = TRUE))
+  # throw warning about bug in lpsymphony
+  if (utils::packageVersion("lpsymphony") <= as.package_version("1.4.1"))
+    warning(paste0("The solution may be incorrect due to a bug in ",
+                   "lpsymphony. Please verify that it is correct, ",
+                   "or use a different solver to generate solutions."))
   # add solver
   x$add_solver(pproto(
     "LpsymphonySolver",

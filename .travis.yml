@@ -50,17 +50,11 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "install.packages('sp')"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PKG_CONFIG=/usr/local/bin/pkg-config; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then export PKG_CONFIG_PATH=/usr/local/lib/pkg-config/; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew tap coin-or-tools/coinor; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install symphony; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 before_script:
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "print(dir('/usr/local/Cellar/symphony'))"; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "v<-dir('/usr/local/Cellar/symphony')[1];install.packages('Rsymphony', type='source', configure.args=paste0('--with-SYMPHONY-include=/usr/local/Cellar/symphony/',v,'/include/ --with-SYMPHONY-lib=/usr/local/Cellar/symphony/',v,'/lib/'))"; fi;
-  - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"; fi;
 
 r_packages:
   - covr

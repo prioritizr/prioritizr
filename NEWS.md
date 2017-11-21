@@ -1,10 +1,15 @@
+# prioritizr 3.0.2.2 (unreleased)
+
+- `add_lpsymphony_solver` now throws warnings to alert users to potentially
+  incorrect solutions (partially addressing #40).
+
 # prioritizr 3.0.2.1 (unreleased)
 
 - Vignette sizes have been reduced.
 
 # prioritizr 3.0.2 (unreleased)
 
-- Release candidate for CRAN. Release postponed.
+- Release candidate for CRAN. Release postponed due issues on Travis CI.
 
 # prioritizr 3.0.1.1 (unreleased)
 

@@ -42,7 +42,7 @@ Citation
 
 To cite package '*prioritizr*' in publications please use:
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 3.0.2.1. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 3.0.2.2. https://github.com/prioritizr/prioritizr.
 
 Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use *prioritizr*, so please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the list.
 
@@ -145,7 +145,7 @@ s1 <- solve(p1)
     ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
     ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
     ## 
-    ## Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3597.1 4135.27 
@@ -167,7 +167,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.005532026
+    ## 0.004486799
 
 ``` r
 # extract message returned from solver
@@ -268,7 +268,7 @@ s3 <- solve(p3)
     ## H    0     0                    6154.1018384 5477.09167  11.0%     -    0s
     ## H    0     0                    5944.9791739 5477.09167  7.87%     -    0s
     ## 
-    ## Explored 1 nodes (124 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (124 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5944.98 6154.1 6420.2 20287.2 
@@ -343,7 +343,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 23
     ## 
-    ## Explored 27 nodes (1243 simplex iterations) in 0.31 seconds
+    ## Explored 27 nodes (1243 simplex iterations) in 0.22 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 6482.4 12281.1 

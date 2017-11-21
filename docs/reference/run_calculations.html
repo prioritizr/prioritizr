@@ -267,7 +267,7 @@ run multiple times.</p>
 #&gt;      0     0 1742.89982    0   11 2161.26789 1742.89982  19.4%     -    0s
 #&gt; H    0     0                    1808.8782232 1742.89982  3.65%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (34 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (34 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 1808.88 2161.27 18523.2 
@@ -297,7 +297,7 @@ run multiple times.</p>
 #&gt;      0     0 3520.50952    0   13 4155.27447 3520.50952  15.3%     -    0s
 #&gt; H    0     0                    3613.3501753 3520.50952  2.57%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (61 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (61 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3613.35 4155.27 18523.2 
@@ -327,7 +327,7 @@ run multiple times.</p>
 #&gt;      0     0 5323.62085    0   19 6193.03484 5323.62085  14.0%     -    0s
 #&gt; H    0     0                    5455.1404915 5323.62085  2.41%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (66 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (66 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 5455.14 6193.03 18523.2 
@@ -336,8 +336,8 @@ run multiple times.</p>
 #&gt; Best objective 5.455140491494e+03, best bound 5.323620845374e+03, gap 2.4109%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.972   0.408   1.436 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.880   0.396   1.345 </div><div class='input'>
+#&gt;   0.908   0.284   1.177 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.552   0.164   0.726 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span></div></pre>
