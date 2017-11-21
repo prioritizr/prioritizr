@@ -58,7 +58,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 before_script:
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "install.packages('Rsymphony', type='source')"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "install.packages('Rsymphony', type='source', configure.args='--with-SYMPHONY-include=/usr/local/Cellar/symphony/5.6.6/include/ --with-SYMPHONY-lib=/usr/local/Cellar/symphony/5.6.6/lib/')"; fi;
   - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"
 
 r_packages:
