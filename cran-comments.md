@@ -1,25 +1,10 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 0 notes
 
 ## Notes
 
-* Packages suggested but not available for checking: 'gurobi'
-
-  The 'gurobi' R package is distributed with the Gurobi software suite. To help
-  users install this package, the package DESCRIPTION contains installation
-  information. Additionally, there is a package vignette dedicated to walking
-  users through the installation process.
-
-* checking installed package size
-
-    installed size is  6.7Mb
-    sub-directories of 1Mb or more:
-      doc    3.3Mb
-      libs   2.3Mb
-
-  The package contains multiple vignettes to teach users how to use it.
-
+----
 
 ## Test environments
 

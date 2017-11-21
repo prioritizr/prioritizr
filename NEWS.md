@@ -1,3 +1,7 @@
+# prioritizr 3.0.3 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 3.0.2.2 (unreleased)
 
 - `add_lpsymphony_solver` now throws warnings to alert users to potentially
