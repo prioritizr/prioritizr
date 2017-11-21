@@ -1,13 +1,17 @@
-# prioritizr 3.0.2 (released)
+# prioritizr 3.0.2.1 (unreleased)
 
-- Release candidate for CRAN.
+- Vignette sizes have been reduced.
+
+# prioritizr 3.0.2 (unreleased)
+
+- Release candidate for CRAN. Release postponed.
 
 # prioritizr 3.0.1.1 (unreleased)
 
 - Unit tests for `add_*_objectives` now pass when executed with slow solvers
   (partially addressing #40).
 - `compile` now works when no solvers are installed (#41).
-- gap arguments in `add_*_solvers` are now unbounded and can accept values
+- Gap arguments in `add_*_solvers` are now unbounded and can accept values
   larger than 1 (#44).
 
 # prioritizr 3.0.1 (released)

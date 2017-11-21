@@ -1,7 +1,7 @@
 ---
 title: "Prioritizr Basics"
 output:
-  rmarkdown::html_document:
+  rmarkdown::html_vignette:
     toc: true
     fig_caption: true
     self_contained: yes
