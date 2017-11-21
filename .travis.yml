@@ -28,10 +28,10 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 apt_packages:
+  - libgdal-dev
   - libgeos-dev
   - libgeos-c1
   - libproj-dev
-  - libgdal-dev
   - curl
   - qpdf
   - coinor-libcgl-dev
@@ -40,9 +40,7 @@ apt_packages:
   - coinor-libosi-dev
   - coinor-libsymphony-dev
   - coinor-libsymphony-doc
-  - r-cran-rgdal
-  - r-cran-rgeos
-  - r-cran-rsymphony
+  - coinor-libsymphony3
 
 before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
