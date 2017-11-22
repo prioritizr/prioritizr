@@ -34,6 +34,7 @@ test_that("compile (compressed formulation)", {
 
 test_that("solution (compressed formulation)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create data
   budget <- 4.23
@@ -105,6 +106,7 @@ test_that("compile (expanded formulation)", {
 
 test_that("solution (expanded formulation)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create data
   budget <- 4.23

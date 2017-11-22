@@ -54,7 +54,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 before_script:
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"; fi;
+  - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"; fi;
 
 r_packages:
   - covr

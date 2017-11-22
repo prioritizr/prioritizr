@@ -1,3 +1,8 @@
+# prioritizr 3.0.2.3 (unreleased)
+
+- Unit tests that fail when using _lpsymphony_ due to a bug in _lpsymphony_
+  are now skipped (partially addressing #40).
+
 # prioritizr 3.0.2.2 (unreleased)
 
 - `add_lpsymphony_solver` now throws warnings to alert users to potentially
