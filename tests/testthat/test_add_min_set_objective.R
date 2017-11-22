@@ -24,6 +24,7 @@ test_that("compile (compressed formulation)", {
 
 test_that("solve (compressed formulation)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -88,6 +89,7 @@ test_that("compile (expanded formulation)", {
 
 test_that("solve (expanded formulation)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
