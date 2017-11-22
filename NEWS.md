@@ -1,3 +1,7 @@
+# prioritizr 3.0.3 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 3.0.2.3 (unreleased)
 
 - Unit tests that fail when using _lpsymphony_ due to a bug in _lpsymphony_
