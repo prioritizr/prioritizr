@@ -44,8 +44,8 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get --yes --force-yes update -qq; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable; fi;
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-get update; fi;
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get update; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "install.packages(c('sp', 'devtools'))"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
