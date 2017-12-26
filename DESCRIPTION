@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 3.0.3
+Version: 3.0.3.1
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -53,7 +53,7 @@ Suggests:
     Rsymphony,
     rmarkdown
 Depends:
-    R(>= 3.3.2),
+    R(>= 3.4.0),
     raster,
     sp
 LinkingTo: Rcpp, RcppArmadillo, BH
