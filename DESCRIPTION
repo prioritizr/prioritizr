@@ -56,7 +56,6 @@ Depends:
     raster,
     sp,
     proto
-    
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true
