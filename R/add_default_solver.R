@@ -16,11 +16,12 @@ NULL
 #'
 #' @export
 add_default_solver <- function(x, ...) {
-  if (requireNamespace("gurobi", quietly = TRUE)) {
+  ds <- default_solver_name()
+  if (identical(ds, "gurobi")) {
     return(add_gurobi_solver(x, ...))
-  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
+  } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
-  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
+  } else if (identical(ds, "lpsymphony")) {
     return(add_lpsymphony_solver(x, ...))
   } else {
     assertthat::assert_that(inherits(x, "ConservationProblem"))

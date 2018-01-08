@@ -45,6 +45,7 @@ test_that("solve (number_solutions within feasible limit)", {
 test_that("solve (number_solutions outside limit)", {
   skip_on_cran()
   skip_on_travis()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))

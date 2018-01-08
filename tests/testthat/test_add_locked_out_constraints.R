@@ -30,6 +30,7 @@ test_that("integer locked out data (compile)", {
 
 test_that("integer locked out data (solve)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_features)
@@ -92,6 +93,7 @@ test_that("character locked out data (compile)", {
 
 test_that("character locked out data (solve)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
@@ -164,6 +166,7 @@ test_that("raster locked out data (compile)", {
 
 test_that("raster locked out data (solve)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_locked_out_raster, sim_features)
@@ -224,6 +227,7 @@ test_that("spatial locked out data (compile)", {
 
 test_that("spatial locked out data (solve)", {
   skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
