@@ -3,6 +3,7 @@ NULL
 
 #' @import raster
 #' @import sp
+#' @import proto
 #' @useDynLib prioritizr, .registration = TRUE
 NULL
 

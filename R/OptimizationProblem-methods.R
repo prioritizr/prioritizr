@@ -107,8 +107,8 @@ predefined_optimization_problem <- function(x) {
   length(x$col_ids) == length(x$obj),
   is.integer(x$A_i), all(is.finite(x$A_i)), min(x$A_i) == 0,
   max(x$A_i) == (length(x$rhs) - 1),
-  is.integer(x$A_j), all(is.finite(x$A_j)), min(x$A_j) == 0,
-  max(x$A_j) == (length(x$obj) - 1), length(x$A_i) == length(x$A_j),
+  is.integer(x$A_j), all(is.finite(x$A_j)), min(x$A_j) >= 0,
+  max(x$A_j) <= (length(x$obj) - 1), length(x$A_i) == length(x$A_j),
   is.numeric(x$A_x), all(is.finite(x$A_x)), length(x$A_i) == length(x$A_x))
   pproto(NULL, OptimizationProblem,
          ptr = rcpp_predefined_optimization_problem(x))

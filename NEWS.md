@@ -1,3 +1,9 @@
+# prioritizr 3.0.3.3 (unreleased)
+
+- Fix bug in `predefined_optimization_problem` which incorrectly recognized
+  some inputs as invalid when they were in fact valid.
+- Addressed NOTE in `R CMD check` related to proto in Depends.
+
 # prioritizr 3.0.3.2 (unreleased)
 
 - Moved proto package from Imports to Depends in DESCRIPTION
