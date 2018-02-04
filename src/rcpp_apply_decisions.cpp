@@ -35,7 +35,7 @@ bool rcpp_apply_proportion_decisions(SEXP x) {
   }
   // assign decisions
   for (std::size_t i=0; i < n; ++i)
-    ptr->_vtype.push_back("S");
+    ptr->_vtype.push_back("C");
   for (std::size_t i=0; i < n; ++i)
     ptr->_lb.push_back(0.0);
   for (std::size_t i=0; i < n; ++i)
@@ -56,7 +56,7 @@ bool rcpp_apply_semicontinuous_decisions(SEXP x, double upper) {
   }
   // assign decisions
   for (std::size_t i=0; i < n; ++i)
-    ptr->_vtype.push_back("S");
+    ptr->_vtype.push_back("C");
   for (std::size_t i=0; i < n; ++i)
     ptr->_lb.push_back(0.0);
   for (std::size_t i=0; i < n; ++i)

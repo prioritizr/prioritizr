@@ -205,63 +205,35 @@ list of decisions that can be added to a conservation planning problem.</p><dl c
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 0 integer (0 binary)
-#&gt; Semi-Variable types: 90 continuous, 0 integer
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.27
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 90 continuous, 0 integer (0 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
+#&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
+#&gt;        0    0.0000000e+00   2.845519e+01   0.000000e+00      0s
+#&gt;       11    1.7265222e+03   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt; *    0     0               0    1726.5221516 1726.52215  0.00%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1726.52 2145.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.726522151579e+03, best bound 1.726522151579e+03, gap 0.0000%
+#&gt; Solved in 11 iterations and 0.00 seconds
+#&gt; Optimal objective  1.726522152e+03
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 0 integer (0 binary)
-#&gt; Semi-Variable types: 90 continuous, 0 integer
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [5e-01, 5e-01]
 #&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 9243.6
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 90 continuous, 0 integer (0 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
+#&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
+#&gt;        0    0.0000000e+00   2.845519e+01   0.000000e+00      0s
+#&gt;       17    1.7451741e+03   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Root relaxation: objective 1.745174e+03, 17 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt; *    0     0               0    1745.1740638 1745.17406  0.00%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (17 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1745.17 9243.6 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.745174063848e+03, best bound 1.745174063848e+03, gap 0.0000%</div><div class='input'>
+#&gt; Solved in 17 iterations and 0.00 seconds
+#&gt; Optimal objective  1.745174064e+03</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"default (binary)"</span>, <span class='st'>"binary"</span>, <span class='st'>"proportion"</span>,
                  <span class='st'>"semicontinuous (upper=0.5)"</span>))</div><img src='decisions-4.png' alt='' width='540' height='400' /><div class='input'>

@@ -108,6 +108,22 @@ test_that("character locked out data (solve)", {
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_out)] == 0))
 })
 
+test_that("character locked out data with proportion decisions (solve)", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
+  # create problem
+  data(sim_pu_polygons, sim_features)
+  s <- problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_locked_out_constraints("locked_out") %>%
+    add_default_solver(time_limit = 5) %>%
+    solve()
+  # check that the solution obeys constraints as expected
+  expect_true(all(s$solution_1[which(sim_pu_polygons$locked_out)] == 0))
+})
+
 test_that("raster locked out data (compile)", {
   # create problem
   data(sim_pu_raster, sim_locked_out_raster, sim_features)

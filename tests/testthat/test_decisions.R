@@ -42,7 +42,7 @@ test_that("add_proportion_decisions (compile)", {
   n_pu <- length(raster::Which(!is.na(sim_pu_raster), cells = TRUE))
   expect_equal(o$lb(), rep(0, n_pu))
   expect_equal(o$ub(), rep(1, n_pu))
-  expect_equal(o$vtype(), rep("S", n_pu))
+  expect_equal(o$vtype(), rep("C", n_pu))
 })
 
 test_that("add_proportion_decisions (solve)", {
@@ -73,7 +73,7 @@ test_that("add_semicontinuous_decisions (compile)", {
   n_pu <- length(raster::Which(!is.na(sim_pu_raster), cells = TRUE))
   expect_equal(o$lb(), rep(0, n_pu))
   expect_equal(o$ub(), rep(0.3, n_pu))
-  expect_equal(o$vtype(), rep("S", n_pu))
+  expect_equal(o$vtype(), rep("C", n_pu))
   # check that invalid inputs result in an error
   expect_error(p %>% add_semicontinuous_decisions(NA))
   expect_error(p %>% add_semicontinuous_decisions(Inf))
