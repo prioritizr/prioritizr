@@ -1,8 +1,8 @@
 # prioritizr 3.0.3.4 (unreleased)
 
 - Fix bug where `add_locked_in_constraints` and `add_locked_out_constraints`
-  are ignored when using proportion-type decisions.
-  
+  are ignored when using proportion-type decisions (#58).
+
 # prioritizr 3.0.3.3 (unreleased)
 
 - Fix bug in `predefined_optimization_problem` which incorrectly recognized
@@ -15,7 +15,7 @@
 
 # prioritizr 3.0.3.1 (unreleased)
 
-- Depends on R version 3.4.0 (avoids "patchlevel 0" NOTE/WARNING in checks)
+- Depends on R version 3.4.0 (avoids 'patchlevel 0' NOTE/WARNING in checks)
 
 # prioritizr 3.0.3 (released)
 
