@@ -7,8 +7,7 @@ bool rcpp_apply_locked_in_constraints(SEXP x, Rcpp::IntegerVector indices) {
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // assign bounds based on indices
   for (auto i=indices.begin(); i!=indices.end();  ++i)
-    ptr->_lb[(*i) - 1] = 1.0;
+    ptr->_lb[(*i) - 1] = ptr->_ub[(*i) - 1];
   // return result
   return true;
 }
-

@@ -95,7 +95,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   invalid_pu <- which(op$lb()[seq_len(x$number_of_planning_units())] > pu_ub)
   if (length(invalid_pu)) {
     stop("the following planning units have been locked in and locked out:\n",
-      invalid_pu)
+      paste(invalid_pu, collapse = ","))
   }
   # check that all planning units have not been locked out
   if (all(pu_ub == 0))

@@ -1,3 +1,10 @@
+# prioritizr 3.0.3.5 (unreleased)
+
+- Fix bug where `add_locked_in_constraints` and `add_locked_out_constraints`
+  throw an exception when used with semi-continuous-type decisions (#59).
+- Exception in `compile` thrown when the same planning unit is locked in and
+  locked out now prints the planning unit indices in a readable format.
+
 # prioritizr 3.0.3.4 (unreleased)
 
 - Fix bug where `add_locked_in_constraints` and `add_locked_out_constraints`
