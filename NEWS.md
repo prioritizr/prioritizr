@@ -1,3 +1,8 @@
+# prioritizr 3.0.3.6 (unreleased)
+
+- Fix typo in README and update documentation for `add_boundary_penalties`
+  (#62).
+
 # prioritizr 3.0.3.5 (unreleased)
 
 - Fix bug where `add_locked_in_constraints` and `add_locked_out_constraints`
