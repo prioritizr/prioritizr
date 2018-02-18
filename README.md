@@ -167,7 +167,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.005696058
+    ## 0.007018089
 
 ``` r
 # extract message returned from solver
@@ -204,7 +204,7 @@ s2 <- solve(p2)
     ##   RHS range        [6e+00, 1e+01]
     ## Found heuristic solution: objective 4020.2
     ## Presolve removed 0 rows and 10 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.00s
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
     ## Variable types: 0 continuous, 80 integer (80 binary)
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -217,7 +217,7 @@ s2 <- solve(p2)
     ## 
     ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
     ## 
-    ## Explored 1 nodes (11 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 1: 4020.2 
@@ -259,7 +259,7 @@ s3 <- solve(p3)
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.477092e+03, 124 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.477092e+03, 124 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -268,7 +268,7 @@ s3 <- solve(p3)
     ## H    0     0                    6154.1018384 5477.09167  11.0%     -    0s
     ## H    0     0                    5944.9791739 5477.09167  7.87%     -    0s
     ## 
-    ## Explored 1 nodes (124 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (124 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5944.98 6154.1 6420.2 20287.2 
@@ -302,13 +302,13 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 187 rows and 129 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.00s
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## Variable types: 0 continuous, 377 integer (376 binary)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.647064e+03, 348 iterations, 0.02 seconds
+    ## Root relaxation: objective 5.647064e+03, 348 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -343,7 +343,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 23
     ## 
-    ## Explored 27 nodes (1243 simplex iterations) in 0.42 seconds
+    ## Explored 27 nodes (1243 simplex iterations) in 0.14 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 6482.4 12281.1 
