@@ -81,7 +81,7 @@ We will use the `sim_pu_polygons` object to represent our planning units. Althou
 # load planning unit data
 data(sim_pu_polygons)
 
-# show the first 20 rows in the attribute table
+# show the first 6 rows in the attribute table
 head(sim_pu_polygons@data)
 
 # plot the planning units and colour by acquisition cost
