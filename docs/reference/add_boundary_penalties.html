@@ -136,11 +136,19 @@ asymmetric relationships are required, use the
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These penalties use shared boundary length as a measure of
-connectivity, equivalent to the boundary length modifier  (BLM) in
+connectivity, equivalent to the boundary length modifier (BLM) in
 <a href = 'http://marxan.net'>Marxan</a>. Boundary data is calculated automatically
 unless the planning units in <code>x</code> are stored in a <code>data.frame</code>, in
 which case boundary data must be added as a <code>matrix</code> or
-<code>data.frame</code>. This function can only be used for symmetric
+<code>data.frame</code>. For a given side of a planning unit (indexed by \(i\))
+with a known length (\(l_i\)) and the arguments to <code>penalty</code>
+(\(p\)) and <code>edge_factor</code> (\(e\)), the cost incurred by this side
+ being exposed in a solution is calculated as:
+ $$l_i \space \times p \space \times \mathit{ifelse}(
+ \mathit{i \space overlaps \space with \space the \space side \space of
+ \space another \space planning \space unit},
+ 1, e)$$
+This function can only be used for symmetric
 relationships between planning units; for asymmetric
 relationships use the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.
 This function is inspired by Ball <em>et al.</em> (2009) and Beyer

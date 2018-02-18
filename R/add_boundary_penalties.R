@@ -34,11 +34,20 @@ NULL
 #'   \code{\link{add_connectivity_penalties}} function.
 #'
 #' @details These penalties use shared boundary length as a measure of
-#' connectivity, equivalent to the boundary length modifier  (BLM) in
+#' connectivity, equivalent to the boundary length modifier (BLM) in
 #' \href{http://marxan.net}{Marxan}. Boundary data is calculated automatically
 #' unless the planning units in \code{x} are stored in a \code{data.frame}, in
 #' which case boundary data must be added as a \code{matrix} or
-#' \code{data.frame}. This function can only be used for symmetric
+#' \code{data.frame}. For a given side of a planning unit (indexed by \eqn{i})
+#' with a known length (\eqn{l_i}{li}) and the arguments to \code{penalty}
+#' (\eqn{p}) and \code{edge_factor} (\eqn{e}), the cost incurred by this side
+#'  being exposed in a solution is calculated as:
+#'  \deqn{l_i \space \times p \space \times \mathit{ifelse}(
+#'  \mathit{i \space overlaps \space with \space the \space side \space of
+#'  \space another \space planning \space unit},
+#'  1, e)}{li * p * ifelse(i overlaps with the side of another planning
+#'  unit, 1, e)}
+#' This function can only be used for symmetric
 #' relationships between planning units; for asymmetric
 #' relationships use the \code{\link{add_connectivity_penalties}} function.
 #' This function is inspired by Ball \emph{et al.} (2009) and Beyer

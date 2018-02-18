@@ -145,7 +145,7 @@ s1 <- solve(p1)
     ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
     ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
     ## 
-    ## Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3597.1 4135.27 
@@ -167,7 +167,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.007018089
+    ## 0.002810955
 
 ``` r
 # extract message returned from solver
@@ -343,7 +343,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 23
     ## 
-    ## Explored 27 nodes (1243 simplex iterations) in 0.14 seconds
+    ## Explored 27 nodes (1243 simplex iterations) in 0.21 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 6482.4 12281.1 
