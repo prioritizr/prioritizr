@@ -16,9 +16,9 @@
 \alias{problem}
 \title{Conservation planning problem}
 \usage{
-\S4method{problem}{Raster,Raster}(x, features, ...)
+\S4method{problem}{Raster,Raster}(x, features, run_checks = TRUE, ...)
 
-\S4method{problem}{Spatial,Raster}(x, features, cost_column, ...)
+\S4method{problem}{Spatial,Raster}(x, features, cost_column, run_checks = TRUE, ...)
 
 \S4method{problem}{data.frame,data.frame}(x, features, rij, ...)
 

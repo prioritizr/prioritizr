@@ -243,7 +243,7 @@ methods::setGeneric("problem",
                     function(x, features, ...) standardGeneric("problem"))
 
 #' @name problem
-#' @usage \S4method{problem}{Raster,Raster}(x, features, ...)
+#' @usage \S4method{problem}{Raster,Raster}(x, features, run_checks = TRUE, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
@@ -269,7 +269,7 @@ methods::setMethod(
 })
 
 #' @name problem
-#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, ...)
+#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, run_checks = TRUE, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
