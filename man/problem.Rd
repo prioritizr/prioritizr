@@ -77,7 +77,7 @@ argument to \code{x} is a \code{link{Spatial}} or \code{\link{data.frame}}
 object.}
 
 \item{rij}{\code{data.frame} containing information on the amount of
-each feature in each planning unit. This argument is only used argument to
+each feature in each planning unit. This argument is only used if
 \code{x} is a \code{data.frame}. Similar to \code{features}, the
 argument to \code{rij} must follow the conventions used by
 Marxan. It must contain the following columns:
@@ -91,6 +91,13 @@ Marxan. It must contain the following columns:
 \item{rij_matrix}{\code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
 object specifying the amount of each feature (rows) within each planning
 unit (columns). Only used when \code{x} is a numeric vector of costs.}
+
+\item{run_checks}{\code{logical} flag indicating whether checks should be run 
+to ensure the integrity of the input data. These checks are run by 
+default; however, for large data sets they may increase the time to 
+run \code{problem()}. If it is taking a prohibitively long time to 
+compile the prioritization problem, it is suggested to try setting 
+\code{run_checks} to \code{FALSE}.}
 
 \item{...}{not used.}
 }
