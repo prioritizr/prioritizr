@@ -94,10 +94,10 @@ customized to meet specific goals using <code><a href='objectives.html'>objectiv
     
 
     <pre class="usage"><span class='co'># S4 method for Raster,Raster</span>
-<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
+<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='kw'>run_checks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for Spatial,Raster</span>
-<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>cost_column</span>, <span class='no'>...</span>)
+<span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>cost_column</span>, <span class='kw'>run_checks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for data.frame,data.frame</span>
 <span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>rij</span>, <span class='no'>...</span>)
@@ -168,7 +168,7 @@ object.</p></td>
     <tr>
       <th>rij</th>
       <td><p><code>data.frame</code> containing information on the amount of
-each feature in each planning unit. This argument is only used argument to
+each feature in each planning unit. This argument is only used if
 <code>x</code> is a <code>data.frame</code>. Similar to <code>features</code>, the
 argument to <code>rij</code> must follow the conventions used by
 Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
@@ -183,6 +183,15 @@ Marxan. It must contain the following columns:</p><dl class='dl-horizontal'>
       <td><p><code>matrix</code> or <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code>
 object specifying the amount of each feature (rows) within each planning
 unit (columns). Only used when <code>x</code> is a numeric vector of costs.</p></td>
+    </tr>
+    <tr>
+      <th>run_checks</th>
+      <td><p><code>logical</code> flag indicating whether checks should be
+run to ensure the integrity of the input data. These checks are run by
+default; however, for large data sets they may substantially increase run
+time. If it is taking a prohibitively long time to create the
+prioritization problem, it is suggested to try setting <code>run_checks</code>
+to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -502,7 +511,7 @@ representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00236
+#&gt;  - attr(*, "runtime")= Named num 0.00245
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'>
 
 </div><img src='problem-16.png' alt='' width='540' height='400' /></pre>

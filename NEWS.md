@@ -1,3 +1,7 @@
+# prioritizr 3.0.3.7 (unreleased)
+
+- Add `run_checks` argument to `problem` (#65).
+
 # prioritizr 3.0.3.6 (unreleased)
 
 - Fix typo in README and update documentation for `add_boundary_penalties`

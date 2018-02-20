@@ -92,12 +92,12 @@ Marxan. It must contain the following columns:
 object specifying the amount of each feature (rows) within each planning
 unit (columns). Only used when \code{x} is a numeric vector of costs.}
 
-\item{run_checks}{\code{logical} flag indicating whether checks should be run 
-to ensure the integrity of the input data. These checks are run by 
-default; however, for large data sets they may increase the time to 
-run \code{problem()}. If it is taking a prohibitively long time to 
-compile the prioritization problem, it is suggested to try setting 
-\code{run_checks} to \code{FALSE}.}
+\item{run_checks}{\code{logical} flag indicating whether checks should be
+run to ensure the integrity of the input data. These checks are run by
+default; however, for large data sets they may substantially increase run
+time. If it is taking a prohibitively long time to create the
+prioritization problem, it is suggested to try setting \code{run_checks}
+to \code{FALSE}.}
 
 \item{...}{not used.}
 }
