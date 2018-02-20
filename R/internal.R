@@ -257,3 +257,28 @@ default_solver_name <- function() {
 any_solvers_installed <- function() {
   !is.null(default_solver_name())
 }
+
+#' Atomic representation
+#'
+#' Return a pretty character representation of an object with elements and
+#  names.
+#'
+#' @param x \code{object}.
+#'
+#' @return \code{character} object.
+#'
+#' @examples
+#' repr_atomic(letters)
+#' repr_atomic(letters, "characters")
+#' @noRd
+repr_atomic <- function(x, description = "") {
+  n <- length(x)
+  if (nchar(description) > 0)
+    description <- paste0(" ", description)
+  if (length(x) <= 4) {
+    x <- x[seq_len(min(length(x), 4))]
+  } else {
+    x <- c(x[seq_len(min(length(x), 3))], "...")
+  }
+  paste0(paste(x, collapse = ", "), " (", n, description, ")")
+}

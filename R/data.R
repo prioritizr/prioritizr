@@ -9,6 +9,9 @@ NULL
 #'   \item{\code{sim_pu_raster}}{Planning units are represented as raster data.
 #'     Pixel values indicate cost.}
 #'
+#'   \item{\code{sim_pu_zones_raster}}{Planning units are represented as raster
+#'     data and each layer indicates the cost for a different management zone.}
+#'
 #'   \item{\code{sim_locked_in_raster}}{Planning units are represented as raster
 #'     data. Pixel values are binary and indicate if planning units should
 #'     be locked in.}
@@ -35,14 +38,17 @@ NULL
 #'   \item{\code{sim_features}}{The simulated distribution of ten species.
 #'     Pixel values indicate habitat suitability.}
 #'
+#'   \item{\code{sim_features_zones}}{The simulated distribution for five
+#'     species under three different management zones. Each element in this
+#'     \code{list} object corresponds to a different zone, and within each
+#'     element, each layer corresponds to a different species.}
+#'
 #'   \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
 #' }
 #'
 #' @docType data
 #'
-#' @aliases sim_pu_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_phylogeny sim_features sim_phylogeny sim_locked_in_raster sim_locked_out_raster
-#'
-#' @usage data(sim_features)
+#' @aliases sim_pu_polygons sim_pu_points sim_pu_lines sim_pu_raster  sim_phylogeny sim_features sim_phylogeny sim_locked_in_raster sim_locked_out_raster sim_features_zones sim_pu_zones_raster
 #'
 #' @usage data(sim_pu_polygons)
 #'
@@ -52,12 +58,15 @@ NULL
 #'
 #' @usage data(sim_pu_raster)
 #'
+#' @usage data(sim_pu_zones_raster)
+#'
 #' @usage data(sim_phylogeny)
 #'
+#' @usage data(sim_features)
+#'
+#' @usage data(sim_features_zones)
+#'
 #' @format \describe{
-#'
-#'   \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
-#'
 #'   \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
 #'     object.}
 #'
@@ -68,8 +77,14 @@ NULL
 #'
 #'   \item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
 #'
-#'   \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
+#'   \item{sim_pu_zones_raster}{\code{\link[raster]{RasterStack-class}} object.}
 #'
+#'   \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
+#'
+#'   \item{sim_features_zones}{\code{list} object containing
+#'     \code{\link[raster]{RasterLayer-class}} elements.}
+#'
+#'   \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
 #' }
 #'
 #' @keywords datasets
@@ -80,22 +95,37 @@ NULL
 #'      sim_locked_in_raster, sim_locked_out_raster, sim_phylogeny,
 #'      sim_features)
 #'
-#' # plot data
-#' par(mfrow = c(3, 3))
+#' # plot example planning unit data
+#' par(mfrow = c(2, 3))
 #' plot(sim_pu_raster, main = "planning units (raster)")
 #' plot(sim_locked_in_raster, main = "locked in units (raster)")
 #' plot(sim_locked_out_raster, main = "locked out units (raster)")
 #' plot(sim_pu_polygons, main = "planning units (polygons)")
 #' plot(sim_pu_lines, main = "planning units (lines)")
 #' plot(sim_pu_points, main = "planning units (points)")
+#'
+#' # plot example phylogeny data
+#' par(mfrow = c(1, 1))
 #' if (requireNamespace("ape", quietly = TRUE)) {
 #'  ape::plot.phylo(sim_phylogeny, main = "simulated phylogeny")
 #' } else {
 #'  message("the \"ape\" package needs to be installed to plot phylogenies")
 #' }
 #'
+#' # plot example feature data
 #' par(mfrow = c(1, 1))
 #' plot(sim_features)
+#'
+#' # plot example management zones data
+#' par(mfrow = c(1, 1))
+#' plot(sim_pu_zones_raster)
+#'
+#' # plot example feature data under different zones
+#' par(mfrow = c(5, 3))
+#' for (i in length(sim_features_zones))
+#'   for (j in raster::nlayers(sim_features_zones[[i]]))
+#'     plot(sim_features_zones[[i]][[j]],
+#'          main = paste0("Species ", i, "(zone ", j ))
 #'
 #' @name sim_data
 NULL

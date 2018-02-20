@@ -1,0 +1,218 @@
+#' @include internal.R
+NULL
+
+#' Management zones
+#'
+#' Data for different biodiversity features in different management zones.
+#'
+#' @param ... \code{\link[raster]{raster}} or \code{character} objects. See
+#'   Details for more information.
+#'
+#' @details This function is used to store and organize data for creating
+#' \code{\link{ConservationProblem}} objects that have multiple management
+#' zones. In all cases, data for different zones are input as different
+#' arguments. The correct input depends on the type of planning unit data
+#' used when building the conservation \code{\link{problem}}.
+#' \describe{
+#'   \item{\code{\link[raster]{Raster-class}},
+#'     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+#'     data denoting the amount of each feature present assuming each
+#'     management zone. Data for each zone are specified in seperate
+#'     arguments, and the data for each feature in a given zone are specified
+#'     in separate layers in a \code{\link[raster]{stack}} object. Note that
+#'     all layers for a given zone must have \code{NA} values in exactly the
+#'     same cells.}
+#'   \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+#'       with column names that correspond to the abundance or occurrence of
+#'       different features in each planning unit for each zone. Note that
+#'       these columns must not contain any \code{NA} values.}
+#'   \item{\code{\link{Spatial}}, \code{data.frame} or
+#'     \code{matrix}}{\code{data.frame} denoting the amount of each feature
+#'     in each zone. Following conventions used in \emph{Marxan},
+#'     \code{data.frame} objects should be supplied with the columns:
+#'    \describe{
+#'      \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'      \item{\code{"species"}}{\code{integer} feature identifier.}
+#'      \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+#'        planning unit for a given zone.}
+#'     }
+#'     Note that data for each zone are specified in a seperate argument, and
+#'     the data contained in a single \code{data.frame} object correspond to
+#'     a single zone. Also, note that data are not required for all
+#'     combinations of planning units, features, and zones. The amounts of
+#'     features in planning units assuming different management zones that are
+#'     missing from the table are treated as zero.}
+#' }
+#'
+#' @return \code{\link{Zones-class}} object.
+#'
+#' @seealso \code{\link{problem}}.
+#'
+#' @examples
+#' # load data
+#' data(sim_features_zones)
+#'
+#' # create zones using a list of four RasterStack objects
+#' z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
+#'             sim_features_zones[[3]], sim_features_zones[[4]])
+#' print(z1)
+#'
+#' # alternatively, coerce the list to a zones object
+#' z2 <- as.Zones(sim_features_zones)
+#' print(z2)
+#'
+#' # create zones using character vectors that represent the names of
+#' # columns in a shapefile that contain the amount of each species under
+#' # a different management zone.
+#' z3 <- zones(c("spp1_zone1", "spp2_zone1"),
+#'             c("spp1_zone2", "spp2_zone2"),
+#'             c("spp1_zone3", "spp2_zone3"))
+#' print(z3)
+#'
+#' # create zones using data.frame inputs
+#' zone_1_data <- expand.grid(pu = 1:5, species = 1:3)
+#' zone_1_data$amount <- rpois(25, 5)
+#  zone_2_data <- expand.grid(pu = 1:5, species = 1:3)
+#' zone_2_data$amount <- rpois(25, 1)
+#  zone_3_data <- expand.grid(pu = 1:5, species = 1:3)
+#' zone_3_data$amount <- rpois(25, 7)
+#'
+#' z4 <- zones(zone_1_data, zone_2_data, zone_3_data)
+#' print(z4)
+#'
+#' z5 <- as.Zones(list(zone_1_data, zone_2_data, zone_3_data))
+#' print(z5)
+#' @export
+zones <- function(...) {
+  args <- list(...)
+  # assert that arguments are valid
+  assertthat::assert_that(length(unique(vapply(args, function(x) class(x)[[1]],
+                                               character(1)))) == 1,
+                          msg = paste("all arguments do not inherit from the",
+                                      "same class"))
+  assertthat::assert_that(all(vapply(args, inherits, logical(1), "Raster")) ||
+                          all(vapply(args, inherits, logical(1),
+                                     "character")) ||
+                          all(vapply(args, inherits, logical(1), "data.frame")),
+                          msg = paste("all arguments do not inherit from",
+                                      "Raster, character, or data.frame",
+                                      "classes"))
+  assertthat::assert_that(anyDuplicated(names(args)) == 0)
+  # checks for Raster input
+  if (inherits(args[[1]], "Raster")) {
+    assertthat::assert_that(length(unique(vapply(args, raster::nlayers,
+                                                 numeric(1)))) == 1,
+                            msg = paste("all arguments do not have the same",
+                                        "number of layers"))
+    assertthat::assert_that(all(vapply(args, raster::compareRaster, logical(1),
+                                       x = args[[1]], stopiffalse = FALSE,
+                                       crs = TRUE, res = TRUE,
+                                       tolerance = 1e-5)),
+                            msg = paste("all arguments do not have the same",
+                                        "spatial properties"))
+    assertthat::assert_that(all(vapply(args, raster::nlayers, numeric(1)) >= 1),
+                            msg = "all argument must have at least one layer")
+    zone_class <- paste0("Zones", class(args[[1]])[[1]])
+  }
+  # checks for character input
+  if (inherits(args[[1]], "character")) {
+      assertthat::assert_that(length(unique(vapply(args, length,
+                                                 numeric(1)))) == 1,
+                            msg = paste("all arguments must all have the same",
+                                        "number of features"))
+    for (i in seq_along(args)) {
+      assertthat::assert_that(all(!is.na(args[[i]])),
+                              msg = paste("argument", i, "is contains NA",
+                                          "values"))
+    }
+    zone_class <- "ZonesCharacter"
+  }
+  # checks for data.frame input
+  if (inherits(args[[1]], "data.frame")) {
+    for (i in seq_along(args)) {
+      assertthat::assert_that(assertthat::has_name(args[[i]], "pu"),
+                              msg = paste("argument", i, "is missing the",
+                                          "column \"pu\""))
+      assertthat::assert_that(assertthat::has_name(args[[i]], "species"),
+                              msg = paste("argument", i, "is missing the",
+                                          "column \"species\""))
+      assertthat::assert_that(assertthat::has_name(args[[i]], "amount"),
+                              msg = paste("argument", i, "is missing the",
+                                          "column \"amount\""))
+      assertthat::assert_that(is.numeric(args[[i]]$pu),
+                              msg = paste("argument", i, "contains non-numeric",
+                                          "data in the column \"pu\""))
+      assertthat::assert_that(all(is.finite(args[[i]]$pu)),
+                              msg = paste("argument", i, "contains NA",
+                                          "values in the column \"pu\""))
+      assertthat::assert_that(is.numeric(args[[i]]$species),
+                              msg = paste("argument", i, "contains non-numeric",
+                                          "data in the column \"species\""))
+      assertthat::assert_that(all(is.finite(args[[i]]$species)),
+                              msg = paste("argument", i, "contains NA",
+                                          "values in the column \"species\""))
+      assertthat::assert_that(is.numeric(args[[i]]$amount),
+                              msg = paste("argument", i, "contains non-numeric",
+                                          "data in the column \"amount\""))
+      assertthat::assert_that(all(is.finite(args[[i]]$amount)),
+                              msg = paste("argument", i, "contains NA",
+                                          "values in the column \"amount\""))
+    }
+    zone_class <- "ZonesDataFrame"
+  }
+  # return Zones class object
+  structure(args, .Names = names(args), class = c(zone_class, "Zones", "list"))
+}
+
+#' Coerce list to zone data
+#'
+#' Coerce a \code{list} object containing zone data into a
+#' \code{\link{Zones-class}} object.
+#'
+#' @param x \code{list} object.
+#'
+#' @param ... not used.
+#'
+#' @return \code{\link{Zones-class}} object.
+#'
+#' @examples
+#' # load data
+#' data(sim_features_zones)
+#'
+#' # create zones using a list of four RasterStack objects
+#' z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
+#'             sim_features_zones[[3]], sim_features_zones[[4]])
+#' print(z1)
+#'
+#' # alternatively, coerce the list to a zones object
+#' z2 <- as.Zones(sim_features_zones)
+#' print(z2)
+#' @export
+as.Zones <- function(x, ...) UseMethod("as.Zones")
+
+#' @rdname as.Zones
+#' @method as.Zones default
+#' @export
+as.Zones.default <- function(x, ...) {
+  stop("argument to x must be a list")
+}
+
+#' @rdname as.Zones
+#' @method as.Zones list
+#' @export
+as.Zones.list <- function(x, ...) {
+  # assert that arguments are valid
+  assertthat::assert_that(inherits(x, "list"))
+  # create zones
+  do.call(zones, x)
+}
+
+#' @rdname print
+#' @method print Zones
+#' @export
+print.Zones <- function(x, ...) {
+  message("Zones",
+          "\n  zones: ", repr_atomic(names(x), "zones"),
+          "\n  features: ", repr_atomic(names(x[[1]]), "features"),
+          "\n  data type: ", class(x[[1]])[[1]])
+}

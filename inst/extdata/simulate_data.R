@@ -2,6 +2,7 @@
 # initialize session
 set.seed(500)
 source("R/simulate.R")
+source("R/zones.R")
 library(RandomFields)
 RFoptions(seed = 500)
 
@@ -96,9 +97,26 @@ sim_pu_points$locked_out <- as.logical(sim_pu_points$locked_out)
 sim_phylogeny <- ape::rtree(n = raster::nlayers(sim_features))
 sim_phylogeny$tip.label <- names(sim_features)
 
+# simulate planning unit zone data
+sim_pu_zones_raster <- simulate_cost(sim_landscape, n = 3)
+zones_na_cells <- sample.int(raster::ncell(sim_pu_zones_raster[[1]]), size = 10)
+for (z in seq_len(raster::nlayers(sim_pu_zones_raster))) {
+  sim_pu_zones_raster[[z]][raster::Which(sim_pu_zones_raster[[z]] == 0)] <- 1
+  sim_pu_zones_raster[[z]][zones_na_cells] <- NA
+}
+
+# simulate feature zone data
+sim_features_zones <- replicate(raster::nlayers(sim_pu_zones_raster),
+                                simulate_species(sim_landscape, n = 5),
+                                simplify = FALSE)
+names(sim_features_zones) <- paste("zone", seq_len(length(sim_features_zones)))
+sim_features_zones <- as.Zones(sim_features_zones)
+
 ## Export data
 # save data
 save(sim_pu_raster, file = "data/sim_pu_raster.rda", compress = "xz")
+save(sim_pu_zones_raster, file = "data/sim_pu_zones_raster.rda",
+     compress = "xz")
 save(sim_locked_in_raster, file = "data/sim_locked_in_raster.rda",
      compress = "xz")
 save(sim_locked_out_raster, file = "data/sim_locked_out_raster.rda",
@@ -107,4 +125,6 @@ save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz")
 save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz")
 save(sim_pu_points, file = "data/sim_pu_points.rda", compress = "xz")
 save(sim_features, file = "data/sim_features.rda", compress = "xz")
+save(sim_features_zones, file = "data/sim_features_zones.rda",
+     compress = "xz")
 save(sim_phylogeny, file = "data/sim_phylogeny.rda", compress = "xz")
