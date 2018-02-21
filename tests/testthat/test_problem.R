@@ -20,6 +20,30 @@ test_that("x=Raster, y=RasterStack", {
   expect_equal(problem(sim_pu_raster, sim_pu_raster)$number_of_features(), 1L)
 })
 
+test_that("x=RasterStack, y=ZonesRaster", {
+  data(sim_pu_zones_stack, sim_features_zones)
+  x <- problem(sim_pu_zones_stack, sim_features_zones)
+  print(x)
+  x
+  expect_equal(x$feature_names(), names(sim_features_zones[[1]]))
+  expect_equal(x$number_of_features(), raster::nlayers(sim_features_zones[[1]]))
+  expect_equal(x$number_of_planning_units(),
+               raster::cellStats(max(!is.na(sim_pu_zones_stack)), "sum"))
+  expect_equal(x$planning_unit_costs(),
+               sim_pu_zones_stack[raster::Which(
+                 max(!is.na(sim_pu_zones_stack)) == 1)])
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+    sapply(seq_len(raster::nlayers(sim_pu_zones_stack)), function(i) {
+      raster::cellStats(raster::mask(sim_features_zones[[i]],
+                                     sim_pu_zones_stack[[i]]), "sum")
+  }))
+  expect_equivalent(x$data$rij_matrix,
+                    lapply(seq_len(raster::nlayers(sim_pu_zones_stack)),
+                          function(i) rij_matrix(sim_pu_zones_stack[[i]],
+                                                 sim_features_zones[[i]])))
+  expect_error(x$feature_targets())
+})
+
 test_that("x=SpatialPolygonsDataFrame, y=RasterStack", {
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons$cost[1:5] <- NA
@@ -41,6 +65,25 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack", {
   expect_equal(problem(sim_pu_polygons, sim_pu_raster,
                        "cost")$number_of_features(),
                1L)
+})
+
+test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster", {
+  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_pu_zones_polygons[5, paste0("cost_", 1:3)] <- NA
+  x <- problem(sim_pu_zones_polygons, sim_features_zones, paste0("cost_", 1:3))
+  print(x)
+  x
+  expect_equal(x$feature_names(), names(sim_features_zones[[1]]))
+  expect_equal(x$number_of_features(), raster::nlayers(sim_features_zones[[1]]))
+  expect_equal(x$number_of_planning_units(), nrow(sim_pu_zones_polygons) - 1)
+  expect_equal(x$planning_unit_costs(),
+              as.matrix(sim_pu_zones_polygons@data[-5, paste0("cost_", 1:3)]))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    sapply(x$data$rij_matrix, Matrix::rowSums))
+  expect_equivalent(x$data$rij_matrix,
+                    lapply(sim_features_zones, rij_matrix,
+                           x = sim_pu_zones_polygons[-5, ]))
+  expect_error(x$feature_targets())
 })
 
 test_that("x=SpatialLinesDataFrame, y=RasterStack", {
@@ -87,7 +130,7 @@ test_that("x=SpatialPointsDataFrame, y=RasterStack", {
                        "cost")$number_of_features(), 1L)
 })
 
-test_that("x=SpatialPolygons, y=character", {
+test_that("x=SpatialPolygonsDataFrame, y=character", {
   # simulate data
   data(sim_pu_polygons)
   sim_pu_polygons$spp1 <- runif(length(sim_pu_polygons))
@@ -104,6 +147,41 @@ test_that("x=SpatialPolygons, y=character", {
                     matrix(sim_pu_polygons$cost, ncol = 1))
   rij <- Matrix::sparseMatrix(i = c(rep(1, length(sim_pu_polygons)),
                                     rep(2, length(sim_pu_polygons) -1)),
+                              j = c(seq_len(length(sim_pu_polygons)),
+                                    seq_len(length(sim_pu_polygons))[-1]),
+                              x = c(sim_pu_polygons$spp1,
+                                    sim_pu_polygons$spp2[-1]),
+                              dims = c(2, length(sim_pu_polygons)))
+  rij <- list(rij)
+  expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(colSums(sim_pu_polygons@data[, c("spp1", "spp2")],
+                                   na.rm = TRUE), ncol = 1))
+  expect_error(x$feature_targets())
+})
+
+test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter", {
+  # simulate data
+  data(sim_pu_zones_polygons)
+  sim_pu_zones_polygons$spp1_1 <- runif(length(sim_pu_zones_polygons))
+  sim_pu_zones_polygons$spp2_1 <- c(NA, rpois(length(sim_pu_zones_polygons) - 1,
+                                    5))
+  sim_pu_zones_polygons$spp1_2 <- runif(length(sim_pu_zones_polygons))
+  sim_pu_zones_polygons$spp2_2 <- runif(length(sim_pu_zones_polygons))
+  # create problem
+  x <- problem(sim_pu_zones_polygons,
+               zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+               c("cost_1", "cost_2"))
+  print(x)
+  x
+  # run tests
+  expect_equal(x$feature_names(), c("spp1_1", "spp2_1"))
+  expect_equal(x$number_of_features(), 2)
+  expect_equal(x$number_of_planning_units(), length(sim_pu_polygons))
+  expect_equivalent(x$planning_unit_costs(),
+                    matrix(sim_pu_polygons$cost, ncol = 1))
+  rij <- Matrix::sparseMatrix(i = c(rep(1, length(sim_pu_polygons)),
+                                    rep(2, length(sim_pu_polygons) - 1)),
                               j = c(seq_len(length(sim_pu_polygons)),
                                     seq_len(length(sim_pu_polygons))[-1]),
                               x = c(sim_pu_polygons$spp1,
