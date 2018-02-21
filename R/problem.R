@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R
+#' @include internal.R ConservationProblem-proto.R zones.R
 NULL
 
 #' Conservation planning problem
@@ -20,40 +20,61 @@ NULL
 #' otherwise the package will default to binary selection of planning units.
 #' Lastly, the type of solving algorithm must be specified
 #' (see \code{\link{solvers}}). Once formulated, the problem is solved
-#' using the \code{solve()} function, which will return
+#' using the \code{\link{solve}} function, which will return
 #' a \code{RasterLayer-class},
-#' \code{Spatial-class}, or a \code{numeric} vector
+#' \code{Spatial-class}, \code{numeric} vector, or \code{\link{matrix}}
 #' containing the solution depending on the \code{ConservationProblem-class}
 #'
 #' @param x \code{\link[raster]{Raster-class}},
 #'   \code{\link[sp]{SpatialPolygonsDataFrame-class}},
 #'   \code{\link[sp]{SpatialLinesDataFrame-class}}, or
-#'   \code{\link{data.frame}} object, or \code{\link{numeric}} vector,
-#'   specifying the planning units to use in the reserve design exercise and
-#'   their corresponding cost. It may be desirable to exclude some planning
-#'   units from the analysis, for example those outside the study area. To
-#'   exclude planning units, set the cost for those raster cells to \code{NA},
-#'   or use the \code{add_locked_out_constraint}.
+#'   \code{\link{data.frame}} object, \code{\link{numeric}} vector, or
+#'   \code{\link{matrix}} specifying the planning units to use in the reserve
+#'   design exercise and their corresponding cost. It may be desirable to
+#'   exclude some planning units from the analysis, for example those outside
+#'   the study area. To exclude planning units, set the cost for those raster
+#'   cells to \code{NA}, or use the \code{add_locked_out_constraint}.
 #'
 #' @param features The correct argument for \code{features} depends on the
-#'   input to \code{x}.
+#'   input to \code{x}:
 #'   \describe{
-#'     \item{\code{\link[raster]{Raster-class}},
+#'     \item{\code{\link[raster]{RasterLayer-class}},
 #'       \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
 #'       object showing the distribution of conservation features. Missing
 #'       values (i.e. \code{NA} values) can be used to indicate the absence of
 #'       a feature in a particular cell instead of explicitly setting these
-#'       cells to zero.}
+#'       cells to zero. Note that this argument type for \code{features} can
+#'       only be used to specify data for problems involving a single zone.}
+#'
+#'     \item{\code{\link[raster]{RasterStack-class}},
+#'       \code{\link[raster]{RasterBrick-class}}
+#'       \code{\link[sp]{Spatial-class}}}{\code{ZonesRaster}
+#'       object showing the distribution of conservation features in multiple
+#'       zones. As above, missing values (i.e. \code{NA} values) can be used to
+#'       indicate the absence of a feature in a particular cell instead of
+#'       explicitly setting these cells to zero. Note that this argument type
+#'       is explicitly designed for creating problems with spatial data that
+#'       contain multiple zones.}
 #'
 #'     \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
 #'       with column names that correspond to the abundance or occurrence of
-#'       different features in each planning unit.}
+#'       different features in each planning unit. Note that this argument
+#'       type can only be used to create problems involving a single zone.}
 #'
-#'     \item{\code{\link{Spatial}}, \code{data.frame} or
-#'       \code{numeric}}{\code{data.frame} object
-#'       containing information on the features. The argument to
-#'       \code{feature_data} must follow the conventions used by Marxan. Each
-#'       row corresponds to a different feature. It must also contain the
+#'     \item{\code{\link{Spatial}},
+#'       \code{data.frame}}{\code{\link{ZonesCharacter}}
+#'       object with column names that correspond to the abundance or
+#'       occurrence of different features in each planning unit in different
+#'       zones. Note that this argument type is designed specifically for
+#'       problems involving multiple zones.}
+#'
+#'     \item{\code{\link{Spatial}}, \code{data.frame}, \code{numeric} vector,
+#'       \code{\link{matrix}}}{\code{data.frame} object
+#'       containing the names of the features. Note that if this
+#'       type of argument is supplied to \code{features} then the argument
+#'       \code{rij} or \code{rij_matrix} must also be supplied. This type of
+#'       argument should follow the conventions used by \emph{Marxan}, wherein
+#'       each row corresponds to a different feature. It must also contain the
 #'       following columns:
 #'       \describe{
 #'         \item{\code{"id"}}{\code{integer} unique identifier for each feature
@@ -68,25 +89,62 @@ NULL
 #'  }
 #'
 #' @param cost_column \code{character} name or \code{integer} indicating the
-#'   column with the cost data. This argument must be supplied when the
-#'   argument to \code{x} is a \code{link{Spatial}} or \code{\link{data.frame}}
-#'   object.
+#'   column(s) with the cost data. This argument must be supplied when the
+#'   argument to \code{x} is a \code{\link[sp]{Spatial}} or
+#'   \code{data.frame} object. This argument should contain the name of each
+#'   column containing cost data for each management zone when creating
+#'   problems with multiple zones. To create a problem with a single zone, then
+#'   set the argument to \code{cost_column} as a single column name.
 #'
 #' @param rij \code{data.frame} containing information on the amount of
-#'    each feature in each planning unit. This argument is only used argument to
-#'    \code{x} is a \code{data.frame}. Similar to \code{features}, the
-#'    argument to \code{rij} must follow the conventions used by
-#'    Marxan. It must contain the following columns:
-#'    \describe{
-#'      \item{\code{"pu"}}{\code{integer} planning unit identifier.}
-#'      \item{\code{"species"}}{\code{integer} feature identifier.}
-#'      \item{\code{"amount"}}{\code{numeric} amount of the feature in the
-#'        planning unit.}
-#'     }
+#'    each feature in each planning unit assuming each management zone. Similar
+#'    to \code{data.frame} arguments for \code{features}, the \code{data.frame}
+#'    objects must follow the conventions used by \emph{Marxan}. Note that the
+#'    \code{"zone"} column is not needed for problems involving a single
+#'    management zone. Specifically, the argument should contain the following
+#'    columns:
+#'       \describe{
+#'         \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 #'
-#' @param rij_matrix \code{matrix} or \code{\link[Matrix]{dgCMatrix-class}}
-#'    object specifying the amount of each feature (rows) within each planning
-#'    unit (columns). Only used when \code{x} is a numeric vector of costs.
+#'         \item{\code{"species"}}{\code{integer} feature identifier.}
+#'
+#'         \item{\code{"zone"}}{\code{integer} zone identifier (optional for
+#'           problems involving a single zone).}
+#'
+#'         \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+#'           planning unit.}
+#'       }
+#'
+#' @param rij_matrix \code{list} of \code{matrix} or
+#'    \code{\link[Matrix]{dgCMatrix-class}}
+#'    objects specifying the amount of each feature (rows) within each planning
+#'    unit (columns) for each zone. The \code{list} elements denote
+#'    different zones, matrix rows denote features, and matrix columns denote
+#'    planning units. For convenience, the argument to
+#'    \code{rij_matrix} can be a single \code{matrix} or
+#'    \code{\link[Matrix]{dgCMatrix-class}} when specifying a problem with a
+#'    single management zone. This argument is only used when the argument
+#'    to \code{x} is a \code{numeric} or \code{matrix} object.
+#'
+#' @param zones \code{data.frame} containing information on the zones. This
+#'   argument is only used when argument to \code{x} and \code{y} are
+#'   both \code{data.frame} objects and the problem being built contains
+#'   multiple zones. Following conventions used in \code{MarZone}, this
+#'   argument should contain the following columns:
+#'    columns:
+#'       \describe{
+#'         \item{\code{"id"}}{\code{integer} zone identifier.}
+#'
+#'         \item{\code{"name"}}{\code{character} zone name.}
+#'
+#'       }
+#'
+#' @param run_checks \code{logical} flag indicating whether checks should be
+#'   run to ensure the integrity of the input data. These checks are run by
+#'   default; however, for large data sets they may substantially increase run
+#'   time. If it is taking a prohibitively long time to create the
+#'   prioritization problem, it is suggested to try setting \code{run_checks}
+#'   to \code{FALSE}.
 #'
 #' @param ... not used.
 #'
@@ -103,7 +161,7 @@ NULL
 #' presence or absence) or area of occurrence within each planning unit.
 #' Finally, in some types of reserve design models, for each conservation
 #' feature, representation targets must be set, such as 20% of the current
-#' extent of cloud forest or 10,000km^2 of Clouded Leopard habitat
+#' extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
 #' (see \code{\link{targets}}).
 #'
 #' The goal of the reserve design exercise is then to optimize the trade-off
@@ -111,12 +169,11 @@ NULL
 #' benefit for your limited conservation funds. In general, the goal of an
 #' optimization problem is to minimize an objective function over a set of
 #' decision variables, subject to a series of constraints. The decision
-#' variables
-#' are what we control, usually there is one binary variable for each planning
-#' unit specifying whether or not to protect that unit (but other approaches are
-#' available, see \code{\link{decisions}}). The constraints can be thought
-#' of as rules that need to be followed, for example, that the reserve must
-#' stay within a certain budget or meet the representation targets.
+#' variables are what we control, usually there is one binary variable for each
+#' planning unit specifying whether or not to protect that unit (but other
+#' approaches are available, see \code{\link{decisions}}). The constraints can
+#' be thought of as rules that need to be followed, for example, that the
+#' reserve must stay within a certain budget or meet the representation targets.
 #'
 #' Integer linear programming (ILP) is the subset of optimization algorithms
 #' used in this package to solve reserve design problems. The general form of
@@ -146,7 +203,7 @@ NULL
 #'  \code{\link{portfolios}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
-#' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method
+#' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method
 #'
 #' @exportMethod problem
 #'
@@ -236,145 +293,162 @@ methods::setGeneric("problem",
                     function(x, features, ...) standardGeneric("problem"))
 
 #' @name problem
-#' @usage \S4method{problem}{Raster,Raster}(x, features, ...)
+#' @usage \S4method{problem}{Raster,Raster}(x, features, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
   methods::signature(x = "Raster", features = "Raster"),
-  function(x, features, ...) {
-    assertthat::assert_that(inherits(x, "Raster"), inherits(features, "Raster"))
-    assertthat::assert_that(isTRUE(raster::cellStats(x, "min") > 0),
-      isTRUE(all(raster::cellStats(features, "max") > 0)),
-      raster::nlayers(x) == 1, raster::nlayers(features) >= 1,
-      raster::compareRaster(x, features, res = TRUE, tolerance = 1e-5,
-        stopiffalse = FALSE))
-    if (inherits(x, c("RasterStack", "RasterBrick")))
-      x <- x[[1]]
-    pproto(NULL, ConservationProblem,
-           constraints = pproto(NULL, Collection),
-           penalties = pproto(NULL, Collection),
-           data = list(cost = x, features = features,
-                       rij_matrix = rij_matrix(x, features)))
+  function(x, features, run_checks = TRUE, ...) {
+    assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1)
+    problem(x, setNames(zones(features), names(x)), run_checks = run_checks,
+            ...)
 })
 
 #' @name problem
-#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, ...)
+#' @usage \S4method{problem}{Raster,ZonesRaster}(x, features, run_checks, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Raster", features = "ZonesRaster"),
+  function(x, features, run_checks = TRUE, ...) {
+    # assert that arguments are valid
+    assertthat::assert_that(
+      inherits(x, "Raster"),
+      inherits(features, "ZonesRaster"),
+      assertthat::is.flag(run_checks),
+      raster::nlayers(x) > 0,
+      raster::nlayers(features[[1]]) > 0,
+      raster::nlayers(x) == length(features),
+      raster::compareRaster(x, features[[1]], res = TRUE, tolerance = 1e-5,
+                            stopiffalse = FALSE))
+    if (run_checks)
+      assertthat::assert_that(
+        all(raster::cellStats(x, "min") >= 0),
+        all(raster::cellStats(raster::stack(unlist(features,
+                                                   recursive = FALSE,
+                                                   use.names = FALSE)),
+                              "min") >= 0))
+    # convert x to RasterLayer if has only one layer
+    if (inherits(x, c("RasterStack", "RasterBrick")) &&
+        raster::nlayers(x) == 1)
+      x <- x[[1]]
+    # create rij matrix
+    rij <- lapply(seq_len(raster::nlayers(x)),
+                  function(i) rij_matrix(x[[i]], features[[i]]))
+    names(rij) <- names(features)
+    # create ConservationProblem object
+    pproto(NULL, ConservationProblem,
+           constraints = pproto(NULL, Collection),
+           penalties = pproto(NULL, Collection),
+           data = list(cost = x, features = features, rij_matrix = rij))
+})
+
+#' @name problem
+#' @usage \S4method{problem}{Spatial,Raster}(x, features, cost_column, run_checks, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
   methods::signature(x = "Spatial", features = "Raster"),
-  function(x, features, cost_column, ...) {
+  function(x, features, cost_column, run_checks = TRUE, ...) {
+    assertthat::assert_that(assertthat::is.string(cost_column))
+    problem(x, setNames(zones(features), cost_column),
+            cost_column = cost_column, run_checks = run_checks, ...)
+})
+
+#' @name problem
+#' @usage \S4method{problem}{Spatial,ZonesRaster}(x, features, cost_column, run_checks, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Spatial", features = "ZonesRaster"),
+  function(x, features, cost_column, run_checks = TRUE, ...) {
+    # assert that arguments are valid
     assertthat::assert_that(
       inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
                     "SpatialPointsDataFrame")),
-      assertthat::is.string(cost_column))
-    cost_column <- match.arg(cost_column, names(x))
-    x <- x[is.finite(x[[cost_column]]), ]
+      length(x) > 0, is.character(cost_column), !anyNA(cost_column),
+      all(cost_column %in% names(x)),
+      length(cost_column) == length(features),
+      all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      assertthat::is.flag(run_checks))
+    # remove planning units that contain NA values in all zones
+    x <- x[rowSums(is.finite(as.matrix(
+             x@data[, cost_column, drop = FALSE]))) > 0, ]
+    # further validation checks
     assertthat::assert_that(
-      isTRUE(all(x[[cost_column]] > 0)),
       length(x) > 0,
-      isTRUE(all(raster::cellStats(features, "max", na.rm = TRUE) > 0)),
-      raster::nlayers(features) >= 1,
-      raster::compareCRS(x@proj4string, features@crs),
+      all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
+                  na.rm = TRUE) > 0),
+      all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
+                  na.rm = TRUE) == 0),
+      raster::compareCRS(x@proj4string, features[[1]]@crs),
       isTRUE(rgeos::gIntersects(methods::as(raster::extent(x),
                                             "SpatialPolygons"),
-        methods::as(raster::extent(features), "SpatialPolygons"))))
+                                methods::as(raster::extent(features[[1]]),
+                                            "SpatialPolygons"))))
+    if (run_checks)
+      assertthat::assert_that(
+        all(raster::cellStats(raster::stack(unlist(features, recursive = FALSE,
+                                                   use.names = FALSE)),
+                              "min") >= 0))
+    # create rij matrix
+    rij <- lapply(seq_along(features),
+                  function(i) rij_matrix(x, features[[i]]))
+    names(rij) <- names(features)
+    # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij_matrix(x[, cost_column], features)))
+                  rij_matrix = rij))
 })
 
 #' @name problem
-#' @usage \S4method{problem}{data.frame,data.frame}(x, features, rij, ...)
+#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "data.frame", features = "data.frame"),
-  function(x, features, rij, ...) {
+  methods::signature(x = "Spatial", features = "character"),
+  function(x, features, cost_column, ...) {
+    assertthat::assert_that(assertthat::is.string(cost_column))
+    problem(x, setNames(zones(features), cost_column),
+            cost_column = cost_column, ...)
+})
+
+#' @name problem
+#' @usage \S4method{problem}{Spatial,ZonesCharacter}(x, features, cost_column, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "Spatial", features = "ZonesCharacter"),
+  function(x, features, cost_column, ...) {
     # assert that arguments are valid
     assertthat::assert_that(
-      # inputs are data.frames
-      inherits(x, "data.frame"), inherits(features, "data.frame"),
-      inherits(rij, "data.frame"),
-      # x$cost
-      assertthat::has_name(x, "cost"), is.numeric(x$cost),
-      all(is.finite(x$cost)),
-      # x$id
-      assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
-      anyDuplicated(x$id) == 0,
-      # features$id
-      assertthat::has_name(features, "id"), is.numeric(features$id),
-      all(is.finite(features$id)), anyDuplicated(features$id) == 0,
-      # features$name
-      assertthat::has_name(features, "name"),
-      is.character(features$name) || is.factor(features$name),
-      all(!is.na(features$name)), anyDuplicated(features$name) == 0,
-      # rij$species
-      assertthat::has_name(rij, "species"), is.numeric(rij$species),
-      all(is.finite(rij$species)),
-      all(rij$species %in% features$id),
-      # rij$pu
-      assertthat::has_name(rij, "pu"), is.numeric(rij$pu),
-      all(is.finite(rij$pu)), all(rij$pu %in% x$id),
-      # rij$amount
-      assertthat::has_name(rij, "amount"), is.numeric(rij$amount),
-      all(is.finite(rij$amount)))
-    # standardize ids
-    rij$pu <- match(rij$pu, x$id)
-    rij$species <- match(rij$species, features$id)
+      inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
+                    "SpatialPointsDataFrame")),
+      inherits(features, "ZonesCharacter"),
+      length(x) > 0, is.character(cost_column), !anyNA(cost_column),
+      all(cost_column %in% names(x)),
+      length(features) == length(cost_column),
+      all(unlist(features, recursive = FALSE, use.names = FALSE) %in% names(x)),
+      all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
+                  na.rm = TRUE) > 0),
+      all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
+                  na.rm = TRUE) == 0))
     # create rij matrix
-    rij_mat <- Matrix::sparseMatrix(i = rij$species, j = rij$pu,
-                                    x = rij$amount, giveCsparse = TRUE,
-                                    index1 = TRUE, use.last.ij = FALSE,
-                                    dims = c(nrow(features), nrow(x)))
-    # create new problem object
-    p <- pproto(NULL, ConservationProblem,
+    rij <- lapply(features, function(z) {
+      r <- t(as.matrix(x@data[, z, drop = FALSE]))
+      r[is.na(r)] <- 0
+      methods::as(r, "sparseMatrix")
+    })
+    names(rij) <- names(features)
+    # create ConservationProblem object
+    pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = "cost",
-                  rij_matrix = rij_mat))
-    # return problem
-    return(p)
-})
-
-#' @name problem
-#' @usage \S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
-#' @rdname problem
-methods::setMethod(
-  "problem",
-  methods::signature(x = "numeric", features = "data.frame"),
-  function(x, features, rij_matrix, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(
-      # data types
-      is.numeric(x), all(is.finite(x)),
-      inherits(features, "data.frame"),
-      inherits(rij_matrix, c("dgCMatrix", "dgTMatrix", "matrix")),
-      # features$id
-      assertthat::has_name(features, "id"), is.numeric(features$id),
-      all(is.finite(features$id)), anyDuplicated(features$id) == 0,
-      # features$name
-      assertthat::has_name(features, "name"),
-      is.character(features$name) || is.factor(features$name),
-      all(!is.na(features$name)), anyDuplicated(features$name) == 0,
-      # correct matrix dimensions
-      nrow(rij_matrix) == nrow(features),
-      ncol(rij_matrix) == length(x))
-    # convert to sparse matrix if necessary
-    if (!inherits(rij_matrix, "dgCMatrix")) {
-      rij_matrix[which(is.na(rij_matrix))] <- 0
-      rij_matrix <- methods::as(rij_matrix, "dgCMatrix")
-    }
-    # create new problem object
-    p <- pproto(NULL, ConservationProblem,
-                constraints = pproto(NULL, Collection),
-                penalties = pproto(NULL, Collection),
-                data = list(cost = x, features = features,
-                            rij_matrix = rij_matrix))
-    # return problem
-    return(p)
+      data = list(cost = x, features = features, cost_column = cost_column,
+                  rij_matrix = rij))
 })
 
 #' @name problem
@@ -385,47 +459,173 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "character"),
   function(x, features, cost_column, ...) {
     assertthat::assert_that(assertthat::is.string(cost_column))
-    cost_column <- match.arg(cost_column, names(x))
-    x <- x[is.finite(x[[cost_column]]), ]
-    assertthat::assert_that(
-      isTRUE(all(x[[cost_column]] > 0)),
-      length(x) > 0,
-      all(features %in% names(x)),
-      all(colSums(!is.na(as.matrix(x[, features, drop = FALSE]))) > 0))
-    # create rij matrix
-    rij_mat <- t(as.matrix(x[, features, drop = FALSE]))
-    rij_mat[is.na(rij_mat)] <- 0
-    rij_mat <- methods::as(rij_mat, "sparseMatrix")
-    pproto(NULL, ConservationProblem,
-      constraints = pproto(NULL, Collection),
-      penalties = pproto(NULL, Collection),
-      data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij_mat))
+    problem(x, setNames(zones(features), cost_column),
+            cost_column = cost_column, ...)
 })
 
 #' @name problem
-#' @usage \S4method{problem}{Spatial,character}(x, features, cost_column, ...)
+#' @usage \S4method{problem}{data.frame,ZonesCharacter}(x, features, cost_column, ...)
 #' @rdname problem
 methods::setMethod(
   "problem",
-  methods::signature(x = "Spatial", features = "character"),
+  methods::signature(x = "data.frame", features = "ZonesCharacter"),
   function(x, features, cost_column, ...) {
-    assertthat::assert_that(inherits(x, c("SpatialPolygonsDataFrame",
-      "SpatialLinesDataFrame", "SpatialPointsDataFrame")))
-    cost_column <- match.arg(cost_column, names(x))
-    x <- x[is.finite(x[[cost_column]]), ]
+    # assert that arguments are valid
     assertthat::assert_that(
-      isTRUE(all(x[[cost_column]] > 0)),
-      length(x) > 0,
-      all(features %in% names(x)),
-      all(colSums(!is.na(as.matrix(x@data[, features, drop = FALSE]))) > 0))
+      inherits(x, "data.frame"),
+      inherits(features, "ZonesCharacter"),
+      nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
+      all(cost_column %in% names(x)),
+      length(features) == length(cost_column),
+      all(unlist(features, recursive = FALSE, use.names = FALSE) %in% names(x)),
+      all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
+                  na.rm = TRUE) > 0),
+      all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
+                  na.rm = TRUE) == 0))
     # create rij matrix
-    rij_mat <- t(as.matrix(x@data[, features, drop = FALSE]))
-    rij_mat[is.na(rij_mat)] <- 0
-    rij_mat <- methods::as(rij_mat, "sparseMatrix")
+    rij <- lapply(features, function(z) {
+      r <- t(as.matrix(x[, z, drop = FALSE]))
+      r[is.na(r)] <- 0
+      methods::as(r, "sparseMatrix")
+    })
+    names(rij) <- names(features)
+    # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij_mat))
+                  rij_matrix = rij))
+})
+
+#' @name problem
+#' @usage \S4method{problem}{data.frame,data.frame}(x, features, rij, cost_column, zones, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "data.frame", features = "data.frame"),
+  function(x, features, rij, cost_column, zones = NULL, ...) {
+    # assert that arguments are valid
+    assertthat::assert_that(
+      inherits(x, "data.frame"), inherits(features, "data.frame"),
+      is.character(cost_column), !anyNA(cost_column),
+      inherits(rij, "data.frame"),
+      nrow(x) > 0, nrow(features) > 0, nrow(rij) > 0,
+      # x
+      assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
+      anyDuplicated(x$id) == 0, all(cost_column %in% names(x)),
+      all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
+                  na.rm = TRUE) > 0),
+      all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
+                  na.rm = TRUE) == 0),
+      # features
+      assertthat::has_name(features, "id"),
+      assertthat::has_name(features, "name"),
+      anyDuplicated(features$id) == 0,
+      anyDuplicated(features$name) == 0,
+      !anyNA(features$id), !anyNA(features$name),
+      is.numeric(features$id),
+      is.character(features$name) || is.factor(features$name),
+      # rij
+      assertthat::has_name(rij, "pu"),
+      assertthat::has_name(rij, "species"),
+      assertthat::has_name(rij, "amount"),
+      !anyNA(rij$pu), !anyNA(rij$species), !anyNA(rij$amount),
+      is.numeric(rij$pu), is.numeric(rij$species), is.numeric(rij$amount),
+      all(rij$pu %in% x$id),
+      all(rij$species %in% features$id))
+    # validate zone data
+    if (!"zone" %in% names(rij))
+      rij$zone <- 1
+    if (length(unique(rij$zone)) > 1 && is.null(zones))
+      stop("argument to zone must be specified for problems with multiple",
+           "zones")
+    if (is.null(zones))
+      zones <- data.frame(id = 1, name = "1")
+    assertthat::assert_that(
+      is.numeric(rij$zone),
+      is.numeric(zones$id), is.character(zones$name) || is.factor(zones$name),
+      !anyNA(rij$zone), !anyNA(zones$id), !anyNA(zones$name),
+      anyDuplicated(zones$id) == 0, anyDuplicated(zones$name) == 0,
+      nrow(zones) > 0, all(rij$zone %in% zones$id))
+    # standardize ids
+    rij$pu <- match(rij$pu, x$id)
+    rij$species <- match(rij$species, features$id)
+    rij$zone <- match(rij$zone, zones$id)
+    # create rij matrix
+    rij <- lapply(seq_along(zones$id), function(z) {
+      r <- rij[rij$zone == z, ]
+      Matrix::sparseMatrix(i = r$species, j = r$pu,
+                           x = r$amount, giveCsparse = TRUE,
+                           index1 = TRUE, use.last.ij = FALSE,
+                           dims = c(nrow(features), nrow(x)))
+    })
+    names(rij) <- zones$name
+    # create ConservationProblem object
+    pproto(NULL, ConservationProblem,
+      constraints = pproto(NULL, Collection),
+      penalties = pproto(NULL, Collection),
+      data = list(cost = x, features = features, cost_column = cost_column,
+                  rij_matrix = rij))
+})
+
+#' @name problem
+#' @usage \S4method{problem}{numeric,data.frame}(x, features, rij_matrix, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "numeric", features = "data.frame"),
+  function(x, features, rij_matrix, ...) {
+    if (!is.list(rij_matrix))
+      rij_matrix <- list(rij_matrix)
+    problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix)
+})
+
+#' @name problem
+#' @usage \S4method{problem}{matrix,data.frame}(x, features, rij_matrix, ...)
+#' @rdname problem
+methods::setMethod(
+  "problem",
+  methods::signature(x = "matrix", features = "data.frame"),
+  function(x, features, rij_matrix, ...) {
+    # assert that arguments are valid
+    assertthat::assert_that(
+      inherits(x, "matrix"), inherits(features, "data.frame"),
+      inherits(rij_matrix, "list"),
+      nrow(x) > 0, ncol(x) > 0, nrow(features) > 0, length(rij_matrix) > 0,
+      # x
+      all(colSums(is.finite(x)) > 0),
+      all(rowSums(is.finite(x)) > 0),
+      all(x > 0, na.rm = TRUE),
+      all(colSums(!is.na(x)) > 0), all(colSums(x < 0, na.rm = TRUE) == 0),
+      # features
+      assertthat::has_name(features, "id"),
+      assertthat::has_name(features, "name"),
+      anyDuplicated(features$id) == 0,
+      anyDuplicated(features$name) == 0,
+      !anyNA(features$id), !anyNA(features$name),
+      is.numeric(features$id),
+      is.character(features$name) || is.factor(features$name),
+      # rij_matrix
+      all(vapply(rij_matrix, inherits, logical(1), c("matrix", "dgCMatrix"))),
+      all(vapply(rij_matrix, sum, numeric(1), na.rm = TRUE) > 0),
+      # multiple arguments
+      ncol(x) == length(rij_matrix),
+      all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
+      all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
+    # convert rij matrices to sparse format if needed
+    rij <- lapply(rij_matrix, function(z) {
+      if (!inherits(z, "dgCMatrix")) {
+        z[which(is.na(z))] <- 0
+        z <- methods::as(z, "dgCMatrix")
+      }
+      return(z)
+    })
+    names(rij) <- names(rij_matrix)
+    # create new problem object
+    pproto(NULL, ConservationProblem,
+           constraints = pproto(NULL, Collection),
+           penalties = pproto(NULL, Collection),
+           data = list(cost = x, features = features, rij_matrix = rij))
 })

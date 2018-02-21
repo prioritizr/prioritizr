@@ -10,9 +10,12 @@ test_that("x=Raster, y=RasterStack", {
   expect_equal(x$number_of_planning_units(),
     length(raster::Which(!is.na(sim_pu_raster), cells = TRUE)))
   expect_equal(x$planning_unit_costs(),
-    sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-    expect_equal(x$feature_abundances_in_planning_units(),
-    raster::cellStats(raster::mask(sim_features, sim_pu_raster), "sum"))
+               matrix(sim_pu_raster[[1]][!is.na(sim_pu_raster)], ncol = 1))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+    matrix(raster::cellStats(raster::mask(sim_features, sim_pu_raster),
+                             "sum"), ncol = 1))
+  expect_equivalent(x$data$rij_matrix,
+                    list(rij_matrix(sim_pu_raster, sim_features)))
   expect_error(x$feature_targets())
   expect_equal(problem(sim_pu_raster, sim_pu_raster)$number_of_features(), 1L)
 })
@@ -26,12 +29,14 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack", {
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
-  expect_equal(x$planning_unit_costs(),
-    sim_pu_polygons$cost[!is.na(sim_pu_polygons$cost)])
-  expect_equal(x$data$rij_matrix,
-    rij_matrix(sim_pu_polygons[!is.na(sim_pu_polygons[[1]]), ], sim_features))
-  expect_equal(x$feature_abundances_in_planning_units(),
-    Matrix::rowSums(x$data$rij_matrix))
+  expect_equivalent(x$planning_unit_costs(),
+                    matrix(sim_pu_polygons$cost[!is.na(sim_pu_polygons$cost)],
+                           ncol = 1))
+  expect_equivalent(x$data$rij_matrix,
+                    list(rij_matrix(sim_pu_polygons[
+                      !is.na(sim_pu_polygons[[1]]), ], sim_features)))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    Matrix::rowSums(x$data$rij_matrix[[1]]))
   expect_error(x$feature_targets())
   expect_equal(problem(sim_pu_polygons, sim_pu_raster,
                        "cost")$number_of_features(),
@@ -47,10 +52,14 @@ test_that("x=SpatialLinesDataFrame, y=RasterStack", {
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_lines$cost)))
-  expect_equal(x$planning_unit_costs(),
-    sim_pu_lines$cost[!is.na(sim_pu_lines$cost)])
-  expect_equal(x$feature_abundances_in_planning_units(),
-    Matrix::rowSums(x$data$rij_matrix))
+  expect_equivalent(x$planning_unit_costs(),
+                    matrix(sim_pu_lines$cost[!is.na(sim_pu_lines$cost)],
+                           ncol = 1))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(Matrix::rowSums(x$data$rij_matrix[[1]]), ncol = 1))
+  expect_equivalent(x$data$rij_matrix,
+                    list(rij_matrix(sim_pu_lines[!is.na(sim_pu_lines[[1]]), ],
+                                    sim_features)))
   expect_error(x$feature_targets())
   expect_equal(problem(sim_pu_lines, sim_pu_raster,
                        "cost")$number_of_features(), 1L)
@@ -65,12 +74,14 @@ test_that("x=SpatialPointsDataFrame, y=RasterStack", {
   expect_equal(x$feature_names(), names(sim_features))
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_points$cost)))
-  expect_equal(x$planning_unit_costs(),
-    sim_pu_points$cost[!is.na(sim_pu_points$cost)])
-  expect_equal(x$data$rij_matrix,
-    rij_matrix(sim_pu_points[!is.na(sim_pu_points[[1]]), ], sim_features))
-  expect_equal(x$feature_abundances_in_planning_units(),
-    Matrix::rowSums(x$data$rij_matrix))
+  expect_equivalent(x$planning_unit_costs(),
+                    matrix(sim_pu_points$cost[!is.na(sim_pu_points$cost)],
+                           ncol = 1))
+  expect_equivalent(x$data$rij_matrix,
+                    list(rij_matrix(sim_pu_points[!is.na(sim_pu_points[[1]]), ],
+                                    sim_features)))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(Matrix::rowSums(x$data$rij_matrix[[1]]), ncol = 1))
   expect_error(x$feature_targets())
   expect_equal(problem(sim_pu_points, sim_pu_raster,
                        "cost")$number_of_features(), 1L)
@@ -89,7 +100,8 @@ test_that("x=SpatialPolygons, y=character", {
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_planning_units(), length(sim_pu_polygons))
-  expect_equal(x$planning_unit_costs(), sim_pu_polygons$cost)
+  expect_equivalent(x$planning_unit_costs(),
+                    matrix(sim_pu_polygons$cost, ncol = 1))
   rij <- Matrix::sparseMatrix(i = c(rep(1, length(sim_pu_polygons)),
                                     rep(2, length(sim_pu_polygons) -1)),
                               j = c(seq_len(length(sim_pu_polygons)),
@@ -97,9 +109,11 @@ test_that("x=SpatialPolygons, y=character", {
                               x = c(sim_pu_polygons$spp1,
                                     sim_pu_polygons$spp2[-1]),
                               dims = c(2, length(sim_pu_polygons)))
-  expect_true(all(x$data$rij_matrix == rij))
-  expect_equal(x$feature_abundances_in_planning_units(),
-               colSums(sim_pu_polygons@data[, c("spp1", "spp2")], na.rm = TRUE))
+  rij <- list(rij)
+  expect_true(all(x$data$rij_matrix[[1]] == rij[[1]]))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(colSums(sim_pu_polygons@data[, c("spp1", "spp2")],
+                                   na.rm = TRUE), ncol = 1))
   expect_error(x$feature_targets())
 })
 
@@ -117,37 +131,15 @@ test_that("x=data.frame, y=data.frame", {
   expect_equal(x$feature_names(), letters[1:5])
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_planning_units(), 10)
-  expect_equal(x$planning_unit_costs(), pu$cost)
-  expect_equal(x$data$rij_matrix,
-               Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]], x = rij[[3]],
-                                    dims = c(5, 10)))
-  expect_equal(x$feature_abundances_in_planning_units(),
-    Matrix::rowSums(Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]],
-                                         x = rij[[3]])))
-  expect_error(x$feature_targets())
-})
-
-test_that("x=numeric, y=data.frame, rij=data.frame", {
-  # simulate data
-  pu <- data.frame(id = seq_len(10), cost = runif(10),
-                   spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
-  # create problem
-  x <- problem(pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
-               t(pu[, 3:4]))
-  print(x)
-  x
-  # run tests
-  expect_equal(x$feature_names(), c("spp1", "spp2"))
-  expect_equal(x$number_of_features(), 2)
-  expect_equal(x$number_of_planning_units(), 10)
-  expect_equal(x$planning_unit_costs(), pu$cost)
-  expect_true(all(x$data$rij_matrix ==
-                  Matrix::sparseMatrix(i = c(rep(1, 10), rep(2, 9)),
-                                    j = c(1:10, 1:9),
-                                    x = c(pu$spp1, pu$spp2[1:9]),
-                                    dims = c(2, 10))))
-  expect_equal(x$feature_abundances_in_planning_units(),
-               colSums(pu[, c("spp1", "spp2")], na.rm = TRUE))
+  expect_equivalent(x$planning_unit_costs(), matrix(pu$cost, ncol = 1))
+  expect_equivalent(x$data$rij_matrix[[1]],
+                    Matrix::sparseMatrix(i = rij[[2]], j = rij[[1]],
+                                         x = rij[[3]],
+                                         dims = c(5, 10)))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    Matrix::rowSums(Matrix::sparseMatrix(i = rij[[2]],
+                                                         j = rij[[1]],
+                                                         x = rij[[3]])))
   expect_error(x$feature_targets())
 })
 
@@ -163,14 +155,40 @@ test_that("x=data.frame, y=character", {
   expect_equal(x$feature_names(), c("spp1", "spp2"))
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_planning_units(), 10)
-  expect_equal(x$planning_unit_costs(), pu$cost)
-  expect_true(all(x$data$rij_matrix ==
+  expect_equivalent(x$planning_unit_costs(), matrix(pu$cost, ncol = 1))
+  expect_true(all(x$data$rij_matrix[[1]] ==
                   Matrix::sparseMatrix(i = c(rep(1, 10), rep(2, 9)),
-                                    j = c(1:10, 1:9),
-                                    x = c(pu$spp1, pu$spp2[1:9]),
-                                    dims = c(2, 10))))
-  expect_equal(x$feature_abundances_in_planning_units(),
-               colSums(pu[, c("spp1", "spp2")], na.rm = TRUE))
+                                       j = c(1:10, 1:9),
+                                       x = c(pu$spp1, pu$spp2[1:9]),
+                                       dims = c(2, 10))))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(colSums(pu[, c("spp1", "spp2")], na.rm = TRUE),
+                           ncol = 1))
+  expect_error(x$feature_targets())
+})
+
+test_that("x=numeric, y=data.frame", {
+  # simulate data
+  pu <- data.frame(id = seq_len(10), cost = runif(10),
+                   spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+  # create problem
+  x <- problem(pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+               as.matrix(t(pu[, 3:4])))
+  print(x)
+  x
+  # run tests
+  expect_equal(x$feature_names(), c("spp1", "spp2"))
+  expect_equal(x$number_of_features(), 2)
+  expect_equal(x$number_of_planning_units(), 10)
+  expect_equal(x$planning_unit_costs(), matrix(pu$cost, ncol = 1))
+  expect_true(all(x$data$rij_matrix[[1]] ==
+                  Matrix::sparseMatrix(i = c(rep(1, 10), rep(2, 9)),
+                                       j = c(1:10, 1:9),
+                                       x = c(pu$spp1, pu$spp2[1:9]),
+                                       dims = c(2, 10))))
+  expect_equivalent(x$feature_abundances_in_planning_units(),
+                    matrix(colSums(pu[, c("spp1", "spp2")], na.rm = TRUE),
+                           ncol = 1))
   expect_error(x$feature_targets())
 })
 

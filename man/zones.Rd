@@ -2,6 +2,9 @@
 % Please edit documentation in R/zones.R
 \name{zones}
 \alias{zones}
+\alias{Zones-class}
+\alias{ZonesCharacter}
+\alias{ZonesRaster}
 \title{Management zones}
 \usage{
 zones(...)
@@ -59,7 +62,7 @@ data(sim_features_zones)
 
 # create zones using a list of four RasterStack objects
 z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
-            sim_features_zones[[3]], sim_features_zones[[4]])
+            sim_features_zones[[3]])
 print(z1)
 
 # alternatively, coerce the list to a zones object
@@ -73,18 +76,6 @@ z3 <- zones(c("spp1_zone1", "spp2_zone1"),
             c("spp1_zone2", "spp2_zone2"),
             c("spp1_zone3", "spp2_zone3"))
 print(z3)
-
-# create zones using data.frame inputs
-zone_1_data <- expand.grid(pu = 1:5, species = 1:3)
-zone_1_data$amount <- rpois(25, 5)
-zone_2_data$amount <- rpois(25, 1)
-zone_3_data$amount <- rpois(25, 7)
-
-z4 <- zones(zone_1_data, zone_2_data, zone_3_data)
-print(z4)
-
-z5 <- as.Zones(list(zone_1_data, zone_2_data, zone_3_data))
-print(z5)
 }
 \seealso{
 \code{\link{problem}}.

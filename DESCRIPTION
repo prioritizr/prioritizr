@@ -134,6 +134,7 @@ Collate:
     'package.R'
     'penalties.R'
     'portfolios.R'
+    'zones.R'
     'problem.R'
     'rij_matrix.R'
     'run_calculations.R'
@@ -141,5 +142,4 @@ Collate:
     'solve.R'
     'solvers.R'
     'targets.R'
-    'zones.R'
     'zzz.R'

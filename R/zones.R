@@ -1,4 +1,8 @@
 #' @include internal.R
+#' @export
+methods::setOldClass("Zones")
+methods::setOldClass("ZonesCharacter")
+methods::setOldClass("ZonesRaster")
 NULL
 
 #' Management zones
@@ -48,13 +52,15 @@ NULL
 #'
 #' @seealso \code{\link{problem}}.
 #'
+#' @aliases Zones-class ZonesCharacter ZonesRaster
+#'
 #' @examples
 #' # load data
 #' data(sim_features_zones)
 #'
 #' # create zones using a list of four RasterStack objects
 #' z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
-#'             sim_features_zones[[3]], sim_features_zones[[4]])
+#'             sim_features_zones[[3]])
 #' print(z1)
 #'
 #' # alternatively, coerce the list to a zones object
@@ -68,23 +74,12 @@ NULL
 #'             c("spp1_zone2", "spp2_zone2"),
 #'             c("spp1_zone3", "spp2_zone3"))
 #' print(z3)
-#'
-#' # create zones using data.frame inputs
-#' zone_1_data <- expand.grid(pu = 1:5, species = 1:3)
-#' zone_1_data$amount <- rpois(25, 5)
-#  zone_2_data <- expand.grid(pu = 1:5, species = 1:3)
-#' zone_2_data$amount <- rpois(25, 1)
-#  zone_3_data <- expand.grid(pu = 1:5, species = 1:3)
-#' zone_3_data$amount <- rpois(25, 7)
-#'
-#' z4 <- zones(zone_1_data, zone_2_data, zone_3_data)
-#' print(z4)
-#'
-#' z5 <- as.Zones(list(zone_1_data, zone_2_data, zone_3_data))
-#' print(z5)
 #' @export
 zones <- function(...) {
   args <- list(...)
+  # assign names
+  if (is.null(names(args)))
+    names(args) <- as.character(seq_along(args))
   # assert that arguments are valid
   assertthat::assert_that(length(unique(vapply(args, function(x) class(x)[[1]],
                                                character(1)))) == 1,
@@ -92,11 +87,9 @@ zones <- function(...) {
                                       "same class"))
   assertthat::assert_that(all(vapply(args, inherits, logical(1), "Raster")) ||
                           all(vapply(args, inherits, logical(1),
-                                     "character")) ||
-                          all(vapply(args, inherits, logical(1), "data.frame")),
+                                     "character")),
                           msg = paste("all arguments do not inherit from",
-                                      "Raster, character, or data.frame",
-                                      "classes"))
+                                      "Raster or character classes"))
   assertthat::assert_that(anyDuplicated(names(args)) == 0)
   # checks for Raster input
   if (inherits(args[[1]], "Raster")) {
@@ -112,7 +105,7 @@ zones <- function(...) {
                                         "spatial properties"))
     assertthat::assert_that(all(vapply(args, raster::nlayers, numeric(1)) >= 1),
                             msg = "all argument must have at least one layer")
-    zone_class <- paste0("Zones", class(args[[1]])[[1]])
+    zone_class <- "ZonesRaster"
   }
   # checks for character input
   if (inherits(args[[1]], "character")) {
@@ -126,39 +119,6 @@ zones <- function(...) {
                                           "values"))
     }
     zone_class <- "ZonesCharacter"
-  }
-  # checks for data.frame input
-  if (inherits(args[[1]], "data.frame")) {
-    for (i in seq_along(args)) {
-      assertthat::assert_that(assertthat::has_name(args[[i]], "pu"),
-                              msg = paste("argument", i, "is missing the",
-                                          "column \"pu\""))
-      assertthat::assert_that(assertthat::has_name(args[[i]], "species"),
-                              msg = paste("argument", i, "is missing the",
-                                          "column \"species\""))
-      assertthat::assert_that(assertthat::has_name(args[[i]], "amount"),
-                              msg = paste("argument", i, "is missing the",
-                                          "column \"amount\""))
-      assertthat::assert_that(is.numeric(args[[i]]$pu),
-                              msg = paste("argument", i, "contains non-numeric",
-                                          "data in the column \"pu\""))
-      assertthat::assert_that(all(is.finite(args[[i]]$pu)),
-                              msg = paste("argument", i, "contains NA",
-                                          "values in the column \"pu\""))
-      assertthat::assert_that(is.numeric(args[[i]]$species),
-                              msg = paste("argument", i, "contains non-numeric",
-                                          "data in the column \"species\""))
-      assertthat::assert_that(all(is.finite(args[[i]]$species)),
-                              msg = paste("argument", i, "contains NA",
-                                          "values in the column \"species\""))
-      assertthat::assert_that(is.numeric(args[[i]]$amount),
-                              msg = paste("argument", i, "contains non-numeric",
-                                          "data in the column \"amount\""))
-      assertthat::assert_that(all(is.finite(args[[i]]$amount)),
-                              msg = paste("argument", i, "contains NA",
-                                          "values in the column \"amount\""))
-    }
-    zone_class <- "ZonesDataFrame"
   }
   # return Zones class object
   structure(args, .Names = names(args), class = c(zone_class, "Zones", "list"))

@@ -14,7 +14,7 @@ by applying the decision to the planning unit. The problem also has a set
 of representation targets for each feature. Further, it also has
 constraints used to ensure that the solution meets additional
 objectives (e.g. certain areas are locked into the solution). Finally,
-a conservation planning problem--unlike an optimization problem--also
+a conservation planning problem---unlike an optimization problem---also
 requires a method to solve the problem. \strong{This class represents a
 planning problem, to actually build and then solve a planning problem,
 use the \code{\link{problem}} function. Only experts should use this
@@ -75,6 +75,8 @@ class directly.}
 \code{x$feature_abundances_in_planning_units()}
 
 \code{x$feature_targets()}
+
+\code{x$number_of_zones()}
 
 \code{x$add_objective(obj)}
 
@@ -139,8 +141,8 @@ class directly.}
   \code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
   representation of the planning units and their cost.}
 
-\item{features}{\code{\link[raster]{RasterStack-class}} object showing
-  distribution of features.}
+\item{features}{\code{\link{Zones-class}} or \code{data.frame} object
+  containing feature data.}
 
 \item{id}{\code{Id} object that refers to a specific parameter.}
 
@@ -181,6 +183,8 @@ class directly.}
   abundance of each feature in all the planning units.}
 
 \item{feature_targets}{\code{numeric} targets for each feature.}
+
+\item{number_of_zones}{\code{integer} number of zones.}
 
 \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
   with the objective added to it.}

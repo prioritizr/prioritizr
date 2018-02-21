@@ -36,23 +36,3 @@ test_that("zones (character input)", {
   expect_error(zones(z1 = c("a1", "b1"), z1 = c("a2", "b2")))
   expect_error(zones(c("a1", "b1", "c1"), c("a2", NA, "c2")))
 })
-
-test_that("zones (data.frame input)", {
-  # make zones
-  df1 <- data.frame(pu = 1:3, species = 1:3, amount = runif(3))
-  df2 <- data.frame(pu = 1:3, species = 1:3, amount = runif(3))
-  x <- zones(z1 = df1, z2 = df2)
-  y <- as.Zones(list(z1 = df1, z2 = df2))
-  # run tests
-  expect_is(x, "Zones")
-  expect_is(y, "Zones")
-  expect_is(x, "ZonesDataFrame")
-  expect_is(y, "ZonesDataFrame")
-  expect_equal(x, y)
-  expect_error(zones(df1[, -1], df2))
-  expect_error(zones(df1[, -2], df2))
-  expect_error(zones(df1[, -3], df2))
-  expect_error({df3 <- df1; df3[2, 1] <- NA; zones(df3)})
-  expect_error({df3 <- df1; df3[2, 1] <- NA; zones(df3)})
-  expect_error({df3 <- df1; df3[2, 1] <- NA; zones(df3)})
-})

@@ -15,7 +15,7 @@ methods::setOldClass("ConservationProblem")
 #' of representation targets for each feature. Further, it also has
 #' constraints used to ensure that the solution meets additional
 #' objectives (e.g. certain areas are locked into the solution). Finally,
-#' a conservation planning problem--unlike an optimization problem--also
+#' a conservation planning problem---unlike an optimization problem---also
 #' requires a method to solve the problem. \strong{This class represents a
 #' planning problem, to actually build and then solve a planning problem,
 #' use the \code{\link{problem}} function. Only experts should use this
@@ -73,6 +73,8 @@ methods::setOldClass("ConservationProblem")
 #' \code{x$feature_abundances_in_planning_units()}
 #'
 #' \code{x$feature_targets()}
+#'
+#' \code{x$number_of_zones()}
 #'
 #' \code{x$add_objective(obj)}
 #'
@@ -135,8 +137,8 @@ methods::setOldClass("ConservationProblem")
 #'   \code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
 #'   representation of the planning units and their cost.}
 #'
-#' \item{features}{\code{\link[raster]{RasterStack-class}} object showing
-#'   distribution of features.}
+#' \item{features}{\code{\link{Zones-class}} or \code{data.frame} object
+#'   containing feature data.}
 #'
 #' \item{id}{\code{Id} object that refers to a specific parameter.}
 #'
@@ -175,6 +177,8 @@ methods::setOldClass("ConservationProblem")
 #'   abundance of each feature in all the planning units.}
 #'
 #' \item{feature_targets}{\code{numeric} targets for each feature.}
+#'
+#' \item{number_of_zones}{\code{integer} number of zones.}
 #'
 #' \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
 #'   with the objective added to it.}
@@ -272,19 +276,13 @@ ConservationProblem <- pproto(
       return(x$repr())
     }, character(1))
     cs <- round(range(self$planning_unit_costs()), 5)
-    f <- self$feature_names()
-    nf <- length(f)
-    if (length(f) <= 4) {
-      f <- f[seq_len(min(length(f), 4))]
-    } else {
-      f <- c(f[seq_len(min(length(f), 3))], "...")
-    }
-    f <- paste0(paste(f, collapse = ", "), " (", nf, " features)")
     message(paste0("Conservation Problem",
+    ifelse(self$number_of_zones() > 1, paste0(
+      "\n  zones:          ", self$number_of_zones()), ""),
     "\n  planning units: ", class(self$data$cost)[1], " (",
       self$number_of_planning_units(), " units)",
     "\n  cost:           min: ", cs[1], ", max: ", cs[2],
-    "\n  features:       ", f,
+    "\n  features:       ", repr_atomic(self$feature_names(), "features"),
     "\n  objective:      ", r[1],
     "\n  targets:        ", r[2],
     "\n  decisions:      ", d[2],
@@ -312,11 +310,15 @@ ConservationProblem <- pproto(
   },
   number_of_planning_units = function(self) {
     if (inherits(self$data$cost, "Raster")) {
-      return(raster::cellStats(raster::Which(!is.na(self$data$cost)), "sum"))
+      if (raster::nlayers(self$data$cost) == 1) {
+        return(raster::cellStats(raster::Which(!is.na(self$data$cost)), "sum"))
+      } else {
+        return(raster::cellStats(max(!is.na(self$data$cost)), "sum"))
+      }
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
-    } else if (is.numeric(self$data$cost)) {
-      return(length(self$data$cost))
+    } else if (is.matrix(self$data$cost)) {
+      return(ncol(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
@@ -326,54 +328,74 @@ ConservationProblem <- pproto(
       return(raster::ncell(self$data$cost))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
-    } else if (is.numeric(self$data$cost)) {
-      return(length(self$data$cost))
+    } else if (is.matrix(self$cost$data)) {
+      return(ncol(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
   },
   planning_unit_costs = function(self) {
     if (inherits(self$data$cost, "Raster")) {
-      return(self$data$cost[raster::Which(!is.na(self$data$cost))])
-    } else if (inherits(self$data$cost, c("data.frame",
-               "SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
-               "SpatialPointsDataFrame"))) {
-      return(self$data$cost[[self$data$cost_column]])
-    } else if (is.numeric(self$data$cost)) {
+      if (raster::nlayers(self$data$cost) == 1) {
+        return(matrix(self$data$cost[raster::Which(!is.na(self$data$cost))],
+                      ncol = 1))
+      } else {
+        cells <- raster::Which(max(!is.na(self$data$cost)) == 1)
+        return(self$data$cost[cells])
+      }
+    } else if (inherits(self$data$cost,
+                        c("SpatialPolygonsDataFrame",
+                          "SpatialLinesDataFrame",
+                          "SpatialPointsDataFrame"))) {
+      return(as.matrix(self$data$cost@data[, self$data$cost_column,
+                                           drop = FALSE]))
+    } else if (inherits(self$data$cost, "data.frame")) {
+      return(as.matrix(self$data$cost[, self$data$cost_column, drop = FALSE]))
+    } else if (is.matrix(self$data$cost)) {
       return(self$data$cost)
     } else {
       stop("cost is of unknown class")
     }
   },
   number_of_features = function(self) {
-    if (inherits(self$data$features, "Raster")) {
-      return(raster::nlayers(self$data$features))
+    if (inherits(self$data$features, "ZonesRaster")) {
+      return(raster::nlayers(self$data$features[[1]]))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
-    } else if (inherits(self$data$features, "character")) {
-      return(length(self$data$features))
+    } else if (inherits(self$data$features, "ZonesCharacter")) {
+      return(length(self$data$features[[1]]))
     } else {
       stop("feature data is of an unrecognized class")
     }
   },
   feature_names = function(self) {
-    if (inherits(self$data$features, "Raster")) {
-      return(names(self$data$features))
+    if (inherits(self$data$features, "ZonesRaster")) {
+      return(names(self$data$features[[1]]))
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
-    } else if (inherits(self$data$features, "character")) {
-      return(self$data$features)
+    } else if (inherits(self$data$features, "ZonesCharacter")) {
+      return(self$data$features[[1]])
     } else {
       stop("feature data is of an unrecognized class")
     }
   },
   feature_abundances_in_planning_units = function(self) {
-    Matrix::rowSums(self$data$rij_matrix, na.rm = TRUE)
+    vapply(self$data$rij_matrix, Matrix::rowSums,
+           numeric(nrow(self$data$rij_matrix[[1]])), na.rm = TRUE)
   },
   feature_targets = function(self) {
     if (is.Waiver(self$targets))
       stop("problem is missing targets")
     self$targets$output()
+  },
+  number_of_zones = function(self) {
+    if (inherits(self$data$features, "Zones")) {
+      return(length(self$data$features))
+    } else if (inherits(self$data$features, "data.frame")) {
+      return(length(self$data$rij_matrix))
+    } else {
+      stop("feature is of an unrecognized class")
+    }
   },
   add_portfolio = function(self, x) {
     assertthat::assert_that(inherits(x, "Portfolio"))

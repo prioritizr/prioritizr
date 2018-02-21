@@ -97,31 +97,73 @@ sim_pu_points$locked_out <- as.logical(sim_pu_points$locked_out)
 sim_phylogeny <- ape::rtree(n = raster::nlayers(sim_features))
 sim_phylogeny$tip.label <- names(sim_features)
 
-# simulate planning unit zone data
-sim_pu_zones_raster <- simulate_cost(sim_landscape, n = 3)
-zones_na_cells <- sample.int(raster::ncell(sim_pu_zones_raster[[1]]), size = 10)
-for (z in seq_len(raster::nlayers(sim_pu_zones_raster))) {
-  sim_pu_zones_raster[[z]][raster::Which(sim_pu_zones_raster[[z]] == 0)] <- 1
-  sim_pu_zones_raster[[z]][zones_na_cells] <- NA
+# simulate raster planning unit zone data
+sim_pu_zones_stack <- simulate_cost(sim_landscape, n = 3)
+zones_na_cells <- sample.int(raster::ncell(sim_pu_zones_stack[[1]]), size = 10)
+for (z in seq_len(raster::nlayers(sim_pu_zones_stack))) {
+  sim_pu_zones_stack[[z]][raster::Which(sim_pu_zones_stack[[z]] == 0)] <- 1
+  sim_pu_zones_stack[[z]][zones_na_cells] <- NA
 }
 
-# simulate feature zone data
-sim_features_zones <- replicate(raster::nlayers(sim_pu_zones_raster),
+# simulate locked zone stack data
+sim_locked_zones_stack <- sim_pu_zones_stack
+old_cells <- c()
+for (i in seq_len(raster::nlayers(sim_locked_zones_stack))) {
+  cells <- raster::Which(!is.na(sim_locked_zones_stack[[i]]), cells = TRUE)
+  sim_locked_zones_stack[[i]][cells] <- NA
+  locked_cells <- sample(cells, 5)
+  locked_cells <- setdiff(locked_cells, old_cells)
+  sim_locked_zones_stack[[i]][locked_cells] <- 1
+  old_cells <- c(old_cells, locked_cells)
+}
+assertthat::assert_that(raster::cellStats(sum(sim_locked_zones_stack,
+                                              na.rm = TRUE),
+                                          "max") == 1)
+
+# simulate raster locked zone data
+sim_locked_zones_raster <- sim_locked_zones_stack
+for (i in seq_len(raster::nlayers(sim_locked_zones_raster)))
+  sim_locked_zones_raster[[i]] <- sim_locked_zones_raster[[i]] * i
+sim_locked_zones_raster <- raster::addLayer(
+  raster::setValues(sim_locked_zones_raster[[1]], -1),
+  sim_locked_zones_raster)
+sim_locked_zones_raster <- raster::stackApply(sim_locked_zones_raster,
+  rep(1, raster::nlayers(sim_locked_zones_raster)), max, na.rm = TRUE)
+sim_locked_zones_raster[sim_locked_zones_raster == -1] <- NA
+
+# simulate raster feature zone data
+sim_features_zones <- replicate(raster::nlayers(sim_pu_zones_stack),
                                 simulate_species(sim_landscape, n = 5),
                                 simplify = FALSE)
 names(sim_features_zones) <- paste("zone", seq_len(length(sim_features_zones)))
 sim_features_zones <- as.Zones(sim_features_zones)
 
+# simulate polygon zone data
+sim_pu_zones_polygons <- raster::stack(sim_pu_zones_stack,
+                                       sim_locked_zones_raster,
+                                       sim_locked_zones_stack)
+sim_pu_zones_polygons <- raster::rasterToPolygons(sim_pu_zones_polygons, n = 4)
+names(sim_pu_zones_polygons) <- c(
+  paste0("cost_", seq_len(raster::nlayers(sim_pu_zones_stack))),
+  "locked_zone_id",
+  paste0("locked_zone_", seq_len(raster::nlayers(sim_pu_zones_stack))))
+
 ## Export data
 # save data
 save(sim_pu_raster, file = "data/sim_pu_raster.rda", compress = "xz")
-save(sim_pu_zones_raster, file = "data/sim_pu_zones_raster.rda",
+save(sim_pu_zones_stack, file = "data/sim_pu_zones_stack.rda",
      compress = "xz")
 save(sim_locked_in_raster, file = "data/sim_locked_in_raster.rda",
      compress = "xz")
 save(sim_locked_out_raster, file = "data/sim_locked_out_raster.rda",
      compress = "xz")
+save(sim_locked_zones_raster, file = "data/sim_locked_zones_raster.rda",
+     compress = "xz")
+save(sim_locked_zones_stack, file = "data/sim_locked_zones_stack.rda",
+     compress = "xz")
 save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz")
+save(sim_pu_zones_polygons, file = "data/sim_pu_zones_polygons.rda",
+     compress = "xz")
 save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz")
 save(sim_pu_points, file = "data/sim_pu_points.rda", compress = "xz")
 save(sim_features, file = "data/sim_features.rda", compress = "xz")
