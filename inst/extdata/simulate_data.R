@@ -120,17 +120,6 @@ assertthat::assert_that(raster::cellStats(sum(sim_locked_zones_stack,
                                               na.rm = TRUE),
                                           "max") == 1)
 
-# simulate raster locked zone data
-sim_locked_zones_raster <- sim_locked_zones_stack
-for (i in seq_len(raster::nlayers(sim_locked_zones_raster)))
-  sim_locked_zones_raster[[i]] <- sim_locked_zones_raster[[i]] * i
-sim_locked_zones_raster <- raster::addLayer(
-  raster::setValues(sim_locked_zones_raster[[1]], -1),
-  sim_locked_zones_raster)
-sim_locked_zones_raster <- raster::stackApply(sim_locked_zones_raster,
-  rep(1, raster::nlayers(sim_locked_zones_raster)), max, na.rm = TRUE)
-sim_locked_zones_raster[sim_locked_zones_raster == -1] <- NA
-
 # simulate raster feature zone data
 sim_features_zones <- replicate(raster::nlayers(sim_pu_zones_stack),
                                 simulate_species(sim_landscape, n = 5),
@@ -143,13 +132,11 @@ sim_features_zones <- do.call(zones, sim_features_zones)
 
 # simulate polygon zone data
 sim_pu_zones_polygons <- raster::stack(sim_pu_zones_stack,
-                                       sim_locked_zones_raster,
                                        sim_locked_zones_stack)
 sim_pu_zones_polygons <- raster::rasterToPolygons(sim_pu_zones_polygons, n = 4)
 names(sim_pu_zones_polygons) <- c(
   paste0("cost_", seq_len(raster::nlayers(sim_pu_zones_stack))),
-  "locked_zone_id",
-  paste0("locked_zone_", seq_len(raster::nlayers(sim_pu_zones_stack))))
+  paste0("locked_", seq_len(raster::nlayers(sim_pu_zones_stack))))
 
 ## Export data
 # save data
@@ -159,8 +146,6 @@ save(sim_pu_zones_stack, file = "data/sim_pu_zones_stack.rda",
 save(sim_locked_in_raster, file = "data/sim_locked_in_raster.rda",
      compress = "xz")
 save(sim_locked_out_raster, file = "data/sim_locked_out_raster.rda",
-     compress = "xz")
-save(sim_locked_zones_raster, file = "data/sim_locked_zones_raster.rda",
      compress = "xz")
 save(sim_locked_zones_stack, file = "data/sim_locked_zones_stack.rda",
      compress = "xz")

@@ -5,6 +5,7 @@
 \alias{Zones-class}
 \alias{ZonesCharacter}
 \alias{ZonesRaster}
+\alias{Zones}
 \title{Management zones}
 \usage{
 zones(..., zone_names = NULL, feature_names = NULL)

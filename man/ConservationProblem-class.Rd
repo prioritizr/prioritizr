@@ -78,6 +78,8 @@ class directly.}
 
 \code{x$number_of_zones()}
 
+\code{x$zone_names()}
+
 \code{x$add_objective(obj)}
 
 \code{x$add_decisions(dec)}
@@ -185,6 +187,8 @@ class directly.}
 \item{feature_targets}{\code{numeric} targets for each feature.}
 
 \item{number_of_zones}{\code{integer} number of zones.}
+
+\item{zone_names}{\code{character} names of zones in problem.}
 
 \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
   with the objective added to it.}

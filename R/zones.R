@@ -58,7 +58,7 @@ NULL
 #'
 #' @seealso \code{\link{problem}}, \code{\link{Zones-methods}}.
 #'
-#' @aliases Zones-class ZonesCharacter ZonesRaster
+#' @aliases Zones-class ZonesCharacter ZonesRaster Zones
 #'
 #' @examples
 #' # load planning unit data
@@ -171,11 +171,13 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
             class = c(zone_class, "Zones"))
 }
 
-#' Zone-methods
+#' Zones methods
 #'
 #' Methods to help working with \code{\link{Zones-class}} objects.
 #'
 #' @param x \code{\link{Zones}} object.
+#
+#' @param ... not used.
 #'
 #' @details The following methods are available which output:
 #'   \describe{
@@ -191,9 +193,9 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #'
 #'   }
 #'
-#' @name ZoneMethods
+#' @name ZonesMethods
 #'
-#' @aliases Zone-methods
+#' @aliases Zones-methods
 #'
 #' @examples
 #' # load zones data
@@ -212,11 +214,11 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #' str(as.list(sim_features_zones), max.level = 1)
 NULL
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @export
 n_zone <- function(x, ...) UseMethod("n_zone")
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @method n_zone Zones
 #' @export
 n_zone.Zones <- function(x, ...) {
@@ -224,40 +226,40 @@ n_zone.Zones <- function(x, ...) {
   length(x)
 }
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @export
 n_feature <- function(x, ...) UseMethod("n_feature")
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @method n_feature ZonesCharacter
 #' @export
 n_feature.ZonesCharacter <- function(x, ...) {
   length(x[[1]])
 }
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @method n_feature ZonesCharacter
 #' @export
 n_feature.ZonesRaster <- function(x, ...) {
   raster::nlayers(x[[1]])
 }
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @export
 zone_names <- function(x, ...) UseMethod("zone_names")
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @method zone_names Zones
 #' @export
 zone_names.Zones <- function(x, ...) {
   attr(x, "zone_names")
 }
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @export
 feature_names <- function(x, ...) UseMethod("feature_names")
 
-#' @rdname ZoneMethods
+#' @rdname ZonesMethods
 #' @method feature_names Zones
 #' @export
 feature_names.Zones <- function(x, ...) {
