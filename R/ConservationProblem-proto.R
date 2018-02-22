@@ -76,6 +76,8 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \code{x$number_of_zones()}
 #'
+#' \code{x$zone_names()}
+#'
 #' \code{x$add_objective(obj)}
 #'
 #' \code{x$add_decisions(dec)}
@@ -180,6 +182,8 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \item{number_of_zones}{\code{integer} number of zones.}
 #'
+#' \item{zone_names}{\code{character} names of zones in problem.}
+#'
 #' \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
 #'   with the objective added to it.}
 #'
@@ -278,7 +282,8 @@ ConservationProblem <- pproto(
     cs <- round(range(self$planning_unit_costs()), 5)
     message(paste0("Conservation Problem",
     ifelse(self$number_of_zones() > 1, paste0(
-      "\n  zones:          ", self$number_of_zones()), ""),
+      "\n  zones:          ", repr_atomic(self$zone_names(), "zones")),
+      ""),
     "\n  planning units: ", class(self$data$cost)[1], " (",
       self$number_of_planning_units(), " units)",
     "\n  cost:           min: ", cs[1], ", max: ", cs[2],
@@ -318,7 +323,7 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
     } else if (is.matrix(self$data$cost)) {
-      return(ncol(self$data$cost))
+      return(nrow(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
@@ -329,7 +334,7 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
     } else if (is.matrix(self$cost$data)) {
-      return(ncol(self$data$cost))
+      return(nrow(self$data$cost))
     } else {
       stop("cost is of unknown class")
     }
@@ -337,44 +342,42 @@ ConservationProblem <- pproto(
   planning_unit_costs = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
-        return(matrix(self$data$cost[raster::Which(!is.na(self$data$cost))],
-                      ncol = 1))
+        m <- matrix(self$data$cost[raster::Which(!is.na(self$data$cost))],
+                      ncol = 1)
       } else {
         cells <- raster::Which(max(!is.na(self$data$cost)) == 1)
-        return(self$data$cost[cells])
+        m <- self$data$cost[cells]
       }
     } else if (inherits(self$data$cost,
                         c("SpatialPolygonsDataFrame",
                           "SpatialLinesDataFrame",
                           "SpatialPointsDataFrame"))) {
-      return(as.matrix(self$data$cost@data[, self$data$cost_column,
-                                           drop = FALSE]))
+      m <- as.matrix(self$data$cost@data[, self$data$cost_column,
+                                           drop = FALSE])
     } else if (inherits(self$data$cost, "data.frame")) {
-      return(as.matrix(self$data$cost[, self$data$cost_column, drop = FALSE]))
+      m <- as.matrix(self$data$cost[, self$data$cost_column, drop = FALSE])
     } else if (is.matrix(self$data$cost)) {
-      return(self$data$cost)
+      m <- self$data$cost
     } else {
       stop("cost is of unknown class")
     }
+    colnames(m) <- self$zone_names()
+    return(m)
   },
   number_of_features = function(self) {
-    if (inherits(self$data$features, "ZonesRaster")) {
-      return(raster::nlayers(self$data$features[[1]]))
+    if (inherits(self$data$features, "Zones")) {
+      return(n_feature(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
-    } else if (inherits(self$data$features, "ZonesCharacter")) {
-      return(length(self$data$features[[1]]))
     } else {
       stop("feature data is of an unrecognized class")
     }
   },
   feature_names = function(self) {
-    if (inherits(self$data$features, "ZonesRaster")) {
-      return(names(self$data$features[[1]]))
+    if (inherits(self$data$features, "Zones")) {
+      return(feature_names.Zones(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
-    } else if (inherits(self$data$features, "ZonesCharacter")) {
-      return(self$data$features[[1]])
     } else {
       stop("feature data is of an unrecognized class")
     }
@@ -390,9 +393,20 @@ ConservationProblem <- pproto(
   },
   number_of_zones = function(self) {
     if (inherits(self$data$features, "Zones")) {
-      return(length(self$data$features))
+      return(n_zone(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(length(self$data$rij_matrix))
+    } else {
+      stop("feature is of an unrecognized class")
+    }
+  },
+  zone_names = function(self) {
+    if (inherits(self$data$features, "ZonesRaster")) {
+      return(zone_names.Zones(self$data$features))
+    } else if (inherits(self$data$features, "ZonesCharacter")) {
+      return(zone_names.Zones(self$data$features))
+    } else if (inherits(self$data$features, "data.frame")) {
+      return(names(self$data$rij_matrix))
     } else {
       stop("feature is of an unrecognized class")
     }

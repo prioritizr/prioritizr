@@ -81,6 +81,16 @@ print.ArrayParameter <- function(x, ...) x$print()
 #' @export
 print.Solver <- function(x, ...) x$print()
 
+#' @rdname print
+#' @method print Zones
+#' @export
+print.Zones <- function(x, ...) {
+  message("Zones",
+          "\n  zones: ", repr_atomic(zone_names(x), "zones"),
+          "\n  features: ", repr_atomic(feature_names(x), "features"),
+          "\n  data type: ", class(x[[1]])[[1]])
+}
+
 #' Coerce object to another object
 #'
 #' Coerce an object.
@@ -100,6 +110,15 @@ NULL
 as.list.Parameters <- function(x, ...)
   structure(lapply(x$ids(), function(i) x[[i]]$value),
             .Names = x$names(), id = x$ids())
+
+#' @rdname as
+#' @method as.list Zones
+#' @export
+as.list.Zones <- function(x, ...) {
+  attributes(x) <- NULL
+  class(x) <- "list"
+  x
+}
 
 #' Is it?
 #'

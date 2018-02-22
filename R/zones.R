@@ -12,6 +12,12 @@ NULL
 #' @param ... \code{\link[raster]{raster}} or \code{character} objects. See
 #'   Details for more information.
 #'
+#' @param zone_names \code{character} names of the management zones. Defaults
+#'   to \code{NULL} which results in sequential integers.
+#'
+#' @param feature_names \code{character} names of the features zones. Defaults
+#'   to \code{NULL} which results in sequential integers.
+#'
 #' @details This function is used to store and organize data for creating
 #' \code{\link{ConservationProblem}} objects that have multiple management
 #' zones. In all cases, data for different zones are input as different
@@ -50,36 +56,52 @@ NULL
 #'
 #' @return \code{\link{Zones-class}} object.
 #'
-#' @seealso \code{\link{problem}}.
+#' @seealso \code{\link{problem}}, \code{\link{Zones-methods}}.
 #'
 #' @aliases Zones-class ZonesCharacter ZonesRaster
 #'
 #' @examples
-#' # load data
-#' data(sim_features_zones)
+#' # load planning unit data
+#' data(sim_pu_raster)
 #'
-#' # create zones using a list of four RasterStack objects
-#' z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
-#'             sim_features_zones[[3]])
-#' print(z1)
+#  # simulate distributions for three species under two management zones
+#' zone_1 <- simulate_species(sim_pu_raster, 3)
+#' zone_2 <- simulate_species(sim_pu_raster, 3)
 #'
-#' # alternatively, coerce the list to a zones object
-#' z2 <- as.Zones(sim_features_zones)
-#' print(z2)
+#' # create zones using two raster stack objects
+#' # each object corresponds to a different zone
+#  # each layer corresponds to a different species
+#' z <- zones(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
+#'            feature_names = c("feature_1", "feature_2"))
+#' print(z)
+#'
+#' # note that do.call can also be used to create a Zones object
+#' # this can be helpful when dealing with many zones
+#' l <- list(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
+#'           feature_names = c("feature_1", "feature_2"))
+#' z <- do.call(zones, l)
+#' print(z)
 #'
 #' # create zones using character vectors that represent the names of
-#' # columns in a shapefile that contain the amount of each species under
-#' # a different management zone.
-#' z3 <- zones(c("spp1_zone1", "spp2_zone1"),
-#'             c("spp1_zone2", "spp2_zone2"),
-#'             c("spp1_zone3", "spp2_zone3"))
-#' print(z3)
+#' # fields (columns) in a data.frame or Spatial object that contain the amount
+#' # of each species under a different management zone.
+#' z <- zones(c("spp1_zone1", "spp2_zone1"),
+#'            c("spp1_zone2", "spp2_zone2"),
+#'            c("spp1_zone3", "spp2_zone3"),
+#'            zone_names = c("zone1", "zone2"),
+#'            feature_names = c("spp1". "spp2", "spp3"))
+#' print(z)
 #' @export
-zones <- function(...) {
+zones <- function(..., zone_names = NULL, feature_names = NULL) {
   args <- list(...)
-  # assign names
-  if (is.null(names(args)))
-    names(args) <- as.character(seq_along(args))
+  names(args) <- NULL
+  # assign default zones names
+  if (is.null(zone_names))
+    zone_names <- as.character(seq_along(args))
+  # check zone names
+  assertthat::assert_that(length(zone_names) == length(args),
+                          msg = paste("number of supplied zones does not match",
+                                      "number of the supplied zone names"))
   # assert that arguments are valid
   assertthat::assert_that(length(unique(vapply(args, function(x) class(x)[[1]],
                                                character(1)))) == 1,
@@ -93,6 +115,19 @@ zones <- function(...) {
   assertthat::assert_that(anyDuplicated(names(args)) == 0)
   # checks for Raster input
   if (inherits(args[[1]], "Raster")) {
+    # assign default feature names
+    if (is.null(feature_names))
+      feature_names <- as.character(seq_len(raster::nlayers(args[[1]])))
+    # check feature names
+    assertthat::assert_that(length(feature_names) == raster::nlayers(args[[1]]),
+                            msg = paste("number of supplied features does not",
+                                        "match the number of supplied feature",
+                                        "names"))
+    assertthat::assert_that(anyDuplicated(feature_names) == 0,
+                            !anyNA(feature_names))
+    for (i in seq_along(args))
+      names(args[[i]]) <- feature_names
+    # data integrity checks
     assertthat::assert_that(length(unique(vapply(args, raster::nlayers,
                                                  numeric(1)))) == 1,
                             msg = paste("all arguments do not have the same",
@@ -109,10 +144,21 @@ zones <- function(...) {
   }
   # checks for character input
   if (inherits(args[[1]], "character")) {
-      assertthat::assert_that(length(unique(vapply(args, length,
-                                                 numeric(1)))) == 1,
-                            msg = paste("all arguments must all have the same",
-                                        "number of features"))
+    # assign default feature names
+    if (is.null(feature_names))
+      feature_names <- as.character(seq_along(args[[1]]))
+    # check feature names
+    assertthat::assert_that(length(feature_names) == length(args[[1]]),
+                            msg = paste("number of supplied features does not",
+                                        "match the number of supplied feature",
+                                        "names"))
+    assertthat::assert_that(anyDuplicated(feature_names) == 0,
+                            !anyNA(feature_names))
+    # data integrity checks
+    assertthat::assert_that(length(unique(vapply(args, length,
+                                               numeric(1)))) == 1,
+                          msg = paste("all arguments must all have the same",
+                                      "number of features"))
     for (i in seq_along(args)) {
       assertthat::assert_that(all(!is.na(args[[i]])),
                               msg = paste("argument", i, "is contains NA",
@@ -121,58 +167,99 @@ zones <- function(...) {
     zone_class <- "ZonesCharacter"
   }
   # return Zones class object
-  structure(args, .Names = names(args), class = c(zone_class, "Zones", "list"))
+  structure(args, zone_names = zone_names, feature_names = feature_names,
+            class = c(zone_class, "Zones"))
 }
 
-#' Coerce list to zone data
+#' Zone-methods
 #'
-#' Coerce a \code{list} object containing zone data into a
-#' \code{\link{Zones-class}} object.
+#' Methods to help working with \code{\link{Zones-class}} objects.
 #'
-#' @param x \code{list} object.
+#' @param x \code{\link{Zones}} object.
 #'
-#' @param ... not used.
+#' @details The following methods are available which output:
+#'   \describe{
+#'     \item{n_zone}{\code{integer} number of zones.}
 #'
-#' @return \code{\link{Zones-class}} object.
+#'     \item{n_feature}{\code{integer} number of features.}
+#'
+#'     \item{zone_names}{\code{character} zone names.}
+#'
+#'     \item{feature_names}{\code{character} feature names.}
+#'
+#'     \item{as.list}{\code{list} representation of the data.}
+#'
+#'   }
+#'
+#' @name ZoneMethods
+#'
+#' @aliases Zone-methods
 #'
 #' @examples
-#' # load data
+#' # load zones data
 #' data(sim_features_zones)
 #'
-#' # create zones using a list of four RasterStack objects
-#' z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
-#'             sim_features_zones[[3]], sim_features_zones[[4]])
-#' print(z1)
+#' #print object
+#' print(sim_features_zones)
 #'
-#' # alternatively, coerce the list to a zones object
-#' z2 <- as.Zones(sim_features_zones)
-#' print(z2)
-#' @export
-as.Zones <- function(x, ...) UseMethod("as.Zones")
+#' # print properties of the object
+#' n_zone(sim_features_zones)
+#' n_feature(sim_features_zones)
+#' zone_names(sim_features_zones)
+#' feature_names(sim_features_zones)
+#'
+#' # convert zones object to a list
+#' str(as.list(sim_features_zones), max.level = 1)
+NULL
 
-#' @rdname as.Zones
-#' @method as.Zones default
+#' @rdname ZoneMethods
 #' @export
-as.Zones.default <- function(x, ...) {
-  stop("argument to x must be a list")
+n_zone <- function(x, ...) UseMethod("n_zone")
+
+#' @rdname ZoneMethods
+#' @method n_zone Zones
+#' @export
+n_zone.Zones <- function(x, ...) {
+  assertthat::assert_that(inherits(x, "Zones"))
+  length(x)
 }
 
-#' @rdname as.Zones
-#' @method as.Zones list
+#' @rdname ZoneMethods
 #' @export
-as.Zones.list <- function(x, ...) {
-  # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "list"))
-  # create zones
-  do.call(zones, x)
+n_feature <- function(x, ...) UseMethod("n_feature")
+
+#' @rdname ZoneMethods
+#' @method n_feature ZonesCharacter
+#' @export
+n_feature.ZonesCharacter <- function(x, ...) {
+  length(x[[1]])
 }
 
-#' @rdname print
-#' @method print Zones
+#' @rdname ZoneMethods
+#' @method n_feature ZonesCharacter
 #' @export
-print.Zones <- function(x, ...) {
-  message("Zones",
-          "\n  zones: ", repr_atomic(names(x), "zones"),
-          "\n  features: ", repr_atomic(names(x[[1]]), "features"),
-          "\n  data type: ", class(x[[1]])[[1]])
+n_feature.ZonesRaster <- function(x, ...) {
+  raster::nlayers(x[[1]])
+}
+
+#' @rdname ZoneMethods
+#' @export
+zone_names <- function(x, ...) UseMethod("zone_names")
+
+#' @rdname ZoneMethods
+#' @method zone_names Zones
+#' @export
+zone_names.Zones <- function(x, ...) {
+  attr(x, "zone_names")
+}
+
+#' @rdname ZoneMethods
+#' @export
+feature_names <- function(x, ...) UseMethod("feature_names")
+
+#' @rdname ZoneMethods
+#' @method feature_names Zones
+#' @export
+feature_names.Zones <- function(x, ...) {
+  attr(x, "feature_names")
 }

@@ -135,8 +135,11 @@ sim_locked_zones_raster[sim_locked_zones_raster == -1] <- NA
 sim_features_zones <- replicate(raster::nlayers(sim_pu_zones_stack),
                                 simulate_species(sim_landscape, n = 5),
                                 simplify = FALSE)
-names(sim_features_zones) <- paste("zone", seq_len(length(sim_features_zones)))
-sim_features_zones <- as.Zones(sim_features_zones)
+sim_features_zones <- append(sim_features_zones,
+  list(zone_names = paste0("zone_", seq_along(sim_features_zones)),
+       feature_names = paste0("feature_", seq_len(raster::nlayers(
+                         sim_features_zones[[1]])))))
+sim_features_zones <- do.call(zones, sim_features_zones)
 
 # simulate polygon zone data
 sim_pu_zones_polygons <- raster::stack(sim_pu_zones_stack,

@@ -300,8 +300,9 @@ methods::setMethod(
   methods::signature(x = "Raster", features = "Raster"),
   function(x, features, run_checks = TRUE, ...) {
     assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1)
-    problem(x, setNames(zones(features), names(x)), run_checks = run_checks,
-            ...)
+    problem(x, zones(features, zone_names = names(x),
+                     feature_names = names(features)),
+            run_checks = run_checks, ...)
 })
 
 #' @name problem
@@ -317,17 +318,14 @@ methods::setMethod(
       inherits(features, "ZonesRaster"),
       assertthat::is.flag(run_checks),
       raster::nlayers(x) > 0,
-      raster::nlayers(features[[1]]) > 0,
-      raster::nlayers(x) == length(features),
+      n_feature(features) > 0,
+      raster::nlayers(x) == n_zone(features),
       raster::compareRaster(x, features[[1]], res = TRUE, tolerance = 1e-5,
                             stopiffalse = FALSE))
     if (run_checks)
       assertthat::assert_that(
         all(raster::cellStats(x, "min") >= 0),
-        all(raster::cellStats(raster::stack(unlist(features,
-                                                   recursive = FALSE,
-                                                   use.names = FALSE)),
-                              "min") >= 0))
+        all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
     # convert x to RasterLayer if has only one layer
     if (inherits(x, c("RasterStack", "RasterBrick")) &&
         raster::nlayers(x) == 1)
@@ -335,7 +333,7 @@ methods::setMethod(
     # create rij matrix
     rij <- lapply(seq_len(raster::nlayers(x)),
                   function(i) rij_matrix(x[[i]], features[[i]]))
-    names(rij) <- names(features)
+    names(rij) <- zone_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
            constraints = pproto(NULL, Collection),
@@ -351,7 +349,8 @@ methods::setMethod(
   methods::signature(x = "Spatial", features = "Raster"),
   function(x, features, cost_column, run_checks = TRUE, ...) {
     assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, setNames(zones(features), cost_column),
+    problem(x, zones(features, zone_names = cost_column,
+                     feature_names = names(features)),
             cost_column = cost_column, run_checks = run_checks, ...)
 })
 
@@ -368,7 +367,7 @@ methods::setMethod(
                     "SpatialPointsDataFrame")),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      length(cost_column) == length(features),
+      length(cost_column) == n_zone(features),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       assertthat::is.flag(run_checks))
     # remove planning units that contain NA values in all zones
@@ -388,13 +387,11 @@ methods::setMethod(
                                             "SpatialPolygons"))))
     if (run_checks)
       assertthat::assert_that(
-        all(raster::cellStats(raster::stack(unlist(features, recursive = FALSE,
-                                                   use.names = FALSE)),
-                              "min") >= 0))
+        all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
     # create rij matrix
     rij <- lapply(seq_along(features),
                   function(i) rij_matrix(x, features[[i]]))
-    names(rij) <- names(features)
+    names(rij) <- zone_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
@@ -411,8 +408,9 @@ methods::setMethod(
   methods::signature(x = "Spatial", features = "character"),
   function(x, features, cost_column, ...) {
     assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, setNames(zones(features), cost_column),
-            cost_column = cost_column, ...)
+    problem(x, zones(features, feature_names = features,
+                     zone_names = cost_column),
+           cost_column = cost_column, ...)
 })
 
 #' @name problem
@@ -429,8 +427,9 @@ methods::setMethod(
       inherits(features, "ZonesCharacter"),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      length(features) == length(cost_column),
-      all(unlist(features, recursive = FALSE, use.names = FALSE) %in% names(x)),
+      n_zone(features) == length(cost_column),
+      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
+                 names(x)),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
@@ -442,7 +441,7 @@ methods::setMethod(
       r[is.na(r)] <- 0
       methods::as(r, "sparseMatrix")
     })
-    names(rij) <- names(features)
+    names(rij) <- zone_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
@@ -459,7 +458,8 @@ methods::setMethod(
   methods::signature(x = "data.frame", features = "character"),
   function(x, features, cost_column, ...) {
     assertthat::assert_that(assertthat::is.string(cost_column))
-    problem(x, setNames(zones(features), cost_column),
+    problem(x, zones(features, zone_names = cost_column,
+                     feature_names = features),
             cost_column = cost_column, ...)
 })
 
@@ -476,20 +476,22 @@ methods::setMethod(
       inherits(features, "ZonesCharacter"),
       nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      length(features) == length(cost_column),
-      all(unlist(features, recursive = FALSE, use.names = FALSE) %in% names(x)),
+      n_zone(features) == length(cost_column),
+      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
+                 names(x)),
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
       all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
                   na.rm = TRUE) == 0))
     # create rij matrix
-    rij <- lapply(features, function(z) {
+    rij <- lapply(as.list(features), function(z) {
       r <- t(as.matrix(x[, z, drop = FALSE]))
       r[is.na(r)] <- 0
+      rownames(r) <- feature_names(features)
       methods::as(r, "sparseMatrix")
     })
-    names(rij) <- names(features)
+    names(rij) <- zone_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
@@ -542,13 +544,14 @@ methods::setMethod(
       stop("argument to zone must be specified for problems with multiple",
            "zones")
     if (is.null(zones))
-      zones <- data.frame(id = 1, name = "1")
+      zones <- data.frame(id = 1, name = cost_column)
     assertthat::assert_that(
       is.numeric(rij$zone),
       is.numeric(zones$id), is.character(zones$name) || is.factor(zones$name),
       !anyNA(rij$zone), !anyNA(zones$id), !anyNA(zones$name),
       anyDuplicated(zones$id) == 0, anyDuplicated(zones$name) == 0,
-      nrow(zones) > 0, all(rij$zone %in% zones$id))
+      nrow(zones) > 0, all(rij$zone %in% zones$id),
+      nrow(zones) == length(cost_column))
     # standardize ids
     rij$pu <- match(rij$pu, x$id)
     rij$species <- match(rij$species, features$id)
@@ -559,9 +562,10 @@ methods::setMethod(
       Matrix::sparseMatrix(i = r$species, j = r$pu,
                            x = r$amount, giveCsparse = TRUE,
                            index1 = TRUE, use.last.ij = FALSE,
-                           dims = c(nrow(features), nrow(x)))
+                           dims = c(nrow(features), nrow(x)),
+                           dimnames = list(features$name, NULL))
     })
-    names(rij) <- zones$name
+    names(rij) <- as.character(zones$name)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
@@ -578,7 +582,7 @@ methods::setMethod(
   methods::signature(x = "numeric", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     if (!is.list(rij_matrix))
-      rij_matrix <- list(rij_matrix)
+      rij_matrix <- list("1" = rij_matrix)
     problem(matrix(x, ncol = 1), features, rij_matrix = rij_matrix)
 })
 
@@ -615,9 +619,12 @@ methods::setMethod(
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
       all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
     # convert rij matrices to sparse format if needed
+    if (is.null(names(rij_matrix)))
+      names(rij_matrix) <- as.character(seq_along(rij_matrix))
     rij <- lapply(rij_matrix, function(z) {
       if (!inherits(z, "dgCMatrix")) {
         z[which(is.na(z))] <- 0
+        rownames(z) <- as.character(features$name)
         z <- methods::as(z, "dgCMatrix")
       }
       return(z)

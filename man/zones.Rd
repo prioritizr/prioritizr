@@ -7,11 +7,17 @@
 \alias{ZonesRaster}
 \title{Management zones}
 \usage{
-zones(...)
+zones(..., zone_names = NULL, feature_names = NULL)
 }
 \arguments{
 \item{...}{\code{\link[raster]{raster}} or \code{character} objects. See
 Details for more information.}
+
+\item{zone_names}{\code{character} names of the management zones. Defaults
+to \code{NULL} which results in sequential integers.}
+
+\item{feature_names}{\code{character} names of the features zones. Defaults
+to \code{NULL} which results in sequential integers.}
 }
 \value{
 \code{\link{Zones-class}} object.
@@ -57,26 +63,35 @@ used when building the conservation \code{\link{problem}}.
 }
 }
 \examples{
-# load data
-data(sim_features_zones)
+# load planning unit data
+data(sim_pu_raster)
 
-# create zones using a list of four RasterStack objects
-z1 <- zones(sim_features_zones[[1]], sim_features_zones[[2]],
-            sim_features_zones[[3]])
-print(z1)
+zone_1 <- simulate_species(sim_pu_raster, 3)
+zone_2 <- simulate_species(sim_pu_raster, 3)
 
-# alternatively, coerce the list to a zones object
-z2 <- as.Zones(sim_features_zones)
-print(z2)
+# create zones using two raster stack objects
+# each object corresponds to a different zone
+z <- zones(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
+           feature_names = c("feature_1", "feature_2"))
+print(z)
+
+# note that do.call can also be used to create a Zones object
+# this can be helpful when dealing with many zones
+l <- list(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
+          feature_names = c("feature_1", "feature_2"))
+z <- do.call(zones, l)
+print(z)
 
 # create zones using character vectors that represent the names of
-# columns in a shapefile that contain the amount of each species under
-# a different management zone.
-z3 <- zones(c("spp1_zone1", "spp2_zone1"),
-            c("spp1_zone2", "spp2_zone2"),
-            c("spp1_zone3", "spp2_zone3"))
-print(z3)
+# fields (columns) in a data.frame or Spatial object that contain the amount
+# of each species under a different management zone.
+z <- zones(c("spp1_zone1", "spp2_zone1"),
+           c("spp1_zone2", "spp2_zone2"),
+           c("spp1_zone3", "spp2_zone3"),
+           zone_names = c("zone1", "zone2"),
+           feature_names = c("spp1". "spp2", "spp3"))
+print(z)
 }
 \seealso{
-\code{\link{problem}}.
+\code{\link{problem}}, \code{\link{Zones-methods}}.
 }

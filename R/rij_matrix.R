@@ -116,5 +116,6 @@ methods::setMethod(
       m <- matrix(m, ncol = 1)
     m[is.na(m[])] <- 0
     m <- methods::as(m, "dgCMatrix")
+    colnames(m) <- names(y)
     return(Matrix::t(m))
 })
