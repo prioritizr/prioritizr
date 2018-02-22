@@ -16,5 +16,5 @@ This vignette contains a list of publications that have used the _prioritizr R_ 
 
 * [Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**:20170627.](https://dx.doi.org/10.1098/rspb.2017.0627)  
 
-* Schuster, R., Wilson, S., Rodewald, A., Arcese, P., Fink, D., Auer, T., & Bennett, J. (2018). Optimizing conservation of migratory species over their full annual cycle in the Western Hemisphere. bioRxiv. https://doi.org/10.1101/268805
+* [Schuster, R., Wilson, S., Rodewald, A., Arcese, P., Fink, D., Auer, T., & Bennett, J. (2018). Optimizing conservation of migratory species over their full annual cycle in the Western Hemisphere. bioRxiv. https://doi.org/10.1101/268805](https://www.biorxiv.org/content/early/2018/02/21/268805)
 
