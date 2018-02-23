@@ -11,6 +11,7 @@ test_that("proportion_parameter", {
   expect_equal(x$lower_limit, 0)
   expect_equal(x$upper_limit, 1)
   expect_equal(x$class, "numeric")
+  expect_is(x$id, "Id")
   expect_equal(x$get(), 0.1)
   expect_false(x$validate(NA_real_))
   expect_false(x$validate(Inf))
@@ -45,6 +46,7 @@ test_that("integer_parameter", {
   expect_equal(x$lower_limit, as.integer(-.Machine$integer.max))
   expect_equal(x$upper_limit, as.integer(.Machine$integer.max))
   expect_equal(x$class, "integer")
+  expect_is(x$id, "Id")
   expect_equal(x$get(), 1L)
   expect_false(x$validate(NA_real_))
   expect_false(x$validate(Inf))
@@ -79,6 +81,7 @@ test_that("numeric_parameter", {
   expect_equal(x$lower_limit, .Machine$double.xmin)
   expect_equal(x$upper_limit, .Machine$double.xmax)
   expect_equal(x$class, "numeric")
+  expect_is(x$id, "Id")
   expect_equal(x$get(), 1)
   expect_false(x$validate(NA_real_))
   expect_false(x$validate(Inf))
@@ -108,6 +111,7 @@ test_that("binary_parameter", {
   expect_equal(x$lower_limit, 0L)
   expect_equal(x$upper_limit, 1L)
   expect_equal(x$class, "integer")
+  expect_is(x$id, "Id")
   expect_equal(x$get(), 1L)
   expect_false(x$validate(NA_real_))
   expect_false(x$validate(Inf))
@@ -235,7 +239,6 @@ test_that("binary_parameter_array", {
     row.names = c("a", "b", "d"))))
 })
 
-
 test_that("numeric_parameter_array", {
   x <- numeric_parameter_array("test", c(-8, 0.1, 5), letters[1:3])
   # methods
@@ -298,6 +301,36 @@ test_that("numeric_parameter_array", {
                                 row.names = letters[1:3])))
   expect_error(x$set(data.frame(value = c(0.1, 5, 0.2),
                                 row.names = c("a", "b", "d"))))
+})
+
+test_that("misc_parameter", {
+  # load data
+  data(mtcars, iris)
+  # create parameter
+  x <- misc_parameter("tbl", iris,
+                      function(x) all(names(x) %in% names(iris)) &&
+                                  all(x[[1]] < 200),
+                      function(x) structure("tbl", class = "shiny.tag"))
+  # run tests
+  x$show()
+  x$print()
+  expect_is(x$id, "Id")
+  expect_equal(x$get(), iris)
+  expect_false(x$validate(mtcars))
+  # create updated iris data set
+  iris2 <- iris
+  iris2[1, 1] <- 300
+  expect_false(x$validate(iris2))
+  iris2[1, 1] <- 50
+  x$set(iris2)
+  expect_equal(x$get(), iris2)
+  expect_is(x$render(), "shiny.tag")
+  x$reset()
+  expect_equal(x$get(), iris)
+  # errors
+  iris2[1, 1] <- 300
+  expect_error(x$set(iris2))
+  expect_error(x$set(mtcars))
 })
 
 test_that("parameters", {

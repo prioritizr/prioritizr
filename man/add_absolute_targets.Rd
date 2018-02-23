@@ -5,7 +5,11 @@
 \alias{add_absolute_targets}
 \alias{add_absolute_targets-method}
 \alias{add_absolute_targets,ConservationProblem,numeric-method}
+\alias{add_absolute_targets,ConservationProblem,matrix-method}
 \alias{add_absolute_targets,ConservationProblem,character-method}
+\alias{add_absolute_targets,ConservationProblem,ZonesCharacter-method}
+\alias{add_absolute_targets}
+\alias{add_absolute_targets}
 \alias{add_absolute_targets}
 \alias{add_absolute_targets}
 \alias{add_absolute_targets}
@@ -13,39 +17,76 @@
 \usage{
 add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
 
+add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=matrix
+
 add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=character
+
+add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=ZonesCharacter
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{targets}{\code{numeric} targets for features. If all features should
-have the same target, \code{targets} can be a single number. Otherwise,
-\code{targets} should be a \code{numeric} \code{vector} specifying a
-target for each feature. Alternatively, if the features in
-\code{x} were specified using a \code{data.frame} object, then
-argument to \code{targets} may refer to a column name.}
+\item{targets}{\code{numeric} \code{vector}, \code{character},
+  \code{matrix}, or \code{\link{ZonesCharacter}} object with targets for
+  features. The correct argument for \code{targets} depends on multiple
+  factors:
+  \describe{
+    \item{\code{numeric}}{This type of argument can be a
+       \code{numeric} \code{vector} containing multiple values for each
+       feature. Additionally, for convenience,
+       this type of argument can be a single value to assign each feature
+       the same target. If the argument to \code{x} contains multiple zones,
+       each feature is assigned the same target in each zone. Thus
+       \code{numeric} arguments cannot be used to specify different targets
+       for different features in different zones.}
+
+   \code{\code{matrix}}{This type of argument for \code{targets} can be
+     used to set targets for each feature in each zone. Here, each
+     row corresponds to a different feature in argument to \code{x},
+     each column corresponds to a different zone in argument to \code{x},
+     and each cell contains the minimum amount of a given feature that the
+     solution needs to secure in a given zone.}
+
+   \item{\code{character}}{This type of argument for \code{targets} can be
+      used to set the target for each feature using the names of fields
+      (columns) in the feature data associated with the argument to
+      \code{x}. If the argument to \code{x} contains multiple zones,
+       each feature is assigned the same target in each zone. Thus
+       as with \code{numeric} arguments to \code{target}, \code{character}
+       arguments cannot be used to specify different targets for different
+       features in different zones.}
+
+   \code{\code{\link{ZonesCharacter}}}{This type of argument for
+     \code{targets} can be to set targets for each feature in each zone
+     using the names of fields (columns) in the feature data associated
+     with the argument to \code{x}.}
+
+ }}
 
 \item{...}{not used.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the target added
+\code{\link{ConservationProblem-class}} object with the targets added
   to it.
 }
 \description{
 Set targets expressed as the actual value of features in the study area
-that need to be represented in the prioritization. The argument to
-\code{x} is treated the same as for \code{\link{add_relative_targets}}.
+that need to be represented in the prioritization. For instance,
+setting a target of 10 requires that the solution secure a set of
+planning units for which their summed feature values are equal to or greater
+than 10. In problems associated with multiple zones, this function can be
+used to set targets that each pertain to a single feature and a single zone.
+To set targets which can be met through allocating different planning units
+to multiple zones, see the \code{\link{add_manual_targets}} function.
 }
 \details{
-Note that with the exception of the maximum cover problem, targets must
-be added to a \code{\link{problem}} or solving will return an error.
-
-
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems
-require adding targets with the exception of the maximum cover problem
-(see \code{\link{add_max_cover_objective}}), which maximizes all features
-in the solution and therefore does not require targets.
+distribution that needs to be protected. Most conservation planning problems
+require targets with the exception of the maximum cover
+(see \code{\link{add_max_cover_objective}}) and maximum utility
+(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+problems with objectives that require targets without specifying targets
+will throw an error.
 }
 \examples{
 # load data

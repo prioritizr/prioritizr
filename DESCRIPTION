@@ -33,7 +33,8 @@ Imports:
     plyr,
     parallel,
     doParallel,
-    magrittr
+    magrittr,
+    tibble
 Suggests:
     testthat,
     knitr,
@@ -69,6 +70,7 @@ Collate:
     'pproto.R'
     'Parameter-proto.R'
     'ArrayParameter-proto.R'
+    'MiscParameter-proto.R'
     'Parameters-proto.R'
     'ScalarParameter-proto.R'
     'parameters.R'
@@ -87,6 +89,7 @@ Collate:
     'RcppExports.R'
     'Solver-proto.R'
     'Target-proto.R'
+    'zones.R'
     'add_absolute_targets.R'
     'add_binary_decisions.R'
     'add_boundary_penalties.R'
@@ -106,6 +109,7 @@ Collate:
     'add_locked_out_constraints.R'
     'add_loglinear_targets.R'
     'add_lpsymphony_solver.R'
+    'add_manual_targets.R'
     'add_max_cover_objective.R'
     'add_max_features_objective.R'
     'add_max_phylo_objective.R'
@@ -134,7 +138,6 @@ Collate:
     'package.R'
     'penalties.R'
     'portfolios.R'
-    'zones.R'
     'problem.R'
     'rij_matrix.R'
     'run_calculations.R'

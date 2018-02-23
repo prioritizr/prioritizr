@@ -100,6 +100,8 @@ ArrayParameter <- pproto(
   "ArrayParameter",
   Parameter,
   label = character(0),
+  upper_limit = numeric(0),
+  lower_limit = numeric(0),
   length = 0,
   repr = function(self) {
     paste0(self$name, " (min: ", min(self$value), ", max: ",

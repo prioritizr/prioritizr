@@ -63,8 +63,6 @@ Parameter <- pproto(
   value = numeric(0),
   default = numeric(0),
   class = character(0),
-  upper_limit = numeric(0),
-  lower_limit = numeric(0),
   widget = function(...) stop("no widget defined"),
   print = function(self) {
     message(self$repr())

@@ -90,6 +90,8 @@ NULL
 ScalarParameter <- pproto(
   "ScalarParameter",
   Parameter,
+  upper_limit = numeric(0),
+  lower_limit = numeric(0),
   repr = function(self) {
     paste0(self$name, " (", self$value, ")")
   },

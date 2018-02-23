@@ -5,7 +5,11 @@
 \alias{add_relative_targets}
 \alias{add_relative_targets-method}
 \alias{add_relative_targets,ConservationProblem,numeric-method}
+\alias{add_relative_targets,ConservationProblem,matrix-method}
 \alias{add_relative_targets,ConservationProblem,character-method}
+\alias{add_relative_targets,ConservationProblem,ZonesCharacter-method}
+\alias{add_relative_targets}
+\alias{add_relative_targets}
 \alias{add_relative_targets}
 \alias{add_relative_targets}
 \alias{add_relative_targets}
@@ -13,42 +17,32 @@
 \usage{
 \S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets, ...)
 
+\S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets, ...)
+
 \S4method{add_relative_targets}{ConservationProblem,character}(x, targets, ...)
-}
-\arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{targets}{\code{numeric} targets for features. If all features should
-have the same target, \code{targets} can be a single number. Otherwise,
-\code{targets} should be a \code{numeric} \code{vector} specifying a
-target for each feature. Alternatively, if the features in
-\code{x} were specified using a \code{data.frame} object, then
-argument to \code{targets} may refer to a column name.}
-
-\item{...}{not used.}
+\S4method{add_relative_targets}{ConservationProblem,ZonesCharacter}(x, targets, ...)
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the target added
+\code{\link{ConservationProblem-class}} object with the targets added
   to it.
 }
 \description{
 Set targets as a proportion (between 0 and 1) of the maximum level of
-representation of features in the study area. The argument to \code{x}
-should have a single value if all features have the same target. Otherwise,
-the vector should have a value for each feature. In this case, targets are
-assigned to features based on their position in the argument to \code{x}
-and the \code{feature} when specifying the problem.
+representation of features in the study area. Note
+that the \code{\link{add_manual_targets}} function must be used to
+specify targets that can be met through allocating planning units
+to multiple zones. In other words, this function can be used to specify
+targets that each pertain to a single feature and a single zone.
 }
 \details{
-Note that with the exception of the maximum cover problem, targets must
-be added to a \code{\link{problem}} or solving will return an error.
-
-
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems
-require adding targets with the exception of the maximum cover problem
-(see \code{\link{add_max_cover_objective}}), which maximizes all features
-in the solution and therefore does not require targets.
+distribution that needs to be protected. Most conservation planning problems
+require targets with the exception of the maximum cover
+(see \code{\link{add_max_cover_objective}}) and maximum utility
+(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+problems with objectives that require targets without specifying targets
+will throw an error.
 }
 \examples{
 # load data

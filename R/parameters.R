@@ -1,4 +1,4 @@
-#' @include internal.R ArrayParameter-proto.R ScalarParameter-proto.R Parameters-proto.R
+#' @include internal.R ArrayParameter-proto.R ScalarParameter-proto.R Parameters-proto.R MiscParameter-proto.R
 NULL
 
 #' Scalar parameters
@@ -316,6 +316,67 @@ numeric_parameter_array <- function(name, value, label,
     label = label, class = "numeric", lower_limit = as.double(lower_limit),
     upper_limit = as.double(upper_limit), default = as.double(value),
     length = length(value), widget = "rhandsontable::rHandsontableOutput")
+}
+
+#' Miscellaneous parameter
+#'
+#' Create a parameter that consists of a miscellaneous object.
+#'
+#' @param name \code{character} name of parameter.
+#'
+#' @param value object.
+#'
+#' @param validator \code{function} to validate changes to the parameter. This
+#'   function must have a single argument and return either \code{TRUE} or
+#'   \code{FALSE} to if the a \code{\code[tibble]{tibble}} object passed to
+#'   the argument is valid.
+#'
+#' @param widget \code{function} to render a \code{shiny} widget. This function
+#'   should must have a single argument that accepts a valid object and return
+#'   a \code{shiny.tag} or \code{shiny.tag.list} object.
+#'
+#' @return \code{\link{MiscParameter-class}} object.
+#'
+#' @examples
+#' # load data
+#' data(iris, mtcars)
+#'
+#' # create table parameter can that can be updated to any other object
+#' p1 <- misc_parameter("tbl", iris,
+#'                      function(x) TRUE,
+#'                      function(x) structure("tbl", .Class = "shiny.tag"))
+#' print(p1) # print it
+#' p1$get() # get value
+#' p1$id # get id
+#' p1$validate(mtcars) # check if parameter can be updated
+#' p1$set(mtcars) # set parameter to mtcars
+#' p1$print() # print it again
+#'
+#' # create table parameter with validation function that requires
+#' # all values in the first column to be less then 200 and that the
+#' # parameter have the same column names as the iris data set
+#' p2 <- misc_parameter("tbl2", iris,
+#'                      function(x) all(names(x) %in% names(iris)) &&
+#'                                  all(x[[1]] < 200,
+#'                      function(x) structure("tbl", .Class = "shiny.tag"))
+#' print(p2) # print it
+#' p2$get() # get value
+#' p2$id # get id
+#' p2$validate(mtcars) # check if parameter can be updated
+#' iris2 <- iris; iris2[1,1] <- 300 # create updated iris data set
+#' p2$validate(iris2) # check if parameter can be updated
+#' iris3 <- iris; iris2[1,1] <- 100 # create updated iris data set
+#' p2$set(iris3) # set parameter to iris3
+#' p2$print() # print it again
+#'
+#' @name misc_parameter
+misc_parameter <- function(name, value, validator, widget) {
+  assertthat::assert_that(assertthat::is.string(name),
+    inherits(validator, "function"), inherits(widget, "function"),
+    isTRUE(validator(value)))
+  pproto("MiscParameter", MiscParameter, id = new_id(),
+    name = name, value = value, validator = list(validator), default = value,
+    class = class(value), widget = list(widget))
 }
 
 #' Parameters
