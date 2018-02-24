@@ -541,7 +541,7 @@ methods::setMethod(
     if (!"zone" %in% names(rij))
       rij$zone <- 1
     if (length(unique(rij$zone)) > 1 && is.null(zones))
-      stop("argument to zone must be specified for problems with multiple",
+      stop("argument to zone must be specified for problems with multiple ",
            "zones")
     if (is.null(zones))
       zones <- data.frame(id = 1, name = cost_column)

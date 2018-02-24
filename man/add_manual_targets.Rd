@@ -5,7 +5,7 @@
 \alias{add_manual_targets}
 \alias{add_manual_targets-method}
 \alias{add_manual_targets,ConservationProblem,data.frame-method}
-\alias{add_manual_targets,ConservationProblem,tibble-method}
+\alias{add_manual_targets,ConservationProblem,tbl_df-method}
 \alias{add_manual_targets}
 \alias{add_manual_targets}
 \alias{add_manual_targets}
@@ -13,7 +13,7 @@
 \usage{
 \S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets, ...)
 
-\S4method{add_manual_targets}{ConservationProblem,tibble}(x, targets, ...)
+\S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -42,6 +42,8 @@
     \item{\code{"target"}}{\code{numeric} target value.}
 
  }}
+
+\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added

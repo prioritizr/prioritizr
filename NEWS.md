@@ -1,3 +1,17 @@
+# prioritizr 4.0.0.0 (unreleased)
+
+- New `zones` class to organize data with multiple zones.
+- The `problem` function now accepts `Zone` objects as arguments to `feature`
+   create problems with multiple zones.
+- The `add_relative_targets` and `add_absolute_targets` functions now accept
+  `matrix` objects as arguments to `target` to specify targets for each feature
+  in each zone.
+- New `add_manual_targets` function to specify targets using _tibble_ tables
+  (`tbl_df` objects). This function can be used to set targets in problems
+  with multiple zones where a single target can be achieved through allocating
+  planning units to different zones.
+
+
 # prioritizr 3.0.3.6 (unreleased)
 
 - Fix typo in README and update documentation for `add_boundary_penalties`

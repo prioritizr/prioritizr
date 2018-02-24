@@ -7,8 +7,6 @@
 \alias{add_relative_targets,ConservationProblem,numeric-method}
 \alias{add_relative_targets,ConservationProblem,matrix-method}
 \alias{add_relative_targets,ConservationProblem,character-method}
-\alias{add_relative_targets,ConservationProblem,ZonesCharacter-method}
-\alias{add_relative_targets}
 \alias{add_relative_targets}
 \alias{add_relative_targets}
 \alias{add_relative_targets}
@@ -20,8 +18,39 @@
 \S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets, ...)
 
 \S4method{add_relative_targets}{ConservationProblem,character}(x, targets, ...)
+}
+\arguments{
+\item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\S4method{add_relative_targets}{ConservationProblem,ZonesCharacter}(x, targets, ...)
+\item{targets}{\code{numeric} \code{vector}, \code{matrix}, or
+  \code{character} \code{vector} object with targets for
+  features. The correct argument for \code{targets} depends on multiple
+  factors:
+  \describe{
+    \item{\code{numeric}}{This type of argument can be a
+       \code{numeric} \code{vector} containing multiple values for each
+       feature. Additionally, for convenience,
+       this type of argument can be a single value to assign the
+       same target to each feature. Note that this type of argument
+       cannot be used to specify targets for problems with multiple zones.}
+
+   \item{\code{matrix}}{This type of argument for \code{targets} can be
+     used to set targets for each feature in each zone. Here, each
+     row corresponds to a different feature in argument to \code{x},
+     each column corresponds to a different zone in argument to \code{x},
+     and each cell contains the minimum amount of a given feature that the
+     solution needs to secure in a given zone.}
+
+   \item{\code{character}}{This type of argument for \code{targets} can be
+      used to set the target for each feature using the names of fields
+      (columns) in the feature data associated with the argument to
+      \code{x}. This type of argument can only be used when the
+      feature data associated with \code{x} is a \code{data.frame}.
+      This argument must contain a field (column) name for each zone.}
+
+ }}
+
+\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added

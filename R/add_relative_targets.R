@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R
+#' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_absolute_targets.R
 NULL
 
 #' Add Relative Targets
@@ -10,7 +10,37 @@ NULL
 #' to multiple zones. In other words, this function can be used to specify
 #' targets that each pertain to a single feature and a single zone.
 #'
-#' @inheritParams add_absolute_targets
+#' @param x \code{\link{ConservationProblem-class}} object.
+#'
+#' @param targets \code{numeric} \code{vector}, \code{matrix}, or
+#'   \code{character} \code{vector} object with targets for
+#'   features. The correct argument for \code{targets} depends on multiple
+#'   factors:
+#'   \describe{
+#'     \item{\code{numeric}}{This type of argument can be a
+#'        \code{numeric} \code{vector} containing multiple values for each
+#'        feature. Additionally, for convenience,
+#'        this type of argument can be a single value to assign the
+#'        same target to each feature. Note that this type of argument
+#'        cannot be used to specify targets for problems with multiple zones.}
+#'
+#'    \item{\code{matrix}}{This type of argument for \code{targets} can be
+#'      used to set targets for each feature in each zone. Here, each
+#'      row corresponds to a different feature in argument to \code{x},
+#'      each column corresponds to a different zone in argument to \code{x},
+#'      and each cell contains the minimum amount of a given feature that the
+#'      solution needs to secure in a given zone.}
+#'
+#'    \item{\code{character}}{This type of argument for \code{targets} can be
+#'       used to set the target for each feature using the names of fields
+#'       (columns) in the feature data associated with the argument to
+#'       \code{x}. This type of argument can only be used when the
+#'       feature data associated with \code{x} is a \code{data.frame}.
+#'       This argument must contain a field (column) name for each zone.}
+#'
+#'  }
+#'
+#' @param ... not used.
 #'
 #' @inherit add_manual_targets details return seealso
 #'
@@ -38,7 +68,7 @@ NULL
 #'      box = FALSE)
 #' }
 #'
-#' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method add_relative_targets,ConservationProblem,ZonesCharacter-method
+#' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method
 #'
 #' @name add_relative_targets
 #'
@@ -61,7 +91,11 @@ methods::setMethod(
   "add_relative_targets",
   methods::signature("ConservationProblem", "numeric"),
   function(x, targets, ...) {
-    add_relative_targets(x, matrix(targets, ncol = 1))
+    assertthat::assert_that(inherits(x, "ConservationProblem"),
+                            x$number_of_zones() == 1,
+                            length(targets) %in% c(1, x$number_of_features()))
+    add_relative_targets(x, matrix(targets, nrow = x$number_of_features(),
+                                   ncol = 1))
 })
 
 #' @name add_relative_targets
@@ -69,22 +103,16 @@ methods::setMethod(
 #' @usage \S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets, ...)
 methods::setMethod(
   "add_relative_targets",
-  methods::signature("ConservationProblem", "numeric"),
+  methods::signature("ConservationProblem", "matrix"),
   function(x, targets, ...) {
     # assert that arguments are valid
     assertthat::assert_that(
       inherits(x, "ConservationProblem"),
       inherits(targets, "matrix"), is.numeric(targets),
       isTRUE(all(is.finite(targets))),
-      isTRUE(all(targets >= 0.0)),
-      isTRUE(all(targets <= 1.0)),
-      isTRUE(length(targets) > 0))
-    # assert that targets are compatible with problem
-    if (nrow(targets) == 1 && ncol(targets) == 1) {
-      targets <- matrix(targets, nrow = x$number_of_features(),
-                        ncol = x$number_of_zones())
-    }
-    assertthat::assert_that(
+      isTRUE(all(targets >= 0)),
+      isTRUE(all(targets <= 1)),
+      isTRUE(length(targets) > 0),
       nrow(targets) == x$number_of_features(),
       ncol(targets) == x$number_of_zones())
     # create targets as data.frame
@@ -96,7 +124,7 @@ methods::setMethod(
       target_data <- expand.grid(feature = x$feature_names(),
                                  type = "relative")
     }
-    target_data$target <- c(targets)
+    target_data$target <- as.numeric(targets)
     # add targets to problem
     add_manual_targets(x, target_data)
 })
@@ -110,31 +138,13 @@ methods::setMethod(
   function(x, targets, ...) {
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "ConservationProblem"),
-      inherits(x$data$features, c("data.frame", "Spatial")),
-      assertthat::has_name(x$data$features, targets),
-      length(targets) == x$data$features())
+      is.character(targets),
+      inherits(x$data$features, "data.frame"),
+      !anyNA(targets),
+      all(assertthat::has_name(x$data$features, targets)),
+      length(targets) == x$number_of_zones(),
+      all(vapply(x$data$features[, targets, drop = FALSE], is.numeric,
+                logical(1))))
     # add targets to problem
-    add_relative_targets(x, zones(targets))
-})
-
-#' @name add_relative_targets
-#' @rdname add_relative_targets
-#' @usage \S4method{add_relative_targets}{ConservationProblem,ZonesCharacter}(x, targets, ...)
-methods::setMethod(
-  "add_relative_targets",
-  methods::signature("ConservationProblem", "ZonesCharacter"),
-  function(x, targets, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-     inherits(x$data$features, c("data.frame", "Spatial")),
-     n_zone(targets) == x$number_of_zones(),
-     n_feature(targets) == x$number_of_features(),
-     assertthat::has_name(x$data$features, unlist(as.list(targets))),
-     all(vapply(x$data$features[, unlist(as.list(targets)), drop = FALSE],
-                is.numeric, logical(1))))
-    # extract target data
-    targets <- x$data$features[, unlist(as.list(targets)), drop = FALSE]
-    targets <- as.matrix(targets)
-    # add targets to problem
-    add_relative_targets(x, targets)
+    add_relative_targets(x, as.matrix(x$data$features[, targets, drop = FALSE]))
 })

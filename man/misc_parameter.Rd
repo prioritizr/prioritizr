@@ -13,8 +13,8 @@ misc_parameter(name, value, validator, widget)
 
 \item{validator}{\code{function} to validate changes to the parameter. This
 function must have a single argument and return either \code{TRUE} or
-\code{FALSE} to if the a \code{\code[tibble]{tibble}} object passed to
-the argument is valid.}
+\code{FALSE} depending on if the argument is valid candidate for the
+parameter.}
 
 \item{widget}{\code{function} to render a \code{shiny} widget. This function
 should must have a single argument that accepts a valid object and return
