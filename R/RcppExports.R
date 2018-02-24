@@ -41,6 +41,10 @@ rcpp_get_optimization_problem_number_of_features <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_number_of_features`, x)
 }
 
+rcpp_get_optimization_problem_number_of_zones <- function(x) {
+    .Call(`_prioritizr_rcpp_get_optimization_problem_number_of_zones`, x)
+}
+
 rcpp_get_optimization_problem_vtype <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_vtype`, x)
 }

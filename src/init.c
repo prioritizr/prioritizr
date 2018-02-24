@@ -38,6 +38,7 @@ extern SEXP _prioritizr_rcpp_get_optimization_problem_ncol(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_nrow(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_features(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_planning_units(SEXP);
+extern SEXP _prioritizr_rcpp_get_optimization_problem_number_of_zones(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_obj(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_rhs(SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_row_ids(SEXP);
@@ -82,6 +83,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_get_optimization_problem_nrow",                     (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_nrow,                     1},
     {"_prioritizr_rcpp_get_optimization_problem_number_of_features",       (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_number_of_features,       1},
     {"_prioritizr_rcpp_get_optimization_problem_number_of_planning_units", (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_number_of_planning_units, 1},
+    {"_prioritizr_rcpp_get_optimization_problem_number_of_zones",          (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_number_of_zones,          1},
     {"_prioritizr_rcpp_get_optimization_problem_obj",                      (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_obj,                      1},
     {"_prioritizr_rcpp_get_optimization_problem_rhs",                      (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_rhs,                      1},
     {"_prioritizr_rcpp_get_optimization_problem_row_ids",                  (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_row_ids,                  1},

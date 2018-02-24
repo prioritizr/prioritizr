@@ -118,6 +118,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_get_optimization_problem_number_of_zones
+std::size_t rcpp_get_optimization_problem_number_of_zones(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_number_of_zones(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_get_optimization_problem_number_of_zones(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_get_optimization_problem_vtype
 std::vector<std::string> rcpp_get_optimization_problem_vtype(SEXP x);
 RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_vtype(SEXP xSEXP) {

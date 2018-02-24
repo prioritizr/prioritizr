@@ -20,6 +20,7 @@ test_that("get methods", {
     rhs = c(18, 19),
     number_of_features = 2,
     number_of_planning_units = 3,
+    number_of_zones = 1,
     sense = c("=", "="),
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
@@ -40,6 +41,7 @@ test_that("get methods", {
   expect_equal(ub(x), l$ub)
   expect_equal(number_of_features(x), l$number_of_features)
   expect_equal(number_of_planning_units(x), l$number_of_planning_units)
+  expect_equal(number_of_zones(x), l$number_of_zones)
   expect_equal(col_ids(x), l$col_ids)
   expect_equal(row_ids(x), l$row_ids)
   expect_equal(compressed_formulation(x), l$compressed_formulation)
@@ -58,6 +60,7 @@ test_that("as.list", {
     rhs = c(18, 19),
     number_of_features = 2,
     number_of_planning_units = 3,
+    number_of_zones = 1,
     sense = c("=", "="),
     vtype = c("B", "S", "C"),
     row_ids = c("a", "b"),
@@ -75,6 +78,7 @@ test_that("as.list", {
   expect_equal(l$rhs, l2$rhs)
   expect_equal(l$number_of_features, l2$number_of_features)
   expect_equal(l$number_of_planning_units, l2$number_of_planning_units)
+  expect_equal(l$number_of_zones, l2$number_of_zones)
   expect_equal(l$sense, l2$sense)
   expect_equal(l$vtype, l2$vtype)
   expect_equal(l$row_ids, l2$row_ids)
@@ -86,7 +90,7 @@ test_that("shuffle_columns method", {
   # data
   set.seed(600)
   l <- list(modelsense = "min", number_of_features = 2,
-           number_of_planning_units = 3,
+           number_of_planning_units = 3, number_of_zones = 1,
            A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
            A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0),
            ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,
@@ -106,6 +110,7 @@ test_that("shuffle_columns method", {
   expect_equal(sense(x), l$sense)
   expect_equal(number_of_planning_units(x), l$number_of_planning_units)
   expect_equal(number_of_features(x), l$number_of_features)
+  expect_equal(number_of_zones(x), l$number_of_zones)
   expect_equal(row_ids(x), l$row_ids)
   expect_equal(compressed_formulation(x), l$compressed_formulation)
   # elements that should change after shuffling

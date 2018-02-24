@@ -50,6 +50,8 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 \code{x$number_of_features()}
 
+\code{x$number_of_zones()}
+
 \code{x$row_ids()}
 
 \code{x$col_ids()}
@@ -100,6 +102,9 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 \item{number_of_planning_units}{\code{integer} number of planning units in
   the problem.}
+
+\item{number_of_planning_units}{\code{integer} number of zones in the
+  problem.}
 
 \item{col_ids}{\code{character} names describing each decision variable
   (column) in the model matrix.}

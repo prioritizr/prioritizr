@@ -23,6 +23,8 @@ The argument to \code{x} must be a list that contains the following
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
 
+\item{number_of_planning_units}{\code{integer} number of zones.}
+
 \item{A_i}{\code{integer} row indices for problem matrix.}
 
 \item{A_j}{\code{integer} column indices for problem matrix.}
@@ -54,7 +56,7 @@ The argument to \code{x} must be a list that contains the following
 \examples{
 # create list with problem data
 l <- list(modelsense = "min", number_of_features = 2,
-          number_of_planning_units = 3,
+          number_of_planning_units = 3, number_of_zones = 4,
           A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
           A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0),
           ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,

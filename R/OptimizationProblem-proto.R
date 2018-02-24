@@ -48,6 +48,8 @@ methods::setOldClass("OptimizationProblem")
 #'
 #' \code{x$number_of_features()}
 #'
+#' \code{x$number_of_zones()}
+#'
 #' \code{x$row_ids()}
 #'
 #' \code{x$col_ids()}
@@ -94,6 +96,9 @@ methods::setOldClass("OptimizationProblem")
 #'
 #' \item{number_of_planning_units}{\code{integer} number of planning units in
 #'   the problem.}
+#'
+#' \item{number_of_planning_units}{\code{integer} number of zones in the
+#'   problem.}
 #'
 #' \item{col_ids}{\code{character} names describing each decision variable
 #'   (column) in the model matrix.}
@@ -177,6 +182,9 @@ OptimizationProblem <- pproto(
   },
   number_of_planning_units = function(self) {
     rcpp_get_optimization_problem_number_of_planning_units(self$ptr)
+  },
+  number_of_zones = function(self) {
+    rcpp_get_optimization_problem_number_of_zones(self$ptr)
   },
   col_ids = function(self) {
     rcpp_get_optimization_problem_col_ids(self$ptr)

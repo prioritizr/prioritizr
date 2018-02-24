@@ -15,6 +15,7 @@
 \alias{ub}
 \alias{number_of_features}
 \alias{number_of_planning_units}
+\alias{number_of_zones}
 \alias{col_ids}
 \alias{row_ids}
 \alias{compressed_formulation}
@@ -27,6 +28,7 @@
 \alias{nrow,OptimizationProblem-method}
 \alias{number_of_features,OptimizationProblem-method}
 \alias{number_of_planning_units,OptimizationProblem-method}
+\alias{number_of_zones,OptimizationProblem-method}
 \alias{obj,OptimizationProblem-method}
 \alias{rhs,OptimizationProblem-method}
 \alias{row_ids,OptimizationProblem-method}
@@ -34,6 +36,8 @@
 \alias{ub,OptimizationProblem-method}
 \alias{vtype,OptimizationProblem-method}
 \alias{compressed_formulation,OptimizationProblem-method}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
@@ -88,6 +92,8 @@ lb(x)
 ub(x)
 
 number_of_features(x)
+
+number_of_zones(x)
 
 number_of_planning_units(x)
 
@@ -147,6 +153,9 @@ The functions return the following data:
   the problem.}
 
 \item{number_of_features}{\code{integer} number of features
+  the problem.}
+
+\item{number_of_zones}{\code{integer} number of zones
   the problem.}
 
 }
