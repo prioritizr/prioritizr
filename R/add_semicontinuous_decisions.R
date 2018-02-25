@@ -60,14 +60,15 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
                           assertthat::is.scalar(upper_limit),
                           isTRUE(upper_limit <= 1), isTRUE(upper_limit >= 0))
   # add decision to problem
-  x$add_decisions(pproto("SemiContinuousDecision", Decision,
-                         name = "Semicontinuous decision",
-                         parameters = parameters(
-                           proportion_parameter("upper limit", upper_limit)),
-                         apply = function(self, x) {
-                           assertthat::assert_that(inherits(x,
-                                                   "OptimizationProblem"))
-                           invisible(rcpp_apply_semicontinuous_decisions(x$ptr,
-                                     self$parameters$get("upper limit")))
-                         }))
+  x$add_decisions(
+    pproto("SemiContinuousDecision",
+           Decision,
+           name = "Semicontinuous decision",
+           parameters = parameters(
+             proportion_parameter("upper limit", upper_limit)),
+           apply = function(self, x) {
+             assertthat::assert_that(inherits(x, "OptimizationProblem"))
+             invisible(rcpp_apply_decisions(x$ptr, "C", 0,
+                                            self$parameters$get("upper limit")))
+           }))
 }

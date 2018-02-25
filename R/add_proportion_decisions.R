@@ -47,12 +47,13 @@ add_proportion_decisions <- function(x) {
   # assert argument is valid
   assertthat::assert_that(inherits(x, "ConservationProblem"))
   # add decision
-  x$add_decisions(pproto("ProportionDecision", Decision,
-                         name = "Proportion decision",
-                         apply = function(self, x) {
-                           assertthat::assert_that(inherits(x,
-                                                   "OptimizationProblem"))
-                           invisible(rcpp_apply_proportion_decisions(x$ptr))
-                         }
-  ))
+  x$add_decisions(
+    pproto("ProportionDecision",
+           Decision,
+   name = "Proportion decision",
+   apply = function(self, x) {
+     assertthat::assert_that(inherits(x,
+                             "OptimizationProblem"))
+     invisible(rcpp_apply_decisions(x$ptr, "C", 0, 1))
+   }))
 }

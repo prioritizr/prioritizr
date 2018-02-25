@@ -292,37 +292,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_binary_decisions
-bool rcpp_apply_binary_decisions(SEXP x);
-RcppExport SEXP _prioritizr_rcpp_apply_binary_decisions(SEXP xSEXP) {
+// rcpp_apply_decisions
+bool rcpp_apply_decisions(SEXP x, std::string vtype, double default_lower, double default_upper);
+RcppExport SEXP _prioritizr_rcpp_apply_decisions(SEXP xSEXP, SEXP vtypeSEXP, SEXP default_lowerSEXP, SEXP default_upperSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_binary_decisions(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_proportion_decisions
-bool rcpp_apply_proportion_decisions(SEXP x);
-RcppExport SEXP _prioritizr_rcpp_apply_proportion_decisions(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_proportion_decisions(x));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_semicontinuous_decisions
-bool rcpp_apply_semicontinuous_decisions(SEXP x, double upper);
-RcppExport SEXP _prioritizr_rcpp_apply_semicontinuous_decisions(SEXP xSEXP, SEXP upperSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type upper(upperSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_semicontinuous_decisions(x, upper));
+    Rcpp::traits::input_parameter< std::string >::type vtype(vtypeSEXP);
+    Rcpp::traits::input_parameter< double >::type default_lower(default_lowerSEXP);
+    Rcpp::traits::input_parameter< double >::type default_upper(default_upperSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_decisions(x, vtype, default_lower, default_upper));
     return rcpp_result_gen;
 END_RCPP
 }

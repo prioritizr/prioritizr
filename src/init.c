@@ -8,11 +8,11 @@
 */
 
 /* .Call calls */
-extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_asymmetric_boundary_constraints(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_binary_decisions(SEXP);
 extern SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_corridor_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_feature_weights(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_in_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_locked_out_constraints(SEXP, SEXP);
@@ -22,8 +22,6 @@ extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, S
 extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_proportion_decisions(SEXP);
-extern SEXP _prioritizr_rcpp_apply_semicontinuous_decisions(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary_data(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
@@ -53,11 +51,11 @@ extern SEXP _prioritizr_rcpp_set_optimization_problem_shuffled(SEXP);
 extern SEXP _prioritizr_rcpp_sp_to_polyset(SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_prioritizr_rcpp_add_rij_data",                                      (DL_FUNC) &_prioritizr_rcpp_add_rij_data,                                      3},
+    {"_prioritizr_rcpp_add_rij_data",                                      (DL_FUNC) &_prioritizr_rcpp_add_rij_data,                                      4},
     {"_prioritizr_rcpp_apply_asymmetric_boundary_constraints",             (DL_FUNC) &_prioritizr_rcpp_apply_asymmetric_boundary_constraints,             4},
-    {"_prioritizr_rcpp_apply_binary_decisions",                            (DL_FUNC) &_prioritizr_rcpp_apply_binary_decisions,                            1},
     {"_prioritizr_rcpp_apply_connected_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_connected_constraints,                       2},
     {"_prioritizr_rcpp_apply_corridor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_corridor_constraints,                        3},
+    {"_prioritizr_rcpp_apply_decisions",                                   (DL_FUNC) &_prioritizr_rcpp_apply_decisions,                                   4},
     {"_prioritizr_rcpp_apply_feature_weights",                             (DL_FUNC) &_prioritizr_rcpp_apply_feature_weights,                             2},
     {"_prioritizr_rcpp_apply_locked_in_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_locked_in_constraints,                       2},
     {"_prioritizr_rcpp_apply_locked_out_constraints",                      (DL_FUNC) &_prioritizr_rcpp_apply_locked_out_constraints,                      2},
@@ -67,8 +65,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_max_utility_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                       4},
     {"_prioritizr_rcpp_apply_min_set_objective",                           (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                           3},
     {"_prioritizr_rcpp_apply_neighbor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_neighbor_constraints,                        3},
-    {"_prioritizr_rcpp_apply_proportion_decisions",                        (DL_FUNC) &_prioritizr_rcpp_apply_proportion_decisions,                        1},
-    {"_prioritizr_rcpp_apply_semicontinuous_decisions",                    (DL_FUNC) &_prioritizr_rcpp_apply_semicontinuous_decisions,                    2},
     {"_prioritizr_rcpp_apply_symmetric_boundary_constraints",              (DL_FUNC) &_prioritizr_rcpp_apply_symmetric_boundary_constraints,              4},
     {"_prioritizr_rcpp_boundary_data",                                     (DL_FUNC) &_prioritizr_rcpp_boundary_data,                                     2},
     {"_prioritizr_rcpp_branch_matrix",                                     (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                     1},

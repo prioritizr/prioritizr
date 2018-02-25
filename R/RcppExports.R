@@ -101,16 +101,8 @@ rcpp_apply_corridor_constraints <- function(x, connected_matrix_list, threshold)
     .Call(`_prioritizr_rcpp_apply_corridor_constraints`, x, connected_matrix_list, threshold)
 }
 
-rcpp_apply_binary_decisions <- function(x) {
-    .Call(`_prioritizr_rcpp_apply_binary_decisions`, x)
-}
-
-rcpp_apply_proportion_decisions <- function(x) {
-    .Call(`_prioritizr_rcpp_apply_proportion_decisions`, x)
-}
-
-rcpp_apply_semicontinuous_decisions <- function(x, upper) {
-    .Call(`_prioritizr_rcpp_apply_semicontinuous_decisions`, x, upper)
+rcpp_apply_decisions <- function(x, vtype, default_lower, default_upper) {
+    .Call(`_prioritizr_rcpp_apply_decisions`, x, vtype, default_lower, default_upper)
 }
 
 rcpp_apply_feature_weights <- function(x, weights) {
