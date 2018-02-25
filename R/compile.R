@@ -72,8 +72,23 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   if (is.na(compressed_formulation))
     compressed_formulation <- all(vapply(x$constraints$ids(),
       function(i) x$constraints[[i]]$compressed_formulation, logical(1)))
+  # generate targets
+  if (is.Waiver(x$targets)) {
+    # if objective doesn't actually use targets, create a "fake" targets tibble
+    # to initialize rij matrix
+    targets <- tibble::as.tibble(expand.grid(
+      feature = seq_along(x$feature_names()),
+      zone = seq_along(x$zone_names()),
+      sense = "?",
+      value = 0))
+    targets$zone <- as.list(targets$zone)
+  } else {
+    # generate "real" targets
+    targets <- x$feature_targets()
+  }
   # add rij data to optimization problem
-  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), compressed_formulation)
+  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), as.list(targets),
+                    compressed_formulation)
   # add decision types to optimization problem
   x$decisions$calculate(x)
   x$decisions$apply(op)

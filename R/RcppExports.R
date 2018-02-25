@@ -85,8 +85,8 @@ rcpp_set_optimization_problem_shuffled <- function(x) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x)
 }
 
-rcpp_add_rij_data <- function(x, rij, compressed_formulation) {
-    .Call(`_prioritizr_rcpp_add_rij_data`, x, rij, compressed_formulation)
+rcpp_add_rij_data <- function(x, rij_list, targets_list, compressed_formulation) {
+    .Call(`_prioritizr_rcpp_add_rij_data`, x, rij_list, targets_list, compressed_formulation)
 }
 
 rcpp_apply_asymmetric_boundary_constraints <- function(x, boundary_matrix, penalty, edge_factor) {

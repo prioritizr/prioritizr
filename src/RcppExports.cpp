@@ -240,15 +240,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_add_rij_data
-bool rcpp_add_rij_data(SEXP x, arma::sp_mat rij, bool compressed_formulation);
-RcppExport SEXP _prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rijSEXP, SEXP compressed_formulationSEXP) {
+bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list, bool compressed_formulation);
+RcppExport SEXP _prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP compressed_formulationSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type rij(rijSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type rij_list(rij_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
     Rcpp::traits::input_parameter< bool >::type compressed_formulation(compressed_formulationSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_rij_data(x, rij, compressed_formulation));
+    rcpp_result_gen = Rcpp::wrap(rcpp_add_rij_data(x, rij_list, targets_list, compressed_formulation));
     return rcpp_result_gen;
 END_RCPP
 }
