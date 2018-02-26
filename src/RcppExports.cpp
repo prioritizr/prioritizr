@@ -253,6 +253,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_add_zones_constraints
+bool rcpp_add_zones_constraints(SEXP x);
+RcppExport SEXP _prioritizr_rcpp_add_zones_constraints(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_add_zones_constraints(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_asymmetric_boundary_constraints
 bool rcpp_apply_asymmetric_boundary_constraints(SEXP x, arma::sp_mat boundary_matrix, double penalty, double edge_factor);
 RcppExport SEXP _prioritizr_rcpp_apply_asymmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
@@ -400,15 +411,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_min_set_objective
-bool rcpp_apply_min_set_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs);
-RcppExport SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP) {
+bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs);
+RcppExport SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_set_objective(x, targets, costs));
+    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_set_objective(x, targets_list, costs));
     return rcpp_result_gen;
 END_RCPP
 }

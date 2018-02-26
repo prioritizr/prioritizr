@@ -95,6 +95,9 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # add objective to optimization problem
   x$objective$calculate(x)
   x$objective$apply(op, x)
+  # add constraints for zones
+  if (x$number_of_zones() > 1)
+    rcpp_add_zone_constraints(op$ptr)
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     x$penalties[[i]]$calculate(x)

@@ -89,6 +89,10 @@ rcpp_add_rij_data <- function(x, rij_list, targets_list, compressed_formulation)
     .Call(`_prioritizr_rcpp_add_rij_data`, x, rij_list, targets_list, compressed_formulation)
 }
 
+rcpp_add_zones_constraints <- function(x) {
+    .Call(`_prioritizr_rcpp_add_zones_constraints`, x)
+}
+
 rcpp_apply_asymmetric_boundary_constraints <- function(x, boundary_matrix, penalty, edge_factor) {
     .Call(`_prioritizr_rcpp_apply_asymmetric_boundary_constraints`, x, boundary_matrix, penalty, edge_factor)
 }
@@ -133,8 +137,8 @@ rcpp_apply_max_utility_objective <- function(x, abundances, costs, budget) {
     .Call(`_prioritizr_rcpp_apply_max_utility_objective`, x, abundances, costs, budget)
 }
 
-rcpp_apply_min_set_objective <- function(x, targets, costs) {
-    .Call(`_prioritizr_rcpp_apply_min_set_objective`, x, targets, costs)
+rcpp_apply_min_set_objective <- function(x, targets_list, costs) {
+    .Call(`_prioritizr_rcpp_apply_min_set_objective`, x, targets_list, costs)
 }
 
 rcpp_apply_neighbor_constraints <- function(x, connected_matrix, k) {

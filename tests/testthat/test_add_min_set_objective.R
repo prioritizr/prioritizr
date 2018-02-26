@@ -17,7 +17,7 @@ test_that("compile (compressed formulation)", {
   expect_equal(o$rhs(), targ)
   expect_equal(o$row_ids(), rep("spp_target", raster::nlayers(sim_features)))
   expect_equal(o$col_ids(), rep("pu", n_pu))
-  expect_true(all(o$A() == p$data$rij_matrix))
+  expect_true(all(o$A() == p$data$rij_matrix[[1]]))
   expect_true(all(o$lb() == 0))
   expect_true(all(o$ub() == 1))
 })
@@ -64,9 +64,9 @@ test_that("compile (expanded formulation)", {
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f),
                             rep(">=", raster::nlayers(sim_features))))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), targ))
-  expect_equal(o$row_ids(), c(rep("pu_ij", n_pu * n_f),
+  expect_equal(o$row_ids(), c(rep("pu_ijz", n_pu * n_f),
                               rep("spp_target", raster::nlayers(sim_features))))
-  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ij", n_pu * n_f)))
+  expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f)))
   expect_equal(o$lb(), rep(0, n_pu + (n_pu * n_f)))
   expect_equal(o$ub(), rep(1, n_pu + (n_pu * n_f)))
   # test that model matrix is correct
