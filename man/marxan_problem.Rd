@@ -42,7 +42,7 @@ meaning that 200 units of a feature need to be conserved) amounts.}
 locked in. See details for more information.}
 
 \item{locked_out}{Object that determines which planning units that should be
-locked out. See details for more information.}
+locked out. See the Details section for more information.}
 
 \item{penalty}{\code{numeric} penalty for exposed edges. This
 is equivalent to the

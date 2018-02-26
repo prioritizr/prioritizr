@@ -12,37 +12,12 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param targets \code{numeric} \code{vector}, \code{matrix}, or
-#'   \code{character} \code{vector} object with targets for
-#'   features. The correct argument for \code{targets} depends on multiple
-#'   factors:
-#'   \describe{
-#'     \item{\code{numeric}}{This type of argument can be a
-#'        \code{numeric} \code{vector} containing multiple values for each
-#'        feature. Additionally, for convenience,
-#'        this type of argument can be a single value to assign the
-#'        same target to each feature. Note that this type of argument
-#'        cannot be used to specify targets for problems with multiple zones.}
-#'
-#'    \item{\code{matrix}}{This type of argument for \code{targets} can be
-#'      used to set targets for each feature in each zone. Here, each
-#'      row corresponds to a different feature in argument to \code{x},
-#'      each column corresponds to a different zone in argument to \code{x},
-#'      and each cell contains the minimum amount of a given feature that the
-#'      solution needs to secure in a given zone.}
-#'
-#'    \item{\code{character}}{This type of argument for \code{targets} can be
-#'       used to set the target for each feature using the names of fields
-#'       (columns) in the feature data associated with the argument to
-#'       \code{x}. This type of argument can only be used when the
-#'       feature data associated with \code{x} is a \code{data.frame}.
-#'       This argument must contain a field (column) name for each zone.}
-#'
-#'  }
+#' @param targets Object that specifies the targets for each feature. See the
+#'   Details section for more information.
 #'
 #' @param ... not used.
 #'
-#' @inherit add_manual_targets details return seealso
+#' @inherit add_relative_targets details return seealso
 #'
 #' @examples
 #' # load data

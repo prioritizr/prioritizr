@@ -175,16 +175,17 @@ class directly.}
 \item{number_of_total_units}{\code{integer} number of units in the cost
   data including units that have NA values for cost.}
 
-\item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
+\item{planning_unit_costs}{\code{matrix} cost of allocating each planning
+  unit to each zone.}
 
 \item{number_of_features}{\code{integer} number of features.}
 
 \item{feature_names}{\code{character} names of features in problem.}
 
-\item{feature_abundances_in_planning_units}{\code{numeric} get total
-  abundance of each feature in all the planning units.}
+\item{feature_abundances_in_planning_units}{\code{matrx} total
+  abundance of each feature in each zone.}
 
-\item{feature_targets}{\code{numeric} targets for each feature.}
+\item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
 
 \item{number_of_zones}{\code{integer} number of zones.}
 
@@ -205,7 +206,7 @@ class directly.}
 \item{add_constraint}{return a new \code{\link{ConservationProblem-class}}
   object with the constraint added to it.}
 
-\item{add_targets}{return a copy with the targets to the problem.}
+\item{add_targets}{return a copy with the targets added to the problem.}
 
 \item{get_constraint_parameter}{get the value of a parameter (specified by
   argument \code{id}) used in one of the constraints in the object.}

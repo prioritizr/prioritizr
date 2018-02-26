@@ -36,31 +36,49 @@ Add constraints to ensure that they are prioritized in the solution.
 For example, it may be desirable to lock in planning units that are
 inside existing protected areas so that the solution fills in the gaps in the
 existing reserve network. If specific planning units should be locked out
-of a solution, use \code{\link{add_locked_out_constraints}}.
+of a solution, use \code{\link{add_locked_out_constraints}}. For problems
+with non-binary planning unit allocations (e.g. proportions), the
+\code{\link{add_locked_manual_constraints}} function can be used to lock
+planning unit allocations to a specific value.
 }
 \details{
-The locked in planning units can be specified in several
-  different ways:
+The locked planning units can be specified in several different
+ ways:
 
   \describe{
 
-  \item{\code{integer}}{\code{vector} of indices pertaining to which
-    planning units should be locked in.}
+    \item{\code{integer}}{\code{vector} of indices pertaining to which
+      planning units should be locked in the solution. This argument is only
+      compatible with problems that contain a single zone.}
 
-  \item{\code{character}}{column name in the attribute table values
-    indicating if planning units should be locked in. This option is
-    only available if the planning units in \code{x} are a
-    \code{\link[sp]{Spatial-class}} object. The column in the attribute
-    table should have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
-    values indicating if the planning unit is to be locked in.}
+    \item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
+      \code{FALSE} values that indicate which planning units should be locked
+      in the solution. This argument is only compatible with problems that
+      contain a single zone.}
 
-  \item{\code{\link[raster]{Raster-class}} object}{planning units in \code{x}
-    that intersect with cells in \code{y} are locked in. Specifically,
-    only if the intersect with cells in \code{y} are that are not equal to
-    zero or \code{NA}.}
+    \item{\code{matrix}}{containing \code{logical} \code{TRUE} and/or
+      \code{FALSE} values which indicate if certain planning units are
+      should be locked to a specific zone in the solution. Each row
+      corresponds to a planning unit, each column corresponds to a zone, and
+      each cell indicates if the planning unit should be locked to a given
+      zone. Thus each row should only contain at most a single \code{TRUE}
+      value.}
 
-  \item{\code{\link[sp]{Spatial-class}} object.}{planning units in \code{x}
-    that spatially intersect with \code{locked_in} are locked in.}
+    \item{\code{character}}{field (column) name(s) that indicate if planning
+      units should be locked in the solution. This type of argument is only
+      compatible if the planning units in the argument to \code{x} are a
+      \code{\link[sp]{Spatial-class}} or \code{data.frame} object. The fields
+      (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
+      values indicating if the planning unit is to be locked in the solution.
+      For problems containing multiple zones, this argument should contain
+      a field (column) name for each management zone.}
+
+    \item{\code{\link[raster]{Raster-class}}}{planning units in \code{x}
+      that intersect with non-zero and non-\code{NA} raster cells are locked
+      in the solution. For problems that contain multiple zones, the
+      \code{\link[raster]{Raster-class}} object must contain a layer
+      for each zone. Note that for multi-band arguments, each pixel must
+      only contain a non-zero value in a single band.}
 
  }
 }

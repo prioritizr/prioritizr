@@ -21,33 +21,8 @@ add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=character
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{targets}{\code{numeric} \code{vector}, \code{matrix}, or
-  \code{character} \code{vector} object with targets for
-  features. The correct argument for \code{targets} depends on multiple
-  factors:
-  \describe{
-    \item{\code{numeric}}{This type of argument can be a
-       \code{numeric} \code{vector} containing multiple values for each
-       feature. Additionally, for convenience,
-       this type of argument can be a single value to assign the
-       same target to each feature. Note that this type of argument
-       cannot be used to specify targets for problems with multiple zones.}
-
-   \item{\code{matrix}}{This type of argument for \code{targets} can be
-     used to set targets for each feature in each zone. Here, each
-     row corresponds to a different feature in argument to \code{x},
-     each column corresponds to a different zone in argument to \code{x},
-     and each cell contains the minimum amount of a given feature that the
-     solution needs to secure in a given zone.}
-
-   \item{\code{character}}{This type of argument for \code{targets} can be
-      used to set the target for each feature using the names of fields
-      (columns) in the feature data associated with the argument to
-      \code{x}. This type of argument can only be used when the
-      feature data associated with \code{x} is a \code{data.frame}.
-      This argument must contain a field (column) name for each zone.}
-
- }}
+\item{targets}{Object that specifies the targets for each feature. See the
+Details section for more information.}
 
 \item{...}{not used.}
 }
@@ -66,13 +41,35 @@ To set targets which can be met through allocating different planning units
 to multiple zones, see the \code{\link{add_manual_targets}} function.
 }
 \details{
-Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. Most conservation planning problems
-require targets with the exception of the maximum cover
-(see \code{\link{add_max_cover_objective}}) and maximum utility
-(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
-problems with objectives that require targets without specifying targets
-will throw an error.
+Targets are used to specify the minimum amount or proportion of a
+  feature's distribution that needs to be protected. Most conservation
+  planning problems require targets with the exception of the maximum cover
+  (see \code{\link{add_max_cover_objective}}) and maximum utility
+  (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+  problems with objectives that require targets without specifying targets
+  will throw an error.
+
+ The targets for a problem can be specified in several different ways:
+ \describe{
+   \item{\code{numeric}}{\code{vector} of target values for each feature.
+     Additionally, for convenience, this type of argument can be a single
+     value to assign the same target to each feature. Note that this type of
+     argument cannot be used to specify targets for problems with multiple
+     zones.}
+
+   \item{\code{matrix}}{containing a target for each feature in each zone.
+     Here, each row corresponds to a different feature in argument to
+     \code{x}, each column corresponds to a different zone in argument to
+     \code{x}, and each cell contains the target value for a given feature
+     that the solution needs to secure in a given zone.}
+
+   \item{\code{character}}{containing the names of fields (columns) in the
+      feature data associated with the argument to \code{x} that contain
+      targets. This type of argument can only be used when the
+      feature data associated with \code{x} is a \code{data.frame}.
+      This argument must contain a field (column) name for each zone.}
+
+ }
 }
 \examples{
 # load data

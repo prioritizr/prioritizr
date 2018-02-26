@@ -7,41 +7,19 @@ NULL
 #' in the solution. For example, it may be useful to lock out planning
 #' units that have been degraded and are not longer suitable for conserving
 #' species. If specific planning units should be locked in to the solution,
-#' use \code{\link{add_locked_in_constraints}}.
+#' use \code{\link{add_locked_in_constraints}}. For problems
+#' with non-binary planning unit allocations (e.g. proportions), the
+#' \code{\link{add_locked_manual_constraints}} function can be used to lock
+#' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param locked_out Object that determines which planning units that should be
-#'   locked out. See details for more information.
+#'   locked out. See the Details section for more information.
 #'
-#' @details The locked out planning units can be specified in several
-#'   different ways:
-#'
-#'   \describe{
-#'
-#'   \item{\code{integer}}{\code{vector} of indices pertaining to which
-#'     planning units should be locked out.}
-#'
-#'   \item{\code{character}}{column name in the attribute table values
-#'     indicating if planning units should be locked out. This option is
-#'     only available if the planning units in \code{x} are a
-#'     \code{\link[sp]{Spatial-class}} object. The column in the attribute
-#'     table should have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
-#'     values indicating if the planning unit is to be locked out.}
-#'
-#'   \item{\code{\link[raster]{Raster-class}} object}{planning units in \code{x}
-#'     that intersect with cells in \code{y} are locked out. Specifically,
-#'     only if the intersect with cells in \code{y} are that are not equal to
-#'     zero or \code{NA}.}
-#'
-#'   \item{\code{\link[sp]{Spatial-class}} object.}{planning units in \code{x}
-#'     that spatially intersect with \code{locked_in} are locked out.}
-#'
-#'  }
-#'
-#' @return \code{\link{ConservationProblem-class}} object.
+#' @inherit add_locked_in_constraints details return seealso
 #'
 #' @examples
 #' # create basic problem
@@ -87,8 +65,6 @@ NULL
 #' plot(s5, main = "locked out (polygon input)")
 #' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #' }
-#'
-#' @seealso \code{\link{constraints}}.
 #'
 #' @name add_locked_out_constraints
 #'
