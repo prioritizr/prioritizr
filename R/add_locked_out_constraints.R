@@ -3,12 +3,12 @@ NULL
 
 #' Add locked out constraints
 #'
-#' Add constraints to ensure that certain planning units are not prioritized
-#' in the solution. For example, it may be useful to lock out planning
-#' units that have been degraded and are not longer suitable for conserving
-#' species. If specific planning units should be locked in to the solution,
-#' use \code{\link{add_locked_in_constraints}}. For problems
-#' with non-binary planning unit allocations (e.g. proportions), the
+#' Add constraints to ensure that certain planning units are not selected
+#' (or allocated to a specific zone) in the solution. For example, it may be
+#' useful to lock out planning units that have been degraded and are not longer
+#' suitable for conserving species. If specific planning units should be locked
+#' in to the solution, use \code{\link{add_locked_out_constraints}}. For
+#' problems with non-binary planning unit allocations (e.g. proportions), the
 #' \code{\link{add_locked_manual_constraints}} function can be used to lock
 #' planning unit allocations to a specific value.
 #'
@@ -19,7 +19,7 @@ NULL
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Details section for more information.
 #'
-#' @inherit add_locked_in_constraints details return seealso
+#' @inherit add_locked_out_constraints details return seealso
 #'
 #' @examples
 #' # create basic problem
@@ -28,7 +28,7 @@ NULL
 #'       add_relative_targets(0.2)
 #'
 #' # create problem with added locked out constraints using integers
-#' p2 <- p1 %>% add_locked_out_constraints(which(sim_pu_polygons$locked_in))
+#' p2 <- p1 %>% add_locked_out_constraints(which(sim_pu_polygons$locked_out))
 #'
 #' # create problem with added locked out constraints using a field name
 #' p3 <- p1 %>% add_locked_out_constraints("locked_out")
@@ -70,7 +70,7 @@ NULL
 #'
 #' @exportMethod add_locked_out_constraints
 #'
-#' @aliases add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,Spatial-method
+#' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,Spatial-method
 #'
 #' @export
 methods::setGeneric("add_locked_out_constraints",
@@ -88,50 +88,53 @@ methods::setMethod("add_locked_out_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_out, c("integer", "numeric")),
-        isTRUE(all(is.finite(locked_out))),
-        isTRUE(all(round(locked_out) == locked_out)),
-        isTRUE(max(locked_out) <= x$number_of_total_units()),
-        isTRUE(min(locked_out) >= 1))
-    # create parameters
-    p <- parameters(binary_parameter("apply constraint?", 1L))
-    # create new constraint object
-    x$add_constraint(pproto(
-      "LockedOutConstraint",
-      Constraint,
-      name = "Locked out planning units",
-      data = list(locked_out = as.integer(locked_out)),
-      parameters = p,
-      calculate = function(self, x) {
-        assertthat::assert_that(inherits(x, "ConservationProblem"))
-        if (is.Waiver(self$get_data("locked_out_indices"))) {
-          if (inherits(x$get_data("cost"), "Raster")) {
-            # get locked in units
-            units <- self$get_data("locked_out")
-            # if cost layer is a raster convert cell indices to relative
-            # indices based on which cells in the cost layer are
-            # finite (ie. not NA)
-            units <- match(units, raster::Which(!is.na(x$get_data("cost")),
-                                                cells = TRUE))
-            units <- units[!is.na(units)]
-            self$set_data("locked_out_indices", units)
-          } else {
-            self$set_data("locked_out_indices", self$get_data("locked_out"))
-          }
-        }
-        invisible(TRUE)
-      },
-      apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
-        if (self$parameters$get("apply constraint?") == 1) {
-          # apply constraint
-          rcpp_apply_locked_out_constraints(x$ptr,
-            self$get_data("locked_out_indices"))
-        }
-        invisible(TRUE)
-      }))
-  }
-)
+      x$number_of_zones() == 1,
+      isTRUE(all(is.finite(locked_out))),
+      isTRUE(all(round(locked_out) == locked_out)),
+      isTRUE(max(locked_out) <= x$number_of_total_units()),
+      isTRUE(min(locked_out) >= 1))
+    # create matrix with locked in constraints
+    m <- matrix(FALSE, ncol = 1, nrow = x$number_of_total_units())
+    m[locked_out, 1] <- TRUE
+    # add constraints
+    add_locked_out_constraints(x, m)
+})
+
+#' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,logical}(x, locked_out)
+#' @rdname add_locked_out_constraints
+methods::setMethod("add_locked_out_constraints",
+  methods::signature("ConservationProblem", "logical"),
+  function(x, locked_out) {
+    # assert valid arguments
+    assertthat::assert_that(inherits(x, "ConservationProblem"),
+      inherits(locked_out, "logical"),
+      x$number_of_zones() == 1,
+      x$number_of_total_units() == length(x),
+      isTRUE(all(is.finite(locked_out))))
+    # add constraints
+    add_locked_out_constraints(x, matrix(locked_out, ncol = 1))
+})
+
+#' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,matrix}(x, locked_out)
+#' @rdname add_locked_out_constraints
+methods::setMethod("add_locked_out_constraints",
+  methods::signature("ConservationProblem", "matrix"),
+  function(x, locked_out) {
+    # assert valid arguments
+    assertthat::assert_that(inherits(x, "ConservationProblem"),
+      inherits(locked_out, "matrix"),
+      is.logical(locked_out),
+      x$number_of_zones() == ncol(locked_out),
+      x$number_of_total_units() == nrow(locked_out),
+      isTRUE(all(is.finite(locked_out))),
+      all(rowSums(locked_out) <= 1))
+    # create data.frame with statuses
+    y <- data.frame(pu = which(locked_in, arr.ind = TRUE)[, 1], status = 0)
+    # add constraints
+    add_locked_manual_constraints(x, y)
+})
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,character}(x, locked_out)
@@ -142,14 +145,15 @@ methods::setMethod("add_locked_out_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       assertthat::is.string(locked_out),
-      inherits(x$data$cost, "data.frame") ||
-        isTRUE("data" %in% methods::slotNames(x$data$cost)),
+      inherits(x$data$cost, c("data.frame", "Spatial")),
+      x$number_of_zones() == length(locked_in),
       isTRUE(locked_out %in% names(x$data$cost)),
-      isTRUE(inherits(x$data$cost[[locked_out]], "logical")))
-    # add constraint
-    add_locked_out_constraints(x, which(x$data$cost[[locked_out]]))
-  }
-)
+      all(vapply(x$data$cost[, locked_out, drop = FALSE], inherits, logical(1),
+                 "logical")))
+    # add constraints
+    add_locked_out_constraints(as.matrix(x$data$cost[, locked_out,
+                                                       drop = FALSE]))
+})
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Spatial}(x, locked_out)
@@ -159,11 +163,11 @@ methods::setMethod("add_locked_out_constraints",
   function(x, locked_out) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
-      inherits(locked_out, "Spatial"))
+      inherits(locked_out, "Spatial"),
+      x$number_of_zones() == 1)
     # add constraints
     add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
-  }
-)
+})
 
 #' @name add_locked_out_constraints
 #' @usage \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
@@ -174,8 +178,7 @@ methods::setMethod("add_locked_out_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_out, "Raster"),
+      x$number_of_zones() == 1,
       isTRUE(raster::cellStats(locked_out, "sum") > 0))
-    # add constraints
     add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
-  }
-)
+})

@@ -18,30 +18,8 @@
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{targets}{\code{data.frame} or \code{\link[tibble]{tibble}} object.
-  This argument should contain the following fields (columns):
-  \describe{
-
-    \item{\code{"feature"}}{\code{character} name of features in argument
-      to \code{x}.}
-
-    \item{\code{"zone"}}{\code{character} name of zones in argument to
-      \code{x}. This field (column) is optional for arguments to \code{x}
-      that do not contain multiple zones.}
-
-    \item{\code{"type"}}{\code{character} describing the type of target.
-      Acceptable values include: \code{"absolute"} and \code{"relative"}.
-      These values correspond to \code{\link{add_absolute_targets}},
-      and \code{\link{add_relative_targets}} respectively.}
-
-    \item{\code{"sense"}}{\code{character} sense of the target. Acceptable
-      values include: \code{">="}, \code{"<="}, and \code{"="}. This field
-      (column) is optional and if it is missing then target senses will
-      default to \code{">="} values.}
-
-    \item{\code{"target"}}{\code{numeric} target value.}
-
- }}
+\item{targets}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
+the Details section for more information.}
 
 \item{...}{not used.}
 }
@@ -68,6 +46,30 @@ require targets with the exception of the maximum cover
 (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.
+
+The \code{targets} argument should contain the following fields (columns):
+  \describe{
+
+    \item{\code{"feature"}}{\code{character} name of features in argument
+      to \code{x}.}
+
+    \item{\code{"zone"}}{\code{character} name of zones in argument to
+      \code{x}. This field (column) is optional for arguments to \code{x}
+      that do not contain multiple zones.}
+
+    \item{\code{"type"}}{\code{character} describing the type of target.
+      Acceptable values include: \code{"absolute"} and \code{"relative"}.
+      These values correspond to \code{\link{add_absolute_targets}},
+      and \code{\link{add_relative_targets}} respectively.}
+
+    \item{\code{"sense"}}{\code{character} sense of the target. Acceptable
+      values include: \code{">="}, \code{"<="}, and \code{"="}. This field
+      (column) is optional and if it is missing then target senses will
+      default to \code{">="} values.}
+
+    \item{\code{"target"}}{\code{numeric} target value.}
+
+ }
 }
 \seealso{
 \code{\link{targets}}.

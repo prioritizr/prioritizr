@@ -2,10 +2,14 @@
 % Please edit documentation in R/add_locked_in_constraints.R
 \name{add_locked_in_constraints}
 \alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints,ConservationProblem,character-method}
 \alias{add_locked_in_constraints,ConservationProblem,numeric-method}
+\alias{add_locked_in_constraints,ConservationProblem,logical-method}
+\alias{add_locked_in_constraints,ConservationProblem,matrix-method}
+\alias{add_locked_in_constraints,ConservationProblem,character-method}
 \alias{add_locked_in_constraints,ConservationProblem,Raster-method}
 \alias{add_locked_in_constraints,ConservationProblem,Spatial-method}
+\alias{add_locked_in_constraints}
+\alias{add_locked_in_constraints}
 \alias{add_locked_in_constraints}
 \alias{add_locked_in_constraints}
 \alias{add_locked_in_constraints}
@@ -15,6 +19,10 @@
 add_locked_in_constraints(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,numeric}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,logical}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,matrix}(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
 
@@ -32,18 +40,26 @@ locked in. See details for more information.}
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Add constraints to ensure that they are prioritized in the solution.
-For example, it may be desirable to lock in planning units that are
-inside existing protected areas so that the solution fills in the gaps in the
-existing reserve network. If specific planning units should be locked out
-of a solution, use \code{\link{add_locked_out_constraints}}. For problems
-with non-binary planning unit allocations (e.g. proportions), the
+Add constraints to ensure that planning units are selected (or allocated
+to a specific zone) in the solution. For example, it may be desirable to
+lock in planning units that are inside existing protected areas so that the
+solution fills in the gaps in the existing reserve network. If specific
+planning units should be locked out of a solution, use
+\code{\link{add_locked_out_constraints}}. For problems with non-binary
+planning unit allocations (e.g. proportions), the
 \code{\link{add_locked_manual_constraints}} function can be used to lock
 planning unit allocations to a specific value.
 }
 \details{
 The locked planning units can be specified in several different
- ways:
+ ways. Generally, the locked data should correspond to the planning units
+ in the argument to \code{x.} To help make working with
+ \code{\link{Raster-class}} planning unit data easier,
+ the locked data should correspond to cell indices in the
+ \code{\link{Raster-class}} data. For example, \code{integer} arguments
+ should correspond to cell indices and \code{logical} arguments should have
+  a value for each cell---regardless of which planning unit cells contain
+ \code{NA} values.
 
   \describe{
 

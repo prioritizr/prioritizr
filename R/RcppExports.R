@@ -113,12 +113,8 @@ rcpp_apply_feature_weights <- function(x, weights) {
     .Call(`_prioritizr_rcpp_apply_feature_weights`, x, weights)
 }
 
-rcpp_apply_locked_in_constraints <- function(x, indices) {
-    .Call(`_prioritizr_rcpp_apply_locked_in_constraints`, x, indices)
-}
-
-rcpp_apply_locked_out_constraints <- function(x, indices) {
-    .Call(`_prioritizr_rcpp_apply_locked_out_constraints`, x, indices)
+rcpp_apply_locked_constraints <- function(x, pu, zone, status) {
+    .Call(`_prioritizr_rcpp_apply_locked_constraints`, x, pu, zone, status)
 }
 
 rcpp_apply_max_cover_objective <- function(x, costs, budget) {

@@ -18,8 +18,8 @@ test_that("integer locked in data (compile)", {
     add_binary_decisions()
   expect_error(p %>% add_locked_in_constraints(-1))
   expect_error(p %>% add_locked_in_constraints(9.6))
-  expect_error(p %>%
-                add_locked_in_constraints(raster::ncell(sim_pu_raster) + 1))
+  expect_error(p %>% add_locked_in_constraints(raster::ncell(sim_pu_raster) +
+                                               1))
 })
 
 test_that("integer locked in data (solve)", {

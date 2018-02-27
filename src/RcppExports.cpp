@@ -329,27 +329,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_locked_in_constraints
-bool rcpp_apply_locked_in_constraints(SEXP x, Rcpp::IntegerVector indices);
-RcppExport SEXP _prioritizr_rcpp_apply_locked_in_constraints(SEXP xSEXP, SEXP indicesSEXP) {
+// rcpp_apply_locked_constraints
+bool rcpp_apply_locked_constraints(SEXP x, Rcpp::IntegerVector pu, Rcpp::IntegerVector zone, Rcpp::NumericVector status);
+RcppExport SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP statusSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type indices(indicesSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_in_constraints(x, indices));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_locked_out_constraints
-bool rcpp_apply_locked_out_constraints(SEXP x, Rcpp::IntegerVector indices);
-RcppExport SEXP _prioritizr_rcpp_apply_locked_out_constraints(SEXP xSEXP, SEXP indicesSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type indices(indicesSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_out_constraints(x, indices));
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type pu(puSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type status(statusSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_locked_constraints(x, pu, zone, status));
     return rcpp_result_gen;
 END_RCPP
 }

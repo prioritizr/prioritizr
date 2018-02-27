@@ -18,8 +18,21 @@ methods::setOldClass("tbl_df")
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param targets \code{data.frame} or \code{\link[tibble]{tibble}} object.
-#'   This argument should contain the following fields (columns):
+#' @param targets \code{data.frame} or \code{\link[tibble]{tibble}} object. See
+#'   the Details section for more information.
+#'
+#' @param ... not used.
+#'
+#' @details
+#' Targets are used to specify the minimum amount or proportion of a feature's
+#' distribution that needs to be protected. Most conservation planning problems
+#' require targets with the exception of the maximum cover
+#' (see \code{\link{add_max_cover_objective}}) and maximum utility
+#' (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+#' problems with objectives that require targets without specifying targets
+#' will throw an error.
+#'
+#' The \code{targets} argument should contain the following fields (columns):
 #'   \describe{
 #'
 #'     \item{\code{"feature"}}{\code{character} name of features in argument
@@ -43,16 +56,6 @@ methods::setOldClass("tbl_df")
 #'
 #'  }
 #'
-#' @param ... not used.
-#'
-#' @details
-#' Targets are used to specify the minimum amount or proportion of a feature's
-#' distribution that needs to be protected. Most conservation planning problems
-#' require targets with the exception of the maximum cover
-#' (see \code{\link{add_max_cover_objective}}) and maximum utility
-#' (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
-#' problems with objectives that require targets without specifying targets
-#' will throw an error.
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the targets added
 #'   to it.
