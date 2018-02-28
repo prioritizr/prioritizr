@@ -97,7 +97,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$objective$apply(op, x)
   # add constraints for zones
   if (x$number_of_zones() > 1)
-    rcpp_add_zone_constraints(op$ptr)
+    rcpp_add_zones_constraints(op$ptr)
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     x$penalties[[i]]$calculate(x)
@@ -108,15 +108,8 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }
-  # check that planning units have not been locked in and locked out
-  pu_ub <- op$ub()[seq_len(x$number_of_planning_units())]
-  invalid_pu <- which(op$lb()[seq_len(x$number_of_planning_units())] > pu_ub)
-  if (length(invalid_pu)) {
-    stop("the following planning units have been locked in and locked out:\n",
-      paste(invalid_pu, collapse = ","))
-  }
   # check that all planning units have not been locked out
-  if (all(pu_ub == 0))
+  if (all(op$ub() == 0))
     stop("all planning units are locked out.")
   # return problem object
   op

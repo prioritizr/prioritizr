@@ -74,6 +74,8 @@ class directly.}
 
 \code{x$feature_abundances_in_planning_units()}
 
+\code{x$feature_abundances_in_total_units()}
+
 \code{x$feature_targets()}
 
 \code{x$number_of_zones()}
@@ -182,7 +184,10 @@ class directly.}
 
 \item{feature_names}{\code{character} names of features in problem.}
 
-\item{feature_abundances_in_planning_units}{\code{matrx} total
+\item{feature_abundances_in_planning_units}{\code{matrix} total
+  abundance of each feature in planning units available in each zone.}
+
+\item{feature_abundances_in_total_units}{\code{matrix} total
   abundance of each feature in each zone.}
 
 \item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}

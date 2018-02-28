@@ -17,29 +17,64 @@
 \item{...}{arguments passed to \code{\link{compile}}.}
 }
 \value{
-A \code{\link[raster]{RasterLayer-class}},
-  \code{\link[sp]{Spatial-class}}, or a \code{numeric} vector containing the
-  solution depending on the argument to \code{a}.
+A \code{numeric}, \code{matrix},
+  \code{\link[raster]{RasterLayer-class}}, or
+  \code{\link[sp]{Spatial-class}} object containing the solution to
+  the problem.
 }
 \description{
 Solve a \code{\link{ConservationProblem-class}} or an
-\code{\link{OptimizationProblem-class}}.
+\code{\link{OptimizationProblem-class}} object.
 }
 \details{
-If a \code{\link{OptimizationProblem-class}} is supplied, then the
-  solution is returned as a \code{logical} showing the status of each
-  planning unit. If a \code{\link{ConservationProblem-class}} is supplied,
-  then the  solution is returned in the format of the cost data contained
-  inside it:
-  \itemize{
-  \item{\code{\link[raster]{RasterLayer-class}}}{the solution is returned as
-     a \code{\link[raster]{RasterLayer-class}} object. Cell values denote
-     the decision.}
-  \item{\code{\link[sp]{Spatial-class}}}{the solution is returned as a
-     \code{\link[sp]{SpatialPolygonsDataFrame}} or
-     \code{\link[sp]{SpatialLinesDataFrame}} with a "Solution" column
-     containing the decision values.}
+The object returned from this function depends on the argument to
+  \code{a}. If the argument to \code{a} is an
+  \code{\link{OptimizationProblem-class}} object, then the
+  solution is returned as a \code{logical} \code{vector} showing the status
+  of each planning unit in each zone. On the other hand, if the argument
+  to \code{a} is an \code{\link{ConservationProblem-class}} object,
+  then the type of object returned depends on the number of solutions
+  generated and the type data used to represent planning unit costs in the
+  argument to \code{a}.
+
+  \describe{
+
+  \item{\code{numeric}}{\code{vector} containing the solution. Here,
+    Each element corresponds to a different planning unit. If
+    multiple solutions are generated, then the solution is returned as
+    a \code{list} of \code{numeric} \code{vectors}.}
+
+  \item{\code{matrix}}{containing \code{numeric} values for the solution.
+    Here, rows correspond to different planning units,
+    and fields (columns) correspond to different  management zones. If
+    multiple solutions are generated, then the solution is returned as
+    a \code{list} of \code{matrix} objects.}
+
+  \item{\code{\link[raster]{Raster}}}{containing the solution in pixel
+     values. If the argument to \code{x} contains a single management zone,
+     then a \code{RasterLayer} object will be returned. Otherwise, if the
+     argument to \code{x} contains multiple zones, then a
+     \code{\link[raster]{RasterStack-class}} object
+     will be returned containing a different layer for each management zone.
+     If multiple solutions are generated, then the solution is returned as
+     a \code{list} of \code{Raster} objects.}
+
+  \item{\code{\link[sp]{Spatial-class}} or \code{data.frame}}{
+     containing the solution in fields (columns). Here, each row
+     corresponds to a different planning unit. If the argument to \code{x}
+     contains a single zone, the fields containing solutions are named
+     \code{"solution_XXX"} where \code{"XXX"} corresponds to the solution
+     number. If the argument to \code{x} contains multiple zones, the fields
+     containing solutions are named \code{"solution_XXX_YYY"} where
+     \code{"XXX"} corresponds to the solution and \code{"YYY"} is the name
+     of the management zone.}
+
   }
+
+Since this function returns an object that specifies how much of each
+planning unit is allocated to each management zone, it may be useful to use
+the \code{\link{categorize_by_zone}} function to reformat the output
+for problems containing multiple zones.
 }
 \examples{
 # build minimal conservation problem
@@ -59,4 +94,8 @@ print(s)
 plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
 
+}
+\seealso{
+\code{\link{problem}}, \code{\link{solvers}},
+  \code{\link{categorize_by_zone}}
 }

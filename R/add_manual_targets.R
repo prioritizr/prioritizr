@@ -138,7 +138,7 @@ methods::setMethod(
     "ManualTargets",
     Target,
     name = "Targets",
-    data = list(abundances = x$feature_abundances_in_planning_units()),
+    data = list(abundances = x$feature_abundances_in_total_units()),
     parameters = parameters(misc_parameter("Targets", targets, vfun, rfun)),
     repr = function(self) {
       targets <- self$parameters$get("Targets")

@@ -72,6 +72,8 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \code{x$feature_abundances_in_planning_units()}
 #'
+#' \code{x$feature_abundances_in_total_units()}
+#'
 #' \code{x$feature_targets()}
 #'
 #' \code{x$number_of_zones()}
@@ -176,7 +178,10 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \item{feature_names}{\code{character} names of features in problem.}
 #'
-#' \item{feature_abundances_in_planning_units}{\code{matrx} total
+#' \item{feature_abundances_in_planning_units}{\code{matrix} total
+#'   abundance of each feature in planning units available in each zone.}
+#'
+#' \item{feature_abundances_in_total_units}{\code{matrix} total
 #'   abundance of each feature in each zone.}
 #'
 #' \item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
@@ -272,7 +277,7 @@ ConservationProblem <- pproto(
   print = function(self) {
     r <- vapply(list(self$objective, self$targets), function(x) {
       if (is.Waiver(x))
-        return("none specified")
+        return("none")
       return(x$repr())
     }, character(1))
     d <- vapply(list(self$solver, self$decisions, self$portfolio), function(x) {
@@ -280,7 +285,7 @@ ConservationProblem <- pproto(
         return("default")
       return(x$repr())
     }, character(1))
-    cs <- round(range(self$planning_unit_costs()), 5)
+    cs <- round(range(self$planning_unit_costs(), na.rm = TRUE), 5)
     message(paste0("Conservation Problem",
     ifelse(self$number_of_zones() > 1, paste0(
       "\n  zones:          ", repr_atomic(self$zone_names(), "zones")),
@@ -322,9 +327,11 @@ ConservationProblem <- pproto(
         return(raster::cellStats(max(!is.na(self$data$cost)), "sum"))
       }
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
-      return(nrow(self$data$cost))
+      return(sum(rowSums(!is.na(as.matrix(
+        as.data.frame(self$data$cost)[, self$data$cost_column,
+                      drop = FALSE]))) > 0))
     } else if (is.matrix(self$data$cost)) {
-      return(nrow(self$data$cost))
+      return(sum(rowSums(!is.na(self$data$cost)) > 0))
     } else {
       stop("cost is of unknown class")
     }
@@ -334,7 +341,7 @@ ConservationProblem <- pproto(
       return(raster::ncell(self$data$cost))
     } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
       return(nrow(self$data$cost))
-    } else if (is.matrix(self$cost$data)) {
+    } else if (is.matrix(self$data$cost)) {
       return(nrow(self$data$cost))
     } else {
       stop("cost is of unknown class")
@@ -352,18 +359,17 @@ ConservationProblem <- pproto(
     } else if (inherits(self$data$cost,
                         c("SpatialPolygonsDataFrame",
                           "SpatialLinesDataFrame",
-                          "SpatialPointsDataFrame"))) {
-      m <- as.matrix(self$data$cost@data[, self$data$cost_column,
-                                           drop = FALSE])
-    } else if (inherits(self$data$cost, "data.frame")) {
-      m <- as.matrix(self$data$cost[, self$data$cost_column, drop = FALSE])
+                          "SpatialPointsDataFrame",
+                          "data.frame"))) {
+      m <- as.matrix(as.data.frame(self$data$cost)[, self$data$cost_column,
+                                                     drop = FALSE])
     } else if (is.matrix(self$data$cost)) {
       m <- self$data$cost
     } else {
       stop("cost is of unknown class")
     }
     colnames(m) <- self$zone_names()
-    return(m)
+    return(m[rowSums(!is.na(m)) > 0, , drop = FALSE])
   },
   number_of_features = function(self) {
     if (inherits(self$data$features, "Zones")) {
@@ -386,6 +392,9 @@ ConservationProblem <- pproto(
   feature_abundances_in_planning_units = function(self) {
     vapply(self$data$rij_matrix, Matrix::rowSums,
            numeric(nrow(self$data$rij_matrix[[1]])), na.rm = TRUE)
+  },
+  feature_abundances_in_total_units = function(self) {
+    self$data$feature_abundances_in_total_units
   },
   feature_targets = function(self) {
     if (is.Waiver(self$targets))

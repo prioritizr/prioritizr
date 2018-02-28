@@ -47,7 +47,7 @@ solution fills in the gaps in the existing reserve network. If specific
 planning units should be locked out of a solution, use
 \code{\link{add_locked_out_constraints}}. For problems with non-binary
 planning unit allocations (e.g. proportions), the
-\code{\link{add_locked_manual_constraints}} function can be used to lock
+\code{\link{add_manual_locked_constraints}} function can be used to lock
 planning unit allocations to a specific value.
 }
 \details{

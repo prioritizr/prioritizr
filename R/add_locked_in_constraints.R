@@ -10,7 +10,7 @@ NULL
 #' planning units should be locked out of a solution, use
 #' \code{\link{add_locked_out_constraints}}. For problems with non-binary
 #' planning unit allocations (e.g. proportions), the
-#' \code{\link{add_locked_manual_constraints}} function can be used to lock
+#' \code{\link{add_manual_locked_constraints}} function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
@@ -182,7 +182,7 @@ methods::setMethod("add_locked_in_constraints",
     # create data.frame with statuses
     y <- data.frame(pu = which(locked_in, arr.ind = TRUE)[, 1], status = 1)
     # add constraints
-    add_locked_manual_constraints(x, y)
+    add_manual_locked_constraints(x, y)
 })
 
 #' @name add_locked_in_constraints
@@ -197,10 +197,11 @@ methods::setMethod("add_locked_in_constraints",
       inherits(x$data$cost, c("data.frame", "Spatial")),
       x$number_of_zones() == length(locked_in),
       isTRUE(locked_in %in% names(x$data$cost)),
-      all(vapply(x$data$cost[, locked_in, drop = FALSE], inherits, logical(1),
-                 "logical")))
+      all(vapply(as.data.frame(x$data$cost)[, locked_in, drop = FALSE],
+                 inherits, logical(1), "logical")))
     # add constraints
-    add_locked_in_constraints(as.matrix(x$data$cost[, locked_in, drop = FALSE]))
+    add_locked_in_constraints(x,
+      as.matrix(as.data.frame(x$data$cost)[, locked_in, drop = FALSE]))
 })
 
 #' @name add_locked_in_constraints

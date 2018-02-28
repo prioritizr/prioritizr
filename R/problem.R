@@ -12,7 +12,7 @@ NULL
 #' \code{\link{targets}}, \code{\link{constraints}}, and
 #' \code{\link{penalties}}.
 #'
-#' The basic prioritizr work flow starts with formulating the
+#' The basic \emph{prioritizr} work flow starts with formulating the
 #' \code{problem}, then adding \code{objectives} and \code{targets},
 #' as well as \code{constraints} and \code{penalties} as needed.
 #' Alternative decision formats can be specified using the
@@ -331,14 +331,21 @@ methods::setMethod(
         raster::nlayers(x) == 1)
       x <- x[[1]]
     # create rij matrix
-    rij <- lapply(seq_len(raster::nlayers(x)),
-                  function(i) rij_matrix(x[[i]], features[[i]]))
+    rij <- lapply(as.list(features), function(f) rij_matrix(x, f))
     names(rij) <- zone_names(features)
+    # calculate feature abundances in total units
+    fatu <- vapply(features, raster::cellStats, numeric(n_feature(features)),
+                   "sum")
+    if (!is.matrix(fatu))
+      fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features))
+    colnames(fatu) <- zone_names(features)
+    rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
            constraints = pproto(NULL, Collection),
            penalties = pproto(NULL, Collection),
-           data = list(cost = x, features = features, rij_matrix = rij))
+           data = list(cost = x, features = features, rij_matrix = rij,
+                       feature_abundances_in_total_units = fatu))
 })
 
 #' @name problem
@@ -370,9 +377,6 @@ methods::setMethod(
       length(cost_column) == n_zone(features),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       assertthat::is.flag(run_checks))
-    # remove planning units that contain NA values in all zones
-    x <- x[rowSums(is.finite(as.matrix(
-             x@data[, cost_column, drop = FALSE]))) > 0, ]
     # further validation checks
     assertthat::assert_that(
       length(x) > 0,
@@ -388,16 +392,33 @@ methods::setMethod(
     if (run_checks)
       assertthat::assert_that(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
+    # compute rij matrix including non-planning unit cells
+    o1 <<- features
+    o2 <<- x
+    rij <- rij_matrix(x, raster::stack(as.list(features)))
+    rij <- lapply(seq_len(n_zone(features)), function(i) {
+      m <- rij[((i - 1) * n_feature(features)) + seq_len(n_feature(features)), ,
+          drop = FALSE]
+      rownames(m) <- feature_names(features)
+      return(m)
+    })
+    # calculate feature abundances in total units
+    fatu <- vapply(rij, rowSums, numeric(n_feature(features)), na.rm = TRUE)
+    if (!is.matrix(fatu))
+      fatu <- matrix(fatu, nrow = n_feature(features), ncol = n_zone(features))
+    rownames(fatu) <- feature_names(features)
+    colnames(fatu) <- zone_names(features)
     # create rij matrix
-    rij <- lapply(seq_along(features),
-                  function(i) rij_matrix(x, features[[i]]))
+    pos <- which(rowSums(!is.na(as.matrix(
+             x@data[, cost_column, drop = FALSE]))) > 0)
+    rij <- lapply(rij, function(x) x[, pos, drop = FALSE])
     names(rij) <- zone_names(features)
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij))
+                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
 })
 
 #' @name problem
@@ -436,18 +457,27 @@ methods::setMethod(
       all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
                   na.rm = TRUE) == 0))
     # create rij matrix
+    pos <- which(rowSums(!is.na(as.matrix(
+             x@data[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(features, function(z) {
-      r <- t(as.matrix(x@data[, z, drop = FALSE]))
+      r <- t(as.matrix(x@data[pos, z, drop = FALSE]))
       r[is.na(r)] <- 0
+      rownames(r) <- feature_names(features)
       methods::as(r, "sparseMatrix")
     })
     names(rij) <- zone_names(features)
+    # calculate feature abundances in total units
+    fatu <- colSums(x@data[, unlist(as.list(features)), drop = FALSE],
+                    na.rm = TRUE)
+    fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features),
+                   dimnames = list(feature_names(features),
+                                   zone_names(features)))
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij))
+                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
 })
 
 #' @name problem
@@ -485,19 +515,26 @@ methods::setMethod(
       all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
                   na.rm = TRUE) == 0))
     # create rij matrix
+    pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
-      r <- t(as.matrix(x[, z, drop = FALSE]))
+      r <- t(as.matrix(x[pos, z, drop = FALSE]))
       r[is.na(r)] <- 0
       rownames(r) <- feature_names(features)
       methods::as(r, "sparseMatrix")
     })
     names(rij) <- zone_names(features)
+    # calculate feature abundances in total units
+    fatu <- colSums(x[, unlist(as.list(features)), drop = FALSE],
+                    na.rm = TRUE)
+    fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features),
+                   dimnames = list(feature_names(features),
+                                   zone_names(features)))
     # create ConservationProblem object
     pproto(NULL, ConservationProblem,
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij))
+                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
 })
 
 #' @name problem
@@ -552,17 +589,27 @@ methods::setMethod(
       anyDuplicated(zones$id) == 0, anyDuplicated(zones$name) == 0,
       nrow(zones) > 0, all(rij$zone %in% zones$id),
       nrow(zones) == length(cost_column))
-    # standardize ids
-    rij$pu <- match(rij$pu, x$id)
+    # standardize zone and feature ids
     rij$species <- match(rij$species, features$id)
     rij$zone <- match(rij$zone, zones$id)
+    # calculate feature abundances in total units
+    fatu <- Matrix::sparseMatrix(x = rij$amount, i = rij$species, j = rij$zone,
+                                 use.last.ij = FALSE,
+                                 dims = c(nrow(features), nrow(zones)),
+                                 dimnames = list(as.character(features$name),
+                                                 as.character(zones$name)))
+    fatu <- as.matrix(fatu)
+    # standardize planning unit ids
+    pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
+    rij$pu <- match(rij$pu, x$id[pos])
+    rij <- rij[!is.na(rij$pu), ]
     # create rij matrix
     rij <- lapply(seq_along(zones$id), function(z) {
       r <- rij[rij$zone == z, ]
       Matrix::sparseMatrix(i = r$species, j = r$pu,
                            x = r$amount, giveCsparse = TRUE,
                            index1 = TRUE, use.last.ij = FALSE,
-                           dims = c(nrow(features), nrow(x)),
+                           dims = c(nrow(features), length(pos)),
                            dimnames = list(features$name, NULL))
     })
     names(rij) <- as.character(zones$name)
@@ -571,7 +618,7 @@ methods::setMethod(
       constraints = pproto(NULL, Collection),
       penalties = pproto(NULL, Collection),
       data = list(cost = x, features = features, cost_column = cost_column,
-                  rij_matrix = rij))
+                  rij_matrix = rij, feature_abundances_in_total_units = fatu))
 })
 
 #' @name problem
@@ -594,13 +641,14 @@ methods::setMethod(
   methods::signature(x = "matrix", features = "data.frame"),
   function(x, features, rij_matrix, ...) {
     # assert that arguments are valid
+    if (!inherits(rij_matrix, "list"))
+      rij_matrix <- list(rij_matrix)
     assertthat::assert_that(
       inherits(x, "matrix"), inherits(features, "data.frame"),
       inherits(rij_matrix, "list"),
       nrow(x) > 0, ncol(x) > 0, nrow(features) > 0, length(rij_matrix) > 0,
       # x
       all(colSums(is.finite(x)) > 0),
-      all(rowSums(is.finite(x)) > 0),
       all(x > 0, na.rm = TRUE),
       all(colSums(!is.na(x)) > 0), all(colSums(x < 0, na.rm = TRUE) == 0),
       # features
@@ -618,14 +666,23 @@ methods::setMethod(
       ncol(x) == length(rij_matrix),
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
       all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
-    # convert rij matrices to sparse format if needed
+    # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
       names(rij_matrix) <- as.character(seq_along(rij_matrix))
+    # calculate feature abundances in total units
+    fatu <- vapply(rij_matrix, rowSums, numeric(nrow(rij_matrix[[1]])),
+                   na.rm = TRUE)
+    if (!is.matrix(fatu))
+      fatu <- matrix(fatu, nrow = nrow(features), ncol = length(rij_matrix))
+    rownames(fatu) <- as.character(features$name)
+    colnames(fatu) <- names(rij_matrix)
+    # convert rij matrices to sparse format if needed
+    pos <- which(rowSums(!is.na(x)) > 0)
     rij <- lapply(rij_matrix, function(z) {
       if (!inherits(z, "dgCMatrix")) {
         z[which(is.na(z))] <- 0
         rownames(z) <- as.character(features$name)
-        z <- methods::as(z, "dgCMatrix")
+        z <- methods::as(z[, pos, drop = FALSE], "dgCMatrix")
       }
       return(z)
     })
@@ -634,5 +691,6 @@ methods::setMethod(
     pproto(NULL, ConservationProblem,
            constraints = pproto(NULL, Collection),
            penalties = pproto(NULL, Collection),
-           data = list(cost = x, features = features, rij_matrix = rij))
+           data = list(cost = x, features = features, rij_matrix = rij,
+                       feature_abundances_in_total_units = fatu))
 })

@@ -9,7 +9,7 @@ NULL
 #' suitable for conserving species. If specific planning units should be locked
 #' in to the solution, use \code{\link{add_locked_out_constraints}}. For
 #' problems with non-binary planning unit allocations (e.g. proportions), the
-#' \code{\link{add_locked_manual_constraints}} function can be used to lock
+#' \code{\link{add_manual_locked_constraints}} function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
@@ -131,9 +131,9 @@ methods::setMethod("add_locked_out_constraints",
       isTRUE(all(is.finite(locked_out))),
       all(rowSums(locked_out) <= 1))
     # create data.frame with statuses
-    y <- data.frame(pu = which(locked_in, arr.ind = TRUE)[, 1], status = 0)
+    y <- data.frame(pu = which(locked_out, arr.ind = TRUE)[, 1], status = 0)
     # add constraints
-    add_locked_manual_constraints(x, y)
+    add_manual_locked_constraints(x, y)
 })
 
 #' @name add_locked_out_constraints
@@ -146,13 +146,13 @@ methods::setMethod("add_locked_out_constraints",
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       assertthat::is.string(locked_out),
       inherits(x$data$cost, c("data.frame", "Spatial")),
-      x$number_of_zones() == length(locked_in),
+      x$number_of_zones() == length(locked_out),
       isTRUE(locked_out %in% names(x$data$cost)),
-      all(vapply(x$data$cost[, locked_out, drop = FALSE], inherits, logical(1),
-                 "logical")))
+      all(vapply(as.data.frame(x$data$cost)[, locked_out, drop = FALSE],
+                 inherits, logical(1), "logical")))
     # add constraints
-    add_locked_out_constraints(as.matrix(x$data$cost[, locked_out,
-                                                       drop = FALSE]))
+    add_locked_out_constraints(x,
+      as.matrix(as.data.frame(x$data$cost)[, locked_out, drop = FALSE]))
 })
 
 #' @name add_locked_out_constraints

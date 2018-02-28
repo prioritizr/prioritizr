@@ -9,7 +9,7 @@ NULL
 #' \code{\link{add_locked_in_constraints}} and
 #' \code{\link{add_locked_out_constraints}} functions.
 #'
-#' @usage add_locked_manual_constraints(x, locked)
+#' @usage add_manual_locked_constraints(x, locked)
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -39,35 +39,35 @@ NULL
 #'
 #' @seealso \code{\link{constraints}}.
 #'
-#' @name add_locked_manual_constraints
+#' @name add_manual_locked_constraints
 #'
-#' @exportMethod add_locked_manual_constraints
+#' @exportMethod add_manual_locked_constraints
 #'
-#' @aliases add_locked_manual_constraints,ConservationProblem,data.frame-method add_locked_manual_constraints,ConservationProblem,tbl_df-method
+#' @aliases add_manual_locked_constraints,ConservationProblem,data.frame-method add_manual_locked_constraints,ConservationProblem,tbl_df-method
 #'
 #' @export
-methods::setGeneric("add_locked_manual_constraints",
+methods::setGeneric("add_manual_locked_constraints",
                     signature = methods::signature("x", "locked"),
                     function(x, locked)
-                      standardGeneric("add_locked_manual_constraints"))
+                      standardGeneric("add_manual_locked_constraints"))
 
-#' @name add_locked_manual_constraints
-#' @usage \S4method{add_locked_manual_constraints}{ConservationProblem,data.frame}(x, locked)
-#' @rdname add_locked_manual_constraints
-methods::setMethod("add_locked_manual_constraints",
+#' @name add_manual_locked_constraints
+#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,data.frame}(x, locked)
+#' @rdname add_manual_locked_constraints
+methods::setMethod("add_manual_locked_constraints",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, locked) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
                             inherits(locked, "data.frame"))
     # add constraints
-    add_locked_manual_constraints(x, tibble::as.tibble(locked))
+    add_manual_locked_constraints(x, tibble::as.tibble(locked))
 })
 
-#' @name add_locked_manual_constraints
-#' @usage \S4method{add_locked_manual_constraints}{ConservationProblem,tbl_df}(x, locked)
-#' @rdname add_locked_manual_constraints
-methods::setMethod("add_locked_manual_constraints",
+#' @name add_manual_locked_constraints
+#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, locked)
+#' @rdname add_manual_locked_constraints
+methods::setMethod("add_manual_locked_constraints",
   methods::signature("ConservationProblem", "tbl_df"),
   function(x, locked) {
     # define function to validate data
@@ -118,6 +118,10 @@ methods::setMethod("add_locked_manual_constraints",
       class_name,
       Constraint,
       name = constraint_name,
+      repr = function(self) {
+        paste0(self$name, " [", nrow(self$parameters$get("Locked data")),
+               " locked units]")
+      },
       parameters = parameters(misc_parameter("Locked data", locked,
                                              vfun, rfun)),
       calculate = function(self, x) {

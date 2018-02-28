@@ -187,7 +187,7 @@ customized to meet specific goals using \code{\link{objectives}},
 \code{\link{penalties}}.
 }
 \details{
-The basic prioritizr work flow starts with formulating the
+The basic \emph{prioritizr} work flow starts with formulating the
 \code{problem}, then adding \code{objectives} and \code{targets},
 as well as \code{constraints} and \code{penalties} as needed.
 Alternative decision formats can be specified using the
