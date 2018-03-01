@@ -206,6 +206,7 @@ methods::setMethod(
         pu[pos, ] <- s
         return(pu)
       })
+      names(ret) <- paste0("solution_", seq_along(sol))
     } else {
       stop("planning unit data is of an unrecognized class")
     }
