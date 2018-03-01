@@ -66,9 +66,12 @@ methods::setMethod(
   "add_relative_targets",
   methods::signature("ConservationProblem", "numeric"),
   function(x, targets, ...) {
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
-                            x$number_of_zones() == 1,
-                            length(targets) %in% c(1, x$number_of_features()))
+    assertthat::assert_that(inherits(x, "ConservationProblem"))
+    assertthat::assert_that(x$number_of_zones() == 1,
+                            msg = paste("argument to x has multiple zones,",
+                                        "and so targets must be provided as",
+                                        "a matrix"))
+    assertthat::assert_that(length(targets) %in% c(1, x$number_of_features()))
     add_relative_targets(x, matrix(targets, nrow = x$number_of_features(),
                                    ncol = 1))
 })
