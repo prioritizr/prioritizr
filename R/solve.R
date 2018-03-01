@@ -120,6 +120,7 @@ methods::setMethod(
     # assign solver
     if (inherits(a$solver, "Waiver"))
       a <- add_default_solver(a)
+    default_portfolio <- inherits(a$portfolio, "Waiver")
     if (inherits(a$portfolio, "Waiver"))
       a <- add_default_portfolio(a)
     # compile and solve optimisation problem
@@ -214,7 +215,7 @@ methods::setMethod(
     if (is.matrix(ret[[1]]) && ncol(ret[[1]]) == 1)
       ret <- lapply(ret, as.numeric)
     # if ret is a list with a single element then extract the element
-    if (length(ret) == 1)
+    if (length(ret) == 1 && default_portfolio)
       ret <- ret[[1]]
     # add attributes
     attr(ret, "objective") <- stats::setNames(vapply(sol, `[[`, numeric(1), 2),
