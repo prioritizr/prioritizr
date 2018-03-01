@@ -179,7 +179,7 @@ methods::setMethod(
       # to reduce overheads
       pos <- which(rowSums(!is.na(as.matrix(
                as.data.frame(pu)[, a$data$cost_column, drop = FALSE]))) > 0)
-      if (!identical(pos, seq_len(nrow(sol_status)))) {
+      if (!identical(pos, seq_len(a$number_of_total_units()))) {
         sol_status2 <- matrix(NA, nrow = a$number_of_total_units(),
                               ncol = ncol(sol_status))
         sol_status2[pos, ] <- sol_status
@@ -200,6 +200,8 @@ methods::setMethod(
       # all zones that were discarded from the mathematical formulation
       # to reduce overheads
       pos <- which(rowSums(!is.na(pu)) > 0)
+      pu[] <- NA
+      colnames(pu) <- a$zone_names()
       ret <- lapply(sol_status, function(s) {
         pu[pos, ] <- s
         return(pu)

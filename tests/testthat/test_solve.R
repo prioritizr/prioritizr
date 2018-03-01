@@ -69,17 +69,44 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack (single zone)", {
   expect_equal(s$solution_1, c(1, 0, NA, 1))
 })
 
+test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster (multiple zones)", {
+  skip_on_cran()
+  skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+           as("SpatialPolygonsDataFrame")
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+    spp <- raster::stack(
+      raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  # solve problem
+  s <- problem(costs, zones(spp[[1:2]], spp[[3:4]]),
+               cost_column = c("cost_1", "cost_2")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0) %>%
+       solve()
+  # tests
+  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+})
+
 test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
   skip_on_cran()
   skip_if_not(any_solvers_installed())
   # make data
-  costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
+  costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
            as("SpatialPolygonsDataFrame")
   costs$cost <- c(1, 2, NA, 3)
   costs$spp1 <- c(1, 2, 0, 0)
   costs$spp2 <- c(NA, 0, 1, 1)
   # solve problem
-  s <- problem(costs, c("spp1", "spp2"), cost_column  = "cost") %>%
+  s <- problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
@@ -93,6 +120,27 @@ test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
 test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter (multiple zones)", {
   skip_on_cran()
   skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+           as("SpatialPolygonsDataFrame")
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  costs$spp1_z1 <- c(1,  2, 0, 0, 0, 0,  0)
+  costs$spp2_z1 <- c(NA, 0, 1, 1, 0, 0,  0)
+  costs$spp1_z2 <- c(1,  0, 0, 0, 1, 0,  0)
+  costs$spp2_z2 <- c(0,  0, 0, 0, 0, 10, 0)
+  # solve problem
+  s <- problem(costs, zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+               cost_column  = c("cost_1", "cost_2")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0) %>%
+       solve()
+  # tests
+  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
 
 test_that("x=data.frame, y=data.frame (single zone)", {
@@ -118,6 +166,30 @@ test_that("x=data.frame, y=data.frame (single zone)", {
 test_that("x=data.frame, y=data.frame (multiple zones)", {
   skip_on_cran()
   skip_if_not(any_solvers_installed())
+  costs <- data.frame(id = seq_len(7),
+                      cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+                      cost_2 = c(10, 10, 10, 10,  4,   1, NA))
+  spp <- data.frame(id = 1:2, name = c("spp1", "spp2"))
+  zone <- data.frame(id = 1:2, name = c("z1", "z2"))
+  rij <- data.frame(pu = rep(1:7, 4), species = rep(rep(1:2, each = 7), 2),
+                    zone = rep(1:2, each = 14),
+                    amount = c(1,  2, 0, 0, 0, 0,  0,
+                               NA, 0, 1, 1, 0, 0,  0,
+                               1,  0, 0, 0, 1, 0,  0,
+                               0,  0, 0, 0, 0, 10, 0))
+  rij <- rij[!is.na(rij$amount), ]
+  # solve problem
+  s <- problem(costs, spp, rij = rij, zone,
+               cost_column = c("cost_1", "cost_2")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0) %>%
+       solve()
+  # tests
+  expect_is(s, "data.frame")
+  expect_equal(s$solution_1_z1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_z2, c(0, 0, 0,  0, 1, 0, NA))
 })
 
 test_that("x=numeric, y=data.frame (single zone)", {
@@ -142,4 +214,25 @@ test_that("x=numeric, y=data.frame (single zone)", {
 test_that("x=matrix, y=data.frame (multiple zones)", {
   skip_on_cran()
   skip_if_not(any_solvers_installed())
+  costs <- data.frame(id = seq_len(7),
+                      cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+                      cost_2 = c(10, 10, 10, 10,  4,   1, NA),
+                      spp1_z1 = c(1,  2, 0, 0, 0, 0,  0),
+                      spp2_z1 = c(NA, 0, 1, 1, 0, 0,  0),
+                      spp1_z2 = c(1,  0, 0, 0, 1, 0,  0),
+                      spp2_z2 = c(0,  0, 0, 0, 0, 10, 0))
+  rij_matrix <- list(z1 = t(as.matrix(costs[, c("spp1_z1", "spp2_z1")])),
+                     z2 = t(as.matrix(costs[, c("spp1_z2", "spp2_z2")])))
+  # solve problem
+  s <- problem(as.matrix(costs[, c("cost_1", "cost_2")]), spp,
+               rij_matrix) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0) %>%
+       solve()
+  # tests
+  expect_is(s, "matrix")
+  expect_equal(s[, "z1"], c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s[, "z2"], c(0, 0, 0,  0, 1, 0, NA))
 })

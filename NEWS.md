@@ -6,10 +6,11 @@
 - The `add_relative_targets` and `add_absolute_targets` functions now accept
   `matrix` objects as arguments to `target` to specify targets for each feature
   in each zone.
-- New `add_manual_targets` function to specify targets using _tibble_ tables
+- New `add_manual_targets` function to specify targets using `tibble` tables
   (`tbl_df` objects). This function can be used to set targets in problems
   with multiple zones where a single target can be achieved through allocating
   planning units to different zones.
+- The `solve` function now returns a `list` of solutions when generating solutions. It no longer returns a `matrix` or `RasterStack` containing where each column/layer corresponds to a different solution.
 
 
 # prioritizr 3.0.3.6 (unreleased)
