@@ -221,6 +221,7 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
                       spp2_z1 = c(NA, 0, 1, 1, 0, 0,  0),
                       spp1_z2 = c(1,  0, 0, 0, 1, 0,  0),
                       spp2_z2 = c(0,  0, 0, 0, 0, 10, 0))
+  spp <- data.frame(id = 1:2, name = c("spp1", "spp2"))
   rij_matrix <- list(z1 = t(as.matrix(costs[, c("spp1_z1", "spp2_z1")])),
                      z2 = t(as.matrix(costs[, c("spp1_z2", "spp2_z2")])))
   # solve problem
