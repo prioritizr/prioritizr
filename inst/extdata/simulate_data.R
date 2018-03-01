@@ -137,6 +137,9 @@ sim_pu_zones_polygons <- raster::rasterToPolygons(sim_pu_zones_polygons, n = 4)
 names(sim_pu_zones_polygons) <- c(
   paste0("cost_", seq_len(raster::nlayers(sim_pu_zones_stack))),
   paste0("locked_", seq_len(raster::nlayers(sim_pu_zones_stack))))
+sim_pu_zones_polygons$locked_1 <- is.finite(sim_pu_zones_polygons$locked_1)
+sim_pu_zones_polygons$locked_2 <- is.finite(sim_pu_zones_polygons$locked_2)
+sim_pu_zones_polygons$locked_3 <- is.finite(sim_pu_zones_polygons$locked_3)
 
 ## Export data
 # save data
