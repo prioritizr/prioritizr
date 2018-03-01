@@ -18,7 +18,7 @@ test_that("add_relative_targets (numeric(1), single zone)", {
   expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
   expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
-  expect_equal(targets$value, c(0.1 * p$feature_abundances_in_planning_units()))
+  expect_equal(targets$value, c(0.1 * p$feature_abundances_in_total_units()))
 })
 
 test_that("add_relative_targets (numeric(5), single zone)", {
@@ -39,7 +39,7 @@ test_that("add_relative_targets (numeric(5), single zone)", {
   expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
   expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
   expect_equal(targets$value, c(seq(0.1, 0.6, length.out = 5) *
-                                p$feature_abundances_in_planning_units()))
+                                p$feature_abundances_in_total_units()))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
 })
 
@@ -61,7 +61,7 @@ test_that("add_relative_targets (matrix, single zone)", {
   expect_equal(targets$feature, seq_len(raster::nlayers(sim_features)))
   expect_equivalent(unlist(targets$zone), rep(1, raster::nlayers(sim_features)))
   expect_equal(targets$value, c(seq(0.1, 0.6, length.out = 5) *
-                                p$feature_abundances_in_planning_units()))
+                                p$feature_abundances_in_total_units()))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
 })
 
@@ -87,7 +87,7 @@ test_that("add_relative_targets (character, single zone)", {
   expect_equal(targets$feature, 1:5)
   expect_equivalent(unlist(targets$zone), rep(1, 5))
   expect_equal(targets$value, species$target *
-                              c(p$feature_abundances_in_planning_units()))
+                              c(p$feature_abundances_in_total_units()))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features)))
 })
 
@@ -137,7 +137,7 @@ test_that("add_relative_targets (matrix, multiple zones)", {
                     rep(seq_len(raster::nlayers(sim_pu_zones_stack)),
                         each = raster::nlayers(sim_features)))
   expect_equal(targets$value, c(m) *
-                              c(p$feature_abundances_in_planning_units()))
+                              c(p$feature_abundances_in_total_units()))
   expect_equal(targets$sense, rep(">=", raster::nlayers(sim_features) *
                                         raster::nlayers(sim_pu_zones_stack)))
 })
@@ -166,7 +166,7 @@ test_that("add_relative_targets (character, multiple zones)", {
   expect_equal(targets$feature, rep(1:5, 2))
   expect_equivalent(unlist(targets$zone), rep(seq_len(2), each = 5))
   expect_equal(targets$value, c(species$target_1, species$target_2) *
-                              c(p$feature_abundances_in_planning_units()))
+                              c(p$feature_abundances_in_total_units()))
   expect_equal(targets$sense, rep(">=", 10))
 })
 
