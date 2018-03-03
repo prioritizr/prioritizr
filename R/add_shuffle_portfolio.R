@@ -40,7 +40,7 @@ NULL
 #' s <- solve(p)
 #'
 #' # plot solution
-#' plot(s, axes = FALSE, box = FALSE)
+#' plot(stack(s), axes = FALSE, box = FALSE)
 #' }
 #'
 #' @name add_shuffle_portfolio

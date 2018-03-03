@@ -44,35 +44,35 @@ The \code{\link{set_number_of_threads}} can be used to distribute
   computations among multiple threads and potentially reduce run time.
 }
 \examples{
-## create data
+# create data
 r <- raster(matrix(1:9, byrow = TRUE, ncol=3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
 ply <- rasterToPolygons(r)
 ply_with_holes <- rasterToPolygons(r_with_holes)
 
-## intersect raster with raster
+# intersect raster with raster
 par(mfrow = c(1, 2))
-plot(r, main = 'x=Raster')
-plot(r_with_holes, main = 'y=Raster')
+plot(r, main = "x=Raster")
+plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(r, r_with_holes))
 
-## intersect raster with polygons
+# intersect raster with polygons
 par(mfrow = c(1, 2))
-plot(r, main = 'x=Raster')
-plot(ply_with_holes, main = 'y=Spatial')
+plot(r, main = "x=Raster")
+plot(ply_with_holes, main = "y=Spatial")
 print(intersecting_units(r, ply_with_holes))
 
-## intersect polygons with raster
+# intersect polygons with raster
 par(mfrow = c(1, 2))
-plot(ply, main = 'x=Spatial')
-plot(r_with_holes, main = 'y=Raster')
+plot(ply, main = "x=Spatial")
+plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(ply, r_with_holes))
 
-## intersect polygons with polygons
+# intersect polygons with polygons
 par(mfrow = c(1, 2))
-plot(ply, main = 'x=Spatial')
-plot(ply_with_holes, main = 'y=Spatial')
+plot(ply, main = "x=Spatial")
+plot(ply_with_holes, main = "y=Spatial")
 print(intersecting_units(ply, ply_with_holes))
 
 }

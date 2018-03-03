@@ -99,6 +99,9 @@ The locked planning units can be specified in several different
  }
 }
 \examples{
+# load data
+data(sim_pu_polygons, sim_features, sim_locked_in_raster)
+
 # create basic problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%

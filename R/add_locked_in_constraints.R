@@ -70,6 +70,9 @@ NULL
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
 #' @examples
+#' # load data
+#' data(sim_pu_polygons, sim_features, sim_locked_in_raster)
+#'
 #' # create basic problem
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
@@ -233,12 +236,23 @@ methods::setMethod("add_locked_in_constraints",
     if (raster::nlayers(locked_in) > 1)
       assertthat::assert_that(raster::cellStats(sum(locked_in), "max") <= 1)
     # create matrix with statuses
-    status <- vapply(seq_len(x$number_of_zones()),
-                     FUN.VALUE = logical(x$number_of_total_units()),
-                     function(i) replace(rep(FALSE, x$number_of_total_units()),
-                                         intersecting_units(x$data$cost[[i]],
-                                                            locked_in[[i]]),
-                                         TRUE))
+    if (inherits(x$data$cost, "Raster") && x$number_of_zones() > 1) {
+      status <- vapply(seq_len(x$number_of_zones()),
+                       FUN.VALUE = logical(x$number_of_total_units()),
+                       function(i) replace(rep(FALSE,
+                                               x$number_of_total_units()),
+                                           intersecting_units(x$data$cost[[i]],
+                                                              locked_in[[i]]),
+                                           TRUE))
+    } else {
+      status <- vapply(seq_len(x$number_of_zones()),
+                       FUN.VALUE = logical(x$number_of_total_units()),
+                       function(i) replace(rep(FALSE,
+                                               x$number_of_total_units()),
+                                           intersecting_units(x$data$cost,
+                                                              locked_in[[i]]),
+                                           TRUE))
+    }
     # add constraints
     add_locked_in_constraints(x, status)
 })

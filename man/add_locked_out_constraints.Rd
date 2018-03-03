@@ -47,6 +47,9 @@ problems with non-binary planning unit allocations (e.g. proportions), the
 planning unit allocations to a specific value.
 }
 \examples{
+# load data
+data(sim_pu_polygons, sim_features, sim_locked_in_raster)
+
 # create basic problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%

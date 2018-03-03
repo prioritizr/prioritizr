@@ -46,7 +46,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
 s <- solve(p)
 
 # plot solution
-plot(s, axes = FALSE, box = FALSE)
+plot(stack(s), axes = FALSE, box = FALSE)
 }
 
 }
