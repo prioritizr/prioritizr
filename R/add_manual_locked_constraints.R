@@ -74,10 +74,13 @@ methods::setMethod("add_manual_locked_constraints",
     validate_data <- function(locked) {
       assertthat::assert_that(inherits(x, "ConservationProblem"),
                               inherits(locked, "tbl_df"),
+                              nrow(locked) > 0,
                               assertthat::has_name(locked, "pu"),
                               is.numeric(locked$pu),
                               all(is.finite(locked$pu)),
                               all(locked$pu == round(locked$pu)),
+                              max(locked$pu) <= x$number_of_total_units(),
+                              min(locked$pu) >= 0,
                               assertthat::has_name(locked, "status"),
                               is.numeric(locked$status),
                               all(is.finite(locked$status)))

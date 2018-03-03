@@ -180,7 +180,8 @@ methods::setMethod("add_locked_in_constraints",
       all(is.finite(locked_in)),
       all(rowSums(locked_in) <= 1))
     # create data.frame with statuses
-    y <- data.frame(pu = which(locked_in, arr.ind = TRUE)[, 1], status = 1)
+    ind <- which(locked_in, arr.ind = TRUE)
+    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 1)
     # add constraints
     add_manual_locked_constraints(x, y)
 })
@@ -193,10 +194,10 @@ methods::setMethod("add_locked_in_constraints",
   function(x, locked_in) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
-      assertthat::is.string(locked_in),
+      is.character(locked_in), !anyNA(locked_in),
       inherits(x$data$cost, c("data.frame", "Spatial")),
       x$number_of_zones() == length(locked_in),
-      isTRUE(locked_in %in% names(x$data$cost)),
+      all(locked_in %in% names(x$data$cost)),
       all(vapply(as.data.frame(x$data$cost)[, locked_in, drop = FALSE],
                  inherits, logical(1), "logical")))
     # add constraints
@@ -227,7 +228,17 @@ methods::setMethod("add_locked_in_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_in, "Raster"),
-      x$number_of_zones() == 1,
-      isTRUE(raster::cellStats(locked_in, "sum") > 0))
-    add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))
+      x$number_of_zones() == raster::nlayers(locked_in),
+      all(max(raster::cellStats(locked_in, "sum")) > 0))
+    if (raster::nlayers(locked_in) > 1)
+      assertthat::assert_that(raster::cellStats(sum(locked_in), "max") <= 1)
+    # create matrix with statuses
+    status <- vapply(seq_len(x$number_of_zones()),
+                     FUN.VALUE = logical(x$number_of_total_units()),
+                     function(i) replace(rep(FALSE, x$number_of_total_units()),
+                                         intersecting_units(x$data$cost[[i]],
+                                                            locked_in[[i]]),
+                                         TRUE))
+    # add constraints
+    add_locked_in_constraints(x, status)
 })

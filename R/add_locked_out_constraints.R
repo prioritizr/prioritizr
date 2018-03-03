@@ -131,7 +131,8 @@ methods::setMethod("add_locked_out_constraints",
       isTRUE(all(is.finite(locked_out))),
       all(rowSums(locked_out) <= 1))
     # create data.frame with statuses
-    y <- data.frame(pu = which(locked_out, arr.ind = TRUE)[, 1], status = 0)
+    ind <- which(locked_out, arr.ind = TRUE)
+    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0)
     # add constraints
     add_manual_locked_constraints(x, y)
 })
@@ -144,10 +145,10 @@ methods::setMethod("add_locked_out_constraints",
   function(x, locked_out) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
-      assertthat::is.string(locked_out),
+      is.character(locked_out), !anyNA(locked_out),
       inherits(x$data$cost, c("data.frame", "Spatial")),
       x$number_of_zones() == length(locked_out),
-      isTRUE(locked_out %in% names(x$data$cost)),
+      all(locked_out %in% names(x$data$cost)),
       all(vapply(as.data.frame(x$data$cost)[, locked_out, drop = FALSE],
                  inherits, logical(1), "logical")))
     # add constraints
@@ -175,10 +176,19 @@ methods::setMethod("add_locked_out_constraints",
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Raster"),
   function(x, locked_out) {
-    # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_out, "Raster"),
-      x$number_of_zones() == 1,
-      isTRUE(raster::cellStats(locked_out, "sum") > 0))
-    add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
+      x$number_of_zones() == raster::nlayers(locked_out),
+      all(max(raster::cellStats(locked_out, "sum")) > 0))
+    if (raster::nlayers(locked_out) > 1)
+      assertthat::assert_that(raster::cellStats(sum(locked_out), "max") <= 1)
+    # create matrix with statuses
+    status <- vapply(seq_len(x$number_of_zones()),
+                     FUN.VALUE = logical(x$number_of_total_units()),
+                     function(i) replace(rep(FALSE, x$number_of_total_units()),
+                                         intersecting_units(x$data$cost[[i]],
+                                                            locked_out[[i]]),
+                                         TRUE))
+    # add constraints
+    add_locked_out_constraints(x, status)
 })

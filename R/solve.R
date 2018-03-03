@@ -127,7 +127,7 @@ methods::setMethod(
     opt <- compile.ConservationProblem(a, ...)
     sol <- a$portfolio$run(opt, a$solver)
     # check that solution is valid
-    if (is.null(sol)) {
+    if (is.null(sol) || is.null(sol[[1]]$x)) {
       stop("conservation problem is infeasible")
     }
     ## format solutions

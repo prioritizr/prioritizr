@@ -108,9 +108,14 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }
+  # check that all planning units have not been locked in
+  if (all(op$lb()[seq_len(x$number_of_planning_units() *
+                          x$number_of_zones())] == 1))
+    warning("all planning units are locked in.")
   # check that all planning units have not been locked out
-  if (all(op$ub() == 0))
-    stop("all planning units are locked out.")
+  if (all(op$ub()[seq_len(x$number_of_planning_units() *
+                          x$number_of_zones())] == 0))
+    warning("all planning units are locked out.")
   # return problem object
   op
 }
