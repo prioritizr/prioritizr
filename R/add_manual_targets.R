@@ -103,6 +103,8 @@ methods::setMethod(
         assertthat::has_name(targets, "feature"),
         assertthat::has_name(targets, "target"),
         assertthat::has_name(targets, "type"),
+        all(names(targets) %in% c("feature", "zone", "type", "sense",
+                                  "target")),
         is.character(targets$feature) || is.factor(targets$feature),
         all(as.character(targets$feature) %in% x$feature_names()),
         is.numeric(targets$target), all(is.finite(targets$target)),

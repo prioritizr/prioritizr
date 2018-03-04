@@ -57,10 +57,11 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
           // add constrains to ensure that y_ij <= x_j \forall z
           ptr->_A_i.push_back(row);
           ptr->_A_i.push_back(row);
-          ptr->_A_j.push_back((z * ptr->_number_of_zones) + j);
+          ptr->_A_j.push_back((z * ptr->_number_of_planning_units) + j);
           ptr->_A_j.push_back((ptr->_number_of_planning_units *
                                ptr->_number_of_zones) +
-                              (z * ptr->_number_of_zones) +
+                              (z * ptr->_number_of_planning_units *
+                                   ptr->_number_of_features) +
                               (f * ptr->_number_of_planning_units) + j);
           ptr->_A_x.push_back(-1.0);
           ptr->_A_x.push_back(1.0);
@@ -77,7 +78,8 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
           ptr->_A_i.push_back(row + i);
           ptr->_A_j.push_back((ptr->_number_of_planning_units *
                                ptr->_number_of_zones) +
-                              (curr_z[z] * ptr->_number_of_zones) +
+                              (curr_z[z] * ptr->_number_of_planning_units *
+                                           ptr->_number_of_features) +
                               (targets_feature[i] *
                                ptr->_number_of_planning_units) +
                               it.row());
