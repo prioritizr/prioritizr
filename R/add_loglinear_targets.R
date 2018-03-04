@@ -1,35 +1,35 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R
+#' @include internal.R pproto.R ConservationProblem-proto.R loglinear_interpolation.R
 NULL
 
 #' Add Loglinear Targets
 #'
-#' Set targets as a proportion (between 0 and 1) and calculated using a
-#' log-linear  equation and four tuning parameters (as used in Rodrigues
-#' \emph{et al.} 2004). The first tuning parameter specifies the first cut-off
-#' range size, and the second specifies  the second cut-off range size, the
-#' third argument specifies the target required  for species with a range size
-#' equal to or less than the first cut-off range size,  and the fourth argument
-#' specifies the target required for species with a range size equal to or
-#' greater than the required range size.
-#'
-#' Note that with the exception of the maximum cover problem, targets must
-#' be added to a \code{\link{problem}} or solving will return an error.
+#' Set targets by log-linearly interpolating them between thresholds
+#' (Rodrigues \emph{et al.} 2004).
+#' Additionally, caps can be applied to targets to prevent features with
+#' massive distributions from being over-represented in solutions
+#' (Butchart \emph{et al.} 2015). \strong{The behavior of this function has
+#' changed substantially from versions prior to 5.0.0}.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param lower_bound_amount \code{numeric} lower bound for the total amount
-#'   of the features.
+#' @param lower_bound_amount \code{numeric} threshold.
 #'
-#' @param lower_bound_target \code{numeric} relative target that should be
+#' @param lower_target \code{numeric} relative target that should be
 #'   applied to features with a total amount that is less
-#'  than or equal to \code{lower_bound_amount}.
+#'   than or equal to \code{lower_bound_amount}.
 #'
-#' @param upper_bound_amount \code{numeric} upper bound for the total amount
-#'   of features.
+#' @param upper_bound_amount \code{numeric} threshold.
 #'
 #' @param upper_bound_target \code{numeric} relative target that should be
 #'   applied to features with a total amount that is greater
 #'   than or equal to \code{upper_bound_amount}.
+#'
+#' @param cap_amount \code{numeric} total amount at which targets should be
+#'   capped. Defaults to \code{NULL} so that targets are not capped.
+#'
+#' @param cap_target \code{numeric} amount-based target to apply to features
+#'   which have a total amount greater than argument to \code{cap_amount}.
+#'   Defaults to \code{NULL} so that targets are not capped.
 #'
 #' @param ... not used.
 #'
@@ -40,16 +40,41 @@ NULL
 #' (see \code{\link{add_max_cover_objective}}), which maximizes all features
 #' in the solution and therefore does not require targets.
 #'
+#' Six parameters are used to calculate the targets: \code{lower_bound_amount}
+#' specifies the first range size threshold, \code{lower_bound_target} specifies
+#' the relative target required for species with a range size equal to or less
+#' than the first threshold, \code{upper_bound_amount} specifies the second
+#' range size threshold, \code{upper_bound_target} specifies
+#' the relative target required for species with a range size equal to or
+#' greater than the second threshold, \code{cap_amount} specifies the third
+#' range size threshold, and \code{cap_target} specifies the absolute
+#' target that is uniformly applied to species with a range size larger than
+#' that third threshold.
+#'
+#' Note that the target calculations do \strong{not} account for the
+#' size of each planning unit. Therefore, the feature data should account for
+#' the size of each planning unit if this is important (e.g. Pixel values in
+#' the argument to \code{features} in the function \code{\link{problem}} could
+#' correspond to amount of land occupied by the feature (\deqn{km^2})).
+#'
+#' This function can only be applied to \code{\link{ConservationProblem-class}}
+#' objects with a single zone.
+#'
 #' @return \code{\link{ConservationProblem-class}} object with the target added
 #'   to it.
 #'
-#' @seealso \code{\link{targets}}.
+#' @seealso \code{\link{targets}}, \code{\link{loglinear_interpolation}}.
 #'
 #' @references
 #' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,
 #' Chanson JS, Fishpool LDC, da Fonseca GAB, Gaston KJ, and others (2004)
 #' Global gap analysis: priority regions for expanding the global
 #' protected-area network. \emph{BioScience}, 54: 1092--1100.
+#'
+#' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
+#' Buchanan, GM, Angulo A, Balmford A, Bertzky B, and others (2015) Shortfalls
+#' and solutions for meeting national and global conservation area targets.
+#' \emph{Conservation Letters}, 8: 329--337.
 #'
 #' @examples
 #' # load data
@@ -58,7 +83,7 @@ NULL
 #' # create problem using loglinear targets
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
-#'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
+#'      add_loglinear_targets(100, 0.2, 10, 0.9) %>%
 #'      add_binary_decisions()
 #' \donttest{
 #' # solve problem
@@ -67,7 +92,6 @@ NULL
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
-#'
 #' @name add_loglinear_targets
 #'
 #' @docType methods
@@ -75,12 +99,12 @@ NULL
 
 #' @rdname add_loglinear_targets
 #' @export
-add_loglinear_targets <- function(x, lower_bound_amount,
-                                  lower_bound_target,
-                                  upper_bound_amount,
-                                  upper_bound_target) {
+add_loglinear_targets <- function(x, lower_bound_amount, lower_bound_target,
+                                  upper_bound_amount, upper_bound_target,
+                                  cap_amount = NULL, cap_target = NULL) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
+                          x$number_of_zones() == 1,
                           isTRUE(all(is.finite(lower_bound_amount))),
                           assertthat::is.scalar(lower_bound_amount),
                           isTRUE(lower_bound_amount >= 0),
@@ -95,28 +119,26 @@ add_loglinear_targets <- function(x, lower_bound_amount,
                           assertthat::is.scalar(upper_bound_target),
                           isTRUE(upper_bound_target >= 0),
                           isTRUE(upper_bound_target <= 1),
-                          isTRUE(upper_bound_amount > lower_bound_amount))
-  # create parameters
-  p <- parameters(
-    numeric_parameter("amount at lower bound", value = lower_bound_amount,
-                      lower_limit = 0),
-    numeric_parameter("amount at upper bound", value = upper_bound_amount,
-                      lower_limit = 0),
-    proportion_parameter("target at lower bound", value = lower_bound_target),
-    proportion_parameter("target at upper bound", value = upper_bound_target))
+                          isTRUE(lower_bound_amount <= upper_bound_amount),
+                          is.null(cap_amount) ||
+                            assertthat::is.scalar(cap_amount),
+                          is.null(cap_target) ||
+                            assertthat::is.scalar(cap_target),
+                          is.null(cap_amount) == is.null(cap_target),
+                          is.numeric(cap_amount) == is.numeric(cap_target))
+  if (is.numeric(cap_amount))
+    assertthat::assert_that(is.finite(cap_amount), is.finite(cap_target),
+                            isTRUE(cap_amount >= 0), isTRUE(cap_target >= 0))
+  # create targets as data.frame
+  target_data <- expand.grid(feature = x$feature_names(), type = "absolute")
+  # calculate targets as absolute amounts
+  abundances <- x$feature_abundances_in_total_units()[, 1]
+  target_data$target <- loglinear_interpolation(abundances, lower_bound_amount,
+                                                lower_bound_target,
+                                                upper_bound_amount,
+                                                upper_bound_target) * abundances
+  if (is.numeric(cap_amount))
+    target_data$target[abundances >= cap_amount] <- cap_target
   # add targets to problem
-  x$add_targets(pproto(
-    "LogLinearTargets",
-    Target,
-    name = "Log-linear targets",
-    parameters = p,
-    data = list(abundances = x$feature_abundances_in_planning_units()),
-    output = function(self) {
-      loglinear_interpolate(self$data$abundances,
-                            self$parameters$get("amount at lower bound"),
-                            self$parameters$get("target at lower bound"),
-                            self$parameters$get("amount at upper bound"),
-                            self$parameters$get("target at upper bound")) *
-        self$get_data("abundances")
-    }))
+  add_manual_targets(x, target_data)
 }

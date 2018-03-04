@@ -107,6 +107,7 @@ Collate:
     'intersecting_units.R'
     'add_locked_in_constraints.R'
     'add_locked_out_constraints.R'
+    'loglinear_interpolation.R'
     'add_loglinear_targets.R'
     'add_lpsymphony_solver.R'
     'add_manual_locked_constraints.R'
