@@ -37,7 +37,7 @@ NULL
 #'   bound can be specified to ensure that at most only a fraction
 #'   (e.g. 80 \%) of a planning unit can be preserved. This type of
 #'   decision may be useful when it is not practical to conserve the
-#'   entire planning unit.}
+#'   entire area encompassed by a single planning unit.}
 #'
 #'  }
 #'
@@ -69,7 +69,7 @@ NULL
 #'
 #' # plot solutions
 #' plot(s, main = c("default (binary)", "binary", "proportion",
-#'                  "semicontinuous (upper=0.5)"))
+#'                  "semicontinuous (upper = 0.5)"))
 #' }
 #'
 #' @name decisions

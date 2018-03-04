@@ -324,7 +324,9 @@ methods::setMethod(
                             stopiffalse = FALSE))
     if (run_checks)
       assertthat::assert_that(
+        all(raster::cellStats(!is.na(x), "sum") > 0),
         all(raster::cellStats(x, "min") >= 0),
+        all(raster::cellStats(x, "max") >= 0),
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
     # convert x to RasterLayer if has only one layer
     if (inherits(x, c("RasterStack", "RasterBrick")) &&

@@ -720,13 +720,15 @@ test_that("x=matrix, features=data.frame", {
 test_that("invalid problem inputs", {
   # check that errors are thrown if invalid arguments
   data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
-    sim_features)
+       sim_features)
   expect_error(problem(1, sim_features))
   expect_error(problem(sim_pu_lines, sim_pu_points, "cost"))
   expect_error(problem(raster::stack(sim_pu_raster, sim_pu_raster),
                        sim_features))
 
   # check that errors are thrown if all planning units have NA cost
+  data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
+       sim_features)
   sim_pu_polygons$cost <- NA
   sim_pu_lines$cost <- NA
   sim_pu_points$cost <- NA
