@@ -1,4 +1,5 @@
 context("marxan_problem")
+skip("not implemented")
 
 test_that("spatial data input (compile)", {
   # make problems

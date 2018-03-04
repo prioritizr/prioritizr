@@ -76,29 +76,29 @@ Note that this formulation is functionally equivalent to the
 set to 1.
 }
 \examples{
-# load data
-data(sim_pu_raster, sim_features)
-
-# set a 90th percentile threshold to the feature data
-sim_features_binary <- sim_features
-thresholds <- raster::quantile(sim_features, probs = 0.9, names = FALSE,
-                               na.rm = TRUE)
-for (i in seq_len(raster::nlayers(sim_features)))
-  sim_features_binary[[i]] <- as.numeric(raster::values(sim_features[[i]]) >
-                                         thresholds[[i]])
-
-# create problem
-p <- problem(sim_pu_raster, sim_features_binary) \%>\%
-     add_max_cover_objective(5000) \%>\%
-     add_binary_decisions()
-\donttest{
-# solve problem
-s <- solve(p)
-
-# plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
-}
-
+# # not implemented
+# # load data
+# data(sim_pu_raster, sim_features)
+#
+# # set a 90th percentile threshold to the feature data
+# sim_features_binary <- sim_features
+# thresholds <- raster::quantile(sim_features, probs = 0.9, names = FALSE,
+#                                na.rm = TRUE)
+# for (i in seq_len(raster::nlayers(sim_features)))
+#   sim_features_binary[[i]] <- as.numeric(raster::values(sim_features[[i]]) >
+#                                          thresholds[[i]])
+#
+# # create problem
+# p <- problem(sim_pu_raster, sim_features_binary) \%>\%
+#      add_max_cover_objective(5000) \%>\%
+#      add_binary_decisions()
+# \donttest{
+# # solve problem
+# s <- solve(p)
+#
+# # plot solution
+# plot(s, main = "solution", axes = FALSE, box = FALSE)
+# }
 
 }
 \references{

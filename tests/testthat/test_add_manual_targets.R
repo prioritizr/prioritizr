@@ -29,11 +29,11 @@ test_that("add_manual_targets (explicit, single zone)", {
   data(sim_pu_raster, sim_features)
   # create problem
   p <- problem(sim_pu_raster, sim_features) %>%
-       add_manual_targets(data.frame(feature = names(sim_features)[-1],
-                                     target = 2:5,
-                                     zone = list("1")[rep(1, 4)],
-                                     sense = c(">=", "=", "<=", "="),
-                                     type = "absolute"))
+       add_manual_targets(tibble::tibble(feature = names(sim_features)[-1],
+                                         zone = list("layer")[rep(1, 4)],
+                                         sense = c(">=", "=", "<=", "="),
+                                         type = "absolute",
+                                         target = 2:5))
   # calculate absolute targets
   targets <- p$targets$output()
   # run tests

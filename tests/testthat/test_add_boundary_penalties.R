@@ -1,4 +1,5 @@
 context("add_boundary_penalties")
+skip("not implemented")
 
 test_that("minimum set objective (compile binary decisions)", {
   ## make data

@@ -1,4 +1,5 @@
 context("add_max_phylo_objective")
+skip("not implemented")
 
 test_that("compile (compressed formulation)", {
   # generate optimization problem

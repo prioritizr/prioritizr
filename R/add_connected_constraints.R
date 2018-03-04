@@ -23,21 +23,23 @@ NULL
 #' reserve network. \emph{Operations Research}, 54: 379--388.
 #'
 #' @examples
-#' # create basic problem
-#' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2)
+#' # # not implemented
+#' # # create basic problem
+#' # p1 <- problem(sim_pu_raster, sim_features) %>%
+#' #       add_min_set_objective() %>%
+#' #       add_relative_targets(0.2)
+#' #
+#' # # create problem with added connected constraints
+#' # p2 <- p1 %>% add_connected_constraints()
+#' # \donttest{
+#' # # solve problems
+#' # s <- stack(solve(p1), solve(p2))
+#' #
+#' # # plot solutions
+#' # plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
+#' #      box = FALSE)
+#' # }
 #'
-#' # create problem with added connected constraints
-#' p2 <- p1 %>% add_connected_constraints()
-#' \donttest{
-#' # solve problems
-#' s <- stack(solve(p1), solve(p2))
-#'
-#' # plot solutions
-#' plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
-#'      box = FALSE)
-#' }
 #' @export
 add_connected_constraints <- function(x, ...) {
   # assert argumnt is valid

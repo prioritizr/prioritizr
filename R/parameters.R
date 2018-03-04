@@ -357,7 +357,7 @@ numeric_parameter_array <- function(name, value, label,
 #' # parameter have the same column names as the iris data set
 #' p2 <- misc_parameter("tbl2", iris,
 #'                      function(x) all(names(x) %in% names(iris)) &&
-#'                                  all(x[[1]] < 200,
+#'                                  all(x[[1]] < 200),
 #'                      function(x) structure("tbl", .Class = "shiny.tag"))
 #' print(p2) # print it
 #' p2$get() # get value
@@ -369,7 +369,7 @@ numeric_parameter_array <- function(name, value, label,
 #' p2$set(iris3) # set parameter to iris3
 #' p2$print() # print it again
 #'
-#' @name misc_parameter
+#' @export
 misc_parameter <- function(name, value, validator, widget) {
   assertthat::assert_that(assertthat::is.string(name),
     inherits(validator, "function"), inherits(widget, "function"),

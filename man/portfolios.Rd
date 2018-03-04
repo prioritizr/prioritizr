@@ -49,10 +49,10 @@ p2 <- p \%>\% add_shuffle_portfolio(4)
 s <- list(solve(p1), solve(p2))
 
 # plot solutions from cuts portfolio
-plot(s[[1]], axes = FALSE, box = FALSE)
+plot(stack(s[[1]]), axes = FALSE, box = FALSE)
 
 # plot solutions from cuts portfolio
-plot(s[[2]], axes = FALSE, box = FALSE)
+plot(stack(s[[2]]), axes = FALSE, box = FALSE)
 }
 
 }

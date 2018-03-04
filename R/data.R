@@ -162,7 +162,7 @@ NULL
 #'
 #' # plot example management zones data
 #' par(mfrow = c(1, 1))
-#' plot(sim_pu_zones_raster)
+#' plot(sim_pu_zones_stack)
 #'
 #' # plot example feature data under different zones
 #' par(mfrow = c(5, 3))

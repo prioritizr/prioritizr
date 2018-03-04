@@ -1,4 +1,5 @@
 context("add_connected_constraints")
+skip("not implement")
 
 test_that("compile", {
   # create problem

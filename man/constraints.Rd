@@ -48,51 +48,52 @@ object.
 }
 }
 \examples{
-# load data
-data(sim_pu_raster, sim_features)
-
-# create base problem with no additional constraints
-p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
-
-# create problem with locked in constraints
-p2 <- p1 \%>\% add_locked_in_constraints("locked_in")
-
-# create problem with locked in constraints
-p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
-
-# create problem with neighbor constraints
-p4 <- p1 \%>\% add_neighbor_constraints(2)
-
-# create problem with connected constraints
-p5 <- p1 \%>\% add_connected_constraints()
-\donttest{
-# solve problems
-s1 <- solve(p1)
-s2 <- solve(p2)
-s3 <- solve(p3)
-s4 <- solve(p4)
-s5 <- solve(p5)
-
-# plot solutions
-par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
-plot(s1, main = "basic")
-plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s2, main="locked in")
-plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s3, main="locked out")
-plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s4, main = "neighbor")
-plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s5, main = "connected")
-plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-}
+# # not implemented
+# # load data
+# data(sim_pu_raster, sim_features)
+#
+# # create base problem with no additional constraints
+# p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
+#       add_min_set_objective() \%>\%
+#       add_relative_targets(0.1) \%>\%
+#       add_binary_decisions()
+#
+# # create problem with locked in constraints
+# p2 <- p1 \%>\% add_locked_in_constraints("locked_in")
+#
+# # create problem with locked in constraints
+# p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
+#
+# # create problem with neighbor constraints
+# p4 <- p1 \%>\% add_neighbor_constraints(2)
+#
+# # create problem with connected constraints
+# p5 <- p1 \%>\% add_connected_constraints()
+# \donttest{
+# # solve problems
+# s1 <- solve(p1)
+# s2 <- solve(p2)
+# s3 <- solve(p3)
+# s4 <- solve(p4)
+# s5 <- solve(p5)
+#
+# # plot solutions
+# par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
+# plot(s1, main = "basic")
+# plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s2, main="locked in")
+# plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s3, main="locked out")
+# plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s4, main = "neighbor")
+# plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s5, main = "connected")
+# plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+# }
 
 }
 \seealso{

@@ -24,6 +24,7 @@ NULL
 #' arguments. The correct input depends on the type of planning unit data
 #' used when building the conservation \code{\link{problem}}.
 #' \describe{
+#'
 #'   \item{\code{\link[raster]{Raster-class}},
 #'     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
 #'     data denoting the amount of each feature present assuming each
@@ -32,26 +33,35 @@ NULL
 #'     in separate layers in a \code{\link[raster]{stack}} object. Note that
 #'     all layers for a given zone must have \code{NA} values in exactly the
 #'     same cells.}
+#'
 #'   \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
 #'       with column names that correspond to the abundance or occurrence of
 #'       different features in each planning unit for each zone. Note that
 #'       these columns must not contain any \code{NA} values.}
+#'
 #'   \item{\code{\link{Spatial}}, \code{data.frame} or
 #'     \code{matrix}}{\code{data.frame} denoting the amount of each feature
 #'     in each zone. Following conventions used in \emph{Marxan},
 #'     \code{data.frame} objects should be supplied with the columns:
+#'
 #'    \describe{
+#'
 #'      \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'
 #'      \item{\code{"species"}}{\code{integer} feature identifier.}
+#'
 #'      \item{\code{"amount"}}{\code{numeric} amount of the feature in the
 #'        planning unit for a given zone.}
+#'
 #'     }
+#'
 #'     Note that data for each zone are specified in a seperate argument, and
 #'     the data contained in a single \code{data.frame} object correspond to
 #'     a single zone. Also, note that data are not required for all
 #'     combinations of planning units, features, and zones. The amounts of
 #'     features in planning units assuming different management zones that are
 #'     missing from the table are treated as zero.}
+#'
 #' }
 #'
 #' @return \code{\link{Zones-class}} object.
@@ -69,27 +79,28 @@ NULL
 #' zone_2 <- simulate_species(sim_pu_raster, 3)
 #'
 #' # create zones using two raster stack objects
-#' # each object corresponds to a different zone
-#  # each layer corresponds to a different species
+#' # each object corresponds to a different zone and each layer corresponds to
+#' # a different species
 #' z <- zones(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-#'            feature_names = c("feature_1", "feature_2"))
+#'            feature_names = c("feature_1", "feature_2", "feature_3"))
 #' print(z)
 #'
-#' # note that do.call can also be used to create a Zones object
-#' # this can be helpful when dealing with many zones
+#' # note that the do.call function can also be used to create a Zones object
+#' # this method for creating a Zones object can be helpful when there are many
+#' # management zones
 #' l <- list(zone_1, zone_2, zone_names = c("zone_1", "zone_2"),
-#'           feature_names = c("feature_1", "feature_2"))
+#'           feature_names = c("feature_1", "feature_2", "feature_3"))
 #' z <- do.call(zones, l)
 #' print(z)
 #'
 #' # create zones using character vectors that represent the names of
 #' # fields (columns) in a data.frame or Spatial object that contain the amount
-#' # of each species under a different management zone.
+#' # of each species expected different management zones
 #' z <- zones(c("spp1_zone1", "spp2_zone1"),
 #'            c("spp1_zone2", "spp2_zone2"),
 #'            c("spp1_zone3", "spp2_zone3"),
-#'            zone_names = c("zone1", "zone2"),
-#'            feature_names = c("spp1". "spp2", "spp3"))
+#'            zone_names = c("zone1", "zone2", "zone3"),
+#'            feature_names = c("spp1", "spp2"))
 #' print(z)
 #' @export
 zones <- function(..., zone_names = NULL, feature_names = NULL) {
@@ -198,20 +209,38 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #' @aliases Zones-methods
 #'
 #' @examples
-#' # load zones data
+#' # load ZonesRaster data
 #' data(sim_features_zones)
 #'
-#' #print object
+#' # print object
 #' print(sim_features_zones)
 #'
 #' # print properties of the object
-#' n_zone(sim_features_zones)
-#' n_feature(sim_features_zones)
-#' zone_names(sim_features_zones)
-#' feature_names(sim_features_zones)
+#' print(n_zone(sim_features_zones))
+#' print(n_feature(sim_features_zones))
+#' print(zone_names(sim_features_zones))
+#' print(feature_names(sim_features_zones))
 #'
 #' # convert zones object to a list
 #' str(as.list(sim_features_zones), max.level = 1)
+#'
+#' # create ZoneCharacter object
+#' z <- zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2"),
+#'              feature_names = c("spp1", "spp2"),
+#'              zone_names = c("z1", "z2"))
+#'
+#' # print object
+#' print(z)
+#'
+#' # print properties of the object
+#' print(n_zone(z))
+#' print(n_feature(z))
+#' print(zone_names(z))
+#' print(feature_names(z))
+#'
+#' # convert zones object to a list
+#' str(as.list(z), max.level = 1)
+
 NULL
 
 #' @rdname ZonesMethods
@@ -238,7 +267,7 @@ n_feature.ZonesCharacter <- function(x, ...) {
 }
 
 #' @rdname ZonesMethods
-#' @method n_feature ZonesCharacter
+#' @method n_feature ZonesRaster
 #' @export
 n_feature.ZonesRaster <- function(x, ...) {
   raster::nlayers(x[[1]])

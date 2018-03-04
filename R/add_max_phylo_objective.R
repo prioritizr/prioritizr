@@ -76,21 +76,22 @@ NULL
 #' 105: 103--111.
 #'
 #' @examples
-#' # load data
-#' data(sim_pu_raster, sim_features, sim_phylogeny)
-#'
-#' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_max_phylo_objective(5000, sim_phylogeny) %>%
-#'      add_relative_targets(0.1) %>%
-#'      add_binary_decisions()
-#' \donttest{
-#' # solve problem
-#' s <- solve(p)
-#'
-#' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
-#' }
+#' # # not implemented
+#' # # load data
+#' # data(sim_pu_raster, sim_features, sim_phylogeny)
+#' #
+#' # # create problem
+#' # p <- problem(sim_pu_raster, sim_features) %>%
+#' #      add_max_phylo_objective(5000, sim_phylogeny) %>%
+#' #      add_relative_targets(0.1) %>%
+#' #      add_binary_decisions()
+#' # \donttest{
+#' # # solve problem
+#' # s <- solve(p)
+#' #
+#' # # plot solution
+#' # plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' # }
 #'
 #' @name add_max_phylo_objective
 NULL

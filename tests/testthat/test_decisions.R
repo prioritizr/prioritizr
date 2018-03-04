@@ -1,4 +1,5 @@
 context("decisions")
+skip("not implemented")
 
 test_that("add_binary_decisions (compile)", {
   # generate optimization problem

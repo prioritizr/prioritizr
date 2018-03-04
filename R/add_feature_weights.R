@@ -30,27 +30,28 @@ NULL
 #' @seealso \code{\link{targets}}, \code{\link{objectives}}.
 #'
 #' @examples
-#' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_max_cover_objective(budget = 5000)
-#'
-#' # problem problem with features weighted according to rarity
-#' # (1 / number occurrences)
-#' w1 <- 1 / cellStats(sim_features, "sum") * 1000
-#' p1 <- p %>% add_feature_weights(w1)
-#'
-#' # problem problem with features weighted according to manually specified
-#' # weights
-#' w2  <- c(0.1, 0.2, 0.3, 0.4, 0.5)
-#' p2 <- p %>% add_feature_weights(w2)
-#' \donttest{
-#' # solve solutions
-#' s <- stack(solve(p), solve(p1), solve(p2))
-#'
-#' # plot solutions
-#' plot(s, main = c("equal weights", "rarity weights", "manual weights"),
-#'      axes = FALSE, box = FALSE)
-#' }
+#' # # not implemented
+#' # # create problem
+#' # p <- problem(sim_pu_raster, sim_features) %>%
+#' #      add_max_cover_objective(budget = 5000)
+#' #
+#' # # problem problem with features weighted according to rarity
+#' # # (1 / number occurrences)
+#' # w1 <- 1 / cellStats(sim_features, "sum") * 1000
+#' # p1 <- p %>% add_feature_weights(w1)
+#' #
+#' # # problem problem with features weighted according to manually specified
+#' # # weights
+#' # w2  <- c(0.1, 0.2, 0.3, 0.4, 0.5)
+#' # p2 <- p %>% add_feature_weights(w2)
+#' # \donttest{
+#' # # solve solutions
+#' # s <- stack(solve(p), solve(p1), solve(p2))
+#' #
+#' # # plot solutions
+#' # plot(s, main = c("equal weights", "rarity weights", "manual weights"),
+#' #      axes = FALSE, box = FALSE)
+#' # }
 #'
 #' @export
 add_feature_weights <- function(x, weights) {

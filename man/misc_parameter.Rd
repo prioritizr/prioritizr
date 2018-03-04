@@ -46,7 +46,7 @@ p1$print() # print it again
 # parameter have the same column names as the iris data set
 p2 <- misc_parameter("tbl2", iris,
                      function(x) all(names(x) \%in\% names(iris)) &&
-                                 all(x[[1]] < 200,
+                                 all(x[[1]] < 200),
                      function(x) structure("tbl", .Class = "shiny.tag"))
 print(p2) # print it
 p2$get() # get value

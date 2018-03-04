@@ -49,7 +49,7 @@ raster::extent(sim_landscape) <- c(0, 1, 0, 1)
 sim_landscape@crs <- sp::CRS()
 
 # create planning units as raster
-sim_pu_raster <- simulate_cost(sim_landscape, n = 1)
+sim_pu_raster <- simulate_cost(sim_landscape, n = 1)[[1]]
 sim_pu_raster[raster::Which(sim_pu_raster == 0)] <- NA
 
 # make 10 cells in the raster NA

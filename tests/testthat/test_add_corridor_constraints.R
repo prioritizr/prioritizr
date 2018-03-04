@@ -1,4 +1,5 @@
 context("add_corridor_constraints")
+skip("not implemented")
 
 test_that("compile", {
   spp1.habitat <- raster::raster(matrix(c(

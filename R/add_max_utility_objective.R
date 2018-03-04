@@ -54,20 +54,21 @@ NULL
 #' @seealso \code{\link{add_feature_weights}}, \code{\link{objectives}}.
 #'
 #' @examples
-#' # load data
-#' data(sim_pu_raster, sim_features)
-#'
-#' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'      add_max_utility_objective(5000) %>%
-#'      add_binary_decisions()
-#' \donttest{
-#' # solve problem
-#' s <- solve(p)
-#'
-#' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
-#' }
+#' # not implemented
+#' # # load data
+#' # data(sim_pu_raster, sim_features)
+#' #
+#' # # create problem
+#' # p <- problem(sim_pu_raster, sim_features) %>%
+#' #      add_max_utility_objective(5000) %>%
+#' #      add_binary_decisions()
+#' # \donttest{
+#' # # solve problem
+#' # s <- solve(p)
+#' #
+#' # # plot solution
+#' # plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' # }
 #'
 #' @name add_max_utility_objective
 NULL

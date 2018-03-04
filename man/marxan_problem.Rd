@@ -120,31 +120,32 @@ see the \href{http://marxan.net}{official Marxan website} and Ball
 \emph{et al.} (2009).
 }
 \examples{
-# create Marxan problem using spatial data
-data(sim_pu_raster, sim_features)
-p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
-                     targets_type = "relative", penalty = 1,
-                     edge_factor = 0.5)
-
-\donttest{
-# solve problem
-s1 <- solve(p1)
-
-# show solution
-plot(s1, main = "solution", axes = FALSE, box = FALSE)
-}
-
-# create Marxan problem using Marxan input files
-input_file <- system.file("extdata/input.dat", package="prioritizr")
-p2 <- marxan_problem(input_file)
-
-\donttest{
-# solve problem
-s2 <- solve(p2)
-
-# count number of selected planning units in solution
-print(sum(s2))
-}
+# # not implemented
+# # create Marxan problem using spatial data
+# data(sim_pu_raster, sim_features)
+# p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
+#                      targets_type = "relative", penalty = 1,
+#                      edge_factor = 0.5)
+#
+# \donttest{
+# # solve problem
+# s1 <- solve(p1)
+#
+# # show solution
+# plot(s1, main = "solution", axes = FALSE, box = FALSE)
+# }
+#
+# # create Marxan problem using Marxan input files
+# input_file <- system.file("extdata/input.dat", package="prioritizr")
+# p2 <- marxan_problem(input_file)
+#
+# \donttest{
+# # solve problem
+# s2 <- solve(p2)
+#
+# # count number of selected planning units in solution
+# print(sum(s2))
+# }
 
 }
 \references{

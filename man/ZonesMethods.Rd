@@ -22,7 +22,7 @@ n_feature(x, ...)
 
 \method{n_feature}{ZonesCharacter}(x, ...)
 
-\method{n_feature}{ZonesCharacter}(x, ...)
+\method{n_feature}{ZonesRaster}(x, ...)
 
 zone_names(x, ...)
 
@@ -56,18 +56,35 @@ The following methods are available which output:
   }
 }
 \examples{
-# load zones data
+# load ZonesRaster data
 data(sim_features_zones)
 
-#print object
+# print object
 print(sim_features_zones)
 
 # print properties of the object
-n_zone(sim_features_zones)
-n_feature(sim_features_zones)
-zone_names(sim_features_zones)
-feature_names(sim_features_zones)
+print(n_zone(sim_features_zones))
+print(n_feature(sim_features_zones))
+print(zone_names(sim_features_zones))
+print(feature_names(sim_features_zones))
 
 # convert zones object to a list
 str(as.list(sim_features_zones), max.level = 1)
+
+# create ZoneCharacter object
+z <- zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2"),
+             feature_names = c("spp1", "spp2"),
+             zone_names = c("z1", "z2"))
+
+# print object
+print(z)
+
+# print properties of the object
+print(n_zone(z))
+print(n_feature(z))
+print(zone_names(z))
+print(feature_names(z))
+
+# convert zones object to a list
+str(as.list(z), max.level = 1)
 }

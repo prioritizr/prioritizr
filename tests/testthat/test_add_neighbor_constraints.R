@@ -1,4 +1,5 @@
 context("add_neighbor_constraints")
+skip("not implemented")
 
 test_that("compile", {
   # create problem
