@@ -83,7 +83,7 @@ NULL
 #' # create problem using loglinear targets
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
-#'      add_loglinear_targets(100, 0.2, 10, 0.9) %>%
+#'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
 #'      add_binary_decisions()
 #' \donttest{
 #' # solve problem
