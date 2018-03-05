@@ -17,9 +17,12 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @inherit add_relative_targets details return seealso
+#' @inherit add_absolute_targets details return seealso
 #'
 #' @examples
+#' # set seed for reproducibility
+#' set.seed(500)
+#'
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
@@ -41,6 +44,47 @@ NULL
 #' # plot solution
 #' plot(s, main = c("10 % targets", "varying targets"), axes = FALSE,
 #'      box = FALSE)
+#' }
+#' # create a problem with multiple management zones
+#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_binary_decisions()
+#'
+#' # create a problem with targets that specify an equal amount of each feature
+#' # to be represented in each zone
+#' p4_targets <- matrix(0.1, nrow = n_feature(sim_features_zones),
+#'                      ncol = n_zone(sim_features_zones),
+#'                      dimnames = list(feature_names(sim_features_zones),
+#'                                      zone_names(sim_features_zones)))
+#' print(p4_targets)
+#'
+#' p4 <- p3 %>% add_relative_targets(p4_targets)
+#'
+#' # solve problem
+#' \donttest{
+#' # solve problem
+#' s4 <- solve(p4)
+#'
+#' # plot solution (pixel values correspond to zone identifiers)
+#' plot(category_layer(s4), main = c("equal targets"))
+#' }
+#' # create a problem with targets that require a varying amount of each
+#' # feature to be represented in each zone
+#' p5_targets <- matrix(runif(15, 0.01, 0.2),
+#'                      nrow = n_feature(sim_features_zones),
+#'                      ncol = n_zone(sim_features_zones),
+#'                      dimnames = list(feature_names(sim_features_zones),
+#'                                      zone_names(sim_features_zones)))
+#' print(p5_targets)
+#'
+#' p5 <- p3 %>% add_relative_targets(p4_targets)
+#' # solve problem
+#' \donttest{
+#' # solve problem
+#' s5 <- solve(p5)
+#'
+#' # plot solution (pixel values correspond to zone identifiers)
+#' plot(category_layer(s5), main = c("varying targets"))
 #' }
 #'
 #' @aliases add_relative_targets-method add_relative_targets,ConservationProblem,numeric-method add_relative_targets,ConservationProblem,matrix-method add_relative_targets,ConservationProblem,character-method

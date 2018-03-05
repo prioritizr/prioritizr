@@ -27,6 +27,10 @@ Details section for more information.}
 
 \item{...}{not used.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the targets added
+  to it.
+}
 \description{
 Set targets as a proportion (between 0 and 1) of the maximum level of
 representation of features in the study area. Note
@@ -35,7 +39,41 @@ specify targets that can be met through allocating planning units
 to multiple zones. In other words, this function can be used to specify
 targets that each pertain to a single feature and a single zone.
 }
+\details{
+Targets are used to specify the minimum amount or proportion of a
+  feature's distribution that needs to be protected. Most conservation
+  planning problems require targets with the exception of the maximum cover
+  (see \code{\link{add_max_cover_objective}}) and maximum utility
+  (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+  problems with objectives that require targets without specifying targets
+  will throw an error.
+
+ The targets for a problem can be specified in several different ways:
+ \describe{
+   \item{\code{numeric}}{\code{vector} of target values for each feature.
+     Additionally, for convenience, this type of argument can be a single
+     value to assign the same target to each feature. Note that this type of
+     argument cannot be used to specify targets for problems with multiple
+     zones.}
+
+   \item{\code{matrix}}{containing a target for each feature in each zone.
+     Here, each row corresponds to a different feature in argument to
+     \code{x}, each column corresponds to a different zone in argument to
+     \code{x}, and each cell contains the target value for a given feature
+     that the solution needs to secure in a given zone.}
+
+   \item{\code{character}}{containing the names of fields (columns) in the
+      feature data associated with the argument to \code{x} that contain
+      targets. This type of argument can only be used when the
+      feature data associated with \code{x} is a \code{data.frame}.
+      This argument must contain a field (column) name for each zone.}
+
+ }
+}
 \examples{
+# set seed for reproducibility
+set.seed(500)
+
 # load data
 data(sim_pu_raster, sim_features)
 
@@ -58,5 +96,49 @@ s <- stack(solve(p1), solve(p2))
 plot(s, main = c("10 \% targets", "varying targets"), axes = FALSE,
      box = FALSE)
 }
+# create a problem with multiple management zones
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_binary_decisions()
 
+# create a problem with targets that specify an equal amount of each feature
+# to be represented in each zone
+p4_targets <- matrix(0.1, nrow = n_feature(sim_features_zones),
+                     ncol = n_zone(sim_features_zones),
+                     dimnames = list(feature_names(sim_features_zones),
+                                     zone_names(sim_features_zones)))
+print(p4_targets)
+
+p4 <- p3 \%>\% add_relative_targets(p4_targets)
+
+# solve problem
+\donttest{
+# solve problem
+s4 <- solve(p4)
+
+# plot solution (pixel values correspond to zone identifiers)
+plot(category_layer(s4), main = c("equal targets"))
+}
+# create a problem with targets that require a varying amount of each
+# feature to be represented in each zone
+p5_targets <- matrix(runif(15, 0.01, 0.2),
+                     nrow = n_feature(sim_features_zones),
+                     ncol = n_zone(sim_features_zones),
+                     dimnames = list(feature_names(sim_features_zones),
+                                     zone_names(sim_features_zones)))
+print(p5_targets)
+
+p5 <- p3 \%>\% add_relative_targets(p4_targets)
+# solve problem
+\donttest{
+# solve problem
+s5 <- solve(p5)
+
+# plot solution (pixel values correspond to zone identifiers)
+plot(category_layer(s5), main = c("varying targets"))
+}
+
+}
+\seealso{
+\code{\link{targets}}.
 }
