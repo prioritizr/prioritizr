@@ -37,7 +37,7 @@ used when building the conservation \code{\link{problem}}.
   \item{\code{\link[raster]{Raster-class}},
     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
     data denoting the amount of each feature present assuming each
-    management zone. Data for each zone are specified in seperate
+    management zone. Data for each zone are specified in separate
     arguments, and the data for each feature in a given zone are specified
     in separate layers in a \code{\link[raster]{stack}} object. Note that
     all layers for a given zone must have \code{NA} values in exactly the
@@ -64,7 +64,7 @@ used when building the conservation \code{\link{problem}}.
 
     }
 
-    Note that data for each zone are specified in a seperate argument, and
+    Note that data for each zone are specified in a separate argument, and
     the data contained in a single \code{data.frame} object correspond to
     a single zone. Also, note that data are not required for all
     combinations of planning units, features, and zones. The amounts of

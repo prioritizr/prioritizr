@@ -169,20 +169,24 @@ methods::setOldClass("ConservationProblem")
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
 #'
 #' \item{number_of_total_units}{\code{integer} number of units in the cost
-#'   data including units that have NA values for cost.}
+#'   data including units that have \code{N} cost data.}
 #'
 #' \item{planning_unit_costs}{\code{matrix} cost of allocating each planning
-#'   unit to each zone.}
+#'   unit to each zone. Each column corresponds to a different zone and
+#'   each row corresponds to a different planning unit.}
 #'
 #' \item{number_of_features}{\code{integer} number of features.}
 #'
 #' \item{feature_names}{\code{character} names of features in problem.}
 #'
 #' \item{feature_abundances_in_planning_units}{\code{matrix} total
-#'   abundance of each feature in planning units available in each zone.}
+#'   abundance of each feature in planning units available in each zone. Each
+#'   column corresponds to a different zone and each row corresponds to a
+#'   different feature.}
 #'
 #' \item{feature_abundances_in_total_units}{\code{matrix} total
-#'   abundance of each feature in each zone.}
+#'   abundance of each feature in each zone. Each column corresponds to a
+#'   different zone and each row corresponds to a different feature.}
 #'
 #' \item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
 #'

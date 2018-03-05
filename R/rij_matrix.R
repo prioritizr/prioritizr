@@ -102,7 +102,7 @@ methods::setMethod(
         m <- Matrix::t(methods::as(m, "dgCMatrix"))
       }
     } else {
-      # othewise, process each feature seperately
+      # othewise, process each feature separately
         m <- plyr::llply(seq_len(raster::nlayers(y)), .parallel = FALSE,
           function(i) {
             m <- matrix(y[[i]][][included], nrow = 1)
