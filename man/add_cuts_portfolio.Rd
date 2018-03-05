@@ -24,25 +24,46 @@ This strategy for generating a portfolio of solutions involves
   having multiple threads allocated for solving an individual problem.
 }
 \examples{
-# load data
-data(sim_pu_raster, sim_features)
+# set seed for reproducibility
+set.seed(500)
 
-# create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_cuts_portfolio(10) \%>\%
-     add_default_solver(gap = 0.2, verbose = FALSE)
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create minimal problem with cuts portfolio
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_cuts_portfolio(10) \%>\%
+      add_default_solver(gap = 0.2, verbose = FALSE)
 
 \donttest{
 # solve problem and generate 10 solutions within 20 \% of optimality
-s <- solve(p)
+s1 <- solve(p1)
 
 # plot solution
-plot(stack(s), axes = FALSE, box = FALSE)
+plot(stack(s1), axes = FALSE, box = FALSE)
 }
+# build multi-zone conservation problem with cuts portfolio
+p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2),
+                                  nrow = n_feature(sim_features_zones),
+                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_binary_decisions() \%>\%
+      add_cuts_portfolio(10) \%>\%
+      add_default_solver(gap = 0.2, verbose = FALSE)
 
+\donttest{
+# solve the problem
+s2 <- solve(p2)
+
+# print solution
+str(s2, max.level = 1)
+
+# plot first solution in portfolio
+plot(category_layer(s2[[1]]), main = "solution", axes = FALSE, box = FALSE)
+}
 }
 \seealso{
 \code{\link{portfolios}}.

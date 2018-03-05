@@ -31,7 +31,7 @@ NULL
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 #'
-#' # create minimal problem
+#' # create minimal problem with shuffle portfolio
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
@@ -45,7 +45,7 @@ NULL
 #' # plot solution
 #' plot(stack(s1), axes = FALSE, box = FALSE)
 #' }
-#' # build multi-zone conservation problem with raster data
+#' # build multi-zone conservation problem with shuffle portfolio
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
@@ -66,7 +66,6 @@ NULL
 #' plot(category_layer(s2[[1]]), main = "solution", axes = FALSE, box = FALSE)
 #' }
 #' @name add_shuffle_portfolio
-#'
 NULL
 
 #' @export

@@ -47,10 +47,14 @@ test_that("solve (number_solutions within feasible limit, multiple zones)", {
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
+  targets <- matrix(0, nrow = n_feature(sim_features_zones),
+                    ncol = n_zone(sim_features_zones))
+  targets[, 1] <- 0
+  targets[, 2] <- 1
+  targets[, 3] <- 0
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
        add_min_set_objective() %>%
-       add_absolute_targets(matrix(2, nrow = n_feature(sim_features_zones),
-                                   ncol = n_zone(sim_features_zones))) %>%
+       add_absolute_targets(targets) %>%
        add_cuts_portfolio(2) %>%
        add_binary_decisions() %>%
        add_default_solver(gap = 0.2)
@@ -62,9 +66,12 @@ test_that("solve (number_solutions within feasible limit, multiple zones)", {
   expect_true(all(sapply(s, inherits, "RasterStack")))
   expect_equal(names(s), paste0("solution_", seq_len(2)))
   for (i in seq_along(s))
-    for (z in seq_len(n_zone(sim_features_zones)))
-      expect_true(all(raster::cellStats(s[[i]][[z]] * sim_features_zones[[z]],
-                                        "sum") >= 2))
+    expect_true(all(raster::cellStats(s[[i]][[2]] * sim_features_zones[[i]],
+                                      "sum") >= 1))
+  expect_equal({lapply(s, category_layer) %>%
+                lapply(raster::values) %>%
+                lapply(paste, collapse = ",") %>%
+                anyDuplicated()}, 0)
 })
 
 test_that("solve (number_solutions outside limit)", {
