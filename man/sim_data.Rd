@@ -16,13 +16,18 @@
 \alias{sim_features_zones}
 \alias{sim_phylogeny}
 \alias{sim_features}
+\alias{sim_features_zones}
 \alias{sim_pu_polygons}
+\alias{sim_pu_zones_polygons}
+\alias{sim_pu_zones_polygons}
 \alias{sim_pu_lines}
 \alias{sim_pu_points}
 \alias{sim_pu_raster}
+\alias{sim_pu_zones_stack}
 \alias{sim_phylogeny}
 \alias{sim_locked_in_raster}
 \alias{sim_locked_out_raster}
+\alias{sim_locked_zones_stack}
 \title{Simulated conservation planning data}
 \format{\describe{
   \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
@@ -38,21 +43,20 @@
 
   \item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
 
+  \item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
+
   \item{sim_locked_in_raster}{\code{\link[raster]{RasterLayer-class}}
     object.}
 
   \item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
     object.}
 
-  \item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
-
   \item{sim_locked_zones_stack}{\code{\link[raster]{RasterStack-class}}
     object.}
 
   \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
 
-  \item{sim_features_zones}{\code{list} object containing
-    \code{\link[raster]{RasterLayer-class}} elements.}
+  \item{sim_features_zones}{\code{\link{ZonesRaster}} object.}
 
   \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
 }}
@@ -61,7 +65,13 @@ data(sim_pu_polygons)
 
 sim_features
 
+sim_features_zones
+
 sim_pu_polygons
+
+sim_pu_zones_polygons
+
+sim_pu_zones_polygons
 
 sim_pu_lines
 
@@ -69,11 +79,15 @@ sim_pu_points
 
 sim_pu_raster
 
+sim_pu_zones_stack
+
 sim_phylogeny
 
 sim_locked_in_raster
 
 sim_locked_out_raster
+
+sim_locked_zones_stack
 }
 \description{
 Data for making spatial prioritizations using simulated data.
@@ -135,9 +149,7 @@ Data for making spatial prioritizations using simulated data.
     Pixel values indicate habitat suitability.}
 
 \item{\code{sim_features_zones}}{The simulated distribution for five
-    species under three different management zones. Each element in this
-    \code{list} object corresponds to a different zone, and within each
-    element, each layer corresponds to a different species.}
+    species under three different management zones.}
 
 \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
 }
@@ -169,7 +181,7 @@ if (requireNamespace("ape", quietly = TRUE)) {
 par(mfrow = c(1, 1))
 plot(sim_features)
 
-# plot example management zones data
+# plot example management zone cost data
 par(mfrow = c(1, 1))
 plot(sim_pu_zones_stack)
 
@@ -180,5 +192,8 @@ for (i in length(sim_features_zones))
     plot(sim_features_zones[[i]][[j]],
          main = paste0("Species ", i, "(zone ", j ))
 
+# plot example locked data
+par(mfrow = c(1, 1))
+plot(sim_locked_zones_stack)
 }
 \keyword{datasets}
