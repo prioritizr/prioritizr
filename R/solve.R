@@ -67,29 +67,103 @@ NULL
 #' @return A \code{numeric}, \code{matrix},
 #'   \code{\link[raster]{RasterLayer-class}}, or
 #'   \code{\link[sp]{Spatial-class}} object containing the solution to
-#'   the problem.
+#'   the problem. Additionally, the returned object will have the following
+#'   additional attributes: \code{"objective"} containing the solution's
+#'   objective, \code{"runtime"} denoting the number of seconds that elapsed
+#'   while solving the problem, and \code{"status"} describing the
+#'   status of the solution (e.g. \code{"OPTIMAL"} indicates that the
+#'   optimal solution was found).
 #'
 #' @seealso \code{\link{problem}}, \code{\link{solvers}},
 #'   \code{\link{category_layer}}
 #'
 #' @examples
-#' # build minimal conservation problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions()
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load data
+#' data(sim_pu_raster, sim_pu_polygons, sim_features, sim_pu_zones_stack,
+#'      sim_pu_zones_polygons, sim_features_zones)
+#'
+#' # build minimal conservation problem with raster data
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_binary_decisions()
 #' \donttest{
 #' # solve the problem
-#' s <- solve(p)
+#' s1 <- solve(p1)
 #'
-#' # print the solution
-#' print(s)
+#' # print solution
+#' print(s1)
+#'
+#' # print attributes added to the solution
+#' print(attr(s1, "objective"))
+#' print(attr(s1, "runtime"))
+#' print(attr(s1, "status"))
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #' }
+#' # build minimal conservation problem with spatial polygon data
+#' p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_binary_decisions()
+#' \donttest{
+#' # solve the problem
+#' s2 <- solve(p2)
 #'
+#' # print first six rows of the attribute table
+#' print(head(s2))
+#'
+#' # plot solution
+#' spplot(s2, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
+#' }
+#' # build multi-zone conservation problem with raster data
+#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
+#'                                   nrow = n_feature(sim_features_zones),
+#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_binary_decisions()
+#' \donttest{
+#' # solve the problem
+#' s3 <- solve(p3)
+#'
+#' # print solution
+#' print(s3)
+#'
+#' # plot solution
+#' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+#' }
+#' # build multi-zone conservation problem with spatial polygon data
+#' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
+#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
+#'                                   nrow = n_feature(sim_features_zones),
+#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_binary_decisions()
+#' \donttest{
+#' # solve the problem
+#' s4 <- solve(p4)
+#'
+#' # print first six rows of the attribute table
+#' print(head(s4))
+#'
+#' # create new column in s4 representing the zone id that each planning unit
+#' # was allocated to in the solution
+#' s4$solution <- max.col(ties.method = "first",
+#'                        as.data.frame(s4)[, c("solution_1_zone_1",
+#'                                              "solution_1_zone_2",
+#'                                              "solution_1_zone_3")])
+#' s4$solution[s4$solution == 1 & s4$solution_1_zone_1 == 0] <- 0
+#' s4$solution <- factor(s4$solution)
+#'
+#' # plot solution
+#' spplot(s4, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+#' }
 #' @name solve
 #'
 #' @importFrom Matrix solve
