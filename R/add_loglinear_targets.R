@@ -14,7 +14,7 @@ NULL
 #'
 #' @param lower_bound_amount \code{numeric} threshold.
 #'
-#' @param lower_target \code{numeric} relative target that should be
+#' @param lower_bound_target \code{numeric} relative target that should be
 #'   applied to features with a total amount that is less
 #'   than or equal to \code{lower_bound_amount}.
 #'
@@ -58,7 +58,7 @@ NULL
 #' correspond to amount of land occupied by the feature (\deqn{km^2})).
 #'
 #' This function can only be applied to \code{\link{ConservationProblem-class}}
-#' objects with a single zone.
+#' objects that are associated with a single zone.
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the target added
 #'   to it.

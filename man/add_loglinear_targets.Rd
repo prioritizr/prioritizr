@@ -15,6 +15,10 @@ add_loglinear_targets(x, lower_bound_amount, lower_bound_target,
 
 \item{lower_bound_amount}{\code{numeric} threshold.}
 
+\item{lower_bound_target}{\code{numeric} relative target that should be
+applied to features with a total amount that is less
+than or equal to \code{lower_bound_amount}.}
+
 \item{upper_bound_amount}{\code{numeric} threshold.}
 
 \item{upper_bound_target}{\code{numeric} relative target that should be
@@ -27,10 +31,6 @@ capped. Defaults to \code{NULL} so that targets are not capped.}
 \item{cap_target}{\code{numeric} amount-based target to apply to features
 which have a total amount greater than argument to \code{cap_amount}.
 Defaults to \code{NULL} so that targets are not capped.}
-
-\item{lower_target}{\code{numeric} relative target that should be
-applied to features with a total amount that is less
-than or equal to \code{lower_bound_amount}.}
 
 \item{...}{not used.}
 }
@@ -71,7 +71,7 @@ the argument to \code{features} in the function \code{\link{problem}} could
 correspond to amount of land occupied by the feature (\deqn{km^2})).
 
 This function can only be applied to \code{\link{ConservationProblem-class}}
-objects with a single zone.
+objects that are associated with a single zone.
 }
 \examples{
 # load data
