@@ -37,7 +37,8 @@ NULL
 #'     multiple solutions are generated, then the solution is returned as
 #'     a \code{list} of \code{matrix} objects.}
 #'
-#'   \item{\code{\link[raster]{Raster}}}{containing the solution in pixel
+#'   \item{\code{\link[raster]{Raster-class}}}{object containing the solution
+#'      in pixel
 #'      values. If the argument to \code{x} contains a single management zone,
 #'      then a \code{RasterLayer} object will be returned. Otherwise, if the
 #'      argument to \code{x} contains multiple zones, then a
@@ -60,7 +61,7 @@ NULL
 #'
 #' Since this function returns an object that specifies how much of each
 #' planning unit is allocated to each management zone, it may be useful to use
-#' the \code{\link{categorize_by_zone}} function to reformat the output
+#' the \code{\link{category_layer}} function to reformat the output
 #' for problems containing multiple zones.
 #'
 #' @return A \code{numeric}, \code{matrix},
@@ -69,7 +70,7 @@ NULL
 #'   the problem.
 #'
 #' @seealso \code{\link{problem}}, \code{\link{solvers}},
-#'   \code{\link{categorize_by_zone}}
+#'   \code{\link{category_layer}}
 #'
 #' @examples
 #' # build minimal conservation problem

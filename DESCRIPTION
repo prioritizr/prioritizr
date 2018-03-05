@@ -79,6 +79,8 @@ Collate:
     'Penalty-proto.R'
     'Constraint-proto.R'
     'Collection-proto.R'
+    'category_layer.R'
+    'binary_stack.R'
     'ConservationProblem-proto.R'
     'Decision-proto.R'
     'Id.R'
