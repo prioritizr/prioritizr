@@ -72,10 +72,13 @@ Targets are used to specify the minimum amount or proportion of a
  }
 }
 \examples{
-# load data
-data(sim_pu_raster, sim_features)
+# set seed for reproducibility
+set.seed(500)
 
-# create base problem
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create simple problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
      add_binary_decisions()
@@ -91,8 +94,49 @@ p2 <- p \%>\% add_absolute_targets(targets)
 s <- stack(solve(p1), solve(p2))
 
 # plot solution
-plot(s, main = c("targets for 3", "varying targets"), axes = FALSE,
+plot(s, main = c("equal targets", "varying targets"), axes = FALSE,
      box = FALSE)
+}
+
+# create a problem with multiple management zones
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_binary_decisions()
+
+# create a problem with targets that specify an equal amount of each feature
+# to be represented in each zone
+p4_targets <- matrix(2, nrow = n_feature(sim_features_zones),
+                     ncol = n_zone(sim_features_zones),
+                     dimnames = list(feature_names(sim_features_zones),
+                                     zone_names(sim_features_zones)))
+print(p4_targets)
+
+p4 <- p3 \%>\% add_absolute_targets(p4_targets)
+
+# solve problem
+\donttest{
+# solve problem
+s4 <- solve(p4)
+
+# plot solution (pixel values correspond to zone identifiers)
+plot(category_layer(s4), main = c("equal targets"))
+}
+# create a problem with targets that require a varying amount of each
+# feature to be represented in each zone
+p5_targets <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
+                     ncol = n_zone(sim_features_zones),
+                     dimnames = list(feature_names(sim_features_zones),
+                                     zone_names(sim_features_zones)))
+print(p5_targets)
+
+p5 <- p3 \%>\% add_absolute_targets(p4_targets)
+# solve problem
+\donttest{
+# solve problem
+s5 <- solve(p5)
+
+# plot solution (pixel values correspond to zone identifiers)
+plot(category_layer(s5), main = c("varying targets"))
 }
 
 }
