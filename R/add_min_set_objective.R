@@ -50,22 +50,40 @@ NULL
 #'   \code{\link{problem}}, \code{\link{targets}}.
 #'
 #' @examples
-#' # load data
-#' data(sim_pu_raster, sim_features)
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
-#' # create problem
-#' p <- problem(sim_pu_raster, sim_features) %>%
+#' # load data
+#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#'
+#' # create minimal problem with minimum set objective
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
 #'      add_relative_targets(0.1) %>%
 #'      add_binary_decisions()
 #' \donttest{
 #' # solve problem
-#' s <- solve(p)
+#' s1 <- solve(p1)
 #'
 #' # plot solution
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #' }
 #'
+#' # create multi-zone problem with minimum set objective
+#' targets_matrix <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
+#'                          ncol = n_zone(sim_features_zones))
+#'
+#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_absolute_targets(targets_matrix) %>%
+#'       add_binary_decisions()
+#' \donttest{
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # plot solution
+#' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+#' }
 #' @name add_min_set_objective
 NULL
 
