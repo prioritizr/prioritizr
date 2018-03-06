@@ -47,10 +47,13 @@ problems with non-binary planning unit allocations (e.g. proportions), the
 planning unit allocations to a specific value.
 }
 \examples{
-# load data
-data(sim_pu_polygons, sim_features, sim_locked_in_raster)
+# set seed for reproducibility
+set.seed(500)
 
-# create basic problem
+# load data
+data(sim_pu_polygons, sim_features, sim_locked_out_raster)
+
+# create minimal problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2)
@@ -64,8 +67,7 @@ p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
 # create problem with added locked out constraints using raster data
 p4 <- p1 \%>\% add_locked_out_constraints(sim_locked_out_raster)
 
-# create problem with added locked out constraints using spatial polygons
-# data
+# create problem with added locked out constraints using spatial polygon data
 locked_out <- sim_pu_polygons[sim_pu_polygons$locked_out == 1, ]
 p5 <- p1 \%>\% add_locked_out_constraints(locked_out)
 \donttest{
@@ -77,14 +79,14 @@ s4 <- solve(p4)
 s5 <- solve(p5)
 
 # plot solutions
-par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
+par(mfrow = c(3,2), mar = c(0, 0, 4.1, 0))
 plot(s1, main = "none locked out")
 plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
-plot(s2, main="locked out (integer input)")
+plot(s2, main = "locked out (integer input)")
 plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
-plot(s3, main="locked out (character input)")
+plot(s3, main = "locked out (character input)")
 plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
 plot(s4, main = "locked out (raster input)")
@@ -94,4 +96,80 @@ plot(s5, main = "locked out (polygon input)")
 plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 }
 
+# create minimal multi-zone problem with spatial data
+p6 <- problem(sim_pu_zones_polygons, sim_features_zones,
+              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(matrix(rpois(15, 1),
+                                  nrow = n_feature(sim_features_zones),
+                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_binary_decisions()
+
+# create multi-zone problem with locked out constraints using matrix data
+locked_matrix <- sim_pu_zones_polygons@data[, c("locked_1", "locked_2",
+                                                "locked_3")]
+locked_matrix <- as.matrix(locked_matrix)
+
+p7 <- p6 \%>\% add_locked_out_constraints(locked_matrix)
+\donttest{
+# solve problem
+s6 <- solve(p6)
+
+# create new column representing the zone id that each planning unit
+# was allocated to in the solution
+s6$solution <- category_vector(s6@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
+s6$solution <- factor(s6$solution)
+
+# plot solution
+spplot(s6, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+}
+# create multi-zone problem with locked out constraints using field names
+p8 <- p6 \%>\% add_locked_out_constraints(c("locked_1", "locked_2",
+                                          "locked_3"))
+\donttest{
+# solve problem
+s8 <- solve(p8)
+
+# create new column in s8 representing the zone id that each planning unit
+# was allocated to in the solution
+s8$solution <- category_vector(s8@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
+s8$solution[s8$solution == 1 & s8$solution_1_zone_1 == 0] <- 0
+s8$solution <- factor(s8$solution)
+
+# plot solution
+spplot(s8, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+}
+# create multi-zone problem with raster planning units
+p9 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(matrix(rpois(15, 1),
+                                  nrow = n_feature(sim_features_zones),
+                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_binary_decisions()
+
+# create raster stack with locked out units
+locked_out_stack <- sim_pu_zones_stack[[1]]
+locked_out_stack[!is.na(locked_out_stack)] <- 0
+locked_out_stack <- locked_out_stack[[c(1, 1, 1)]]
+locked_out_stack[[1]][1] <- 1
+locked_out_stack[[2]][2] <- 1
+locked_out_stack[[3]][3] <- 1
+
+# plot locked out stack
+plot(locked_out_stack)
+
+# add locked out raster units to problem
+p9 <- p9 \%>\% add_locked_out_constraints(locked_out_stack)
+
+\donttest{
+# solve problem
+s9 <- solve(p9)
+
+# plot solution
+plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
+}
 }

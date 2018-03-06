@@ -90,7 +90,7 @@ NULL
 #' # create problem with added locked in constraints using raster data
 #' p4 <- p1 %>% add_locked_in_constraints(sim_locked_in_raster)
 #'
-#' # create problem with added locked in constraints using spatial polygons data
+#' # create problem with added locked in constraints using spatial polygon data
 #' locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1, ]
 #' p5 <- p1 %>% add_locked_in_constraints(locked_in)
 #' \donttest{
