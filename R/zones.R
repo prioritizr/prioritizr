@@ -114,10 +114,6 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
                           msg = paste("number of supplied zones does not match",
                                       "number of the supplied zone names"))
   # assert that arguments are valid
-  assertthat::assert_that(length(unique(vapply(args, function(x) class(x)[[1]],
-                                               character(1)))) == 1,
-                          msg = paste("all arguments do not inherit from the",
-                                      "same class"))
   assertthat::assert_that(all(vapply(args, inherits, logical(1), "Raster")) ||
                           all(vapply(args, inherits, logical(1),
                                      "character")),

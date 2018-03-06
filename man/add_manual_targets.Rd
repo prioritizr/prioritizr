@@ -58,7 +58,7 @@ The \code{targets} argument should contain the following fields (columns):
       that do not contain multiple zones.}
 
     \item{\code{"type"}}{\code{character} describing the type of target.
-      Acceptable values include: \code{"absolute"} and \code{"relative"}.
+      Acceptable values include \code{"absolute"} and \code{"relative"}.
       These values correspond to \code{\link{add_absolute_targets}},
       and \code{\link{add_relative_targets}} respectively.}
 
@@ -67,9 +67,140 @@ The \code{targets} argument should contain the following fields (columns):
       (column) is optional and if it is missing then target senses will
       default to \code{">="} values.}
 
-    \item{\code{"target"}}{\code{numeric} target value.}
+    \item{\code{"target"}}{\code{numeric} target threshold.}
 
  }
+}
+\examples{
+# set seed for reproducibility
+set.seed(500)
+
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create problem with 10 \% relative targets
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
+}
+# create equivalent problem using add_manual_targets
+p2 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(data.frame(feature = names(sim_features),
+                                    type = "relative", sense = ">=",
+                                    target = 0.1)) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+plot(s2, main = "solution", axes = FALSE, box = FALSE)
+}
+# create problem with targets set for only a few features
+p3 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(data.frame(
+        feature = names(sim_features)[1:3], type = "relative",
+        sense = ">=", target = 0.1)) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s3 <- solve(p3)
+
+# plot solution
+plot(s3, main = "solution", axes = FALSE, box = FALSE)
+}
+# create problem that aims to secure at least 10 \% of the habitat for one
+# feature whilst ensuring that the solution does not capture more than
+# 20 units habitat for different feature
+# create problem with targets set for only a few features
+p4 <- problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(data.frame(
+        feature = names(sim_features)[1:2], type = "relative",
+        sense = c(">=", "<="), target = c(0.1, 0.2))) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s4 <- solve(p4)
+
+# plot solution
+plot(s4, main = "solution", axes = FALSE, box = FALSE)
+}
+# create a multi-zone problem that requires a specific amount of each
+# feature in each zone
+targets_matrix <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
+                         ncol = n_zone(sim_features_zones))
+
+p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(targets_matrix) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s5 <- solve(p5)
+
+# plot solution
+plot(category_layer(s5), main = "solution", axes = FALSE, box = FALSE)
+}
+# create equivalent problem using add_manual_targets
+targets_dataframe <- expand.grid(feature = feature_names(sim_features_zones),
+                                 zone = zone_names(sim_features_zones),
+                                 sense = ">=", type = "absolute")
+targets_dataframe$target <- c(targets_matrix)
+
+p6 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(targets_dataframe) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s6 <- solve(p6)
+
+# plot solution
+plot(category_layer(s6), main = "solution", axes = FALSE, box = FALSE)
+}
+# create a problem that requires a total of 20 units of habitat to be
+# captured for two species. This can be achieved through representing
+# habitat in two zones. The first zone represents a full restoration of the
+# habitat and a second zone represents a partial restoration of the habitat
+# Thus only half of the benefit that would have been gained from the full
+# restoration is obtained when planning units are allocated a partial
+# restoration
+
+# create data
+spp_zone1 <- as.list(sim_features_zones)[[1]][[1:2]]
+spp_zone2 <- spp_zone1 * 0.5
+costs <- sim_pu_zones_stack[[1:2]]
+
+# create targets
+targets_dataframe2 <- tibble::tibble(
+  feature = names(spp_zone1), zone = list(c("z1", "z2"), c("z1", "z2")),
+  sense = c(">=", ">="), type = c("absolute", "absolute"),
+  target = c(20, 20))
+
+# create problem
+p7 <- problem(costs, zones(spp_zone1, spp_zone2,
+                           feature_names = names(spp_zone1),
+                           zone_names = c("z1", "z2"))) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(targets_dataframe2) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s7 <- solve(p7)
+
+# plot solution
+plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
+}
 }
 \seealso{
 \code{\link{targets}}.
