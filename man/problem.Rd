@@ -248,6 +248,10 @@ representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
 representation level of feature \emph{i} in planning unit \emph{j}.
 }
 \examples{
+# load data
+data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
+     sim_features)
+
 # create problem using raster planning unit data
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
@@ -324,7 +328,101 @@ plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 # show solutions for problems associated with aspatial data
 str(s6)
 }
+# create some problems with multiple zones
 
+# first, create a matrix containing the targets for multi-zone problems
+# here each row corresponds to a different feature, each
+# column corresponds to a different zone, and values correspond
+# to the total (absolute) amount of a given feature that needs to be secured
+# in a given zone
+targets <- matrix(rpois(15, 1),
+                  nrow = n_feature(sim_features_zones),
+                  ncol = n_zone(sim_features_zones),
+                  dimnames = list(feature_names(sim_features_zones),
+                                  zone_names(sim_features_zones)))
+
+# print targets
+print(targets)
+
+# create a multi-zone problem with raster data
+p6 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(targets) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s6 <- solve(p6)
+
+# plot solution
+# here, each layer/panel corresponds to a different zone and pixel values
+# indicate if a given planning unit has been allocated to a given zone
+par(mfrow = c(1, 1))
+plot(s6, main = c("zone 1", "zone 2", "zone 3"), axes = FALSE, box = FALSE)
+
+# alternatively, the category_layer function can be used to create
+# a new raster object containing the zone ids for each planning unit
+# in the solution (note this only works for problems with binary decisions)
+par(mfrow = c(1, 1))
+plot(category_layer(s6), axes = FALSE, box = FALSE)
+}
+# create a multi-zone problem with polygon data
+p7 <- problem(sim_pu_zones_polygons, sim_features_zones,
+              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(targets) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problem
+s7 <- solve(p7)
+
+# create column containing the zone id for which each planning unit was
+# allocated to in the solution
+s7$solution <- max.col(ties.method = "first",
+                       as.data.frame(s7)[, c("solution_1_zone_1",
+                                             "solution_1_zone_2",
+                                             "solution_1_zone_3")])
+s7$solution[s7$solution == 1 & s7$solution_1_zone_1 == 0] <- 0
+s7$solution <- factor(s7$solution)
+
+# plot solution
+spplot(s7, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+}
+# create a multi-zone problem with polygon planning unit data
+# and where fields (columns) in the attribute table correspond
+# to feature abundances
+
+# first fields need to be added to the planning unit data
+# which indicate the amount of each feature in each zone
+# to do this, the fields will be populated with random counts
+sim_pu_zones_polygons$spp1_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_pu_zones_polygons$spp2_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_pu_zones_polygons$spp3_z1 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_pu_zones_polygons$spp1_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_pu_zones_polygons$spp2_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
+sim_pu_zones_polygons$spp3_z2 <- rpois(nrow(sim_pu_zones_polygons), 1)
+
+# create problem with polygon planning unit data and use field names
+# to indicate feature data
+# additionally, to make this example slightly more interesting,
+# the problem will have proportion-type decisions such that
+# a proportion of each planning unit can be allocated to each of the
+# two management zones
+p8 <- problem(sim_pu_zones_polygons,
+              zones(c("spp1_z1", "spp2_z1", "spp3_z1"),
+                    c("spp1_z2", "spp2_z2", "spp3_z2"),
+                    zone_names = c("z1", "z2")),
+              cost_column = c("cost_1", "cost_2")) \%>\%
+      add_min_set_objective() \%>\%
+      add_absolute_targets(targets[1:3, 1:2]) \%>\%
+      add_proportion_decisions()
+\donttest{
+# solve problem
+s8 <- solve(p8)
+
+# plot solution
+spplot(s8, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
+       axes = FALSE, box = FALSE)
+}
 }
 \seealso{
 \code{\link{constraints}},  \code{\link{decisions}},
