@@ -157,13 +157,11 @@ s4 <- solve(p4)
 # print first six rows of the attribute table
 print(head(s4))
 
-# create new column in s4 representing the zone id that each planning unit
+# create new columnrepresenting the zone id that each planning unit
 # was allocated to in the solution
-s4$solution <- max.col(ties.method = "first",
-                       as.data.frame(s4)[, c("solution_1_zone_1",
-                                             "solution_1_zone_2",
-                                             "solution_1_zone_3")])
-s4$solution[s4$solution == 1 & s4$solution_1_zone_1 == 0] <- 0
+s4$solution <- category_vector(s4@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
 s4$solution <- factor(s4$solution)
 
 # plot solution

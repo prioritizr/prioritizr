@@ -1,4 +1,4 @@
-#' @include internal.R waiver.R pproto.R Collection-proto.R binary_stack.R category_layer.R
+#' @include internal.R waiver.R pproto.R Collection-proto.R binary_stack.R category_layer.R category_vector.R
 NULL
 
 #' @export

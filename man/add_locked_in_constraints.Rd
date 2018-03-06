@@ -167,13 +167,11 @@ p7 <- p6 \%>\% add_locked_in_constraints(locked_matrix)
 # solve problem
 s6 <- solve(p6)
 
-# create new column in s6 representing the zone id that each planning unit
+# create new column representing the zone id that each planning unit
 # was allocated to in the solution
-s6$solution <- max.col(ties.method = "first",
-                       as.data.frame(s6)[, c("solution_1_zone_1",
-                                             "solution_1_zone_2",
-                                             "solution_1_zone_3")])
-s6$solution[s6$solution == 1 & s6$solution_1_zone_1 == 0] <- 0
+s6$solution <- category_vector(s6@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
 s6$solution <- factor(s6$solution)
 
 # plot solution
@@ -187,10 +185,9 @@ s8 <- solve(p8)
 
 # create new column in s8 representing the zone id that each planning unit
 # was allocated to in the solution
-s8$solution <- max.col(ties.method = "first",
-                       as.data.frame(s8)[, c("solution_1_zone_1",
-                                             "solution_1_zone_2",
-                                             "solution_1_zone_3")])
+s8$solution <- category_vector(s8@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
 s8$solution[s8$solution == 1 & s8$solution_1_zone_1 == 0] <- 0
 s8$solution <- factor(s8$solution)
 

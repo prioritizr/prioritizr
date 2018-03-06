@@ -377,11 +377,9 @@ s7 <- solve(p7)
 
 # create column containing the zone id for which each planning unit was
 # allocated to in the solution
-s7$solution <- max.col(ties.method = "first",
-                       as.data.frame(s7)[, c("solution_1_zone_1",
-                                             "solution_1_zone_2",
-                                             "solution_1_zone_3")])
-s7$solution[s7$solution == 1 & s7$solution_1_zone_1 == 0] <- 0
+s7$solution <- category_vector(s7@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
 s7$solution <- factor(s7$solution)
 
 # plot solution
