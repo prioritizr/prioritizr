@@ -47,7 +47,7 @@ NULL
 #' }
 #'
 #' @seealso \code{\link{decisions}}, \code{\link{objectives}},
-#'  \code{\link{penalties}}, code{\link{portfolios}}, \code{\link{problem}},
+#'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
 #' @examples
