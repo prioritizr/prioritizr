@@ -39,7 +39,7 @@ feature needs to be conserved), or \code{"absolute"} (e.g. \code{200}
 meaning that 200 units of a feature need to be conserved) amounts.}
 
 \item{locked_in}{Object that determines which planning units that should be
-locked in. See details for more information.}
+locked in. See the Details section for more information.}
 
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Details section for more information.}
