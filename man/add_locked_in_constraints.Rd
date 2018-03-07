@@ -108,7 +108,8 @@ data(sim_pu_polygons, sim_features, sim_locked_in_raster)
 # create minimal problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.2)
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
 # create problem with added locked in constraints using integers
 p2 <- p1 \%>\% add_locked_in_constraints(which(sim_pu_polygons$locked_in))
@@ -183,7 +184,7 @@ p8 <- p6 \%>\% add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
 # solve problem
 s8 <- solve(p8)
 
-# create new column in s8 representing the zone id that each planning unit
+# create new column representing the zone id that each planning unit
 # was allocated to in the solution
 s8$solution <- category_vector(s8@data[, c("solution_1_zone_1",
                                            "solution_1_zone_2",

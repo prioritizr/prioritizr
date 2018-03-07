@@ -56,7 +56,8 @@ data(sim_pu_polygons, sim_features, sim_locked_out_raster)
 # create minimal problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.2)
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
 
 # create problem with added locked out constraints using integers
 p2 <- p1 \%>\% add_locked_out_constraints(which(sim_pu_polygons$locked_out))

@@ -23,7 +23,7 @@ NULL
 #'     \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 #'
 #'     \item{\code{"zone"}}{\code{character} names of zones. Note that this
-#'       argument is optional for arguments to \code{x} that involve a single
+#'       argument is optional for arguments to \code{x} that contain a single
 #'       zone.}
 #'
 #'     \item{\code{"status"}}{\code{numeric} values indicating how much
@@ -35,8 +35,88 @@ NULL
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
 #' @examples
-#' # TODO
+#' # set seed for reproducibility
+#' set.seed(500)
 #'
+#' # load data
+#' data(sim_pu_polygons, sim_features, sim_pu_zones_polygons,
+#'      sim_features_zones)
+#'
+#' # create minimal problem
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_binary_decisions()
+#'
+#' # create problem with locked in constraints using add_locked_constraints
+#' p2 <- p1 %>% add_locked_in_constraints("locked_in")
+#'
+#' # create identical problem using add_manual_locked_constraints
+#' locked_dataframe <- data.frame(pu = which(sim_pu_polygons$locked_in),
+#'                                status = 1)
+#'
+#' p3 <- p1 %>% add_manual_locked_constraints(locked_dataframe)
+#' \donttest{
+#' # solve problems
+#' s1 <- solve(p1)
+#' s2 <- solve(p2)
+#' s3 <- solve(p3)
+#'
+#' # plot solutions
+#' par(mfrow = c(1,3), mar = c(0, 0, 4.1, 0))
+#' plot(s1, main = "none locked in")
+#' plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#'
+#' plot(s2, main = "add_locked_in_constraints")
+#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#'
+#' plot(s3, main = "add_manual_constraints")
+#' plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' }
+#' # create minimal problem with multiple zones
+#' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
+#'               c("cost_1", "cost_2", "cost_3")) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
+#'                                   nrow = n_feature(sim_features_zones),
+#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_binary_decisions()
+#'
+#' # create data.frame with the following constraints:
+#' # planning units 1, 2, and 3 must be allocated to zone 1 in the solution
+#' # planning units 4, and 5 must be allocated to zone 2 in the solution
+#' # planning units 8 and 9 must not be allocated to zone 3 in the solution
+#' locked_dataframe2 <- data.frame(pu = c(1, 2, 3, 4, 5, 8, 9),
+#'                                 zone = c(rep("zone_1", 3), rep("zone_2", 2),
+#'                                          rep("zone_3", 2)),
+#'                                 status = c(rep(1, 5), rep(0, 2)))
+#'
+#' # print locked constraint data
+#' print(locked_dataframe2)
+#'
+#' # create problem with added constraints
+#' p5 <- p4 %>% add_manual_locked_constraints(locked_dataframe2)
+#' \donttest{
+#' # solve problem
+#' s4 <- solve(p4)
+#' s5 <- solve(p5)
+#'
+#' # create two new columns representing the zone id that each planning unit
+#' # was allocated to in the two solutions
+#' s4$solution <- category_vector(s4@data[, c("solution_1_zone_1",
+#'                                            "solution_1_zone_2",
+#'                                            "solution_1_zone_3")])
+#' s4$solution <- factor(s4$solution)
+#'
+#' s4$solution_locked <- category_vector(s5@data[, c("solution_1_zone_1",
+#'                                                   "solution_1_zone_2",
+#'                                                   "solution_1_zone_3")])
+#' s4$solution_locked <- factor(s4$solution_locked)
+#'
+#' # plot solutions
+#' spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
+#'        box = FALSE)
+#' }
 #' @seealso \code{\link{constraints}}.
 #'
 #' @name add_manual_locked_constraints

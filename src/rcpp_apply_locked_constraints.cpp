@@ -12,8 +12,8 @@ bool rcpp_apply_locked_constraints(SEXP x, Rcpp::IntegerVector pu,
   zone = zone - 1;
   // assign bounds based on indices
   for (auto i = 0; i < pu.size();  ++i) {
-    ptr->_lb[(zone[i] * ptr->_number_of_zones) + pu[i]] = status[i];
-    ptr->_ub[(zone[i] * ptr->_number_of_zones) + pu[i]] = status[i];
+    ptr->_lb[(zone[i] * ptr->_number_of_planning_units) + pu[i]] = status[i];
+    ptr->_ub[(zone[i] * ptr->_number_of_planning_units) + pu[i]] = status[i];
   }
   // return result
   return true;
