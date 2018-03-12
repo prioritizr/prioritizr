@@ -1,17 +1,28 @@
 # prioritizr 4.0.0.0 (unreleased)
 
-- New `zones` class to organize data with multiple zones.
-- The `problem` function now accepts `Zone` objects as arguments to `feature`
-   create problems with multiple zones.
+- New `zones` function and `Zones` class to organize data with multiple zones.
+- The `problem` function now accepts `Zone` objects as arguments for `feature`
+   to create problems with multiple zones.
 - The `add_relative_targets` and `add_absolute_targets` functions now accept
-  `matrix` objects as arguments to `target` to specify targets for each feature
+  `matrix` objects as arguments for `target` to specify targets for each feature
   in each zone.
 - New `add_manual_targets` function to specify targets using `tibble` tables
   (`tbl_df` objects). This function can be used to set targets in problems
   with multiple zones where a single target can be achieved through allocating
   planning units to different zones.
-- The `solve` function now returns a `list` of solutions when generating solutions. It no longer returns a `matrix` or `RasterStack` containing where each column/layer corresponds to a different solution.
-
+- The `solve` function now returns a `list` of solutions when generating
+  solutions. It no longer returns a `matrix` or `RasterStack` containing where
+  each column/layer corresponds to a different solution.
+- The `add_locked_in_constraints` and `add_locked_out_constraints` function now
+  accept matrices to specify which planning units should or shouldn't be
+  allocated to different zones in solutions.
+- New `add_manual_locked_constraints` function to manually specify which
+  planning units should or shouldn't be allocated to specific zones in
+  solutions.
+- The `add_boundary_penalties` function now accepts a matrix as an argument for
+  `penalty` and a multi-element numeric vector for `edge_factor` to specify the
+  penalties for adjacent planning units when they are allocated to different
+  zones.
 
 # prioritizr 3.0.3.6 (unreleased)
 

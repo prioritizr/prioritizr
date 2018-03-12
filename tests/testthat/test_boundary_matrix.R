@@ -113,6 +113,18 @@ test_that("RasterLayer", {
   expect_true(all(b == s))
 })
 
+test_that("RasterStack", {
+  # data
+  x <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
+                      xmn = 0, ymn = 0, xmx = 6, ymx = 3)
+  x <- stack(x, x, x)
+  x[[1]][2] <- NA
+  b <- boundary_matrix(x)
+  s <- boundary_matrix(raster::rasterToPolygons(x[[2]], n = 4))
+  # tests
+  expect_true(all(b == s))
+})
+
 test_that("SpatialLines", {
   # data
   x <- sp::SpatialLines(list(

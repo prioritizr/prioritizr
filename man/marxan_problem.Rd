@@ -44,14 +44,17 @@ locked in. See the Details section for more information.}
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Details section for more information.}
 
-\item{penalty}{\code{numeric} penalty for exposed edges. This
-is equivalent to the
+\item{penalty}{\code{numeric} or \code{matrix} of penalty multipliers for
+exposed edges. This is equivalent to the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{Marxan}.}
+parameter in \href{http://marxan.net}{Marxan}. Note that \code{matrix}
+arguments must be symmetric. See the Details section for more information.}
 
-\item{edge_factor}{\code{numeric} proportion to scale edges that do
-not have any neighboring planning units. For example, an edge factor
-of \code{0.5} is commonly used for planning units along the coast line.}
+\item{edge_factor}{\code{numeric} \code{vector} proportion to scale edges
+that do not have any neighboring planning units. For example, an edge
+factor of \code{0.5} is commonly used for planning units along the coast
+line. Note that this argument must have an element for each zone
+in the argument to \code{x}.}
 
 \item{spec}{\code{data.frame} containing information on the features.
 The argument to \code{spec} must follow the conventions used by

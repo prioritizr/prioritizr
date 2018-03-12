@@ -22,7 +22,8 @@ NULL
 #'   coastline). \strong{This function assumes the data are in a coordinate
 #'   system where Euclidean distances accurately describe the proximity
 #'   between two points on the earth}. Thus spatial data in a longitude/latitude
-#'   coordinate system (aka \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
+#'   coordinate system (aka
+#'   \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 #'   should be reprojected to another coordinate system before using this
 #'   function.
 #'
@@ -68,10 +69,18 @@ boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")
 #' @export
 boundary_matrix.Raster <- function(x, ...) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "Raster"),
-                                   isTRUE(raster::nlayers(x) == 1))
-  # indices of cells with finite values
-  include <- raster::Which(is.finite(x), cells = TRUE)
+  assertthat::assert_that(inherits(x, "Raster"))
+  if (raster::nlayers(x) == 1) {
+    # indices of cells with finite values
+    include <- raster::Which(is.finite(x), cells = TRUE)
+  } else {
+    # indices of cells with finite values
+    include <- raster::Which(sum(is.finite(x)) > 0, cells = TRUE)
+    suppressWarnings(x <- raster::setValues(x[[1]], NA_real_))
+    # set x to a single raster layer with only values in pixels that are not
+    # NA in all layers
+    x[include] <- 1
+  }
   # find the neighboring indices of these cells
   ud <- matrix(c(NA, NA, NA, 1, 0, 1, NA, NA, NA), 3, 3)
   lf <- matrix(c(NA, 1, NA, NA, 0, NA, NA, 1, NA), 3, 3)

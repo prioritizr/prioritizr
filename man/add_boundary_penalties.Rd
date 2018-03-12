@@ -2,21 +2,30 @@
 % Please edit documentation in R/add_boundary_penalties.R
 \name{add_boundary_penalties}
 \alias{add_boundary_penalties}
+\alias{add_boundary_penalties,ConservationProblem,numeric-method}
+\alias{add_boundary_penalties,ConservationProblem,matrix-method}
+\alias{add_boundary_penalties}
+\alias{add_boundary_penalties}
 \title{Add boundary penalties}
 \usage{
-add_boundary_penalties(x, penalty, edge_factor, boundary_data = NULL)
+\S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, boundary_data = NULL, ...)
+
+\S4method{add_boundary_penalties}{ConservationProblem,matrix}(x, penalty, edge_factor, boundary_data = NULL, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{penalty}{\code{numeric} penalty for exposed edges. This
-is equivalent to the
+\item{penalty}{\code{numeric} or \code{matrix} of penalty multipliers for
+exposed edges. This is equivalent to the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{Marxan}.}
+parameter in \href{http://marxan.net}{Marxan}. Note that \code{matrix}
+arguments must be symmetric. See the Details section for more information.}
 
-\item{edge_factor}{\code{numeric} proportion to scale edges that do
-not have any neighboring planning units. For example, an edge factor
-of \code{0.5} is commonly used for planning units along the coast line.}
+\item{edge_factor}{\code{numeric} \code{vector} proportion to scale edges
+that do not have any neighboring planning units. For example, an edge
+factor of \code{0.5} is commonly used for planning units along the coast
+line. Note that this argument must have an element for each zone
+in the argument to \code{x}.}
 
 \item{boundary_data}{A \code{matrix} or
 \code{data.frame} object showing the shared boundary lengths
@@ -33,6 +42,8 @@ automatically calculated. Note that the \code{boundary_data} must be
 denote symmetric relationships between planning units. If
 asymmetric relationships are required, use the
 \code{\link{add_connectivity_penalties}} function.}
+
+\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object.
@@ -42,12 +53,40 @@ Add penalties to a conservation problem to favor solutions that clump
 selected planning units together into contiguous reserves.
 }
 \details{
-These penalties use shared boundary length as a measure of
-connectivity, equivalent to the boundary length modifier (BLM) in
-\href{http://marxan.net}{Marxan}. Boundary data is calculated automatically
-unless the planning units in \code{x} are stored in a \code{data.frame}, in
-which case boundary data must be added as a \code{matrix} or
-\code{data.frame}. For a given side of a planning unit (indexed by \eqn{i})
+This function adds penalties to a conservation planning problem
+to penalize fragmented solutions. These penalties are equivalent to the
+boundary length modifier (\code{BLM}) used in
+\href{http://marxan.net}{\emph{Marxan}}. Boundary data is calculated
+automatically for spatial planning unit data. If the planning unit data
+in the argument to \code{x} inherits from a \code{numeric}, \code{matrix},
+or \code{data.frame} format, the boundary data must be supplied as an
+argument to \code{boundary_data}.
+
+The correct argument to \code{penalty} depends on the number of zones
+in the argument to \code{x}. If the argument to \code{x} is associated
+with a single zone, then the argument to \code{penalty} should be
+a single \code{numeric} value that represents the value which planning unit
+boundaries should be multipled by when calculating penalties for when
+they are exposed in a solution (i.e. they have no neighbor in the solution).
+If, on the other hand, the argument to \code{x} contains multiple zones,
+then the argument to \code{penalty} must be \code{matrix}. Here, each row
+and column corresponds to a different zone, and cell values represent penalty
+multipliers. Cells that occur along the matrix diagonal
+represent the penalty multipliers that make solutions more costly
+when adjacent planning units are not allocated to the same zone. On the
+other hand, cells that do not occur along the matrix diagonal represent
+the penalty multipliers that make solutions more costly when adjacent
+planning units are not allocated to the zones indicated by the row and
+column index of the cell. Thus setting higher values in the matrix makes
+the solution more spatially clumped. \strong{Note that if the cells along
+the matrix diagonal contain values that are markedly lower than cells
+found elsewhere in the matrix, then the optimal solution will favor
+solutions that surround planning units with planning units that are
+allocated to different zones.}
+
+To help provide a greater understanding of this penalty, here
+we will provide the mathematical formulation for a problem containing
+a single zone. For a given side of a planning unit (indexed by \eqn{i})
 with a known length (\eqn{l_i}{li}) and the arguments to \code{penalty}
 (\eqn{p}) and \code{edge_factor} (\eqn{e}), the cost incurred by this side
  being exposed in a solution is calculated as:
@@ -63,28 +102,80 @@ This function is inspired by Ball \emph{et al.} (2009) and Beyer
 \emph{et al.} (2016).
 }
 \examples{
-# # not implemented
-# # create basic problem
-# p1 <- problem(sim_pu_raster, sim_features) \%>\%
-#       add_min_set_objective() \%>\%
-#       add_relative_targets(0.2) \%>\%
-#       add_default_solver()
-#
-# # create problem with low boundary penalties
-# p2 <- p1 \%>\% add_boundary_penalties(5, 1)
-#
-# # create problem with high boundary penalties but outer edges receive
-# # half the penalty as inner edges
-# p3 <- p1 \%>\% add_boundary_penalties(50, 0.5)
-# \donttest{
-# # solve problems
-# s <- stack(solve(p1), solve(p2), solve(p3))
-#
-# # plot solutions
-# plot(s, main = c("basic solution", "small penalties", "high penalties"),
-#      axes = FALSE, box = FALSE)
-# }
+# set seed for reproducibility
+set.seed(500)
 
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create minimal problem
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver()
+
+# create problem with low boundary penalties
+p2 <- p1 \%>\% add_boundary_penalties(5, 1)
+
+# create problem with high boundary penalties but outer edges receive
+# half the penalty as inner edges
+p3 <- p1 \%>\% add_boundary_penalties(50, 0.5)
+\donttest{
+# solve problems
+s <- stack(solve(p1), solve(p2), solve(p3))
+
+# plot solutions
+plot(s, main = c("basic solution", "small penalties", "high penalties"),
+     axes = FALSE, box = FALSE)
+}
+# create minimal problem with multiple zones
+p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(0.2,
+                                  nrow = n_feature(sim_features_zones),
+                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver()
+
+# create boundary penalty matrix which favours clumping units
+# togeather that are allocated to the same zone
+pm5 <- matrix(0, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm5) <- 500
+print(pm5)
+
+# create problem with the boundary penalty matrix
+p5 <- p4 \%>\% add_boundary_penalties(pm5, rep(1, n_zone(sim_features_zones)))
+
+# create boundary penalty matrix which favours clumping units togeather
+# that are allocated to different zones
+pm6 <- matrix(600, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm6) <- 0
+print(pm6)
+
+# create problem with the boundary penalty matrix
+p6 <- p4 \%>\% add_boundary_penalties(pm6, rep(1, n_zone(sim_features_zones)))
+
+# create boundary penalty matrix which strongly favours clumping units
+# togeather that are allocated to the same zone, and also slightly
+# prefers clumping planning units togeather that are allocated
+# to different zones
+pm7 <- matrix(500, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm7) <- 600
+print(pm7)
+
+# create problem with the boundary penalty matrix
+p7 <- p4 \%>\% add_boundary_penalties(pm7, rep(1, n_zone(sim_features_zones)))
+\donttest{
+# solve problems
+s2 <- stack(category_layer(solve(p4)), category_layer(solve(p5)),
+            category_layer(solve(p6)), category_layer(solve(p7)))
+
+# plot solutions
+plot(s2, main = c("basic solution", "same zone penalties",
+                 "different zone penalties", "both zone penalties"),
+     axes = FALSE, box = FALSE)
+}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
