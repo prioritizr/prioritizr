@@ -263,7 +263,7 @@ methods::setMethod(
                                   "try-error")
     # define function to render targets object
     rfun <- function(x)
-      getFromNamespace("rhandsontable", "rHandsontableOutput")(x)
+      utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
     # add targets to problem
     x$add_targets(pproto(
     "ManualTargets",

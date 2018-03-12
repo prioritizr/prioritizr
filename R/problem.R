@@ -492,8 +492,6 @@ methods::setMethod(
       assertthat::assert_that(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
     # compute rij matrix including non-planning unit cells
-    o1 <<- features
-    o2 <<- x
     rij <- rij_matrix(x, raster::stack(as.list(features)))
     rij <- lapply(seq_len(n_zone(features)), function(i) {
       m <- rij[((i - 1) * n_feature(features)) + seq_len(n_feature(features)), ,

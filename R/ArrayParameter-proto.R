@@ -137,7 +137,7 @@ ArrayParameter <- pproto(
       stop(paste0("the \"", pkg, "\" R package must be installed to render",
                   " this parameter."))
     # extract function
-    f <- do.call(getFromNamespace,
+    f <- do.call(utils::getFromNamespace,
       as.list(rev(strsplit(self$widget, "::")[[1]])))
     do.call(f, list(outputId = self$id))
   })

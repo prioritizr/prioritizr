@@ -295,7 +295,8 @@ methods::setMethod("add_boundary_penalties",
     }
     # define function to render targets object
     rfun <- function(x)
-      getFromNamespace("rhandsontable", "rHandsontableOutput")(as.data.frame(x))
+      utils::getFromNamespace("rHandsontableOutput",
+                              "rhandsontable")(as.data.frame(x))
     # create new constraint object
     x$add_penalty(pproto(
       "BoundaryPenalty",

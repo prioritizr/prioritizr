@@ -195,7 +195,7 @@ methods::setMethod("add_manual_locked_constraints",
                                   "try-error")
     # define function to render data
     rfun <- function(x)
-      getFromNamespace("rhandsontable", "rHandsontableOutput")(x)
+      utils::getFromNamespace("rHandsontableOutput", "rhandsontable")(x)
      # add constraints
      x$add_constraint(pproto(
       class_name,
