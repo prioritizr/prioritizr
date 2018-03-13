@@ -3,7 +3,7 @@
 \name{ScalarParameter-class}
 \alias{ScalarParameter-class}
 \alias{ScalarParameter}
-\title{Scalar Parameter prototype}
+\title{Scalar parameter prototype}
 \description{
 This prototype is used to represent a parameter has a single value.
 \strong{Only experts should interact directly with this prototype.}

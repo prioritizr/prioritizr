@@ -2,7 +2,7 @@
 % Please edit documentation in R/portfolios.R
 \name{portfolios}
 \alias{portfolios}
-\title{Solution portfolio methods}
+\title{Solution portfolios}
 \description{
 Conservation planners often desire a portfolio of solutions
 to present to decision makers. This is because conservation planners

@@ -9,7 +9,7 @@
 \alias{add_manual_targets}
 \alias{add_manual_targets}
 \alias{add_manual_targets}
-\title{Add Manual Targets}
+\title{Add manual targets}
 \usage{
 \S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets, ...)
 

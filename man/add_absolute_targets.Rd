@@ -10,7 +10,7 @@
 \alias{add_absolute_targets}
 \alias{add_absolute_targets}
 \alias{add_absolute_targets}
-\title{Add Absolute Targets}
+\title{Add absolute targets}
 \usage{
 add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
 

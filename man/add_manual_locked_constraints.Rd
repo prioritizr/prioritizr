@@ -6,7 +6,7 @@
 \alias{add_manual_locked_constraints,ConservationProblem,tbl_df-method}
 \alias{add_manual_locked_constraints}
 \alias{add_manual_locked_constraints}
-\title{Add Manually Specified Locked Constraints}
+\title{Add manually specified locked constraints}
 \usage{
 add_manual_locked_constraints(x, locked)
 

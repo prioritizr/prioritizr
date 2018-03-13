@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add Minimum Set Objective
+#' Add minimum set objective
 #'
 #' Set an objective to find the solution that fulfills all the targets and
 #' constraints for the smallest cost. This objective is similar to that used in

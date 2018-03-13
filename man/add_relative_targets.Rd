@@ -11,7 +11,7 @@
 \alias{add_relative_targets}
 \alias{add_relative_targets}
 \alias{add_relative_targets}
-\title{Add Relative Targets}
+\title{Add relative targets}
 \usage{
 \S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets, ...)
 

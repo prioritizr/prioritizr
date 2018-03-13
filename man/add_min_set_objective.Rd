@@ -3,7 +3,7 @@
 \name{add_min_set_objective}
 \alias{add_min_set_objective}
 \alias{add_min_set_objective}
-\title{Add Minimum Set Objective}
+\title{Add minimum set objective}
 \usage{
 add_min_set_objective(x)
 }

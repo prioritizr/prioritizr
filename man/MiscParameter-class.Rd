@@ -3,7 +3,7 @@
 \name{MiscParameter-class}
 \alias{MiscParameter-class}
 \alias{MiscParameter}
-\title{Miscellaneous Parameter prototype}
+\title{Miscellaneous parameter prototype}
 \description{
 This prototype is used to represent a parameter that can be any object.
 \strong{Only experts should interact directly with this prototype.}

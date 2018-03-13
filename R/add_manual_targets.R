@@ -4,7 +4,7 @@ NULL
 #' @export
 methods::setOldClass("tbl_df")
 
-#' Add Manual Targets
+#' Add manual targets
 #'
 #' Set targets for a for a conservation planning \code{\link{problem}}.
 #' This function can be used to customize all aspects of a target. For most

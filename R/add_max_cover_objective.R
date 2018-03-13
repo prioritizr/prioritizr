@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add Maximum Coverage Objective
+#' Add maximum coverage objective
 #'
 #' Set an objective to find the solution aims to represent one instance of
 #' as many features as possible within a given budget. This type of objective

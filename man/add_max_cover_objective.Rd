@@ -3,7 +3,7 @@
 \name{add_max_cover_objective}
 \alias{add_max_cover_objective}
 \alias{add_max_cover_objective}
-\title{Add Maximum Coverage Objective}
+\title{Add maximum coverage objective}
 \usage{
 add_max_cover_objective(x, budget)
 }

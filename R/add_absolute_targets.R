@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R zones.R
 NULL
 
-#' Add Absolute Targets
+#' Add absolute targets
 #'
 #' Set targets expressed as the actual value of features in the study area
 #' that need to be represented in the prioritization. For instance,

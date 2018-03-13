@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add Maximum Utility Objective
+#' Add maximum utility objective
 #'
 #' Set an objective to find the solution that secures as much of each feature
 #' as possible without exceeding the budget. This type of objective does not

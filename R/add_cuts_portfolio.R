@@ -1,7 +1,7 @@
 #' @include Portfolio-proto.R
 NULL
 
-#' Add a Bender's cuts portfolio
+#' Add Bender's cuts portfolio
 #'
 #' Generate a portfolio of solutions using Bender's cuts.
 #'

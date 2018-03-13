@@ -3,7 +3,7 @@
 \name{add_cuts_portfolio}
 \alias{add_cuts_portfolio}
 \alias{add_cuts_portfolio}
-\title{Add a Bender's cuts portfolio}
+\title{Add Bender's cuts portfolio}
 \usage{
 add_cuts_portfolio(x, number_solutions = 10L)
 }

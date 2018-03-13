@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R zones.R
 NULL
 
-#' Add Manually Specified Locked Constraints
+#' Add manually specified locked constraints
 #'
 #' Add constraints to ensure that the solution allocates a specific
 #' amount of certain planning units to different management zones. This

@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add Maximum Phylogenetic Representation Objective
+#' Add maximum phylogenetic representation objective
 #'
 #' Set an objective to find to find the solution that fulfills as much
 #' of a representative sample a phylogenetic tree as possible given a budget.

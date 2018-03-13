@@ -4,7 +4,7 @@ NULL
 #' @export
 methods::setOldClass("ArrayParameter")
 
-#' Array Parameter prototype
+#' Array parameter prototype
 #'
 #' This prototype is used to represent a parameter has multiple values. Each
 #' value is has a label to differentiate values. \strong{Only experts should

@@ -3,7 +3,7 @@
 \name{add_max_phylo_objective}
 \alias{add_max_phylo_objective}
 \alias{add_max_phylo_objective}
-\title{Add Maximum Phylogenetic Representation Objective}
+\title{Add maximum phylogenetic representation objective}
 \usage{
 add_max_phylo_objective(x, budget, tree)
 }

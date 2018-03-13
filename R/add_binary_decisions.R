@@ -1,7 +1,7 @@
 #' @include internal.R Parameters-proto.R Decision-proto.R
 NULL
 
-#' Add Binary Decisions
+#' Add binary decisions
 #'
 #' Add a binary decision to a conservation planning \code{\link{problem}}.
 #' This is the classic decision of either prioritizing or not prioritizing a

@@ -1,7 +1,7 @@
 #' @include Portfolio-proto.R
 NULL
 
-#' Default portfolio method
+#' Default portfolio
 #'
 #' Generate a portfolio containing one solution.
 #'

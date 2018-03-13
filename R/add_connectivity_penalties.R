@@ -3,7 +3,7 @@ NULL
 
 #' Add connectivity penalties
 #'
-#' Add constraints to a conservation problem to favor solutions that select
+#' Add penalties to a conservation problem to favor solutions that select
 #' planning units with high connectivity between them.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.

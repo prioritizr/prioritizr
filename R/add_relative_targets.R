@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_absolute_targets.R
 NULL
 
-#' Add Relative Targets
+#' Add relative targets
 #'
 #' Set targets as a proportion (between 0 and 1) of the maximum level of
 #' representation of features in the study area. Note

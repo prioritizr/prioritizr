@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R loglinear_interpolation.R
 NULL
 
-#' Add Loglinear Targets
+#' Add targets using log-linear scaling
 #'
 #' Set targets by log-linearly interpolating them between thresholds
 #' (Rodrigues \emph{et al.} 2004).

@@ -4,7 +4,7 @@ NULL
 #' @export
 methods::setOldClass("MiscParameter")
 
-#' Miscellaneous Parameter prototype
+#' Miscellaneous parameter prototype
 #'
 #' This prototype is used to represent a parameter that can be any object.
 #' \strong{Only experts should interact directly with this prototype.}

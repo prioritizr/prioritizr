@@ -3,7 +3,7 @@
 \name{add_proportion_decisions}
 \alias{add_proportion_decisions}
 \alias{add_proportion_decisions}
-\title{Add Proportion Decisions}
+\title{Add proportion decisions}
 \usage{
 add_proportion_decisions(x)
 }

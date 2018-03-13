@@ -1,7 +1,7 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add Maximum Feature Representation Objective
+#' Add maximum feature representation objective
 #'
 #' Set an objective to find the solution that fulfills as many targets
 #' as possible while ensuring that the cost of the solution does not exceed

@@ -3,7 +3,7 @@
 \name{add_binary_decisions}
 \alias{add_binary_decisions}
 \alias{add_binary_decisions}
-\title{Add Binary Decisions}
+\title{Add binary decisions}
 \usage{
 add_binary_decisions(x)
 }

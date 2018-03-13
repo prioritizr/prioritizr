@@ -3,7 +3,7 @@
 \name{add_max_features_objective}
 \alias{add_max_features_objective}
 \alias{add_max_features_objective}
-\title{Add Maximum Feature Representation Objective}
+\title{Add maximum feature representation objective}
 \usage{
 add_max_features_objective(x, budget)
 }

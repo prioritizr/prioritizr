@@ -3,7 +3,7 @@
 \name{add_max_utility_objective}
 \alias{add_max_utility_objective}
 \alias{add_max_utility_objective}
-\title{Add Maximum Utility Objective}
+\title{Add maximum utility objective}
 \usage{
 add_max_utility_objective(x, budget)
 }

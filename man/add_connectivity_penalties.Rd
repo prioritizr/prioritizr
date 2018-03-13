@@ -28,7 +28,7 @@ object that shows the strength of connectivity between consecutive planning
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Add constraints to a conservation problem to favor solutions that select
+Add penalties to a conservation problem to favor solutions that select
 planning units with high connectivity between them.
 }
 \details{

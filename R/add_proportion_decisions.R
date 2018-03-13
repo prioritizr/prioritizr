@@ -1,7 +1,7 @@
 #' @include internal.R Parameters-proto.R Decision-proto.R
 NULL
 
-#' Add Proportion Decisions
+#' Add proportion decisions
 #'
 #' Add a proportion decision to a conservation planning \code{\link{problem}}.
 #' This is a relaxed decision where a part of a planning unit can be

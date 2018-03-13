@@ -1,7 +1,7 @@
 #' @include internal.R Collection-proto.R
 NULL
 
-#' Solution portfolio methods
+#' Solution portfolios
 #'
 #' Conservation planners often desire a portfolio of solutions
 #' to present to decision makers. This is because conservation planners
