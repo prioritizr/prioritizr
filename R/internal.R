@@ -44,7 +44,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #' @return \code{\link[Matrix]{dgCMatrix-class}} object.
 #'
 #' @noRd
-triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
+triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {
   assertthat::assert_that(inherits(x, "data.frame"), isTRUE(ncol(x) == 3),
     isTRUE(all(x[[1]] == round(x[[1]]))), isTRUE(all(x[[2]] == round(x[[2]]))))
   # create sparse amtrix

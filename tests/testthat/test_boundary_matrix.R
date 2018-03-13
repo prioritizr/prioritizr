@@ -109,6 +109,8 @@ test_that("RasterLayer", {
                xmn = 0, ymn = 0, xmx = 6, ymx = 3)
   b <- boundary_matrix(x)
   s <- boundary_matrix(raster::rasterToPolygons(x, n = 4))
+  s <- cbind(0, s)
+  s <- rbind(0, s)
   # tests
   expect_true(all(b == s))
 })
@@ -121,6 +123,8 @@ test_that("RasterStack", {
   x[[1]][2] <- NA
   b <- boundary_matrix(x)
   s <- boundary_matrix(raster::rasterToPolygons(x[[2]], n = 4))
+  s <- cbind(0, s)
+  s <- rbind(0, s)
   # tests
   expect_true(all(b == s))
 })

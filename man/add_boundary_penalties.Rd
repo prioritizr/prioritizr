@@ -46,7 +46,8 @@ asymmetric relationships are required, use the
 \item{...}{not used.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object.
+\code{\link{ConservationProblem-class}} object with the penalties
+ added to it.
 }
 \description{
 Add penalties to a conservation problem to favor solutions that clump
@@ -121,16 +122,24 @@ p2 <- p1 \%>\% add_boundary_penalties(5, 1)
 # create problem with high boundary penalties but outer edges receive
 # half the penalty as inner edges
 p3 <- p1 \%>\% add_boundary_penalties(50, 0.5)
+
+# create a problem with boundary penalties set using a matrix object
+bmat <- boundary_matrix(sim_pu_raster) # create boundary matrix
+bmat <- (bmat * 10) ^ 4 # manually scale boundaries
+
+p4 <- p1 \%>\% add_boundary_penalties(1, 0.5, bmat)
+
 \donttest{
 # solve problems
-s <- stack(solve(p1), solve(p2), solve(p3))
+s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 
 # plot solutions
-plot(s, main = c("basic solution", "small penalties", "high penalties"),
+plot(s, main = c("basic solution", "small penalties", "high penalties",
+                 "manual penalties"),
      axes = FALSE, box = FALSE)
 }
 # create minimal problem with multiple zones
-p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(0.2,
                                   nrow = n_feature(sim_features_zones),
@@ -140,36 +149,36 @@ p4 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 
 # create boundary penalty matrix which favours clumping units
 # togeather that are allocated to the same zone
-pm5 <- matrix(0, n_zone(sim_features_zones), n_zone(sim_features_zones))
-diag(pm5) <- 500
-print(pm5)
-
-# create problem with the boundary penalty matrix
-p5 <- p4 \%>\% add_boundary_penalties(pm5, rep(1, n_zone(sim_features_zones)))
-
-# create boundary penalty matrix which favours clumping units togeather
-# that are allocated to different zones
-pm6 <- matrix(600, n_zone(sim_features_zones), n_zone(sim_features_zones))
-diag(pm6) <- 0
+pm6 <- matrix(0, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm6) <- 500
 print(pm6)
 
 # create problem with the boundary penalty matrix
-p6 <- p4 \%>\% add_boundary_penalties(pm6, rep(1, n_zone(sim_features_zones)))
+p6 <- p5 \%>\% add_boundary_penalties(pm6, rep(1, n_zone(sim_features_zones)))
+
+# create boundary penalty matrix which favours clumping units togeather
+# that are allocated to different zones
+pm7 <- matrix(600, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm7) <- 0
+print(pm7)
+
+# create problem with the boundary penalty matrix
+p7 <- p5 \%>\% add_boundary_penalties(pm7, rep(1, n_zone(sim_features_zones)))
 
 # create boundary penalty matrix which strongly favours clumping units
 # togeather that are allocated to the same zone, and also slightly
 # prefers clumping planning units togeather that are allocated
 # to different zones
-pm7 <- matrix(500, n_zone(sim_features_zones), n_zone(sim_features_zones))
-diag(pm7) <- 600
-print(pm7)
+pm8 <- matrix(500, n_zone(sim_features_zones), n_zone(sim_features_zones))
+diag(pm8) <- 600
+print(pm8)
 
 # create problem with the boundary penalty matrix
-p7 <- p4 \%>\% add_boundary_penalties(pm7, rep(1, n_zone(sim_features_zones)))
+p8 <- p5 \%>\% add_boundary_penalties(pm8, rep(1, n_zone(sim_features_zones)))
 \donttest{
 # solve problems
-s2 <- stack(category_layer(solve(p4)), category_layer(solve(p5)),
-            category_layer(solve(p6)), category_layer(solve(p7)))
+s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
+            category_layer(solve(p7)), category_layer(solve(p8)))
 
 # plot solutions
 plot(s2, main = c("basic solution", "same zone penalties",

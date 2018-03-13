@@ -25,7 +25,8 @@ NULL
 #'   coordinate system (aka
 #'   \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 #'   should be reprojected to another coordinate system before using this
-#'   function.
+#'   function. Note that for \code{\link[raster]{Raster-class}} objects
+#'   boundaries are missing for cells that have \code{NA} values in all cells.
 #'
 #' @return \code{\link{Matrix}{dsCMatrix-class}} object.
 #'
@@ -84,27 +85,25 @@ boundary_matrix.Raster <- function(x, ...) {
   # find the neighboring indices of these cells
   ud <- matrix(c(NA, NA, NA, 1, 0, 1, NA, NA, NA), 3, 3)
   lf <- matrix(c(NA, 1, NA, NA, 0, NA, NA, 1, NA), 3, 3)
-  b <- rbind(
-    data.frame(raster::adjacent(x, include, pairs = TRUE,
-                                directions = ud),
-                boundary = raster::res(x)[1]),
-    data.frame(raster::adjacent(x, include, pairs = TRUE,
-                                directions = lf),
-                boundary = raster::res(x)[2]))
+  b <- rbind(data.frame(raster::adjacent(x, include, pairs = TRUE,
+                                         directions = ud),
+                        boundary = raster::res(x)[1]),
+             data.frame(raster::adjacent(x, include, pairs = TRUE,
+                                         directions = lf),
+                        boundary = raster::res(x)[2]))
   names(b) <- c("id1", "id2", "boundary")
   b$id1 <- as.integer(b$id1)
   b$id2 <- as.integer(b$id2)
-  # subset neighbors to only include cells with finite values
-  b <- b[which( (b$id1 %in% include) & (b$id2 %in% include)), ]
+  b <- b[(b$id1 %in% include) & (b$id2 %in% include), ]
   # coerce to sparse matrix object
   m <- Matrix::forceSymmetric(Matrix::sparseMatrix(i = b[[1]], j = b[[2]],
                                                    x = b[[3]],
                                                    dims = rep(raster::ncell(x),
                                                               2)))
-  m <- m[include, include]
-  # if cells don"t have four neighbors then set the diagonal to be the total
+  # if cells don't have four neighbors then set the diagonal to be the total
   # perimeter of the cell minus the boundaries of its neighbors
-  diag(m) <- (sum(raster::res(x)) * 2) - Matrix::colSums(m)
+  Matrix::diag(m)[include] <- (sum(raster::res(x)) * 2) -
+                              Matrix::colSums(m)[include]
   # return matrix
   methods::as(m, "dsCMatrix")
 }

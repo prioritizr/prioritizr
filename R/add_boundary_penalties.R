@@ -86,7 +86,8 @@ NULL
 #' This function is inspired by Ball \emph{et al.} (2009) and Beyer
 #' \emph{et al.} (2016).
 #'
-#' @return \code{\link{ConservationProblem-class}} object.
+#' @return \code{\link{ConservationProblem-class}} object with the penalties
+#'  added to it.
 #'
 #' @seealso \code{\link{penalties}}.
 #'
@@ -120,16 +121,24 @@ NULL
 #' # create problem with high boundary penalties but outer edges receive
 #' # half the penalty as inner edges
 #' p3 <- p1 %>% add_boundary_penalties(50, 0.5)
+#'
+#' # create a problem with boundary penalties set using a matrix object
+#' bmat <- boundary_matrix(sim_pu_raster) # create boundary matrix
+#' bmat <- (bmat * 10) ^ 4 # manually scale boundaries
+#'
+#' p4 <- p1 %>% add_boundary_penalties(1, 0.5, bmat)
+#'
 #' \donttest{
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3))
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
 #' # plot solutions
-#' plot(s, main = c("basic solution", "small penalties", "high penalties"),
+#' plot(s, main = c("basic solution", "small penalties", "high penalties",
+#'                  "manual penalties"),
 #'      axes = FALSE, box = FALSE)
 #' }
 #' # create minimal problem with multiple zones
-#' p4 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(0.2,
 #'                                   nrow = n_feature(sim_features_zones),
@@ -139,36 +148,36 @@ NULL
 #'
 #' # create boundary penalty matrix which favours clumping units
 #' # togeather that are allocated to the same zone
-#' pm5 <- matrix(0, n_zone(sim_features_zones), n_zone(sim_features_zones))
-#' diag(pm5) <- 500
-#' print(pm5)
-#'
-#' # create problem with the boundary penalty matrix
-#' p5 <- p4 %>% add_boundary_penalties(pm5, rep(1, n_zone(sim_features_zones)))
-#'
-#' # create boundary penalty matrix which favours clumping units togeather
-#' # that are allocated to different zones
-#' pm6 <- matrix(600, n_zone(sim_features_zones), n_zone(sim_features_zones))
-#' diag(pm6) <- 0
+#' pm6 <- matrix(0, n_zone(sim_features_zones), n_zone(sim_features_zones))
+#' diag(pm6) <- 500
 #' print(pm6)
 #'
 #' # create problem with the boundary penalty matrix
-#' p6 <- p4 %>% add_boundary_penalties(pm6, rep(1, n_zone(sim_features_zones)))
+#' p6 <- p5 %>% add_boundary_penalties(pm6, rep(1, n_zone(sim_features_zones)))
+#'
+#' # create boundary penalty matrix which favours clumping units togeather
+#' # that are allocated to different zones
+#' pm7 <- matrix(600, n_zone(sim_features_zones), n_zone(sim_features_zones))
+#' diag(pm7) <- 0
+#' print(pm7)
+#'
+#' # create problem with the boundary penalty matrix
+#' p7 <- p5 %>% add_boundary_penalties(pm7, rep(1, n_zone(sim_features_zones)))
 #'
 #' # create boundary penalty matrix which strongly favours clumping units
 #' # togeather that are allocated to the same zone, and also slightly
 #' # prefers clumping planning units togeather that are allocated
 #' # to different zones
-#' pm7 <- matrix(500, n_zone(sim_features_zones), n_zone(sim_features_zones))
-#' diag(pm7) <- 600
-#' print(pm7)
+#' pm8 <- matrix(500, n_zone(sim_features_zones), n_zone(sim_features_zones))
+#' diag(pm8) <- 600
+#' print(pm8)
 #'
 #' # create problem with the boundary penalty matrix
-#' p7 <- p4 %>% add_boundary_penalties(pm7, rep(1, n_zone(sim_features_zones)))
+#' p8 <- p5 %>% add_boundary_penalties(pm8, rep(1, n_zone(sim_features_zones)))
 #' \donttest{
 #' # solve problems
-#' s2 <- stack(category_layer(solve(p4)), category_layer(solve(p5)),
-#'             category_layer(solve(p6)), category_layer(solve(p7)))
+#' s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
+#'             category_layer(solve(p7)), category_layer(solve(p8)))
 #'
 #' # plot solutions
 #' plot(s2, main = c("basic solution", "same zone penalties",
@@ -246,18 +255,19 @@ methods::setMethod("add_boundary_penalties",
           boundary_data$id2 <- match(boundary_data$id2, x$data$cost$id)
         }
         # check that all boundary ids are valid
-        n_pu <- x$number_of_planning_units()
-        if (isTRUE(any(is.na(boundary_data$id1))) ||
-            isTRUE(any(is.na(boundary_data$id2))) ||
-            isTRUE(max(boundary_data$id1) > n_pu) ||
-            isTRUE(max(boundary_data$id2) > n_pu) ||
-            isTRUE(min(boundary_data$id1) < 1) ||
-            isTRUE(min(boundary_data$id2 < 1)))
-          stop("argument to boundary_data contains ids for planning units that",
-               " are not present in x")
+        n_pu <- x$number_of_total_units()
+        assertthat::assert_that(
+            assertthat::noNA(boundary_data$id1),
+            assertthat::noNA(boundary_data$id1),
+            max(boundary_data$id1) <= n_pu,
+            max(boundary_data$id2) <= n_pu,
+            min(boundary_data$id1) >= 1,
+            min(boundary_data$id2) >= 1,
+            msg = paste("argument to boundary_data contains ids for planning",
+                        "units that are not present in x"))
         # convert boundary data to sparse matrix
         boundary_data <- triplet_dataframe_to_matrix(boundary_data,
-          forceSymmetric = TRUE, dims = rep(x$number_of_planning_units(), 2))
+          forceSymmetric = TRUE, dims = rep(x$number_of_total_units(), 2))
       }
       # if/when boundary_data is matrix run further checks to ensure that
       # it is compatible with planning unit data
@@ -268,10 +278,13 @@ methods::setMethod("add_boundary_penalties",
           boundary_matrix <- methods::as(boundary_data, "dgCMatrix")
         # check that matrix properties are correct
         assertthat::assert_that(ncol(boundary_matrix) == nrow(boundary_matrix),
-          isTRUE(x$number_of_planning_units() == ncol(boundary_matrix)),
+          isTRUE(x$number_of_total_units() == ncol(boundary_matrix)),
           all(is.finite(boundary_matrix@x)))
-        # force symmetry          base::print ("here 2")
-        boundary_matrix <- Matrix::forceSymmetric(boundary_matrix)
+        # subset matrix to planning units
+        pos <- x$planning_unit_indices()
+        boundary_matrix <- boundary_matrix[pos, pos]
+        # force symmetry
+        boundary_matrix <- Matrix::forceSymmetric(boundary_matrix, uplo = "L")
         class(boundary_matrix) <- "dgCMatrix"
         # create list with data
         d <- list(boundary_matrix = boundary_matrix)
@@ -314,7 +327,10 @@ methods::setMethod("add_boundary_penalties",
             if (!is.Waiver(m)) {
               x$set_data("boundary_matrix", m)
             } else {
-              x$set_data("boundary_matrix", boundary_matrix(x$get_data("cost")))
+              pos <- x$planning_unit_indices()
+              m <- boundary_matrix(x$get_data("cost"))[pos, pos]
+              m <- Matrix::forceSymmetric(m, uplo = "L")
+              x$set_data("boundary_matrix", m)
             }
           }
           # return invisible

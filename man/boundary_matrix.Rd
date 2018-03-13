@@ -49,7 +49,8 @@ This function returns a \code{\link[Matrix]{dsCMatrix-class}}
   coordinate system (aka
   \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
   should be reprojected to another coordinate system before using this
-  function.
+  function. Note that for \code{\link[raster]{Raster-class}} objects
+  boundaries are missing for cells that have \code{NA} values in all cells.
 }
 \examples{
 ## load data
