@@ -64,6 +64,8 @@ methods::setOldClass("ConservationProblem")
 #'
 #' \code{x$number_of_planning_units()}
 #'
+#' \code{x$planning_unit_indices()}
+#'
 #' \code{x$planning_unit_costs()}
 #'
 #' \code{x$number_of_features()}
@@ -167,6 +169,8 @@ methods::setOldClass("ConservationProblem")
 #'   exists then the object is overwritten.}
 #'
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
+#' \item{planning_unit_indices}{\code{integer} indices of the planning units in
+#'   the planning unit data.}
 #'
 #' \item{number_of_total_units}{\code{integer} number of units in the cost
 #'   data including units that have \code{N} cost data.}
@@ -336,6 +340,23 @@ ConservationProblem <- pproto(
                       drop = FALSE]))) > 0))
     } else if (is.matrix(self$data$cost)) {
       return(sum(rowSums(!is.na(self$data$cost)) > 0))
+    } else {
+      stop("cost is of unknown class")
+    }
+  },
+  planning_unit_indices = function(self) {
+    if (inherits(self$data$cost, "Raster")) {
+      if (raster::nlayers(self$data$cost) == 1) {
+        return(raster::Which(!is.na(self$data$cost), cells = TRUE))
+      } else {
+        return(raster::Which(max(!is.na(self$data$cost)) > 0, cells = TRUE))
+      }
+    } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
+      return(unname(which(rowSums(!is.na(as.matrix(
+             as.data.frame(self$data$cost)[, self$data$cost_column,
+              drop = FALSE]))) > 0)))
+    } else if (is.matrix(self$data$cost)) {
+      return(unname(which(rowSums(!is.na(self$data$cost)) > 0)))
     } else {
       stop("cost is of unknown class")
     }

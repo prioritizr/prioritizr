@@ -15,6 +15,8 @@ test_that("x=Raster, features=RasterStack", {
   expect_equal(x$number_of_planning_units(),
     length(raster::Which(!is.na(sim_pu_raster), cells = TRUE)))
   expect_equal(x$number_of_total_units(), raster::ncell(sim_pu_raster))
+  expect_equal(x$planning_unit_indices(),
+               raster::Which(!is.na(sim_pu_raster), cells = TRUE))
   expect_equal(problem(sim_pu_raster, sim_pu_raster)$number_of_features(), 1L)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
@@ -59,6 +61,8 @@ test_that("x=RasterStack, features=ZonesRaster", {
   expect_equal(x$number_of_zones(), n_zone(sim_features_zones))
   expect_equal(x$number_of_planning_units(),
                raster::cellStats(max(!is.na(sim_pu_zones_stack)), "sum"))
+  expect_equal(x$planning_unit_indices(),
+               raster::Which(max(!is.na(sim_pu_zones_stack)) > 0, cells = TRUE))
   expect_equal(x$number_of_total_units(), raster::ncell(sim_pu_zones_stack))
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
@@ -113,6 +117,7 @@ test_that("x=SpatialPolygonsDataFrame, features=RasterStack", {
   expect_equal(x$zone_names(), "cost")
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_polygons$cost)))
+  expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_polygons$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
   expect_equal(problem(sim_pu_polygons, sim_pu_raster,
                        "cost")$number_of_features(), 1L)
@@ -163,6 +168,8 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesRaster", {
   expect_equal(x$zone_names(), zone_names(sim_features_zones))
   expect_equal(x$number_of_features(), raster::nlayers(sim_features_zones[[1]]))
   expect_equal(x$number_of_planning_units(), nrow(sim_pu_zones_polygons) - 1)
+  expect_equal(x$planning_unit_indices(),
+               c(seq_len(4), seq(6, nrow(sim_pu_zones_polygons))))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_polygons))
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(), as.matrix(
@@ -213,6 +220,7 @@ test_that("x=SpatialLinesDataFrame, features=RasterStack", {
   expect_equal(x$zone_names(), "cost")
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_lines$cost)))
+  expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_lines$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_lines))
   expect_equal(problem(sim_pu_lines, sim_pu_raster,
                        "cost")$number_of_features(), 1L)
@@ -260,6 +268,7 @@ test_that("x=SpatialPointsDataFrame, features=RasterStack", {
   expect_equal(x$zone_names(), "cost")
   expect_equal(x$number_of_features(), raster::nlayers(sim_features))
   expect_equal(x$number_of_planning_units(), sum(!is.na(sim_pu_points$cost)))
+  expect_equal(x$planning_unit_indices(), which(!is.na(sim_pu_points$cost)))
   expect_equal(x$number_of_total_units(), nrow(sim_pu_points))
   expect_equal(problem(sim_pu_points, sim_pu_raster,
                        "cost")$number_of_features(), 1L)
@@ -310,6 +319,7 @@ test_that("x=SpatialPolygonsDataFrame, features=character", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), length(sim_pu_polygons) - 1)
+  expect_equal(x$planning_unit_indices(), c(1, seq(3, length(sim_pu_polygons))))
   expect_equal(x$number_of_total_units(), length(sim_pu_polygons))
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
@@ -371,6 +381,8 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesCharacter", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), length(sim_pu_zones_polygons) - 1)
+  expect_equal(x$planning_unit_indices(),
+               c(c(1, 2), seq(4, length(sim_pu_zones_polygons))))
   expect_equal(x$number_of_total_units(), length(sim_pu_zones_polygons))
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
@@ -432,6 +444,7 @@ test_that("x=data.frame, features=character", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(), matrix(pu$cost[-2], ncol = 1))
@@ -482,6 +495,7 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(), as.matrix(pu[-2, 2:3]))
@@ -537,6 +551,7 @@ test_that("x=data.frame, features=data.frame (single zone)", {
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(), matrix(pu$cost[-2], ncol = 1))
@@ -588,6 +603,7 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   expect_equal(x$number_of_features(), 5)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(), as.matrix(pu[-2, 2:3]))
@@ -643,6 +659,7 @@ test_that("x=numeric, features=data.frame", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 1)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), which(!is.na(pu$cost)))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
@@ -688,6 +705,7 @@ test_that("x=matrix, features=data.frame", {
   expect_equal(x$number_of_features(), 2)
   expect_equal(x$number_of_zones(), 2)
   expect_equal(x$number_of_planning_units(), 9)
+  expect_equal(x$planning_unit_indices(), c(1, seq(3, nrow(pu))))
   expect_equal(x$number_of_total_units(), 10)
   # tests for planning_unit_costs field
   expect_equivalent(x$planning_unit_costs(),
