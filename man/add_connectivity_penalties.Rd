@@ -2,41 +2,94 @@
 % Please edit documentation in R/add_connectivity_penalties.R
 \name{add_connectivity_penalties}
 \alias{add_connectivity_penalties}
+\alias{add_connectivity_penalties,ConservationProblem,numeric,Matrix-method}
+\alias{add_connectivity_penalties,ConservationProblem,numeric,matrix-method}
+\alias{add_connectivity_penalties,ConservationProblem,numeric,data.frame-method}
+\alias{add_connectivity_penalties,ConservationProblem,numeric,array-method}
+\alias{add_connectivity_penalties}
+\alias{add_connectivity_penalties}
+\alias{add_connectivity_penalties}
+\alias{add_connectivity_penalties}
 \title{Add connectivity penalties}
 \usage{
-add_connectivity_penalties(x, penalty, connectivity_data)
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,Matrix}(x, penalty, connectivity_data, ...)
+
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,matrix}(x, penalty, connectivity_data, ...)
+
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,data.frame}(x, penalty, connectivity_data, ...)
+
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,array}(x, penalty, connectivity_data, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{penalty}{\code{numeric} penalty for missing connections between
-planning units. This is equivalent to the connectivity strength modifier
-(CSM; Beger \emph{et al.} 2010). Defaults to one so that penalties are the
-same as the values in the \code{data}.}
+\item{penalty}{\code{numeric} penalty that is used to multiply
+the connectivity values in the argument to \code{connectivity_data}.
+Supplying arguments with greater values to \code{penalty} will return
+solutions that containing planning units that share greater connectivity.
+This parameter is equivalent to the connectivity strength modifier
+(CSM; Beger \emph{et al.} 2010) used in \emph{Marxan}. The default argument
+is \code{1} so that penalty values are
+the same as the values supplied to \code{connectivity_data}. Note that the
+argument to \code{penalty} must always be single \code{numeric} value even
+for problems with multiple zones.}
 
-\item{connectivity_data}{A \code{data.frame} or \code{matrix}
-object that shows the strength of connectivity between consecutive planning
- units. If \code{connectivity_data} is a matrix, then rows and columns
- represent each planing unit and the cell values represent the connectivity
- between them. If \code{connectivity_data} is a \code{data.frame} the column
- names must be \code{"id1"}, \code{"id2"}, \code{"boundary"}, where each row
- shows the connectivity between two planning units (following the Marxan
- format). The data can be used to denote symmetric or asymmetric
- relationships between planning units.}
+\item{connectivity_data}{A \code{data.frame}, \code{matrix}, or
+\code{array} object. See the Details section for more information.}
+
+\item{...}{not used.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object.
+\code{\link{ConservationProblem-class}} object with the penalties
+ added to it.
 }
 \description{
 Add penalties to a conservation problem to favor solutions that select
 planning units with high connectivity between them.
 }
 \details{
-This function uses connectivity data in the form of a \code{matrix}
-or \code{data.frame} object, where strength of connectivity is a value such
-as the inverse distance between consecutive planning units. This function
-can be used for symmetric or asymmetric relationships between planning units
-and is inspired by Beger \emph{et al.} (2010).
+This function uses connectivity data to penalize solutions
+  that have low connectivity between selected planning units in the solution.
+  It can be used for symmetric or asymmetric relationships
+  between planning units and is inspired by Beger \emph{et al.} (2010).
+
+  The \code{connectivity_data} can be specified in several different ways:
+
+  \describe{
+
+    \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+     different planning
+     units and the value of each cell represents the strength of connectivity
+     between two different planning units. Cells that occur along the
+     diagonal correspond to connectivity weights such that planning units
+     with higher values are more desireable in the solution. Note that
+     \code{matrix} objects cannot be supplied as an argument for
+     \code{connectivity_data} when the argument to \code{x} contains multiple
+     zones, and instead an \code{array} object must be supplied.}
+
+   \item{\code{data.frame}}{containing the fields (columns)
+     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+     denotes the connectivity between two planning units (following the
+     \emph{Marxan} format). The data can be used to denote symmetric or
+     asymmetric relationships between planning units. By default,
+     input data is assumed to be symmetric (e.g. if connectivity data
+     is present for planning units 2 and 3, then the same amount
+     of connectivity is expected for planning units 3 and 2). If the
+     argument to \code{x} contains multiple zones, then \code{"zone1"}
+     and \code{"zone2"} columns are required indicating the names
+     of zones to which the planning unit allocations pertain.}
+
+  \item{\code{array}}{containing four-dimensions where cell values
+     indicate the strength of connectivity between planning units
+     when they are assigned to specific management zones. The first two
+     dimensions (i.e. rows and columns) indicate the strength of
+     connectivity between different planning units and the second two
+     dimensions indicate the different management zones. Thus
+     the index \code{[1,2,3,4]} contains the strength of connectivity
+     between planning unit 1 and planning unit 2 when planning unit 1
+     is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+
+  }
 }
 \examples{
 # # not implemented

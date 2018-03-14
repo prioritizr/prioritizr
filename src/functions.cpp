@@ -15,3 +15,24 @@ void import_rij(Rcpp::List& rij_list, std::vector<arma::sp_mat>& rij) {
   }
   return;
 }
+
+// import list of list of matrices
+void import_connectivity_matrix_list(
+  Rcpp::List& in, std::vector<std::vector<arma::sp_mat>>& out,
+  bool full_matrix = true) {
+  // initialize
+  std::size_t n = in.size();
+  out.resize(n);
+  // preallocate sizes
+  for (std::size_t i = 0; i < n; ++i)
+    out[i].resize(n);
+  // populate out with sparse matrices
+  Rcpp::List l;
+  for (std::size_t i = 0; i < n; ++i) {
+    l = Rcpp::as<Rcpp::List>(in[i]);
+    for (std::size_t j = (full_matrix ? 0 : i); j < n; ++j) {
+      out[i][j] = Rcpp::as<arma::sp_mat>(l[j]);
+    }
+  }
+  return;
+}
