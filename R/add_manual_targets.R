@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("tbl_df")
+if (!methods::isClass("tbl_df")) methods::setOldClass("tbl_df")
+NULL
 
 #' Add manual targets
 #'

@@ -1,8 +1,9 @@
 #' @include internal.R
+
 #' @export
-methods::setOldClass("Zones")
-methods::setOldClass("ZonesCharacter")
-methods::setOldClass("ZonesRaster")
+if (!methods::isClass("Zones")) methods::setOldClass("Zones")
+if (!methods::isClass("ZonesCharacter")) methods::setOldClass("ZonesCharacter")
+if (!methods::isClass("ZonesRaster")) methods::setOldClass("ZonesRaster")
 NULL
 
 #' Management zones

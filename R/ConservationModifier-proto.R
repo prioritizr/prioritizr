@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("ConservationModifier")
+if (!methods::isClass("ConservationModifier")) methods::setOldClass("ConservationModifier")
+NULL
 
 #' Conservation problem modifier prototype
 #'

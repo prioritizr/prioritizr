@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Solver")
+if (!methods::isClass("Solver")) methods::setOldClass("Solver")
+NULL
 
 #' Solver prototype
 #'

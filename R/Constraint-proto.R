@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Constraint")
+if (!methods::isClass("Constraint")) methods::setOldClass("Constraint")
+NULL
 
 #' Constraint prototype
 #'

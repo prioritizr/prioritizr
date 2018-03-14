@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("ConservationProblem")
+if (!methods::isClass("ConservationProblem")) methods::setOldClass("ConservationProblem")
+NULL
 
 #' Conservation problem class
 #'

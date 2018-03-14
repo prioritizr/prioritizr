@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("MiscParameter")
+if (!methods::isClass("MiscParameter")) methods::setOldClass("MiscParameter")
+NULL
 
 #' Miscellaneous parameter prototype
 #'

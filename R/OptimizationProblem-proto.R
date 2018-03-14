@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("OptimizationProblem")
+if (!methods::isClass("OptimizationProblem")) methods::setOldClass("OptimizationProblem")
+NULL
 
 #' Optimization problem class
 #'

@@ -1,7 +1,8 @@
 #' @include internal.R pproto.R
 
 #' @export
-methods::setOldClass("Parameter")
+if (!methods::isClass("Parameter")) methods::setOldClass("Parameter")
+NULL
 
 #' Parameter class
 #'

@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("ScalarParameter")
+if (!methods::isClass("ScalarParameter")) methods::setOldClass("ScalarParameter")
+NULL
 
 #' Scalar parameter prototype
 #'

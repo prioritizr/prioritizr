@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("ArrayParameter")
+if (!methods::isClass("ArrayParameter")) methods::setOldClass("ArrayParameter")
+NULL
 
 #' Array parameter prototype
 #'

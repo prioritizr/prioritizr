@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Portfolio")
+if (!methods::isClass("Portfolio")) methods::setOldClass("Portfolio")
+NULL
 
 #' Portfolio prototype
 #'
