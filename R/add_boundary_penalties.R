@@ -267,7 +267,7 @@ methods::setMethod("add_boundary_penalties",
                         "units that are not present in x"))
         # convert boundary data to sparse matrix
         boundary_data <- triplet_dataframe_to_matrix(boundary_data,
-          forceSymmetric = TRUE, dims = rep(x$number_of_total_units(), 2))
+          forceSymmetric = FALSE, dims = rep(x$number_of_total_units(), 2))
       }
       # if/when boundary_data is matrix run further checks to ensure that
       # it is compatible with planning unit data
@@ -322,23 +322,19 @@ methods::setMethod("add_boundary_penalties",
                                                          x$zone_names())),
       calculate = function(self, x) {
           assertthat::assert_that(inherits(x, "ConservationProblem"))
-          if (is.Waiver(x$get_data("boundary_matrix"))) {
-            m <- self$get_data("boundary_matrix")
-            if (!is.Waiver(m)) {
-              x$set_data("boundary_matrix", m)
-            } else {
-              pos <- x$planning_unit_indices()
-              m <- boundary_matrix(x$get_data("cost"))[pos, pos]
-              m <- Matrix::forceSymmetric(m, uplo = "L")
-              x$set_data("boundary_matrix", m)
-            }
+          m <- self$get_data("boundary_matrix")
+          if (is.Waiver(m)) {
+            pos <- x$planning_unit_indices()
+            m <- boundary_matrix(x$get_data("cost"))[pos, pos]
+            m <- Matrix::forceSymmetric(m, uplo = "L")
           }
+          x$set_data("boundary_matrix", m)
           # return invisible
           invisible()
       },
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
-          inherits(y, "ConservationProblem"))
+                                inherits(y, "ConservationProblem"))
         if (any(c(self$parameters$get("penalty")) > 1e-50)) {
           m <- y$get_data("boundary_matrix")
           class(m) <- "dgCMatrix"

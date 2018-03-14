@@ -281,7 +281,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   }
 })
 
-test_that("minimum set objective (compile, boundary data, multiple zones)", {
+test_that("minimum set objective (compile, matrix data, multiple zones)", {
   # create data
   data(sim_pu_zones_polygons, sim_features_zones)
   p_matrix <- matrix(0, ncol = n_zone(sim_features_zones),
@@ -291,27 +291,65 @@ test_that("minimum set objective (compile, boundary data, multiple zones)", {
   p_matrix[lower.tri(p_matrix)] <- p_matrix[upper.tri(p_matrix)]
   p_edge_factor <- seq(0.1, 0.1 * n_zone(sim_features_zones), 0.1)
   # create problems
-  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
                c("cost_1", "cost_2", "cost_3")) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(matrix(0.1, ncol = n_zone(sim_features_zones),
-                                   nrow = 5)) %>%
-       add_binary_decisions()
-  p1 <- p %>% add_boundary_penalties(p_matrix, p_edge_factor)
-  p2 <- p %>% add_boundary_penalties(p_matrix, p_edge_factor,
-                                      boundary_matrix(sim_pu_zones_polygons))
-  bdf <- as(boundary_matrix(sim_pu_zones_polygons), "dgTMatrix")
-  bdf <- data.frame(id1 = bdf@i + 1, id2 = bdf@j + 1, boundary = bdf@x)
-  p3 <- p %>% add_boundary_penalties(p_matrix, p_edge_factor, bdf)
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(0.1, ncol = n_zone(sim_features_zones),
+                                    nrow = 5)) %>%
+        add_binary_decisions() %>%
+        add_boundary_penalties(p_matrix, p_edge_factor)
+  p2 <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(0.1, ncol = n_zone(sim_features_zones),
+                                    nrow = 5)) %>%
+        add_binary_decisions() %>%
+        add_boundary_penalties(p_matrix, p_edge_factor,
+                               boundary_matrix(sim_pu_zones_polygons))
   # compile problems
   o1 <- compile(p1)
   o2 <- compile(p2)
-  o3 <- compile(p3)
   # compare problems
   expect_equal(o1$obj(), o2$obj())
-  expect_equal(o1$obj(), o3$obj())
+  expect_equal(o1$sense(), o2$sense())
   expect_true(all(o1$A() == o2$A()))
-  expect_true(all(o1$A() == o3$A()))
+  expect_equal(o1$rhs(), o2$rhs())
+})
+
+test_that("minimum set objective (compile, data.frame data, multiple zones)", {
+  # create data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  p_matrix <- matrix(0, ncol = n_zone(sim_features_zones),
+                        nrow = n_zone(sim_features_zones))
+  diag(p_matrix) <- 10 + seq_len(n_zone(sim_features_zones))
+  p_matrix[upper.tri(p_matrix)] <- seq_len(n_zone(sim_features_zones))
+  p_matrix[lower.tri(p_matrix)] <- p_matrix[upper.tri(p_matrix)]
+  p_edge_factor <- seq(0.1, 0.1 * n_zone(sim_features_zones), 0.1)
+  # create problems
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(0.1, ncol = n_zone(sim_features_zones),
+                                    nrow = 5)) %>%
+        add_binary_decisions() %>%
+        add_boundary_penalties(p_matrix, p_edge_factor)
+  bdf <- as(boundary_matrix(sim_pu_zones_polygons), "dgTMatrix")
+  bdf <- data.frame(id1 = bdf@i + 1, id2 = bdf@j + 1, boundary = bdf@x)
+  p2 <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_absolute_targets(matrix(0.1, ncol = n_zone(sim_features_zones),
+                                   nrow = 5)) %>%
+        add_binary_decisions() %>%
+        add_boundary_penalties(p_matrix, p_edge_factor, bdf)
+  # compile problems
+  o1 <- compile(p1)
+  o2 <- compile(p2)
+  # compare problems
+  expect_equal(o1$obj(), o2$obj())
+  expect_equal(o1$sense(), o2$sense())
+  expect_true(all(o1$A() == o2$A()))
+  expect_equal(o1$rhs(), o2$rhs())
 })
 
 test_that("minimum set objective (solve, multiple zones)", {
@@ -363,7 +401,7 @@ test_that("invalid inputs (multiple zones)", {
   expect_error(add_boundary_penalties(p, matrix(1, ncol = 2, nrow = 3),
                                       rep(0.5, 3)))
   expect_error(add_boundary_penalties(p, matrix(1, ncol = 3, nrow = 2),
-                                     rep(0.5, 3)))
+                                      rep(0.5, 3)))
   expect_error(add_boundary_penalties(p, matrix(c(1, 2, NA), ncol = 3,
                                                 nrow = 2), 0.5))
  expect_error(add_boundary_penalties(p, matrix(runif(9), ncol = 3, nrow = 3),
