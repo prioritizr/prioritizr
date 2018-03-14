@@ -5,11 +5,12 @@ test_that("RasterLayer", {
   x <- raster::raster(matrix(c(NA, 2:9), ncol = 3),
                       xmn = 0, ymn = 0, xmx = 6, ymx = 3)
   m <- connected_matrix(x, directions = 4)
-  s <- boundary_matrix(raster::rasterToPolygons(x, n = 4))
+  s <- boundary_matrix(x)
   s[s > 0] <- 1
+  Matrix::diag(s) <- 0
   # tests
   expect_true(inherits(m, "dsCMatrix"))
-  expect_true(all(as.matrix(m)[upper.tri(m)] == as.matrix(s)[upper.tri(s)]))
+  expect_true(all(m == s))
 })
 
 test_that("SpatialPolygons (connected data)", {

@@ -27,6 +27,10 @@ NULL
 #' @details This function returns a \code{\link[Matrix]{dgCMatrix-class}} sparse
 #'   matrix. Cells along the off-diagonal indicate if two planning units are
 #'   connected. Cells along the diagonal are zero to reduce memory consumption.
+#'   Note that for \code{\link[raster]{Raster-class}} arguments to \code{x},
+#'   pixels with \code{NA} have zeros in the returned object to reduce
+#'   memory consumption and be consistent with \code{\link{boundary_matrix}},
+#'   and \code{\link{connectivity_matrix}}.
 #'
 #' @return \code{\link[Matrix]{dsCMatrix-class}} object.
 #'
@@ -110,7 +114,7 @@ connected_matrix.Raster <- function(x, directions = 4L, ...) {
                                                    dims = rep(raster::ncell(x),
                                                               2)))
   # return included planning units
-  return(m[include, include])
+  return(m)
 }
 
 #' @rdname connected_matrix
