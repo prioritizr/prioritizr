@@ -41,6 +41,81 @@ test_that("minimum set objective (solve, symmetric, zone)", {
 })
 
 test_that("minimum set objective (compile, asymmetric, single zone)", {
+  # load data
+  data(sim_pu_polygons, sim_features)
+  # prepare asymetric connectivity matrix
+  c_matrix <- as.matrix(boundary_matrix(sim_pu_polygons))
+  c_matrix[lower.tri(c_matrix)] <- c_matrix[lower.tri(c_matrix)] * 0.25
+  # make problem
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_connectivity_penalties(1, c_matrix) %>%
+       add_binary_decisions()
+  # compile problem
+  o <- compile(p)
+  ## create variables for debugging
+  # number of planning units
+  n_pu <- p$number_of_planning_units()
+  # number of features
+  n_f <- p$number_of_features()
+  # planning unit indices
+  pu_indices <- p$planning_unit_indices()
+  # compute total penalties
+  total_penalties <- Matrix::rowSums(c_matrix)
+  # compute penalties for connection variables
+  c_matrix2 <- c_matrix
+  upper_ind <- which(upper.tri(c_matrix2), arr.ind = TRUE)
+  c_matrix2[upper.tri(c_matrix2)] <- c_matrix2[upper.tri(c_matrix2)] +
+                                     c_matrix2[upper_ind[, c(2, 1)]]
+  c_matrix2[lower.tri(c_matrix2, diag = TRUE)] <- 0
+  c_matrix2 <- methods::as(c_matrix2, "dgCMatrix")
+  con_var_penalties <- c_matrix2@x
+  n_con_vars <- length(con_var_penalties)
+  correct_obj <- unname(c(p$planning_unit_costs()[, 1] + total_penalties,
+                          con_var_penalties))
+  ## extract data from compiled problem
+  # lower bound for boundary decision variables
+  c_lb <- o$lb()[n_pu + seq_len(n_con_vars)]
+  # upper bound for boundary decision variables
+  c_ub <- o$ub()[n_pu + seq_len(n_con_vars)]
+  # vtype bound for boundary decision variables
+  c_vtype <- o$vtype()[n_pu + seq_len(n_con_vars)]
+  # matrix labels
+  c_col_labels <- o$col_ids()[n_pu + seq_len(n_con_vars)]
+  c_row_labels <- o$row_ids()[n_f + seq_len(n_con_vars * 2)]
+  # sense for boundary decision constraints
+  c_sense <- o$sense()[n_f + seq_len(n_con_vars * 2)]
+  # rhs for boundary decision constraints
+  c_rhs <- o$rhs()[n_f + seq_len(n_con_vars * 2)]
+  ## tests
+  expect_equal(o$obj(), correct_obj)
+  expect_equal(c_lb, rep(0, n_con_vars))
+  expect_equal(c_ub, rep(1, n_con_vars))
+  expect_equal(c_vtype, rep("B", n_con_vars))
+  expect_equal(c_sense, rep("<=", n_con_vars * 2))
+  expect_equal(c_rhs, rep(0, n_con_vars * 2))
+  expect_equal(c_col_labels, rep("ac", n_con_vars))
+  expect_equal(c_row_labels, rep(c("ac1", "ac2"), n_con_vars))
+  # test constraint matrix
+  c_matrix3 <- c_matrix
+  Matrix::diag(c_matrix3) <- 0
+  c_matrix3 <- as(c_matrix3, "dgTMatrix")
+  previous_rows <- c()
+  for (i in seq_along(length(c_matrix3@i))) {
+    # get current planning unit/zone indices
+    curr_i <- c_matrix3@i[i] + 1
+    curr_j <- c_matrix3@j[i] + 1
+    # find connecitons with i and j
+    rows_i <- which(o$A()[, curr_i] == -1)
+    rows_j <- which(o$A()[, curr_j] == -1)
+    # assert that there is a connection between them
+    con_cols_i <- max.col(o$A()[rows_i, , drop = FALSE] == 1)
+    con_cols_j <- max.col(o$A()[rows_j, , drop = FALSE] == 1)
+    curr_row <- intersect(con_cols_i, con_cols_j)
+    expect_equal(length(curr_row), 1)
+    expect_true(!curr_row %in% previous_rows)
+  }
 })
 
 test_that("minimum set objective (solve, asymmetric, single zone)", {
