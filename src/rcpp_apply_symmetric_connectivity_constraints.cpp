@@ -57,7 +57,7 @@ bool rcpp_apply_symmetric_connectivity_constraints(SEXP x,
         curr_i = it.row();
         curr_j = it.col();
         curr_value = *it;
-        if (curr_value > 1.0e-15) {
+        if (std::fabs(curr_value) > 1.0e-15) {
           if ((curr_i == curr_j) && (z1 == z2)) {
             // amount of exposed boundary in planning unit with no neighbours
             curr_col1 = (z1 * ptr->_number_of_planning_units) + curr_i;
