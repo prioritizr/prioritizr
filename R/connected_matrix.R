@@ -35,52 +35,56 @@ NULL
 #' @rdname connected_matrix
 #'
 #' @examples
-#' ## load data
+#' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points)
 #'
-#' ## create connected matrix using raster data
-#' # crop raster to 9 cells
+#' # create connected matrix using raster data
+#' ## crop raster to 9 cells
 #' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
-#' # make connected matrix
+#'
+#' ## make connected matrix
 #' cm_raster <- connected_matrix(r)
 #'
-#' ## create connected matrix using polygon data
-#' # subset 9 polygons
+#' # create connected matrix using polygon data
+#' ## subset 9 polygons
 #' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-#' # make connected matrix
+#'
+#' ## make connected matrix
 #' cm_ply <- connected_matrix(ply)
 #'
-#' ## create connected matrix using polygon line
-#' # subset 9 lines
+#' # create connected matrix using polygon line
+#' ## subset 9 lines
 #' lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
-#' # make connected matrix
+#'
+#' ## make connected matrix
 #' cm_lns <- connected_matrix(lns)
 #'
 #' ## create connected matrix using point data
-#' # subset 9 points
+#' ## subset 9 points
 #' pts <- sim_pu_points[c(1:2, 10:12, 20:22), ]
+#'
 #' # make connected matrix
 #' cm_pts <- connected_matrix(pts, distance = 0.1)
 #'
-#' ## plot data and the connected matrices
+#' # plot data and the connected matrices
 #' par(mfrow = c(4,2))
 #'
-#' # plot raster and connected matrix
+#' ## plot raster and connected matrix
 #' plot(r, main = "raster", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(cm_raster)), main = "connected matrix", axes = FALSE,
 #'      box = FALSE)
 #'
-#' # plot polygons and connected matrix
+#' ## plot polygons and connected matrix
 #' plot(r, main = "polygons", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(cm_ply)), main = "connected matrix", axes = FALSE,
 #'     box = FALSE)
 #'
-#' # plot lines and connected matrix
+#' ## plot lines and connected matrix
 #' plot(r, main = "lines", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(cm_lns)), main = "connected matrix", axes = FALSE,
 #'      box = FALSE)
 #'
-#' # plot points and connected matrix
+#' ## plot points and connected matrix
 #' plot(r, main = "points", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(cm_pts)), main = "connected matrix", axes = FALSE,
 #'      box = FALSE)
@@ -91,7 +95,7 @@ connected_matrix <- function(x, ...) UseMethod("connected_matrix")
 #' @rdname connected_matrix
 #' @method connected_matrix Raster
 #' @export
-connected_matrix.Raster <- function(x, directions=4L, ...) {
+connected_matrix.Raster <- function(x, directions = 4L, ...) {
   assertthat::assert_that(inherits(x, "Raster"),
                           assertthat::is.count(directions),
                           isTRUE(raster::nlayers(x) == 1))
