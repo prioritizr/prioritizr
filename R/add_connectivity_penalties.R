@@ -61,9 +61,9 @@ NULL
 #'      dimensions (i.e. rows and columns) indicate the strength of
 #'      connectivity between different planning units and the second two
 #'      dimensions indicate the different management zones. Thus
-#'      the index \code{[1,2,3,4]} contains the strength of connectivity
-#'      between planning unit 1 and planning unit 2 when planning unit 1
-#'      is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+#'      the \code{connectivity_data[1, 2, 3, 4]} indicates the strength of
+#'      connectivity between planning unit 1 and planning unit 2 when planning
+#'      unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 #'
 #'   }
 #'
@@ -75,63 +75,193 @@ NULL
 #' conservation, \emph{Conservation Letters}, 3: 359--368.
 #'
 #' @examples
-#' # # not implemented
-#' # # load data
-#' # data(sim_pu_points, sim_features)
-#' #
-#' # # create a symmetric connectivity matrix where the connectivity between
-#' # # two planning units is the inverse distance between them
-#' # sc_matrix <- (1 / (as.matrix(dist(sim_pu_points@coords)) + 1))
-#' #
-#' # # remove connections between planning units with little connectivity
-#' # sc_matrix[sc_matrix < 0.85] <- 0
-#' #
-#' # # create basic problem
-#' # p1 <- problem(sim_pu_points, sim_features, "cost") %>%
-#' #       add_min_set_objective() %>%
-#' #       add_relative_targets(0.2)
-#' #
-#' # # create problem with low connectivity penalties
-#' # p2 <- p1 %>% add_connectivity_penalties(25, sc_matrix)
-#' #
-#' # # create problem with higher connectivity penalties
-#' # p3 <- p1 %>% add_connectivity_penalties(50, sc_matrix)
-#' #
-#' # # create an asymmetric connectivity matrix where links from even numered
-#' # # units to odd numbered units have half the connectivity as from odd
-#' # # numbered units to even units
-#' # even_units <- seq(2, length(sim_pu_points), 2)
-#' # odd_units <- seq(1, length(sim_pu_points), 2)
-#' # ac_matrix <- sc_matrix
-#' # ac_matrix[even_units, odd_units] <- 0.5 * ac_matrix[even_units, odd_units]
-#' #
-#' # # create problem with asymmetric connectivity and high penalties
-#' # p4 <- p1 %>% add_connectivity_penalties(50, ac_matrix)
-#' #
-#' # \donttest{
-#' # # solve problems
-#' # s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
-#' #
-#' # # plot solutions
-#' # par(mfrow = c(2,2), mar = c(0, 0, 4.1, 0))
-#' #
-#' # plot(s[[1]], pch = 19, main = "basic solution", cex = 1.5)
-#' # points(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
-#' #        cex = 1.5)
-#' #
-#' # plot(s[[2]], pch = 19, main = "small penalties", cex = 1.5)
-#' # points(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
-#' #        cex = 1.5)
-#' #
-#' # plot(s[[3]], pch = 19, main = "high penalties", cex = 1.5)
-#' # points(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", pch = 19,
-#' #        cex = 1.5)
-#' #
-#' # plot(s[[4]], pch = 19, main = "asymmetric connectivity", cex = 1.5)
-#' # points(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", pch=19,
-#' #        cex = 1.5)
-#' # }
+#' # load data
+#' data(sim_pu_polygons, sim_features, sim_pu_zones_polygons,
+#'     sim_features_zones)
 #'
+#' # define function to rescale values between zero and one so that we
+#' # can compare different connecitivity matrices
+#' rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+#'   (x - from[1]) / diff(from) * diff(to) + to[1]
+#' }
+#'
+#' # create basic problem
+#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2)
+#'
+#' # create a symmetric connectivity matrix where the connectivity between
+#' # two planning units corresponds to their shared boundary length
+#' b_matrix <- boundary_matrix(sim_pu_polygons)
+#'
+#' # standardize matrix values to lay between zero and one
+#' b_matrix[] <- rescale(b_matrix[])
+#'
+#' # visualize connectivity matrix
+#' image(b_matrix)
+#'
+#' # create a symmetric connectivity matrix where the connectivity between
+#' # two planning units corresponds to their spatial proximity
+#' # i.e. planning units that are further apart share less connectivity
+#' centroids <- rgeos::gCentroid(sim_pu_polygons, byid = TRUE)
+#' d_matrix <- (1 / (as(dist(centroids@coords), "Matrix") + 1))
+#'
+#' # standardize matrix values to lay between zero and one
+#' d_matrix[] <- rescale(d_matrix[])
+#'
+#' # remove connections between planning units without connectivity to
+#' # reduce run-time
+#' d_matrix[d_matrix < 0.7] <- 0
+#'
+#' # visualize connectivity matrix
+#' image(d_matrix)
+#'
+#' # create a symmetric connectivity matrix where the connectivity
+#' # between adjacent two planning units corresponds to their combined
+#' # value in a field in the planning unit attribute
+#' # for example, this field could describe the extent of native vegetation in
+#' # each planning unit and we could use connectivity penalties to identfy
+#' # solutions that cluster planning units togeather that contain large amounts
+#' # of native vegetation
+#' c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
+#'
+#' # standardize matrix values to lay between zero and one
+#' c_matrix[] <- rescale(c_matrix[])
+#'
+#' # visualize connectivity matrix
+#' image(c_matrix)
+#'
+#' # create an asymmetric connectivity matrix. Here, connectivity occurs between
+#' # adjacent planning units and, due to rivers flowing southwards
+#' # through the study area, connectivity from northern planning units to
+#' # southern planning units is ten times stronger than the reverse.
+#' ac_matrix <- matrix(0, length(sim_pu_polygons), length(sim_pu_polygons))
+#' ac_matrix <- as(ac_matrix, "Matrix")
+#' adjacent_units <- rgeos::gIntersects(sim_pu_polygons, byid = TRUE)
+#' for (i in seq_len(length(sim_pu_polygons))) {
+#'   for (j in seq_len(length(sim_pu_polygons))) {
+#'     # find if planning units are adjacent
+#'     if (adjacent_units[i, j]) {
+#'       # find if planning units lay north and south of each other
+#'       # i.e. they have the same x-coordinate
+#'       if (centroids@coords[i, 1] == centroids@coords[j, 1]) {
+#'         if (centroids@coords[i, 2] > centroids@coords[j, 2]) {
+#'           # if i is north of j add 10 units of connectivity
+#'           ac_matrix[i, j] <- ac_matrix[i, j] + 10
+#'         } else if (centroids@coords[i, 2] < centroids@coords[j, 2]) {
+#'           # if i is south of j add 1 unit of connectivity
+#'           ac_matrix[i, j] <- ac_matrix[i, j] + 1
+#'         }
+#'       }
+#'     }
+#'   }
+#' }
+#'
+#' # standardize matrix values to lay between zero and one
+#' ac_matrix[] <- rescale(ac_matrix[])
+#'
+#' # visualize assymetric connectivity matrix
+#' image(ac_matrix)
+#'
+#' # create penalties
+#' penalties <- c(10, 400)
+#'
+#' # create problems using the different connectivity matrices and penalties
+#' p2 <- list(p1,
+#'            p1 %>% add_connectivity_penalties(penalties[1], b_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[2], b_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[1], d_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[2], d_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[1], c_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[2], c_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[1], ac_matrix),
+#'            p1 %>% add_connectivity_penalties(penalties[2], ac_matrix))
+#'
+#' # assign names to the problems
+#' names(p2) <- c("basic problem",
+#'                paste0("b_matrix (", penalties,")"),
+#'                paste0("d_matrix (", penalties,")"),
+#'                paste0("c_matrix (", penalties,")"),
+#'                paste0("ac_matrix (", penalties,")"))
+#' \donttest{
+#' # solve problems
+#' s2 <- lapply(p2, solve)
+#'
+#' # plot solutions
+#' par(mfrow = c(3, 3))
+#' for (i in seq_along(s2)) {
+#'   plot(s2[[i]], main = names(p2)[i], cex = 1.5, col = "white")
+#'   plot(s2[[i]][s2[[i]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' }
+#' }
+#' # create minimal multi-zone problem and limit solver to ten seconds
+#' # to reduce run-time
+#' p3 <- problem(sim_pu_zones_polygons, sim_features_zones,
+#'               c("cost_1", "cost_2", "cost_3")) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(10)
+#'
+#' # create matrix showing the shared boundary between different planning units
+#' b_matrix2 <- as.matrix(boundary_matrix(sim_pu_zones_polygons))
+#'
+#' # remove exposed edges of planning units that don't share boundaries
+#' diag(b_matrix2) <- 0
+#'
+#' # create a symmetric connectivity matrix that corresponds to
+#' # shared boundaries between planning units
+#' b_array <- array(0, c(rep(length(sim_pu_zones_polygons), 2), 3, 3))
+#' for (z1 in seq_len(3))
+#'   for (z2 in seq_len(3))
+#'     b_array[, , z1, z2] <- b_matrix2[]
+#'
+#' # standardize array values to lay between zero and one
+#' b_array[] <- rescale(b_array[])
+#'
+#' # create a symmetric connectivity matrix that corresponds to shared
+#' # boundaries between planning units - but connections between planning units
+#' # from the same zone are preferred ten times more than connections between
+#' # different zones
+#' b_array2 <- array(0, c(rep(length(sim_pu_zones_polygons), 2), 3, 3))
+#' for (z1 in seq_len(3))
+#'   for (z2 in seq_len(3))
+#'     b_array2[, , z1, z2] <- b_matrix2[] * ifelse(z1 == z2, 10, 1)
+#'
+#' # standardize array values to lay between zero and one
+#' b_array2[] <- rescale(b_array2[])
+#'
+#' # create penalties
+#' penalties <- c(10, 400)
+#'
+#' # create multi-zone problems using the different connectivity arrays and
+#' # penalties
+#' p4 <- list(p3,
+#'            p3 %>% add_connectivity_penalties(penalties[1], b_array),
+#'            p3 %>% add_connectivity_penalties(penalties[2], b_array),
+#'            p3 %>% add_connectivity_penalties(penalties[1], b_array2),
+#'            p3 %>% add_connectivity_penalties(penalties[2], b_array2))
+#'
+#' # assign names to the problems
+#' names(p4) <- c("basic problem",
+#'                paste0("b_array (", penalties,")"),
+#'                paste0("b_array2 (", penalties,")"))
+#' \donttest{
+#' # solve problems
+#' s4 <- lapply(p4, solve)
+#'
+#' # plot solutions
+#' par(mfrow = c(3, 2))
+#' for (i in seq_along(s4)) {
+#'   plot(s4[[i]], main = names(p4)[i], cex = 1.5, col = "white")
+#'   plot(s4[[i]][s4[[i]]$solution_1_zone_1 == 1, ], col = "darkblue",
+#'        add = TRUE)
+#'   plot(s4[[i]][s4[[i]]$solution_1_zone_2 == 1, ], col = "darkred",
+#'        add = TRUE)
+#'   plot(s4[[i]][s4[[i]]$solution_1_zone_3 == 1, ], col = "darkgreen",
+#'        add = TRUE)
+#' }
+#' }
 #' @name add_connectivity_penalties
 #'
 #' @exportMethod add_connectivity_penalties

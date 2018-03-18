@@ -106,7 +106,7 @@ test_that("minimum set objective (compile, asymmetric, single zone)", {
     # get current planning unit/zone indices
     curr_i <- c_matrix3@i[i] + 1
     curr_j <- c_matrix3@j[i] + 1
-    # find connecitons with i and j
+    # find connections with i and j
     rows_i <- which(o$A()[, curr_i] == -1)
     rows_j <- which(o$A()[, curr_j] == -1)
     # assert that there is a connection between them
@@ -115,10 +115,26 @@ test_that("minimum set objective (compile, asymmetric, single zone)", {
     curr_row <- intersect(con_cols_i, con_cols_j)
     expect_equal(length(curr_row), 1)
     expect_true(!curr_row %in% previous_rows)
+    previous_rows <- c(previous_rows, curr_row)
   }
 })
 
 test_that("minimum set objective (solve, asymmetric, single zone)", {
+  # load data
+  data(sim_pu_raster, sim_features)
+  # prepare asymetric connectivity matrix
+  c_matrix <- as.matrix(boundary_matrix(sim_pu_raster))
+  c_matrix[lower.tri(c_matrix)] <- c_matrix[lower.tri(c_matrix)] * 0.01
+  # make and solve problem
+  s <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_connectivity_penalties(100, c_matrix) %>%
+       add_binary_decisions() %>%
+       solve()
+  # check solution
+  expect_is(s, "RasterLayer")
+  expect_true(all(raster::values(s) %in% c(0, 1, NA)))
 })
 
 test_that("invalid inputs (single zone)", {
@@ -190,8 +206,7 @@ test_that("minimum set objective (solve, symmetric, multiple zones)", {
     for (z2 in seq_len(3)) {
       c_matrix[, , z1, z2] <- as.matrix(b_penalties[z1, z2] * b_matrix)
       if (z1 != z2) {
-        c_matrix[seq_len(length(sim_pu_zones_polygons)),
-                 seq_len(length(sim_pu_zones_polygons)), z1, z2] <- 0
+        diag(c_matrix[, , z1, z2]) <- 0
       }
     }
   }
@@ -211,10 +226,182 @@ test_that("minimum set objective (solve, symmetric, multiple zones)", {
 })
 
 test_that("minimum set objective (compile, asymmetric, multiple zones)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_pu_zones_polygons <- sim_pu_zones_polygons[1:10, ]
+  # prepare asymetric connectivity matrix
+  b_matrix <- as.matrix(boundary_matrix(sim_pu_zones_polygons))
+  b_matrix[lower.tri(b_matrix)] <- b_matrix[lower.tri(b_matrix)] * 0.25
+  z_penalties <- matrix(seq_len(9), ncol = 3, nrow = 3)
+  c_matrix <- array(0, dim = c(rep(length(sim_pu_zones_polygons), 2),
+                               rep(3, 2)))
+  for (z1 in seq_len(3)) {
+    for (z2 in seq_len(3)) {
+      c_matrix[, , z1, z2] <- as.matrix(z_penalties[z1, z2] * b_matrix)
+      if (z1 != z2) {
+        diag(c_matrix[, , z1, z2]) <- 0
+      }
+    }
+  }
+  # make problem
+  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+       add_connectivity_penalties(1, c_matrix) %>%
+       add_binary_decisions()
+  # compile problem
+  o <- compile(p)
+  ## create variables for debugging
+  # number of planning units
+  n_pu <- p$number_of_planning_units()
+  # number of features
+  n_f <- p$number_of_features()
+  # number of zones
+  n_z <- p$number_of_zones()
+  # planning unit indices
+  pu_indices <- p$planning_unit_indices()
+  # compute total penalties
+  total_penalties <- numeric(n_pu * n_z)
+  for (z1 in seq_len(n_z)) {
+    for (z2 in seq_len(n_z)) {
+      pos <- ((z1 - 1) * n_pu) + seq_len(n_pu)
+      total_penalties[pos] <- total_penalties[pos] +
+                              rowSums(c_matrix[, , z1, z2])
+    }
+  }
+  # compute penalties for connection variables
+  c_matrix2 <- c_matrix
+  c_matrix2[] <- 0
+  pu_var_1 <- c()
+  pu_var_2 <- c()
+  for (i in seq_len(n_pu)) {
+    for (j in seq(i, n_pu)) {
+      for (z1 in seq_len(n_z)) {
+        for (z2 in seq_len(n_z)) {
+          if (i != j) {
+            c_matrix2[i, j, z1, z2] <- c_matrix[i, j, z1, z2] +
+                                       c_matrix[j, i, z2, z1]
+          }
+          if (c_matrix2[i, j, z1, z2] > 0) {
+            pu_var_1 <- c(pu_var_1, ((z1 - 1) * n_pu) + i)
+            pu_var_2 <- c(pu_var_2, ((z2 - 1) * n_pu) + j)
+          }
+        }
+      }
+    }
+  }
+  n_con_vars <- sum(c_matrix2 != 0)
+  con_var_penalties <- c_matrix2[c_matrix2 != 0]
+  correct_obj <- unname(c(p$planning_unit_costs() + total_penalties,
+                          con_var_penalties))
+  ## extract data from compiled problem
+  # lower bound for boundary decision variables
+  c_lb <- o$lb()[(n_pu * n_z) + seq_len(n_con_vars)]
+  # upper bound for boundary decision variables
+  c_ub <- o$ub()[(n_pu * n_z) + seq_len(n_con_vars)]
+  # vtype bound for boundary decision variables
+  c_vtype <- o$vtype()[(n_pu * n_z) + seq_len(n_con_vars)]
+  # matrix labels
+  c_col_labels <- o$col_ids()[(n_pu * n_z) + seq_len(n_con_vars)]
+  c_row_labels <- o$row_ids()[(n_f * n_z) + n_pu + seq_len(n_con_vars * 2)]
+  # sense for boundary decision constraints
+  c_sense <- o$sense()[(n_f * n_z) + n_pu + seq_len(n_con_vars * 2)]
+  # rhs for boundary decision constraints
+  c_rhs <- o$rhs()[(n_f * n_z) + n_pu + seq_len(n_con_vars * 2)]
+  ## tests
+  expect_equal(sort(o$obj()), sort(correct_obj))
+  expect_equal(c_lb, rep(0, n_con_vars))
+  expect_equal(c_ub, rep(1, n_con_vars))
+  expect_equal(c_vtype, rep("B", n_con_vars))
+  expect_equal(c_sense, rep("<=", n_con_vars * 2))
+  expect_equal(c_rhs, rep(0, n_con_vars * 2))
+  expect_equal(c_col_labels, rep("ac", n_con_vars))
+  expect_equal(c_row_labels, rep(c("ac1", "ac2"), n_con_vars))
+  # test constraint matrix
+  previous_rows <- c()
+  for (i in seq_along(pu_var_1)) {
+    # get current planning unit/zone indices
+    curr_i <- pu_var_1[i]
+    curr_j <- pu_var_2[i]
+    # find connections with i and j
+    rows_i <- which(o$A()[, curr_i] == -1)
+    rows_j <- which(o$A()[, curr_j] == -1)
+    # assert that there is a connection between them
+    con_cols_i <- max.col(o$A()[rows_i, , drop = FALSE] == 1)
+    con_cols_j <- max.col(o$A()[rows_j, , drop = FALSE] == 1)
+    curr_row <- intersect(con_cols_i, con_cols_j)
+    expect_equal(length(curr_row), 1)
+    expect_true(!curr_row %in% previous_rows)
+    previous_rows <- c(previous_rows, curr_row)
+  }
 })
 
 test_that("minimum set objective (solve, asymmetric, multiple zones)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  sim_pu_zones_polygons <- sim_pu_zones_polygons[1:10, ]
+  # prepare asymetric connectivity matrix
+  b_matrix <- as.matrix(boundary_matrix(sim_pu_zones_polygons))
+  b_matrix[lower.tri(b_matrix)] <- b_matrix[lower.tri(b_matrix)] * 0.25
+  z_penalties <- matrix(seq_len(9), ncol = 3, nrow = 3)
+  c_matrix <- array(0, dim = c(rep(length(sim_pu_zones_polygons), 2),
+                               rep(3, 2)))
+  for (z1 in seq_len(3)) {
+    for (z2 in seq_len(3)) {
+      c_matrix[, , z1, z2] <- as.matrix(z_penalties[z1, z2] * b_matrix)
+      if (z1 != z2) {
+        diag(c_matrix[, , z1, z2]) <- 0
+      }
+    }
+  }
+  # make and solve problem
+  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+       add_connectivity_penalties(1, c_matrix) %>%
+       add_binary_decisions() %>%
+       solve()
+  # check outputs
+  expect_is(s, "SpatialPolygonsDataFrame")
+  expect_true("solution_1_zone_1" %in% names(s))
+  expect_true("solution_1_zone_2" %in% names(s))
+  expect_true("solution_1_zone_3" %in% names(s))
+  expect_true(all(s$solution_1_zone_1 %in% c(0, 1, NA)))
+  expect_true(all(s$solution_1_zone_2 %in% c(0, 1, NA)))
+  expect_true(all(s$solution_1_zone_3 %in% c(0, 1, NA)))
 })
 
 test_that("invalid inputs (multiple zones)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  # prepare asymetric connectivity matrix
+  b_matrix <- as.matrix(boundary_matrix(sim_pu_zones_polygons))
+  b_matrix[lower.tri(b_matrix)] <- b_matrix[lower.tri(b_matrix)] * 0.25
+  z_penalties <- matrix(seq_len(9), ncol = 3, nrow = 3)
+  c_matrix <- array(0, dim = c(rep(length(sim_pu_zones_polygons), 2),
+                               rep(3, 2)))
+  for (z1 in seq_len(3)) {
+    for (z2 in seq_len(3)) {
+      c_matrix[, , z1, z2] <- as.matrix(z_penalties[z1, z2] * b_matrix)
+      if (z1 != z2) {
+        diag(c_matrix[, , z1, z2]) <- 0
+      }
+    }
+  }
+  # make minimal problem
+  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
+       add_binary_decisions()
+  # tests
+  expect_error(add_connectivity_penalties(p, NA_real_, c_matrix))
+  expect_error(add_connectivity_penalties(p, 1, b_matrix))
+  expect_error(add_connectivity_penalties(p, 1, c_matrix[-1, , , ]))
+  expect_error(add_connectivity_penalties(p, 1, c_matrix[, -1, , ]))
+  expect_error(add_connectivity_penalties(p, 1, c_matrix[, , -1, ]))
+  expect_error(add_connectivity_penalties(p, 1, c_matrix[, , , -1]))
+  expect_error(add_connectivity_penalties(p, 1, c_matrix[, , , 1]))
 })
