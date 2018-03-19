@@ -9,7 +9,7 @@ NULL
 
 #' prioritizr
 #'
-#' \emph{Prioritizr} is an R package for solving systematic conservation
+#' \emph{prioritizr} is an R package for solving systematic conservation
 #' planning problems. By using integer linear programming (ILP)
 #' techniques, this package offers a flexible interface for creating
 #' reserve selection problems that can be tailored to the specific needs of the
@@ -19,20 +19,21 @@ NULL
 #' conventionally used to solve conservation problems, such as greedy
 #' heuristics or simulated annealing, the exact algorithms used by
 #' \emph{prioritizr} are guaranteed to find optimal solutions. This package
-#' also has the functionality to read \href{http://marxan.net/}{Marxan} input
-#' data (Ball \emph{et al.} 2009) and find much better solutions in a much
-#' shorter period of time than Marxan  (Beyer \emph{et al.} 2016). See the
+#' also has the functionality to read \href{http://marxan.net/}{\emph{Marxan}}
+#' input data (Ball \emph{et al.} 2009) and find much better solutions in a much
+#' shorter period of time than \emph{Marxan} (Beyer \emph{et al.} 2016). See the
 #' \href{https://github.com/prioritizr/prioritizr}{online code repository}
 #' for more information.
 #'
 #' @details This package contains vignettes that introduce systematic
-#' conservation planning and basic usage of the \emph{prioritizr} package. The
-#'  supplemental
-#' \href{https://github.com/prioritizr/prioritizrdata}{\emph{prioritizrdata}}
-#' package contains further example datasets and worked examples. The vignettes
-#' in this package are listed below.
+#'   conservation planning and basic usage of the \emph{prioritizr} package. The
+#'   supplemental
+#'   \href{https://github.com/prioritizr/prioritizrdata}{\emph{prioritizrdata}}
+#'   package contains further example datasets and worked examples. The
+#'   vignettes in this package are listed below.
 #'
-#' \describe{
+#'   \describe{
+#'
 #' \item{\href{https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html}{Prioritizr Basics}}{Background information
 #'  on the concepts and terminology that underpin systematic conservation
 #'  planning and their usage in this package.}

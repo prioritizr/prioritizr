@@ -18,8 +18,9 @@
 \item{penalty}{\code{numeric} or \code{matrix} of penalty multipliers for
 exposed edges. This is equivalent to the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{Marxan}. Note that \code{matrix}
-arguments must be symmetric. See the Details section for more information.}
+parameter in \href{http://marxan.net}{\emph{Marxan}}. Note that
+\code{matrix} arguments must be symmetric. See the Details section for more
+information.}
 
 \item{edge_factor}{\code{numeric} \code{vector} proportion to scale edges
 that do not have any neighboring planning units. For example, an edge
@@ -35,7 +36,7 @@ represent their shared boundary. If \code{boundary_data} is
 \code{data.frame} then it must have the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}, where each row shows
 the shared boundary between two planning units (as per the standard
-Marxan input format). This argument is required
+\emph{Marxan} input format). This argument is required
 if the planning units in \code{x} are stored in a \code{data.frame}
 object. Otherwise, it is optional and the boundary data will be
 automatically calculated. Note that the \code{boundary_data} must be

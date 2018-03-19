@@ -5,7 +5,7 @@ NULL
 #'
 #' Set an objective to find the solution that fulfills all the targets and
 #' constraints for the smallest cost. This objective is similar to that used in
-#' Marxan and is detailed in Rodrigues \emph{et al.} (2000).
+#' \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -18,8 +18,9 @@ NULL
 #'   In the context of systematic reserve design, the minimum set objective
 #'   seeks to find the set of planning units that minimizes the overall cost of
 #'   a reserve network, while meeting a set of representation targets for the
-#'   conservation features. This objective is equivalent to a simplified Marxan
-#'   reserve design problem with the Boundary Length Modifier (BLM) set to zero.
+#'   conservation features. This objective is equivalent to a simplified
+#'   \emph{Marxan} reserve design problem with the Boundary Length Modifier
+#'   (BLM) set to zero.
 #'
 #'   The minimum set objective for the reserve design problem can be expressed
 #'   mathematically for a set of planning units (\eqn{I}{I} indexed by

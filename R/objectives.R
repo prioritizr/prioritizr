@@ -29,7 +29,7 @@ NULL
 #'
 #'   \item{\code{\link{add_min_set_objective}}}{Set an objective to find the
 #'     solution that fulfills all the targets and constraints for the smallest
-#'     cost. This objective is similar to that used in Marxan.}
+#'     cost. This objective is similar to that used in \emph{Marxan}.}
 #'
 #'   \item{\code{\link{add_max_cover_objective}}}{Set an objective to find the
 #'     solution that secures as much of each feature as possible without

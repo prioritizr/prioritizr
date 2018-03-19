@@ -5,7 +5,7 @@
 \alias{marxan_problem.default}
 \alias{marxan_problem.data.frame}
 \alias{marxan_problem.character}
-\title{Marxan conservation problem}
+\title{\emph{Marxan} conservation problem}
 \usage{
 marxan_problem(x, ...)
 
@@ -19,7 +19,7 @@ marxan_problem(x, ...)
 \method{marxan_problem}{character}(x, ...)
 }
 \arguments{
-\item{x}{\code{character} file path for Marxan input file (typically
+\item{x}{\code{character} file path for \emph{Marxan} input file (typically
 called \code{"input.dat"}), a \code{data.frame} object containing
 planning unit data following conventions (i.e. \code{"pu.dat"}), or a
 \code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
@@ -47,8 +47,9 @@ locked out. See the Details section for more information.}
 \item{penalty}{\code{numeric} or \code{matrix} of penalty multipliers for
 exposed edges. This is equivalent to the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{Marxan}. Note that \code{matrix}
-arguments must be symmetric. See the Details section for more information.}
+parameter in \href{http://marxan.net}{\emph{Marxan}}. Note that
+\code{matrix} arguments must be symmetric. See the Details section for more
+information.}
 
 \item{edge_factor}{\code{numeric} \code{vector} proportion to scale edges
 that do not have any neighboring planning units. For example, an edge
@@ -57,44 +58,60 @@ line. Note that this argument must have an element for each zone
 in the argument to \code{x}.}
 
 \item{spec}{\code{data.frame} containing information on the features.
-The argument to \code{spec} must follow the conventions used by
-Marxan for the species data file (conventionally called \code{"spec.dat"}).
-Each row corresponds to a different feature. It must also contain
-the following columns:
-\describe{
+  The argument to \code{spec} must follow the conventions used by
+  \emph{Marxan} for the species data file (conventionally called
+  \code{"spec.dat"}). Each row corresponds to a different feature. It must
+  also contain the following columns:
+
+  \describe{
+
   \item{\code{"id"}}{\code{integer} unique identifier for each feature
     These identifiers are used in the argument to \code{rij_data}.}
+
   \item{\code{"name"}}{\code{character} name for each feature.}
+
   \item{\code{"prop"}}{\code{numeric} relative target for each feature
-     (optional).}'
+    (optional).}'
+
   \item{\code{"amount"}}{\code{numeric} absolute target for each
-      feature (optional).}
-}}
+    feature (optional).}
+
+  }}
 
 \item{puvspr}{\code{data.frame} containing information on the amount of
-each feature in each planning unit. The argument to
-\code{puvspr} must follow the conventions used in the Marxan input data
-file (conventionally called \code{"puvspr.dat"}). It must contain the
-following columns:
-\describe{
+  each feature in each planning unit. The argument to
+  \code{puvspr} must follow the conventions used in the \emph{Marxan} input
+  data file (conventionally called \code{"puvspr.dat"}). It must contain the
+  following columns:
+
+  \describe{
+
   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+
   \item{\code{"species"}}{\code{integer} feature identifier.}
+
   \item{\code{"amount"}}{\code{numeric} amount of the feature in the
-    planning unit.}
-}}
+       planning unit.}
+
+  }}
 
 \item{bound}{\code{data.frame} containing information on the
-planning units' boundaries or the connectivity between planning units.
-The argument to \code{bound} must follow the
-conventions used in the Marxan input data file (conventionally called
-\code{"bound.dat"}). It must contain the following columns:
-\describe{
+  planning units' boundaries or the connectivity between planning units.
+  The argument to \code{bound} must follow the
+  conventions used in the \emph{Marxan} input data file (conventionally
+  called \code{"bound.dat"}). It must contain the following columns:
+
+  \describe{
+
   \item{\code{"id1"}}{\code{integer} planning unit identifier.}
+
   \item{\code{"id2"}}{\code{integer} planning unit identifier.}
+
   \item{\code{"boundary"}}{\code{numeric} length of shared boundary
     between planning units, or the strength of the connectivity between
     the two planning units.}
-}}
+
+  }}
 
 \item{blm}{\code{numeric} boundary length modifier. This argument only
 has an effect when argument to \code{x} is a \code{data.frame}. Defaults
@@ -109,18 +126,19 @@ This argument only has an effect when argument to \code{bound} is a
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Create a Marxan conservation problem.
+Create a \emph{Marxan} conservation problem.
 }
 \details{
-Although users are encouraged to build and tailor conservation planning
-problems to suit their own needs, sometimes it is easier to use a more
-familiar "canned" approach. This function provides a convenient wrapper for
-generating and solving Marxan-style conservation problems. If users already
-have their conservation planning data in the Marxan input format, this
-function can also be used to read Marxan data files and solve the
-Marxan-style problems using exact algorithm solvers. For more information on
-see the \href{http://marxan.net}{official Marxan website} and Ball
-\emph{et al.} (2009).
+Although users are encouraged to build and tailor conservation
+  planning problems to suit their own needs, sometimes it is easier to use a
+  more familiar "canned" approach. This function provides a convenient
+  wrapper for generating and solving \emph{Marxan}-style conservation
+  problems. If users already have their conservation planning data in the
+  \emph{Marxan} input format, this function can also be used to read
+  \emph{Marxan} data files and solve \emph{Marxan}-style problems using
+  exact algorithm solvers. For more information, see the
+  \href{http://marxan.net}{official \emph{Marxan} website} and Ball
+  \emph{et al.} (2009).
 }
 \examples{
 # # not implemented
