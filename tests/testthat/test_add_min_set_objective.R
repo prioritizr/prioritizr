@@ -203,8 +203,7 @@ test_that("compile (expanded formulation, multiple zones)", {
                             "<=", ">=", "=",
                             rep("<=", n_pu)))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_zone * n_feature),
-                          4, 5, 6,
-                          rep(1, n_pu)))
+                          4, 5, 6, rep(1, n_pu)))
   expect_equal(o$row_ids(), c(rep("pu_ijz", n_pu * n_zone * n_feature),
                               rep("spp_target", 3),
                               rep("pu_zone", n_pu)))

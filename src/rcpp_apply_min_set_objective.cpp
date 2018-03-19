@@ -14,8 +14,8 @@ bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list,
     if (Rcpp::NumericVector::is_na(costs[i])) {
       // NA costs for planning units in zones
       ptr->_obj.push_back(0.0);
-      ptr->_lb[i] = 0;
-      ptr->_ub[i] = 0;
+      ptr->_lb[i] = 0.0;
+      ptr->_ub[i] = 0.0;
     } else {
       ptr->_obj.push_back(costs[i]);
     }
