@@ -20,6 +20,10 @@ the solution portfolio. Defaults to 1.}
 \item{remove_duplicates}{\code{logical} should duplicate solutions
 be removed? Defaults to \code{TRUE}.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the portfolio
+  added to it.
+}
 \description{
 Generate a portfolio of solutions by randomly reordering the data prior to #' attempting to solve the problem.
 }

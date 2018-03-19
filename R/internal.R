@@ -179,7 +179,7 @@ align_text <- function(x, n) {
 #' detected on the system, then a \code{NULL} object is retured.
 #'
 #' @details This function tests if any of the following packages are installed:
-#'   \code{Rsymphony}, \code{lpsymphony}, \code{gurobi}.
+#'   \emph{Rsymphony}, \emph{lpsymphony}, \emph{gurobi}.
 #'
 #' @return \code{character} indicating the name of the default solver.
 #'
@@ -201,7 +201,7 @@ default_solver_name <- function() {
 #' Test if any solvers are installed.
 #'
 #' @details This function tests if any of the following packages are installed:
-#'   \code{Rsymphony}, \code{lpsymphony}, \code{gurobi}.
+#'   \emph{Rsymphony}, \emph{lpsymphony}, \emph{gurobi}.
 #'
 #' @return \code{logical} value indicating if any solvers are installed.
 #'

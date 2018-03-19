@@ -61,55 +61,60 @@ cells to \code{NA}, or use the \code{add_locked_out_constraint}.}
 
 \item{features}{The correct argument for \code{features} depends on the
   input to \code{x}:
+
   \describe{
-    \item{\code{\link[raster]{RasterLayer-class}},
-      \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
-      object showing the distribution of conservation features. Missing
-      values (i.e. \code{NA} values) can be used to indicate the absence of
-      a feature in a particular cell instead of explicitly setting these
-      cells to zero. Note that this argument type for \code{features} can
-      only be used to specify data for problems involving a single zone.}
 
-    \item{\code{\link[raster]{RasterStack-class}},
-      \code{\link[raster]{RasterBrick-class}}
-      \code{\link[sp]{Spatial-class}}}{\code{ZonesRaster}
-      object showing the distribution of conservation features in multiple
-      zones. As above, missing values (i.e. \code{NA} values) can be used to
-      indicate the absence of a feature in a particular cell instead of
-      explicitly setting these cells to zero. Note that this argument type
-      is explicitly designed for creating problems with spatial data that
-      contain multiple zones.}
+  \item{\code{\link[raster]{RasterLayer-class}},
+    \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+    object showing the distribution of conservation features. Missing
+    values (i.e. \code{NA} values) can be used to indicate the absence of
+    a feature in a particular cell instead of explicitly setting these
+    cells to zero. Note that this argument type for \code{features} can
+    only be used to specify data for problems involving a single zone.}
 
-    \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
-      with column names that correspond to the abundance or occurrence of
-      different features in each planning unit. Note that this argument
-      type can only be used to create problems involving a single zone.}
+  \item{\code{\link[raster]{RasterStack-class}},
+    \code{\link[raster]{RasterBrick-class}}
+    \code{\link[sp]{Spatial-class}}}{\code{ZonesRaster}
+    object showing the distribution of conservation features in multiple
+    zones. As above, missing values (i.e. \code{NA} values) can be used to
+    indicate the absence of a feature in a particular cell instead of
+    explicitly setting these cells to zero. Note that this argument type
+    is explicitly designed for creating problems with spatial data that
+    contain multiple zones.}
 
-    \item{\code{\link{Spatial}},
-      \code{data.frame}}{\code{\link{ZonesCharacter}}
-      object with column names that correspond to the abundance or
-      occurrence of different features in each planning unit in different
-      zones. Note that this argument type is designed specifically for
-      problems involving multiple zones.}
+  \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+    with column names that correspond to the abundance or occurrence of
+    different features in each planning unit. Note that this argument
+    type can only be used to create problems involving a single zone.}
 
-    \item{\code{\link{Spatial}}, \code{data.frame}, \code{numeric} vector,
-      \code{\link{matrix}}}{\code{data.frame} object
-      containing the names of the features. Note that if this
-      type of argument is supplied to \code{features} then the argument
-      \code{rij} or \code{rij_matrix} must also be supplied. This type of
-      argument should follow the conventions used by \emph{Marxan}, wherein
-      each row corresponds to a different feature. It must also contain the
-      following columns:
-      \describe{
-        \item{\code{"id"}}{\code{integer} unique identifier for each feature
-          These identifiers are used in the argument to \code{rij}.}
-        \item{\code{"name"}}{\code{character} name for each feature.}
-        \item{\code{"prop"}}{\code{numeric} relative target for each feature
-          (optional).}
-        \item{\code{"amount"}}{\code{numeric} absolute target for each
-          feature (optional).}
-       }
-    }
+  \item{\code{\link{Spatial}},
+    \code{data.frame}}{\code{\link{ZonesCharacter}}
+    object with column names that correspond to the abundance or
+    occurrence of different features in each planning unit in different
+    zones. Note that this argument type is designed specifically for
+    problems involving multiple zones.}
+
+  \item{\code{\link{Spatial}}, \code{data.frame}, \code{numeric} vector,
+    \code{\link{matrix}}}{\code{data.frame} object
+    containing the names of the features. Note that if this
+    type of argument is supplied to \code{features} then the argument
+    \code{rij} or \code{rij_matrix} must also be supplied. This type of
+    argument should follow the conventions used by \emph{Marxan}, wherein
+    each row corresponds to a different feature. It must also contain the
+    following columns:
+
+    \describe{
+
+    \item{\code{"id"}}{\code{integer} unique identifier for each feature
+      These identifiers are used in the argument to \code{rij}.}
+    \item{\code{"name"}}{\code{character} name for each feature.}
+    \item{\code{"prop"}}{\code{numeric} relative target for each feature
+      (optional).}
+    \item{\code{"amount"}}{\code{numeric} absolute target for each
+      feature (optional).}
+
+    }}
+
  }}
 
 \item{cost_column}{\code{character} name or \code{integer} indicating the
@@ -127,17 +132,20 @@ set the argument to \code{cost_column} as a single column name.}
    \code{"zone"} column is not needed for problems involving a single
    management zone. Specifically, the argument should contain the following
    columns:
-      \describe{
-        \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 
-        \item{\code{"species"}}{\code{integer} feature identifier.}
+   \describe{
 
-        \item{\code{"zone"}}{\code{integer} zone identifier (optional for
-          problems involving a single zone).}
+   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 
-        \item{\code{"amount"}}{\code{numeric} amount of the feature in the
-          planning unit.}
-      }}
+   \item{\code{"species"}}{\code{integer} feature identifier.}
+
+   \item{\code{"zone"}}{\code{integer} zone identifier (optional for
+     problems involving a single zone).}
+
+   \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+     planning unit.}
+
+   }}
 
 \item{rij_matrix}{\code{list} of \code{matrix} or
 \code{\link[Matrix]{dgCMatrix-class}}
@@ -155,13 +163,15 @@ to \code{x} is a \code{numeric} or \code{matrix} object.}
   both \code{data.frame} objects and the problem being built contains
   multiple zones. Following conventions used in \code{MarZone}, this
   argument should contain the following columns:
-   columns:
-      \describe{
-        \item{\code{"id"}}{\code{integer} zone identifier.}
+  columns:
 
-        \item{\code{"name"}}{\code{character} zone name.}
+  \describe{
 
-      }}
+  \item{\code{"id"}}{\code{integer} zone identifier.}
+
+  \item{\code{"name"}}{\code{character} zone name.}
+
+  }}
 
 \item{run_checks}{\code{logical} flag indicating whether checks should be
 run to ensure the integrity of the input data. These checks are run by
@@ -201,51 +211,52 @@ a \code{RasterLayer-class},
 containing the solution depending on the \code{ConservationProblem-class}
 
 A reserve design exercise starts by dividing the study region
-into planning units (typically square or hexagonal cells) and, for
-each planning unit, assigning values that quantify socioeconomic
-cost and conservation benefit for a set of conservation features. The
-cost can be the acquisition cost of the land, the cost of management,
-the opportunity cost of foregone commercial activities (e.g. from logging
-or agriculture), or simply the area. The conservation features are
-typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
-cloud forest). The benefit that each feature derives from a planning unit
-can take a variety of forms, but is typically either occupancy (i.e.
-presence or absence) or area of occurrence within each planning unit.
-Finally, in some types of reserve design models, for each conservation
-feature, representation targets must be set, such as 20% of the current
-extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-(see \code{\link{targets}}).
+  into planning units (typically square or hexagonal cells) and, for
+  each planning unit, assigning values that quantify socioeconomic
+  cost and conservation benefit for a set of conservation features. The
+  cost can be the acquisition cost of the land, the cost of management,
+  the opportunity cost of foregone commercial activities (e.g. from logging
+  or agriculture), or simply the area. The conservation features are
+  typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
+  cloud forest). The benefit that each feature derives from a planning unit
+  can take a variety of forms, but is typically either occupancy (i.e.
+  presence or absence) or area of occurrence within each planning unit.
+  Finally, in some types of reserve design models, for each conservation
+  feature, representation targets must be set, such as 20% of the current
+  extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
+  (see \code{\link{targets}}).
 
-The goal of the reserve design exercise is then to optimize the trade-off
-between conservation benefit and socioeconomic cost, i.e. to get the most
-benefit for your limited conservation funds. In general, the goal of an
-optimization problem is to minimize an objective function over a set of
-decision variables, subject to a series of constraints. The decision
-variables are what we control, usually there is one binary variable for each
-planning unit specifying whether or not to protect that unit (but other
-approaches are available, see \code{\link{decisions}}). The constraints can
-be thought of as rules that need to be followed, for example, that the
-reserve must stay within a certain budget or meet the representation targets.
+  The goal of the reserve design exercise is then to optimize the trade-off
+  between conservation benefit and socioeconomic cost, i.e. to get the most
+  benefit for your limited conservation funds. In general, the goal of an
+  optimization problem is to minimize an objective function over a set of
+  decision variables, subject to a series of constraints. The decision
+  variables are what we control, usually there is one binary variable for
+  each planning unit specifying whether or not to protect that unit (but
+  other approaches are available, see \code{\link{decisions}}). The
+  constraints can be thought of as rules that need to be followed, for
+  example, that the reserve must stay within a certain budget or meet the
+  representation targets.
 
-Integer linear programming (ILP) is the subset of optimization algorithms
-used in this package to solve reserve design problems. The general form of
-an ILP problem can be expressed in matrix notation as:
+  Integer linear programming (ILP) is the subset of optimization algorithms
+  used in this package to solve reserve design problems. The general form of
+  an ILP problem can be expressed in matrix notation as:
 
-\deqn{\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
-\mathit{subject \space to} \space
-\mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =,
-or \le b}
+  \deqn{\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
+  \mathit{subject \space to} \space
+  \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =,
+  or \le b}
 
-Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
-vectors of known coefficients, and \emph{A} is the \strong{constraint
-matrix}. The final term specifies a series of \strong{structural constraints}
-where relational operators for the constraint can be either \eqn{\ge, =, or
-\le} the coefficients. For example, in the minimum set cover problem,
-\emph{c} would be a vector of costs for each planning unit, \emph{b} a
-vector of targets for each conservation feature, the relational operator
-would be \eqn{\ge} for all features, and \emph{A} would be the
-representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
-representation level of feature \emph{i} in planning unit \emph{j}.
+  Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
+  vectors of known coefficients, and \emph{A} is the constraint
+  matrix. The final term specifies a series of structural
+  constraints where relational operators for the constraint can be either
+  \eqn{\ge, =, or \le} the coefficients. For example, in the minimum set
+  cover problem, \emph{c} would be a vector of costs for each planning unit,
+  \emph{b} a vector of targets for each conservation feature, the relational
+  operator would be \eqn{\ge} for all features, and \emph{A} would be the
+  representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
+  representation level of feature \emph{i} in planning unit \emph{j}.
 }
 \examples{
 # load data

@@ -4,11 +4,10 @@ NULL
 #' Add targets using log-linear scaling
 #'
 #' Set targets by log-linearly interpolating them between thresholds
-#' (Rodrigues \emph{et al.} 2004).
-#' Additionally, caps can be applied to targets to prevent features with
-#' massive distributions from being over-represented in solutions
-#' (Butchart \emph{et al.} 2015). \strong{The behavior of this function has
-#' changed substantially from versions prior to 5.0.0}.
+#' (Rodrigues \emph{et al.} 2004). Additionally, caps can be applied to targets
+#' to prevent features with massive distributions from being over-represented
+#' in solutions (Butchart \emph{et al.} 2015). \strong{The behavior of this
+#' function has changed substantially from versions prior to 5.0.0}.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -33,35 +32,34 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details
-#' Targets are used to specify the minimum amount or proportion of a feature's
-#' distribution that needs to be protected. All conservation planning problems
-#' require adding targets with the exception of the maximum cover problem
-#' (see \code{\link{add_max_cover_objective}}), which maximizes all features
-#' in the solution and therefore does not require targets.
+#' @details Targets are used to specify the minimum amount or proportion of a
+#'   feature's distribution that needs to be protected. All conservation
+#'   planning problems require adding targets with the exception of the maximum
+#'   cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
+#'   all features in the solution and therefore does not require targets.
 #'
-#' Six parameters are used to calculate the targets: \code{lower_bound_amount}
-#' specifies the first range size threshold, \code{lower_bound_target} specifies
-#' the relative target required for species with a range size equal to or less
-#' than the first threshold, \code{upper_bound_amount} specifies the second
-#' range size threshold, \code{upper_bound_target} specifies
-#' the relative target required for species with a range size equal to or
-#' greater than the second threshold, \code{cap_amount} specifies the third
-#' range size threshold, and \code{cap_target} specifies the absolute
-#' target that is uniformly applied to species with a range size larger than
-#' that third threshold.
+#'   Six parameters are used to calculate the targets: \code{lower_bound_amount}
+#'   specifies the first range size threshold, \code{lower_bound_target}
+#'   specifies the relative target required for species with a range size equal
+#'   to or less than the first threshold, \code{upper_bound_amount} specifies
+#    the second range size threshold, \code{upper_bound_target} specifies
+#'   the relative target required for species with a range size equal to or
+#'   greater than the second threshold, \code{cap_amount} specifies the third
+#'   range size threshold, and \code{cap_target} specifies the absolute
+#'   target that is uniformly applied to species with a range size larger than
+#'   that third threshold.
 #'
-#' Note that the target calculations do \strong{not} account for the
-#' size of each planning unit. Therefore, the feature data should account for
-#' the size of each planning unit if this is important (e.g. Pixel values in
-#' the argument to \code{features} in the function \code{\link{problem}} could
-#' correspond to amount of land occupied by the feature (\deqn{km^2})).
+#'   Note that the target calculations do \strong{not} account for the
+#'   size of each planning unit. Therefore, the feature data should account for
+#'   the size of each planning unit if this is important (e.g. Pixel values in
+#'   the argument to \code{features} in the function \code{\link{problem}} could
+#'   correspond to amount of land occupied by the feature (\deqn{km^2})).
 #'
-#' This function can only be applied to \code{\link{ConservationProblem-class}}
-#' objects that are associated with a single zone.
+#'   This function can only be applied to
+#'   \code{\link{ConservationProblem-class}} objects that are associated with a
+#'   single zone.
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the target added
-#'   to it.
+#' @inherit add_relative_targets return
 #'
 #' @seealso \code{\link{targets}}, \code{\link{loglinear_interpolation}}.
 #'

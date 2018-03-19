@@ -31,9 +31,9 @@ layer.}
 
 \item{directions}{\code{integer} If \code{x} is a
 \code{\link[raster]{Raster-class}} object, the number of directions
- in which cells should be connected: 4 (rook's case), 8 (queen's case),
- 16 (knight and one-cell queen moves), or "bishop" to connect cells with
- one-cell diagonal moves.}
+in which cells should be connected: 4 (rook's case), 8 (queen's case),
+16 (knight and one-cell queen moves), or "bishop" to connect cells with
+one-cell diagonal moves.}
 
 \item{distance}{\code{numeric} If \code{x} is a
 \code{\link{SpatialPoints-class}} object, the distance that planning units

@@ -22,7 +22,7 @@ NULL
 #'   when problems are quick to solve and multiple threads are available for
 #'   solving each problem separately.
 #'
-#' @seealso \code{\link{portfolios}}.
+#' @inherit add_cuts_portfolio seealso return
 #'
 #' @examples
 #' # set seed for reproducibility

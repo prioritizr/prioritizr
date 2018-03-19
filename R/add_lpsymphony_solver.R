@@ -5,39 +5,18 @@ NULL
 #'
 #' Specify the use of a SYMPHONY algorithm to solve a
 #' \code{\link{ConservationProblem-class}} object. Requires the
-#' \code{lpsymphony} package.
+#' \emph{lpsymphony} package.
 #'
-#' @details
-#'    The \code{lpsymphony} package provides a
-#'    different interface to the COIN-OR software suite. Unlike the
-#'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-#'    through
-#'    \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-#'    On Windows and Mac, \code{lpsymphony}
-#'    may be easier to install. This solver uses the \code{lpsymphony} package
-#'    to solve.
+#' @inheritParams add_rsymphony_solver
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @details The \emph{lpsymphony} package provides a different interface to the
+#'   COIN-OR software suite. Unlike the \emph{Rsymhpony} package, the
+#'   \emph{lpsymphony} package is distributed through
+#'   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+#'   On Windows and Mac OSX, \emph{lpsymphony} may be easier to install. This
+#'   solver uses the \emph{lpsymphony} package to solve problems.
 #'
-#' @param gap \code{numeric} gap to optimality. This gap is absolute and
-#'   expresses the acceptable deviance from the optimal objective. For example,
-#'   solving a minimum set objective problem with a gap of 5 will cause the
-#'   solver to terminate when the cost of the solution is within 5 cost units
-#'   from the optimal solution.
-#'
-#' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
-#'   The solver will return the current best solution when this time limit is
-#'   exceeded.
-#'
-#' @param first_feasible \code{logical} should the first feasible solution be
-#'   be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
-#'   will return the first solution it encounters that meets all the
-#'   constraints, regardless of solution quality. Note that the first feasible
-#'   solution is not an arbitrary solution, rather it is derived from the
-#'   relaxed solution, and is therefore often reasonably close to optimality.
-#'
-#' @param verbose \code{logical} should information be printed while solving
-#'  optimization problems? Defaults to \code{TRUE}.
+#' @inherit add_rsymphony_solver seealso return
 #'
 #' @seealso \code{\link{solvers}}.
 #'

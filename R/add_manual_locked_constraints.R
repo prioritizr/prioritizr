@@ -20,19 +20,18 @@ NULL
 #'
 #'   \describe{
 #'
-#'     \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 #'
-#'     \item{\code{"zone"}}{\code{character} names of zones. Note that this
-#'       argument is optional for arguments to \code{x} that contain a single
-#'       zone.}
+#'   \item{\code{"zone"}}{\code{character} names of zones. Note that this
+#'     argument is optional for arguments to \code{x} that contain a single
+#'     zone.}
 #'
-#'     \item{\code{"status"}}{\code{numeric} values indicating how much
-#'       of each planning unit should be allocated to each zone in the
-#'       solution.}
-#'  }
+#'   \item{\code{"status"}}{\code{numeric} values indicating how much
+#'     of each planning unit should be allocated to each zone in the solution.}
 #'
+#'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object.
+#' @inherit add_connected_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility

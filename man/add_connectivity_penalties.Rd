@@ -57,37 +57,37 @@ This function uses connectivity data to penalize solutions
 
   \describe{
 
-    \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-     different planning
-     units and the value of each cell represents the strength of connectivity
-     between two different planning units. Cells that occur along the
-     diagonal correspond to connectivity weights such that planning units
-     with higher values are more desireable in the solution. Note that
-     \code{matrix} objects cannot be supplied as an argument for
-     \code{connectivity_data} when the argument to \code{x} contains multiple
-     zones, and instead an \code{array} object must be supplied.}
+  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+    different planning units and the value of each cell represents the
+    strength of connectivity between two different planning units. Cells
+    that occur along the diagonal correspond to connectivity weights such
+    that planning units with higher values are more desireable in the
+    solution. Note that \code{matrix} objects cannot be supplied as an
+    argument for \code{connectivity_data} when the argument to \code{x}
+    contains multiple zones, and instead an \code{array} object must be
+    supplied.}
 
-   \item{\code{data.frame}}{containing the fields (columns)
-     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-     denotes the connectivity between two planning units (following the
-     \emph{Marxan} format). The data can be used to denote symmetric or
-     asymmetric relationships between planning units. By default,
-     input data is assumed to be symmetric (e.g. if connectivity data
-     is present for planning units 2 and 3, then the same amount
-     of connectivity is expected for planning units 3 and 2). If the
-     argument to \code{x} contains multiple zones, then \code{"zone1"}
-     and \code{"zone2"} columns are required indicating the names
-     of zones to which the planning unit allocations pertain.}
+  \item{\code{data.frame}}{containing the fields (columns)
+    \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+    denotes the connectivity between two planning units (following the
+    \emph{Marxan} format). The data can be used to denote symmetric or
+    asymmetric relationships between planning units. By default,
+    input data is assumed to be symmetric (e.g. if connectivity data
+    is present for planning units 2 and 3, then the same amount
+    of connectivity is expected for planning units 3 and 2). If the
+    argument to \code{x} contains multiple zones, then \code{"zone1"}
+    and \code{"zone2"} columns are required indicating the names
+    of zones to which the planning unit allocations pertain.}
 
   \item{\code{array}}{containing four-dimensions where cell values
-     indicate the strength of connectivity between planning units
-     when they are assigned to specific management zones. The first two
-     dimensions (i.e. rows and columns) indicate the strength of
-     connectivity between different planning units and the second two
-     dimensions indicate the different management zones. Thus
-     the \code{connectivity_data[1, 2, 3, 4]} indicates the strength of
-     connectivity between planning unit 1 and planning unit 2 when planning
-     unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+    indicate the strength of connectivity between planning units
+    when they are assigned to specific management zones. The first two
+    dimensions (i.e. rows and columns) indicate the strength of
+    connectivity between different planning units and the second two
+    dimensions indicate the different management zones. Thus
+    the \code{connectivity_data[1, 2, 3, 4]} indicates the strength of
+    connectivity between planning unit 1 and planning unit 2 when planning
+    unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 
   }
 }

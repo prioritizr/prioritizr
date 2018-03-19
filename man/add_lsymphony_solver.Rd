@@ -31,20 +31,22 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems? Defaults to \code{TRUE}.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the solver added
+  to it.
+}
 \description{
 Specify the use of a SYMPHONY algorithm to solve a
 \code{\link{ConservationProblem-class}} object. Requires the
-\code{lpsymphony} package.
+\emph{lpsymphony} package.
 }
 \details{
-The \code{lpsymphony} package provides a
-   different interface to the COIN-OR software suite. Unlike the
-   \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-   through
-   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-   On Windows and Mac, \code{lpsymphony}
-   may be easier to install. This solver uses the \code{lpsymphony} package
-   to solve.
+The \emph{lpsymphony} package provides a different interface to the
+  COIN-OR software suite. Unlike the \emph{Rsymhpony} package, the
+  \emph{lpsymphony} package is distributed through
+  \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+  On Windows and Mac OSX, \emph{lpsymphony} may be easier to install. This
+  solver uses the \emph{lpsymphony} package to solve problems.
 }
 \examples{
 # load data

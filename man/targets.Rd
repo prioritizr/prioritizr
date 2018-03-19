@@ -13,25 +13,24 @@ error message when solving.The exception is the maximum cover problem
 (see \code{\link{add_max_cover_objective}}), which maximizes all features
 in the solution and therefore does not require targets.
 
-
-The following list contains the targets can be added to a conservation
-planning \code{\link{problem}}.
+The following list contains the targets can be added to a
+conservation planning \code{\link{problem}}.
 
 \describe{
 
-  \item{\code{\link{add_relative_targets}}}{Set targets as a proportion
-  (between 0 and 1) of the maximum level of representation of features in
+\item{\code{\link{add_relative_targets}}}{Set targets as a proportion
+  (between 0 and 1) of the total amount of each feature in the
   the study area.}
 
-  \item{\code{\link{add_absolute_targets}}}{Set targets expressed as the
-  actual value of features in the study area that need to be represented in
-  the prioritization.}
+\item{\code{\link{add_absolute_targets}}}{Set targets that denote the
+  minimum amount of each feature required in the prioritization.}
 
-  \item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
-  (between 0 and 1) and calculated using a log-linear equation and four
-  tuning parameters.}
+\item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
+  (between 0 and 1) that are calculated using log-linear interpolation.}
 
- }
+\item{\code{\link{add_manual_targets}}}{Set targets manually.}
+
+}
 }
 \examples{
 # load data
@@ -50,15 +49,20 @@ p2 <- p \%>\% add_absolute_targets(3)
 
 # create problem with added loglinear targets
 p3 <- p \%>\% add_loglinear_targets(10, 0.9, 100, 0.2)
+
+# create problem with manual targets that equate to 10\% relative targets
+p4 <- p \%>\% add_manual_targets(data.frame(feature = names(sim_features),
+                                          target = 0.1,
+                                          type = "relative"))
 \donttest{
 # solve problem
-s <- stack(solve(p1), solve(p2), solve(p3))
+s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 
 # plot solution
 plot(s, axes = FALSE, box = FALSE,
-     main = c("relative targets", "absolute targets", "loglinear targets"))
+     main = c("relative targets", "absolute targets", "loglinear targets",
+              "manual targets"))
 }
-
 }
 \seealso{
 \code{\link{constraints}}, \code{\link{decisions}},

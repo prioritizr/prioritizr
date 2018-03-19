@@ -13,6 +13,10 @@ add_cuts_portfolio(x, number_solutions = 10L)
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the portfolio
+  added to it.
+}
 \description{
 Generate a portfolio of solutions using Bender's cuts.
 }

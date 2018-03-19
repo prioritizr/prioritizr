@@ -9,21 +9,21 @@ NULL
 #' accurately reflects stakeholder preferences, and so having multiple
 #' near-optimal solutions can be a useful.
 #'
-#' @details All methods for generating portfolios will return solutions that
-#'   are within the specified optimality gap. Below are the portfolio methods
-#'   that can be added to a \code{ConservationProblem} object.
+#' All methods for generating portfolios will return solutions that
+#' are within the specified optimality gap. Below are the portfolio methods
+#' that can be added to a \code{ConservationProblem} object.
 #'
-#'   \describe{
-#'   \item{\code{add_default_portfolio}}{Generate a single solution.}
+#' \describe{
 #'
-#'   \item{\code{\link{add_cuts_portfolio}}}{
-#'     Generate a portfolio of solutions using Bender's cuts.}
+#' \item{\code{add_default_portfolio}}{Generate a single solution.}
 #'
-#'   \item{\code{\link{add_shuffle_portfolio}}}{
-#'     Generate a portfolio of solutions by randomly reordering the data
-#'     prior to attempting to solve the problem.}
+#' \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of solutions
+#'   using Bender's cuts.}
 #'
-#'   }
+#' \item{\code{\link{add_shuffle_portfolio}}}{Generate a portfolio of solutions
+#'   by randomly reordering the data prior to attempting to solve the problem.}
+#'
+#' }
 #'
 #' @seealso \code{\link{constraints}},  \code{\link{decisions}},
 #'  \code{\link{objectives}} \code{\link{penalties}}, \code{\link{problem}},
@@ -46,14 +46,13 @@ NULL
 #' # create problem with shuffle portfolio
 #' p2 <- p %>% add_shuffle_portfolio(4)
 #' \donttest{
-#' # solve problems and create portfolios of solutions within 20 % of optimality
-#' # using different emthods
+#' # solve problems and create solution portfolios
 #' s <- list(solve(p1), solve(p2))
 #'
 #' # plot solutions from cuts portfolio
 #' plot(stack(s[[1]]), axes = FALSE, box = FALSE)
 #'
-#' # plot solutions from cuts portfolio
+#' # plot solutions from shuffle portfolio
 #' plot(stack(s[[2]]), axes = FALSE, box = FALSE)
 #' }
 #'

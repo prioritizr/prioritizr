@@ -21,53 +21,53 @@ NULL
 #'   locked in. See the Details section for more information.
 #'
 #' @details The locked planning units can be specified in several different
-#'  ways. Generally, the locked data should correspond to the planning units
-#'  in the argument to \code{x.} To help make working with
-#'  \code{\link{Raster-class}} planning unit data easier,
-#'  the locked data should correspond to cell indices in the
-#'  \code{\link{Raster-class}} data. For example, \code{integer} arguments
-#'  should correspond to cell indices and \code{logical} arguments should have
+#'   ways. Generally, the locked data should correspond to the planning units
+#'   in the argument to \code{x.} To help make working with
+#'   \code{\link{Raster-class}} planning unit data easier,
+#'   the locked data should correspond to cell indices in the
+#'   \code{\link{Raster-class}} data. For example, \code{integer} arguments
+#'   should correspond to cell indices and \code{logical} arguments should have
 #'   a value for each cell---regardless of which planning unit cells contain
-#'  \code{NA} values.
+#'   \code{NA} values.
 #'
 #'   \describe{
 #'
-#'     \item{\code{integer}}{\code{vector} of indices pertaining to which
-#'       planning units should be locked in the solution. This argument is only
-#'       compatible with problems that contain a single zone.}
+#'   \item{\code{integer}}{\code{vector} of indices pertaining to which
+#'     planning units should be locked in the solution. This argument is only
+#'     compatible with problems that contain a single zone.}
 #'
-#'     \item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
-#'       \code{FALSE} values that indicate which planning units should be locked
-#'       in the solution. This argument is only compatible with problems that
-#'       contain a single zone.}
+#'   \item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
+#'     \code{FALSE} values that indicate which planning units should be locked
+#'     in the solution. This argument is only compatible with problems that
+#'     contain a single zone.}
 #'
-#'     \item{\code{matrix}}{containing \code{logical} \code{TRUE} and/or
-#'       \code{FALSE} values which indicate if certain planning units are
-#'       should be locked to a specific zone in the solution. Each row
-#'       corresponds to a planning unit, each column corresponds to a zone, and
-#'       each cell indicates if the planning unit should be locked to a given
-#'       zone. Thus each row should only contain at most a single \code{TRUE}
-#'       value.}
+#'   \item{\code{matrix}}{containing \code{logical} \code{TRUE} and/or
+#'     \code{FALSE} values which indicate if certain planning units are
+#'     should be locked to a specific zone in the solution. Each row
+#'     corresponds to a planning unit, each column corresponds to a zone, and
+#'     each cell indicates if the planning unit should be locked to a given
+#'     zone. Thus each row should only contain at most a single \code{TRUE}
+#'     value.}
 #'
-#'     \item{\code{character}}{field (column) name(s) that indicate if planning
-#'       units should be locked in the solution. This type of argument is only
-#'       compatible if the planning units in the argument to \code{x} are a
-#'       \code{\link[sp]{Spatial-class}} or \code{data.frame} object. The fields
-#'       (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
-#'       values indicating if the planning unit is to be locked in the solution.
-#'       For problems containing multiple zones, this argument should contain
-#'       a field (column) name for each management zone.}
+#'   \item{\code{character}}{field (column) name(s) that indicate if planning
+#'     units should be locked in the solution. This type of argument is only
+#'     compatible if the planning units in the argument to \code{x} are a
+#'     \code{\link[sp]{Spatial-class}} or \code{data.frame} object. The fields
+#'     (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
+#'     values indicating if the planning unit is to be locked in the solution.
+#'     For problems containing multiple zones, this argument should contain
+#'     a field (column) name for each management zone.}
 #'
-#'     \item{\code{\link[raster]{Raster-class}}}{planning units in \code{x}
-#'       that intersect with non-zero and non-\code{NA} raster cells are locked
-#'       in the solution. For problems that contain multiple zones, the
-#'       \code{\link[raster]{Raster-class}} object must contain a layer
-#'       for each zone. Note that for multi-band arguments, each pixel must
-#'       only contain a non-zero value in a single band.}
+#'   \item{\code{\link[raster]{Raster-class}}}{planning units in \code{x}
+#'     that intersect with non-zero and non-\code{NA} raster cells are locked
+#'     in the solution. For problems that contain multiple zones, the
+#'     \code{\link[raster]{Raster-class}} object must contain a layer
+#'     for each zone. Note that for multi-band arguments, each pixel must
+#'     only contain a non-zero value in a single band.}
 #'
-#'  }
+#'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object.
+#' @inherit add_connected_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility

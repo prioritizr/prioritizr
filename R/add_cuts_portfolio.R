@@ -18,6 +18,9 @@ NULL
 #'
 #' @seealso \code{\link{portfolios}}.
 #'
+#' @return \code{\link{ConservationProblem-class}} object with the portfolio
+#'   added to it.
+#'
 #' @examples
 #' # set seed for reproducibility
 #' set.seed(500)

@@ -12,7 +12,7 @@ add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative when
-solving problems using \code{gurobi}, and will cause the optimizer to
+solving problems using \emph{gurobi}, and will cause the optimizer to
 terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
@@ -42,19 +42,23 @@ Defaults to \code{FALSE}.}
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems?}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the solver added
+  to it.
+}
 \description{
 Specify the use of a Gurobi algorithm to solve a
-\code{\link{ConservationProblem-class}} object. Requires the \code{gurobi}
-package.
+\code{\link{ConservationProblem-class}} object. This function requires the
+\emph{gurobi} package.
 }
 \details{
 \href{http://gurobi.com}{Gurobi} is a
-    state-of-the-art commercial optimization software with an R package
-    interface. It is by far the fastest of the solvers available in this
-    package, however, it is also the only solver that is not freely
-    available. That said, licenses are available to academics at no cost. The
-    \code{gurobi} package is distributed with the Gurobi software suite.
-    This solver uses the \code{gurobi} package to solve problems.
+  state-of-the-art commercial optimization software with an R package
+  interface. It is by far the fastest of the solvers available in this
+  package, however, it is also the only solver that is not freely
+  available. That said, licenses are available to academics at no cost. The
+  \emph{gurobi} package is distributed with the Gurobi software suite.
+  This solver uses the \emph{gurobi} package to solve problems.
 }
 \examples{
 # load data

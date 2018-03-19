@@ -47,7 +47,7 @@ then an error is thrown.
 Below is a list of parameter generating functions and a brief
   description of each.
 
-\describe{
+  \describe{
 
   \item{proportion_parameter}{A parameter that is a \code{double} and bounded
     between zero and one.}
@@ -56,9 +56,10 @@ Below is a list of parameter generating functions and a brief
 
   \item{numeric_parameter}{A parameter that is a \code{double}.}
 
-\item{binary_parameter}{A parameter that is restricted to \code{integer}
-  values of zero or one.}
-}
+  \item{binary_parameter}{A parameter that is restricted to \code{integer}
+    values of zero or one.}
+
+  }
 }
 \examples{
 # proportion parameter

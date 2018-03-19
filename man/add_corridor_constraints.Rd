@@ -29,7 +29,8 @@ the planning units in argument to \code{x} inherit from a
 \code{\link[raster]{RasterStack-class}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object.
+\code{\link{ConservationProblem-class}} object with the constraints
+  added to it.
 }
 \description{
 It is important to maintain connectivity throughout a reserve network.
@@ -42,10 +43,10 @@ represent features in the conservation problem are connected by planning
 units that have high connectivity.
 }
 \details{
-This function adds constraints to a conservation planning problem to ensure
-  that all planning units used to represent a given feature are connected to
-  each other. To achieve this, each planning unit is associated with
-  conductance values that describe the ease at which individuals from
+This function adds constraints to a conservation planning problem
+  to ensure that all planning units used to represent a given feature are
+  connected to each other. To achieve this, each planning unit is associated
+  with conductance values that describe the ease at which individuals from
   each feature can disperse through it. Higher conductance values indicate
   that individuals can move planning units with greater ease. The
   connectivity between two planning units is calculated as the average
@@ -58,35 +59,38 @@ This function adds constraints to a conservation planning problem to ensure
   The argument to \code{y} can be used to specify the
   the connectivity between different planning units in several different
   ways:
- \describe{
-   \item{\code{character} \code{vector}}{If the planning units in
-     argument to \code{x} inherit from a \code{\link[sp]{Spatial-class}}
-     object then the argument to code{y} can refer to the
-     names of the columns in the attribute table that contain the
-     conductance values for each planning unit for each feature.
-     It is assumed that the order of the column names in argument to
-     \code{y} matches the order of the features in the
-     argument to \code{x}.}
 
-   \item{\code{\link[raster]{RasterStack-class}} object}{Each band
-     corresponds
-     to each feature in the argument to \code{x}. The cells in each band
-     denote the conductance of an area. For a given feature, the
-     conductance of each planning unit is calculated by overlaying the
-     planning units in argument to code{x} with the raster data in
-     argument to \code{conductance}. Note that
-     if the planning units in argument to \code{x} inherit from a
-     \code{\link[raster]{Raster-class}} object, then the argument to
-     code{conductance} must have the same spatial properties as the
-     planning units (i.e. coordinate system, extent, resolution).}
+  \describe{
+
+  \item{\code{character} \code{vector}}{If the planning units in
+    argument to \code{x} inherit from a \code{\link[sp]{Spatial-class}}
+    object then the argument to code{y} can refer to the
+    names of the columns in the attribute table that contain the
+    conductance values for each planning unit for each feature.
+    It is assumed that the order of the column names in argument to
+    \code{y} matches the order of the features in the
+    argument to \code{x}.}
+
+  \item{\code{\link[raster]{RasterStack-class}} object}{Each band
+    corresponds
+    to each feature in the argument to \code{x}. The cells in each band
+    denote the conductance of an area. For a given feature, the
+    conductance of each planning unit is calculated by overlaying the
+    planning units in argument to code{x} with the raster data in
+    argument to \code{conductance}. Note that
+    if the planning units in argument to \code{x} inherit from a
+    \code{\link[raster]{Raster-class}} object, then the argument to
+    code{conductance} must have the same spatial properties as the
+    planning units (i.e. coordinate system, extent, resolution).}
 
   \item{\code{list} of \code{\link[Matrix]{dsCMatrix-class}} matrices}{
-     Each element in the list corresponds to a different feature. Each
-     row and column refers to a different planning unit, and the cell
-     values denote the connectivity between the two planning units. Note
-     that the connectivity between planning units is assumed to be
-     symmetric.}
- }
+    Each element in the list corresponds to a different feature. Each
+    row and column refers to a different planning unit, and the cell
+    values denote the connectivity between the two planning units. Note
+    that the connectivity between planning units is assumed to be
+    symmetric.}
+
+  }
 }
 \examples{
 # # not implemented

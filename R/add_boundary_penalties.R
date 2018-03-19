@@ -3,8 +3,8 @@ NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation problem to favor solutions that clump
-#' selected planning units together into contiguous reserves.
+#' Add penalties to a conservation problem to favor solutions that have
+#' planning units clumped together into contiguous areas.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -39,52 +39,54 @@ NULL
 #' @param ... not used.
 #'
 #' @details This function adds penalties to a conservation planning problem
-#' to penalize fragmented solutions. These penalties are equivalent to the
-#' boundary length modifier (\code{BLM}) used in
-#' \href{http://marxan.net}{\emph{Marxan}}. Boundary data is calculated
-#' automatically for spatial planning unit data. If the planning unit data
-#' in the argument to \code{x} inherits from a \code{numeric}, \code{matrix},
-#' or \code{data.frame} format, the boundary data must be supplied as an
-#' argument to \code{boundary_data}.
+#'   to penalize fragmented solutions. These penalties are equivalent to the
+#'   boundary length modifier (\code{BLM}) used in
+#'   \href{http://marxan.net}{\emph{Marxan}}. Boundary data is calculated
+#'   automatically for spatial planning unit data. If the planning unit data
+#'   in the argument to \code{x} inherits from a \code{numeric}, \code{matrix},
+#'   or \code{data.frame} format, the boundary data must be supplied as an
+#'   argument to \code{boundary_data}.
 #'
-#' The correct argument to \code{penalty} depends on the number of zones
-#' in the argument to \code{x}. If the argument to \code{x} is associated
-#' with a single zone, then the argument to \code{penalty} should be
-#' a single \code{numeric} value that represents the value which planning unit
-#' boundaries should be multipled by when calculating penalties for when
-#' they are exposed in a solution (i.e. they have no neighbor in the solution).
-#' If, on the other hand, the argument to \code{x} contains multiple zones,
-#' then the argument to \code{penalty} must be \code{matrix}. Here, each row
-#' and column corresponds to a different zone, and cell values represent penalty
-#' multipliers. Cells that occur along the matrix diagonal
-#' represent the penalty multipliers that make solutions more costly
-#' when adjacent planning units are not allocated to the same zone. On the
-#' other hand, cells that do not occur along the matrix diagonal represent
-#' the penalty multipliers that make solutions more costly when adjacent
-#' planning units are not allocated to the zones indicated by the row and
-#' column index of the cell. Thus setting higher values in the matrix makes
-#' the solution more spatially clumped. \strong{Note that if the cells along
-#' the matrix diagonal contain values that are markedly lower than cells
-#' found elsewhere in the matrix, then the optimal solution will favor
-#' solutions that surround planning units with planning units that are
-#' allocated to different zones.}
+#'   The correct argument to \code{penalty} depends on the number of zones
+#'   in the argument to \code{x}. If the argument to \code{x} is associated
+#'   with a single zone, then the argument to \code{penalty} should be
+#'   a single \code{numeric} value that represents the value which planning unit
+#'   boundaries should be multipled by when calculating penalties for when
+#'   they are exposed in a solution (i.e. they have no neighbor in the
+#'   solution). If, on the other hand, the argument to \code{x} contains
+#'   multiple zones, then the argument to \code{penalty} must be \code{matrix}.
+#'   Here, each row and column corresponds to a different zone, and cell values
+#'   represent penalty multipliers. Cells that occur along the matrix diagonal
+#'   represent the penalty multipliers that make solutions more costly
+#'   when adjacent planning units are not allocated to the same zone. On the
+#'   other hand, cells that do not occur along the matrix diagonal represent
+#'   the penalty multipliers that make solutions more costly when adjacent
+#'   planning units are not allocated to the zones indicated by the row and
+#'   column index of the cell. Thus setting higher values in the matrix makes
+#'   the solution more spatially clumped. \strong{Note that if the cells along
+#'   the matrix diagonal contain values that are markedly lower than cells
+#'   found elsewhere in the matrix, then the optimal solution will favor
+#'   solutions that surround planning units with planning units that are
+#'   allocated to different zones.}
 #'
-#' To help provide a greater understanding of this penalty, here
-#' we will provide the mathematical formulation for a problem containing
-#' a single zone. For a given side of a planning unit (indexed by \eqn{i})
-#' with a known length (\eqn{l_i}{li}) and the arguments to \code{penalty}
-#' (\eqn{p}) and \code{edge_factor} (\eqn{e}), the cost incurred by this side
-#'  being exposed in a solution is calculated as:
-#'  \deqn{l_i \space \times p \space \times \mathit{ifelse}(
-#'  \mathit{i \space overlaps \space with \space the \space side \space of
-#'  \space another \space planning \space unit},
-#'  1, e)}{li * p * ifelse(i overlaps with the side of another planning
-#'  unit, 1, e)}
-#' This function can only be used for symmetric
-#' relationships between planning units; for asymmetric
-#' relationships use the \code{\link{add_connectivity_penalties}} function.
-#' This function is inspired by Ball \emph{et al.} (2009) and Beyer
-#' \emph{et al.} (2016).
+#'   To help provide a greater understanding of this penalty, here
+#'   we will provide the mathematical formulation for a problem containing
+#'   a single zone. For a given side of a planning unit (indexed by \eqn{i})
+#'   with a known length (\eqn{l_i}{li}) and the arguments to \code{penalty}
+#'   (\eqn{p}) and \code{edge_factor} (\eqn{e}), the cost incurred by this side
+#'   being exposed in a solution is calculated as:
+#'
+#'   \deqn{l_i \space \times p \space \times \mathit{ifelse}(
+#'   \mathit{i \space overlaps \space with \space the \space side \space of
+#'   \space another \space planning \space unit},
+#'   1, e)}{li * p * ifelse(i overlaps with the side of another planning
+#'   unit, 1, e)}
+#'
+#'   This function can only be used for symmetric
+#'   relationships between planning units; for asymmetric
+#'   relationships use the \code{\link{add_connectivity_penalties}} function.
+#'   This function is inspired by Ball \emph{et al.} (2009) and Beyer
+#'   \emph{et al.} (2016).
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the penalties
 #'  added to it.

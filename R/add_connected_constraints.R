@@ -11,9 +11,9 @@ NULL
 #' @param ... arguments passed to \code{\link{connected_matrix}}.
 #'
 #' @details The mathematical ideas that underpin this function inspired by
-#'  {\"O}nal and Briers (2006).
+#'   {\"O}nal and Briers (2006).
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraint
+#' @return \code{\link{ConservationProblem-class}} object with the constraints
 #'   added to it.
 #'
 #' @seealso \code{\link{constraints}}.

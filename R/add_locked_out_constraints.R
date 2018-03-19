@@ -19,7 +19,7 @@ NULL
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Details section for more information.
 #'
-#' @inherit add_locked_out_constraints details return seealso
+#' @inherit add_connected_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility

@@ -22,8 +22,6 @@ NULL
 #'
 #' @inherit add_binary_decisions details return seealso
 #'
-#' @seealso \code{\link{decisions}}.
-#'
 #' @examples
 #' # set seed for reproducibility
 #' set.seed(500)

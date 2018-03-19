@@ -12,7 +12,7 @@ add_connected_constraints(x, ...)
 \item{...}{arguments passed to \code{\link{connected_matrix}}.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraint
+\code{\link{ConservationProblem-class}} object with the constraints
   added to it.
 }
 \description{
@@ -21,7 +21,7 @@ planning units are spatially connected to each other.
 }
 \details{
 The mathematical ideas that underpin this function inspired by
- {\"O}nal and Briers (2006).
+  {\"O}nal and Briers (2006).
 }
 \examples{
 # # not implemented

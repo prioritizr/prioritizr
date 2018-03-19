@@ -7,15 +7,6 @@ NULL
 #' \code{\link{ConservationProblem-class}} object. Requires the
 #' \code{Rsymphony} package.
 #'
-#' @details
-#'     \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an open-source
-#'     integer programming solver that is part of the Computational
-#'     Infrastructure for Operations Research (COIN-OR) project, an initiative
-#'     to promote development of open-source tools for operations research (a
-#'     field that includes linear programming). The \code{Rsymphony} package
-#'     provides an interface to COIN-OR and is available on CRAN. This solver
-#'     uses the \code{Rsymphony} package to solve problems.
-#'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param gap \code{numeric} gap to optimality. This gap is absolute and
@@ -38,7 +29,15 @@ NULL
 #' @param verbose \code{logical} should information be printed while solving
 #'  optimization problems? Defaults to \code{TRUE}.
 #'
-#' @seealso \code{\link{solvers}}.
+#' @details \href{https://projects.coin-or.org/SYMPHONY}{SYMPHONY} is an
+#'   open-source integer programming solver that is part of the Computational
+#'   Infrastructure for Operations Research (COIN-OR) project, an initiative
+#'   to promote development of open-source tools for operations research (a
+#'   field that includes linear programming). The \code{Rsymphony} package
+#'   provides an interface to COIN-OR and is available on CRAN. This solver
+#'   uses the \code{Rsymphony} package to solve problems.
+#'
+#' @inherit add_gurobi_solver seealso return
 #'
 #' @examples
 #' # load data

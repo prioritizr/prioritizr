@@ -28,11 +28,12 @@ Data for different biodiversity features in different management zones.
 }
 \details{
 This function is used to store and organize data for creating
-\code{\link{ConservationProblem}} objects that have multiple management
-zones. In all cases, data for different zones are input as different
-arguments. The correct input depends on the type of planning unit data
-used when building the conservation \code{\link{problem}}.
-\describe{
+  \code{\link{ConservationProblem}} objects that have multiple management
+  zones. In all cases, data for different zones are input as different
+  arguments. The correct input depends on the type of planning unit data
+  used when building the conservation \code{\link{problem}}.
+
+  \describe{
 
   \item{\code{\link[raster]{Raster-class}},
     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
@@ -44,23 +45,23 @@ used when building the conservation \code{\link{problem}}.
     same cells.}
 
   \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
-      with column names that correspond to the abundance or occurrence of
-      different features in each planning unit for each zone. Note that
-      these columns must not contain any \code{NA} values.}
+    with column names that correspond to the abundance or occurrence of
+    different features in each planning unit for each zone. Note that
+    these columns must not contain any \code{NA} values.}
 
   \item{\code{\link{Spatial}}, \code{data.frame} or
     \code{matrix}}{\code{data.frame} denoting the amount of each feature
     in each zone. Following conventions used in \emph{Marxan},
     \code{data.frame} objects should be supplied with the columns:
 
-   \describe{
+    \describe{
 
-     \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+    \item{\code{"pu"}}{\code{integer} planning unit identifier.}
 
-     \item{\code{"species"}}{\code{integer} feature identifier.}
+    \item{\code{"species"}}{\code{integer} feature identifier.}
 
-     \item{\code{"amount"}}{\code{numeric} amount of the feature in the
-       planning unit for a given zone.}
+    \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+      planning unit for a given zone.}
 
     }
 
@@ -71,7 +72,7 @@ used when building the conservation \code{\link{problem}}.
     features in planning units assuming different management zones that are
     missing from the table are treated as zero.}
 
-}
+  }
 }
 \examples{
 # load planning unit data
