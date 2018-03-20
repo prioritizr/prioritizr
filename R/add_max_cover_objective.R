@@ -148,7 +148,6 @@ NULL
 #' @export
 add_max_cover_objective <- function(x, budget) {
   # assert argument is valid
-  # assert argument is valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           is.numeric(budget),
                           all(is.finite(budget)),

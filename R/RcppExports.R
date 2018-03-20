@@ -121,8 +121,8 @@ rcpp_apply_max_cover_objective <- function(x, costs, budget) {
     .Call(`_prioritizr_rcpp_apply_max_cover_objective`, x, costs, budget)
 }
 
-rcpp_apply_max_features_objective <- function(x, targets, costs, budget) {
-    .Call(`_prioritizr_rcpp_apply_max_features_objective`, x, targets, costs, budget)
+rcpp_apply_max_features_objective <- function(x, targets_list, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_max_features_objective`, x, targets_list, costs, budget)
 }
 
 rcpp_apply_max_phylo_objective <- function(x, targets, costs, budget, branch_matrix, branch_lengths) {

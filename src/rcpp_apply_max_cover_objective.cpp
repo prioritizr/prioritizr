@@ -80,7 +80,7 @@ bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericMatrix costs,
     for (std::size_t i = 0;
          i < (ptr->_number_of_zones) * (ptr->_number_of_planning_units); ++i)
         ptr->_A_i.push_back((ptr->_number_of_features *
-                            ptr->_number_of_zones) +  A_extra_nrow);
+                            ptr->_number_of_zones) + A_extra_nrow);
   } else {
     for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
       for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j)
@@ -108,5 +108,4 @@ bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericMatrix costs,
   ptr->_modelsense = "max";
   // return success
   return true;
-
 }
