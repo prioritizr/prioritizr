@@ -10,6 +10,10 @@ add_min_set_objective(x)
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the objective
+  added to it.
+}
 \description{
 Set an objective to find the solution that fulfills all the targets and
 constraints for the smallest cost. This objective is similar to that used in
@@ -90,6 +94,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link{objectives}}, \code{\link{constraints}},
-  \code{\link{problem}}, \code{\link{targets}}.
+\code{\link{objectives}}, \code{\link{targets}}.
 }

@@ -16,6 +16,10 @@ to \code{budget} can be a single \code{numeric} value to specify a budget
 for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the objective
+  added to it.
+}
 \description{
 Set an objective to find the solution that aims to fulfill as many targets
 as possible while ensuring that the cost of the solution does not exceed
@@ -116,5 +120,5 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link{objectives}}.
+\code{\link{add_feature_weights}}, \code{\link{objectives}}.
 }

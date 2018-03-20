@@ -16,6 +16,10 @@ to \code{budget} can be a single \code{numeric} value to specify a budget
 for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the objective
+  added to it.
+}
 \description{
 Set an objective to find the solution that secures as much of the features
 as possible without exceeding a budget. This type of objective does not

@@ -79,7 +79,7 @@ NULL
 #' Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 #' covering location problem. \emph{Biological Conservation}, 76: 105--112.
 #'
-#' @seealso \code{\link{add_feature_weights}}, \code{\link{objectives}}.
+#' @inherit add_max_features_objective seealso return
 #'
 #' @examples
 #' # load data

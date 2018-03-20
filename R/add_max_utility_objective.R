@@ -56,7 +56,7 @@ NULL
 #'   \code{\link{add_max_utility_objective}} to avoid confusion with historical
 #'   formulations of the maximum coverage problem.
 #'
-#' @seealso \code{\link{add_feature_weights}}, \code{\link{objectives}}.
+#' @inherit add_max_features_objective seealso return
 #'
 #' @examples
 #' # load data

@@ -46,8 +46,10 @@ NULL
 #' efficiency, and accountability: adapting reserve selection algorithms to
 #' more complex conservation problems. \emph{Ecography}, 23: 565--574.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{constraints}},
-#'   \code{\link{problem}}, \code{\link{targets}}.
+#' @seealso \code{\link{objectives}}, \code{\link{targets}}.
+#'
+#' @return \code{\link{ConservationProblem-class}} object with the objective
+#'   added to it.
 #'
 #' @examples
 #' # set seed for reproducibility

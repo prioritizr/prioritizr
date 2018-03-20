@@ -61,7 +61,9 @@ NULL
 #'   when there are multiple solutions that represent the same amount of all
 #'   features within the budget.
 #'
-#' @seealso \code{\link{objectives}}.
+#' @seealso \code{\link{add_feature_weights}}, \code{\link{objectives}}.
+#'
+#' @inherit add_min_set_objective return
 #'
 #' @examples
 #' # load data
