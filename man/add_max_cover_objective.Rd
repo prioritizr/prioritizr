@@ -37,7 +37,9 @@ A problem objective is used to specify the overall goal of the
   (i.e. an amount greater than 1). This formulation has often been
   used in conservation planning problems dealing with binary biodiversity
   data that indicate the presence/absence of suitable habitat
-  (e.g. Church & Velle 1974). Check out the
+  (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
+  representation of certain features over other features (see
+  \code{\link{add_feature_weights}}). Check out the
   \code{\link{add_max_features_objective}} for a more
   generalized formulation which can accommodate user-specified representation
   targets.

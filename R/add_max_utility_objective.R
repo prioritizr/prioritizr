@@ -24,7 +24,9 @@ NULL
 #'   The maximum utility objective seeks to find the set of planning units that
 #'   maximizes the overall level of representation across a suite of
 #'   conservation features, while keeping cost within a fixed budget.
-#'   This objective can be
+#'   Additionally, weights can be used to favor the
+#'   representation of certain features over other features (see
+#'   \code{\link{add_feature_weights}}). This objective can be
 #'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 #'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 #'
