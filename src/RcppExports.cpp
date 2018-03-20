@@ -343,14 +343,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_max_cover_objective
-bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericVector costs, double budget);
+bool rcpp_apply_max_cover_objective(SEXP x, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
 RcppExport SEXP _prioritizr_rcpp_apply_max_cover_objective(SEXP xSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_cover_objective(x, costs, budget));
     return rcpp_result_gen;
 END_RCPP

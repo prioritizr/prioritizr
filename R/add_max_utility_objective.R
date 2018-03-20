@@ -63,7 +63,8 @@ NULL
 #' # create problem with maximum utility objective
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_max_utility_objective(5000) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0)
 #' \donttest{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -76,7 +77,8 @@ NULL
 #' # has a single budget for all zones
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_utility_objective(5000) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0)
 #' \donttest{
 #' # solve problem
 #' s2 <- solve(p2)
@@ -89,7 +91,8 @@ NULL
 #' # has separate budgets for each zone
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_utility_objective(c(1000, 2000, 3000)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0)
 #' \donttest{
 #' # solve problem
 #' s3 <- solve(p3)
@@ -107,17 +110,20 @@ add_max_utility_objective <- function(x, budget) {
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           is.numeric(budget),
                           all(is.finite(budget)),
-                          all(budget > 0.0),
+                          all(budget >= 0.0),
+                          isTRUE(min(budget) > 0),
                           length(budget) == 1 ||
                             length(budget) == x$number_of_zones())
   # make parameter
   if (length(budget) == 1) {
     p <- numeric_parameter("budget", budget, lower_limit = 0,
-                           upper_limit = sum(x$planning_unit_costs()))
+                           upper_limit = sum(x$planning_unit_costs(),
+                                             na.rm = TRUE))
   } else {
     p <- numeric_parameter_array("budget", budget, x$zone_names(),
                                  lower_limit = 0,
-                                 upper_limit = colSums(x$planning_unit_costs()))
+                                 upper_limit = colSums(x$planning_unit_costs(),
+                                                       na.rm = TRUE))
   }
   # add objective to problem
   x$add_objective(pproto(
