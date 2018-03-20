@@ -30,11 +30,11 @@ A problem objective is used to specify the overall goal of the
   of objectives}. Failing to do so will return a default error message
   when solving.
 
-  The maximum coverage problem seeks to find the set of planning units that
+  The maximum coverage objective seeks to find the set of planning units that
   maximizes the number of represented features, while keeping cost within a
   fixed budget. Here, features are treated as being represented if
   the reserve system contains at least a single instance of a feature
-  (i.e. an amount greater than 1). This problem formulation has been
+  (i.e. an amount greater than 1). This formulation has often been
   used in conservation planning problems dealing with binary biodiversity
   data that indicate the presence/absence of suitable habitat
   (e.g. Church & Velle 1974). Check out the

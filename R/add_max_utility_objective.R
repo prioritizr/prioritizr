@@ -21,7 +21,7 @@ NULL
 #'   of objectives}. Failing to do so will return a default error message
 #'   when solving.
 #'
-#'   The maximum utility problem seeks to find the set of planning units that
+#'   The maximum utility objective seeks to find the set of planning units that
 #'   maximizes the overall level of representation across a suite of
 #'   conservation features, while keeping cost within a fixed budget.
 #'   This objective can be
