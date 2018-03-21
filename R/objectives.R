@@ -58,40 +58,38 @@ NULL
 #'   \code{\link{solvers}}, \code{\link{targets}}.
 #'
 #' @examples
-#' # # not implemented
-#' # # load data
-#' # data(sim_pu_raster, sim_features, sim_phylogeny)
-#' #
-#' # # create base problem
-#' # p <- problem(sim_pu_raster, sim_features) %>%
-#' #      add_relative_targets(0.1)
-#' #
-#' #  # create problem with added minimum set objective
-#' # p1 <- p %>% add_min_set_objective()
-#' #
-#' # # create problem with added maximum coverage objective
-#' # # note that this objective does not use targets
-#' # p2 <- p %>% add_max_cover_objective(5000)
-#' #
-#' # # create problem with added maximum feature representation objective
-#' # p3 <- p %>% add_max_features_objective(5000)
-#' #
-#' # # create problem with added maximum phylogenetic representation objective
-#' # p4 <- p %>% add_max_phylo_objective(5000, sim_phylogeny)
-#' #
-#' # # create problem with added maximum utility objective
-#' # # note that this objective does not use targets
-#' # p5 <- p %>% add_max_utility_objective(5000)
-#' #
-#' # \donttest{
-#' # # solve problems
-#' # s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
-#' #
-#' # # plot solutions
-#' # plot(s, axes = FALSE, box = FALSE,
-#' #      main = c("minimum set", "maximum coverage", "maximum representation",
-#' #               "phylogenetic representation", "maximum utility"))
-#' # }
+#' # load data
+#' data(sim_pu_raster, sim_features, sim_phylogeny)
 #'
+#' # create base problem
+#' p <- problem(sim_pu_raster, sim_features) %>%
+#'      add_relative_targets(0.1)
+#'
+#'  # create problem with added minimum set objective
+#' p1 <- p %>% add_min_set_objective()
+#'
+#' # create problem with added maximum coverage objective
+#' # note that this objective does not use targets
+#' p2 <- p %>% add_max_cover_objective(500)
+#'
+#' # create problem with added maximum feature representation objective
+#' p3 <- p %>% add_max_features_objective(1500)
+#'
+#' # create problem with added maximum phylogenetic representation objective
+#' p4 <- p %>% add_max_phylo_objective(1900, sim_phylogeny)
+#'
+#' # create problem with added maximum utility objective
+#' # note that this objective does not use targets
+#' p5 <- p %>% add_max_utility_objective(5000)
+#'
+#' \donttest{
+#' # solve problems
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+#'
+#' # plot solutions
+#' plot(s, axes = FALSE, box = FALSE,
+#'      main = c("minimum set", "maximum coverage", "maximum representation",
+#'               "phylogenetic representation", "maximum utility"))
+#' }
 #' @name objectives
 NULL
