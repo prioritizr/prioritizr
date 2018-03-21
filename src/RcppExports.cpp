@@ -370,18 +370,18 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_max_phylo_objective
-bool rcpp_apply_max_phylo_objective(SEXP x, Rcpp::NumericVector targets, Rcpp::NumericVector costs, double budget, arma::sp_mat branch_matrix, Rcpp::NumericVector branch_lengths);
-RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targetsSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
+bool rcpp_apply_max_phylo_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget, arma::sp_mat branch_matrix, Rcpp::NumericVector branch_lengths);
+RcppExport SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP, SEXP branch_matrixSEXP, SEXP branch_lengthsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type targets(targetsSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type costs(costsSEXP);
-    Rcpp::traits::input_parameter< double >::type budget(budgetSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
     Rcpp::traits::input_parameter< arma::sp_mat >::type branch_matrix(branch_matrixSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type branch_lengths(branch_lengthsSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets, costs, budget, branch_matrix, branch_lengths));
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_max_phylo_objective(x, targets_list, costs, budget, branch_matrix, branch_lengths));
     return rcpp_result_gen;
 END_RCPP
 }
