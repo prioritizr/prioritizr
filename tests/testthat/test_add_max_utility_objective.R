@@ -10,9 +10,10 @@ test_that("compile (compressed formulation, single zone)", {
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- raster::nlayers(sim_features)
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(1, n_f)))
   expect_equal(o$sense(), c(rep("=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_f), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("amount", n_f)))
@@ -63,9 +64,10 @@ test_that("compile (expanded formulation, single zone)", {
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_f <- raster::nlayers(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f), rep(1, n_f)))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep( "=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_f * n_pu), rep(0, n_f), b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f),
@@ -158,9 +160,10 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(1, n_f * n_z)))
   expect_equal(o$sense(), c(rep("=", n_f * n_z), "<=",
                             rep("<=", n_pu)))
   expect_equal(o$rhs(), c(rep(0, n_f * n_z), b, rep(1, n_pu)))
@@ -228,9 +231,11 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z),
+                          rep(1, n_f * n_z)))
   expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
                             rep("=", n_f * n_z), "<=",
                             rep("<=", n_pu)))
@@ -319,9 +324,10 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(1, n_f * n_z)))
   expect_equal(o$sense(), c(rep("=", n_f * n_z), rep("<=", 3),
                             rep("<=", n_pu)))
   expect_equal(o$rhs(), c(rep(0, n_f * n_z), b, rep(1, n_pu)))
@@ -393,9 +399,11 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   n_pu <- p$number_of_planning_units()
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
-  scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (-0.1 / sum(scaled_costs, na.rm = TRUE))
+  scaled_costs <- c(p$planning_unit_costs())
+  scaled_costs <- scaled_costs * (-0.01 / sum(scaled_costs, na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
+  expect_equal(o$obj(), c(scaled_costs, rep(0, n_pu * n_f * n_z),
+                          rep(1, n_f * n_z)))
   expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
                             rep("=", n_f * n_z), rep("<=", n_z),
                             rep("<=", n_pu)))

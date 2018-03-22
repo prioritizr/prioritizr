@@ -32,7 +32,7 @@ bool rcpp_apply_max_features_objective(SEXP x, Rcpp::List targets_list,
     ptr->_sense.push_back("<=");
   // add in small negative number to objective for planning unit variables to
   // break ties in solution and select solution with cheapest cost
-  double cost_scale = -0.1 / Rcpp::sum(na_omit(costs));
+  double cost_scale = -0.01 / Rcpp::sum(na_omit(costs));
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
       if (Rcpp::NumericMatrix::is_na(costs(j, z))) {

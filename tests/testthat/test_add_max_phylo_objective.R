@@ -15,7 +15,7 @@ test_that("compile (compressed formulation, single zone)", {
   n_f <- raster::nlayers(sim_features)
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- p$planning_unit_costs() * ((-0.1 *
+  scaled_costs <- p$planning_unit_costs() * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -101,7 +101,7 @@ test_that("compile (expanded formulation)", {
   rij <- rij_matrix(sim_pu_raster, sim_features)
   n_rij <- length(rij@x)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- p$planning_unit_costs() * ((-0.1 *
+  scaled_costs <- p$planning_unit_costs() * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   # test that metadata and constraints are correct
@@ -231,7 +231,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   n_z <- p$number_of_zones()
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- c(p$planning_unit_costs()) * ((-0.1 *
+  scaled_costs <- c(p$planning_unit_costs()) * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -347,7 +347,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   n_z <- p$number_of_zones()
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- c(p$planning_unit_costs()) * ((-0.1 *
+  scaled_costs <- c(p$planning_unit_costs()) * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -466,7 +466,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   n_z <- p$number_of_zones()
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- c(p$planning_unit_costs()) * ((-0.1 *
+  scaled_costs <- c(p$planning_unit_costs()) * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
@@ -608,7 +608,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   n_z <- p$number_of_zones()
   n_br <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
-  scaled_costs <- c(p$planning_unit_costs()) * ((-0.1 *
+  scaled_costs <- c(p$planning_unit_costs()) * ((-0.01*
                   min(sim_phylogeny$edge.length)) /
                   sum(p$planning_unit_costs(), na.rm = TRUE))
   expect_equal(o$modelsense(), "max")
