@@ -19,7 +19,7 @@ NULL
 #'   for the entire solution or a \code{numeric} \code{vector} to specify
 #'   a budget for each each management zone.
 #'
-#' @param tree \code{\link[ape]{phylo}} object specifying a phylogenetic tree
+#' @param tree \code{phylo} object specifying a phylogenetic tree
 #'   for the conservation features.
 #'
 #' @details A problem objective is used to specify the overall goal of the
@@ -105,10 +105,10 @@ NULL
 #'      sim_features_zones)
 #'
 #' # the ape package needs to be installed to run this example
-#' if (requireNamespace("ape", quietly = TRUE)) {
+#' if (require("ape")) {
 #'   # plot the example phylogeny
 #'   par(mfrow = c(1, 1))
-#'   ape::plot.phylo(sim_phylogeny, main = "simulated phylogeny")
+#'   plot(sim_phylogeny, main = "simulated phylogeny")
 #'
 #'   # create problem with a maximum phylogenetic representation objective,
 #'   # where each feature needs 10 % of its distribution to be secured for
@@ -129,9 +129,9 @@ NULL
 #'                  (0.1 * cellStats(sim_features, "sum"))
 #'
 #'   # plot the example phylogeny and color the represented features in red
-#'   ape::plot.phylo(sim_phylogeny, main = "represented features",
-#'                   tip.color = replace(rep("black", nlayers(sim_features)),
-#'                                       which(targets_met1), "red"))
+#'   plot(sim_phylogeny, main = "represented features",
+#'        tip.color = replace(rep("black", nlayers(sim_features)),
+#'                            which(targets_met1), "red"))
 #' }
 #'   # rename the features in the example phylogeny for use with the
 #'   # multi-zone data
@@ -171,9 +171,9 @@ NULL
 #'   targets_met2 <- amount_held2 > targets$target
 #'
 #'   # plot the example phylogeny and color the represented features in red
-#'   ape::plot.phylo(sim_phylogeny, main = "represented features",
-#'                   tip.color = replace(rep("black", nlayers(sim_features)),
-#'                                       which(targets_met2), "red"))
+#'   plot(sim_phylogeny, main = "represented features",
+#'        tip.color = replace(rep("black", nlayers(sim_features)),
+#'                            which(targets_met2), "red"))
 #' }
 #'  # create a multi-zone problem with a maximum phylogenetic representation
 #'  # objective, where each zone has a separate budget.
@@ -199,9 +199,9 @@ NULL
 #'   targets_met3 <- amount_held3 > targets$target
 #'
 #'   # plot the example phylogeny and color the represented features in red
-#'   ape::plot.phylo(sim_phylogeny, main = "represented features",
-#'                   tip.color = replace(rep("black", nlayers(sim_features)),
-#'                                       which(targets_met3), "red"))
+#'   plot(sim_phylogeny, main = "represented features",
+#'        tip.color = replace(rep("black", nlayers(sim_features)),
+#'                            which(targets_met3), "red"))
 #' }
 #' } else {
 #'  message("the \"ape\" package needs to be installed to plot phylogenies")
