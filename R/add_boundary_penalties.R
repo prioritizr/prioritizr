@@ -200,7 +200,6 @@ methods::setGeneric("add_boundary_penalties",
                     function(x, penalty, ...)
                       standardGeneric("add_boundary_penalties"))
 
-
 #' @name add_boundary_penalties
 #' @usage \S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, boundary_data = NULL, ...)
 #' @rdname add_boundary_penalties
