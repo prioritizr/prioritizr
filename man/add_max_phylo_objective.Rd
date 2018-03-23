@@ -124,7 +124,7 @@ if (require("ape")) {
   plot(s1, main = "solution", axes = FALSE, box = FALSE)
 
   # find which features have their targets met
-  targets_met1 <- cellStats(s1 * sim_features, "sum") >
+  targets_met1 <- cellStats(s1 * sim_features, "sum") >=
                  (0.1 * cellStats(sim_features, "sum"))
 
   # plot the example phylogeny and color the represented features in red
@@ -167,7 +167,7 @@ if (require("ape")) {
                     cellStats(sim_features_zones[[z]] * s2[[z]], "sum")
 
   # find which features have their targets met
-  targets_met2 <- amount_held2 > targets$target
+  targets_met2 <- amount_held2 >= targets$target
 
   # plot the example phylogeny and color the represented features in red
   plot(sim_phylogeny, main = "represented features",
@@ -195,7 +195,7 @@ if (require("ape")) {
                     cellStats(sim_features_zones[[z]] * s3[[z]], "sum")
 
   # find which features have their targets met
-  targets_met3 <- amount_held3 > targets$target
+  targets_met3 <- amount_held3 >= targets$target
 
   # plot the example phylogeny and color the represented features in red
   plot(sim_phylogeny, main = "represented features",
