@@ -1,3 +1,20 @@
+# prioritizr 3.0.3.8 (unreleased)
+
+- Fix typos in Quick Start Guide (#69).
+- Document solution status in REAMDE.Rmd and solve.Rd (#63).
+- Fix bug in `add_feature_weights` where weights are not applied correctly when
+  problems using the expanded formulation. This is only used when problems
+  are built using `add_corridor_constraints` (#70).
+- Fix bugs in `add_max_cover_objective`, `add_max_features_objective`,
+  `add_max_phylo_objective`, and `add_max_utility_objective` where the
+  costliest and not the cheapest solution is returned when there are multiple
+  optimal solutions. Note that this is extremely unlikely to occur in real-world
+  conservation planning problems (#71).
+- Fix typo in equations for `add_max_cover_objective`,
+  `add_max_features_objective`, `add_max_phylo_objective`, and
+  `add_max_utility_objective` so that scaling factors are multiplied by minus
+  one (#60).
+
 # prioritizr 3.0.3.7 (unreleased)
 
 - Add `run_checks` argument to `problem` (#65).

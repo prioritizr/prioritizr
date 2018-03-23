@@ -42,7 +42,7 @@ Citation
 
 To cite package '*prioritizr*' in publications please use:
 
-    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 3.0.3.7. https://github.com/prioritizr/prioritizr.
+    Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 3.0.3.8. https://github.com/prioritizr/prioritizr.
 
 Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use *prioritizr*, so please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the list.
 
@@ -130,7 +130,7 @@ s1 <- solve(p1)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 4135.27
+    ## Found heuristic solution: objective 4135.2744673
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -166,8 +166,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.002900124
+    ## solution_1 
+    ## 0.00246191
 
 ``` r
 # extract message returned from solver
@@ -202,7 +202,7 @@ s2 <- solve(p2)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 4020.2
+    ## Found heuristic solution: objective 4020.2038180
     ## Presolve removed 0 rows and 10 columns
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -250,8 +250,8 @@ s3 <- solve(p3)
     ##   Objective range  [1e+02, 4e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 20287.2
-    ## Found heuristic solution: objective 6420.2
+    ## Found heuristic solution: objective 20287.196992
+    ## Found heuristic solution: objective 6420.2038180
     ## Presolve removed 72 rows and 46 columns
     ## Presolve time: 0.00s
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -268,7 +268,7 @@ s3 <- solve(p3)
     ## H    0     0                    6154.1018384 5477.09167  11.0%     -    0s
     ## H    0     0                    5944.9791739 5477.09167  7.87%     -    0s
     ## 
-    ## Explored 1 nodes (124 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (124 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 5944.98 6154.1 6420.2 20287.2 
@@ -302,7 +302,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 187 rows and 129 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.00s
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
     ## Variable types: 0 continuous, 377 integer (376 binary)
     ## Presolved: 468 rows, 377 columns, 1688 nonzeros
@@ -343,7 +343,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 23
     ## 
-    ## Explored 27 nodes (1243 simplex iterations) in 0.25 seconds
+    ## Explored 27 nodes (1243 simplex iterations) in 0.17 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 6482.4 12281.1 

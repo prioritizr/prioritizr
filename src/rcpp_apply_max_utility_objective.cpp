@@ -29,7 +29,8 @@ bool rcpp_apply_max_utility_objective(SEXP x,
   ptr->_sense.push_back("<=");
   // add in small negative number to objective for planning unit variables to
   // break ties in solution and select solution with cheapest cost
-  double cost_scale = (1.0e-10/(*std::min_element(costs.begin(), costs.end())));
+  double cost_scale = (-1.0e-10 / (*std::min_element(costs.begin(),
+                                                     costs.end())));
   for (std::size_t i=0; i<(ptr->_number_of_planning_units); ++i)
     ptr->_obj.push_back(costs[i] * cost_scale);
   if (!ptr->_compressed_formulation)

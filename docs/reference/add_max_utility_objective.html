@@ -122,7 +122,7 @@ formulations of the maximum coverage problem.</p>
 <p>The maximum utility objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\(I\) indexed by
 \(i\)) and a set of features (\(J\) indexed by \(j\)) as:
-    $$\mathit{Maximize} \space \sum_{i = 1}^{I} s \space c_i +
+    $$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i +
 \sum_{j = 1}^{J} a_j w_j \\
 \mathit{subject \space to} \\ a_j = \sum_{i = 1}^{I} x_i r_{ij} \space
 \forall j \in J \\ \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
@@ -160,7 +160,7 @@ represent the same amount of all features within the budget.</p>
 #&gt;   Objective range  [1e-10, 1e+00]
 #&gt;   Bounds range     [1e+00, 7e+01]
 #&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective -0
+#&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
@@ -182,7 +182,7 @@ represent the same amount of all features within the budget.</p>
 #&gt; Solution count 2: 74.121 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.412096587626e+01, best bound 7.459075047045e+01, gap 0.6338%</div><div class='input'>
+#&gt; Best objective 7.412096587100e+01, best bound 7.459075046519e+01, gap 0.6338%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_max_utility_objective-4.png' alt='' width='540' height='400' /><div class='input'>
 

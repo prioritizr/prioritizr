@@ -84,6 +84,17 @@
     </div>
 
     <div class="contents">
+    <div id="prioritizr-3-0-3-8-unreleased" class="section level1">
+<h1 class="hasAnchor">
+<a href="#prioritizr-3-0-3-8-unreleased" class="anchor"></a>prioritizr 3.0.3.8 (unreleased)</h1>
+<ul>
+<li>Fix typos in Quick Start Guide (#69).</li>
+<li>Document solution status in REAMDE.Rmd and solve.Rd (#63).</li>
+<li>Fix bug in <code>add_feature_weights</code> where weights are not applied correctly when problems using the expanded formulation. This is only used when problems are built using <code>add_corridor_constraints</code> (#70).</li>
+<li>Fix bugs in <code>add_max_cover_objective</code>, <code>add_max_features_objective</code>, <code>add_max_phylo_objective</code>, and <code>add_max_utility_objective</code> where the costliest and not the cheapest solution is returned when there are multiple optimal solutions. Note that this is extremely unlikely to occur in real-world conservation planning problems (#71).</li>
+<li>Fix typo in equations for <code>add_max_cover_objective</code>, <code>add_max_features_objective</code>, <code>add_max_phylo_objective</code>, and <code>add_max_utility_objective</code> so that scaling factors are multiplied by minus one (#60).</li>
+</ul>
+</div>
     <div id="prioritizr-3-0-3-7-unreleased" class="section level1">
 <h1 class="hasAnchor">
 <a href="#prioritizr-3-0-3-7-unreleased" class="anchor"></a>prioritizr 3.0.3.7 (unreleased)</h1>
@@ -539,6 +550,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-3-0-3-8-unreleased">3.0.3.8</a></li>
         <li><a href="#prioritizr-3-0-3-7-unreleased">3.0.3.7</a></li>
         <li><a href="#prioritizr-3-0-3-6-unreleased">3.0.3.6</a></li>
         <li><a href="#prioritizr-3-0-3-5-unreleased">3.0.3.5</a></li>

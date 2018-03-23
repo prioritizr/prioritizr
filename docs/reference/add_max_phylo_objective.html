@@ -129,7 +129,7 @@ cheapest solution is chosen.</p>
 problem can be expressed mathematically for a set of planning units
 (\(I\) indexed by \(i\)) and a set of features (\(J\) indexed
 by \(j\)) as:
-    $$\mathit{Maximize} \space \sum_{i = 1}^{I} s \space c_i +
+    $$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i +
 \sum_{j = 1}^{J} m_b l_b \\
 \mathit{subject \space to} \\
 \sum_{i = 1}^{I} x_i r_{ij} &gt;= y_j t_j \forall j \in J \\
@@ -184,7 +184,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   Objective range  [1e-10, 9e-01]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [5e+03, 5e+03]
-#&gt; Found heuristic solution: objective 2.55673e-09
+#&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
@@ -192,21 +192,21 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.353296e+00, 7 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.353296e+00, 8 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.35330    0    1    0.00000    4.35330      -     -    0s
+#&gt;      0     0    4.35330    0    1   -0.00000    4.35330      -     -    0s
 #&gt; H    0     0                       4.3532957    4.35330  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (8 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4.3533 2.55673e-09 
+#&gt; Solution count 2: 4.3533 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.353295744699e+00, best bound 4.353295744699e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 4.353295742439e+00, best bound 4.353295742495e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='add_max_phylo_objective-4.png' alt='' width='540' height='400' /><div class='input'>
 

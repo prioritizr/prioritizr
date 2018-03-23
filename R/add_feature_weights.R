@@ -57,7 +57,7 @@ add_feature_weights <- function(x, weights) {
   # assert that arguments are valid
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),
-    inherits(weights, "numeric"), isTRUE(all(is.finite(weights))),
+    is.numeric(weights), isTRUE(all(is.finite(weights))),
     isTRUE(all(weights >= 0.0)), isTRUE(length(weights) > 0),
     length(weights) == x$number_of_features())
   # create weight parameters

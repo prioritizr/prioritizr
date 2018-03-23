@@ -16,7 +16,7 @@ test_that("compile (compressed formulation)", {
   n_branches <- nrow(sim_phylogeny$edge)
   bm <- branch_matrix(sim_phylogeny)
   scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (1e-10 / min(scaled_costs))
+  scaled_costs <- scaled_costs * (-1e-10 / min(scaled_costs))
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(1e-10, n_features),
                           sim_phylogeny$edge.length))
@@ -101,7 +101,7 @@ test_that("compile (expanded formulation)", {
   n_rij <- length(rij@x)
   bm <- branch_matrix(sim_phylogeny)
   scaled_costs <- p$planning_unit_costs()
-  scaled_costs <- scaled_costs * (1e-10 / min(scaled_costs))
+  scaled_costs <- scaled_costs * (-1e-10 / min(scaled_costs))
   # test that metadata and constraints are correct
   expect_equal(o$modelsense(), "max")
   expect_equal(o$obj(), c(scaled_costs, rep(1e-10, n_f),

@@ -17,9 +17,15 @@
 \item{...}{arguments passed to \code{\link{compile}}.}
 }
 \value{
-A \code{\link[raster]{RasterLayer-class}},
-  \code{\link[sp]{Spatial-class}}, or a \code{numeric} vector containing the
-  solution depending on the argument to \code{a}.
+A \code{numeric}, \code{matrix},
+  \code{\link[raster]{RasterLayer-class}}, or
+  \code{\link[sp]{Spatial-class}} object containing the solution to
+  the problem. Additionally, the returned object will have the following
+  additional attributes: \code{"objective"} containing the solution's
+  objective, \code{"runtime"} denoting the number of seconds that elapsed
+  while solving the problem, and \code{"status"} describing the
+  status of the solution (e.g. \code{"OPTIMAL"} indicates that the
+  optimal solution was found).
 }
 \description{
 Solve a \code{\link{ConservationProblem-class}} or an
@@ -57,6 +63,10 @@ print(s)
 
 # plot solution
 plot(s, main = "solution", axes = FALSE, box = FALSE)
-}
 
+# print attributes added to the solution
+print(attr(s, "objective"))
+print(attr(s, "runtime"))
+print(attr(s, "status"))
+}
 }

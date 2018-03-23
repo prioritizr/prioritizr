@@ -1,6 +1,7 @@
 #' @include internal.R
 #' @export
-methods::setOldClass("Id")
+if (!methods::isClass("Id")) methods::setOldClass("Id")
+NULL
 
 #' Identifier
 #'

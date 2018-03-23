@@ -61,7 +61,7 @@ The currently supported solvers are listed below. Each must be installed separat
 
 The basic work flow for the _prioritizer_ package starts with the creation of a `problem`, which specifies the user-defined input data on planning units, features, and costs. This new problem object can then be formulated by adding `targets` and `objectives`. All problems require an objective, which specifies the fundamental kind of conservation prioritization approach that will be used. Most problems require the addition of representation targets for input features as well, with the exception of the maximum cover problem (i.e. if the `add_max_cover_objective` function has been used), which seeks to maximize the features in the solution and therefore does not require targets for individual features.
 
-Depending on the needs of the user, `constraints` and `penalties` can be added next. This includes the options to __lock in__ or __lock out__ particular planning units, or penalize solutions with low connectivity (similar to the boundary length modifier used in Marxan). Alternative decision formats can also be specified using the `decisions` functions, otherwise the package will default to binary selection of planning units. Lastly, the type of solving algorithm must be specified by installing one of the supported solving packages and adding the solver to the problem using one of the `solvers` functions.
+Depending on the needs of the user, `constraints` and `penalties` can be added next. This includes the options to __lock in__ or __lock out__ particular planning units, or penalize solutions with low connectivity (similar to the boundary length modifier used in _Marxan_). Alternative decision formats can also be specified using the `decisions` functions, otherwise the package will default to binary selection of planning units. Lastly, the type of solving algorithm must be specified by installing one of the supported solving packages and adding the solver to the problem using one of the `solvers` functions.
 
 A problem object is solved using the `solve` function, which will return a raster-class object, spatial-class object, or a numeric vector containing the solution depending on the object class initially provided in problem formulation. Additional parameters can be created and customized according to the specific needs of the user.
 
@@ -88,12 +88,12 @@ In this simulated example, biodiversity features are represented using a stack o
 
 In our example, the `sim_features` object is a `RasterStack` object that contains `raster::nlayers(sim_features)` layers. Each `RasterLayer` describes the distribution of a species. Specifically, the cell values denote the proportion of suitable habitat in across the study area. For a given layer, cells with a value of one are entirely comprized of suitable habitat for the feature, and cells with a value of zero contain no suitable habitat.
 
-```{r, fig.height = h * 0.7, fig.width = w * 3.25, echo = FALSE}
+```{r, fig.height = h * 0.7, fig.width = w * 2, echo = FALSE}
 # load feature data
 data(sim_features)
 # plot the distribution of suitable habitat for each feature
 plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
-     nr = 1)
+     nr = 2)
 ```
 
 We use a simulated dataset in this tutorial, but to use your own data with prioritizr, you first need to prepare your dataset. __This is the most important part of the _prioritizr_ workflow, and where most errors are likely to arise.__ If the `solve` function doesn't run correctly, the first thing to check should be that your data are not malformed and comply with the problem formulation specifications.
@@ -102,9 +102,9 @@ The formulation of different data input types is detailed below.
 
 #### Shapefile Input
 
-If the planning unit data is contained in a shapefile, R will convert this into spatial-class object, where attribute data can be called from a data frame. _Prioritizr_ recognizes point, line, or polygon inputs. The spatial-class problem object is more flexible than the problem formulated for raster inputs, because planning units can be irregularly shaped and cost data can be incorporated from spatial, raster, and data frame sources. However, spatial-class problem objects can require more computation time and solve less efficiently than raster objects. The example dataset we use here contains the option to use any of the three spatial-class inputs.
+If the planning unit data is contained in a shapefile, R will convert this into spatial-class object, where attribute data can be called from a data frame. _Prioritizr_ recognizes point, line, or polygon inputs. The spatial-class problem object is more flexible than the problem formulated for raster inputs, because planning units can be irregularly shaped and cost data can be incorporated from spatial, raster, and data frame sources. However, spatial-class planning units can take longer to process than raster planning units when constraints or penalties are added to problems that require information on spatial proximity or adjacency (e.g. `add_boundary_penalties`), so raster planning units are recommended where possible. Note that, all else being equal, there is no difference on the time spent solving a problem that has spatial-class or raster planning units. The example dataset we use here contains the option to use any of the three spatial-class inputs.
 
-```{r, echo = FALSE, fig.height = h * 1, fig.width = w * 3}
+```{r, echo = FALSE, fig.height = h * 1, fig.width = w * 2}
 # load feature data
 data(sim_pu_polygons)
 data(sim_pu_lines)
@@ -123,7 +123,7 @@ In this example dataset, all of the simulated spatial-class objects contain the 
 head(sim_pu_polygons)
 ```
 
-To create a conservation problem object to which you can add targets, constraints, etc., use the `problem` function with the spatial-class planning unit object and the features object as arguments. In this example we use the `sim_features` raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches Marxan formatting (see the _Marxan problem_ section in this tutorial), cost must be explicitly defined using the `cost_column` argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, `data.frame`, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.
+To create a conservation problem object to which you can add targets, constraints, etc., use the `problem` function with the spatial-class planning unit object and the features object as arguments. In this example we use the `sim_features` raster stack to represent features, but you can also use a spatial-class object where the distributions of multiple features are included as attribute columns. Unless the problem being formulated exactly matches _Marxan_ formatting (see the **Marxan problem** section in this tutorial), cost must be explicitly defined using the `cost_column` argument. Cost can be an attribute of the planning unit spatial-class object, or derived from a separate raster, `data.frame`, or numeric vector aligned with planning unit ID. If the cost column is in the planning unit spatial object, you will have to identify the cost column within the attribute table.
 
 ```{r, eval = FALSE}
 # polygons
@@ -154,23 +154,23 @@ The argument to `features` must be a raster-class object with the same spatial p
 p4 <- problem(sim_pu_raster, sim_features)
 ```
 
-#### `data.frame` or Numeric Vector Input
-Planning unit data can also be uploaded from a .csv file into a `data.frame`, or entered into a numeric vector. The argument to `x` should contain one row for each planning unit with its corresponding cost. The argument to `features` must also be a `data.frame` or matrix, following the conventions used by Marxan. Each row corresponds to a different feature, and must contain the following columns:
+#### Data Frame or Numeric Vector Input
+Planning unit data can also be uploaded from a .csv file into a `data.frame`, or entered into a numeric vector. The argument to `x` should contain one row for each planning unit with its corresponding cost. The argument to `features` must also be a `data.frame` or matrix, following the conventions used by _Marxan_. Each row corresponds to a different feature, and must contain the following columns:
 
-* "id": Unique identifier for each feature.
-* "name": Name for each feature.
-* "prop": Relative target for each feature (optional). Targets can also be added using the `targets` functions.
-* "amount": Absolute target for each feature (optional).
+* `"id"`: Unique identifier for each feature.
+* `"name"`: Name for each feature.
+* `"prop"`: Relative target for each feature (optional). Targets can also be added using the `targets` functions.
+* `"amount"`: Absolute target for each feature (optional).
 
-Because `data.frame` and numeric vector input formats do not include spatial data, you will need to include a table specifying the quantity of each feature in each planning unit. This is called a representation matrix or RIJ matrix, and is identified in the `problem` function by the argument `rij` (`data.frame`) or `rij_matrix` (numeric vector). For `data.frame` inputs, the argument to `rij` must follow the conventions used by Marxan. It must contain the following columns:
+Because `data.frame` and numeric vector input formats do not include spatial data, you will need to include a table specifying the quantity of each feature in each planning unit. This is called a representation matrix or RIJ matrix, and is identified in the `problem` function by the argument `rij` (`data.frame`) or `rij_matrix` (numeric vector). For `data.frame` inputs, the argument to `rij` must follow the conventions used by _Marxan_. It must contain the following columns:
 
-* "pu": Planning unit identifier.
-* "species": Feature identifier matching the ID used in the argument to `features`.
-* "amount": Amount of the feature in the planning unit.
+* `"pu"`: Planning unit identifier.
+* `"species"`: Feature identifier matching the ID used in the argument to `features`.
+* `"amount"`: Amount of the feature in the planning unit.
 
 For numeric vector inputs, the argument to `rij_matrix` can be a simple Matrix-class object specifying the amount of each feature (rows) within each planning unit (columns).
 
-Because the formatting for data frame and numeric vector problem objects follows the Marxan input file specifications, users may wish to use the `marxan_problem` function instead of the `problem` function; which allows users to quickly and easily solve Marxan problems with a single function. Although this method does not provide as many customizations, it may be more convenient for users already familiar with Marxan problems or with existing Marxan data files. For more details see the _Marxan Problem_ section at the end of this tutorial.
+Because the formatting for data frame and numeric vector problem objects follows the _Marxan_ input file specifications, users may wish to use the `marxan_problem` function instead of the `problem` function; which allows users to quickly and easily solve _Marxan_ problems with a single function. Although this method does not provide as many customizations, it may be more convenient for users already familiar with _Marxan_ problems or with existing _Marxan_ data files. For more details see the __Marxan_ Problem_ section at the end of this tutorial.
 
 Note: If the input to problem are spatial data such as a raster or a spatial-class object, the RIJ matrix is calculated automatically.
 
@@ -179,8 +179,7 @@ Note: If the input to problem are spatial data such as a raster or a spatial-cla
 Once the problem is formulated, the next step is to add an objective. A problem objective is used to specify the overall goal of the problem. All conservation planning problems involve minimizing or maximizing some kind of objective. For instance, the planner may require a solution that conserves enough habitat for each species while minimizing the overall cost of the reserve network. Alternatively, the planner may require a solution that maximizes the number of conserved species while ensuring that the cost of the reserve network does not exceed the budget. Objectives are added in the same way regardless of the type of data input to `problem`. For simplicity, the examples from this point onward will only use the problem formulated for the simulated raster dataset.
 
 The _prioritizr_ package contains four objective functions:
-
-* __Minimum set objective__: Used to find a solution that fulfills all the targets and constraints for the smallest cost. This objective is similar to that used in Marxan. For example, we can add a minimum set objective to our simulated raster problem as follows:
+* `add_min_set_objective`: Used to find a solution that fulfills all the targets and constraints for the smallest cost. This objective is similar to that used in _Marxan_. For example, we can add a minimum set objective to our simulated raster problem as follows:
 
 ```{r, eval = FALSE}
 # create new problem object from scratch
@@ -192,29 +191,27 @@ p4 <- problem(sim_pu_raster, sim_features)
 p5 <- p4 %>% add_min_set_objective()
 ```
 
-* __Maximum cover objective__: Used to represent one instance of as many features as possible within a given budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
-
+* `add_max_cover_objective`: Used to represent one instance of as many features as possible within a given budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
 ```{r, eval = FALSE}
 p4 <- problem(sim_pu_raster, sim_features) %>%
       add_max_cover_objective(budget = 5000)
 ```
-
-* __Maximum features objective__: Used to find a solution that fulfills as many targets as possible while ensuring that the cost of the solution does not exceed budget and that all constraints are met. This objective was inspired by the conservation problem defined in [Cabeza and Moilanen (2001)](http://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(01)02125-5). Like the maximum cover objective, a budget must be specified as an argument to the maximum features objective function.
-
+* `add_max_features_objective`: Used to find a solution that fulfills as many targets as possible while ensuring that the cost of the solution does not exceed budget and that all constraints are met. This objective was inspired by the conservation problem defined in [Cabeza and Moilanen (2001)](http://www.cell.com/trends/ecology-evolution/abstract/S0169-5347(01)02125-5). Like the maximum cover objective, a budget must be specified as an argument to the maximum features objective function.
 ```{r, eval = FALSE}
 p4 <- problem(sim_pu_raster, sim_features) %>%
       add_max_features_objective(budget = 5000)
 ```
-
-* __Maximum phylogenetic representation objective__: Used to find a solution that fulfills as much of a representative sample a phylogenetic tree as possible given a budget. This objective is similar to the maximum features objective except that emphasis is placed on phylogenetic representation rather than target representation. This objective requires the `ape` R package to be installed. In  the simulated dataset contained in the prioritizr package there is the sample phylogenetic data object `sim_phylogeny`.
-
+* `add_max_phylo_objective`: Used to find a solution that fulfills as much of a representative sample a phylogenetic tree as possible given a budget. This objective is similar to the maximum features objective except that emphasis is placed on phylogenetic representation rather than target representation. This objective requires the `ape` R package to be installed. In  the simulated dataset contained in the prioritizr package there is the sample phylogenetic data object `sim_phylogeny`.
 ```{r, eval = FALSE}
 data(sim_phylogeny) #load simulated phylogeny data
 p4 <- problem(sim_pu_raster, sim_features) %>%
       add_max_phylo_objective(budget = 5000, tree = sim_phylogeny)
 ```
-
-* __Maximum utility objective__: Used to find a solution that secures as much of each feature as possible without exceeding the budget. We can add a maximum cover objective to our simulated problem using the same notation as for the minimum set objective, but with the addition of a user-specified budget.
+* `add_max_utility_objective`: Used to find a solution that secures as much of each feature as possible without exceeding the budget.
+```{r, eval = FALSE}
+p4 <- problem(sim_pu_raster, sim_features) %>%
+      add_max_utility_objective(budget = 5000)
+```
 
 The `%>%` notation is necessary to tell the package which problem to attach the objective to. Note that when multiple objectives are added to the same problem object, only the most recent objective is used. For details on the mathematical formulation of each type of objective function, please refer to the [Prioritizr Basics](prioritizr_basics.html) vignette.
 
@@ -297,11 +294,11 @@ p.lock3 <- p4 %>% add_locked_in_constraints(sim_locked_in_raster)
 ```
 
 ### Add Penalties
-A highly fragmented solution may be associated with increased management costs and be susceptible to edge effects. A penalty can be applied to a conservation planning `problem` to penalize solutions with low connectivity between planning units. This acts as an explicit trade-off with the objective being minimized or maximized, and thereby increases the cost of the solution.  For example, when the a boundary length penalty is added (equivalent to a boundary length modifier in Marxan), solution fragmentation decreases but solution cost increases.
+A highly fragmented solution may be associated with increased management costs and be susceptible to edge effects. A penalty can be applied to a conservation planning `problem` to penalize solutions with low connectivity between planning units. This acts as an explicit trade-off with the objective being minimized or maximized, and thereby increases the cost of the solution.  For example, when the a boundary length penalty is added (equivalent to a boundary length modifier in _Marxan_), solution fragmentation decreases but solution cost increases.
 
 There are two types of penalty available in _prioritizr_:
 
-* `add_boundary_penalties`:  Add penalties to a conservation problem to favor solutions that clump selected planning units together into contiguous reserves. Uses shared boundary length as a measure of connectivity, equivalent to the boundary length modifier (BLM) in Marxan. Boundary data is calculated automatically unless the planning units in the problem object are stored in a `data.frame`, in which case boundary data must be explicitly added as a matrix or `data.frame`. This function can only be used for symmetric relationships between planning units.
+* `add_boundary_penalties`:  Add penalties to a conservation problem to favor solutions that clump selected planning units together into contiguous reserves. Uses shared boundary length as a measure of connectivity, equivalent to the boundary length modifier (BLM) in _Marxan_. Boundary data is calculated automatically unless the planning units in the problem object are stored in a `data.frame`, in which case boundary data must be explicitly added as a matrix or `data.frame`. This function can only be used for symmetric relationships between planning units.
 * `add_connectivity_penalties`: Add constraints to a conservation problem to favor solutions that select planning units with high connectivity between them. Uses connectivity data in the form of a `matrix` or `data.frame` object, where strength of connectivity is a value such as the inverse distance between consecutive planning units. This function can be used for symmetric or asymmetric relationships between planning units.
 
 For example, we can apply a boundary penalty to our simulate problem using a high penalty factor of 500 (ie. boundary length modifier; BLM), and an edge factor of 50% so that planning units along the coastline are not overly penalized.
@@ -315,7 +312,7 @@ A penalty can be applied to a problem that already has one or more constraints a
 
 For example, the following solutions are for three minimum set problems, with targets set to 20% for all features, using binary decision making and a Gurobi solver. The solutions differ only by the constraints or penalties added.
 
-```{r, echo = FALSE, eval = FALSE, fig.height = h * 1, fig.width = w * 3}
+```{r, results = "hide", message = FALSE, fig.height = h * 1, fig.width = w * 2.0}
 p_1 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.2) %>%
@@ -324,21 +321,14 @@ p_1 <- problem(sim_pu_raster, sim_features) %>%
 p_2 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.2) %>%
-       add_connected_constraints() %>%
-       add_gurobi_solver()
-
-p_3 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.2) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 1) %>%
        add_gurobi_solver()
 
 # solve problems
-s <- stack(solve(p_1), solve(p_2), solve(p_3))
+s <- stack(solve(p_1), solve(p_2))
 
 # plot solutions
-plot(s, main = c("no connectivity requirement", "connected constraint",
-                 "boundary penalty"))
+plot(s, main = c("basic solution", "boundary penalties"))
 ```
 
 ### Specify the type of decision variable
@@ -351,7 +341,8 @@ The following decision classes are available in _prioritizr_:
 * `add_semicontinuous_decisions`: Add a semi-continuous decision to a problem. This decision is similar to proportion decisions except that it has an upper bound parameter. By default, the decision can range from prioritizing none (0%) to all (100%) of a planning unit. However, a upper bound can be specified to ensure that at most only a fraction (eg. 80%) of a planning unit can be preserved. This type of decision may be useful when it is not practical to conserve the entire planning unit.
 
 ### Solve a problem
-Finally, A `problem` object that is formulated to your specifications can be solved to obtain a solution. If you do not specify the type of solver used, _prioritizr_ will automatically use the best solver currently installed. __We recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](http://gurobi.com) to solve problems quickly.__ If Gurobi is not an option, install one of the SYMPHONY solvers. The functions used to add a specific solver are:
+
+Finally, a `problem` object that is formulated to your specifications can be solved to obtain a solution. If you do not specify the type of solver used, _prioritizr_ will automatically use the best solver currently installed. __We recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](http://gurobi.com) to solve problems quickly.__ If Gurobi is not an option, install one of the SYMPHONY solvers. The functions used to add a specific solver are:
 
 * `add_gurobi_solver`: [Gurobi](http://gurobi.com) is a state-of-the-art commercial optimization software with an R package interface. It is by far the fastest of the solvers available in this package, however, it is also the only solver that is not freely available. That said, licenses are available to academics at no cost. The `gurobi` package is distributed with the Gurobi software suite.
 * `add_rsymphony_solver`: [SYMPHONY](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research (a field that includes linear programming). The `Rsymphony` package provides an interface to COIN-OR and is available on CRAN.
@@ -378,19 +369,30 @@ We can plot this solution because the planning unit input data are spatially lin
 
 The `solve` function automatically compresses and compiles the problem from a `ConservationProblem-class` object into an `OptimizationProblem-class` object, which is a series of matrices and tables specifically designed for integer linear programming algorithms to work with. The `compile` function can be used to manually compress a problem object into an Optimization problem, but this is not recommended unless the user is familiar with the formatting of the Optimization problem and wishes to manipulate it directly. The `solve` function intentionally abstracts away the optimization process for simplicity.
 
+We can also extract extra information from the solution. This information shows the solution's objective value, the time spent solving the problem, and a message describing why the solution was returned (e.g. because the optimal solution was found? Because a time limit was exceeded?).
+
+```{r}
+# extract the objective (cost of solution in this case)
+print(attr(s5, "objective"))
+# extract time spent solving solution
+print(attr(s5, "runtime"))
+# extract message returned from solver
+print(attr(s5, "status"))
+```
+
 ### Additional customizations
 
 If the functions available in _prioritizr_ do not meet the specific needs of a project it is possible to create parameters using the `parameters` functions. Only experts should work directly with these functions.
 
-## The Marxan problem
+## The _Marxan_ problem
 
-Although users are encouraged to build and tailor conservation planning problems to suit their own needs using the `problem` function, sometimes it is easier to use a more familiar "canned" approach. The `marxan_problem` function provides a convenient wrapper for generating and solving Marxan-style conservation problems. If users already have their conservation planning data in the Marxan input format, this function can also be used to read Marxan data files and solve the Marxan-style problems using exact algorithm solvers.
+Although users are encouraged to build and tailor conservation planning problems to suit their own needs using the `problem` function, sometimes it is easier to use a more familiar "canned" approach. The `_Marxan_problem` function provides a convenient wrapper for generating and solving _Marxan_-style conservation problems. If users already have their conservation planning data in the _Marxan_ input format, this function can also be used to read _Marxan_ data files and solve the _Marxan_-style problems using exact algorithm solvers.
 
-With the `marxan_problem` function, targets, boundary length penalties, and locked in/out constraints are included as arguments in the initial problem formulation, rather than added with separate functions. The options available are limited to those that would be available with Marxan - users wishing for greater flexibility should use the `problem` function instead. For example, problems formulated with  `marxan_problem` are always minimum set problems.
+With the `marxan_problem` function, targets, boundary length penalties, and locked in/out constraints are included as arguments in the initial problem formulation, rather than added with separate functions. The options available are limited to those that would be available with _Marxan_ - users wishing for greater flexibility should use the `problem` function instead. For example, problems formulated with `marxan_problem` are always minimum set problems.
 
-A Marxan problem is solved in the same way as a problem object, and therefore still requires the installation of one of the solver packages.
+A _Marxan_ problem is solved in the same way as a problem object, and therefore still requires the installation of one of the solver packages.
 
-_prioritizr_ contains Marxan input files that can be used as an example dataset.
+_prioritizr_ contains _Marxan_ input files that can be used as an example dataset.
 
 ```{r, results = "hide"}
 # complete input file
@@ -403,7 +405,7 @@ ms1 <- solve(mp1)
 head(ms1)
 ```
 
-Marxan input files can also be supplied individually.
+_Marxan_ input files can also be supplied individually.
 
 ```{r}
 pu <- system.file("extdata/input/pu.dat", package = "prioritizr") %>%
@@ -418,9 +420,9 @@ mp2 <- marxan_problem(x = pu, spec = features, puvspr = rij, bound = bound,
                       blm = 0)
 ```
 
-The `marxan_problem` function can also read non-Marxan input files such as spatial and raster layers, provided they are formatted following the conventions used by Marxan input files. Problem formulation  differs slightly with this method. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the `locked in` and `locked out` arguments. Connectivity can be added with the  `penalty` argument, which imposes a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in Marxan), and the `edge_factor` argument to scale the penalty for edges that do not have neighboring planning units, such as coastline. Cost does not have to be explicitly identified with `marxan_problem`, because if column names follow Marxan conventions, the cost column can be located by the function.
+The `marxan_problem` function can also read non-_Marxan_ input files such as spatial and raster layers, provided they are formatted following the conventions used by _Marxan_ input files. Problem formulation  differs slightly with this method. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the `locked in` and `locked out` arguments. Connectivity can be added with the  `penalty` argument, which imposes a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in _Marxan_), and the `edge_factor` argument to scale the penalty for edges that do not have neighboring planning units, such as coastline. Cost does not have to be explicitly identified with `marxan_problem`, because if column names follow _Marxan_ conventions, the cost column can be located by the function.
 
-The simulated dataset we use here can be read as a Marxan problem. A problem with no boundary penalty, but a locked in constraint, would be formulated as follows.
+The simulated dataset we use here can be read as a _Marxan_ problem. A problem with no boundary penalty, but a locked in constraint, would be formulated as follows.
 
 ```{r, results = "hide", fig.height = h * 0.7}
 mp3 <- marxan_problem(x = sim_pu_polygons, features = sim_features,
@@ -434,7 +436,7 @@ spplot(ms3, zcol = "solution_1", main = "Solution")
 
 There are several options for post-processing solutions if you're interested in conducting additional analyses beyond plotting. Post-processing can be done efficiently by exporting solutions into GIS software platforms such as [ArcGIS](https://www.arcgis.com/features/index.html) and [QGIS](http://www.qgis.org/en/site/), but it is also possible to calculate statistics on spatial layers within R. Some handy functions for raster solutions include `zonal` and `extract` from the raster package; `zonal` when the features are rasters, and `extract` when the features are spatial layers. The `cellStats` and `layerStats` functions from the _raster_ package are also useful.
 
-For solutions from Marxan input files, post-processing can be done as if it were a `data.frame`.
+For solutions from _Marxan_ input files, post-processing can be done as if it were a `data.frame`.
 
 ```{r}
 # count number of planning units used to represent each feature

@@ -29,9 +29,15 @@ NULL
 #'      containing the decision values.}
 #'   }
 #'
-#' @return A \code{\link[raster]{RasterLayer-class}},
-#'   \code{\link[sp]{Spatial-class}}, or a \code{numeric} vector containing the
-#'   solution depending on the argument to \code{a}.
+#' @return A \code{numeric}, \code{matrix},
+#'   \code{\link[raster]{RasterLayer-class}}, or
+#'   \code{\link[sp]{Spatial-class}} object containing the solution to
+#'   the problem. Additionally, the returned object will have the following
+#'   additional attributes: \code{"objective"} containing the solution's
+#'   objective, \code{"runtime"} denoting the number of seconds that elapsed
+#'   while solving the problem, and \code{"status"} describing the
+#'   status of the solution (e.g. \code{"OPTIMAL"} indicates that the
+#'   optimal solution was found).
 #'
 #' @examples
 #' # build minimal conservation problem
@@ -49,8 +55,12 @@ NULL
 #'
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE, box = FALSE)
-#' }
 #'
+#' # print attributes added to the solution
+#' print(attr(s, "objective"))
+#' print(attr(s, "runtime"))
+#' print(attr(s, "status"))
+#' }
 #' @name solve
 #'
 #' @importFrom Matrix solve
