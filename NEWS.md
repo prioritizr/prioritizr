@@ -1,3 +1,7 @@
+# prioritizr 3.0.4 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 3.0.3.8 (unreleased)
 
 - Fix typos in Quick Start Guide (#69).
