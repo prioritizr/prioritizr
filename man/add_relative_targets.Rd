@@ -13,19 +13,17 @@
 \alias{add_relative_targets}
 \title{Add relative targets}
 \usage{
-\S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets, ...)
+\S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets)
 
-\S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets, ...)
+\S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets)
 
-\S4method{add_relative_targets}{ConservationProblem,character}(x, targets, ...)
+\S4method{add_relative_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{targets}{Object that specifies the targets for each feature. See the
 Details section for more information.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added

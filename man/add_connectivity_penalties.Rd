@@ -12,32 +12,30 @@
 \alias{add_connectivity_penalties}
 \title{Add connectivity penalties}
 \usage{
-\S4method{add_connectivity_penalties}{ConservationProblem,numeric,Matrix}(x, penalty, connectivity_data, ...)
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,Matrix}(x, penalty, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,numeric,matrix}(x, penalty, connectivity_data, ...)
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,matrix}(x, penalty, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,numeric,data.frame}(x, penalty, connectivity_data, ...)
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,data.frame}(x, penalty, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,numeric,array}(x, penalty, connectivity_data, ...)
+\S4method{add_connectivity_penalties}{ConservationProblem,numeric,array}(x, penalty, data)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to multiply
-the connectivity values in the argument to \code{connectivity_data}.
+the connectivity values in the argument to \code{data}.
 Supplying arguments with greater values to \code{penalty} will return
 solutions that containing planning units that share greater connectivity.
 This parameter is equivalent to the connectivity strength modifier
 (CSM; Beger \emph{et al.} 2010) used in \emph{Marxan}. The default argument
 is \code{1} so that penalty values are
-the same as the values supplied to \code{connectivity_data}. Note that the
+the same as the values supplied to \code{data}. Note that the
 argument to \code{penalty} must always be single \code{numeric} value even
 for problems with multiple zones.}
 
-\item{connectivity_data}{A \code{data.frame}, \code{matrix}, or
+\item{data}{A \code{data.frame}, \code{matrix}, or
 \code{array} object. See the Details section for more information.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the penalties
@@ -53,7 +51,7 @@ This function uses connectivity data to penalize solutions
   It can be used for symmetric or asymmetric relationships
   between planning units and is inspired by Beger \emph{et al.} (2010).
 
-  The \code{connectivity_data} can be specified in several different ways:
+  The \code{data} can be specified in several different ways:
 
   \describe{
 
@@ -63,7 +61,7 @@ This function uses connectivity data to penalize solutions
     that occur along the diagonal correspond to connectivity weights such
     that planning units with higher values are more desireable in the
     solution. Note that \code{matrix} objects cannot be supplied as an
-    argument for \code{connectivity_data} when the argument to \code{x}
+    argument for \code{data} when the argument to \code{x}
     contains multiple zones, and instead an \code{array} object must be
     supplied.}
 
@@ -85,7 +83,7 @@ This function uses connectivity data to penalize solutions
     dimensions (i.e. rows and columns) indicate the strength of
     connectivity between different planning units and the second two
     dimensions indicate the different management zones. Thus
-    the \code{connectivity_data[1, 2, 3, 4]} indicates the strength of
+    the \code{data[1, 2, 3, 4]} indicates the strength of
     connectivity between planning unit 1 and planning unit 2 when planning
     unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 

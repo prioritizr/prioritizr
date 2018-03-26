@@ -14,22 +14,20 @@
 \alias{intersecting_units}
 \title{Find intersecting units}
 \usage{
-\S4method{intersecting_units}{Raster,Raster}(x, y, ...)
+\S4method{intersecting_units}{Raster,Raster}(x, y)
 
-\S4method{intersecting_units}{Spatial,Spatial}(x, y, ...)
+\S4method{intersecting_units}{Spatial,Spatial}(x, y)
 
-\S4method{intersecting_units}{Raster,Spatial}(x, y, ...)
+\S4method{intersecting_units}{Raster,Spatial}(x, y)
 
-\S4method{intersecting_units}{Spatial,Raster}(x, y, ...)
+\S4method{intersecting_units}{Spatial,Raster}(x, y)
 
-\S4method{intersecting_units}{data.frame,ANY}(x, y, ...)
+\S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
 \item{x}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
 
 \item{y}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
-
-\item{...}{not used.}
 }
 \value{
 \code{integer} indices of the units in \code{x} that intersect with

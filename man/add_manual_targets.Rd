@@ -11,17 +11,15 @@
 \alias{add_manual_targets}
 \title{Add manual targets}
 \usage{
-\S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets, ...)
+\S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets)
 
-\S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets, ...)
+\S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{targets}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
 the Details section for more information.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added

@@ -10,8 +10,6 @@ NULL
 #'
 #' @param y \code{\link{Spatial-class}} or \code{\link{Raster-class}} object.
 #'
-#' @param ... not used.
-#'
 #' @return \code{integer} indices of the units in \code{x} that intersect with
 #'   \code{y}.
 #'
@@ -62,16 +60,16 @@ NULL
 #' @export
 methods::setGeneric("intersecting_units",
                     signature = methods::signature("x", "y"),
-                    function(x, y, ...)
+                    function(x, y)
                       standardGeneric("intersecting_units"))
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Raster,Raster}(x, y, ...)
+#' @usage \S4method{intersecting_units}{Raster,Raster}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
   methods::signature(x = "Raster", y = "Raster"),
-  function(x, y, ...) {
+  function(x, y) {
     # assert arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
       isTRUE(raster::nlayers(x) == 1), raster::compareCRS(x@crs, y@crs),
@@ -88,12 +86,12 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Spatial,Spatial}(x, y, ...)
+#' @usage \S4method{intersecting_units}{Spatial,Spatial}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
   methods::signature(x = "Spatial", y = "Spatial"),
-  function(x, y, ...) {
+  function(x, y) {
     # assert arguments are valid
     assertthat::assert_that(
       inherits(x, "Spatial"), inherits(x, "Spatial"),
@@ -113,12 +111,12 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Raster,Spatial}(x, y, ...)
+#' @usage \S4method{intersecting_units}{Raster,Spatial}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
   methods::signature(x = "Raster", y = "Spatial"),
-  function(x, y, ...) {
+  function(x, y) {
     # assert arguments are valid
     assertthat::assert_that(
       inherits(x, "Raster"), inherits(y, "Spatial"),
@@ -137,11 +135,11 @@ methods::setMethod(
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{Spatial,Raster}(x, y, ...)
+#' @usage \S4method{intersecting_units}{Spatial,Raster}(x, y)
 #' @rdname intersecting_units
 methods::setMethod("intersecting_units",
   methods::signature(x = "Spatial", y = "Raster"),
-  function(x, y, ...) {
+  function(x, y) {
     # assert arguments are valid
     assertthat::assert_that(
       inherits(x, "Spatial"), inherits(y, "Raster"),
@@ -161,12 +159,12 @@ methods::setMethod("intersecting_units",
 )
 
 #' @name intersecting_units
-#' @usage \S4method{intersecting_units}{data.frame,ANY}(x, y, ...)
+#' @usage \S4method{intersecting_units}{data.frame,ANY}(x, y)
 #' @rdname intersecting_units
 methods::setMethod(
   "intersecting_units",
   methods::signature(x = "data.frame", y = "ANY"),
-  function(x, y, ...) {
+  function(x, y) {
     stop("planning units are stored as a data.frame and so the required ",
          "spatial analysis cannot be performed.")
   }

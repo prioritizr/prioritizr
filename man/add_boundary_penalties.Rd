@@ -8,9 +8,9 @@
 \alias{add_boundary_penalties}
 \title{Add boundary penalties}
 \usage{
-\S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, boundary_data = NULL, ...)
+\S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, data)
 
-\S4method{add_boundary_penalties}{ConservationProblem,matrix}(x, penalty, edge_factor, boundary_data = NULL, ...)
+\S4method{add_boundary_penalties}{ConservationProblem,matrix}(x, penalty, edge_factor, data)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -28,23 +28,21 @@ factor of \code{0.5} is commonly used for planning units along the coast
 line. Note that this argument must have an element for each zone
 in the argument to \code{x}.}
 
-\item{boundary_data}{A \code{matrix} or
-\code{data.frame} object showing the shared boundary lengths
-between planning units. If \code{boundary_data} is a matrix then
-each row and column denote a planning unit and cell values
-represent their shared boundary. If \code{boundary_data} is
+\item{data}{A \code{matrix} or \code{data.frame} object showing the shared
+boundary lengths between planning units. If \code{data} is a
+matrix then each row and column denote a planning unit and cell values
+represent their shared boundary. If \code{data} is
 \code{data.frame} then it must have the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}, where each row shows
 the shared boundary between two planning units (as per the standard
 \emph{Marxan} input format). This argument is required
 if the planning units in \code{x} are stored in a \code{data.frame}
 object. Otherwise, it is optional and the boundary data will be
-automatically calculated. Note that the \code{boundary_data} must be
+automatically calculated using \code{\link{boundary_matrix}}.
+Note that the \code{data} must be
 denote symmetric relationships between planning units. If
 asymmetric relationships are required, use the
 \code{\link{add_connectivity_penalties}} function.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the penalties
@@ -62,7 +60,7 @@ This function adds penalties to a conservation planning problem
   automatically for spatial planning unit data. If the planning unit data
   in the argument to \code{x} inherits from a \code{numeric}, \code{matrix},
   or \code{data.frame} format, the boundary data must be supplied as an
-  argument to \code{boundary_data}.
+  argument to \code{data}.
 
   The correct argument to \code{penalty} depends on the number of zones
   in the argument to \code{x}. If the argument to \code{x} is associated

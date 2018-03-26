@@ -9,17 +9,17 @@
 \alias{boundary_matrix.data.frame}
 \title{Boundary matrix}
 \usage{
-boundary_matrix(x, ...)
+boundary_matrix(x)
 
-\method{boundary_matrix}{Raster}(x, ...)
+\method{boundary_matrix}{Raster}(x)
 
-\method{boundary_matrix}{SpatialPolygons}(x, ...)
+\method{boundary_matrix}{SpatialPolygons}(x)
 
-\method{boundary_matrix}{SpatialLines}(x, ...)
+\method{boundary_matrix}{SpatialLines}(x)
 
-\method{boundary_matrix}{SpatialPoints}(x, ...)
+\method{boundary_matrix}{SpatialPoints}(x)
 
-\method{boundary_matrix}{data.frame}(x, ...)
+\method{boundary_matrix}{data.frame}(x)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
@@ -27,8 +27,6 @@ boundary_matrix(x, ...)
 \code{\link[sp]{SpatialPolygons-class}} object. If \code{x} is a
 \code{\link[raster]{Raster-class}} object then it must have only one
 layer.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{Matrix}{dsCMatrix-class}} object.

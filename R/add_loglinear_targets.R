@@ -30,8 +30,6 @@ NULL
 #'   which have a total amount greater than argument to \code{cap_amount}.
 #'   Defaults to \code{NULL} so that targets are not capped.
 #'
-#' @param ... not used.
-#'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation
 #'   planning problems require adding targets with the exception of the maximum

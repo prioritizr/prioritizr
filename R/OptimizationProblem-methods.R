@@ -187,7 +187,7 @@ NULL
 #'
 #' @exportMethod nrow
 #'
-#' @usage nrow(x)
+#' @usage \S4method{nrow}{OptimizationProblem}(x)
 #'
 methods::setMethod("nrow", "OptimizationProblem", function(x) x$nrow())
 
@@ -199,7 +199,7 @@ methods::setMethod("nrow", "OptimizationProblem", function(x) x$nrow())
 #'
 #' @exportMethod ncol
 #'
-#' @usage ncol(x)
+#' @usage \S4method{ncol}{OptimizationProblem}(x)
 #'
 methods::setMethod("ncol", "OptimizationProblem", function(x) x$ncol())
 
@@ -211,7 +211,7 @@ methods::setMethod("ncol", "OptimizationProblem", function(x) x$ncol())
 #'
 #' @exportMethod ncell
 #'
-#' @usage ncell(x)
+#' @usage \S4method{ncell}{OptimizationProblem}(x)
 #'
 methods::setMethod("ncell", "OptimizationProblem", function(x) x$ncell())
 
@@ -228,6 +228,9 @@ methods::setGeneric("modelsense", function(x) standardGeneric("modelsense"))
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{modelsense}{OptimizationProblem}(x)
+#'
 methods::setMethod("modelsense", "OptimizationProblem",
   function(x) x$modelsense())
 
@@ -245,6 +248,8 @@ methods::setGeneric("vtype", function(x) standardGeneric("vtype"))
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{vtype}{OptimizationProblem}(x)
+#'
 methods::setMethod("vtype", "OptimizationProblem", function(x) x$vtype())
 
 #' @name OptimizationProblem-methods
@@ -260,6 +265,8 @@ methods::setGeneric("obj", function(x) standardGeneric("obj"))
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{obj}{OptimizationProblem}(x)
 #'
 methods::setMethod("obj", "OptimizationProblem", function(x) x$obj())
 
@@ -277,6 +284,8 @@ methods::setGeneric("A", function(x) standardGeneric("A"))
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{A}{OptimizationProblem}(x)
+#'
 methods::setMethod("A", "OptimizationProblem", function(x) x$A())
 
 #' @name OptimizationProblem-methods
@@ -292,6 +301,8 @@ methods::setGeneric("rhs", function(x) standardGeneric("rhs"))
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{rhs}{OptimizationProblem}(x)
 #'
 methods::setMethod("rhs", "OptimizationProblem", function(x) x$rhs())
 
@@ -309,6 +320,8 @@ methods::setGeneric("sense", function(x) standardGeneric("sense"))
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{sense}{OptimizationProblem}(x)
+#'
 methods::setMethod("sense", "OptimizationProblem", function(x) x$sense())
 
 #' @name OptimizationProblem-methods
@@ -324,6 +337,8 @@ methods::setGeneric("lb", function(x) standardGeneric("lb"))
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{lb}{OptimizationProblem}(x)
 #'
 methods::setMethod("lb", "OptimizationProblem", function(x) x$lb())
 
@@ -341,6 +356,8 @@ methods::setGeneric("ub", function(x) standardGeneric("ub"))
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{ub}{OptimizationProblem}(x)
+#'
 methods::setMethod("ub", "OptimizationProblem", function(x) x$ub())
 
 #' @name OptimizationProblem-methods
@@ -357,6 +374,8 @@ methods::setGeneric("number_of_features",
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{number_of_features}{OptimizationProblem}(x)
 #'
 methods::setMethod("number_of_features", "OptimizationProblem",
   function(x) x$number_of_features())
@@ -376,6 +395,8 @@ methods::setGeneric("number_of_zones",
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{number_of_zones}{OptimizationProblem}(x)
+#'
 methods::setMethod("number_of_zones", "OptimizationProblem",
   function(x) x$number_of_zones())
 
@@ -394,6 +415,8 @@ methods::setGeneric("number_of_planning_units",
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{number_of_planning_units}{OptimizationProblem}(x)
+#'
 methods::setMethod("number_of_planning_units", "OptimizationProblem",
   function(x) x$number_of_planning_units())
 
@@ -410,6 +433,8 @@ methods::setGeneric("col_ids", function(x) standardGeneric("col_ids"))
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{col_ids}{OptimizationProblem}(x)
 #'
 methods::setMethod("col_ids", "OptimizationProblem",
   function(x) x$col_ids())
@@ -428,6 +453,8 @@ methods::setGeneric("row_ids", function(x) standardGeneric("row_ids"))
 #'
 #' @rdname OptimizationProblem-methods
 #'
+#' @usage \S4method{row_ids}{OptimizationProblem}(x)
+#'
 methods::setMethod("row_ids", "OptimizationProblem", function(x) x$row_ids())
 
 #' @name OptimizationProblem-methods
@@ -444,6 +471,8 @@ methods::setGeneric("compressed_formulation",
 #' @name OptimizationProblem-methods
 #'
 #' @rdname OptimizationProblem-methods
+#'
+#' @usage \S4method{compressed_formulation}{OptimizationProblem}(x)
 #'
 methods::setMethod("compressed_formulation", "OptimizationProblem",
                    function(x) x$compressed_formulation())

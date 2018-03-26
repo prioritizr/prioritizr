@@ -17,8 +17,6 @@ NULL
 #' @param targets Object that specifies the targets for each feature. See the
 #'   Details section for more information.
 #'
-#' @param ... not used.
-#'
 #' @inherit add_manual_targets return seealso
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
@@ -133,15 +131,15 @@ NULL
 methods::setGeneric(
   "add_absolute_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets, ...) standardGeneric("add_absolute_targets"))
+  function(x, targets) standardGeneric("add_absolute_targets"))
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
-#' @usage add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
+#' @usage \S4method{add_absolute_targets}{ConservationProblem,numeric}(x, targets)
 methods::setMethod(
   "add_absolute_targets",
   methods::signature("ConservationProblem", "numeric"),
-  function(x, targets, ...) {
+  function(x, targets) {
     assertthat::assert_that(inherits(x, "ConservationProblem"))
     assertthat::assert_that(x$number_of_zones() == 1,
                             msg = paste("argument to x has multiple zones,",
@@ -154,11 +152,11 @@ methods::setMethod(
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
-#' @usage add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=matrix
+#' @usage \S4method{add_absolute_targets}{ConservationProblem,matrix}(x, targets)
 methods::setMethod(
   "add_absolute_targets",
   methods::signature("ConservationProblem", "matrix"),
-  function(x, targets, ...) {
+  function(x, targets) {
     # assert that arguments are valid
     assertthat::assert_that(
       inherits(x, "ConservationProblem"),
@@ -186,11 +184,11 @@ methods::setMethod(
 
 #' @name add_absolute_targets
 #' @rdname add_absolute_targets
-#' @usage add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=character
+#' @usage \S4method{add_absolute_targets}{ConservationProblem,character}(x, targets)
 methods::setMethod(
   "add_absolute_targets",
   methods::signature("ConservationProblem", "character"),
-  function(x, targets, ...) {
+  function(x, targets) {
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       is.character(targets),

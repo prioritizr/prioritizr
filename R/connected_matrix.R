@@ -101,6 +101,7 @@ connected_matrix <- function(x, ...) UseMethod("connected_matrix")
 #' @export
 connected_matrix.Raster <- function(x, directions = 4L, ...) {
   assertthat::assert_that(inherits(x, "Raster"),
+                          no_extra_arguments(...),
                           assertthat::is.count(directions),
                           isTRUE(raster::nlayers(x) == 1))
   # indices of cells with finite values
@@ -121,7 +122,8 @@ connected_matrix.Raster <- function(x, directions = 4L, ...) {
 #' @method connected_matrix SpatialPolygons
 #' @export
 connected_matrix.SpatialPolygons <- function(x, ...) {
-  assertthat::assert_that(inherits(x, "SpatialPolygons"))
+  assertthat::assert_that(inherits(x, "SpatialPolygons"),
+                          no_extra_arguments(...))
   sp::spChFIDs(x) <- as.character(seq_len(length(x)))
   m <- rcpp_list_to_matrix_indices(rgeos::gIntersects(x, byid = TRUE,
                                                       returnDense = FALSE))
@@ -135,7 +137,7 @@ connected_matrix.SpatialPolygons <- function(x, ...) {
 #' @method connected_matrix SpatialLines
 #' @export
 connected_matrix.SpatialLines <- function(x,  ...) {
-  assertthat::assert_that(inherits(x, "SpatialLines"))
+  assertthat::assert_that(inherits(x, "SpatialLines"), no_extra_arguments(...))
   sp::spChFIDs(x) <- as.character(seq_len(length(x)))
   m <- rcpp_list_to_matrix_indices(rgeos::gIntersects(x, byid = TRUE,
                                                       returnDense = FALSE))
@@ -150,6 +152,7 @@ connected_matrix.SpatialLines <- function(x,  ...) {
 #' @export
 connected_matrix.SpatialPoints <- function(x, distance, ...) {
     assertthat::assert_that(inherits(x, "SpatialPoints"),
+                                     no_extra_arguments(...),
                                      assertthat::is.scalar(distance),
                                      isTRUE(distance >= 0))
   m <- rgeos::gWithinDistance(x, dist = distance, byid = TRUE)

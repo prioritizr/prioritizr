@@ -12,8 +12,6 @@ NULL
 #'   \code{\link[raster]{Raster-class}} object then it must have only one
 #'   layer.
 #'
-#' @param ... not used.
-#'
 #' @details This function returns a \code{\link[Matrix]{dsCMatrix-class}}
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
@@ -63,12 +61,12 @@ NULL
 #'      box = FALSE)
 #'
 #' @export
-boundary_matrix <- function(x, ...) UseMethod("boundary_matrix")
+boundary_matrix <- function(x) UseMethod("boundary_matrix")
 
 #' @rdname boundary_matrix
 #' @method boundary_matrix Raster
 #' @export
-boundary_matrix.Raster <- function(x, ...) {
+boundary_matrix.Raster <- function(x) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "Raster"))
   if (raster::nlayers(x) == 1) {
@@ -111,7 +109,7 @@ boundary_matrix.Raster <- function(x, ...) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialPolygons
 #' @export
-boundary_matrix.SpatialPolygons <- function(x, ...) {
+boundary_matrix.SpatialPolygons <- function(x) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "SpatialPolygons"))
   # calculate boundary data
@@ -127,7 +125,7 @@ boundary_matrix.SpatialPolygons <- function(x, ...) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialLines
 #' @export
-boundary_matrix.SpatialLines <- function(x, ...) {
+boundary_matrix.SpatialLines <- function(x) {
   assertthat::assert_that(inherits(x, "SpatialLines"))
   stop("data represented by lines have no boundaries - ",
     "see ?constraints for alternative constraints")
@@ -136,7 +134,7 @@ boundary_matrix.SpatialLines <- function(x, ...) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialPoints
 #' @export
-boundary_matrix.SpatialPoints <- function(x, ...) {
+boundary_matrix.SpatialPoints <- function(x) {
   assertthat::assert_that(inherits(x, "SpatialPoints"))
   stop("data represented by points have no boundaries - ",
     "see ?constraints alternative constraints")
@@ -145,7 +143,7 @@ boundary_matrix.SpatialPoints <- function(x, ...) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix data.frame
 #' @export
-boundary_matrix.data.frame <- function(x, ...) {
+boundary_matrix.data.frame <- function(x) {
   assertthat::assert_that(inherits(x, "data.frame"))
   stop("data stored in a data.frame do not contain spatial information")
 }

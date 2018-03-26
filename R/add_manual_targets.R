@@ -22,8 +22,6 @@ NULL
 #' @param targets \code{data.frame} or \code{\link[tibble]{tibble}} object. See
 #'   the Details section for more information.
 #'
-#' @param ... not used.
-#'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. Most conservation
 #'   planning problems require targets with the exception of the maximum cover
@@ -206,25 +204,25 @@ NULL
 methods::setGeneric(
   "add_manual_targets",
   signature = methods::signature("x", "targets"),
-  function(x, targets, ...) standardGeneric("add_manual_targets"))
+  function(x, targets) standardGeneric("add_manual_targets"))
 
 #' @name add_manual_targets
 #' @rdname add_manual_targets
-#' @usage \S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets, ...)
+#' @usage \S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets)
 methods::setMethod(
   "add_manual_targets",
   methods::signature("ConservationProblem", "data.frame"),
-  function(x, targets, ...) {
+  function(x, targets) {
     add_manual_targets(x, tibble::as.tibble(targets))
 })
 
 #' @name add_manual_targets
 #' @rdname add_manual_targets
-#' @usage \S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets, ...)
+#' @usage \S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets)
 methods::setMethod(
   "add_manual_targets",
   methods::signature("ConservationProblem", "tbl_df"),
-  function(x, targets, ...) {
+  function(x, targets) {
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "ConservationProblem"))
     validate_targets <- function(targets) {

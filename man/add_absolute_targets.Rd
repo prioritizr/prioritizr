@@ -12,19 +12,17 @@
 \alias{add_absolute_targets}
 \title{Add absolute targets}
 \usage{
-add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=numeric
+\S4method{add_absolute_targets}{ConservationProblem,numeric}(x, targets)
 
-add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=matrix
+\S4method{add_absolute_targets}{ConservationProblem,matrix}(x, targets)
 
-add_absolute_targets(x, targets, ...) # x=ConservationProblem, targets=character
+\S4method{add_absolute_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{targets}{Object that specifies the targets for each feature. See the
 Details section for more information.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added

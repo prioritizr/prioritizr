@@ -407,7 +407,8 @@ methods::setMethod(
   "problem",
   methods::signature(x = "Raster", features = "Raster"),
   function(x, features, run_checks = TRUE, ...) {
-    assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1)
+    assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) == 1,
+                            no_extra_arguments(...))
     problem(x, zones(features, zone_names = names(x),
                      feature_names = names(features)),
             run_checks = run_checks, ...)
@@ -425,6 +426,7 @@ methods::setMethod(
       inherits(x, "Raster"),
       inherits(features, "ZonesRaster"),
       assertthat::is.flag(run_checks),
+      no_extra_arguments(...),
       raster::nlayers(x) > 0,
       n_feature(features) > 0,
       raster::nlayers(x) == n_zone(features),
@@ -482,6 +484,7 @@ methods::setMethod(
     assertthat::assert_that(
       inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
                     "SpatialPointsDataFrame")),
+      no_extra_arguments(...),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
       length(cost_column) == n_zone(features),
@@ -554,6 +557,7 @@ methods::setMethod(
       inherits(x, c("SpatialPolygonsDataFrame", "SpatialLinesDataFrame",
                     "SpatialPointsDataFrame")),
       inherits(features, "ZonesCharacter"),
+      no_extra_arguments(...),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
       n_zone(features) == length(cost_column),
@@ -612,6 +616,7 @@ methods::setMethod(
     assertthat::assert_that(
       inherits(x, "data.frame"),
       inherits(features, "ZonesCharacter"),
+      no_extra_arguments(...),
       nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
       n_zone(features) == length(cost_column),
@@ -658,6 +663,7 @@ methods::setMethod(
       is.character(cost_column), !anyNA(cost_column),
       inherits(rij, "data.frame"),
       nrow(x) > 0, nrow(features) > 0, nrow(rij) > 0,
+      no_extra_arguments(...),
       # x
       assertthat::has_name(x, "id"), is.numeric(x$id), all(is.finite(x$id)),
       anyDuplicated(x$id) == 0, all(cost_column %in% names(x)),
@@ -755,6 +761,7 @@ methods::setMethod(
       inherits(x, "matrix"), inherits(features, "data.frame"),
       inherits(rij_matrix, "list"),
       nrow(x) > 0, ncol(x) > 0, nrow(features) > 0, length(rij_matrix) > 0,
+      no_extra_arguments(...),
       # x
       all(colSums(is.finite(x)) > 0),
       all(x > 0, na.rm = TRUE),

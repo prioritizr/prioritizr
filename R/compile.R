@@ -48,6 +48,7 @@ compile <- function(x, ...) UseMethod("compile")
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
+    no_extra_arguments(...),
     is.na(compressed_formulation) ||
           assertthat::is.flag(compressed_formulation))
   # sanity checks

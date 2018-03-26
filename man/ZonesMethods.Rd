@@ -14,28 +14,26 @@
 \alias{feature_names.Zones}
 \title{Zones methods}
 \usage{
-n_zone(x, ...)
+n_zone(x)
 
-\method{n_zone}{Zones}(x, ...)
+\method{n_zone}{Zones}(x)
 
-n_feature(x, ...)
+n_feature(x)
 
-\method{n_feature}{ZonesCharacter}(x, ...)
+\method{n_feature}{ZonesCharacter}(x)
 
-\method{n_feature}{ZonesRaster}(x, ...)
+\method{n_feature}{ZonesRaster}(x)
 
-zone_names(x, ...)
+zone_names(x)
 
-\method{zone_names}{Zones}(x, ...)
+\method{zone_names}{Zones}(x)
 
-feature_names(x, ...)
+feature_names(x)
 
-\method{feature_names}{Zones}(x, ...)
+\method{feature_names}{Zones}(x)
 }
 \arguments{
 \item{x}{\code{\link{Zones}} object.}
-
-\item{...}{not used.}
 }
 \description{
 Methods to help working with \code{\link{Zones-class}} objects.

@@ -21,23 +21,21 @@ NULL
 #'   line. Note that this argument must have an element for each zone
 #'   in the argument to \code{x}.
 #'
-#' @param boundary_data A \code{matrix} or
-#'   \code{data.frame} object showing the shared boundary lengths
-#'   between planning units. If \code{boundary_data} is a matrix then
-#'   each row and column denote a planning unit and cell values
-#'   represent their shared boundary. If \code{boundary_data} is
+#' @param data A \code{matrix} or \code{data.frame} object showing the shared
+#'   boundary lengths between planning units. If \code{data} is a
+#'   matrix then each row and column denote a planning unit and cell values
+#'   represent their shared boundary. If \code{data} is
 #'   \code{data.frame} then it must have the columns \code{"id1"},
 #'   \code{"id2"}, and \code{"boundary"}, where each row shows
 #'   the shared boundary between two planning units (as per the standard
 #'   \emph{Marxan} input format). This argument is required
 #'   if the planning units in \code{x} are stored in a \code{data.frame}
 #'   object. Otherwise, it is optional and the boundary data will be
-#'   automatically calculated. Note that the \code{boundary_data} must be
+#'   automatically calculated using \code{\link{boundary_matrix}}.
+#'   Note that the \code{data} must be
 #'   denote symmetric relationships between planning units. If
 #'   asymmetric relationships are required, use the
 #'   \code{\link{add_connectivity_penalties}} function.
-#'
-#' @param ... not used.
 #'
 #' @details This function adds penalties to a conservation planning problem
 #'   to penalize fragmented solutions. These penalties are equivalent to the
@@ -46,7 +44,7 @@ NULL
 #'   automatically for spatial planning unit data. If the planning unit data
 #'   in the argument to \code{x} inherits from a \code{numeric}, \code{matrix},
 #'   or \code{data.frame} format, the boundary data must be supplied as an
-#'   argument to \code{boundary_data}.
+#'   argument to \code{data}.
 #'
 #'   The correct argument to \code{penalty} depends on the number of zones
 #'   in the argument to \code{x}. If the argument to \code{x} is associated
@@ -196,16 +194,17 @@ NULL
 
 #' @export
 methods::setGeneric("add_boundary_penalties",
-                    signature = methods::signature("x", "penalty"),
-                    function(x, penalty, ...)
+                    signature = methods::signature("x", "penalty",
+                                                   "edge_factor", "data"),
+                    function(x, penalty, edge_factor, data = NULL)
                       standardGeneric("add_boundary_penalties"))
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, boundary_data = NULL, ...)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,numeric}(x, penalty, edge_factor, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
-  methods::signature("ConservationProblem", "numeric"),
-  function(x, penalty, edge_factor, boundary_data = NULL, ...) {
+  methods::signature("ConservationProblem", "numeric", "ANY", "ANY"),
+  function(x, penalty, edge_factor, data) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       is.numeric(penalty) || is.matrix(penalty),
@@ -221,15 +220,15 @@ methods::setMethod("add_boundary_penalties",
    # add boundary penalties
    add_boundary_penalties(x, penalty = matrix(penalty),
                           edge_factor = edge_factor,
-                          boundary_data = boundary_data)
+                          data = data)
 })
 
 #' @name add_boundary_penalties
-#' @usage \S4method{add_boundary_penalties}{ConservationProblem,matrix}(x, penalty, edge_factor, boundary_data = NULL, ...)
+#' @usage \S4method{add_boundary_penalties}{ConservationProblem,matrix}(x, penalty, edge_factor, data)
 #' @rdname add_boundary_penalties
 methods::setMethod("add_boundary_penalties",
-  methods::signature("ConservationProblem", "matrix"),
-  function(x, penalty, edge_factor, boundary_data = NULL, ...) {
+  methods::signature("ConservationProblem", "matrix", "ANY", "ANY"),
+  function(x, penalty, edge_factor, data) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       is.matrix(penalty), all(is.finite(penalty)), all(penalty >= 0),
@@ -240,44 +239,44 @@ methods::setMethod("add_boundary_penalties",
       all(edge_factor >= 0), all(edge_factor <= 1),
       length(edge_factor) == x$number_of_zones())
     # assert that boundary data is in correct format
-    if (!is.null(boundary_data)) {
+    if (!is.null(data)) {
       # if boundary data is in data.frame format then coerce to sparse matrix
-      if (inherits(boundary_data, "data.frame")) {
-        assertthat::assert_that(assertthat::has_name(boundary_data, "id1"),
-          assertthat::has_name(boundary_data, "id2"),
-          assertthat::has_name(boundary_data, "boundary"),
-          assertthat::noNA(boundary_data$id1),
-          assertthat::noNA(boundary_data$id2),
-          assertthat::noNA(boundary_data$boundary))
+      if (inherits(data, "data.frame")) {
+        assertthat::assert_that(assertthat::has_name(data, "id1"),
+          assertthat::has_name(data, "id2"),
+          assertthat::has_name(data, "boundary"),
+          assertthat::noNA(data$id1),
+          assertthat::noNA(data$id2),
+          assertthat::noNA(data$boundary))
         # reorder columns
-        boundary_data <- boundary_data[, c("id1", "id2", "boundary")]
+        data <- data[, c("id1", "id2", "boundary")]
         # if planning units are data.frame with ids then convert ids to indices
         if (inherits(x$data$cost, "data.frame")) {
-          boundary_data$id1 <- match(boundary_data$id1, x$data$cost$id)
-          boundary_data$id2 <- match(boundary_data$id2, x$data$cost$id)
+          data$id1 <- match(data$id1, x$data$cost$id)
+          data$id2 <- match(data$id2, x$data$cost$id)
         }
         # check that all boundary ids are valid
         n_pu <- x$number_of_total_units()
         assertthat::assert_that(
-            assertthat::noNA(boundary_data$id1),
-            assertthat::noNA(boundary_data$id1),
-            max(boundary_data$id1) <= n_pu,
-            max(boundary_data$id2) <= n_pu,
-            min(boundary_data$id1) >= 1,
-            min(boundary_data$id2) >= 1,
-            msg = paste("argument to boundary_data contains ids for planning",
+            assertthat::noNA(data$id1),
+            assertthat::noNA(data$id1),
+            max(data$id1) <= n_pu,
+            max(data$id2) <= n_pu,
+            min(data$id1) >= 1,
+            min(data$id2) >= 1,
+            msg = paste("argument to data contains ids for planning",
                         "units that are not present in x"))
         # convert boundary data to sparse matrix
-        boundary_data <- triplet_dataframe_to_matrix(boundary_data,
+        data <- triplet_dataframe_to_matrix(data,
           forceSymmetric = FALSE, dims = rep(x$number_of_total_units(), 2))
       }
-      # if/when boundary_data is matrix run further checks to ensure that
+      # if/when data is matrix run further checks to ensure that
       # it is compatible with planning unit data
-      if (inherits(boundary_data, c("matrix", "Matrix"))) {
+      if (inherits(data, c("matrix", "Matrix"))) {
         # if it is matrix coerce to sparse matrix
-        boundary_matrix <- boundary_data
-        if (!inherits(boundary_data, c("dsCMatrix", "dgCMatrix")))
-          boundary_matrix <- methods::as(boundary_data, "dgCMatrix")
+        boundary_matrix <- data
+        if (!inherits(data, c("dsCMatrix", "dgCMatrix")))
+          boundary_matrix <- methods::as(data, "dgCMatrix")
         # check that matrix properties are correct
         assertthat::assert_that(ncol(boundary_matrix) == nrow(boundary_matrix),
           isTRUE(x$number_of_total_units() == ncol(boundary_matrix)),
@@ -292,7 +291,7 @@ methods::setMethod("add_boundary_penalties",
         d <- list(boundary_matrix = boundary_matrix)
       } else {
        # throw error because object class not recognized
-        stop("argument to boundary_data is of a class that is not supported")
+        stop("argument to data is of a class that is not supported")
       }
     } else {
       d <- list()

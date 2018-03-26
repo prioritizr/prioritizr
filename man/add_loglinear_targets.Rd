@@ -31,8 +31,6 @@ capped. Defaults to \code{NULL} so that targets are not capped.}
 \item{cap_target}{\code{numeric} amount-based target to apply to features
 which have a total amount greater than argument to \code{cap_amount}.
 Defaults to \code{NULL} so that targets are not capped.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added
