@@ -10,14 +10,14 @@ run_calculations(x)
 \item{x}{\code{\link{ConservationProblem-class}} object}
 }
 \value{
-None.
+Invisible \code{TRUE} indicating success.
 }
 \description{
 Execute preliminary calculations in a conservation problem and store the
-results for later reuse. This function is useful when creating slightly
+results for later use. This function is useful when creating slightly
 different versions of the same conservation planning problem that involve
-the same constraints, because means that the same calculations will not be
-run multiple times.
+the same pre-processing steps (e.g. calculating boundary data), because
+means that the same calculations will not be run multiple times.
 }
 \details{
 This function is used for the effect of modifying the input
@@ -32,8 +32,8 @@ This function is used for the effect of modifying the input
 
 # create a conservation problem with no targets
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_boundary_penalties(10, 0.5)
+     add_min_set_objective() \%>\%
+     add_boundary_penalties(10, 0.5)
 
 # create a copies of p and add targets
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -74,8 +74,4 @@ print(s2) # time spent after running preliminary calculations
 # calculations before making copies of the problem with slightly
 # different constraints.
 }
-
-}
-\seealso{
-\code{\link{tee}}.
 }

@@ -103,9 +103,18 @@ connected_matrix.Raster <- function(x, directions = 4L, ...) {
   assertthat::assert_that(inherits(x, "Raster"),
                           no_extra_arguments(...),
                           assertthat::is.count(directions),
-                          isTRUE(raster::nlayers(x) == 1))
-  # indices of cells with finite values
-  include <- raster::Which(is.finite(x), cells = TRUE)
+                          raster::nlayers(x) >= 1)
+  if (raster::nlayers(x) == 1) {
+    # indices of cells with finite values
+    include <- raster::Which(is.finite(x), cells = TRUE)
+  } else {
+    # indices of cells with finite values
+    include <- raster::Which(sum(is.finite(x)) > 0, cells = TRUE)
+    suppressWarnings(x <- raster::setValues(x[[1]], NA_real_))
+    # set x to a single raster layer with only values in pixels that are not
+    # NA in all layers
+    x[include] <- 1
+  }
   # find the neighboring indices of these cells
   m <- raster::adjacent(x, include, pairs = TRUE, directions = directions)
   m <- m[(m[, 1] %in% include) & (m[, 2] %in% include), ]
@@ -165,9 +174,8 @@ connected_matrix.SpatialPoints <- function(x, distance, ...) {
 }
 
 #' @rdname connected_matrix
-#' @method connected_matrix data.frame
+#' @method connected_matrix default
 #' @export
-connected_matrix.data.frame <- function(x, ...) {
-  assertthat::assert_that(inherits(x, "data.frame"))
-  stop("data stored in a data.frame do not contain spatial information")
+connected_matrix.default <- function(x, ...) {
+  stop("data are not stored in a spatial format")
 }

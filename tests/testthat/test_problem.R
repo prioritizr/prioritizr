@@ -57,8 +57,8 @@ test_that("x=RasterStack, features=ZonesRaster", {
   # tests for integer fields
   expect_equal(x$feature_names(), feature_names(sim_features_zones))
   expect_equal(x$zone_names(), zone_names(sim_features_zones))
-  expect_equal(x$number_of_features(), n_feature(sim_features_zones))
-  expect_equal(x$number_of_zones(), n_zone(sim_features_zones))
+  expect_equal(x$number_of_features(), number_of_features(sim_features_zones))
+  expect_equal(x$number_of_zones(), number_of_zones(sim_features_zones))
   expect_equal(x$number_of_planning_units(),
                raster::cellStats(max(!is.na(sim_pu_zones_stack)), "sum"))
   expect_equal(x$planning_unit_indices(),
@@ -97,8 +97,8 @@ test_that("x=RasterStack, features=ZonesRaster", {
   expect_equal(names(x$data$rij_matrix), zone_names(sim_features_zones))
   expect_equivalent(sapply(x$data$rij_matrix, rownames),
                matrix(feature_names(sim_features_zones),
-                      ncol = n_zone(sim_features_zones),
-                      nrow = n_feature(sim_features_zones)))
+                      ncol = number_of_zones(sim_features_zones),
+                      nrow = number_of_features(sim_features_zones)))
   # test that calling targets before they have been inititalized throws error
   expect_error(x$feature_targets())
 })
@@ -200,8 +200,8 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesRaster", {
   expect_equal(names(x$data$rij_matrix), zone_names(sim_features_zones))
   expect_equivalent(sapply(x$data$rij_matrix, rownames),
                matrix(feature_names(sim_features_zones),
-                      ncol = n_zone(sim_features_zones),
-                      nrow = n_feature(sim_features_zones)))
+                      ncol = number_of_zones(sim_features_zones),
+                      nrow = number_of_features(sim_features_zones)))
   # test that calling targets before they have been inititalized throws error
   expect_error(x$feature_targets())
 })

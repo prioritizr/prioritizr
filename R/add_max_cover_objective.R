@@ -107,10 +107,10 @@ NULL
 #'
 #' # threshold the multi-zone feature data to generate binary biodiversity data
 #' sim_binary_features_zones <- sim_features_zones
-#' for (z in n_zone(sim_features_zones)) {
+#' for (z in number_of_zones(sim_features_zones)) {
 #'   thresholds <- raster::quantile(sim_features_zones[[z]], probs = 0.95,
 #'                                  names = FALSE, na.rm = TRUE)
-#'   for (i in seq_len(n_feature(sim_features_zones))) {
+#'   for (i in seq_len(number_of_features(sim_features_zones))) {
 #'     sim_binary_features_zones[[z]][[i]] <- as.numeric(
 #'       raster::values(sim_features_zones[[z]][[i]]) > thresholds[[i]])
 #'   }
@@ -154,7 +154,7 @@ add_max_cover_objective <- function(x, budget) {
                           all(budget >= 0.0),
                           isTRUE(min(budget) > 0),
                           length(budget) == 1 ||
-                            length(budget) == x$number_of_zones())
+                            length(budget) == number_of_zones(x))
   # make parameter
   if (length(budget) == 1) {
     p <- numeric_parameter("budget", budget, lower_limit = 0,

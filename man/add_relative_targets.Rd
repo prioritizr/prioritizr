@@ -103,8 +103,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 
 # create a problem with targets that specify an equal amount of each feature
 # to be represented in each zone
-p4_targets <- matrix(0.1, nrow = n_feature(sim_features_zones),
-                     ncol = n_zone(sim_features_zones),
+p4_targets <- matrix(0.1, nrow = 5, ncol = 3,
                      dimnames = list(feature_names(sim_features_zones),
                                      zone_names(sim_features_zones)))
 print(p4_targets)
@@ -121,9 +120,7 @@ plot(category_layer(s4), main = c("equal targets"))
 }
 # create a problem with targets that require a varying amount of each
 # feature to be represented in each zone
-p5_targets <- matrix(runif(15, 0.01, 0.2),
-                     nrow = n_feature(sim_features_zones),
-                     ncol = n_zone(sim_features_zones),
+p5_targets <- matrix(runif(15, 0.01, 0.2), nrow = 5, ncol = 3,
                      dimnames = list(feature_names(sim_features_zones),
                                      zone_names(sim_features_zones)))
 print(p5_targets)

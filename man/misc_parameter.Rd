@@ -33,7 +33,7 @@ data(iris, mtcars)
 # create table parameter can that can be updated to any other object
 p1 <- misc_parameter("tbl", iris,
                      function(x) TRUE,
-                     function(x) structure("tbl", .Class = "shiny.tag"))
+                     function(id, x) structure(id, .Class = "shiny.tag"))
 print(p1) # print it
 p1$get() # get value
 p1$id # get id
@@ -47,7 +47,7 @@ p1$print() # print it again
 p2 <- misc_parameter("tbl2", iris,
                      function(x) all(names(x) \%in\% names(iris)) &&
                                  all(x[[1]] < 200),
-                     function(x) structure("tbl", .Class = "shiny.tag"))
+                     function(id, x) structure(id, .Class = "shiny.tag"))
 print(p2) # print it
 p2$get() # get value
 p2$id # get id

@@ -11,8 +11,8 @@ test_that("zones (Raster input)", {
   # run tests
   expect_is(x, "Zones")
   expect_is(x, "ZonesRaster")
-  expect_equal(n_zone(x), 3)
-  expect_equal(n_feature(x), 5)
+  expect_equal(number_of_zones(x), 3)
+  expect_equal(number_of_features(x), 5)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
   expect_equal(feature_names(x), names(sim_features))
   expect_error(zones(sim_features[[1:2]], sim_features[[1:3]]))
@@ -29,8 +29,8 @@ test_that("zones (character input)", {
   # run tests
   expect_is(x, "Zones")
   expect_is(x, "ZonesCharacter")
-  expect_equal(n_zone(x), 3)
-  expect_equal(n_feature(x), 2)
+  expect_equal(number_of_zones(x), 3)
+  expect_equal(number_of_features(x), 2)
   expect_equal(zone_names(x), c("z1", "z2", "z3"))
   expect_equal(feature_names(x), c("a", "b"))
   expect_error(zones(c("a1", "b1"), c("a2")))

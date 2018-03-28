@@ -76,9 +76,7 @@ NULL
 #' p6 <- problem(sim_pu_zones_polygons, sim_features_zones,
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
-#'       add_absolute_targets(matrix(rpois(15, 1),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) %>%
 #'       add_binary_decisions()
 #'
 #' # create multi-zone problem with locked out constraints using matrix data
@@ -122,9 +120,7 @@ NULL
 #' # create multi-zone problem with raster planning units
 #' p9 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_absolute_targets(matrix(rpois(15, 1),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) %>%
 #'       add_binary_decisions()
 #'
 #' # create raster stack with locked out units
@@ -173,7 +169,7 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_zones() == 1,
       isTRUE(all(is.finite(locked_out))),
       isTRUE(all(round(locked_out) == locked_out)),
-      isTRUE(max(locked_out) <= x$number_of_total_units()),
+      isTRUE(max(locked_out) <= number_of_total_units(x)),
       isTRUE(min(locked_out) >= 1))
     # create matrix with locked out constraints
     m <- matrix(FALSE, ncol = 1, nrow = x$number_of_total_units())

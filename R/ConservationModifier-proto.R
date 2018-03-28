@@ -11,7 +11,7 @@ NULL
 #' modify a \code{\link{ConservationProblem-class}} object. Specifically, the
 #' \code{\link{Constraint-class}}, \code{\link{Decision-class}},
 #' \code{\link{Objective-class}}, and \code{\link{Target-class}} prototypes
-#' inherit from this class. \strong{Only the most expert experts should use
+#' inherit from this class. \strong{Only experts should interact with
 #' this class directly because changes to these class will have profound and
 #' far reaching effects.}
 #'

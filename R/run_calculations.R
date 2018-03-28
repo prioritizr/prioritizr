@@ -4,10 +4,10 @@ NULL
 #' Run calculations
 #'
 #' Execute preliminary calculations in a conservation problem and store the
-#' results for later reuse. This function is useful when creating slightly
+#' results for later use. This function is useful when creating slightly
 #' different versions of the same conservation planning problem that involve
-#' the same constraints, because means that the same calculations will not be
-#' run multiple times.
+#' the same pre-processing steps (e.g. calculating boundary data), because
+#' means that the same calculations will not be run multiple times.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object
 #'
@@ -16,9 +16,7 @@ NULL
 #'   anything. To use this function with \code{\link{pipe}} operators, use the
 #'   \code{\%T>\%} operator and not the \code{\%>\%} operator.
 #'
-#' @return None.
-#'
-#' @seealso \code{\link{tee}}.
+#' @return Invisible \code{TRUE} indicating success.
 #'
 #' @examples
 #' \donttest{
@@ -27,8 +25,8 @@ NULL
 #'
 #' # create a conservation problem with no targets
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_boundary_penalties(10, 0.5)
+#'      add_min_set_objective() %>%
+#'      add_boundary_penalties(10, 0.5)
 #'
 #' # create a copies of p and add targets
 #' p1 <- p %>% add_relative_targets(0.1)
@@ -69,7 +67,6 @@ NULL
 #' # calculations before making copies of the problem with slightly
 #' # different constraints.
 #' }
-#'
 #' @export
 run_calculations <- function(x) {
   assertthat::assert_that(inherits(x, "ConservationProblem"))
@@ -81,5 +78,5 @@ run_calculations <- function(x) {
     x$penalties[[i]]$calculate(x)
   for (i in x$constraints$ids())
     x$constraints[[i]]$calculate(x)
-  invisible()
+  invisible(TRUE)
 }

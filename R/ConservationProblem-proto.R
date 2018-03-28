@@ -398,8 +398,10 @@ ConservationProblem <- pproto(
     return(m[rowSums(!is.na(m)) > 0, , drop = FALSE])
   },
   number_of_features = function(self) {
-    if (inherits(self$data$features, "Zones")) {
-      return(n_feature(self$data$features))
+    if (inherits(self$data$features, "ZonesCharacter")) {
+      return(length(self$data$features[[1]]))
+    } else if (inherits(self$data$features, "ZonesRaster")) {
+      return(raster::nlayers(self$data$features[[1]]))
     } else if (inherits(self$data$features, "data.frame")) {
       return(nrow(self$data$features))
     } else {
@@ -408,7 +410,7 @@ ConservationProblem <- pproto(
   },
   feature_names = function(self) {
     if (inherits(self$data$features, "Zones")) {
-      return(feature_names.Zones(self$data$features))
+      return(attr(self$data$features, "feature_names"))
     } else if (inherits(self$data$features, "data.frame")) {
       return(as.character(self$data$features$name))
     } else {
@@ -429,7 +431,7 @@ ConservationProblem <- pproto(
   },
   number_of_zones = function(self) {
     if (inherits(self$data$features, "Zones")) {
-      return(n_zone(self$data$features))
+      return(length(self$data$features))
     } else if (inherits(self$data$features, "data.frame")) {
       return(length(self$data$rij_matrix))
     } else {
@@ -437,10 +439,8 @@ ConservationProblem <- pproto(
     }
   },
   zone_names = function(self) {
-    if (inherits(self$data$features, "ZonesRaster")) {
-      return(zone_names.Zones(self$data$features))
-    } else if (inherits(self$data$features, "ZonesCharacter")) {
-      return(zone_names.Zones(self$data$features))
+    if (inherits(self$data$features, "Zones")) {
+      return(attr(self$data$features, "zone_names"))
     } else if (inherits(self$data$features, "data.frame")) {
       return(names(self$data$rij_matrix))
     } else {

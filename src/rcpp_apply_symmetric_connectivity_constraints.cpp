@@ -12,11 +12,8 @@ bool rcpp_apply_symmetric_connectivity_constraints(SEXP x,
    *    cells in the upper triangle with the diagonal filled in.If this
    *    condition is not met, then the constraints will be incorrect.
    *
-   * 2. the number of rows and columns in penalty is equal to
-   *    ptr->_number_of_zones
-   *
-   * 4. the number of elements in edge_factor is equal to ptr->_number_of_zones
    */
+
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_original_ncol = ptr->_obj.size();

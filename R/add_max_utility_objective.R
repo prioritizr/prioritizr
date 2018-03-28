@@ -115,7 +115,7 @@ add_max_utility_objective <- function(x, budget) {
                           all(budget >= 0.0),
                           isTRUE(min(budget) > 0),
                           length(budget) == 1 ||
-                            length(budget) == x$number_of_zones())
+                            length(budget) == number_of_zones(x))
   # make parameter
   if (length(budget) == 1) {
     p <- numeric_parameter("budget", budget, lower_limit = 0,

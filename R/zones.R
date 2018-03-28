@@ -1,9 +1,14 @@
-#' @include internal.R
+#' @include internal.R generics.R
+NULL
 
 #' @export
-if (!methods::isClass("Zones")) methods::setOldClass("Zones")
-if (!methods::isClass("ZonesCharacter")) methods::setOldClass("ZonesCharacter")
-if (!methods::isClass("ZonesRaster")) methods::setOldClass("ZonesRaster")
+if (!methods::isClass("ZonesCharacter"))
+  methods::setOldClass("ZonesCharacter")
+NULL
+
+#' @export
+if (!methods::isClass("ZonesRaster"))
+  methods::setOldClass("ZonesRaster")
 NULL
 
 #' Management zones
@@ -188,9 +193,9 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #'
 #' @details The following methods are available which output:
 #'   \describe{
-#'     \item{n_zone}{\code{integer} number of zones.}
+#'     \item{number_of_zones}{\code{integer} number of zones.}
 #'
-#'     \item{n_feature}{\code{integer} number of features.}
+#'     \item{number_of_features}{\code{integer} number of features.}
 #'
 #'     \item{zone_names}{\code{character} zone names.}
 #'
@@ -200,9 +205,7 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #'
 #'   }
 #'
-#' @name ZonesMethods
-#'
-#' @aliases Zones-methods
+#' @name Zones-methods
 #'
 #' @examples
 #' # load ZonesRaster data
@@ -212,8 +215,8 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #' print(sim_features_zones)
 #'
 #' # print properties of the object
-#' print(n_zone(sim_features_zones))
-#' print(n_feature(sim_features_zones))
+#' print(number_of_zones(sim_features_zones))
+#' print(number_of_features(sim_features_zones))
 #' print(zone_names(sim_features_zones))
 #' print(feature_names(sim_features_zones))
 #'
@@ -222,71 +225,90 @@ zones <- function(..., zone_names = NULL, feature_names = NULL) {
 #'
 #' # create ZoneCharacter object
 #' z <- zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2"),
-#'              feature_names = c("spp1", "spp2"),
-#'              zone_names = c("z1", "z2"))
+#'            feature_names = c("spp1", "spp2"),
+#'            zone_names = c("z1", "z2"))
 #'
 #' # print object
 #' print(z)
 #'
 #' # print properties of the object
-#' print(n_zone(z))
-#' print(n_feature(z))
+#' print(number_of_zones(z))
+#' print(number_of_features(z))
 #' print(zone_names(z))
 #' print(feature_names(z))
 #'
 #' # convert zones object to a list
 #' str(as.list(z), max.level = 1)
-
+#'
+#' @aliases number_of_features,ZonesRaster-method number_of_zones,ZonesRaster-method zone_names,ZonesRaster-method feature_names,ZonesRaster-method number_of_features,ZonesCharacter-method number_of_zones,ZonesCharacter-method zone_names,ZonesCharacter-method feature_names,ZonesCharacter-method
 NULL
 
-#' @rdname ZonesMethods
-#' @export
-n_zone <- function(x) UseMethod("n_zone")
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{number_of_zones}{ZonesRaster}(x)
+#'
+methods::setMethod("number_of_zones", "ZonesRaster", function(x) length(x))
 
-#' @rdname ZonesMethods
-#' @method n_zone Zones
-#' @export
-n_zone.Zones <- function(x) {
-  assertthat::assert_that(inherits(x, "Zones"))
-  length(x)
-}
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{number_of_zones}{ZonesCharacter}(x)
+#'
+methods::setMethod("number_of_zones", "ZonesCharacter", function(x) length(x))
 
-#' @rdname ZonesMethods
-#' @export
-n_feature <- function(x) UseMethod("n_feature")
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{number_of_features}{ZonesRaster}(x)
+#'
+methods::setMethod("number_of_features", "ZonesRaster",
+  function(x) raster::nlayers(x[[1]]))
 
-#' @rdname ZonesMethods
-#' @method n_feature ZonesCharacter
-#' @export
-n_feature.ZonesCharacter <- function(x) {
-  length(x[[1]])
-}
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{number_of_features}{ZonesCharacter}(x)
+#'
+methods::setMethod("number_of_features", "ZonesCharacter",
+  function(x) length(x[[1]]))
 
-#' @rdname ZonesMethods
-#' @method n_feature ZonesRaster
-#' @export
-n_feature.ZonesRaster <- function(x) {
-  raster::nlayers(x[[1]])
-}
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{zone_names}{ZonesRaster}(x)
+#'
+methods::setMethod("zone_names", "ZonesRaster",
+  function(x) attr(x, "zone_names"))
 
-#' @rdname ZonesMethods
-#' @export
-zone_names <- function(x) UseMethod("zone_names")
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{zone_names}{ZonesCharacter}(x)
+#'
+methods::setMethod("zone_names", "ZonesCharacter",
+  function(x) attr(x, "zone_names"))
 
-#' @rdname ZonesMethods
-#' @method zone_names Zones
-#' @export
-zone_names.Zones <- function(x) {
-  attr(x, "zone_names")
-}
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{feature_names}{ZonesRaster}(x)
+#'
+methods::setMethod("feature_names", "ZonesRaster",
+  function(x) attr(x, "feature_names"))
 
-#' @rdname ZonesMethods
-#' @export
-feature_names <- function(x) UseMethod("feature_names")
-
-#' @rdname ZonesMethods
-#' @method feature_names Zones
-#' @export
-feature_names.Zones <- function(x) {
-  attr(x, "feature_names")
-}
+#' @name Zones-methods
+#'
+#' @rdname Zones-methods
+#'
+#' @usage \S4method{feature_names}{ZonesCharacter}(x)
+#'
+methods::setMethod("feature_names", "ZonesCharacter",
+  function(x) attr(x, "feature_names"))

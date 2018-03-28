@@ -2,17 +2,37 @@
 % Please edit documentation in R/add_neighbor_contraints.R
 \name{add_neighbor_constraints}
 \alias{add_neighbor_constraints}
+\alias{add_neighbor_constraints,ConservationProblem,numeric,Matrix-method}
+\alias{add_neighbor_constraints,ConservationProblem,numeric,matrix-method}
+\alias{add_neighbor_constraints,ConservationProblem,numeric,data.frame-method}
+\alias{add_neighbor_constraints,ConservationProblem,numeric,ANY-method}
+\alias{add_neighbor_constraints}
+\alias{add_neighbor_constraints}
+\alias{add_neighbor_constraints}
+\alias{add_neighbor_constraints}
 \title{Add neighbor constraints}
 \usage{
-add_neighbor_constraints(x, k, ...)
+\S4method{add_neighbor_constraints}{ConservationProblem,numeric,Matrix}(x, k, data)
+
+\S4method{add_neighbor_constraints}{ConservationProblem,numeric,matrix}(x, k, data)
+
+\S4method{add_neighbor_constraints}{ConservationProblem,numeric,data.frame}(x, k, data)
+
+\S4method{add_neighbor_constraints}{ConservationProblem,numeric,ANY}(x, k, data)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{k}{\code{integer} number of neighbors each selected planning units
-must have.}
+\item{k}{\code{integer} minimum number of neighbors required for
+planning units selected in the solution. For problems with multiple zones,
+the argument to \code{k} must have an element for each zone.}
 
-\item{...}{arguments passed to \code{\link{connected_matrix}}.}
+\item{data}{A \code{NULL}, \code{matrix}, \code{array}, or \code{data.frame}
+object showing which planning units are neighbors with each
+other. The argument defaults to \code{NULL} which means that the
+neighborhood data is calculated automatically using the
+\code{\link{connected_matrix}} function. See the Details section for more
+information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the constraint
@@ -20,47 +40,93 @@ must have.}
 }
 \description{
 Add constraints to a conservation problem to ensure that all selected
-planning units have at least a certain number of neighbors.
+planning units have at least a certain number of neighbors in the solution.
 }
 \details{
-The mathematical ideas that underpin this function inspired by
-Billionnet (2013).
+This function uses neighborhood data identify solutions that select
+  planning units with a minimum number of neighbors in the solution. It
+  was inspired by one of the mathematical formulations detailed in
+  Billionnet (2013). The argument to \code{data} can be specified in several
+  ways.
+
+  \describe{
+
+  \item{\code{NULL}}{neighborhood data should be calculated automatically.
+    This is the default. Note that neighborhood data must be supplied
+    when the argument to \code{x} contains multiple zones.}
+
+  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+    different planning units and the value of each cell indicates if the
+    two planning units are neighbors or not. Cells that occur along the
+    diagonal have no effect on the solution because each planning unit
+    cannot be a neighbor with itself. Note that \code{matrix} objects cannot
+    be supplied as an argument for \code{data} when the argument to \code{x}
+    contains multiple zones, and instead an \code{array} object must be
+    supplied.}
+
+  \item{\code{data.frame}}{containing the fields (columns)
+    \code{"id1"}, \code{"id2"}, and \code{"boundary"} (following the
+    \emph{Marxan} format). Here, each row denotes the neighborhood
+    relationship between two planning units, the \code{"id1"}, and
+    \code{"id2"} columns contain the integer planning unit identifiers,
+    and the code{"boundary"} column contains \code{TRUE} or \code{FALSE}
+    values indicating if the planning units are neighbors or not. Note that
+    relationships between planning units that are \code{FALSE} do not
+    need to be supplied, and any missing combinations of planning units
+    are assumed to not be neighbors. If the argument to \code{x} contains
+    multiple zones, then \code{"zone1"} and \code{"zone2"} columns are
+    also required to indicate the names of zones that neighborhood
+    relationships pertain too (e.g. this could be used to specify that
+    planning units are not counted as neighbors when they are allocated
+    to different zones).}
+
+  \item{\code{array}}{containing four-dimensions where cell values
+    indicate the strength of connectivity between planning units
+    when they are assigned to specific management zones. The first two
+    dimensions (i.e. rows and columns) indicate the strength of
+    connectivity between different planning units and the second two
+    dimensions indicate the different management zones. Thus
+    the \code{data[1, 2, 3, 4]} indicates that planning unit 1 and planning
+    unit 2 when should be treated as neighbors when they are
+    allocated to zones 3 and 4 respectively.}
+
+  }
 }
 \examples{
-# create basic problem
-p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2)
-
-# create problem with constraints that require 1 neighbor
-p2 <- p1 \%>\% add_neighbor_constraints(1)
-
-# create problem with constraints that require 2 neighbors
-p3 <- p1 \%>\% add_neighbor_constraints(2)
-
-# create problem with constraints that require 3 neighbors
-p4 <- p1 \%>\% add_neighbor_constraints(3)
-
-\donttest{
-# solve problems
-s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
-
-# plot solutions
-par(mfrow = c(2,2), mar = c(0, 0, 4.1, 0))
-
-plot(s[[1]], main = "basic solution")
-plot(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s[[2]], main="1 neighbor")
-plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s[[3]], main="2 neighbors")
-plot(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-
-plot(s[[4]], main="3 neighbors")
-plot(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-}
-
+# # create basic problem
+# p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
+#       add_min_set_objective() \%>\%
+#       add_relative_targets(0.2)
+#
+# # create problem with constraints that require 1 neighbor
+# p2 <- p1 \%>\% add_neighbor_constraints(1)
+#
+# # create problem with constraints that require 2 neighbors
+# p3 <- p1 \%>\% add_neighbor_constraints(2)
+#
+# # create problem with constraints that require 3 neighbors
+# p4 <- p1 \%>\% add_neighbor_constraints(3)
+#
+# \donttest{
+# # solve problems
+# s <- list(solve(p1), solve(p2), solve(p3), solve(p4))
+#
+# # plot solutions
+# par(mfrow = c(2,2), mar = c(0, 0, 4.1, 0))
+#
+# plot(s[[1]], main = "basic solution")
+# plot(s[[1]][s[[1]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s[[2]], main="1 neighbor")
+# plot(s[[2]][s[[2]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s[[3]], main="2 neighbors")
+# plot(s[[3]][s[[3]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#
+# plot(s[[4]], main="3 neighbors")
+# plot(s[[4]][s[[4]]$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+# }
+#
 }
 \references{
 Billionnet A (2013) Mathematical optimization ideas for biodiversity
@@ -68,6 +134,5 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 }
 \seealso{
-\code{\link{constraints}} for all the available constraints,
- and \code{\link{penalties}}.
+\code{\link{constraints}}, \code{\link{penalties}}.
 }

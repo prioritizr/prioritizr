@@ -38,24 +38,23 @@ NULL
 #'     a \code{list} of \code{matrix} objects.}
 #'
 #'   \item{\code{\link[raster]{Raster-class}}}{object containing the solution
-#'      in pixel
-#'      values. If the argument to \code{x} contains a single management zone,
-#'      then a \code{RasterLayer} object will be returned. Otherwise, if the
-#'      argument to \code{x} contains multiple zones, then a
-#'      \code{\link[raster]{RasterStack-class}} object
-#'      will be returned containing a different layer for each management zone.
-#'      If multiple solutions are generated, then the solution is returned as
-#'      a \code{list} of \code{Raster} objects.}
+#'     in pixel values. If the argument to \code{x} contains a single
+#'     management zone, then a \code{RasterLayer} object will be returned.
+#'     Otherwise, if the argument to \code{x} contains multiple zones, then a
+#'     \code{\link[raster]{RasterStack-class}} object
+#'     will be returned containing a different layer for each management zone.
+#'     If multiple solutions are generated, then the solution is returned as
+#'     a \code{list} of \code{Raster} objects.}
 #'
 #'   \item{\code{\link[sp]{Spatial-class}} or \code{data.frame}}{
-#'      containing the solution in fields (columns). Here, each row
-#'      corresponds to a different planning unit. If the argument to \code{x}
-#'      contains a single zone, the fields containing solutions are named
-#'      \code{"solution_XXX"} where \code{"XXX"} corresponds to the solution
-#'      number. If the argument to \code{x} contains multiple zones, the fields
-#'      containing solutions are named \code{"solution_XXX_YYY"} where
-#'      \code{"XXX"} corresponds to the solution and \code{"YYY"} is the name
-#'      of the management zone.}
+#'     containing the solution in fields (columns). Here, each row
+#'     corresponds to a different planning unit. If the argument to \code{x}
+#'     contains a single zone, the fields containing solutions are named
+#'     \code{"solution_XXX"} where \code{"XXX"} corresponds to the solution
+#'     number. If the argument to \code{x} contains multiple zones, the fields
+#'     containing solutions are named \code{"solution_XXX_YYY"} where
+#'     \code{"XXX"} corresponds to the solution and \code{"YYY"} is the name
+#'     of the management zone.}
 #'
 #'   }
 #'
@@ -123,9 +122,8 @@ NULL
 #' # build multi-zone conservation problem with raster data
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
 #'       add_binary_decisions()
 #' \donttest{
 #' # solve the problem
@@ -141,9 +139,8 @@ NULL
 #' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
 #'       add_binary_decisions()
 #' \donttest{
 #' # solve the problem

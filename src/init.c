@@ -11,6 +11,7 @@
 extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP);
 extern SEXP _prioritizr_rcpp_apply_asymmetric_connectivity_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_corridor_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_decisions(SEXP, SEXP, SEXP, SEXP);
@@ -22,7 +23,6 @@ extern SEXP _prioritizr_rcpp_apply_max_phylo_objective(SEXP, SEXP, SEXP, SEXP, S
 extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_symmetric_connectivity_constraints(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary_data(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
@@ -55,6 +55,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_add_rij_data",                                      (DL_FUNC) &_prioritizr_rcpp_add_rij_data,                                      4},
     {"_prioritizr_rcpp_add_zones_constraints",                             (DL_FUNC) &_prioritizr_rcpp_add_zones_constraints,                             1},
     {"_prioritizr_rcpp_apply_asymmetric_connectivity_constraints",         (DL_FUNC) &_prioritizr_rcpp_apply_asymmetric_connectivity_constraints,         3},
+    {"_prioritizr_rcpp_apply_boundary_penalties",                          (DL_FUNC) &_prioritizr_rcpp_apply_boundary_penalties,                          5},
     {"_prioritizr_rcpp_apply_connected_constraints",                       (DL_FUNC) &_prioritizr_rcpp_apply_connected_constraints,                       2},
     {"_prioritizr_rcpp_apply_corridor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_corridor_constraints,                        3},
     {"_prioritizr_rcpp_apply_decisions",                                   (DL_FUNC) &_prioritizr_rcpp_apply_decisions,                                   4},
@@ -66,7 +67,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_max_utility_objective",                       (DL_FUNC) &_prioritizr_rcpp_apply_max_utility_objective,                       4},
     {"_prioritizr_rcpp_apply_min_set_objective",                           (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                           3},
     {"_prioritizr_rcpp_apply_neighbor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_neighbor_constraints,                        3},
-    {"_prioritizr_rcpp_apply_symmetric_boundary_constraints",              (DL_FUNC) &_prioritizr_rcpp_apply_symmetric_boundary_constraints,              4},
     {"_prioritizr_rcpp_apply_symmetric_connectivity_constraints",          (DL_FUNC) &_prioritizr_rcpp_apply_symmetric_connectivity_constraints,          3},
     {"_prioritizr_rcpp_boundary_data",                                     (DL_FUNC) &_prioritizr_rcpp_boundary_data,                                     2},
     {"_prioritizr_rcpp_branch_matrix",                                     (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                     1},

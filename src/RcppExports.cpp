@@ -277,6 +277,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_boundary_penalties
+bool rcpp_apply_boundary_penalties(SEXP x, double penalty, Rcpp::NumericVector edge_factor, Rcpp::NumericMatrix zones_matrix, arma::sp_mat boundary_matrix);
+RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_boundary_penalties(x, penalty, edge_factor, zones_matrix, boundary_matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_connected_constraints
 bool rcpp_apply_connected_constraints(SEXP x, arma::sp_mat connected_matrix);
 RcppExport SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP xSEXP, SEXP connected_matrixSEXP) {
@@ -413,29 +428,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_neighbor_constraints
-bool rcpp_apply_neighbor_constraints(SEXP x, arma::sp_mat connected_matrix, int k);
-RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_matrixSEXP, SEXP kSEXP) {
+bool rcpp_apply_neighbor_constraints(SEXP x, Rcpp::List connected_data, Rcpp::IntegerVector k);
+RcppExport SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type connected_matrix(connected_matrixSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_matrix, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_symmetric_boundary_constraints
-bool rcpp_apply_symmetric_boundary_constraints(SEXP x, arma::sp_mat boundary_matrix, Rcpp::NumericMatrix penalty, Rcpp::NumericVector edge_factor);
-RcppExport SEXP _prioritizr_rcpp_apply_symmetric_boundary_constraints(SEXP xSEXP, SEXP boundary_matrixSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type penalty(penaltySEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_symmetric_boundary_constraints(x, boundary_matrix, penalty, edge_factor));
+    Rcpp::traits::input_parameter< Rcpp::List >::type connected_data(connected_dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type k(kSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
     return rcpp_result_gen;
 END_RCPP
 }

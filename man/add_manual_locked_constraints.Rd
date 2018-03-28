@@ -90,9 +90,8 @@ plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
               c("cost_1", "cost_2", "cost_3")) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2),
-                                  nrow = n_feature(sim_features_zones),
-                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
       add_binary_decisions()
 
 # create data.frame with the following constraints:

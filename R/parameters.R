@@ -345,7 +345,7 @@ numeric_parameter_array <- function(name, value, label,
 #' # create table parameter can that can be updated to any other object
 #' p1 <- misc_parameter("tbl", iris,
 #'                      function(x) TRUE,
-#'                      function(x) structure("tbl", .Class = "shiny.tag"))
+#'                      function(id, x) structure(id, .Class = "shiny.tag"))
 #' print(p1) # print it
 #' p1$get() # get value
 #' p1$id # get id
@@ -359,7 +359,7 @@ numeric_parameter_array <- function(name, value, label,
 #' p2 <- misc_parameter("tbl2", iris,
 #'                      function(x) all(names(x) %in% names(iris)) &&
 #'                                  all(x[[1]] < 200),
-#'                      function(x) structure("tbl", .Class = "shiny.tag"))
+#'                      function(id, x) structure(id, .Class = "shiny.tag"))
 #' print(p2) # print it
 #' p2$get() # get value
 #' p2$id # get id
@@ -378,6 +378,59 @@ misc_parameter <- function(name, value, validator, widget) {
   pproto("MiscParameter", MiscParameter, id = new_id(),
     name = name, value = value, validator = list(validator), default = value,
     class = class(value), widget = list(widget))
+}
+
+#' Matrix parameter
+#'
+#' Create a parameter that represents a matrix object.
+#'
+#' @param name \code{character} name of parameter.
+#'
+#' @param value \code{matrix} object.
+#'
+#' @param lower_limit \code{numeric} values denoting the minimum acceptable
+#'   value in the matrix. Defaults to the smallest possible number on the
+#'   system.
+#'
+#' @param upper_limit \code{numeric} values denoting the maximum acceptable
+#'   value in the matrix. Defaults to the smallest possible number on the
+#'   system.
+#'
+#' @param symmetric \code{logical} must the must be matrix be symmetric?
+#'   Defaults to \code{FALSE}.
+#'
+#' @return \code{\link{MiscParameter-class}} object.
+#'
+#' @examples
+#' # create matrix
+#' m <- matrix(runif(9), ncol = 3)
+#' colnames(m) <- letters[1:3]
+#' rownames(m) <- letters[1:3]
+#'
+#' # create matrix parameter
+#' p1 <- matrix_parameter("m", m)
+#' print(p1) # print it
+#' p1$get() # get value
+#' p1$id # get id
+#' p1$validate(m[, -1]) # check if parameter can be updated
+#' p1$set(m + 1) # set parameter to new values
+#' p1$print() # print it again
+#'
+#' @export
+matrix_parameter <- function(name, value, lower_limit = .Machine$double.xmin,
+                             upper_limit = .Machine$double.xmax,
+                             symmetric = FALSE) {
+  assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
+    assertthat::is.scalar(lower_limit), assertthat::is.scalar(upper_limit),
+    assertthat::is.flag(symmetric), all(is.finite(value)),
+    all(value >= lower_limit), all(value <= upper_limit))
+  rfun <- function(id, m) utils::getFromNamespace("rHandsontableOutput",
+    "rhandsontable")(id)
+  vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
+     ncol(m) == ncol(value), nrow(m) == nrow(value),
+    all(value <= upper_limit), all(value >= lower_limit),
+    ifelse(symmetric, isSymmetric(m), TRUE))
+  misc_parameter(name, value, vfun, rfun)
 }
 
 #' Parameters

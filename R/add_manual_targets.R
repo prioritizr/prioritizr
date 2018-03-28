@@ -126,8 +126,7 @@ NULL
 #' }
 #' # create a multi-zone problem that requires a specific amount of each
 #' # feature in each zone
-#' targets_matrix <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
-#'                          ncol = n_zone(sim_features_zones))
+#' targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 #'
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
@@ -234,7 +233,7 @@ methods::setMethod(
         all(names(targets) %in% c("feature", "zone", "type", "sense",
                                   "target")),
         is.character(targets$feature) || is.factor(targets$feature),
-        all(as.character(targets$feature) %in% x$feature_names()),
+        all(as.character(targets$feature) %in% feature_names(x)),
         is.numeric(targets$target), all(is.finite(targets$target)),
         is.character(targets$type) || is.factor(targets$type),
         all(targets$type %in% c("absolute", "relative")))
@@ -243,7 +242,7 @@ methods::setMethod(
           assertthat::has_name(targets, "zone"),
           is.character(targets$zone) || is.factor(targets$zone) ||
           is.list(targets$zone),
-          all(unlist(targets$zone) %in% x$zone_names()))
+          all(unlist(targets$zone) %in% zone_names(x)))
         assertthat::assert_that(
           all(vapply(targets$zone, inherits, logical(1),
               c("character", "factor"))),

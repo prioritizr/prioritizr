@@ -47,8 +47,8 @@ test_that("solve (number_solutions within feasible limit, multiple zones)", {
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(0, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(0, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[, 1] <- 0
   targets[, 2] <- 1
   targets[, 3] <- 0

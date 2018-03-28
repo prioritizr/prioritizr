@@ -347,8 +347,8 @@ str(s6)
 # to the total (absolute) amount of a given feature that needs to be secured
 # in a given zone
 targets <- matrix(rpois(15, 1),
-                  nrow = n_feature(sim_features_zones),
-                  ncol = n_zone(sim_features_zones),
+                  nrow = number_of_features(sim_features_zones),
+                  ncol = number_of_zones(sim_features_zones),
                   dimnames = list(feature_names(sim_features_zones),
                                   zone_names(sim_features_zones)))
 

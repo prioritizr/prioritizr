@@ -141,9 +141,8 @@ boundary_matrix.SpatialPoints <- function(x) {
 }
 
 #' @rdname boundary_matrix
-#' @method boundary_matrix data.frame
+#' @method boundary_matrix default
 #' @export
-boundary_matrix.data.frame <- function(x) {
-  assertthat::assert_that(inherits(x, "data.frame"))
-  stop("data stored in a data.frame do not contain spatial information")
+boundary_matrix.default <- function(x) {
+  stop("data are not stored in a spatial format")
 }

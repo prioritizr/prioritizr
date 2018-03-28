@@ -39,8 +39,8 @@ test_that("data.frame (solve, single zone)", {
 test_that("data.frame (compile, multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   sim_pu_zones_polygons$locked_1 <- TRUE
@@ -72,8 +72,8 @@ test_that("data.frame (solve, multiple zones)", {
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   s <- problem(sim_pu_zones_polygons, sim_features_zones,
@@ -124,8 +124,8 @@ test_that("invalid inputs (single zone)", {
 
 test_that("invalid inputs (multiple zones)", {
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   p <- problem(sim_pu_zones_polygons, sim_features_zones,

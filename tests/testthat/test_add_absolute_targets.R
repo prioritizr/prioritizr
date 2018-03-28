@@ -185,10 +185,10 @@ test_that("add_absolute_targets (invalid input, multiple zones)", {
   expect_error(add_absolute_targets(p, matrix(1:5, nrow = 1)))
   expect_error(
     add_absolute_targets(p,
-      matrix(c(seq_len(n_zone(sim_features_zones) *
-                       n_feature(sim_features_zones))[-1], NA),
-             ncol = n_zone(sim_features_zones),
-             nrow = n_feature(sim_features_zones))))
+      matrix(c(seq_len(number_of_zones(sim_features_zones) *
+                       number_of_features(sim_features_zones))[-1], NA),
+             ncol = number_of_zones(sim_features_zones),
+             nrow = number_of_features(sim_features_zones))))
   # character inputs
   p <- problem(pu, species, rij, c("cost_1", "cost_2"), zone)
   expect_error(add_absolute_targets(p, "target_1"))

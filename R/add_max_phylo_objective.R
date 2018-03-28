@@ -143,9 +143,9 @@ NULL
 #'   targets <- tibble::tibble(
 #'     feature = feature_names(sim_features_zones),
 #'     zone = list(zone_names(sim_features_zones))[rep(1,
-#'              n_feature(sim_features_zones))],
-#'     type = rep("absolute", n_feature(sim_features_zones)),
-#'     target = rep(10, n_feature(sim_features_zones)))
+#'              number_of_features(sim_features_zones))],
+#'     type = rep("absolute", number_of_features(sim_features_zones)),
+#'     target = rep(10, number_of_features(sim_features_zones)))
 #'
 #'   # create a multi-zone problem with a maximum phylogenetic representation
 #'   # objective, where the total expenditure in all zones is 5000.
@@ -162,8 +162,8 @@ NULL
 #'
 #'   # calculate total amount of habitat conserved for each feature among
 #'   # all three management zones
-#'   amount_held2 <- numeric(n_feature(sim_features_zones))
-#'   for (z in seq_len(n_zone(sim_features_zones)))
+#'   amount_held2 <- numeric(number_of_features(sim_features_zones))
+#'   for (z in seq_len(number_of_zones(sim_features_zones)))
 #'     amount_held2 <- amount_held2 +
 #'                     cellStats(sim_features_zones[[z]] * s2[[z]], "sum")
 #'
@@ -190,8 +190,8 @@ NULL
 #'
 #'   # calculate total amount of habitat conserved for each feature among
 #'   # all three management zones
-#'   amount_held3 <- numeric(n_feature(sim_features_zones))
-#'   for (z in seq_len(n_zone(sim_features_zones)))
+#'   amount_held3 <- numeric(number_of_features(sim_features_zones))
+#'   for (z in seq_len(number_of_zones(sim_features_zones)))
 #'     amount_held3 <- amount_held3 +
 #'                     cellStats(sim_features_zones[[z]] * s3[[z]], "sum")
 #'
@@ -222,10 +222,10 @@ add_max_phylo_objective <- function(x, budget, tree) {
                           all(budget >= 0.0),
                           isTRUE(min(budget) > 0),
                           length(budget) == 1 ||
-                            length(budget) == x$number_of_zones(),
+                            length(budget) == number_of_zones(x),
                           inherits(tree, "phylo"),
-                          length(tree$tip.label) == x$number_of_features(),
-                          setequal(tree$tip.label, x$feature_names()))
+                          length(tree$tip.label) == number_of_features(x),
+                          setequal(tree$tip.label, feature_names(x)))
   # make parameter
   if (length(budget) == 1) {
     p <- numeric_parameter("budget", budget, lower_limit = 0,

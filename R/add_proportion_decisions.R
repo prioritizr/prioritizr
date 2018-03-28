@@ -35,9 +35,8 @@ NULL
 #' # build multi-zone conservation problem with proportion decisions
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
 #'       add_proportion_decisions()
 #' \donttest{
 #' # solve the problem

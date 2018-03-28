@@ -85,8 +85,8 @@ NULL
 #'
 #' # create a problem with targets that specify an equal amount of each feature
 #' # to be represented in each zone
-#' p4_targets <- matrix(2, nrow = n_feature(sim_features_zones),
-#'                      ncol = n_zone(sim_features_zones),
+#' p4_targets <- matrix(2, nrow = number_of_features(sim_features_zones),
+#'                      ncol = number_of_zones(sim_features_zones),
 #'                      dimnames = list(feature_names(sim_features_zones),
 #'                                      zone_names(sim_features_zones)))
 #' print(p4_targets)
@@ -103,8 +103,9 @@ NULL
 #' }
 #' # create a problem with targets that require a varying amount of each
 #' # feature to be represented in each zone
-#' p5_targets <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
-#'                      ncol = n_zone(sim_features_zones),
+#' p5_targets <- matrix(rpois(15, 1),
+#'                      nrow = number_of_features(sim_features_zones),
+#'                      ncol = number_of_zones(sim_features_zones),
 #'                      dimnames = list(feature_names(sim_features_zones),
 #'                                      zone_names(sim_features_zones)))
 #' print(p5_targets)

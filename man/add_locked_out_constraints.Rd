@@ -105,9 +105,7 @@ plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 p6 <- problem(sim_pu_zones_polygons, sim_features_zones,
               cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
       add_min_set_objective() \%>\%
-      add_absolute_targets(matrix(rpois(15, 1),
-                                  nrow = n_feature(sim_features_zones),
-                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
       add_binary_decisions()
 
 # create multi-zone problem with locked out constraints using matrix data
@@ -151,9 +149,7 @@ spplot(s8, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
 # create multi-zone problem with raster planning units
 p9 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
-      add_absolute_targets(matrix(rpois(15, 1),
-                                  nrow = n_feature(sim_features_zones),
-                                  ncol = n_zone(sim_features_zones))) \%>\%
+      add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
       add_binary_decisions()
 
 # create raster stack with locked out units

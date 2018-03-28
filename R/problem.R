@@ -309,8 +309,8 @@ NULL
 #' # to the total (absolute) amount of a given feature that needs to be secured
 #' # in a given zone
 #' targets <- matrix(rpois(15, 1),
-#'                   nrow = n_feature(sim_features_zones),
-#'                   ncol = n_zone(sim_features_zones),
+#'                   nrow = number_of_features(sim_features_zones),
+#'                   ncol = number_of_zones(sim_features_zones),
 #'                   dimnames = list(feature_names(sim_features_zones),
 #'                                   zone_names(sim_features_zones)))
 #'
@@ -428,8 +428,8 @@ methods::setMethod(
       assertthat::is.flag(run_checks),
       no_extra_arguments(...),
       raster::nlayers(x) > 0,
-      n_feature(features) > 0,
-      raster::nlayers(x) == n_zone(features),
+      number_of_features(features) > 0,
+      raster::nlayers(x) == number_of_zones(features),
       raster::compareRaster(x, features[[1]], res = TRUE, tolerance = 1e-5,
                             stopiffalse = FALSE))
     if (run_checks)
@@ -446,10 +446,11 @@ methods::setMethod(
     rij <- lapply(as.list(features), function(f) rij_matrix(x, f))
     names(rij) <- zone_names(features)
     # calculate feature abundances in total units
-    fatu <- vapply(features, raster::cellStats, numeric(n_feature(features)),
-                   "sum")
+    fatu <- vapply(features, raster::cellStats,
+                   numeric(number_of_features(features)), "sum")
     if (!is.matrix(fatu))
-      fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features))
+      fatu <- matrix(fatu, ncol = number_of_zones(features),
+                     nrow = number_of_features(features))
     colnames(fatu) <- zone_names(features)
     rownames(fatu) <- feature_names(features)
     # create ConservationProblem object
@@ -487,7 +488,7 @@ methods::setMethod(
       no_extra_arguments(...),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      length(cost_column) == n_zone(features),
+      length(cost_column) == number_of_zones(features),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       assertthat::is.flag(run_checks))
     # further validation checks
@@ -507,16 +508,19 @@ methods::setMethod(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
     # compute rij matrix including non-planning unit cells
     rij <- rij_matrix(x, raster::stack(as.list(features)))
-    rij <- lapply(seq_len(n_zone(features)), function(i) {
-      m <- rij[((i - 1) * n_feature(features)) + seq_len(n_feature(features)), ,
+    rij <- lapply(seq_len(number_of_zones(features)), function(i) {
+      m <- rij[((i - 1) * number_of_features(features)) +
+               seq_len(number_of_features(features)), ,
           drop = FALSE]
       rownames(m) <- feature_names(features)
       return(m)
     })
     # calculate feature abundances in total units
-    fatu <- vapply(rij, rowSums, numeric(n_feature(features)), na.rm = TRUE)
+    fatu <- vapply(rij, rowSums, numeric(number_of_features(features)),
+                   na.rm = TRUE)
     if (!is.matrix(fatu))
-      fatu <- matrix(fatu, nrow = n_feature(features), ncol = n_zone(features))
+      fatu <- matrix(fatu, nrow = number_of_features(features),
+                     ncol = number_of_zones(features))
     rownames(fatu) <- feature_names(features)
     colnames(fatu) <- zone_names(features)
     # create rij matrix
@@ -560,7 +564,7 @@ methods::setMethod(
       no_extra_arguments(...),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      n_zone(features) == length(cost_column),
+      number_of_zones(features) == length(cost_column),
       all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
                  names(x)),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
@@ -581,7 +585,8 @@ methods::setMethod(
     # calculate feature abundances in total units
     fatu <- colSums(x@data[, unlist(as.list(features)), drop = FALSE],
                     na.rm = TRUE)
-    fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features),
+    fatu <- matrix(fatu, ncol = number_of_zones(features),
+                   nrow = number_of_features(features),
                    dimnames = list(feature_names(features),
                                    zone_names(features)))
     # create ConservationProblem object
@@ -619,7 +624,7 @@ methods::setMethod(
       no_extra_arguments(...),
       nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      n_zone(features) == length(cost_column),
+      number_of_zones(features) == length(cost_column),
       all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
                  names(x)),
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
@@ -639,7 +644,8 @@ methods::setMethod(
     # calculate feature abundances in total units
     fatu <- colSums(x[, unlist(as.list(features)), drop = FALSE],
                     na.rm = TRUE)
-    fatu <- matrix(fatu, ncol = n_zone(features), nrow = n_feature(features),
+    fatu <- matrix(fatu, ncol = number_of_zones(features),
+                   nrow = number_of_features(features),
                    dimnames = list(feature_names(features),
                                    zone_names(features)))
     # create ConservationProblem object

@@ -73,8 +73,7 @@ plot(s1, main = "solution", axes = FALSE, box = FALSE)
 }
 
 # create multi-zone problem with minimum set objective
-targets_matrix <- matrix(rpois(15, 1), nrow = n_feature(sim_features_zones),
-                         ncol = n_zone(sim_features_zones))
+targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 
 p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%

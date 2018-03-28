@@ -100,5 +100,5 @@ MiscParameter <- pproto(
     self$value <- x
   },
   render = function(self, ...) {
-    self$widget[[1]](self$value)
+    self$widget[[1]](self$id, self$value)
   })

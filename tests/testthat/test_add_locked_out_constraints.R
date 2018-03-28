@@ -52,11 +52,11 @@ test_that("integer (compile, multiple zones)", {
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
   status <- matrix(FALSE, nrow = raster::ncell(sim_pu_zones_stack),
-                   ncol = n_zone(sim_features_zones))
+                   ncol = number_of_zones(sim_features_zones))
   locked_out_ind <- Which(!is.na(sim_pu_zones_stack[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -87,11 +87,11 @@ test_that("integer (solve, multiple zones)", {
   # create and solve problem
   data(sim_pu_zones_stack, sim_features_zones)
   status <- matrix(FALSE, nrow = raster::ncell(sim_pu_zones_stack),
-                   ncol = n_zone(sim_features_zones))
+                   ncol = number_of_zones(sim_features_zones))
   locked_out_ind <- Which(!is.na(sim_pu_zones_stack[[1]]), cells = TRUE)[1:20]
   status[locked_out_ind, 1] <- TRUE
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
@@ -184,8 +184,8 @@ test_that("character (solve, proportion decisions, single zone", {
 test_that("character (compile, multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   sim_pu_zones_polygons$locked_1 <- FALSE
@@ -226,8 +226,8 @@ test_that("character (solve, multiple zones)", {
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   sim_pu_zones_polygons$locked_1 <- FALSE
@@ -254,8 +254,8 @@ test_that("character (solve, proportion decisions, multiple zones)", {
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   sim_pu_zones_polygons$locked_1 <- FALSE
@@ -351,8 +351,8 @@ test_that("raster (solve, single zone)", {
 test_that("raster (compile, multiple zones)", {
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   status <- sim_pu_zones_stack
@@ -395,8 +395,8 @@ test_that("raster (solve, multiple zones)", {
   skip_if_not(default_solver_name() != "lpsymphony")
   skip_if_not(any_solvers_installed())
   data(sim_pu_zones_stack, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   status <- sim_pu_zones_stack
@@ -478,8 +478,8 @@ test_that("spatial (solve, single zone)", {
 
 test_that("spatial (compile, multiple zones)", {
   data(sim_pu_zones_polygons, sim_features_zones)
-  targets <- matrix(FALSE, nrow = n_feature(sim_features_zones),
-                    ncol = n_zone(sim_features_zones))
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
   targets[] <- 0
   targets[, 1] <- 1
   expect_error({

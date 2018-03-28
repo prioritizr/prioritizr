@@ -51,8 +51,9 @@ test_that("solve (RasterStack, multiple zones)", {
   # create problem
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
        add_min_set_objective() %>%
-       add_absolute_targets(matrix(2, nrow = n_feature(sim_features_zones),
-                                   ncol = n_zone(sim_features_zones))) %>%
+       add_absolute_targets(matrix(2,
+                            nrow = number_of_features(sim_features_zones),
+                            ncol = number_of_zones(sim_features_zones))) %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
        add_binary_decisions() %>%
        add_default_solver(gap = 0.2)
@@ -64,7 +65,7 @@ test_that("solve (RasterStack, multiple zones)", {
   expect_true(all(sapply(s, inherits, "RasterStack")))
   expect_equal(names(s), paste0("solution_", seq_len(10)))
   for (i in seq_along(s))
-    for (z in seq_len(n_zone(sim_features_zones)))
+    for (z in seq_len(number_of_zones(sim_features_zones)))
       expect_true(all(raster::cellStats(s[[i]][[z]] * sim_features_zones[[z]],
                                         "sum") >= 2))
 })
@@ -101,8 +102,9 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
   s <- problem(sim_pu_zones_polygons, sim_features_zones,
                cost_column = c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
-       add_absolute_targets(matrix(2, nrow = n_feature(sim_features_zones),
-                                   ncol = n_zone(sim_features_zones))) %>%
+       add_absolute_targets(
+         matrix(2, nrow = number_of_features(sim_features_zones),
+                ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
        add_default_solver(gap = 0) %>%

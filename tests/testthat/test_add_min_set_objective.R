@@ -126,7 +126,7 @@ test_that("compile (compressed formulation, multiple zones)", {
   o <- compile(p)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_zone <- n_zone(sim_features_zones)
+  n_zone <- number_of_zones(sim_features_zones)
   expect_equal(o$modelsense(), "min")
   expect_equal(o$obj(), c(p$planning_unit_costs()))
   expect_equal(o$sense(), c("<=", ">=", "=", rep("<=", n_pu)))
@@ -194,8 +194,8 @@ test_that("compile (expanded formulation, multiple zones)", {
   o <- compile(p, FALSE)
   # check that objective has been correctly applied
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
-  n_zone <- n_zone(sim_features_zones)
-  n_feature <- n_feature(sim_features_zones)
+  n_zone <- number_of_zones(sim_features_zones)
+  n_feature <- number_of_features(sim_features_zones)
   expect_equal(o$modelsense(), "min")
   expect_equal(o$obj(), c(c(p$planning_unit_costs()),
                            rep(0, n_pu * n_zone * n_feature)))

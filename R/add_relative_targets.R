@@ -50,8 +50,7 @@ NULL
 #'
 #' # create a problem with targets that specify an equal amount of each feature
 #' # to be represented in each zone
-#' p4_targets <- matrix(0.1, nrow = n_feature(sim_features_zones),
-#'                      ncol = n_zone(sim_features_zones),
+#' p4_targets <- matrix(0.1, nrow = 5, ncol = 3,
 #'                      dimnames = list(feature_names(sim_features_zones),
 #'                                      zone_names(sim_features_zones)))
 #' print(p4_targets)
@@ -68,9 +67,7 @@ NULL
 #' }
 #' # create a problem with targets that require a varying amount of each
 #' # feature to be represented in each zone
-#' p5_targets <- matrix(runif(15, 0.01, 0.2),
-#'                      nrow = n_feature(sim_features_zones),
-#'                      ncol = n_zone(sim_features_zones),
+#' p5_targets <- matrix(runif(15, 0.01, 0.2), nrow = 5, ncol = 3,
 #'                      dimnames = list(feature_names(sim_features_zones),
 #'                                      zone_names(sim_features_zones)))
 #' print(p5_targets)
@@ -109,11 +106,11 @@ methods::setMethod(
   methods::signature("ConservationProblem", "numeric"),
   function(x, targets) {
     assertthat::assert_that(inherits(x, "ConservationProblem"))
-    assertthat::assert_that(x$number_of_zones() == 1,
+    assertthat::assert_that(number_of_zones(x) == 1,
                             msg = paste("argument to x has multiple zones,",
                                         "and so targets must be provided as",
                                         "a matrix"))
-    assertthat::assert_that(length(targets) %in% c(1, x$number_of_features()))
+    assertthat::assert_that(length(targets) %in% c(1, number_of_features(x)))
     add_relative_targets(x, matrix(targets, nrow = x$number_of_features(),
                                    ncol = 1))
 })
@@ -133,8 +130,8 @@ methods::setMethod(
       isTRUE(all(targets >= 0)),
       isTRUE(all(targets <= 1)),
       isTRUE(length(targets) > 0),
-      nrow(targets) == x$number_of_features(),
-      ncol(targets) == x$number_of_zones())
+      nrow(targets) == number_of_features(x),
+      ncol(targets) == number_of_zones(x))
     # create targets as data.frame
     if (x$number_of_zones() > 1) {
       target_data <- expand.grid(feature = x$feature_names(),
@@ -162,7 +159,7 @@ methods::setMethod(
       inherits(x$data$features, "data.frame"),
       !anyNA(targets),
       all(assertthat::has_name(x$data$features, targets)),
-      length(targets) == x$number_of_zones(),
+      length(targets) == number_of_zones(x),
       all(vapply(x$data$features[, targets, drop = FALSE], is.numeric,
                 logical(1))))
     # add targets to problem

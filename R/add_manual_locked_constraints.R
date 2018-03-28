@@ -76,9 +76,8 @@ NULL
 #' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
 #'               c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2),
-#'                                   nrow = n_feature(sim_features_zones),
-#'                                   ncol = n_zone(sim_features_zones))) %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
 #'       add_binary_decisions()
 #'
 #' # create data.frame with the following constraints:
@@ -158,7 +157,7 @@ methods::setMethod("add_manual_locked_constraints",
                               is.numeric(locked$pu),
                               all(is.finite(locked$pu)),
                               all(locked$pu == round(locked$pu)),
-                              max(locked$pu) <= x$number_of_total_units(),
+                              max(locked$pu) <= number_of_total_units(x),
                               min(locked$pu) >= 0,
                               assertthat::has_name(locked, "status"),
                               is.numeric(locked$status),
@@ -168,7 +167,7 @@ methods::setMethod("add_manual_locked_constraints",
                                 is.character(locked$zone) ||
                                   is.factor(locked$zone),
                                 all(as.character(locked$zone) %in%
-                                  x$zone_names()))
+                                  zone_names(x)))
       return(TRUE)
     }
     # assert valid arguments
