@@ -9,14 +9,17 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param penalty \code{numeric} penalty that is used to scale the importance
-#'   selecting planning units that are spatially clumped compared to the main
-#'   problem objective (e.g. solution cost when the argument to \code{x}
-#'   has a minimum set objective set using \code{\link{add_min_set_objective}}).
-#'   Thus greater \code{penalty} arguments will return solutions that
-#'   contain planning units with a higher degree of spatial clumping.
-#'   This is equivalent to the
-#'  \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-#'  parameter in \href{http://marxan.net}{\emph{Marxan}}.
+#'   of selecting planning units that are spatially clumped togeather compared
+#'   to the main problem objective (e.g. solution cost when the argument to
+#'   \code{x} has a minimum set objective set using
+#'   \code{\link{add_min_set_objective}}). Higher \code{penalty} values
+#'   will return solutions with a higher degree of spatial clumping,
+#'   and smaller \code{penalty} values will return solutions with a smaller
+#'   degree of clumping. Note that negative \code{penaly} values will
+#'   return solutions that are more spread out. This parameter is equivalent to
+#'   the
+#'   \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
+#'   parameter in \href{http://marxan.net}{\emph{Marxan}}.
 #'
 #' @param edge_factor \code{numeric} proportion to scale
 #'   planning unit edges (or borders) that do not have any neighboring planning
@@ -30,9 +33,9 @@ NULL
 #'   relative importance of clumping planning units that are allocated to
 #'   a pair of zones. Cell values along the diagonal of the matrix represent
 #'   the relative importance of clumping planning units that are allocated
-#'   to the same zone. Note that negative values can be supplied to favor
-#'   solutions that spread out planning units that belong to different zones,
-#'   or even the same zone. The default argument to \code{zones} is an identity
+#'   to the same zone. Cell values must lay between 1 and -1, where negative
+#'   values favor solutions that spread out planning units. The default
+#'   argument to \code{zones} is an identity
 #'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that penalties are incurred when neighboring planning units
 #'   are not assigned to the same zone. \strong{Note that if the cells along

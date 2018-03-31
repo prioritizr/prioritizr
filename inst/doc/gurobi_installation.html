@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2018-02-19" />
+<meta name="date" content="2018-03-31" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2018-02-19</em></h4>
+<h4 class="date"><em>2018-03-31</em></h4>
 
 
 <div id="TOC">
@@ -142,9 +142,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;slam&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>)</code></pre></div>
 <p>Let’s check that the <em>gurobi</em> <em>R</em> package is installed correctly. To do this, you can try using Gurobi to solve an optimization problem using the <em>R</em> code below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load gurobi package</span>
-<span class="kw">library</span>(gurobi)</code></pre></div>
-<pre><code>## Loading required package: slam</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create optimization problem</span>
+<span class="kw">library</span>(gurobi)
+
+<span class="co"># create optimization problem</span>
 model &lt;-<span class="st"> </span><span class="kw">list</span>()
 model<span class="op">$</span>obj        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)
 model<span class="op">$</span>modelsense &lt;-<span class="st"> &quot;max&quot;</span>
@@ -164,7 +164,7 @@ result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span
 ##   Objective range  [1e+00, 2e+00]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 4e+00]
-## Found heuristic solution: objective 2
+## Found heuristic solution: objective 2.0000000
 ## Presolve removed 2 rows and 3 columns
 ## Presolve time: 0.00s
 ## Presolve: All rows and columns removed
@@ -203,33 +203,33 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ##   Matrix range     [2e-01, 9e-01]
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e+00, 7e+00]
-## Found heuristic solution: objective 2145.27
+##   RHS range        [3e+00, 8e+00]
+## Found heuristic solution: objective 2337.9617505
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+## Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-## H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+##      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
+## H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
 ## 
-## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (13 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1792.77 2145.27 
+## Solution count 2: 1979.96 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</code></pre>
+## Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(s, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="dt">main =</span> <span class="st">&quot;Solution&quot;</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVAAAAFQCAMAAADeNtbrAAAC3FBMVEUAAAAAAQAANgAAOgAAXQAAZAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhIUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0ddh0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkrKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU2NjY3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERHR0dISEhJSUlKSkpLS0tMTExNTU1OTk5PT09QUFBRUVFTU1NUVFRVVVVZWVlaWlpbW1tcXFxdXV1eXl5fX19hYWFiYmJjY2NlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1ubm5vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICBgYGCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Pj4+QkJCRkZGSkpKTk5OVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+hoaGioqKjo6OkpKSlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLExMTFxcXGxsbHx8fJycnKysrLy8vMzMzNzc3Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2Nja2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////Y03OAAAAACXBIWXMAAA7DAAAOwwHHb6hkAAANXklEQVR4nO3diX8U5R3H8Z9tDYEgIQlHChGwqFSoNEIlYLRgawKCpRXRGvFAKB4tGhW0hXiE2hbvUBGpHEosWg+Qim0jHrV4UBRaIm2tFStgkFRQYnb+gT57Zp/dnXlmNt9Jdpfv5+VrWTLPDMvbZI+HOcRi0KS7H0CuRVBwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQF1x2gB+84a1Df8pq/Jn79XOmdavhMkTb/HxSqbgDdM1RC5S1LWJAEurWubhdBjZ0vMmHJnTPypGCnviAJ9Nciv7es2rFjCerQF4Vy2hH16/0i9+pLbECzq64HfV/kguCv+2fOXK5+OVx3Vsnwac8HvxICHSoV6u4GkRXW5OATQ2XEOW5chQz9+LLhpRf8o8sfu4u6HrStp+T/9O3o7/aNDj+h3mIlg84qFSmbGf5y/LgKGVgRvD/q8y5/8Oa64Tn0qiDGyRf+akdA/WaeSNW6e/pL3pvJoJEf+dCX48cpzcF1Px8ksqHrH7yxbgA9fHNh+Ltt6h7r0x7yDfWK84LIbEdQbZwCVW+5Vovc3fUP3li3vLE/9Nwt5/ZWoj+wtoncpr4QGCyTHEG1cRXyVXX/NZE7uuPBG+q2T0qfrFSkhzaG4CxrnAxzBNXGqRcldXcrQcP9aezYhtAd9Yb939HvvDI5MwZ6uvrCEzbfoaFxBNVqFhndqn49PFr6B9Rz46nquXGzyOUR0JEy8DPLujoKuin2HNoxjqBagUqRExY8cOs3RS6zrB+JVDeqV+8eb0RAzxOZdt8sCYGuEFnSFv5y/DiC6v1rWPhFXsYcVO8vTw3fX2xFQDeFflsRAn2p4419/DiCJnTonrOHFZxc/UjwA6h1eFFl8Qnn/SF4N/yRaN2YvhX3PBsCDSws7fik1DGOoEdTBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAEBUdQcAQFR1BwYNCKwgyrZDv2L2gMDFo0e01m1Ws99i9oDA26Aru9TnccQbERFBxBwREUXHaC7pwTLX8JYnvAshP0g+XRemz4T9d3rJa+7MSsBO0on6DYzRGUoOAICo6g4AgKjqDgCAqOoOAICo6g4AgKjqDgcgFUT39A2Tl91xFBCQqOoODSAW3ZYXuuXoJ6A33m/KlrrQcLpKDui9QDCOoJtFEmTO9VW1y/aUH+g6lHENQT6NhLAtY6uVPdu2ZM6hEE9QTaZ616ApUX1b11halHENQT6MgFlrUldDLk20elHkFQT6C/zJ+7aNCk4zfvfaLk5tQjCOoJtG3xkNLrAnNE5Hv/Sz2CoF7fhwbUfy+uej1gs5igaX5Sam1J/fVcA72hNnZ3fWW/6q3mNdIEnayttyO2s1heboHuGhgD3djj4hVn99tlXCVN0Ltmx/9uT/fuLOZUZ+ZDt0zqKTHQquqAdfD4BcaVcm9yRK8zoNuXLo19h+6Th9TtnFOMK3kGDXyy3+4VycoxUNXXo6Db5BV1e29vh797OG+guxac0lukYMRNzTYDsgy0fkCkvH7Rez/TBsRAN8sOK3jJoU9MRJ5A/1IyZM69q1fdd9WJ/d5IPSLLQK/50lfCHbP940hHtAFxoMErEq6SfSYjT6DnfLc1fOez86tTj8g20C9H/mXvmPdSD4iBviWvqtv7CrA/8iUPR+9t6Jd6RM6C7pNH1O3VI4xGnkAn1ET/B113RuoROQtqnTNd/WCedKPRyBPob/Mmr3hlx85XfzO9h83jzE3Quya3Whvzrt84o5/di3FH3l7lN1aFL8JTtdFmQG6Czhb1Sfvx8SVVr5uJvL4P3bdt8+a37F/qcg3Ue0f3JyWCeo6g4DoFGj9j17Z0VOHpj5sFCGoPqs3Y1eXfuKbGxcWDCWoPqs3YDZlrWYHxM4wCBLUF1WbsAqWL1O30qUYBgtqC6jN28we/dKCx1xqjAEFtQfUZu/ZJ6gPN9WYBgoaSWDfFFmozdoG5ZcublhTb7NIVF0Ftv0O1Gbst8ry6rS84YBIgqMOLUtyM3SrZawWvM7zDJEBQ+7dN8TN2W+VJdbuwwHZX42gEdXhjH52xu2tya2BaSX3jtfmLjQIEdfjoGZ2xC07ftS4c2ae8wWbH7bgIyskRTxEUXHaCvpNJO4vpZSfoh/idxRL+BA9jgaDaHozbvz9w+O3tRotM/ZFP2G63gGrzoX8rPe/hefILowBBXc6HXvkd9ZapdqZRgKDu5kM/K37UMr8JtQjqdj70XXn07IKht7YZBQgaBo3tfdfxYV2bD31ZCm94bnHP7P3ombBdv0Elxf6h2nzoRrlO3c4vNH6LEtTdfOhr8oK6fVb+bhIgqLv50PdC/4L8pHxgEiCou/nQwJgfqttLhoH3sTeWU6Dx86HWo3Lp2itkrVGAoC7nQ601E4rGuTikhKCZODnSEUEzFRSVAbQ+MiyPoC4jKLhOgSYc0d1eXWMWIGiolKCJR3QvE59Ajzy1125RToEmHNG9u6jIJ9AWabJblEugCUd0t1fNmogGrQl3kUypsdl0LoEmHNHdULYfDlotRRNVlVI+cWLqEVkL+vK7kQ7GFur7h+7u+7QFB21fVnTp/pz8kZfhIyLdEVuozYe2VylMOKj6/1RV9kwugqb6kdfmQ1cOaG5pqbyo5UjyOD2vL0rtDX0vaT46QLX50NrIDs5PmYC8v8rvrhpwdIBq86HNTaryKU22bxijpfG2qX1lre1RzjkFqs2HBvPhOTRaBp9ZTK9THz21+VDLV1D9zGLZu7NYxkyO6GcWg+wspv8BCQuP1cpBULs68SOvb+joAfXtzGL6ho4SUD/PLKZvKCNA4+dDv7h7dGH5A+CDFnw9s5i+oUwA1eZD78z78WPz8m4zGmXOmcX0DWUCaPx8aGDAler22j7YfZt8PbOYvqEMANXmQ9+Xp9XtetltMsqcM4vpG8oAUG0+9PDOQ+p2fsGnJqPMObOYvqGuBn3u9UgfxRYmn+HykfyfGI0y58xi+oa6GFROq4i0NLYw8QyX718oFxuPnc2gM4vpG+piUON8qPrx7D/idy6A+EnJFlQ/w+V6ueKwGwGC2oJq86GfD5pt3DU0FEHtQePnQ/8o85YGs7lkR0f+giYsdfyrH+uU4x/qF2j8fOhDkX8C2WMSIKgDaDoRlKBJEZSgrsstUG3/UH8v/2NXToFq86E+X/7HrpwC1fYPzYzL/yQszS5QbT7Uv8v/OJdLoNp8qE+X/zGWbaCXN4aTx16I9M/YQm0+1J/L/5jLMtDVUyIVVUfvNcQWavOh/lz+x1yWgTqmzYf6c/kfc7kEqs2H+nP5H7vetttZLGFcdoHqV/zx5fI/dv03rZ3FEjbiATRhoV+g2v6h/lz+x5iXCeaEVTMPVN8/1KfL/xjKLdB0Iig4goIjKDiCgiMoOIKCIyg4goIjKDiCgiMouG4E9SDoPPFHUIK6jqAEBdeNB88SFHzwLEHBB88SFHzwLEHBB88SFHzwLEHBB88SFHzwLEGDAQ+eJWhciDOLETQu/cxicTuLrf/QdV9zKuHPc7/VhIZlCah+ZrGPYjuLFdyPeFDAjssSULuKVmC31+kyH9R5coSg4MkRgoInRwgKnhwhKHhypPdJlfaNntD1C/NWd87Hc+DJkeLi/vb1dFqY78/Cns90Eshr4MmRM//ssPoZrzksHO906PQ4m6fsUN9602HhmG0OC/0IPDlCUPDkCEHBn5QISlBwBAVHUHAEBQcGneTE8m0nljOdWM5wYhm/3WHhuHccFvoRGNRpas95oeOpEnxa6EdgUEZQcAQFR1BwBAVHUHAEBUdQcAQFR1BwBAVHUHAg0HRO/5xycHu1i6u7Jq/ZtnRU4emPu13TzzCgaZ3+OeXgZeIWVFuzLv/GNTWywf0j9i0MaFqnf041eHdRkVtQbc0hcy0rMH6Gy1X9DAKa3umfUwxur5rl5oLOSWsGShep2+lTPTxmv4KApnf65xSDG8r2uwXV15w/+KUDjb3WeHzcfgQBTe/0z8mDd/d92tUlx5PXbJ8kItd7fdx+BAJN5/TPSYPbq2rcXcM9ac3A3LLlTUuKH/T+0OFBQNM7/XPS4JUDmltaKi9qOeJ5zS3yvLqtLziQxoMHB3pRSuf0z0mDayNX1XrK85qrZK+63RR6FujmMG+b0jr9c9Lg5iZV+ZSmvZ7X3CpPqtuFBebLbvoe6I19Oqd/Tl4zmNvnUG3NwLSS+sZr8xen9+ihgT56pnP65xRrWh5AtTVbF47sU95gvvq7/3FyBBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREU3P8B6pmbzjj4Xa8AAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
+<p><img src="data:image/png;base64,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YF0vu4X53izs9UwngdwGnhw56882q5/5ms3CCXaHTo+3eMoO9u03bRaO3WGz0IvAkyMEBU+OEBT8SYmgBAVHUHAEBUdQcGDQyXYs59ixnGXHcqYdy4SdNgvHv2Oz0IvAoHZTe/YLbU+V4NFCLwKDMoKCIyg4goIjKDiCgiMoOIKCIyg4goIjKDiCggOBpnL656SD26scXN01cc22ZaMLznjc6ZpehgFN6fTPSQevEKegypq1+Tevr5bNzh+xZ2FAUzr9c7LBewsLnYIqaw6dZxj+CTMdruplENDUTv+cZHB75WwnF3ROWNNfsti8nTHNxWP2Kghoaqd/TjK4vvSgU1B1zQVDXjrU0Hu9y8ftRRDQ1E7/nDh4b7+nHV1yPHHN9skicqPbx+1FINBUTv+cMLi9strZNdwT1vTPK13VtLRopfuHDg8CmtrpnxMGrxnY3NJScUnLMddrbpPnzds636EUHjw40ItSKqd/ThhcE76q1lOu11wr+83bLcFngTSHeduU0umfEwY3N5mVTW3a73rN7fKkebvIp7/spueB3tincvrnxDUDOX0OVdb0Ty+ua7g+f0lqjx4a6KNnKqd/TrKm4QJUWbN10ai+ZfX6q797HydHwBEUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHBERQcQcERFBxBwREUHEHB/R9CPJxasvkaKwAAAABJRU5ErkJggg==" style="display: block; margin: auto;" /></p>
 <p>If you have managed run the code on your system without encountering any errors, then you have correctly installed Gurobi and can begin using it to solve your very own conservation planning problems.</p>
 </div>
 

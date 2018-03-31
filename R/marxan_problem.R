@@ -220,9 +220,9 @@ marxan_problem.data.frame <- function(x, spec, puvspr, bound = NULL,
            " column")
     # appply penalties
     if (!asymmetric_connectivity) {
-      p <- add_boundary_penalties(p, blm, 1, bound)
+      p <- add_boundary_penalties(p, blm, 1, data = bound)
     } else {
-      p <- add_connectivity_penalties(p, blm, bound)
+      p <- add_connectivity_penalties(p, blm, data = bound)
     }
   }
   # return problem

@@ -264,19 +264,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_asymmetric_connectivity_constraints
-bool rcpp_apply_asymmetric_connectivity_constraints(SEXP x, Rcpp::List connectivity_data, double penalty);
-RcppExport SEXP _prioritizr_rcpp_apply_asymmetric_connectivity_constraints(SEXP xSEXP, SEXP connectivity_dataSEXP, SEXP penaltySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type connectivity_data(connectivity_dataSEXP);
-    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_asymmetric_connectivity_constraints(x, connectivity_data, penalty));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_apply_boundary_penalties
 bool rcpp_apply_boundary_penalties(SEXP x, double penalty, Rcpp::NumericVector edge_factor, Rcpp::NumericMatrix zones_matrix, arma::sp_mat boundary_matrix);
 RcppExport SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP) {
@@ -301,6 +288,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
     Rcpp::traits::input_parameter< arma::sp_mat >::type connected_matrix(connected_matrixSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_connected_constraints(x, connected_matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_connectivity_penalties
+bool rcpp_apply_connectivity_penalties(SEXP x, double penalty, Rcpp::List data);
+RcppExport SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_connectivity_penalties(x, penalty, data));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -437,19 +437,6 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::List >::type connected_data(connected_dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type k(kSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_neighbor_constraints(x, connected_data, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// rcpp_apply_symmetric_connectivity_constraints
-bool rcpp_apply_symmetric_connectivity_constraints(SEXP x, Rcpp::List connectivity_data, double penalty);
-RcppExport SEXP _prioritizr_rcpp_apply_symmetric_connectivity_constraints(SEXP xSEXP, SEXP connectivity_dataSEXP, SEXP penaltySEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type connectivity_data(connectivity_dataSEXP);
-    Rcpp::traits::input_parameter< double >::type penalty(penaltySEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_symmetric_connectivity_constraints(x, connectivity_data, penalty));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -93,16 +93,16 @@ rcpp_add_zones_constraints <- function(x) {
     .Call(`_prioritizr_rcpp_add_zones_constraints`, x)
 }
 
-rcpp_apply_asymmetric_connectivity_constraints <- function(x, connectivity_data, penalty) {
-    .Call(`_prioritizr_rcpp_apply_asymmetric_connectivity_constraints`, x, connectivity_data, penalty)
-}
-
 rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix, boundary_matrix) {
     .Call(`_prioritizr_rcpp_apply_boundary_penalties`, x, penalty, edge_factor, zones_matrix, boundary_matrix)
 }
 
 rcpp_apply_connected_constraints <- function(x, connected_matrix) {
     .Call(`_prioritizr_rcpp_apply_connected_constraints`, x, connected_matrix)
+}
+
+rcpp_apply_connectivity_penalties <- function(x, penalty, data) {
+    .Call(`_prioritizr_rcpp_apply_connectivity_penalties`, x, penalty, data)
 }
 
 rcpp_apply_corridor_constraints <- function(x, connected_matrix_list, threshold) {
@@ -143,10 +143,6 @@ rcpp_apply_min_set_objective <- function(x, targets_list, costs) {
 
 rcpp_apply_neighbor_constraints <- function(x, connected_data, k) {
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, k)
-}
-
-rcpp_apply_symmetric_connectivity_constraints <- function(x, connectivity_data, penalty) {
-    .Call(`_prioritizr_rcpp_apply_symmetric_connectivity_constraints`, x, connectivity_data, penalty)
 }
 
 rcpp_boundary_data <- function(data, tolerance = 0.00001) {

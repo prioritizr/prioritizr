@@ -1,0 +1,191 @@
+---
+title: "Contributing to _prioritizr_"
+output:
+  rmarkdown::html_vignette:
+    toc: false
+    fig_caption: true
+    self_contained: yes
+    date: "`r Sys.Date()`"
+fontsize: 11pt
+documentclass: article
+vignette: >
+  %\VignetteIndexEntry{Prioritizr Contributing}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r, include = FALSE}
+devtools::load_all()
+```
+
+The aim of this vignette is to provide a comprehensive guide for making contributions to _prioritizr_. It also serves to document the internal organization of this package and the rationale behind its design. This vignette is still under construction and will be updated when possible. It is beyond the scope of this vignette to teach _R_ programming or package development practices. We strongly recommend reading the [_R for Data Science_](http://r4ds.had.co.nz/), [_Advanced R_](http://adv-r.had.co.nz/), and [_R Packages_](http://r-pkgs.had.co.nz/) books to learn more about these topics. If you have any questions about contributing to _prioritizr_ that are not covered by this vignette, please [post an issue on the GitHub repository](https://github.com/prioritizr/prioritizr/issues/new).
+
+# Style guide
+
+This package uses American spelling for all English words. All code should use snake-case (i.e. under-scores and lower-case spelling; e.g. `add_relative_targets`), except for class names which use camel-case (i.e. no under-scores and upper-case letters; e.g. `ConservationProblem`). The `<-` operator should be used for object assignment. Spaces should surround all infix operators (e.g. `+`, `-`, etc.) and should be placed after commas. All indenting should use two-spaces. All lines should not exceed 80 characters in length, except for text in vignettes. All code should escape characters using double quotes (i.e. `"` symbols). Where possible, functions from other packages should not be imported and instead should be referred to using the `::` function (e.g. `Matrix::sparseMatrix` to access the `sparseMatrix` function from the _Matrix_ package). All functions should use the [_assertthat_ package](https://cran.r-project.org/web/packages/assertthat/index.html) to validate arguments. All functions should have at least one unit test, and all unit tests should use the [_testthat_ package](https://cran.r-project.org/web/packages/testthat/index.html). All private functions that are not exported from the NAMESPACE should be located in the _R/internal.R_ file. Although this package exports the pipe operator (`%>%`) for ease of use, for clarity, this operator should not be used elsewhere in this package's source code (excepting documentation and unit tests).
+
+Documentation should be written using _roxygen2_. Software and R package names should be written in _italics_ (e.g. \emph{prioritizr}). When referring to parameter names in the documentation, they should be encapsulated by \\code tags (e.g. \code{x} in help for _problem_). When referring to the names of columns in a data.frame object, please use the format \\code{"column_name"}, where `column_name` is the name of the column (e.g. \\code{"mpg"} to refer to a column in the `mtcars` object). All help files for functions should contain at least the following sections: Description, Arguments, Value, and Examples.
+
+# Conservation problems
+
+The `ConservationProblem` class (defined in _R/ConservationProblem-proto.R_) is used to represent conservation planning objects. They are created by the `problem` function and should contain all the data and parameters needed to generate a mathematical formulation of the problem.
+
+# Conservation modifiers
+
+The `ConservationModifier` class (defined in _R/ConservationModifier-proto.R_) is used to represent any object that alters the behavior of a `ConservationProblem` object. All of the functions used for specifying objectives, constraints, penalties, decisions, solvers, and portfolios involve creating a new `ConservationModifier` object and appending it to a  `ConservationProblem` object. To help standardize the behavior of different `ConservationModifier` objects, we have created specializations of the `ConservationModifier` class: `Objective` (defined in _R/Objective-proto.R_), `Constraint` (defined in _R/Constraint-proto.R_), `Penalty` (defined in _R/Penalty-proto.R_), `Decision` (defined in _R/Decision-proto.R_), `Solver` (defined in _R/Solver-proto.R_), and `Portfolio` (defined in _R/Portfolio-proto.R_).
+
+# Optimization problems
+
+The `OptimizationProblem` class (defined in _R/OptimizationProblem-proto.R_) represents the precise mathematical formulation of a conservation planning problem. When a `ConservationProblem` object is "solved" (using the `solve` function), the `ConservationProblem` object is first "compiled" into an `OptimizationProblem` object (using the `compile` function) and the `OptimizationProblem` object is then solved (using the `solve` function). This distinction is important because if a contributor wants to add a new objective, constraint, penalty, or decision function to _prioritizr_ they will need to write code that adds the mathematical formulation of the function to a `OptimizationProblem` object. This is not entirely trivial.
+
+All `OptimizationProblem` objects are simply a wrapper to an external pointer pointer (`XPtr`) that points to a C++ `OPTIMIZATIONPROBLEM` class object (defined in _src/optimization_problem.h_). We decided to implement the `OptimizationProblem` class in this manner because (1) storing objects as external pointers reduces memory consumption and (2) the process of adding in constraints requires iteration and loops which are slow in _R_. We elected not to use the _ompr R_ package because (1) benchmarks at the time indicated that this package would take too long to compile problems with many constraints and (2) it uses the R Optimization Infrastructure (ROI) which cannot as yet solve problems using _Gurobi_ (discounting repositories on GitHub that are not actively maintained). As a consequence, _Rcpp_ code is needed to modify `OptimizationProblem` objects and users will need to write _Rcpp_ functions to add new objectives, constraints, penalties to _prioritizr_. It is beyond the scope of this vignette to teach _Rcpp_ programming, and so we recommend that potential contributors read the [_Rcpp for everyone_](https://teuder.github.io/rcpp4everyone_en/#) book if they are unfamiliar with _Rcpp_ and C++ programming.
+
+The C++ `OPTIMIZATIONPROBLEM` class contains the standard data needed to formulate a mixed integer linear programming problem (e.g. objective function, model sense, constraint senses, etc.) as well as additional data that pertain to conservation problems (i.e. number of features, planning units, and zones). If a potential contributor is unfamiliar with the standard representation of a mixed integer linear programming problem, we strongly suggest reading the documentation for the [_gurobi R_ package](http://www.gurobi.com/documentation/7.5/refman/solving_models_with_the_gu.html). The fields _A_i, _A_j_, and _A_x_ correspond the row, column, and cells values for the design matrix of the optimization problem (respectively). The other fields follow standard conventions. Note that the design matrix is, ultimately, constructed as a `Matrix::sparseMatrix` so row and column indices do not need to be sequential. Additionally, note that all _Rcpp_ constraint and penalty functions should be independent. In other words, though it may be computationally efficient to reuse constraints and variables encoded in other functions, each _Rcpp_ constraint and penalty function define its own constraints and variables. All conservation planning problems are defined following one of two standard mathematical formulations: the compressed and the expanded formulation.
+
+The compressed formulation defines a problem which assumes that all instances of a conserved feature are used to achieve the target or count towards the benefit of a solution. Although the expanded formulation can provide identical solutions to the compressed formulation, the compressed formulation is provided because it is simpler and can be used with much larger sized problems. Currently, all constraints use the compressed formulation except for the `add_corridors_constraints` function. Under this formulation, the first set of decision variables (the first number of planning units $\times$ number of zones) always pertain to the state of the planning units. Thus in a problem containing 3 planning units and 2 zones, the first six variables indicate the allocation of: planning unit 1 in zone 1, planning unit 2 in zone 1, planning unit 3 in zone 1, planning unit 1 in zone 2, planning unit 2 in zone 2, planning unit 3 in zone 2. The first set of constraints (rows) always correspond to each target (noting that some objectives use "fake" targets to initialize the feature by planning unit (referred to as _rij_) data, see _R/compile.R_). These rows, which each correspond to a single target, contain the amount of each feature in each zone for which the target pertains. Thus rows for targets which pertain to a single zone will only contain feature abundance data for planning units (columns) in a single zone, and rows for targets which pertain to a single feature in multiple zones will contain feature abundance data for planning units (columns) in multiple zones.
+
+To help illustrate the compressed formulation, consider the following problem:
+
+```{r}
+# simulate data
+pu <- data.frame(id = 1:3, cost_1 = 4:6, cost_2 = 7:9)
+zone <- data.frame(id = 1:2, name = c("z1", "z2"))
+feature <- data.frame(id = 1:2, name = c("f1", "f2"))
+rij <- expand.grid(pu = 1:3, species = 1:2, zone = 1:2)
+rij$amount <- seq_len(nrow(rij)) + nrow(rij)
+targets <- matrix(1, nrow = 2, ncol = 2)
+
+# create problem
+p <- problem(pu, feature, rij, c("cost_1", "cost_2"), zone) %>%
+     add_absolute_targets(targets)
+
+# print problem
+print(p)
+```
+
+The compressed formulation expresses the planning unit and feature data using the following design matrix. Here, each variable (column) corresponds to a different planning unit and a different zone allocation, each constraint (row) corresponds to a different target, and each cell corresponds to the amount of a each feature in each planning unit given a different zone (based on the targets).
+
+```{r, echo = FALSE}
+# generate targets
+targets2 <- p$targets$output()
+
+# create matrix
+m <- matrix(NA, ncol = p$number_of_zones() * p$number_of_planning_units(),
+            nrow = nrow(targets2))
+
+# add row names
+rownames(m) <- paste0("target_", rep(p$feature_names(), p$number_of_zones()),
+                      "_", rep(p$zone_names(), each = p$number_of_features()))
+
+# add column names
+colnames(m) <- paste0("pu", rep(seq_len(p$number_of_planning_units()),
+                                        p$number_of_zones()),
+                       "_", rep(p$zone_names(),
+                                each = p$number_of_planning_units()))
+
+# add values according to targets
+for (i in seq_len(nrow(targets2))) {
+  # extract indicees
+  curr_feature <- targets2$feature[i]
+  curr_zone <- targets2$zone[i][[1]]
+  curr_cols <- (p$number_of_planning_units() * (curr_zone - 1)) +
+               seq_len(p$number_of_planning_units())
+  curr_amount <- rij$amount[unlist(rij$zone) == curr_zone &
+                            rij$species == curr_feature]
+  # set matrix values
+  m[i, curr_cols] <- curr_amount
+}
+
+# convert to sparse matrix
+m[is.na(m)] <- 0
+m <- as(m, "sparseMatrix")
+
+# print matrix
+print(m)
+```
+
+The expanded formulation, on the other hand, defines a problem which can allow for some instances of conserved features to not be used for achieving the targets or maximizing the conservation benefit. This formulation is a generalized version of the compressed formulation. It contains additional variables (columns) and constraints (rows) for each combination of feature, planning unit, and zone that indicate if a given planning unit allocated to a specific zone is also allocated to conserve a given feature.
+
+Given the previous problem, the expanded formulation expresses the planning unit and feature data in the design matrix as:
+
+```{r}
+# generate targets
+targets2 <- p$targets$output()
+
+# create matrix
+m <- matrix(NA, ncol = (p$number_of_zones() * p$number_of_planning_units()) +
+                       (p$number_of_zones() * p$number_of_planning_units() *
+                        p$number_of_features()),
+            nrow = (p$number_of_zones() * p$number_of_planning_units() *
+                    p$number_of_features()) +
+                    (p$number_of_features() * p$number_of_zones()))
+
+# add row names
+rownames(m) <- c(paste0("pu", rep(seq_len(p$number_of_planning_units()),
+                                            p$number_of_zones() *
+                                            p$number_of_features()),
+                          "_", rep(rep(p$feature_names(),
+                                       each = p$number_of_planning_units()),
+                                   p$number_of_zones()),
+                          "_", rep(p$zone_names(),
+                                   each = p$number_of_planning_units() *
+                                          p$number_of_features())),
+                 paste0("target_", rep(p$feature_names(), p$number_of_zones()),
+                        "_", rep(p$zone_names(),
+                                 each = p$number_of_features())))
+
+# add column names
+colnames(m) <- c(paste0("pu", rep(seq_len(p$number_of_planning_units()),
+                                          p$number_of_zones()),
+                        "_", rep(p$zone_names(),
+                                 each = p$number_of_planning_units())),
+                 paste0("pu", rep(seq_len(p$number_of_planning_units()),
+                                          p$number_of_zones() *
+                                          p$number_of_features()),
+                        "_", rep(rep(p$feature_names(),
+                                     each = p$number_of_planning_units()),
+                                 p$number_of_zones()),
+                        "_", rep(p$zone_names(),
+                                 each = p$number_of_planning_units() *
+                                        p$number_of_features())))
+
+# add in indicator variables and constraints
+curr_row <- 0
+for (z in seq_len(p$number_of_zones())) {
+  for (i in seq_len(p$number_of_features())) {
+    for (j in seq_len(p$number_of_planning_units())) {
+      curr_row <- curr_row + 1
+      curr_col1 <- ((z - 1) * p$number_of_planning_units()) + j
+      curr_col2 <- (p$number_of_planning_units() * p$number_of_zones()) +
+                   ((z - 1) * p$number_of_features() *
+                              p$number_of_planning_units()) +
+                   ((i - 1) * p$number_of_planning_units()) + j
+      m[curr_row, curr_col1] <- -1
+      m[curr_row, curr_col2] <- 1
+    }
+  }
+}
+
+# add in targets
+for (i in seq_len(nrow(targets2))) {
+  # extract indices
+  curr_row <- curr_row + 1
+  curr_feature <- targets2$feature[i]
+  curr_zone <- targets2$zone[i][[1]]
+  curr_cols <- (p$number_of_planning_units() * p$number_of_zones()) +
+               ((curr_zone - 1) * p$number_of_features() *
+                                 p$number_of_planning_units()) +
+               ((curr_feature - 1) * p$number_of_planning_units()) +
+               seq_len(p$number_of_planning_units())
+  curr_amount <- rij$amount[unlist(rij$zone) == curr_zone &
+                            rij$species == curr_feature]
+  # set matrix values
+  m[curr_row, curr_cols] <- curr_amount
+}
+
+# convert to sparse matrix
+m[is.na(m)] <- 0
+m <- as(m, "sparseMatrix")
+
+# print matrix
+print(m)
+```
