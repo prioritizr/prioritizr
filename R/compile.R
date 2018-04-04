@@ -3,8 +3,8 @@ NULL
 
 #' Compile a problem
 #'
-#' Compile a \code{\link{ConservationProblem-class}} into an
-#' \code{\link{OptimizationProblem-class}} object.
+#' Compile a conservation planning \code{\link{problem}} into an
+#' (potentially mixed) integer linear programming problem.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -18,7 +18,12 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details \strong{In nearly all cases, the default argument to
+#' @details This function might be useful for those interested in understanding
+#'   how their conservation planning \code{\link{problem}} is expressed
+#'   as a mathematical problem. However, if the problem just needs to
+#'   be solved, then the \code{\link{solve}} function should just be used.
+#'
+#'   \strong{Please note that in nearly all cases, the default argument to
 #'   \code{formulation} should be used}. The only situation where manually
 #'   setting the argument to \code{formulation} is desirable is during testing.
 #'   Manually setting the argument to \code{formulation} will at best

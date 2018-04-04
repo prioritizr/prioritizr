@@ -3,14 +3,14 @@ NULL
 
 #' Add feature weights
 #'
-#' Conservation planning problems that aim to maximize the representation of
-#' features given a budget often will not able to conserve all of the features
-#' unless the budget is very high. In such budget-limited problems, it may be
-#' desirable to prefer the representation of some features over other features.
-#' This information can be incorporated into the problem using weights.
-#' Weights can be applied to a problem to favor the representation of some
-#' features over other features when making decisions about how the budget
-#' should be allocated.
+#' Conservation planning problems that aim to maximize the
+#' representation of features given a budget often will not able to conserve
+#' all of the features unless the budget is very high. In such budget-limited
+#' problems, it may be desirable to prefer the representation of some features
+#' over other features. This information can be incorporated into the problem
+#' using weights. Weights can be applied to a problem to favor the
+#' representation of some features over other features when making decisions
+#' about how the budget should be allocated.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

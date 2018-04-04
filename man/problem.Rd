@@ -194,22 +194,10 @@ the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
 customized to meet specific goals using \code{\link{objectives}},
 \code{\link{targets}}, \code{\link{constraints}}, and
-\code{\link{penalties}}.
+\code{\link{penalties}}. After building the problem, the
+ \code{\link{solve}} function can be used to identify solutions.
 }
 \details{
-The basic \emph{prioritizr} work flow starts with formulating the
-\code{problem}, then adding \code{objectives} and \code{targets},
-as well as \code{constraints} and \code{penalties} as needed.
-Alternative decision formats can be specified using the
-\code{\link{decisions}} functions,
-otherwise the package will default to binary selection of planning units.
-Lastly, the type of solving algorithm must be specified
-(see \code{\link{solvers}}). Once formulated, the problem is solved
-using the \code{\link{solve}} function, which will return
-a \code{RasterLayer-class},
-\code{Spatial-class}, \code{numeric} vector, or \code{\link{matrix}}
-containing the solution depending on the \code{ConservationProblem-class}
-
 A reserve design exercise starts by dividing the study region
   into planning units (typically square or hexagonal cells) and, for
   each planning unit, assigning values that quantify socioeconomic

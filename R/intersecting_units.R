@@ -3,8 +3,8 @@ NULL
 
 #' Find intersecting units
 #'
-#' Determine the units in a given spatial data object that intersect
-#' with any of the units in another spatial data object.
+#' Find which of the units in a spatial data object intersect
+#' with the units in another spatial data object.
 #'
 #' @param x \code{\link{Spatial-class}} or \code{\link{Raster-class}} object.
 #'

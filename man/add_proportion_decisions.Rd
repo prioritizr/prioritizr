@@ -19,6 +19,8 @@ Add a proportion decision to a conservation planning \code{\link{problem}}.
 This is a relaxed decision where a part of a planning unit can be
 prioritized as opposed to the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to include in
+decisions will solve much faster than problems that use binary-type
+decisions
 }
 \details{
 Conservation planning problems involve making decisions on planning

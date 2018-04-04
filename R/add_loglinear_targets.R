@@ -3,11 +3,13 @@ NULL
 
 #' Add targets using log-linear scaling
 #'
-#' Set targets by log-linearly interpolating them between thresholds
-#' (Rodrigues \emph{et al.} 2004). Additionally, caps can be applied to targets
-#' to prevent features with massive distributions from being over-represented
-#' in solutions (Butchart \emph{et al.} 2015). \strong{The behavior of this
-#' function has changed substantially from versions prior to 5.0.0}.
+#' Add targets to a conservation planning \code{\link{problem}} by log-linearly
+#' interpolating the targets between thresholds based on the total amount of
+#' each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
+#' caps can be applied to targets to prevent features with massive
+#' distributions from being over-represented
+#' in solutions (Butchart \emph{et al.} 2015). \strong{Note that the behavior
+#' of this function has changed substantially from versions prior to 5.0.0}.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

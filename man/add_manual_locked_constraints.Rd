@@ -25,14 +25,15 @@ the Details section for more information.}
   added to it.
 }
 \description{
-Add constraints to ensure that the solution allocates a specific
-amount of certain planning units to different management zones. This
-function offers more fine-grained control than the
-\code{\link{add_locked_in_constraints}} and
+Add constraints to a conservation planning \code{\link{problem}} to ensure
+that solutions allocate (or do not allocate) specific planning units to
+specific management zones. This function offers more fine-grained control
+than the \code{\link{add_locked_in_constraints}} and
 \code{\link{add_locked_out_constraints}} functions.
 }
 \details{
-The argument to \code{locked} must contain the following columns:
+The argument to \code{locked} must contain the following fields
+  (columns):
 
   \describe{
 
@@ -43,7 +44,13 @@ The argument to \code{locked} must contain the following columns:
     zone.}
 
   \item{\code{"status"}}{\code{numeric} values indicating how much
-    of each planning unit should be allocated to each zone in the solution.}
+    of each planning unit should be allocated to each zone in the solution.
+    For example, the \code{numeric} values could be binary values (i.e. zero
+    or one) for problems containing binary-type decision variables
+    (using the \code{\link{add_binary_decisions}} function). Alternatively,
+    the \code{numeric} values could be proportions (e.g. 0.5) for problems
+    containing proportion-type decision variables (using the
+    \code{\link{add_proportion_decisions}}).}
 
   }
 }

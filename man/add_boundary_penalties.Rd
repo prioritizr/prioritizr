@@ -11,13 +11,13 @@ add_boundary_penalties(x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
-of selecting planning units that are spatially clumped togeather compared
+of selecting planning units that are spatially clumped together compared
 to the main problem objective (e.g. solution cost when the argument to
 \code{x} has a minimum set objective set using
 \code{\link{add_min_set_objective}}). Higher \code{penalty} values
 will return solutions with a higher degree of spatial clumping,
 and smaller \code{penalty} values will return solutions with a smaller
-degree of clumping. Note that negative \code{penaly} values will
+degree of clumping. Note that negative \code{penalty} values will
 return solutions that are more spread out. This parameter is equivalent to
 the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
@@ -45,25 +45,23 @@ the matrix diagonal contain markedly lower values than cells found
 elsewhere in the matrix, then the optimal solution may surround
 planning units with planning units that are allocated to different zones.}}
 
-\item{data}{A \code{matrix} or \code{data.frame} object showing the shared
-boundary lengths between planning units. If \code{data} is a
-matrix then each row and column denote a planning unit and cell values
-represent their shared boundary. If \code{data} is
-\code{data.frame} then it must have the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}, where each row shows
-the shared boundary between two planning units (as per the standard
-\emph{Marxan} input format). This argument is required
-if the planning units in \code{x} are stored in a \code{data.frame}
-object. The default argument is \code{NULL} so that boundary data will be
-automatically calculated using the \code{\link{boundary_matrix}} function.}
+\item{data}{\code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
+object containing the boundary data. The boundary values
+correspond to the shared boundary length between different planning units
+and the amount of exposed boundary length that each planning unit has
+which is not shared with any other planning unit. Given a certain
+\code{penalty} value, it is more desirable to select combinations of
+planning units which do not expose larger boundaries that are shared
+between different planning units. See the Details section for more
+information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the penalties
  added to it.
 }
 \description{
-Add penalties to a conservation problem to favor solutions that have
-planning units clumped together into contiguous areas.
+Add penalties to a conservation planning \code{\link{problem}} to favor
+solutions that have planning units clumped together into contiguous areas.
 }
 \details{
 This function adds penalties to a conservation planning problem
@@ -74,6 +72,40 @@ This function adds penalties to a conservation planning problem
   be used to represent symmetric relationships between planning units. If
   asymmetric relationships are required, use the
   \code{\link{add_connectivity_penalties}} function.
+
+  The argument to \code{data} can be specified in several different ways:
+
+  \describe{
+
+  \item{\code{NULL}}{the boundary data are automatically calculated
+    using the \code{\link{boundary_matrix}} function. This argument is the
+    default. Note that the boundary data must be manually defined
+    using one of the other formats below when the planning unit data
+    in the argument to \code{x} is not spatially referenced (e.g.
+    in \code{data.frame} or \code{numeric} format).}
+
+  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+    different planning units and the value of each cell represents the
+    amount of shared boundary length between two different planning units.
+    Cells that occur along the matrix diagonal represent the amount of
+    exposed boundary associated with each planning unit that has
+    no neighbor (e.g. these value might pertain the length of coastline
+    in a planning unit).}
+
+  \item{\code{data.frame}}{containing the columns \code{"id1"},
+    \code{"id2"}, and \code{"boundary"}. The values in the column
+    \code{"boundary"} show the total amount of shared boundary between the
+    two planning units indicated the columns \code{"id1"} and \code{"id2"}.
+    This format follows the the standard \emph{Marxan} input format. Note
+    that this function requires symmetric boundary data, and so the
+    argument to \code{data} cannot have the columns \code{"zone1"} and
+    code{"zone2"} to specify different amounts of shared boundary lengths
+    for different zones. Instead, when dealing with problems with multiple
+    zones, the argument to \code{zones} should be used to control the
+    relative importance of spatially clumping planning units together when
+    they are allocated to different zones.}
+
+  }
 
   The boundary penalties are calculated using the following equations. Let
   \eqn{I} represent the set of planning units, \eqn{Z} represent
@@ -119,7 +151,7 @@ p2 <- p1 \%>\% add_boundary_penalties(50, 1)
 # half the penalty as inner edges
 p3 <- p1 \%>\% add_boundary_penalties(500, 0.5)
 
-# create a problem using pre-computed boundary data
+# create a problem using precomputed boundary data
 bmat <- boundary_matrix(sim_pu_raster)
 p4 <- p1 \%>\% add_boundary_penalties(50, 1, data = bmat)
 
@@ -129,7 +161,7 @@ s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 
 # plot solutions
 plot(s, main = c("basic solution", "small penalties", "high penalties",
-                 "pre-computed data"), axes = FALSE, box = FALSE)
+                 "precomputed data"), axes = FALSE, box = FALSE)
 }
 # create minimal problem with multiple zones and limit the run-time for
 # solver to 10 seconds so this example doesn't take too long
@@ -139,8 +171,8 @@ p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(time_limit = 10)
 
-# create zone matrix which favours clumping planning units that are
-# allocated to the same zone togeather - note that this is the default
+# create zone matrix which favors clumping planning units that are
+# allocated to the same zone together - note that this is the default
 zm6 <- diag(3)
 print(zm6)
 
@@ -150,8 +182,8 @@ p6 <- p5 \%>\% add_boundary_penalties(50, zone = zm6)
 # create another problem with the same zone matrix and higher penalties
 p7 <- p5 \%>\% add_boundary_penalties(500, zone = zm6)
 
-# create zone matrix which favours clumping units that are allocated to
-# different zones togeather
+# create zone matrix which favors clumping units that are allocated to
+# different zones together
 zm8 <- matrix(1, ncol = 3, nrow = 3)
 diag(zm8) <- 0
 print(zm8)
@@ -159,9 +191,9 @@ print(zm8)
 # create problem with the zone matrix
 p8 <- p5 \%>\% add_boundary_penalties(500, zone = zm8)
 
-# create zone matrix which strongly favours clumping units
-# that are allocated to the same zone togeather. It will also prefer
-# clumping planning units in zones 1 and 2 togeather over having
+# create zone matrix which strongly favors clumping units
+# that are allocated to the same zone together. It will also prefer
+# clumping planning units in zones 1 and 2 together over having
 # these planning units with no neighbors in the solution
 zm9 <- diag(3)
 zm9[upper.tri(zm9)] <- c(0.3, 0, 0)
@@ -171,8 +203,8 @@ print(zm9)
 # create problem with the zone matrix
 p9 <- p5 \%>\% add_boundary_penalties(500, zone = zm9)
 
-# create zone matrix which favours clumping planning units in zones 1 and 2
-# togeather, and favors planning units in zone 3 being spread out
+# create zone matrix which favors clumping planning units in zones 1 and 2
+# together, and favors planning units in zone 3 being spread out
 # (i.e. negative clumping)
 zm10 <- diag(3)
 zm10[3, 3] <- -1

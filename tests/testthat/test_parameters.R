@@ -333,12 +333,12 @@ test_that("misc_parameter", {
   expect_error(x$set(mtcars))
 })
 
-test_that("matrix_parameter", {
+test_that("numeric_matrix_parameter", {
   # load data
   m <- matrix(runif(9), ncol = 3)
   colnames(m) <- letters[1:3]
   rownames(m) <- letters[1:3]
-  x <- matrix_parameter("m", m)
+  x <- numeric_matrix_parameter("m", m)
   # methods
   x$show()
   x$print()
@@ -351,6 +351,30 @@ test_that("matrix_parameter", {
   expect_false(x$validate(m2))
   x$set(m + 1)
   expect_equal(x$get(), m + 1)
+  expect_is(x$render(), "shiny.tag.list")
+  # errors
+  expect_error(x$set(as.data.frame(m)))
+  expect_error(x$set(m2))
+})
+
+test_that("binary_matrix_parameter", {
+  # load data
+  m <- matrix(round(runif(9)), ncol = 3)
+  colnames(m) <- letters[1:3]
+  rownames(m) <- letters[1:3]
+  x <- binary_matrix_parameter("m", m)
+  # methods
+  x$show()
+  x$print()
+  expect_is(x$id, "Id")
+  expect_equal(x$get(), m)
+  expect_false(x$validate(m[, -1]))
+  expect_false(x$validate(m[-1, ]))
+  m2 <- m
+  m2[] <- NA
+  expect_false(x$validate(m2))
+  x$set(abs(m - 1))
+  expect_equal(x$get(), abs(m +-1))
   expect_is(x$render(), "shiny.tag.list")
   # errors
   expect_error(x$set(as.data.frame(m)))

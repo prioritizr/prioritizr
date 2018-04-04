@@ -18,7 +18,9 @@ different solutions. Defaults to 10.}
   added to it.
 }
 \description{
-Generate a portfolio of solutions using Bender's cuts.
+Generate a portfolio of solutions for a conservation planning
+\code{\link{problem}} using Bender's cuts (discussed in Rodrigues
+\emph{et al.} 2000).
 }
 \details{
 This strategy for generating a portfolio of solutions involves
@@ -67,6 +69,11 @@ str(s2, max.level = 1)
 # plot first solution in portfolio
 plot(category_layer(s2[[1]]), main = "solution", axes = FALSE, box = FALSE)
 }
+}
+\references{
+Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
+efficiency, and accountability: adapting reserve selection algorithms to
+more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
 \code{\link{portfolios}}.

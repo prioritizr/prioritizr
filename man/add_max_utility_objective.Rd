@@ -21,16 +21,18 @@ a budget for each each management zone.}
   added to it.
 }
 \description{
-Set an objective to find the solution that secures as much of the features
-as possible without exceeding a budget. This type of objective does not
-require targets.
+Set the objective of a conservation planning \code{\link{problem}} to
+secure as much of the features as possible without exceeding a budget. This
+type of objective does not require targets. Note that this objective
+does not aim to maximize as much of each feature as possible and so often
+results in solutions that are heavily biased towards specific features.
 }
 \details{
 A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that \strong{all conservation
-  planning problems formulated in the prioritizr package require the addition
-  of objectives}. Failing to do so will return a default error message
-  when solving.
+  conservation planning problem. Please note that all conservation
+  planning problems formulated in the \emph{prioritizr} package require the
+  addition of objectives---failing to do so will return an error
+  message when attempting to solve problem.
 
   The maximum utility objective seeks to find the set of planning units that
   maximizes the overall level of representation across a suite of

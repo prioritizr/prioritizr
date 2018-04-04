@@ -41,7 +41,8 @@ locked out. See the Details section for more information.}
   added to it.
 }
 \description{
-Add constraints to ensure that certain planning units are not selected
+Add constraints to a conservation planning \code{\link{problem}} to ensure
+that specific planning units are not selected
 (or allocated to a specific zone) in the solution. For example, it may be
 useful to lock out planning units that have been degraded and are not longer
 suitable for conserving species. If specific planning units should be locked

@@ -33,10 +33,7 @@ Set targets expressed as the actual value of features in the study area
 that need to be represented in the prioritization. For instance,
 setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
-than 10. In problems associated with multiple zones, this function can be
-used to set targets that each pertain to a single feature and a single zone.
-To set targets which can be met through allocating different planning units
-to multiple zones, see the \code{\link{add_manual_targets}} function.
+than 10.
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
@@ -70,6 +67,21 @@ Targets are used to specify the minimum amount or proportion of a
     This argument must contain a field (column) name for each zone.}
 
   }
+
+  For problems associated with multiple management zones, this function can
+  be used to set targets that each pertain to a single feature and a single
+  zone. To set targets which can be met through allocating different
+  planning units to multiple zones, see the \code{\link{add_manual_targets}}
+  function. An example of a target that could be met through allocations
+  to multiple zones might be where each management zone is expected to
+  result in a different amount of a feature and the target requires that
+  the total amount of the feature in all zones must exceed a certain
+  threshold. In other words, the target does not require that any single
+  zone secure a specific amount of the feature, but the total amount held
+  in all zones must secure a specific amount. Thus the target could,
+  potentially, be met through allocating all planning units to any specific
+  management zone, or through allocating the planning units to different
+  combinations of management zones.
 }
 \examples{
 # set seed for reproducibility

@@ -1,10 +1,10 @@
-#' @include internal.R Penalty-proto.R
+#' @include internal.R Penalty-proto.R marxan_boundary_data_to_matrix.R
 NULL
 
 #' Add connectivity penalties
 #'
-#' Add penalties to a conservation problem to favour solutions that select
-#' planning units with high connectivity between them.
+#' Add penalties to a conservation planning \code{\link{problem}} to favor
+#' solutions that select planning units with high connectivity between them.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -14,7 +14,7 @@ NULL
 #'   \code{x} has a minimum set objective set using
 #'   \code{\link{add_min_set_objective}}). Higher \code{penalty} values
 #'   can be used to obtain solutions with a high degree of connectivity,
-#'   and smaller \code{penalty} values can be used to obtain solutions with a #'   small degree of connectivity. Note that negative \code{penaly} values can
+#'   and smaller \code{penalty} values can be used to obtain solutions with a #'   small degree of connectivity. Note that negative \code{penalty} values can
 #'   be used to obtain solutions that have very little connectivity.
 #'
 #' @param zones \code{matrix} or \code{Matrix} object describing the
@@ -27,13 +27,13 @@ NULL
 #'   values favor solutions with weak connectivity. The default argument to
 #'   \code{zones} is an identity matrix (i.e. a matrix with ones along the
 #'   matrix diagonal and zeros elsewhere), so that planning units are
-#'   only considered to be connected when they allocated to the same zone.
+#'   only considered to be connected when they are allocated to the same zone.
 #'   This argument is required when the argument to \code{data} is a
 #'   \code{matrix} or \code{Matrix} object. If the argument to \code{data} is
-#'   an \code{array} or \code{data.frame}, this argument
+#'   an \code{array} or \code{data.frame} with zone data, this argument
 #'   must explicitly be set to \code{NULL} otherwise an error will be thrown.
 #'
-#' @param data \code{data.frame}, \code{matrix}, \code{Matrix}, or
+#' @param data \code{matrix}, \code{Matrix}, \code{data.frame}, or
 #'   \code{array} object containing connectivity data. The connectivity values
 #'   correspond to the strength of connectivity between
 #'   different planning units. Thus connections between planning units
@@ -43,24 +43,22 @@ NULL
 #' @param ... not used.
 #'
 #' @details This function uses connectivity data to penalize solutions
-#'   that have low connectivity. It can accomodate symmetric and asymmetric
-#'   relationships between planning units. Although \emph{Marxan} penalizes
-#'   connections between planning units with high connectivity values, it is
-#'   important to note that this function favours connections between
-#'   planning units with high connectivity values. This function was inspired
-#'   by Beger \emph{et al.} (2010).
+#'   that have low connectivity. It can accommodate symmetric and asymmetric
+#'   relationships between planning units. Although \emph{Marxan}
+#'   \strong{penalizes} connections between planning units with high
+#'   connectivity values, it is important to note that this function
+#'   \strong{favors} connections between planning units with high connectivity
+#'   values. This function was inspired by Beger \emph{et al.} (2010).
 #'
-#'   The \code{data} can be specified in several different ways:
+#'   The argument to \code{data} can be specified in several different ways:
 #'
 #'   \describe{
 #'
 #'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
 #'     different planning units and the value of each cell represents the
-#'     strength of connectivity between two different planning units. Higher
-#'     values indicate that higher values in \code{data} are less dies Cells
-#'     that occur along the diagonal are treated as weights which indicate
-#'     that planning units with higher values along the diagonal of
-#'     \code{data} are less desireable in the solution.
+#'     strength of connectivity between two different planning units. Cells
+#'     that occur along the matrix diagonal are treated as weights which
+#'     indicate that planning units are more desirable in the solution.
 #'     The argument to \code{zones} can be used to control
 #'     the strength of connectivity between planning units in different zones.
 #'     The default argument for \code{zones} is to treat planning units
@@ -68,16 +66,19 @@ NULL
 #'
 #'   \item{\code{data.frame}}{containing the fields (columns)
 #'     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-#'     denotes the connectivity between two planning units (following the
-#'     \emph{Marxan} format). The data can be used to denote symmetric or
+#'     denotes the connectivity between two planning units following the
+#'     \emph{Marxan} format. The data can be used to denote symmetric or
 #'     asymmetric relationships between planning units. By default,
-#'     input data is assumed to be symmetric (e.g. if connectivity data
-#'     is present for planning units 2 and 3, then the same amount
-#'     of connectivity is expected for planning units 3 and 2). If the
-#'     argument to \code{x} contains multiple zones, then \code{"zone1"}
-#'     and \code{"zone2"} columns are required to indicate the names
-#'     of zones to which the planning unit allocations and connectivity
-#'     values pertain.}
+#'     input data is assumed to be symmetric unless asymmetric data is
+#'     also included (e.g. if data is present for planning units 2 and 3, then
+#'     the same amount of connectivity is expected for planning units 3 and 2,
+#'     unless connectivity data is also provided for planning units 3 and 2).
+#'     If the argument to \code{x} contains multiple zones, then the columns
+#'     \code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+#'     specify the connectivity values between planning units when they are
+#'     allocated to specific zones. If the columns \code{"zone1"} and
+#'     \code{"zone2"} are present, then the argument to \code{zones} must be
+#'     \code{NULL}.}
 #'
 #'   \item{\code{array}}{containing four-dimensions where cell values
 #'     indicate the strength of connectivity between planning units
@@ -110,6 +111,7 @@ NULL
 #'
 #'  Otherwise, if the argument to \code{data} is supplied as a
 #'  \code{data.frame} or \code{array}, then the penalties are calculated as:
+#'
 #'  \deqn{
 #'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
 #'  \times X_{jy} \times D_{ijzy})}{
@@ -172,8 +174,8 @@ NULL
 #' # between adjacent two planning units corresponds to their combined
 #' # value in a field in the planning unit attribute data
 #' # for example, this field could describe the extent of native vegetation in
-#' # each planning unit and we could use connectivity penalties to identfy
-#' # solutions that cluster planning units togeather that both contain large
+#' # each planning unit and we could use connectivity penalties to identify
+#' # solutions that cluster planning units together that both contain large
 #' # amounts of native vegetation
 #' c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
 #'
@@ -212,7 +214,7 @@ NULL
 #' # standardize matrix values to lay between zero and one
 #' ac_matrix[] <- rescale(ac_matrix[])
 #'
-#' # visualize assymetric connectivity matrix
+#' # visualize asymmetric connectivity matrix
 #' image(ac_matrix)
 #'
 #' # create penalties
@@ -425,10 +427,10 @@ methods::setMethod("add_connectivity_penalties",
       name = "Connectivity penalties",
       data = list(data = data),
       parameters = parameters(numeric_parameter("penalty", penalty),
-                              matrix_parameter("zones", zones,
-                                               lower_limit = -1,
-                                               upper_limit = 1,
-                                               symmetric = FALSE)),
+                              numeric_matrix_parameter("zones", zones,
+                                                      lower_limit = -1,
+                                                      upper_limit = 1,
+                                                      symmetric = FALSE)),
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
                                 inherits(y, "ConservationProblem"))
@@ -464,9 +466,10 @@ methods::setMethod("add_connectivity_penalties",
     # assert valid arguments
     assertthat::assert_that(
       inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
-      is.finite(penalty), is.null(zones), is.data.frame(data))
+      is.finite(penalty), is.data.frame(data))
   # add penalties to problem
-  add_connectivity_penalties(x, penalty, zones, dataframe_to_array(data))
+  add_connectivity_penalties(x, penalty, zones,
+                             marxan_boundary_data_to_matrix(x, data))
 })
 
 #' @name add_connectivity_penalties

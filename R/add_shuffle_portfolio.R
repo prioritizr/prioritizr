@@ -3,7 +3,9 @@ NULL
 
 #' Add a shuffle portfolio
 #'
-#' Generate a portfolio of solutions by randomly reordering the data prior to #' attempting to solve the problem.
+#' Generate a portfolio of solutions for a conservation planning
+#' \code{\link{problem}} by randomly reordering the data prior to
+#' solving the problem ().
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

@@ -44,7 +44,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #' @return \code{\link[Matrix]{dgCMatrix-class}} object.
 #'
 #' @noRd
-triplet_dataframe_to_matrix <- function(x, forceSymmetric = FALSE, ...) {
+triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
   assertthat::assert_that(inherits(x, "data.frame"), isTRUE(ncol(x) == 3),
     isTRUE(all(x[[1]] == round(x[[1]]))), isTRUE(all(x[[2]] == round(x[[2]]))))
   # create sparse amtrix
@@ -264,94 +264,4 @@ assertthat::on_failure(no_extra_arguments) <- function(call, env) {
     msg <- paste0("unused argument (", msg, ")")
   }
   msg
-}
-
-
-#' Convert a data.frame to an array
-#'
-#' Convert a \code{data.frame} that follows \emph{Marxan} formatting to an
-#' \code{array} for adding constraints or penalties to a
-#' \code{\link{ConservationProblem-class}} object.
-#'
-#' @param x \code{data.frame} object.
-#'
-#' @param y \code{\link{ConservationProblem-class}} object.
-#'
-#' @return \code{array}
-#'
-#' @noRd
-dataframe_to_array <- function(x, y) {
-    assertthat::assert_that(
-      inherits(y, "ConservationProblem"),
-      nrow(x) > 0,
-      assertthat::has_name(x, "id1"),
-      assertthat::has_name(x, "id2"),
-      assertthat::has_name(x, "boundary"),
-      assertthat::noNA(x$id1),
-      assertthat::noNA(x$id2),
-      assertthat::noNA(x$boundary),
-      is.numeric(x$id1),
-      is.numeric(x$id2), is.numeric(x$boundary),
-      all(x$id1 == round(x$id1)),
-      all(x$id2 == round(x$id2)))
-    if (assertthat::has_name(x, "zone1") ||
-        assertthat::has_name(x, "zone2") ||
-        y$number_of_zones() > 1) {
-        assertthat::assert_that(
-          assertthat::has_name(x, "zone1"),
-          assertthat::has_name(x, "zone2"),
-          assertthat::noNA(x$zone1),
-          assertthat::noNA(x$zone1),
-          is.character(x$zone1) ||
-            is.factor(x$zone1),
-          is.character(x$zone2) ||
-            is.factor(x$zone2),
-          all(as.character(x$zone1) %in% y$zone_names()),
-          all(as.character(x$zone2 %in% y$zone_names())))
-  }
-  # add zone fields if missing
-  if (!assertthat::has_name(x, "zone1"))
-    x$zone1 <- y$zone_names()
-  if (!assertthat::has_name(x, "zone2"))
-    x$zone2 <- y$zone_names()
-  # convert zone names to indices
-  zone1_index <- match(x$zone1, y$zone_names())
-  zone2_index <- match(x$zone2, y$zone_names())
-  # if planing unit data is a data.frame then standardize ids
-  if (inherits(y$data$cost, "data.frame")) {
-    x$id1 <- match(x$id1, y$data$cost$id)
-    x$id2 <- match(x$id2, y$data$cost$id)
-    assertthat::assert_that(assertthat::noNA(x$id1),
-      msg = paste("the field data$id1 in argument to",
-                  "data contains values for planning units",
-                  "not present in the planning unit data"))
-    assertthat::assert_that(assertthat::noNA(x$id2),
-      msg = paste("the field data$id2 in argument to",
-                  "data contains values for planning units",
-                  "not present in the planning unit data"))
-  } else {
-    assertthat::assert_that(
-      min(x$id1) > 0,
-      min(x$id2) > 0,
-      max(x$id1) <= y$number_of_total_units(),
-      max(x$id2) <= y$number_of_total_units())
-  }
-  # create array with data
-  connectivity_array <- array(0, dim = c(y$number_of_total_units(),
-                                         y$number_of_total_units(),
-                                         y$number_of_zones(),
-                                         y$number_of_zones()))
-  indices <- matrix(c(x$id1, x$id2, zone1_index, zone2_index), ncol = 4)
-  connectivity_array[indices] <- x$boundary
-  # add data for other diagonal if missing
-  pos <- x$id2 < x$id1
-  x[pos, c("id1", "id2")] <- x[pos, c("id2", "id1")]
-  pos <- zone2_index < zone1_index
-  x[pos, c("zone1", "zone2")] <- x[pos, c("zone2", "zone1")]
-  if (anyDuplicated(
-        paste(x$id1, x$id2,
-              x$zone1, x$zone2)) == 0) {
-    connectivity_array[indices[, c(2, 1, 4, 3)]] <- x$boundary
-  }
-  return(connectivity_array)
 }

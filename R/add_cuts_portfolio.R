@@ -3,7 +3,9 @@ NULL
 
 #' Add Bender's cuts portfolio
 #'
-#' Generate a portfolio of solutions using Bender's cuts.
+#' Generate a portfolio of solutions for a conservation planning
+#' \code{\link{problem}} using Bender's cuts (discussed in Rodrigues
+#' \emph{et al.} 2000).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -20,6 +22,11 @@ NULL
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the portfolio
 #'   added to it.
+#'
+#' @references
+#' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
+#' efficiency, and accountability: adapting reserve selection algorithms to
+#' more complex conservation problems. \emph{Ecography}, 23: 565--574.
 #'
 #' @examples
 #' # set seed for reproducibility

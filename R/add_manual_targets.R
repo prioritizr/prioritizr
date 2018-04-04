@@ -7,15 +7,16 @@ NULL
 
 #' Add manual targets
 #'
-#' Set targets for a for a conservation planning \code{\link{problem}}.
-#' This function can be used to customize all aspects of a target. For most
-#' cases, targets can be specified using the \code{link{add_absolute_targets}}
-#' and \code{\link{add_relative_targets}} functions. However, this function
-#' can be used to (i) mix absolute and relative targets for different
-#' features and zones, (ii) set targets that pertain to the allocations of
-#' planning units in multiple zones, and (iii) set targets that require
-#' different senses (e.g. targets which specify the solution should not exceed
-#' a certain quantity using \code{"<="} values).
+#' Set targets for a conservation planning \code{\link{problem}} by manually
+#' specifying all the required information for each target. This function
+#' is useful because it can be used to customize all aspects of a target. For
+#' most cases, targets can be specified using the
+#' \code{link{add_absolute_targets}} and \code{\link{add_relative_targets}}
+#' functions. However, this function can be used to (i) mix absolute and
+#' relative targets for different features and zones, (ii) set targets that
+#' pertain to the allocations of planning units in multiple zones, and (iii)
+#' set targets that require different senses (e.g. targets which specify the
+#' solution should not exceed a certain quantity using \code{"<="} values).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

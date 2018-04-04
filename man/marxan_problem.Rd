@@ -45,13 +45,13 @@ locked in. See the Details section for more information.}
 locked out. See the Details section for more information.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
-of selecting planning units that are spatially clumped togeather compared
+of selecting planning units that are spatially clumped together compared
 to the main problem objective (e.g. solution cost when the argument to
 \code{x} has a minimum set objective set using
 \code{\link{add_min_set_objective}}). Higher \code{penalty} values
 will return solutions with a higher degree of spatial clumping,
 and smaller \code{penalty} values will return solutions with a smaller
-degree of clumping. Note that negative \code{penaly} values will
+degree of clumping. Note that negative \code{penalty} values will
 return solutions that are more spread out. This parameter is equivalent to
 the
 \href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}

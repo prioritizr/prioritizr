@@ -92,7 +92,7 @@ sim_locked_out_raster
 sim_locked_zones_stack
 }
 \description{
-Data for making spatial prioritizations using simulated data.
+Simulated data for making spatial prioritizations.
 }
 \details{
 \describe{

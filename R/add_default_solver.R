@@ -3,14 +3,17 @@ NULL
 
 #' Default solver
 #'
-#' Finds the best solver currently installed on the system and uses it.
-#' In decreasing order of preference: Gurobi (\code{\link{add_gurobi_solver}}),
-#' Rsymphony (\code{\link{add_rsymphony_solver}}), then lpsymphony
+#' Identify the best solver currently installed on the system and specify that
+#' it should be used to solve a conservation planning \code{\link{problem}}.
+#' Ranked from best to worst, the available solvers that can be used are:
+#' \emph{Gurobi}
+#' (\code{\link{add_gurobi_solver}}),
+#' \emph{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \emph{lpsymphony}
 #' (\code{\link{add_lpsymphony_solver}}).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param ... arguments passed to the default solver.
+#' @param ... arguments passed to the solver.
 #'
 #' @seealso \code{\link{solvers}}.
 #'

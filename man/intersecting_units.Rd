@@ -34,8 +34,8 @@
   \code{y}.
 }
 \description{
-Determine the units in a given spatial data object that intersect
-with any of the units in another spatial data object.
+Find which of the units in a spatial data object intersect
+with the units in another spatial data object.
 }
 \details{
 The \code{\link{set_number_of_threads}} can be used to distribute

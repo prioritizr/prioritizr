@@ -5,32 +5,30 @@
 \title{Targets}
 \description{
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected.
+distribution that needs to be protected in the solution.
 }
 \details{
-Please note that failing to specify targets will return a default
-error message when solving.The exception is the maximum cover problem
-(see \code{\link{add_max_cover_objective}}), which maximizes all features
-in the solution and therefore does not require targets.
+\strong{Please note that most objectives require targets, and attempting
+to solve a problem that requires targets will throw an error.}
 
-The following list contains the targets can be added to a
-conservation planning \code{\link{problem}}.
+The following functions can be used to specify targets for a
+  conservation planning \code{\link{problem}}:
 
-\describe{
+  \describe{
 
-\item{\code{\link{add_relative_targets}}}{Set targets as a proportion
-  (between 0 and 1) of the total amount of each feature in the
-  the study area.}
+  \item{\code{\link{add_relative_targets}}}{Set targets as a proportion
+    (between 0 and 1) of the total amount of each feature in the
+    the study area.}
 
-\item{\code{\link{add_absolute_targets}}}{Set targets that denote the
-  minimum amount of each feature required in the prioritization.}
+  \item{\code{\link{add_absolute_targets}}}{Set targets that denote the
+    minimum amount of each feature required in the prioritization.}
 
-\item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
-  (between 0 and 1) that are calculated using log-linear interpolation.}
+  \item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
+    (between 0 and 1) that are calculated using log-linear interpolation.}
 
-\item{\code{\link{add_manual_targets}}}{Set targets manually.}
+  \item{\code{\link{add_manual_targets}}}{Set targets manually.}
 
-}
+  }
 }
 \examples{
 # load data

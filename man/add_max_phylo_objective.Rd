@@ -24,9 +24,10 @@ for the conservation features.}
   added to it.
 }
 \description{
-Set an objective to find the solution that obtains the most
-representative sample of a phylogenetic tree possible given a budget.
-This objective is similar to \code{\link{add_max_features_objective}} except
+Set the objective of a conservation planning \code{\link{problem}} to
+maximize the phylogenetic diversity of the features represented in the
+solution subject to a budget. This objective is similar to
+\code{\link{add_max_features_objective}} except
 that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues \emph{et al.}
@@ -34,10 +35,10 @@ This function was inspired by Faith (1992) and Rodrigues \emph{et al.}
 }
 \details{
 A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that \strong{all conservation
-  planning problems formulated in the prioritizr package require the addition
-  of both objectives and targets}. Failing to do so will return a default
-  error message when solving.
+  conservation planning problem. Please note that all conservation
+  planning problems formulated in the \emph{prioritizr} package require the
+  addition of objectives---failing to do so will return an error
+  message when attempting to solve problem.
 
   The maximum phylogenetic representation objective finds the set of
   planning units that meets representation targets for a phylogenetic tree

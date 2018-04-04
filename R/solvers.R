@@ -3,45 +3,42 @@ NULL
 
 #' Problem solvers
 #'
-#' Specify the software and configurations used to solve a conservation planning
-#' problem. Below is a list of different solvers that can be added to a
-#' \code{\link{ConservationProblem-class}} object. By default the best available
-#' software currently installed on the system will be used. Note that at least
-#' one of the \emph{gurobi}, \emph{Rsymphony}, or \emph{lpsymphony} packages
-#' must be installed prior to solving a problem. The available solvers are
-#' listed below.
+#' Specify the software and configuration used to solve a conservation planning
+#' \code{\link{problem}}. By default, the best available
+#' software currently installed on the system will be used.
 #'
-#' \describe{
+#' @details The following solvers can be used to find solutions for a
+#'   conservation planning \code{\link{problem}}:
 #'
-#' \item{\code{add_default_solver}}{This solver uses the best software
-#'    currently installed on the system.}
+#'   \describe{
 #'
-#' \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{Gurobi} is
-#'   a state-of-the-art commercial optimization software with an R package
-#'   interface. It is by far the fastest of the solvers available in this
-#'   package, however, it is also the only solver that is not freely
-#'   available. That said, licenses are available to academics at no cost. The
-#'   \emph{gurobi} package is distributed with the Gurobi software suite.
-#'   This solver uses the \emph{gurobi} package to solve problems.}
+#'   \item{\code{add_default_solver}}{This solver uses the best software
+#'     currently installed on the system.}
 #'
-#' \item{\code{\link{add_rsymphony_solver}}}{
-#'   \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-#'   open-source
-#'   integer programming solver that is part of the Computational
-#'   Infrastructure for Operations Research (COIN-OR) project, an initiative
-#'   to promote development of open-source tools for operations research (a
-#'   field that includes linear programming). The \emph{Rsymphony} package
-#'   provides an interface to COIN-OR and is available on CRAN. This solver
-#'   uses the \emph{Rsymphony} package to solve problems.}
+#'   \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{Gurobi} is
+#'     a state-of-the-art commercial optimization software with an R package
+#'     interface. It is by far the fastest of the solvers available in this
+#'     package, however, it is also the only solver that is not freely
+#'     available. That said, licenses are available to academics at no cost. The
+#'     \emph{gurobi} package is distributed with the Gurobi software suite.
+#'     This solver uses the \emph{gurobi} package to solve problems.}
 #'
-#' \item{\code{\link{add_lpsymphony_solver}}}{The \emph{lpsymphony} package
-#'   provides a different interface to the COIN-OR software suite. Unlike the
-#'   \emph{Rsymhpony} package, the \emph{lpsymphony} package is distributed
-#'   through
-#'   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-#'   On Windows and Mac, \emph{lpsymphony} may be easier to install.
-#'   This solver uses the \emph{lpsymphony} package
-#'   to solve.}
+#'   \item{\code{\link{add_rsymphony_solver}}}{
+#'     \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+#'     open-source integer programming solver that is part of the Computational
+#'     Infrastructure for Operations Research (COIN-OR) project, an initiative
+#'     to promote development of open-source tools for operations research (a
+#'     field that includes linear programming). The \emph{Rsymphony} package
+#'     provides an interface to COIN-OR and is available on CRAN. This solver
+#'     uses the \emph{Rsymphony} package to solve problems.}
+#'
+#'   \item{\code{\link{add_lpsymphony_solver}}}{The \emph{lpsymphony} package
+#'     provides a different interface to the COIN-OR software suite. Unlike the
+#'     \emph{Rsymhpony} package, the \emph{lpsymphony} package is distributed
+#'     through
+#'     \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+#'     The \emph{lpsymphony} package may be easier to install on Windows or
+#'     Max OSX systems than the \emph{Rsymphony} package.}
 #'
 #' }
 #'

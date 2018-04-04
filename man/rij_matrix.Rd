@@ -28,9 +28,9 @@ object.}
 \code{\link{Matrix}{dgCMatrix-class}} object.
 }
 \description{
-Generate a feature by planning unit (aka \emph{rij} matrix) using spatial
-data sets. The \emph{rij} contains data on the amount of each feature in
-each planning unit.
+Generate a matrix showing the amount of each feature in each planning
+unit (also known as an \emph{rij} matrix).Each row corresponds
+to a different feature and each column corresponds to a different feature.
 }
 \details{
 The sparse matrix represents the spatial intersection between the

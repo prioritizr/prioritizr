@@ -47,9 +47,9 @@ optimization problems?}
   to it.
 }
 \description{
-Specify the use of a Gurobi algorithm to solve a
-\code{\link{ConservationProblem-class}} object. This function requires the
-\emph{gurobi} package.
+Specify that the \emph{Gurobi} software should be used to solve a
+conservation planning problem. This function can also be used to
+customize the behavior of the solver. It requires the \emph{gurobi} package.
 }
 \details{
 \href{http://gurobi.com}{Gurobi} is a

@@ -3,8 +3,9 @@ NULL
 
 #' Boundary matrix
 #'
-#' Generate a boundary matrix describing the shared and exposed edges of
-#' planning units.
+#' Generate a matrix describing the amount of shared boundary length
+#' between different planning units, and the amount of exposed edge length each
+#' planning unit exhibits.
 #'
 #' @param x \code{\link[raster]{Raster-class}},
 #'   \code{\link[sp]{SpatialLines-class}}, or
@@ -33,19 +34,17 @@ NULL
 #' @rdname boundary_matrix
 #'
 #' @examples
-#' ## load data
+#' # load data
 #' data(sim_pu_raster, sim_pu_polygons)
 #'
-#' ## create boundary matrix using raster data
-#' # crop raster to 9 cells
+#' # subset data to reduce processing time
 #' r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
-#' # make boundary matrix
+#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+#'
+#' # create boundary matrix using raster data
 #' bm_raster <- boundary_matrix(r)
 #'
-#' ## create boundary matrix using polygon data
-#' # subset 9 polygons
-#' ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-#' # make boundary matrix
+#' # create boundary matrix using polygon data
 #' bm_ply <- boundary_matrix(ply)
 #'
 #' # plot raster and connected matrix

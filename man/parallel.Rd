@@ -26,14 +26,12 @@ get_number_of_threads()
 }
 }
 \description{
-Set and get the number of threads used for processing data. Note
-that this does not influence the number of threads used when solving a
-conservation problem and this must be set when adding the
-solver to the problem.
+Set and get the number of threads used for processing data.
 }
 \details{
 To stop processing data in parallel, set the number of
-  threads to one.
+  threads to one. Note that neither of these functions influence the number
+  of threads used when solving a conservation planning \code{\link{problem}}.
 }
 \examples{
 # set number of threads to 2

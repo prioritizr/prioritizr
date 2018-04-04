@@ -1,10 +1,9 @@
 #' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
 NULL
 
-#' Solve a problem
+#' Solve
 #'
-#' Solve a \code{\link{ConservationProblem-class}} or an
-#' \code{\link{OptimizationProblem-class}} object.
+#' Solve a conservation planning \code{\link{problem}}.
 #'
 #' @param a \code{\link{ConservationProblem-class}} or an
 #'   \code{\link{OptimizationProblem-class}} object.
@@ -58,10 +57,10 @@ NULL
 #'
 #'   }
 #'
-#' Since this function returns an object that specifies how much of each
-#' planning unit is allocated to each management zone, it may be useful to use
-#' the \code{\link{category_layer}} function to reformat the output
-#' for problems containing multiple zones.
+#'   Since this function returns an object that specifies how much of each
+#'   planning unit is allocated to each management zone, it may be useful to use
+#'   the \code{\link{category_layer}} function to reformat the output
+#'   for problems containing multiple zones.
 #'
 #' @return A \code{numeric}, \code{matrix},
 #'   \code{\link[raster]{RasterLayer-class}}, or

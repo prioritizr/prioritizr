@@ -4,11 +4,7 @@ NULL
 #' Add relative targets
 #'
 #' Set targets as a proportion (between 0 and 1) of the maximum level of
-#' representation of features in the study area. Note
-#' that the \code{\link{add_manual_targets}} function must be used to
-#' specify targets that can be met through allocating planning units
-#' to multiple zones. In other words, this function can be used to specify
-#' targets that each pertain to a single feature and a single zone.
+#' representation of features in the study area.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

@@ -3,17 +3,18 @@ NULL
 
 #' Add minimum set objective
 #'
-#' Set an objective to find the solution that fulfills all the targets and
-#' constraints for the smallest cost. This objective is similar to that used in
+#' Set the objective of a conservation planning \code{\link{problem}} to
+#' minimize the cost of the solution whilst ensuring that all targets are met.
+#' This objective is similar to that used in
 #' \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @details A problem objective is used to specify the overall goal of the
-#'   conservation planning problem. Please note that \strong{all conservation
-#'   planning problems formulated in the prioritizr package require the addition
-#'   of both objectives and targets}. Failing to do so will return a default
-#'   error message when solving.
+#'   conservation planning problem. Please note that all conservation
+#'   planning problems formulated in the \emph{prioritizr} package require the
+#'   addition of objectives---failing to do so will return an error
+#'   message when attempting to solve problem.
 #'
 #'   In the context of systematic reserve design, the minimum set objective
 #'   seeks to find the set of planning units that minimizes the overall cost of

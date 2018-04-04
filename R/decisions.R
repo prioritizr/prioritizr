@@ -3,15 +3,19 @@ NULL
 
 #' Specify the type of decisions
 #'
-#' Conservation planning problems involve making decisions on planning units.
-#' These decisions are then associated with actions (e.g. turning a planning
-#' unit into a protected area). If no decision is explicitly added to a problem,
-#' then binary decisions will be used by default.
+#' Conservation planning problems involve making decisions on
+#' how different planning units will be managed. These decisions might involve
+#' turning an entire planning unit into a protected area, turning part
+#' of a planning unit into a protected area, or allocating a planning
+#' unit to a specific management zone. If no decision is explicitly added to a
+#' \code{\link{problem}}, then binary decisions will be used by default.
 #'
-#' @details Only a single decision should be added to a
-#'   \code{ConservationProblem} object. \strong{If multiple decisions are added
-#'   to a problem object, then the last one to be added will be used.} Below is
-#'   a list of decisions that can be added to a conservation planning problem.
+#' @details Only a single type of decision can be added to a conservation
+#'   planning \code{\link{problem}}.\strong{If multiple decisions are added
+#'   to problem, then the last one to be added will be used.}
+#'
+#'   The following decisions can be added to a conservation planning
+#'   \code{\link{problem}}:
 #'
 #'   \describe{
 #'
@@ -25,7 +29,7 @@ NULL
 #'   \item{\code{\link{add_proportion_decisions}}}{Add a proportion decision to
 #'     a conservation planning \code{problem}. This is a relaxed decision
 #'     where a part of a planning unit can be prioritized, as opposed to the
-#'     default of the entire planning unit. Typically, this this decision
+#'     default of the entire planning unit. Typically, this decision
 #'     has the assumed action of buying a fraction of a planning unit to
 #'     include in a protected area network.}
 #'
@@ -37,7 +41,7 @@ NULL
 #'     bound can be specified to ensure that at most only a fraction
 #'     (e.g. 80 \%) of a planning unit can be preserved. This type of
 #'     decision may be useful when it is not practical to conserve the
-#'     entire area encompassed by a single planning unit.}
+#'     entire area encompassed by any single planning unit.}
 #'
 #'   }
 #'

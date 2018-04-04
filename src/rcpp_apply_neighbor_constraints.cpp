@@ -26,12 +26,12 @@ bool rcpp_apply_neighbor_constraints(SEXP x,
 
   // convert the list of list of sparseMatrix objects to a Rcpp classes
   std::vector<std::vector<arma::sp_mat>> data;
-  import_connectivity_matrix_list(connected_data, data, false);
+  import_connectivity_matrix_list(connected_data, data, true);
 
   // calculate total number of non-zero elements in data
   std::size_t data_nonzero = 0;
   for (std::size_t z1 = 0; z1 < ptr->_number_of_zones; ++z1)
-    for (std::size_t z2 = z1; z2 < ptr->_number_of_zones; ++z2)
+    for (std::size_t z2 = 0; z2 < ptr->_number_of_zones; ++z2)
       data_nonzero += data[z1][z2].n_nonzero;
 
   // extract data from the connected matrix
@@ -42,34 +42,18 @@ bool rcpp_apply_neighbor_constraints(SEXP x,
   std::size_t curr_i, curr_j;
   double curr_value;
   for (std::size_t z1 = 0; z1 < ptr->_number_of_zones; ++z1) {
-    for (std::size_t z2 = z1; z2 < ptr->_number_of_zones; ++z2) {
+    for (std::size_t z2 = 0; z2 < ptr->_number_of_zones; ++z2) {
       for (arma::sp_mat::const_iterator itr = data[z1][z2].begin();
            itr != data[z1][z2].end(); ++itr) {
         // extract cell data
         curr_i = itr.row();
         curr_j = itr.col();
         curr_value = *itr;
-        // if the number indicating cell connections is greater than a very
+        // if the number indicating cell connection is greater than a very
         // small positive number then include it
-        if (curr_value > 1.0e-15) {
-          if (curr_i != curr_j) {
-            if (z1 == z2) {
-              pu_i.push_back((z1 * ptr->_number_of_planning_units) + curr_i);
-              pu_j.push_back((z2 * ptr->_number_of_planning_units) + curr_j);
-              pu_i.push_back((z1 * ptr->_number_of_planning_units) + curr_j);
-              pu_j.push_back((z2 * ptr->_number_of_planning_units) + curr_i);
-            } else {
-              pu_i.push_back((z1 * ptr->_number_of_planning_units) + curr_i);
-              pu_j.push_back((z2 * ptr->_number_of_planning_units) + curr_j);
-              pu_i.push_back((z1 * ptr->_number_of_planning_units) + curr_j);
-              pu_j.push_back((z2 * ptr->_number_of_planning_units) + curr_i);
-
-              pu_i.push_back((z2 * ptr->_number_of_planning_units) + curr_i);
-              pu_j.push_back((z1 * ptr->_number_of_planning_units) + curr_j);
-              pu_i.push_back((z2 * ptr->_number_of_planning_units) + curr_j);
-              pu_j.push_back((z1 * ptr->_number_of_planning_units) + curr_i);
-            }
-          }
+        if ((curr_value > 1.0e-15) && (curr_i != curr_j)) {
+          pu_i.push_back((z1 * ptr->_number_of_planning_units) + curr_i);
+          pu_j.push_back((z2 * ptr->_number_of_planning_units) + curr_j);
         }
       }
     }
@@ -77,13 +61,13 @@ bool rcpp_apply_neighbor_constraints(SEXP x,
 
   // add constraints to specify that each planning unit should have
   // k number of neighbors
-  k = k * -1;
+  Rcpp::IntegerVector k2 = k * -1;
   for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z) {
     for (std::size_t i = 0; i < (ptr->_number_of_planning_units); ++i) {
       ptr->_A_i.push_back(A_original_nrow +
                           (z * ptr->_number_of_planning_units) + i);
       ptr->_A_j.push_back((z * ptr->_number_of_planning_units) + i);
-      ptr->_A_x.push_back(k[z]);
+      ptr->_A_x.push_back(k2[z]);
       ptr->_sense.push_back(">=");
       ptr->_rhs.push_back(0);
       ptr->_row_ids.push_back("n");

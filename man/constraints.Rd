@@ -4,24 +4,25 @@
 \alias{constraints}
 \title{Conservation problem constraints}
 \description{
-A constraint can be added to a conservation planning problem as a way to
-ensure that solutions exhibit a specific characteristic.
+A constraint can be added to a conservation planning \code{\link{problem}}
+to ensure that solutions exhibit a specific characteristic.
 }
 \details{
-A constraint can be used to ensure that solutions exhibit a specific
-  characteristic. Constraints can be used to lock in or lock out certain
-  planning units from the solution, such as protected areas or degraded
-  land. Additionally, similar to the \code{\link{penalties}} functions,
+Constraints can be used to ensure that solutions exhibit
+  a range of different characteristics. For instance, they can be
+  used to lock in or lock out certain planning units from the solution, such
+  as protected areas or degraded land (respectively).
+  Additionally, similar to the \code{\link{penalties}} functions,
   some of the constraint functions can be used to increase connectivity in a
   solution. The key difference between a penalty and a constraint, however,
   is that constraints work by invalidating solutions that do not exhibit
-  a specific characteristic, whereas penaltty functions work by than
+  a specific characteristic, whereas penalty functions work by than
   penalizing solutions which do not meet a specific characteristic. Thus
   constraints do not affect the objective function. The following constraints
   are available.
 
-  Below are the constraints that can be added to a \code{ConservationProblem}
-  object.
+  The following constraints can be added to a conservation planning
+  \code{\link{problem}}:
 
   \describe{
 
@@ -30,19 +31,19 @@ A constraint can be used to ensure that solutions exhibit a specific
     planning units are spatially connected to each other.}
 
   \item{\code{\link{add_corridor_constraints}}}{Adds constraints to ensure
-    that all planning units used to represent features form a contiguous
-    reserve.}
+    that features are represented in contiguous reserves.}
 
   \item{\code{\link{add_locked_in_constraints}}}{Add constraints to ensure
-    that certain planning units are present in the solution.}
+    that certain planning units are selected in the solution.}
 
   \item{\code{\link{add_locked_out_constraints}}}{Add constraints to ensure
-    that certain planning units are absent from the solution.}
+    that certain planning units are not selected in the solution.}
 
-  \item{\code{\link{add_neighbor_constraints}}}{Add constraints to a
-    conservation problem to ensure that all selected planning units have at
-    least a certain number of neighbors.}
-}
+  \item{\code{\link{add_neighbor_constraints}}}{Add constraints to
+    ensure that all selected planning units have at least a certain number
+    of neighbors.}
+
+ }
 }
 \examples{
 # # not implemented

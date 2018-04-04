@@ -380,7 +380,7 @@ misc_parameter <- function(name, value, validator, widget) {
     class = class(value), widget = list(widget))
 }
 
-#' Matrix parameter
+#' Matrix parameters
 #'
 #' Create a parameter that represents a matrix object.
 #'
@@ -407,8 +407,8 @@ misc_parameter <- function(name, value, validator, widget) {
 #' colnames(m) <- letters[1:3]
 #' rownames(m) <- letters[1:3]
 #'
-#' # create matrix parameter
-#' p1 <- matrix_parameter("m", m)
+#' # create a numeric matrix parameter
+#' p1 <- numeric_matrix_parameter("m", m)
 #' print(p1) # print it
 #' p1$get() # get value
 #' p1$id # get id
@@ -416,10 +416,28 @@ misc_parameter <- function(name, value, validator, widget) {
 #' p1$set(m + 1) # set parameter to new values
 #' p1$print() # print it again
 #'
+#' # create a binary matrix parameter
+#' m <- matrix(round(runif(9)), ncol = 3)
+#' colnames(m) <- letters[1:3]
+#' rownames(m) <- letters[1:3]
+#'
+#' # create a binary matrix parameter
+#' p2 <- binary_matrix_parameter("m", m)
+#' print(p2) # print it
+#' p2$get() # get value
+#' p2$id # get id
+#' p2$validate(m[, -1]) # check if parameter can be updated
+#' p2$set(m + 1) # set parameter to new values
+#' p2$print() # print it again
+#' @name matrix_parameters
+NULL
+
+#' @rdname matrix_parameters
 #' @export
-matrix_parameter <- function(name, value, lower_limit = .Machine$double.xmin,
-                             upper_limit = .Machine$double.xmax,
-                             symmetric = FALSE) {
+numeric_matrix_parameter <- function(name, value,
+                                     lower_limit = .Machine$double.xmin,
+                                     upper_limit = .Machine$double.xmax,
+                                     symmetric = FALSE) {
   assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
     assertthat::is.scalar(lower_limit), assertthat::is.scalar(upper_limit),
     assertthat::is.flag(symmetric), all(is.finite(value)),
@@ -427,9 +445,23 @@ matrix_parameter <- function(name, value, lower_limit = .Machine$double.xmin,
   rfun <- function(id, m) utils::getFromNamespace("rHandsontableOutput",
     "rhandsontable")(id)
   vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
-     ncol(m) == ncol(value), nrow(m) == nrow(value),
+    ncol(m) == ncol(value), nrow(m) == nrow(value),
     all(value <= upper_limit), all(value >= lower_limit),
     ifelse(symmetric, isSymmetric(m), TRUE))
+  misc_parameter(name, value, vfun, rfun)
+}
+
+#' @rdname matrix_parameters
+#' @export
+binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
+  assertthat::assert_that(assertthat::is.string(name), is.matrix(value),
+    assertthat::is.flag(symmetric), all(is.finite(value)),
+    all(value %in% c(0, 1)))
+  rfun <- function(id, m) utils::getFromNamespace("rHandsontableOutput",
+    "rhandsontable")(id)
+  vfun <- function(m) assertthat::see_if(is.matrix(m), all(is.finite(m)),
+     ncol(m) == ncol(value), nrow(m) == nrow(value), all(value %in% c(0, 1)),
+     ifelse(symmetric, isSymmetric(m), TRUE))
   misc_parameter(name, value, vfun, rfun)
 }
 

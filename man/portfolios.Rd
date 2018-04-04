@@ -12,18 +12,21 @@ near-optimal solutions can be a useful.
 }
 \details{
 All methods for generating portfolios will return solutions that
-are within the specified optimality gap. Below are the portfolio methods
-that can be added to a \code{ConservationProblem} object.
+  are within the specified optimality gap.
 
-\describe{
+  The following portfolios can be added to a conservation planning
+  \code{\link{problem}}:
 
-\item{\code{add_default_portfolio}}{Generate a single solution.}
+  \describe{
 
-\item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of solutions
-  using Bender's cuts.}
+  \item{\code{add_default_portfolio}}{Generate a single solution.}
 
-\item{\code{\link{add_shuffle_portfolio}}}{Generate a portfolio of solutions
-  by randomly reordering the data prior to attempting to solve the problem.}
+  \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of solutions
+    using Bender's cuts.}
+
+  \item{\code{\link{add_shuffle_portfolio}}}{Generate a portfolio of
+    solutions by randomly reordering the data prior to attempting to solve
+    the problem.}
 
 }
 }

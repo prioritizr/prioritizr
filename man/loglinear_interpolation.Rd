@@ -22,7 +22,7 @@ loglinear_interpolation(x, coordinate_one_x, coordinate_one_y, coordinate_two_x,
 \code{numeric} values.
 }
 \description{
-Loglinearly interpolate values between two thresholds.
+Log-linearly interpolate values between two thresholds.
 }
 \details{
 Values are log-linearly interpolated at the \emph{x}-coordinates

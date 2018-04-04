@@ -25,7 +25,9 @@ be removed? Defaults to \code{TRUE}.}
   added to it.
 }
 \description{
-Generate a portfolio of solutions by randomly reordering the data prior to #' attempting to solve the problem.
+Generate a portfolio of solutions for a conservation planning
+\code{\link{problem}} by randomly reordering the data prior to
+solving the problem ().
 }
 \details{
 This strategy for generating a portfolio of solutions often

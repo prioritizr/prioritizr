@@ -3,7 +3,7 @@ NULL
 
 #' Log-linear interpolation
 #'
-#' Loglinearly interpolate values between two thresholds.
+#' Log-linearly interpolate values between two thresholds.
 #'
 #' @param x \code{numeric} \emph{x} values for which interpolate emph{y} values.
 #'

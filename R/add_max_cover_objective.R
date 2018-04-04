@@ -3,11 +3,12 @@ NULL
 
 #' Add maximum coverage objective
 #'
-#' Set an objective to find the solution aims to represent one instance of
-#' as many features as possible within a given budget. This type of objective
-#' does not require the addition of targets. The mathematical formulation
-#' underpinning this function is different from versions prior to 3.0.0.0;
-#' see Details section for more information.
+#' Set the objective of a conservation planning \code{\link{problem}} to
+#' represent at least one instance of as many features as possible within a
+#' given budget. This type of objective does not require the addition of
+#' targets. \strong{Note that the mathematical formulation underpinning this
+#' function is different from versions prior to 3.0.0.0}. See the Details
+#' section for more information on the changes since this version.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -18,10 +19,10 @@ NULL
 #'   a budget for each each management zone.
 #'
 #' @details A problem objective is used to specify the overall goal of the
-#'   conservation planning problem. Please note that \strong{all conservation
-#'   planning problems formulated in the prioritizr package require the addition
-#'   of objectives}. Failing to do so will return a default error message
-#'   when solving.
+#'   conservation planning problem. Please note that all conservation
+#'   planning problems formulated in the \emph{prioritizr} package require the
+#'   addition of objectives---failing to do so will return an error
+#'   message when attempting to solve problem.
 #'
 #'   The maximum coverage objective seeks to find the set of planning units that
 #'   maximizes the number of represented features, while keeping cost within a

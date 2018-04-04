@@ -41,7 +41,8 @@ locked in. See the Details section for more information.}
   added to it.
 }
 \description{
-Add constraints to ensure that planning units are selected (or allocated
+Add constraints to a conservation planning \code{\link{problem}} to ensure
+that specific planning units are selected (or allocated
 to a specific zone) in the solution. For example, it may be desirable to
 lock in planning units that are inside existing protected areas so that the
 solution fills in the gaps in the existing reserve network. If specific

@@ -97,6 +97,7 @@ Collate:
     'zones.R'
     'add_absolute_targets.R'
     'add_binary_decisions.R'
+    'marxan_boundary_data_to_matrix.R'
     'add_boundary_penalties.R'
     'add_connected_constraints.R'
     'add_connectivity_penalties.R'

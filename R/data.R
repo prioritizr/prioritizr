@@ -3,7 +3,7 @@ NULL
 
 #' Simulated conservation planning data
 #'
-#' Data for making spatial prioritizations using simulated data.
+#' Simulated data for making spatial prioritizations.
 #'
 #' \describe{
 #'

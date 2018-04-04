@@ -13,10 +13,11 @@ NULL
 
 #' Management zones
 #'
-#' Data for different biodiversity features in different management zones.
+#' Organize biodiversity data into the expected amount of different features
+#' under different management zones.
 #'
-#' @param ... \code{\link[raster]{raster}} or \code{character} objects. See
-#'   Details for more information.
+#' @param ... \code{\link[raster]{raster}} or \code{character} objects that
+#'   pertain to the biodiversity data. See Details for more information.
 #'
 #' @param zone_names \code{character} names of the management zones. Defaults
 #'   to \code{NULL} which results in sequential integers.
@@ -24,11 +25,11 @@ NULL
 #' @param feature_names \code{character} names of the features zones. Defaults
 #'   to \code{NULL} which results in sequential integers.
 #'
-#' @details This function is used to store and organize data for creating
-#'   \code{\link{ConservationProblem}} objects that have multiple management
-#'   zones. In all cases, data for different zones are input as different
-#'   arguments. The correct input depends on the type of planning unit data
-#'   used when building the conservation \code{\link{problem}}.
+#' @details This function is used to store and organize data for use in a
+#'   conservation planning \code{\link{problem}} that has multiple management
+#'   zones. In all cases, the data for each zone is input as a separate
+#'   argument. The correct arguments depends on the type of planning unit data
+#'   used when building the conservation planning \code{\link{problem}}.
 #'
 #'   \describe{
 #'

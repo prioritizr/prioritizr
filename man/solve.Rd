@@ -6,7 +6,7 @@
 \alias{solve,ConservationProblem,missing-method}
 \alias{solve}
 \alias{solve}
-\title{Solve a problem}
+\title{Solve}
 \arguments{
 \item{a}{\code{\link{ConservationProblem-class}} or an
 \code{\link{OptimizationProblem-class}} object.}
@@ -28,8 +28,7 @@ A \code{numeric}, \code{matrix},
   optimal solution was found).
 }
 \description{
-Solve a \code{\link{ConservationProblem-class}} or an
-\code{\link{OptimizationProblem-class}} object.
+Solve a conservation planning \code{\link{problem}}.
 }
 \details{
 The object returned from this function depends on the argument to
@@ -76,10 +75,10 @@ The object returned from this function depends on the argument to
 
   }
 
-Since this function returns an object that specifies how much of each
-planning unit is allocated to each management zone, it may be useful to use
-the \code{\link{category_layer}} function to reformat the output
-for problems containing multiple zones.
+  Since this function returns an object that specifies how much of each
+  planning unit is allocated to each management zone, it may be useful to use
+  the \code{\link{category_layer}} function to reformat the output
+  for problems containing multiple zones.
 }
 \examples{
 # set seed for reproducibility

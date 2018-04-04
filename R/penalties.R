@@ -9,24 +9,26 @@ NULL
 #' being minimized or maximized (e.g. solution cost when used with
 #' \code{\link{add_min_set_objective}}).
 #'
-#' Both penalties and constraints can be used to modify a problem and
-#' identify solutions that exhibit specific characteristics. Constraints work
-#' by invalidating solutions that do not exhibit specific characteristics.
-#' On the other hand, penalties work by specifying trade-offs against the
-#' main problem objective and are mediated by a penalty factor. Below are the
-#' penalties that can be added to a \code{ConservationProblem} object.
+#' @details Both penalties and constraints can be used to modify a problem and
+#'   identify solutions that exhibit specific characteristics. Constraints work
+#'   by invalidating solutions that do not exhibit specific characteristics.
+#'   On the other hand, penalties work by specifying trade-offs against the
+#'   main problem objective and are mediated by a penalty factor.
 #'
-#' \describe{
+#'   The following penalties can be added to a conservation planning
+#'   \code{\link{problem}}:
 #'
-#' \item{\code{\link{add_boundary_penalties}}}{Add penalties to a
-#'   conservation problem to favor solutions that have
-#'   planning units clumped together into contiguous areas.}
+#'   \describe{
 #'
-#' \item{\code{\link{add_connectivity_penalties}}}{Add penalties to a
-#'   conservation problem to favor solutions that select
-#'   planning units with high connectivity between them.}
+#'   \item{\code{\link{add_boundary_penalties}}}{Add penalties to a
+#'     conservation problem to favor solutions that have
+#'     planning units clumped together into contiguous areas.}
 #'
-#' }
+#'   \item{\code{\link{add_connectivity_penalties}}}{Add penalties to a
+#'     conservation problem to favor solutions that select
+#'     planning units with high connectivity between them.}
+#'
+#'   }
 #'
 #' @seealso \code{\link{constraints}}, \code{\link{decisions}},
 #'  \code{\link{objectives}} \code{\link{portfolios}}, \code{\link{problem}},
