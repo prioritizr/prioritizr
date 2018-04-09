@@ -9,14 +9,14 @@ bool rcpp_apply_neighbor_constraints(SEXP x,
 
   /* The following code makes the following critical assumptions
    *
-   * 1. connectivity_data is a list of lists containing sparse matrix with only
-   *    cells in the upper triangle with the diagonal filled in.If this
-   *    condition is not met, then the constraints will be incorrect.
+   * 1. connectivity_data is a list of lists containing sparse matrices. Each
+   *    matrix has the same number of rows and columns, and these are
+   *    equal to the number of planning units in x. The nested list
+   *    structure of the object is
+   *    connected_data[[1:ptr->_number_of_zones]][[1:ptr->_number_of_zones]]
    *
-   * 2. the number of rows and columns in penalty is equal to
-   *    ptr->_number_of_zones
+   * 2. the number of elements in k is equal to ptr->_number_of_zones
    *
-   * 3. the number of elements in k is equal to ptr->_number_of_zones
    */
 
   // initialization

@@ -2,14 +2,50 @@
 % Please edit documentation in R/add_connected_constraints.R
 \name{add_connected_constraints}
 \alias{add_connected_constraints}
+\alias{add_connected_constraints,ConservationProblem,ANY,ANY,array-method}
+\alias{add_connected_constraints,ConservationProblem,ANY,ANY,matrix-method}
+\alias{add_connected_constraints,ConservationProblem,ANY,ANY,data.frame-method}
+\alias{add_connected_constraints,ConservationProblem,ANY,ANY,ANY-method}
+\alias{add_connected_constraints}
+\alias{add_connected_constraints}
+\alias{add_connected_constraints}
+\alias{add_connected_constraints}
 \title{Add connected constraints}
 \usage{
-add_connected_constraints(x, ...)
+\S4method{add_connected_constraints}{ConservationProblem,ANY,ANY,ANY}(x, y, zones, data)
+
+\S4method{add_connected_constraints}{ConservationProblem,ANY,ANY,data.frame}(x, y, zones, data)
+
+\S4method{add_connected_constraints}{ConservationProblem,ANY,ANY,matrix}(x, y, zones, data)
+
+\S4method{add_connected_constraints}{ConservationProblem,ANY,ANY,array}(x, y, zones, data)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{...}{arguments passed to \code{\link{connected_matrix}}.}
+\item{y}{\code{logical} vector indicating if the constraints should
+be applied to the planning units allocated to each zone.
+Defaults to \code{TRUE} for each zone in the argument to \code{x}.}
+
+\item{zones}{\code{matrix} or \code{Matrix} object describing the
+connection scheme for different zones. Each row and column corresponds
+to a different zone in the argument to \code{x}, and cell values must
+contain binary \code{numeric} values (i.e. one or zero) that indicate
+if connected planning units (as specified in the argument to
+\code{data}) should be still considered connected if they are allocated to
+different zones. The cell values along the diagonal
+of the matrix indicate if planning units that are allocated to the same
+zone should be considered connected or not. The default argument to
+\code{zones} is an identity matrix (i.e. a matrix with ones along the
+matrix diagonal and zeros elsewhere), so that planning units are
+only considered connected if they are both allocated to the same zone.}
+
+\item{data}{\code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}, or
+\code{array} object showing which planning units are connected with each
+other. The argument defaults to \code{NULL} which means that the
+connection data is calculated automatically using the
+\code{\link{connected_matrix}} function. See the Details section for more
+information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the constraints
@@ -21,27 +57,162 @@ that all selected planning units are spatially connected with each other
 and form a single contiguous unit.
 }
 \details{
-The mathematical ideas that underpin this function inspired by
-  {\"O}nal and Briers (2006).
+This function uses connection data identify solutions that
+  form a single contiguous unit. It was inspired by the mathematical
+  formulations detailed in {\"O}nal and Briers (2006).
+
+  The argument to \code{data} can be specified in several ways:
+
+  \describe{
+
+  \item{\code{NULL}}{connection data should be calculated automatically
+    using the \code{\link{connected_matrix}} function. This is the default
+    argument. Note that the connection data must be manually defined
+    using one of the other formats below when the planning unit data
+    in the argument to \code{x} is not spatially referenced (e.g.
+    in \code{data.frame} or \code{numeric} format).}
+
+  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+    different planning units and the value of each cell indicates if the
+    two planning units are connected or not. Cell values should be binary
+    \code{numeric} values (i.e. one or zero). Cells that occur along the
+    matrix diagonal have no effect on the solution at all because each
+    planning unit cannot be a connected with itself.}
+
+  \item{\code{data.frame}}{containing the fields (columns)
+    \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+    denotes the connectivity between two planning units following the
+    \emph{Marxan} format. The field \code{boundary} should contain
+    binary \code{numeric} values that indicate if the two planning units
+    specified in the fields \code{"id1"} and \code{"id2"} are connected
+    or not. This data can be used to describe symmetric or
+    asymmetric relationships between planning units. By default,
+    input data is assumed to be symmetric unless asymmetric data is
+    also included (e.g. if data is present for planning units 2 and 3, then
+    the same amount of connectivity is expected for planning units 3 and 2,
+    unless connectivity data is also provided for planning units 3 and 2).
+    If the argument to \code{x} contains multiple zones, then the columns
+    \code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+    specify if the connection data pertain to specific zones. The fields
+    \code{"zone1"} and \code{"zone2"} should contain the \code{character}
+    names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
+    are present, then the argument to \code{zones} must be \code{NULL}.}
+
+  \item{\code{array}}{containing four-dimensions where binary
+    \code{numeric} values indicate if planning unit should be treated
+    as being connected with every other planning unit when they
+    are allocated to every combination of management zone. The first two
+    dimensions (i.e. rows and columns) correspond to the planning units,
+    and second two dimensions correspond to the management zones. For
+    example, if the argument to \code{data} had a value of 1 at the index
+    \code{data[1, 2, 3, 4]} this would indicate that planning unit 1 and
+    planning unit 2 should be treated as being connected when they are
+    allocated to zones 3 and 4 respectively.}
+
+  }
 }
 \examples{
-# # not implemented
-# # create basic problem
-# p1 <- problem(sim_pu_raster, sim_features) \%>\%
-#       add_min_set_objective() \%>\%
-#       add_relative_targets(0.2)
-#
-# # create problem with added connected constraints
-# p2 <- p1 \%>\% add_connected_constraints()
-# \donttest{
-# # solve problems
-# s <- stack(solve(p1), solve(p2))
-#
-# # plot solutions
-# plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
-#      box = FALSE)
-# }
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 
+# create minimal problem
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
+
+# create problem with added connected constraints
+p2 <- p1 \%>\% add_connected_constraints()
+\donttest{
+# solve problems
+s <- stack(solve(p1), solve(p2))
+
+# plot solutions
+plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
+     box = FALSE)
+}
+# create minimal problem with multiple zones, and limit the solver to
+# 15 seconds to obtain solutions in a feasible period of time
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+      add_default_solver(time_limit = 15) \%>\%
+      add_binary_decisions()
+
+# create problem with added constraints to ensure that the planning units
+# allocated to each zone form a separate contiguous unit
+z4 <- diag(3)
+print(z4)
+p4 <- p3 \%>\% add_connected_constraints(rep(TRUE, 3), z4)
+
+# create problem with added constraints to ensure that the planning
+# units allocated to each zone form a separate contiguous unit,
+# except for planning units allocated to zone 2
+p5 <- p3 \%>\% add_connected_constraints(c(TRUE, FALSE, TRUE), z4)
+
+# create problem with added constraints that ensure that the planning
+# units allocated to zones 1 and 2 form a contiguous unit
+z6 <- diag(3)
+z6[1, 2] <- 1
+z6[2, 1] <- 1
+print(z6)
+p6 <- p3 \%>\% add_connected_constraints(c(TRUE, TRUE, FALSE), z6)
+\donttest{
+# solve problems
+s2 <- lapply(list(p3, p4, p5, p6), solve)
+s2 <- lapply(s2, category_layer)
+s2 <- stack(s2)
+
+# plot solutions
+plot(s2, axes = FALSE, box = FALSE,
+     main = c("basic solution", "p4", "p5", "p6"))
+}
+print(greg)
+# create a problem that has a main "reserve zone" and a secondary
+# "corridor zone". Here, each feature has a target of 30 \% of its
+# distribution. If a planning unit is allocated to the "reserve zone", then
+# the prioritization accrues 100 \% of the amount of each feature in the
+# planning unit. If a planning unit is allocated to the "corridor zone"
+# then the prioritization accrues 20 \% of the amount of each feature
+# in the planning unit. The problem also has constraints which
+# ensure that all of the selected planning units form a single contiguous
+# unit, so that the planning units allocated to the "corridor zone" can
+# link up the planning units allocated to the "reserve zone"
+
+# create planning unit data
+pus <- sim_pu_zones_stack[[seq_len(2)]]
+print(pus)
+
+# create biodiversity data
+fts <- zones(sim_features, sim_features * 0.1,
+             feature_names = names(sim_features),
+             zone_names = c("reserve zone", "corridor zone"))
+print(fts)
+
+# create targets
+targets <- tibble::tibble(feature = names(sim_features),
+                          zone = list(zone_names(fts))[rep(1, 5)],
+                          target = cellStats(sim_features, "sum") * 0.3,
+                          type = rep("absolute", 5))
+print(targets)
+
+# create zones matrix
+z7 <- matrix(1, ncol = 2, nrow = 2)
+print(z7)
+
+# create problem
+p7 <- problem(sim_pu_zones_stack, fts) \%>\%
+      add_min_set_objective() \%>\%
+      add_manual_targets(targets) \%>\%
+      add_connected_constraints(c(TRUE, TRUE), z7) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve problems
+s7 <- category_layer(solve(p7))
+
+# plot solutions
+plot(s7, "solution", axes = FALSE, box = FALSE)
+}
 }
 \references{
 {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected

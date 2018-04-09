@@ -97,8 +97,8 @@ rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix,
     .Call(`_prioritizr_rcpp_apply_boundary_penalties`, x, penalty, edge_factor, zones_matrix, boundary_matrix)
 }
 
-rcpp_apply_connected_constraints <- function(x, connected_matrix) {
-    .Call(`_prioritizr_rcpp_apply_connected_constraints`, x, connected_matrix)
+rcpp_apply_connected_constraints <- function(x, connected_data, y) {
+    .Call(`_prioritizr_rcpp_apply_connected_constraints`, x, connected_data, y)
 }
 
 rcpp_apply_connectivity_penalties <- function(x, penalty, data) {
