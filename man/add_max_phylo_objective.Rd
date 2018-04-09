@@ -16,7 +16,7 @@ to \code{budget} can be a single \code{numeric} value to specify a budget
 for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 
-\item{tree}{\code{phylo} object specifying a phylogenetic tree
+\item{tree}{\code{\link{phylo}} object specifying a phylogenetic tree
 for the conservation features.}
 }
 \value{
@@ -31,7 +31,7 @@ solution subject to a budget. This objective is similar to
 that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues \emph{et al.}
-(2002). It also requires the \emph{ape} package to be installed.
+(2002).
 }
 \details{
 A problem objective is used to specify the overall goal of the
@@ -100,111 +100,109 @@ A problem objective is used to specify the overall goal of the
   represent the same amount of all features within the budget.
 }
 \examples{
+# load ape package
+require(ape)
+
 # load data
 data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
      sim_features_zones)
 
-# the ape package needs to be installed to run this example
-if (require("ape")) {
-  # plot the example phylogeny
-  par(mfrow = c(1, 1))
-  plot(sim_phylogeny, main = "simulated phylogeny")
+# plot the example phylogeny
+par(mfrow = c(1, 1))
+plot(sim_phylogeny, main = "simulated phylogeny")
 
-  # create problem with a maximum phylogenetic representation objective,
-  # where each feature needs 10 \% of its distribution to be secured for
-  # it to be adequately conserved and a total budget of 1900
-  p1 <- problem(sim_pu_raster, sim_features) \%>\%
-        add_max_phylo_objective(1900, sim_phylogeny) \%>\%
-        add_relative_targets(0.1) \%>\%
-        add_binary_decisions()
+# create problem with a maximum phylogenetic representation objective,
+# where each feature needs 10 \% of its distribution to be secured for
+# it to be adequately conserved and a total budget of 1900
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_max_phylo_objective(1900, sim_phylogeny) \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
 \donttest{
-  # solve problem
-  s1 <- solve(p1)
+# solve problem
+s1 <- solve(p1)
 
-  # plot solution
-  plot(s1, main = "solution", axes = FALSE, box = FALSE)
+# plot solution
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
 
-  # find which features have their targets met
-  targets_met1 <- cellStats(s1 * sim_features, "sum") >=
-                 (0.1 * cellStats(sim_features, "sum"))
+# find which features have their targets met
+targets_met1 <- cellStats(s1 * sim_features, "sum") >=
+                (0.1 * cellStats(sim_features, "sum"))
 
-  # plot the example phylogeny and color the represented features in red
-  plot(sim_phylogeny, main = "represented features",
-       tip.color = replace(rep("black", nlayers(sim_features)),
-                           which(targets_met1), "red"))
+# plot the example phylogeny and color the represented features in red
+plot(sim_phylogeny, main = "represented features",
+     tip.color = replace(rep("black", nlayers(sim_features)),
+                         which(targets_met1), "red"))
 }
-  # rename the features in the example phylogeny for use with the
-  # multi-zone data
-  sim_phylogeny$tip.label <- feature_names(sim_features_zones)
+# rename the features in the example phylogeny for use with the
+# multi-zone data
+sim_phylogeny$tip.label <- feature_names(sim_features_zones)
 
-  # create targets for a multi-zone problem. Here, each feature needs a total
-  # of 10 units of habitat to be conserved among the three zones to be
-  # considered adequately conserved
-  targets <- tibble::tibble(
-    feature = feature_names(sim_features_zones),
-    zone = list(zone_names(sim_features_zones))[rep(1,
-             number_of_features(sim_features_zones))],
-    type = rep("absolute", number_of_features(sim_features_zones)),
-    target = rep(10, number_of_features(sim_features_zones)))
+# create targets for a multi-zone problem. Here, each feature needs a total
+# of 10 units of habitat to be conserved among the three zones to be
+# considered adequately conserved
+targets <- tibble::tibble(
+  feature = feature_names(sim_features_zones),
+  zone = list(zone_names(sim_features_zones))[rep(1,
+          number_of_features(sim_features_zones))],
+  type = rep("absolute", number_of_features(sim_features_zones)),
+  target = rep(10, number_of_features(sim_features_zones)))
 
-  # create a multi-zone problem with a maximum phylogenetic representation
-  # objective, where the total expenditure in all zones is 5000.
-  p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-        add_max_phylo_objective(5000, sim_phylogeny) \%>\%
-        add_manual_targets(targets) \%>\%
-        add_binary_decisions()
+# create a multi-zone problem with a maximum phylogenetic representation
+# objective, where the total expenditure in all zones is 5000.
+p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_max_phylo_objective(5000, sim_phylogeny) \%>\%
+      add_manual_targets(targets) \%>\%
+      add_binary_decisions()
 \donttest{
-  # solve problem
-  s2 <- solve(p2)
+# solve problem
+s2 <- solve(p2)
 
-  # plot solution
-  plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+# plot solution
+plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 
-  # calculate total amount of habitat conserved for each feature among
-  # all three management zones
-  amount_held2 <- numeric(number_of_features(sim_features_zones))
-  for (z in seq_len(number_of_zones(sim_features_zones)))
-    amount_held2 <- amount_held2 +
-                    cellStats(sim_features_zones[[z]] * s2[[z]], "sum")
+# calculate total amount of habitat conserved for each feature among
+# all three management zones
+amount_held2 <- numeric(number_of_features(sim_features_zones))
+for (z in seq_len(number_of_zones(sim_features_zones)))
+  amount_held2 <- amount_held2 +
+                  cellStats(sim_features_zones[[z]] * s2[[z]], "sum")
 
-  # find which features have their targets met
-  targets_met2 <- amount_held2 >= targets$target
+# find which features have their targets met
+targets_met2 <- amount_held2 >= targets$target
 
-  # plot the example phylogeny and color the represented features in red
-  plot(sim_phylogeny, main = "represented features",
-       tip.color = replace(rep("black", nlayers(sim_features)),
-                           which(targets_met2), "red"))
+# plot the example phylogeny and color the represented features in red
+plot(sim_phylogeny, main = "represented features",
+     tip.color = replace(rep("black", nlayers(sim_features)),
+                         which(targets_met2), "red"))
 }
- # create a multi-zone problem with a maximum phylogenetic representation
- # objective, where each zone has a separate budget.
- p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+# create a multi-zone problem with a maximum phylogenetic representation
+# objective, where each zone has a separate budget.
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_phylo_objective(c(2500, 500, 2000), sim_phylogeny) \%>\%
       add_manual_targets(targets) \%>\%
       add_binary_decisions()
 \donttest{
-  # solve problem
-  s3 <- solve(p3)
+# solve problem
+s3 <- solve(p3)
 
-  # plot solution
-  plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+# plot solution
+plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 
-  # calculate total amount of habitat conserved for each feature among
-  # all three management zones
-  amount_held3 <- numeric(number_of_features(sim_features_zones))
-  for (z in seq_len(number_of_zones(sim_features_zones)))
-    amount_held3 <- amount_held3 +
-                    cellStats(sim_features_zones[[z]] * s3[[z]], "sum")
+# calculate total amount of habitat conserved for each feature among
+# all three management zones
+amount_held3 <- numeric(number_of_features(sim_features_zones))
+for (z in seq_len(number_of_zones(sim_features_zones)))
+  amount_held3 <- amount_held3 +
+                  cellStats(sim_features_zones[[z]] * s3[[z]], "sum")
 
-  # find which features have their targets met
-  targets_met3 <- amount_held3 >= targets$target
+# find which features have their targets met
+targets_met3 <- amount_held3 >= targets$target
 
-  # plot the example phylogeny and color the represented features in red
-  plot(sim_phylogeny, main = "represented features",
-       tip.color = replace(rep("black", nlayers(sim_features)),
-                           which(targets_met3), "red"))
-}
-} else {
- message("the \\"ape\\" package needs to be installed to plot phylogenies")
+# plot the example phylogeny and color the represented features in red
+plot(sim_phylogeny, main = "represented features",
+     tip.color = replace(rep("black", nlayers(sim_features)),
+                         which(targets_met3), "red"))
 }
 }
 \references{

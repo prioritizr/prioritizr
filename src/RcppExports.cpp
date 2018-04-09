@@ -280,15 +280,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_apply_connected_constraints
-bool rcpp_apply_connected_constraints(SEXP x, Rcpp::List connected_data, Rcpp::LogicalVector y);
-RcppExport SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP xSEXP, SEXP connected_dataSEXP, SEXP ySEXP) {
+bool rcpp_apply_connected_constraints(SEXP x, arma::sp_mat data, Rcpp::IntegerVector clusters);
+RcppExport SEXP _prioritizr_rcpp_apply_connected_constraints(SEXP xSEXP, SEXP dataSEXP, SEXP clustersSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type connected_data(connected_dataSEXP);
-    Rcpp::traits::input_parameter< Rcpp::LogicalVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_connected_constraints(x, connected_data, y));
+    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type clusters(clustersSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_connected_constraints(x, data, clusters));
     return rcpp_result_gen;
 END_RCPP
 }
