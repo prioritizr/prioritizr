@@ -2,7 +2,7 @@
 #' Generic methods
 #'
 #' These functions are used to access data from various classes defined in the
-#' \emph{prioritizr} package.
+#' \pkg{prioritizr} package.
 #'
 #' @param x \code{\link{ConservationProblem-class}},
 #'   \code{\link{OptimizationProblem-class}}, or \code{\link{Zones-class}}

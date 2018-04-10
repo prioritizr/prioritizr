@@ -1,4 +1,4 @@
-context("add_connected_constraints")
+context("add_contiguity_constraints")
 
 test_that("compile (single zone)", {
   # create problem
@@ -7,7 +7,7 @@ test_that("compile (single zone)", {
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.2) %>%
-       add_connected_constraints()
+       add_contiguity_constraints()
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
@@ -64,7 +64,7 @@ test_that("solve (single zone)", {
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
-       add_connected_constraints() %>%
+       add_contiguity_constraints() %>%
        add_default_solver(time_limit = 5)
   # solve problem
   s <- solve(p)
@@ -85,7 +85,7 @@ test_that("compile (multiple zones)", {
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-       add_connected_constraints(z)
+       add_contiguity_constraints(z)
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
@@ -185,7 +185,7 @@ test_that("solve (multiple zones)", {
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-       add_connected_constraints(z) %>%
+       add_contiguity_constraints(z) %>%
        add_default_solver(time_limit = 5) %>%
        solve()
   # check that all selected planning units form a contiguous unit
@@ -205,13 +205,36 @@ test_that("invalid inputs (single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1)
   # run tests
-  expect_error(add_connected_constraints(p, NA_logical_))
-  expect_error(add_connected_constraints(p, diag(1) + 1))
-  expect_error(add_connected_constraints(p, diag(1) - 2))
-  expect_error(add_connected_constraints(p, diag(1) - NA))
-  expect_error(add_connected_constraints(p, data = cm[-1, ]))
-  expect_error(add_connected_constraints(p, data = cm[, -1]))
-  expect_error(add_connected_constraints(p, data = cm + 1))
-  expect_error(add_connected_constraints(p, data = cm - 1))
-  expect_error(add_connected_constraints(p, data = `[<-`(cm, 1, 1, NA)))
+  expect_error(add_contiguity_constraints(p, NA_logical_))
+  expect_error(add_contiguity_constraints(p, diag(1) + 1))
+  expect_error(add_contiguity_constraints(p, diag(1) - 2))
+  expect_error(add_contiguity_constraints(p, diag(1) - NA))
+  expect_error(add_contiguity_constraints(p, data = cm[-1, ]))
+  expect_error(add_contiguity_constraints(p, data = cm[, -1]))
+  expect_error(add_contiguity_constraints(p, data = cm + 1))
+  expect_error(add_contiguity_constraints(p, data = cm - 1))
+  expect_error(add_contiguity_constraints(p, data = `[<-`(cm, 1, 1, NA)))
+})
+
+test_that("invalid inputs (multiple zones)", {
+  # create problem
+  data(sim_pu_zones_polygons, sim_features_zones)
+  cm <- as.matrix(connected_matrix(sim_pu_zones_polygons))
+  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3))
+  # run tests
+  expect_error(add_contiguity_constraints(p, NA))
+  expect_error(add_contiguity_constraints(p, NULL))
+  expect_error(add_contiguity_constraints(p, diag(3) + 1))
+  expect_error(add_contiguity_constraints(p, diag(3) - 2))
+  expect_error(add_contiguity_constraints(p, diag(3) - NA))
+  expect_error(add_contiguity_constraints(p, `[<-`(matrix(1, ncol = 3,
+                                                          nrow = 3), 3, 3, 0)))
+  expect_error(add_contiguity_constraints(p, diag(3), cm[-1, ]))
+  expect_error(add_contiguity_constraints(p, diag(3), cm[, -1]))
+  expect_error(add_contiguity_constraints(p, diag(3), cm + 1))
+  expect_error(add_contiguity_constraints(p, diag(3), cm - 1))
+  expect_error(add_contiguity_constraints(p, diag(3), `[<-`(cm, 1, 1, NA)))
 })

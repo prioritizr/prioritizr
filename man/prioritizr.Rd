@@ -4,9 +4,9 @@
 \name{prioritizr}
 \alias{prioritizr}
 \alias{prioritizr-package}
-\title{prioritizr}
+\title{\pkg{prioritizr}}
 \description{
-\emph{prioritizr} is an \emph{R} package for solving systematic conservation
+\pkg{prioritizr} is an \emph{R} package for solving systematic conservation
 planning problems. By using integer linear programming (ILP)
 techniques, this package offers a flexible interface for creating
 reserve selection problems that can be tailored to the specific needs of the
@@ -15,7 +15,7 @@ Once built, problems can then be solved using a variety of commercial and
 open-source exact algorithm solvers. In contrast to the algorithms
 conventionally used to solve conservation problems, such as greedy
 heuristics or simulated annealing, the exact algorithms used by
-\emph{prioritizr} are guaranteed to find optimal solutions. This package
+\pkg{prioritizr} are guaranteed to find optimal solutions. This package
 also has the functionality to read \href{http://marxan.net/}{\emph{Marxan}}
 input data (Ball \emph{et al.} 2009) and find much better solutions in a much
 shorter period of time than \emph{Marxan} (Beyer \emph{et al.} 2016).
@@ -27,7 +27,7 @@ for more information.
 }
 \details{
 This package contains vignettes that introduce systematic
-  conservation planning and showcase the \emph{prioritizr} package. The
+  conservation planning and showcase the \pkg{prioritizr} package. The
   supplemental
   \href{https://github.com/prioritizr/prioritizrdata}{\emph{prioritizrdata}}
   package contains further example datasets and worked examples. The
@@ -39,7 +39,7 @@ This package contains vignettes that introduce systematic
  on the concepts and terminology that underpin systematic conservation
  planning and their usage in this package.}
 \item{\href{https://prioritizr.github.io/prioritizr/articles/quick_start.html}{Quickstart Guide}}{Short walk-through of the
-  \emph{prioritizr} package with a simulated dataset.}
+  \pkg{prioritizr} package with a simulated dataset.}
 
 }
 }

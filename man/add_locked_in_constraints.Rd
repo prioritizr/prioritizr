@@ -36,10 +36,6 @@ add_locked_in_constraints(x, locked_in)
 \item{locked_in}{Object that determines which planning units that should be
 locked in. See the Details section for more information.}
 }
-\value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
-}
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
 that specific planning units are selected (or allocated

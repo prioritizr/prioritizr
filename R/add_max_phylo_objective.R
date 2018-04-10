@@ -25,7 +25,7 @@ NULL
 #'
 #' @details A problem objective is used to specify the overall goal of the
 #'   conservation planning problem. Please note that all conservation
-#'   planning problems formulated in the \emph{prioritizr} package require the
+#'   planning problems formulated in the \pkg{prioritizr} package require the
 #'   addition of objectives---failing to do so will return an error
 #'   message when attempting to solve problem.
 #'

@@ -3,7 +3,7 @@
 #include "functions.h"
 
 // [[Rcpp::export]]
-bool rcpp_apply_connected_constraints(SEXP x, arma::sp_mat data,
+bool rcpp_apply_contiguity_constraints(SEXP x, arma::sp_mat data,
                                       Rcpp::IntegerVector clusters) {
 
   /* The following code makes the following critical assumptions

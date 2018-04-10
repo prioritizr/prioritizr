@@ -1,7 +1,7 @@
 #' @include internal.R Constraint-proto.R
 NULL
 
-#' Add connected constraints
+#' Add contiguity constraints
 #'
 #' Add constraints to a conservation planning \code{\link{problem}} to ensure
 #' that all selected planning units are spatially connected with each other
@@ -33,8 +33,10 @@ NULL
 #'   information.
 #'
 #' @details This function uses connection data to identify solutions that
-#'   form a single contiguous unit. It was inspired by the mathematical
-#'   formulations detailed in {\"O}nal and Briers (2006).
+#'   form a single contiguous unit. In earlier versions of the
+#'   \pkg{prioritizr} package, it was known as the
+#'   \code{add_connected_constraints} function. It was inspired by the
+#'   mathematical formulations detailed in {\"O}nal and Briers (2006).
 #'
 #'   The argument to \code{data} can be specified in several ways:
 #'
@@ -89,7 +91,7 @@ NULL
 #'       add_binary_decisions()
 #'
 #' # create problem with added connected constraints
-#' p2 <- p1 %>% add_connected_constraints()
+#' p2 <- p1 %>% add_contiguity_constraints()
 #' \donttest{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2))
@@ -110,7 +112,7 @@ NULL
 #' # allocated to each zone form a separate contiguous unit
 #' z4 <- diag(3)
 #' print(z4)
-#' p4 <- p3 %>% add_connected_constraints(z4)
+#' p4 <- p3 %>% add_contiguity_constraints(z4)
 #'
 #' # create problem with added constraints to ensure that the planning
 #' # units allocated to each zone form a separate contiguous unit,
@@ -119,7 +121,7 @@ NULL
 #' z5 <- diag(3)
 #' z5[3, 3] <- 0
 #' print(z5)
-#' p5 <- p3 %>% add_connected_constraints(z5)
+#' p5 <- p3 %>% add_contiguity_constraints(z5)
 #'
 #' # create problem with added constraints that ensure that the planning
 #' # units allocated to zones 1 and 2 form a contiguous unit
@@ -127,7 +129,7 @@ NULL
 #' z6[1, 2] <- 1
 #' z6[2, 1] <- 1
 #' print(z6)
-#' p6 <- p3 %>% add_connected_constraints(z6)
+#' p6 <- p3 %>% add_contiguity_constraints(z6)
 #' \donttest{
 #' # solve problems
 #' s2 <- lapply(list(p3, p4, p5, p6), solve)
@@ -177,7 +179,7 @@ NULL
 #' p7 <- problem(pus, fts) %>%
 #'       add_min_set_objective() %>%
 #'       add_manual_targets(targets) %>%
-#'       add_connected_constraints(z7) %>%
+#'       add_contiguity_constraints(z7) %>%
 #'       add_binary_decisions()
 #' \donttest{
 #' # solve problems
@@ -186,22 +188,22 @@ NULL
 #' # plot solutions
 #' plot(s7, "solution", axes = FALSE, box = FALSE)
 #' }
-#' @name add_connected_constraints
+#' @name add_contiguity_constraints
 #'
-#' @exportMethod add_connected_constraints
+#' @exportMethod add_contiguity_constraints
 #'
-#' @aliases add_connected_constraints,ConservationProblem,ANY,matrix-method add_connected_constraints,ConservationProblem,ANY,data.frame-method add_connected_constraints,ConservationProblem,ANY,ANY-method
+#' @aliases add_contiguity_constraints,ConservationProblem,ANY,matrix-method add_contiguity_constraints,ConservationProblem,ANY,data.frame-method add_contiguity_constraints,ConservationProblem,ANY,ANY-method
 NULL
 
-methods::setGeneric("add_connected_constraints",
+methods::setGeneric("add_contiguity_constraints",
   signature = methods::signature("x", "zones", "data"),
   function(x, zones = diag(number_of_zones(x)), data = NULL)
-  standardGeneric("add_connected_constraints"))
+  standardGeneric("add_contiguity_constraints"))
 
-#' @name add_connected_constraints
-#' @usage \S4method{add_connected_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
-#' @rdname add_connected_constraints
-methods::setMethod("add_connected_constraints",
+#' @name add_contiguity_constraints
+#' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
+#' @rdname add_contiguity_constraints
+methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "ANY"),
   function(x, zones, data) {
     # assert valid arguments
@@ -272,16 +274,16 @@ methods::setMethod("add_connected_constraints",
           class(d) <- "dgCMatrix"
           # apply constraints if any zones have contiguity constraints
           if (max(z_cl) > 0)
-            rcpp_apply_connected_constraints(x$ptr, d, z_cl)
+            rcpp_apply_contiguity_constraints(x$ptr, d, z_cl)
         }
         invisible(TRUE)
       }))
 })
 
-#' @name add_connected_constraints
-#' @usage \S4method{add_connected_constraints}{ConservationProblem,ANY,data.frame}(x, zones, data)
-#' @rdname add_connected_constraints
-methods::setMethod("add_connected_constraints",
+#' @name add_contiguity_constraints
+#' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,data.frame}(x, zones, data)
+#' @rdname add_contiguity_constraints
+methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "data.frame"),
   function(x, zones, data) {
     # assert that does not have zone1 and zone2 columns
@@ -289,15 +291,15 @@ methods::setMethod("add_connected_constraints",
       !assertthat::has_name(data, "zone1"),
       !assertthat::has_name(data, "zone2"))
     # add constraints
-    add_connected_constraints(x, zones, marxan_boundary_data_to_matrix(x, data))
+    add_contiguity_constraints(x, zones, marxan_boundary_data_to_matrix(x, data))
 })
 
-#' @name add_connected_constraints
-#' @usage \S4method{add_connected_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
-#' @rdname add_connected_constraints
-methods::setMethod("add_connected_constraints",
+#' @name add_contiguity_constraints
+#' @usage \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
+#' @rdname add_contiguity_constraints
+methods::setMethod("add_contiguity_constraints",
   methods::signature("ConservationProblem", "ANY", "matrix"),
   function(x, zones, data) {
     # add constraints
-    add_connected_constraints(x, zones, methods::as(data, "dgCMatrix"))
+    add_contiguity_constraints(x, zones, methods::as(data, "dgCMatrix"))
 })

@@ -36,10 +36,6 @@ add_locked_out_constraints(x, locked_out)
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Details section for more information.}
 }
-\value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
-}
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
 that specific planning units are not selected
@@ -174,7 +170,4 @@ s9 <- solve(p9)
 # plot solution
 plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 }
-}
-\seealso{
-\code{\link{constraints}}.
 }

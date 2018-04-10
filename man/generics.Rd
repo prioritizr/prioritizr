@@ -89,7 +89,7 @@ object.}
 }
 \description{
 These functions are used to access data from various classes defined in the
-\emph{prioritizr} package.
+\pkg{prioritizr} package.
 }
 \details{
 For more information on the methods available for a specific class,

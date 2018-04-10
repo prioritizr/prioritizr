@@ -28,10 +28,6 @@ as the threshold for each feature. Otherwise, if \code{threshold} is a
 the planning units in argument to \code{x} inherit from a
 \code{\link[raster]{RasterStack-class}} object.}
 }
-\value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
-}
 \description{
 It is important to maintain connectivity throughout a reserve network.
 However, some areas are more difficult for species to traverse then other
@@ -116,7 +112,4 @@ This function adds constraints to a conservation planning problem
 #
 # }
 
-}
-\seealso{
-\code{\link{constraints}}.
 }
