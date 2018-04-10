@@ -3,21 +3,30 @@
 \name{prioritizr-deprecated}
 \alias{prioritizr-deprecated}
 \alias{add_connected_constraints}
+\alias{add_corridor_constraints}
 \title{Deprecated functions in the \pkg{prioritizr} package}
 \usage{
 add_connected_constraints(...)
+
+add_corridor_constraints(...)
 }
 \arguments{
 \item{...}{not used.}
 }
 \description{
 The functions listed below are deprecated and will be defunct in the
-near future. When possible, alternative functions with similar functionality
-are also listed below.
+near future. Where applicable, alternative functions with similar
+functionality are also listed below.
 }
 \section{\code{add_connected_constraints}}{
  this function has been renamed
   to the \code{\link{add_contiguity_constraints}} function.
+}
+
+\section{\code{add_corridor_constraints}}{
+ this function has been
+  reimagined as the \code{\link{add_feature_contiguity_constraints}}
+  function.
 }
 
 \keyword{internal}
