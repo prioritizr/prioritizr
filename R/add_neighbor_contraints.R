@@ -330,7 +330,7 @@ methods::setMethod("add_neighbor_constraints",
       "NeighborConstraint",
       Constraint,
       data = list(connected_matrix_list = m),
-      name = "Neighbor constraint",
+      name = "Neighbor constraints",
       parameters = parameters(p),
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),

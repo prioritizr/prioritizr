@@ -233,13 +233,13 @@ methods::setMethod("add_contiguity_constraints",
     rownames(zones) <- colnames(zones)
     # add constraints
     x$add_constraint(pproto(
-      "ConnectedConstraint",
+      "ContiguityConstraint",
       Constraint,
       data = d,
-      name = "Connected constraint",
+      name = "Contiguity constraints",
       parameters = parameters(
         binary_parameter("apply constraints?", 1L),
-        binary_matrix_parameter("zones", zones, symmetric = FALSE)),
+        binary_matrix_parameter("zones", zones, symmetric = TRUE)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # generate connected matrix if null
@@ -257,8 +257,7 @@ methods::setMethod("add_contiguity_constraints",
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"))
-        a <- as.logical(self$parameters$get("apply constraints?")[[1]])
-        if (a) {
+        if (as.logical(self$parameters$get("apply constraints?")[[1]])) {
           # extract data and parameters
           ind <- y$planning_unit_indices()
           d <- self$get_data("connected_matrix")[ind, ind, drop = FALSE]
