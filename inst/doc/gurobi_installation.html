@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2018-04-04" />
+<meta name="date" content="2018-04-11" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2018-04-04</em></h4>
+<h4 class="date"><em>2018-04-11</em></h4>
 
 
 <div id="TOC">
@@ -142,9 +142,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;slam&quot;</span>, <span class="dt">repos =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>)</code></pre></div>
 <p>Let’s check that the <em>gurobi</em> <em>R</em> package is installed correctly. To do this, you can try using Gurobi to solve an optimization problem using the <em>R</em> code below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load gurobi package</span>
-<span class="kw">library</span>(gurobi)
-
-<span class="co"># create optimization problem</span>
+<span class="kw">library</span>(gurobi)</code></pre></div>
+<pre><code>## Loading required package: slam</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create optimization problem</span>
 model &lt;-<span class="st"> </span><span class="kw">list</span>()
 model<span class="op">$</span>obj        &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)
 model<span class="op">$</span>modelsense &lt;-<span class="st"> &quot;max&quot;</span>

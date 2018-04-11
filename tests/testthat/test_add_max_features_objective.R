@@ -208,6 +208,9 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 })
 
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -318,6 +321,9 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 })
 
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- 7
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -410,6 +416,9 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 })
 
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE
@@ -524,6 +533,9 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 })
 
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- c(6, 1)
   locked_out <- matrix(FALSE, ncol = 2, nrow = 5)
   locked_out[1, 1] <- TRUE

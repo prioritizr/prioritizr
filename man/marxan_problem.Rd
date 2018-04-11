@@ -9,70 +9,51 @@
 \usage{
 marxan_problem(x, ...)
 
-\method{marxan_problem}{default}(x, features, targets,
-  targets_type = c("relative", "absolute"), locked_in = NULL,
-  locked_out = NULL, penalty = 0, edge_factor = 0.5, ...)
+\method{marxan_problem}{default}(x, ...)
 
 \method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL, blm = 0,
-  asymmetric_connectivity = FALSE, ...)
+  ...)
 
 \method{marxan_problem}{character}(x, ...)
 }
 \arguments{
-\item{x}{\code{character} file path for \emph{Marxan} input file (typically
-called \code{"input.dat"}), a \code{data.frame} object containing
-planning unit data following conventions (i.e. \code{"pu.dat"}), or a
-\code{\link[sp]{Spatial-class}} or \code{\link[raster]{Raster-class}}
-object containing planning unit data.}
+\item{x}{\code{character} file path for a \emph{Marxan} input file (typically
+  called \code{"input.dat"}), or \code{data.frame} containing planning unit
+  data (typically called \code{"pu.dat"}). If the argument to \code{x} is a
+  \code{data.frame}, then each row corresponds to a different planning unit,
+  and it must have the following columns:
 
-\item{...}{arguments passed to \code{\link{problem}}.}
+  \describe{
 
-\item{features}{\code{\link[raster]{Raster-class}} object containing
-data on the distribution of features across the study area.}
+  \item{\code{"id"}}{\code{integer} unique identifier for each planning unit.
+    These identifiers are used in the argument to \code{puvspr}.}
 
-\item{targets}{\code{numeric} amount of each feature to be represented
-in the solution.}
+  \item{\code{"cost"}}{\code{numeric} cost of each planning unit.}
 
-\item{targets_type}{\code{character} name indicating if the \code{targets}
-are expressed as \code{"relative"} (e.g. \code{0.2} meaning that 20 \% of a
-feature needs to be conserved), or \code{"absolute"} (e.g. \code{200}
-meaning that 200 units of a feature need to be conserved) amounts.}
+  \item{\code{"status"}}{\code{integer} indicating if each planning unit
+    should not be locked in the solution (0) or if it should be locked in
+    (2) or locked out (3) of the solution. Although \emph{Marxan} allows
+    planning units to be selected in the initial solution (using values of
+    1), these values have no effect here. This column is optional.}
 
-\item{locked_in}{Object that determines which planning units that should be
-locked in. See the Details section for more information.}
+  }}
 
-\item{locked_out}{Object that determines which planning units that should be
-locked out. See the Details section for more information.}
-
-\item{penalty}{\code{numeric} penalty that is used to scale the importance
-of selecting planning units that are spatially clumped together compared
-to the main problem objective (e.g. solution cost when the argument to
-\code{x} has a minimum set objective set using
-\code{\link{add_min_set_objective}}). Higher \code{penalty} values
-will return solutions with a higher degree of spatial clumping,
-and smaller \code{penalty} values will return solutions with a smaller
-degree of clumping. Note that negative \code{penalty} values will
-return solutions that are more spread out. This parameter is equivalent to
-the
-\href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{\emph{Marxan}}.}
-
-\item{edge_factor}{\code{numeric} proportion to scale
-planning unit edges (or borders) that do not have any neighboring planning
-units. For example, an edge factor of \code{0.5} is commonly used for
-planning units along the coast line. Note that this argument must have an
-element for each zone in the argument to \code{x}.}
+\item{...}{not used.}
 
 \item{spec}{\code{data.frame} containing information on the features.
   The argument to \code{spec} must follow the conventions used by
   \emph{Marxan} for the species data file (conventionally called
-  \code{"spec.dat"}). Each row corresponds to a different feature. It must
-  also contain the following columns:
+  \code{"spec.dat"}). Each row corresponds to a different feature and
+  each column corresponds to different information about the features. It
+  must contain the columns listed below. Note that the argument to
+  \code{spec} must contain at least one column named \code{"prop"} or
+  \code{"amount"}---\strong{but not both columns with both of these
+  names}---to specify the target for each feature.
 
   \describe{
 
   \item{\code{"id"}}{\code{integer} unique identifier for each feature
-    These identifiers are used in the argument to \code{rij_data}.}
+    These identifiers are used in the argument to \code{puvspr}.}
 
   \item{\code{"name"}}{\code{character} name for each feature.}
 
@@ -101,11 +82,12 @@ element for each zone in the argument to \code{x}.}
 
   }}
 
-\item{bound}{\code{data.frame} containing information on the
-  planning units' boundaries or the connectivity between planning units.
-  The argument to \code{bound} must follow the
-  conventions used in the \emph{Marxan} input data file (conventionally
-  called \code{"bound.dat"}). It must contain the following columns:
+\item{bound}{\code{NULL} object indicating that no boundary data
+  is required for the conservation planning problem, or a \code{data.frame}
+  containing information on the planning units' boundaries. The argument to
+  \code{bound} must follow the conventions used in the \emph{Marxan} input
+  data file (conventionally called \code{"bound.dat"}). It must contain the
+  following columns:
 
   \describe{
 
@@ -114,70 +96,94 @@ element for each zone in the argument to \code{x}.}
   \item{\code{"id2"}}{\code{integer} planning unit identifier.}
 
   \item{\code{"boundary"}}{\code{numeric} length of shared boundary
-    between planning units, or the strength of the connectivity between
-    the two planning units.}
+    between the planning units identified in the previous two columns.}
 
   }}
 
 \item{blm}{\code{numeric} boundary length modifier. This argument only
-has an effect when argument to \code{x} is a \code{data.frame}. Defaults
-to zero.}
-
-\item{asymmetric_connectivity}{\code{logical} does the argument
-to \code{bound} denote asymmetric connectivity between planning units?
-This argument only has an effect when argument to \code{bound} is a
-\code{data.frame}. Defaults to \code{FALSE}.}
+has an effect when argument to \code{x} is a \code{data.frame}. The
+default argument is zero.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object.
 }
 \description{
-Create a \emph{Marxan} conservation problem.
+Create a conservation planning \code{\link{problem}} following the
+mathematical formulations used in \emph{Marxan} (detailed in Beyer
+\emph{et al.} 2016).
 }
 \details{
-Although users are encouraged to build and tailor conservation
-  planning problems to suit their own needs, sometimes it is easier to use a
-  more familiar "canned" approach. This function provides a convenient
-  wrapper for generating and solving \emph{Marxan}-style conservation
-  problems. If users already have their conservation planning data in the
-  \emph{Marxan} input format, this function can also be used to read
-  \emph{Marxan} data files and solve \emph{Marxan}-style problems using
-  exact algorithm solvers. For more information, see the
+This function is provided as a convenient wrapper for solving
+  \emph{Marxan} problems using \pkg{prioritizr}. Although this function
+  could accommodate asymmetric connectivity in earlier versions of the
+  \pkg{prioritizr} package, this functionality is no longer available.
+  Please see the \code{\link{add_connectivity_penalties}} function for
+  adding asymmetric connectivity penalties to a conservation planning
+  problem. For more information on the correct formats
+  for \emph{Marxan} input data, see the
   \href{http://marxan.net}{official \emph{Marxan} website} and Ball
   \emph{et al.} (2009).
 }
 \examples{
-# # not implemented
-# # create Marxan problem using spatial data
-# data(sim_pu_raster, sim_features)
-# p1 <- marxan_problem(sim_pu_raster, features = sim_features, targets = 0.2,
-#                      targets_type = "relative", penalty = 1,
-#                      edge_factor = 0.5)
-#
-# \donttest{
-# # solve problem
-# s1 <- solve(p1)
-#
-# # show solution
-# plot(s1, main = "solution", axes = FALSE, box = FALSE)
-# }
-#
-# # create Marxan problem using Marxan input files
-# input_file <- system.file("extdata/input.dat", package="prioritizr")
-# p2 <- marxan_problem(input_file)
-#
-# \donttest{
-# # solve problem
-# s2 <- solve(p2)
-#
-# # count number of selected planning units in solution
-# print(sum(s2))
-# }
+# create Marxan problem using Marxan input file
+input_file <- system.file("extdata/input.dat", package = "prioritizr")
+p1 <- marxan_problem(input_file)
+\donttest{
+# solve problem
+s1 <- solve(p1)
 
+# print solution
+head(s1)
+}
+# create Marxan problem using data.frames that have been loaded into R
+## load in planning unit data
+pu_path <- system.file("extdata/input/pu.dat", package = "prioritizr")
+pu_dat <- data.table::fread(pu_path, data.table = FALSE)
+head(pu_dat)
+
+## load in feature data
+spec_path <- system.file("extdata/input/spec.dat", package = "prioritizr")
+spec_dat <- data.table::fread(spec_path, data.table = FALSE)
+head(spec_dat)
+
+## load in planning unit vs feature data
+puvspr_path <- system.file("extdata/input/puvspr.dat",
+                           package = "prioritizr")
+puvspr_dat <- data.table::fread(puvspr_path, data.table = FALSE)
+head(puvspr_dat)
+
+## load in the boundary data
+bound_path <- system.file("extdata/input/bound.dat", package = "prioritizr")
+bound_dat <- data.table::fread(bound_path, data.table = FALSE)
+head(bound_dat)
+
+# create problem without the boundary data
+p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat)
+\donttest{
+# solve problem
+s2 <- solve(p2)
+
+# print solution
+head(s2)
+}
+# create problem with the boundary data and a boundary length modifier
+# set to 5
+p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5)
+\donttest{
+# solve problem
+s3 <- solve(p3)
+
+# print solution
+head(s3)
+}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
 Software for spatial conservation prioritisation} in Spatial conservation
 prioritisation: Quantitative methods and computational tools. Eds Moilanen
 A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
+
+Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+\emph{Ecological Modelling}, 228: 14--22.
 }

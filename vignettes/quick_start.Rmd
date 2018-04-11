@@ -418,18 +418,6 @@ mp2 <- marxan_problem(x = pu, spec = features, puvspr = rij, bound = bound,
                       blm = 0)
 ```
 
-The `marxan_problem` function can also read non-Marxan input files such as spatial and raster layers, provided they are formatted following the conventions used by Marxan input files. Problem formulation  differs slightly with this method. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the `locked in` and `locked out` arguments. Connectivity can be added with the  `penalty` argument, which imposes a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in Marxan), and the `edge_factor` argument to scale the penalty for edges that do not have neighboring planning units, such as coastline. Cost does not have to be explicitly identified with `marxan_problem`, because if column names follow Marxan conventions, the cost column can be located by the function.
-
-The simulated dataset we use here can be read as a Marxan problem. A problem with no boundary penalty, but a locked in constraint, would be formulated as follows.
-
-```{r, results = "hide", fig.height = h * 0.7}
-mp3 <- marxan_problem(x = sim_pu_polygons, features = sim_features,
-                      targets = 0.2, targets_type = "relative",
-                      locked_in = sim_locked_in_raster, cost_column = "cost")
-ms3 <- solve(mp3)
-spplot(ms3, zcol = "solution_1", main = "Solution")
-```
-
 ## Post-Processing Solutions
 
 There are several options for post-processing solutions if you're interested in conducting additional analyses beyond plotting. Post-processing can be done efficiently by exporting solutions into GIS software platforms such as [ArcGIS](https://www.arcgis.com/features/index.html) and [QGIS](http://www.qgis.org/en/site/), but it is also possible to calculate statistics on spatial layers within R. Some handy functions for raster solutions include `zonal` and `extract` from the raster package; `zonal` when the features are rasters, and `extract` when the features are spatial layers. The `cellStats` and `layerStats` functions from the _raster_ package are also useful.

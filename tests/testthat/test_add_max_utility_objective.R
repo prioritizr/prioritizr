@@ -197,6 +197,9 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
 })
 
 test_that("solve (compressed formulation, multiple zones, scalar budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- 4.23
   cost <- raster::stack(
     raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
@@ -290,6 +293,9 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
 })
 
 test_that("solve (expanded formulation, multiple zones, scalar budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- 4.23
   cost <- raster::stack(
     raster::raster(matrix(c(10, 10, 10, 10, NA), nrow = 1)),
@@ -365,6 +371,9 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
 })
 
 test_that("solve (compressed formulation, multiple zones, vector budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- c(2, 11)
   cost <- raster::stack(
     raster::raster(matrix(c(2,  2, 10, 10, NA), nrow = 1)),
@@ -462,6 +471,9 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
 })
 
 test_that("solve (expanded formulation, multiple zones, vector budget)", {
+  skip_on_cran()
+  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_if_not(any_solvers_installed())
   budget <- c(2, 11)
   cost <- raster::stack(
     raster::raster(matrix(c(2,  2, 10, 10, NA), nrow = 1)),

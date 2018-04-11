@@ -162,7 +162,7 @@ NULL
 #' # 30 seconds to obtain solutions in a feasible period of time
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
+#'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'       add_default_solver(time_limit = 30) %>%
 #'       add_binary_decisions()
 #'
@@ -192,7 +192,7 @@ NULL
 #' \donttest{
 #' # solve problems
 #' s2 <- lapply(list(p5, p6, p7, p8), solve)
-#' s2 <- lapply(s2, category_layer)
+#' s2 <- stack(lapply(s2, category_layer))
 #'
 #' # plot solutions
 #' plot(s2, main = c("p5", "p6", "p7", "p8"), axes = FALSE, box = FALSE)
