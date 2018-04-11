@@ -20,7 +20,7 @@
 #'
 #' @name generics
 #'
-#' @aliases nrow ncol ncell modelsense vtype obj A rhs sense lb ub number_of_features number_of_planning_units number_of_total_units number_of_zones col_ids row_ids compressed_formulation zone_names feature_names
+#' @aliases nrow ncol ncell modelsense vtype obj A rhs sense lb ub number_of_features number_of_planning_units number_of_total_units number_of_zones number_of_items col_ids row_ids compressed_formulation zone_names feature_names
 NULL
 
 #' @name generics
@@ -61,6 +61,17 @@ NULL
 #' @usage modelsense(x)
 #'
 methods::setGeneric("modelsense", function(x) standardGeneric("modelsense"))
+
+#' @name generics
+#'
+#' @rdname generics
+#'
+#' @exportMethod number_of_items
+#'
+#' @usage number_of_items(x)
+#'
+methods::setGeneric("number_of_items", function(x)
+  standardGeneric("number_of_items"))
 
 #' @name generics
 #'

@@ -305,19 +305,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_apply_corridor_constraints
-bool rcpp_apply_corridor_constraints(SEXP x, Rcpp::List connected_matrix_list, Rcpp::NumericVector threshold);
-RcppExport SEXP _prioritizr_rcpp_apply_corridor_constraints(SEXP xSEXP, SEXP connected_matrix_listSEXP, SEXP thresholdSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type connected_matrix_list(connected_matrix_listSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type threshold(thresholdSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_apply_corridor_constraints(x, connected_matrix_list, threshold));
-    return rcpp_result_gen;
-END_RCPP
-}
 // rcpp_apply_decisions
 bool rcpp_apply_decisions(SEXP x, std::string vtype, double default_lower, double default_upper);
 RcppExport SEXP _prioritizr_rcpp_apply_decisions(SEXP xSEXP, SEXP vtypeSEXP, SEXP default_lowerSEXP, SEXP default_upperSEXP) {
@@ -329,6 +316,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type default_lower(default_lowerSEXP);
     Rcpp::traits::input_parameter< double >::type default_upper(default_upperSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_apply_decisions(x, vtype, default_lower, default_upper));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_apply_feature_contiguity_constraints
+bool rcpp_apply_feature_contiguity_constraints(SEXP x, Rcpp::List data, Rcpp::List clusters_list);
+RcppExport SEXP _prioritizr_rcpp_apply_feature_contiguity_constraints(SEXP xSEXP, SEXP dataSEXP, SEXP clusters_listSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type clusters_list(clusters_listSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_feature_contiguity_constraints(x, data, clusters_list));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -105,12 +105,12 @@ rcpp_apply_contiguity_constraints <- function(x, data, clusters) {
     .Call(`_prioritizr_rcpp_apply_contiguity_constraints`, x, data, clusters)
 }
 
-rcpp_apply_corridor_constraints <- function(x, connected_matrix_list, threshold) {
-    .Call(`_prioritizr_rcpp_apply_corridor_constraints`, x, connected_matrix_list, threshold)
-}
-
 rcpp_apply_decisions <- function(x, vtype, default_lower, default_upper) {
     .Call(`_prioritizr_rcpp_apply_decisions`, x, vtype, default_lower, default_upper)
+}
+
+rcpp_apply_feature_contiguity_constraints <- function(x, data, clusters_list) {
+    .Call(`_prioritizr_rcpp_apply_feature_contiguity_constraints`, x, data, clusters_list)
 }
 
 rcpp_apply_feature_weights <- function(x, weights) {

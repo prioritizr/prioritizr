@@ -101,7 +101,7 @@ NULL
 #'      box = FALSE)
 #' }
 #' # create minimal problem with multiple zones, and limit the solver to
-#' # 15 seconds to obtain solutions in a feasible period of time
+#' # 30 seconds to obtain solutions in a feasible period of time
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%

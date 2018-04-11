@@ -17,6 +17,7 @@
 \alias{number_of_planning_units}
 \alias{number_of_total_units}
 \alias{number_of_zones}
+\alias{number_of_items}
 \alias{col_ids}
 \alias{row_ids}
 \alias{compressed_formulation}
@@ -42,9 +43,12 @@
 \alias{generics}
 \alias{generics}
 \alias{generics}
+\alias{generics}
 \title{Generic methods}
 \usage{
 modelsense(x)
+
+number_of_items(x)
 
 vtype(x)
 

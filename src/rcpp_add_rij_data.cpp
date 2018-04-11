@@ -54,7 +54,7 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
       for (std::size_t f = 0; f < (ptr->_number_of_features); ++f) {
         for (std::size_t j = 0; j < (ptr->_number_of_planning_units); ++j) {
           ++row;
-          // add constrains to ensure that y_ij <= x_j \forall z
+          // add constraints to ensure that y_ij <= x_j \forall z
           ptr->_A_i.push_back(row);
           ptr->_A_i.push_back(row);
           ptr->_A_j.push_back((z * ptr->_number_of_planning_units) + j);
