@@ -108,5 +108,5 @@ z <- zones(c("spp1_zone1", "spp2_zone1"),
 print(z)
 }
 \seealso{
-\code{\link{problem}}, \code{\link{Zones-methods}}.
+\code{\link{problem}}.
 }

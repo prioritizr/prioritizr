@@ -2,6 +2,20 @@
 % Please edit documentation in R/OptimizationProblem-methods.R
 \name{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
+\alias{nrow}
+\alias{ncol}
+\alias{ncell}
+\alias{modelsense}
+\alias{vtype}
+\alias{obj}
+\alias{A}
+\alias{rhs}
+\alias{sense}
+\alias{lb}
+\alias{ub}
+\alias{col_ids}
+\alias{row_ids}
+\alias{compressed_formulation}
 \alias{ncell,OptimizationProblem-method}
 \alias{A,OptimizationProblem-method}
 \alias{col_ids,OptimizationProblem-method}
@@ -9,9 +23,6 @@
 \alias{modelsense,OptimizationProblem-method}
 \alias{ncol,OptimizationProblem-method}
 \alias{nrow,OptimizationProblem-method}
-\alias{number_of_features,OptimizationProblem-method}
-\alias{number_of_planning_units,OptimizationProblem-method}
-\alias{number_of_zones,OptimizationProblem-method}
 \alias{obj,OptimizationProblem-method}
 \alias{rhs,OptimizationProblem-method}
 \alias{row_ids,OptimizationProblem-method}
@@ -36,48 +47,51 @@
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
 \title{Optimization problem methods}
 \usage{
-\S4method{nrow}{OptimizationProblem}(x)
+nrow(x)
 
-\S4method{ncol}{OptimizationProblem}(x)
+ncol(x)
 
-\S4method{ncell}{OptimizationProblem}(x)
+ncell(x)
 
-\S4method{modelsense}{OptimizationProblem}(x)
+modelsense(x)
 
-\S4method{vtype}{OptimizationProblem}(x)
+vtype(x)
 
-\S4method{obj}{OptimizationProblem}(x)
+obj(x)
 
-\S4method{A}{OptimizationProblem}(x)
+A(x)
 
-\S4method{rhs}{OptimizationProblem}(x)
+rhs(x)
 
-\S4method{sense}{OptimizationProblem}(x)
+sense(x)
 
-\S4method{lb}{OptimizationProblem}(x)
+lb(x)
 
-\S4method{ub}{OptimizationProblem}(x)
+ub(x)
 
-\S4method{number_of_features}{OptimizationProblem}(x)
+col_ids(x)
 
-\S4method{number_of_zones}{OptimizationProblem}(x)
+row_ids(x)
 
-\S4method{number_of_planning_units}{OptimizationProblem}(x)
-
-\S4method{col_ids}{OptimizationProblem}(x)
-
-\S4method{row_ids}{OptimizationProblem}(x)
-
-\S4method{compressed_formulation}{OptimizationProblem}(x)
+compressed_formulation(x)
 }
 \arguments{
 \item{x}{\code{\link{OptimizationProblem-class}} object.}
 }
 \value{
 \code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
-  or scalar \code{integer} depending on the method.
+  \code{numeric} vector, or scalar \code{integer} depending on the method
+  used.
 }
 \description{
 These functions are used to access data from an
@@ -120,9 +134,8 @@ The functions return the following data:
 \item{number_of_planning_units}{\code{integer} number of planning units in
   the problem.}
 
-\item{number_of_features}{\code{integer} number of features in the problem.}
-
-\item{number_of_zones}{\code{integer} number of zones in the problem.}
+\item{number_of_features}{\code{integer} number of features
+  the problem.}
 
 }
 }

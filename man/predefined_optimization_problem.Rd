@@ -23,8 +23,6 @@ The argument to \code{x} must be a list that contains the following
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
 
-\item{number_of_planning_units}{\code{integer} number of zones.}
-
 \item{A_i}{\code{integer} row indices for problem matrix.}
 
 \item{A_j}{\code{integer} column indices for problem matrix.}
