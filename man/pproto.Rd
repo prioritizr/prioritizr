@@ -11,7 +11,7 @@ pproto(`_class` = NULL, `_inherit` = NULL, ...)
 attribute of the object. This is optional: if \code{NULL} (the default),
 no class name will be added to the object.}
 
-\item{_inherit}{\code{ggproto} object to inherit from. If \code{NULL}, don"t
+\item{_inherit}{\code{pproto} object to inherit from. If \code{NULL}, don"t
 inherit from any object.}
 
 \item{...}{A list of members to add to the new \code{pproto} object.}
