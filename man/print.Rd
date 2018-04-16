@@ -2,8 +2,8 @@
 % Please edit documentation in R/print.R
 \name{print}
 \alias{print}
-\alias{print.ConservationModifier}
 \alias{print.ConservationProblem}
+\alias{print.ConservationModifier}
 \alias{print.Id}
 \alias{print.OptimizationProblem}
 \alias{print.ScalarParameter}
@@ -12,21 +12,21 @@
 \alias{print.Zones}
 \title{Print}
 \usage{
-print.ConservationModifier(x, ...)
+\method{print}{ConservationProblem}(x, ...)
 
-print.ConservationProblem(x, ...)
+\method{print}{ConservationModifier}(x, ...)
 
-print.Id(x, ...)
+\method{print}{Id}(x, ...)
 
-print.OptimizationProblem(x, ...)
+\method{print}{OptimizationProblem}(x, ...)
 
-print.ScalarParameter(x, ...)
+\method{print}{ScalarParameter}(x, ...)
 
-print.ArrayParameter(x, ...)
+\method{print}{ArrayParameter}(x, ...)
 
-print.Solver(x, ...)
+\method{print}{Solver}(x, ...)
 
-print.Zones(x, ...)
+\method{print}{Zones}(x, ...)
 }
 \arguments{
 \item{x}{Any object.}

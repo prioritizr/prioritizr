@@ -39,9 +39,9 @@ data(sim_pu_raster, sim_features)
 
 # create problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+     add_min_set_objective() \%>\%
+     add_relative_targets(0.2) \%>\%
+     add_binary_decisions()
 
 # print number of features
 print(number_of_features(p))

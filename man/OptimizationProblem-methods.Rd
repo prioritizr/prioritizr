@@ -55,35 +55,66 @@
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
+\alias{OptimizationProblem-methods}
 \title{Optimization problem methods}
 \usage{
 nrow(x)
 
+\S4method{nrow}{OptimizationProblem}(x)
+
 ncol(x)
+
+\S4method{ncol}{OptimizationProblem}(x)
 
 ncell(x)
 
+\S4method{ncell}{OptimizationProblem}(x)
+
 modelsense(x)
+
+\S4method{modelsense}{OptimizationProblem}(x)
 
 vtype(x)
 
+\S4method{vtype}{OptimizationProblem}(x)
+
 obj(x)
+
+\S4method{obj}{OptimizationProblem}(x)
 
 A(x)
 
+\S4method{A}{OptimizationProblem}(x)
+
 rhs(x)
+
+\S4method{rhs}{OptimizationProblem}(x)
 
 sense(x)
 
+\S4method{sense}{OptimizationProblem}(x)
+
 lb(x)
+
+\S4method{lb}{OptimizationProblem}(x)
 
 ub(x)
 
+\S4method{ub}{OptimizationProblem}(x)
+
 col_ids(x)
+
+\S4method{col_ids}{OptimizationProblem}(x)
 
 row_ids(x)
 
+\S4method{row_ids}{OptimizationProblem}(x)
+
 compressed_formulation(x)
+
+\S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
 \item{x}{\code{\link{OptimizationProblem-class}} object.}

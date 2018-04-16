@@ -37,9 +37,9 @@ data(sim_pu_zones_stack, sim_features_zones)
 print(zone_names(sim_features_zones))
 # create problem with multiple zones
 p <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
-      add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions()
+     add_min_set_objective() \%>\%
+     add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
+     add_binary_decisions()
 
 # print zone names in problem
 print(zone_names(p))
