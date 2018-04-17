@@ -35,37 +35,36 @@ NULL
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
 #' @examples
-#' # ## load data
-#' # data(sim_pu_points, sim_features)
-#' #
-#' # ## create basic problem
-#' # p1 <- problem(sim_pu_raster, sim_features) %>%
-#' #       add_min_set_objective() %>%
-#' #       add_relative_targets(0.2) %>%
-#' #       add_default_solver()
-#' #
-#' # ## create problem with boundary penalties
-#' # p2 <- p1 %>% add_boundary_penalties(5, 1)
-#' #
-#' # ## create problem with connectivity penalties
-#' # # create connectivity matrix based on spatial proximity
-#' # sc_matrix <- as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
-#' # sc_matrix <- 1 / (as.matrix(dist(sc_matrix)) + 1)
-#' #
-#' # # remove weak and moderate connections between planning units to reduce
-#' # # run-time
-#' # sc_matrix[sc_matrix < 0.85] <- 0
-#' #
-#' # # create problem
-#' # p3 <- p1 %>% add_connectivity_penalties(25, sc_matrix)
-#' # \donttest{
-#' # ## solve problems
-#' # s <- stack(solve(p1), solve(p2), solve(p3))
-#' #
-#' # # plot solutions
-#' # plot(s, axes = FALSE, box = FALSE,
-#' #      main = c("basic solution", "boundary penalties",
-#' #               "connectivity penalties"))
-#' # }
+#' # load data
+#' data(sim_pu_points, sim_features)
+#'
+#' # create basic problem
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.2) %>%
+#'       add_default_solver()
+#'
+#' # create problem with boundary penalties
+#' p2 <- p1 %>% add_boundary_penalties(5, 1)
+#'
+#' # create connectivity matrix based on spatial proximity
+#'  scm <- as.data.frame(sim_pu_raster, xy = TRUE, na.rm = FALSE)
+#'  scm <- 1 / (as.matrix(dist(scm)) + 1)
+#'
+#' # remove weak and moderate connections between planning units to reduce
+#' # run time
+#' scm[scm < 0.85] <- 0
+#'
+#' # create problem with connectivity penalties
+#' p3 <- p1 %>% add_connectivity_penalties(25, data = scm)
+#' \donttest{
+#' # solve problems
+#' s <- stack(solve(p1), solve(p2), solve(p3))
+#'
+#' # plot solutions
+#' plot(s, axes = FALSE, box = FALSE,
+#'      main = c("basic solution", "boundary penalties",
+#'               "connectivity penalties"))
+#'  }
 #' @name penalties
 NULL
