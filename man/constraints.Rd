@@ -26,13 +26,6 @@ Constraints can be used to ensure that solutions exhibit
 
   \describe{
 
-  \item{\code{\link{add_connected_constraints}}}{Add constraints to a
-    conservation problem to ensure that all selected
-    planning units are spatially connected to each other.}
-
-  \item{\code{\link{add_corridor_constraints}}}{Adds constraints to ensure
-    that features are represented in contiguous reserves.}
-
   \item{\code{\link{add_locked_in_constraints}}}{Add constraints to ensure
     that certain planning units are selected in the solution.}
 
@@ -43,56 +36,53 @@ Constraints can be used to ensure that solutions exhibit
     ensure that all selected planning units have at least a certain number
     of neighbors.}
 
+  \item{\code{\link{add_contiguity_constraints}}}{Add constraints to a
+    ensure that all selected planning units are spatially connected to each
+    other and form a single contiguous unit.}
+
+  \item{\code{\link{add_feature_contiguity_constraints}}}{Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+    dispersible habitat. These constraints are a more advanced version of
+    those implemented in the \code{\link{add_contiguity_constraints}}
+    function, because they ensure that each feature is represented in a
+    contiguous unit and not that the entire solution should form a
+    contiguous unit.}
+
  }
 }
 \examples{
-# # not implemented
-# # load data
-# data(sim_pu_raster, sim_features)
-#
-# # create base problem with no additional constraints
-# p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
-#       add_min_set_objective() \%>\%
-#       add_relative_targets(0.1) \%>\%
-#       add_binary_decisions()
-#
-# # create problem with locked in constraints
-# p2 <- p1 \%>\% add_locked_in_constraints("locked_in")
-#
-# # create problem with locked in constraints
-# p3 <- p1 \%>\% add_locked_out_constraints("locked_out")
-#
-# # create problem with neighbor constraints
-# p4 <- p1 \%>\% add_neighbor_constraints(2)
-#
-# # create problem with connected constraints
-# p5 <- p1 \%>\% add_connected_constraints()
-# \donttest{
-# # solve problems
-# s1 <- solve(p1)
-# s2 <- solve(p2)
-# s3 <- solve(p3)
-# s4 <- solve(p4)
-# s5 <- solve(p5)
-#
-# # plot solutions
-# par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
-# plot(s1, main = "basic")
-# plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#
-# plot(s2, main="locked in")
-# plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#
-# plot(s3, main="locked out")
-# plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#
-# plot(s4, main = "neighbor")
-# plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#
-# plot(s5, main = "connected")
-# plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-# }
+# load data
+data(sim_pu_raster, sim_features, sim_locked_in_raster,
+     sim_locked_out_raster)
 
+# create minimal problem with only targets and no additional constraints
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_binary_decisions()
+
+# create problem with locked in constraints
+p2 <- p1 \%>\% add_locked_in_constraints(sim_locked_in_raster)
+
+# create problem with locked in constraints
+p3 <- p1 \%>\% add_locked_out_constraints(sim_locked_out_raster)
+
+# create problem with neighbor constraints
+p4 <- p1 \%>\% add_neighbor_constraints(2)
+
+# create problem with contiguity constraints
+p5 <- p1 \%>\% add_contiguity_constraints()
+
+# create problem with feature contiguity constraints
+p6 <- p1 \%>\% add_feature_contiguity_constraints()
+\donttest{
+# solve problems
+s <- stack(lapply(list(p1, p2, p3, p4, p5, p6), solve))
+
+# plot solutions
+plot(s, box = FALSE, axes = FALSE, nr = 2,
+     main = c("minimal problem", "locked in", "locked out",
+              "neighbor", "contiguity", "feature contiguity"))
+}
 }
 \seealso{
 \code{\link{decisions}}, \code{\link{objectives}},
