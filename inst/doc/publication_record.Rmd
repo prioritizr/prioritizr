@@ -8,7 +8,7 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{Prioritizr Publication Record}
+  %\VignetteIndexEntry{Publication Record}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 

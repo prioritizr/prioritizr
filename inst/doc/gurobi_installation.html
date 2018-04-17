@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2018-04-16" />
+<meta name="date" content="2018-04-17" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,14 +70,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore"><em>Gurobi</em> Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2018-04-16</em></h4>
+<h4 class="date"><em>2018-04-17</em></h4>
 
 
 <div id="TOC">
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#obtaining-a-license">Obtaining a license</a></li>
-<li><a href="#downloading-gurobi">Downloading <em>Gurobi</em></a></li>
+<li><a href="#downloading-the-gurobi-software-suite">Downloading the <em>Gurobi</em> software suite</a></li>
 <li><a href="#software-installation">Software installation</a></li>
 <li><a href="#license-activation">License activation</a></li>
 <li><a href="#r-package-installation"><em>R</em> package installation</a></li>
@@ -85,12 +85,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul>
 </div>
 
-<div id="introduction" class="section level3">
-<h3>Introduction</h3>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p><em>Gurobi</em> is the most powerful and fastest solver that <em>prioritizr</em> can use to solve conservation planning problems. This vignette will walk you through the process of setting up <em>Gurobi</em> on your computer so that you can use it to solve conservation planning problems. If you encounter any problems while following the instructions below, check out the <a href="http://www.gurobi.com/documentation/">official <em>Gurobi</em> documentation</a> or the <a href="https://groups.google.com/forum/#!forum/gurobi">official <em>Gurobi</em> emailing list</a>.</p>
 </div>
-<div id="obtaining-a-license" class="section level3">
-<h3>Obtaining a license</h3>
+<div id="obtaining-a-license" class="section level2">
+<h2>Obtaining a license</h2>
 <p><em>Gurobi</em> is a commercial computer program. <a href="http://www.gurobi.com/products/licensing-pricing/licensing-overview">This means that users will need to obtain a license for <em>Gurobi</em> before they can use it</a>. Although academics can obtain a special license at no cost, individuals that are not affiliated with a recognized educational institution may need to purchase a license to use <em>Gurobi</em>. If you are an academic that is affiliated with an educational institution, you can take advantage of the <a href="https://user.gurobi.com/download/licenses/free-academic">special academic license</a> to use <em>Gurobi</em> for no cost. Once you have signed up for a free account you can request a <a href="https://www.gurobi.com/registration/academic-license-reg">free academic license</a>.</p>
 <br>
 <center>
@@ -105,12 +105,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><br></p>
 <p>Now, copy and save the <code>grbgetkey XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code> command for later use.</p>
 </div>
-<div id="downloading-gurobi" class="section level3">
-<h3>Downloading <em>Gurobi</em></h3>
+<div id="downloading-the-gurobi-software-suite" class="section level2">
+<h2>Downloading the <em>Gurobi</em> software suite</h2>
 <p>After obtaining a license, you will need to download a copy of the <em>Gurobi</em> installer to your computer. To achieve this, visit the <a href="http://www.gurobi.com/downloads/gurobi-optimizer"><em>Gurobi</em> downloads web page</a> and download the correct version of the installer for your operating system.</p>
 </div>
-<div id="software-installation" class="section level3">
-<h3>Software installation</h3>
+<div id="software-installation" class="section level2">
+<h2>Software installation</h2>
 <p>The installation process for the <em>Gurobi</em> software suite depends on the type of operating system you have installed on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="http://www.gurobi.com/documentation/">“Quick Start Guides”</a> for <a href="http://www.gurobi.com/documentation/7.5/quickstart_windows/software_installation_guid.html#section:Installation">Windows</a>, <a href="http://www.gurobi.com/documentation/7.5/quickstart_mac/software_installation_guid.html">Mac OSX</a>, and <a href="http://www.gurobi.com/documentation/7.5/quickstart_linux/software_installation_guid.html">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will take care of rest. Whereas, on Linux systems, you will need to manually extract downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em>. Additionally, if you are using <a href="https://www.rstudio.com/products/rstudio/"><em>RStudio</em></a> on a Linux system, you might need to add the following line to the file located at <em>/etc/rstudio/rserver.conf</em>:</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
 <p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
