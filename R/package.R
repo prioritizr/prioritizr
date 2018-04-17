@@ -9,41 +9,54 @@ NULL
 
 #' \pkg{prioritizr}
 #'
-#' \pkg{prioritizr} is an \emph{R} package for solving systematic conservation
-#' planning problems. By using integer linear programming (ILP)
-#' techniques, this package offers a flexible interface for creating
-#' reserve selection problems that can be tailored to the specific needs of the
-#' conservation planner (Rodrigues \emph{et al.} 2000; Billionnet 2013).
-#' Once built, problems can then be solved using a variety of commercial and
-#' open-source exact algorithm solvers. In contrast to the algorithms
-#' conventionally used to solve conservation problems, such as greedy
-#' heuristics or simulated annealing, the exact algorithms used by
-#' \pkg{prioritizr} are guaranteed to find optimal solutions. This package
-#' also has the functionality to read \href{http://marxan.net/}{\emph{Marxan}}
-#' input data (Ball \emph{et al.} 2009) and find much better solutions in a much
-#' shorter period of time than \emph{Marxan} (Beyer \emph{et al.} 2016).
-#' Finally, conservation planning problems can be constructed to involve
-#' allocating planning units to specific management zones (commonly referred
-#' to as "zones functionality"). See the
+#' The \pkg{prioritizr} package uses integer linear programming (ILP)
+#' techniques for defining and solving systematic conservation prioritization
+#' problems (Rodrigues \emph{et al.} 2000; Billionnet 2013). This package
+#' offers a flexible interface for creating and customizing conservation
+#' problems. It supports a broad of objectives,
+#' constraints, and penalties that can be used to create a conservation
+#' problems that are custom-tailored to the specific needs of a conservation
+#' planning exercise. Once built, conservation problems can be solved using a
+#' variety of commercial and open-source exact algorithm solvers. In contrast
+#' to the algorithms conventionally used to solve conservation problems, such
+#' as heuristics or simulated annealing [@3], the exact algorithms used here
+#' are guaranteed to find optimal solutions. Furthermore, conservation problems
+#' can be constructed to optimize the spatial allocation of different
+#' management actions or zones, meaning that conservation practitioners can
+#' identify solutions that benefit multiple stakeholders. Finally, this package
+#' has the functionality to read input data formatted for the _Marxan_
+#' conservation planning program (Ball \emph{et al.} 2009), and find much
+#' cheaper solutions in a much shorter period of time than _Marxan_ (Beyer
+#' \emph{et al.} 2016). See the
 #' \href{https://github.com/prioritizr/prioritizr}{online code repository}
 #' for more information.
 #'
-#' @details This package contains vignettes that introduce systematic
-#'   conservation planning and showcase the \pkg{prioritizr} package. The
-#'   supplemental
-#'   \href{https://github.com/prioritizr/prioritizrdata}{\emph{prioritizrdata}}
-#'   package contains further example datasets and worked examples. The
-#'   vignettes in this package are listed below.
+#' @details This package contains several vignettes that are designed to
+#'   showcase its functionality. To view them, type of the command
+#'   \code{vignette("name", package = "prioritizr")} where \code{"name"} is the
+#'   name of the desired vignette (e.g. \code{"gurobi_installation"}.
 #'
 #'   \describe{
 #'
-#' \item{\href{https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html}{Prioritizr Basics}}{Background information
-#'  on the concepts and terminology that underpin systematic conservation
-#'  planning and their usage in this package.}
-#' \item{\href{https://prioritizr.github.io/prioritizr/articles/quick_start.html}{Quickstart Guide}}{Short walk-through of the
-#'   \pkg{prioritizr} package with a simulated dataset.}
+#'   \item{prioritizr}{provides background
+#'     information on systematic conservation planning and a comprehensive
+#'     overview of the package and its usage.}
 #'
-#' }
+#'   \item{gurobi_installation}{contains
+#'     detailed instructions for installing and setting up the \emph{Gurobi}
+#'     software suite for use with the package.}
+#'
+#'   \item{publication_record}{lists of
+#'     scientific publications that have used the package for developing
+#'     prioritizations.}
+#'
+#'   \item{zones}{describes how problems can be constructed with multiple
+#'     management actions or zones.}
+#'
+#'   }
+#'
+#'   For more worked examples using the \pkg{prioritizr} package, check out
+#'   the supplemental \pkg{prioritizrdata} package.
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
