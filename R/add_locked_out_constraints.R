@@ -6,7 +6,7 @@ NULL
 #' Add constraints to a conservation planning \code{\link{problem}} to ensure
 #' that specific planning units are not selected
 #' (or allocated to a specific zone) in the solution. For example, it may be
-#' useful to lock out planning units that have been degraded and are not longer
+#' useful to lock out planning units that have been degraded and are not
 #' suitable for conserving species. If specific planning units should be locked
 #' in to the solution, use \code{\link{add_locked_out_constraints}}. For
 #' problems with non-binary planning unit allocations (e.g. proportions), the
