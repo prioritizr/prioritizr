@@ -112,11 +112,15 @@ NULL
 #' print(z)
 #' @export
 zones <- function(..., zone_names = NULL, feature_names = NULL) {
+  # parse arguments
   args <- list(...)
-  names(args) <- NULL
   # assign default zones names
-  if (is.null(zone_names))
+  if (is.null(zone_names) && is.null(names(args)))
     zone_names <- as.character(seq_along(args))
+  if (is.null(zone_names) && !is.null(names(args)))
+    zone_names <- names(args)
+  # set names of args to NULL
+  names(args) <- NULL
   # check zone names
   assertthat::assert_that(length(zone_names) == length(args),
                           msg = paste("number of supplied zones does not match",

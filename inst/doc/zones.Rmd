@@ -1,0 +1,247 @@
+---
+title: "Management Zones"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    fig_caption: true
+    self_contained: yes
+fontsize: 11pt
+documentclass: article
+bibliography: references.bib
+csl: reference-style.csl
+vignette: >
+  %\VignetteIndexEntry{zones}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r, include = FALSE}
+is_check <- ("CheckExEnv" %in% search()) || any(c("_R_CHECK_TIMINGS_",
+             "_R_CHECK_LICENSE_") %in% names(Sys.getenv()))
+knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
+                      root.dir = normalizePath("../.."))
+```
+
+## Introduction
+
+One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity [@r4]. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not [e.g. @r5; @r18]. Instead, many real-world problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g. baiting or trapping at various intensities) for controlling invasive pests in a set of different areas [e.g. @r25]. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities [e.g. @r26; @r27]. Popularized by _Marxan with Zones_ [@r2], this concept has become known as "zones" and is becoming increasingly important in conservation planning.
+
+The aim of this vignette is to showcase the zones functionality of the _prioritizr R_ package. It will assume a certain level of familiarity with conservation planning terminology and the _prioritizr R_ package. We recommend reading the [_prioritizr_ vignette](prioritizr.html) first if you don't have much experience in either of these topics.
+
+## Example usage
+
+In the _prioritizr R_ package, all conservation planning problems---including those which contain multiple management zones or actions---are initialized using the `problem` function. To refresh our memory on how we can construct problems using the _prioritizr R_ package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.
+
+```{r}
+# load data
+data(sim_pu_raster, sim_features)
+
+# create targets for each of the five features
+t1 <- rep(0.1, 5)
+
+# build single-zone problem
+p1 <- problem(sim_pu_raster, sim_features) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(t1) %>%
+      add_binary_decisions()
+
+# print problem
+print(p1)
+
+# solve problem
+s1 <- solve(p1)
+
+# plot solution
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
+```
+
+Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.
+
+```{r}
+# create a matrix with the targets
+# here each column corresponds to a different zone,
+# each row corresponds to a different feature, and
+# each cell value corresponds to the target
+t2 <- matrix(NA, ncol = 2, nrow = 5)
+t2[, 1] <- 0.1
+t2[, 2] <- 0.05
+
+# print targets
+print(t2)
+
+# create a zones object that contains the amount of each feature
+# in each planning unit when it is allocated to each zone
+# since our zones pertain to the same habitat data, we will
+# to specify the same habitat data for each zone
+z2 <- zones("zone 1" = sim_features, "zone 2" = sim_features)
+
+# print zones
+print(z2)
+
+# create a raster stack with the planning unit data
+# since our planning unit costs are the same for each zone,
+# we will create a stack with two replicates of the cost data
+pu2 <- stack(sim_pu_raster, sim_pu_raster)
+
+# print stack
+print(pu2)
+
+# build two-zone problem
+p2 <- problem(pu2, z2) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(t2) %>%
+      add_binary_decisions()
+
+# print problem
+print(p2)
+
+# solve problem
+s2 <- solve(p2)
+
+# plot solution
+# here we use the category layer function to generate raster showing the zone
+# that each planning unit was allocated (1 = "zone 1"; 2 = "zone 2")
+plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
+```
+
+Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.
+
+```{r, fig.width = 4.0}
+# create new planning unit and cost data
+data(sim_pu_zones_stack)
+pu3 <- sim_pu_zones_stack[[1:2]]
+
+# plot cost data
+plot(pu3, main = c("zone 1", "zone 2"), axes = FALSE, box = FALSE)
+```
+
+```{r}
+# create problem
+p3 <- problem(pu3, zones(sim_features, sim_features * 0.5)) %>%
+      add_min_set_objective() %>%
+      add_relative_targets(t2) %>%
+      add_binary_decisions()
+
+# print problem
+print(p3)
+
+# solve problem
+s3 <- solve(p3)
+
+# plot solution
+plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+```
+
+So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren't meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It's important to note that unlike the previous examples, here we don't have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don't really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.
+
+```{r, fig.width = 4.5, fig.height = 3}
+# create planning unit data with costs
+pu4 <- stack(Which(!is.na(sim_pu_raster)) * 100,
+             Which(!is.na(sim_pu_raster)) * 300,
+             Which(!is.na(sim_pu_raster)) * 200)
+names(pu4) <- c("few.traps", "many.traps", "baiting")
+
+# plot planning unit data
+plot(pu4, nr = 1, axes = FALSE, box = FALSE)
+
+```{r}
+# create targets
+t4 <- tibble::tibble(feature = names(sim_features),
+                     zone = list(names(pu4))[rep(1, 5)],
+                     target = rep(8, 5),
+                     type = rep("absolute", 5))
+
+# print targets
+print(t4)
+
+# create problem
+p4 <- problem(pu4, zones(few.traps = sim_features * 0.1,
+                         many.traps = sim_features * 0.5,
+                         baiting = sim_features * 0.8,
+                         feature_names = names(sim_features))) %>%
+      add_min_set_objective() %>%
+      add_manual_targets(t4) %>%
+      add_binary_decisions()
+
+# print problem
+print(p4)
+
+# solve problem
+s4 <- solve(p4)
+
+# plot solution
+plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
+```
+
+So it looks like baiting is the way to go! Except that we might recall that we can't use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.
+
+```{r}
+# create data.frame to specify that we cannot bait in the first 40 units
+l5 <- data.frame(pu = seq(1, 80),
+                 zone = "baiting",
+                 status = 0)
+
+# preview locked data
+head(l5)
+
+# create problem
+p5 <- problem(pu4, zones(few.traps = sim_features * 0.1,
+                         many.traps = sim_features * 0.5,
+                         baiting = sim_features * 0.8,
+                         feature_names = names(sim_features))) %>%
+      add_min_set_objective() %>%
+      add_manual_targets(t4) %>%
+      add_manual_locked_constraints(l5) %>%
+      add_binary_decisions()
+
+# print problem
+print(p5)
+
+# solve problem
+s5 <- solve(p5)
+
+# plot solution
+plot(category_layer(s5), main = "solution", axes = FALSE, box = FALSE)
+```
+
+So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.
+
+```{r}
+# create matrix that describe boundary penalties between planning units
+# allocated to different zones
+z6 <- diag(3)
+z6[1, 2] <- 1
+z6[2, 1] <- 1
+colnames(z6) <- c("few.traps", "many.traps", "baiting")
+rownames(z6) <- colnames(z6)
+
+# print matrix
+print(z6)
+
+# create problem
+p6 <- problem(pu4, zones("few.traps" = sim_features * 0.1,
+                         "many.traps" = sim_features * 0.5,
+                         "baiting" = sim_features * 0.8,
+                         feature_names = names(sim_features))) %>%
+      add_min_set_objective() %>%
+      add_manual_targets(t4) %>%
+      add_manual_locked_constraints(l5) %>%
+      add_boundary_penalties(penalty = 640, zones = z6) %>%
+      add_binary_decisions()
+
+# print problem
+print(p6)
+
+# solve problem
+s6 <- solve(p6)
+
+# plot solution
+plot(category_layer(s6), main = "solution", axes = FALSE, box = FALSE)
+```
+
+Finally, it appears we might have a viable solution for this made-up conservation problem.
+
+## Conclusion
+
+Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones using the _prioritizr R_ package. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It's worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the Examples sections of the help pages to get a feel for what different functions do when they are applied to problems with multiple zones.
+
+## References
