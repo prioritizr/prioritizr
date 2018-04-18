@@ -3,7 +3,7 @@
 Systematic conservation prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 ======================================================================================================
 
-NA [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
 The *prioritizr R* package uses integer linear programming (ILP) techniques for defining and solving systematic conservation prioritization problems. This package offers a flexible interface for creating and customizing conservation problems. It supports a broad of objectives, constraints, and penalties that can be used to create a conservation problems that are custom-tailored to the specific needs of a conservation planning exercise. Once built, conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the *Marxan* conservation planning program, and find much cheaper solutions in a much shorter period of time than *Marxan*.
 
@@ -154,8 +154,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ## solution_1 
-    ## 0.00338316
+    ##  solution_1 
+    ## 0.002703905
 
 ``` r
 # extract a description of the solution provided by the solver
@@ -266,7 +266,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 1 nodes (156 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (156 simplex iterations) in 0.06 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
@@ -310,7 +310,7 @@ s4 <- solve(p4)
     ## Presolved: 369 rows, 296 columns, 1176 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.478767e+03, 142 iterations, 0.00 seconds
+    ## Root relaxation: objective 6.478767e+03, 142 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -340,7 +340,7 @@ s4 <- solve(p4)
     ##   MIR: 3
     ##   Zero half: 19
     ## 
-    ## Explored 17 nodes (739 simplex iterations) in 0.12 seconds
+    ## Explored 17 nodes (739 simplex iterations) in 0.24 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98

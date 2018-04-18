@@ -4,20 +4,19 @@ output:
     html_preview: no
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.align = "center")
-```
-
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
 # Systematic conservation prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr)
 [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr)
 [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.align = "center")
+```
 
 ```{r, include = FALSE}
 devtools::load_all()
