@@ -6,15 +6,15 @@ output:
 
 <!--- CONTRIBUTING.md is generated from CONTRIBUTING.Rmd. Please edit that file -->
 
-# Contributing to _prioritizr_ development
+# Contributing to development of the  _prioritizr R_ package
 
 ```{r, include = FALSE}
 devtools::load_all()
 ```
 
-We welcome contributions to the _prioritizr_ package. These contributions could be simple typo fixes, sentence rewrites to improve clarity, enhancing the vignettes to provide a greater understanding this package, or completely new functions to customize conservation planning problems. **No contribution is too small.**
+We welcome contributions to the _prioritizr R_ package. These contributions could be simple typo fixes, sentence rewrites to improve clarity, enhancing the vignettes to provide a greater understanding this package, or completely new functions to customize conservation planning problems. **No contribution is too small.**
 
-The aim of this document is to provide a comprehensive guide for making contributions to _prioritizr_. It also serves to document the internal organization and rationale behind the design of this package. Please note that it is beyond the scope of this document to teach _R_ programming or package development practices. To learn more about these topics, we strongly recommend reading [_R for Data Science_](http://r4ds.had.co.nz/), [_Advanced R_](http://adv-r.had.co.nz/), and [_R Packages_](http://r-pkgs.had.co.nz/). Additionally, a substantial proportion of the code in this package is written in the _C++_ programming language using the _Rcpp R_ package. Therefore, individuals wishing to contribute new functionality (e.g. a function to add a new set of constraints to a conservation planning problem) may need to learn _C++_ programming and the _Rcpp R_ package. To learn more about _C++_ programming and/or the _Rcpp R_ package, we recommend reading [_Rcpp for everyone_](https://teuder.github.io/rcpp4everyone_en/). All of these are books are free, online, and absolutely fantastic resources.
+The aim of this document is to provide a comprehensive guide for making contributions to the _prioritizr R_ package. It also serves to document the internal organization and rationale behind the design of this package. Please note that it is beyond the scope of this document to teach _R_ programming or package development practices. To learn more about these topics, we strongly recommend reading [_R for Data Science_](http://r4ds.had.co.nz/), [_Advanced R_](http://adv-r.had.co.nz/), and [_R Packages_](http://r-pkgs.had.co.nz/). Additionally, a substantial proportion of the code in this package is written in the _C++_ programming language using the _Rcpp R_ package. Therefore, individuals wishing to contribute new functionality (e.g. a function to add a new set of constraints to a conservation planning problem) may need to learn _C++_ programming and the _Rcpp R_ package. To learn more about _C++_ programming and/or the _Rcpp R_ package, we recommend reading [_Rcpp for everyone_](https://teuder.github.io/rcpp4everyone_en/). All of these are books are free, online, and absolutely fantastic resources.
 
 If you have any questions about contributing to _prioritizr_ that are not covered in this document, please [post an issue on the GitHub repository](https://github.com/prioritizr/prioritizr/issues/new).
 

@@ -1,4 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R
+#' @include internal.R pproto.R ConservationProblem-proto.R zones.R add_manual_targets.R
 NULL
 
 #' Add manually specified locked constraints

@@ -1,5 +1,5 @@
 ---
-title: "_Gurobi_ Installation Guide"
+title: "Gurobi Installation Guide"
 author: "Richard Schuster"
 date: "`r Sys.Date()`"
 output:

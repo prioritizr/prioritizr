@@ -75,7 +75,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#package-overview">Package overview</a></li>
 <li><a href="#package-work-flow">Package work flow</a></li>
-<li><a href="#example-usage">Example usage</a><ul>
+<li><a href="#usage">Usage</a><ul>
 <li><a href="#data">Data</a></li>
 <li><a href="#initialize-a-problem">Initialize a problem</a></li>
 <li><a href="#add-an-objective">Add an objective</a></li>
@@ -132,8 +132,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Constraints and penalties can be added to a conservation planning problem to ensure that solutions exhibit a specific property or penalize solutions which don’t exhibit a specific property (respectively). The difference between constraints and penalties, strictly speaking, is constraints are used to rule out potential solutions that don’t exhibit a specific property. For instance, constraints can be used to ensure that specific planning units are selected in the solution for prioritization (using <code>add_locked_in_constraints</code>) or not selected in the solution for prioritization (using <code>add_locked_out_constraints</code>). On the other hand, penalties are combined with the objective of a problem, with a penalty factor, and the overall objective of the problem then becomes to minimize (or maximize) the primary objective function and the penalty function. For example, penalties can be added to a problem to penalize solutions that are excessively fragmented (using <code>add_boundary_penalties</code>). These penalties have a <code>penalty</code> argument that specifies the relative importance of having spatially clustered solutions. When the argument to <code>penalty</code> is high, then solutions which are less fragmented are valued more highly—even if they cost more—and when the argument to <code>penalty</code> is low, then the solutions which are more fragmented are valued less highly.</p>
 <p>After building a conservation problem, it can then be solved to obtain a solution (or portfolio of solutions if desired). The solution is returned in the same format as the planning unit data used to construct the problem. This means that if raster or shapefile / vector data was used when initializing the problem, then the solution will also be in raster or shapefile / vector data. This can be very helpful when it comes to interpreting and visualizing solutions because it means that the solution data does not first have to be merged with spatial data before they can be plotted on a map.</p>
 </div>
-<div id="example-usage" class="section level2">
-<h2>Example usage</h2>
+<div id="usage" class="section level2">
+<h2>Usage</h2>
 <p>Here we will provide an introduction to using the <em>prrioritizr R</em> package to build and solve a conservation planning problem. <strong>Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the <a href="zones.html">zones vignette</a>.</strong></p>
 <p>First, we will load the <em>prioritizr</em> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load prioritizr package</span>
@@ -1020,8 +1020,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(<span c
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

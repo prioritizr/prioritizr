@@ -72,13 +72,13 @@ Constraints and penalties can be added to a conservation planning problem to ens
 
 After building a conservation problem, it can then be solved to obtain a solution (or portfolio of solutions if desired). The solution is returned in the same format as the planning unit data used to construct the problem. This means that if raster or shapefile / vector data was used when initializing the problem, then the solution will also be in raster or shapefile / vector data. This can be very helpful when it comes to interpreting and visualizing solutions because it means that the solution data does not first have to be merged with spatial data before they can be plotted on a map.
 
-## Example usage
+## Usage
 
 Here we will provide an introduction to using the _prrioritizr R_ package to build and solve a conservation planning problem. **Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the [zones vignette](zones.html).**
 
 First, we will load the _prioritizr_ package.
 
-```{r, eval = FALSE}
+```{r}
 # load prioritizr package
 library(prioritizr)
 ```
