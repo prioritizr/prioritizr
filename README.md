@@ -154,8 +154,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.002579927
+    ## solution_1 
+    ## 0.00338316
 
 ``` r
 # extract a description of the solution provided by the solver
@@ -301,7 +301,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.02s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
