@@ -12,4 +12,5 @@ Sys.unsetenv("R_TESTS")
 
 # run tests
 #test_check("prioritizr", reporter = ListReporter)
-devtools::test("prioritizr")
+print(dir())
+devtools::test()
