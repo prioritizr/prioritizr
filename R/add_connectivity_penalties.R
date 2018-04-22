@@ -130,6 +130,9 @@ NULL
 #' conservation, \emph{Conservation Letters}, 3: 359--368.
 #'
 #' @examples
+#' # load Matrix package for visualizing matrices
+#' require(Matrix)
+#'
 #' # load data
 #' data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
 #'
