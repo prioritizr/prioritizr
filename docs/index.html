@@ -208,7 +208,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.002229929</code></pre>
+## 0.002004862</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -217,7 +217,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">spplot</span>(s1, <span class="st">"solution_1"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the <code>"locked_in"</code> column of the attribute table), we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with locked in constraints added to it</span>
 p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_locked_in_constraints">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)

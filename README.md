@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.002191782
+    ## 0.002033949
 
 ``` r
 # extract state message from the solver
@@ -172,7 +172,7 @@ spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
        main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;" />
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
 

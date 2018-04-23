@@ -87,7 +87,7 @@ Conservation features are represented using a stack of raster data (i.e. `Raster
 
 In our example, the `sim_features` object is a `RasterStack` object that contains `r raster::nlayers(sim_features)` layers. Each `RasterLayer` describes the distribution of a species. Specifically, the pixel values denote the proportion of suitable habitat across different areas inside the study area. For a given layer, pixels with a value of one are comprised entirely of suitable habitat for the feature, and pixels with a value of zero contain no suitable habitat.
 
-```{r, fig.height = 2.5, fig.width = w * 2.0, out.width=as.character(as.numeric(ow) * 2)}
+```{r, fig.height = 3.25, fig.width = w * 2.0, out.width=as.character(as.numeric(ow) * 2)}
 # load feature data
 data(sim_features)
 
@@ -109,7 +109,7 @@ p1 <- problem(sim_pu_polygons, features = sim_features,
 
 After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Gude](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html)**
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
 s1 <- solve(p1)
 
