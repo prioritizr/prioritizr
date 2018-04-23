@@ -11,4 +11,4 @@ require(Rsymphony)
 Sys.unsetenv("R_TESTS")
 
 # run tests
-test_check("prioritizr", reporter = ProgressReporter)
+test_check("prioritizr")
