@@ -114,6 +114,8 @@ test_that("compile (single zone)", {
 
 test_that("solve (single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   spp1_habitat <- raster::raster(matrix(c(
     5, 0, 5,
@@ -344,6 +346,8 @@ test_that("compile (multiple zones)", {
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   spp1_z1 <- raster::raster(matrix(c(
     5, 0, 5,

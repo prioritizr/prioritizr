@@ -39,6 +39,8 @@ test_that("character (compile)", {
 
 test_that("character (solve)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
@@ -54,6 +56,8 @@ test_that("character (solve)", {
 
 test_that("character (solve, absolute INPUTDIR path)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
@@ -74,6 +78,8 @@ test_that("character (solve, absolute INPUTDIR path)", {
 
 test_that("character (solve, absolute file paths)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # set up input.dat with absolute file paths
   path <- file.path(tempfile(fileext = ".dat"))
@@ -176,6 +182,8 @@ test_that("data.frame (compile, no boundary penalties)", {
 
 test_that("data.frame (solve, boundary penalties)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
@@ -198,6 +206,8 @@ test_that("data.frame (solve, boundary penalties)", {
 
 test_that("data.frame (solve, no boundary penalties)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")

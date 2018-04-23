@@ -21,6 +21,8 @@ test_that("compile", {
 
 test_that("solve (number_solutions within feasible limit, single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -44,6 +46,8 @@ test_that("solve (number_solutions within feasible limit, single zone)", {
 
 test_that("solve (number_solutions within feasible limit, multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
@@ -77,7 +81,7 @@ test_that("solve (number_solutions within feasible limit, multiple zones)", {
 test_that("solve (number_solutions outside limit)", {
   skip_on_cran()
   skip_on_travis()
-  skip_if_not(default_solver_name() != "lpsymphony")
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))

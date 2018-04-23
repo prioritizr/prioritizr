@@ -61,6 +61,8 @@ test_that("compile (single zone, data)", {
 
 test_that("solve (single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
@@ -184,6 +186,8 @@ test_that("compile (multiple zones, data)", {
 
 test_that("solve (multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)

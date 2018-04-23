@@ -19,6 +19,8 @@ test_that("compile", {
 
 test_that("solve (RasterLayer, single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -45,6 +47,8 @@ test_that("solve (RasterLayer, single zone)", {
 
 test_that("solve (RasterStack, multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_zones_stack, sim_features_zones)
@@ -72,6 +76,8 @@ test_that("solve (RasterStack, multiple zones)", {
 
 test_that("solve (SpatialPolygonsDataFrame, single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons, sim_features)
@@ -95,6 +101,8 @@ test_that("solve (SpatialPolygonsDataFrame, single zone)", {
 
 test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_zones_polygons, sim_features_zones)
@@ -126,6 +134,8 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
 
 test_that("solve (numeric, single zone)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons, sim_features)
@@ -155,6 +165,8 @@ test_that("solve (numeric, single zone)", {
 
 test_that("solve (matrix, multiple zones)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   costs <- data.frame(id = seq_len(7),
@@ -198,6 +210,8 @@ test_that("solve (matrix, multiple zones)", {
 
 test_that("solve (no duplicates)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   set.seed(500)
@@ -226,6 +240,8 @@ test_that("solve (no duplicates)", {
 
 test_that("solve (parallel processing)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
   set.seed(500)
