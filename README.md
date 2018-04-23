@@ -1,6 +1,6 @@
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
-Systematic conservation prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
+Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 ======================================================================================================
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
     ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
     ## 
-    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (17 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3597.1 4135.27 
@@ -154,8 +154,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.002033949
+    ## solution_1 
+    ## 0.04132795
 
 ``` r
 # extract state message from the solver
@@ -206,7 +206,7 @@ s2 <- solve(p2)
     ## 
     ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
     ## 
-    ## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (11 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 1: 4020.2 
@@ -266,7 +266,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 1 nodes (156 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (156 simplex iterations) in 0.09 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
@@ -301,7 +301,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.02s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
@@ -310,7 +310,7 @@ s4 <- solve(p4)
     ## Presolved: 369 rows, 296 columns, 1176 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.478767e+03, 142 iterations, 0.00 seconds
+    ## Root relaxation: objective 6.478767e+03, 142 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -340,7 +340,7 @@ s4 <- solve(p4)
     ##   MIR: 3
     ##   Zero half: 19
     ## 
-    ## Explored 17 nodes (739 simplex iterations) in 0.10 seconds
+    ## Explored 17 nodes (739 simplex iterations) in 0.33 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98
@@ -362,4 +362,4 @@ This short example demonstrates how the *prioritizr R* package can be used to bu
 Getting help
 ------------
 
-Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the *prioritizr R* package. This website contains a [tutorial designed to provide a brief introduction to conservation planning and a comprehensive overview of the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), and a [tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html). If you have any questions about using the the *prioritizr R* package or suggestions from improving it, please [file an issue on the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the *prioritizr R* package. This website contains a [tutorial on systematic conservation planning and using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), and a [tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html). If you have any questions about using the the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).

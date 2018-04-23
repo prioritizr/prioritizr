@@ -6,7 +6,7 @@ output:
 
 <!--- README.md is generated from README.Rmd. Please edit that file -->
 
-# Systematic conservation prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
+# Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr)
@@ -177,4 +177,4 @@ This short example demonstrates how the _prioritizr R_ package can be used to bu
 
 ## Getting help
 
-Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the _prioritizr R_ package. This website contains a [tutorial designed to provide a brief introduction to conservation planning and a comprehensive overview of the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), and a [tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html). If you have any questions about using the the _prioritizr R_ package or suggestions from improving it, please [file an issue on the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the _prioritizr R_ package. This website contains a [tutorial on systematic conservation planning and using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), and a [tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html). If you have any questions about using the the _prioritizr R_ package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
