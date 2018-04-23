@@ -24,7 +24,7 @@ h = 3.5
 w = 3.5
 ```
 
-The _prioritizr R_ package uses integer linear programming (ILP) techniques for defining and solving systematic conservation prioritization problems. This package offers a flexible interface for creating and customizing conservation problems. It supports a broad of objectives, constraints, and penalties that can be used to create a conservation problems that are custom-tailored to the specific needs of a conservation planning exercise. Once built, conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program, and find much cheaper solutions in a much shorter period of time than _Marxan_.
+The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program, and find much cheaper solutions in a much shorter period of time than _Marxan_.
 
 ## Installation
 
@@ -118,7 +118,7 @@ print(attr(s1, "objective"))
 # extract time spent solving the problem
 print(attr(s1, "runtime"))
 
-# extract a description of the solution provided by the solver
+# extract state message from the solver
 print(attr(s1, "status"))
 
 # plot the solution

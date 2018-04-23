@@ -9,24 +9,23 @@ NULL
 
 #' \pkg{prioritizr}
 #'
-#' The \pkg{prioritizr} package uses integer linear programming (ILP)
-#' techniques for defining and solving systematic conservation prioritization
-#' problems (Rodrigues \emph{et al.} 2000; Billionnet 2013). This package
-#' offers a flexible interface for creating and customizing conservation
-#' problems. It supports a broad of objectives,
-#' constraints, and penalties that can be used to create a conservation
-#' problems that are custom-tailored to the specific needs of a conservation
-#' planning exercise. Once built, conservation problems can be solved using a
-#' variety of commercial and open-source exact algorithm solvers. In contrast
-#' to the algorithms conventionally used to solve conservation problems, such
-#' as heuristics or simulated annealing [@3], the exact algorithms used here
-#' are guaranteed to find optimal solutions. Furthermore, conservation problems
-#' can be constructed to optimize the spatial allocation of different
+#' The \pkg{prioritizr R} package uses integer linear programming (ILP)
+#' techniques to provide a flexible interface for building and solving
+#' conservation planning problems (Rodrigues \emph{et al.} 2000; Billionnet
+#' 2013). It supports a broad range of objectives, constraints, and penalties
+#' that can be used to custom-tailor conservation planning problems to the
+#' specific needs of a conservation planning exercise. Once built, conservation
+#' planning problems can be solved using a variety of commercial and
+#' open-source exact algorithm solvers. In contrast to the algorithms
+#' conventionally used to solve conservation problems, such as heuristics or
+#' simulated annealing (Ball \emph{et al.} 2009), the exact algorithms used
+#' here are guaranteed to find optimal solutions. Furthermore, conservation
+#' problems can be constructed to optimize the spatial allocation of different
 #' management actions or zones, meaning that conservation practitioners can
 #' identify solutions that benefit multiple stakeholders. Finally, this package
-#' has the functionality to read input data formatted for the _Marxan_
+#' has the functionality to read input data formatted for the \emph{Marxan}
 #' conservation planning program (Ball \emph{et al.} 2009), and find much
-#' cheaper solutions in a much shorter period of time than _Marxan_ (Beyer
+#' cheaper solutions in a much shorter period of time than \emph{Marxan} (Beyer
 #' \emph{et al.} 2016). See the
 #' \href{https://github.com/prioritizr/prioritizr}{online code repository}
 #' for more information.

@@ -25,7 +25,7 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
 
 ## Summary
 
-The _prioritizr R_ package uses integer linear programming (ILP) techniques for defining and solving systematic conservation prioritization problems [@r11; @r16]. This package offers a flexible interface for creating and customizing conservation problems. It supports a broad of objectives, constraints, and penalties that can be used to create a conservation problems that are custom-tailored to the specific needs of a conservation planning exercise. Once built, conservation problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
+The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
 
 ## Introduction
 
@@ -572,6 +572,20 @@ plot(s28, col = c("grey90", "darkgreen"), main = "Solution",
 ```
 
 We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. `data.frame`), the solution would also be returned in a tabular format.
+
+We can also extract attributes from the solution that describe the quality of the solution and the optimization process.
+
+```{r}
+# extract the objective (numerical value being minimized or maximized)
+print(attr(s28, "objective"))
+
+# extract time spent solving solution
+print(attr(s28, "runtime"))
+
+# extract state message from the solver that describes why this specific
+# solution was returned
+print(attr(s28, "status"))
+```
 
 ### _Marxan_ problems
 

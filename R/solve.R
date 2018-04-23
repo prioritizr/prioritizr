@@ -95,7 +95,7 @@ NULL
 #' # print solution
 #' print(s1)
 #'
-#' # print attributes added to the solution
+#' # print attributes describing the optimization process and the solution
 #' print(attr(s1, "objective"))
 #' print(attr(s1, "runtime"))
 #' print(attr(s1, "status"))
