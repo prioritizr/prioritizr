@@ -65,6 +65,9 @@ Weights can only be applied to problems that have an objective
   }
 }
 \examples{
+# load ape package
+require(ape)
+
 # load data
 data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
      sim_features_zones)
