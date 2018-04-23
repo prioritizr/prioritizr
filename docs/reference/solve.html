@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -29,7 +29,7 @@
 
 <meta property="og:description" content="Solve a conservation planning problem." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -261,10 +261,10 @@
 #&gt; names       : layer 
 #&gt; values      : 0, 1  (min, max)
 #&gt; </div><div class='input'>
-<span class='co'># print attributes added to the solution</span>
+<span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1979.961 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001913071 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.002061844 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='solve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># build minimal conservation problem with spatial polygon data</span>

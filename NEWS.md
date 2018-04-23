@@ -2,46 +2,47 @@
 
 - Added functionality to build and solve problems with multiple management
   zones (#14).
-  - New built-in data sets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
-    and `sim_features_zones` for exploring conservation problems with
-    multiple management zones.
-  - New `zones` function and `Zones` class to organize data with multiple zones.
-  - The `problem` function now accepts `Zone` objects as arguments for `feature`
-   to create problems with multiple zones.
-  - The `add_relative_targets` and `add_absolute_targets` functions for adding
-    targets to problems can be used to specify targets for each feature in each
-    zone.
-  - New `add_manual_targets` function for creating targets that pertain to
-    multiple management zones.
-  - The `solve` function now returns a `list` of solutions when generating
-    a portfolio of solutions.
-  - The `add_locked_in_constraints` and `add_locked_out_constraints`
-    functions for specifying which planning units are locked in or out
-    now accept `matrix` arguments for specifying which zones are locked
-    in or out.
-  - New `add_manual_locked_constraints` function to manually specify which
-    planning units should or shouldn't be allocated to specific zones in
-    solutions.
-  - All functions for adding constraints and penalties now have
-    parameters that specify how they should treat planning units allocate to
-    different zones (using the `zones` parameter`) and specify how they
-    they should be applied (using the `data` parameter. All of these functions
-    have default arguments that mean that problems with a single zone
-    should have the same optimal solution as problems created in the earlier
-    version of the package.
-  - The `add_feature_weights` function can be used to weight different
-    the representation of each feature in each zone.
-  - The `binary_stack`, `category_layer`, and `category_vector` functions have
-    been provided to help work with data for multiple management zones.
-  - New _Management zones_ vignette on building and solving problems with
-    multiple management zones.
-  - Added mention of zones functionality to package DESCRIPTION, summary (in
-    `?prioritizr`), and README.
+    - New built-in data sets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
+      and `sim_features_zones` for exploring conservation problems with
+      multiple management zones.
+    - New `zones` function and `Zones` class to organize data with multiple
+      zones.
+    - The `problem` function now accepts `Zone` objects as arguments for
+      `feature` to create problems with multiple zones.
+    - The `add_relative_targets` and `add_absolute_targets` functions for adding
+      targets to problems can be used to specify targets for each feature in
+      each zone.
+    - New `add_manual_targets` function for creating targets that pertain to
+      multiple management zones.
+    - The `solve` function now returns a `list` of solutions when generating
+      a portfolio of solutions.
+    - The `add_locked_in_constraints` and `add_locked_out_constraints`
+      functions for specifying which planning units are locked in or out
+      now accept `matrix` arguments for specifying which zones are locked
+      in or out.
+    - New `add_manual_locked_constraints` function to manually specify which
+      planning units should or shouldn't be allocated to specific zones in
+      solutions.
+    - All functions for adding constraints and penalties now have
+      parameters that specify how they should treat planning units allocate to
+      different zones (using the `zones` parameter) and specify how they
+      they should be applied (using the `data` parameter. All of these functions
+      have default arguments that mean that problems with a single zone
+      should have the same optimal solution as problems created in the earlier
+      version of the package.
+    - The `add_feature_weights` function can be used to weight different
+      the representation of each feature in each zone.
+    - The `binary_stack`, `category_layer`, and `category_vector` functions have
+      been provided to help work with data for multiple management zones.
+    - New _Management zones_ vignette on building and solving problems with
+      multiple management zones.
+    - Added mention of zones functionality to package DESCRIPTION, summary (in
+      `?prioritizr`), and README.
 - The _Quick Start Guide_ and _Prioritizr Basics_ vignettes have been
   consolidated into the _prioritizr_ vignette.
 - The `marxan_problem` has been updated with more comprehensive documentation
   and to provide more helpful error messages. For clarity, it will now only
-  work with tabular data in the standard \emph{Marxan} format.
+  work with tabular data in the standard _Marxan_ format.
 
 # prioritizr 3.0.3.6 (unreleased)
 

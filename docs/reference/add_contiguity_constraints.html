@@ -11,7 +11,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -31,7 +31,7 @@
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -307,7 +307,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 2
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 1 nodes (382 simplex iterations) in 0.12 seconds
+#&gt; Explored 1 nodes (382 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4409.63 
@@ -421,17 +421,17 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H  421   255                    13887.770990 12178.6504  12.3%  81.4    1s
 #&gt; H  448   270                    13883.534750 12178.6670  12.3%  78.1    1s
 #&gt; H  643   336                    13875.595639 12194.3838  12.1%  86.3    4s
-#&gt;    704   352 12596.5079   35  193 13875.5956 12195.1628  12.1%  88.6    5s
-#&gt; H  725   335                    13855.394148 12195.1628  12.0%  86.8    5s
+#&gt; H  725   335                    13855.394148 12195.1628  12.0%  86.8    4s
+#&gt;    746   347 infeasible   32      13855.3941 12195.3662  12.0%  87.6    5s
 #&gt; H 1050   408                    13829.996879 12205.1551  11.7%  81.2    6s
 #&gt; H 1105   412                    13822.231353 12205.5981  11.7%  78.9    6s
 #&gt; H 1270   438                    13709.568114 12208.5865  10.9%  76.8    7s
 #&gt; H 1270   436                    13701.815633 12208.5865  10.9%  76.8    7s
 #&gt; H 1326   469                    13674.798828 12208.7825  10.7%  74.8    7s
-#&gt;   2040   848 infeasible   27      13674.7988 12220.0285  10.6%  69.1   10s
+#&gt;   2042   850 12290.0034   28  203 13674.7988 12220.0285  10.6%  69.1   10s
 #&gt;   3526  1586 12332.1900   24  298 13674.7988 12249.7717  10.4%  67.5   15s
-#&gt;   5525  2552 12482.3367   32  203 13674.7988 12275.1425  10.2%  62.8   20s
-#&gt;   7736  3547     cutoff   27      13674.7988 12295.1710  10.1%  61.0   25s
+#&gt;   5629  2605 12791.2637   38  159 13674.7988 12276.8744  10.2%  62.7   20s
+#&gt;   7844  3598 13489.1573   47  111 13674.7988 12298.1795  10.1%  61.0   25s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 9
@@ -441,7 +441,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Zero half: 67
 #&gt;   Mod-K: 1
 #&gt; 
-#&gt; Explored 9120 nodes (549997 simplex iterations) in 27.99 seconds
+#&gt; Explored 9120 nodes (549997 simplex iterations) in 27.86 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 13674.8 13701.8 13709.6 ... 13889
@@ -486,7 +486,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 2
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 90 nodes (3373 simplex iterations) in 0.32 seconds
+#&gt; Explored 90 nodes (3373 simplex iterations) in 0.33 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 13389.2 13868.6 
@@ -538,7 +538,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Zero half: 17
 #&gt;   Mod-K: 3
 #&gt; 
-#&gt; Explored 169 nodes (11396 simplex iterations) in 0.75 seconds
+#&gt; Explored 169 nodes (11396 simplex iterations) in 0.77 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 13186.7 
@@ -614,7 +614,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 48 rows and 47 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 655 rows, 568 columns, 2767 nonzeros
 #&gt; Variable types: 0 continuous, 568 integer (568 binary)
 #&gt; Presolve removed 124 rows and 0 columns

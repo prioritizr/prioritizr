@@ -11,7 +11,6 @@
 \alias{sim_locked_in_raster}
 \alias{sim_locked_out_raster}
 \alias{sim_pu_zones_stack}
-\alias{sim_locked_zones_stack}
 \alias{sim_features}
 \alias{sim_features_zones}
 \alias{sim_phylogeny}
@@ -27,7 +26,6 @@
 \alias{sim_phylogeny}
 \alias{sim_locked_in_raster}
 \alias{sim_locked_out_raster}
-\alias{sim_locked_zones_stack}
 \title{Simulated conservation planning data}
 \format{\describe{
 
@@ -50,9 +48,6 @@
   object.}
 
 \item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
-  object.}
-
-\item{sim_locked_zones_stack}{\code{\link[raster]{RasterStack-class}}
   object.}
 
 \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
@@ -88,8 +83,6 @@ sim_phylogeny
 sim_locked_in_raster
 
 sim_locked_out_raster
-
-sim_locked_zones_stack
 }
 \description{
 Simulated data for making spatial prioritizations.
@@ -115,14 +108,6 @@ Simulated data for making spatial prioritizations.
 \item{\code{sim_locked_out_raster}}{Planning units are represented as
   raster data. Pixel values are binary and indicate if planning units
   should be locked out from the solution.}
-
-\item{\code{sim_locked_zones_stack}}{Planning units are represented as
-  raster stack data. Here, each layer corresponds to a different
-  management zone. Pixel values indicate the value that each planning
-  unit should be assigned in the solution. Pixels with \code{NA} values
-  indicate that the planning unit is not locked. This format is provided
-  as the general-case format for locking planning units and can be
-  used to lock proportions of of planning units to specific zones.}
 
 \item{\code{sim_pu_polygons}}{Planning units represented as polygon data.
   The attribute table contains fields (columns) indicating the expenditure
@@ -195,9 +180,5 @@ for (i in length(sim_features_zones))
   for (j in raster::nlayers(sim_features_zones[[i]]))
     plot(sim_features_zones[[i]][[j]],
          main = paste0("Species ", i, "(zone ", j ))
-
-# plot example locked data
-par(mfrow = c(1, 1))
-plot(sim_locked_zones_stack)
 }
 \keyword{datasets}

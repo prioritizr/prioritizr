@@ -26,14 +26,6 @@ NULL
 #'   raster data. Pixel values are binary and indicate if planning units
 #'   should be locked out from the solution.}
 #'
-#' \item{\code{sim_locked_zones_stack}}{Planning units are represented as
-#'   raster stack data. Here, each layer corresponds to a different
-#'   management zone. Pixel values indicate the value that each planning
-#'   unit should be assigned in the solution. Pixels with \code{NA} values
-#'   indicate that the planning unit is not locked. This format is provided
-#'   as the general-case format for locking planning units and can be
-#'   used to lock proportions of of planning units to specific zones.}
-#'
 #' \item{\code{sim_pu_polygons}}{Planning units represented as polygon data.
 #'   The attribute table contains fields (columns) indicating the expenditure
 #'   required for prioritizing each planning unit ("cost" field), if the
@@ -70,7 +62,7 @@ NULL
 #'
 #' @docType data
 #'
-#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_stack sim_locked_zones_stack sim_features sim_features_zones sim_phylogeny
+#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_stack sim_features sim_features_zones sim_phylogeny
 #'
 #' @usage data(sim_pu_polygons)
 #'
@@ -87,8 +79,6 @@ NULL
 #' @usage data(sim_locked_out_raster)
 #'
 #' @usage data(sim_pu_zones_stack)
-#'
-#' @usage data(sim_locked_zones_stack)
 #'
 #' @usage data(sim_features)
 #'
@@ -118,9 +108,6 @@ NULL
 #'   object.}
 #'
 #' \item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
-#'   object.}
-#'
-#' \item{sim_locked_zones_stack}{\code{\link[raster]{RasterStack-class}}
 #'   object.}
 #'
 #' \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
@@ -170,10 +157,6 @@ NULL
 #'   for (j in raster::nlayers(sim_features_zones[[i]]))
 #'     plot(sim_features_zones[[i]][[j]],
 #'          main = paste0("Species ", i, "(zone ", j ))
-#'
-#' # plot example locked data
-#' par(mfrow = c(1, 1))
-#' plot(sim_locked_zones_stack)
 #' @name sim_data
 NULL
 
@@ -212,6 +195,3 @@ NULL
 
 #' @rdname sim_data
 "sim_locked_out_raster"
-
-#' @rdname sim_data
-"sim_locked_zones_stack"

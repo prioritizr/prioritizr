@@ -1,3 +1,5 @@
+url: http://prioritizr.github.io/prioritizr
+
 home:
   links:
     - text: Learn about contributing
@@ -17,7 +19,7 @@ authors:
 
 template:
   params:
-    bootswatch: cerulean
+    bootswatch: flatly
 
 reference:
   - title: Summary
