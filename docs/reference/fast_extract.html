@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -42,6 +44,16 @@ Spatial-class object using performance enhancing tricks." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -121,14 +133,16 @@ Spatial-class object using performance enhancing tricks." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Fast extract</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/fast_extract.R'><code>R/fast_extract.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/fast_extract.R'><code>R/fast_extract.R</code></a></small>
     <div class="hidden name"><code>fast_extract.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Extract data from a <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object from a
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object using performance enhancing tricks.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for Raster,SpatialPolygons</span>
 <span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fu'>requireNamespace</span>(<span class='st'>"velox"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='no'>...</span>)
@@ -198,12 +212,12 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.024   0.000   0.025 </div><div class='input'>
+#&gt;   0.023   0.000   0.023 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.024   0.000   0.023 </div><div class='input'>
+#&gt;   0.024   0.000   0.024 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
@@ -211,7 +225,7 @@ is installed. Note that this only used when <code>x</code> is a
 <span class='fu'>set_number_of_threads</span>(<span class='fl'>2</span>)
 <span class='fu'>system.time</span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.012   0.004   2.261 </div><div class='input'><span class='fu'>set_number_of_threads</span>(<span class='fl'>1</span>)</div><div class='input'>
+#&gt;   0.014   0.004   2.215 </div><div class='input'><span class='fu'>set_number_of_threads</span>(<span class='fl'>1</span>)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

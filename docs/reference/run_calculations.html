@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -45,6 +47,16 @@ means that the same calculations will not be run multiple times." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -124,10 +136,11 @@ means that the same calculations will not be run multiple times." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Run calculations</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/run_calculations.R'><code>R/run_calculations.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/run_calculations.R'><code>R/run_calculations.R</code></a></small>
     <div class="hidden name"><code>run_calculations.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Execute preliminary calculations in a conservation problem and store the
 results for later use. This function is useful when creating slightly
@@ -135,6 +148,7 @@ different versions of the same conservation planning problem that involve
 the same pre-processing steps (e.g. calculating boundary data), because
 means that the same calculations will not be run multiple times.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>run_calculations</span>(<span class='no'>x</span>)</pre>
     
@@ -377,8 +391,8 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Best objective 6.073308153120e+03, best bound 5.937186060308e+03, gap 2.2413%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.568   0.302   0.872 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.504   0.319   0.809 </div><div class='input'>
+#&gt;   0.548   0.312   0.865 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.510   0.306   0.807 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

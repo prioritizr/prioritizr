@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -48,6 +50,16 @@ about how the budget should be allocated." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -127,10 +139,11 @@ about how the budget should be allocated." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add feature weights</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_feature_weights.R'><code>R/add_feature_weights.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_feature_weights.R'><code>R/add_feature_weights.R</code></a></small>
     <div class="hidden name"><code>add_feature_weights.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Conservation planning problems that aim to maximize the
 representation of features given a budget often will not able to conserve
@@ -141,6 +154,7 @@ using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
 <span class='fu'>add_feature_weights</span>(<span class='no'>x</span>, <span class='no'>weights</span>)
@@ -269,7 +283,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 6
 #&gt;   StrongCG: 3
 #&gt; 
-#&gt; Explored 81 nodes (333 simplex iterations) in 0.03 seconds
+#&gt; Explored 81 nodes (333 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2.99798 -0 
@@ -355,88 +369,235 @@ Details section for more information.</p></td>
 #&gt; Best objective 2.999980376769e+02, best bound 2.999980891659e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>, <span class='st'>"manual weights"</span>),
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'># the ape package needs to be installed to run this example
-if (require("ape")) {
-  # plot the example phylogeny
-  par(mfrow = c(1, 1))
-  plot(sim_phylogeny, main = "simulated phylogeny")
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot the example phylogeny</span>
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
+<span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create problem with a maximum phylogenetic representation objective,</span>
+<span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
+<span class='co'># it to be adequately conserved and a total budget of 1900</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+#&gt; Variable types: 0 continuous, 103 integer (103 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [2e+03, 2e+03]
+#&gt; Found heuristic solution: objective -0.0000000
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Variable types: 0 continuous, 98 integer (98 binary)
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 4.334244e+00, 30 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0    4.33424    0    6   -0.00000    4.33424      -     -    0s
+#&gt; H    0     0                       2.1552838    4.33424   101%     -    0s
+#&gt; H    0     0                       2.3499578    4.33424  84.4%     -    0s
+#&gt;      0     0    4.21815    0    6    2.34996    4.21815  79.5%     -    0s
+#&gt;      0     0    4.21750    0    8    2.34996    4.21750  79.5%     -    0s
+#&gt;      0     0    3.33278    0    5    2.34996    3.33278  41.8%     -    0s
+#&gt; H    0     0                       2.7445296    3.33278  21.4%     -    0s
+#&gt; H    0     0                       2.9392026    3.33278  13.4%     -    0s
+#&gt;      0     1    3.02218    0    5    2.93920    3.02218  2.82%     -    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Cover: 1
+#&gt; 
+#&gt; Explored 1 nodes (50 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 5: 2.9392 2.74453 2.34996 ... -0
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 2.939202641202e+00, best bound 3.022181976970e+00, gap 2.8232%</div><div class='input'>
+<span class='co'># plot solution</span>
+<span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># find which features have their targets met</span>
+<span class='no'>targets_met4</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s4</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
+                (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))
 
-  # create problem with a maximum phylogenetic representation objective,
-  # where each feature needs 10 % of its distribution to be secured for
-  # it to be adequately conserved and a total budget of 1900
-  p4 <- problem(sim_pu_raster, sim_features) %>%
-        add_max_phylo_objective(1900, sim_phylogeny) %>%
-        add_relative_targets(0.1) %>%
-        add_binary_decisions()
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:15:0: unexpected end of input</span>
-#&gt; <span class='error'>13:         add_binary_decisions()</span>
-#&gt; <span class='error'>14: </span>
-#&gt; <span class='error'>   ^</span></div><div class='input'>  <span class='co'># solve problem</span>
-  <span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; <span class='error'>Error in solve(p4): object 'p4' not found</span></div><div class='input'>
-  <span class='co'># plot solution</span>
-  <span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s4, main = "solution", axes = FALSE, box = FALSE): object 's4' not found</span></div><div class='input'>
-  <span class='co'># find which features have their targets met</span>
-  <span class='no'>targets_met4</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s4</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
-                  (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cellStats(s4 * sim_features, "sum"): object 's4' not found</span></div><div class='input'>
-  <span class='co'># plot the example phylogeny and color the represented features in red</span>
-  <span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
-       <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'>replace</span>(<span class='fu'>rep</span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                           <span class='fu'>which</span>(<span class='no'>targets_met4</span>), <span class='st'>"red"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in which(targets_met4): object 'targets_met4' not found</span></div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='co'># we can see here that the third feature ("layer.3", i.e.</span>
-  <span class='co'># sim_features[[3]]) is not represented in the solution. Let us pretend</span>
-  <span class='co'># that it is absolutely critical this feature is adequately conserved</span>
-  <span class='co'># in the solution. For example, this feature could represent a species</span>
-  <span class='co'># that plays important role in the ecosystem, or a species that is</span>
-  <span class='co'># important commercial activities (e.g. eco-tourism). So, to generate</span>
-  <span class='co'># a solution that conserves the third feature whilst also aiming to</span>
-  <span class='co'># maximize phylogenetic diversity, we will create a set of weights that</span>
-  <span class='co'># assign a particularly high weighting to the third feature</span>
-  <span class='no'>w5</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
+<span class='co'># plot the example phylogeny and color the represented features in red</span>
+<span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
+     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'>replace</span>(<span class='fu'>rep</span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
+                         <span class='fu'>which</span>(<span class='no'>targets_met4</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># we can see here that the third feature ("layer.3", i.e.</span>
+<span class='co'># sim_features[[3]]) is not represented in the solution. Let us pretend</span>
+<span class='co'># that it is absolutely critical this feature is adequately conserved</span>
+<span class='co'># in the solution. For example, this feature could represent a species</span>
+<span class='co'># that plays important role in the ecosystem, or a species that is</span>
+<span class='co'># important commercial activities (e.g. eco-tourism). So, to generate</span>
+<span class='co'># a solution that conserves the third feature whilst also aiming to</span>
+<span class='co'># maximize phylogenetic diversity, we will create a set of weights that</span>
+<span class='co'># assign a particularly high weighting to the third feature</span>
+<span class='no'>w5</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
 
-  <span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
-  <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
-  <span class='co'># feature be much closer to optimality</span>
-  <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
-#&gt; [8] 0.58924564</div><div class='input'>  <span class='co'># create problem with high weighting for the third feature and solve it</span>
-  <span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>solve</span>()</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'p4' not found</span></div><div class='input'>
-  <span class='co'># plot solution</span>
-  <span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot(s5, main = "solution", axes = FALSE, box = FALSE): object 's5' not found</span></div><div class='input'>
-  <span class='co'># find which features have their targets met</span>
-  <span class='no'>targets_met5</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s5</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
-                  (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cellStats(s5 * sim_features, "sum"): object 's5' not found</span></div><div class='input'>
-  <span class='co'># plot the example phylogeny and color the represented features in red</span>
-  <span class='co'># here we can see that this solution only adequately conserves the</span>
-  <span class='co'># third feature. This means that, given the budget, we are faced with the</span>
-  <span class='co'># trade-off of conserving either the third feature, or a phylogenetically</span>
-  <span class='co'># diverse set of three different features.</span>
-  <span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
-       <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'>replace</span>(<span class='fu'>rep</span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                           <span class='fu'>which</span>(<span class='no'>targets_met5</span>), <span class='st'>"red"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in which(targets_met5): object 'targets_met5' not found</span></div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>}
-# create multi-zone problem with maximum features objective,
-# with 10 % representation targets for each feature, and set
-# a budget such that the total maximum expenditure in all zones
-# cannot exceed 3000
-p6 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-      add_max_features_objective(3000) %>%
-      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-      add_binary_decisions()
+<span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
+<span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
+<span class='co'># feature be much closer to optimality</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
+#&gt; [8] 0.58924564</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>solve</span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+#&gt; Variable types: 0 continuous, 103 integer (103 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [5e-06, 1e+03]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [2e+03, 2e+03]
+#&gt; Found heuristic solution: objective -0.0000000
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Variable types: 0 continuous, 98 integer (98 binary)
+#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.004324e+03, 25 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1004.32422    0    5   -0.00000 1004.32422      -     -    0s
+#&gt;      0     0 1004.14598    0    6   -0.00000 1004.14598      -     -    0s
+#&gt; H    0     0                       2.1552839 1004.14598      -     -    0s
+#&gt; H    0     0                    1001.7856344 1004.14598  0.24%     -    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Cover: 1
+#&gt; 
+#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 1001.79 2.15528 -0 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.001785634366e+03, best bound 1.004145984593e+03, gap 0.2356%</div><div class='input'>
+<span class='co'># plot solution</span>
+<span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># find which features have their targets met</span>
+<span class='no'>targets_met5</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s5</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
+                (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))
 
-# create weights that assign equal weighting for the representation
-# of each feature in each zone except that it does not matter if
-# feature 1 is represented in zone 1 and it really important
-# that feature 3 is really in zone 1
-w7 <- matrix(1, ncol = 3, nrow = 5)
-w7[1, 1] <- 0
-w7[3, 1] <- 100
+<span class='co'># plot the example phylogeny and color the represented features in red</span>
+<span class='co'># here we can see that this solution only adequately conserves the</span>
+<span class='co'># third feature. This means that, given the budget, we are faced with the</span>
+<span class='co'># trade-off of conserving either the third feature, or a phylogenetically</span>
+<span class='co'># diverse set of three different features.</span>
+<span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
+     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'>replace</span>(<span class='fu'>rep</span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
+                         <span class='fu'>which</span>(<span class='no'>targets_met5</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create multi-zone problem with maximum features objective,</span>
+<span class='co'># with 10 % representation targets for each feature, and set</span>
+<span class='co'># a budget such that the total maximum expenditure in all zones</span>
+<span class='co'># cannot exceed 3000</span>
+<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_max_features_objective</span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_binary_decisions</span>()
 
-# create problem with weights
-p7 <- p6 %>% add_feature_weights(w7)
-</div><div class='output co'>#&gt; <span class='error'>Error: &lt;text&gt;:1:1: unexpected '}'</span>
-#&gt; <span class='error'>1: }</span>
-#&gt; <span class='error'>    ^</span></div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; <span class='error'>Error in solve(p6): object 'p6' not found</span></div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; <span class='error'>Error in solve(p7): object 'p7' not found</span></div><div class='input'>
+<span class='co'># create weights that assign equal weighting for the representation</span>
+<span class='co'># of each feature in each zone except that it does not matter if</span>
+<span class='co'># feature 1 is represented in zone 1 and it really important</span>
+<span class='co'># that feature 3 is really in zone 1</span>
+<span class='no'>w7</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='no'>w7</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='no'>w7</span>[<span class='fl'>3</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>100</span>
+
+<span class='co'># create problem with weights</span>
+<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Variable types: 0 continuous, 285 integer (285 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [3e-05, 1e+00]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 3e+03]
+#&gt; Found heuristic solution: objective -0.0000000
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
+#&gt; Variable types: 0 continuous, 285 integer (285 binary)
+#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 7.918999e+00, 151 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0    7.91900    0   11   -0.00000    7.91900      -     -    0s
+#&gt; H    0     0                       4.9995880    7.91900  58.4%     -    0s
+#&gt;      0     0    7.89264    0   14    4.99959    7.89264  57.9%     -    0s
+#&gt; H    0     0                       4.9996431    7.89264  57.9%     -    0s
+#&gt; H    0     0                       4.9996452    7.89264  57.9%     -    0s
+#&gt;      0     0    7.87664    0   15    4.99965    7.87664  57.5%     -    0s
+#&gt;      0     0    7.87070    0   18    4.99965    7.87070  57.4%     -    0s
+#&gt;      0     0    7.86425    0   22    4.99965    7.86425  57.3%     -    0s
+#&gt;      0     0    7.86105    0   21    4.99965    7.86105  57.2%     -    0s
+#&gt;      0     0    7.85936    0   23    4.99965    7.85936  57.2%     -    0s
+#&gt;      0     0    7.85559    0   22    4.99965    7.85559  57.1%     -    0s
+#&gt;      0     0    7.85395    0   21    4.99965    7.85395  57.1%     -    0s
+#&gt;      0     0    7.85320    0   21    4.99965    7.85320  57.1%     -    0s
+#&gt; H    0     0                       4.9996496    7.85320  57.1%     -    0s
+#&gt;      0     0    7.85230    0   23    4.99965    7.85230  57.1%     -    0s
+#&gt;      0     0    7.85194    0   23    4.99965    7.85194  57.0%     -    0s
+#&gt;      0     0    7.85189    0   25    4.99965    7.85189  57.0%     -    0s
+#&gt;      0     0    7.85167    0   25    4.99965    7.85167  57.0%     -    0s
+#&gt;      0     2    7.85128    0   25    4.99965    7.85128  57.0%     -    0s
+#&gt; H   66    24                       4.9996513    7.24339  44.9%  13.3    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 2
+#&gt;   Cover: 2
+#&gt;   MIR: 4
+#&gt;   StrongCG: 6
+#&gt;   GUB cover: 2
+#&gt; 
+#&gt; Explored 113 nodes (1764 simplex iterations) in 0.13 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 4.999651273822e+00, best bound 5.039718969894e+00, gap 0.8014%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Variable types: 0 continuous, 285 integer (285 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [3e-05, 1e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 3e+03]
+#&gt; Found heuristic solution: objective -0.0000000
+#&gt; Presolve removed 1 rows and 1 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
+#&gt; Variable types: 0 continuous, 284 integer (284 binary)
+#&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.059101e+02, 142 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0  105.91013    0   10   -0.00000  105.91013      -     -    0s
+#&gt; H    0     0                     102.9996170  105.91013  2.83%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (142 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 103 -0 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.029996170282e+02, best bound 1.059101305742e+02, gap 2.8258%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>)),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in inherits(x, "Raster"): object 's6' not found</span></div><div class='input'><span class='co'># create minimal problem to show the correct method for setting</span>
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem to show the correct method for setting</span>
 <span class='co'># weights for problems with manual targets</span>
 <span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_features_objective</span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>1500</span>) <span class='kw'>%&gt;%</span>
@@ -476,7 +637,7 @@ p7 <- p6 %>% add_feature_weights(w7)
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.999992050854e+02, best bound 1.999992214035e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'>plot</span>(<span class='no'>s8</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-4.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plot</span>(<span class='no'>s8</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

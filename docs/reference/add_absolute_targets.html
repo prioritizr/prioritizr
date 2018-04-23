@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -45,6 +47,16 @@ than 10." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -124,10 +136,11 @@ than 10." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add absolute targets</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_absolute_targets.R'><code>R/add_absolute_targets.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_absolute_targets.R'><code>R/add_absolute_targets.R</code></a></small>
     <div class="hidden name"><code>add_absolute_targets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Set targets expressed as the actual value of features in the study area
 that need to be represented in the prioritization. For instance,
@@ -135,6 +148,7 @@ setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
 than 10.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
 <span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
@@ -286,7 +300,7 @@ Details section for more information.</p></td>
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (6 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1223.33 1372.75 

@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -41,6 +43,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -120,13 +132,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Tee operator</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/magrittr-operators.R'><code>R/magrittr-operators.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/magrittr-operators.R'><code>R/magrittr-operators.R</code></a></small>
     <div class="hidden name"><code>tee.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>This package uses the "tee" operator (<code>%T&gt;%</code>) to modify objects.</p>
     
+    </div>
 
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -161,7 +175,7 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e2</span>)</div><div class='output co'>#&gt; NULL</div><div class='input'>
 <span class='co'># but if we use the tee operator then the result contains a copy of "e"</span>
 <span class='no'>e3</span> <span class='kw'>&lt;-</span> <span class='no'>e</span> <span class='kw'>%T&gt;%</span> <span class='fu'>f</span>()
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e3</span>)</div><div class='output co'>#&gt; &lt;environment: 0xf292c60&gt;</div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>e3</span>)</div><div class='output co'>#&gt; &lt;environment: 0xa32d090&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

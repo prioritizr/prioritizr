@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -45,6 +47,16 @@ boundary are associated with greater connectivity." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -124,10 +136,11 @@ boundary are associated with greater connectivity." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Connectivity matrix</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/connectivity_matrix.R'><code>R/connectivity_matrix.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/connectivity_matrix.R'><code>R/connectivity_matrix.R</code></a></small>
     <div class="hidden name"><code>connectivity_matrix.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a matrix showing the connectivity between planning units. Connectivity
 is calculated as the average conductance of two planning units multiplied
@@ -135,6 +148,7 @@ by the amount of shared boundary between the two planning units. Thus
 planning units that each have higher a conductance and share a greater
 boundary are associated with greater connectivity.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for Spatial,character</span>
 <span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)

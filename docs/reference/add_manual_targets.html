@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -50,6 +52,16 @@ solution should not exceed a certain quantity using "&lt;=" values)." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -129,10 +141,11 @@ solution should not exceed a certain quantity using "&lt;=" values)." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add manual targets</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_manual_targets.R'><code>R/add_manual_targets.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_manual_targets.R'><code>R/add_manual_targets.R</code></a></small>
     <div class="hidden name"><code>add_manual_targets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Set targets for a conservation planning <code>problem</code> by manually
 specifying all the required information for each target. This function
@@ -145,6 +158,7 @@ pertain to the allocations of planning units in multiple zones, and (iii)
 set targets that require different senses (e.g. targets which specify the
 solution should not exceed a certain quantity using <code>"&lt;="</code> values).</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,data.frame</span>
 <span class='fu'>add_manual_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)

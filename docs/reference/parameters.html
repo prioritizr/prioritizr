@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -41,6 +43,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -120,13 +132,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Parameters</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/parameters.R'><code>R/parameters.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/parameters.R'><code>R/parameters.R</code></a></small>
     <div class="hidden name"><code>parameters.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a new collection of <code>Parameter</code> objects.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>parameters</span>(<span class='no'>...</span>)</pre>
     
@@ -156,7 +170,7 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; <span class='message'>parameter two (5)</span></div><div class='input'>
 <span class='co'># store Parameter objects in a Parameters object</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>parameters</span>(<span class='no'>p1</span>, <span class='no'>p2</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; &lt;environment: 0xf7dfb68&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; &lt;environment: 0x10181d38&gt;
 #&gt; attr(,"class")
 #&gt; [1] "Parameters"  "pproto"      "proto"       "environment"</div><div class='input'>
 </div></pre>

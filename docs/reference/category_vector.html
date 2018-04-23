@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -43,6 +45,16 @@ indicating the column index where each row is 1." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -122,15 +134,17 @@ indicating the column index where each row is 1." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Category vector</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/category_vector.R'><code>R/category_vector.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/category_vector.R'><code>R/category_vector.R</code></a></small>
     <div class="hidden name"><code>category_vector.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Convert a <code>data.frame</code> or <code>matrix</code> containing binary
 (<code>integer</code>) fields (columns) into a <code>integer</code> <code>vector</code>
 indicating the column index where each row is <code>1</code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>category_vector</span>(<span class='no'>x</span>)
 

@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -46,6 +48,16 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -125,10 +137,11 @@ ensuring that the cost of the reserve network does not exceed the budget." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Problem objective</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/objectives.R'><code>R/objectives.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/objectives.R'><code>R/objectives.R</code></a></small>
     <div class="hidden name"><code>objectives.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>An objective is used to specify the overall goal of a conservation planning
 <code>problem</code>. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
@@ -137,6 +150,7 @@ the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
 ensuring that the cost of the reserve network does not exceed the budget.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -314,7 +328,7 @@ to solve a problem will return an error.</strong></p>
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (50 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (50 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 2.9392 2.74453 2.34996 ... -0

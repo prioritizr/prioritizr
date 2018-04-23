@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -42,6 +44,16 @@ under different management zones." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -121,14 +133,16 @@ under different management zones." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Management zones</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/zones.R'><code>R/zones.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/zones.R'><code>R/zones.R</code></a></small>
     <div class="hidden name"><code>zones.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Organize biodiversity data into the expected amount of different features
 under different management zones.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>zones</span>(<span class='no'>...</span>, <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     

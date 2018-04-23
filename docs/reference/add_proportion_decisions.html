@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -46,6 +48,16 @@ decisions" />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -125,10 +137,11 @@ decisions" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add proportion decisions</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_proportion_decisions.R'><code>R/add_proportion_decisions.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_proportion_decisions.R'><code>R/add_proportion_decisions.R</code></a></small>
     <div class="hidden name"><code>add_proportion_decisions.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Add a proportion decision to a conservation planning <code>problem</code>.
 This is a relaxed decision where a part of a planning unit can be
@@ -137,6 +150,7 @@ has the assumed action of buying a fraction of a planning unit to include in
 decisions will solve much faster than problems that use binary-type
 decisions</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>add_proportion_decisions</span>(<span class='no'>x</span>)</pre>
     

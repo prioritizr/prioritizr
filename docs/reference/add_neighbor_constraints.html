@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -43,6 +45,16 @@ number of neighbors that are also selected in the solution." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -122,15 +134,17 @@ number of neighbors that are also selected in the solution." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add neighbor constraints</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_neighbor_contraints.R'><code>R/add_neighbor_contraints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_neighbor_contraints.R'><code>R/add_neighbor_contraints.R</code></a></small>
     <div class="hidden name"><code>add_neighbor_constraints.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Add constraints to a conservation planning <code>problem</code> to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,ANY,ANY</span>
 <span class='fu'>add_neighbor_constraints</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
@@ -421,7 +435,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;   MIR: 10
 #&gt;   Mod-K: 2
 #&gt; 
-#&gt; Explored 312 nodes (2573 simplex iterations) in 0.10 seconds
+#&gt; Explored 312 nodes (2573 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 2222.07 2374.06 2410.1 ... 2746.93
@@ -507,7 +521,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.971151e+03, 267 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 5.971151e+03, 267 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time

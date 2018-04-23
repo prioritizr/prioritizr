@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -44,6 +46,16 @@ It requires the lpsymphony package." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -123,16 +135,18 @@ It requires the lpsymphony package." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add a SYMPHONY solver with lpsymphony</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_lpsymphony_solver.R'><code>R/add_lpsymphony_solver.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_lpsymphony_solver.R'><code>R/add_lpsymphony_solver.R</code></a></small>
     <div class="hidden name"><code>add_lsymphony_solver.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Specify that the <em>SYMPHONY</em> software should be used to solve a
 conservation planning problem using the <em>lpsymhpony</em> package. This
 function can also be used to customize the behavior of the solver.
 It requires the <em>lpsymphony</em> package.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>add_lpsymphony_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>

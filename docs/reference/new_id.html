@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -41,6 +43,16 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -120,13 +132,15 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Identifier</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/Id.R'><code>R/Id.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/Id.R'><code>R/Id.R</code></a></small>
     <div class="hidden name"><code>new_id.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Generate a new unique identifier.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>new_id</span>()</pre>
         
@@ -148,9 +162,9 @@
 <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'>new_id</span>()
 
 <span class='co'># print id</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>id: 9045c069-cb69-4fba-86a3-e195ec0fc6ef</span></div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>id: b28c5964-120f-4541-8d4d-a57d9f8635b8</span></div><div class='input'>
 <span class='co'># convert to character</span>
-<span class='fu'>as.character</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "9045c069-cb69-4fba-86a3-e195ec0fc6ef"</div><div class='input'>
+<span class='fu'>as.character</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "b28c5964-120f-4541-8d4d-a57d9f8635b8"</div><div class='input'>
 <span class='co'># check if it is an Id object</span>
 <span class='fu'><a href='is.html'>is.Id</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>

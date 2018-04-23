@@ -98,70 +98,68 @@ s1 <- stack(solve(p1), solve(p2), solve(p3))
 plot(s1, main = c("equal weights", "rarity weights", "manual weights"),
      axes = FALSE, box = FALSE)
 }
-# the ape package needs to be installed to run this example
-if (require("ape")) {
-  # plot the example phylogeny
-  par(mfrow = c(1, 1))
-  plot(sim_phylogeny, main = "simulated phylogeny")
 
-  # create problem with a maximum phylogenetic representation objective,
-  # where each feature needs 10 \% of its distribution to be secured for
-  # it to be adequately conserved and a total budget of 1900
-  p4 <- problem(sim_pu_raster, sim_features) \%>\%
-        add_max_phylo_objective(1900, sim_phylogeny) \%>\%
-        add_relative_targets(0.1) \%>\%
-        add_binary_decisions()
+# plot the example phylogeny
+par(mfrow = c(1, 1))
+plot(sim_phylogeny, main = "simulated phylogeny")
+
+# create problem with a maximum phylogenetic representation objective,
+# where each feature needs 10 \% of its distribution to be secured for
+# it to be adequately conserved and a total budget of 1900
+p4 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_max_phylo_objective(1900, sim_phylogeny) \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
 \donttest{
-  # solve problem
-  s4 <- solve(p4)
+# solve problem
+s4 <- solve(p4)
 
-  # plot solution
-  plot(s4, main = "solution", axes = FALSE, box = FALSE)
+# plot solution
+plot(s4, main = "solution", axes = FALSE, box = FALSE)
 
-  # find which features have their targets met
-  targets_met4 <- cellStats(s4 * sim_features, "sum") >
-                  (0.1 * cellStats(sim_features, "sum"))
+# find which features have their targets met
+targets_met4 <- cellStats(s4 * sim_features, "sum") >
+                (0.1 * cellStats(sim_features, "sum"))
 
-  # plot the example phylogeny and color the represented features in red
-  plot(sim_phylogeny, main = "represented features",
-       tip.color = replace(rep("black", nlayers(sim_features)),
-                           which(targets_met4), "red"))
+# plot the example phylogeny and color the represented features in red
+plot(sim_phylogeny, main = "represented features",
+     tip.color = replace(rep("black", nlayers(sim_features)),
+                         which(targets_met4), "red"))
 }
-  # we can see here that the third feature ("layer.3", i.e.
-  # sim_features[[3]]) is not represented in the solution. Let us pretend
-  # that it is absolutely critical this feature is adequately conserved
-  # in the solution. For example, this feature could represent a species
-  # that plays important role in the ecosystem, or a species that is
-  # important commercial activities (e.g. eco-tourism). So, to generate
-  # a solution that conserves the third feature whilst also aiming to
-  # maximize phylogenetic diversity, we will create a set of weights that
-  # assign a particularly high weighting to the third feature
-  w5 <- c(0, 0, 1000, 0, 0)
+# we can see here that the third feature ("layer.3", i.e.
+# sim_features[[3]]) is not represented in the solution. Let us pretend
+# that it is absolutely critical this feature is adequately conserved
+# in the solution. For example, this feature could represent a species
+# that plays important role in the ecosystem, or a species that is
+# important commercial activities (e.g. eco-tourism). So, to generate
+# a solution that conserves the third feature whilst also aiming to
+# maximize phylogenetic diversity, we will create a set of weights that
+# assign a particularly high weighting to the third feature
+w5 <- c(0, 0, 1000, 0, 0)
 
-  # we can see that this weighting (i.e. w5[3]) has a much higher value than
-  # the branch lengths in the phylogeny so solutions that represent this
-  # feature be much closer to optimality
-  print(sim_phylogeny$edge.length)
+# we can see that this weighting (i.e. w5[3]) has a much higher value than
+# the branch lengths in the phylogeny so solutions that represent this
+# feature be much closer to optimality
+print(sim_phylogeny$edge.length)
 \donttest{
-  # create problem with high weighting for the third feature and solve it
-  s5 <- p4 \%>\% add_feature_weights(w5) \%>\% solve()
+# create problem with high weighting for the third feature and solve it
+s5 <- p4 \%>\% add_feature_weights(w5) \%>\% solve()
 
-  # plot solution
-  plot(s5, main = "solution", axes = FALSE, box = FALSE)
+# plot solution
+plot(s5, main = "solution", axes = FALSE, box = FALSE)
 
-  # find which features have their targets met
-  targets_met5 <- cellStats(s5 * sim_features, "sum") >
-                  (0.1 * cellStats(sim_features, "sum"))
+# find which features have their targets met
+targets_met5 <- cellStats(s5 * sim_features, "sum") >
+                (0.1 * cellStats(sim_features, "sum"))
 
-  # plot the example phylogeny and color the represented features in red
-  # here we can see that this solution only adequately conserves the
-  # third feature. This means that, given the budget, we are faced with the
-  # trade-off of conserving either the third feature, or a phylogenetically
-  # diverse set of three different features.
-  plot(sim_phylogeny, main = "represented features",
-       tip.color = replace(rep("black", nlayers(sim_features)),
-                           which(targets_met5), "red"))
-}
+# plot the example phylogeny and color the represented features in red
+# here we can see that this solution only adequately conserves the
+# third feature. This means that, given the budget, we are faced with the
+# trade-off of conserving either the third feature, or a phylogenetically
+# diverse set of three different features.
+plot(sim_phylogeny, main = "represented features",
+     tip.color = replace(rep("black", nlayers(sim_features)),
+                         which(targets_met5), "red"))
 }
 # create multi-zone problem with maximum features objective,
 # with 10 \% representation targets for each feature, and set

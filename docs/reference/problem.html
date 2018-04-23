@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -49,6 +51,16 @@ penalties. After building the problem, the
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -128,10 +140,11 @@ penalties. After building the problem, the
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Conservation planning problem</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/problem.R'><code>R/problem.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/problem.R'><code>R/problem.R</code></a></small>
     <div class="hidden name"><code>problem.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Create a systematic conservation planning problem. This function is used to
 specify the basic data used in a spatial prioritization problem: the
@@ -143,6 +156,7 @@ customized to meet specific goals using <code><a href='objectives.html'>objectiv
 <code><a href='penalties.html'>penalties</a></code>. After building the problem, the
  <code>solve</code> function can be used to identify solutions.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S4 method for Raster,Raster</span>
 <span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>run_checks</span>, <span class='no'>...</span>)
@@ -600,7 +614,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
 #&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3597.1 4135.27 
@@ -629,7 +643,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00815
+#&gt;  - attr(*, "runtime")= Named num 0.00221
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>

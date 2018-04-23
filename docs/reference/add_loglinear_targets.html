@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -47,6 +49,16 @@ of this function has changed substantially from versions prior to 5.0.0." />
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -126,10 +138,11 @@ of this function has changed substantially from versions prior to 5.0.0." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add targets using log-linear scaling</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_loglinear_targets.R'><code>R/add_loglinear_targets.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_loglinear_targets.R'><code>R/add_loglinear_targets.R</code></a></small>
     <div class="hidden name"><code>add_loglinear_targets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Add targets to a conservation planning <code>problem</code> by log-linearly
 interpolating the targets between thresholds based on the total amount of
@@ -139,6 +152,7 @@ distributions from being over-represented
 in solutions (Butchart <em>et al.</em> 2015). <strong>Note that the behavior
 of this function has changed substantially from versions prior to 5.0.0</strong>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>add_loglinear_targets</span>(<span class='no'>x</span>, <span class='no'>lower_bound_amount</span>, <span class='no'>lower_bound_target</span>,
   <span class='no'>upper_bound_amount</span>, <span class='no'>upper_bound_target</span>, <span class='kw'>cap_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,

@@ -21,6 +21,8 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
@@ -48,6 +50,16 @@ This function was inspired by Faith (1992) and Rodrigues et al.
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
 
 
 
@@ -127,10 +139,11 @@ This function was inspired by Faith (1992) and Rodrigues et al.
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add maximum phylogenetic representation objective</h1>
-    <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_max_phylo_objective.R'><code>R/add_max_phylo_objective.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_max_phylo_objective.R'><code>R/add_max_phylo_objective.R</code></a></small>
     <div class="hidden name"><code>add_max_phylo_objective.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Set the objective of a conservation planning <code>problem</code> to
 maximize the phylogenetic diversity of the features represented in the
@@ -141,6 +154,7 @@ species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues <em>et al.</em>
 (2002).</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>add_max_phylo_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>, <span class='no'>tree</span>)</pre>
     
