@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -56,6 +60,9 @@ representation of features in the study area." />
 </script>
 
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -121,6 +128,12 @@ representation of features in the study area." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -259,7 +272,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
 #&gt; H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (13 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1979.96 2337.96 
@@ -288,7 +301,7 @@ Details section for more information.</p></td>
 #&gt; 
 #&gt;      0     0 9250.33582    0    1 9646.64187 9250.33582  4.11%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 9646.64 
@@ -324,7 +337,7 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 6831.3431381
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
@@ -338,7 +351,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 5950.93434    0   11 6831.34314 5950.93434  12.9%     -    0s
 #&gt; H    0     0                    6078.1123440 5950.93434  2.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (79 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (79 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6078.11 6831.34 
@@ -367,7 +380,7 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 6831.3431381
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
@@ -381,7 +394,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 5950.93434    0   11 6831.34314 5950.93434  12.9%     -    0s
 #&gt; H    0     0                    6078.1123440 5950.93434  2.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (79 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (79 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6078.11 6831.34 
@@ -422,6 +435,17 @@ Details section for more information.</p></td>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

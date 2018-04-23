@@ -21,7 +21,9 @@ template:
   params:
     bootswatch: flatly
     ganalytics: UA-70466840-4
-
+    docsearch:
+      api_key: 486efa122ea6783724263412c5f28ab3
+      index_name: prioritizr
 reference:
   - title: Summary
     desc: Summary of the package

@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -60,6 +64,9 @@ decisions" />
 </script>
 
 
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -125,6 +132,12 @@ decisions" />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -231,7 +244,7 @@ decisions</p>
 #&gt;        0    0.0000000e+00   1.225616e+02   0.000000e+00      0s
 #&gt;       93    1.0895845e+04   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Solved in 93 iterations and 0.00 seconds
+#&gt; Solved in 93 iterations and 0.01 seconds
 #&gt; Optimal objective  1.089584493e+04</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>)</div><div class='output co'>#&gt; class       : RasterStack 
@@ -277,6 +290,17 @@ decisions</p>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>
