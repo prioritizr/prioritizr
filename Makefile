@@ -28,7 +28,7 @@ vigns:
 	R --slave -e "devtools::build_vignettes()"
 
 site:
-	R --slave -e "pkgdown::build_site(run_dont_run = TRUE)"
+	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1

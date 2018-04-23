@@ -22,6 +22,7 @@ knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.align = "center")
 devtools::load_all()
 h = 3.5
 w = 3.5
+ow = "400"
 ```
 
 The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program, and find much cheaper solutions in a much shorter period of time than _Marxan_.
@@ -63,7 +64,7 @@ library(prioritizr)
 
 We will use the `sim_pu_polygons` object to represent our planning units. Although the _prioritizr R_ can support many different types of planning unit data, here our planning units are represented as polygons in a spatial vector format (i.e. `SpatialPolygonsDataFrame`). Each polygon represents a different planning unit and we have `r length(sim_pu_polygons)` planning units in total. The attribute table associated with this data set contains information describing the acquisition cost of each planning ("cost" column), and a value indicating if the unit is already located in protected area ("locked_in" column). Let's explore the planning unit data.
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width=ow}
 # load planning unit data
 data(sim_pu_polygons)
 
@@ -75,7 +76,7 @@ spplot(sim_pu_polygons, "cost", main = "Planning unit cost",
        xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width=ow}
 # plot the planning units and show which planning units are inside protected
 # areas (colored in yellow)
 spplot(sim_pu_polygons, "locked_in", main = "Planning units in protected areas",
@@ -86,7 +87,7 @@ Conservation features are represented using a stack of raster data (i.e. `Raster
 
 In our example, the `sim_features` object is a `RasterStack` object that contains `r raster::nlayers(sim_features)` layers. Each `RasterLayer` describes the distribution of a species. Specifically, the pixel values denote the proportion of suitable habitat across different areas inside the study area. For a given layer, pixels with a value of one are comprised entirely of suitable habitat for the feature, and pixels with a value of zero contain no suitable habitat.
 
-```{r, fig.height = h * 1.5, fig.width = w * 2.0}
+```{r, fig.height = 2.5, fig.width = w * 2.0, out.width=as.character(as.numeric(ow) * 2)}
 # load feature data
 data(sim_features)
 
@@ -129,7 +130,7 @@ spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with locked in constraints added to it
 p2 <- p1 %>% add_locked_in_constraints("locked_in")
 
@@ -144,7 +145,7 @@ spplot(s2, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with boundary penalties added to it
 p3 <- p2 %>% add_boundary_penalties(penalty = 500, edge_factor = 0.5)
 
@@ -159,7 +160,7 @@ spplot(s3, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html)).
 
-```{r, fig.height = h, fig.width = w}
+```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with contiguity constraints
 p4 <- p3 %>% add_contiguity_constraints()
 
