@@ -8,7 +8,9 @@
 <title>prioritizr: Systematic Conservation Prioritization in R • prioritizr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+<link href="../docsearch.css" rel="stylesheet">
+<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="prioritizr: Systematic Conservation Prioritization in R">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
@@ -22,7 +24,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
     <div class="container template-article">
@@ -36,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -84,7 +86,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -168,7 +176,7 @@
 <span class="kw">data</span>(sim_pu_raster)
 
 <span class="co"># print description of the data</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(sim_pu_raster)</code></pre></div>
+<span class="kw">print</span>(sim_pu_raster)</code></pre></div>
 <pre><code>## class       : RasterLayer 
 ## dimensions  : 10, 10, 100  (nrow, ncol, ncell)
 ## resolution  : 0.1, 0.1  (x, y)
@@ -233,7 +241,7 @@ pu_dat &lt;-<span class="st"> </span>data.table<span class="op">::</span><span c
 p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p1)</code></pre></div>
+<span class="kw">print</span>(p1)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -258,7 +266,7 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 p2 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_polygons, sim_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p2)</code></pre></div>
+<span class="kw">print</span>(p2)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -306,7 +314,7 @@ puvspr_dat &lt;-<span class="st"> </span>data.table<span class="op">::</span><sp
 p3 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu_dat, spec_dat, <span class="dt">cost_column =</span> <span class="st">"cost"</span>, <span class="dt">rij =</span> puvspr_dat)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
+<span class="kw">print</span>(p3)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
 ##   cost:           min: 0, max: 41569219.38232
@@ -334,7 +342,7 @@ p3 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_min_set_objective</span>()
 
 <span class="co"># print the problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
+<span class="kw">print</span>(p3)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -356,7 +364,7 @@ p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_min_set_objective</span>()
 
 <span class="co"># print the problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p4)</code></pre></div>
+<span class="kw">print</span>(p4)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -378,7 +386,7 @@ p5 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_max_features_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>)
 
 <span class="co"># print the problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p5)</code></pre></div>
+<span class="kw">print</span>(p5)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -403,7 +411,7 @@ p6 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_max_phylo_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>, <span class="dt">tree =</span> sim_phylogeny)</code></pre></div>
 <pre><code>## Loading required namespace: ape</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p6)</code></pre></div>
+<span class="kw">print</span>(p6)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -425,7 +433,7 @@ p7 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_max_utility_objective</span>(<span class="dt">budget =</span> <span class="dv">5000</span>)
 
 <span class="co"># print the problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p7)</code></pre></div>
+<span class="kw">print</span>(p7)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -454,7 +462,7 @@ p8 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_absolute_targets</span>(<span class="dv">3</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p8)</code></pre></div>
+<span class="kw">print</span>(p8)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -477,7 +485,7 @@ p9 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p9)</code></pre></div>
+<span class="kw">print</span>(p9)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -498,7 +506,7 @@ p10 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">      </span><span class="kw">add_relative_targets</span>(targets)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p10)</code></pre></div>
+<span class="kw">print</span>(p10)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -520,7 +528,7 @@ p11 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_loglinear_targets</span>(<span class="dv">10</span>, <span class="fl">0.9</span>, <span class="dv">100</span>, <span class="fl">0.2</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p11)</code></pre></div>
+<span class="kw">print</span>(p11)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -552,15 +560,10 @@ p11 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 p12 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">add_locked_in_constraints</span>(<span class="dv">1</span>)</code></pre></div>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p12)</code></pre></div>
+<span class="st">       </span><span class="kw">add_locked_in_constraints</span>(<span class="dv">1</span>)
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p12)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -584,7 +587,7 @@ p13 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_locked_out_constraints</span>(<span class="dv">2</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p13)</code></pre></div>
+<span class="kw">print</span>(p13)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -608,7 +611,7 @@ p14 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_neighbor_constraints</span>(<span class="dv">1</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p14)</code></pre></div>
+<span class="kw">print</span>(p14)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -632,7 +635,7 @@ p15 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_contiguity_constraints</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p15)</code></pre></div>
+<span class="kw">print</span>(p15)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -656,7 +659,7 @@ p16 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_feature_contiguity_constraints</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p16)</code></pre></div>
+<span class="kw">print</span>(p16)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -686,7 +689,7 @@ p17 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_locked_out_constraints</span>(sim_locked_out_raster)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p17)</code></pre></div>
+<span class="kw">print</span>(p17)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -716,7 +719,7 @@ p18 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_polygon
 <span class="st">       </span><span class="kw">add_locked_in_constraints</span>(<span class="st">"locked_in"</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p18)</code></pre></div>
+<span class="kw">print</span>(p18)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -735,7 +738,7 @@ p19 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_polygon
 <span class="st">       </span><span class="kw">add_locked_in_constraints</span>(<span class="kw">which</span>(sim_pu_polygons<span class="op">$</span>locked_in))
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p19)</code></pre></div>
+<span class="kw">print</span>(p19)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -765,7 +768,7 @@ p20 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="fl">0.01</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p20)</code></pre></div>
+<span class="kw">print</span>(p20)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -795,7 +798,7 @@ p21 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
                                                          sim_features[[<span class="dv">5</span>]]))
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p21)</code></pre></div>
+<span class="kw">print</span>(p21)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -824,7 +827,7 @@ p22 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p22)</code></pre></div>
+<span class="kw">print</span>(p22)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -847,7 +850,7 @@ p23 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_proportion_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p23)</code></pre></div>
+<span class="kw">print</span>(p23)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -871,7 +874,7 @@ p24 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_semicontinuous_decisions</span>(<span class="fl">0.5</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p24)</code></pre></div>
+<span class="kw">print</span>(p24)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -902,7 +905,7 @@ p25 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_gurobi_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p25)</code></pre></div>
+<span class="kw">print</span>(p25)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -927,7 +930,7 @@ p26 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_rsymphony_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p26)</code></pre></div>
+<span class="kw">print</span>(p26)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -954,7 +957,7 @@ p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ## due to a bug in lpsymphony. Please verify that it is correct, or use a
 ## different solver to generate solutions.</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p27)</code></pre></div>
+<span class="kw">print</span>(p27)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -980,12 +983,6 @@ p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 
 <span class="co"># solve the problem (using the default solver)</span>
 s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre></div>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
 <pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
@@ -1018,7 +1015,7 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 163 nodes (2960 simplex iterations) in 0.16 seconds
+## Explored 163 nodes (2960 simplex iterations) in 0.20 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 2696.25 3087.96 20287.2 
@@ -1031,16 +1028,16 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 <p>We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. <code>data.frame</code>), the solution would also be returned in a tabular format.</p>
 <p>We can also extract attributes from the solution that describe the quality of the solution and the optimization process.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw">attr</span>(s28, <span class="st">"objective"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"objective"</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##   2696.247</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw">attr</span>(s28, <span class="st">"runtime"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   0.160625</code></pre>
+##  0.1999102</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw">attr</span>(s28, <span class="st">"status"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##  "OPTIMAL"</code></pre>
 </div>
@@ -1056,7 +1053,7 @@ minput &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span c
 mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(minput)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(mp)</code></pre></div>
+<span class="kw">print</span>(mp)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
 ##   cost:           min: 0, max: 41569219.38232
@@ -1092,7 +1089,7 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
                       <span class="dt">blm =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(mp2)</code></pre></div>
+<span class="kw">print</span>(mp2)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1751 units)
 ##   cost:           min: 0, max: 41569219.38232
@@ -1100,8 +1097,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1277,6 +1274,14 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 </div>
 
   
-
-  </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+</body>
 </html>

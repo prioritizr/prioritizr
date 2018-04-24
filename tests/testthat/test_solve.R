@@ -259,3 +259,22 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
   expect_equal(s[, "z1"], c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s[, "z2"], c(0, 0, 0,  0, 1, 0, NA))
 })
+
+test_that("silent output when verbose=FALSE", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("Rsymphony")
+  # simulate data
+  costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
+  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), ncol = 4)),
+                       raster::raster(matrix(c(NA, 0, 1, 1), ncol = 4)))
+  # make problem
+  p <- problem(costs, spp) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(c(1, 1)) %>%
+       add_binary_decisions() %>%
+       add_rsymphony_solver(gap = 0, verbose = FALSE)
+  # solve problem silently
+  expect_silent(solve(p))
+})

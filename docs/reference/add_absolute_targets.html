@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -60,6 +64,9 @@ than 10." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -75,7 +82,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -124,6 +131,12 @@ than 10." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -300,7 +313,7 @@ Details section for more information.</p></td>
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (6 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1223.33 1372.75 
@@ -321,7 +334,7 @@ Details section for more information.</p></td>
                      <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'>number_of_zones</span>(<span class='no'>sim_features_zones</span>),
                      <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
                                      <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='fu'>print</span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      2      2
 #&gt; feature_2      2      2      2
 #&gt; feature_3      2      2      2
@@ -368,7 +381,7 @@ Details section for more information.</p></td>
                      <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'>number_of_zones</span>(<span class='no'>sim_features_zones</span>),
                      <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
                                      <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='fu'>print</span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      0      0
 #&gt; feature_2      1      1      2
 #&gt; feature_3      3      3      2
@@ -399,7 +412,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 3419.22083    0    5 4153.23607 3419.22083  17.7%     -    0s
 #&gt; H    0     0                    3691.5014964 3419.22083  7.38%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3691.5 4153.24 
@@ -440,6 +453,17 @@ Details section for more information.</p></td>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -56,6 +60,9 @@
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -71,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -121,6 +128,12 @@
 </li>
       </ul>
       
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -162,9 +175,9 @@
 <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'>new_id</span>()
 
 <span class='co'># print id</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "Id" in cache; using the first, from namespace 'prioritizr'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by 'DBI'</span></div><div class='output co'>#&gt; <span class='message'>id: b28c5964-120f-4541-8d4d-a57d9f8635b8</span></div><div class='input'>
+<span class='fu'>print</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>id: 8fe707eb-2400-42b2-b600-8692f26a77f7</span></div><div class='input'>
 <span class='co'># convert to character</span>
-<span class='fu'>as.character</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "b28c5964-120f-4541-8d4d-a57d9f8635b8"</div><div class='input'>
+<span class='fu'>as.character</span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "8fe707eb-2400-42b2-b600-8692f26a77f7"</div><div class='input'>
 <span class='co'># check if it is an Id object</span>
 <span class='fu'><a href='is.html'>is.Id</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
@@ -198,6 +211,17 @@
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

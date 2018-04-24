@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -61,6 +65,9 @@ section for more information on the changes since this version." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -76,7 +83,7 @@ section for more information on the changes since this version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -125,6 +132,12 @@ section for more information on the changes since this version." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -298,7 +311,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 8e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 0 rows and 74 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 211 columns, 1328 nonzeros
 #&gt; Variable types: 0 continuous, 211 integer (211 binary)
 #&gt; Presolved: 106 rows, 211 columns, 1328 nonzeros
@@ -333,7 +346,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   MIR: 4
 #&gt;   StrongCG: 1
 #&gt; 
-#&gt; Explored 101 nodes (435 simplex iterations) in 0.07 seconds
+#&gt; Explored 101 nodes (435 simplex iterations) in 0.11 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 7.99986 6.99986 5.99989 ... -0
@@ -356,7 +369,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 4e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 75 rows and 171 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 33 rows, 114 columns, 528 nonzeros
 #&gt; Found heuristic solution: objective 0.9999628
 #&gt; Variable types: 0 continuous, 114 integer (114 binary)
@@ -381,7 +394,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Cover: 4
 #&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 1 nodes (36 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (36 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 9.99982 8.99982 8.99982 ... 0.999963
@@ -423,6 +436,17 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -58,6 +62,9 @@ et al. 2016)." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -73,7 +80,7 @@ et al. 2016)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -122,6 +129,12 @@ et al. 2016)." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -302,13 +315,13 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.221531e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.11s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 499 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 499 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -316,7 +329,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (499 simplex iterations) in 0.10 seconds
+#&gt; Explored 1 nodes (499 simplex iterations) in 0.18 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 
@@ -386,14 +399,14 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.219799e+10
 #&gt; Presolve removed 7 rows and 756 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 10 rows, 995 columns, 1984 nonzeros
 #&gt; Variable types: 0 continuous, 995 integer (992 binary)
 #&gt; Presolve removed 0 rows and 2 columns
 #&gt; Presolved: 10 rows, 993 columns, 1982 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.564575e+09, 23 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 9.564575e+09, 23 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -401,7 +414,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5646e+09    0    9 1.2198e+10 9.5646e+09  21.6%     -    0s
 #&gt; H    0     0                    9.584380e+09 9.5646e+09  0.21%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.58438e+09 1.2198e+10 
@@ -430,13 +443,13 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.222917e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.11s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.586123e+09, 532 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.586123e+09, 532 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -444,7 +457,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
 #&gt; H    0     0                    9.611012e+09 9.5861e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (532 simplex iterations) in 0.10 seconds
+#&gt; Explored 1 nodes (532 simplex iterations) in 0.19 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.61101e+09 1.22292e+10 
@@ -490,6 +503,17 @@ conservation planning problems with integer linear programming.
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

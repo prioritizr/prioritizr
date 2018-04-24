@@ -8,7 +8,9 @@
 <title>Management Zones • prioritizr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+<link href="../docsearch.css" rel="stylesheet">
+<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Management Zones">
 <meta property="og:description" content="">
 <meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
@@ -22,7 +24,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script>
+</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 </head>
 <body>
     <div class="container template-article">
@@ -36,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -84,7 +86,13 @@
   </a>
 </li>
       </ul>
+<form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
+      </form>
+      
+    </div>
 <!--/.nav-collapse -->
   </div>
 <!--/.container -->
@@ -133,7 +141,7 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p1)</code></pre></div>
+<span class="kw">print</span>(p1)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -147,18 +155,6 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, 
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre></div>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -201,7 +197,7 @@ t2[, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0
 t2[, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0.05</span>
 
 <span class="co"># print targets</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(t2)</code></pre></div>
+<span class="kw">print</span>(t2)</code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.1 0.05
 ## [2,]  0.1 0.05
@@ -215,7 +211,7 @@ t2[, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0
 z2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="st">"zone 1"</span> =<span class="st"> </span>sim_features, <span class="st">"zone 2"</span> =<span class="st"> </span>sim_features)
 
 <span class="co"># print zones</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(z2)</code></pre></div>
+<span class="kw">print</span>(z2)</code></pre></div>
 <pre><code>## Zones
 ##   zones: zone 1, zone 2 (2 zones)
 ##   features: 1, 2, 3, ... (5 features)
@@ -226,7 +222,7 @@ z2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/zones.ht
 pu2 &lt;-<span class="st"> </span><span class="kw">stack</span>(sim_pu_raster, sim_pu_raster)
 
 <span class="co"># print stack</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(pu2)</code></pre></div>
+<span class="kw">print</span>(pu2)</code></pre></div>
 <pre><code>## class       : RasterStack 
 ## dimensions  : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
 ## resolution  : 0.1, 0.1  (x, y)
@@ -242,7 +238,7 @@ p2 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu2, z2) <span 
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p2)</code></pre></div>
+<span class="kw">print</span>(p2)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          zone 1, zone 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -279,7 +275,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##      0     0 2903.38849    0   10 3568.49314 2903.38849  18.6%     -    0s
 ## H    0     0                    2987.3854351 2903.38849  2.81%     -    0s
 ## 
-## Explored 1 nodes (57 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (57 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 2987.39 3568.49 
@@ -306,7 +302,7 @@ p3 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu3, <span clas
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
+<span class="kw">print</span>(p3)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          1, 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -371,13 +367,7 @@ t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw
                      <span class="dt">type =</span> <span class="kw">rep</span>(<span class="st">"absolute"</span>, <span class="dv">5</span>))
 
 <span class="co"># print targets</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(t4)</code></pre></div>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
-<pre><code>## Found more than one class "tbl_df" in cache; using the first, from namespace 'prioritizr'</code></pre>
-<pre><code>## Also defined by 'tibble'</code></pre>
+<span class="kw">print</span>(t4)</code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   feature zone      target type    
 ##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
@@ -396,7 +386,7 @@ p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span clas
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p4)</code></pre></div>
+<span class="kw">print</span>(p4)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -435,7 +425,7 @@ s4 &lt;-<span class="st"> </span><span class="kw">solve</span>(p4)</code></pre><
 ##      0     0 3765.91277    0    1 4600.00000 3765.91277  18.1%     -    0s
 ## H    0     0                    3800.0000000 3765.91277  0.90%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 3800 4600 4700 
@@ -471,7 +461,7 @@ p5 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span clas
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p5)</code></pre></div>
+<span class="kw">print</span>(p5)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -510,7 +500,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 ##      0     0 7206.53789    0    1 9700.00000 7206.53789  25.7%     -    0s
 ## H    0     0                    7300.0000000 7206.53789  1.28%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 7300 9700 12200 
@@ -530,7 +520,7 @@ z6[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> 
 <span class="kw">rownames</span>(z6) &lt;-<span class="st"> </span><span class="kw">colnames</span>(z6)
 
 <span class="co"># print matrix</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(z6)</code></pre></div>
+<span class="kw">print</span>(z6)</code></pre></div>
 <pre><code>##            few.traps many.traps baiting
 ## few.traps          1          1       0
 ## many.traps         1          1       0
@@ -547,7 +537,7 @@ p6 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span clas
 <span class="st">      </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(p6)</code></pre></div>
+<span class="kw">print</span>(p6)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -571,7 +561,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20260.000000
 ## Presolve removed 308 rows and 232 columns
-## Presolve time: 0.01s
+## Presolve time: 0.03s
 ## Presolved: 1597 rows, 968 columns, 4872 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Presolve removed 720 rows and 0 columns
@@ -586,7 +576,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ##      0     0 10301.8894    0   94 20260.0000 10301.8894  49.2%     -    0s
 ## H    0     0                    11192.000000 10301.8894  7.95%     -    0s
 ## 
-## Explored 1 nodes (725 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (725 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 11192 20260 
@@ -660,6 +650,14 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 </div>
 
   
-
-  </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script><script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+</body>
 </html>

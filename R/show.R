@@ -43,7 +43,7 @@ methods::setMethod("show", "ConservationProblem",
 #' @usage \S4method{show}{Id}(x)
 #'
 methods::setMethod("show", "Id",
-                   function(object) print(object))
+                   function(object) print.Id(object))
 
 #' @name show
 #'

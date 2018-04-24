@@ -1,8 +1,4 @@
-#' @include internal.R pproto.R ConservationProblem-proto.R zones.R MiscParameter-proto.R
-NULL
-
-#' @export
-if (!methods::isClass("tbl_df")) methods::setOldClass("tbl_df")
+#' @include internal.R pproto.R ConservationProblem-proto.R zones.R MiscParameter-proto.R tbl_df.R
 NULL
 
 #' Add manual targets

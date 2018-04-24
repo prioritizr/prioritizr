@@ -80,7 +80,7 @@ to a different feature and each column corresponds to a different feature." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -222,7 +222,7 @@ object.</p></td>
 
 <span class='co'># create rij matrix using raster layer planning units</span>
 <span class='no'>rij_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='fu'>print</span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.6230919 0.6162216 0.6137453 0.6199624 0.6370438 0.6644234 0.6989494
 #&gt; layer.2 0.2778374 0.2943842 0.3166185 0.3413962 0.3647340 0.3827657 0.3928479
@@ -303,7 +303,7 @@ object.</p></td>
 #&gt; layer.5 0.5963748 0.5991050 0.6278240 0.6484574 0.6682495 0.6836491</div><div class='input'>
 <span class='co'># create rij matrix using polygon planning units</span>
 <span class='no'>rij_polygons</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_polygons</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"</div><div class='output co'>#&gt; <span class='message'>   [[ suppressing 90 column names '1', '2', '3' ... ]]</span></div><div class='output co'>#&gt;                                                                              
+<span class='fu'>print</span>(<span class='no'>rij_polygons</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"</div><div class='output co'>#&gt; <span class='message'>   [[ suppressing 90 column names '1', '2', '3' ... ]]</span></div><div class='output co'>#&gt;                                                                              
 #&gt; layer.1 0.6230919 0.6162216 0.6137453 0.6199624 0.6370438 0.6644234 0.6989494
 #&gt; layer.2 0.2778374 0.2943842 0.3166185 0.3413962 0.3647340 0.3827657 0.3928479
 #&gt; layer.3 0.7709779 0.7598676 0.7401120 0.7108536 0.6719204 0.6242170 0.5699056
@@ -383,7 +383,7 @@ object.</p></td>
 #&gt; layer.5 0.5963748 0.5991050 0.6278240 0.6484574 0.6682495 0.6836491</div><div class='input'>
 <span class='co'># create rij matrix using raster stack planning units</span>
 <span class='no'>rij_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='fu'>print</span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.6230919 0.6162216 0.6137453 0.6199624 0.6370438 0.6644234 0.7359098
 #&gt; layer.2 0.2778374 0.2943842 0.3166185 0.3413962 0.3647340 0.3827657 0.3943315

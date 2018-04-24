@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -57,6 +61,9 @@ to ensure that solutions exhibit a specific characteristic." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -72,7 +79,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -121,6 +128,12 @@ to ensure that solutions exhibit a specific characteristic." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -370,7 +383,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Gomory: 2
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 1 nodes (382 simplex iterations) in 0.07 seconds
+#&gt; Explored 1 nodes (382 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4409.63 
@@ -385,7 +398,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 136 rows and 137 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 1474 rows, 1123 columns, 4322 nonzeros
 #&gt; Variable types: 0 continuous, 1123 integer (1123 binary)
 #&gt; Presolved: 1474 rows, 1123 columns, 4322 nonzeros
@@ -417,7 +430,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   MIR: 1
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 54 nodes (5809 simplex iterations) in 0.65 seconds
+#&gt; Explored 54 nodes (5809 simplex iterations) in 0.79 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4271.35 16881.2 
@@ -456,6 +469,17 @@ to ensure that solutions exhibit a specific characteristic.</p>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

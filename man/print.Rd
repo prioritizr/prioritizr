@@ -2,14 +2,18 @@
 % Please edit documentation in R/print.R
 \name{print}
 \alias{print}
+\alias{print,Id-method}
+\alias{print,tbl_df-method}
 \alias{print.ConservationProblem}
 \alias{print.ConservationModifier}
 \alias{print.Id}
+\alias{print}
 \alias{print.OptimizationProblem}
 \alias{print.ScalarParameter}
 \alias{print.ArrayParameter}
 \alias{print.Solver}
 \alias{print.Zones}
+\alias{print}
 \title{Print}
 \usage{
 \method{print}{ConservationProblem}(x, ...)
@@ -17,6 +21,8 @@
 \method{print}{ConservationModifier}(x, ...)
 
 \method{print}{Id}(x, ...)
+
+\S4method{print}{Id}(x)
 
 \method{print}{OptimizationProblem}(x, ...)
 
@@ -27,6 +33,8 @@
 \method{print}{Solver}(x, ...)
 
 \method{print}{Zones}(x, ...)
+
+\S4method{print}{tbl_df}(x)
 }
 \arguments{
 \item{x}{Any object.}

@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -58,6 +62,9 @@ et al. 2000)." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -73,7 +80,7 @@ et al. 2000)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -122,6 +129,12 @@ et al. 2000)." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -308,7 +321,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;      0     0 3894.78008    0    5 5070.81076 3894.78008  23.2%     -    0s
 #&gt; H    0     0                    4001.8154680 3894.78008  2.67%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4001.82 5070.81 
@@ -337,7 +350,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; 
 #&gt;      0     0 3909.41572    0    6 4821.91823 3909.41572  18.9%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (31 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4821.92 
@@ -395,7 +408,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; 
 #&gt;      0     0 3909.41572    0    6 4319.55800 3909.41572  9.50%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (31 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4319.56 
@@ -424,7 +437,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; 
 #&gt;      0     0 3909.41572    0    6 4357.21265 3909.41572  10.3%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (31 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4357.21 
@@ -453,7 +466,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; 
 #&gt;      0     0 3909.41572    0    6 4357.52524 3909.41572  10.3%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (31 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4357.53 
@@ -482,7 +495,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; 
 #&gt;      0     0 3909.41572    0    6 4334.41579 3909.41572  9.81%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (31 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (31 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4334.42 
@@ -507,7 +520,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 12406.438131
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 101 rows, 270 columns, 1260 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 101 rows, 270 columns, 1260 nonzeros
@@ -537,7 +550,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12357.626764
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 102 rows, 270 columns, 1320 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 102 rows, 270 columns, 1320 nonzeros
@@ -567,7 +580,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12430.656768
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 103 rows, 270 columns, 1380 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 103 rows, 270 columns, 1380 nonzeros
@@ -657,7 +670,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12092.280405
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 270 columns, 1557 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 106 rows, 270 columns, 1557 nonzeros
@@ -687,7 +700,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12688.568669
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 107 rows, 270 columns, 1615 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 107 rows, 270 columns, 1615 nonzeros
@@ -717,7 +730,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12207.931039
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 108 rows, 270 columns, 1676 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 108 rows, 270 columns, 1676 nonzeros
@@ -777,7 +790,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   RHS range        [1e+00, 6e+01]
 #&gt; Found heuristic solution: objective 12036.692122
 #&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 110 rows, 270 columns, 1793 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 110 rows, 270 columns, 1793 nonzeros
@@ -813,7 +826,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #&gt;  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#&gt;  - attr(*, "runtime")= Named num [1:10] 0.00599 0.00659 0.006 0.00644 0.00627 ...
+#&gt;  - attr(*, "runtime")= Named num [1:10] 0.01046 0.01145 0.01272 0.00763 0.0107 ...
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</div><div class='input'>
 <span class='co'># plot first solution in portfolio</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span><span class='kw'>[[</span><span class='fl'>1</span>]]), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_cuts_portfolio-2.png' alt='' width='700' height='433' /></div></pre>
@@ -850,6 +863,17 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

@@ -79,7 +79,7 @@ representation of features in the study area." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -272,7 +272,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
 #&gt; H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1979.96 2337.96 
@@ -301,7 +301,7 @@ Details section for more information.</p></td>
 #&gt; 
 #&gt;      0     0 9250.33582    0    1 9646.64187 9250.33582  4.11%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 9646.64 
@@ -320,7 +320,7 @@ Details section for more information.</p></td>
 <span class='no'>p4_targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
                      <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
                                      <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='fu'>print</span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1    0.1    0.1    0.1
 #&gt; feature_2    0.1    0.1    0.1
 #&gt; feature_3    0.1    0.1    0.1
@@ -351,7 +351,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 5950.93434    0   11 6831.34314 5950.93434  12.9%     -    0s
 #&gt; H    0     0                    6078.1123440 5950.93434  2.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (79 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (79 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6078.11 6831.34 
@@ -364,7 +364,7 @@ Details section for more information.</p></td>
 <span class='no'>p5_targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>runif</span>(<span class='fl'>15</span>, <span class='fl'>0.01</span>, <span class='fl'>0.2</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>,
                      <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
                                      <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;               zone_1     zone_2     zone_3
+<span class='fu'>print</span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;               zone_1     zone_2     zone_3
 #&gt; feature_1 0.16838399 0.04908221 0.06359158
 #&gt; feature_2 0.14775224 0.10731456 0.17964011
 #&gt; feature_3 0.19530969 0.18583855 0.15529418
@@ -394,7 +394,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 5950.93434    0   11 6831.34314 5950.93434  12.9%     -    0s
 #&gt; H    0     0                    6078.1123440 5950.93434  2.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (79 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (79 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6078.11 6831.34 

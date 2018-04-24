@@ -1,3 +1,7 @@
+# prioritizr 4.0.0.2
+
+- Fix issue with the `solve` function printing superfluous text (#75).
+
 # prioritizr 4.0.0.1
 
 - Minor improvements to the documentation for the `problem` function.

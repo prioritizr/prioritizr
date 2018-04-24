@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -60,6 +64,9 @@ means that the same calculations will not be run multiple times." />
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -75,7 +82,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
       </span>
     </div>
 
@@ -124,6 +131,12 @@ means that the same calculations will not be run multiple times." />
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -212,7 +225,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 1942.13608    0   11 2352.96175 1942.13608  17.5%     -    0s
 #&gt; H    0     0                    1999.6758952 1942.13608  2.88%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (76 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (76 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 1999.68 2352.96 18523.2 
@@ -322,7 +335,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 1942.13608    0   11 2352.96175 1942.13608  17.5%     -    0s
 #&gt; H    0     0                    1999.6758952 1942.13608  2.88%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (76 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (76 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 1999.68 2352.96 18523.2 
@@ -390,9 +403,9 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 6.073308153120e+03, best bound 5.937186060308e+03, gap 2.2413%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.566   0.312   0.883 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.460   0.315   0.763 </div><div class='input'>
+<span class='fu'>print</span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.974   0.602   1.569 </div><div class='input'><span class='fu'>print</span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.867   0.583   1.438 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.
@@ -426,6 +439,17 @@ means that the same calculations will not be run multiple times.</p>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>
