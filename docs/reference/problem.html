@@ -22,6 +22,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -64,6 +68,9 @@ penalties. After building the problem, the
 
 
 
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
   </head>
 
   <body>
@@ -79,7 +86,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.1</span>
       </span>
     </div>
 
@@ -128,6 +135,12 @@ penalties. After building the problem, the
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
       
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -360,8 +373,8 @@ to <code>FALSE</code>.</p></td>
   cloud forest). The benefit that each feature derives from a planning unit
   can take a variety of forms, but is typically either occupancy (i.e.
   presence or absence) or area of occurrence within each planning unit.
-  Finally, in some types of reserve design models, for each conservation
-  feature, representation targets must be set, such as 20<!-- % of the current -->
+  Finally, in some types of reserve design models, representation targets
+  must be set for each conservation feature, such as 20 <!-- % of the current -->
   extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
   (see <code><a href='targets.html'>targets</a></code>).</p>
 <p>The goal of the reserve design exercise is then to optimize the trade-off
@@ -377,11 +390,12 @@ to <code>FALSE</code>.</p></td>
   representation targets.</p>
 <p>Integer linear programming (ILP) is the subset of optimization algorithms
   used in this package to solve reserve design problems. The general form of
-  an ILP problem can be expressed in matrix notation as:</p>
+  an integer programming problem can be expressed in matrix notation using
+  the following equation.</p>
 <p>$$\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
   \mathit{subject \space to} \space
   \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
-<p>Where <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are
+<p>Here, <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are
   vectors of known coefficients, and <em>A</em> is the constraint
   matrix. The final term specifies a series of structural
   constraints where relational operators for the constraint can be either
@@ -391,6 +405,11 @@ to <code>FALSE</code>.</p></td>
   operator would be \(\ge\) for all features, and <em>A</em> would be the
   representation matrix with \(A_{ij}=r_{ij}\), the
   representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
+<p>Please note that this function internally computes the amount of each
+  feature in each planning unit when this data is not supplied (using the
+  <code>rij_matrix</code> parameter). As a consequence, it can take a while to
+  initialize large-scale conservation planning problems that involve
+  millions of planning units.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -564,35 +583,35 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3597.1 4135.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
+#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 90 columns and 258 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e+00, 1e+01]
+#&gt;   Matrix range     [1e+00, 2e+01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [4e+01, 1e+02]
-#&gt; Found heuristic solution: objective 3735.0477670
+#&gt;   RHS range        [4e+01, 2e+02]
+#&gt; Found heuristic solution: objective 4135.2744673
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
+#&gt; Presolved: 3 rows, 90 columns, 258 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
+#&gt; Presolved: 3 rows, 90 columns, 258 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.641301e+03, 6 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.612223e+03, 5 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2641.30066    0    2 3735.04777 2641.30066  29.3%     -    0s
-#&gt; H    0     0                    2680.4719984 2641.30066  1.46%     -    0s
+#&gt;      0     0 2612.22251    0    3 4135.27447 2612.22251  36.8%     -    0s
+#&gt; H    0     0                    2672.8167147 2612.22251  2.27%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (5 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2680.47 3735.05 
+#&gt; Solution count 2: 2672.82 4135.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.680471998357e+03, best bound 2.641300658973e+03, gap 1.4614%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 2.672816714660e+03, best bound 2.612222505740e+03, gap 2.2671%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -643,7 +662,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00222
+#&gt;  - attr(*, "runtime")= Named num 0.00463
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
@@ -659,11 +678,11 @@ to <code>FALSE</code>.</p></td>
 
 <span class='co'># print targets</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
-#&gt; feature_1      2      0      0
-#&gt; feature_2      1      0      2
-#&gt; feature_3      1      0      2
-#&gt; feature_4      2      2      3
-#&gt; feature_5      1      0      0</div><div class='input'>
+#&gt; feature_1      1      1      1
+#&gt; feature_2      3      2      1
+#&gt; feature_3      0      0      0
+#&gt; feature_4      3      1      0
+#&gt; feature_5      1      2      3</div><div class='input'>
 <span class='co'># create a multi-zone problem with raster data</span>
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
@@ -676,34 +695,29 @@ to <code>FALSE</code>.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+00]
-#&gt; Found heuristic solution: objective 3544.6972122
-#&gt; Presolve removed 11 rows and 0 columns
+#&gt; Found heuristic solution: objective 4551.2207482
+#&gt; Presolve removed 10 rows and 0 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 94 rows, 270 columns, 630 nonzeros
+#&gt; Presolved: 95 rows, 270 columns, 720 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 94 rows, 270 columns, 630 nonzeros
+#&gt; Presolved: 95 rows, 270 columns, 720 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.528467e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.714003e+03, 16 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2528.46652    0    4 3544.69721 2528.46652  28.7%     -    0s
-#&gt; H    0     0                    2910.6514289 2528.46652  13.1%     -    0s
-#&gt; H    0     0                    2879.1788890 2528.46652  12.2%     -    0s
-#&gt;      0     0 2853.69821    0    7 2879.17889 2853.69821  0.88%     -    0s
+#&gt;      0     0 3714.00296    0    4 4551.22075 3714.00296  18.4%     -    0s
+#&gt; H    0     0                    4068.3136109 3714.00296  8.71%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 3
-#&gt; 
-#&gt; Explored 1 nodes (44 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (16 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2879.18 2910.65 3544.7 
+#&gt; Solution count 2: 4068.31 4551.22 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.879178889003e+03, best bound 2.853698210938e+03, gap 0.8850%</div><div class='input'>
+#&gt; Best objective 4.068313610923e+03, best bound 3.714002955851e+03, gap 8.7090%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='co'># here, each layer/panel corresponds to a different zone and pixel values</span>
 <span class='co'># indicate if a given planning unit has been allocated to a given zone</span>
@@ -726,34 +740,29 @@ to <code>FALSE</code>.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+00]
-#&gt; Found heuristic solution: objective 3544.6972122
-#&gt; Presolve removed 11 rows and 0 columns
+#&gt; Found heuristic solution: objective 4551.2207482
+#&gt; Presolve removed 10 rows and 0 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 94 rows, 270 columns, 630 nonzeros
+#&gt; Presolved: 95 rows, 270 columns, 720 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 94 rows, 270 columns, 630 nonzeros
+#&gt; Presolved: 95 rows, 270 columns, 720 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.528467e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.714003e+03, 16 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2528.46652    0    4 3544.69721 2528.46652  28.7%     -    0s
-#&gt; H    0     0                    2910.6514289 2528.46652  13.1%     -    0s
-#&gt; H    0     0                    2879.1788890 2528.46652  12.2%     -    0s
-#&gt;      0     0 2853.69821    0    7 2879.17889 2853.69821  0.88%     -    0s
+#&gt;      0     0 3714.00296    0    4 4551.22075 3714.00296  18.4%     -    0s
+#&gt; H    0     0                    4068.3136109 3714.00296  8.71%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 3
-#&gt; 
-#&gt; Explored 1 nodes (44 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (16 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2879.18 2910.65 3544.7 
+#&gt; Solution count 2: 4068.31 4551.22 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.879178889003e+03, best bound 2.853698210938e+03, gap 0.8850%</div><div class='input'>
+#&gt; Best objective 4.068313610923e+03, best bound 3.714002955851e+03, gap 8.7090%</div><div class='input'>
 <span class='co'># create column containing the zone id for which each planning unit was</span>
 <span class='co'># allocated to in the solution</span>
 <span class='no'>s7</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s7</span>@<span class='kw'>data</span>[, <span class='fu'>c</span>(<span class='st'>"solution_1_zone_1"</span>,
@@ -790,22 +799,22 @@ to <code>FALSE</code>.</p></td>
       <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
       <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1</span>:<span class='fl'>2</span>]) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_proportion_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 96 rows, 180 columns and 521 nonzeros
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 96 rows, 180 columns and 519 nonzeros
 #&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e+00, 5e+00]
+#&gt;   Matrix range     [1e+00, 4e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+00]
-#&gt; Presolve removed 93 rows and 97 columns
+#&gt;   RHS range        [1e+00, 3e+00]
+#&gt; Presolve removed 26 rows and 24 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 83 columns, 165 nonzeros
+#&gt; Presolved: 70 rows, 156 columns, 367 nonzeros
 #&gt; 
 #&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   8.750000e-01   0.000000e+00      0s
-#&gt;        4    1.4226180e+02   0.000000e+00   0.000000e+00      0s
+#&gt;        0    0.0000000e+00   1.750000e+00   0.000000e+00      0s
+#&gt;        5    2.8737523e+02   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Solved in 4 iterations and 0.00 seconds
-#&gt; Optimal objective  1.422617961e+02</div><div class='input'>
+#&gt; Solved in 5 iterations and 0.00 seconds
+#&gt; Optimal objective  2.873752288e+02</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span>(<span class='no'>s8</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"solution_1_z1"</span>, <span class='st'>"solution_1_z2"</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>,
        <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='problem-5.png' alt='' width='700' height='433' /></div></pre>
@@ -840,6 +849,17 @@ to <code>FALSE</code>.</p></td>
    </div>
 
   
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
 
   </body>
 </html>

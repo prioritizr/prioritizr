@@ -157,8 +157,8 @@ NULL
 #'   cloud forest). The benefit that each feature derives from a planning unit
 #'   can take a variety of forms, but is typically either occupancy (i.e.
 #'   presence or absence) or area of occurrence within each planning unit.
-#'   Finally, in some types of reserve design models, for each conservation
-#'   feature, representation targets must be set, such as 20% of the current
+#'   Finally, in some types of reserve design models, representation targets
+#'   must be set for each conservation feature, such as 20 % of the current
 #'   extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
 #'   (see \code{\link{targets}}).
 #'
@@ -176,14 +176,15 @@ NULL
 #'
 #'   Integer linear programming (ILP) is the subset of optimization algorithms
 #'   used in this package to solve reserve design problems. The general form of
-#'   an ILP problem can be expressed in matrix notation as:
+#'   an integer programming problem can be expressed in matrix notation using
+#'   the following equation.
 #'
 #'   \deqn{\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
 #'   \mathit{subject \space to} \space
 #'   \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =,
 #'   or \le b}
 #'
-#'   Where \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
+#'   Here, \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
 #'   vectors of known coefficients, and \emph{A} is the constraint
 #'   matrix. The final term specifies a series of structural
 #'   constraints where relational operators for the constraint can be either
@@ -193,6 +194,12 @@ NULL
 #'   operator would be \eqn{\ge} for all features, and \emph{A} would be the
 #'   representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
 #'   representation level of feature \emph{i} in planning unit \emph{j}.
+#'
+#'   Please note that this function internally computes the amount of each
+#'   feature in each planning unit when this data is not supplied (using the
+#'   \code{rij_matrix} parameter). As a consequence, it can take a while to
+#'   initialize large-scale conservation planning problems that involve
+#'   millions of planning units.
 #'
 #' @return A \code{\link{ConservationProblem-class}} object containing the
 #'   basic data used to build a prioritization problem.
