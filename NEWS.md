@@ -1,3 +1,7 @@
+# prioritizr 4.0.0.1
+
+- Minor improvements to the documentation for the `problem` function.
+
 # prioritizr 4.0.0.0
 
 - Added functionality to build and solve problems with multiple management
