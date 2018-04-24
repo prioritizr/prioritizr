@@ -129,7 +129,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<p>Please using the following citation to cite the ’<em>prioritizr R</em> package in publications:</p>
+<p>Please using the following citation to cite the <em>prioritizr R</em> package in publications:</p>
 <p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.1. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 <p>Additionally, we keep a <a href="https://prioritizr.github.io/prioritizr/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -215,8 +215,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   3597.095</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
-<pre><code>##  solution_1 
-## 0.005508184</code></pre>
+<pre><code>## solution_1 
+## 0.01235294</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -282,13 +282,13 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Found heuristic solution: objective 20287.196992
 ## Found heuristic solution: objective 6732.6427417
 ## Presolve removed 66 rows and 43 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 227 rows, 191 columns, 844 nonzeros
 ## Variable types: 0 continuous, 191 integer (191 binary)
 ## Presolved: 227 rows, 191 columns, 844 nonzeros
 ## 
 ## 
-## Root relaxation: objective 5.497074e+03, 115 iterations, 0.00 seconds
+## Root relaxation: objective 5.497074e+03, 115 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -305,7 +305,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (156 simplex iterations) in 0.08 seconds
+## Explored 1 nodes (156 simplex iterations) in 0.16 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
@@ -340,7 +340,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Presolved: 369 rows, 296 columns, 1176 nonzeros
 ## 
 ## 
-## Root relaxation: objective 6.478767e+03, 142 iterations, 0.01 seconds
+## Root relaxation: objective 6.478767e+03, 142 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -370,7 +370,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   MIR: 3
 ##   Zero half: 19
 ## 
-## Explored 17 nodes (739 simplex iterations) in 0.27 seconds
+## Explored 17 nodes (739 simplex iterations) in 0.26 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98
