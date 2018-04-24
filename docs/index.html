@@ -130,7 +130,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please using the following citation to cite the ’<em>prioritizr R</em> package in publications:</p>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2017). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.0. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.0. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 <p>Additionally, we keep a <a href="https://prioritizr.github.io/prioritizr/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
@@ -172,14 +172,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;"></p>
 <p>Let’s say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/problem">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features,
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features,
               <span class="dt">cost_column =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_min_set_objective">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_relative_targets">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_binary_decisions">add_binary_decisions</a></span>()</code></pre></div>
+<span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html">add_binary_decisions</a></span>()</code></pre></div>
 <p>After we have built a <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>, for more information on this please refer to the <a href="https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html">Gurobi Installation Gude</a></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve the problem</span>
-s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/solve">solve</a></span>(p1)</code></pre></div>
+s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/solve.html">solve</a></span>(p1)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -216,7 +216,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.003405809</code></pre>
+## 0.004104853</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -228,10 +228,10 @@ s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the <code>"locked_in"</code> column of the attribute table), we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with locked in constraints added to it</span>
-p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_locked_in_constraints">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
+p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
 
 <span class="co"># solve the problem</span>
-s2 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/solve">solve</a></span>(p2)</code></pre></div>
+s2 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/solve.html">solve</a></span>(p2)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -271,7 +271,7 @@ s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)
 
 <span class="co"># solve the problem</span>
-s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/solve">solve</a></span>(p3)</code></pre></div>
+s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/solve.html">solve</a></span>(p3)</code></pre></div>
 <pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
@@ -305,7 +305,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (156 simplex iterations) in 0.06 seconds
+## Explored 1 nodes (156 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
@@ -319,10 +319,10 @@ s3<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints (<a href="https://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html"><code>add_contiguity_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with contiguity constraints</span>
-p4 &lt;-<span class="st"> </span>p3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/add_contiguity_constraints">add_contiguity_constraints</a></span>()
+p4 &lt;-<span class="st"> </span>p3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span>()
 
 <span class="co"># solve the problem</span>
-s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentation.org/packages/prioritizr/topics/solve">solve</a></span>(p4)</code></pre></div>
+s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/solve.html">solve</a></span>(p4)</code></pre></div>
 <pre><code>## Optimize a model with 654 rows, 506 columns and 2292 nonzeros
 ## Variable types: 0 continuous, 506 integer (506 binary)
 ## Coefficient statistics:
@@ -340,7 +340,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 ## Presolved: 369 rows, 296 columns, 1176 nonzeros
 ## 
 ## 
-## Root relaxation: objective 6.478767e+03, 142 iterations, 0.00 seconds
+## Root relaxation: objective 6.478767e+03, 142 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -370,7 +370,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumenta
 ##   MIR: 3
 ##   Zero half: 19
 ## 
-## Explored 17 nodes (739 simplex iterations) in 0.17 seconds
+## Explored 17 nodes (739 simplex iterations) in 0.21 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98
@@ -387,7 +387,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help" class="anchor"></a>Getting help</h2>
-<p>Please refer to the <a href="https://prioritizr.github.io/prioritizr/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains a <a href="https://prioritizr.github.io/prioritizr/articles/prioritizr.html">tutorial on systematic conservation planning and using the package</a>, <a href="https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, and a <a href="https://prioritizr.github.io/prioritizr/articles/zones.html">tutorial on building and solving problems that contain multiple management zones</a>. If you have any questions about using the the <em>prioritizr R</em> package or suggestions from improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
+<p>Please refer to the <a href="https://prioritizr.github.io/prioritizr/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains a <a href="https://prioritizr.github.io/prioritizr/articles/prioritizr.html">tutorial on systematic conservation planning and using the package</a>, <a href="https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, and a <a href="https://prioritizr.github.io/prioritizr/articles/zones.html">tutorial on building and solving problems that contain multiple management zones</a>. Additionally, check out the <a href="https://github.com/prioritizr/teaching">teaching repository</a> for seminar slides and workshop materials. If you have any questions about using the the <em>prioritizr R</em> package or suggestions from improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
 </div>
 </div>
   </div>
