@@ -39,8 +39,6 @@ a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
 ensuring that the cost of the reserve network does not exceed the budget." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +81,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -113,6 +111,12 @@ ensuring that the cost of the reserve network does not exceed the budget." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -233,21 +237,21 @@ to solve a problem will return an error.</strong></p>
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
-#&gt; H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1979.96 2337.96 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -269,7 +273,7 @@ to solve a problem will return an error.</strong></p>
 #&gt; 
 #&gt;      0     0    3.99978    0    2   -0.00000    3.99978      -     -    0s
 #&gt; H    0     0                       2.9997849    3.99978  33.3%     -    0s
-#&gt; H    0     0                       3.9997835    3.99978  0.00%     -    0s
+#&gt; H    0     0                       3.9997832    3.99978  0.00%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (4 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
@@ -277,7 +281,7 @@ to solve a problem will return an error.</strong></p>
 #&gt; Solution count 3: 3.99978 2.99978 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.999783501891e+00, best bound 3.999783501891e+00, gap 0.0000%
+#&gt; Best objective 3.999783181757e+00, best bound 3.999783181757e+00, gap 0.0000%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
@@ -286,28 +290,17 @@ to solve a problem will return an error.</strong></p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 4 rows and 4 columns
+#&gt; Presolve removed 6 rows and 95 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 2 rows, 91 columns, 181 nonzeros
-#&gt; Variable types: 0 continuous, 91 integer (91 binary)
-#&gt; Presolved: 2 rows, 91 columns, 181 nonzeros
+#&gt; Presolve: All rows and columns removed
 #&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.992214e-01, 9 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    0.99922    0    1   -0.00000    0.99922      -     -    0s
-#&gt; H    0     0                       0.9992051    0.99922  0.00%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 0.999205 -0 
+#&gt; Solution count 1: -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.992050853811e-01, best bound 9.992214035085e-01, gap 0.0016%
+#&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%
 #&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
@@ -323,31 +316,33 @@ to solve a problem will return an error.</strong></p>
 #&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.334244e+00, 30 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33424    0    6   -0.00000    4.33424      -     -    0s
-#&gt; H    0     0                       2.1552838    4.33424   101%     -    0s
-#&gt; H    0     0                       2.3499578    4.33424  84.4%     -    0s
-#&gt;      0     0    4.21815    0    6    2.34996    4.21815  79.5%     -    0s
-#&gt;      0     0    4.21750    0    8    2.34996    4.21750  79.5%     -    0s
-#&gt;      0     0    3.33278    0    5    2.34996    3.33278  41.8%     -    0s
-#&gt; H    0     0                       2.7445296    3.33278  21.4%     -    0s
-#&gt; H    0     0                       2.9392026    3.33278  13.4%     -    0s
-#&gt;      0     1    3.02218    0    5    2.93920    3.02218  2.82%     -    0s
+#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
+#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
+#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
+#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
+#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
+#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
+#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
+#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
+#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
+#&gt; *    7     3               4       2.7445310    3.44216  25.4%   8.1    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
+#&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 1 nodes (50 simplex iterations) in 0.02 seconds
+#&gt; Explored 14 nodes (123 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 2.9392 2.74453 2.34996 ... -0
+#&gt; Solution count 3: 2.74453 2.15529 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.939202641202e+00, best bound 3.022181976970e+00, gap 2.8232%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Best objective 2.744530961024e+00, best bound 2.744530961024e+00, gap 0.0000%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the maximum coverage objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -362,21 +357,21 @@ to solve a problem will return an error.</strong></p>
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.458805e+01, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 7.435117e+01, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0   74.58805    0    1   -0.00000   74.58805      -     -    0s
-#&gt; H    0     0                      74.1182614   74.58805  0.63%     -    0s
+#&gt;      0     0   74.35117    0    1   -0.00000   74.35117      -     -    0s
+#&gt; H    0     0                      74.2352258   74.35117  0.16%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 74.1183 -0 
+#&gt; Solution count 2: 74.2352 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.411826135798e+01, best bound 7.458804589340e+01, gap 0.6338%</div><div class='input'>
+#&gt; Best objective 7.423522579251e+01, best bound 7.435116589289e+01, gap 0.1562%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum representation"</span>,

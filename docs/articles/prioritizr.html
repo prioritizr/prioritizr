@@ -13,7 +13,6 @@
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="prioritizr: Systematic Conservation Prioritization in R">
 <meta property="og:description" content="">
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -38,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -68,6 +67,12 @@
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -697,8 +702,8 @@ p17 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [10 locked units]
-##                    Locked in planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [10 locked units]
+##                    Locked out planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -992,13 +997,13 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ##   RHS range        [3e+00, 8e+00]
 ## Found heuristic solution: objective 20287.196992
 ## Found heuristic solution: objective 3087.9617505
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265387e+03, 213 iterations, 0.00 seconds
+## Root relaxation: objective 2.265387e+03, 213 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1015,7 +1020,7 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 163 nodes (2960 simplex iterations) in 0.20 seconds
+## Explored 163 nodes (2960 simplex iterations) in 0.37 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 2696.25 3087.96 20287.2 
@@ -1034,7 +1039,7 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##  0.1999102</code></pre>
+##  0.3831441</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"status"</span>))</code></pre></div>
@@ -1097,8 +1102,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1137,7 +1142,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
 ## H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
 ## 
-## Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (13 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1979.96 2337.96 
@@ -1177,7 +1182,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 <p>Auerbach, N.A., Wilson, K.A., Tulloch, A.I., Rhodes, J.R., Hanson, J.O. &amp; Possingham, H.P. (2015). Effects of threat management interactions on conservation priorities. <em>Conservation Biology</em>, <em>29</em>, 1626–1635.</p>
 </div>
 <div id="ref-r3">
-<p>Ball, I., Possingham, H. &amp; Watts, M.E. (2009). Marxan and relatives: Software for spatial conservation prioritisation. <em>Spatial conservation prioritisation: Quantitative methods &amp; computational tools</em> (eds A. Moilanen, K.A. Wilson &amp; H. Possingham), pp. 185–189. Oxford University Press, Oxford, UK.</p>
+<p>Ball, I., Possingham, H. &amp; Watts, M.E. (2009). Marxan and relatives: Software for spatial conservation prioritisation. <em>Spatial Conservation Prioritisation: Quantitative Methods &amp; Computational Tools</em> (eds A. Moilanen, K.A. Wilson &amp; H. Possingham), pp. 185–189. Oxford University Press, Oxford, UK.</p>
 </div>
 <div id="ref-r21">
 <p>Ban, N.C. &amp; Klein, C.J. (2009). Spatial socioeconomic data as a cost in systematic marine conservation planning. <em>Conservation Letters</em>, <em>2</em>, 206–215.</p>

@@ -42,8 +42,6 @@ solution should form a contiguous unit. Additionally, this function
 can use data showing the distribution of dispersible habitat for each
 feature to ensure that all features can disperse through out the areas
 designated for their conservation." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,7 +84,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -116,6 +114,12 @@ designated for their conservation." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -330,28 +334,28 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [9e+00, 2e+01]
-#&gt; Found heuristic solution: objective 6771.6615498
+#&gt; Found heuristic solution: objective 6571.2631720
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.893252e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.894507e+03, 16 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5893.25206    0    4 6771.66155 5893.25206  13.0%     -    0s
-#&gt; H    0     0                    6020.6992199 5893.25206  2.12%     -    0s
+#&gt;      0     0 5894.50724    0    4 6571.26317 5894.50724  10.3%     -    0s
+#&gt; H    0     0                    6035.8622908 5894.50724  2.34%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6020.7 6771.66 
+#&gt; Solution count 2: 6035.86 6571.26 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.020699219925e+03, best bound 5.893252057707e+03, gap 2.1168%
+#&gt; Best objective 6.035862290759e+03, best bound 5.894507235784e+03, gap 2.3419%
 #&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -359,41 +363,48 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 23 rows and 24 columns
-#&gt; Presolve time: 0.02s
-#&gt; Presolved: 213 rows, 210 columns, 949 nonzeros
-#&gt; Variable types: 0 continuous, 210 integer (210 binary)
-#&gt; Presolved: 213 rows, 210 columns, 949 nonzeros
+#&gt; Presolve removed 24 rows and 25 columns
+#&gt; Presolve time: 0.03s
+#&gt; Presolved: 212 rows, 209 columns, 945 nonzeros
+#&gt; Variable types: 0 continuous, 209 integer (209 binary)
+#&gt; Presolved: 212 rows, 209 columns, 945 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.997674e+03, 128 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.974619e+03, 113 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5997.67418    0   86          - 5997.67418      -     -    0s
-#&gt;      0     0 6008.56074    0  102          - 6008.56074      -     -    0s
-#&gt;      0     0 6009.23905    0  101          - 6009.23905      -     -    0s
-#&gt;      0     0 6010.81931    0   99          - 6010.81931      -     -    0s
-#&gt;      0     0 6013.98037    0   93          - 6013.98037      -     -    0s
-#&gt;      0     0 6014.18624    0  102          - 6014.18624      -     -    0s
-#&gt;      0     0 6014.18624    0  102          - 6014.18624      -     -    0s
-#&gt;      0     0 6014.18624    0  101          - 6014.18624      -     -    0s
-#&gt;      0     0 6014.18624    0  101          - 6014.18624      -     -    0s
-#&gt; H    0     0                    6502.3865609 6014.18624  7.51%     -    0s
+#&gt;      0     0 5974.61922    0   87          - 5974.61922      -     -    0s
+#&gt;      0     0 5980.28056    0   92          - 5980.28056      -     -    0s
+#&gt;      0     0 5981.05378    0   94          - 5981.05378      -     -    0s
+#&gt;      0     0 5987.71285    0   93          - 5987.71285      -     -    0s
+#&gt;      0     0 5988.40662    0   81          - 5988.40662      -     -    0s
+#&gt;      0     0 5988.66630    0  101          - 5988.66630      -     -    0s
+#&gt;      0     0 5988.69677    0   98          - 5988.69677      -     -    0s
+#&gt;      0     0 5989.42898    0  100          - 5989.42898      -     -    0s
+#&gt;      0     0 5998.40311    0  100          - 5998.40311      -     -    0s
+#&gt;      0     0 5998.77348    0   99          - 5998.77348      -     -    0s
+#&gt;      0     0 5998.95187    0   86          - 5998.95187      -     -    0s
+#&gt;      0     0 6001.27034    0   98          - 6001.27034      -     -    0s
+#&gt;      0     0 6001.40660    0  102          - 6001.40660      -     -    0s
+#&gt;      0     0 6001.40660    0  101          - 6001.40660      -     -    0s
+#&gt; H    0     0                    6613.8640750 6001.40660  9.26%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt;   Clique: 2
-#&gt;   Zero half: 6
+#&gt;   Gomory: 1
+#&gt;   Clique: 1
+#&gt;   MIR: 1
+#&gt;   Zero half: 11
+#&gt;   Mod-K: 3
 #&gt; 
-#&gt; Explored 1 nodes (306 simplex iterations) in 0.07 seconds
+#&gt; Explored 1 nodes (318 simplex iterations) in 0.21 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 6502.39 
+#&gt; Solution count 1: 6613.86 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.502386560851e+03, best bound 6.014186243834e+03, gap 7.5080%
+#&gt; Best objective 6.613864075006e+03, best bound 6.001406603951e+03, gap 9.2602%
 #&gt; Optimize a model with 1610 rows, 1260 columns and 5110 nonzeros
 #&gt; Variable types: 0 continuous, 1260 integer (1260 binary)
 #&gt; Coefficient statistics:
@@ -401,47 +412,50 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 192 rows and 193 columns
-#&gt; Presolve time: 0.05s
-#&gt; Presolved: 1418 rows, 1067 columns, 4035 nonzeros
-#&gt; Variable types: 0 continuous, 1067 integer (1067 binary)
-#&gt; Presolved: 1418 rows, 1067 columns, 4035 nonzeros
+#&gt; Presolve removed 194 rows and 195 columns
+#&gt; Presolve time: 0.10s
+#&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
+#&gt; Variable types: 0 continuous, 1065 integer (1065 binary)
+#&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.997674e+03, 1427 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 5.974619e+03, 1232 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5997.67418    0  478          - 5997.67418      -     -    0s
-#&gt;      0     0 6006.92543    0  537          - 6006.92543      -     -    0s
-#&gt;      0     0 6007.14845    0  539          - 6007.14845      -     -    0s
-#&gt;      0     0 6007.18402    0  539          - 6007.18402      -     -    0s
-#&gt;      0     0 6010.48346    0  566          - 6010.48346      -     -    0s
-#&gt;      0     0 6010.66990    0  559          - 6010.66990      -     -    0s
-#&gt;      0     0 6010.66990    0  559          - 6010.66990      -     -    0s
-#&gt;      0     0 6010.66990    0  560          - 6010.66990      -     -    0s
-#&gt;      0     0 6010.66990    0  562          - 6010.66990      -     -    0s
-#&gt;      0     0 6010.93549    0  564          - 6010.93549      -     -    0s
-#&gt;      0     0 6010.93549    0  565          - 6010.93549      -     -    0s
-#&gt;      0     0 6010.93549    0  554          - 6010.93549      -     -    0s
-#&gt;      0     0 6010.93549    0  554          - 6010.93549      -     -    0s
-#&gt; H    0     0                    12969.592530 6010.93549  53.7%     -    0s
-#&gt;      0     2 6010.97912    0  554 12969.5925 6010.97912  53.7%     -    0s
-#&gt; H   19    19                    6102.0477989 6010.97912  1.49%   120    0s
+#&gt;      0     0 5974.61922    0  486          - 5974.61922      -     -    0s
+#&gt;      0     0 5978.30324    0  404          - 5978.30324      -     -    0s
+#&gt;      0     0 5978.45612    0  508          - 5978.45612      -     -    0s
+#&gt;      0     0 5980.99815    0  520          - 5980.99815      -     -    0s
+#&gt;      0     0 5981.32913    0  520          - 5981.32913      -     -    0s
+#&gt;      0     0 5981.32913    0  522          - 5981.32913      -     -    0s
+#&gt;      0     0 5981.37322    0  548          - 5981.37322      -     -    0s
+#&gt;      0     0 5981.37322    0  549          - 5981.37322      -     -    0s
+#&gt;      0     0 5981.40480    0  523          - 5981.40480      -     -    0s
+#&gt;      0     0 5985.33206    0  547          - 5985.33206      -     -    0s
+#&gt;      0     0 5985.41279    0  549          - 5985.41279      -     -    0s
+#&gt;      0     0 5985.41279    0  551          - 5985.41279      -     -    0s
+#&gt;      0     0 5986.18765    0  537          - 5986.18765      -     -    0s
+#&gt;      0     0 5986.18765    0  539          - 5986.18765      -     -    0s
+#&gt;      0     0 5986.18765    0  540          - 5986.18765      -     -    0s
+#&gt;      0     0 5986.18765    0  541          - 5986.18765      -     -    0s
+#&gt;      0     0 5986.18765    0  541          - 5986.18765      -     -    0s
+#&gt; H    0     0                    12340.269156 5986.18765  51.5%     -    0s
+#&gt;      0     2 5986.26824    0  541 12340.2692 5986.26824  51.5%     -    1s
+#&gt; H   19    14                    6109.1172825 5986.35580  2.01%  90.3    1s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Zero half: 8
-#&gt;   Mod-K: 1
+#&gt;   Gomory: 1
+#&gt;   Zero half: 23
 #&gt; 
-#&gt; Explored 19 nodes (5260 simplex iterations) in 0.81 seconds
+#&gt; Explored 19 nodes (4752 simplex iterations) in 1.15 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6102.05 12969.6 
+#&gt; Solution count 2: 6109.12 12340.3 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.102047798888e+03, best bound 6.010979115174e+03, gap 1.4924%
+#&gt; Best objective 6.109117282484e+03, best bound 5.986355804716e+03, gap 2.0095%
 #&gt; Optimize a model with 1076 rows, 915 columns and 3541 nonzeros
 #&gt; Variable types: 0 continuous, 915 integer (915 binary)
 #&gt; Coefficient statistics:
@@ -449,28 +463,28 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 579 rows and 511 columns
-#&gt; Presolve time: 0.03s
-#&gt; Presolved: 497 rows, 404 columns, 1367 nonzeros
-#&gt; Variable types: 0 continuous, 404 integer (404 binary)
-#&gt; Presolved: 497 rows, 404 columns, 1367 nonzeros
+#&gt; Presolve removed 608 rows and 529 columns
+#&gt; Presolve time: 0.04s
+#&gt; Presolved: 468 rows, 386 columns, 1296 nonzeros
+#&gt; Variable types: 0 continuous, 386 integer (386 binary)
+#&gt; Presolved: 468 rows, 386 columns, 1296 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.159364e+04, 480 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.168422e+04, 352 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 11593.6352    0   82          - 11593.6352      -     -    0s
-#&gt; H    0     0                    12521.797242 11593.6352  7.41%     -    0s
+#&gt;      0     0 11684.2161    0   79          - 11684.2161      -     -    0s
+#&gt; H    0     0                    12309.421638 11684.2161  5.08%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (625 simplex iterations) in 0.05 seconds
+#&gt; Explored 1 nodes (419 simplex iterations) in 0.06 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 12521.8 
+#&gt; Solution count 1: 12309.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.252179724228e+04, best bound 1.159363520061e+04, gap 7.4124%</div><div class='input'>
+#&gt; Best objective 1.230942163793e+04, best bound 1.168421614208e+04, gap 5.0791%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>,  <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"contiguity constraints"</span>,
@@ -543,28 +557,28 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 6831.3431381
+#&gt; Found heuristic solution: objective 7019.1222763
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.950934e+03, 79 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5950.93434    0   11 6831.34314 5950.93434  12.9%     -    0s
-#&gt; H    0     0                    6078.1123440 5950.93434  2.09%     -    0s
+#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
+#&gt; H    0     0                    6078.7106832 5935.42867  2.36%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (79 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (100 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6078.11 6831.34 
+#&gt; Solution count 2: 6078.71 7019.12 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.078112344026e+03, best bound 5.950934338290e+03, gap 2.0924%
+#&gt; Best objective 6.078710683241e+03, best bound 5.935428674960e+03, gap 2.3571%
 #&gt; Optimize a model with 4935 rows, 3795 columns and 15660 nonzeros
 #&gt; Variable types: 0 continuous, 3795 integer (3795 binary)
 #&gt; Coefficient statistics:
@@ -572,64 +586,77 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Presolve removed 378 rows and 378 columns
-#&gt; Presolve time: 0.50s
-#&gt; Presolved: 4557 rows, 3417 columns, 14199 nonzeros
-#&gt; Variable types: 0 continuous, 3417 integer (3417 binary)
-#&gt; Presolved: 4557 rows, 3417 columns, 14199 nonzeros
+#&gt; Presolve removed 369 rows and 369 columns
+#&gt; Presolve time: 0.93s
+#&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
+#&gt; Variable types: 0 continuous, 3426 integer (3426 binary)
+#&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.980147e+03, 4696 iterations, 0.22 seconds
+#&gt; Root relaxation: objective 5.964223e+03, 4806 iterations, 0.32 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5980.14710    0 1008          - 5980.14710      -     -    0s
-#&gt;      0     0 6056.85909    0  914          - 6056.85909      -     -    1s
-#&gt;      0     0 6069.19558    0  841          - 6069.19558      -     -    1s
-#&gt;      0     0 6069.19969    0  877          - 6069.19969      -     -    1s
-#&gt;      0     0 6072.51569    0  904          - 6072.51569      -     -    1s
-#&gt;      0     0 6072.51569    0  905          - 6072.51569      -     -    1s
-#&gt;      0     0 6072.60399    0  961          - 6072.60399      -     -    1s
-#&gt;      0     0 6072.60399    0  962          - 6072.60399      -     -    1s
-#&gt;      0     0 6072.73350    0  934          - 6072.73350      -     -    1s
-#&gt;      0     0 6073.48680    0 1004          - 6073.48680      -     -    1s
-#&gt;      0     0 6074.07986    0  967          - 6074.07986      -     -    2s
-#&gt;      0     0 6074.27052    0  950          - 6074.27052      -     -    2s
-#&gt;      0     0 6074.27538    0  950          - 6074.27538      -     -    2s
-#&gt;      0     0 6074.55538    0  940          - 6074.55538      -     -    2s
-#&gt;      0     0 6074.55538    0  940          - 6074.55538      -     -    2s
-#&gt;      0     0 6074.68851    0  943          - 6074.68851      -     -    2s
-#&gt;      0     0 6074.68851    0  940          - 6074.68851      -     -    2s
-#&gt;      0     2 6074.70320    0  940          - 6074.70320      -     -    3s
-#&gt; H  101    76                    7754.0714340 6074.77689  21.7%   175    4s
-#&gt;    105    77 6078.33975    4  920 7754.07143 6075.15909  21.7%   177    5s
-#&gt; H  209   140                    7367.6777105 6075.60511  17.5%   181    8s
-#&gt;    255   186 6621.62373   37  521 7367.67771 6075.60511  17.5%   202   10s
-#&gt; H  263   186                    7161.3858483 6075.60511  15.2%   201   10s
-#&gt; H  371   265                    7158.4655202 6075.61530  15.1%   205   14s
-#&gt;    387   283 6171.43862   15  759 7158.46552 6075.67567  15.1%   206   15s
-#&gt; H  452   328                    7106.2294869 6075.67567  14.5%   222   18s
-#&gt;    511   364 6122.67533   11  940 7106.22949 6075.68288  14.5%   211   21s
-#&gt;    521   371 6087.56105    9 1098 7106.22949 6075.68288  14.5%   207   25s
-#&gt;    530   377 6744.09234   18 1115 7106.22949 6076.33520  14.5%   203   30s
+#&gt;      0     0 5964.22270    0  815          - 5964.22270      -     -    1s
+#&gt;      0     0 5973.19018    0  890          - 5973.19018      -     -    2s
+#&gt;      0     0 5974.24060    0  948          - 5974.24060      -     -    2s
+#&gt;      0     0 5974.54452    0  977          - 5974.54452      -     -    2s
+#&gt;      0     0 5981.58958    0  904          - 5981.58958      -     -    2s
+#&gt;      0     0 5981.78520    0  906          - 5981.78520      -     -    2s
+#&gt;      0     0 5982.14773    0  942          - 5982.14773      -     -    2s
+#&gt;      0     0 5982.22082    0  964          - 5982.22082      -     -    2s
+#&gt;      0     0 5982.22183    0  964          - 5982.22183      -     -    2s
+#&gt;      0     0 5986.91378    0 1048          - 5986.91378      -     -    3s
+#&gt;      0     0 5987.45642    0 1065          - 5987.45642      -     -    3s
+#&gt;      0     0 5987.48394    0 1060          - 5987.48394      -     -    3s
+#&gt;      0     0 5987.48815    0 1061          - 5987.48815      -     -    3s
+#&gt;      0     0 5988.76565    0 1080          - 5988.76565      -     -    3s
+#&gt;      0     0 5988.90581    0 1100          - 5988.90581      -     -    3s
+#&gt;      0     0 5989.86233    0 1095          - 5989.86233      -     -    3s
+#&gt;      0     0 5990.11954    0 1110          - 5990.11954      -     -    3s
+#&gt;      0     0 5990.12038    0 1105          - 5990.12038      -     -    3s
+#&gt;      0     0 5990.53757    0 1136          - 5990.53757      -     -    3s
+#&gt;      0     0 5990.60139    0 1154          - 5990.60139      -     -    3s
+#&gt;      0     0 5991.41913    0 1096          - 5991.41913      -     -    3s
+#&gt;      0     0 5991.44762    0 1112          - 5991.44762      -     -    3s
+#&gt;      0     0 5991.64955    0 1120          - 5991.64955      -     -    3s
+#&gt;      0     0 5991.74535    0 1114          - 5991.74535      -     -    3s
+#&gt;      0     0 5992.58739    0 1082          - 5992.58739      -     -    4s
+#&gt;      0     0 5992.60956    0 1074          - 5992.60956      -     -    4s
+#&gt;      0     0 5993.34532    0 1085          - 5993.34532      -     -    4s
+#&gt;      0     0 5993.36372    0 1096          - 5993.36372      -     -    4s
+#&gt;      0     0 5993.37931    0 1084          - 5993.37931      -     -    4s
+#&gt;      0     0 5993.37931    0 1085          - 5993.37931      -     -    4s
+#&gt;      0     0 5993.71451    0 1115          - 5993.71451      -     -    4s
+#&gt;      0     0 5993.71774    0 1117          - 5993.71774      -     -    4s
+#&gt;      0     0 5993.74343    0 1090          - 5993.74343      -     -    4s
+#&gt;      0     0 5993.74843    0 1091          - 5993.74843      -     -    4s
+#&gt;      0     0 5993.78803    0 1087          - 5993.78803      -     -    4s
+#&gt;      0     0 5993.78803    0 1087          - 5993.78803      -     -    4s
+#&gt;      0     2 5993.80116    0 1087          - 5993.80116      -     -    6s
+#&gt;     57    57 7161.42133   37  618          - 5993.80116      -   305   10s
+#&gt; H  132    70                    7837.0218474 5993.80116  23.5%   180   10s
+#&gt; H  188   108                    7420.3336342 5995.01107  19.2%   204   13s
+#&gt;    213   128 6337.23421   17  862 7420.33363 5996.23885  19.2%   209   15s
+#&gt; H  269   172                    7414.7443829 5996.32329  19.1%   216   17s
+#&gt; H  296   174                    6881.9471898 5996.32329  12.9%   217   18s
+#&gt; H  325   182                    6677.5454332 5996.32329  10.2%   220   20s
+#&gt; H  406   242                    6656.7131705 5998.12897  9.89%   226   23s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
-#&gt;   Cover: 3
-#&gt;   MIR: 5
-#&gt;   StrongCG: 1
-#&gt;   Flow cover: 1
-#&gt;   Zero half: 14
-#&gt;   Mod-K: 1
+#&gt;   Cover: 6
+#&gt;   MIR: 26
+#&gt;   Zero half: 24
+#&gt;   Mod-K: 2
 #&gt; 
-#&gt; Explored 530 nodes (144496 simplex iterations) in 30.25 seconds
+#&gt; Explored 406 nodes (104722 simplex iterations) in 23.41 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 7106.23 7158.47 7161.39 ... 7754.07
+#&gt; Solution count 6: 6656.71 6677.55 6881.95 ... 7837.02
 #&gt; 
-#&gt; Time limit reached
-#&gt; Best objective 7.106229486860e+03, best bound 6.076335202779e+03, gap 14.4928%
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 6.656713170457e+03, best bound 5.998128973221e+03, gap 9.8935%
 #&gt; Optimize a model with 4495 rows, 3795 columns and 14780 nonzeros
 #&gt; Variable types: 0 continuous, 3795 integer (3795 binary)
 #&gt; Coefficient statistics:
@@ -637,59 +664,71 @@ connectivity in reserve-network design using graphs.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Presolve removed 651 rows and 655 columns
-#&gt; Presolve time: 0.45s
-#&gt; Presolved: 3844 rows, 3140 columns, 12616 nonzeros
-#&gt; Variable types: 0 continuous, 3140 integer (3140 binary)
-#&gt; Presolve removed 750 rows and 81 columns
-#&gt; Presolved: 3094 rows, 3059 columns, 10609 nonzeros
+#&gt; Presolve removed 652 rows and 656 columns
+#&gt; Presolve time: 0.60s
+#&gt; Presolved: 3843 rows, 3139 columns, 12612 nonzeros
+#&gt; Variable types: 0 continuous, 3139 integer (3139 binary)
+#&gt; Presolve removed 749 rows and 81 columns
+#&gt; Presolved: 3094 rows, 3058 columns, 10608 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.990459e+03, 3479 iterations, 0.12 seconds
+#&gt; Root relaxation: objective 5.956540e+03, 3689 iterations, 0.26 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5990.45895    0  547          - 5990.45895      -     -    0s
-#&gt;      0     0 6053.42210    0  592          - 6053.42210      -     -    0s
-#&gt;      0     0 6072.76130    0  571          - 6072.76130      -     -    1s
-#&gt;      0     0 6073.07352    0  569          - 6073.07352      -     -    1s
-#&gt;      0     0 6078.74287    0  574          - 6078.74287      -     -    1s
-#&gt;      0     0 6078.86706    0  565          - 6078.86706      -     -    1s
-#&gt;      0     0 6078.90848    0  565          - 6078.90848      -     -    1s
-#&gt;      0     0 6078.90848    0  565          - 6078.90848      -     -    1s
-#&gt;      0     0 6079.13561    0  649          - 6079.13561      -     -    1s
-#&gt;      0     0 6079.19266    0  661          - 6079.19266      -     -    1s
-#&gt;      0     0 6079.22067    0  650          - 6079.22067      -     -    1s
-#&gt;      0     0 6079.26319    0  660          - 6079.26319      -     -    1s
-#&gt;      0     0 6079.29967    0  652          - 6079.29967      -     -    1s
-#&gt;      0     0 6079.30064    0  652          - 6079.30064      -     -    1s
-#&gt;      0     0 6079.33879    0  660          - 6079.33879      -     -    1s
-#&gt;      0     0 6079.36633    0  661          - 6079.36633      -     -    1s
-#&gt;      0     0 6079.38881    0  642          - 6079.38881      -     -    1s
-#&gt;      0     0 6079.38881    0  642          - 6079.38881      -     -    1s
-#&gt;      0     2 6079.38991    0  642          - 6079.38991      -     -    2s
-#&gt; H  150   110                    6902.8709943 6079.40821  11.9%   169    4s
-#&gt; H  150   110                    6894.6318009 6079.40821  11.8%   169    4s
-#&gt;    165   121 6138.42826   11  425 6894.63180 6079.42102  11.8%   190    5s
-#&gt; H  177   130                    6873.0205848 6079.42102  11.5%   208    5s
-#&gt; H  204   151                    6872.3651957 6079.42102  11.5%   237    6s
-#&gt; H  233   115                    6653.6280407 6079.42102  8.63%   214    7s
+#&gt;      0     0 5956.54040    0  505          - 5956.54040      -     -    1s
+#&gt;      0     0 5966.14304    0  648          - 5966.14304      -     -    1s
+#&gt;      0     0 5969.79245    0  646          - 5969.79245      -     -    1s
+#&gt;      0     0 5969.95097    0  692          - 5969.95097      -     -    1s
+#&gt;      0     0 5970.12164    0  695          - 5970.12164      -     -    1s
+#&gt;      0     0 5970.12669    0  695          - 5970.12669      -     -    1s
+#&gt;      0     0 5975.29743    0  845          - 5975.29743      -     -    2s
+#&gt;      0     0 5976.92666    0  883          - 5976.92666      -     -    2s
+#&gt;      0     0 5977.83576    0  912          - 5977.83576      -     -    2s
+#&gt;      0     0 5984.27374    0  785          - 5984.27374      -     -    2s
+#&gt;      0     0 5984.88512    0  849          - 5984.88512      -     -    2s
+#&gt;      0     0 5984.89988    0  853          - 5984.89988      -     -    2s
+#&gt;      0     0 5984.92785    0  853          - 5984.92785      -     -    2s
+#&gt;      0     0 5986.36131    0  851          - 5986.36131      -     -    2s
+#&gt;      0     0 5986.51024    0  867          - 5986.51024      -     -    2s
+#&gt;      0     0 5986.51183    0  863          - 5986.51183      -     -    2s
+#&gt;      0     0 5986.75743    0  881          - 5986.75743      -     -    2s
+#&gt;      0     0 5986.85204    0  893          - 5986.85204      -     -    2s
+#&gt;      0     0 5986.85359    0  880          - 5986.85359      -     -    2s
+#&gt;      0     0 5986.97867    0  907          - 5986.97867      -     -    2s
+#&gt;      0     0 5986.98215    0  891          - 5986.98215      -     -    2s
+#&gt;      0     0 5987.02627    0  873          - 5987.02627      -     -    3s
+#&gt;      0     0 5987.03323    0  943          - 5987.03323      -     -    3s
+#&gt;      0     0 5987.24483    0  901          - 5987.24483      -     -    3s
+#&gt;      0     0 5987.26334    0  881          - 5987.26334      -     -    3s
+#&gt;      0     0 5987.26543    0  891          - 5987.26543      -     -    3s
+#&gt;      0     0 5987.42363    0  928          - 5987.42363      -     -    3s
+#&gt;      0     0 5987.46968    0  889          - 5987.46968      -     -    3s
+#&gt;      0     0 5987.53680    0  880          - 5987.53680      -     -    3s
+#&gt;      0     0 5987.54186    0  895          - 5987.54186      -     -    3s
+#&gt;      0     0 5988.09763    0  898          - 5988.09763      -     -    3s
+#&gt;      0     0 5988.09920    0  893          - 5988.09920      -     -    3s
+#&gt;      0     0 5988.18208    0  945          - 5988.18208      -     -    3s
+#&gt;      0     0 5988.18208    0  945          - 5988.18208      -     -    3s
+#&gt;      0     2 5988.18242    0  945          - 5988.18242      -     -    5s
+#&gt; H  116    94                    6533.9075086 5988.20891  8.35%   169    8s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt;   Cover: 6
-#&gt;   MIR: 7
-#&gt;   StrongCG: 2
-#&gt;   Zero half: 19
+#&gt;   Gomory: 2
+#&gt;   Cover: 1
+#&gt;   MIR: 23
+#&gt;   StrongCG: 3
+#&gt;   Zero half: 10
+#&gt;   Mod-K: 1
 #&gt; 
-#&gt; Explored 233 nodes (62192 simplex iterations) in 7.22 seconds
+#&gt; Explored 116 nodes (31870 simplex iterations) in 8.30 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 6653.63 6872.37 6873.02 ... 6902.87
+#&gt; Solution count 1: 6533.91 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.653628040699e+03, best bound 6.079421017984e+03, gap 8.6300%
+#&gt; Best objective 6.533907508624e+03, best bound 5.988208905894e+03, gap 8.3518%
 #&gt; Optimize a model with 2584 rows, 2490 columns and 8328 nonzeros
 #&gt; Variable types: 0 continuous, 2490 integer (2490 binary)
 #&gt; Coefficient statistics:
@@ -698,49 +737,80 @@ connectivity in reserve-network design using graphs.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 1080 rows and 1080 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 1504 rows, 1410 columns, 6879 nonzeros
 #&gt; Variable types: 0 continuous, 1410 integer (1410 binary)
 #&gt; Presolve removed 290 rows and 0 columns
 #&gt; Presolved: 1214 rows, 1410 columns, 6009 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.988773e+03, 1718 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 5.956523e+03, 1691 iterations, 0.06 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5988.77268    0  239          - 5988.77268      -     -    0s
-#&gt;      0     0 6043.98890    0  261          - 6043.98890      -     -    0s
-#&gt;      0     0 6052.93661    0  273          - 6052.93661      -     -    0s
-#&gt;      0     0 6078.74538    0  301          - 6078.74538      -     -    0s
-#&gt;      0     0 6078.74538    0  301          - 6078.74538      -     -    0s
-#&gt;      0     0 6080.77502    0  315          - 6080.77502      -     -    0s
-#&gt;      0     0 6080.89587    0  319          - 6080.89587      -     -    0s
-#&gt;      0     0 6083.62816    0  335          - 6083.62816      -     -    0s
-#&gt;      0     0 6083.63102    0  335          - 6083.63102      -     -    0s
-#&gt;      0     0 6083.93088    0  324          - 6083.93088      -     -    0s
-#&gt;      0     0 6083.98821    0  331          - 6083.98821      -     -    0s
-#&gt;      0     0 6083.99033    0  332          - 6083.99033      -     -    0s
-#&gt;      0     0 6084.69805    0  290          - 6084.69805      -     -    0s
-#&gt;      0     0 6084.75142    0  328          - 6084.75142      -     -    0s
-#&gt;      0     0 6084.79055    0  315          - 6084.79055      -     -    0s
-#&gt;      0     0 6084.79055    0  313          - 6084.79055      -     -    0s
-#&gt;      0     2 6084.79438    0  313          - 6084.79438      -     -    0s
-#&gt; H   48    48                    6738.5100214 6084.79438  9.70%  76.6    1s
+#&gt;      0     0 5956.52331    0  174          - 5956.52331      -     -    0s
+#&gt;      0     0 5965.87304    0  241          - 5965.87304      -     -    0s
+#&gt;      0     0 5972.15690    0  293          - 5972.15690      -     -    0s
+#&gt;      0     0 5972.16676    0  304          - 5972.16676      -     -    0s
+#&gt;      0     0 5973.00821    0  316          - 5973.00821      -     -    0s
+#&gt;      0     0 5973.05632    0  320          - 5973.05632      -     -    0s
+#&gt;      0     0 5977.02082    0  290          - 5977.02082      -     -    0s
+#&gt;      0     0 5981.16409    0  329          - 5981.16409      -     -    0s
+#&gt;      0     0 5981.29634    0  328          - 5981.29634      -     -    0s
+#&gt;      0     0 5981.29954    0  343          - 5981.29954      -     -    0s
+#&gt;      0     0 5984.05824    0  336          - 5984.05824      -     -    0s
+#&gt;      0     0 5985.27336    0  328          - 5985.27336      -     -    0s
+#&gt;      0     0 5987.76032    0  330          - 5987.76032      -     -    0s
+#&gt;      0     0 5988.88640    0  310          - 5988.88640      -     -    0s
+#&gt;      0     0 5989.16162    0  319          - 5989.16162      -     -    0s
+#&gt;      0     0 5989.17974    0  331          - 5989.17974      -     -    0s
+#&gt;      0     0 5989.30506    0  330          - 5989.30506      -     -    0s
+#&gt;      0     0 5989.32497    0  343          - 5989.32497      -     -    0s
+#&gt;      0     0 5990.10315    0  330          - 5990.10315      -     -    0s
+#&gt;      0     0 5990.15340    0  337          - 5990.15340      -     -    0s
+#&gt;      0     0 5990.16991    0  341          - 5990.16991      -     -    0s
+#&gt;      0     0 5990.77004    0  336          - 5990.77004      -     -    0s
+#&gt;      0     0 5991.41567    0  364          - 5991.41567      -     -    0s
+#&gt;      0     0 5992.01903    0  368          - 5992.01903      -     -    0s
+#&gt;      0     0 5992.02693    0  364          - 5992.02693      -     -    0s
+#&gt;      0     0 5992.32604    0  383          - 5992.32604      -     -    1s
+#&gt;      0     0 5992.48968    0  373          - 5992.48968      -     -    1s
+#&gt;      0     0 5992.49846    0  373          - 5992.49846      -     -    1s
+#&gt;      0     0 5993.37788    0  376          - 5993.37788      -     -    1s
+#&gt;      0     0 5993.39015    0  378          - 5993.39015      -     -    1s
+#&gt;      0     0 5993.73012    0  394          - 5993.73012      -     -    1s
+#&gt;      0     0 5993.76146    0  389          - 5993.76146      -     -    1s
+#&gt;      0     0 5993.78136    0  388          - 5993.78136      -     -    1s
+#&gt;      0     0 5993.78557    0  390          - 5993.78557      -     -    1s
+#&gt;      0     0 5993.94071    0  372          - 5993.94071      -     -    1s
+#&gt;      0     0 5993.99596    0  373          - 5993.99596      -     -    1s
+#&gt;      0     0 5994.02276    0  384          - 5994.02276      -     -    1s
+#&gt;      0     0 5994.24382    0  372          - 5994.24382      -     -    1s
+#&gt;      0     0 5994.28232    0  384          - 5994.28232      -     -    1s
+#&gt;      0     0 5994.54521    0  375          - 5994.54521      -     -    1s
+#&gt;      0     0 5994.60192    0  366          - 5994.60192      -     -    1s
+#&gt;      0     0 5994.61686    0  380          - 5994.61686      -     -    1s
+#&gt;      0     0 5994.62985    0  372          - 5994.62985      -     -    1s
+#&gt;      0     0 5994.62985    0  368          - 5994.62985      -     -    1s
+#&gt;      0     2 5994.65252    0  368          - 5994.65252      -     -    2s
+#&gt; H   83    72                    6789.5655932 5994.65252  11.7%  95.5    2s
+#&gt; H  110    81                    6578.3222067 5995.13495  8.87%  96.9    3s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Cover: 3
-#&gt;   Zero half: 16
+#&gt;   Cover: 5
+#&gt;   MIR: 20
+#&gt;   StrongCG: 3
+#&gt;   Zero half: 18
+#&gt;   Mod-K: 6
 #&gt; 
-#&gt; Explored 48 nodes (7028 simplex iterations) in 1.08 seconds
+#&gt; Explored 110 nodes (16088 simplex iterations) in 3.12 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 6738.51 
+#&gt; Solution count 2: 6578.32 6789.57 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.738510021402e+03, best bound 6.084794384222e+03, gap 9.7012%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>lapply</span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>))
+#&gt; Best objective 6.578322206714e+03, best bound 5.995134951129e+03, gap 8.8653%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>lapply</span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>))
 
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"p5"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_contiguity_constraints-2.png' alt='' width='700' height='433' /></div></pre>

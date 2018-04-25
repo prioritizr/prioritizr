@@ -38,8 +38,6 @@ penalize solutions according to a specific metric. Penalties---unlike
 constraints---act as an explicit trade-off with the objective
 being minimized or maximized (e.g. solution cost when used with
 add_min_set_objective)." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +80,7 @@ add_min_set_objective)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -112,6 +110,12 @@ add_min_set_objective)." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -219,28 +223,28 @@ being minimized or maximized (e.g. solution cost when used with
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4750.1073492
+#&gt; Found heuristic solution: objective 4544.4850483
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.891498e+03, 16 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3891.49802    0    4 4750.10735 3891.49802  18.1%     -    0s
-#&gt; H    0     0                    3997.3009348 3891.49802  2.65%     -    0s
+#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
+#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3997.3 4750.11 
+#&gt; Solution count 2: 3994.89 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.997300934792e+03, best bound 3.891498019516e+03, gap 2.6469%
+#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -249,28 +253,28 @@ being minimized or maximized (e.g. solution cost when used with
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 4769.1073492
+#&gt; Found heuristic solution: objective 4562.4850483
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.915057e+03, 87 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.919306e+03, 95 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3915.05698    0   11 4769.10735 3915.05698  17.9%     -    0s
-#&gt; H    0     0                    4019.5680486 3915.05698  2.60%     -    0s
+#&gt;      0     0 3919.30612    0   11 4562.48505 3919.30612  14.1%     -    0s
+#&gt; H    0     0                    4026.8555899 3919.30612  2.67%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (87 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (95 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4019.57 4769.11 18523.2 
+#&gt; Solution count 3: 4026.86 4562.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.019568048619e+03, best bound 3.915056978040e+03, gap 2.6001%
+#&gt; Best objective 4.026855589910e+03, best bound 3.919306123567e+03, gap 2.6708%
 #&gt; Optimize a model with 25 rows, 100 columns and 490 nonzeros
 #&gt; Variable types: 0 continuous, 100 integer (100 binary)
 #&gt; Coefficient statistics:
@@ -285,20 +289,20 @@ being minimized or maximized (e.g. solution cost when used with
 #&gt; Presolved: 25 rows, 100 columns, 490 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.311362e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.295278e+03, 17 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3311.36189    0    7 3646.62927 3311.36189  9.19%     -    0s
+#&gt;      0     0 3295.27762    0    4 3646.62927 3295.27762  9.63%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 3646.63 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.646629272370e+03, best bound 3.311361889726e+03, gap 9.1939%</div><div class='input'>
+#&gt; Best objective 3.646629272370e+03, best bound 3.295277619827e+03, gap 9.6350%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"boundary penalties"</span>,

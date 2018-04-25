@@ -37,8 +37,6 @@
 minimize the cost of the solution whilst ensuring that all targets are met.
 This objective is similar to that used in
 Marxan and is detailed in Rodrigues et al. (2000)." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -81,7 +79,7 @@ Marxan and is detailed in Rodrigues et al. (2000)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -111,6 +109,12 @@ Marxan and is detailed in Rodrigues et al. (2000)." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -242,21 +246,21 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
-#&gt; H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1979.96 2337.96 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</div><div class='input'>
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_min_set_objective-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create multi-zone problem with minimum set objective</span>
@@ -274,33 +278,28 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 3524.7950998
-#&gt; Presolve removed 8 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
+#&gt; Presolve removed 7 rows and 0 columns
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
+#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.683505e+03, 9 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.642776e+03, 9 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2683.50476    0    4 3524.79510 2683.50476  23.9%     -    0s
-#&gt; H    0     0                    3048.1089402 2683.50476  12.0%     -    0s
-#&gt; H    0     0                    3004.3916133 2683.50476  10.7%     -    0s
-#&gt;      0     0 2800.86480    0    6 3004.39161 2800.86480  6.77%     -    0s
+#&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
+#&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 3
-#&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 3004.39 3048.11 3524.8 
+#&gt; Solution count 2: 2875.81 3524.8 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.004391613337e+03, best bound 2.800864801663e+03, gap 6.7743%</div><div class='input'>
+#&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_min_set_objective-2.png' alt='' width='700' height='433' /></div></pre>
   </div>

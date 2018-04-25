@@ -34,8 +34,6 @@
 <meta property="og:title" content="Solve — solve" />
 
 <meta property="og:description" content="Solve a conservation planning problem." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -108,6 +106,12 @@
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -263,21 +267,21 @@
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
-#&gt; H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1979.96 2337.96 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</div><div class='input'>
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'>print</span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt; class       : RasterLayer 
 #&gt; dimensions  : 10, 10, 100  (nrow, ncol, ncell)
@@ -290,8 +294,8 @@
 #&gt; </div><div class='input'>
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
-#&gt;   1979.961 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.003359079 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt;   1985.682 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.01035118 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='solve-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># build minimal conservation problem with spatial polygon data</span>
@@ -313,21 +317,21 @@
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.732564e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
+#&gt; H    0     0                    1785.5315740 1732.56396  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; Solution count 2: 1785.53 2145.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='input'>
+#&gt; Best objective 1.785531573957e+03, best bound 1.732563961206e+03, gap 2.9665%</div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'>print</span>(<span class='fu'>head</span>(<span class='no'>s2</span>))</div><div class='output co'>#&gt;       cost locked_in locked_out solution_1
 #&gt; 1 215.8638     FALSE      FALSE          0
@@ -350,29 +354,29 @@
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 12406.438131
-#&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 101 rows, 270 columns, 1260 nonzeros
+#&gt; Found heuristic solution: objective 12614.662551
+#&gt; Presolve removed 3 rows and 0 columns
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 101 rows, 270 columns, 1260 nonzeros
+#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.089584e+04, 93 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.096484e+04, 94 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 10895.8449    0   11 12406.4381 10895.8449  12.2%     -    0s
-#&gt; H    0     0                    11061.539557 10895.8449  1.50%     -    0s
+#&gt;      0     0 10964.8406    0   14 12614.6626 10964.8406  13.1%     -    0s
+#&gt; H    0     0                    11203.703560 10964.8406  2.13%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (93 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (94 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 11061.5 12406.4 
+#&gt; Solution count 2: 11203.7 12614.7 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.106153955729e+04, best bound 1.089584492967e+04, gap 1.4979%</div><div class='input'>
+#&gt; Best objective 1.120370355969e+04, best bound 1.096484061295e+04, gap 2.1320%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'>print</span>(<span class='no'>s3</span>)</div><div class='output co'>#&gt; class       : RasterStack 
 #&gt; dimensions  : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)
@@ -398,7 +402,7 @@
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Found heuristic solution: objective 10442.494915
+#&gt; Found heuristic solution: objective 10229.621561
 #&gt; Presolve removed 6 rows and 0 columns
 #&gt; Presolve time: 0.01s
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
@@ -406,34 +410,34 @@
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.882300e+03, 38 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 8.838392e+03, 43 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 8882.30031    0    8 10442.4949 8882.30031  14.9%     -    0s
-#&gt; H    0     0                    9038.3070245 8882.30031  1.73%     -    0s
+#&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
+#&gt; H    0     0                    9016.6460656 8838.39193  1.98%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (38 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 9038.31 10442.5 
+#&gt; Solution count 2: 9016.65 10229.6 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.038307024493e+03, best bound 8.882300309714e+03, gap 1.7261%</div><div class='input'>
+#&gt; Best objective 9.016646065600e+03, best bound 8.838391930390e+03, gap 1.9769%</div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'>print</span>(<span class='fu'>head</span>(<span class='no'>s4</span>))</div><div class='output co'>#&gt;     cost_1   cost_2   cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
 #&gt; 1 215.8638 183.3344 205.4113    FALSE    FALSE    FALSE                 0
 #&gt; 2 212.7823 189.4978 209.6404    FALSE    FALSE    FALSE                 0
-#&gt; 3 207.4962 193.6007 215.4212     TRUE    FALSE    FALSE                 1
-#&gt; 4 208.9322 197.5897 218.5241    FALSE    FALSE    FALSE                 1
+#&gt; 3 207.4962 193.6007 215.4212     TRUE    FALSE    FALSE                 0
+#&gt; 4 208.9322 197.5897 218.5241    FALSE    FALSE    FALSE                 0
 #&gt; 5 214.0419 199.8033 220.7100    FALSE    FALSE    FALSE                 0
 #&gt; 6 213.7636 203.1867 224.6809    FALSE    FALSE    FALSE                 0
 #&gt;   solution_1_zone_2 solution_1_zone_3
-#&gt; 1                 0                 0
+#&gt; 1                 1                 0
 #&gt; 2                 0                 0
-#&gt; 3                 0                 0
-#&gt; 4                 0                 0
+#&gt; 3                 1                 0
+#&gt; 4                 1                 0
 #&gt; 5                 1                 0
 #&gt; 6                 1                 0</div><div class='input'>
 <span class='co'># create new columnrepresenting the zone id that each planning unit</span>

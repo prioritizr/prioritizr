@@ -118,28 +118,28 @@ s1 <- solve(p1)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 4135.2744673
+    ## Found heuristic solution: objective 3934.6218396
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## Variable types: 0 continuous, 90 integer (90 binary)
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+    ## Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
-    ## H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
+    ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
+    ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 2: 3597.1 4135.27 
+    ## Solution count 2: 3585.96 3934.62 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
+    ## Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%
 
 ``` r
 # extract the objective (cost of solution in this case)
@@ -147,15 +147,15 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##   3597.095
+    ##    3585.96
 
 ``` r
 # extract time spent solving the problem
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.003552914
+    ## solution_1 
+    ## 0.04513216
 
 ``` r
 # extract state message from the solver
@@ -191,7 +191,7 @@ s2 <- solve(p2)
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 4020.2038180
+    ## Found heuristic solution: objective 4017.6427161
     ## Presolve removed 0 rows and 10 columns
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -199,20 +199,21 @@ s2 <- solve(p2)
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.620461e+03, 11 iterations, 0.00 seconds
+    ## Root relaxation: objective 3.610717e+03, 15 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 3620.46082    0    3 4020.20382 3620.46082  9.94%     -    0s
+    ##      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
+    ## H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
     ## 
-    ## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+    ## Explored 1 nodes (15 simplex iterations) in 0.05 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 1: 4020.2 
+    ## Solution count 2: 3649.38 4017.64 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 4.020203818008e+03, best bound 3.620460824006e+03, gap 9.9434%
+    ## Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%
 
 ``` r
 # plot the solution
@@ -241,38 +242,36 @@ s3 <- solve(p3)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [6e+00, 1e+01]
     ## Found heuristic solution: objective 20287.196992
-    ## Found heuristic solution: objective 6732.6427417
+    ## Found heuristic solution: objective 6551.3909374
     ## Presolve removed 66 rows and 43 columns
-    ## Presolve time: 0.00s
+    ## Presolve time: 0.01s
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
     ## Variable types: 0 continuous, 191 integer (191 binary)
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.497074e+03, 115 iterations, 0.00 seconds
+    ## Root relaxation: objective 5.465868e+03, 113 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 5497.07370    0  120 6732.64274 5497.07370  18.4%     -    0s
-    ## H    0     0                    6637.1273758 5497.07370  17.2%     -    0s
-    ## H    0     0                    6477.0668554 5497.07370  15.1%     -    0s
-    ##      0     0 5526.00747    0  120 6477.06686 5526.00747  14.7%     -    0s
-    ## H    0     0                    6395.0674552 5526.00747  13.6%     -    0s
-    ## H    0     0                    6141.8406623 5526.00747  10.0%     -    0s
-    ##      0     0 5526.54004    0  117 6141.84066 5526.54004  10.0%     -    0s
-    ##      0     0 5547.68803    0  105 6141.84066 5547.68803  9.67%     -    0s
+    ##      0     0 5465.86773    0  119 6551.39094 5465.86773  16.6%     -    0s
+    ## H    0     0                    6406.1271496 5465.86773  14.7%     -    0s
+    ##      0     0 5523.88444    0   88 6406.12715 5523.88444  13.8%     -    0s
+    ##      0     0 5551.87588    0  103 6406.12715 5551.87588  13.3%     -    0s
+    ## H    0     0                    6320.2042070 5551.87588  12.2%     -    0s
+    ## H    0     0                    5895.5869570 5551.87588  5.83%     -    0s
     ## 
     ## Cutting planes:
-    ##   Gomory: 3
+    ##   Gomory: 2
     ## 
-    ## Explored 1 nodes (156 simplex iterations) in 0.07 seconds
+    ## Explored 1 nodes (187 simplex iterations) in 0.12 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
+    ## Solution count 5: 5895.59 6320.2 6406.13 ... 20287.2
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 6.141840662274e+03, best bound 5.547688032229e+03, gap 9.6739%
+    ## Best objective 5.895586957000e+03, best bound 5.551875884744e+03, gap 5.8300%
 
 ``` r
 # plot the solution
@@ -301,7 +300,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.04s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
@@ -310,43 +309,44 @@ s4 <- solve(p4)
     ## Presolved: 369 rows, 296 columns, 1176 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.478767e+03, 142 iterations, 0.00 seconds
+    ## Root relaxation: objective 6.456778e+03, 154 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 6478.76652    0  137 7879.07954 6478.76652  17.8%     -    0s
-    ##      0     0 6648.95121    0  121 7879.07954 6648.95121  15.6%     -    0s
-    ## H    0     0                    7805.4228157 6648.95121  14.8%     -    0s
-    ##      0     0 6669.61733    0  114 7805.42282 6669.61733  14.6%     -    0s
-    ##      0     0 6860.84535    0   68 7805.42282 6860.84535  12.1%     -    0s
-    ## H    0     0                    7778.5559284 6860.84535  11.8%     -    0s
-    ##      0     0 6867.28876    0   72 7778.55593 6867.28876  11.7%     -    0s
-    ##      0     0 6919.42499    0   81 7778.55593 6919.42499  11.0%     -    0s
-    ##      0     0 6920.78998    0   84 7778.55593 6920.78998  11.0%     -    0s
-    ##      0     0 6945.90514    0   93 7778.55593 6945.90514  10.7%     -    0s
-    ##      0     0 6950.97809    0   96 7778.55593 6950.97809  10.6%     -    0s
-    ##      0     0 6950.97809    0   96 7778.55593 6950.97809  10.6%     -    0s
-    ##      0     0 6952.78730    0   85 7778.55593 6952.78730  10.6%     -    0s
-    ##      0     0 6952.78730    0   86 7778.55593 6952.78730  10.6%     -    0s
-    ##      0     0 6955.94702    0   92 7778.55593 6955.94702  10.6%     -    0s
-    ##      0     0 6955.94702    0   92 7778.55593 6955.94702  10.6%     -    0s
-    ##      0     0 6955.94702    0   90 7778.55593 6955.94702  10.6%     -    0s
-    ##      0     2 6958.76573    0   90 7778.55593 6958.76573  10.5%     -    0s
-    ## *   16     7               4    7758.3060997 6995.60241  9.83%  17.7    0s
+    ##      0     0 6456.77823    0  137 7879.07954 6456.77823  18.1%     -    0s
+    ## H    0     0                    7805.4228157 6456.77823  17.3%     -    0s
+    ##      0     0 6636.21984    0   89 7805.42282 6636.21984  15.0%     -    0s
+    ##      0     0 6668.07936    0  107 7805.42282 6668.07936  14.6%     -    0s
+    ##      0     0 6914.48083    0  100 7805.42282 6914.48083  11.4%     -    0s
+    ## H    0     0                    7778.5559284 6914.48083  11.1%     -    0s
+    ##      0     0 6914.54700    0   82 7778.55593 6914.54700  11.1%     -    0s
+    ##      0     0 6979.60313    0  101 7778.55593 6979.60313  10.3%     -    0s
+    ##      0     0 6982.58689    0  106 7778.55593 6982.58689  10.2%     -    0s
+    ##      0     0 6982.59944    0  106 7778.55593 6982.59944  10.2%     -    0s
+    ##      0     0 6982.75852    0  106 7778.55593 6982.75852  10.2%     -    0s
+    ##      0     0 6983.38244    0   91 7778.55593 6983.38244  10.2%     -    0s
+    ##      0     0 6983.38244    0   91 7778.55593 6983.38244  10.2%     -    0s
+    ##      0     0 6983.38244    0   93 7778.55593 6983.38244  10.2%     -    0s
+    ##      0     0 6986.71500    0   96 7778.55593 6986.71500  10.2%     -    0s
+    ##      0     0 6986.72499    0   91 7778.55593 6986.72499  10.2%     -    0s
+    ##      0     0 6997.38652    0  106 7778.55593 6997.38652  10.0%     -    0s
+    ##      0     0 7004.99771    0   97 7778.55593 7004.99771  9.94%     -    0s
+    ##      0     0 7006.42119    0  108 7778.55593 7006.42119  9.93%     -    0s
     ## 
     ## Cutting planes:
     ##   Gomory: 4
-    ##   MIR: 3
-    ##   Zero half: 19
+    ##   MIR: 2
+    ##   Zero half: 16
+    ##   Mod-K: 1
     ## 
-    ## Explored 17 nodes (739 simplex iterations) in 0.17 seconds
+    ## Explored 1 nodes (450 simplex iterations) in 0.22 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98
+    ## Solution count 4: 7778.56 7805.42 7879.08 9816.98 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 7.758306099744e+03, best bound 6.995602411029e+03, gap 9.8308%
+    ## Best objective 7.778555928371e+03, best bound 7.006421189266e+03, gap 9.9265%
 
 ``` r
 # plot the solution

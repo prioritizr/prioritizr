@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -68,6 +68,12 @@
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -106,7 +112,7 @@
       <h1>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2018-04-24</h4>
+            <h4 class="date">2018-04-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -118,7 +124,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><em>Gurobi</em> is the most powerful and fastest solver that <em>prioritizr</em> can use to solve conservation planning problems. This vignette will walk you through the process of setting up <em>Gurobi</em> on your computer so that you can use it to solve conservation planning problems. If you encounter any problems while following the instructions below, check out the <a href="http://www.gurobi.com/documentation/">official <em>Gurobi</em> documentation</a> or the <a href="https://groups.google.com/forum/#!forum/gurobi">official <em>Gurobi</em> emailing list</a>.</p>
+<p><em>Gurobi</em> is the most powerful and fastest solver that the <em>prioritizr R</em> package can use to solve conservation planning problems. This vignette will walk you through the process of setting up <em>Gurobi</em> on your computer so that you can use it to solve conservation planning problems. If you encounter any problems while following the instructions below, check out the <a href="http://www.gurobi.com/documentation/">official <em>Gurobi</em> documentation</a> or the <a href="https://groups.google.com/forum/#!forum/gurobi">official <em>Gurobi</em> emailing list</a>.</p>
 </div>
 <div id="obtaining-a-license" class="section level2">
 <h2 class="hasAnchor">
@@ -143,7 +149,7 @@
 <div id="software-installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#software-installation" class="anchor"></a>Software installation</h2>
-<p>The installation process for the <em>Gurobi</em> software suite depends on the type of operating system you have installed on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="http://www.gurobi.com/documentation/">“Quick Start Guides”</a> for <a href="http://www.gurobi.com/documentation/7.5/quickstart_windows/software_installation_guid.html#section:Installation">Windows</a>, <a href="http://www.gurobi.com/documentation/7.5/quickstart_mac/software_installation_guid.html">Mac OSX</a>, and <a href="http://www.gurobi.com/documentation/7.5/quickstart_linux/software_installation_guid.html">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will take care of rest. Whereas, on Linux systems, you will need to manually extract downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em>. Additionally, if you are using <a href="https://www.rstudio.com/products/rstudio/"><em>RStudio</em></a> on a Linux system, you might need to add the following line to the file located at <em>/etc/rstudio/rserver.conf</em>:</p>
+<p>The installation process for the <em>Gurobi</em> software suite depends on the type of operating system you have installed on your computer. Fortunately, <em>Gurobi</em> provide platform-specific <a href="http://www.gurobi.com/documentation/">“Quick Start Guides”</a> for <a href="http://www.gurobi.com/documentation/8.0/quickstart_windows/software_installation_guid.html#section:Installation">Windows</a>, <a href="http://www.gurobi.com/documentation/8.0/quickstart_mac/software_installation_guid.html">Mac OSX</a>, and <a href="http://www.gurobi.com/documentation/8.0/quickstart_linux/software_installation_guid.html">Linux</a> systems that should help with this. Briefly, on Windows systems, you just need to double-click on the <em>Gurobi</em> installer, follow the prompts, and the installer will take care of rest. Whereas, on Linux systems, you will need to manually extract downloaded file’s contents to a folder, move the extracted contents to a suitable location (typically <em>/opt/gurobi</em>), and update your system’s variables so that it knows where to find <em>Gurobi</em>. Additionally, if you are using <a href="https://www.rstudio.com/products/rstudio/"><em>RStudio</em></a> on a Linux system, you might need to add the following line to the file located at <em>/etc/rstudio/rserver.conf</em>:</p>
 <pre><code>rsession-ld-library-path=/opt/gurobi650/linux64/lib</code></pre>
 <p>After installing the <em>Gurobi</em> software suite on your computer, you will need to activate your license.</p>
 </div>
@@ -155,10 +161,10 @@
 <img src="figures/cmd-windows-success.png" style="width:75.0%">
 </center>
 <p><br></p>
-<p>We can double check that the license has been successfully activated by running <em>Gurobi</em> from the command line. Assuming you have installed <em>Gurobi</em> version 7.5.1, Windows users can type in the following the following commands:</p>
-<pre><code>gurobi_cl c:\gurobi751\win64\examples\data\coins.lp</code></pre>
+<p>We can double check that the license has been successfully activated by running <em>Gurobi</em> from the command line. Assuming you have installed <em>Gurobi</em> version 8.0.0, Windows users can type in the following the following commands:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gurobi_cl</span> c:\gurobi800\win64\examples\data\coins.lp</code></pre></div>
 <p>Additionally, Linux users can test their license activation using the following commands</p>
-<pre><code>gurobi_cl /opt/gurobi751/linux64/examples/data/coins.lp</code></pre>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">gurobi_cl</span> /opt/gurobi800/linux64/examples/data/coins.lp</code></pre></div>
 <p>If the license was successfully activated, you should see output that looks something like that in the screen shot below.</p>
 <br><center>
 <img src="figures/model-test.png" style="width:75.0%">
@@ -169,10 +175,11 @@
 <div id="r-package-installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#r-package-installation" class="anchor"></a><em>R</em> package installation</h2>
-<p>Now we will install the <em>gurobi R</em> package distributed with the <em>Gurobi</em> software suite. The <em>gurobi</em> <em>R</em> package installation file should be located within the folder where you installed the <em>Gurobi</em> software suite. Assuming you installed <em>Gurobi</em> in the default location and assuming you installed version 7.5.1, Windows users can install <em>gurobi</em> <em>R</em> package by running the following code from within <em>R</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"c:/gurobi751/win64/R/gurobi_7.5-1.zip"</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
+<p>Now we will install the <em>gurobi R</em> package distributed with the <em>Gurobi</em> software suite. The <em>gurobi</em> <em>R</em> package installation file should be located within the folder where you installed the <em>Gurobi</em> software suite. Assuming you installed <em>Gurobi</em> in the default location and assuming you installed version 8.0.0, Windows users can install <em>gurobi</em> <em>R</em> package by running the following code from within <em>R</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
 <p>Additionally, Linux users can install the <em>gurobi</em> <em>R</em> package by running the following code from within R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">file.path</span>(<span class="kw">Sys.getenv</span>(<span class="st">"GUROBI_HOME"</span>), <span class="st">"R/gurobi_7.5-1.zip"</span>),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">file.path</span>(<span class="kw">Sys.getenv</span>(<span class="st">"GUROBI_HOME"</span>),
+                           <span class="st">"R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"</span>),
                  <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
 <p>Next, you will need to install the <em>slam R</em> package because the <em>gurobi</em> <em>R</em> package needs this package to work. Both Windows and Linux users can do this by running the code below in <em>R</em>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"slam"</span>, <span class="dt">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</code></pre></div>
@@ -249,26 +256,26 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
-## H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
+##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 ## 
-## Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1979.96 2337.96 
+## Solution count 2: 1985.68 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</code></pre>
+## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(s, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="gurobi_installation_files/figure-html/unnamed-chunk-7-1.png" width="336" style="display: block; margin: auto;"></p>
-<p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and <em>prioritizr</em> to solve your very own conservation planning problems.</p>
+<p><img src="gurobi_installation_files/figure-html/unnamed-chunk-9-1.png" width="336" style="display: block; margin: auto;"></p>
+<p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
 </div>
   </div>
 

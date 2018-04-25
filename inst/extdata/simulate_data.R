@@ -144,11 +144,10 @@ sim_pu_zones_polygons$locked_3 <- is.finite(sim_pu_zones_polygons$locked_3)
 ## Export data
 # save data
 save(sim_pu_raster, file = "data/sim_pu_raster.rda", compress = "xz")
+save(sim_pu_zones_stack, file = "data/sim_pu_zones_stack.rda", compress = "xz")
 save(sim_locked_in_raster, file = "data/sim_locked_in_raster.rda",
      compress = "xz")
 save(sim_locked_out_raster, file = "data/sim_locked_out_raster.rda",
-     compress = "xz")
-save(sim_locked_zones_stack, file = "data/sim_locked_zones_stack.rda",
      compress = "xz")
 save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz")
 save(sim_pu_zones_polygons, file = "data/sim_pu_zones_polygons.rda",

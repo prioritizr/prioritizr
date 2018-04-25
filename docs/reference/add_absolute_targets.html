@@ -38,8 +38,6 @@ that need to be represented in the prioritization. For instance,
 setting a target of 10 requires that the solution secure a set of
 planning units for which their summed feature values are equal to or greater
 than 10." />
-
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +80,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
       </span>
     </div>
 
@@ -112,6 +110,12 @@ than 10." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
       <a href="../articles/zones.html">Management Zones</a>
@@ -263,7 +267,7 @@ Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 3e+00]
-#&gt; Found heuristic solution: objective 2146.2740839
+#&gt; Found heuristic solution: objective 2145.2678910
 #&gt; Presolve removed 3 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
@@ -271,21 +275,21 @@ Details section for more information.</p></td>
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.653883e+03, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.589540e+03, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1653.88301    0    1 2146.27408 1653.88301  22.9%     -    0s
-#&gt; H    0     0                    1675.5220184 1653.88301  1.29%     -    0s
+#&gt;      0     0 1589.53964    0    1 2145.26789 1589.53964  25.9%     -    0s
+#&gt; H    0     0                    1661.1365494 1589.53964  4.31%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1675.52 2146.27 
+#&gt; Solution count 2: 1661.14 2145.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.675522018446e+03, best bound 1.653883005209e+03, gap 1.2915%
+#&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -293,7 +297,7 @@ Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+00]
-#&gt; Found heuristic solution: objective 1372.7522681
+#&gt; Found heuristic solution: objective 1364.1986257
 #&gt; Presolve removed 2 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 3 rows, 90 columns, 270 nonzeros
@@ -301,25 +305,56 @@ Details section for more information.</p></td>
 #&gt; Presolved: 3 rows, 90 columns, 270 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.099095e+03, 3 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.056627e+03, 4 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1099.09516    0    2 1372.75227 1099.09516  19.9%     -    0s
-#&gt; H    0     0                    1223.3264011 1099.09516  10.2%     -    0s
-#&gt;      0     0 1198.98060    0    2 1223.32640 1198.98060  1.99%     -    0s
+#&gt;      0     0 1056.62699    0    2 1364.19863 1056.62699  22.5%     -    0s
+#&gt; H    0     0                    1223.1573503 1056.62699  13.6%     -    0s
+#&gt; H    0     0                    1203.1663645 1056.62699  12.2%     -    0s
+#&gt;      0     0 1057.73734    0    3 1203.16636 1057.73734  12.1%     -    0s
+#&gt;      0     0 1057.80283    0    3 1203.16636 1057.80283  12.1%     -    0s
+#&gt;      0     0 1058.46353    0    5 1203.16636 1058.46353  12.0%     -    0s
+#&gt;      0     0 1058.81005    0    6 1203.16636 1058.81005  12.0%     -    0s
+#&gt;      0     0 1059.11832    0    7 1203.16636 1059.11832  12.0%     -    0s
+#&gt;      0     0 1059.26405    0    7 1203.16636 1059.26405  12.0%     -    0s
+#&gt;      0     0 1059.40704    0    8 1203.16636 1059.40704  11.9%     -    0s
+#&gt;      0     0 1060.23890    0    7 1203.16636 1060.23890  11.9%     -    0s
+#&gt;      0     0 1060.39425    0    7 1203.16636 1060.39425  11.9%     -    0s
+#&gt;      0     0 1060.91232    0    6 1203.16636 1060.91232  11.8%     -    0s
+#&gt;      0     0 1060.93753    0    8 1203.16636 1060.93753  11.8%     -    0s
+#&gt;      0     0 1061.07760    0    8 1203.16636 1061.07760  11.8%     -    0s
+#&gt;      0     0 1061.08460    0    9 1203.16636 1061.08460  11.8%     -    0s
+#&gt;      0     0 1061.44304    0    9 1203.16636 1061.44304  11.8%     -    0s
+#&gt;      0     0 1061.49161    0    8 1203.16636 1061.49161  11.8%     -    0s
+#&gt;      0     0 1061.79786    0    8 1203.16636 1061.79786  11.7%     -    0s
+#&gt;      0     0 1061.83910    0    9 1203.16636 1061.83910  11.7%     -    0s
+#&gt;      0     0 1061.86106    0    9 1203.16636 1061.86106  11.7%     -    0s
+#&gt;      0     0 1061.93275    0   10 1203.16636 1061.93275  11.7%     -    0s
+#&gt;      0     0 1061.95846    0   11 1203.16636 1061.95846  11.7%     -    0s
+#&gt;      0     0 1061.98232    0   11 1203.16636 1061.98232  11.7%     -    0s
+#&gt;      0     2 1062.01639    0   11 1203.16636 1062.01639  11.7%     -    0s
+#&gt; H  443   240                    1199.0164416 1065.18884  11.2%   1.2    0s
+#&gt; H  512   265                    1194.4167334 1065.63750  10.8%   1.2    0s
+#&gt; H  598   305                    1192.7573383 1065.63750  10.7%   1.4    0s
+#&gt; H 1483   698                    1190.9502353 1068.70801  10.3%   1.3    0s
+#&gt; H 1490   699                    1190.7717726 1068.70801  10.3%   1.3    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 1
+#&gt;   Gomory: 3
+#&gt;   Cover: 11
+#&gt;   MIR: 9
+#&gt;   StrongCG: 9
+#&gt;   Flow cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+#&gt; Explored 2912 nodes (3843 simplex iterations) in 0.43 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1223.33 1372.75 
+#&gt; Solution count 8: 1190.77 1190.95 1192.76 ... 1364.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.223326401077e+03, best bound 1.198980597337e+03, gap 1.9901%</div><div class='input'>
+#&gt; Best objective 1.190771772618e+03, best bound 1.071762046291e+03, gap 9.9943%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_absolute_targets-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -350,7 +385,7 @@ Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+00]
-#&gt; Found heuristic solution: objective 4153.2360667
+#&gt; Found heuristic solution: objective 4138.7671528
 #&gt; Presolve removed 9 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
@@ -358,21 +393,21 @@ Details section for more information.</p></td>
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.419221e+03, 35 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.352717e+03, 28 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3419.22083    0    5 4153.23607 3419.22083  17.7%     -    0s
-#&gt; H    0     0                    3691.5014964 3419.22083  7.38%     -    0s
+#&gt;      0     0 3352.71666    0    4 4138.76715 3352.71666  19.0%     -    0s
+#&gt; H    0     0                    3655.8720181 3352.71666  8.29%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (28 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3691.5 4153.24 
+#&gt; Solution count 2: 3655.87 4138.77 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.691501496371e+03, best bound 3.419220825371e+03, gap 7.3759%</div><div class='input'>
+#&gt; Best objective 3.655872018106e+03, best bound 3.352716664713e+03, gap 8.2923%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s4</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal targets"</span>))</div><div class='img'><img src='add_absolute_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem with targets that require a varying amount of each</span>
 <span class='co'># feature to be represented in each zone</span>
@@ -396,7 +431,7 @@ Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+00]
-#&gt; Found heuristic solution: objective 4153.2360667
+#&gt; Found heuristic solution: objective 4138.7671528
 #&gt; Presolve removed 9 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
@@ -404,21 +439,21 @@ Details section for more information.</p></td>
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.419221e+03, 35 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.352717e+03, 28 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3419.22083    0    5 4153.23607 3419.22083  17.7%     -    0s
-#&gt; H    0     0                    3691.5014964 3419.22083  7.38%     -    0s
+#&gt;      0     0 3352.71666    0    4 4138.76715 3352.71666  19.0%     -    0s
+#&gt; H    0     0                    3655.8720181 3352.71666  8.29%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (28 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3691.5 4153.24 
+#&gt; Solution count 2: 3655.87 4138.77 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.691501496371e+03, best bound 3.419220825371e+03, gap 7.3759%</div><div class='input'>
+#&gt; Best objective 3.655872018106e+03, best bound 3.352716664713e+03, gap 8.2923%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s5</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"varying targets"</span>))</div><div class='img'><img src='add_absolute_targets-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
