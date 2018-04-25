@@ -29,7 +29,7 @@ Citation
 
 Please using the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.2. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.3. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.004640102
+    ## 0.003552914
 
 ``` r
 # extract state message from the solver
@@ -266,7 +266,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 3
     ## 
-    ## Explored 1 nodes (156 simplex iterations) in 0.09 seconds
+    ## Explored 1 nodes (156 simplex iterations) in 0.07 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 6141.84 6395.07 6477.07 ... 20287.2
@@ -301,7 +301,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.04s
+    ## Presolve time: 0.02s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
@@ -340,7 +340,7 @@ s4 <- solve(p4)
     ##   MIR: 3
     ##   Zero half: 19
     ## 
-    ## Explored 17 nodes (739 simplex iterations) in 0.25 seconds
+    ## Explored 17 nodes (739 simplex iterations) in 0.17 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 7758.31 7778.56 7805.42 ... 9816.98
@@ -362,4 +362,4 @@ This short example demonstrates how the *prioritizr R* package can be used to bu
 Getting help
 ------------
 
-Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the *prioritizr R* package. This website contains a [tutorial on systematic conservation planning and using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), and a [tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.github.io/prioritizr/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.github.io/prioritizr/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).

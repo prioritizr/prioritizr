@@ -171,13 +171,12 @@
           </group>
         </else-if>
         <else-if type="report">
-          <group suffix=". " prefix=" " delimiter=" ">
+          <group suffix=". " prefix=" " delimiter=" " font-style="italic">
             <text macro="title"/>
           </group>
           <group delimiter=", " suffix=".">
-            <text variable="container-title"/>
-            <text variable="note"/>
-            <text variable="url"/>
+            <text variable="publisher"/>
+            <text macro="access"/>
           </group>
         </else-if>
         <else>

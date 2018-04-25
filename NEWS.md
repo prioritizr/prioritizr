@@ -1,3 +1,9 @@
+# prioritizr 4.0.0.3
+
+- The _prioritizrdata_ package has been listed under Suggests.
+- The vignettes in the _prioritizrdata_ package have been moved to this package
+  to make them easier to find.
+
 # prioritizr 4.0.0.2
 
 - Fix issue with the `solve` function printing superfluous text (#75).
