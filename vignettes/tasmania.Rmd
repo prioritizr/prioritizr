@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{tasmania}
+  %\VignetteIndexEntry{Tasmania Tutorial}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
@@ -140,6 +140,10 @@ sum(s1$solution_1)
 # proportion of planning units in solution
 mean(s1$solution_1)
 
+# calculate feature representation
+r1 <- feature_representation(p1, s1[, "solution_1", drop = FALSE])
+print(r1)
+
 # visualize the solution by converting the solution to a spatial object
 s1 <- SpatialPolygonsDataFrame(as(tas_pu, "SpatialPolygons"), data = s1)
 s1$solution_1 <- factor(s1$solution_1)
@@ -166,12 +170,15 @@ print(p2)
 # solve problem
 s2 <- solve(p2)
 
+# calculate feature representation
+r2 <- feature_representation(p2, s2[, "solution_1"])
+print(r2)
+
 # visualize solution
 s2$solution_1 <- factor(s2$solution_1)
 spplot(s2, "solution_1", col.regions = c("grey90", "darkgreen"),
        main = "problem solution")
 ```
-
 
 ## Selection frequencies
 

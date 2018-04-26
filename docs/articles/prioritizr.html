@@ -13,6 +13,7 @@
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="prioritizr: Systematic Conservation Prioritization in R">
 <meta property="og:description" content="">
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -539,7 +540,7 @@ p11 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   cost:           min: 190.13276, max: 215.86384
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
-##   targets:        Absolute targets [targets (min: 17.2808007456778, max: 21.5901186612109)]
+##   targets:        Absolute targets [targets (min: 17.290505409161, max: 21.5906174426385)]
 ##   decisions:      default
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
@@ -702,8 +703,8 @@ p17 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -995,38 +996,37 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.196992
-## Found heuristic solution: objective 3087.9617505
-## Presolve time: 0.01s
+## Found heuristic solution: objective 20287.2
+## Found heuristic solution: objective 3087.96
+## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265387e+03, 213 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2265.38686    0  234 3087.96175 2265.38686  26.6%     -    0s
-##      0     0 2311.59960    0  234 3087.96175 2311.59960  25.1%     -    0s
-##      0     0 2323.41238    0  234 3087.96175 2323.41238  24.8%     -    0s
-##      0     0 2324.81041    0  234 3087.96175 2324.81041  24.7%     -    0s
-##      0     0 2358.76539    0  197 3087.96175 2358.76539  23.6%     -    0s
-##      0     0 2360.19119    0  192 3087.96175 2360.19119  23.6%     -    0s
-## H    0     0                    2696.2468634 2360.19119  12.5%     -    0s
-##      0     2 2363.39052    0  192 2696.24686 2363.39052  12.3%     -    0s
+##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s
+##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s
+## H    0     0                    3058.5354026 2325.53449  24.0%     -    0s
+##      0     0 2361.03063    0  223 3058.53540 2361.03063  22.8%     -    0s
+## H    0     0                    2998.8244712 2361.03063  21.3%     -    0s
+##      0     0 2372.59715    0  202 2998.82447 2372.59715  20.9%     -    0s
+## H    0     0                    2604.7426048 2372.59715  8.91%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 163 nodes (2960 simplex iterations) in 0.37 seconds
+## Explored 1 nodes (320 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 2696.25 3087.96 20287.2 
+## Solution count 5: 2604.74 2998.82 3058.54 ... 20287.2
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.696246863436e+03, best bound 2.446202451648e+03, gap 9.2738%</code></pre>
+## Best objective 2.604742604847e+03, best bound 2.372597148893e+03, gap 8.9124%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(s28, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-33-1.png" width="336" style="display: block; margin: auto;"></p>
@@ -1035,11 +1035,11 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"objective"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   2696.247</code></pre>
+##   2604.743</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##  0.3831441</code></pre>
+## 0.09747601</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"status"</span>))</code></pre></div>
@@ -1127,48 +1127,51 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+## Found heuristic solution: objective 2337.96
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.924252e+03, 13 iterations, 0.00 seconds
+## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1924.25198    0    4 2337.96175 1924.25198  17.7%     -    0s
-## H    0     0                    1979.9609382 1924.25198  2.81%     -    0s
+##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 ## 
-## Explored 1 nodes (13 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1979.96 2337.96 
+## Solution count 2: 1985.68 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.979960938178e+03, best bound 1.924251977336e+03, gap 2.8136%</code></pre>
+## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the number of selected planning units</span>
 <span class="kw">cellStats</span>(s27, <span class="st">"sum"</span>)</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
 <span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>s27, <span class="st">"sum"</span>)</code></pre></div>
-<pre><code>## [1] 1979.961</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the total amount of habitat represented for each feature</span>
-<span class="kw">cellStats</span>(sim_features <span class="op">*</span><span class="st"> </span>s27, <span class="st">"sum"</span>)</code></pre></div>
-<pre><code>##  layer.1  layer.2  layer.3  layer.4  layer.5 
-## 8.808155 3.117299 7.426881 4.307181 6.027441</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the proportion of habitat represented for each feature</span>
-<span class="kw">cellStats</span>(sim_features <span class="op">*</span><span class="st"> </span>s27, <span class="st">"sum"</span>) <span class="op">/</span><span class="st"> </span><span class="kw">cellStats</span>(sim_features, <span class="st">"sum"</span>)</code></pre></div>
-<pre><code>##   layer.1   layer.2   layer.3   layer.4   layer.5 
-## 0.1058694 0.1000014 0.1030434 0.1006891 0.1062529</code></pre>
+<pre><code>## [1] 1985.682</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
+r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, s27)
+<span class="kw">print</span>(r27)</code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+##   feature absolute_held relative_held
+##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
+## 1 layer.1          8.97         0.108
+## 2 layer.2          3.13         0.100
+## 3 layer.3          7.43         0.103
+## 4 layer.4          4.29         0.101
+## 5 layer.5          6.02         0.106</code></pre>
 </div>
 </div>
 <div id="conclusion" class="section level2">
 <h2 class="hasAnchor">
 <a href="#conclusion" class="anchor"></a>Conclusion</h2>
-<p>Hopefully, this vignette has provided an informative introduction to the <em>prioritizr R</em> package. For more worked examples showcasing the <em>prioritizr R</em> package, check out the <a href="https://cran.r-project.org/web/packages/prioritizrdata/index.html"><em>prioritizrdata R</em> package</a>. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work—but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.</p>
+<p>Hopefully, this vignette has provided an informative introduction to the <em>prioritizr R</em> package. For more worked examples using the <em>prioritizr R</em> package, check out the <a href="tasmania.html">Tasmania</a> and <a href="saltspring.html">Salt Spring Island</a> vignettes. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work—but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.</p>
 <p>Finally, if you have any questions about using the <em>prioritizr R</em> package or suggestions for improving the <em>prioritizr R</em> package (perhaps addressing some spelling mistakes found whilst reading this vignette?), please file an issue on the package’s online coding repository (<a href="https://github.com/prioritizr/prioritizr/issues" class="uri">https://github.com/prioritizr/prioritizr/issues</a>).</p>
 </div>
 <div id="references" class="section level2 unnumbered">

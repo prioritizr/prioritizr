@@ -649,8 +649,8 @@ p17 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -930,15 +930,15 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.196992
-## Found heuristic solution: objective 3087.9617505
+## Found heuristic solution: objective 20287.2
+## Found heuristic solution: objective 3087.96
 ## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -954,7 +954,7 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (320 simplex iterations) in 0.12 seconds
+## Explored 1 nodes (320 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2604.74 2998.82 3058.54 ... 20287.2
@@ -973,7 +973,7 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">&quot;runtime&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   0.119431</code></pre>
+## 0.09259796</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">&quot;status&quot;</span>))</code></pre></div>
@@ -999,8 +999,8 @@ mp &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(minput)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1059,7 +1059,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+## Found heuristic solution: objective 2337.96
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -1074,7 +1074,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1985.68 2337.96 
@@ -1087,19 +1087,22 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
 <span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>s27, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
 <pre><code>## [1] 1985.682</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the total amount of habitat represented for each feature</span>
-<span class="kw">cellStats</span>(sim_features <span class="op">*</span><span class="st"> </span>s27, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
-<pre><code>##  layer.1  layer.2  layer.3  layer.4  layer.5 
-## 8.967128 3.133567 7.426056 4.293223 6.022042</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the proportion of habitat represented for each feature</span>
-<span class="kw">cellStats</span>(sim_features <span class="op">*</span><span class="st"> </span>s27, <span class="st">&quot;sum&quot;</span>) <span class="op">/</span><span class="st"> </span><span class="kw">cellStats</span>(sim_features, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
-<pre><code>##   layer.1   layer.2   layer.3   layer.4   layer.5 
-## 0.1076571 0.1003983 0.1032017 0.1006374 0.1061948</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
+r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, s27)
+<span class="kw">print</span>(r27)</code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+##   feature absolute_held relative_held
+##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
+## 1 layer.1          8.97         0.108
+## 2 layer.2          3.13         0.100
+## 3 layer.3          7.43         0.103
+## 4 layer.4          4.29         0.101
+## 5 layer.5          6.02         0.106</code></pre>
 </div>
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Hopefully, this vignette has provided an informative introduction to the <em>prioritizr R</em> package. For more worked examples showcasing the <em>prioritizr R</em> package, check out the <a href="https://cran.r-project.org/web/packages/prioritizrdata/index.html"><em>prioritizrdata R</em> package</a>. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work—but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.</p>
+<p>Hopefully, this vignette has provided an informative introduction to the <em>prioritizr R</em> package. For more worked examples using the <em>prioritizr R</em> package, check out the <a href="tasmania.html">Tasmania</a> and <a href="saltspring.html">Salt Spring Island</a> vignettes. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work—but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.</p>
 <p>Finally, if you have any questions about using the <em>prioritizr R</em> package or suggestions for improving the <em>prioritizr R</em> package (perhaps addressing some spelling mistakes found whilst reading this vignette?), please file an issue on the package’s online coding repository (<a href="https://github.com/prioritizr/prioritizr/issues" class="uri">https://github.com/prioritizr/prioritizr/issues</a>).</p>
 </div>
 <div id="references" class="section level2 unnumbered">

@@ -653,16 +653,14 @@ cellStats(s27, "sum")
 # calculate the cost of the solution
 cellStats(sim_pu_raster * s27, "sum")
 
-# calculate the total amount of habitat represented for each feature
-cellStats(sim_features * s27, "sum")
-
-# calculate the proportion of habitat represented for each feature
-cellStats(sim_features * s27, "sum") / cellStats(sim_features, "sum")
+# calculate how well features are represented in the solution
+r27 <- feature_representation(p27, s27)
+print(r27)
 ```
 
 ## Conclusion
 
-Hopefully, this vignette has provided an informative introduction to the _prioritizr R_ package. For more worked examples showcasing the _prioritizr R_ package, check out the [_prioritizrdata R_ package](https://cran.r-project.org/web/packages/prioritizrdata/index.html). Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work---but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.
+Hopefully, this vignette has provided an informative introduction to the _prioritizr R_ package. For more worked examples using the _prioritizr R_ package, check out the [Tasmania](tasmania.html) and [Salt Spring Island](saltspring.html) vignettes. Perhaps, one of the best ways to learn a new piece of software is to just try it out. Test it, try breaking it, make mistakes, and learn from them. We would recommend trying to build conservation planning problems that resemble those you face in your own work---but using the built-in example data sets. This way you can quickly verify that the problems you build actually mean what you think they mean. For instance, you can try playing around with the targets and see what effect they have on the solutions, or try playing around with penalties and see what effect they have on the solutions.
 
 Finally, if you have any questions about using the _prioritizr R_ package or suggestions for improving the _prioritizr R_ package (perhaps addressing some spelling mistakes found whilst reading this vignette?), please file an issue on the package's online coding repository (https://github.com/prioritizr/prioritizr/issues).
 

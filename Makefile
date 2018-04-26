@@ -24,7 +24,7 @@ readme:
 contrib:
 	R --slave -e "rmarkdown::render('CONTRIBUTING.Rmd')"
 
-vigns:
+vigns: install
 	R --slave -e "devtools::build_vignettes()"
 
 site:

@@ -13,6 +13,7 @@
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Tasmania Tutorial">
 <meta property="og:description" content="">
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -260,10 +261,10 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e-03, 3e+00]
-## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12420.567371
+## Found heuristic solution: objective 30514.7
+## Found heuristic solution: objective 12420.6
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.09s
+## Presolve time: 0.04s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12636.553370
 ## Found heuristic solution: objective 11649.433125
@@ -271,14 +272,14 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 787 iterations, 0.07 seconds
+## Root relaxation: objective 1.072358e+04, 787 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10723.5767    0  118 11649.4331 10723.5767  7.95%     -    0s
 ## 
-## Explored 1 nodes (787 simplex iterations) in 0.22 seconds
+## Explored 1 nodes (787 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11649.4 12417.3 12636.6 29785.4 
@@ -300,6 +301,23 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># proportion of planning units in solution</span>
 <span class="kw">mean</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 0.2823009</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
+r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p1, s1[, <span class="st">"solution_1"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
+<span class="kw">print</span>(r1)</code></pre></div>
+<pre><code>## # A tibble: 62 x 3
+##    feature absolute_held relative_held
+##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
+##  1 veg1           0.163          0.269
+##  2 veg2           0.564          0.172
+##  3 veg3           0.0930         0.231
+##  4 veg4           0.173          0.312
+##  5 veg5           0.0775         0.191
+##  6 veg6           0.0611         0.177
+##  7 veg7           0.0462         0.191
+##  8 veg8           0.185          0.248
+##  9 veg9           1.46           0.242
+## 10 veg10          0.0412         0.181
+## # ... with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw"><a href="../reference/as.html">as</a></span>(tas_pu, <span class="st">"SpatialPolygons"</span>), <span class="dt">data =</span> s1)
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -341,10 +359,10 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e-03, 3e+00]
-## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12420.567371
+## Found heuristic solution: objective 30514.7
+## Found heuristic solution: objective 12420.6
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.05s
+## Presolve time: 0.02s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12636.553370
 ## Found heuristic solution: objective 11649.433125
@@ -352,20 +370,37 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 787 iterations, 0.06 seconds
+## Root relaxation: objective 1.072358e+04, 787 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10723.5767    0  118 11649.4331 10723.5767  7.95%     -    0s
 ## 
-## Explored 1 nodes (787 simplex iterations) in 0.16 seconds
+## Explored 1 nodes (787 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11649.4 12417.3 12636.6 29785.4 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.164943312508e+04, best bound 1.072357667965e+04, gap 7.9477%</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
+r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p2, s2[, <span class="st">"solution_1"</span>])
+<span class="kw">print</span>(r2)</code></pre></div>
+<pre><code>## # A tibble: 62 x 3
+##    feature  absolute_held relative_held
+##    &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;
+##  1 layer.1         0.163          0.269
+##  2 layer.2         0.564          0.172
+##  3 layer.3         0.0930         0.231
+##  4 layer.4         0.173          0.312
+##  5 layer.5         0.0775         0.191
+##  6 layer.6         0.0611         0.177
+##  7 layer.7         0.0462         0.191
+##  8 layer.8         0.185          0.248
+##  9 layer.9         1.46           0.242
+## 10 layer.10        0.0412         0.181
+## # ... with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">spplot</span>(s2, <span class="st">"solution_1"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>),

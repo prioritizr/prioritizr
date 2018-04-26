@@ -429,8 +429,8 @@ spplot(s8, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 }
 }
 \seealso{
-\code{\link{constraints}},  \code{\link{decisions}},
+\code{\link{constraints}}, \code{\link{decisions}},
  \code{\link{objectives}} \code{\link{penalties}},
- \code{\link{portfolios}}, \code{\link{problem}},
- \code{\link{solvers}}, \code{\link{targets}}.
+ \code{\link{portfolios}}, \code{\link{solvers}}, \code{\link{targets}},
+ \code{\link{feature_representation}}.
 }

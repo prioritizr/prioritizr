@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -136,7 +136,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please using the following citation to cite the <em>prioritizr R</em> package in publications:</p>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.3. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.4. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 <p>Additionally, we keep a <a href="https://prioritizr.github.io/prioritizr/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
@@ -193,7 +193,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
-## Found heuristic solution: objective 3934.6218396
+## Found heuristic solution: objective 3934.62
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -222,7 +222,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.002583027</code></pre>
+## 0.003746986</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -245,7 +245,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
-## Found heuristic solution: objective 4017.6427161
+## Found heuristic solution: objective 4017.64
 ## Presolve removed 0 rows and 10 columns
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -286,8 +286,8 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
-## Found heuristic solution: objective 20287.196992
-## Found heuristic solution: objective 6551.3909374
+## Found heuristic solution: objective 20287.2
+## Found heuristic solution: objective 6551.39
 ## Presolve removed 66 rows and 43 columns
 ## Presolve time: 0.00s
 ## Presolved: 227 rows, 191 columns, 844 nonzeros
@@ -345,7 +345,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Presolved: 369 rows, 296 columns, 1176 nonzeros
 ## 
 ## 
-## Root relaxation: objective 6.456778e+03, 154 iterations, 0.00 seconds
+## Root relaxation: objective 6.456778e+03, 154 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time

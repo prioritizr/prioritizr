@@ -167,14 +167,9 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 <h2>Solving the problem</h2>
 <p>The <em>prioritizr R</em> package supports three different integer linear programming solver packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
 <p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a>, and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))</code></pre></div>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))</code></pre></div>
-<pre><code>## Loading required package: Rsymphony</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
-<pre><code>## Loading required package: lpsymphony</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))
+<span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))
+<span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
 <p>Now we will try solving the problem using the different solvers. We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># create vector to store plot titles</span>
 s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="co"># create empty stack to store solutions</span>

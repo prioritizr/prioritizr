@@ -13,6 +13,7 @@
 <!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Salt Spring Island Tutorial">
 <meta property="og:description" content="">
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -210,16 +211,9 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 <a href="#solving-the-problem" class="anchor"></a>Solving the problem</h2>
 <p>The <em>prioritizr R</em> package supports three different integer linear programming solver packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
 <p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a>, and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))</code></pre></div>
-<pre><code>## Loading required package: gurobi</code></pre>
-<pre><code>## Loading required package: slam</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))</code></pre></div>
-<pre><code>## Loading required package: Rsymphony</code></pre>
-<pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
-<pre><code>## Loading required package: lpsymphony</code></pre>
-<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))
+<span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))
+<span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
 <p>Now we will try solving the problem using the different solvers. We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># create vector to store plot titles</span>
 s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="co"># create empty stack to store solutions</span>

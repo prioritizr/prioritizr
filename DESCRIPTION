@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.0.0.3
+Version: 4.0.0.4
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -143,6 +143,7 @@ Collate:
     'parallel.R'
     'fast_extract.R'
     'feature_names.R'
+    'feature_representation.R'
     'magrittr-operators.R'
     'marxan_problem.R'
     'misc.R'

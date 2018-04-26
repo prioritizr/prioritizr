@@ -10,7 +10,7 @@ documentclass: article
 bibliography: references.bib
 csl: reference-style.csl
 vignette: >
-  %\VignetteIndexEntry{zones}
+  %\VignetteIndexEntry{Management Zones}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
@@ -52,6 +52,10 @@ print(p1)
 
 # solve problem
 s1 <- solve(p1)
+
+# calculate feature representation
+r1 <- feature_representation(p1, s1)
+print(r1)
 
 # plot solution
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
@@ -100,6 +104,10 @@ print(p2)
 # solve problem
 s2 <- solve(p2)
 
+# calculate feature representation
+r2 <- feature_representation(p2, s2)
+print(r2)
+
 # plot solution
 # here we use the category layer function to generate raster showing the zone
 # that each planning unit was allocated (1 = "zone 1"; 2 = "zone 2")
@@ -129,6 +137,10 @@ print(p3)
 
 # solve problem
 s3 <- solve(p3)
+
+# calculate feature representation
+r3 <- feature_representation(p3, s3)
+print(r3)
 
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
@@ -171,6 +183,10 @@ print(p4)
 # solve problem
 s4 <- solve(p4)
 
+# calculate feature representation
+r4 <- feature_representation(p4, s4)
+print(r4)
+
 # plot solution
 plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
 ```
@@ -201,6 +217,10 @@ print(p5)
 
 # solve problem
 s5 <- solve(p5)
+
+# calculate feature representation
+r5 <- feature_representation(p5, s5)
+print(r5)
 
 # plot solution
 plot(category_layer(s5), main = "solution", axes = FALSE, box = FALSE)
@@ -236,6 +256,10 @@ print(p6)
 
 # solve problem
 s6 <- solve(p6)
+
+# calculate feature representation
+r6 <- feature_representation(p6, s6)
+print(r6)
 
 # plot solution
 plot(category_layer(s6), main = "solution", axes = FALSE, box = FALSE)

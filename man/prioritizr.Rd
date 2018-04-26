@@ -50,10 +50,14 @@ This package contains several vignettes that are designed to
   \item{zones}{describes how problems can be constructed with multiple
     management actions or zones.}
 
-  }
+  \item{tasmania}{provides a tutorial using Tasmania, Australia
+    as a case-study. This tutorial uses vector-based planning unit data and
+    is written for individuals familiar with the \emph{Marxan} decision
+    support tool.}
 
-  For more worked examples using the \pkg{prioritizr} package, check out
-  the supplemental \pkg{prioritizrdata} package.
+  \item{saltspring}{provides a tutorial using Salt Spring Island, Canada as a
+    case-study. This tutorial uses raster-based planning unit data.}
+  }
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

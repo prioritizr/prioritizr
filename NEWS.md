@@ -1,3 +1,8 @@
+# prioritizr 4.0.0.4
+
+- New `feature_representation` function to how well features are represented in
+  solutions (#73).
+
 # prioritizr 4.0.0.3
 
 - The _prioritizrdata_ package has been listed under Suggests.
