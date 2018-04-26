@@ -139,6 +139,7 @@ reference:
       - compile
       - loglinear_interpolation
       - run_calculations
+      - feature_representation
 
   - title: Class definitions and methods
     desc: >
