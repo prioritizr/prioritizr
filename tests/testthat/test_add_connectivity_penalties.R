@@ -228,14 +228,14 @@ test_that("minimum set objective (solve, multiple zones)", {
   data(sim_pu_zones_stack, sim_features_zones)
   # make zones matrices
   zm <- matrix(-1, ncol = 3, nrow = 3)
-  diag(zm) <- 1
+  diag(zm) <- 0.1
   # make connectivity data
   cm <- connected_matrix(sim_pu_zones_stack)
   # create and solve problem
   s <- problem(sim_pu_zones_stack, sim_features_zones) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.1, nrow = 5, ncol = 3)) %>%
-       add_connectivity_penalties(1000, zm, cm) %>%
+       add_connectivity_penalties(5000, zm, cm) %>%
        add_binary_decisions() %>%
        add_default_solver(gap = 0.15) %>%
        solve()
