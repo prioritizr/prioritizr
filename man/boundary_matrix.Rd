@@ -9,17 +9,17 @@
 \alias{boundary_matrix.default}
 \title{Boundary matrix}
 \usage{
-boundary_matrix(x)
+boundary_matrix(x, str_tree)
 
-\method{boundary_matrix}{Raster}(x)
+\method{boundary_matrix}{Raster}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialPolygons}(x)
+\method{boundary_matrix}{SpatialPolygons}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialLines}(x)
+\method{boundary_matrix}{SpatialLines}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialPoints}(x)
+\method{boundary_matrix}{SpatialPoints}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{default}(x)
+\method{boundary_matrix}{default}(x, str_tree = FALSE)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
@@ -27,6 +27,17 @@ boundary_matrix(x)
 \code{\link[sp]{SpatialPolygons-class}} object. If \code{x} is a
 \code{\link[raster]{Raster-class}} object then it must have only one
 layer.}
+
+\item{str_tree}{\code{logical} should a
+\href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
+to pre-process data? If \code{TRUE}, then the experimental
+\code{\link[rgeos]{gUnarySTRtreeQuery}} function
+will be used to pre-compute which planning units are adjacent to
+each other and potentially reduce the processing time required to
+generate the boundary matrices. This argument is only used when
+the planning unit data are vector-based polygons (i.e.
+\code{\link[sp]{SpatialPolygonsDataFrame}} objects). The default argument
+is \code{FALSE}.}
 }
 \value{
 \code{\link{Matrix}{dsCMatrix-class}} object.
@@ -63,18 +74,24 @@ ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 bm_raster <- boundary_matrix(r)
 
 # create boundary matrix using polygon data
-bm_ply <- boundary_matrix(ply)
+bm_ply1 <- boundary_matrix(ply)
 
-# plot raster and connected matrix
+# create boundary matrix using polygon data and GEOS STR query trees
+# to speed up processing
+bm_ply2 <- boundary_matrix(ply, TRUE)
+
+# plot raster and boundary matrix
 par(mfrow = c(1, 2))
 plot(r, main = "raster", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
      axes = FALSE, box = FALSE)
 
-# plot polygons and connected matrix
-par(mfrow = c(1, 2))
+# plot polygons and boundary matrices
+par(mfrow = c(1, 3))
 plot(r, main = "polygons", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(bm_ply)), main = "boundary matrix", axes = FALSE,
+plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
      box = FALSE)
+plot(raster(as.matrix(bm_ply2)), main = "boundary matrix (STR)",
+            axes = FALSE, box = FALSE)
 
 }

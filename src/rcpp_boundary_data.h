@@ -17,6 +17,10 @@ inline bool is_between(double x0, double y0, double x1, double y1, double x2,
   // code inspired by Cyrille Ka
   // https://stackoverflow.com/questions/328107/how-can-you-determine-a-point-is-between-two-other-points-on-a-line-segment
 
+  // check if point 0 == point 1
+  if ((fabs(x0 - x1) < 1.0e-10) & (fabs(y0 - y1) < 1.0e-10))
+    return false;
+
   // check if point 0 == point 2
   if ((fabs(x0 - x2) < 1.0e-10) & (fabs(y0 - y2) < 1.0e-10))
     return false;

@@ -36,6 +36,8 @@
 <meta property="og:description" content="Generate a matrix describing the amount of shared boundary length
 between different planning units, and the amount of exposed edge length each
 planning unit exhibits." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +80,7 @@ planning unit exhibits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -163,22 +165,22 @@ planning unit exhibits.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='no'>str_tree</span>)
 
 <span class='co'># S3 method for Raster</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for SpatialPolygons</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for SpatialLines</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for SpatialPoints</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,6 +192,19 @@ planning unit exhibits.</p>
 <code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> object. If <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must have only one
 layer.</p></td>
+    </tr>
+    <tr>
+      <th>str_tree</th>
+      <td><p><code>logical</code> should a
+<a href='https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html'>GEOS STRtree</a> be used to
+to pre-process data? If <code>TRUE</code>, then the experimental
+<code><a href='http://www.rdocumentation.org/packages/rgeos/topics/experimental-functions'>gUnarySTRtreeQuery</a></code> function
+will be used to pre-compute which planning units are adjacent to
+each other and potentially reduce the processing time required to
+generate the boundary matrices. This argument is only used when
+the planning unit data are vector-based polygons (i.e.
+<code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygons'>SpatialPolygonsDataFrame</a></code> objects). The default argument
+is <code>FALSE</code>.</p></td>
     </tr>
     </table>
     
@@ -226,18 +241,24 @@ layer.</p></td>
 <span class='no'>bm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>r</span>)
 
 <span class='co'># create boundary matrix using polygon data</span>
-<span class='no'>bm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>)
+<span class='no'>bm_ply1</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>)
 
-<span class='co'># plot raster and connected matrix</span>
+<span class='co'># create boundary matrix using polygon data and GEOS STR query trees</span>
+<span class='co'># to speed up processing</span>
+<span class='no'>bm_ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>, <span class='fl'>TRUE</span>)
+
+<span class='co'># plot raster and boundary matrix</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>bm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>,
      <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># plot polygons and connected matrix</span>
-<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
+<span class='co'># plot polygons and boundary matrices</span>
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>3</span>))
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>bm_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>bm_ply1</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>bm_ply2</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix (STR)"</span>,
+            <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

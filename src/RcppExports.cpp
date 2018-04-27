@@ -442,14 +442,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_boundary_data
-Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, double tolerance);
-RcppExport SEXP _prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP toleranceSEXP) {
+Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm, bool str_tree, double tolerance);
+RcppExport SEXP _prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP strmSEXP, SEXP str_treeSEXP, SEXP toleranceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::DataFrame >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type strm(strmSEXP);
+    Rcpp::traits::input_parameter< bool >::type str_tree(str_treeSEXP);
     Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_boundary_data(data, tolerance));
+    rcpp_result_gen = Rcpp::wrap(rcpp_boundary_data(data, strm, str_tree, tolerance));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -498,6 +500,17 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::string >::type slot(slotSEXP);
     Rcpp::traits::input_parameter< std::size_t >::type n_preallocate(n_preallocateSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_sp_to_polyset(x, slot, n_preallocate));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_str_tree_to_sparse_matrix
+Rcpp::List rcpp_str_tree_to_sparse_matrix(Rcpp::List data);
+RcppExport SEXP _prioritizr_rcpp_str_tree_to_sparse_matrix(SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_str_tree_to_sparse_matrix(data));
     return rcpp_result_gen;
 END_RCPP
 }

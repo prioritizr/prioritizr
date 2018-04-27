@@ -114,7 +114,7 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
          matrix(2, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
-       add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
+       add_shuffle_portfolio(30, remove_duplicates = FALSE) %>%
        add_default_solver(gap = 0) %>%
        solve()
   # output checks
@@ -122,13 +122,15 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
   expect_true(all(paste0("solution_", rep(seq_len(10), 3), "_",
                          rep(zone_names(sim_features_zones), each = 10)) %in%
                   names(s)))
-  for (i in seq_len(10)) {
+  for (i in seq_len(30)) {
     for (j in zone_names(sim_features_zones)) {
-      curr_s <- s[s[[paste0("solution_", i, "_", j)]] ==  1, ]
+      curr_col <- paste0("solution_", i, "_", j)
+      curr_s <- s[s[[curr_col]] ==  1, curr_col]
       k <- match(j, zone_names(sim_features_zones))
       expect_true(all(colSums(raster::extract(sim_features_zones[[k]],
-                                              curr_s, fun = "sum")) >= 2))
-      }
+                                              curr_s, fun = "sum",
+                                              small = TRUE)) >= 2))
+    }
   }
 })
 

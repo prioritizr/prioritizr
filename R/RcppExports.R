@@ -145,8 +145,8 @@ rcpp_apply_neighbor_constraints <- function(x, connected_data, k) {
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, k)
 }
 
-rcpp_boundary_data <- function(data, tolerance = 0.00001) {
-    .Call(`_prioritizr_rcpp_boundary_data`, data, tolerance)
+rcpp_boundary_data <- function(data, strm, str_tree, tolerance = 0.00001) {
+    .Call(`_prioritizr_rcpp_boundary_data`, data, strm, str_tree, tolerance)
 }
 
 rcpp_branch_matrix <- function(x) {
@@ -163,5 +163,9 @@ rcpp_list_to_matrix_indices <- function(x, n_preallocate = 10000L) {
 
 rcpp_sp_to_polyset <- function(x, slot, n_preallocate = 10000L) {
     .Call(`_prioritizr_rcpp_sp_to_polyset`, x, slot, n_preallocate)
+}
+
+rcpp_str_tree_to_sparse_matrix <- function(data) {
+    .Call(`_prioritizr_rcpp_str_tree_to_sparse_matrix`, data)
 }
 
