@@ -34,6 +34,8 @@
 <meta property="og:title" content="Simulated conservation planning data — sim_data" />
 
 <meta property="og:description" content="Simulated data for making spatial prioritizations." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -267,11 +269,7 @@
 <span class='fu'>plot</span>(<span class='no'>sim_pu_points</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (points)"</span>)</div><div class='img'><img src='sim_data-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example phylogeny data</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"ape"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
- <span class='kw pkg'>ape</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/ape/topics/plot.phylo'>plot.phylo</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)
-} <span class='kw'>else</span> {
- <span class='fu'>message</span>(<span class='st'>"the \"ape\" package needs to be installed to plot phylogenies"</span>)
-}</div><div class='img'><img src='sim_data-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>ape</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/ape/topics/plot.phylo'>plot.phylo</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='sim_data-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example feature data</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
 <span class='fu'>plot</span>(<span class='no'>sim_features</span>)</div><div class='img'><img src='sim_data-3.png' alt='' width='700' height='433' /></div><div class='input'>

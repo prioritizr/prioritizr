@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a Gurobi solver — add_gurobi_solver • prioritizr</title>
+<title>Add a <em>Gurobi</em> solver — add_gurobi_solver • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,11 +31,13 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Add a Gurobi solver — add_gurobi_solver" />
+<meta property="og:title" content="Add a <em>Gurobi</em> solver — add_gurobi_solver" />
 
 <meta property="og:description" content="Specify that the Gurobi software should be used to solve a
 conservation planning problem. This function can also be used to
 customize the behavior of the solver. It requires the gurobi package." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +80,7 @@ customize the behavior of the solver. It requires the gurobi package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -150,7 +152,7 @@ customize the behavior of the solver. It requires the gurobi package." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add a Gurobi solver</h1>
+    <h1>Add a <em>Gurobi</em> solver</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_gurobi_solver.R'><code>R/add_gurobi_solver.R</code></a></small>
     <div class="hidden name"><code>add_gurobi_solver.Rd</code></div>
     </div>
@@ -159,7 +161,7 @@ customize the behavior of the solver. It requires the gurobi package." />
     
     <p>Specify that the <em>Gurobi</em> software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the <em>gurobi</em> package.</p>
+customize the behavior of the solver. It requires the <span class="pkg">gurobi</span> package.</p>
     
     </div>
 
@@ -176,7 +178,7 @@ customize the behavior of the solver. It requires the <em>gurobi</em> package.</
     <tr>
       <th>gap</th>
       <td><p><code>numeric</code> gap to optimality. This gap is relative when
-solving problems using <em>gurobi</em>, and will cause the optimizer to
+solving problems using <span class="pkg">gurobi</span>, and will cause the optimizer to
 terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
@@ -225,13 +227,13 @@ optimization problems?</p></td>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><a href='http://gurobi.com'>Gurobi</a> is a
+    <p><a href='http://gurobi.com'><em>Gurobi</em></a> is a
   state-of-the-art commercial optimization software with an R package
   interface. It is by far the fastest of the solvers available in this
   package, however, it is also the only solver that is not freely
   available. That said, licenses are available to academics at no cost. The
-  <em>gurobi</em> package is distributed with the Gurobi software suite.
-  This solver uses the <em>gurobi</em> package to solve problems.</p>
+  <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software suite.
+  This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -247,7 +249,7 @@ optimization problems?</p></td>
   <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
   <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># if the package is installed then add solver and generate solution</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"gurobi"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"gurobi"</span>)) {
   <span class='co'># specify solver and generate solution</span>
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_gurobi_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
              <span class='fu'>solve</span>()
@@ -255,7 +257,7 @@ optimization problems?</p></td>
   <span class='co'># plot solutions</span>
   <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>),
        <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]

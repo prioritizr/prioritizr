@@ -29,14 +29,10 @@ NULL
 #' m <- branch_matrix(sim_phylogeny)
 #'
 #' # plot data
-#' if (requireNamespace("ape", quietly = TRUE)) {
-#'   par(mfrow = c(1,2))
-#'   plot(sim_phylogeny, main = "phylogeny")
-#'   plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
-#'        box = FALSE)
-#' } else {
-#'   message("the \"ape\" package needs to be installed to plot phylogenies")
-#' }
+#' par(mfrow = c(1,2))
+#' plot(sim_phylogeny, main = "phylogeny")
+#' plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
+#'      box = FALSE)
 #'
 #' @export
 branch_matrix <- function(x) UseMethod("branch_matrix")

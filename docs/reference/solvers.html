@@ -36,6 +36,8 @@
 <meta property="og:description" content="Specify the software and configuration used to solve a conservation planning
 problem. By default, the best available
 software currently installed on the system will be used." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +80,7 @@ software currently installed on the system will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -171,27 +173,27 @@ software currently installed on the system will be used.</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code>add_default_solver</code></dt><dd><p>This solver uses the best software
     currently installed on the system.</p></dd>
-    <dt><code>add_gurobi_solver</code></dt><dd><p><a href='http://gurobi.com'>Gurobi</a> is
-    a state-of-the-art commercial optimization software with an R package
+    <dt><code>add_gurobi_solver</code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
+    is a state-of-the-art commercial optimization software with an R package
     interface. It is by far the fastest of the solvers available in this
     package, however, it is also the only solver that is not freely
     available. That said, licenses are available to academics at no cost. The
-    <em>gurobi</em> package is distributed with the Gurobi software suite.
-    This solver uses the <em>gurobi</em> package to solve problems.</p></dd>
+    <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software
+    suite. This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p></dd>
     <dt><code>add_rsymphony_solver</code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
     open-source integer programming solver that is part of the Computational
     Infrastructure for Operations Research (COIN-OR) project, an initiative
     to promote development of open-source tools for operations research (a
-    field that includes linear programming). The <em>Rsymphony</em> package
+    field that includes linear programming). The <span class="pkg">Rsymphony</span> package
     provides an interface to COIN-OR and is available on CRAN. This solver
-    uses the <em>Rsymphony</em> package to solve problems.</p></dd>
-    <dt><code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></code></dt><dd><p>The <em>lpsymphony</em> package
+    uses the <span class="pkg">Rsymphony</span> package to solve problems.</p></dd>
+    <dt><code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></code></dt><dd><p>The <span class="pkg">lpsymphony</span> package
     provides a different interface to the COIN-OR software suite. Unlike the
-    <em>Rsymhpony</em> package, the <em>lpsymphony</em> package is distributed
+    <span class="pkg">Rsymhpony</span> package, the <span class="pkg">lpsymphony</span> package is distributed
     through
     <a href='https://doi.org/doi:10.18129/B9.bioc.lpsymphony'>Bioconductor</a>.
-    The <em>lpsymphony</em> package may be easier to install on Windows or
-    Max OSX systems than the <em>Rsymphony</em> package.</p></dd>
+    The <span class="pkg">lpsymphony</span> package may be easier to install on Windows or
+    Max OSX systems than the <span class="pkg">Rsymphony</span> package.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -220,7 +222,7 @@ software currently installed on the system will be used.</p>
 
 <span class='co'># create problem with added rsymphony solver and limit the time spent</span>
 <span class='co'># searching for the optimal solution to 2 seconds</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"Rsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"Rsymphony"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (2s)"</span>)
   <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p1</span>))
@@ -228,14 +230,14 @@ software currently installed on the system will be used.</p>
 
 <span class='co'># create problem with added rsymphony solver and limit the time spent</span>
 <span class='co'># searching for the optimal solution to 5 seconds</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"Rsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"Rsymphony"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (5s)"</span>)
   <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p2</span>))
 }
 
 <span class='co'># if the gurobi is installed: create problem with added gurobi solver</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"gurobi"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"gurobi"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"gurobi (5s)"</span>)
   <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_gurobi_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p3</span>))
@@ -271,7 +273,7 @@ software currently installed on the system will be used.</p>
 <span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
 <span class='co'># note that this solver is skipped on Linux systems due to instability</span>
 <span class='co'># issues</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"lpsymphony"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;</span>
+<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"lpsymphony"</span>) <span class='kw'>&amp;</span>
     <span class='fu'>isTRUE</span>(<span class='fu'>Sys.info</span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"lpsymphony"</span>)
   <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)

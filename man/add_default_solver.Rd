@@ -15,9 +15,9 @@ add_default_solver(x, ...)
 Identify the best solver currently installed on the system and specify that
 it should be used to solve a conservation planning \code{\link{problem}}.
 Ranked from best to worst, the available solvers that can be used are:
-\emph{Gurobi}
+\pkg{gurobi}
 (\code{\link{add_gurobi_solver}}),
-\emph{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \emph{lpsymphony}
+\pkg{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \pkg{lpsymphony}
 (\code{\link{add_lpsymphony_solver}}).
 }
 \seealso{

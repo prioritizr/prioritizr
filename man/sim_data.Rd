@@ -160,11 +160,7 @@ plot(sim_pu_points, main = "planning units (points)")
 
 # plot example phylogeny data
 par(mfrow = c(1, 1))
-if (requireNamespace("ape", quietly = TRUE)) {
- ape::plot.phylo(sim_phylogeny, main = "simulated phylogeny")
-} else {
- message("the \\"ape\\" package needs to be installed to plot phylogenies")
-}
+ape::plot.phylo(sim_phylogeny, main = "simulated phylogeny")
 
 # plot example feature data
 par(mfrow = c(1, 1))

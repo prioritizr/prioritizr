@@ -3,7 +3,7 @@
 \name{add_gurobi_solver}
 \alias{add_gurobi_solver}
 \alias{add_gurobi_solver}
-\title{Add a Gurobi solver}
+\title{Add a \emph{Gurobi} solver}
 \usage{
 add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
   presolve = 2, threads = 1, first_feasible = 0, verbose = TRUE)
@@ -12,7 +12,7 @@ add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative when
-solving problems using \emph{gurobi}, and will cause the optimizer to
+solving problems using \pkg{gurobi}, and will cause the optimizer to
 terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
@@ -49,16 +49,16 @@ optimization problems?}
 \description{
 Specify that the \emph{Gurobi} software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the \emph{gurobi} package.
+customize the behavior of the solver. It requires the \pkg{gurobi} package.
 }
 \details{
-\href{http://gurobi.com}{Gurobi} is a
+\href{http://gurobi.com}{\emph{Gurobi}} is a
   state-of-the-art commercial optimization software with an R package
   interface. It is by far the fastest of the solvers available in this
   package, however, it is also the only solver that is not freely
   available. That said, licenses are available to academics at no cost. The
-  \emph{gurobi} package is distributed with the Gurobi software suite.
-  This solver uses the \emph{gurobi} package to solve problems.
+  \pkg{gurobi} package is distributed with the \emph{Gurobi} software suite.
+  This solver uses the \pkg{gurobi} package to solve problems.
 }
 \examples{
 # load data
@@ -71,7 +71,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
   add_binary_decisions()
 \donttest{
 # if the package is installed then add solver and generate solution
-if (requireNamespace("gurobi", quietly = TRUE)) {
+if (require("gurobi")) {
   # specify solver and generate solution
   s <- p \%>\% add_gurobi_solver(gap = 0.1, presolve = 2, time_limit = 5) \%>\%
              solve()

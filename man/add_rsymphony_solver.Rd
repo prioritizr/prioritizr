@@ -3,7 +3,7 @@
 \name{add_rsymphony_solver}
 \alias{add_rsymphony_solver}
 \alias{add_rsymphony_solver}
-\title{Add a SYMPHONY solver with Rsymphony}
+\title{Add a SYMPHONY solver with \pkg{Rsymphony}}
 \usage{
 add_rsymphony_solver(x, gap = 0.1, time_limit = -1, first_feasible = 0,
   verbose = TRUE)
@@ -37,18 +37,18 @@ optimization problems? Defaults to \code{TRUE}.}
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a
-conservation planning problem using the \emph{Rsymphony} package. This
+conservation planning problem using the \pkg{Rsymphony} package. This
 function can also be used to customize the behavior of the solver.
-It requires the \emph{Rsymphony} package.
+It requires the \pkg{Rsymphony} package.
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
   open-source integer programming solver that is part of the Computational
   Infrastructure for Operations Research (COIN-OR) project, an initiative
   to promote development of open-source tools for operations research (a
-  field that includes linear programming). The \code{Rsymphony} package
+  field that includes linear programming). The \pkg{Rsymphony} package
   provides an interface to COIN-OR and is available on \emph{CRAN}.
-  This solver uses the \code{Rsymphony} package to solve problems.
+  This solver uses the \pkg{Rsymphony} package to solve problems.
 }
 \examples{
 # load data
@@ -61,7 +61,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
   add_binary_decisions()
 \donttest{
 # if the package is installed then add solver and generate solution
-if (requireNamespace("Rsymphony", quietly = TRUE)) {
+if (require("Rsymphony")) {
   # specify solver and generate solution
   s <- p \%>\% add_rsymphony_solver(time_limit = 10) \%>\%
              solve()

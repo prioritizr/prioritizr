@@ -3,7 +3,7 @@
 \name{add_lsymphony_solver}
 \alias{add_lsymphony_solver}
 \alias{add_lpsymphony_solver}
-\title{Add a SYMPHONY solver with lpsymphony}
+\title{Add a SYMPHONY solver with \pkg{lpsymphony}}
 \usage{
 add_lpsymphony_solver(x, gap = 0.1, time_limit = -1, first_feasible = 0,
   verbose = TRUE)
@@ -37,21 +37,21 @@ optimization problems? Defaults to \code{TRUE}.}
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a
-conservation planning problem using the \emph{lpsymhpony} package. This
+conservation planning problem using the \pkg{lpsymhpony} package. This
 function can also be used to customize the behavior of the solver.
-It requires the \emph{lpsymphony} package.
+It requires the \pkg{lpsymphony} package.
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
   open-source integer programming solver that is part of the Computational
   Infrastructure for Operations Research (COIN-OR) project, an initiative
   to promote development of open-source tools for operations research (a
-  field that includes linear programming). The \emph{lpsymphony} package is
+  field that includes linear programming). The \pkg{lpsymphony} package is
   distributed through
   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-  This functionality is provided because the \emph{lpsymphony} package may
+  This functionality is provided because the \pkg{lpsymphony} package may
   be easier to install to install on Windows and Mac OSX systems than the
-  \emph{Rsymphony} package.
+  \pkg{Rsymphony} package.
 }
 \examples{
 # load data

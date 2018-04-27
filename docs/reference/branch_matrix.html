@@ -40,6 +40,8 @@ both share that same period of evolutionary history. This function creates
 a matrix that shows which species are connected with branch. In other words,
 it creates a matrix that shows which periods of evolutionary history
 each species have experienced." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +84,7 @@ each species have experienced." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
       </span>
     </div>
 
@@ -203,14 +205,10 @@ each species have experienced.</p>
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'>branch_matrix</span>(<span class='no'>sim_phylogeny</span>)
 
 <span class='co'># plot data</span>
-<span class='kw'>if</span> (<span class='fu'>requireNamespace</span>(<span class='st'>"ape"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
-  <span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)
-  <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>m</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"branch matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-       <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-} <span class='kw'>else</span> {
-  <span class='fu'>message</span>(<span class='st'>"the \"ape\" package needs to be installed to plot phylogenies"</span>)
-}</div><div class='img'><img src='branch_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>,<span class='fl'>2</span>))
+<span class='fu'>plot</span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)
+<span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>m</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"branch matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='branch_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
