@@ -13,6 +13,17 @@ NULL
 #'   \code{\link[raster]{Raster-class}} object then it must have only one
 #'   layer.
 #'
+#' @param str_tree \code{logical} should a
+#'   \href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
+#'   to pre-process data? If \code{TRUE}, then the experimental
+#'   \code{\link[rgeos]{gUnarySTRtreeQuery}} function
+#'   will be used to pre-compute which planning units are adjacent to
+#'   each other and potentially reduce the processing time required to
+#'   generate the boundary matrices. This argument is only used when
+#'   the planning unit data are vector-based polygons (i.e.
+#'   \code{\link[sp]{SpatialPolygonsDataFrame}} objects). The default argument
+#'   is \code{FALSE}.
+#'
 #' @details This function returns a \code{\link[Matrix]{dsCMatrix-class}}
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
@@ -45,29 +56,37 @@ NULL
 #' bm_raster <- boundary_matrix(r)
 #'
 #' # create boundary matrix using polygon data
-#' bm_ply <- boundary_matrix(ply)
+#' bm_ply1 <- boundary_matrix(ply)
 #'
-#' # plot raster and connected matrix
+#' # create boundary matrix using polygon data and GEOS STR query trees
+#' # to speed up processing
+#' bm_ply2 <- boundary_matrix(ply, TRUE)
+#'
+#' # plot raster and boundary matrix
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "raster", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
 #'      axes = FALSE, box = FALSE)
 #'
-#' # plot polygons and connected matrix
-#' par(mfrow = c(1, 2))
+#' # plot polygons and boundary matrices
+#' par(mfrow = c(1, 3))
 #' plot(r, main = "polygons", axes = FALSE, box = FALSE)
-#' plot(raster(as.matrix(bm_ply)), main = "boundary matrix", axes = FALSE,
+#' plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
 #'      box = FALSE)
+#' plot(raster(as.matrix(bm_ply2)), main = "boundary matrix (STR)",
+#'             axes = FALSE, box = FALSE)
 #'
 #' @export
-boundary_matrix <- function(x) UseMethod("boundary_matrix")
+boundary_matrix <- function(x, str_tree) UseMethod("boundary_matrix")
 
 #' @rdname boundary_matrix
 #' @method boundary_matrix Raster
 #' @export
-boundary_matrix.Raster <- function(x) {
+boundary_matrix.Raster <- function(x, str_tree = FALSE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "Raster"))
+  assertthat::assert_that(inherits(x, "Raster"),
+                          assertthat::is.flag(str_tree),
+                          !str_tree)
   if (raster::nlayers(x) == 1) {
     # indices of cells with finite values
     include <- raster::Which(is.finite(x), cells = TRUE)
@@ -108,11 +127,20 @@ boundary_matrix.Raster <- function(x) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialPolygons
 #' @export
-boundary_matrix.SpatialPolygons <- function(x) {
+boundary_matrix.SpatialPolygons <- function(x, str_tree = FALSE) {
   # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "SpatialPolygons"))
+  assertthat::assert_that(inherits(x, "SpatialPolygons"),
+                          assertthat::is.flag(str_tree))
+  # pre-process str tree if needed
+  strm <- Matrix::sparseMatrix(i = 1, j = 1, x = 1)
+  if (str_tree) {
+    strm <- rcpp_str_tree_to_sparse_matrix(rgeos::gUnarySTRtreeQuery(x))
+    strm <- do.call(Matrix::sparseMatrix, strm)
+    strm <- Matrix::forceSymmetric(strm, uplo = "U")
+  }
   # calculate boundary data
-  y <- rcpp_boundary_data(rcpp_sp_to_polyset(x@polygons, "Polygons"))$data
+  y <- rcpp_boundary_data(rcpp_sp_to_polyset(x@polygons, "Polygons"),
+                          strm, str_tree)$data
   # show warnings generated if any
   if (length(y$warnings) > 0)
     vapply(y$warnings, warning, character(1))
@@ -124,7 +152,7 @@ boundary_matrix.SpatialPolygons <- function(x) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialLines
 #' @export
-boundary_matrix.SpatialLines <- function(x) {
+boundary_matrix.SpatialLines <- function(x, str_tree = FALSE) {
   assertthat::assert_that(inherits(x, "SpatialLines"))
   stop("data represented by lines have no boundaries - ",
     "see ?constraints for alternative constraints")
@@ -133,7 +161,7 @@ boundary_matrix.SpatialLines <- function(x) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix SpatialPoints
 #' @export
-boundary_matrix.SpatialPoints <- function(x) {
+boundary_matrix.SpatialPoints <- function(x, str_tree = FALSE) {
   assertthat::assert_that(inherits(x, "SpatialPoints"))
   stop("data represented by points have no boundaries - ",
     "see ?constraints alternative constraints")
@@ -142,6 +170,6 @@ boundary_matrix.SpatialPoints <- function(x) {
 #' @rdname boundary_matrix
 #' @method boundary_matrix default
 #' @export
-boundary_matrix.default <- function(x) {
+boundary_matrix.default <- function(x, str_tree = FALSE) {
   stop("data are not stored in a spatial format")
 }
