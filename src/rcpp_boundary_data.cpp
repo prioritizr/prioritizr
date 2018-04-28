@@ -65,23 +65,30 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
     Rcpp::IntegerVector curr_adjacent_units;
     std::size_t curr_i;
     std::size_t curr_j;
+    std::size_t curr_i_start;
     std::size_t curr_j_start;
     std::size_t curr_i_vertex;
     std::size_t curr_j_vertex;
     if (str_tree) {
+      // add a fake non-existant PID to the ensure that the while loops
+      // terminate when we access non-existant elements in the PID vector
+      PID.push_back(std::numeric_limits<std::size_t>::infinity());
       for (arma::sp_mat::const_iterator it = strm.begin();
            it != strm.end(); ++it) {
         // extract planning unit indices
         curr_i = it.row() + 1;
         curr_j = it.col() + 1;
         // find starting indices
-        curr_i_vertex = (std::find(PID.cbegin(), PID.cend(), curr_i) -
+        curr_i_start = (std::find(PID.cbegin(), PID.cend(), curr_i) -
                          PID.cbegin()) + 1;
         curr_j_start = (std::find(PID.cbegin(), PID.cend(), curr_j) -
                         PID.cbegin());
+        // set starting indices
+        curr_i_vertex = curr_i_start;
+        curr_j_vertex = curr_j_start;
         // iterate over each vertex in i'th unit
         while (PID[curr_i_vertex] == curr_i) {
-          // set the current index for the vertices in the j'th unit
+          // reset j'th unit
           curr_j_vertex = curr_j_start;
           // iterate over each vertex in j'th unit
           while (PID[curr_j_vertex] == curr_j) {
@@ -92,11 +99,15 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
                            Y[curr_i_vertex - 1],
                            X[curr_j_vertex],
                            Y[curr_j_vertex])) {
+              // insert vertex
               PID.insert(PID.begin() + curr_i_vertex , PID[curr_i_vertex]);
               X.insert(X.begin() + curr_i_vertex, X[curr_j_vertex]);
               Y.insert(Y.begin() + curr_i_vertex, Y[curr_j_vertex]);
+              // increment i/j start vertices if needed
               if (curr_j_start > curr_i_vertex)
                 ++curr_j_start;
+              // reset i'th vertex
+              curr_i_vertex = curr_i_start;
             }
             // increment j'th vertex
             ++curr_j_vertex;
@@ -105,6 +116,8 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
           ++curr_i_vertex;
         }
       }
+      // remove last PID element from PID
+      PID.pop_back();
     }
   }
 
@@ -205,10 +218,10 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
   }
 
   //// exports
-  return(
-    Rcpp::List::create(
-      Rcpp::Named("data") = Rcpp::DataFrame::create(Named("id1")=puid0, Named("id2")=puid1, Named("boundary")=length),
-      Rcpp::Named("warnings")=warnings
-    )
-  );
+  return Rcpp::List::create(
+      Rcpp::Named("data") = Rcpp::DataFrame::create(
+        Rcpp::Named("id1") = puid0,
+        Rcpp::Named("id2") = puid1,
+        Rcpp::Named("boundary") = length),
+      Rcpp::Named("warnings") = warnings);
 }

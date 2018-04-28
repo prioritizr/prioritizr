@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.5</span>
       </span>
     </div>
 
@@ -152,6 +152,15 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-0-0-5" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-0-0-5" class="anchor"></a>prioritizr 4.0.0.5<small> Unreleased </small>
+</h1>
+<ul>
+<li>The <code>boundary_matrix</code> function now has the experimental functionality to use GEOS STR trees to speed up processing (<a href='https://github.com/prioritizr/prioritizr/issues/74'>#74</a>).</li>
+<li>Solutions obtained from <em>Gurobi</em> that contain binary-type decisions are explicitly rounded to the nearest integer. This is because <em>Gurobi</em> can output solutions to binary problems that contain values which not exactly zero or one (e.g. 0.9999997 using default settings; <a href='https://github.com/prioritizr/prioritizr/issues/78'>#78</a>).</li>
+</ul>
+</div>
     <div id="prioritizr-4-0-0-4" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-0-0-4" class="anchor"></a>prioritizr 4.0.0.4<small> Unreleased </small>
@@ -700,6 +709,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-0-0-5">4.0.0.5</a></li>
         <li><a href="#prioritizr-4-0-0-4">4.0.0.4</a></li>
         <li><a href="#prioritizr-4-0-0-3">4.0.0.3</a></li>
         <li><a href="#prioritizr-4-0-0-2">4.0.0.2</a></li>

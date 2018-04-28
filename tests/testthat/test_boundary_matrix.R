@@ -113,9 +113,10 @@ test_that("SpatialPolygons (vertices not aligned)", {
   expect_true(inherits(b1, "dsCMatrix"))
   expect_true(abs(min(b1 - s)) < 1e-8)
   # ensure that boundary calculations repeatedly give the correct answer,
-  # in previous versions a divide by zero bug caused boundary_matrix to give the
-  # incorrect result approx. one in five runs
-  for (i in seq_len(200)) {
+  # in a previous version the STR method attempted to access a
+  # non-existent element in an array causing an incorrect result
+  # in approx. one in five runs
+  for (i in seq_len(2000)) {
     b2 <- boundary_matrix(x, TRUE)
     expect_true(inherits(b2, "dsCMatrix"))
     expect_true(abs(min(b2 - s)) < 1e-8)

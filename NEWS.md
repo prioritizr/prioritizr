@@ -1,3 +1,12 @@
+# prioritizr 4.0.0.5
+
+- The `boundary_matrix` function now has the experimental functionality to
+  use GEOS STR trees to speed up processing (#74).
+- Solutions obtained from _Gurobi_ that contain binary-type decisions are
+  explicitly rounded to the nearest integer. This is because _Gurobi_ can output
+  solutions to binary problems that contain values which not exactly zero or
+  one (e.g. 0.9999997 using default settings; #78).
+
 # prioritizr 4.0.0.4
 
 - New `feature_representation` function to how well features are represented in
