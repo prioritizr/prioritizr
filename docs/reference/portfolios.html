@@ -210,10 +210,10 @@ near-optimal solutions can be a useful.</p>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_cuts_portfolio</span>(<span class='fl'>4</span>)
 
 <span class='co'># create problem with shuffle portfolio</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_shuffle_portfolio</span>(<span class='fl'>4</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_shuffle_portfolio</span>(<span class='fl'>4</span>)</div><div class='input'><span class='co'># create problem with pool portfolio</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_pool_portfolio</span>()
 
-<span class='co'># create problem with pool portfolio</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_pool_portfolio</span>()</div><div class='input'><span class='co'># solve problems and create solution portfolios</span>
+<span class='co'># solve problems and create solution portfolios</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>))
 
 <span class='co'># plot solutions from cuts portfolio</span>

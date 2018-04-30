@@ -34,6 +34,7 @@ set.seed(500)
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 
+\donttest{
 # create minimal problem with pool portfolio
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
@@ -41,7 +42,6 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_pool_portfolio() \%>\%
       add_default_solver(gap = 0.02, verbose = FALSE)
 
-\donttest{
 # solve problem
 s1 <- solve(p1)
 
@@ -50,7 +50,7 @@ print(length(s1))
 
 # plot solutions
 plot(stack(s1), axes = FALSE, box = FALSE)
-}
+
 # build multi-zone conservation problem with pool portfolio
 p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
@@ -60,7 +60,6 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_pool_portfolio() \%>\%
       add_default_solver(gap = 0.02, verbose = FALSE)
 
-\donttest{
 # solve the problem
 s2 <- solve(p2)
 

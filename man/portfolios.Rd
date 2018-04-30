@@ -51,10 +51,10 @@ p1 <- p \%>\% add_cuts_portfolio(4)
 # create problem with shuffle portfolio
 p2 <- p \%>\% add_shuffle_portfolio(4)
 
+\donttest{
 # create problem with pool portfolio
 p3 <- p \%>\% add_pool_portfolio()
 
-\donttest{
 # solve problems and create solution portfolios
 s <- list(solve(p1), solve(p2), solve(p3))
 
