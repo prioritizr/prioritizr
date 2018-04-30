@@ -1,6 +1,7 @@
 context("add_pool_portfolio")
 
 test_that("compile", {
+  skip_if_not_installed("gurobi")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
