@@ -115,7 +115,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                         upper_limit = parallel::detectCores(TRUE)),
       binary_parameter("first_feasible", first_feasible),
       binary_parameter("verbose", verbose)),
-    solve = function(self, x) {
+    solve = function(self, x, ...) {
+      # create problem
       model <- list(
         modelsense = x$modelsense(),
         vtype = x$vtype(),
@@ -125,6 +126,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         sense = x$sense(),
         lb = x$lb(),
         ub = x$ub())
+      # create parameters
       p <- list(LogToConsole = as.numeric(self$parameters$get("verbose")),
                 Presolve = self$parameters$get("presolve"),
                 MIPGap = self$parameters$get("gap"),
@@ -133,6 +135,10 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                 SolutionLimit = self$parameters$get("first_feasible"))
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL
+      # add extra parameters from portfolio if needed
+      p2 <- list(...)
+      if (length(p2) > 0)
+        p <- append(p, p2)
       # solve problem
       x <- gurobi::gurobi(model = model, params = p)
       # round binary variables because default precision is 1e-5
@@ -141,7 +147,17 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         x$x[b] <- round(x$x[b])
       # remove log
       if (file.exists("gurobi.log")) unlink("gurobi.log")
-      return(list(x = x$x, objective = x$objval, status = x$status,
-                  runtime = x$runtime))
+      # extract solutions
+      out <- list(x = x$x, objective = x$objval, status = x$status,
+                 runtime = x$runtime)
+      # add pool if required
+      if (!is.null(p$PoolSearchMode) && is.numeric(x$x) &&
+          isTRUE(length(x$pool) > 1)) {
+        out$pool <- x$pool[-1]
+        for (i in seq_len(length(out$pool)))
+          out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
+      }
+      # return solution
+      return(out)
     }))
 }

@@ -46,7 +46,7 @@ NULL
 #' # solve problem and generate 10 solutions within 20 % of optimality
 #' s1 <- solve(p1)
 #'
-#' # plot solution
+#' # plot solutions in portfolio
 #' plot(stack(s1), axes = FALSE, box = FALSE)
 #' }
 #' # build multi-zone conservation problem with cuts portfolio
@@ -65,8 +65,9 @@ NULL
 #' # print solution
 #' str(s2, max.level = 1)
 #'
-#' # plot first solution in portfolio
-#' plot(category_layer(s2[[1]]), main = "solution", axes = FALSE, box = FALSE)
+#' # plot solutions in portfolio
+#' plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
+#'      box = FALSE)
 #' }
 #' @name add_cuts_portfolio
 NULL
@@ -81,7 +82,7 @@ add_cuts_portfolio <- function(x, number_solutions = 10L) {
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           assertthat::is.count(number_solutions),
                           isTRUE(all(is.finite(number_solutions))))
-  # add solver
+  # add portfolio
   x$add_portfolio(pproto(
     "CutsPortfolio",
     Portfolio,

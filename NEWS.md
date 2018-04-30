@@ -1,3 +1,8 @@
+# prioritizr 4.0.0.6
+
+- New `add_pool_portfolio` function to generate a portfolio of solutions using
+  the _Gurobi_ solution pool (#77).
+
 # prioritizr 4.0.0.5
 
 - The `boundary_matrix` function now has the experimental functionality to

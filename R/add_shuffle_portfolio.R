@@ -44,7 +44,7 @@ NULL
 #' # solve problem and generate 10 solutions within 20 % of optimality
 #' s1 <- solve(p1)
 #'
-#' # plot solution
+#' # plot solutions in portfolio
 #' plot(stack(s1), axes = FALSE, box = FALSE)
 #' }
 #' # build multi-zone conservation problem with shuffle portfolio
@@ -63,8 +63,9 @@ NULL
 #' # print solution
 #' str(s2, max.level = 1)
 #'
-#' # plot first solution in portfolio
-#' plot(category_layer(s2[[1]]), main = "solution", axes = FALSE, box = FALSE)
+#' # plot solutions in portfolio
+#' plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
+#'      box = FALSE)
 #' }
 #' @name add_shuffle_portfolio
 NULL
@@ -84,7 +85,7 @@ add_shuffle_portfolio <- function(x, number_solutions = 10L, threads = 1L,
                           isTRUE(all(is.finite(threads))),
                           isTRUE(threads <= parallel::detectCores(TRUE)),
                           assertthat::is.flag(remove_duplicates))
-  # add solver
+  # add portfolio
   x$add_portfolio(pproto(
     "ShufflePortfolio",
     Portfolio,
