@@ -75,7 +75,9 @@ Portfolio <- pproto(
     self$print()
   },
   repr = function(self) {
-    paste(self$name, self$parameters$repr())
+    if (self$parameters$length() > 0)
+      return(paste(self$name, self$parameters$repr()))
+    return(self$name)
   },
   get_paramter = function(self, x) {
     self$parameters$get(x)

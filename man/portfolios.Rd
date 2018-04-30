@@ -21,8 +21,8 @@ All methods for generating portfolios will return solutions that
 
   \item{\code{add_default_portfolio}}{Generate a single solution.}
 
-  \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of solutions
-    using Bender's cuts.}
+  \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of distinct
+    solutions within a pre-specified optimality gap using Bender's cuts.}
 
   \item{\code{\link{add_pool_portfolio}}}{Generate a portfolio of solutions
     by extracting all the feasible solutions discovered during the
@@ -50,7 +50,6 @@ p1 <- p \%>\% add_cuts_portfolio(4)
 
 # create problem with shuffle portfolio
 p2 <- p \%>\% add_shuffle_portfolio(4)
-
 \donttest{
 # create problem with pool portfolio
 p3 <- p \%>\% add_pool_portfolio()

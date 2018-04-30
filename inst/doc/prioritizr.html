@@ -84,6 +84,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="#add-penalties">Add penalties</a></li>
 <li><a href="#add-the-decision-types">Add the decision types</a></li>
 <li><a href="#add-a-solver">Add a solver</a></li>
+<li><a href="#add-a-portfolio">Add a portfolio</a></li>
 <li><a href="#solve-the-problem">Solve the problem</a></li>
 <li><a href="#marxan-problems"><em>Marxan</em> problems</a></li>
 <li><a href="#interpreting-the-solutions">Interpreting the solutions</a></li>
@@ -911,18 +912,96 @@ p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   portfolio:      default
 ##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (-1), verbose (1)]</code></pre>
 </div>
+<div id="add-a-portfolio" class="section level3">
+<h3>Add a portfolio</h3>
+<p>Many conservation planning exercises require a portfolio of solutions. For example, real-world exercises can involve presenting decision makers with a range of near-optimal decisions. Additionally, the number of times that different planning units are selected in different solutions can provide insight into their relative importance.</p>
+<p>The following methods are available for generating a portfolio of solutions.</p>
+<ul>
+<li><strong>Cuts portfolio</strong>: Generate a portfolio of distinct solutions within a pre-specified optimality gap. If the <em>Gurobi</em> optimization solver is available for solving problems, this is by far the fastest method for generating a portfolio that contains a specific number of solutions that are all within a specified distance from optimality.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio containing 10 solutions</span>
+<span class="co"># should be created using using Bender's cuts</span>
+p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_cuts_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">10</span>)
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p28)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Cuts portfolio [number_solutions (10)]
+##   solver:         default</code></pre>
+<ul>
+<li><strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting all the feasible solutions discovered during the optimization process. This is the fastest method for generating a portfolio of solutions. However, it does not return a specified number of solutions and it does not provide any guarantees on the quality of the solutions. This method requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio should be created that</span>
+<span class="co"># contains all the feasible solutions encountered during the optimization</span>
+<span class="co"># process</span>
+p29 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_pool_portfolio</span>()
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p29)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Pool portfolio
+##   solver:         default</code></pre>
+<ul>
+<li><strong>Shuffle portfolio</strong>: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the <em>Gurobi</em> optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify a portfolio should be created that contains</span>
+<span class="co"># 10 solutions and that any duplicate solutions should not be removed</span>
+p30 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_shuffle_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">10</span>, <span class="dt">remove_duplicates =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p30)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Shuffle portfolio [number_solutions (10), remove_duplicates (0), threads (1)]
+##   solver:         default</code></pre>
+</div>
 <div id="solve-the-problem" class="section level3">
 <h3>Solve the problem</h3>
 <p>Finally, after formulating our conservation planning problem and specifying how the problem should be solved, we can use the <code>solve</code> function to obtain a solution. Note that the solver will typically print out some information describing the size of the problem and report its progress when searching for a suitable solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># formulate the problem</span>
-p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+p31 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_boundary_penalties</span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># solve the problem (using the default solver)</span>
-s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre></div>
+p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre></div>
 <pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
@@ -930,8 +1009,8 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.2
-## Found heuristic solution: objective 3087.96
+## Found heuristic solution: objective 20287.196992
+## Found heuristic solution: objective 3087.9617505
 ## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
@@ -945,38 +1024,38 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ## 
 ##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s
 ##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s
-## H    0     0                    3058.5354026 2325.53449  24.0%     -    0s
-##      0     0 2361.03063    0  223 3058.53540 2361.03063  22.8%     -    0s
-## H    0     0                    2998.8244712 2361.03063  21.3%     -    0s
-##      0     0 2372.59715    0  202 2998.82447 2372.59715  20.9%     -    0s
-## H    0     0                    2604.7426048 2372.59715  8.91%     -    0s
+## H    0     0                    2949.7553440 2325.53449  21.2%     -    0s
+##      0     0 2361.03063    0  223 2949.75534 2361.03063  20.0%     -    0s
+##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
+##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
+## H    0     0                    2604.7426048 2371.27288  8.96%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (320 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 5: 2604.74 2998.82 3058.54 ... 20287.2
+## Solution count 4: 2604.74 2949.76 3087.96 20287.2 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.372597148893e+03, gap 8.9124%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(s28, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="dt">main =</span> <span class="st">&quot;Solution&quot;</span>,
+## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(p31, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="dt">main =</span> <span class="st">&quot;Solution&quot;</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. <code>data.frame</code>), the solution would also be returned in a tabular format.</p>
 <p>We can also extract attributes from the solution that describe the quality of the solution and the optimization process.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">&quot;objective&quot;</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;objective&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##   2604.743</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">&quot;runtime&quot;</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;runtime&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
-## 0.09259796</code></pre>
+## 0.08400893</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">&quot;status&quot;</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;status&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##  &quot;OPTIMAL&quot;</code></pre>
 </div>
@@ -999,8 +1078,8 @@ mp &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(minput)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1035,8 +1114,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(<span c
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1045,13 +1124,13 @@ mp2 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(<span c
 <h3>Interpreting the solutions</h3>
 <p>After obtaining the solution to a conservation planning problem, it can be useful to calculate various summary statistics to describe its performance (such as solution cost). These statistics could be calculated using external software platforms such as <a href="https://www.arcgis.com/features/index.html">ArcGIS</a> or <a href="http://www.qgis.org/en/site/">QGIS</a>, but it is also possible to calculate these statistics within <em>R</em>. If you are dealing with raster planning unit data, and so your solutions are in raster format, the <code>cellStats</code>, <code>layerStats</code>, <code>extract</code>, and <code>zonal</code> functions from the <em>raster R</em> package can be useful for calculating summary statistics. Below we will create and solve a problem, and then calculate some statistics showcasing these functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># formulate the problem</span>
-p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+p32 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># solve the problem</span>
-s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre></div>
+p32 &lt;-<span class="st"> </span><span class="kw">solve</span>(p32)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -1059,7 +1138,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.96
+## Found heuristic solution: objective 2337.9617505
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -1074,7 +1153,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 ## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 1985.68 2337.96 
@@ -1082,13 +1161,13 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the number of selected planning units</span>
-<span class="kw">cellStats</span>(s27, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
+<span class="kw">cellStats</span>(p32, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
-<span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>s27, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
+<span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>p32, <span class="st">&quot;sum&quot;</span>)</code></pre></div>
 <pre><code>## [1] 1985.682</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
-r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, s27)
+r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, p32)
 <span class="kw">print</span>(r27)</code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held

@@ -33,7 +33,6 @@ set.seed(500)
 
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
-
 \donttest{
 # create minimal problem with pool portfolio
 p1 <- problem(sim_pu_raster, sim_features) \%>\%

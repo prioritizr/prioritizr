@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.7</span>
       </span>
     </div>
 
@@ -703,8 +703,8 @@ p17 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [10 locked units]
-##                    Locked in planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [10 locked units]
+##                    Locked out planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -976,19 +976,101 @@ p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   portfolio:      default
 ##   solver:         Lpsymphony [first_feasible (0), gap (0), time_limit (-1), verbose (1)]</code></pre>
 </div>
+<div id="add-a-portfolio" class="section level3">
+<h3 class="hasAnchor">
+<a href="#add-a-portfolio" class="anchor"></a>Add a portfolio</h3>
+<p>Many conservation planning exercises require a portfolio of solutions. For example, real-world exercises can involve presenting decision makers with a range of near-optimal decisions. Additionally, the number of times that different planning units are selected in different solutions can provide insight into their relative importance.</p>
+<p>The following methods are available for generating a portfolio of solutions.</p>
+<ul>
+<li>
+<strong>Cuts portfolio</strong>: Generate a portfolio of distinct solutions within a pre-specified optimality gap. If the <em>Gurobi</em> optimization solver is available for solving problems, this is by far the fastest method for generating a portfolio that contains a specific number of solutions that are all within a specified distance from optimality.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio containing 10 solutions</span>
+<span class="co"># should be created using using Bender's cuts</span>
+p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_cuts_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">10</span>)
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p28)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Cuts portfolio [number_solutions (10)]
+##   solver:         default</code></pre>
+<ul>
+<li>
+<strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting all the feasible solutions discovered during the optimization process. This is the fastest method for generating a portfolio of solutions. However, it does not return a specified number of solutions and it does not provide any guarantees on the quality of the solutions. This method requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio should be created that</span>
+<span class="co"># contains all the feasible solutions encountered during the optimization</span>
+<span class="co"># process</span>
+p29 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_pool_portfolio</span>()
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p29)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Pool portfolio
+##   solver:         default</code></pre>
+<ul>
+<li>
+<strong>Shuffle portfolio</strong>: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the <em>Gurobi</em> optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify a portfolio should be created that contains</span>
+<span class="co"># 10 solutions and that any duplicate solutions should not be removed</span>
+p30 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw">add_shuffle_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">10</span>, <span class="dt">remove_duplicates =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># print problem</span>
+<span class="kw">print</span>(p30)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (90 units)
+##   cost:           min: 190.13276, max: 215.86384
+##   features:       layer.1, layer.2, layer.3, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
+##   decisions:      Binary decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      Shuffle portfolio [number_solutions (10), remove_duplicates (0), threads (1)]
+##   solver:         default</code></pre>
+</div>
 <div id="solve-the-problem" class="section level3">
 <h3 class="hasAnchor">
 <a href="#solve-the-problem" class="anchor"></a>Solve the problem</h3>
 <p>Finally, after formulating our conservation planning problem and specifying how the problem should be solved, we can use the <code>solve</code> function to obtain a solution. Note that the solver will typically print out some information describing the size of the problem and report its progress when searching for a suitable solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># formulate the problem</span>
-p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+p31 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># solve the problem (using the default solver)</span>
-s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre></div>
+p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre></div>
 <pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
@@ -996,53 +1078,53 @@ s28 &lt;-<span class="st"> </span><span class="kw">solve</span>(p28)</code></pre
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.2
-## Found heuristic solution: objective 3087.96
+## Found heuristic solution: objective 20287.196992
+## Found heuristic solution: objective 3087.9617505
 ## Presolve time: 0.00s
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s
 ##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s
-## H    0     0                    3058.5354026 2325.53449  24.0%     -    0s
-##      0     0 2361.03063    0  223 3058.53540 2361.03063  22.8%     -    0s
-## H    0     0                    2998.8244712 2361.03063  21.3%     -    0s
-##      0     0 2372.59715    0  202 2998.82447 2372.59715  20.9%     -    0s
-## H    0     0                    2604.7426048 2372.59715  8.91%     -    0s
+## H    0     0                    2949.7553440 2325.53449  21.2%     -    0s
+##      0     0 2361.03063    0  223 2949.75534 2361.03063  20.0%     -    0s
+##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
+##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
+## H    0     0                    2604.7426048 2371.27288  8.96%     -    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (320 simplex iterations) in 0.10 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 5: 2604.74 2998.82 3058.54 ... 20287.2
+## Solution count 4: 2604.74 2949.76 3087.96 20287.2 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.372597148893e+03, gap 8.9124%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(s28, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
+## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(p31, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="prioritizr_files/figure-html/unnamed-chunk-33-1.png" width="336" style="display: block; margin: auto;"></p>
+<p><img src="prioritizr_files/figure-html/unnamed-chunk-36-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>We can plot this solution because the planning unit input data are spatially referenced in a raster format. The output format will always match the planning unit data used to initialize the problem. For example, the solution to a problem with planning units in a spatial vector (shapefile) format would also be in a spatial vector format. Similarly, if the planning units were in a tabular format (i.e. <code>data.frame</code>), the solution would also be returned in a tabular format.</p>
 <p>We can also extract attributes from the solution that describe the quality of the solution and the optimization process.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"objective"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">"objective"</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##   2604.743</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"runtime"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-## 0.09747601</code></pre>
+## 0.07851505</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
-<span class="kw">print</span>(<span class="kw">attr</span>(s28, <span class="st">"status"</span>))</code></pre></div>
+<span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
 ##  "OPTIMAL"</code></pre>
 </div>
@@ -1066,8 +1148,8 @@ mp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_p
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1113,13 +1195,13 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 <a href="#interpreting-the-solutions" class="anchor"></a>Interpreting the solutions</h3>
 <p>After obtaining the solution to a conservation planning problem, it can be useful to calculate various summary statistics to describe its performance (such as solution cost). These statistics could be calculated using external software platforms such as <a href="https://www.arcgis.com/features/index.html">ArcGIS</a> or <a href="http://www.qgis.org/en/site/">QGIS</a>, but it is also possible to calculate these statistics within <em>R</em>. If you are dealing with raster planning unit data, and so your solutions are in raster format, the <code>cellStats</code>, <code>layerStats</code>, <code>extract</code>, and <code>zonal</code> functions from the <em>raster R</em> package can be useful for calculating summary statistics. Below we will create and solve a problem, and then calculate some statistics showcasing these functions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># formulate the problem</span>
-p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+p32 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>()
 
 <span class="co"># solve the problem</span>
-s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre></div>
+p32 &lt;-<span class="st"> </span><span class="kw">solve</span>(p32)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -1127,7 +1209,7 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.96
+## Found heuristic solution: objective 2337.9617505
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -1150,13 +1232,13 @@ s27 &lt;-<span class="st"> </span><span class="kw">solve</span>(p27)</code></pre
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the number of selected planning units</span>
-<span class="kw">cellStats</span>(s27, <span class="st">"sum"</span>)</code></pre></div>
+<span class="kw">cellStats</span>(p32, <span class="st">"sum"</span>)</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
-<span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>s27, <span class="st">"sum"</span>)</code></pre></div>
+<span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>p32, <span class="st">"sum"</span>)</code></pre></div>
 <pre><code>## [1] 1985.682</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
-r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, s27)
+r27 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p27, p32)
 <span class="kw">print</span>(r27)</code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held

@@ -154,8 +154,12 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       if (!is.null(p$PoolSearchMode) && is.numeric(x$x) &&
           isTRUE(length(x$pool) > 1)) {
         out$pool <- x$pool[-1]
-        for (i in seq_len(length(out$pool)))
+        for (i in seq_len(length(out$pool))) {
           out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
+          out$pool[[i]]$status <- ifelse(abs(out$pool[[i]]$objval -
+                                             x$objval) < 1e-5,
+                                         "OPTIMAL", "SUBOPTIMAL")
+        }
       }
       # return solution
       return(out)

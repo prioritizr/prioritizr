@@ -97,7 +97,7 @@ add_pool_portfolio <- function(x) {
         sol <- append(list(sol[-5]),
                       lapply(sol$pool,
                              function(z) list(x = z$xn, objective = z$objval,
-                                              status = "SUBOPTIMAL",
+                                              status = z$status,
                                               runtime = sol$runtime)))
       } else {
        sol <- list(sol)

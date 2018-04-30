@@ -19,8 +19,8 @@ NULL
 #'
 #'   \item{\code{add_default_portfolio}}{Generate a single solution.}
 #'
-#'   \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of solutions
-#'     using Bender's cuts.}
+#'   \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of distinct
+#'     solutions within a pre-specified optimality gap using Bender's cuts.}
 #'
 #'   \item{\code{\link{add_pool_portfolio}}}{Generate a portfolio of solutions
 #'     by extracting all the feasible solutions discovered during the

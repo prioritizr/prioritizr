@@ -553,21 +553,68 @@ p27 <- problem(sim_pu_raster, sim_features) %>%
 print(p27)
 ```
 
+### Add a portfolio
+
+Many conservation planning exercises require a portfolio of solutions. For example, real-world exercises can involve presenting decision makers with a range of near-optimal decisions. Additionally, the number of times that different planning units are selected in different solutions can provide insight into their relative importance.
+
+The following methods are available for generating a portfolio of solutions.
+
+* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. If the _Gurobi_ optimization solver is available for solving problems, this is by far the fastest method for generating a portfolio that contains a specific number of solutions that are all within a specified distance from optimality.
+```{r}
+# create a problem and specify that a portfolio containing 10 solutions
+# should be created using using Bender's cuts
+p28 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_cuts_portfolio(number_solutions = 10)
+
+# print problem
+print(p28)
+```
+* __Pool portfolio__: Generate a portfolio of solutions by extracting all the feasible solutions discovered during the optimization process. This is the fastest method for generating a portfolio of solutions. However, it does not return a specified number of solutions and it does not provide any guarantees on the quality of the solutions. This method requires that the _Gurobi_ optimization solver to be specified for solving problems.
+```{r}
+# create a problem and specify that a portfolio should be created that
+# contains all the feasible solutions encountered during the optimization
+# process
+p29 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_pool_portfolio()
+
+# print problem
+print(p29)
+```
+* __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
+```{r}
+# create a problem and specify a portfolio should be created that contains
+# 10 solutions and that any duplicate solutions should not be removed
+p30 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
+
+# print problem
+print(p30)
+```
+
 ### Solve the problem
 
 Finally, after formulating our conservation planning problem and specifying how the problem should be solved, we can use the `solve` function to obtain a solution. Note that the solver will typically print out some information describing the size of the problem and report its progress when searching for a suitable solution.
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p28 <- problem(sim_pu_raster, sim_features) %>%
+p31 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
        add_binary_decisions()
 
 # solve the problem (using the default solver)
-s28 <- solve(p28)
-plot(s28, col = c("grey90", "darkgreen"), main = "Solution",
+p31 <- solve(p31)
+plot(p31, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -577,14 +624,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(s28, "objective"))
+print(attr(p31, "objective"))
 
 # extract time spent solving solution
-print(attr(s28, "runtime"))
+print(attr(p31, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(s28, "status"))
+print(attr(p31, "status"))
 ```
 
 ### _Marxan_ problems
@@ -639,22 +686,22 @@ After obtaining the solution to a conservation planning problem, it can be usefu
 
 ```{r}
 # formulate the problem
-p27 <- problem(sim_pu_raster, sim_features) %>%
+p32 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # solve the problem
-s27 <- solve(p27)
+p32 <- solve(p32)
 
 # calculate the number of selected planning units
-cellStats(s27, "sum")
+cellStats(p32, "sum")
 
 # calculate the cost of the solution
-cellStats(sim_pu_raster * s27, "sum")
+cellStats(sim_pu_raster * p32, "sum")
 
 # calculate how well features are represented in the solution
-r27 <- feature_representation(p27, s27)
+r27 <- feature_representation(p27, p32)
 print(r27)
 ```
 

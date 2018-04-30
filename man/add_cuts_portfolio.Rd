@@ -27,7 +27,11 @@ This strategy for generating a portfolio of solutions involves
   solving the problem multiple times and adding additional constraints
   to forbid previously obtained solutions. In general, this strategy is most
   useful when problems take a long time to solve and benefit from
-  having multiple threads allocated for solving an individual problem.
+  having multiple threads allocated for solving an individual problem. If
+  version 8.0.0 (or greater) of the \code{Gurobi} optimization software is
+  used to solve the problems, then the solutions are obtained from the
+  solution pool using the pool search mode designed to find different
+  solutions (i.e. 2; see \url{http://www.gurobi.com/documentation/8.0/refman/poolsearchmode.html#parameter:PoolSearchMode}).
 }
 \examples{
 # set seed for reproducibility

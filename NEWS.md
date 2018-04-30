@@ -1,3 +1,9 @@
+# prioritizr 4.0.0.7
+
+- The `add_cuts_portfolio` function uses the _Gurobi_ solution pool to generate
+  unique solutions within a specified gap of optimality when tasked with
+  solving problems with _Gurobi_ (version 8.0.0+; #80).
+
 # prioritizr 4.0.0.6
 
 - New `add_pool_portfolio` function to generate a portfolio of solutions using

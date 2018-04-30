@@ -16,7 +16,11 @@ NULL
 #'   solving the problem multiple times and adding additional constraints
 #'   to forbid previously obtained solutions. In general, this strategy is most
 #'   useful when problems take a long time to solve and benefit from
-#'   having multiple threads allocated for solving an individual problem.
+#'   having multiple threads allocated for solving an individual problem. If
+#'   version 8.0.0 (or greater) of the \code{Gurobi} optimization software is
+#'   used to solve the problems, then the solutions are obtained from the
+#'   solution pool using the pool search mode designed to find different
+#'   solutions (i.e. 2; see \url{http://www.gurobi.com/documentation/8.0/refman/poolsearchmode.html#parameter:PoolSearchMode}).
 #'
 #' @seealso \code{\link{portfolios}}.
 #'
@@ -91,26 +95,50 @@ add_cuts_portfolio <- function(x, number_solutions = 10L) {
       integer_parameter("number_solutions", number_solutions,
                         lower_limit = 1L)),
     run = function(self, x, solver) {
-      ## attempt initial solution for problem
-      sol <- solver$solve(x)
-      # if solving the problem failed then return NULL
-      if (is.null(sol))
-        return(sol)
-      ## generate additional solutions
-      sol <- list(sol)
-      for (i in seq_len(self$parameters$get("number_solutions") - 1) + 1) {
-        # add cuts
-        rcpp_forbid_solution(x$ptr, sol[[i - 1]][[1]])
-        # solve solution
-        curr_sol <- solver$solve(x)
-        # if contains valid solution then
-        if(!is.null(curr_sol$x)) {
-          sol[[i]] <- curr_sol
+      ## extract number of solutions
+      n <- self$parameters$get("number_solutions")
+      if (inherits(solver, "GurobiSolver") &&
+          requireNamespace("gurobi", quietly = TRUE) &&
+          utils::packageVersion("gurobi") >= as.package_version("8.0.0")) {
+        ## generate portfolio using gurobi solution pool
+        sol <- solver$solve(x, PoolSearchMode = 2, PoolSolutions = n)
+        ## compile results
+        if (!is.null(sol$pool)) {
+          sol <- append(list(sol[-5]),
+                        lapply(sol$pool,
+                               function(z) list(x = z$xn, objective = z$objval,
+                                                status = z$status,
+                                                runtime = sol$runtime)))
         } else {
-          if ((i + 1) < self$parameters$get("number_solutions"))
-            warning(paste("there are only", length(sol),
-                          "feasible solutions within the optimality gap"))
-          break()
+         sol <- list(sol)
+        }
+        ## throw warning if number of solutions not equal to desired number
+        if (length(sol) < n) {
+          warning(paste("there are only", length(sol),
+                        "feasible solutions within the optimality gap"))
+        }
+      } else {
+        ## generate portfolio by explicitly adding bender's cut
+        ### if solving the problem failed then return NULL
+        sol <- solver$solve(x)
+        if (is.null(sol))
+          return(sol)
+        ### generate additional solutions
+        sol <- list(sol)
+        for (i in seq_len(n - 1) + 1) {
+          #### add cuts
+          rcpp_forbid_solution(x$ptr, sol[[i - 1]][[1]])
+          #### solve solution
+          curr_sol <- solver$solve(x)
+          #### if contains valid solution then
+          if(!is.null(curr_sol$x)) {
+            sol[[i]] <- curr_sol
+          } else {
+            if ((i + 1) < self$parameters$get("number_solutions"))
+              warning(paste("there are only", length(sol),
+                            "feasible solutions within the optimality gap"))
+            break()
+          }
         }
       }
       ## compile results

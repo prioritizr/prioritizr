@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2018-04-26" />
+<meta name="date" content="2018-04-30" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2018-04-26</em></h4>
+<h4 class="date"><em>2018-04-30</em></h4>
 
 
 <div id="TOC">
@@ -161,15 +161,14 @@ model<span class="op">$</span>A          &lt;-<span class="st"> </span><span cla
 
 <span class="co"># solve the optimization problem using Gurobi</span>
 result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span class="kw">list</span>())</code></pre></div>
-<pre><code>## Warning for adding variables: zero or small (&lt; 1e-13) coefficients, ignored
-## Optimize a model with 2 rows, 3 columns and 5 nonzeros
+<pre><code>## Optimize a model with 2 rows, 3 columns and 5 nonzeros
 ## Variable types: 0 continuous, 3 integer (3 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 3e+00]
 ##   Objective range  [1e+00, 2e+00]
-##   Bounds range     [1e+00, 1e+00]
+##   Bounds range     [0e+00, 0e+00]
 ##   RHS range        [1e+00, 4e+00]
-## Found heuristic solution: objective 2
+## Found heuristic solution: objective 2.0000000
 ## Presolve removed 2 rows and 3 columns
 ## Presolve time: 0.00s
 ## Presolve: All rows and columns removed
@@ -209,7 +208,7 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.96
+## Found heuristic solution: objective 2337.9617505
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
