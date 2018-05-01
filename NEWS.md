@@ -1,3 +1,10 @@
+# prioritizr 4.0.0.8
+
+- Add instructions for setting up the _Gurobi_ Academic license on a computer
+  that it is not connected to a university computer network using a computer
+  that is on an academic network (#81). For example, these instructions could be
+  used to set up _Gurobi_ on a cloud-based system using a laptop computer that is connected a university's wireless network.
+
 # prioritizr 4.0.0.7
 
 - The `add_cuts_portfolio` function uses the _Gurobi_ solution pool to generate
