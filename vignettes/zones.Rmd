@@ -29,6 +29,9 @@ The aim of this vignette is to showcase the zones functionality of the _prioriti
 
 ## Usage
 
+
+### Simple minimum set problem
+
 In the _prioritizr R_ package, all conservation planning problems---including those which contain multiple management zones or actions---are initialized using the `problem` function. To refresh our memory on how we can construct problems using the _prioritizr R_ package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.
 
 ```{r}
@@ -60,6 +63,8 @@ print(r1)
 # plot solution
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
 ```
+
+### Adding management zones
 
 Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.
 
@@ -110,9 +115,15 @@ print(r2)
 
 # plot solution
 # here we use the category layer function to generate raster showing the zone
-# that each planning unit was allocated (1 = "zone 1"; 2 = "zone 2")
+# that each planning unit was allocated. Specifically, pixels with the
+# value 1 are allocated to "zone 1" and pixels with the value 2 are allocated
+# to "zone 2". Thus units depicted in gray are not allocated
+# to any zone, units depicted in yellow are allocated to zone 1, and units
+# depicted in green are allocated to zone 2
 plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 ```
+
+### Multiple zones with varying costs
 
 Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.
 
@@ -145,6 +156,8 @@ print(r3)
 # plot solution
 plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 ```
+
+### Multiple zones with complex targets
 
 So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren't meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It's important to note that unlike the previous examples, here we don't have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don't really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.
 
@@ -191,6 +204,8 @@ print(r4)
 plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
 ```
 
+### Multiple zones with extra constraints
+
 So it looks like baiting is the way to go! Except that we might recall that we can't use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.
 
 ```{r}
@@ -225,6 +240,8 @@ print(r5)
 # plot solution
 plot(category_layer(s5), main = "solution", axes = FALSE, box = FALSE)
 ```
+
+### Multiple zones with fragmentation penalties
 
 So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.
 
