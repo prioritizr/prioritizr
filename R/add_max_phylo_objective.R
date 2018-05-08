@@ -60,15 +60,15 @@ NULL
 #'   (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
 #'   indexed by \eqn{j}{j}) as:
 #'
-#'   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i +
+#'   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
 #'   \sum_{j = 1}^{J} m_b l_b \\
 #'   \mathit{subject \space to} \\
 #'   \sum_{i = 1}^{I} x_i r_{ij} >= y_j t_j \forall j \in J \\
 #'   m_b <= y_j \forall j \in T(b) \\
 #'   \sum_{i = 1}^{I} x_i c_i \leq B}{
-#'   Maximize sum_i^I (-s * ci) + sum_j^J (mb * lb) subject to sum_i^I (xi *
-#'   rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) & sum_i^I
-#'   (xi * ci) <= B}
+#'   Maximize sum_i^I (-s * ci * xi) + sum_j^J (mb * lb) subject to sum_i^I
+#'   (xi * rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) &
+#'   sum_i^I (xi * ci) <= B}
 #'
 #'   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not

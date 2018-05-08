@@ -43,11 +43,11 @@ A problem objective is used to specify the overall goal of the
   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
-  \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i +
+  \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} a_j w_j \\
   \mathit{subject \space to} \\ a_j = \sum_{i = 1}^{I} x_i r_{ij} \space
   \forall j \in J \\ \sum_{i = 1}^{I} x_i c_i \leq B}{
-  Maximize sum_i^I (-s * ci) + sum_j^J (aj * wj) subject to
+  Maximize sum_i^I (-s * ci * xi) + sum_j^J (aj * wj) subject to
   aj = sum_i^I (xi * rij) for all j in J & sum_i^I (xi * ci) <= B}
 
   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.

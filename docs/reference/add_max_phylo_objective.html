@@ -41,6 +41,8 @@ that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues et al.
 (2002)." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +85,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.11</span>
       </span>
     </div>
 
@@ -238,7 +240,7 @@ for the conservation features.</p></td>
   problem can be expressed mathematically for a set of planning units
   (\(I\) indexed by \(i\)) and a set of features (\(J\)
   indexed by \(j\)) as:</p>
-<p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i +
+<p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} m_b l_b \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} &gt;= y_j t_j \forall j \in J \\
@@ -277,8 +279,12 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
-<span class='fu'>require</span>(<span class='no'>ape</span>)
-
+<span class='fu'>require</span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: ape</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ü¾Œ¦”¼ü¾Œƒ ¼ü¾Žƒ¤¼apeü¾Œ¦”¼ü¾Œƒ ¼ü¾Ž“¤¼</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ü¾Œ¦”¼ü¾Œƒ ¼ü¾Žƒ¤¼package:prioritizrü¾Œ¦”¼ü¾Œƒ ¼ü¾Ž“¤¼:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    rotate, zoom</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ü¾Œ¦”¼ü¾Œƒ ¼ü¾Žƒ¤¼package:rasterü¾Œ¦”¼ü¾Œƒ ¼ü¾Ž“¤¼:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    rotate, zoom</span></div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
      <span class='no'>sim_features_zones</span>)
@@ -322,19 +328,20 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
 #&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
 #&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; *    7     3               4       2.7445310    3.44216  25.4%   8.1    0s
+#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
+#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 14 nodes (123 simplex iterations) in 0.04 seconds
+#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2.74453 2.15529 -0 
+#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744530961024e+00, best bound 2.744530961024e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_objective-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -387,7 +394,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;      0     0    4.15859    0    1   -0.00000    4.15859      -     -    0s
 #&gt; H    0     0                       4.1585876    4.15859  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4.15859 -0 
@@ -424,13 +431,13 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
 #&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.326504e+00, 97 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 4.326504e+00, 97 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -438,7 +445,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;      0     0    4.32650    0    6   -0.00000    4.32650      -     -    0s
 #&gt; H    0     0                       4.1585878    4.32650  4.04%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4.15859 -0 

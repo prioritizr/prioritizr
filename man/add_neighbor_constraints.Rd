@@ -59,8 +59,8 @@ number of neighbors that are also selected in the solution.
 \details{
 This function uses neighborhood data identify solutions that
   surround planning units with a minimum number of neighbors. It
-  was inspired by one of the mathematical formulations detailed in
-  Billionnet (2013).
+  was inspired by the mathematical formulations detailed in
+  Billionnet (2013) and Beyer \emph{et al.} (2016).
 
   The argument to \code{data} can be specified in several ways:
 
@@ -183,6 +183,10 @@ plot(s2, main = names(s2), box = FALSE, axes = FALSE)
 }
 }
 \references{
+Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+\emph{Ecological Modelling}, 228: 14--22.
+
 Billionnet A (2013) Mathematical optimization ideas for biodiversity
 conservation. \emph{European Journal of Operational Research}, 231:
 514--534.

@@ -36,6 +36,8 @@
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +80,7 @@ number of neighbors that are also selected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.11</span>
       </span>
     </div>
 
@@ -223,8 +225,8 @@ information.</p></td>
 
     <p>This function uses neighborhood data identify solutions that
   surround planning units with a minimum number of neighbors. It
-  was inspired by one of the mathematical formulations detailed in
-  Billionnet (2013).</p>
+  was inspired by the mathematical formulations detailed in
+  Billionnet (2013) and Beyer <em>et al.</em> (2016).</p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code>NULL</code></dt><dd><p>neighborhood data should be calculated automatically
@@ -271,7 +273,10 @@ information.</p></td>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Billionnet A (2013) Mathematical optimization ideas for biodiversity
+    <p>Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
+conservation planning problems with integer linear programming.
+<em>Ecological Modelling</em>, 228: 14--22.</p>
+<p>Billionnet A (2013) Mathematical optimization ideas for biodiversity
 conservation. <em>European Journal of Operational Research</em>, 231:
 514--534.</p>
     
@@ -352,7 +357,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;      0     0 1932.11830    0    6 2183.09244 1932.11830  11.5%     -    0s
 #&gt; H    0     0                    1993.6247371 1932.11830  3.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (25 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (25 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1993.62 2183.09 
@@ -380,35 +385,21 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1939.10993    0   14 3605.43631 1939.10993  46.2%     -    0s
-#&gt; H    0     0                    2375.0799375 1939.10993  18.4%     -    0s
-#&gt;      0     0 1941.28796    0   16 2375.07994 1941.28796  18.3%     -    0s
-#&gt; H    0     0                    2368.0045590 1941.28796  18.0%     -    0s
-#&gt;      0     0 1954.50347    0   20 2368.00456 1954.50347  17.5%     -    0s
-#&gt;      0     0 1956.50132    0   27 2368.00456 1956.50132  17.4%     -    0s
-#&gt;      0     0 1957.49731    0   27 2368.00456 1957.49731  17.3%     -    0s
-#&gt;      0     0 1957.73724    0   25 2368.00456 1957.73724  17.3%     -    0s
-#&gt;      0     0 1957.73875    0   25 2368.00456 1957.73875  17.3%     -    0s
-#&gt;      0     0 1960.57490    0   36 2368.00456 1960.57490  17.2%     -    0s
-#&gt; H    0     0                    2366.0007621 1960.57490  17.1%     -    0s
-#&gt;      0     0 1961.46869    0   35 2366.00076 1961.46869  17.1%     -    0s
-#&gt;      0     0 1961.71098    0   37 2366.00076 1961.71098  17.1%     -    0s
-#&gt;      0     0 1961.91795    0   38 2366.00076 1961.91795  17.1%     -    0s
-#&gt;      0     0 1966.60911    0   34 2366.00076 1966.60911  16.9%     -    0s
-#&gt; H    0     0                    2012.0737704 1966.60911  2.26%     -    0s
+#&gt; H    0     0                    2416.7011836 1939.10993  19.8%     -    0s
+#&gt;      0     0 1941.28796    0   16 2416.70118 1941.28796  19.7%     -    0s
+#&gt; H    0     0                    2019.4822081 1941.28796  3.87%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 2
-#&gt;   Cover: 5
-#&gt;   MIR: 4
-#&gt;   Zero half: 1
+#&gt;   Cover: 7
+#&gt;   MIR: 2
 #&gt; 
-#&gt; Explored 1 nodes (205 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (69 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 2012.07 2366 2368 ... 3605.44
+#&gt; Solution count 3: 2019.48 2416.7 3605.44 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.012073770352e+03, best bound 1.966609105626e+03, gap 2.2596%
+#&gt; Best objective 2.019482208068e+03, best bound 1.941287964291e+03, gap 3.8720%
 #&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -418,7 +409,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 2746.9251892
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
 #&gt; Variable types: 0 continuous, 89 integer (89 binary)
 #&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
@@ -430,15 +421,21 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1933.73436    0   12 2746.92519 1933.73436  29.6%     -    0s
-#&gt; H    0     0                    2019.4822081 1933.73436  4.25%     -    0s
+#&gt; H    0     0                    2416.4661768 1933.73436  20.0%     -    0s
+#&gt;      0     0 1938.57643    0   15 2416.46618 1938.57643  19.8%     -    0s
+#&gt; H    0     0                    2018.7760790 1938.57643  3.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (46 simplex iterations) in 0.02 seconds
+#&gt; Cutting planes:
+#&gt;   Cover: 5
+#&gt;   MIR: 6
+#&gt; 
+#&gt; Explored 1 nodes (59 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2019.48 2746.93 
+#&gt; Solution count 3: 2018.78 2416.47 2746.93 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.019482208068e+03, best bound 1.933734361308e+03, gap 4.2460%</div><div class='input'>
+#&gt; Best objective 2.018776078984e+03, best bound 1.938576429999e+03, gap 3.9727%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span>))</div><div class='img'><img src='add_neighbor_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones</span>
@@ -494,15 +491,15 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
-#&gt; H    0     0                    6078.7106832 5935.42867  2.36%     -    0s
+#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (100 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6078.71 7019.12 
+#&gt; Solution count 2: 6082.28 7019.12 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.078710683241e+03, best bound 5.935428674960e+03, gap 2.3571%
+#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%
 #&gt; Optimize a model with 375 rows, 270 columns and 2760 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
@@ -512,41 +509,28 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 10188.214728
 #&gt; Presolve removed 6 rows and 9 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
 #&gt; Variable types: 0 continuous, 261 integer (261 binary)
 #&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.950461e+03, 264 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 5.950461e+03, 264 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5950.46090    0   51 10188.2147 5950.46090  41.6%     -    0s
-#&gt; H    0     0                    6908.9718606 5950.46090  13.9%     -    0s
-#&gt; H    0     0                    6725.3636795 5950.46090  11.5%     -    0s
-#&gt;      0     0 5966.11625    0   67 6725.36368 5966.11625  11.3%     -    0s
-#&gt; H    0     0                    6711.1918363 5966.11625  11.1%     -    0s
-#&gt;      0     0 5968.39095    0   73 6711.19184 5968.39095  11.1%     -    0s
-#&gt;      0     0 5969.59323    0   73 6711.19184 5969.59323  11.1%     -    0s
-#&gt;      0     0 5975.72498    0   74 6711.19184 5975.72498  11.0%     -    0s
-#&gt; H    0     0                    6500.3486273 5975.72498  8.07%     -    0s
+#&gt; H    0     0                    7453.2524990 5950.46090  20.2%     -    0s
+#&gt; H    0     0                    6495.8274057 5950.46090  8.40%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 2
-#&gt;   Cover: 29
-#&gt;   MIR: 8
-#&gt;   Zero half: 1
-#&gt; 
-#&gt; Explored 1 nodes (489 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (264 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 6500.35 6711.19 6725.36 ... 10188.2
+#&gt; Solution count 3: 6495.83 7453.25 10188.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.500348627320e+03, best bound 5.975724975301e+03, gap 8.0707%
-#&gt; Warning for adding variables: zero or small (&lt; 1e-13) coefficients, ignored
+#&gt; Best objective 6.495827405667e+03, best bound 5.950460895938e+03, gap 8.3956%
 #&gt; Optimize a model with 375 rows, 270 columns and 2670 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
@@ -556,28 +540,28 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 7339.4976993
 #&gt; Presolve removed 91 rows and 3 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 284 rows, 267 columns, 2357 nonzeros
 #&gt; Variable types: 0 continuous, 267 integer (267 binary)
 #&gt; Presolved: 284 rows, 267 columns, 2357 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.941652e+03, 197 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 5.941652e+03, 197 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5941.65239    0   25 7339.49770 5941.65239  19.0%     -    0s
-#&gt; H    0     0                    6522.6496650 5941.65239  8.91%     -    0s
+#&gt; H    0     0                    6738.7445245 5941.65239  11.8%     -    0s
+#&gt; H    0     0                    6326.6355905 5941.65239  6.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (197 simplex iterations) in 0.03 seconds
+#&gt; Explored 1 nodes (197 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6522.65 7339.5 
+#&gt; Solution count 3: 6326.64 6738.74 7339.5 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.522649665013e+03, best bound 5.941652389062e+03, gap 8.9074%
-#&gt; Warning for adding variables: zero or small (&lt; 1e-13) coefficients, ignored
+#&gt; Best objective 6.326635590527e+03, best bound 5.941652389062e+03, gap 6.0851%
 #&gt; Optimize a model with 375 rows, 270 columns and 3250 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
@@ -587,27 +571,28 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 7926.6786941
 #&gt; Presolve removed 91 rows and 3 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 284 rows, 267 columns, 2647 nonzeros
 #&gt; Variable types: 0 continuous, 267 integer (267 binary)
 #&gt; Presolved: 284 rows, 267 columns, 2647 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.941652e+03, 178 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 5.941652e+03, 178 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5941.65239    0   25 7926.67869 5941.65239  25.0%     -    0s
-#&gt; H    0     0                    6510.8243367 5941.65239  8.74%     -    0s
+#&gt; H    0     0                    6740.4618068 5941.65239  11.9%     -    0s
+#&gt; H    0     0                    6327.3313218 5941.65239  6.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (178 simplex iterations) in 0.03 seconds
+#&gt; Explored 1 nodes (178 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 6510.82 7926.68 
+#&gt; Solution count 3: 6327.33 6740.46 7926.68 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.510824336716e+03, best bound 5.941652389062e+03, gap 8.7419%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
+#&gt; Best objective 6.327331321838e+03, best bound 5.941652389062e+03, gap 6.0954%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='no'>s2</span>)
 <span class='fu'>names</span>(<span class='no'>s2</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"basic problem"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span>)
 

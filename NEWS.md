@@ -1,3 +1,7 @@
+# prioritizr 4.0.0.11
+
+- Fix some equations in the documentation (#83).
+
 # prioritizr 4.0.0.10
 
 - Add version requirements for _assertthat_ and _tibble_ (#82).
@@ -5,7 +9,7 @@
 # prioritizr 4.0.0.9
 
 - Fix minor typos in the _Gurobi_ Installation Guide and update the Management
-  Zones tutorial
+  Zones tutorial.
 
 # prioritizr 4.0.0.8
 
