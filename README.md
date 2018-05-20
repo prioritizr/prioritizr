@@ -3,7 +3,7 @@
 Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 ======================================================================================================
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Mac%20OSX%20%26%20Linux)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
+[![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) [![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Linux%20%26%20Mac%20OSX)](https://travis-ci.org/prioritizr/prioritizr) [![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr) [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
 The *prioritizr R* package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing, the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the *Marxan* conservation planning program, and find much cheaper solutions in a much shorter period of time than *Marxan*.
 
@@ -29,7 +29,7 @@ Citation
 
 Please using the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.3. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.11. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
     ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3585.96 3934.62 
@@ -154,8 +154,8 @@ print(attr(s1, "objective"))
 print(attr(s1, "runtime"))
 ```
 
-    ## solution_1 
-    ## 0.04513216
+    ##  solution_1 
+    ## 0.006181002
 
 ``` r
 # extract state message from the solver
@@ -207,7 +207,7 @@ s2 <- solve(p2)
     ##      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
     ## H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
     ## 
-    ## Explored 1 nodes (15 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (15 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3649.38 4017.64 
@@ -244,34 +244,34 @@ s3 <- solve(p3)
     ## Found heuristic solution: objective 20287.196992
     ## Found heuristic solution: objective 6551.3909374
     ## Presolve removed 66 rows and 43 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.00s
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
     ## Variable types: 0 continuous, 191 integer (191 binary)
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.465868e+03, 113 iterations, 0.01 seconds
+    ## Root relaxation: objective 5.465868e+03, 113 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
     ##      0     0 5465.86773    0  119 6551.39094 5465.86773  16.6%     -    0s
-    ## H    0     0                    6406.1271496 5465.86773  14.7%     -    0s
-    ##      0     0 5523.88444    0   88 6406.12715 5523.88444  13.8%     -    0s
-    ##      0     0 5551.87588    0  103 6406.12715 5551.87588  13.3%     -    0s
-    ## H    0     0                    6320.2042070 5551.87588  12.2%     -    0s
-    ## H    0     0                    5895.5869570 5551.87588  5.83%     -    0s
+    ##      0     0 5523.88444    0   88 6551.39094 5523.88444  15.7%     -    0s
+    ## H    0     0                    6435.6212242 5523.88444  14.2%     -    0s
+    ## H    0     0                    6323.9683139 5523.88444  12.7%     -    0s
+    ##      0     0 5541.09124    0  101 6323.96831 5541.09124  12.4%     -    0s
+    ## H    0     0                    5967.6038942 5541.09124  7.15%     -    0s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
     ## 
-    ## Explored 1 nodes (187 simplex iterations) in 0.12 seconds
+    ## Explored 1 nodes (200 simplex iterations) in 0.05 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 5: 5895.59 6320.2 6406.13 ... 20287.2
+    ## Solution count 5: 5967.6 6323.97 6435.62 ... 20287.2
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 5.895586957000e+03, best bound 5.551875884744e+03, gap 5.8300%
+    ## Best objective 5.967603894163e+03, best bound 5.541091236907e+03, gap 7.1471%
 
 ``` r
 # plot the solution
@@ -300,7 +300,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.04s
+    ## Presolve time: 0.01s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
@@ -309,44 +309,39 @@ s4 <- solve(p4)
     ## Presolved: 369 rows, 296 columns, 1176 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.456778e+03, 154 iterations, 0.01 seconds
+    ## Root relaxation: objective 6.456778e+03, 153 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
     ##      0     0 6456.77823    0  137 7879.07954 6456.77823  18.1%     -    0s
     ## H    0     0                    7805.4228157 6456.77823  17.3%     -    0s
-    ##      0     0 6636.21984    0   89 7805.42282 6636.21984  15.0%     -    0s
-    ##      0     0 6668.07936    0  107 7805.42282 6668.07936  14.6%     -    0s
-    ##      0     0 6914.48083    0  100 7805.42282 6914.48083  11.4%     -    0s
-    ## H    0     0                    7778.5559284 6914.48083  11.1%     -    0s
-    ##      0     0 6914.54700    0   82 7778.55593 6914.54700  11.1%     -    0s
-    ##      0     0 6979.60313    0  101 7778.55593 6979.60313  10.3%     -    0s
-    ##      0     0 6982.58689    0  106 7778.55593 6982.58689  10.2%     -    0s
-    ##      0     0 6982.59944    0  106 7778.55593 6982.59944  10.2%     -    0s
-    ##      0     0 6982.75852    0  106 7778.55593 6982.75852  10.2%     -    0s
-    ##      0     0 6983.38244    0   91 7778.55593 6983.38244  10.2%     -    0s
-    ##      0     0 6983.38244    0   91 7778.55593 6983.38244  10.2%     -    0s
-    ##      0     0 6983.38244    0   93 7778.55593 6983.38244  10.2%     -    0s
-    ##      0     0 6986.71500    0   96 7778.55593 6986.71500  10.2%     -    0s
-    ##      0     0 6986.72499    0   91 7778.55593 6986.72499  10.2%     -    0s
-    ##      0     0 6997.38652    0  106 7778.55593 6997.38652  10.0%     -    0s
-    ##      0     0 7004.99771    0   97 7778.55593 7004.99771  9.94%     -    0s
-    ##      0     0 7006.42119    0  108 7778.55593 7006.42119  9.93%     -    0s
+    ##      0     0 6636.21984    0   88 7805.42282 6636.21984  15.0%     -    0s
+    ##      0     0 6668.07936    0  105 7805.42282 6668.07936  14.6%     -    0s
+    ##      0     0 6918.46244    0   91 7805.42282 6918.46244  11.4%     -    0s
+    ## H    0     0                    7778.5559284 6918.46244  11.1%     -    0s
+    ##      0     0 6920.19113    0  104 7778.55593 6920.19113  11.0%     -    0s
+    ##      0     0 6920.80033    0  102 7778.55593 6920.80033  11.0%     -    0s
+    ##      0     0 6920.91434    0  103 7778.55593 6920.91434  11.0%     -    0s
+    ##      0     0 6977.94703    0   97 7778.55593 6977.94703  10.3%     -    0s
+    ##      0     0 6985.02370    0   98 7778.55593 6985.02370  10.2%     -    0s
+    ##      0     0 6985.75100    0   90 7778.55593 6985.75100  10.2%     -    0s
+    ##      0     0 6993.48245    0   99 7778.55593 6993.48245  10.1%     -    0s
+    ##      0     0 7000.52722    0  109 7778.55593 7000.52722  10.0%     -    0s
+    ##      0     0 7002.81388    0  101 7778.55593 7002.81388  10.0%     -    0s
     ## 
     ## Cutting planes:
-    ##   Gomory: 4
+    ##   Gomory: 6
     ##   MIR: 2
-    ##   Zero half: 16
-    ##   Mod-K: 1
+    ##   Zero half: 15
     ## 
-    ## Explored 1 nodes (450 simplex iterations) in 0.22 seconds
+    ## Explored 1 nodes (472 simplex iterations) in 0.07 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 7778.56 7805.42 7879.08 9816.98 
     ## 
     ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 7.778555928371e+03, best bound 7.006421189266e+03, gap 9.9265%
+    ## Best objective 7.778555928371e+03, best bound 7.002813884239e+03, gap 9.9728%
 
 ``` r
 # plot the solution
