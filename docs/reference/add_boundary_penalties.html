@@ -35,6 +35,8 @@
 
 <meta property="og:description" content="Add penalties to a conservation planning problem to favor
 solutions that have planning units clumped together into contiguous areas." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -77,7 +79,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -348,7 +350,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
 #&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3994.89 4544.49 
@@ -376,15 +378,15 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4064.31993    0   52 4724.48505 4064.31993  14.0%     -    0s
-#&gt; H    0     0                    4205.7108862 4064.31993  3.36%     -    0s
+#&gt; H    0     0                    4196.4791919 4064.31993  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (186 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (186 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4205.71 4724.49 18847.2 
+#&gt; Solution count 3: 4196.48 4724.49 18847.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.205710886188e+03, best bound 4.064319933597e+03, gap 3.3619%
+#&gt; Best objective 4.196479191930e+03, best bound 4.064319933597e+03, gap 3.1493%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -400,32 +402,33 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4531.72483    0  234 5594.48505 4531.72483  19.0%     -    0s
 #&gt;      0     0 4604.44812    0  232 5594.48505 4604.44812  17.7%     -    0s
-#&gt;      0     0 4666.25800    0  226 5594.48505 4666.25800  16.6%     -    0s
-#&gt;      0     0 4668.72120    0  229 5594.48505 4668.72120  16.5%     -    0s
-#&gt;      0     0 4670.58524    0  230 5594.48505 4670.58524  16.5%     -    0s
-#&gt;      0     0 4695.57153    0  208 5594.48505 4695.57153  16.1%     -    0s
-#&gt; H    0     0                    5464.6715582 4695.57153  14.1%     -    0s
-#&gt;      0     2 4695.85460    0  208 5464.67156 4695.85460  14.1%     -    0s
-#&gt; H   22    22                    5313.1334450 4696.79448  11.6%  18.4    0s
-#&gt; H   27    23                    5239.2617826 4696.79448  10.4%  16.6    0s
+#&gt;      0     0 4664.43086    0  226 5594.48505 4664.43086  16.6%     -    0s
+#&gt;      0     0 4667.41801    0  229 5594.48505 4667.41801  16.6%     -    0s
+#&gt;      0     0 4669.60093    0  229 5594.48505 4669.60093  16.5%     -    0s
+#&gt;      0     0 4685.75922    0  225 5594.48505 4685.75922  16.2%     -    0s
+#&gt;      0     0 4694.51190    0  204 5594.48505 4694.51190  16.1%     -    0s
+#&gt;      0     0 4694.56564    0  204 5594.48505 4694.56564  16.1%     -    0s
+#&gt;      0     0 4694.56564    0  204 5594.48505 4694.56564  16.1%     -    0s
+#&gt; H    0     0                    5330.7252629 4694.56564  11.9%     -    0s
+#&gt; H    0     0                    5175.1807047 4694.56564  9.29%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 3
+#&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 61 nodes (1437 simplex iterations) in 0.45 seconds
+#&gt; Explored 1 nodes (456 simplex iterations) in 0.26 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 5239.26 5313.13 5464.67 ... 20287.2
+#&gt; Solution count 4: 5175.18 5330.73 5594.49 20287.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.239261782647e+03, best bound 4.742318441636e+03, gap 9.4850%
+#&gt; Best objective 5.175180704712e+03, best bound 4.694565636923e+03, gap 9.2869%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -447,15 +450,15 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 4064.31993    0   52 4724.48505 4064.31993  14.0%     -    0s
-#&gt; H    0     0                    4205.7108862 4064.31993  3.36%     -    0s
+#&gt; H    0     0                    4196.4791919 4064.31993  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (186 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (186 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4205.71 4724.49 18847.2 
+#&gt; Solution count 3: 4196.48 4724.49 18847.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.205710886188e+03, best bound 4.064319933597e+03, gap 3.3619%</div><div class='input'>
+#&gt; Best objective 4.196479191930e+03, best bound 4.064319933597e+03, gap 3.1493%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>,
                  <span class='st'>"precomputed data"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_boundary_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones and limit the run-time for</span>
@@ -525,20 +528,20 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 13103.242827
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (211 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (211 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 13103.2 
@@ -553,28 +556,27 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 14008.242827
-#&gt; Presolve time: 0.03s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.228259e+04, 618 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.228259e+04, 618 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 12282.5861    0  310 14008.2428 12282.5861  12.3%     -    0s
-#&gt; H    0     0                    13663.653936 12282.5861  10.1%     -    0s
-#&gt; H    0     0                    13536.860676 12282.5861  9.27%     -    0s
+#&gt; H    0     0                    13450.185104 12282.5861  8.68%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (618 simplex iterations) in 0.09 seconds
+#&gt; Explored 1 nodes (618 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 13536.9 13663.7 14008.2 
+#&gt; Solution count 2: 13450.2 14008.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.353686067555e+04, best bound 1.228258611787e+04, gap 9.2656%
+#&gt; Best objective 1.345018510397e+04, best bound 1.228258611787e+04, gap 8.6809%
 #&gt; Optimize a model with 975 rows, 705 columns and 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
@@ -583,47 +585,49 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 22153.242827
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 713 iterations, 0.09 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 713 iterations, 0.06 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 13620.1452    0  655 22153.2428 13620.1452  38.5%     -    0s
-#&gt; H    0     0                    20402.662987 13620.1452  33.2%     -    0s
-#&gt; H    0     0                    19942.018025 13620.1452  31.7%     -    0s
-#&gt;      0     0 13772.8695    0  664 19942.0180 13772.8695  30.9%     -    0s
-#&gt; H    0     0                    19505.929401 13772.8695  29.4%     -    0s
-#&gt;      0     0 13775.6927    0  659 19505.9294 13775.6927  29.4%     -    0s
-#&gt;      0     0 13831.1396    0  617 19505.9294 13831.1396  29.1%     -    0s
-#&gt; H    0     0                    19413.695755 13831.1396  28.8%     -    0s
-#&gt;      0     0 13848.8749    0  653 19413.6958 13848.8749  28.7%     -    0s
-#&gt;      0     0 13848.9144    0  654 19413.6958 13848.9144  28.7%     -    0s
-#&gt;      0     0 13848.9144    0  654 19413.6958 13848.9144  28.7%     -    0s
-#&gt; H    0     0                    19270.768272 13848.9144  28.1%     -    1s
-#&gt; H    0     0                    18047.070565 13848.9144  23.3%     -    1s
-#&gt;      0     2 13849.7373    0  654 18047.0706 13849.7373  23.3%     -    1s
-#&gt; H   54    54                    16372.081508 13900.3193  15.1%  29.5    1s
-#&gt;    521   469 16327.5926   87  659 16372.0815 14023.1068  14.3%  21.1    5s
-#&gt; H  523   446                    15907.944854 14023.1068  11.8%  21.0    6s
-#&gt; H  873   550                    15666.969275 14096.6464  10.0%  35.4    9s
-#&gt; H  916   541                    15613.301216 14096.6464  9.71%  34.7    9s
+#&gt; H    0     0                    20128.117363 13620.1452  32.3%     -    0s
+#&gt; H    0     0                    19796.492982 13620.1452  31.2%     -    0s
+#&gt;      0     0 13772.8695    0  664 19796.4930 13772.8695  30.4%     -    0s
+#&gt; H    0     0                    19578.669240 13772.8695  29.7%     -    0s
+#&gt;      0     0 13775.6927    0  659 19578.6692 13775.6927  29.6%     -    0s
+#&gt;      0     0 13798.1920    0  611 19578.6692 13798.1920  29.5%     -    0s
+#&gt; H    0     0                    19552.871081 13798.1920  29.4%     -    0s
+#&gt;      0     0 13823.3790    0  611 19552.8711 13823.3790  29.3%     -    0s
+#&gt;      0     0 13823.4016    0  616 19552.8711 13823.4016  29.3%     -    0s
+#&gt;      0     0 13834.6267    0  640 19552.8711 13834.6267  29.2%     -    0s
+#&gt; H    0     0                    19360.827217 13834.6267  28.5%     -    0s
+#&gt;      0     0 13867.3124    0  663 19360.8272 13867.3124  28.4%     -    0s
+#&gt;      0     0 13868.1508    0  658 19360.8272 13868.1508  28.4%     -    0s
+#&gt;      0     0 13868.1508    0  658 19360.8272 13868.1508  28.4%     -    0s
+#&gt; H    0     0                    16529.592722 13868.1508  16.1%     -    1s
+#&gt; H    0     0                    15922.309412 13868.1508  12.9%     -    1s
+#&gt;      0     2 13869.2667    0  658 15922.3094 13869.2667  12.9%     -    1s
+#&gt;    522   426 14416.3521    9  644 15922.3094 14112.4138  11.4%  29.9    5s
+#&gt; H  527   408                    15780.713406 14112.4138  10.6%  29.6    7s
+#&gt; H  527   387                    15656.048982 14112.4138  9.86%  29.6    7s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 14
+#&gt;   Gomory: 18
 #&gt; 
-#&gt; Explored 916 nodes (32783 simplex iterations) in 9.62 seconds
+#&gt; Explored 527 nodes (18491 simplex iterations) in 7.23 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 15613.3 15667 15907.9 ... 20402.7
+#&gt; Solution count 10: 15656 15780.7 15922.3 ... 22153.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.561330121557e+04, best bound 1.409664642685e+04, gap 9.7139%
+#&gt; Best objective 1.565604898208e+04, best bound 1.411241378650e+04, gap 9.8597%
 #&gt; Optimize a model with 1845 rows, 1140 columns and 5100 nonzeros
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Coefficient statistics:
@@ -632,14 +636,14 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 8303.2428266
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 1845 rows, 1140 columns, 6840 nonzeros
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1657 iterations, 0.08 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1905 iterations, 0.11 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -648,7 +652,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    2881.3718971 2576.99025  10.6%     -    0s
 #&gt; H    0     0                    2794.5621583 2576.99025  7.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1745 simplex iterations) in 0.23 seconds
+#&gt; Explored 1 nodes (2016 simplex iterations) in 0.25 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2794.56 2881.37 8303.24 
@@ -663,52 +667,51 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 21613.242827
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 1555 rows, 995 columns, 5680 nonzeros
 #&gt; Variable types: 0 continuous, 995 integer (995 binary)
 #&gt; Presolve removed 580 rows and 0 columns
 #&gt; Presolved: 975 rows, 995 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.07 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 714 iterations, 0.05 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 13620.1452    0  655 21613.2428 13620.1452  37.0%     -    0s
-#&gt; H    0     0                    20459.004219 13620.1452  33.4%     -    0s
-#&gt; H    0     0                    19358.220264 13620.1452  29.6%     -    0s
-#&gt;      0     0 13728.0346    0  671 19358.2203 13728.0346  29.1%     -    0s
-#&gt; H    0     0                    19282.621070 13728.0346  28.8%     -    0s
-#&gt;      0     0 13728.7005    0  671 19282.6211 13728.7005  28.8%     -    0s
-#&gt;      0     0 13794.3936    0  666 19282.6211 13794.3936  28.5%     -    0s
-#&gt; H    0     0                    18516.144159 13794.3936  25.5%     -    0s
-#&gt;      0     0 13829.0521    0  621 18516.1442 13829.0521  25.3%     -    0s
-#&gt; H    0     0                    18309.826717 13829.0521  24.5%     -    0s
-#&gt;      0     0 13829.4190    0  621 18309.8267 13829.4190  24.5%     -    0s
-#&gt; H    0     0                    18002.402825 13829.4190  23.2%     -    1s
-#&gt; H    0     0                    17285.606997 13829.4190  20.0%     -    1s
-#&gt;      0     2 13832.9734    0  621 17285.6070 13832.9734  20.0%     -    1s
-#&gt; H  109    90                    16700.638549 13833.0853  17.2%  32.6    2s
-#&gt; H  194   137                    16176.476549 13884.6561  14.2%  31.2    2s
-#&gt; H  402   268                    15987.459165 13917.3059  12.9%  30.7    3s
-#&gt; H  510   342                    15987.347400 13938.7090  12.8%  30.3    4s
-#&gt;    516   346 15468.4886   29  641 15987.3474 13938.7090  12.8%  29.9    5s
-#&gt; H  516   329                    15696.999572 13938.7090  11.2%  29.9    5s
-#&gt; H  521   316                    15569.810028 13938.7090  10.5%  29.6    7s
-#&gt; H  525   302                    15478.675363 13938.7090  9.95%  29.4   10s
+#&gt; H    0     0                    20845.425726 13620.1452  34.7%     -    0s
+#&gt; H    0     0                    19467.036465 13620.1452  30.0%     -    0s
+#&gt;      0     0 13728.2763    0  637 19467.0365 13728.2763  29.5%     -    0s
+#&gt; H    0     0                    18893.082095 13728.2763  27.3%     -    0s
+#&gt;      0     0 13729.6980    0  642 18893.0821 13729.6980  27.3%     -    0s
+#&gt;      0     0 13730.2911    0  642 18893.0821 13730.2911  27.3%     -    0s
+#&gt;      0     0 13790.5901    0  627 18893.0821 13790.5901  27.0%     -    0s
+#&gt;      0     0 13801.0123    0  598 18893.0821 13801.0123  27.0%     -    0s
+#&gt;      0     0 13822.5175    0  551 18893.0821 13822.5175  26.8%     -    0s
+#&gt; H    0     0                    18751.740399 13822.5175  26.3%     -    0s
+#&gt;      0     0 13826.9360    0  563 18751.7404 13826.9360  26.3%     -    0s
+#&gt;      0     0 13826.9360    0  563 18751.7404 13826.9360  26.3%     -    1s
+#&gt; H    0     0                    17431.702421 13826.9360  20.7%     -    1s
+#&gt; H    0     0                    17347.291320 13826.9360  20.3%     -    1s
+#&gt; H    0     0                    16456.518756 13826.9360  16.0%     -    2s
+#&gt;      0     2 13827.3898    0  563 16456.5188 13827.3898  16.0%     -    2s
+#&gt; H  105   103                    16310.857489 13832.3864  15.2%  30.0    2s
+#&gt; H  510   446                    16294.105380 13988.8212  14.1%  29.6    4s
+#&gt; H  513   426                    15987.920808 13988.8212  12.5%  29.4    5s
+#&gt; H  516   406                    15894.561955 13988.8212  12.0%  29.3    5s
+#&gt; H  523   390                    15417.906443 13988.8212  9.27%  28.9    9s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 16
-#&gt;   Zero half: 1
+#&gt;   Gomory: 17
 #&gt; 
-#&gt; Explored 525 nodes (17834 simplex iterations) in 10.00 seconds
+#&gt; Explored 523 nodes (17825 simplex iterations) in 9.18 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 15478.7 15569.8 15697 ... 18309.8
+#&gt; Solution count 10: 15417.9 15894.6 15987.9 ... 18893.1
 #&gt; 
-#&gt; Time limit reached
-#&gt; Best objective 1.547867536303e+04, best bound 1.393870903810e+04, gap 9.9490%
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.541790644258e+04, best bound 1.398882115772e+04, gap 9.2690%
 #&gt; Optimize a model with 1120 rows, 705 columns and 3795 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
@@ -717,54 +720,56 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 15601.521733
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 1120 rows, 705 columns, 3940 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 1120 rows, 705 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.328641e+03, 569 iterations, 0.07 seconds
+#&gt; Root relaxation: objective 9.328641e+03, 523 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9328.64105    0  481 15601.5217 9328.64105  40.2%     -    0s
-#&gt; H    0     0                    14474.551688 9328.64105  35.6%     -    0s
-#&gt; H    0     0                    13760.910690 9328.64105  32.2%     -    0s
-#&gt;      0     0 9395.88858    0  460 13760.9107 9395.88858  31.7%     -    0s
-#&gt; H    0     0                    13506.788873 9395.88858  30.4%     -    0s
-#&gt;      0     0 9413.71324    0  462 13506.7889 9413.71324  30.3%     -    0s
-#&gt;      0     0 9451.06972    0  498 13506.7889 9451.06972  30.0%     -    0s
-#&gt; H    0     0                    13203.009921 9451.06972  28.4%     -    0s
-#&gt;      0     0 9451.43194    0  497 13203.0099 9451.43194  28.4%     -    0s
-#&gt;      0     0 9457.19382    0  451 13203.0099 9457.19382  28.4%     -    1s
-#&gt; H    0     0                    12940.432767 9457.19382  26.9%     -    1s
-#&gt;      0     0 9457.30648    0  452 12940.4328 9457.30648  26.9%     -    1s
-#&gt;      0     0 9462.30609    0  522 12940.4328 9462.30609  26.9%     -    1s
-#&gt; H    0     0                    12334.114866 9462.30609  23.3%     -    1s
-#&gt;      0     0 9463.29396    0  494 12334.1149 9463.29396  23.3%     -    1s
-#&gt;      0     0 9463.50389    0  495 12334.1149 9463.50389  23.3%     -    1s
-#&gt;      0     0 9463.51345    0  495 12334.1149 9463.51345  23.3%     -    1s
-#&gt;      0     0 9469.65414    0  520 12334.1149 9469.65414  23.2%     -    1s
-#&gt; H    0     0                    12303.016079 9469.65414  23.0%     -    1s
-#&gt; H    0     0                    11427.427923 9469.65414  17.1%     -    1s
-#&gt; H    0     0                    11159.198129 9469.65414  15.1%     -    1s
-#&gt;      0     2 9469.70971    0  520 11159.1981 9469.70971  15.1%     -    1s
-#&gt; H   27    27                    10881.260025 9469.94081  13.0%  46.9    2s
-#&gt; H   54    38                    10722.258500 9469.94081  11.7%  31.6    2s
-#&gt; H  165   109                    10519.156500 9521.37061  9.49%  41.9    2s
+#&gt; H    0     0                    14404.516545 9328.64105  35.2%     -    0s
+#&gt;      0     0 9376.71069    0  435 14404.5165 9376.71069  34.9%     -    0s
+#&gt; H    0     0                    13853.093457 9376.71069  32.3%     -    0s
+#&gt; H    0     0                    13263.346834 9376.71069  29.3%     -    0s
+#&gt;      0     0 9388.30013    0  435 13263.3468 9388.30013  29.2%     -    0s
+#&gt;      0     0 9433.68734    0  467 13263.3468 9433.68734  28.9%     -    0s
+#&gt; H    0     0                    12771.763887 9433.68734  26.1%     -    0s
+#&gt;      0     0 9440.54053    0  473 12771.7639 9440.54053  26.1%     -    0s
+#&gt;      0     0 9440.69940    0  473 12771.7639 9440.69940  26.1%     -    0s
+#&gt;      0     0 9467.62898    0  467 12771.7639 9467.62898  25.9%     -    0s
+#&gt; H    0     0                    12676.412712 9467.62898  25.3%     -    0s
+#&gt;      0     0 9473.57609    0  476 12676.4127 9473.57609  25.3%     -    0s
+#&gt;      0     0 9478.31995    0  478 12676.4127 9478.31995  25.2%     -    0s
+#&gt;      0     0 9479.01242    0  477 12676.4127 9479.01242  25.2%     -    0s
+#&gt;      0     0 9481.17466    0  480 12676.4127 9481.17466  25.2%     -    1s
+#&gt;      0     0 9484.66372    0  479 12676.4127 9484.66372  25.2%     -    1s
+#&gt; H    0     0                    12658.741688 9484.66372  25.1%     -    1s
+#&gt;      0     0 9485.82314    0  478 12658.7417 9485.82314  25.1%     -    1s
+#&gt;      0     0 9486.99589    0  479 12658.7417 9486.99589  25.1%     -    1s
+#&gt;      0     0 9488.66317    0  465 12658.7417 9488.66317  25.0%     -    1s
+#&gt;      0     0 9488.66317    0  465 12658.7417 9488.66317  25.0%     -    1s
+#&gt; H    0     0                    11278.322052 9488.66317  15.9%     -    1s
+#&gt;      0     2 9489.13316    0  465 11278.3221 9489.13316  15.9%     -    1s
+#&gt; H   27    27                    10883.230261 9538.34579  12.4%  61.7    2s
+#&gt; H  112    82                    10717.084915 9546.30398  10.9%  50.9    2s
+#&gt; H  290   196                    10574.559739 9637.01507  8.87%  33.8    3s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
-#&gt;   Zero half: 16
+#&gt;   Gomory: 6
+#&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 165 nodes (7824 simplex iterations) in 2.85 seconds
+#&gt; Explored 290 nodes (10837 simplex iterations) in 3.24 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 10519.2 10722.3 10881.3 ... 13506.8
+#&gt; Solution count 10: 10574.6 10717.1 10883.2 ... 14404.5
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.051915650047e+04, best bound 9.521370613130e+03, gap 9.4854%</div><div class='input'>
+#&gt; Best objective 1.057455973903e+04, best bound 9.637015074133e+03, gap 8.8660%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"within zone clumping (low)"</span>,
                   <span class='st'>"within zone clumping (high)"</span>, <span class='st'>"between zone clumping"</span>,
@@ -792,7 +797,7 @@ conservation planning problems with integer linear programming.
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

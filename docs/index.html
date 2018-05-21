@@ -16,7 +16,7 @@
     programming techniques. To solve large-scale problems, users
     should install the 'gurobi' optimizer
     (available from &lt;http://www.gurobi.com/&gt;).">
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png">
+<meta property="og:image" content="https://prioritizr.net/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -137,7 +137,7 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please using the following citation to cite the <em>prioritizr R</em> package in publications:</p>
 <p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.12. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
-<p>Additionally, we keep a <a href="https://prioritizr.github.io/prioritizr/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
+<p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -176,14 +176,14 @@ devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocument
 <span class="kw">plot</span>(sim_features, <span class="dt">main =</span> <span class="kw">paste</span>(<span class="st">"Feature"</span>, <span class="kw">seq_len</span>(<span class="kw">nlayers</span>(sim_features))),
      <span class="dt">nr =</span> <span class="dv">2</span>)</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;"></p>
-<p>Let’s say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
+<p>Let’s say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.net/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 20 % (<a href="https://prioritizr.net/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), and binary decisions (<a href="https://prioritizr.net/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features,
               <span class="dt">cost_column =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.2</span>) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html">add_binary_decisions</a></span>()</code></pre></div>
-<p>After we have built a <a href="https://prioritizr.github.io/prioritizr/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>, for more information on this please refer to the <a href="https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html">Gurobi Installation Gude</a></strong></p>
+<p>After we have built a <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>, for more information on this please refer to the <a href="https://prioritizr.net/articles/gurobi_installation.html">Gurobi Installation Gude</a></strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve the problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/solve.html">solve</a></span>(p1)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
@@ -222,7 +222,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.001549006</code></pre>
+## 0.003278017</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/print.html">print</a></span>(<span class="kw">attr</span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -232,7 +232,7 @@ s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <span class="kw">spplot</span>(s1, <span class="st">"solution_1"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;"></p>
-<p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the <code>"locked_in"</code> column of the attribute table), we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
+<p>Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the <code>"locked_in"</code> column of the attribute table), we can add constraints to ensure they are prioritized in the solution (<a href="https://prioritizr.net/reference/add_locked_in_constraints.html"><code>add_locked_in_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with locked in constraints added to it</span>
 p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>)
 
@@ -273,7 +273,7 @@ s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <span class="kw">spplot</span>(s2, <span class="st">"solution_1"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="400" style="display: block; margin: auto;"></p>
-<p>This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions (<a href="https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a>). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.</p>
+<p>This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions (<a href="https://prioritizr.net/reference/add_boundary_penalties.html"><code>add_boundary_penalties</code></a>). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with boundary penalties added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">500</span>, <span class="dt">edge_factor =</span> <span class="fl">0.5</span>)
 
@@ -310,7 +310,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Cutting planes:
 ##   Gomory: 2
 ## 
-## Explored 1 nodes (200 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (200 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 5967.6 6323.97 6435.62 ... 20287.2
@@ -322,7 +322,7 @@ s3<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <span class="kw">spplot</span>(s3, <span class="st">"solution_1"</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">'grey90'</span>, <span class="st">'darkgreen'</span>),
        <span class="dt">main =</span> <span class="st">"Solution"</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-13-1.png" width="400" style="display: block; margin: auto;"></p>
-<p>This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints (<a href="https://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html"><code>add_contiguity_constraints</code></a>).</p>
+<p>This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints (<a href="https://prioritizr.net/reference/add_contiguity_constraints.html"><code>add_contiguity_constraints</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with contiguity constraints</span>
 p4 &lt;-<span class="st"> </span>p3 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="http://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html">add_contiguity_constraints</a></span>()
 
@@ -336,7 +336,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 282 rows and 210 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 372 rows, 296 columns, 1182 nonzeros
 ## Variable types: 0 continuous, 296 integer (296 binary)
 ## Found heuristic solution: objective 9816.9791056
@@ -345,7 +345,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ## Presolved: 369 rows, 296 columns, 1176 nonzeros
 ## 
 ## 
-## Root relaxation: objective 6.456778e+03, 153 iterations, 0.00 seconds
+## Root relaxation: objective 6.456778e+03, 153 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -371,7 +371,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="http://prioritizr.git
 ##   MIR: 2
 ##   Zero half: 15
 ## 
-## Explored 1 nodes (472 simplex iterations) in 0.06 seconds
+## Explored 1 nodes (472 simplex iterations) in 0.14 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 7778.56 7805.42 7879.08 9816.98 
@@ -388,7 +388,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help" class="anchor"></a>Getting help</h2>
-<p>Please refer to the <a href="https://prioritizr.github.io/prioritizr/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains <a href="https://prioritizr.github.io/prioritizr/articles/prioritizr.html">a comprehensive tutorial on systematic conservation planning using the package</a>, <a href="https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, <a href="https://prioritizr.github.io/prioritizr/articles/zones.html">a tutorial on building and solving problems that contain multiple management zones</a>, and two worked examples involving real-world data in <a href="https://prioritizr.github.io/prioritizr/articles/tasmania.html">Tasmania, Australia</a> and <a href="https://prioritizr.github.io/prioritizr/articles/saltspring.html">Salt Spring Island, Canada</a>. Additionally, check out the <a href="https://github.com/prioritizr/teaching">teaching repository</a> for seminar slides and workshop materials. If you have any questions about using the <em>prioritizr R</em> package or suggestions from improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
+<p>Please refer to the <a href="https://prioritizr.net/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains <a href="https://prioritizr.net/articles/prioritizr.html">a comprehensive tutorial on systematic conservation planning using the package</a>, <a href="https://prioritizr.net/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, <a href="https://prioritizr.net/articles/zones.html">a tutorial on building and solving problems that contain multiple management zones</a>, and two worked examples involving real-world data in <a href="https://prioritizr.net/articles/tasmania.html">Tasmania, Australia</a> and <a href="https://prioritizr.net/articles/saltspring.html">Salt Spring Island, Canada</a>. Additionally, check out the <a href="https://github.com/prioritizr/teaching">teaching repository</a> for seminar slides and workshop materials. If you have any questions about using the <em>prioritizr R</em> package or suggestions from improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
 </div>
 </div>
   </div>
@@ -403,7 +403,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 </li>
 <li>Report a bug at <br><a href="https://github.com/prioritizr/prioritizr/issues">https://​github.com/​prioritizr/​prioritizr/​issues</a>
 </li>
-<li>Learn about contributing at <br><a href="https://prioritizr.github.io/prioritizr/CONTRIBUTING.html">https://​prioritizr.github.io/​prioritizr/​CONTRIBUTING.html</a>
+<li>Learn about contributing at <br><a href="http://prioritizr.net/CONTRIBUTING.html">http://​prioritizr.net/​CONTRIBUTING.html</a>
 </li>
 </ul>
 </div>
@@ -417,7 +417,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://jeffrey-hanson.com">Jeffrey O Hanson</a> <br><small class="roles"> Author </small>  </li>
 <li>
 <a href="http://www.richard-schuster.com/">Richard Schuster</a> <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Nina Morrell <br><small class="roles"> Author </small>  </li>
@@ -425,7 +425,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <a href="http://strimas.com">Matthew Strimas-Mackey</a> <br><small class="roles"> Author </small>  </li>
 <li>Matthew E Watts <br><small class="roles"> Author </small>  </li>
 <li>
-<a href="http://arcese.forestry.ubc.ca">Peter Arcese</a> <br><small class="roles"> Author </small>  </li>
+<a href="https://arcese.forestry.ubc.ca">Peter Arcese</a> <br><small class="roles"> Author </small>  </li>
 <li>
 <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a> <br><small class="roles"> Author </small>  </li>
 <li>Hugh P Possingham <br><small class="roles"> Author </small>  </li>
@@ -448,7 +448,7 @@ s4<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="http://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com/">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="http://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com/">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

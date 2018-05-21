@@ -50,15 +50,15 @@ Here, where $x$ is a vector of decision variables, $c$ and $b$ are vectors of kn
 The _prioritizr R_ package contains eight main types of functions. These
 functions are used to:
 
-* create a new conservation planning [problem](https://prioritizr.github.io/prioritizr/reference/problem.html) by specifying the planning units, features, and management zones of conservation interest (e.g. species, ecosystems).
-* add an [objective](https://prioritizr.github.io/prioritizr/reference/objectives.html) to a conservation planning problem.
-* add [targets](https://prioritizr.github.io/prioritizr/reference/targets.html) to a problem to specify how much of each feature is desired or required to be conserved in the solutions.
-* add. [constraints](https://prioritizr.github.io/prioritizr/reference/constraints.html) to a conservation planning problem to ensure that solutions exhibit specific properties (e.g. select specific planning units for protection).
-* add [penalties](https://prioritizr.github.io/prioritizr/reference/penalties.html) to a problem to penalize solutions according to specific metric (e.g. connectivity).
-* add [decisions](https://prioritizr.github.io/prioritizr/reference/decisions.html) to a problem to specify the nature of the decisions in the problem.
-* add methods to generate a [portfolio](https://prioritizr.github.io/prioritizr/reference/portfolios.html) of solutions.
-* add one of the [solvers](https://prioritizr.github.io/prioritizr/reference/solvers.html) to  a conservation problem to specify which software should be used to solve it and customize the optimization process.
-* [solve](https://prioritizr.github.io/prioritizr/reference/solve.html) a conservation problem.
+* create a new conservation planning [problem](https://prioritizr.net/reference/problem.html) by specifying the planning units, features, and management zones of conservation interest (e.g. species, ecosystems).
+* add an [objective](https://prioritizr.net/reference/objectives.html) to a conservation planning problem.
+* add [targets](https://prioritizr.net/reference/targets.html) to a problem to specify how much of each feature is desired or required to be conserved in the solutions.
+* add. [constraints](https://prioritizr.net/reference/constraints.html) to a conservation planning problem to ensure that solutions exhibit specific properties (e.g. select specific planning units for protection).
+* add [penalties](https://prioritizr.net/reference/penalties.html) to a problem to penalize solutions according to specific metric (e.g. connectivity).
+* add [decisions](https://prioritizr.net/reference/decisions.html) to a problem to specify the nature of the decisions in the problem.
+* add methods to generate a [portfolio](https://prioritizr.net/reference/portfolios.html) of solutions.
+* add one of the [solvers](https://prioritizr.net/reference/solvers.html) to  a conservation problem to specify which software should be used to solve it and customize the optimization process.
+* [solve](https://prioritizr.net/reference/solve.html) a conservation problem.
 
 ## Package work flow
 

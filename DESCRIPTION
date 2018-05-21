@@ -63,7 +63,7 @@ LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
 LazyData: true
 SystemRequirements: C++11
-URL: https://prioritizr.github.io/prioritizr,
+URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr

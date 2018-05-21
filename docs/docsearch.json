@@ -2,21 +2,21 @@
   "index_name": "prioritizr",
   "start_urls": [
     {
-      "url": "http://prioritizr.github.io/prioritizr/index.html",
+      "url": "https://prioritizr.net/index.html",
       "selectors_key": "homepage",
       "tags": [
         "homepage"
         ]
     },
     {
-      "url": "http://prioritizr.github.io/prioritizr/reference",
+      "url": "https://prioritizr.net/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
         ]
     },
     {
-      "url": "http://prioritizr.github.io/prioritizr/articles",
+      "url": "https://prioritizr.net/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
@@ -30,7 +30,7 @@
     "/articles/index.html"
   ],
   "sitemap_urls": [
-    "http://prioritizr.github.io/prioritizr/sitemap.xml"
+    "https://prioritizr.net/sitemap.xml"
   ],
   "selectors": {
     "homepage": {

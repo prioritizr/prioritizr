@@ -35,6 +35,8 @@
 
 <meta property="og:description" content="A constraint can be added to a conservation planning problem
 to ensure that solutions exhibit a specific characteristic." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -77,7 +79,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -338,15 +340,15 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3909.12764    0   13 5019.78041 3909.12764  22.1%     -    0s
-#&gt; H    0     0                    4049.5235553 3909.12764  3.47%     -    0s
+#&gt; H    0     0                    4231.2130368 3909.12764  7.61%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4049.52 5019.78 
+#&gt; Solution count 2: 4231.21 5019.78 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.049523555302e+03, best bound 3.909127637600e+03, gap 3.4670%
+#&gt; Best objective 4.231213036789e+03, best bound 3.909127637600e+03, gap 7.6121%
 #&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -355,7 +357,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; Variable types: 0 continuous, 221 integer (221 binary)
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
@@ -371,25 +373,25 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;      0     0 3969.69828    0   79          - 3969.69828      -     -    0s
 #&gt;      0     0 3972.75831    0   87          - 3972.75831      -     -    0s
 #&gt;      0     0 3972.97474    0   90          - 3972.97474      -     -    0s
-#&gt;      0     0 3981.94418    0   99          - 3981.94418      -     -    0s
-#&gt;      0     0 3982.02235    0   99          - 3982.02235      -     -    0s
-#&gt;      0     0 3983.14399    0   95          - 3983.14399      -     -    0s
-#&gt;      0     0 3983.14980    0   99          - 3983.14980      -     -    0s
-#&gt;      0     0 3983.14980    0   99          - 3983.14980      -     -    0s
-#&gt; H    0     0                    4635.5438931 3983.14980  14.1%     -    0s
-#&gt; H    0     0                    4278.9421311 3983.14980  6.91%     -    0s
+#&gt;      0     0 3982.34763    0   99          - 3982.34763      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt; H    0     0                    4590.1395586 3982.41766  13.2%     -    0s
+#&gt;      0     2 3982.61532    0   94 4590.13956 3982.61532  13.2%     -    0s
+#&gt; H   10     8                    4329.4350849 3990.95615  7.82%  40.4    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 1 nodes (400 simplex iterations) in 0.17 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4278.94 4635.54 
+#&gt; Solution count 2: 4329.44 4590.14 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.278942131084e+03, best bound 3.983149803117e+03, gap 6.9127%
+#&gt; Best objective 4.329435084863e+03, best bound 3.990956145113e+03, gap 7.8181%
 #&gt; Optimize a model with 1610 rows, 1260 columns and 5110 nonzeros
 #&gt; Variable types: 0 continuous, 1260 integer (1260 binary)
 #&gt; Coefficient statistics:
@@ -398,40 +400,44 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 138 rows and 139 columns
-#&gt; Presolve time: 0.09s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 1310 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3947.81491    0  484          - 3947.81491      -     -    0s
-#&gt;      0     0 3967.29196    0  554          - 3967.29196      -     -    0s
-#&gt;      0     0 3971.06305    0  464          - 3971.06305      -     -    0s
-#&gt;      0     0 3973.66301    0  468          - 3973.66301      -     -    0s
-#&gt;      0     0 3974.11114    0  514          - 3974.11114      -     -    0s
-#&gt;      0     0 3974.22088    0  510          - 3974.22088      -     -    0s
-#&gt;      0     0 3974.22399    0  513          - 3974.22399      -     -    0s
-#&gt;      0     0 3974.22399    0  512          - 3974.22399      -     -    0s
-#&gt; H    0     0                    12328.610284 3974.22399  67.8%     -    0s
-#&gt;      0     2 3974.33727    0  512 12328.6103 3974.33727  67.8%     -    1s
-#&gt; H   32    32                    4325.6137283 3974.40489  8.12%   125    1s
+#&gt;      0     0 3966.95687    0  517          - 3966.95687      -     -    0s
+#&gt;      0     0 3968.00751    0  518          - 3968.00751      -     -    0s
+#&gt;      0     0 3970.13081    0  524          - 3970.13081      -     -    0s
+#&gt;      0     0 3971.01964    0  544          - 3971.01964      -     -    0s
+#&gt;      0     0 3971.29872    0  554          - 3971.29872      -     -    0s
+#&gt;      0     0 3971.37723    0  533          - 3971.37723      -     -    0s
+#&gt;      0     0 3971.41612    0  559          - 3971.41612      -     -    0s
+#&gt;      0     0 3971.43876    0  559          - 3971.43876      -     -    0s
+#&gt;      0     0 3971.43982    0  559          - 3971.43982      -     -    0s
+#&gt;      0     0 3971.47540    0  545          - 3971.47540      -     -    0s
+#&gt;      0     0 3971.47540    0  545          - 3971.47540      -     -    0s
+#&gt; H    0     0                    16464.838559 3971.47540  75.9%     -    0s
+#&gt;      0     2 3971.52704    0  544 16464.8386 3971.52704  75.9%     -    0s
+#&gt; H   25    25                    4299.6000758 3971.56872  7.63%   146    1s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
+#&gt;   Gomory: 6
 #&gt;   Zero half: 8
 #&gt; 
-#&gt; Explored 32 nodes (6658 simplex iterations) in 1.30 seconds
+#&gt; Explored 25 nodes (6579 simplex iterations) in 1.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4325.61 12328.6 
+#&gt; Solution count 2: 4299.6 16464.8 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.325613728317e+03, best bound 3.974404890158e+03, gap 8.1193%</div><div class='input'>
+#&gt; Best objective 4.299600075801e+03, best bound 3.971568724291e+03, gap 7.6293%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nr</span> <span class='kw'>=</span> <span class='fl'>2</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimal problem"</span>, <span class='st'>"locked in"</span>, <span class='st'>"locked out"</span>,
@@ -453,7 +459,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

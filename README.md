@@ -29,9 +29,9 @@ Citation
 
 Please using the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.11. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.0.12. Available at <https://github.com/prioritizr/prioritizr>.
 
-Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
+Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
 Usage
 -----
@@ -93,7 +93,7 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;" />
 
-Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)).
+Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)).
 
 ``` r
 # create problem
@@ -104,7 +104,7 @@ p1 <- problem(sim_pu_polygons, features = sim_features,
       add_binary_decisions()
 ```
 
-After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, *prioritizr* will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the *gurobi* *R* package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Gude](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html)**
+After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, *prioritizr* will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the *gurobi* *R* package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Gude](https://prioritizr.net/articles/gurobi_installation.html)**
 
 ``` r
 # solve the problem
@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
     ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3585.96 3934.62 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.006181002
+    ## 0.003504992
 
 ``` r
 # extract state message from the solver
@@ -174,7 +174,7 @@ spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 <img src="man/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;" />
 
-Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
+Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
 
 ``` r
 # create new problem with locked in constraints added to it
@@ -224,7 +224,7 @@ spplot(s2, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="400" style="display: block; margin: auto;" />
 
-This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
+This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
 
 ``` r
 # create new problem with boundary penalties added to it
@@ -244,7 +244,7 @@ s3 <- solve(p3)
     ## Found heuristic solution: objective 20287.196992
     ## Found heuristic solution: objective 6551.3909374
     ## Presolve removed 66 rows and 43 columns
-    ## Presolve time: 0.00s
+    ## Presolve time: 0.01s
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
     ## Variable types: 0 continuous, 191 integer (191 binary)
     ## Presolved: 227 rows, 191 columns, 844 nonzeros
@@ -265,7 +265,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   Gomory: 2
     ## 
-    ## Explored 1 nodes (200 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (200 simplex iterations) in 0.09 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 5967.6 6323.97 6435.62 ... 20287.2
@@ -282,7 +282,7 @@ spplot(s3, "solution_1", col.regions = c('grey90', 'darkgreen'),
 
 <img src="man/figures/README-unnamed-chunk-13-1.png" width="400" style="display: block; margin: auto;" />
 
-This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html)).
+This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.net/reference/add_contiguity_constraints.html)).
 
 ``` r
 # create new problem with contiguity constraints
@@ -300,7 +300,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 282 rows and 210 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.02s
     ## Presolved: 372 rows, 296 columns, 1182 nonzeros
     ## Variable types: 0 continuous, 296 integer (296 binary)
     ## Found heuristic solution: objective 9816.9791056
@@ -309,7 +309,7 @@ s4 <- solve(p4)
     ## Presolved: 369 rows, 296 columns, 1176 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.456778e+03, 153 iterations, 0.00 seconds
+    ## Root relaxation: objective 6.456778e+03, 153 iterations, 0.01 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -335,7 +335,7 @@ s4 <- solve(p4)
     ##   MIR: 2
     ##   Zero half: 15
     ## 
-    ## Explored 1 nodes (472 simplex iterations) in 0.07 seconds
+    ## Explored 1 nodes (472 simplex iterations) in 0.15 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 4: 7778.56 7805.42 7879.08 9816.98 
@@ -357,4 +357,4 @@ This short example demonstrates how the *prioritizr R* package can be used to bu
 Getting help
 ------------
 
-Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.github.io/prioritizr/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.github.io/prioritizr/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.net/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).

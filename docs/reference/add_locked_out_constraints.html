@@ -42,6 +42,8 @@ in to the solution, use add_locked_out_constraints. For
 problems with non-binary planning unit allocations (e.g. proportions), the
 add_manual_locked_constraints function can be used to lock
 planning unit allocations to a specific value." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -84,7 +86,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -344,7 +346,7 @@ locked out. See the Details section for more information.</p></td>
 #&gt;      0     0 3501.74555    0    4 3953.68275 3501.74555  11.4%     -    0s
 #&gt; H    0     0                    3591.1771615 3501.74555  2.49%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3591.18 3953.68 
@@ -359,7 +361,7 @@ locked out. See the Details section for more information.</p></td>
 #&gt;   RHS range        [6e+00, 1e+01]
 #&gt; Found heuristic solution: objective 3953.6827496
 #&gt; Presolve removed 0 rows and 10 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
 #&gt; Variable types: 0 continuous, 80 integer (80 binary)
 #&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -373,7 +375,7 @@ locked out. See the Details section for more information.</p></td>
 #&gt;      0     0 3501.74555    0    4 3953.68275 3501.74555  11.4%     -    0s
 #&gt; H    0     0                    3591.1771615 3501.74555  2.49%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (10 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3591.18 3953.68 
@@ -418,7 +420,7 @@ locked out. See the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 3524.7950998
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -528,15 +530,16 @@ locked out. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 2202.88852    0    6 3103.11681 2202.88852  29.0%     -    0s
-#&gt; H    0     0                    2445.0695185 2202.88852  9.90%     -    0s
+#&gt; H    0     0                    2461.3893584 2202.88852  10.5%     -    0s
+#&gt; H    0     0                    2421.8731174 2202.88852  9.04%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (16 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2445.07 3103.12 
+#&gt; Solution count 3: 2421.87 2461.39 3103.12 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.445069518466e+03, best bound 2.202888524130e+03, gap 9.9049%</div><div class='input'>
+#&gt; Best objective 2.421873117358e+03, best bound 2.202888524130e+03, gap 9.0420%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s9</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_locked_out_constraints-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
@@ -553,7 +556,7 @@ locked out. See the Details section for more information.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

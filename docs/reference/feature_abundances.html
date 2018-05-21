@@ -36,7 +36,7 @@
 <meta property="og:description" content="Calculate the total abundance of each feature found in the planning units
 of a conservation planning problem." />
 
-<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -250,15 +250,15 @@ is <code>FALSE</code>.</p></td>
 <span class='fu'>print</span>(<span class='no'>a1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;
-#&gt; 1 spp1                  3.97                 1.
-#&gt; 2 spp2                 41.0                  1.</div><div class='input'>
+#&gt; 1 spp1                  5.75                 1.
+#&gt; 2 spp2                 43.0                  1.</div><div class='input'>
 <span class='co'># calculate feature abundances; excluding planning units with \code{NA} costs</span>
 <span class='no'>a2</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_abundances</span>(<span class='no'>p1</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'>print</span>(<span class='no'>a2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;
-#&gt; 1 spp1                  3.20              0.806
-#&gt; 2 spp2                 33.0               0.805</div><div class='input'>
+#&gt; 1 spp1                  4.87              0.848
+#&gt; 2 spp2                 40.0               0.930</div><div class='input'>
 <span class='co'># verify correctness of feature abundance calculations</span>
 <span class='fu'>all.equal</span>(<span class='no'>a1</span>$<span class='no'>absolute_abundance</span>,
           <span class='fu'>c</span>(<span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp1</span>), <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
@@ -368,7 +368,7 @@ is <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -1,19 +1,19 @@
-url: http://prioritizr.github.io/prioritizr
+url: https://prioritizr.net
 
 home:
   links:
     - text: Learn about contributing
-      href: https://prioritizr.github.io/prioritizr/CONTRIBUTING.html
+      href: http://prioritizr.net/CONTRIBUTING.html
 
 authors:
   Jeffrey O Hanson:
-    href: http://jeffrey-hanson.com
+    href: https://jeffrey-hanson.com
   Richard Schuster:
     href: http://www.richard-schuster.com/
   Matthew Strimas-Mackey:
     href: http://strimas.com
   Peter Arcese:
-    href: http://arcese.forestry.ubc.ca
+    href: https://arcese.forestry.ubc.ca
   Joeseph Bennett:
     href: https://josephrbennett.wordpress.com/
 

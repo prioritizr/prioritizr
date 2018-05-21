@@ -41,6 +41,8 @@ over other features. This information can be incorporated into the problem
 using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +85,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -295,25 +297,25 @@ Details section for more information.</p></td>
 #&gt;      0     0    4.90693    0   12    2.99797    4.90693  63.7%     -    0s
 #&gt;      0     0    4.90633    0   14    2.99797    4.90633  63.7%     -    0s
 #&gt;      0     0    4.90622    0   14    2.99797    4.90622  63.7%     -    0s
-#&gt;      0     0    4.90400    0   11    2.99797    4.90400  63.6%     -    0s
-#&gt;      0     0    4.90379    0   11    2.99797    4.90379  63.6%     -    0s
-#&gt;      0     0    4.90376    0   12    2.99797    4.90376  63.6%     -    0s
-#&gt;      0     0    4.90370    0   13    2.99797    4.90370  63.6%     -    0s
-#&gt;      0     0    4.90360    0   13    2.99797    4.90360  63.6%     -    0s
-#&gt;      0     2    4.90308    0   13    2.99797    4.90308  63.5%     -    0s
+#&gt;      0     0    4.90340    0   12    2.99797    4.90340  63.6%     -    0s
+#&gt;      0     0    4.90215    0   12    2.99797    4.90215  63.5%     -    0s
+#&gt;      0     0    4.90146    0   11    2.99797    4.90146  63.5%     -    0s
+#&gt;      0     0    4.90135    0   11    2.99797    4.90135  63.5%     -    0s
+#&gt;      0     0    4.90127    0   12    2.99797    4.90127  63.5%     -    0s
+#&gt;      0     2    4.89994    0   12    2.99797    4.89994  63.4%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 4
+#&gt;   Cover: 2
+#&gt;   MIR: 2
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 9 nodes (244 simplex iterations) in 0.05 seconds
+#&gt; Explored 8 nodes (234 simplex iterations) in 0.06 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2.99797 1.99799 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.997965888532e+00, best bound 2.997965888532e+00, gap 0.0000%
+#&gt; Best objective 2.997965888532e+00, best bound 3.095183750543e+00, gap 3.2428%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
@@ -345,25 +347,24 @@ Details section for more information.</p></td>
 #&gt;      0     0  774.62032    0   10   -0.00000  774.62032      -     -    0s
 #&gt;      0     0  774.61987    0    9   -0.00000  774.61987      -     -    0s
 #&gt;      0     0  774.57547    0   10   -0.00000  774.57547      -     -    0s
-#&gt;      0     0  774.57044    0   11   -0.00000  774.57044      -     -    0s
-#&gt;      0     0  774.56518    0   12   -0.00000  774.56518      -     -    0s
-#&gt;      0     2  774.50629    0   12   -0.00000  774.50629      -     -    0s
-#&gt; H   52    44                      45.0511441  749.30428  1563%   4.9    0s
-#&gt; H   54    42                     142.6724437  749.30428   425%   4.8    0s
-#&gt; H  134    60                     715.2870306  749.30428  4.76%   3.8    0s
+#&gt; H    0     0                     142.6724257  774.57547   443%     -    0s
+#&gt;      0     0  774.57044    0   11  142.67243  774.57044   443%     -    0s
+#&gt;      0     0  774.56518    0   12  142.67243  774.56518   443%     -    0s
+#&gt;      0     2  774.50629    0   12  142.67243  774.50629   443%     -    0s
+#&gt; H   52    38                     715.2870222  749.30428  4.76%   5.7    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 6
-#&gt;   MIR: 6
+#&gt;   Cover: 5
+#&gt;   MIR: 5
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 134 nodes (602 simplex iterations) in 0.08 seconds
+#&gt; Explored 52 nodes (386 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 715.287 142.672 45.0511 -0 
+#&gt; Solution count 3: 715.287 142.672 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.152870306396e+02, best bound 7.493042803798e+02, gap 4.7557%
+#&gt; Best objective 7.152870222066e+02, best bound 7.493042811185e+02, gap 4.7557%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
@@ -436,19 +437,20 @@ Details section for more information.</p></td>
 #&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
 #&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
 #&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; *    7     3               4       2.7445310    3.44216  25.4%   8.1    0s
+#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
+#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 14 nodes (123 simplex iterations) in 0.04 seconds
+#&gt; Explored 9 nodes (113 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2.74453 2.15529 -0 
+#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744530961024e+00, best bound 2.744530961024e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -496,16 +498,15 @@ Details section for more information.</p></td>
 #&gt; 
 #&gt;      0     0 1004.31731    0    5   -0.00000 1004.31731      -     -    0s
 #&gt;      0     0 1004.12534    0    6   -0.00000 1004.12534      -     -    0s
-#&gt; H    0     0                       2.3499575 1004.12534      -     -    0s
 #&gt; H    0     0                    1001.7856331 1004.12534  0.23%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (29 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (29 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 1001.79 2.34996 -0 
+#&gt; Solution count 2: 1001.79 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.001785633143e+03, best bound 1.004125339227e+03, gap 0.2336%</div><div class='input'>
@@ -561,37 +562,36 @@ Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    7.93818    0   11   -0.00000    7.93818      -     -    0s
-#&gt; H    0     0                       3.9996290    7.93818  98.5%     -    0s
-#&gt; H    0     0                       4.9995889    7.93818  58.8%     -    0s
-#&gt;      0     0    7.56188    0   18    4.99959    7.56188  51.3%     -    0s
-#&gt; H    0     0                       4.9996156    7.56188  51.2%     -    0s
+#&gt; H    0     0                       3.9996549    7.93818  98.5%     -    0s
+#&gt; H    0     0                       4.9996180    7.93818  58.8%     -    0s
+#&gt;      0     0    7.56188    0   18    4.99962    7.56188  51.2%     -    0s
 #&gt;      0     0    7.56101    0   19    4.99962    7.56101  51.2%     -    0s
 #&gt;      0     0    7.27065    0   11    4.99962    7.27065  45.4%     -    0s
-#&gt; H    0     0                       4.9996187    7.27065  45.4%     -    0s
 #&gt;      0     0    7.26884    0   12    4.99962    7.26884  45.4%     -    0s
 #&gt;      0     0    7.26873    0   13    4.99962    7.26873  45.4%     -    0s
 #&gt;      0     0    7.26293    0   14    4.99962    7.26293  45.3%     -    0s
-#&gt; H    0     0                       4.9996396    7.26293  45.3%     -    0s
-#&gt;      0     0    7.26286    0   14    4.99964    7.26286  45.3%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99964    7.25824  45.2%     -    0s
-#&gt; H    0     0                       4.9996487    7.25824  45.2%     -    0s
+#&gt; H    0     0                       4.9996480    7.26293  45.3%     -    0s
+#&gt;      0     0    7.26286    0   14    4.99965    7.26286  45.3%     -    0s
+#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
+#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
+#&gt; H    0     0                       4.9996494    7.25824  45.2%     -    0s
 #&gt;      0     2    7.25729    0   18    4.99965    7.25729  45.2%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 2
-#&gt;   Cover: 16
+#&gt;   Gomory: 1
+#&gt;   Cover: 6
 #&gt;   MIR: 6
 #&gt;   StrongCG: 2
 #&gt;   GUB cover: 1
-#&gt;   Inf proof: 1
+#&gt;   Inf proof: 2
 #&gt; 
-#&gt; Explored 96 nodes (1450 simplex iterations) in 0.15 seconds
+#&gt; Explored 63 nodes (1030 simplex iterations) in 0.15 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 7: 4.99965 4.99964 4.99962 ... -0
+#&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999648720543e+00, best bound 4.999656681034e+00, gap 0.0002%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -614,7 +614,7 @@ Details section for more information.</p></td>
 #&gt;      0     0  105.87844    0   10   -0.00000  105.87844      -     -    0s
 #&gt; H    0     0                     102.9996465  105.87844  2.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.03 seconds
+#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 103 -0 
@@ -673,7 +673,7 @@ Details section for more information.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -38,6 +38,8 @@ that solutions allocate (or do not allocate) specific planning units to
 specific management zones. This function offers more fine-grained control
 than the add_locked_in_constraints and
 add_locked_out_constraints functions." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -80,7 +82,7 @@ add_locked_out_constraints functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -286,7 +288,7 @@ the Details section for more information.</p></td>
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
 #&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (15 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3649.38 4017.64 
@@ -373,21 +375,21 @@ the Details section for more information.</p></td>
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.843159e+03, 91 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 9.843159e+03, 91 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9843.15923    0   14 11123.1610 9843.15923  11.5%     -    0s
-#&gt; H    0     0                    10167.245246 9843.15923  3.19%     -    0s
+#&gt; H    0     0                    10160.156963 9843.15923  3.12%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (91 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (91 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 10167.2 11123.2 
+#&gt; Solution count 2: 10160.2 11123.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.016724524615e+04, best bound 9.843159228876e+03, gap 3.1875%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -409,7 +411,7 @@ the Details section for more information.</p></td>
 #&gt; 
 #&gt;      0     0 9914.68289    0   13 10775.4711 9914.68289  7.99%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (71 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (71 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 10775.5 
@@ -449,7 +451,7 @@ the Details section for more information.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

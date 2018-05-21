@@ -51,7 +51,7 @@ Please using the following citation to cite the _prioritizr R_ package in public
 cat(paste0("Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ",packageDescription("prioritizr")$Version,". Available at https://github.com/prioritizr/prioritizr.\n"))
 ```
 
-Additionally, we keep a [record of publications](https://prioritizr.github.io/prioritizr/articles/publication_record.html) that use the _prioritizr R_ package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
+Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the _prioritizr R_ package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
 ## Usage
 
@@ -96,7 +96,7 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
      nr = 2)
 ```
 
-Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.github.io/prioritizr/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html)).
+Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)).
 
 ```{r}
 # create problem
@@ -107,7 +107,7 @@ p1 <- problem(sim_pu_polygons, features = sim_features,
       add_binary_decisions()
 ```
 
-After we have built a [`problem`](https://prioritizr.github.io/prioritizr/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Gude](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html)**
+After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Gude](https://prioritizr.net/articles/gurobi_installation.html)**
 
 ```{r, fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
@@ -128,7 +128,7 @@ spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
        main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html)).
+Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
 
 ```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with locked in constraints added to it
@@ -143,7 +143,7 @@ spplot(s2, "solution_1", col.regions = c('grey90', 'darkgreen'),
        main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
+This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
 
 ```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with boundary penalties added to it
@@ -158,7 +158,7 @@ spplot(s3, "solution_1", col.regions = c('grey90', 'darkgreen'),
        main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html)).
+This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.net/reference/add_contiguity_constraints.html)).
 
 ```{r, fig.height = h, fig.width = w, out.width = ow}
 # create new problem with contiguity constraints
@@ -177,4 +177,4 @@ This short example demonstrates how the _prioritizr R_ package can be used to bu
 
 ## Getting help
 
-Please refer to the [package website](https://prioritizr.github.io/prioritizr/index.html) for more information on the _prioritizr R_ package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.github.io/prioritizr/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.github.io/prioritizr/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.github.io/prioritizr/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.github.io/prioritizr/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.github.io/prioritizr/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the _prioritizr R_ package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.net/index.html) for more information on the _prioritizr R_ package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the _prioritizr R_ package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).

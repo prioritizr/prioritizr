@@ -9,6 +9,6 @@ articles:
   tasmania: tasmania.html
   zones: zones.html
 urls:
-  reference: http://prioritizr.github.io/prioritizr/reference
-  article: http://prioritizr.github.io/prioritizr/articles
+  reference: https://prioritizr.net/reference
+  article: https://prioritizr.net/articles
 

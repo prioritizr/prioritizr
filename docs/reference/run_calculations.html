@@ -38,6 +38,8 @@ results for later use. This function is useful when creating slightly
 different versions of the same conservation planning problem that involve
 the same pre-processing steps (e.g. calculating boundary data), because
 means that the same calculations will not be run multiple times." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -80,7 +82,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -227,15 +229,15 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
-#&gt; H    0     0                    2008.8175806 1945.07827  3.17%     -    0s
+#&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2008.82 2352.96 18523.2 
+#&gt; Solution count 3: 2006.35 2352.96 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.008817580647e+03, best bound 1.945078273075e+03, gap 3.1730%
+#&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -257,15 +259,15 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
-#&gt; H    0     0                    4015.0563437 3927.14693  2.19%     -    0s
+#&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (92 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4015.06 4565.49 18523.2 
+#&gt; Solution count 3: 4014.03 4565.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.015056343731e+03, best bound 3.927146930435e+03, gap 2.1895%
+#&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -287,15 +289,15 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5932.50572    0   16 6599.76317 5932.50572  10.1%     -    0s
-#&gt; H    0     0                    6095.3715410 5932.50572  2.67%     -    0s
+#&gt; H    0     0                    6096.9115786 5932.50572  2.70%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 6095.37 6599.76 18523.2 
+#&gt; Solution count 3: 6096.91 6599.76 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.095371541020e+03, best bound 5.932505717873e+03, gap 2.6720%</div><div class='input'>
+#&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># This approach is inefficient. Since these problems all share the same</span>
 <span class='co'># planning units it is actually performing the same calculations three times.</span>
 <span class='co'># To avoid this, we can use the "run_calculations" function before creating</span>
@@ -337,15 +339,15 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
-#&gt; H    0     0                    2008.8175806 1945.07827  3.17%     -    0s
+#&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2008.82 2352.96 18523.2 
+#&gt; Solution count 3: 2006.35 2352.96 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.008817580647e+03, best bound 1.945078273075e+03, gap 3.1730%
+#&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -367,15 +369,15 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
-#&gt; H    0     0                    4015.0563437 3927.14693  2.19%     -    0s
+#&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (92 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4015.06 4565.49 18523.2 
+#&gt; Solution count 3: 4014.03 4565.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.015056343731e+03, best bound 3.927146930435e+03, gap 2.1895%
+#&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
@@ -397,19 +399,19 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5932.50572    0   16 6599.76317 5932.50572  10.1%     -    0s
-#&gt; H    0     0                    6095.3715410 5932.50572  2.67%     -    0s
+#&gt; H    0     0                    6096.9115786 5932.50572  2.70%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 6095.37 6599.76 18523.2 
+#&gt; Solution count 3: 6096.91 6599.76 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.095371541020e+03, best bound 5.932505717873e+03, gap 2.6720%</div><div class='input'>
+#&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'>print</span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.019   0.617   2.364 </div><div class='input'><span class='fu'>print</span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.889   0.607   2.148 </div><div class='input'>
+#&gt;   0.727   0.360   1.088 </div><div class='input'><span class='fu'>print</span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.847   0.425   1.260 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.
@@ -432,7 +434,7 @@ means that the same calculations will not be run multiple times.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

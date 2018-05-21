@@ -1,342 +1,342 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/index.html</loc>
+    <loc>https://prioritizr.net/index.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/ArrayParameter-class.html</loc>
+    <loc>https://prioritizr.net/reference/ArrayParameter-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Collection-class.html</loc>
+    <loc>https://prioritizr.net/reference/Collection-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/ConservationModifier-class.html</loc>
+    <loc>https://prioritizr.net/reference/ConservationModifier-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/ConservationProblem-class.html</loc>
+    <loc>https://prioritizr.net/reference/ConservationProblem-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Constraint-class.html</loc>
+    <loc>https://prioritizr.net/reference/Constraint-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Decision-class.html</loc>
+    <loc>https://prioritizr.net/reference/Decision-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/MiscParameter-class.html</loc>
+    <loc>https://prioritizr.net/reference/MiscParameter-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Objective-class.html</loc>
+    <loc>https://prioritizr.net/reference/Objective-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/OptimizationProblem-class.html</loc>
+    <loc>https://prioritizr.net/reference/OptimizationProblem-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/OptimizationProblem-methods.html</loc>
+    <loc>https://prioritizr.net/reference/OptimizationProblem-methods.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Parameter-class.html</loc>
+    <loc>https://prioritizr.net/reference/Parameter-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Parameters-class.html</loc>
+    <loc>https://prioritizr.net/reference/Parameters-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Penalty-class.html</loc>
+    <loc>https://prioritizr.net/reference/Penalty-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Portfolio-class.html</loc>
+    <loc>https://prioritizr.net/reference/Portfolio-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/ScalarParameter-class.html</loc>
+    <loc>https://prioritizr.net/reference/ScalarParameter-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Solver-class.html</loc>
+    <loc>https://prioritizr.net/reference/Solver-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/Target-class.html</loc>
+    <loc>https://prioritizr.net/reference/Target-class.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_absolute_targets.html</loc>
+    <loc>https://prioritizr.net/reference/add_absolute_targets.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_binary_decisions.html</loc>
+    <loc>https://prioritizr.net/reference/add_binary_decisions.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_boundary_penalties.html</loc>
+    <loc>https://prioritizr.net/reference/add_boundary_penalties.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_connectivity_penalties.html</loc>
+    <loc>https://prioritizr.net/reference/add_connectivity_penalties.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_contiguity_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_contiguity_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_cuts_portfolio.html</loc>
+    <loc>https://prioritizr.net/reference/add_cuts_portfolio.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_default_decisions.html</loc>
+    <loc>https://prioritizr.net/reference/add_default_decisions.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_default_solver.html</loc>
+    <loc>https://prioritizr.net/reference/add_default_solver.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_feature_contiguity_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_feature_contiguity_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_feature_weights.html</loc>
+    <loc>https://prioritizr.net/reference/add_feature_weights.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_gurobi_solver.html</loc>
+    <loc>https://prioritizr.net/reference/add_gurobi_solver.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_locked_in_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_locked_in_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_locked_out_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_locked_out_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_loglinear_targets.html</loc>
+    <loc>https://prioritizr.net/reference/add_loglinear_targets.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_lsymphony_solver.html</loc>
+    <loc>https://prioritizr.net/reference/add_lsymphony_solver.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_manual_locked_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_manual_locked_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_manual_targets.html</loc>
+    <loc>https://prioritizr.net/reference/add_manual_targets.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_max_cover_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_max_cover_objective.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_max_features_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_max_features_objective.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_max_phylo_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_max_phylo_objective.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_max_utility_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_max_utility_objective.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_min_set_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_min_set_objective.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_neighbor_constraints.html</loc>
+    <loc>https://prioritizr.net/reference/add_neighbor_constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_pool_portfolio.html</loc>
+    <loc>https://prioritizr.net/reference/add_pool_portfolio.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_proportion_decisions.html</loc>
+    <loc>https://prioritizr.net/reference/add_proportion_decisions.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_relative_targets.html</loc>
+    <loc>https://prioritizr.net/reference/add_relative_targets.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_rsymphony_solver.html</loc>
+    <loc>https://prioritizr.net/reference/add_rsymphony_solver.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_semicontinuous_decisions.html</loc>
+    <loc>https://prioritizr.net/reference/add_semicontinuous_decisions.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/add_shuffle_portfolio.html</loc>
+    <loc>https://prioritizr.net/reference/add_shuffle_portfolio.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/array_parameters.html</loc>
+    <loc>https://prioritizr.net/reference/array_parameters.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/as.html</loc>
+    <loc>https://prioritizr.net/reference/as.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/as.list.html</loc>
+    <loc>https://prioritizr.net/reference/as.list.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/binary_stack.html</loc>
+    <loc>https://prioritizr.net/reference/binary_stack.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/boundary_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/boundary_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/branch_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/branch_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/category_layer.html</loc>
+    <loc>https://prioritizr.net/reference/category_layer.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/category_vector.html</loc>
+    <loc>https://prioritizr.net/reference/category_vector.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/compile.html</loc>
+    <loc>https://prioritizr.net/reference/compile.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/connected_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/connected_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/connectivity_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/connectivity_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/constraints.html</loc>
+    <loc>https://prioritizr.net/reference/constraints.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/decisions.html</loc>
+    <loc>https://prioritizr.net/reference/decisions.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/distribute_load.html</loc>
+    <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/fast_extract.html</loc>
+    <loc>https://prioritizr.net/reference/fast_extract.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/feature_abundances.html</loc>
+    <loc>https://prioritizr.net/reference/feature_abundances.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/feature_names.html</loc>
+    <loc>https://prioritizr.net/reference/feature_names.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/feature_representation.html</loc>
+    <loc>https://prioritizr.net/reference/feature_representation.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/intersecting_units.html</loc>
+    <loc>https://prioritizr.net/reference/intersecting_units.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/is.html</loc>
+    <loc>https://prioritizr.net/reference/is.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/is.parallel.html</loc>
+    <loc>https://prioritizr.net/reference/is.parallel.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/loglinear_interpolation.html</loc>
+    <loc>https://prioritizr.net/reference/loglinear_interpolation.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/marxan_boundary_data_to_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/marxan_boundary_data_to_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/marxan_problem.html</loc>
+    <loc>https://prioritizr.net/reference/marxan_problem.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/matrix_parameters.html</loc>
+    <loc>https://prioritizr.net/reference/matrix_parameters.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/misc_parameter.html</loc>
+    <loc>https://prioritizr.net/reference/misc_parameter.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/new_id.html</loc>
+    <loc>https://prioritizr.net/reference/new_id.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/new_optimization_problem.html</loc>
+    <loc>https://prioritizr.net/reference/new_optimization_problem.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/new_waiver.html</loc>
+    <loc>https://prioritizr.net/reference/new_waiver.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/number_of_features.html</loc>
+    <loc>https://prioritizr.net/reference/number_of_features.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/number_of_planning_units.html</loc>
+    <loc>https://prioritizr.net/reference/number_of_planning_units.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/number_of_total_units.html</loc>
+    <loc>https://prioritizr.net/reference/number_of_total_units.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/number_of_zones.html</loc>
+    <loc>https://prioritizr.net/reference/number_of_zones.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/objectives.html</loc>
+    <loc>https://prioritizr.net/reference/objectives.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/parallel.html</loc>
+    <loc>https://prioritizr.net/reference/parallel.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/parameters.html</loc>
+    <loc>https://prioritizr.net/reference/parameters.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/penalties.html</loc>
+    <loc>https://prioritizr.net/reference/penalties.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/pipe.html</loc>
+    <loc>https://prioritizr.net/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/portfolios.html</loc>
+    <loc>https://prioritizr.net/reference/portfolios.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/pproto.html</loc>
+    <loc>https://prioritizr.net/reference/pproto.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/predefined_optimization_problem.html</loc>
+    <loc>https://prioritizr.net/reference/predefined_optimization_problem.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/print.html</loc>
+    <loc>https://prioritizr.net/reference/print.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/prioritizr-deprecated.html</loc>
+    <loc>https://prioritizr.net/reference/prioritizr-deprecated.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/prioritizr.html</loc>
+    <loc>https://prioritizr.net/reference/prioritizr.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/problem.html</loc>
+    <loc>https://prioritizr.net/reference/problem.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/rij_matrix.html</loc>
+    <loc>https://prioritizr.net/reference/rij_matrix.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/run_calculations.html</loc>
+    <loc>https://prioritizr.net/reference/run_calculations.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/scalar_parameters.html</loc>
+    <loc>https://prioritizr.net/reference/scalar_parameters.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/show.html</loc>
+    <loc>https://prioritizr.net/reference/show.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/sim_data.html</loc>
+    <loc>https://prioritizr.net/reference/sim_data.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/simulate_cost.html</loc>
+    <loc>https://prioritizr.net/reference/simulate_cost.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/simulate_data.html</loc>
+    <loc>https://prioritizr.net/reference/simulate_data.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/simulate_species.html</loc>
+    <loc>https://prioritizr.net/reference/simulate_species.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/solve.html</loc>
+    <loc>https://prioritizr.net/reference/solve.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/solvers.html</loc>
+    <loc>https://prioritizr.net/reference/solvers.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/targets.html</loc>
+    <loc>https://prioritizr.net/reference/targets.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/tee.html</loc>
+    <loc>https://prioritizr.net/reference/tee.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/tibble-methods.html</loc>
+    <loc>https://prioritizr.net/reference/tibble-methods.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/zone_names.html</loc>
+    <loc>https://prioritizr.net/reference/zone_names.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/reference/zones.html</loc>
+    <loc>https://prioritizr.net/reference/zones.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/gurobi_installation.html</loc>
+    <loc>https://prioritizr.net/articles/gurobi_installation.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/prioritizr.html</loc>
+    <loc>https://prioritizr.net/articles/prioritizr.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/publication_record.html</loc>
+    <loc>https://prioritizr.net/articles/publication_record.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/saltspring.html</loc>
+    <loc>https://prioritizr.net/articles/saltspring.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/tasmania.html</loc>
+    <loc>https://prioritizr.net/articles/tasmania.html</loc>
   </url>
   <url>
-    <loc>http://prioritizr.github.io/prioritizr/articles/zones.html</loc>
+    <loc>https://prioritizr.net/articles/zones.html</loc>
   </url>
 </urlset>
