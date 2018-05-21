@@ -68,6 +68,8 @@ class directly.}
 
 \code{x$planning_unit_indices()}
 
+\code{x$planning_unit_indices_with_finite_costs()}
+
 \code{x$planning_unit_costs()}
 
 \code{x$number_of_features()}
@@ -175,8 +177,12 @@ class directly.}
   exists then the object is overwritten.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
+
 \item{planning_unit_indices}{\code{integer} indices of the planning units in
   the planning unit data.}
+
+\item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
+  indices of planning units in each zone that have finite cost data.}
 
 \item{number_of_total_units}{\code{integer} number of units in the cost
   data including units that have \code{N} cost data.}

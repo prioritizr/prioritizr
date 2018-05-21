@@ -47,6 +47,8 @@ requires a method to solve the problem. This class represents a
 planning problem, to actually build and then solve a planning problem,
 use the problem function. Only experts should use this
 class directly." />
+
+<meta property="og:image" content="http://prioritizr.github.io/prioritizr/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -89,7 +91,7 @@ class directly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -217,6 +219,7 @@ class directly.</strong></p>
 <p><code>x$number_of_total_units()</code></p>
 <p><code>x$number_of_planning_units()</code></p>
 <p><code>x$planning_unit_indices()</code></p>
+<p><code>x$planning_unit_indices_with_finite_costs()</code></p>
 <p><code>x$planning_unit_costs()</code></p>
 <p><code>x$number_of_features()</code></p>
 <p><code>x$feature_names()</code></p>
@@ -280,8 +283,10 @@ class directly.</strong></p>
   the corresponding name. If an object with that name already
   exists then the object is overwritten.</p></dd>
     <dt>number_of_planning_units</dt><dd><p><code>integer</code> number of planning units.</p></dd>
-<dt>planning_unit_indices</dt><dd><p><code>integer</code> indices of the planning units in
+    <dt>planning_unit_indices</dt><dd><p><code>integer</code> indices of the planning units in
   the planning unit data.</p></dd>
+    <dt>planning_unit_indices_with_finite_costs</dt><dd><p><code>list</code> of <code>integer</code>
+  indices of planning units in each zone that have finite cost data.</p></dd>
     <dt>number_of_total_units</dt><dd><p><code>integer</code> number of units in the cost
   data including units that have <code>N</code> cost data.</p></dd>
     <dt>planning_unit_costs</dt><dd><p><code>matrix</code> cost of allocating each planning

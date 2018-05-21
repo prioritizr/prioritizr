@@ -78,7 +78,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
       </span>
     </div>
 
@@ -253,7 +253,7 @@ object. See the Details section for more information.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>problem</p></div>
+    <div class='dont-index'><p><code>problem</code>, <code><a href='feature_abundances.html'>feature_abundances</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -288,8 +288,8 @@ object. See the Details section for more information.</p></td>
 <span class='co'># verify that feature representation calculations are correct</span>
 <span class='fu'>all.equal</span>(<span class='no'>r1</span>$<span class='no'>absolute_held</span>, <span class='fu'>c</span>(<span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]]),
                               <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>all.equal</span>(<span class='no'>r1</span>$<span class='no'>relative_held</span>, <span class='fu'>c</span>(<span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]]) / <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp1</span>),
-                             <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
-                             <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+                              <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
+                              <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># build minimal conservation problem with raster data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
@@ -302,7 +302,7 @@ object. See the Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.96
+#&gt; Found heuristic solution: objective 2337.9617505
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -357,7 +357,7 @@ object. See the Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.27
+#&gt; Found heuristic solution: objective 2145.2678910
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -411,7 +411,7 @@ object. See the Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 12200
+#&gt; Found heuristic solution: objective 12200.043064
 #&gt; Presolve removed 8 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
@@ -425,15 +425,15 @@ object. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 10331.6670    0    4 12200.0431 10331.6670  15.3%     -    0s
-#&gt; H    0     0                    10659.486584 10331.6670  3.08%     -    0s
+#&gt; H    0     0                    10667.271164 10331.6670  3.15%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (39 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 10659.5 12200 
+#&gt; Solution count 2: 10667.3 12200 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.065948658394e+04, best bound 1.033166695246e+04, gap 3.0754%</div><div class='input'>
+#&gt; Best objective 1.066727116441e+04, best bound 1.033166695246e+04, gap 3.1461%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'>print</span>(<span class='no'>s4</span>)</div><div class='output co'>#&gt; class       : RasterStack 
 #&gt; dimensions  : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)
@@ -450,20 +450,20 @@ object. See the Details section for more information.</p></td>
 #&gt;    feature   zone   absolute_held relative_held
 #&gt;    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
 #&gt;  1 feature_1 zone_1         16.0          0.192
-#&gt;  2 feature_2 zone_1          5.18         0.166
-#&gt;  3 feature_3 zone_1         12.9          0.180
-#&gt;  4 feature_4 zone_1          7.26         0.170
+#&gt;  2 feature_2 zone_1          5.13         0.164
+#&gt;  3 feature_3 zone_1         13.0          0.181
+#&gt;  4 feature_4 zone_1          7.06         0.166
 #&gt;  5 feature_5 zone_1         11.2          0.197
-#&gt;  6 feature_1 zone_2         14.6          0.176
-#&gt;  7 feature_2 zone_2          5.05         0.162
-#&gt;  8 feature_3 zone_2         11.6          0.162
-#&gt;  9 feature_4 zone_2          7.88         0.185
+#&gt;  6 feature_1 zone_2         14.7          0.177
+#&gt;  7 feature_2 zone_2          5.03         0.161
+#&gt;  8 feature_3 zone_2         11.7          0.163
+#&gt;  9 feature_4 zone_2          8.02         0.188
 #&gt; 10 feature_5 zone_2         10.4          0.183
-#&gt; 11 feature_1 zone_3         13.1          0.157
-#&gt; 12 feature_2 zone_3          6.03         0.193
-#&gt; 13 feature_3 zone_3         11.3          0.158
-#&gt; 14 feature_4 zone_3          8.44         0.198
-#&gt; 15 feature_5 zone_3          8.88         0.157</div><div class='input'>
+#&gt; 11 feature_1 zone_3         13.0          0.156
+#&gt; 12 feature_2 zone_3          6.08         0.195
+#&gt; 13 feature_3 zone_3         11.4          0.158
+#&gt; 14 feature_4 zone_3          8.33         0.195
+#&gt; 15 feature_5 zone_3          8.87         0.156</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s4</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='feature_representation-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># build multi-zone conservation problem with spatial polygon data</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_polygons</span>, <span class='no'>sim_features_zones</span>,
@@ -479,7 +479,7 @@ object. See the Details section for more information.</p></td>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Found heuristic solution: objective 10551.3
+#&gt; Found heuristic solution: objective 10551.252008
 #&gt; Presolve removed 7 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -493,15 +493,15 @@ object. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 8973.34608    0    9 10551.2520 8973.34608  15.0%     -    0s
-#&gt; H    0     0                    9188.6488427 8973.34608  2.34%     -    0s
+#&gt; H    0     0                    9201.5595283 8973.34608  2.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (70 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (70 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 9188.65 10551.3 
+#&gt; Solution count 2: 9201.56 10551.3 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.188648842716e+03, best bound 8.973346077498e+03, gap 2.3431%</div><div class='input'>
+#&gt; Best objective 9.201559528348e+03, best bound 8.973346077498e+03, gap 2.4802%</div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'>print</span>(<span class='fu'>head</span>(<span class='no'>s5</span>))</div><div class='output co'>#&gt;     cost_1   cost_2   cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
 #&gt; 1 215.8638 183.3344 205.4113    FALSE    FALSE    FALSE                 0
@@ -525,20 +525,20 @@ object. See the Details section for more information.</p></td>
 #&gt;    feature   zone   absolute_held relative_held
 #&gt;    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
 #&gt;  1 feature_1 zone_1         14.3          0.190
-#&gt;  2 feature_2 zone_1          4.92         0.176
-#&gt;  3 feature_3 zone_1         12.1          0.186
-#&gt;  4 feature_4 zone_1          6.45         0.170
-#&gt;  5 feature_5 zone_1          9.56         0.187
+#&gt;  2 feature_2 zone_1          4.88         0.174
+#&gt;  3 feature_3 zone_1         12.2          0.188
+#&gt;  4 feature_4 zone_1          6.25         0.164
+#&gt;  5 feature_5 zone_1          9.55         0.187
 #&gt;  6 feature_1 zone_2         15.0          0.200
 #&gt;  7 feature_2 zone_2          4.61         0.165
-#&gt;  8 feature_3 zone_2         13.3          0.205
-#&gt;  9 feature_4 zone_2          5.51         0.145
-#&gt; 10 feature_5 zone_2         10.2          0.200
+#&gt;  8 feature_3 zone_2         13.2          0.204
+#&gt;  9 feature_4 zone_2          5.65         0.149
+#&gt; 10 feature_5 zone_2         10.3          0.200
 #&gt; 11 feature_1 zone_3         11.1          0.147
-#&gt; 12 feature_2 zone_3          3.78         0.135
-#&gt; 13 feature_3 zone_3          8.66         0.133
+#&gt; 12 feature_2 zone_3          3.89         0.139
+#&gt; 13 feature_3 zone_3          8.45         0.130
 #&gt; 14 feature_4 zone_3          6.42         0.169
-#&gt; 15 feature_5 zone_3          7.90         0.154</div><div class='input'>
+#&gt; 15 feature_5 zone_3          7.96         0.155</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
 <span class='no'>s5</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s5</span>@<span class='kw'>data</span>[, <span class='fu'>c</span>(<span class='st'>"solution_1_zone_1"</span>,

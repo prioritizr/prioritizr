@@ -140,6 +140,7 @@ reference:
       - loglinear_interpolation
       - run_calculations
       - feature_representation
+      - feature_abundances
 
   - title: Class definitions and methods
     desc: >

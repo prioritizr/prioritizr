@@ -67,6 +67,8 @@ NULL
 #'
 #' \code{x$planning_unit_indices()}
 #'
+#' \code{x$planning_unit_indices_with_finite_costs()}
+#'
 #' \code{x$planning_unit_costs()}
 #'
 #' \code{x$number_of_features()}
@@ -170,8 +172,12 @@ NULL
 #'   exists then the object is overwritten.}
 #'
 #' \item{number_of_planning_units}{\code{integer} number of planning units.}
+#'
 #' \item{planning_unit_indices}{\code{integer} indices of the planning units in
 #'   the planning unit data.}
+#'
+#' \item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
+#'   indices of planning units in each zone that have finite cost data.}
 #'
 #' \item{number_of_total_units}{\code{integer} number of units in the cost
 #'   data including units that have \code{N} cost data.}
@@ -362,6 +368,27 @@ ConservationProblem <- pproto(
       stop("cost is of unknown class")
     }
   },
+  planning_unit_indices_with_finite_costs = function(self) {
+    if (inherits(self$data$cost, "Raster")) {
+      if (raster::nlayers(self$data$cost) == 1) {
+        out <- list(raster::Which(!is.na(self$data$cost), cells = TRUE))
+      } else {
+        out <- lapply(seq_len(raster::nlayers(self$data$cost)),
+                      function(i) raster::Which(!is.na(self$data$cost[[i]]),
+                                                cells = TRUE))
+      }
+    } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
+      out <- lapply(self$data$cost_column,
+                    function(i) which(!is.na(self$data$cost[[i]])))
+    } else if (is.matrix(self$data$cost)) {
+      out <- lapply(seq_len(ncol(self$data$cost)),
+                    function(i) which(!is.na(self$data$cost[, i])))
+    } else {
+      stop("cost is of unknown class")
+    }
+    names(out) <- self$zone_names()
+    out
+  },
   number_of_total_units = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       return(raster::ncell(self$data$cost))
@@ -418,8 +445,15 @@ ConservationProblem <- pproto(
     }
   },
   feature_abundances_in_planning_units = function(self) {
-    vapply(self$data$rij_matrix, Matrix::rowSums,
-           numeric(nrow(self$data$rij_matrix[[1]])), na.rm = TRUE)
+    pu_indices <- self$planning_unit_indices()
+    ind <- self$planning_unit_indices_with_finite_costs()
+    ind <- lapply(ind, function(x) match(x, pu_indices))
+    out <- vapply(seq_along(self$data$rij_matrix),
+      function(i) Matrix::rowSums(self$data$rij_matrix[[i]][, ind[[i]],
+        drop = FALSE], na.rm = TRUE),
+      numeric(nrow(self$data$rij_matrix[[1]])))
+   colnames(out) <- self$zone_names()
+   out
   },
   feature_abundances_in_total_units = function(self) {
     self$data$feature_abundances_in_total_units

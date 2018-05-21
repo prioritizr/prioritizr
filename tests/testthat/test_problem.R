@@ -178,7 +178,12 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesRaster", {
                zone_names(sim_features_zones))
   # tests for feature_abundances_in_planning_units field
   expect_equivalent(x$feature_abundances_in_planning_units(),
-                    sapply(x$data$rij_matrix, Matrix::rowSums))
+    sapply(seq_along(x$data$rij_matrix), function(i) {
+      pos1 <- x$planning_unit_indices()
+      pos2 <- which(!is.na(sim_pu_zones_polygons@data[[paste0("cost_", i)]]))
+      pos3 <- match(pos2, pos1)
+      Matrix::rowSums(x$data$rij_matrix[[i]][, pos3, drop = FALSE])
+    }))
   expect_equal(colnames(x$feature_abundances_in_planning_units()),
                zone_names(sim_features_zones))
   expect_equal(rownames(x$feature_abundances_in_planning_units()),
@@ -390,9 +395,17 @@ test_that("x=SpatialPolygonsDataFrame, features=ZonesCharacter", {
                                                                "cost_2")]))
   expect_equal(colnames(x$planning_unit_costs()), c("z1", "z2"))
   # tests for feature_abundances_in_planning_units field
-  expect_equivalent(x$feature_abundances_in_planning_units(),
-    matrix(colSums(sim_pu_zones_polygons@data[-3,
-    c("spp1_1", "spp2_1", "spp1_2", "spp2_2")], na.rm = TRUE), ncol = 2))
+  expect_equivalent(
+    x$feature_abundances_in_planning_units(),
+    matrix(c(sum(sim_pu_zones_polygons$spp1_1[
+               !is.na(sim_pu_zones_polygons$cost_1)], na.rm = TRUE),
+             sum(sim_pu_zones_polygons$spp2_1[
+               !is.na(sim_pu_zones_polygons$cost_1)], na.rm = TRUE),
+             sum(sim_pu_zones_polygons$spp1_2[
+               !is.na(sim_pu_zones_polygons$cost_2)], na.rm = TRUE),
+             sum(sim_pu_zones_polygons$spp2_2[
+               !is.na(sim_pu_zones_polygons$cost_2)], na.rm = TRUE)),
+           ncol = 4))
   expect_equal(colnames(x$feature_abundances_in_planning_units()),
                c("z1", "z2"))
   expect_equal(rownames(x$feature_abundances_in_planning_units()),
@@ -501,8 +514,13 @@ test_that("x=data.frame, features=ZonesCharacter", {
   expect_equivalent(x$planning_unit_costs(), as.matrix(pu[-2, 2:3]))
   expect_equal(colnames(x$planning_unit_costs()), c("1", "2"))
   # tests for feature_abundances_in_planning_units field
-  expect_equivalent(x$feature_abundances_in_planning_units(),
-                    matrix(colSums(pu[-2, 4:7], na.rm = TRUE), ncol = 2))
+  expect_equivalent(
+    x$feature_abundances_in_planning_units(),
+    matrix(c(sum(pu$spp1_1[!is.na(pu$cost_1)], na.rm = TRUE),
+             sum(pu$spp2_1[!is.na(pu$cost_1)], na.rm = TRUE),
+             sum(pu$spp1_2[!is.na(pu$cost_2)], na.rm = TRUE),
+             sum(pu$spp2_2[!is.na(pu$cost_2)], na.rm = TRUE)),
+           ncol = 4))
   expect_equal(rownames(x$feature_abundances_in_planning_units()),
                c("1", "2"))
   expect_equal(colnames(x$feature_abundances_in_planning_units()),
@@ -609,7 +627,9 @@ test_that("x=data.frame, features=data.frame (multiple zones)", {
   expect_equivalent(x$planning_unit_costs(), as.matrix(pu[-2, 2:3]))
   expect_equal(colnames(x$planning_unit_costs()), c("z1", "z2"))
   # tests for feature_abundances_in_planning_units field
-  rij2 <- rij[rij$pu != 2, ]
+  rij2 <- rij
+  rij2 <- rij2[!(rij2$pu %in% pu$id[is.na(pu$cost_1)] & rij2$zone == 1), ]
+  rij2 <- rij2[!(rij2$pu %in% pu$id[is.na(pu$cost_2)] & rij2$zone == 2), ]
   expect_equivalent(x$feature_abundances_in_planning_units(),
                     matrix(aggregate(rij2[[4]], by = list(rij2[[2]], rij2[[3]]),
                                      sum)[[3]], ncol = 2))
@@ -712,8 +732,13 @@ test_that("x=matrix, features=data.frame", {
                     as.matrix(pu[-2, 2:3]))
   expect_equal(colnames(x$planning_unit_costs()), c("1", "2"))
   # tests for feature_abundances_in_planning_units field
-  expect_equivalent(x$feature_abundances_in_planning_units(),
-                    matrix(colSums(pu[-2, 4:7], na.rm = TRUE), ncol = 2))
+  expect_equivalent(
+    x$feature_abundances_in_planning_units(),
+    matrix(c(sum(pu$spp1_1[!is.na(pu$cost_1)], na.rm = TRUE),
+             sum(pu$spp2_1[!is.na(pu$cost_1)], na.rm = TRUE),
+             sum(pu$spp1_2[!is.na(pu$cost_2)], na.rm = TRUE),
+             sum(pu$spp2_2[!is.na(pu$cost_2)], na.rm = TRUE)),
+           ncol = 4))
   expect_equal(rownames(x$feature_abundances_in_planning_units()),
                c("spp1", "spp2"))
   expect_equal(colnames(x$feature_abundances_in_planning_units()), c("1", "2"))

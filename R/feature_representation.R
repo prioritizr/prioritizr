@@ -72,7 +72,7 @@ NULL
 #'
 #' @aliases feature_representation,ConservationProblem,numeric-method feature_representation,ConservationProblem,matrix-method feature_representation,ConservationProblem,data.frame-method feature_representation,ConservationProblem,Spatial-method feature_representation,ConservationProblem,Raster-method
 #'
-#' @seealso problem
+#' @seealso \code{\link{problem}}, \code{\link{feature_abundances}}.
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -104,8 +104,8 @@ NULL
 #' all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]]),
 #'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE)))
 #' all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]]) / sum(pu$spp1),
-#'                              sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
-#'                              sum(pu$spp2, na.rm = TRUE)))
+#'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
+#'                               sum(pu$spp2, na.rm = TRUE)))
 #'
 #' # build minimal conservation problem with raster data
 #' p2 <- problem(sim_pu_raster, sim_features) %>%

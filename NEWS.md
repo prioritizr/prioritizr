@@ -1,3 +1,8 @@
+# prioritizr 4.0.0.12
+
+- New `feature_abundances` function to calculate the total amount of each 
+  feature in the planning units (#86).
+
 # prioritizr 4.0.0.11
 
 - Fix some equations in the documentation (#83).

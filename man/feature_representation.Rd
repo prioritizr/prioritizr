@@ -124,8 +124,8 @@ print(r1)
 all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]]),
                               sum(pu$spp2 * s1[[1]], na.rm = TRUE)))
 all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]]) / sum(pu$spp1),
-                             sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
-                             sum(pu$spp2, na.rm = TRUE)))
+                              sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
+                              sum(pu$spp2, na.rm = TRUE)))
 
 # build minimal conservation problem with raster data
 p2 <- problem(sim_pu_raster, sim_features) \%>\%
@@ -217,5 +217,5 @@ spplot(s5, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-problem
+\code{\link{problem}}, \code{\link{feature_abundances}}.
 }
