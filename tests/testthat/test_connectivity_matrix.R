@@ -68,27 +68,26 @@ test_that("Spatial,Raster", {
 })
 
 test_that("Raster,Raster", {
-  ## load data
+  # load data
   data(sim_pu_raster, sim_features)
-  ## make matrix
+  # make matrix
   cm <- connectivity_matrix(sim_pu_raster, sim_features[[1]])
-  ## check that matrix is correct
   # preliminary calculations
   bm <- boundary_matrix(sim_pu_raster)
-  included <- raster::Which(!is.na(sim_pu_raster[[1]]), cells = TRUE)
   bd <- matrix_to_triplet_dataframe(bm)
   bd <- bd[bd[[1]] != bd[[2]], ]
-  bd$x <- bd$x * ( (sim_features[[1]][included[bd$i]] +
-                    sim_features[[1]][included[bd$j]]) * 0.5)
+  bd$x <- bd$x * ( (sim_features[[1]][bd$i] +
+                    sim_features[[1]][bd$j]) * 0.5)
   bd <- bd[which(bd$x > 0), ]
   correct_cm <- Matrix::sparseMatrix(i = bd$i, j = bd$j, x = bd$x,
                                      symmetric = TRUE,
-                                     dims = rep(length(included), 2))
+                                     dims = rep(raster::ncell(sim_pu_raster),
+                                                2))
   # tests
   expect_equal(ncol(cm), ncol(correct_cm))
   expect_equal(nrow(cm), nrow(correct_cm))
   expect_true(all(cm == correct_cm))
-  ## invalid inputs
+  # invalid inputs
   expect_error({
     data(sim_pu_raster, sim_features)
     connectivity_matrix(sim_pu_raster, sim_features)

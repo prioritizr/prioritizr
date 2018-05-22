@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Decision")
+if (!methods::isClass("Decision")) methods::setOldClass("Decision")
+NULL
 
 #' Decision prototype
 #'

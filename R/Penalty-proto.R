@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Penalty")
+if (!methods::isClass("Penalty")) methods::setOldClass("Penalty")
+NULL
 
 #' Penalty prototype
 #'

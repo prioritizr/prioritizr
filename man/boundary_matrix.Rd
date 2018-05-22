@@ -6,20 +6,20 @@
 \alias{boundary_matrix.SpatialPolygons}
 \alias{boundary_matrix.SpatialLines}
 \alias{boundary_matrix.SpatialPoints}
-\alias{boundary_matrix.data.frame}
+\alias{boundary_matrix.default}
 \title{Boundary matrix}
 \usage{
-boundary_matrix(x, ...)
+boundary_matrix(x, str_tree)
 
-\method{boundary_matrix}{Raster}(x, ...)
+\method{boundary_matrix}{Raster}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialPolygons}(x, ...)
+\method{boundary_matrix}{SpatialPolygons}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialLines}(x, ...)
+\method{boundary_matrix}{SpatialLines}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{SpatialPoints}(x, ...)
+\method{boundary_matrix}{SpatialPoints}(x, str_tree = FALSE)
 
-\method{boundary_matrix}{data.frame}(x, ...)
+\method{boundary_matrix}{default}(x, str_tree = FALSE)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
@@ -28,14 +28,24 @@ boundary_matrix(x, ...)
 \code{\link[raster]{Raster-class}} object then it must have only one
 layer.}
 
-\item{...}{not used.}
+\item{str_tree}{\code{logical} should a
+\href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
+to pre-process data? If \code{TRUE}, then the experimental
+\code{\link[rgeos]{gUnarySTRtreeQuery}} function
+will be used to pre-compute which planning units are adjacent to
+each other and potentially reduce the processing time required to
+generate the boundary matrices. This argument is only used when
+the planning unit data are vector-based polygons (i.e.
+\code{\link[sp]{SpatialPolygonsDataFrame}} objects). The default argument
+is \code{FALSE}.}
 }
 \value{
 \code{\link{Matrix}{dsCMatrix-class}} object.
 }
 \description{
-Generate a boundary matrix describing the shared and exposed edges of
-planning units.
+Generate a matrix describing the amount of shared boundary length
+between different planning units, and the amount of exposed edge length each
+planning unit exhibits.
 }
 \details{
 This function returns a \code{\link[Matrix]{dsCMatrix-class}}
@@ -46,36 +56,42 @@ This function returns a \code{\link[Matrix]{dsCMatrix-class}}
   coastline). \strong{This function assumes the data are in a coordinate
   system where Euclidean distances accurately describe the proximity
   between two points on the earth}. Thus spatial data in a longitude/latitude
-  coordinate system (aka \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
+  coordinate system (aka
+  \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
   should be reprojected to another coordinate system before using this
-  function.
+  function. Note that for \code{\link[raster]{Raster-class}} objects
+  boundaries are missing for cells that have \code{NA} values in all cells.
 }
 \examples{
-## load data
+# load data
 data(sim_pu_raster, sim_pu_polygons)
 
-## create boundary matrix using raster data
-# crop raster to 9 cells
+# subset data to reduce processing time
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
-# make boundary matrix
+ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+
+# create boundary matrix using raster data
 bm_raster <- boundary_matrix(r)
 
-## create boundary matrix using polygon data
-# subset 9 polygons
-ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-# make boundary matrix
-bm_ply <- boundary_matrix(ply)
+# create boundary matrix using polygon data
+bm_ply1 <- boundary_matrix(ply)
 
-# plot raster and connected matrix
+# create boundary matrix using polygon data and GEOS STR query trees
+# to speed up processing
+bm_ply2 <- boundary_matrix(ply, TRUE)
+
+# plot raster and boundary matrix
 par(mfrow = c(1, 2))
 plot(r, main = "raster", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
      axes = FALSE, box = FALSE)
 
-# plot polygons and connected matrix
-par(mfrow = c(1, 2))
+# plot polygons and boundary matrices
+par(mfrow = c(1, 3))
 plot(r, main = "polygons", axes = FALSE, box = FALSE)
-plot(raster(as.matrix(bm_ply)), main = "boundary matrix", axes = FALSE,
+plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
      box = FALSE)
+plot(raster(as.matrix(bm_ply2)), main = "boundary matrix (STR)",
+            axes = FALSE, box = FALSE)
 
 }

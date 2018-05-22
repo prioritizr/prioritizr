@@ -2,9 +2,10 @@
 NULL
 
 #' @export
-methods::setOldClass("ScalarParameter")
+if (!methods::isClass("ScalarParameter")) methods::setOldClass("ScalarParameter")
+NULL
 
-#' Scalar Parameter prototype
+#' Scalar parameter prototype
 #'
 #' This prototype is used to represent a parameter has a single value.
 #' \strong{Only experts should interact directly with this prototype.}
@@ -90,6 +91,8 @@ NULL
 ScalarParameter <- pproto(
   "ScalarParameter",
   Parameter,
+  upper_limit = numeric(0),
+  lower_limit = numeric(0),
   repr = function(self) {
     paste0(self$name, " (", self$value, ")")
   },

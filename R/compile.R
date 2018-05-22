@@ -3,8 +3,8 @@ NULL
 
 #' Compile a problem
 #'
-#' Compile a \code{\link{ConservationProblem-class}} into an
-#' \code{\link{OptimizationProblem-class}} object.
+#' Compile a conservation planning \code{\link{problem}} into an
+#' (potentially mixed) integer linear programming problem.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -18,7 +18,12 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details \strong{In nearly all cases, the default argument to
+#' @details This function might be useful for those interested in understanding
+#'   how their conservation planning \code{\link{problem}} is expressed
+#'   as a mathematical problem. However, if the problem just needs to
+#'   be solved, then the \code{\link{solve}} function should just be used.
+#'
+#'   \strong{Please note that in nearly all cases, the default argument to
 #'   \code{formulation} should be used}. The only situation where manually
 #'   setting the argument to \code{formulation} is desirable is during testing.
 #'   Manually setting the argument to \code{formulation} will at best
@@ -48,6 +53,7 @@ compile <- function(x, ...) UseMethod("compile")
 compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # assert arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
+    no_extra_arguments(...),
     is.na(compressed_formulation) ||
           assertthat::is.flag(compressed_formulation))
   # sanity checks
@@ -72,14 +78,32 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   if (is.na(compressed_formulation))
     compressed_formulation <- all(vapply(x$constraints$ids(),
       function(i) x$constraints[[i]]$compressed_formulation, logical(1)))
+  # generate targets
+  if (is.Waiver(x$targets)) {
+    # if objective doesn't actually use targets, create a "fake" targets tibble
+    # to initialize rij matrix
+    targets <- tibble::as.tibble(expand.grid(
+      feature = seq_along(x$feature_names()),
+      zone = seq_along(x$zone_names()),
+      sense = "?",
+      value = 0))
+    targets$zone <- as.list(targets$zone)
+  } else {
+    # generate "real" targets
+    targets <- x$feature_targets()
+  }
   # add rij data to optimization problem
-  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), compressed_formulation)
+  rcpp_add_rij_data(op$ptr, x$get_data("rij_matrix"), as.list(targets),
+                    compressed_formulation)
   # add decision types to optimization problem
   x$decisions$calculate(x)
   x$decisions$apply(op)
   # add objective to optimization problem
   x$objective$calculate(x)
   x$objective$apply(op, x)
+  # add constraints for zones
+  if (x$number_of_zones() > 1)
+    rcpp_add_zones_constraints(op$ptr)
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     x$penalties[[i]]$calculate(x)
@@ -90,16 +114,14 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }
-  # check that planning units have not been locked in and locked out
-  pu_ub <- op$ub()[seq_len(x$number_of_planning_units())]
-  invalid_pu <- which(op$lb()[seq_len(x$number_of_planning_units())] > pu_ub)
-  if (length(invalid_pu)) {
-    stop("the following planning units have been locked in and locked out:\n",
-      paste(invalid_pu, collapse = ","))
-  }
+  # check that all planning units have not been locked in
+  if (all(op$lb()[seq_len(x$number_of_planning_units() *
+                          x$number_of_zones())] == 1))
+    warning("all planning units are locked in.")
   # check that all planning units have not been locked out
-  if (all(pu_ub == 0))
-    stop("all planning units are locked out.")
+  if (all(op$ub()[seq_len(x$number_of_planning_units() *
+                          x$number_of_zones())] == 0))
+    warning("all planning units are locked out.")
   # return problem object
   op
 }

@@ -2,9 +2,10 @@
 NULL
 
 #' @export
-methods::setOldClass("ArrayParameter")
+if (!methods::isClass("ArrayParameter")) methods::setOldClass("ArrayParameter")
+NULL
 
-#' Array Parameter prototype
+#' Array parameter prototype
 #'
 #' This prototype is used to represent a parameter has multiple values. Each
 #' value is has a label to differentiate values. \strong{Only experts should
@@ -100,6 +101,8 @@ ArrayParameter <- pproto(
   "ArrayParameter",
   Parameter,
   label = character(0),
+  upper_limit = numeric(0),
+  lower_limit = numeric(0),
   length = 0,
   repr = function(self) {
     paste0(self$name, " (min: ", min(self$value), ", max: ",
@@ -135,7 +138,7 @@ ArrayParameter <- pproto(
       stop(paste0("the \"", pkg, "\" R package must be installed to render",
                   " this parameter."))
     # extract function
-    f <- do.call(getFromNamespace,
+    f <- do.call(utils::getFromNamespace,
       as.list(rev(strsplit(self$widget, "::")[[1]])))
     do.call(f, list(outputId = self$id))
   })

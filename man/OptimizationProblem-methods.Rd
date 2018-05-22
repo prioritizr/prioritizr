@@ -13,8 +13,6 @@
 \alias{sense}
 \alias{lb}
 \alias{ub}
-\alias{number_of_features}
-\alias{number_of_planning_units}
 \alias{col_ids}
 \alias{row_ids}
 \alias{compressed_formulation}
@@ -25,8 +23,6 @@
 \alias{modelsense,OptimizationProblem-method}
 \alias{ncol,OptimizationProblem-method}
 \alias{nrow,OptimizationProblem-method}
-\alias{number_of_features,OptimizationProblem-method}
-\alias{number_of_planning_units,OptimizationProblem-method}
 \alias{obj,OptimizationProblem-method}
 \alias{rhs,OptimizationProblem-method}
 \alias{row_ids,OptimizationProblem-method}
@@ -62,40 +58,63 @@
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
 \alias{OptimizationProblem-methods}
-\alias{OptimizationProblem-methods}
 \title{Optimization problem methods}
 \usage{
 nrow(x)
 
+\S4method{nrow}{OptimizationProblem}(x)
+
 ncol(x)
+
+\S4method{ncol}{OptimizationProblem}(x)
 
 ncell(x)
 
+\S4method{ncell}{OptimizationProblem}(x)
+
 modelsense(x)
+
+\S4method{modelsense}{OptimizationProblem}(x)
 
 vtype(x)
 
+\S4method{vtype}{OptimizationProblem}(x)
+
 obj(x)
+
+\S4method{obj}{OptimizationProblem}(x)
 
 A(x)
 
+\S4method{A}{OptimizationProblem}(x)
+
 rhs(x)
+
+\S4method{rhs}{OptimizationProblem}(x)
 
 sense(x)
 
+\S4method{sense}{OptimizationProblem}(x)
+
 lb(x)
+
+\S4method{lb}{OptimizationProblem}(x)
 
 ub(x)
 
-number_of_features(x)
-
-number_of_planning_units(x)
+\S4method{ub}{OptimizationProblem}(x)
 
 col_ids(x)
 
+\S4method{col_ids}{OptimizationProblem}(x)
+
 row_ids(x)
 
+\S4method{row_ids}{OptimizationProblem}(x)
+
 compressed_formulation(x)
+
+\S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
 \item{x}{\code{\link{OptimizationProblem-class}} object.}

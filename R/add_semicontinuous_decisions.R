@@ -10,44 +10,54 @@ NULL
 #' This decision is similar to the \code{\link{add_proportion_decisions}}
 #' function except that it has an upper bound parameter. By default, the
 #' decision can range from prioritizing none (0 \%) to all (100 \%) of a
-#' planning unit. However, a upper bound can be specified to ensure that at most
-#' only a fraction (e.g. 80 \%) of a planning unit can be preserved. This type
-#' of decision may be useful when it is not practical to conserve the entire
-#' planning unit.
+#' planning unit. However, an upper bound can be specified to ensure that at
+#' most only a fraction (e.g. 80 \%) of a planning unit can be preserved. This
+#' type of decision may be useful when it is not practical to conserve entire
+#' planning units.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param upper_limit \code{numeric} value specifying the maximum proportion
 #'   of a planning unit that can be reserved (e.g. set to 0.8 for 80 \%).
 #'
-#' @details
-#' Conservation planning problems involve making decisions on planning units.
-#' These decisions are then associated with actions (e.g. turning a planning
-#' unit into a protected area). If no decision is explicitly added to a problem,
-#' then the binary decision class will be used by default.Only a single decision
-#' should be added to a
-#' \code{ConservationProblem} object. \strong{If multiple decisions are added
-#' to a problem object, then the last one to be added will be used.}
-#'
-#' @return \code{\link{Decision-class}} object.
-#'
-#' @seealso \code{\link{decisions}}.
+#' @inherit add_binary_decisions details return seealso
 #'
 #' @examples
-#' # create problem with semicontinuous decisions that have an upper bound of
-#' # 50 % of the planning unit
-#' p <- problem(sim_pu_raster, sim_features) %>%
+#' # set seed for reproducibility
+#' set.seed(500)
+#'
+#' # load data
+#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#'
+#' # create minimal problem with semi-continuous decisions
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
 #'      add_relative_targets(0.1) %>%
-#'      add_semicontinuous_decisions(upper_limit = 0.5)
+#'      add_semicontinuous_decisions(0.5)
 #' \donttest{
 #' # solve problem
-#' s <- solve(p)
+#' s1 <- solve(p1)
 #'
 #' # plot solutions
-#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' plot(s1, main = "solution")
 #' }
+#' # build multi-zone conservation problem with semi-continuous decisions
+#' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
+#'       add_semicontinuous_decisions(0.5)
+#' \donttest{
+#' # solve the problem
+#' s2 <- solve(p2)
 #'
+#' # print solution
+#' print(s2)
+#'
+#' # plot solution
+#' # panels show the proportion of each planning unit allocated to each zone
+#' plot(s2, axes = FALSE, box = FALSE)
+#' }
 #' @name add_semicontinuous_decisions
 NULL
 
@@ -60,14 +70,15 @@ add_semicontinuous_decisions <- function(x, upper_limit) {
                           assertthat::is.scalar(upper_limit),
                           isTRUE(upper_limit <= 1), isTRUE(upper_limit >= 0))
   # add decision to problem
-  x$add_decisions(pproto("SemiContinuousDecision", Decision,
-                         name = "Semicontinuous decision",
-                         parameters = parameters(
-                           proportion_parameter("upper limit", upper_limit)),
-                         apply = function(self, x) {
-                           assertthat::assert_that(inherits(x,
-                                                   "OptimizationProblem"))
-                           invisible(rcpp_apply_semicontinuous_decisions(x$ptr,
-                                     self$parameters$get("upper limit")))
-                         }))
+  x$add_decisions(
+    pproto("SemiContinuousDecision",
+           Decision,
+           name = "Semicontinuous decision",
+           parameters = parameters(
+             proportion_parameter("upper limit", upper_limit)),
+           apply = function(self, x) {
+             assertthat::assert_that(inherits(x, "OptimizationProblem"))
+             invisible(rcpp_apply_decisions(x$ptr, "C", 0,
+                                            self$parameters$get("upper limit")))
+           }))
 }

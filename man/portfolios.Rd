@@ -2,7 +2,7 @@
 % Please edit documentation in R/portfolios.R
 \name{portfolios}
 \alias{portfolios}
-\title{Solution portfolio methods}
+\title{Solution portfolios}
 \description{
 Conservation planners often desire a portfolio of solutions
 to present to decision makers. This is because conservation planners
@@ -12,20 +12,27 @@ near-optimal solutions can be a useful.
 }
 \details{
 All methods for generating portfolios will return solutions that
-  are within the specified optimality gap. Below are the portfolio methods
-  that can be added to a \code{ConservationProblem} object.
+  are within the specified optimality gap.
+
+  The following portfolios can be added to a conservation planning
+  \code{\link{problem}}:
 
   \describe{
+
   \item{\code{add_default_portfolio}}{Generate a single solution.}
 
-  \item{\code{\link{add_cuts_portfolio}}}{
-    Generate a portfolio of solutions using Bender's cuts.}
+  \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of distinct
+    solutions within a pre-specified optimality gap using Bender's cuts.}
 
-  \item{\code{\link{add_shuffle_portfolio}}}{
-    Generate a portfolio of solutions by randomly reordering the data
-    prior to attempting to solve the problem.}
+  \item{\code{\link{add_pool_portfolio}}}{Generate a portfolio of solutions
+    by extracting all the feasible solutions discovered during the
+    optimization process.}
 
-  }
+  \item{\code{\link{add_shuffle_portfolio}}}{Generate a portfolio of
+    solutions by randomly reordering the data prior to attempting to solve
+    the problem.}
+
+}
 }
 \examples{
 # load data
@@ -36,7 +43,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
      add_relative_targets(0.1) \%>\%
      add_binary_decisions() \%>\%
-     add_default_solver(gap = 0.2, verbose = FALSE)
+     add_default_solver(gap = 0.02, verbose = FALSE)
 
 # create problem with cuts portfolio
 p1 <- p \%>\% add_cuts_portfolio(4)
@@ -44,17 +51,21 @@ p1 <- p \%>\% add_cuts_portfolio(4)
 # create problem with shuffle portfolio
 p2 <- p \%>\% add_shuffle_portfolio(4)
 \donttest{
-# solve problems and create portfolios of solutions within 20 \% of optimality
-# using different emthods
-s <- list(solve(p1), solve(p2))
+# create problem with pool portfolio
+p3 <- p \%>\% add_pool_portfolio()
+
+# solve problems and create solution portfolios
+s <- list(solve(p1), solve(p2), solve(p3))
 
 # plot solutions from cuts portfolio
-plot(s[[1]], axes = FALSE, box = FALSE)
+plot(stack(s[[1]]), axes = FALSE, box = FALSE)
 
-# plot solutions from cuts portfolio
-plot(s[[2]], axes = FALSE, box = FALSE)
+# plot solutions from shuffle portfolio
+plot(stack(s[[2]]), axes = FALSE, box = FALSE)
+
+# plot solutions from pool portfolio
+plot(stack(s[[3]]), axes = FALSE, box = FALSE)
 }
-
 }
 \seealso{
 \code{\link{constraints}},  \code{\link{decisions}},

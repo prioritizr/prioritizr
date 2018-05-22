@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Objective")
+if (!methods::isClass("Objective")) methods::setOldClass("Objective")
+NULL
 
 #' Objective prototype
 #'

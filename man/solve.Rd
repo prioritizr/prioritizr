@@ -6,7 +6,7 @@
 \alias{solve,ConservationProblem,missing-method}
 \alias{solve}
 \alias{solve}
-\title{Solve a problem}
+\title{Solve}
 \arguments{
 \item{a}{\code{\link{ConservationProblem-class}} or an
 \code{\link{OptimizationProblem-class}} object.}
@@ -28,45 +28,161 @@ A \code{numeric}, \code{matrix},
   optimal solution was found).
 }
 \description{
-Solve a \code{\link{ConservationProblem-class}} or an
-\code{\link{OptimizationProblem-class}}.
+Solve a conservation planning \code{\link{problem}}.
 }
 \details{
-If a \code{\link{OptimizationProblem-class}} is supplied, then the
-  solution is returned as a \code{logical} showing the status of each
-  planning unit. If a \code{\link{ConservationProblem-class}} is supplied,
-  then the  solution is returned in the format of the cost data contained
-  inside it:
-  \itemize{
-  \item{\code{\link[raster]{RasterLayer-class}}}{the solution is returned as
-     a \code{\link[raster]{RasterLayer-class}} object. Cell values denote
-     the decision.}
-  \item{\code{\link[sp]{Spatial-class}}}{the solution is returned as a
-     \code{\link[sp]{SpatialPolygonsDataFrame}} or
-     \code{\link[sp]{SpatialLinesDataFrame}} with a "Solution" column
-     containing the decision values.}
+The object returned from this function depends on the argument to
+  \code{a}. If the argument to \code{a} is an
+  \code{\link{OptimizationProblem-class}} object, then the
+  solution is returned as a \code{logical} \code{vector} showing the status
+  of each planning unit in each zone. On the other hand, if the argument
+  to \code{a} is an \code{\link{ConservationProblem-class}} object,
+  then the type of object returned depends on the number of solutions
+  generated and the type data used to represent planning unit costs in the
+  argument to \code{a}.
+
+  \describe{
+
+  \item{\code{numeric}}{\code{vector} containing the solution. Here,
+    Each element corresponds to a different planning unit. If
+    multiple solutions are generated, then the solution is returned as
+    a \code{list} of \code{numeric} \code{vectors}.}
+
+  \item{\code{matrix}}{containing \code{numeric} values for the solution.
+    Here, rows correspond to different planning units,
+    and fields (columns) correspond to different  management zones. If
+    multiple solutions are generated, then the solution is returned as
+    a \code{list} of \code{matrix} objects.}
+
+  \item{\code{\link[raster]{Raster-class}}}{object containing the solution
+    in pixel values. If the argument to \code{x} contains a single
+    management zone, then a \code{RasterLayer} object will be returned.
+    Otherwise, if the argument to \code{x} contains multiple zones, then a
+    \code{\link[raster]{RasterStack-class}} object
+    will be returned containing a different layer for each management zone.
+    If multiple solutions are generated, then the solution is returned as
+    a \code{list} of \code{Raster} objects.}
+
+  \item{\code{\link[sp]{Spatial-class}} or \code{data.frame}}{
+    containing the solution in fields (columns). Here, each row
+    corresponds to a different planning unit. If the argument to \code{x}
+    contains a single zone, the fields containing solutions are named
+    \code{"solution_XXX"} where \code{"XXX"} corresponds to the solution
+    number. If the argument to \code{x} contains multiple zones, the fields
+    containing solutions are named \code{"solution_XXX_YYY"} where
+    \code{"XXX"} corresponds to the solution and \code{"YYY"} is the name
+    of the management zone.}
+
   }
+
+  Since this function returns an object that specifies how much of each
+  planning unit is allocated to each management zone, it may be useful to use
+  the \code{\link{category_layer}} function to reformat the output
+  for problems containing multiple zones.
 }
 \examples{
-# build minimal conservation problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions()
+# set seed for reproducibility
+set.seed(500)
 
+# load data
+data(sim_pu_raster, sim_pu_polygons, sim_features, sim_pu_zones_stack,
+     sim_pu_zones_polygons, sim_features_zones)
+
+# build minimal conservation problem with raster data
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
 \donttest{
 # solve the problem
-s <- solve(p)
+s1 <- solve(p1)
 
-# print the solution
-print(s)
+# print solution
+print(s1)
+
+# print attributes describing the optimization process and the solution
+print(attr(s1, "objective"))
+print(attr(s1, "runtime"))
+print(attr(s1, "status"))
+
+# calculate feature representation in the solution
+r1 <- feature_representation(p1, s1)
+print(r1)
 
 # plot solution
-plot(s, main = "solution", axes = FALSE, box = FALSE)
-
-# print attributes added to the solution
-print(attr(s, "objective"))
-print(attr(s, "runtime"))
-print(attr(s, "status"))
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
 }
+# build minimal conservation problem with spatial polygon data
+p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve the problem
+s2 <- solve(p2)
+
+# print first six rows of the attribute table
+print(head(s2))
+
+# calculate feature representation in the solution
+r2 <- feature_representation(p2, s2[, "solution_1"])
+print(r2)
+
+# plot solution
+spplot(s2, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
+}
+# build multi-zone conservation problem with raster data
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve the problem
+s3 <- solve(p3)
+
+# print solution
+print(s3)
+
+# calculate feature representation in the solution
+r3 <- feature_representation(p3, s3)
+print(r3)
+
+# plot solution
+plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+}
+# build multi-zone conservation problem with spatial polygon data
+p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
+              cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_binary_decisions()
+\donttest{
+# solve the problem
+s4 <- solve(p4)
+
+# print first six rows of the attribute table
+print(head(s4))
+
+# calculate feature representation in the solution
+r4 <- feature_representation(p4, s4[, c("solution_1_zone_1",
+                                        "solution_1_zone_2",
+                                        "solution_1_zone_3")])
+print(r4)
+
+# create new column representing the zone id that each planning unit
+# was allocated to in the solution
+s4$solution <- category_vector(s4@data[, c("solution_1_zone_1",
+                                           "solution_1_zone_2",
+                                           "solution_1_zone_3")])
+s4$solution <- factor(s4$solution)
+
+# plot solution
+spplot(s4, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+}
+}
+\seealso{
+\code{\link{feature_representation}}, \code{\link{problem}},
+  \code{\link{solvers}}, \code{\link{category_layer}}.
 }

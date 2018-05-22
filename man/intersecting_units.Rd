@@ -14,65 +14,63 @@
 \alias{intersecting_units}
 \title{Find intersecting units}
 \usage{
-\S4method{intersecting_units}{Raster,Raster}(x, y, ...)
+\S4method{intersecting_units}{Raster,Raster}(x, y)
 
-\S4method{intersecting_units}{Spatial,Spatial}(x, y, ...)
+\S4method{intersecting_units}{Spatial,Spatial}(x, y)
 
-\S4method{intersecting_units}{Raster,Spatial}(x, y, ...)
+\S4method{intersecting_units}{Raster,Spatial}(x, y)
 
-\S4method{intersecting_units}{Spatial,Raster}(x, y, ...)
+\S4method{intersecting_units}{Spatial,Raster}(x, y)
 
-\S4method{intersecting_units}{data.frame,ANY}(x, y, ...)
+\S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
 \item{x}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
 
 \item{y}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
-
-\item{...}{not used.}
 }
 \value{
 \code{integer} indices of the units in \code{x} that intersect with
   \code{y}.
 }
 \description{
-Determine the units in a given spatial data object that intersect
-with any of the units in another spatial data object.
+Find which of the units in a spatial data object intersect
+with the units in another spatial data object.
 }
 \details{
 The \code{\link{set_number_of_threads}} can be used to distribute
   computations among multiple threads and potentially reduce run time.
 }
 \examples{
-## create data
+# create data
 r <- raster(matrix(1:9, byrow = TRUE, ncol=3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
 ply <- rasterToPolygons(r)
 ply_with_holes <- rasterToPolygons(r_with_holes)
 
-## intersect raster with raster
+# intersect raster with raster
 par(mfrow = c(1, 2))
-plot(r, main = 'x=Raster')
-plot(r_with_holes, main = 'y=Raster')
+plot(r, main = "x=Raster")
+plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(r, r_with_holes))
 
-## intersect raster with polygons
+# intersect raster with polygons
 par(mfrow = c(1, 2))
-plot(r, main = 'x=Raster')
-plot(ply_with_holes, main = 'y=Spatial')
+plot(r, main = "x=Raster")
+plot(ply_with_holes, main = "y=Spatial")
 print(intersecting_units(r, ply_with_holes))
 
-## intersect polygons with raster
+# intersect polygons with raster
 par(mfrow = c(1, 2))
-plot(ply, main = 'x=Spatial')
-plot(r_with_holes, main = 'y=Raster')
+plot(ply, main = "x=Spatial")
+plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(ply, r_with_holes))
 
-## intersect polygons with polygons
+# intersect polygons with polygons
 par(mfrow = c(1, 2))
-plot(ply, main = 'x=Spatial')
-plot(ply_with_holes, main = 'y=Spatial')
+plot(ply, main = "x=Spatial")
+plot(ply_with_holes, main = "y=Spatial")
 print(intersecting_units(ply, ply_with_holes))
 
 }

@@ -3,16 +3,16 @@ NULL
 
 #' Feature by planning unit matrix
 #'
-#' Generate a feature by planning unit (aka \code{rij} matrix) using spatial
-#' data sets. The \code{rij} contains data on the amount of each feature in
-#' each planning unit.
+#' Generate a matrix showing the amount of each feature in each planning
+#' unit (also known as an \emph{rij} matrix).Each row corresponds
+#' to a different feature and each column corresponds to a different feature.
 #'
-#' @param x \code{\link[raster]{RasterLayer-class}} or
+#' @param x \code{\link[raster]{Raster-class}} or
 #'   \code{\link[sp]{Spatial-class}} object representing the
-#'   planning units
+#'   planning units.
 #'
 #' @param y \code{\link[raster]{Raster-class}} object representing the
-#'   features
+#'   features.
 #'
 #' @param ... additional arguments passed to \code{\link{fast_extract}} if
 #'   argument to \code{x} inherits from a \code{\link[sp]{Spatial-class}}
@@ -50,14 +50,19 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons)
+#' data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_stack)
 #'
-#' # create rij matrix using raster planning units
+#' # create rij matrix using raster layer planning units
 #' rij_raster <- rij_matrix(sim_pu_raster, sim_features)
+#' print(rij_raster)
 #'
 #' # create rij matrix using polygon planning units
 #' rij_polygons <- rij_matrix(sim_pu_polygons, sim_features)
+#' print(rij_polygons)
 #'
+#' # create rij matrix using raster stack planning units
+#' rij_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
+#' print(rij_raster)
 #' @export
 methods::setGeneric("rij_matrix",
                     signature = methods::signature("x", "y"),
@@ -72,12 +77,18 @@ methods::setMethod(
   function(x, y, ...) {
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
-      isTRUE(raster::nlayers(x) == 1),
+      raster::nlayers(x) > 0, raster::nlayers(y) > 0,
       raster::compareRaster(x, y[[1]], res = TRUE, tolerance = 1e-5,
                             stopiffalse = FALSE))
+    # set included cells
+    if (raster::nlayers(x) == 1) {
+      included <- raster::Which(!is.na(x), cells = TRUE)
+    } else {
+      included <- raster::Which(max(!is.na(x)) > 0, cells = TRUE)
+    }
     # data processing
-    included <- raster::Which(!is.na(x), cells = TRUE)
-    if (raster::canProcessInMemory(x, n = raster::nlayers(y) + 2)) {
+    if (raster::canProcessInMemory(x, n = raster::nlayers(y) *
+                                          raster::nlayers(x) + 1)) {
       # if the all the features can be fit into memory then processes
       # them all in memory
       m <- y[]
@@ -91,7 +102,7 @@ methods::setMethod(
         m <- Matrix::t(methods::as(m, "dgCMatrix"))
       }
     } else {
-      # othewise, process each feature seperately
+      # othewise, process each feature separately
         m <- plyr::llply(seq_len(raster::nlayers(y)), .parallel = FALSE,
           function(i) {
             m <- matrix(y[[i]][][included], nrow = 1)
@@ -116,5 +127,6 @@ methods::setMethod(
       m <- matrix(m, ncol = 1)
     m[is.na(m[])] <- 0
     m <- methods::as(m, "dgCMatrix")
+    colnames(m) <- names(y)
     return(Matrix::t(m))
 })

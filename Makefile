@@ -1,4 +1,4 @@
-all: clean initc data docs test check
+all: clean contrib initc data docs test check
 
 clean:
 	rm -rf man/*
@@ -21,11 +21,14 @@ man:
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
 
-vigns:
+contrib:
+	R --slave -e "rmarkdown::render('CONTRIBUTING.Rmd')"
+
+vigns: install
 	R --slave -e "devtools::build_vignettes()"
 
 site:
-	R --slave -e "pkgdown::build_site()"
+	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1
@@ -55,4 +58,4 @@ build:
 install:
 	R --slave -e "devtools::install_local('../prioritizr')"
 
-.PHONY: initc clean data docs readme site test check checkwb build  install man
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man

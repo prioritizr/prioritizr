@@ -3,7 +3,7 @@
 \name{add_cuts_portfolio}
 \alias{add_cuts_portfolio}
 \alias{add_cuts_portfolio}
-\title{Add a Bender's cuts portfolio}
+\title{Add Bender's cuts portfolio}
 \usage{
 add_cuts_portfolio(x, number_solutions = 10L)
 }
@@ -13,36 +13,72 @@ add_cuts_portfolio(x, number_solutions = 10L)
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the portfolio
+  added to it.
+}
 \description{
-Generate a portfolio of solutions using Bender's cuts.
+Generate a portfolio of solutions for a conservation planning
+\code{\link{problem}} using Bender's cuts (discussed in Rodrigues
+\emph{et al.} 2000).
 }
 \details{
 This strategy for generating a portfolio of solutions involves
   solving the problem multiple times and adding additional constraints
   to forbid previously obtained solutions. In general, this strategy is most
   useful when problems take a long time to solve and benefit from
-  having multiple threads allocated for solving an individual problem.
+  having multiple threads allocated for solving an individual problem. If
+  version 8.0.0 (or greater) of the \code{Gurobi} optimization software is
+  used to solve the problems, then the solutions are obtained from the
+  solution pool using the pool search mode designed to find different
+  solutions (i.e. 2; see \url{http://www.gurobi.com/documentation/8.0/refman/poolsearchmode.html#parameter:PoolSearchMode}).
 }
 \examples{
-# load data
-data(sim_pu_raster, sim_features)
+# set seed for reproducibility
+set.seed(500)
 
-# create problem
-p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions() \%>\%
-     add_cuts_portfolio(10) \%>\%
-     add_default_solver(gap = 0.2, verbose = FALSE)
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create minimal problem with cuts portfolio
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.2) \%>\%
+      add_cuts_portfolio(10) \%>\%
+      add_default_solver(gap = 0.2, verbose = FALSE)
 
 \donttest{
 # solve problem and generate 10 solutions within 20 \% of optimality
-s <- solve(p)
+s1 <- solve(p1)
 
-# plot solution
-plot(s, axes = FALSE, box = FALSE)
+# plot solutions in portfolio
+plot(stack(s1), axes = FALSE, box = FALSE)
 }
+# build multi-zone conservation problem with cuts portfolio
+p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_binary_decisions() \%>\%
+      add_cuts_portfolio(10) \%>\%
+      add_default_solver(gap = 0.2, verbose = FALSE)
 
+\donttest{
+# solve the problem
+s2 <- solve(p2)
+
+# print solution
+str(s2, max.level = 1)
+
+# plot solutions in portfolio
+plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
+     box = FALSE)
+}
+}
+\references{
+Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
+efficiency, and accountability: adapting reserve selection algorithms to
+more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
 \code{\link{portfolios}}.

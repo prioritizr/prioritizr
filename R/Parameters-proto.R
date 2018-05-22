@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Parameters")
+if (!methods::isClass("Parameters")) methods::setOldClass("Parameters")
+NULL
 
 #' Parameters class
 #'

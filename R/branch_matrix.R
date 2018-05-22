@@ -9,7 +9,7 @@ NULL
 #' both share that same period of evolutionary history. This function creates
 #' a matrix that shows which species are connected with branch. In other words,
 #' it creates a matrix that shows which periods of evolutionary history
-#' each species experienced.
+#' each species have experienced.
 #'
 #' @param x \code{\link[ape]{phylo}} tree object.
 #'
@@ -29,14 +29,10 @@ NULL
 #' m <- branch_matrix(sim_phylogeny)
 #'
 #' # plot data
-#' if (requireNamespace("ape", quietly = TRUE)) {
-#'   par(mfrow = c(1,2))
-#'   plot(sim_phylogeny, main = "phylogeny")
-#'   plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
-#'        box = FALSE)
-#' } else {
-#'   message("the \"ape\" package needs to be installed to plot phylogenies")
-#' }
+#' par(mfrow = c(1,2))
+#' plot(sim_phylogeny, main = "phylogeny")
+#' plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
+#'      box = FALSE)
 #'
 #' @export
 branch_matrix <- function(x) UseMethod("branch_matrix")

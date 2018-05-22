@@ -6,23 +6,39 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conservation problem constraints <U+2014> constraints <e2><80><a2> prioritizr</title>
+<title>Conservation problem constraints — constraints • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Conservation problem constraints — constraints" />
+
+<meta property="og:description" content="A constraint can be added to a conservation planning problem
+to ensure that solutions exhibit a specific characteristic." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +48,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +77,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +134,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,132 +148,126 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Conservation problem constraints</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/constraints.R'><code>R/constraints.R</code></a></small>
+    <div class="hidden name"><code>constraints.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>A constraint can be added to a conservation planning problem as a way to
-make certain  solutions invalid, given a cutoff criteria. Used when specific
-planning units or configurations of planning units are undesirable or
-inefficient.</p>
+    <p>A constraint can be added to a conservation planning <code>problem</code>
+to ensure that solutions exhibit a specific characteristic.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Like a penalty, a constraint can be used as a mechanism to increase
-connectivity between planning units, but works by eliminating all solutions
-without a certain degree of connectivity, rather than penalizing poorly
-connected solutions. The solution cost will likely be less affected by
-applying a constraint than a penalty. Use the
-<code>add_connected_constraints</code>, <code>add_corridor_constraints</code>, or
-<code>add_neighbor_constraints</code> functions for connectivity considerations,
-or see <code><a href='penalties.html'>penalties</a></code>.</p>
-<p>Constraints can also be used to lock in or lock out certain planning units
-from the solution, such as protected areas or degraded land. Use the
-<code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code>
-functions to do this.</p>
-<p>Below are the constraints that can be added to a <code>ConservationProblem</code>
-object.</p><dl class='dl-horizontal'>
-  <dt><code><a href='add_connected_constraints.html'>add_connected_constraints</a></code></dt><dd><p>Add constraints to a
-    conservation problem to ensure that all selected
-    planning units are spatially connected to each other.</p></dd>
-    <dt><code><a href='add_corridor_constraints.html'>add_corridor_constraints</a></code></dt><dd><p>Adds constraints to ensure
-    that all planning units used to represent features form a contiguous
-    reserve.</p></dd>
-    <dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code></dt><dd><p>Add constraints to ensure
-    that certain planning units are present in the solution.</p></dd>
-    <dt><code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code></dt><dd><p>Add constraints to ensure
-    that certain planning units are absent from the solution.</p></dd>
-    <dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></code></dt><dd><p>Add constraints to a
-    conservation problem to ensure that all selected planning units have at
-    least a certain number of neighbors.</p></dd>
-</dl>
+    <p>Constraints can be used to ensure that solutions exhibit
+  a range of different characteristics. For instance, they can be
+  used to lock in or lock out certain planning units from the solution, such
+  as protected areas or degraded land (respectively).
+  Additionally, similar to the <code><a href='penalties.html'>penalties</a></code> functions,
+  some of the constraint functions can be used to increase connectivity in a
+  solution. The key difference between a penalty and a constraint, however,
+  is that constraints work by invalidating solutions that do not exhibit
+  a specific characteristic, whereas penalty functions work by than
+  penalizing solutions which do not meet a specific characteristic. Thus
+  constraints do not affect the objective function. The following constraints
+  are available.</p>
+<p>The following constraints can be added to a conservation planning
+  <code>problem</code>:</p>
+<p></p><dl class='dl-horizontal'>
+    <dt><code>add_locked_in_constraints</code></dt><dd><p>Add constraints to ensure
+    that certain planning units are selected in the solution.</p></dd>
+    <dt><code>add_locked_out_constraints</code></dt><dd><p>Add constraints to ensure
+    that certain planning units are not selected in the solution.</p></dd>
+    <dt><code>add_neighbor_constraints</code></dt><dd><p>Add constraints to
+    ensure that all selected planning units have at least a certain number
+    of neighbors.</p></dd>
+    <dt><code>add_contiguity_constraints</code></dt><dd><p>Add constraints to a
+    ensure that all selected planning units are spatially connected to each
+    other and form a single contiguous unit.</p></dd>
+    <dt><code>add_feature_contiguity_constraints</code></dt><dd><p>Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+    dispersible habitat. These constraints are a more advanced version of
+    those implemented in the <code>add_contiguity_constraints</code>
+    function, because they ensure that each feature is represented in a
+    contiguous unit and not that the entire solution should form a
+    contiguous unit.</p></dd>
+    </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='penalties.html'>penalties</a></code>, code<a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p>
+    <div class='dont-index'><p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
+ <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
+<span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_locked_in_raster</span>,
+     <span class='no'>sim_locked_out_raster</span>)
 
-<span class='co'># create base problem with no additional constraints</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-
-<span class='co'># create problem with locked in constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></span>(<span class='st'>"locked_in"</span>)
+<span class='co'># create minimal problem with only targets and no additional constraints</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_binary_decisions</span>()
 
 <span class='co'># create problem with locked in constraints</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></span>(<span class='st'>"locked_out"</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>sim_locked_in_raster</span>)
+
+<span class='co'># create problem with locked in constraints</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_out_constraints</span>(<span class='no'>sim_locked_out_raster</span>)
 
 <span class='co'># create problem with neighbor constraints</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></span>(<span class='fl'>2</span>)
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>2</span>)
 
-<span class='co'># create problem with connected constraints</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_connected_constraints.html'>add_connected_constraints</a></span>()
+<span class='co'># create problem with contiguity constraints</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()
 
-<span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='co'># create problem with feature contiguity constraints</span>
+<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>lapply</span>(<span class='fu'>list</span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
+#&gt;   RHS range        [6e+00, 2e+01]
+#&gt; Found heuristic solution: objective 4544.4850483
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
+#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; Solution count 2: 3994.89 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2064.0624917
-#&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: 2064.06 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.064062491654e+03, best bound 2.064062491654e+03, gap 0.0000%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2146.9122574
+#&gt;   RHS range        [6e+00, 2e+01]
+#&gt; Found heuristic solution: objective 4406.7211374
 #&gt; Presolve removed 0 rows and 10 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -209,115 +275,173 @@ object.</p><dl class='dl-horizontal'>
 #&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.728735e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.008577e+03, 15 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1728.73504    0    4 2146.91226 1728.73504  19.5%     -    0s
-#&gt; H    0     0                    1788.8037266 1728.73504  3.36%     -    0s
+#&gt;      0     0 4008.57651    0    4 4406.72114 4008.57651  9.03%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1788.8 2146.91 
+#&gt; Solution count 1: 4406.72 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.788803726584e+03, best bound 1.728735037805e+03, gap 3.3580%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
+#&gt; Best objective 4.406721137419e+03, best bound 4.008576513407e+03, gap 9.0349%
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 2e+01]
+#&gt; Found heuristic solution: objective 4359.4041324
+#&gt; Presolve removed 0 rows and 10 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
+#&gt; Variable types: 0 continuous, 80 integer (80 binary)
+#&gt; Presolved: 5 rows, 80 columns, 400 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.905365e+03, 11 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3905.36483    0    4 4359.40413 3905.36483  10.4%     -    0s
+#&gt; H    0     0                    3995.3509161 3905.36483  2.25%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 3995.35 4359.4 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.995350916083e+03, best bound 3.905364830968e+03, gap 2.2523%
+#&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 3620.2972649
-#&gt; Found heuristic solution: objective 2290.8216939
+#&gt;   RHS range        [6e+00, 2e+01]
+#&gt; Found heuristic solution: objective 5019.7804112
+#&gt; Presolve removed 2 rows and 4 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 95 rows, 90 columns, 1084 nonzeros
+#&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
+#&gt; Variable types: 0 continuous, 86 integer (86 binary)
+#&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.730221e+03, 20 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.909128e+03, 43 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1730.22107    0   11 2290.82169 1730.22107  24.5%     -    0s
-#&gt; H    0     0                    1827.4860225 1730.22107  5.32%     -    0s
+#&gt;      0     0 3909.12764    0   13 5019.78041 3909.12764  22.1%     -    0s
+#&gt; H    0     0                    4231.2130368 3909.12764  7.61%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (20 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 1827.49 2290.82 3620.3 
+#&gt; Solution count 2: 4231.21 5019.78 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.827486022483e+03, best bound 1.730221065272e+03, gap 5.3223%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 367 rows, 362 columns and 1717 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Best objective 4.231213036789e+03, best bound 3.909127637600e+03, gap 7.6121%
+#&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 7e+00]
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 367 rows, 362 columns, 1717 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
-#&gt; Presolved: 367 rows, 362 columns, 1717 nonzeros
+#&gt;   RHS range        [1e+00, 2e+01]
+#&gt; Presolve removed 12 rows and 13 columns
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
+#&gt; Variable types: 0 continuous, 221 integer (221 binary)
+#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.729939e+03, 290 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.947815e+03, 153 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1729.93910    0   44          - 1729.93910      -     -    0s
-#&gt;      0     0 1731.65464    0   62          - 1731.65464      -     -    0s
-#&gt;      0     0 1732.85428    0   34          - 1732.85428      -     -    0s
-#&gt;      0     0 1780.99525    0   80          - 1780.99525      -     -    0s
-#&gt;      0     0 1781.22372    0   83          - 1781.22372      -     -    0s
-#&gt;      0     0 1781.73755    0  100          - 1781.73755      -     -    0s
-#&gt;      0     0 1782.15858    0   73          - 1782.15858      -     -    0s
-#&gt;      0     0 1783.46971    0   51          - 1783.46971      -     -    0s
-#&gt;      0     0 1783.55440    0   52          - 1783.55440      -     -    0s
-#&gt;      0     0 1783.56655    0   50          - 1783.56655      -     -    0s
-#&gt;      0     0 1783.61401    0   48          - 1783.61401      -     -    0s
-#&gt;      0     0 1783.62589    0   53          - 1783.62589      -     -    0s
-#&gt;      0     0 1783.73786    0   49          - 1783.73786      -     -    0s
-#&gt;      0     0 1783.73786    0   47          - 1783.73786      -     -    0s
-#&gt; H    0     0                    12949.792228 1783.73786  86.2%     -    0s
-#&gt;      0     2 1783.83368    0   46 12949.7922 1783.83368  86.2%     -    0s
-#&gt; H   27    23                    2088.2726997 1783.83368  14.6%  35.7    0s
-#&gt; H   29     7                    1812.7236582 1783.83368  1.59%  33.4    0s
+#&gt;      0     0 3947.81491    0   90          - 3947.81491      -     -    0s
+#&gt;      0     0 3950.02335    0   90          - 3950.02335      -     -    0s
+#&gt;      0     0 3969.69828    0   79          - 3969.69828      -     -    0s
+#&gt;      0     0 3972.75831    0   87          - 3972.75831      -     -    0s
+#&gt;      0     0 3972.97474    0   90          - 3972.97474      -     -    0s
+#&gt;      0     0 3982.34763    0   99          - 3982.34763      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
+#&gt; H    0     0                    4590.1395586 3982.41766  13.2%     -    0s
+#&gt;      0     2 3982.61532    0   94 4590.13956 3982.61532  13.2%     -    0s
+#&gt; H   10     8                    4329.4350849 3990.95615  7.82%  40.4    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 4
+#&gt;   Zero half: 4
+#&gt; 
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.08 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 4329.44 4590.14 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 4.329435084863e+03, best bound 3.990956145113e+03, gap 7.8181%
+#&gt; Optimize a model with 1610 rows, 1260 columns and 5110 nonzeros
+#&gt; Variable types: 0 continuous, 1260 integer (1260 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 2e+01]
+#&gt; Presolve removed 138 rows and 139 columns
+#&gt; Presolve time: 0.06s
+#&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
+#&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
+#&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.03 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3947.81491    0  484          - 3947.81491      -     -    0s
+#&gt;      0     0 3966.95687    0  517          - 3966.95687      -     -    0s
+#&gt;      0     0 3968.00751    0  518          - 3968.00751      -     -    0s
+#&gt;      0     0 3970.13081    0  524          - 3970.13081      -     -    0s
+#&gt;      0     0 3971.01964    0  544          - 3971.01964      -     -    0s
+#&gt;      0     0 3971.29872    0  554          - 3971.29872      -     -    0s
+#&gt;      0     0 3971.37723    0  533          - 3971.37723      -     -    0s
+#&gt;      0     0 3971.41612    0  559          - 3971.41612      -     -    0s
+#&gt;      0     0 3971.43876    0  559          - 3971.43876      -     -    0s
+#&gt;      0     0 3971.43982    0  559          - 3971.43982      -     -    0s
+#&gt;      0     0 3971.47540    0  545          - 3971.47540      -     -    0s
+#&gt;      0     0 3971.47540    0  545          - 3971.47540      -     -    0s
+#&gt; H    0     0                    16464.838559 3971.47540  75.9%     -    0s
+#&gt;      0     2 3971.52704    0  544 16464.8386 3971.52704  75.9%     -    0s
+#&gt; H   25    25                    4299.6000758 3971.56872  7.63%   146    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
-#&gt;   Cover: 1
-#&gt;   MIR: 2
-#&gt;   Zero half: 1
+#&gt;   Zero half: 8
 #&gt; 
-#&gt; Explored 29 nodes (1816 simplex iterations) in 0.14 seconds
+#&gt; Explored 25 nodes (6579 simplex iterations) in 1.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 1812.72 2088.27 12949.8 
+#&gt; Solution count 2: 4299.6 16464.8 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.812723658244e+03, best bound 1.783833680718e+03, gap 1.5937%</div><div class='input'>
+#&gt; Best objective 4.299600075801e+03, best bound 3.971568724291e+03, gap 7.6293%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
-<span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"basic"</span>)
-<span class='fu'>plot</span>(<span class='no'>s1</span>[<span class='no'>s1</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s2</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked in"</span>)
-<span class='fu'>plot</span>(<span class='no'>s2</span>[<span class='no'>s2</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s3</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"locked out"</span>)
-<span class='fu'>plot</span>(<span class='no'>s3</span>[<span class='no'>s3</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"neighbor"</span>)
-<span class='fu'>plot</span>(<span class='no'>s4</span>[<span class='no'>s4</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected"</span>)
-<span class='fu'>plot</span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><img src='constraints-12.png' alt='' width='540' height='400' /></pre>
+<span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nr</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"minimal problem"</span>, <span class='st'>"locked in"</span>, <span class='st'>"locked out"</span>,
+              <span class='st'>"neighbor"</span>, <span class='st'>"contiguity"</span>, <span class='st'>"feature contiguity"</span>))</div><div class='img'><img src='constraints-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -335,15 +459,29 @@ object.</p><dl class='dl-horizontal'>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

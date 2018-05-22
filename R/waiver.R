@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Waiver")
+if (!methods::isClass("Waiver")) methods::setOldClass("Waiver")
+NULL
 
 #' Waiver
 #'

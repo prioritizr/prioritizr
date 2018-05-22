@@ -4,40 +4,60 @@
 \name{prioritizr}
 \alias{prioritizr}
 \alias{prioritizr-package}
-\title{prioritizr}
+\title{\pkg{prioritizr}}
 \description{
-\emph{Prioritizr} is an R package for solving systematic conservation
-planning problems. By using integer linear programming (ILP)
-techniques, this package offers a flexible interface for creating
-reserve selection problems that can be tailored to the specific needs of the
-conservation planner (Rodrigues \emph{et al.} 2000; Billionnet 2013).
-Conservation problems can be solved using a variety of commercial and
+The \pkg{prioritizr R} package uses integer linear programming (ILP)
+techniques to provide a flexible interface for building and solving
+conservation planning problems (Rodrigues \emph{et al.} 2000; Billionnet
+2013). It supports a broad range of objectives, constraints, and penalties
+that can be used to custom-tailor conservation planning problems to the
+specific needs of a conservation planning exercise. Once built, conservation
+planning problems can be solved using a variety of commercial and
 open-source exact algorithm solvers. In contrast to the algorithms
-conventionally used to solve conservation problems, such as greedy
-heuristics or simulated annealing, the exact algorithms used by
-\emph{prioritizr} are guaranteed to find optimal solutions. This package
-also has the functionality to read \href{http://marxan.net/}{Marxan} input
-data (Ball \emph{et al.} 2009) and find much better solutions in a much
-shorter period of time than Marxan  (Beyer \emph{et al.} 2016). See the
+conventionally used to solve conservation problems, such as heuristics or
+simulated annealing (Ball \emph{et al.} 2009), the exact algorithms used
+here are guaranteed to find optimal solutions. Furthermore, conservation
+problems can be constructed to optimize the spatial allocation of different
+management actions or zones, meaning that conservation practitioners can
+identify solutions that benefit multiple stakeholders. Finally, this package
+has the functionality to read input data formatted for the \emph{Marxan}
+conservation planning program (Ball \emph{et al.} 2009), and find much
+cheaper solutions in a much shorter period of time than \emph{Marxan} (Beyer
+\emph{et al.} 2016). See the
 \href{https://github.com/prioritizr/prioritizr}{online code repository}
 for more information.
 }
 \details{
-This package contains vignettes that introduce systematic
-conservation planning and basic usage of the \emph{prioritizr} package. The
- supplemental
-\href{https://github.com/prioritizr/prioritizrdata}{\emph{prioritizrdata}}
-package contains further example datasets and worked examples. The vignettes
-in this package are listed below.
+This package contains several vignettes that are designed to
+  showcase its functionality. To view them, type of the command
+  \code{vignette("name", package = "prioritizr")} where \code{"name"} is the
+  name of the desired vignette (e.g. \code{"gurobi_installation"}.
 
-\describe{
-\item{\href{https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html}{Prioritizr Basics}}{Background information
- on the concepts and terminology that underpin systematic conservation
- planning and their usage in this package.}
-\item{\href{https://prioritizr.github.io/prioritizr/articles/quick_start.html}{Quickstart Guide}}{Short walk-through of the
-  \emph{prioritizr} package with a simulated dataset.}
+  \describe{
 
-}
+  \item{prioritizr}{provides background
+    information on systematic conservation planning and a comprehensive
+    overview of the package and its usage.}
+
+  \item{gurobi_installation}{contains
+    detailed instructions for installing and setting up the \emph{Gurobi}
+    software suite for use with the package.}
+
+  \item{publication_record}{lists of
+    scientific publications that have used the package for developing
+    prioritizations.}
+
+  \item{zones}{describes how problems can be constructed with multiple
+    management actions or zones.}
+
+  \item{tasmania}{provides a tutorial using Tasmania, Australia
+    as a case-study. This tutorial uses vector-based planning unit data and
+    is written for individuals familiar with the \emph{Marxan} decision
+    support tool.}
+
+  \item{saltspring}{provides a tutorial using Salt Spring Island, Canada as a
+    case-study. This tutorial uses raster-based planning unit data.}
+  }
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

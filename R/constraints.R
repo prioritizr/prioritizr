@@ -3,99 +3,87 @@ NULL
 
 #' Conservation problem constraints
 #'
-#' A constraint can be added to a conservation planning problem as a way to
-#' make certain  solutions invalid, given a cutoff criteria. Used when specific
-#' planning units or configurations of planning units are undesirable or
-#' inefficient.
+#' A constraint can be added to a conservation planning \code{\link{problem}}
+#' to ensure that solutions exhibit a specific characteristic.
 #'
-#' @details
-#' Like a penalty, a constraint can be used as a mechanism to increase
-#' connectivity between planning units, but works by eliminating all solutions
-#' without a certain degree of connectivity, rather than penalizing poorly
-#' connected solutions. The solution cost will likely be less affected by
-#' applying a constraint than a penalty. Use the
-#' \code{add_connected_constraints}, \code{add_corridor_constraints}, or
-#' \code{add_neighbor_constraints} functions for connectivity considerations,
-#' or see \code{\link{penalties}}.
+#' @details Constraints can be used to ensure that solutions exhibit
+#'   a range of different characteristics. For instance, they can be
+#'   used to lock in or lock out certain planning units from the solution, such
+#'   as protected areas or degraded land (respectively).
+#'   Additionally, similar to the \code{\link{penalties}} functions,
+#'   some of the constraint functions can be used to increase connectivity in a
+#'   solution. The key difference between a penalty and a constraint, however,
+#'   is that constraints work by invalidating solutions that do not exhibit
+#'   a specific characteristic, whereas penalty functions work by than
+#'   penalizing solutions which do not meet a specific characteristic. Thus
+#'   constraints do not affect the objective function. The following constraints
+#'   are available.
 #'
-#' Constraints can also be used to lock in or lock out certain planning units
-#' from the solution, such as protected areas or degraded land. Use the
-#' \code{add_locked_in_constraints} and \code{add_locked_out_constraints}
-#' functions to do this.
+#'   The following constraints can be added to a conservation planning
+#'   \code{\link{problem}}:
 #'
-#' Below are the constraints that can be added to a \code{ConservationProblem}
-#' object.
-#'
-#' \describe{
-#'   \item{\code{\link{add_connected_constraints}}}{Add constraints to a
-#'     conservation problem to ensure that all selected
-#'     planning units are spatially connected to each other.}
-#'
-#'   \item{\code{\link{add_corridor_constraints}}}{Adds constraints to ensure
-#'     that all planning units used to represent features form a contiguous
-#'     reserve.}
+#'   \describe{
 #'
 #'   \item{\code{\link{add_locked_in_constraints}}}{Add constraints to ensure
-#'     that certain planning units are present in the solution.}
+#'     that certain planning units are selected in the solution.}
 #'
 #'   \item{\code{\link{add_locked_out_constraints}}}{Add constraints to ensure
-#'     that certain planning units are absent from the solution.}
+#'     that certain planning units are not selected in the solution.}
 #'
-#'   \item{\code{\link{add_neighbor_constraints}}}{Add constraints to a
-#'     conservation problem to ensure that all selected planning units have at
-#'     least a certain number of neighbors.}
-#' }
+#'   \item{\code{\link{add_neighbor_constraints}}}{Add constraints to
+#'     ensure that all selected planning units have at least a certain number
+#'     of neighbors.}
+#'
+#'   \item{\code{\link{add_contiguity_constraints}}}{Add constraints to a
+#'     ensure that all selected planning units are spatially connected to each
+#'     other and form a single contiguous unit.}
+#'
+#'   \item{\code{\link{add_feature_contiguity_constraints}}}{Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+#'     dispersible habitat. These constraints are a more advanced version of
+#'     those implemented in the \code{\link{add_contiguity_constraints}}
+#'     function, because they ensure that each feature is represented in a
+#'     contiguous unit and not that the entire solution should form a
+#'     contiguous unit.}
+#'
+#'  }
 #'
 #' @seealso \code{\link{decisions}}, \code{\link{objectives}},
-#'  \code{\link{penalties}}, code{\link{portfolios}}, \code{\link{problem}},
+#'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
 #'  \code{\link{solvers}}, \code{\link{targets}}.
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_raster, sim_features)
+#' data(sim_pu_raster, sim_features, sim_locked_in_raster,
+#'      sim_locked_out_raster)
 #'
-#' # create base problem with no additional constraints
-#' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+#' # create minimal problem with only targets and no additional constraints
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1) %>%
+#'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions()
 #'
 #' # create problem with locked in constraints
-#' p2 <- p1 %>% add_locked_in_constraints("locked_in")
+#' p2 <- p1 %>% add_locked_in_constraints(sim_locked_in_raster)
 #'
 #' # create problem with locked in constraints
-#' p3 <- p1 %>% add_locked_out_constraints("locked_out")
+#' p3 <- p1 %>% add_locked_out_constraints(sim_locked_out_raster)
 #'
 #' # create problem with neighbor constraints
 #' p4 <- p1 %>% add_neighbor_constraints(2)
 #'
-#' # create problem with connected constraints
-#' p5 <- p1 %>% add_connected_constraints()
+#' # create problem with contiguity constraints
+#' p5 <- p1 %>% add_contiguity_constraints()
+#'
+#' # create problem with feature contiguity constraints
+#' p6 <- p1 %>% add_feature_contiguity_constraints()
 #' \donttest{
 #' # solve problems
-#' s1 <- solve(p1)
-#' s2 <- solve(p2)
-#' s3 <- solve(p3)
-#' s4 <- solve(p4)
-#' s5 <- solve(p5)
+#' s <- stack(lapply(list(p1, p2, p3, p4, p5, p6), solve))
 #'
 #' # plot solutions
-#' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
-#' plot(s1, main = "basic")
-#' plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#'
-#' plot(s2, main="locked in")
-#' plot(s2[s2$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#'
-#' plot(s3, main="locked out")
-#' plot(s3[s3$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#'
-#' plot(s4, main = "neighbor")
-#' plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
-#'
-#' plot(s5, main = "connected")
-#' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#' plot(s, box = FALSE, axes = FALSE, nr = 2,
+#'      main = c("minimal problem", "locked in", "locked out",
+#'               "neighbor", "contiguity", "feature contiguity"))
 #' }
-#'
 #' @name constraints
 NULL

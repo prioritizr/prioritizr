@@ -3,7 +3,7 @@
 \name{add_proportion_decisions}
 \alias{add_proportion_decisions}
 \alias{add_proportion_decisions}
-\title{Add Proportion Decisions}
+\title{Add proportion decisions}
 \usage{
 add_proportion_decisions(x)
 }
@@ -11,37 +11,62 @@ add_proportion_decisions(x)
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 }
 \value{
-\code{\link{Decision-class}} object.
+\code{\link{ConservationProblem-class}} object with the decisions
+  added to it.
 }
 \description{
 Add a proportion decision to a conservation planning \code{\link{problem}}.
 This is a relaxed decision where a part of a planning unit can be
 prioritized as opposed to the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to include in
+decisions will solve much faster than problems that use binary-type
+decisions
 }
 \details{
-Conservation planning problems involve making decisions on planning units.
-These decisions are then associated with actions (e.g. turning a planning
-unit into a protected area). If no decision is explicitly added to a problem,
-then the binary decision class will be used by default. Only a single
-decision should be added to a \code{ConservationProblem} object. \strong{If
-multiple decisions are added to a problem object, then the last one to be
-added will be used.}
+Conservation planning problems involve making decisions on planning
+  units. These decisions are then associated with actions (e.g. turning a
+  planning unit into a protected area). If no decision is explicitly added to
+  a problem, then the binary decision class will be used by default. Only a
+  single decision should be added to a \code{ConservationProblem} object.
+  \strong{If multiple decisions are added to a problem object, then the last
+  one to be added will be used.}
 }
 \examples{
-# create problem with proportion decisions
-p <- problem(sim_pu_raster, sim_features) \%>\%
+# set seed for reproducibility
+set.seed(500)
+
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create minimal problem with proportion decisions
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
      add_relative_targets(0.1) \%>\%
      add_proportion_decisions()
 \donttest{
 # solve problem
-s <- solve(p)
+s1 <- solve(p1)
 
 # plot solutions
-plot(s, main = "solution", axes = FALSE, box = FALSE)
+plot(s1, main = "solution")
 }
+# build multi-zone conservation problem with proportion decisions
+p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_proportion_decisions()
+\donttest{
+# solve the problem
+s2 <- solve(p2)
 
+# print solution
+print(s2)
+
+# plot solution
+# panels show the proportion of each planning unit allocated to each zone
+plot(s2, axes = FALSE, box = FALSE)
+}
 }
 \seealso{
 \code{\link{decisions}}.

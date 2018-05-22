@@ -13,12 +13,12 @@
 \S4method{rij_matrix}{Spatial,Raster}(x, y, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{RasterLayer-class}} or
+\item{x}{\code{\link[raster]{Raster-class}} or
 \code{\link[sp]{Spatial-class}} object representing the
-planning units}
+planning units.}
 
 \item{y}{\code{\link[raster]{Raster-class}} object representing the
-features}
+features.}
 
 \item{...}{additional arguments passed to \code{\link{fast_extract}} if
 argument to \code{x} inherits from a \code{\link[sp]{Spatial-class}}
@@ -28,9 +28,9 @@ object.}
 \code{\link{Matrix}{dgCMatrix-class}} object.
 }
 \description{
-Generate a feature by planning unit (aka \code{rij} matrix) using spatial
-data sets. The \code{rij} contains data on the amount of each feature in
-each planning unit.
+Generate a matrix showing the amount of each feature in each planning
+unit (also known as an \emph{rij} matrix).Each row corresponds
+to a different feature and each column corresponds to a different feature.
 }
 \details{
 The sparse matrix represents the spatial intersection between the
@@ -55,14 +55,19 @@ The sparse matrix represents the spatial intersection between the
 }
 \examples{
 # load data
-data(sim_pu_raster, sim_pu_polygons)
+data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_stack)
 
-# create rij matrix using raster planning units
+# create rij matrix using raster layer planning units
 rij_raster <- rij_matrix(sim_pu_raster, sim_features)
+print(rij_raster)
 
 # create rij matrix using polygon planning units
 rij_polygons <- rij_matrix(sim_pu_polygons, sim_features)
+print(rij_polygons)
 
+# create rij matrix using raster stack planning units
+rij_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
+print(rij_raster)
 }
 \seealso{
 \code{\link{set_number_of_threads}}, \code{\link[velox]{velox}}.

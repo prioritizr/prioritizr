@@ -6,23 +6,39 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Targets <U+2014> targets <e2><80><a2> prioritizr</title>
+<title>Targets — targets • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Targets — targets" />
+
+<meta property="og:description" content="Targets are used to specify the minimum amount or proportion of a feature's
+distribution that needs to be protected in the solution." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +48,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +77,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +134,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,43 +148,45 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Targets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/targets.R'><code>R/targets.R</code></a></small>
+    <div class="hidden name"><code>targets.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected.</p>
+distribution that needs to be protected in the solution.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Please note that failing to specify targets will return a default
-error message when solving.The exception is the maximum cover problem
-(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes all features
-in the solution and therefore does not require targets.</p>
-    <p>The following list contains the targets can be added to a conservation
-planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horizontal'>
-    <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion
-  (between 0 and 1) of the maximum level of representation of features in
-  the study area.</p></dd>
-    <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets expressed as the
-  actual value of features in the study area that need to be represented in
-  the prioritization.</p></dd>
-    <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion
-  (between 0 and 1) and calculated using a log-linear equation and four
-  tuning parameters.</p></dd>
+    <p><strong>Please note that most objectives require targets, and attempting
+to solve a problem that requires targets will throw an error.</strong></p>
+<p>The following functions can be used to specify targets for a
+  conservation planning <code>problem</code>:</p>
+<p></p><dl class='dl-horizontal'>
+    <dt><code>add_relative_targets</code></dt><dd><p>Set targets as a proportion
+    (between 0 and 1) of the total amount of each feature in the
+    the study area.</p></dd>
+    <dt><code>add_absolute_targets</code></dt><dd><p>Set targets that denote the
+    minimum amount of each feature required in the prioritization.</p></dd>
+    <dt><code>add_loglinear_targets</code></dt><dd><p>Set targets as a proportion
+    (between 0 and 1) that are calculated using log-linear interpolation.</p></dd>
+    <dt><code>add_manual_targets</code></dt><dd><p>Set targets manually.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
+    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
  <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='solvers.html'>solvers</a></code>.</p>
+ <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='solvers.html'>solvers</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -120,49 +194,52 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create base problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'>add_binary_decisions</span>()
 
 <span class='co'># create problem with added relative targets</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
 
 <span class='co'># create problem with added absolute targets</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='fl'>3</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='fl'>3</span>)
 
 <span class='co'># create problem with added loglinear targets</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_loglinear_targets.html'>add_loglinear_targets</a></span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_loglinear_targets</span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>)
 
-<span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='co'># create problem with manual targets that equate to 10% relative targets</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_manual_targets</span>(<span class='fu'>data.frame</span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>sim_features</span>),
+                                          <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+                                          <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>))</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
+#&gt;   RHS range        [3e+00, 8e+00]
+#&gt; Found heuristic solution: objective 2337.9617505
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.726522e+03, 11 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1726.52215    0    4 2145.26789 1726.52215  19.5%     -    0s
-#&gt; H    0     0                    1792.7738341 1726.52215  3.70%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1792.77 2145.27 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792773834063e+03, best bound 1.726522151579e+03, gap 3.6955%
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -170,7 +247,7 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [3e+00, 3e+00]
-#&gt; Found heuristic solution: objective 2146.2740839
+#&gt; Found heuristic solution: objective 2145.2678910
 #&gt; Presolve removed 3 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
@@ -178,21 +255,21 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 #&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.653883e+03, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.589540e+03, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1653.88301    0    1 2146.27408 1653.88301  22.9%     -    0s
-#&gt; H    0     0                    1675.5220184 1653.88301  1.29%     -    0s
+#&gt;      0     0 1589.53964    0    1 2145.26789 1589.53964  25.9%     -    0s
+#&gt; H    0     0                    1661.1365494 1589.53964  4.31%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1675.52 2146.27 
+#&gt; Solution count 2: 1661.14 2145.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.675522018446e+03, best bound 1.653883005209e+03, gap 1.2915%
+#&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -200,7 +277,7 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+01, 2e+01]
-#&gt; Found heuristic solution: objective 11313.858173
+#&gt; Found heuristic solution: objective 11939.016941
 #&gt; Presolve removed 4 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
@@ -208,26 +285,54 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.976387e+03, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.047148e+04, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 9976.38729    0    1 11313.8582 9976.38729  11.8%     -    0s
-#&gt; H    0     0                    10122.464537 9976.38729  1.44%     -    0s
+#&gt;      0     0 10471.4792    0    1 11939.0169 10471.4792  12.3%     -    0s
+#&gt; H    0     0                    10532.505579 10471.4792  0.58%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 10122.5 11313.9 
+#&gt; Solution count 2: 10532.5 11939 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.012246453733e+04, best bound 9.976387293336e+03, gap 1.4431%</div><div class='input'>
+#&gt; Best objective 1.053250557899e+04, best bound 1.047147921397e+04, gap 0.5794%
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [3e+00, 8e+00]
+#&gt; Found heuristic solution: objective 2337.9617505
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>, <span class='st'>"loglinear targets"</span>))</div><img src='targets-4.png' alt='' width='540' height='400' /><div class='input'>
-
-</div></pre>
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>, <span class='st'>"loglinear targets"</span>,
+              <span class='st'>"manual targets"</span>))</div><div class='img'><img src='targets-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -245,15 +350,29 @@ planning <code><a href='problem.html'>problem</a></code>.</p><dl class='dl-horiz
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

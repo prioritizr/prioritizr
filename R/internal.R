@@ -1,51 +1,3 @@
-
-#' Log-linear interpolation
-#'
-#' Loglinearly interpolate values.
-#'
-#' @param x \code{numeric} \emph{x} values to interpolate emph{y} values at.
-#'
-#' @param coordinate_one_x \code{numeric} value for lower \emph{x}-coordinate.
-#'
-#' @param coordinate_one_y \code{numeric} value for lower \emph{y}-coordinate.
-#'
-#' @param coordinate_two_x \code{numeric} value for upper \emph{x}-coordinate.
-#'
-#' @param coordinate_two_y \code{numeric} value for upper \emph{y}-coordinate.
-#'
-#' @details Values are log-linearly interpolated at the \emph{x}-coordinates
-#'   specified in \code{x} using the lower and upper coordnate arguments to
-#'   define the line. Values lesser or greater than these numbers are assigned
-#'   the minimum and maximum \emph{y} coordinates.
-#'
-#' @return \code{numeric} values.
-#'
-#' @example
-#' x <- seq(0, 1000)
-#' y <- loglinear_interpolate(x, 200, 100, 900, 15)
-#' plot(y~x)
-#' points(x=c(200, 900), y=c(100, 15), pch=18, col="red", cex=2)
-#'
-#' @noRd
-loglinear_interpolate <- function(x, coordinate_one_x, coordinate_one_y,
-                                  coordinate_two_x, coordinate_two_y) {
-  assertthat::assert_that(is.numeric(x), isTRUE(all(is.finite(x))),
-                          assertthat::is.scalar(coordinate_one_x),
-                          assertthat::is.scalar(coordinate_one_y),
-                          assertthat::is.scalar(coordinate_two_x),
-                          assertthat::is.scalar(coordinate_two_y),
-                          coordinate_one_x < coordinate_two_x)
-  out <- rep(NA_real_, length(x))
-  out[x <= coordinate_one_x] <- coordinate_one_y
-  out[x >= coordinate_two_x] <- coordinate_two_y
-  between.pos <- which(is.na(out))
-  out[between.pos] <- stats::approx(
-                             x = log(c(coordinate_one_x, coordinate_two_x)),
-                             y = c(coordinate_one_y, coordinate_two_y),
-                             xout = log(x[between.pos]), method = "linear")$y
-  out
-}
-
 #' Check
 #'
 #' Check that the output from \code{\link[assert_that]{see_if}}
@@ -76,7 +28,7 @@ check_that <- function(x) {
 matrix_to_triplet_dataframe <- function(x) {
   if (inherits(x, c("dsCMatrix")))
     x <- methods::as(x, "dsTMatrix")
-  if (inherits(x, c("dgCMatrix")))
+  if (inherits(x, c("dgCMatrix", "matrix")))
     x <- methods::as(x, "dgTMatrix")
   data.frame(i = x@i + 1, j = x@j + 1, x = x@x)
 }
@@ -227,7 +179,7 @@ align_text <- function(x, n) {
 #' detected on the system, then a \code{NULL} object is retured.
 #'
 #' @details This function tests if any of the following packages are installed:
-#'   \code{Rsymphony}, \code{lpsymphony}, \code{gurobi}.
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
 #'
 #' @return \code{character} indicating the name of the default solver.
 #'
@@ -249,11 +201,67 @@ default_solver_name <- function() {
 #' Test if any solvers are installed.
 #'
 #' @details This function tests if any of the following packages are installed:
-#'   \code{Rsymphony}, \code{lpsymphony}, \code{gurobi}.
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
 #'
 #' @return \code{logical} value indicating if any solvers are installed.
 #'
 #' @noRd
 any_solvers_installed <- function() {
   !is.null(default_solver_name())
+}
+
+#' Atomic representation
+#'
+#' Return a pretty character representation of an object with elements and
+#  names.
+#'
+#' @param x \code{object}.
+#'
+#' @return \code{character} object.
+#'
+#' @examples
+#' repr_atomic(letters)
+#' repr_atomic(letters, "characters")
+#' @noRd
+repr_atomic <- function(x, description = "") {
+  n <- length(x)
+  if (nchar(description) > 0)
+    description <- paste0(" ", description)
+  if (length(x) <= 4) {
+    x <- x[seq_len(min(length(x), 4))]
+  } else {
+    x <- c(x[seq_len(min(length(x), 3))], "...")
+  }
+  paste0(paste(x, collapse = ", "), " (", n, description, ")")
+}
+
+#' No extra arguments
+#'
+#' Check that no additional unused arguments have been supplied to a function
+#' through the \code{...}.
+#'
+#' @param ... arguments that are not used.
+#'
+#' @return \code{logical} indicating success.
+#'
+#' @noRd
+no_extra_arguments <- function(...) {
+  return(length(list(...)) == 0)
+}
+
+assertthat::on_failure(no_extra_arguments) <- function(call, env) {
+  call_list <- as.list(call)[-1]
+  format_args <- function(i) {
+    if (names(call_list)[i] == "")
+     return(deparse(call_list[[i]]))
+    paste0(names(call_list)[i], "=", deparse(call_list[[i]]))
+  }
+  msg <- paste(vapply(seq_along(call_list), format_args, character(1)),
+               collapse = ", ")
+  if (length(call_list) > 1) {
+    msg <- paste0("unused arguments (", msg, ")")
+  } else {
+    msg <- paste0("unused argument (", msg, ")")
+  }
+  msg
 }

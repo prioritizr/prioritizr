@@ -4,54 +4,73 @@
 \name{add_loglinear_targets}
 \alias{add_loglinear_targets}
 \alias{add_loglinear_targets}
-\title{Add Loglinear Targets}
+\title{Add targets using log-linear scaling}
 \usage{
 add_loglinear_targets(x, lower_bound_amount, lower_bound_target,
-  upper_bound_amount, upper_bound_target)
+  upper_bound_amount, upper_bound_target, cap_amount = NULL,
+  cap_target = NULL)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{lower_bound_amount}{\code{numeric} lower bound for the total amount
-of the features.}
+\item{lower_bound_amount}{\code{numeric} threshold.}
 
 \item{lower_bound_target}{\code{numeric} relative target that should be
- applied to features with a total amount that is less
+applied to features with a total amount that is less
 than or equal to \code{lower_bound_amount}.}
 
-\item{upper_bound_amount}{\code{numeric} upper bound for the total amount
-of features.}
+\item{upper_bound_amount}{\code{numeric} threshold.}
 
 \item{upper_bound_target}{\code{numeric} relative target that should be
 applied to features with a total amount that is greater
 than or equal to \code{upper_bound_amount}.}
 
-\item{...}{not used.}
+\item{cap_amount}{\code{numeric} total amount at which targets should be
+capped. Defaults to \code{NULL} so that targets are not capped.}
+
+\item{cap_target}{\code{numeric} amount-based target to apply to features
+which have a total amount greater than argument to \code{cap_amount}.
+Defaults to \code{NULL} so that targets are not capped.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the target added
+\code{\link{ConservationProblem-class}} object with the targets added
   to it.
 }
 \description{
-Set targets as a proportion (between 0 and 1) and calculated using a
-log-linear  equation and four tuning parameters (as used in Rodrigues
-\emph{et al.} 2004). The first tuning parameter specifies the first cut-off
-range size, and the second specifies  the second cut-off range size, the
-third argument specifies the target required  for species with a range size
-equal to or less than the first cut-off range size,  and the fourth argument
-specifies the target required for species with a range size equal to or
-greater than the required range size.
+Add targets to a conservation planning \code{\link{problem}} by log-linearly
+interpolating the targets between thresholds based on the total amount of
+each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
+caps can be applied to targets to prevent features with massive
+distributions from being over-represented
+in solutions (Butchart \emph{et al.} 2015). \strong{Note that the behavior
+of this function has changed substantially from versions prior to 5.0.0}.
 }
 \details{
-Note that with the exception of the maximum cover problem, targets must
-be added to a \code{\link{problem}} or solving will return an error.
+Targets are used to specify the minimum amount or proportion of a
+  feature's distribution that needs to be protected. All conservation
+  planning problems require adding targets with the exception of the maximum
+  cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
+  all features in the solution and therefore does not require targets.
 
+  Six parameters are used to calculate the targets: \code{lower_bound_amount}
+  specifies the first range size threshold, \code{lower_bound_target}
+  specifies the relative target required for species with a range size equal
+  to or less than the first threshold, \code{upper_bound_amount} specifies
+  the relative target required for species with a range size equal to or
+  greater than the second threshold, \code{cap_amount} specifies the third
+  range size threshold, and \code{cap_target} specifies the absolute
+  target that is uniformly applied to species with a range size larger than
+  that third threshold.
 
-Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected. All conservation planning problems
-require adding targets with the exception of the maximum cover problem
-(see \code{\link{add_max_cover_objective}}), which maximizes all features
-in the solution and therefore does not require targets.
+  Note that the target calculations do \strong{not} account for the
+  size of each planning unit. Therefore, the feature data should account for
+  the size of each planning unit if this is important (e.g. Pixel values in
+  the argument to \code{features} in the function \code{\link{problem}} could
+  correspond to amount of land occupied by the feature (\deqn{km^2})).
+
+  This function can only be applied to
+  \code{\link{ConservationProblem-class}} objects that are associated with a
+  single zone.
 }
 \examples{
 # load data
@@ -69,14 +88,18 @@ s <- solve(p)
 # plot solution
 plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
-
 }
 \references{
 Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,
 Chanson JS, Fishpool LDC, da Fonseca GAB, Gaston KJ, and others (2004)
 Global gap analysis: priority regions for expanding the global
 protected-area network. \emph{BioScience}, 54: 1092--1100.
+
+Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
+Buchanan, GM, Angulo A, Balmford A, Bertzky B, and others (2015) Shortfalls
+and solutions for meeting national and global conservation area targets.
+\emph{Conservation Letters}, 8: 329--337.
 }
 \seealso{
-\code{\link{targets}}.
+\code{\link{targets}}, \code{\link{loglinear_interpolation}}.
 }

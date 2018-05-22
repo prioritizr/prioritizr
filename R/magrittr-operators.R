@@ -3,8 +3,8 @@ NULL
 
 #' Pipe operator
 #'
-#' This package uses the pipe operator (\%>\%) to turn code into a series of
-#' imperative procedures.
+#' This package uses the pipe operator (\code{\%>\%}) to express nested code
+#' as a series of imperative procedures.
 #'
 #' @param lhs,rhs An object and a function.
 #'

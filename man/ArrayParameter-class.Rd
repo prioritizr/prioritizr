@@ -3,7 +3,7 @@
 \name{ArrayParameter-class}
 \alias{ArrayParameter-class}
 \alias{ArrayParameter}
-\title{Array Parameter prototype}
+\title{Array parameter prototype}
 \description{
 This prototype is used to represent a parameter has multiple values. Each
 value is has a label to differentiate values. \strong{Only experts should

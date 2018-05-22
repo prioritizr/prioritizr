@@ -10,14 +10,11 @@
 \alias{connectivity_matrix}
 \title{Connectivity matrix}
 \usage{
-\S4method{connectivity_matrix}{Spatial,character}(x, y,
-  boundary_data = NULL, ...)
+\S4method{connectivity_matrix}{Spatial,character}(x, y, ...)
 
-\S4method{connectivity_matrix}{Spatial,Raster}(x, y,
-  boundary_data = NULL, ...)
+\S4method{connectivity_matrix}{Spatial,Raster}(x, y, ...)
 
-\S4method{connectivity_matrix}{Raster,Raster}(x, y,
-  boundary_data = NULL, included = NULL, ...)
+\S4method{connectivity_matrix}{Raster,Raster}(x, y, ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} or
@@ -34,15 +31,6 @@ the conductance values. Note that argument to \code{y} can only be a
 argument to \code{x} is a \code{\link{Raster-class}} object then
 argument to \code{y} must have the same spatial properties as it
 (i.e. coordinate system, extent, resolution).}
-
-\item{boundary_data}{\code{\link[Matrix]{dsCMatrix-class}} object containing
-the shared boundary lengths between planning units. This argument defaults
-to \code{NULL} so that the boundary data will be automatically calculated.}
-
-\item{included}{\code{integer} \code{vector} indicating which cells in
-argument to \code{x} are planning units. This argument is only used when
-\code{x} is a \code{\link[raster]{Raster-class}} object. It defaults to
-\code{NULL} so that the cell indices are calculated automatically.}
 
 \item{...}{arguments passed to \code{\link{fast_extract}} for extracting
 and calculating the conductance for each unit. These arguments
@@ -64,39 +52,44 @@ boundary are associated with greater connectivity.
 This function returns a \code{\link[Matrix]{dsCMatrix-class}}
   sparse symmetric matrix. Each row and column represents a planning unit.
   Cell values represent the connectivity between two planning units. To
-  reduce computational burden, if argument to \code{x} is a
-  \code{\link[raster]{Raster-class}} object then cells in \code{x} that
-  contain missing (\code{NA}) values are omitted from the returned matrix.
-  Furthermore, all cells along the diagonal are missing values since
-  a planing unit does not share connectivity with itself.
+  reduce computational burden for \code{\link[raster]{Raster-class}} data,
+  data are missing for cells with \code{NA} values in the argument to
+  \code{x}. Furthermore, all cells along the diagonal are missing values
+  since a planing unit does not share connectivity with itself.
 }
 \examples{
-## load data
-# planning units
-data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points)
-# here we will use the features' habitat suitabilities as conductances
-data(sim_features)
+# load data
+data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
+     sim_features)
 
-## create connectivity matrix using raster planning unit data
-# extract 9 planning units
+# create connectivity matrix using raster planning unit data using
+# the raster cost values to represent conductance
+## extract 9 planning units
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
-# extact conductance data for the 9 planning units
+
+## extact conductance data for the 9 planning units
 cd <- crop(r, sim_features[[1]])
-# make connectivity matrix
+
+## make connectivity matrix
 cm_raster <- connectivity_matrix(r, cd)
-# plot data and matrix
+
+## plot data and matrix
 par(mfrow = c(1,3))
 plot(r, main = "planning units", axes = FALSE, box = FALSE)
 plot(cd, main = "conductivity", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(cm_raster)), main = "connectivity", axes = FALSE,
      box = FALSE)
 
-## create connectivity matrix using polygon planning unit data
-# subset 9 polygons
+# create connectivity matrix using polygon planning unit data using
+# the habitat suitability data for sim_features[[1]] to represent
+# planning unit conductances
+## subset data to 9 polygons
 ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
-# make connectivity matrix
+
+## make connectivity matrix
 cm_ply <- connectivity_matrix(ply, sim_features[[1]])
-# plot data and matrix
+
+## plot data and matrix
 par(mfrow = c(1,3))
 plot(ply, main = "planning units")
 plot(sim_features[[1]], main = "conductivity", axes = FALSE, box = FALSE)

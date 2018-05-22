@@ -1,43 +1,27 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with lpsymphony
+#' Add a SYMPHONY solver with \pkg{lpsymphony}
 #'
-#' Specify the use of a SYMPHONY algorithm to solve a
-#' \code{\link{ConservationProblem-class}} object. Requires the
-#' \code{lpsymphony} package.
+#' Specify that the \emph{SYMPHONY} software should be used to solve a
+#' conservation planning problem using the \pkg{lpsymhpony} package. This
+#' function can also be used to customize the behavior of the solver.
+#' It requires the \pkg{lpsymphony} package.
 #'
-#' @details
-#'    The \code{lpsymphony} package provides a
-#'    different interface to the COIN-OR software suite. Unlike the
-#'    \code{Rsymhpony} package, the \code{lpsymphony} package is distributed
-#'    through
-#'    \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-#'    On Windows and Mac, \code{lpsymphony}
-#'    may be easier to install. This solver uses the \code{lpsymphony} package
-#'    to solve.
+#' @inheritParams add_rsymphony_solver
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @details \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+#'   open-source integer programming solver that is part of the Computational
+#'   Infrastructure for Operations Research (COIN-OR) project, an initiative
+#'   to promote development of open-source tools for operations research (a
+#'   field that includes linear programming). The \pkg{lpsymphony} package is
+#'   distributed through
+#'   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+#'   This functionality is provided because the \pkg{lpsymphony} package may
+#'   be easier to install to install on Windows and Mac OSX systems than the
+#'   \pkg{Rsymphony} package.
 #'
-#' @param gap \code{numeric} gap to optimality. This gap is absolute and
-#'   expresses the acceptable deviance from the optimal objective. For example,
-#'   solving a minimum set objective problem with a gap of 5 will cause the
-#'   solver to terminate when the cost of the solution is within 5 cost units
-#'   from the optimal solution.
-#'
-#' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
-#'   The solver will return the current best solution when this time limit is
-#'   exceeded.
-#'
-#' @param first_feasible \code{logical} should the first feasible solution be
-#'   be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
-#'   will return the first solution it encounters that meets all the
-#'   constraints, regardless of solution quality. Note that the first feasible
-#'   solution is not an arbitrary solution, rather it is derived from the
-#'   relaxed solution, and is therefore often reasonably close to optimality.
-#'
-#' @param verbose \code{logical} should information be printed while solving
-#'  optimization problems? Defaults to \code{TRUE}.
+#' @inherit add_rsymphony_solver seealso return
 #'
 #' @seealso \code{\link{solvers}}.
 #'
@@ -52,9 +36,9 @@ NULL
 #'   add_binary_decisions()
 #' \donttest{
 #' # if the package is installed then add solver and generate solution
-#' # note that this solver is skipped on Linux systems due to instability
-#' # issues
-#' if (requireNamespace("lpsymphony", quietly = TRUE) &
+#' # note that this solver is skipped on Linux systems due to the fact
+#' # that the lpsymphony package randomly crashes on these systems
+#' if (require(lpsymphony) &
 #'     isTRUE(Sys.info()[["sysname"]] != "Linux")) {
 #'   # specify solver and generate solution
 #'   s <- p %>% add_lpsymphony_solver(time_limit = 5) %>%

@@ -11,18 +11,31 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Function reference" />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +45,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +74,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +131,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,559 +145,856 @@
       
       </header>
 
-      <div class="row">
-  <div class="col-md-9">
+<div class="row">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;3.0.3.8</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
-    <div class="contents">
-      <table class="ref-index">
+    <table class="ref-index">
 
-      <colgroup>
-        <col class="alias" />
-        <col class="title" />
-      </colgroup>
+    <colgroup>
+      <col class="alias" />
+      <col class="title" />
+    </colgroup>
 
-      <tbody>
-        <tr>
-          <th colspan="2">
-            <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-            <p class="section-desc"></p>
-          </th>
-        </tr>
-        <tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_absolute_targets.html">add_absolute_targets</a></code> </p>
-          </td>
-          <td><p>Add Absolute Targets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_binary_decisions.html">add_binary_decisions</a></code> </p>
-          </td>
-          <td><p>Add Binary Decisions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_boundary_penalties.html">add_boundary_penalties</a></code> </p>
-          </td>
-          <td><p>Add boundary penalties</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_connected_constraints.html">add_connected_constraints</a></code> </p>
-          </td>
-          <td><p>Add connected constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_connectivity_penalties.html">add_connectivity_penalties</a></code> </p>
-          </td>
-          <td><p>Add connectivity penalties</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_corridor_constraints.html">add_corridor_constraints</a></code> </p>
-          </td>
-          <td><p>Add corridor constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_cuts_portfolio.html">add_cuts_portfolio</a></code> </p>
-          </td>
-          <td><p>Add a Bender's cuts portfolio</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_default_decisions.html">add_default_decisions</a></code> </p>
-          </td>
-          <td><p>Add default decisions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_default_solver.html">add_default_solver</a></code> </p>
-          </td>
-          <td><p>Default solver</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_feature_weights.html">add_feature_weights</a></code> </p>
-          </td>
-          <td><p>Add feature weights</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_gurobi_solver.html">add_gurobi_solver</a></code> </p>
-          </td>
-          <td><p>Add a Gurobi solver</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_locked_in_constraints.html">add_locked_in_constraints</a></code> </p>
-          </td>
-          <td><p>Add locked in constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_locked_out_constraints.html">add_locked_out_constraints</a></code> </p>
-          </td>
-          <td><p>Add locked out constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_loglinear_targets.html">add_loglinear_targets</a></code> </p>
-          </td>
-          <td><p>Add Loglinear Targets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_lsymphony_solver.html">add_lpsymphony_solver</a></code> </p>
-          </td>
-          <td><p>Add a SYMPHONY solver with lpsymphony</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_max_cover_objective.html">add_max_cover_objective</a></code> </p>
-          </td>
-          <td><p>Add Maximum Coverage Objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_max_features_objective.html">add_max_features_objective</a></code> </p>
-          </td>
-          <td><p>Add Maximum Feature Representation Objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_max_phylo_objective.html">add_max_phylo_objective</a></code> </p>
-          </td>
-          <td><p>Add Maximum Phylogenetic Representation Objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_max_utility_objective.html">add_max_utility_objective</a></code> </p>
-          </td>
-          <td><p>Add Maximum Utility Objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_min_set_objective.html">add_min_set_objective</a></code> </p>
-          </td>
-          <td><p>Add Minimum Set Objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_neighbor_constraints.html">add_neighbor_constraints</a></code> </p>
-          </td>
-          <td><p>Add neighbor constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_proportion_decisions.html">add_proportion_decisions</a></code> </p>
-          </td>
-          <td><p>Add Proportion Decisions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_relative_targets.html">add_relative_targets</a></code> </p>
-          </td>
-          <td><p>Add Relative Targets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_rsymphony_solver.html">add_rsymphony_solver</a></code> </p>
-          </td>
-          <td><p>Add a SYMPHONY solver with Rsymphony</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_semicontinuous_decisions.html">add_semicontinuous_decisions</a></code> </p>
-          </td>
-          <td><p>Add semi-continuous decisions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="add_shuffle_portfolio.html">add_shuffle_portfolio</a></code> </p>
-          </td>
-          <td><p>Add a shuffle portfolio</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ArrayParameter-class.html">ArrayParameter-class</a></code> </p>
-          </td>
-          <td><p>Array Parameter prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="array_parameters.html">proportion_parameter_array</a></code> <code><a href="array_parameters.html">binary_parameter_array</a></code> <code><a href="array_parameters.html">integer_parameter_array</a></code> <code><a href="array_parameters.html">numeric_parameter_array</a></code> </p>
-          </td>
-          <td><p>Array parameters</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="as.list.html">as.list</a></code> </p>
-          </td>
-          <td><p>Convert <code>OptimizationProblem</code> to list</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="as.html">as.Id</a></code> <code><a href="as.html">as.list</a></code> </p>
-          </td>
-          <td><p>Coerce object to another object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="boundary_matrix.html">boundary_matrix</a></code> </p>
-          </td>
-          <td><p>Boundary matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="branch_matrix.html">branch_matrix</a></code> </p>
-          </td>
-          <td><p>Branch matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Collection-class.html">Collection-class</a></code> </p>
-          </td>
-          <td><p>Collection prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="compile.html">compile</a></code> </p>
-          </td>
-          <td><p>Compile a problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="connected_matrix.html">connected_matrix</a></code> </p>
-          </td>
-          <td><p>Connected matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="connectivity_matrix.html">connectivity_matrix</a></code> </p>
-          </td>
-          <td><p>Connectivity matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ConservationModifier-class.html">ConservationModifier-class</a></code> </p>
-          </td>
-          <td><p>Conservation problem modifier prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ConservationProblem-class.html">ConservationProblem-class</a></code> </p>
-          </td>
-          <td><p>Conservation problem class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Constraint-class.html">Constraint-class</a></code> </p>
-          </td>
-          <td><p>Constraint prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="constraints.html">constraints</a></code> </p>
-          </td>
-          <td><p>Conservation problem constraints</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Decision-class.html">Decision-class</a></code> </p>
-          </td>
-          <td><p>Decision prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="decisions.html">decisions</a></code> </p>
-          </td>
-          <td><p>Specify the type of decisions</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="distribute_load.html">distribute_load</a></code> </p>
-          </td>
-          <td><p>Distribute load</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="fast_extract.html">fast_extract</a></code> </p>
-          </td>
-          <td><p>Fast extract</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="intersecting_units.html">intersecting_units</a></code> </p>
-          </td>
-          <td><p>Find intersecting units</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="is.parallel.html">is.parallel</a></code> </p>
-          </td>
-          <td><p>Is parallel?</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="is.html">is.Id</a></code> <code><a href="is.html">is.Waiver</a></code> </p>
-          </td>
-          <td><p>Is it?</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="marxan_problem.html">marxan_problem</a></code> </p>
-          </td>
-          <td><p>Marxan conservation problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="new_id.html">new_id</a></code> </p>
-          </td>
-          <td><p>Identifier</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="new_optimization_problem.html">new_optimization_problem</a></code> </p>
-          </td>
-          <td><p>Optimization problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="new_waiver.html">new_waiver</a></code> </p>
-          </td>
-          <td><p>Waiver</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Objective-class.html">Objective-class</a></code> </p>
-          </td>
-          <td><p>Objective prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="objectives.html">objectives</a></code> </p>
-          </td>
-          <td><p>Problem objective</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="OptimizationProblem-class.html">OptimizationProblem-class</a></code> </p>
-          </td>
-          <td><p>Optimization problem class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="OptimizationProblem-methods.html">nrow</a></code> <code><a href="OptimizationProblem-methods.html">ncol</a></code> <code><a href="OptimizationProblem-methods.html">ncell</a></code> <code><a href="OptimizationProblem-methods.html">modelsense</a></code> <code><a href="OptimizationProblem-methods.html">vtype</a></code> <code><a href="OptimizationProblem-methods.html">obj</a></code> <code><a href="OptimizationProblem-methods.html">A</a></code> <code><a href="OptimizationProblem-methods.html">rhs</a></code> <code><a href="OptimizationProblem-methods.html">sense</a></code> <code><a href="OptimizationProblem-methods.html">lb</a></code> <code><a href="OptimizationProblem-methods.html">ub</a></code> <code><a href="OptimizationProblem-methods.html">number_of_features</a></code> <code><a href="OptimizationProblem-methods.html">number_of_planning_units</a></code> <code><a href="OptimizationProblem-methods.html">col_ids</a></code> <code><a href="OptimizationProblem-methods.html">row_ids</a></code> <code><a href="OptimizationProblem-methods.html">compressed_formulation</a></code> </p>
-          </td>
-          <td><p>Optimization problem methods</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="parallel.html">set_number_of_threads</a></code> <code><a href="parallel.html">get_number_of_threads</a></code> </p>
-          </td>
-          <td><p>Number of threads for data processing</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Parameter-class.html">Parameter-class</a></code> </p>
-          </td>
-          <td><p>Parameter class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Parameters-class.html">Parameters-class</a></code> </p>
-          </td>
-          <td><p>Parameters class</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="parameters.html">parameters</a></code> </p>
-          </td>
-          <td><p>Parameters</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="penalties.html">penalties</a></code> </p>
-          </td>
-          <td><p>Conservation problem penalties</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Penalty-class.html">Penalty-class</a></code> </p>
-          </td>
-          <td><p>Penalty prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="pipe.html">%&gt;%</a></code> </p>
-          </td>
-          <td><p>Pipe operator</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Portfolio-class.html">Portfolio-class</a></code> </p>
-          </td>
-          <td><p>Portfolio prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="portfolios.html">portfolios</a></code> </p>
-          </td>
-          <td><p>Solution portfolio methods</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="pproto.html">pproto</a></code> </p>
-          </td>
-          <td><p>Create a new <code>pproto</code> object</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="predefined_optimization_problem.html">predefined_optimization_problem</a></code> </p>
-          </td>
-          <td><p>Predefined optimization problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="print.html">print</a></code> </p>
-          </td>
-          <td><p>Print</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="prioritizr.html">prioritizr</a></code> </p>
-          </td>
-          <td><p>prioritizr</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="problem.html">problem</a></code> </p>
-          </td>
-          <td><p>Conservation planning problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="rij_matrix.html">rij_matrix</a></code> </p>
-          </td>
-          <td><p>Feature by planning unit matrix</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="run_calculations.html">run_calculations</a></code> </p>
-          </td>
-          <td><p>Run calculations</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="ScalarParameter-class.html">ScalarParameter-class</a></code> </p>
-          </td>
-          <td><p>Scalar Parameter prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="scalar_parameters.html">proportion_parameter</a></code> <code><a href="scalar_parameters.html">binary_parameter</a></code> <code><a href="scalar_parameters.html">integer_parameter</a></code> <code><a href="scalar_parameters.html">numeric_parameter</a></code> </p>
-          </td>
-          <td><p>Scalar parameters</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="show.html">show</a></code> </p>
-          </td>
-          <td><p>Show</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="sim_data.html">data</a></code> </p>
-          </td>
-          <td><p>Simulated conservation planning data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="simulate_cost.html">simulate_cost</a></code> </p>
-          </td>
-          <td><p>Simulate cost data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="simulate_data.html">simulate_data</a></code> </p>
-          </td>
-          <td><p>Simulate data</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="simulate_species.html">simulate_species</a></code> </p>
-          </td>
-          <td><p>Simulate species habitat suitabilities</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Solver-class.html">Solver-class</a></code> </p>
-          </td>
-          <td><p>Solver prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="solve.html">solve</a></code> </p>
-          </td>
-          <td><p>Solve a problem</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="solvers.html">solvers</a></code> </p>
-          </td>
-          <td><p>Problem solvers</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="Target-class.html">Target-class</a></code> </p>
-          </td>
-          <td><p>Target prototype</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="targets.html">targets</a></code> </p>
-          </td>
-          <td><p>Targets</p></td>
-        </tr><tr>
-          <!--  -->
-          <td>
-            <p><code><a href="tee.html">%T&gt;%</a></code> </p>
-          </td>
-          <td><p>Tee operator</p></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-summary" class="hasAnchor"><a href="#section-summary" class="anchor"></a>Summary</h2>
+          <p class="section-desc"><p>Summary of the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="prioritizr.html">prioritizr</a></code> </p>
+        </td>
+        <td><p><span class="pkg">prioritizr</span></p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"><p>Simulated data sets distributed with the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="sim_data.html">sim_pu_polygons</a></code> <code><a href="sim_data.html">sim_features</a></code> <code><a href="sim_data.html">sim_features_zones</a></code> <code><a href="sim_data.html">sim_pu_polygons</a></code> <code><a href="sim_data.html">sim_pu_zones_polygons</a></code> <code><a href="sim_data.html">sim_pu_zones_polygons</a></code> <code><a href="sim_data.html">sim_pu_lines</a></code> <code><a href="sim_data.html">sim_pu_points</a></code> <code><a href="sim_data.html">sim_pu_raster</a></code> <code><a href="sim_data.html">sim_pu_zones_stack</a></code> <code><a href="sim_data.html">sim_phylogeny</a></code> <code><a href="sim_data.html">sim_locked_in_raster</a></code> <code><a href="sim_data.html">sim_locked_out_raster</a></code> </p>
+        </td>
+        <td><p>Simulated conservation planning data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-create-and-solve-problems" class="hasAnchor"><a href="#section-create-and-solve-problems" class="anchor"></a>Create and solve problems</h2>
+          <p class="section-desc"><p>Functions for creating new problems and solving them</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="problem.html">problem(<i>&lt;Raster&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;Raster&gt;</i>,<i>&lt;ZonesRaster&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;Spatial&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;Spatial&gt;</i>,<i>&lt;ZonesRaster&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;Spatial&gt;</i>,<i>&lt;character&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;Spatial&gt;</i>,<i>&lt;ZonesCharacter&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;data.frame&gt;</i>,<i>&lt;character&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;data.frame&gt;</i>,<i>&lt;ZonesCharacter&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;data.frame&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;numeric&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="problem.html">problem(<i>&lt;matrix&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Conservation planning problem</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="marxan_problem.html">marxan_problem()</a></code> </p>
+        </td>
+        <td><p><em>Marxan</em> conservation problem</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="solve.html">solve</a></code> </p>
+        </td>
+        <td><p>Solve</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-objectives" class="hasAnchor"><a href="#section-objectives" class="anchor"></a>Objectives</h2>
+          <p class="section-desc"><p>Functions for adding an objective to a problem</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="objectives.html">objectives</a></code> </p>
+        </td>
+        <td><p>Problem objective</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_max_cover_objective.html">add_max_cover_objective()</a></code> </p>
+        </td>
+        <td><p>Add maximum coverage objective</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_max_features_objective.html">add_max_features_objective()</a></code> </p>
+        </td>
+        <td><p>Add maximum feature representation objective</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_max_phylo_objective.html">add_max_phylo_objective()</a></code> </p>
+        </td>
+        <td><p>Add maximum phylogenetic representation objective</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_max_utility_objective.html">add_max_utility_objective()</a></code> </p>
+        </td>
+        <td><p>Add maximum utility objective</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_min_set_objective.html">add_min_set_objective()</a></code> </p>
+        </td>
+        <td><p>Add minimum set objective</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-targets" class="hasAnchor"><a href="#section-targets" class="anchor"></a>Targets</h2>
+          <p class="section-desc"><p>Functions for adding targets to a problem</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="targets.html">targets</a></code> </p>
+        </td>
+        <td><p>Targets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_absolute_targets.html">add_absolute_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> <code><a href="add_absolute_targets.html">add_absolute_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_absolute_targets.html">add_absolute_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add absolute targets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_loglinear_targets.html">add_loglinear_targets()</a></code> </p>
+        </td>
+        <td><p>Add targets using log-linear scaling</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_manual_targets.html">add_manual_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_manual_targets.html">add_manual_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;tbl_df&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add manual targets</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_relative_targets.html">add_relative_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> <code><a href="add_relative_targets.html">add_relative_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_relative_targets.html">add_relative_targets(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;character&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add relative targets</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-constraints" class="hasAnchor"><a href="#section-constraints" class="anchor"></a>Constraints</h2>
+          <p class="section-desc"><p>Functions for adding constraints to a problem</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="constraints.html">constraints</a></code> </p>
+        </td>
+        <td><p>Conservation problem constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_contiguity_constraints.html">add_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="add_contiguity_constraints.html">add_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_contiguity_constraints.html">add_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add contiguity constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_feature_contiguity_constraints.html">add_feature_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="add_feature_contiguity_constraints.html">add_feature_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_feature_contiguity_constraints.html">add_feature_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_feature_contiguity_constraints.html">add_feature_contiguity_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add feature contiguity constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_locked_in_constraints.html">add_locked_in_constraints()</a></code> </p>
+        </td>
+        <td><p>Add locked in constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_locked_out_constraints.html">add_locked_out_constraints()</a></code> </p>
+        </td>
+        <td><p>Add locked out constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_manual_locked_constraints.html">add_manual_locked_constraints()</a></code> </p>
+        </td>
+        <td><p>Add manually specified locked constraints</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add neighbor constraints</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-penalties" class="hasAnchor"><a href="#section-penalties" class="anchor"></a>Penalties</h2>
+          <p class="section-desc"><p>Functions for adding penalties to a problem</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="penalties.html">penalties</a></code> </p>
+        </td>
+        <td><p>Conservation problem penalties</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_boundary_penalties.html">add_boundary_penalties()</a></code> </p>
+        </td>
+        <td><p>Add boundary penalties</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_connectivity_penalties.html">add_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="add_connectivity_penalties.html">add_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_connectivity_penalties.html">add_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_connectivity_penalties.html">add_connectivity_penalties(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add connectivity penalties</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_feature_weights.html">add_feature_weights(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> <code><a href="add_feature_weights.html">add_feature_weights(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Add feature weights</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-decisions" class="hasAnchor"><a href="#section-decisions" class="anchor"></a>Decisions</h2>
+          <p class="section-desc"><p>Functions for specifying the type of decisions in a problem</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="decisions.html">decisions</a></code> </p>
+        </td>
+        <td><p>Specify the type of decisions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_binary_decisions.html">add_binary_decisions()</a></code> </p>
+        </td>
+        <td><p>Add binary decisions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_default_decisions.html">add_default_decisions()</a></code> </p>
+        </td>
+        <td><p>Add default decisions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_proportion_decisions.html">add_proportion_decisions()</a></code> </p>
+        </td>
+        <td><p>Add proportion decisions</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_semicontinuous_decisions.html">add_semicontinuous_decisions()</a></code> </p>
+        </td>
+        <td><p>Add semi-continuous decisions</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-solvers" class="hasAnchor"><a href="#section-solvers" class="anchor"></a>Solvers</h2>
+          <p class="section-desc"><p>Functions for specifying how a problem should be solved</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="solvers.html">solvers</a></code> </p>
+        </td>
+        <td><p>Problem solvers</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_default_solver.html">add_default_solver()</a></code> </p>
+        </td>
+        <td><p>Default solver</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_gurobi_solver.html">add_gurobi_solver()</a></code> </p>
+        </td>
+        <td><p>Add a <em>Gurobi</em> solver</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_lsymphony_solver.html">add_lpsymphony_solver()</a></code> </p>
+        </td>
+        <td><p>Add a SYMPHONY solver with <span class="pkg">lpsymphony</span></p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_rsymphony_solver.html">add_rsymphony_solver()</a></code> </p>
+        </td>
+        <td><p>Add a SYMPHONY solver with <span class="pkg">Rsymphony</span></p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-portfolios" class="hasAnchor"><a href="#section-portfolios" class="anchor"></a>Portfolios</h2>
+          <p class="section-desc"><p>Functions for generating a portfolio of solutions</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="portfolios.html">portfolios</a></code> </p>
+        </td>
+        <td><p>Solution portfolios</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_cuts_portfolio.html">add_cuts_portfolio()</a></code> </p>
+        </td>
+        <td><p>Add Bender's cuts portfolio</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_pool_portfolio.html">add_pool_portfolio()</a></code> </p>
+        </td>
+        <td><p>Add a pool portfolio</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="add_shuffle_portfolio.html">add_shuffle_portfolio()</a></code> </p>
+        </td>
+        <td><p>Add a shuffle portfolio</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-simulation" class="hasAnchor"><a href="#section-data-simulation" class="anchor"></a>Data simulation</h2>
+          <p class="section-desc"><p>Functions for simulating new data sets</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="simulate_cost.html">simulate_cost()</a></code> </p>
+        </td>
+        <td><p>Simulate cost data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="simulate_data.html">simulate_data()</a></code> </p>
+        </td>
+        <td><p>Simulate data</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="simulate_species.html">simulate_species()</a></code> </p>
+        </td>
+        <td><p>Simulate species habitat suitabilities</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-geoprocessing" class="hasAnchor"><a href="#section-geoprocessing" class="anchor"></a>Geoprocessing</h2>
+          <p class="section-desc"><p>Functions for manipulating spatial data sets</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="fast_extract.html">fast_extract(<i>&lt;Raster&gt;</i>,<i>&lt;SpatialPolygons&gt;</i>)</a></code> <code><a href="fast_extract.html">fast_extract(<i>&lt;Raster&gt;</i>,<i>&lt;SpatialLines&gt;</i>)</a></code> <code><a href="fast_extract.html">fast_extract(<i>&lt;Raster&gt;</i>,<i>&lt;SpatialPoints&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Fast extract</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="intersecting_units.html">intersecting_units(<i>&lt;Raster&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="intersecting_units.html">intersecting_units(<i>&lt;Spatial&gt;</i>,<i>&lt;Spatial&gt;</i>)</a></code> <code><a href="intersecting_units.html">intersecting_units(<i>&lt;Raster&gt;</i>,<i>&lt;Spatial&gt;</i>)</a></code> <code><a href="intersecting_units.html">intersecting_units(<i>&lt;Spatial&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="intersecting_units.html">intersecting_units(<i>&lt;data.frame&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Find intersecting units</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-parallel-processing" class="hasAnchor"><a href="#section-parallel-processing" class="anchor"></a>Parallel processing</h2>
+          <p class="section-desc"><p>Functions for controlling multi-threaded processing</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="distribute_load.html">distribute_load()</a></code> </p>
+        </td>
+        <td><p>Distribute load</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is.parallel.html">is.parallel()</a></code> </p>
+        </td>
+        <td><p>Is parallel?</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="parallel.html">set_number_of_threads()</a></code> <code><a href="parallel.html">get_number_of_threads()</a></code> </p>
+        </td>
+        <td><p>Number of threads for data processing</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-processing-multi-zone-data" class="hasAnchor"><a href="#section-processing-multi-zone-data" class="anchor"></a>Processing multi-zone data</h2>
+          <p class="section-desc"><p>Functions for manipulating data that pertain to multiple zones</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="category_layer.html">category_layer()</a></code> </p>
+        </td>
+        <td><p>Category layer</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="category_vector.html">category_vector()</a></code> </p>
+        </td>
+        <td><p>Category vector</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="binary_stack.html">binary_stack()</a></code> </p>
+        </td>
+        <td><p>Binary stack</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-matrix-functions" class="hasAnchor"><a href="#section-matrix-functions" class="anchor"></a>Matrix functions</h2>
+          <p class="section-desc"><p>Functions for creating matrices that are used in conservation planning problems for use in planning problems</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="boundary_matrix.html">boundary_matrix()</a></code> </p>
+        </td>
+        <td><p>Boundary matrix</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="branch_matrix.html">branch_matrix()</a></code> </p>
+        </td>
+        <td><p>Branch matrix</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="connected_matrix.html">connected_matrix()</a></code> </p>
+        </td>
+        <td><p>Connected matrix</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="connectivity_matrix.html">connectivity_matrix(<i>&lt;Spatial&gt;</i>,<i>&lt;character&gt;</i>)</a></code> <code><a href="connectivity_matrix.html">connectivity_matrix(<i>&lt;Spatial&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="connectivity_matrix.html">connectivity_matrix(<i>&lt;Raster&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Connectivity matrix</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> </p>
+        </td>
+        <td><p>Convert <em>Marxan</em> boundary data to a matrix format</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rij_matrix.html">rij_matrix(<i>&lt;Raster&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> <code><a href="rij_matrix.html">rij_matrix(<i>&lt;Spatial&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Feature by planning unit matrix</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-problem-manipulation-functions" class="hasAnchor"><a href="#section-problem-manipulation-functions" class="anchor"></a>Problem manipulation functions</h2>
+          <p class="section-desc"><p>Functions for extracting information from problems</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="number_of_features.html">number_of_features()</a></code> </p>
+        </td>
+        <td><p>Number of features</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="number_of_planning_units.html">number_of_planning_units()</a></code> </p>
+        </td>
+        <td><p>Number of planning units</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="number_of_total_units.html">number_of_total_units()</a></code> </p>
+        </td>
+        <td><p>Number of total units</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="number_of_zones.html">number_of_zones()</a></code> </p>
+        </td>
+        <td><p>Number of zones</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="feature_names.html">feature_names()</a></code> </p>
+        </td>
+        <td><p>Feature names</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="zone_names.html">zone_names()</a></code> </p>
+        </td>
+        <td><p>Zone names</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-miscellaneous-functions" class="hasAnchor"><a href="#section-miscellaneous-functions" class="anchor"></a>Miscellaneous functions</h2>
+          <p class="section-desc"><p>Assorted functions distributed with the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="print.html">print(<i>&lt;ConservationProblem&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;ConservationModifier&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;Id&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;Id&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;OptimizationProblem&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;ScalarParameter&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;ArrayParameter&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;Solver&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;Zones&gt;</i>)</a></code> <code><a href="print.html">print(<i>&lt;tbl_df&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="show.html">show(<i>&lt;ConservationModifier&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;ConservationProblem&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;Id&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;OptimizationProblem&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;Parameter&gt;</i>)</a></code> <code><a href="show.html">show(<i>&lt;Solver&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Show</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="pipe.html">%>%</a></code> </p>
+        </td>
+        <td><p>Pipe operator</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tee.html">%T>%</a></code> </p>
+        </td>
+        <td><p>Tee operator</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="is.html">is.Id()</a></code> <code><a href="is.html">is.Waiver()</a></code> </p>
+        </td>
+        <td><p>Is it?</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="as.html">as.Id()</a></code> <code><a href="as.html">as.list(<i>&lt;Parameters&gt;</i>)</a></code> <code><a href="as.html">as.list(<i>&lt;Zones&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Coerce object to another object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="compile.html">compile()</a></code> </p>
+        </td>
+        <td><p>Compile a problem</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="loglinear_interpolation.html">loglinear_interpolation()</a></code> </p>
+        </td>
+        <td><p>Log-linear interpolation</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="run_calculations.html">run_calculations()</a></code> </p>
+        </td>
+        <td><p>Run calculations</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="feature_representation.html">feature_representation(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;numeric&gt;</i>)</a></code> <code><a href="feature_representation.html">feature_representation(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="feature_representation.html">feature_representation(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="feature_representation.html">feature_representation(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;Spatial&gt;</i>)</a></code> <code><a href="feature_representation.html">feature_representation(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;Raster&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Feature representation</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="feature_abundances.html">feature_abundances()</a></code> </p>
+        </td>
+        <td><p>Feature abundances</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-class-definitions-and-methods" class="hasAnchor"><a href="#section-class-definitions-and-methods" class="anchor"></a>Class definitions and methods</h2>
+          <p class="section-desc"><p>These pages document the package’s internal data structures and functions for manipulating them—they contain information that is really only useful when adding new functionality to the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="new_id.html">new_id()</a></code> </p>
+        </td>
+        <td><p>Identifier</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="new_waiver.html">new_waiver()</a></code> </p>
+        </td>
+        <td><p>Waiver</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="pproto.html">pproto()</a></code> </p>
+        </td>
+        <td><p>Create a new <code>pproto</code> object</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="new_optimization_problem.html">new_optimization_problem()</a></code> </p>
+        </td>
+        <td><p>Optimization problem</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="predefined_optimization_problem.html">predefined_optimization_problem()</a></code> </p>
+        </td>
+        <td><p>Predefined optimization problem</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="as.list.html">as.list(<i>&lt;OptimizationProblem&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Convert <code>OptimizationProblem</code> to list</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ArrayParameter-class.html">ArrayParameter-class</a></code> </p>
+        </td>
+        <td><p>Array parameter prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Collection-class.html">Collection-class</a></code> </p>
+        </td>
+        <td><p>Collection prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ConservationModifier-class.html">ConservationModifier-class</a></code> </p>
+        </td>
+        <td><p>Conservation problem modifier prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ConservationProblem-class.html">ConservationProblem-class</a></code> </p>
+        </td>
+        <td><p>Conservation problem class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Constraint-class.html">Constraint-class</a></code> </p>
+        </td>
+        <td><p>Constraint prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Decision-class.html">Decision-class</a></code> </p>
+        </td>
+        <td><p>Decision prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="MiscParameter-class.html">MiscParameter-class</a></code> </p>
+        </td>
+        <td><p>Miscellaneous parameter prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Objective-class.html">Objective-class</a></code> </p>
+        </td>
+        <td><p>Objective prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="OptimizationProblem-class.html">OptimizationProblem-class</a></code> </p>
+        </td>
+        <td><p>Optimization problem class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Parameter-class.html">Parameter-class</a></code> </p>
+        </td>
+        <td><p>Parameter class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Parameters-class.html">Parameters-class</a></code> </p>
+        </td>
+        <td><p>Parameters class</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Penalty-class.html">Penalty-class</a></code> </p>
+        </td>
+        <td><p>Penalty prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Portfolio-class.html">Portfolio-class</a></code> </p>
+        </td>
+        <td><p>Portfolio prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="ScalarParameter-class.html">ScalarParameter-class</a></code> </p>
+        </td>
+        <td><p>Scalar parameter prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Solver-class.html">Solver-class</a></code> </p>
+        </td>
+        <td><p>Solver prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="Target-class.html">Target-class</a></code> </p>
+        </td>
+        <td><p>Target prototype</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="zones.html">zones()</a></code> </p>
+        </td>
+        <td><p>Management zones</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="OptimizationProblem-methods.html">nrow()</a></code> <code><a href="OptimizationProblem-methods.html">ncol()</a></code> <code><a href="OptimizationProblem-methods.html">ncell()</a></code> <code><a href="OptimizationProblem-methods.html">modelsense()</a></code> <code><a href="OptimizationProblem-methods.html">vtype()</a></code> <code><a href="OptimizationProblem-methods.html">obj()</a></code> <code><a href="OptimizationProblem-methods.html">A()</a></code> <code><a href="OptimizationProblem-methods.html">rhs()</a></code> <code><a href="OptimizationProblem-methods.html">sense()</a></code> <code><a href="OptimizationProblem-methods.html">lb()</a></code> <code><a href="OptimizationProblem-methods.html">ub()</a></code> <code><a href="OptimizationProblem-methods.html">col_ids()</a></code> <code><a href="OptimizationProblem-methods.html">row_ids()</a></code> <code><a href="OptimizationProblem-methods.html">compressed_formulation()</a></code> </p>
+        </td>
+        <td><p>Optimization problem methods</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="tibble-methods.html">nrow(<i>&lt;tbl_df&gt;</i>)</a></code> <code><a href="tibble-methods.html">ncol(<i>&lt;tbl_df&gt;</i>)</a></code> <code><a href="tibble-methods.html">as.list(<i>&lt;tbl_df&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Manipulate tibbles</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-parameter-definitions" class="hasAnchor"><a href="#section-parameter-definitions" class="anchor"></a>Parameter definitions</h2>
+          <p class="section-desc"><p>These pages document the package’s internal data structures for representing different types of variables—they contain information that is really only useful when adding new functionality to the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="array_parameters.html">proportion_parameter_array()</a></code> <code><a href="array_parameters.html">binary_parameter_array()</a></code> <code><a href="array_parameters.html">integer_parameter_array()</a></code> <code><a href="array_parameters.html">numeric_parameter_array()</a></code> </p>
+        </td>
+        <td><p>Array parameters</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="matrix_parameters.html">numeric_matrix_parameter()</a></code> <code><a href="matrix_parameters.html">binary_matrix_parameter()</a></code> </p>
+        </td>
+        <td><p>Matrix parameters</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="misc_parameter.html">misc_parameter()</a></code> </p>
+        </td>
+        <td><p>Miscellaneous parameter</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="scalar_parameters.html">proportion_parameter()</a></code> <code><a href="scalar_parameters.html">binary_parameter()</a></code> <code><a href="scalar_parameters.html">integer_parameter()</a></code> <code><a href="scalar_parameters.html">numeric_parameter()</a></code> </p>
+        </td>
+        <td><p>Scalar parameters</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="parameters.html">parameters()</a></code> </p>
+        </td>
+        <td><p>Parameters</p></td>
+      </tr>
+    </tbody>
+    </table>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-summary">Summary</a></li>
+      <li><a href="#section-data">Data</a></li>
+      <li><a href="#section-create-and-solve-problems">Create and solve problems</a></li>
+      <li><a href="#section-objectives">Objectives</a></li>
+      <li><a href="#section-targets">Targets</a></li>
+      <li><a href="#section-constraints">Constraints</a></li>
+      <li><a href="#section-penalties">Penalties</a></li>
+      <li><a href="#section-decisions">Decisions</a></li>
+      <li><a href="#section-solvers">Solvers</a></li>
+      <li><a href="#section-portfolios">Portfolios</a></li>
+      <li><a href="#section-data-simulation">Data simulation</a></li>
+      <li><a href="#section-geoprocessing">Geoprocessing</a></li>
+      <li><a href="#section-parallel-processing">Parallel processing</a></li>
+      <li><a href="#section-processing-multi-zone-data">Processing multi-zone data</a></li>
+      <li><a href="#section-matrix-functions">Matrix functions</a></li>
+      <li><a href="#section-problem-manipulation-functions">Problem manipulation functions</a></li>
+      <li><a href="#section-miscellaneous-functions">Miscellaneous functions</a></li>
+      <li><a href="#section-class-definitions-and-methods">Class definitions and methods</a></li>
+      <li><a href="#section-parameter-definitions">Parameter definitions</a></li>
     </ul>
   </div>
 </div>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

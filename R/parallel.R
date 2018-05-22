@@ -3,10 +3,7 @@ NULL
 
 #' Number of threads for data processing
 #'
-#' Set and get the number of threads used for processing data. Note
-#' that this does not influence the number of threads used when solving a
-#' conservation problem and this must be set when adding the
-#' solver to the problem.
+#' Set and get the number of threads used for processing data.
 #'
 #' @param x \code{integer} number of threads to use for processing.
 #'
@@ -22,7 +19,8 @@ NULL
 #' }
 #'
 #' @details To stop processing data in parallel, set the number of
-#'   threads to one.
+#'   threads to one. Note that neither of these functions influence the number
+#'   of threads used when solving a conservation planning \code{\link{problem}}.
 #'
 #' @seealso \code{\link{is.parallel}}, \code{\link{solvers}}.
 #'

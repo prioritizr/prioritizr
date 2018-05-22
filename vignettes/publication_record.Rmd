@@ -8,13 +8,12 @@ output:
 fontsize: 11pt
 documentclass: article
 vignette: >
-  %\VignetteIndexEntry{Prioritizr Publication Record}
+  %\VignetteIndexEntry{Publication Record}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
-This vignette contains a list of publications that have used the _prioritizr R_ package. If you have used _prioritizr_ in your own work, we would love to hear from you. Please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
+This vignette contains a list of publications that have used the _prioritizr R_ package. We would love to hear from you if you have used _prioritizr R_ package in your own work. Please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
 
-* [Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**:20170627.](https://dx.doi.org/10.1098/rspb.2017.0627)  
+* [Rosauer DF, Pollock LJ, Linke S, and Jetz W (2017) Phylogenetically informed spatial planning is required to conserve the mammalian tree of life. _Proceedings of the Royal Society of London B: Biological Sciences_, **284**:20170627.](https://dx.doi.org/10.1098/rspb.2017.0627)
 
-* [Schuster, R., Wilson, S., Rodewald, A., Arcese, P., Fink, D., Auer, T., & Bennett, J. (2018). Optimizing conservation of migratory species over their full annual cycle in the Western Hemisphere. bioRxiv. https://doi.org/10.1101/268805](https://www.biorxiv.org/content/early/2018/02/21/268805)
-
+* [Schuster, R, Wilson S, Rodewald A, Arcese P, Fink D, Auer T and Bennett J (2018) Optimizing conservation of migratory species over their full annual cycle in the Western Hemisphere. _bioRxiv_, https://doi.org/10.1101/268805](https://www.biorxiv.org/content/early/2018/02/21/268805)

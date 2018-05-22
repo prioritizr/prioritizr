@@ -25,7 +25,7 @@ from the random fields simulation.}
   layer for each species.
 }
 \description{
-Simulate spatially auto-correlated data using random fields.
+Simulate spatially auto-correlated data.
 }
 \examples{
 \donttest{

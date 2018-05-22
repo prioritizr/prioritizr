@@ -6,23 +6,39 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add connectivity penalties <U+2014> add_connectivity_penalties <e2><80><a2> prioritizr</title>
+<title>Add connectivity penalties — add_connectivity_penalties • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Add connectivity penalties — add_connectivity_penalties" />
+
+<meta property="og:description" content="Add penalties to a conservation planning problem to favor
+solutions that select planning units with high connectivity between them." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +48,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +77,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +134,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,20 +148,34 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Add connectivity penalties</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_connectivity_penalties.R'><code>R/add_connectivity_penalties.R</code></a></small>
+    <div class="hidden name"><code>add_connectivity_penalties.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Add constraints to a conservation problem to favor solutions that select
-planning units with high connectivity between them.</p>
+    <p>Add penalties to a conservation planning <code>problem</code> to favor
+solutions that select planning units with high connectivity between them.</p>
     
+    </div>
 
-    <pre class="usage"><span class='fu'>add_connectivity_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>connectivity_data</span>)</pre>
+    <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,ANY,Matrix</span>
+<span class='fu'>add_connectivity_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,matrix</span>
+<span class='fu'>add_connectivity_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,data.frame</span>
+<span class='fu'>add_connectivity_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,array</span>
+<span class='fu'>add_connectivity_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='no'>zones</span>, <span class='no'>data</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -98,36 +184,118 @@ planning units with high connectivity between them.</p>
     </tr>
     <tr>
       <th>penalty</th>
-      <td><p><code>numeric</code> penalty for missing connections between
-planning units. This is equivalent to the connectivity strength modifier
-(CSM; Beger <em>et al.</em> 2010). Defaults to one so that penalties are the
-same as the values in the <code>data</code>.</p></td>
+      <td><p><code>numeric</code> penalty that is used to scale the importance
+of selecting planning units with strong connectivity between them compared
+to the main problem objective (e.g. solution cost when the argument to
+<code>x</code> has a minimum set objective set using
+<code>add_min_set_objective</code>). Higher <code>penalty</code> values
+can be used to obtain solutions with a high degree of connectivity,
+and smaller <code>penalty</code> values can be used to obtain solutions with a #'   small degree of connectivity. Note that negative <code>penalty</code> values can
+be used to obtain solutions that have very little connectivity.</p></td>
     </tr>
     <tr>
-      <th>connectivity_data</th>
-      <td><p>A <code>data.frame</code> or <code>matrix</code>
-object that shows the strength of connectivity between consecutive planning
- units. If <code>connectivity_data</code> is a matrix, then rows and columns
- represent each planing unit and the cell values represent the connectivity
- between them. If <code>connectivity_data</code> is a <code>data.frame</code> the column
- names must be <code>"id1"</code>, <code>"id2"</code>, <code>"boundary"</code>, where each row
- shows the connectivity between two planning units (following the Marxan
- format). The data can be used to denote symmetric or asymmetric
- relationships between planning units.</p></td>
+      <th>zones</th>
+      <td><p><code>matrix</code> or <code>Matrix</code> object describing the
+level of connectivity between different zones. Each row and column
+corresponds to a different zone in the argument to <code>x</code>, and cell
+values indicate the level of connectivity between each combination
+of zones. Cell values along the diagonal of the matrix represent
+the level of connectivity between planning units allocated to the
+same zone. Cell values must lay between 1 and -1, where negative
+values favor solutions with weak connectivity. The default argument to
+<code>zones</code> is an identity matrix (i.e. a matrix with ones along the
+matrix diagonal and zeros elsewhere), so that planning units are
+only considered to be connected when they are allocated to the same zone.
+This argument is required when the argument to <code>data</code> is a
+<code>matrix</code> or <code>Matrix</code> object. If the argument to <code>data</code> is
+an <code>array</code> or <code>data.frame</code> with zone data, this argument
+must explicitly be set to <code>NULL</code> otherwise an error will be thrown.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p><code>matrix</code>, <code>Matrix</code>, <code>data.frame</code>, or
+<code>array</code> object containing connectivity data. The connectivity values
+correspond to the strength of connectivity between
+different planning units. Thus connections between planning units
+that are associated with higher values are more favorable in the solution.
+See the Details section for more information.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p>
+    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the penalties
+ added to it.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function uses connectivity data in the form of a <code>matrix</code>
-or <code>data.frame</code> object, where strength of connectivity is a value such
-as the inverse distance between consecutive planning units. This function
-can be used for symmetric or asymmetric relationships between planning units
-and is inspired by Beger <em>et al.</em> (2010).</p>
+    <p>This function uses connectivity data to penalize solutions
+  that have low connectivity. It can accommodate symmetric and asymmetric
+  relationships between planning units. Although <em>Marxan</em>
+  <strong>penalizes</strong> connections between planning units with high
+  connectivity values, it is important to note that this function
+  <strong>favors</strong> connections between planning units with high connectivity
+  values. This function was inspired by Beger <em>et al.</em> (2010).</p>
+<p>The argument to <code>data</code> can be specified in several different ways:</p>
+<p></p><dl class='dl-horizontal'>
+    <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+    different planning units and the value of each cell represents the
+    strength of connectivity between two different planning units. Cells
+    that occur along the matrix diagonal are treated as weights which
+    indicate that planning units are more desirable in the solution.
+    The argument to <code>zones</code> can be used to control
+    the strength of connectivity between planning units in different zones.
+    The default argument for <code>zones</code> is to treat planning units
+    allocated to different zones as having zero connectivity.</p></dd>
+    <dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
+    <code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
+    denotes the connectivity between two planning units following the
+    <em>Marxan</em> format. The data can be used to denote symmetric or
+    asymmetric relationships between planning units. By default,
+    input data is assumed to be symmetric unless asymmetric data is
+    also included (e.g. if data is present for planning units 2 and 3, then
+    the same amount of connectivity is expected for planning units 3 and 2,
+    unless connectivity data is also provided for planning units 3 and 2).
+    If the argument to <code>x</code> contains multiple zones, then the columns
+    <code>"zone1"</code> and <code>"zone2"</code> can optionally be provided to manually
+    specify the connectivity values between planning units when they are
+    allocated to specific zones. If the columns <code>"zone1"</code> and
+    <code>"zone2"</code> are present, then the argument to <code>zones</code> must be
+    <code>NULL</code>.</p></dd>
+    <dt><code>array</code></dt><dd><p>containing four-dimensions where cell values
+    indicate the strength of connectivity between planning units
+    when they are assigned to specific management zones. The first two
+    dimensions (i.e. rows and columns) indicate the strength of
+    connectivity between different planning units and the second two
+    dimensions indicate the different management zones. Thus
+    the <code>data[1, 2, 3, 4]</code> indicates the strength of
+    connectivity between planning unit 1 and planning unit 2 when planning
+    unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.</p></dd>
+    </dl>
+    <p>The connectivity penalties are calculated using the following equations.
+ Let \(I\) represent the set of planning units, \(Z\) represent the set
+ of management zones, and $$X_iz$$ represent the decision
+ variable for planning unit \(i\) for in zone \(z\) (e.g. with binary
+ values one indicating if planning unit is allocated or not). Also, let
+ \(p\) represent the argument to <code>penalty</code>, \(D\) represent the
+ argument to <code>data</code>, and \(W\) represent the argument to <code>zones</code>.</p>
+<p>If the argument to <code>data</code> is supplied
+ as a <code>matrix</code> or <code>Matrix</code>, then the penalties are calculated as:</p>
+<p>$$
+ \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+ \times X_{jy} \times D_{ij} \times W_{zy})$$</p>
+<p>Otherwise, if the argument to <code>data</code> is supplied as a
+ <code>data.frame</code> or <code>array</code>, then the penalties are calculated as:</p>
+<p>$$
+ \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+ \times X_{jy} \times D_{ijzy})$$</p>
+<p>Note that when the problem objective is to maximize some measure of
+ benefit and not minimize some measure of cost, the term \(-p\) is
+ replaced with \(p\).</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -137,216 +305,1116 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='penalties.html'>penalties</a></code>.</p>
+    <div class='dont-index'><p><code><a href='penalties.html'>penalties</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'>data</span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>)
+    <pre class="examples"><div class='input'><span class='co'># load Matrix package for visualizing matrices</span>
+<span class='fu'>require</span>(<span class='no'>Matrix</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='input'>
+<span class='co'># load data</span>
+<span class='fu'>data</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features</span>, <span class='no'>sim_features_zones</span>)
 
-<span class='co'># create a symmetric connectivity matrix where the connectivity between</span>
-<span class='co'># two planning units is the inverse distance between them</span>
-<span class='no'>sc_matrix</span> <span class='kw'>&lt;-</span> (<span class='fl'>1</span> / (<span class='fu'>as.matrix</span>(<span class='fu'>dist</span>(<span class='no'>sim_pu_points</span>@<span class='kw'>coords</span>)) + <span class='fl'>1</span>))
-
-<span class='co'># remove connections between planning units with little connectivity</span>
-<span class='no'>sc_matrix</span>[<span class='no'>sc_matrix</span> <span class='kw'>&lt;</span> <span class='fl'>0.85</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='co'># define function to rescale values between zero and one so that we</span>
+<span class='co'># can compare solutions from different connectivity matrices</span>
+<span class='no'>rescale</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>to</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>), <span class='no'>from</span> <span class='kw'>=</span> <span class='fu'>range</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+  (<span class='no'>x</span> - <span class='no'>from</span>[<span class='fl'>1</span>]) / <span class='fu'>diff</span>(<span class='no'>from</span>) * <span class='fu'>diff</span>(<span class='no'>to</span>) + <span class='no'>to</span>[<span class='fl'>1</span>]
+}
 
 <span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
 
-<span class='co'># create problem with low connectivity penalties</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>25</span>, <span class='no'>sc_matrix</span>)
+<span class='co'># create a symmetric connectivity matrix where the connectivity between</span>
+<span class='co'># two planning units corresponds to their shared boundary length</span>
+<span class='no'>b_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='boundary_matrix.html'>boundary_matrix</a></span>(<span class='no'>sim_pu_polygons</span>)
 
-<span class='co'># create problem with higher connectivity penalties</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>50</span>, <span class='no'>sc_matrix</span>)
+<span class='co'># standardize matrix values to lay between zero and one</span>
+<span class='no'>b_matrix</span>[] <span class='kw'>&lt;-</span> <span class='fu'>rescale</span>(<span class='no'>b_matrix</span>[])
 
-<span class='co'># create an asymmetric connectivity matrix where links from even numered</span>
-<span class='co'># units to odd numbered units have half the connectivity as from odd</span>
-<span class='co'># numbered units to even units</span>
-<span class='no'>even_units</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>2</span>, <span class='fu'>length</span>(<span class='no'>sim_pu_points</span>), <span class='fl'>2</span>)
-<span class='no'>odd_units</span> <span class='kw'>&lt;-</span> <span class='fu'>seq</span>(<span class='fl'>1</span>, <span class='fu'>length</span>(<span class='no'>sim_pu_points</span>), <span class='fl'>2</span>)
-<span class='no'>ac_matrix</span> <span class='kw'>&lt;-</span> <span class='no'>sc_matrix</span>
-<span class='no'>ac_matrix</span>[<span class='no'>even_units</span>, <span class='no'>odd_units</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span> * <span class='no'>ac_matrix</span>[<span class='no'>even_units</span>, <span class='no'>odd_units</span>]
+<span class='co'># visualize connectivity matrix</span>
+<span class='fu'>image</span>(<span class='no'>b_matrix</span>)</div><div class='img'><img src='add_connectivity_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create a symmetric connectivity matrix where the connectivity between</span>
+<span class='co'># two planning units corresponds to their spatial proximity</span>
+<span class='co'># i.e. planning units that are further apart share less connectivity</span>
+<span class='no'>centroids</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rgeos</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rgeos/topics/topo-unary-gCentroid'>gCentroid</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='kw'>byid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>d_matrix</span> <span class='kw'>&lt;-</span> (<span class='fl'>1</span> / (<span class='fu'><a href='as.html'>as</a></span>(<span class='fu'>dist</span>(<span class='no'>centroids</span>@<span class='kw'>coords</span>), <span class='st'>"Matrix"</span>) + <span class='fl'>1</span>))
 
-<span class='co'># create problem with asymmetric connectivity and high penalties</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>50</span>, <span class='no'>ac_matrix</span>)
+<span class='co'># standardize matrix values to lay between zero and one</span>
+<span class='no'>d_matrix</span>[] <span class='kw'>&lt;-</span> <span class='fu'>rescale</span>(<span class='no'>d_matrix</span>[])
 
+<span class='co'># remove connections between planning units without connectivity to</span>
+<span class='co'># reduce run-time</span>
+<span class='no'>d_matrix</span>[<span class='no'>d_matrix</span> <span class='kw'>&lt;</span> <span class='fl'>0.7</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 
-<span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='co'># visualize connectivity matrix</span>
+<span class='fu'>image</span>(<span class='no'>d_matrix</span>)</div><div class='img'><img src='add_connectivity_penalties-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create a symmetric connectivity matrix where the connectivity</span>
+<span class='co'># between adjacent two planning units corresponds to their combined</span>
+<span class='co'># value in a field in the planning unit attribute data</span>
+<span class='co'># for example, this field could describe the extent of native vegetation in</span>
+<span class='co'># each planning unit and we could use connectivity penalties to identify</span>
+<span class='co'># solutions that cluster planning units together that both contain large</span>
+<span class='co'># amounts of native vegetation</span>
+<span class='no'>c_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>sim_pu_polygons</span>, <span class='st'>"cost"</span>)
+
+<span class='co'># standardize matrix values to lay between zero and one</span>
+<span class='no'>c_matrix</span>[] <span class='kw'>&lt;-</span> <span class='fu'>rescale</span>(<span class='no'>c_matrix</span>[])
+
+<span class='co'># visualize connectivity matrix</span>
+<span class='fu'>image</span>(<span class='no'>c_matrix</span>)</div><div class='img'><img src='add_connectivity_penalties-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create an asymmetric connectivity matrix. Here, connectivity occurs between</span>
+<span class='co'># adjacent planning units and, due to rivers flowing southwards</span>
+<span class='co'># through the study area, connectivity from northern planning units to</span>
+<span class='co'># southern planning units is ten times stronger than the reverse.</span>
+<span class='no'>ac_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>0</span>, <span class='fu'>length</span>(<span class='no'>sim_pu_polygons</span>), <span class='fu'>length</span>(<span class='no'>sim_pu_polygons</span>))
+<span class='no'>ac_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>ac_matrix</span>, <span class='st'>"Matrix"</span>)
+<span class='no'>adjacent_units</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>rgeos</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/rgeos/topics/pred-binary-gIntersects'>gIntersects</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='kw'>byid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_len</span>(<span class='fu'>length</span>(<span class='no'>sim_pu_polygons</span>))) {
+  <span class='kw'>for</span> (<span class='no'>j</span> <span class='kw'>in</span> <span class='fu'>seq_len</span>(<span class='fu'>length</span>(<span class='no'>sim_pu_polygons</span>))) {
+    <span class='co'># find if planning units are adjacent</span>
+    <span class='kw'>if</span> (<span class='no'>adjacent_units</span>[<span class='no'>i</span>, <span class='no'>j</span>]) {
+      <span class='co'># find if planning units lay north and south of each other</span>
+      <span class='co'># i.e. they have the same x-coordinate</span>
+      <span class='kw'>if</span> (<span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>i</span>, <span class='fl'>1</span>] <span class='kw'>==</span> <span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>j</span>, <span class='fl'>1</span>]) {
+        <span class='kw'>if</span> (<span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>i</span>, <span class='fl'>2</span>] <span class='kw'>&gt;</span> <span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>j</span>, <span class='fl'>2</span>]) {
+          <span class='co'># if i is north of j add 10 units of connectivity</span>
+          <span class='no'>ac_matrix</span>[<span class='no'>i</span>, <span class='no'>j</span>] <span class='kw'>&lt;-</span> <span class='no'>ac_matrix</span>[<span class='no'>i</span>, <span class='no'>j</span>] + <span class='fl'>10</span>
+        } <span class='kw'>else</span> <span class='kw'>if</span> (<span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>i</span>, <span class='fl'>2</span>] <span class='kw'>&lt;</span> <span class='no'>centroids</span>@<span class='kw'>coords</span>[<span class='no'>j</span>, <span class='fl'>2</span>]) {
+          <span class='co'># if i is south of j add 1 unit of connectivity</span>
+          <span class='no'>ac_matrix</span>[<span class='no'>i</span>, <span class='no'>j</span>] <span class='kw'>&lt;-</span> <span class='no'>ac_matrix</span>[<span class='no'>i</span>, <span class='no'>j</span>] + <span class='fl'>1</span>
+        }
+      }
+    }
+  }
+}
+
+<span class='co'># standardize matrix values to lay between zero and one</span>
+<span class='no'>ac_matrix</span>[] <span class='kw'>&lt;-</span> <span class='fu'>rescale</span>(<span class='no'>ac_matrix</span>[])
+
+<span class='co'># visualize asymmetric connectivity matrix</span>
+<span class='fu'>image</span>(<span class='no'>ac_matrix</span>)</div><div class='img'><img src='add_connectivity_penalties-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create penalties</span>
+<span class='no'>penalties</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>10</span>, <span class='fl'>25</span>)
+
+<span class='co'># create problems using the different connectivity matrices and penalties</span>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>p1</span>,
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>1</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>b_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>2</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>b_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>1</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>d_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>2</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>d_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>1</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>c_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>2</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>c_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>1</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ac_matrix</span>),
+           <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties</span>[<span class='fl'>2</span>], <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>ac_matrix</span>))
+
+<span class='co'># assign names to the problems</span>
+<span class='fu'>names</span>(<span class='no'>p2</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"basic problem"</span>,
+               <span class='fu'>paste0</span>(<span class='st'>"b_matrix ("</span>, <span class='no'>penalties</span>,<span class='st'>")"</span>),
+               <span class='fu'>paste0</span>(<span class='st'>"d_matrix ("</span>, <span class='no'>penalties</span>,<span class='st'>")"</span>),
+               <span class='fu'>paste0</span>(<span class='st'>"c_matrix ("</span>, <span class='no'>penalties</span>,<span class='st'>")"</span>),
+               <span class='fu'>paste0</span>(<span class='st'>"ac_matrix ("</span>, <span class='no'>penalties</span>,<span class='st'>")"</span>))</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>p2</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 4135.2744673
+#&gt; Found heuristic solution: objective 3934.6218396
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.490348e+03, 17 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3490.34813    0    4 4135.27447 3490.34813  15.6%     -    0s
-#&gt; H    0     0                    3597.0951275 3490.34813  2.97%     -    0s
+#&gt;      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
+#&gt; H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3597.1 4135.27 
+#&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.597095127479e+03, best bound 3.490348127696e+03, gap 2.9676%
-#&gt; Optimize a model with 549 rows, 362 columns and 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%
+#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [4e+01, 4e+02]
+#&gt;   Objective range  [3e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 20737.196992
-#&gt; Found heuristic solution: objective 5015.6632679
+#&gt; Found heuristic solution: objective 17287.196992
+#&gt; Found heuristic solution: objective 3691.2885062
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.147439e+03, 130 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.307193e+03, 159 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 4147.43940    0  362 5015.66327 4147.43940  17.3%     -    0s
-#&gt;      0     0 4182.81333    0  358 5015.66327 4182.81333  16.6%     -    0s
-#&gt;      0     0 4200.50939    0  357 5015.66327 4200.50939  16.3%     -    0s
-#&gt;      0     0 4200.76247    0  358 5015.66327 4200.76247  16.2%     -    0s
-#&gt;      0     0 4229.77114    0  354 5015.66327 4229.77114  15.7%     -    0s
-#&gt; H    0     0                    4947.3994117 4229.77114  14.5%     -    0s
-#&gt;      0     0 4257.28525    0  352 4947.39941 4257.28525  13.9%     -    0s
-#&gt; H    0     0                    4849.9226979 4257.28525  12.2%     -    0s
-#&gt; H    0     0                    4776.5014945 4257.28525  10.9%     -    0s
-#&gt; H    0     0                    4718.6197283 4257.28525  9.78%     -    0s
+#&gt;      0     0 3307.19310    0   86 3691.28851 3307.19310  10.4%     -    0s
+#&gt; H    0     0                    3433.8940898 3307.19310  3.69%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt; 
-#&gt; Explored 1 nodes (399 simplex iterations) in 0.46 seconds
+#&gt; Explored 1 nodes (159 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 6: 4718.62 4776.5 4849.92 ... 20737.2
+#&gt; Solution count 3: 3433.89 3691.29 17287.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.718619728279e+03, best bound 4.257285250999e+03, gap 9.7769%
-#&gt; Optimize a model with 549 rows, 362 columns and 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Best objective 3.433894089811e+03, best bound 3.307193102718e+03, gap 3.6897%
+#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [9e+01, 6e+02]
+#&gt;   Objective range  [8e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 22987.196992
-#&gt; Found heuristic solution: objective 5896.0520685
+#&gt; Found heuristic solution: objective 15487.196992
+#&gt; Found heuristic solution: objective 3326.2885062
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.597439e+03, 130 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.012030e+03, 174 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 4597.43940    0  362 5896.05207 4597.43940  22.0%     -    0s
-#&gt;      0     0 4667.52745    0  358 5896.05207 4667.52745  20.8%     -    0s
-#&gt;      0     0 4667.52745    0  358 5896.05207 4667.52745  20.8%     -    0s
-#&gt;      0     0 4708.28785    0  356 5896.05207 4708.28785  20.1%     -    0s
-#&gt;      0     0 4711.77135    0  357 5896.05207 4711.77135  20.1%     -    0s
-#&gt;      0     0 4770.54049    0  354 5896.05207 4770.54049  19.1%     -    0s
-#&gt;      0     0 4770.54049    0  354 5896.05207 4770.54049  19.1%     -    0s
-#&gt; H    0     0                    5865.0680200 4770.54049  18.7%     -    0s
-#&gt;      0     2 4770.77576    0  354 5865.06802 4770.77576  18.7%     -    0s
-#&gt; H   54    41                    5703.9501465 4846.92721  15.0%  40.9    0s
-#&gt; H   81    35                    5519.1219496 4981.03299  9.75%  43.7    0s
+#&gt;      0     0 3012.03046    0  138 3326.28851 3012.03046  9.45%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt; 
-#&gt; Explored 81 nodes (3859 simplex iterations) in 0.62 seconds
+#&gt; Explored 1 nodes (174 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 5519.12 5703.95 5865.07 ... 22987.2
+#&gt; Solution count 2: 3326.29 15487.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.519121949586e+03, best bound 4.981032992120e+03, gap 9.7495%
-#&gt; Optimize a model with 549 rows, 362 columns and 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
+#&gt; Best objective 3.326288506226e+03, best bound 3.012030457072e+03, gap 9.4477%
+#&gt; Optimize a model with 1601 rows, 888 columns and 3642 nonzeros
+#&gt; Variable types: 0 continuous, 888 integer (888 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [7e+01, 6e+02]
+#&gt;   Objective range  [7e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 22987.196992
-#&gt; Found heuristic solution: objective 5784.0652175
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
-#&gt; Variable types: 0 continuous, 362 integer (362 binary)
-#&gt; Presolved: 549 rows, 362 columns, 1538 nonzeros
+#&gt; Found heuristic solution: objective 11397.038660
+#&gt; Found heuristic solution: objective 2915.9453686
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 1601 rows, 888 columns, 3642 nonzeros
+#&gt; Variable types: 0 continuous, 888 integer (888 binary)
+#&gt; Presolved: 1601 rows, 888 columns, 3642 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.597439e+03, 212 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.277325e+03, 601 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 4597.43940    0  362 5784.06522 4597.43940  20.5%     -    0s
-#&gt;      0     0 4651.39100    0  358 5784.06522 4651.39100  19.6%     -    0s
-#&gt;      0     0 4671.09810    0  358 5784.06522 4671.09810  19.2%     -    0s
-#&gt;      0     0 4720.44587    0  356 5784.06522 4720.44587  18.4%     -    0s
-#&gt;      0     0 4736.01025    0  355 5784.06522 4736.01025  18.1%     -    0s
-#&gt;      0     0 4771.27190    0  353 5784.06522 4771.27190  17.5%     -    0s
-#&gt;      0     0 4771.41889    0  354 5784.06522 4771.41889  17.5%     -    0s
-#&gt; H    0     0                    5482.6197517 4771.41889  13.0%     -    0s
-#&gt;      0     2 4771.83068    0  354 5482.61975 4771.83068  13.0%     -    0s
-#&gt; H   27    26                    5371.7767228 4771.83068  11.2%  37.0    0s
+#&gt;      0     0 2277.32517    0  877 2915.94537 2277.32517  21.9%     -    0s
+#&gt;      0     0 2282.91603    0  874 2915.94537 2282.91603  21.7%     -    2s
+#&gt;      0     0 2288.19139    0  871 2915.94537 2288.19139  21.5%     -    2s
+#&gt;      0     0 2288.19139    0  483 2915.94537 2288.19139  21.5%     -    2s
+#&gt;      0     0 2295.81836    0  478 2915.94537 2295.81836  21.3%     -    3s
+#&gt;      0     0 2299.18104    0  478 2915.94537 2299.18104  21.2%     -    3s
+#&gt;      0     0 2310.18554    0  450 2915.94537 2310.18554  20.8%     -    3s
+#&gt;      0     0 2314.83207    0  473 2915.94537 2314.83207  20.6%     -    3s
+#&gt;      0     0 2316.71918    0  467 2915.94537 2316.71918  20.5%     -    3s
+#&gt;      0     0 2316.71918    0  467 2915.94537 2316.71918  20.5%     -    3s
+#&gt; H    0     0                    2879.5923214 2316.71918  19.5%     -    3s
+#&gt;      0     2 2316.75143    0  467 2879.59232 2316.75143  19.5%     -    3s
+#&gt; H   53    53                    2669.2652017 2367.46532  11.3%  45.8    4s
+#&gt;    265   206 2501.88395   10  382 2669.26520 2389.53644  10.5%  56.9    5s
+#&gt; H  273   209                    2665.1537029 2389.53644  10.3%  56.5    5s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
 #&gt; 
-#&gt; Explored 56 nodes (2730 simplex iterations) in 0.72 seconds
+#&gt; Explored 330 nodes (18882 simplex iterations) in 5.26 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 5371.78 5482.62 5784.07 22987.2 
+#&gt; Solution count 5: 2665.15 2669.27 2879.59 ... 11397
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.371776722768e+03, best bound 4.839806508005e+03, gap 9.9031%</div><div class='input'>
+#&gt; Best objective 2.665153702866e+03, best bound 2.411089064269e+03, gap 9.5328%
+#&gt; Optimize a model with 1601 rows, 888 columns and 3642 nonzeros
+#&gt; Variable types: 0 continuous, 888 integer (888 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 761.8011610
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 1601 rows, 888 columns, 3642 nonzeros
+#&gt; Variable types: 0 continuous, 888 integer (888 binary)
+#&gt; Presolved: 1601 rows, 888 columns, 3642 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.267850e+02, 243 iterations, 0.02 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0  126.78496    0  695  761.80116  126.78496  83.4%     -    0s
+#&gt; H    0     0                     468.0158310  126.78496  72.9%     -    0s
+#&gt;      0     0  139.58775    0  693  468.01583  139.58775  70.2%     -    3s
+#&gt;      0     0  148.83710    0  691  468.01583  148.83710  68.2%     -    3s
+#&gt;      0     0  148.83710    0  382  468.01583  148.83710  68.2%     -    3s
+#&gt;      0     0  161.29257    0  380  468.01583  161.29257  65.5%     -    4s
+#&gt;      0     0  170.44305    0  348  468.01583  170.44305  63.6%     -    4s
+#&gt;      0     0  182.28500    0  352  468.01583  182.28500  61.1%     -    4s
+#&gt; H    0     0                     454.2214760  182.28500  59.9%     -    4s
+#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    4s
+#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    4s
+#&gt;      0     2  195.12431    0  378  454.22148  195.12431  57.0%     -    4s
+#&gt; H    1     1                     423.4053090  195.12431  53.9%   0.0    4s
+#&gt; *   49     3               2     421.3259805  329.15212  21.9%  41.5    4s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 5
+#&gt; 
+#&gt; Explored 52 nodes (2800 simplex iterations) in 4.63 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 5: 421.326 423.405 454.221 ... 761.801
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 4.213259804528e+02, best bound 3.823629791434e+02, gap 9.2477%
+#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [9e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 15721.108025
+#&gt; Found heuristic solution: objective 3513.2283384
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.099126e+03, 223 iterations, 0.01 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3099.12568    0  190 3513.22834 3099.12568  11.8%     -    0s
+#&gt;      0     0 3106.44940    0  164 3513.22834 3106.44940  11.6%     -    0s
+#&gt; H    0     0                    3244.5496513 3106.44940  4.26%     -    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 1
+#&gt; 
+#&gt; Explored 1 nodes (267 simplex iterations) in 0.06 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 3244.55 3513.23 15721.1 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.244549651264e+03, best bound 3.106449395648e+03, gap 4.2564%
+#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 11571.974576
+#&gt; Found heuristic solution: objective 2881.1380866
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; Variable types: 0 continuous, 378 integer (378 binary)
+#&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 2.309063e+03, 214 iterations, 0.01 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 2309.06312    0  362 2881.13809 2309.06312  19.9%     -    0s
+#&gt;      0     0 2328.00732    0  359 2881.13809 2328.00732  19.2%     -    0s
+#&gt;      0     0 2339.73282    0  365 2881.13809 2339.73282  18.8%     -    0s
+#&gt;      0     0 2339.73282    0  224 2881.13809 2339.73282  18.8%     -    0s
+#&gt;      0     0 2346.29691    0  224 2881.13809 2346.29691  18.6%     -    0s
+#&gt;      0     0 2357.20173    0  222 2881.13809 2357.20173  18.2%     -    0s
+#&gt;      0     0 2360.84727    0  226 2881.13809 2360.84727  18.1%     -    0s
+#&gt;      0     0 2376.63837    0  223 2881.13809 2376.63837  17.5%     -    0s
+#&gt;      0     0 2376.63837    0  223 2881.13809 2376.63837  17.5%     -    0s
+#&gt; H    0     0                    2633.0995862 2376.63837  9.74%     -    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 4
+#&gt; 
+#&gt; Explored 1 nodes (717 simplex iterations) in 0.51 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 2633.1 2881.14 11572 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 2.633099586223e+03, best bound 2.376638371787e+03, gap 9.7399%
+#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [1e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 17098.178722
+#&gt; Found heuristic solution: objective 3824.6218396
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.385781e+03, 49 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3385.78126    0   24 3824.62184 3385.78126  11.5%     -    0s
+#&gt; H    0     0                    3506.9306268 3385.78126  3.45%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (49 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 3506.93 3824.62 17098.2 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.506930626812e+03, best bound 3.385781260518e+03, gap 3.4546%
+#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 1e+01]
+#&gt; Found heuristic solution: objective 15910.178722
+#&gt; Found heuristic solution: objective 3659.6218396
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.172486e+03, 93 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3172.48586    0   64 3659.62184 3172.48586  13.3%     -    0s
+#&gt; H    0     0                    3386.1100237 3172.48586  6.31%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (93 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 3386.11 3659.62 15910.2 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.386110023737e+03, best bound 3.172485864952e+03, gap 6.3088%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2</span>,<span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
+<span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>3</span>, <span class='fl'>3</span>))
+<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'>seq_along</span>(<span class='no'>s2</span>)) {
+  <span class='fu'>plot</span>(<span class='no'>s2</span><span class='kw'>[[</span><span class='no'>i</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>p2</span>)[<span class='no'>i</span>], <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"white"</span>)
+  <span class='fu'>plot</span>(<span class='no'>s2</span><span class='kw'>[[</span><span class='no'>i</span>]][<span class='no'>s2</span><span class='kw'>[[</span><span class='no'>i</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+}</div><div class='img'><img src='add_connectivity_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create minimal multi-zone problem and limit solver to one minute</span>
+<span class='co'># to obtain solutions in a short period of time</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.15</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_binary_decisions</span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>60</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"basic solution"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='co'># create matrix showing which planning units are adjacent to other units</span>
+<span class='no'>a_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='connected_matrix.html'>connected_matrix</a></span>(<span class='no'>sim_pu_zones_stack</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"small penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='co'># visualize matrix</span>
+<span class='fu'>image</span>(<span class='no'>a_matrix</span>)</div><div class='img'><img src='add_connectivity_penalties-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create a zone matrix where connectivities are only present between</span>
+<span class='co'># planning units that are allocated to the same zone</span>
+<span class='no'>zm1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='fu'>diag</span>(<span class='fl'>3</span>), <span class='st'>"Matrix"</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"high penalties"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
-<span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)
+<span class='co'># print zone matrix</span>
+<span class='fu'>print</span>(<span class='no'>zm1</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    1    .    .
+#&gt; [2,]    .    1    .
+#&gt; [3,]    .    .    1</div><div class='input'>
+<span class='co'># create a zone matrix where connectivities are strongest between</span>
+<span class='co'># planning units allocated to different zones</span>
+<span class='no'>zm2</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='fu'>diag</span>(<span class='no'>zm2</span>) <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='no'>zm2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>zm2</span>, <span class='st'>"Matrix"</span>)
 
-<span class='fu'>plot</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]], <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>19</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"asymmetric connectivity"</span>, <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='input'><span class='fu'>points</span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]][<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>pch</span><span class='kw'>=</span><span class='fl'>19</span>,
-       <span class='kw'>cex</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><img src='add_connectivity_penalties-5.png' alt='' width='540' height='400' /><div class='input'>
+<span class='co'># print zone matrix</span>
+<span class='fu'>print</span>(<span class='no'>zm2</span>)</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    0    1    1
+#&gt; [2,]    1    0    1
+#&gt; [3,]    1    1    0</div><div class='input'>
+<span class='co'># create a zone matrix that indicates that connectivities between planning</span>
+<span class='co'># units assigned to the same zone are much higher than connectivities</span>
+<span class='co'># assigned to different zones</span>
+<span class='no'>zm3</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='fu'>diag</span>(<span class='no'>zm3</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>zm3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>zm3</span>, <span class='st'>"Matrix"</span>)
 
-</div></pre>
+<span class='co'># print zone matrix</span>
+<span class='fu'>print</span>(<span class='no'>zm3</span>)</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]  1.0  0.1  0.1
+#&gt; [2,]  0.1  1.0  0.1
+#&gt; [3,]  0.1  0.1  1.0</div><div class='input'>
+<span class='co'># create a zone matrix that indicates that connectivities between planning</span>
+<span class='co'># units allocated to zone 1 are very high, connectivities between planning</span>
+<span class='co'># units allocated to zones 1 and 2 are moderately high, and connectivities</span>
+<span class='co'># planning units allocated to other zones are low</span>
+<span class='no'>zm4</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>zm4</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>zm4</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='no'>zm4</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='no'>zm4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>zm4</span>, <span class='st'>"Matrix"</span>)
+
+<span class='co'># print zone matrix</span>
+<span class='fu'>print</span>(<span class='no'>zm4</span>)</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]  1.0  0.5  0.1
+#&gt; [2,]  0.5  0.1  0.1
+#&gt; [3,]  0.1  0.1  0.1</div><div class='input'>
+<span class='co'># create a zone matrix with strong connectivities between planning units</span>
+<span class='co'># allocated to the same zone, moderate connectivities between planning</span>
+<span class='co'># unit allocated to zone 1 and zone 2, and negative connectivities between</span>
+<span class='co'># planning units allocated to zone 3 and the other two zones</span>
+<span class='no'>zm5</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(-<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>zm5</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='no'>zm5</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='fu'>diag</span>(<span class='no'>zm5</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='no'>zm5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>zm5</span>, <span class='st'>"Matrix"</span>)
+
+<span class='co'># print zone matrix</span>
+<span class='fu'>print</span>(<span class='no'>zm5</span>)</div><div class='output co'>#&gt; 3 x 3 Matrix of class "dsyMatrix"
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]  1.0  0.5   -1
+#&gt; [2,]  0.5  1.0   -1
+#&gt; [3,] -1.0 -1.0    1</div><div class='input'>
+<span class='co'># create vector of penalties to use creating problems</span>
+<span class='no'>penalties2</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>30</span>)
+
+<span class='co'># create multi-zone problems using the adjacent connectivity matrix and</span>
+<span class='co'># different zone matrices</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
+  <span class='no'>p3</span>,
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>1</span>], <span class='no'>zm1</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>2</span>], <span class='no'>zm1</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>1</span>], <span class='no'>zm2</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>2</span>], <span class='no'>zm2</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>1</span>], <span class='no'>zm3</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>2</span>], <span class='no'>zm3</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>1</span>], <span class='no'>zm4</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>2</span>], <span class='no'>zm4</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>1</span>], <span class='no'>zm5</span>, <span class='no'>a_matrix</span>),
+  <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='no'>penalties2</span>[<span class='fl'>2</span>], <span class='no'>zm5</span>, <span class='no'>a_matrix</span>))
+
+<span class='co'># assign names to the problems</span>
+<span class='fu'>names</span>(<span class='no'>p4</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"basic problem"</span>,
+               <span class='fu'>paste0</span>(<span class='st'>"zm"</span>, <span class='fu'>rep</span>(<span class='fu'>seq_len</span>(<span class='fl'>5</span>), <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>2</span>), <span class='st'>" ("</span>,
+                      <span class='fu'>rep</span>(<span class='no'>penalties2</span>, <span class='fl'>2</span>), <span class='st'>")"</span>))</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>p4</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Variable types: 0 continuous, 270 integer (270 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10275.924144
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
+#&gt; Variable types: 0 continuous, 270 integer (270 binary)
+#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.943504e+03, 123 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8943.50352    0   15 10275.9241 8943.50352  13.0%     -    0s
+#&gt; H    0     0                    9111.3117236 8943.50352  1.84%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (123 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9111.31 10275.9 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.111311723633e+03, best bound 8.943503517801e+03, gap 1.8418%
+#&gt; Optimize a model with 1845 rows, 1140 columns and 5100 nonzeros
+#&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [5e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10075.924144
+#&gt; Presolve time: 0.04s
+#&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
+#&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
+#&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.367447e+03, 811 iterations, 0.08 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8367.44688    0  465 10075.9241 8367.44688  17.0%     -    0s
+#&gt; H    0     0                    9108.8765843 8367.44688  8.14%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (811 simplex iterations) in 0.14 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9108.88 10075.9 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.108876584257e+03, best bound 8.367446876836e+03, gap 8.1396%
+#&gt; Optimize a model with 1845 rows, 1140 columns and 5100 nonzeros
+#&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [3e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 9075.9241439
+#&gt; Presolve time: 0.04s
+#&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
+#&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
+#&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 4.897305e+03, 713 iterations, 0.07 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 4897.30484    0  786 9075.92414 4897.30484  46.0%     -    0s
+#&gt; H    0     0                    7701.5492676 4897.30484  36.4%     -    0s
+#&gt;      0     0 4956.79223    0  788 7701.54927 4956.79223  35.6%     -    0s
+#&gt; H    0     0                    7443.0424128 4956.79223  33.4%     -    0s
+#&gt;      0     0 4973.38838    0  752 7443.04241 4973.38838  33.2%     -    0s
+#&gt; H    0     0                    7375.9473376 4973.38838  32.6%     -    0s
+#&gt;      0     0 4973.38838    0  487 7375.94734 4973.38838  32.6%     -    0s
+#&gt; H    0     0                    7136.8817068 4973.38838  30.3%     -    0s
+#&gt;      0     0 4980.10607    0  517 7136.88171 4980.10607  30.2%     -    0s
+#&gt; H    0     0                    7021.4892757 4980.10607  29.1%     -    1s
+#&gt;      0     0 4988.31454    0  524 7021.48928 4988.31454  29.0%     -    1s
+#&gt;      0     0 5000.57640    0  546 7021.48928 5000.57640  28.8%     -    1s
+#&gt;      0     0 5024.94548    0  545 7021.48928 5024.94548  28.4%     -    1s
+#&gt; H    0     0                    6909.9319607 5024.94548  27.3%     -    1s
+#&gt;      0     0 5028.64284    0  529 6909.93196 5028.64284  27.2%     -    1s
+#&gt;      0     0 5031.68205    0  541 6909.93196 5031.68205  27.2%     -    1s
+#&gt;      0     0 5031.92221    0  539 6909.93196 5031.92221  27.2%     -    1s
+#&gt;      0     0 5032.17738    0  539 6909.93196 5032.17738  27.2%     -    1s
+#&gt;      0     0 5032.17738    0  539 6909.93196 5032.17738  27.2%     -    1s
+#&gt; H    0     0                    6422.0997997 5032.17738  21.6%     -    1s
+#&gt; H    0     0                    6370.2361980 5032.17738  21.0%     -    1s
+#&gt; H    0     0                    6367.2149957 5032.17738  21.0%     -    1s
+#&gt;      0     2 5032.69826    0  539 6367.21500 5032.69826  21.0%     -    1s
+#&gt; H   27    27                    6364.5405799 5056.80746  20.5%  63.9    2s
+#&gt; H   85    85                    6060.3446757 5056.80746  16.6%  39.9    2s
+#&gt; H  108   108                    6004.2097530 5056.80746  15.8%  34.8    2s
+#&gt;    525   479 5604.22856   30  543 6004.20975 5104.91957  15.0%  22.3    5s
+#&gt; H  718   579                    6000.2969364 5104.91957  14.9%  26.7    6s
+#&gt; H  771   550                    5997.6477267 5104.91957  14.9%  25.7    6s
+#&gt; H  803   532                    5985.9485617 5104.91957  14.7%  27.2    7s
+#&gt; H  928   525                    5849.2645261 5108.97327  12.7%  29.8    8s
+#&gt; H 1037   419                    5666.5547040 5112.30253  9.78%  30.1    8s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 21
+#&gt; 
+#&gt; Explored 1037 nodes (33062 simplex iterations) in 8.74 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 10: 5666.55 5849.26 5985.95 ... 6370.24
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 5.666554703976e+03, best bound 5.112302534715e+03, gap 9.7811%
+#&gt; Optimize a model with 3585 rows, 2010 columns and 8580 nonzeros
+#&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [5e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 9985.9241439
+#&gt; Presolve time: 0.11s
+#&gt; Presolved: 3585 rows, 2010 columns, 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 2715 rows, 2010 columns, 9450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.346175e+03, 2630 iterations, 0.30 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8346.17500    0  329 9985.92414 8346.17500  16.4%     -    0s
+#&gt; H    0     0                    8807.8710351 8346.17500  5.24%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (2996 simplex iterations) in 0.46 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 8807.87 9985.92 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 8.807871035125e+03, best bound 8.346175000834e+03, gap 5.2419%
+#&gt; Optimize a model with 3585 rows, 2010 columns and 8580 nonzeros
+#&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [3e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 8535.9241439
+#&gt; Presolve time: 0.11s
+#&gt; Presolved: 3585 rows, 2010 columns, 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 2715 rows, 2010 columns, 9450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 4.854963e+03, 3234 iterations, 0.41 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 4854.96349    0  525 8535.92414 4854.96349  43.1%     -    0s
+#&gt; H    0     0                    6916.7028058 4854.96349  29.8%     -    0s
+#&gt; H    0     0                    5326.8802741 4854.96349  8.86%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (3727 simplex iterations) in 0.73 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 3: 5326.88 6916.7 8535.92 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 5.326880274073e+03, best bound 4.854963486880e+03, gap 8.8592%
+#&gt; Optimize a model with 5325 rows, 2880 columns and 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [5e-01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10046.924144
+#&gt; Presolve time: 0.21s
+#&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.343967e+03, 2550 iterations, 0.40 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8343.96746    0  835 10046.9241 8343.96746  17.0%     -    0s
+#&gt; H    0     0                    9212.6916242 8343.96746  9.43%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (2792 simplex iterations) in 0.73 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9212.69 10046.9 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.212691624211e+03, best bound 8.343967460484e+03, gap 9.4296%
+#&gt; Optimize a model with 5325 rows, 2880 columns and 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [3e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 8901.9241439
+#&gt; Presolve time: 0.22s
+#&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 4.633285e+03, 2617 iterations, 0.39 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 4633.28464    0 1347 8901.92414 4633.28464  48.0%     -    0s
+#&gt; H    0     0                    8471.3546786 4633.28464  45.3%     -    0s
+#&gt; H    0     0                    6981.3189782 4633.28464  33.6%     -    1s
+#&gt;      0     0 4656.86431    0 1313 6981.31898 4656.86431  33.3%     -    1s
+#&gt;      0     0 4658.09598    0 1312 6981.31898 4658.09598  33.3%     -    1s
+#&gt;      0     0 4658.55762    0 1298 6981.31898 4658.55762  33.3%     -    1s
+#&gt;      0     0 4658.89951    0 1298 6981.31898 4658.89951  33.3%     -    1s
+#&gt;      0     0 4659.06805    0 1298 6981.31898 4659.06805  33.3%     -    1s
+#&gt;      0     0 4668.49591    0 1313 6981.31898 4668.49591  33.1%     -    2s
+#&gt;      0     0 4669.27758    0 1310 6981.31898 4669.27758  33.1%     -    2s
+#&gt;      0     0 4669.27758    0 1310 6981.31898 4669.27758  33.1%     -    2s
+#&gt;      0     0 4670.12210    0 1309 6981.31898 4670.12210  33.1%     -    2s
+#&gt;      0     0 4674.25742    0 1305 6981.31898 4674.25742  33.0%     -    2s
+#&gt;      0     0 4674.70511    0 1307 6981.31898 4674.70511  33.0%     -    2s
+#&gt;      0     0 4675.43856    0 1306 6981.31898 4675.43856  33.0%     -    3s
+#&gt;      0     0 4675.43856    0 1306 6981.31898 4675.43856  33.0%     -    5s
+#&gt; H    0     0                    6144.1824440 4675.43856  23.9%     -    6s
+#&gt; H    0     0                    6137.5371003 4675.43856  23.8%     -    7s
+#&gt;      0     0 4877.80932    0  773 6137.53710 4877.80932  20.5%     -    7s
+#&gt; H    0     0                    5731.2082580 4877.80932  14.9%     -    7s
+#&gt;      0     0 4928.81742    0  844 5731.20826 4928.81742  14.0%     -    7s
+#&gt;      0     0 4932.02113    0  857 5731.20826 4932.02113  13.9%     -    8s
+#&gt;      0     0 4932.05034    0  856 5731.20826 4932.05034  13.9%     -    8s
+#&gt;      0     0 4932.05034    0  853 5731.20826 4932.05034  13.9%     -    8s
+#&gt;      0     2 4932.24916    0  853 5731.20826 4932.24916  13.9%     -    9s
+#&gt;      6     8 5056.73241    3  862 5731.20826 4975.98897  13.2%   422   10s
+#&gt; H   27    27                    5667.6160091 5026.81145  11.3%   293   12s
+#&gt;    183   162 5656.56033   41  588 5667.61601 5027.08674  11.3%   104   15s
+#&gt;    340   292 5427.00932   17  788 5667.61601 5037.64301  11.1%   115   20s
+#&gt;    511   440 5627.42499   42 1306 5667.61601 5047.35478  10.9%   105   25s
+#&gt;    519   445 5656.38392   66  766 5667.61601 5047.35478  10.9%   104   30s
+#&gt;    579   487 5621.49546   44  431 5667.61601 5047.35478  10.9%   115   35s
+#&gt;    686   537 5473.29340   35  529 5667.61601 5076.55144  10.4%   124   40s
+#&gt;    799   587 5163.41358   19  738 5667.61601 5082.67839  10.3%   129   45s
+#&gt;    887   635 5398.88561   28  485 5667.61601 5083.10842  10.3%   135   50s
+#&gt;   1017   663     cutoff   47      5667.61601 5087.49609  10.2%   132   55s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 9
+#&gt; 
+#&gt; Explored 1022 nodes (141332 simplex iterations) in 55.13 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 7: 5667.62 5731.21 6137.54 ... 8901.92
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 5.667616009136e+03, best bound 5.102159870824e+03, gap 9.9770%
+#&gt; Optimize a model with 5325 rows, 2880 columns and 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [5e-01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10118.924144
+#&gt; Presolve time: 0.21s
+#&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.569664e+03, 2956 iterations, 0.43 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8569.66432    0  836 10118.9241 8569.66432  15.3%     -    0s
+#&gt; H    0     0                    9381.9905191 8569.66432  8.66%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (3447 simplex iterations) in 0.77 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9381.99 10118.9 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.381990519089e+03, best bound 8.569664324288e+03, gap 8.6584%
+#&gt; Optimize a model with 5325 rows, 2880 columns and 12060 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [3e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 9333.9241439
+#&gt; Presolve time: 0.22s
+#&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 6.027838e+03, 3416 iterations, 0.57 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 6027.83792    0 1239 9333.92414 6027.83792  35.4%     -    0s
+#&gt; H    0     0                    8316.1074209 6027.83792  27.5%     -    0s
+#&gt; H    0     0                    7943.5078917 6027.83792  24.1%     -    1s
+#&gt;      0     0 6085.01523    0 1291 7943.50789 6085.01523  23.4%     -    2s
+#&gt;      0     0 6085.89684    0 1288 7943.50789 6085.89684  23.4%     -    2s
+#&gt;      0     0 6115.17402    0 1368 7943.50789 6115.17402  23.0%     -    2s
+#&gt;      0     0 6117.59053    0 1391 7943.50789 6117.59053  23.0%     -    3s
+#&gt;      0     0 6117.59053    0 1392 7943.50789 6117.59053  23.0%     -    3s
+#&gt;      0     0 6125.28918    0 1396 7943.50789 6125.28918  22.9%     -    3s
+#&gt;      0     0 6125.30907    0 1425 7943.50789 6125.30907  22.9%     -    3s
+#&gt;      0     0 6125.32346    0 1425 7943.50789 6125.32346  22.9%     -    3s
+#&gt;      0     0 6125.32346    0 1423 7943.50789 6125.32346  22.9%     -    3s
+#&gt;      0     0 6125.37767    0 1420 7943.50789 6125.37767  22.9%     -    4s
+#&gt;      0     0 6125.37767    0 1403 7943.50789 6125.37767  22.9%     -    4s
+#&gt; H    0     0                    7601.8938452 6125.37767  19.4%     -    5s
+#&gt;      0     0 6173.38320    0  842 7601.89385 6173.38320  18.8%     -    6s
+#&gt; H    0     0                    7589.6868875 6173.38320  18.7%     -    6s
+#&gt;      0     0 6287.27243    0  928 7589.68689 6287.27243  17.2%     -    7s
+#&gt;      0     0 6287.71486    0  942 7589.68689 6287.71486  17.2%     -    7s
+#&gt;      0     0 6302.24509    0  909 7589.68689 6302.24509  17.0%     -    7s
+#&gt;      0     0 6302.24509    0  907 7589.68689 6302.24509  17.0%     -   10s
+#&gt;      0     2 6302.28396    0  906 7589.68689 6302.28396  17.0%     -   11s
+#&gt; H   27    27                    7574.0270291 6344.63600  16.2%   312   13s
+#&gt;     47    49 6688.34509   27  731 7574.02703 6344.63600  16.2%   304   15s
+#&gt; H   54    54                    7556.4677132 6344.63600  16.0%   285   15s
+#&gt; H   81    81                    7435.9445339 6344.63600  14.7%   252   16s
+#&gt;    199   185 6783.46907   16  770 7435.94453 6344.64453  14.7%   173   20s
+#&gt;    328   298 7016.17663   21  644 7435.94453 6348.19707  14.6%   164   25s
+#&gt;    511   466 6843.74283   20 1403 7435.94453 6360.19390  14.5%   154   32s
+#&gt; 
+#&gt; Explored 512 nodes (92924 simplex iterations) in 33.45 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 8: 7435.94 7556.47 7574.03 ... 9333.92
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 7.435944533885e+03, best bound 7.179092652434e+03, gap 3.4542%
+#&gt; Optimize a model with 6485 rows, 2880 columns and 15540 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+00, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10084.071885
+#&gt; Presolve time: 0.25s
+#&gt; Presolved: 6485 rows, 2880 columns, 21920 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 5615 rows, 2880 columns, 19310 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.178938e+03, 1514 iterations, 0.37 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8178.93759    0  960 10084.0719 8178.93759  18.9%     -    0s
+#&gt; H    0     0                    9010.5140391 8178.93759  9.23%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (1514 simplex iterations) in 0.80 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9010.51 10084.1 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.010514039144e+03, best bound 8.178937587478e+03, gap 9.2290%
+#&gt; Optimize a model with 6485 rows, 2880 columns and 15540 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 8859.0718845
+#&gt; Presolve time: 0.26s
+#&gt; Presolved: 6485 rows, 2880 columns, 21920 nonzeros
+#&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
+#&gt; Presolve removed 870 rows and 0 columns
+#&gt; Presolved: 5615 rows, 2880 columns, 19310 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.483401e+03, 1096 iterations, 0.23 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 3483.40090    0 1372 8859.07188 3483.40090  60.7%     -    0s
+#&gt; H    0     0                    7810.0906779 3483.40090  55.4%     -    0s
+#&gt; H    0     0                    7064.2663330 3483.40090  50.7%     -    1s
+#&gt;      0     0 3503.81769    0 1355 7064.26633 3503.81769  50.4%     -    1s
+#&gt;      0     0 3523.48949    0 1357 7064.26633 3523.48949  50.1%     -    4s
+#&gt;      0     0 3523.48949    0 1357 7064.26633 3523.48949  50.1%     -    4s
+#&gt; H    0     0                    6356.2198076 3523.48949  44.6%     -    5s
+#&gt;      0     0 4662.41137    0  963 6356.21981 4662.41137  26.6%     -    6s
+#&gt; H    0     0                    5923.3227102 4662.41137  21.3%     -    6s
+#&gt;      0     0 4689.06065    0  978 5923.32271 4689.06065  20.8%     -    7s
+#&gt;      0     0 4699.05361    0  983 5923.32271 4699.05361  20.7%     -    7s
+#&gt;      0     0 4703.72536    0  975 5923.32271 4703.72536  20.6%     -    7s
+#&gt;      0     0 4704.30769    0  952 5923.32271 4704.30769  20.6%     -    7s
+#&gt;      0     0 4705.83010    0  951 5923.32271 4705.83010  20.6%     -    8s
+#&gt;      0     0 4705.83010    0  954 5923.32271 4705.83010  20.6%     -    8s
+#&gt;      0     0 4705.87951    0  942 5923.32271 4705.87951  20.6%     -    8s
+#&gt;      0     0 4707.56395    0  940 5923.32271 4707.56395  20.5%     -    8s
+#&gt;      0     0 4707.56395    0  944 5923.32271 4707.56395  20.5%     -    9s
+#&gt;      0     0 4707.93248    0  933 5923.32271 4707.93248  20.5%     -    9s
+#&gt;      0     0 4707.93248    0  940 5923.32271 4707.93248  20.5%     -    9s
+#&gt;      0     0 4708.05202    0  920 5923.32271 4708.05202  20.5%     -    9s
+#&gt;      0     0 4708.08292    0  949 5923.32271 4708.08292  20.5%     -    9s
+#&gt;      0     0 4708.08292    0  952 5923.32271 4708.08292  20.5%     -   10s
+#&gt;      0     0 4708.08292    0  952 5923.32271 4708.08292  20.5%     -   10s
+#&gt;      0     0 4708.08292    0  952 5923.32271 4708.08292  20.5%     -   10s
+#&gt;      0     2 4708.22379    0  952 5923.32271 4708.22379  20.5%     -   11s
+#&gt;     48    50 5009.53567   28  842 5923.32271 4808.95076  18.8%   258   15s
+#&gt; H   80    80                    5824.7673625 4808.95076  17.4%   241   16s
+#&gt; H  151   145                    5756.9282999 4808.95076  16.5%   187   19s
+#&gt;    176   162 5325.48422   21  718 5756.92830 4809.11728  16.5%   188   20s
+#&gt;    341   304 5481.92733   31  799 5756.92830 4810.76209  16.4%   166   25s
+#&gt;    471   420 5751.57168   50  529 5756.92830 4811.51971  16.4%   166   30s
+#&gt;    511   447 5610.74285   40 1357 5756.92830 4811.57089  16.4%   167   35s
+#&gt; H  512   425                    5756.9282782 4897.30484  14.9%   167   37s
+#&gt;    518   429 5157.08909   44  647 5756.92828 4959.36122  13.9%   165   40s
+#&gt;    532   438 5123.99819   14  747 5756.92828 4979.52135  13.5%   160   45s
+#&gt;    559   458 5239.06427   22  675 5756.92828 5072.48183  11.9%   170   50s
+#&gt;    647   499 5283.43528   19  626 5756.92828 5075.00151  11.8%   167   55s
+#&gt; H  797   562                    5687.6329513 5075.00151  10.8%   147   57s
+#&gt; H  893   507                    5657.4025993 5076.01169  10.3%   136   58s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 11
+#&gt;   Zero half: 2
+#&gt; 
+#&gt; Explored 943 nodes (130916 simplex iterations) in 60.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 10: 5657.4 5687.63 5756.93 ... 8859.07
+#&gt; 
+#&gt; Time limit reached
+#&gt; Best objective 5.657402599257e+03, best bound 5.076011692772e+03, gap 10.2766%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>s4</span>, <span class='no'>category_layer</span>)
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='no'>s4</span>)
+
+<span class='co'># plot solutions</span>
+<span class='fu'>plot</span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>p4</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_connectivity_penalties-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create an array to manually specify the connectivities between</span>
+<span class='co'># each planning unit when they are allocated to each different zone</span>
+<span class='co'># for real-world problems, these connectivities would be generated using</span>
+<span class='co'># data - but here these connectivity values are assigned as random</span>
+<span class='co'># ones or zeros</span>
+<span class='no'>c_array</span> <span class='kw'>&lt;-</span> <span class='fu'>array</span>(<span class='fl'>0</span>, <span class='fu'>c</span>(<span class='fu'>rep</span>(<span class='fu'><a href='OptimizationProblem-methods.html'>ncell</a></span>(<span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>]]), <span class='fl'>2</span>), <span class='fl'>3</span>, <span class='fl'>3</span>))
+<span class='kw'>for</span> (<span class='no'>z1</span> <span class='kw'>in</span> <span class='fu'>seq_len</span>(<span class='fl'>3</span>))
+  <span class='kw'>for</span> (<span class='no'>z2</span> <span class='kw'>in</span> <span class='fu'>seq_len</span>(<span class='fl'>3</span>))
+    <span class='no'>c_array</span>[, , <span class='no'>z1</span>, <span class='no'>z2</span>] <span class='kw'>&lt;-</span> <span class='fu'>round</span>(<span class='fu'>runif</span>(<span class='fu'><a href='OptimizationProblem-methods.html'>ncell</a></span>(<span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>]]) ^ <span class='fl'>2</span>,
+                                       <span class='fl'>0</span>, <span class='fl'>0.505</span>))
+
+<span class='co'># create a problem with the manually specified connectivity array</span>
+<span class='co'># note that the zones argument is set to NULL because the connectivity</span>
+<span class='co'># data is an array</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>p3</span>,
+           <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>30</span>, <span class='kw'>zones</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>c_array</span>))
+
+
+<span class='co'># assign names to the problems</span>
+<span class='fu'>names</span>(<span class='no'>p5</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"basic problem"</span>, <span class='st'>"connectivity array"</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>p5</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Variable types: 0 continuous, 270 integer (270 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 10275.924144
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
+#&gt; Variable types: 0 continuous, 270 integer (270 binary)
+#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 8.943504e+03, 123 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 8943.50352    0   15 10275.9241 8943.50352  13.0%     -    0s
+#&gt; H    0     0                    9111.3117236 8943.50352  1.84%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (123 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 9111.31 10275.9 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 9.111311723633e+03, best bound 8.943503517801e+03, gap 1.8418%
+#&gt; Optimize a model with 1479 rows, 957 columns and 4368 nonzeros
+#&gt; Variable types: 0 continuous, 957 integer (957 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [3e+01, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 1e+01]
+#&gt; Found heuristic solution: objective 9765.9241439
+#&gt; Presolve time: 0.03s
+#&gt; Presolved: 1479 rows, 957 columns, 4416 nonzeros
+#&gt; Variable types: 0 continuous, 957 integer (957 binary)
+#&gt; Presolve removed 24 rows and 0 columns
+#&gt; Presolved: 1455 rows, 957 columns, 4344 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 5.800862e+03, 856 iterations, 0.07 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 5800.86247    0  718 9765.92414 5800.86247  40.6%     -    0s
+#&gt; H    0     0                    8273.8383046 5800.86247  29.9%     -    0s
+#&gt;      0     0 5811.11011    0  710 8273.83830 5811.11011  29.8%     -    1s
+#&gt;      0     0 5849.13104    0  760 8273.83830 5849.13104  29.3%     -    2s
+#&gt;      0     0 5849.13104    0  760 8273.83830 5849.13104  29.3%     -    2s
+#&gt; H    0     0                    7450.1953151 5849.13104  21.5%     -    2s
+#&gt; H    0     0                    7254.3989724 5849.13104  19.4%     -    3s
+#&gt;      0     2 5849.14013    0  760 7254.39897 5849.14013  19.4%     -    3s
+#&gt;    113   107 6797.11865   42  451 7254.39897 5885.47645  18.9%   110    5s
+#&gt;    511   447 6646.43541   33  760 7254.39897 5979.83470  17.6%  90.5   10s
+#&gt; H  516   427                    7247.7170296 5979.83470  17.5%  89.6   11s
+#&gt;    889   625 6830.99374   45  410 7247.71703 5979.83470  17.5%  85.5   15s
+#&gt; H  979   539                    7065.5819604 5979.83470  15.4%  90.2   17s
+#&gt;   1091   603 6440.35315   27  538 7065.58196 5979.83470  15.4%  95.2   20s
+#&gt; H 1244   667                    7065.5819320 5979.83470  15.4%   101   23s
+#&gt;   1342   724 6255.92384   19  674 7065.58193 5979.83470  15.4%   104   25s
+#&gt; H 1546   815                    7062.3509030 5987.73860  15.2%   105   28s
+#&gt;   1672   875 6632.68094   35  521 7062.35090 6021.95071  14.7%   104   30s
+#&gt;   1915  1090 6845.69132   36  455 7062.35090 6040.55554  14.5%   108   35s
+#&gt;   2128  1252 6484.87809   27  600 7062.35090 6053.31604  14.3%   107   40s
+#&gt;   2440  1502 6648.51587   29  560 7062.35090 6056.64380  14.2%   107   45s
+#&gt; H 2539  1271                    6972.6510319 6057.26136  13.1%   107   47s
+#&gt;   2679  1385 6867.84504   30  367 6972.65103 6072.32866  12.9%   108   50s
+#&gt;   2994  1573 6328.28584   19  606 6972.65103 6077.66578  12.8%   107   55s
+#&gt; H 3132  1629                    6952.0067214 6079.31765  12.6%   108   58s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 2
+#&gt;   Zero half: 12
+#&gt; 
+#&gt; Explored 3246 nodes (350857 simplex iterations) in 60.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 10: 6952.01 6972.65 7062.35 ... 9765.92
+#&gt; 
+#&gt; Time limit reached
+#&gt; Best objective 6.952006721445e+03, best bound 6.080826423096e+03, gap 12.5314%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>s5</span>, <span class='no'>category_layer</span>)
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='no'>s5</span>)
+
+<span class='co'># plot solutions</span>
+<span class='fu'>plot</span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>p5</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_connectivity_penalties-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -369,15 +1437,29 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

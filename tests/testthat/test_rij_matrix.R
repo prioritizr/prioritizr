@@ -1,6 +1,6 @@
-context("rij matrix functions")
+context("rij_matrix")
 
-test_that("cost=Raster, features=RasterLayer", {
+test_that("cost=RasterLayer, features=RasterLayer", {
   # create data
   data(sim_pu_raster, sim_features)
   m <- rij_matrix(sim_pu_raster, sim_features[[1]])
@@ -13,8 +13,7 @@ test_that("cost=Raster, features=RasterLayer", {
   })
 })
 
-
-test_that("cost=Raster, features=RasterStack", {
+test_that("cost=RasterLayer, features=RasterStack", {
   # create data
   data(sim_pu_raster, sim_features)
   m <- rij_matrix(sim_pu_raster, sim_features)
@@ -23,6 +22,28 @@ test_that("cost=Raster, features=RasterStack", {
   expect_equal(m, {
     included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
     m <- sim_features[included]
+    m[is.na(m)] <- 0
+    m <- Matrix::t(as(m, "dgCMatrix"))
+    m
+  })
+})
+
+test_that("cost=RasterStack, features=RasterStack", {
+  # create data
+  costs <- raster::stack(
+    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), ncol = 7)),
+    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), ncol = 7)))
+  spp <- raster::stack(
+    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  m <- rij_matrix(costs, spp)
+  # run tests
+  expect_true(inherits(m, "dgCMatrix"))
+  expect_equal(m, {
+    included <- raster::Which(max(!is.na(costs)) > 0, cells = TRUE)
+    m <- spp[included]
     m[is.na(m)] <- 0
     m <- Matrix::t(as(m, "dgCMatrix"))
     m

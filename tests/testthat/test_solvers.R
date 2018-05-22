@@ -2,6 +2,8 @@ context("solvers")
 
 test_that("add_default_solver (raster cost data)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_raster, sim_features)
@@ -20,6 +22,8 @@ test_that("add_default_solver (raster cost data)", {
 
 test_that("add_default_solver (spatial cost data)", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_polygons, sim_features)
@@ -38,6 +42,9 @@ test_that("add_default_solver (spatial cost data)", {
 
 test_that("add_rsymphony_solver", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   skip_if_not_installed("Rsymphony")
   # make data
   data(sim_pu_raster, sim_features)
@@ -56,8 +63,11 @@ test_that("add_rsymphony_solver", {
 
 test_that("add_lpsymphony_solver", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   skip_if_not_installed("lpsymphony")
-  skip_on_os("linux") # lpsymphony package crashes unpredicatbly on Ubuntu 16.04
+  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -75,6 +85,9 @@ test_that("add_lpsymphony_solver", {
 
 test_that("add_gurobi_solver", {
   skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   skip_if_not_installed("gurobi")
   # make data
   data(sim_pu_raster, sim_features)

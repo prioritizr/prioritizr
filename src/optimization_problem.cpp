@@ -17,6 +17,8 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
     Rcpp::as<std::size_t>(l["number_of_features"]);
   std::size_t number_of_planning_units =
     Rcpp::as<std::size_t>(l["number_of_planning_units"]);
+  std::size_t number_of_zones =
+    Rcpp::as<std::size_t>(l["number_of_zones"]);
   std::vector<std::size_t> A_i = Rcpp::as<std::vector<std::size_t>>(l["A_i"]);
   std::vector<std::size_t> A_j = Rcpp::as<std::vector<std::size_t>>(l["A_j"]);
   std::vector<double> A_x = Rcpp::as<std::vector<double>>(l["A_x"]);
@@ -34,8 +36,9 @@ SEXP rcpp_predefined_optimization_problem(Rcpp::List l) {
   std::vector<std::string> col_ids =
     Rcpp::as<std::vector<std::string>>(l["col_ids"]);
   OPTIMIZATIONPROBLEM* x = new OPTIMIZATIONPROBLEM(modelsense,
-   number_of_features, number_of_planning_units, A_i, A_j, A_x, obj, lb, ub,
-   rhs, sense, vtype, row_ids, col_ids, compressed_formulation);
+   number_of_features, number_of_planning_units, number_of_zones,
+   A_i, A_j, A_x, obj, lb, ub, rhs, sense, vtype, row_ids, col_ids,
+   compressed_formulation);
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::XPtr<OPTIMIZATIONPROBLEM>(x,
                                                                         true);
   return(ptr);
@@ -51,6 +54,7 @@ Rcpp::List rcpp_optimization_problem_as_list(SEXP x) {
     Rcpp::Named("modelsense") = ptr->_modelsense,
     Rcpp::Named("number_of_features") = ptr->_number_of_features,
     Rcpp::Named("number_of_planning_units") = ptr->_number_of_planning_units,
+    Rcpp::Named("number_of_zones") = ptr->_number_of_zones,
     Rcpp::Named("A_i") = Rcpp::IntegerVector(ptr->_A_i.begin(),
                                              ptr->_A_i.end()),
     Rcpp::Named("A_j") = Rcpp::IntegerVector(ptr->_A_j.begin(),
@@ -102,6 +106,10 @@ std::size_t rcpp_get_optimization_problem_number_of_features(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_number_of_features);
 }
 
+// [[Rcpp::export]]
+std::size_t rcpp_get_optimization_problem_number_of_zones(SEXP x) {
+  return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_number_of_zones);
+}
 
 // [[Rcpp::export]]
 std::vector<std::string> rcpp_get_optimization_problem_vtype(SEXP x) {

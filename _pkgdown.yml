@@ -1,16 +1,167 @@
+url: https://prioritizr.net
+
+home:
+  links:
+    - text: Learn about contributing
+      href: http://prioritizr.net/CONTRIBUTING.html
 
 authors:
   Jeffrey O Hanson:
-    href: http://jeffrey-hanson.com
+    href: https://jeffrey-hanson.com
   Richard Schuster:
     href: http://www.richard-schuster.com/
   Matthew Strimas-Mackey:
     href: http://strimas.com
   Peter Arcese:
-    href: http://arcese.forestry.ubc.ca
+    href: https://arcese.forestry.ubc.ca
   Joeseph Bennett:
     href: https://josephrbennett.wordpress.com/
 
 template:
   params:
-    bootswatch: cerulean
+    bootswatch: flatly
+    ganalytics: UA-70466840-4
+    docsearch:
+      api_key: 486efa122ea6783724263412c5f28ab3
+      index_name: prioritizr
+reference:
+  - title: Summary
+    desc: Summary of the package
+    contents:
+      - prioritizr
+
+  - title: Data
+    desc: Simulated data sets distributed with the package
+    contents:
+      - sim_data
+
+  - title: Create and solve problems
+    desc: Functions for creating new problems and solving them
+    contents:
+      - problem
+      - marxan_problem
+      - solve
+
+  - title: Objectives
+    desc: Functions for adding an objective to a problem
+    contents:
+      - objectives
+      - ends_with("_objective")
+
+  - title: Targets
+    desc: Functions for adding targets to a problem
+    contents:
+      - targets
+      - ends_with("_targets")
+
+  - title: Constraints
+    desc: Functions for adding constraints to a problem
+    contents:
+      - constraints
+      - ends_with("_constraints")
+
+  - title: Penalties
+    desc: Functions for adding penalties to a problem
+    contents:
+      - penalties
+      - ends_with("_penalties")
+      - add_feature_weights
+
+  - title: Decisions
+    desc: Functions for specifying the type of decisions in a problem
+    contents:
+      - decisions
+      - ends_with("_decisions")
+
+  - title: Solvers
+    desc: Functions for specifying how a problem should be solved
+    contents:
+      - solvers
+      - ends_with("_solver")
+
+  - title: Portfolios
+    desc: Functions for generating a portfolio of solutions
+    contents:
+      - portfolios
+      - ends_with("_portfolio")
+
+  - title: Data simulation
+    desc: Functions for simulating new data sets
+    contents:
+    - starts_with("simulate_")
+
+  - title: Geoprocessing
+    desc: Functions for manipulating spatial data sets
+    contents:
+      - fast_extract
+      - intersecting_units
+
+  - title: Parallel processing
+    desc: Functions for controlling multi-threaded processing
+    contents:
+      - distribute_load
+      - is.parallel
+      - parallel
+
+  - title: Processing multi-zone data
+    desc: Functions for manipulating data that pertain to multiple zones
+    contents:
+    - category_layer
+    - category_vector
+    - binary_stack
+
+  - title: Matrix functions
+    desc: >
+     Functions for creating matrices that are used in conservation planning
+     problems for use in planning problems
+    contents:
+      - ends_with("_matrix")
+
+  - title: Problem manipulation functions
+    desc: Functions for extracting information from problems
+    contents:
+      - number_of_features
+      - number_of_planning_units
+      - number_of_total_units
+      - number_of_zones
+      - feature_names
+      - zone_names
+
+  - title: Miscellaneous functions
+    desc: Assorted functions distributed with the package
+    contents:
+      - print
+      - show
+      - pipe
+      - tee
+      - is
+      - as
+      - compile
+      - loglinear_interpolation
+      - run_calculations
+      - feature_representation
+      - feature_abundances
+
+  - title: Class definitions and methods
+    desc: >
+     These pages document the package's internal data structures and functions
+     for manipulating them---they contain information that is really only
+     useful when adding new functionality to the package
+    contents:
+      - new_id
+      - new_waiver
+      - pproto
+      - new_optimization_problem
+      - predefined_optimization_problem
+      - as.list.OptimizationProblem
+      - ends_with("-class")
+      - ends_with("-methods")
+
+  - title: Parameter definitions
+    desc: >
+      These pages document the package's internal data structures for
+      representing different types of variables---they contain information that
+      is really only useful when adding new functionality to the package
+    contents:
+      - contains("_parameter")
+      - parameters

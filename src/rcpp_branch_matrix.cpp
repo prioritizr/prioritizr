@@ -23,14 +23,14 @@ arma::sp_mat rcpp_branch_matrix(Rcpp::List x) {
     curr_node = (curr_tip+1);
     // loop through branches until the curr_pos is pointing to the base
     while (true) {
-      // find the element where curr_node is at the top of the branch 
-      curr_pos = std::find(edge_column_2.begin(), edge_column_2.end(), 
+      // find the element where curr_node is at the top of the branch
+      curr_pos = std::find(edge_column_2.begin(), edge_column_2.end(),
                            curr_node);
       // break if the base has been found
       if (curr_pos == edge_column_2.end()) {
         break;
       }
-      // calculate the branch number for the node (ie. the index of the 
+      // calculate the branch number for the node (ie. the index of the
       // of the node
       curr_branch = std::distance(edge_column_2.begin(), curr_pos);
       // store the branch number and the tip number

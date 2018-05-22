@@ -1,7 +1,8 @@
 #' @include internal.R pproto.R
 
 #' @export
-methods::setOldClass("Parameter")
+if (!methods::isClass("Parameter")) methods::setOldClass("Parameter")
+NULL
 
 #' Parameter class
 #'
@@ -63,8 +64,6 @@ Parameter <- pproto(
   value = numeric(0),
   default = numeric(0),
   class = character(0),
-  upper_limit = numeric(0),
-  lower_limit = numeric(0),
   widget = function(...) stop("no widget defined"),
   print = function(self) {
     message(self$repr())

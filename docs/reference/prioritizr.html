@@ -6,23 +6,57 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>prioritizr <U+2014> prioritizr <e2><80><a2> prioritizr</title>
+<title><span class="pkg">prioritizr</span> — prioritizr • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="<span class="pkg">prioritizr</span> — prioritizr" />
+
+<meta property="og:description" content="The prioritizr R package uses integer linear programming (ILP)
+techniques to provide a flexible interface for building and solving
+conservation planning problems (Rodrigues et al. 2000; Billionnet
+2013). It supports a broad range of objectives, constraints, and penalties
+that can be used to custom-tailor conservation planning problems to the
+specific needs of a conservation planning exercise. Once built, conservation
+planning problems can be solved using a variety of commercial and
+open-source exact algorithm solvers. In contrast to the algorithms
+conventionally used to solve conservation problems, such as heuristics or
+simulated annealing (Ball et al. 2009), the exact algorithms used
+here are guaranteed to find optimal solutions. Furthermore, conservation
+problems can be constructed to optimize the spatial allocation of different
+management actions or zones, meaning that conservation practitioners can
+identify solutions that benefit multiple stakeholders. Finally, this package
+has the functionality to read input data formatted for the Marxan
+conservation planning program (Ball et al. 2009), and find much
+cheaper solutions in a much shorter period of time than Marxan (Beyer
+et al. 2016). See the
+online code repository
+for more information." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +66,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +95,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +152,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,45 +166,65 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>prioritizr</h1>
+    <h1><span class="pkg">prioritizr</span></h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/package.R'><code>R/package.R</code></a></small>
+    <div class="hidden name"><code>prioritizr.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p><em>Prioritizr</em> is an R package for solving systematic conservation
-planning problems. By using integer linear programming (ILP)
-techniques, this package offers a flexible interface for creating
-reserve selection problems that can be tailored to the specific needs of the
-conservation planner (Rodrigues <em>et al.</em> 2000; Billionnet 2013).
-Conservation problems can be solved using a variety of commercial and
+    <p>The <span class="pkg">prioritizr R</span> package uses integer linear programming (ILP)
+techniques to provide a flexible interface for building and solving
+conservation planning problems (Rodrigues <em>et al.</em> 2000; Billionnet
+2013). It supports a broad range of objectives, constraints, and penalties
+that can be used to custom-tailor conservation planning problems to the
+specific needs of a conservation planning exercise. Once built, conservation
+planning problems can be solved using a variety of commercial and
 open-source exact algorithm solvers. In contrast to the algorithms
-conventionally used to solve conservation problems, such as greedy
-heuristics or simulated annealing, the exact algorithms used by
-<em>prioritizr</em> are guaranteed to find optimal solutions. This package
-also has the functionality to read <a href = 'http://marxan.net/'>Marxan</a> input
-data (Ball <em>et al.</em> 2009) and find much better solutions in a much
-shorter period of time than Marxan  (Beyer <em>et al.</em> 2016). See the
-<a href = 'https://github.com/prioritizr/prioritizr'>online code repository</a>
+conventionally used to solve conservation problems, such as heuristics or
+simulated annealing (Ball <em>et al.</em> 2009), the exact algorithms used
+here are guaranteed to find optimal solutions. Furthermore, conservation
+problems can be constructed to optimize the spatial allocation of different
+management actions or zones, meaning that conservation practitioners can
+identify solutions that benefit multiple stakeholders. Finally, this package
+has the functionality to read input data formatted for the <em>Marxan</em>
+conservation planning program (Ball <em>et al.</em> 2009), and find much
+cheaper solutions in a much shorter period of time than <em>Marxan</em> (Beyer
+<em>et al.</em> 2016). See the
+<a href='https://github.com/prioritizr/prioritizr'>online code repository</a>
 for more information.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This package contains vignettes that introduce systematic
-conservation planning and basic usage of the <em>prioritizr</em> package. The
- supplemental
-<a href = 'https://github.com/prioritizr/prioritizrdata'><em>prioritizrdata</em></a>
-package contains further example datasets and worked examples. The vignettes
-in this package are listed below.</p><dl class='dl-horizontal'>
-<dt><a href = 'https://prioritizr.github.io/prioritizr/articles/prioritizr_basics.html'>Prioritizr Basics</a></dt><dd><p>Background information
- on the concepts and terminology that underpin systematic conservation
- planning and their usage in this package.</p></dd>
-<dt><a href = 'https://prioritizr.github.io/prioritizr/articles/quick_start.html'>Quickstart Guide</a></dt><dd><p>Short walk-through of the
-  <em>prioritizr</em> package with a simulated dataset.</p></dd>
-    </dl>
+    <p>This package contains several vignettes that are designed to
+  showcase its functionality. To view them, type of the command
+  <code>vignette("name", package = "prioritizr")</code> where <code>"name"</code> is the
+  name of the desired vignette (e.g. <code>"gurobi_installation"</code>.</p>
+<p></p><dl class='dl-horizontal'>
+    <dt>prioritizr</dt><dd><p>provides background
+    information on systematic conservation planning and a comprehensive
+    overview of the package and its usage.</p></dd>
+    <dt>gurobi_installation</dt><dd><p>contains
+    detailed instructions for installing and setting up the <em>Gurobi</em>
+    software suite for use with the package.</p></dd>
+    <dt>publication_record</dt><dd><p>lists of
+    scientific publications that have used the package for developing
+    prioritizations.</p></dd>
+    <dt>zones</dt><dd><p>describes how problems can be constructed with multiple
+    management actions or zones.</p></dd>
+    <dt>tasmania</dt><dd><p>provides a tutorial using Tasmania, Australia
+    as a case-study. This tutorial uses vector-based planning unit data and
+    is written for individuals familiar with the <em>Marxan</em> decision
+    support tool.</p></dd>
+    <dt>saltspring</dt><dd><p>provides a tutorial using Salt Spring Island, Canada as a
+    case-study. This tutorial uses raster-based planning unit data.</p></dd>
+  </dl>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -148,15 +258,29 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

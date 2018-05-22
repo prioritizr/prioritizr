@@ -6,23 +6,39 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connected matrix <U+2014> connected_matrix <e2><80><a2> prioritizr</title>
+<title>Connected matrix — connected_matrix • prioritizr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+<meta property="og:title" content="Connected matrix — connected_matrix" />
+
+<meta property="og:description" content="Create a matrix showing which planning units are spatially connected to
+each other." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
+<meta name="twitter:card" content="summary" />
+
 
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
@@ -32,6 +48,21 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70466840-4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70466840-4');
+</script>
+
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
   </head>
 
@@ -46,18 +77,52 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">prioritizr</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">prioritizr</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="../articles/prioritizr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../articles/index.html">Articles</a>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/gurobi_installation.html">Gurobi Installation Guide</a>
+    </li>
+    <li>
+      <a href="../articles/publication_record.html">Publication Record</a>
+    </li>
+    <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/tasmania.html">Tasmania Tutorial</a>
+    </li>
+    <li>
+      <a href="../articles/zones.html">Management Zones</a>
+    </li>
+  </ul>
 </li>
 <li>
-  <a href="../news/index.html">News</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -69,6 +134,13 @@
   </a>
 </li>
       </ul>
+      
+      <form class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+        </div>
+      </form>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -76,17 +148,20 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Connected matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/connected_matrix.R'><code>R/connected_matrix.R</code></a></small>
+    <div class="hidden name"><code>connected_matrix.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>Create a matrix showing which planning units are spatially connected.
-Created automatically when <code><a href='add_connected_constraints.html'>add_connected_constraints</a></code> is added
-to a <code>ConservationProblem</code> object.</p>
+    <p>Create a matrix showing which planning units are spatially connected to
+each other.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -102,10 +177,10 @@ to a <code>ConservationProblem</code> object.</p>
 <span class='co'># S3 method for SpatialPoints</span>
 <span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>distance</span>, <span class='no'>...</span>)
 
-<span class='co'># S3 method for data.frame</span>
+<span class='co'># S3 method for default</span>
 <span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
@@ -123,9 +198,9 @@ layer.</p></td>
       <th>directions</th>
       <td><p><code>integer</code> If <code>x</code> is a
 <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, the number of directions
- in which cells should be connected: 4 (rook's case), 8 (queen's case),
- 16 (knight and one-cell queen moves), or "bishop" to connect cells with
- one-cell diagonal moves.</p></td>
+in which cells should be connected: 4 (rook's case), 8 (queen's case),
+16 (knight and one-cell queen moves), or "bishop" to connect cells with
+one-cell diagonal moves.</p></td>
     </tr>
     <tr>
       <th>distance</th>
@@ -143,59 +218,67 @@ have to be within in order to qualify as being connected.</p></td>
 
     <p>This function returns a <code><a href='http://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code> sparse
   matrix. Cells along the off-diagonal indicate if two planning units are
-  connected. Cells along the diagonal are zero to reduce memory consumption.</p>
+  connected. Cells along the diagonal are zero to reduce memory consumption.
+  Note that for <code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> arguments to <code>x</code>,
+  pixels with <code>NA</code> have zeros in the returned object to reduce
+  memory consumption and be consistent with <code><a href='boundary_matrix.html'>boundary_matrix</a></code>,
+  and <code>connectivity_matrix</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## load data</span>
+    <pre class="examples"><div class='input'><span class='co'># load data</span>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_lines</span>, <span class='no'>sim_pu_points</span>)
 
-<span class='co'>## create connected matrix using raster data</span>
-<span class='co'># crop raster to 9 cells</span>
+<span class='co'># create connected matrix using raster data</span>
+<span class='co'>## crop raster to 9 cells</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_pu_raster</span>, <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>))
-<span class='co'># make connected matrix</span>
+
+<span class='co'>## make connected matrix</span>
 <span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>r</span>)
 
-<span class='co'>## create connected matrix using polygon data</span>
-<span class='co'># subset 9 polygons</span>
+<span class='co'># create connected matrix using polygon data</span>
+<span class='co'>## subset 9 polygons</span>
 <span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
-<span class='co'># make connected matrix</span>
+
+<span class='co'>## make connected matrix</span>
 <span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>ply</span>)
 
-<span class='co'>## create connected matrix using polygon line</span>
-<span class='co'># subset 9 lines</span>
+<span class='co'># create connected matrix using polygon line</span>
+<span class='co'>## subset 9 lines</span>
 <span class='no'>lns</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_lines</span>[<span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
-<span class='co'># make connected matrix</span>
+
+<span class='co'>## make connected matrix</span>
 <span class='no'>cm_lns</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>lns</span>)
 
 <span class='co'>## create connected matrix using point data</span>
-<span class='co'># subset 9 points</span>
+<span class='co'>## subset 9 points</span>
 <span class='no'>pts</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_points</span>[<span class='fu'>c</span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+
 <span class='co'># make connected matrix</span>
 <span class='no'>cm_pts</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>pts</span>, <span class='kw'>distance</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
 
-<span class='co'>## plot data and the connected matrices</span>
+<span class='co'># plot data and the connected matrices</span>
 <span class='fu'>par</span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>4</span>,<span class='fl'>2</span>))
 
-<span class='co'># plot raster and connected matrix</span>
+<span class='co'>## plot raster and connected matrix</span>
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>cm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># plot polygons and connected matrix</span>
+<span class='co'>## plot polygons and connected matrix</span>
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>cm_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># plot lines and connected matrix</span>
+<span class='co'>## plot lines and connected matrix</span>
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"lines"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>cm_lns</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># plot points and connected matrix</span>
+<span class='co'>## plot points and connected matrix</span>
 <span class='fu'>plot</span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"points"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot</span>(<span class='fu'>raster</span>(<span class='fu'>as.matrix</span>(<span class='no'>cm_pts</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><img src='connected_matrix-2.png' alt='' width='540' height='400' /><div class='input'>
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connected_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -215,15 +298,29 @@ have to be within in order to qualify as being connected.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='http://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='http://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
    </div>
 
+  
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script>
+  docsearch({
+    
+    
+    apiKey: '486efa122ea6783724263412c5f28ab3',
+    indexName: 'prioritizr',
+    inputSelector: 'input#search-input.form-control'
+  });
+</script>
+
+
   </body>
 </html>
+

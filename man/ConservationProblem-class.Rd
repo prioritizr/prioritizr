@@ -14,7 +14,7 @@ by applying the decision to the planning unit. The problem also has a set
 of representation targets for each feature. Further, it also has
 constraints used to ensure that the solution meets additional
 objectives (e.g. certain areas are locked into the solution). Finally,
-a conservation planning problem--unlike an optimization problem--also
+a conservation planning problem---unlike an optimization problem---also
 requires a method to solve the problem. \strong{This class represents a
 planning problem, to actually build and then solve a planning problem,
 use the \code{\link{problem}} function. Only experts should use this
@@ -66,6 +66,10 @@ class directly.}
 
 \code{x$number_of_planning_units()}
 
+\code{x$planning_unit_indices()}
+
+\code{x$planning_unit_indices_with_finite_costs()}
+
 \code{x$planning_unit_costs()}
 
 \code{x$number_of_features()}
@@ -74,7 +78,13 @@ class directly.}
 
 \code{x$feature_abundances_in_planning_units()}
 
+\code{x$feature_abundances_in_total_units()}
+
 \code{x$feature_targets()}
+
+\code{x$number_of_zones()}
+
+\code{x$zone_names()}
 
 \code{x$add_objective(obj)}
 
@@ -139,8 +149,8 @@ class directly.}
   \code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
   representation of the planning units and their cost.}
 
-\item{features}{\code{\link[raster]{RasterStack-class}} object showing
-  distribution of features.}
+\item{features}{\code{\link{Zones-class}} or \code{data.frame} object
+  containing feature data.}
 
 \item{id}{\code{Id} object that refers to a specific parameter.}
 
@@ -168,19 +178,37 @@ class directly.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
 
-\item{number_of_total_units}{\code{integer} number of units in the cost
-  data including units that have NA values for cost.}
+\item{planning_unit_indices}{\code{integer} indices of the planning units in
+  the planning unit data.}
 
-\item{planning_unit_costs}{\code{numeric} costs of each planning unit.}
+\item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
+  indices of planning units in each zone that have finite cost data.}
+
+\item{number_of_total_units}{\code{integer} number of units in the cost
+  data including units that have \code{N} cost data.}
+
+\item{planning_unit_costs}{\code{matrix} cost of allocating each planning
+  unit to each zone. Each column corresponds to a different zone and
+  each row corresponds to a different planning unit.}
 
 \item{number_of_features}{\code{integer} number of features.}
 
 \item{feature_names}{\code{character} names of features in problem.}
 
-\item{feature_abundances_in_planning_units}{\code{numeric} get total
-  abundance of each feature in all the planning units.}
+\item{feature_abundances_in_planning_units}{\code{matrix} total
+  abundance of each feature in planning units available in each zone. Each
+  column corresponds to a different zone and each row corresponds to a
+  different feature.}
 
-\item{feature_targets}{\code{numeric} targets for each feature.}
+\item{feature_abundances_in_total_units}{\code{matrix} total
+  abundance of each feature in each zone. Each column corresponds to a
+  different zone and each row corresponds to a different feature.}
+
+\item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
+
+\item{number_of_zones}{\code{integer} number of zones.}
+
+\item{zone_names}{\code{character} names of zones in problem.}
 
 \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
   with the objective added to it.}
@@ -197,7 +225,7 @@ class directly.}
 \item{add_constraint}{return a new \code{\link{ConservationProblem-class}}
   object with the constraint added to it.}
 
-\item{add_targets}{return a copy with the targets to the problem.}
+\item{add_targets}{return a copy with the targets added to the problem.}
 
 \item{get_constraint_parameter}{get the value of a parameter (specified by
   argument \code{id}) used in one of the constraints in the object.}

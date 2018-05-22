@@ -8,8 +8,8 @@
 \item{lhs, rhs}{An object and a function.}
 }
 \description{
-This package uses the pipe operator (\%>\%) to turn code into a series of
-imperative procedures.
+This package uses the pipe operator (\code{\%>\%}) to express nested code
+as a series of imperative procedures.
 }
 \examples{
 # set seed for reproducibility

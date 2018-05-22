@@ -9,12 +9,15 @@ add_default_solver(x, ...)
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{...}{arguments passed to the default solver.}
+\item{...}{arguments passed to the solver.}
 }
 \description{
-Finds the best solver currently installed on the system and uses it.
-In decreasing order of preference: Gurobi (\code{\link{add_gurobi_solver}}),
-Rsymphony (\code{\link{add_rsymphony_solver}}), then lpsymphony
+Identify the best solver currently installed on the system and specify that
+it should be used to solve a conservation planning \code{\link{problem}}.
+Ranked from best to worst, the available solvers that can be used are:
+\pkg{gurobi}
+(\code{\link{add_gurobi_solver}}),
+\pkg{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \pkg{lpsymphony}
 (\code{\link{add_lpsymphony_solver}}).
 }
 \seealso{

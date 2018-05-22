@@ -2,7 +2,8 @@
 NULL
 
 #' @export
-methods::setOldClass("Collection")
+if (!methods::isClass("Collection")) methods::setOldClass("Collection")
+NULL
 
 #' Collection prototype
 #'
