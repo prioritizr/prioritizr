@@ -1,3 +1,7 @@
+# prioritizr 4.0.1 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.0.0.12
 
 - New `feature_abundances` function to calculate the total amount of each 
