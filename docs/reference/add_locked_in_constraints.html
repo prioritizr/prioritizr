@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Add locked in constraints — add_locked_in_constraints" />
 
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
@@ -67,11 +69,6 @@ planning unit allocations to a specific value." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -87,7 +84,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -145,7 +142,7 @@ planning unit allocations to a specific value." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -469,7 +466,7 @@ locked in. See the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 3524.7950998
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -483,7 +480,7 @@ locked in. See the Details section for more information.</p></td>
 #&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
 #&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2875.81 3524.8 
@@ -565,7 +562,7 @@ locked in. See the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 2e+00]
 #&gt; Found heuristic solution: objective 2881.4469505
 #&gt; Presolve removed 12 rows and 9 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 93 rows, 261 columns, 783 nonzeros
 #&gt; Variable types: 0 continuous, 261 integer (261 binary)
 #&gt; Presolved: 93 rows, 261 columns, 783 nonzeros
@@ -625,7 +622,13 @@ locked in. See the Details section for more information.</p></td>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

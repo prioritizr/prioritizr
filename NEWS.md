@@ -1,10 +1,18 @@
+# prioritizr 4.0.1.1
+
+- The `add_relative_targets` documentation now makes it clear that locked out
+  planning units are included in the calculations for setting targets (#89).
+- The `add_loglinear_targets` function now includes a `feature_abundances`
+  parameter for specifying the total amount of each feature to use when
+  calculating the targets (#89).
+
 # prioritizr 4.0.1 (released)
 
 - Release candidate for CRAN.
 
 # prioritizr 4.0.0.12
 
-- New `feature_abundances` function to calculate the total amount of each 
+- New `feature_abundances` function to calculate the total amount of each
   feature in the planning units (#86).
 
 # prioritizr 4.0.0.11

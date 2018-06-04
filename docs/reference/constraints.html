@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Conservation problem constraints — constraints" />
 
 <meta property="og:description" content="A constraint can be added to a conservation planning problem
@@ -59,11 +61,6 @@ to ensure that solutions exhibit a specific characteristic." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -79,7 +76,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -137,7 +134,7 @@ to ensure that solutions exhibit a specific characteristic." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -400,13 +397,13 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 138 rows and 139 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -425,13 +422,13 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;      0     0 3971.47540    0  545          - 3971.47540      -     -    0s
 #&gt; H    0     0                    16464.838559 3971.47540  75.9%     -    0s
 #&gt;      0     2 3971.52704    0  544 16464.8386 3971.52704  75.9%     -    0s
-#&gt; H   25    25                    4299.6000758 3971.56872  7.63%   146    1s
+#&gt; H   25    25                    4299.6000758 3971.56872  7.63%   146    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
 #&gt;   Zero half: 8
 #&gt; 
-#&gt; Explored 25 nodes (6579 simplex iterations) in 1.02 seconds
+#&gt; Explored 25 nodes (6579 simplex iterations) in 0.71 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4299.6 16464.8 
@@ -477,7 +474,13 @@ to ensure that solutions exhibit a specific characteristic.</p>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

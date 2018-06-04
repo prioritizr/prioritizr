@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Add contiguity constraints — add_contiguity_constraints" />
 
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
@@ -60,11 +62,6 @@ and form a single contiguous unit." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -80,7 +77,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -138,7 +135,7 @@ and form a single contiguous unit." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -309,7 +306,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; Variable types: 0 continuous, 221 integer (221 binary)
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
@@ -337,7 +334,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.15 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.07 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4329.44 4590.14 
@@ -390,7 +387,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 13103.242827
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
@@ -418,13 +415,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.08s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -444,16 +441,15 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
 #&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
 #&gt;      0     2 12090.9420    0  288          - 12090.9420      -     -    0s
-#&gt; H  281   176                    14047.713034 12098.0721  13.9%  66.9    2s
-#&gt; H  283   175                    14037.892140 12098.0721  13.8%  66.5    2s
-#&gt; H  475   231                    13646.439309 12099.0668  11.3%  68.2    3s
-#&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    3s
-#&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    3s
-#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    3s
-#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    4s
-#&gt;    531   227 12218.2546   12  322 13489.8654 12099.0668  10.3%  61.5    5s
-#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    5s
-#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    7s
+#&gt; H  281   176                    14047.713034 12098.0721  13.9%  66.9    1s
+#&gt; H  283   175                    14037.892140 12098.0721  13.8%  66.5    1s
+#&gt; H  475   231                    13646.439309 12099.0668  11.3%  68.2    1s
+#&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    1s
+#&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    1s
+#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    1s
+#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    2s
+#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    2s
+#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    3s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
@@ -461,7 +457,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 7.51 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 3.59 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -476,13 +472,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; Variable types: 0 continuous, 518 integer (518 binary)
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -509,7 +505,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 6
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.66 seconds
+#&gt; Explored 97 nodes (4719 simplex iterations) in 0.32 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
@@ -524,14 +520,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.14s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
 #&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -557,10 +553,10 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12089.2702    0  252          - 12089.2702      -     -    0s
 #&gt;      0     0 12089.2702    0  249          - 12089.2702      -     -    0s
 #&gt;      0     2 12089.2735    0  246          - 12089.2735      -     -    0s
-#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    1s
-#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    1s
-#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    1s
-#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    1s
+#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    0s
+#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    0s
+#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    0s
+#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
@@ -568,7 +564,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 14
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 1.63 seconds
+#&gt; Explored 162 nodes (8747 simplex iterations) in 0.77 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
@@ -644,14 +640,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 48 rows and 47 columns
-#&gt; Presolve time: 0.09s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 655 rows, 568 columns, 2764 nonzeros
 #&gt; Variable types: 0 continuous, 568 integer (568 binary)
 #&gt; Presolve removed 124 rows and 0 columns
 #&gt; Presolved: 531 rows, 568 columns, 2392 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.901727e+03, 161 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 5.901727e+03, 161 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -667,7 +663,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 3
 #&gt;   Zero half: 2
 #&gt; 
-#&gt; Explored 1 nodes (426 simplex iterations) in 0.15 seconds
+#&gt; Explored 1 nodes (426 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6482.83 
@@ -716,7 +712,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

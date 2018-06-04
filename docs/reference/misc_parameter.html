@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Miscellaneous parameter — misc_parameter" />
 
 <meta property="og:description" content="Create a parameter that consists of a miscellaneous object." />
@@ -58,11 +60,6 @@
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -78,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -136,7 +133,7 @@
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -202,7 +199,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>misc_parameter</span>(<span class='st'>"tbl"</span>, <span class='no'>iris</span>,
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>TRUE</span>,
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'>structure</span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'>print</span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xce8a040&gt;
+<span class='fu'>print</span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xc67a820&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p1</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -355,7 +352,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: c6206528-ab72-41ea-a930-f0eaf68d8bd6</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: d9664baf-9d3c-4a8c-abe3-94494635427a</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
 <span class='no'>p1</span>$<span class='fu'>print</span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
 <span class='co'># create table parameter with validation function that requires</span>
 <span class='co'># all values in the first column to be less then 200 and that the</span>
@@ -364,7 +361,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'>all</span>(<span class='fu'>names</span>(<span class='no'>x</span>) <span class='kw'>%in%</span> <span class='fu'>names</span>(<span class='no'>iris</span>)) <span class='kw'>&amp;&amp;</span>
                                  <span class='fu'>all</span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>&lt;</span> <span class='fl'>200</span>),
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'>structure</span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'>print</span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xc144af0&gt;
+<span class='fu'>print</span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x100182a8&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p2</span>$<span class='fu'>get</span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -517,7 +514,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 86a55956-8957-4a9b-bf74-bdb364d65853</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 08a09c77-4878-4037-afc6-4c224f6d23a6</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>iris2</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris3</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>iris3</span>) <span class='co'># set parameter to iris3</span>
 <span class='no'>p2</span>$<span class='fu'>print</span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl2"</div><div class='input'>
@@ -556,7 +553,13 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

@@ -8,10 +8,10 @@
 <title>Management Zones • prioritizr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
 <link href="../docsearch.css" rel="stylesheet">
-<!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Management Zones">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Management Zones">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://prioritizr.net/logo.png">
 <meta name="twitter:card" content="summary">
@@ -24,7 +24,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-70466840-4');
-</script><!-- docsearch --><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+</script>
 </head>
 <body>
     <div class="container template-article">
@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
       </ul>
 <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
       </form>
       
@@ -299,7 +299,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
 ## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3174.67 3568.49 
@@ -387,7 +387,7 @@ s3 &lt;-<span class="st"> </span><span class="kw">solve</span>(p3)</code></pre><
 ##      0     0 2884.87200    0    8 3667.77087 2884.87200  21.3%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (38 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 2958.12 3667.77 
@@ -438,11 +438,11 @@ t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw
 <pre><code>## # A tibble: 5 x 4
 ##   feature zone      target type    
 ##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
-## 1 layer.1 &lt;chr [3]&gt;     8. absolute
-## 2 layer.2 &lt;chr [3]&gt;     8. absolute
-## 3 layer.3 &lt;chr [3]&gt;     8. absolute
-## 4 layer.4 &lt;chr [3]&gt;     8. absolute
-## 5 layer.5 &lt;chr [3]&gt;     8. absolute</code></pre>
+## 1 layer.1 &lt;chr [3]&gt;      8 absolute
+## 2 layer.2 &lt;chr [3]&gt;      8 absolute
+## 3 layer.3 &lt;chr [3]&gt;      8 absolute
+## 4 layer.4 &lt;chr [3]&gt;      8 absolute
+## 5 layer.5 &lt;chr [3]&gt;      8 absolute</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p4 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="dt">few.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
                          <span class="dt">many.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>,
@@ -492,7 +492,7 @@ s4 &lt;-<span class="st"> </span><span class="kw">solve</span>(p4)</code></pre><
 ##      0     0 3663.23657    0    1 4700.00000 3663.23657  22.1%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 3800 4700 4800 
@@ -505,16 +505,16 @@ r4 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0.           0.   
-##  2 layer.2 few.traps           0.           0.   
-##  3 layer.3 few.traps           0.           0.   
-##  4 layer.4 few.traps           0.           0.   
-##  5 layer.5 few.traps           0.           0.   
-##  6 layer.1 many.traps          0.           0.   
-##  7 layer.2 many.traps          0.           0.   
-##  8 layer.3 many.traps          0.           0.   
-##  9 layer.4 many.traps          0.           0.   
-## 10 layer.5 many.traps          0.           0.   
+##  1 layer.1 few.traps           0            0    
+##  2 layer.2 few.traps           0            0    
+##  3 layer.3 few.traps           0            0    
+##  4 layer.4 few.traps           0            0    
+##  5 layer.5 few.traps           0            0    
+##  6 layer.1 many.traps          0            0    
+##  7 layer.2 many.traps          0            0    
+##  8 layer.3 many.traps          0            0    
+##  9 layer.4 many.traps          0            0    
+## 10 layer.5 many.traps          0            0    
 ## 11 layer.1 baiting            18.3          0.275
 ## 12 layer.2 baiting             8.19         0.328
 ## 13 layer.3 baiting            15.2          0.264
@@ -592,7 +592,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 ##      0     0 6938.06818    0    1 9600.00000 6938.06818  27.7%     -    0s
 ## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 7000 9600 12100 
@@ -605,11 +605,11 @@ r5 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0.           0.   
-##  2 layer.2 few.traps           0.           0.   
-##  3 layer.3 few.traps           0.           0.   
-##  4 layer.4 few.traps           0.           0.   
-##  5 layer.5 few.traps           0.           0.   
+##  1 layer.1 few.traps           0            0    
+##  2 layer.2 few.traps           0            0    
+##  3 layer.3 few.traps           0            0    
+##  4 layer.4 few.traps           0            0    
+##  5 layer.5 few.traps           0            0    
 ##  6 layer.1 many.traps          7.40         0.178
 ##  7 layer.2 many.traps          3.42         0.219
 ##  8 layer.3 many.traps          6.00         0.167
@@ -678,14 +678,14 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 308 rows and 232 columns
-## Presolve time: 0.03s
+## Presolve time: 0.01s
 ## Presolved: 1597 rows, 968 columns, 4872 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Presolve removed 720 rows and 0 columns
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 543 iterations, 0.02 seconds
+## Root relaxation: objective 1.005410e+04, 543 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -693,7 +693,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s
 ## H    0     0                    10460.000000 10054.0986  3.88%     -    0s
 ## 
-## Explored 1 nodes (793 simplex iterations) in 0.06 seconds
+## Explored 1 nodes (793 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 10460 20096 
@@ -706,11 +706,11 @@ r6 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0.           0.   
-##  2 layer.2 few.traps           0.           0.   
-##  3 layer.3 few.traps           0.           0.   
-##  4 layer.4 few.traps           0.           0.   
-##  5 layer.5 few.traps           0.           0.   
+##  1 layer.1 few.traps           0            0    
+##  2 layer.2 few.traps           0            0    
+##  3 layer.3 few.traps           0            0    
+##  4 layer.4 few.traps           0            0    
+##  5 layer.5 few.traps           0            0    
 ##  6 layer.1 many.traps          8.00         0.192
 ##  7 layer.2 many.traps          3.42         0.219
 ##  8 layer.3 many.traps          6.26         0.174
@@ -795,7 +795,13 @@ r6 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 </body>

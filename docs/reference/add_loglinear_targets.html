@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Add targets using log-linear scaling — add_loglinear_targets" />
 
 <meta property="og:description" content="Add targets to a conservation planning problem by log-linearly
@@ -64,11 +66,6 @@ of this function has changed substantially from versions prior to 5.0.0." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -84,7 +81,7 @@ of this function has changed substantially from versions prior to 5.0.0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -142,7 +139,7 @@ of this function has changed substantially from versions prior to 5.0.0." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -175,7 +172,8 @@ of this function has changed substantially from versions prior to 5.0.0</strong>
 
     <pre class="usage"><span class='fu'>add_loglinear_targets</span>(<span class='no'>x</span>, <span class='no'>lower_bound_amount</span>, <span class='no'>lower_bound_target</span>,
   <span class='no'>upper_bound_amount</span>, <span class='no'>upper_bound_target</span>, <span class='kw'>cap_amount</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>cap_target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>cap_target</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>abundances</span> <span class='kw'>=</span> <span class='fu'><a href='feature_abundances.html'>feature_abundances</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span>
+  <span class='fl'>FALSE</span>)$<span class='no'>absolute_abundance</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,6 +213,11 @@ capped. Defaults to <code>NULL</code> so that targets are not capped.</p></td>
 which have a total amount greater than argument to <code>cap_amount</code>.
 Defaults to <code>NULL</code> so that targets are not capped.</p></td>
     </tr>
+    <tr>
+      <th>abundances</th>
+      <td><p><code>numeric</code> total amount of each feature to
+use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the <code><a href='feature_abundances.html'>feature_abundances</a></code> function.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -229,20 +232,23 @@ Defaults to <code>NULL</code> so that targets are not capped.</p></td>
   planning problems require adding targets with the exception of the maximum
   cover problem (see <code>add_max_cover_objective</code>), which maximizes
   all features in the solution and therefore does not require targets.</p>
-<p>Six parameters are used to calculate the targets: <code>lower_bound_amount</code>
-  specifies the first range size threshold, <code>lower_bound_target</code>
-  specifies the relative target required for species with a range size equal
-  to or less than the first threshold, <code>upper_bound_amount</code> specifies
-  the relative target required for species with a range size equal to or
-  greater than the second threshold, <code>cap_amount</code> specifies the third
-  range size threshold, and <code>cap_target</code> specifies the absolute
-  target that is uniformly applied to species with a range size larger than
-  that third threshold.</p>
-<p>Note that the target calculations do <strong>not</strong> account for the
-  size of each planning unit. Therefore, the feature data should account for
-  the size of each planning unit if this is important (e.g. Pixel values in
+<p>Seven parameters are used to calculate the targets:
+  <code>lower_bound_amount</code> specifies the first range size threshold,
+  <code>lower_bound_target</code> specifies the relative target required for
+  species with a range size equal to or less than the first threshold,
+  <code>upper_bound_amount</code> specifies the second range size threshold,
+  <code>upper_bound_target</code> specifies the relative target required for
+  species with a range size equal to or greater than the second threshold,
+  <code>cap_amount</code> specifies the third range size threshold,
+  <code>cap_target</code> specifies the absolute target that is uniformly applied
+  to species with a range size larger than that third threshold, and finally
+  <code>abundances</code> specifies the range size for each feature
+  that should be used when calculating the targets.</p>
+<p><strong>Note that the target calculations do not account for the
+  size of each planning unit.</strong> Therefore, the feature data should account for
+  the size of each planning unit if this is important (e.g. pixel values in
   the argument to <code>features</code> in the function <code>problem</code> could
-  correspond to amount of land occupied by the feature ($$km^2$$)).</p>
+  correspond to amount of land occupied by the feature in \(km^2\) units).</p>
 <p>This function can only be applied to
   <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> objects that are associated with a
   single zone.</p>
@@ -344,7 +350,13 @@ and solutions for meeting national and global conservation area targets.
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

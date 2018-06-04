@@ -6,21 +6,21 @@
       "selectors_key": "homepage",
       "tags": [
         "homepage"
-        ]
+      ]
     },
     {
       "url": "https://prioritizr.net/reference",
       "selectors_key": "reference",
       "tags": [
         "reference"
-        ]
+      ]
     },
     {
       "url": "https://prioritizr.net/articles",
       "selectors_key": "articles",
       "tags": [
         "articles"
-        ]
+      ]
     }
   ],
   "stop_urls": [
@@ -82,6 +82,13 @@
     ],
   "min_indexed_level": 2,
   "custom_settings": {
-    "separatorsToIndex": "_"
+    "separatorsToIndex": "_",
+    "attributesToRetrieve": [
+      "hierarchy",
+      "content",
+      "anchor",
+      "url",
+      "url_without_anchor"
+    ]
   }
 }

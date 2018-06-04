@@ -32,28 +32,33 @@ NULL
 #'   which have a total amount greater than argument to \code{cap_amount}.
 #'   Defaults to \code{NULL} so that targets are not capped.
 #'
+#' @param abundances \code{numeric} total amount of each feature to
+#'  use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link{feature_abundances}} function.
+#'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation
 #'   planning problems require adding targets with the exception of the maximum
 #'   cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
 #'   all features in the solution and therefore does not require targets.
 #'
-#'   Six parameters are used to calculate the targets: \code{lower_bound_amount}
-#'   specifies the first range size threshold, \code{lower_bound_target}
-#'   specifies the relative target required for species with a range size equal
-#'   to or less than the first threshold, \code{upper_bound_amount} specifies
-#    the second range size threshold, \code{upper_bound_target} specifies
-#'   the relative target required for species with a range size equal to or
-#'   greater than the second threshold, \code{cap_amount} specifies the third
-#'   range size threshold, and \code{cap_target} specifies the absolute
-#'   target that is uniformly applied to species with a range size larger than
-#'   that third threshold.
+#'   Seven parameters are used to calculate the targets:
+#'   \code{lower_bound_amount} specifies the first range size threshold,
+#'   \code{lower_bound_target} specifies the relative target required for
+#'   species with a range size equal to or less than the first threshold,
+#'   \code{upper_bound_amount} specifies the second range size threshold,
+#'   \code{upper_bound_target} specifies the relative target required for
+#'   species with a range size equal to or greater than the second threshold,
+#'   \code{cap_amount} specifies the third range size threshold,
+#'   \code{cap_target} specifies the absolute target that is uniformly applied
+#'   to species with a range size larger than that third threshold, and finally
+#'   \code{abundances} specifies the range size for each feature
+#'   that should be used when calculating the targets.
 #'
-#'   Note that the target calculations do \strong{not} account for the
-#'   size of each planning unit. Therefore, the feature data should account for
-#'   the size of each planning unit if this is important (e.g. Pixel values in
+#'   \strong{Note that the target calculations do not account for the
+#'   size of each planning unit.} Therefore, the feature data should account for
+#'   the size of each planning unit if this is important (e.g. pixel values in
 #'   the argument to \code{features} in the function \code{\link{problem}} could
-#'   correspond to amount of land occupied by the feature (\deqn{km^2})).
+#'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
 #'
 #'   This function can only be applied to
 #'   \code{\link{ConservationProblem-class}} objects that are associated with a
@@ -98,8 +103,8 @@ NULL
 #' @rdname add_loglinear_targets
 #' @export
 add_loglinear_targets <- function(x, lower_bound_amount, lower_bound_target,
-                                  upper_bound_amount, upper_bound_target,
-                                  cap_amount = NULL, cap_target = NULL) {
+  upper_bound_amount, upper_bound_target, cap_amount = NULL, cap_target = NULL,
+  abundances = feature_abundances(x, na.rm = FALSE)$absolute_abundance) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           x$number_of_zones() == 1,
@@ -123,18 +128,24 @@ add_loglinear_targets <- function(x, lower_bound_amount, lower_bound_target,
                           is.null(cap_target) ||
                             assertthat::is.scalar(cap_target),
                           is.null(cap_amount) == is.null(cap_target),
-                          is.numeric(cap_amount) == is.numeric(cap_target))
+                          is.numeric(cap_amount) == is.numeric(cap_target),
+                          is.numeric(abundances),
+                          assertthat::noNA(abundances),
+                          isTRUE(min(abundances) >= 0),
+                          length(abundances) == x$number_of_features())
   if (is.numeric(cap_amount))
     assertthat::assert_that(is.finite(cap_amount), is.finite(cap_target),
                             isTRUE(cap_amount >= 0), isTRUE(cap_target >= 0))
   # create targets as data.frame
   target_data <- expand.grid(feature = x$feature_names(), type = "absolute")
   # calculate targets as absolute amounts
-  abundances <- x$feature_abundances_in_total_units()[, 1]
-  target_data$target <- loglinear_interpolation(abundances, lower_bound_amount,
+  target_data$target <- loglinear_interpolation(abundances,
+                                                lower_bound_amount,
                                                 lower_bound_target,
                                                 upper_bound_amount,
-                                                upper_bound_target) * abundances
+                                                upper_bound_target) *
+                        abundances
+  # apply targets
   if (is.numeric(cap_amount))
     target_data$target[abundances >= cap_amount] <- cap_target
   # add targets to problem

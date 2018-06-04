@@ -8,7 +8,8 @@
 \usage{
 add_loglinear_targets(x, lower_bound_amount, lower_bound_target,
   upper_bound_amount, upper_bound_target, cap_amount = NULL,
-  cap_target = NULL)
+  cap_target = NULL, abundances = feature_abundances(x, na.rm =
+  FALSE)$absolute_abundance)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -31,6 +32,9 @@ capped. Defaults to \code{NULL} so that targets are not capped.}
 \item{cap_target}{\code{numeric} amount-based target to apply to features
 which have a total amount greater than argument to \code{cap_amount}.
 Defaults to \code{NULL} so that targets are not capped.}
+
+\item{abundances}{\code{numeric} total amount of each feature to
+use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link{feature_abundances}} function.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added
@@ -52,21 +56,24 @@ Targets are used to specify the minimum amount or proportion of a
   cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
   all features in the solution and therefore does not require targets.
 
-  Six parameters are used to calculate the targets: \code{lower_bound_amount}
-  specifies the first range size threshold, \code{lower_bound_target}
-  specifies the relative target required for species with a range size equal
-  to or less than the first threshold, \code{upper_bound_amount} specifies
-  the relative target required for species with a range size equal to or
-  greater than the second threshold, \code{cap_amount} specifies the third
-  range size threshold, and \code{cap_target} specifies the absolute
-  target that is uniformly applied to species with a range size larger than
-  that third threshold.
+  Seven parameters are used to calculate the targets:
+  \code{lower_bound_amount} specifies the first range size threshold,
+  \code{lower_bound_target} specifies the relative target required for
+  species with a range size equal to or less than the first threshold,
+  \code{upper_bound_amount} specifies the second range size threshold,
+  \code{upper_bound_target} specifies the relative target required for
+  species with a range size equal to or greater than the second threshold,
+  \code{cap_amount} specifies the third range size threshold,
+  \code{cap_target} specifies the absolute target that is uniformly applied
+  to species with a range size larger than that third threshold, and finally
+  \code{abundances} specifies the range size for each feature
+  that should be used when calculating the targets.
 
-  Note that the target calculations do \strong{not} account for the
-  size of each planning unit. Therefore, the feature data should account for
-  the size of each planning unit if this is important (e.g. Pixel values in
+  \strong{Note that the target calculations do not account for the
+  size of each planning unit.} Therefore, the feature data should account for
+  the size of each planning unit if this is important (e.g. pixel values in
   the argument to \code{features} in the function \code{\link{problem}} could
-  correspond to amount of land occupied by the feature (\deqn{km^2})).
+  correspond to amount of land occupied by the feature in \eqn{km^2} units).
 
   This function can only be applied to
   \code{\link{ConservationProblem-class}} objects that are associated with a

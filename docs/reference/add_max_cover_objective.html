@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Add maximum coverage objective — add_max_cover_objective" />
 
 <meta property="og:description" content="Set the objective of a conservation planning problem to
@@ -63,11 +65,6 @@ section for more information on the changes since this version." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -83,7 +80,7 @@ section for more information on the changes since this version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -141,7 +138,7 @@ section for more information on the changes since this version." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -327,7 +324,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 8e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 0 rows and 67 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
 #&gt; Variable types: 0 continuous, 218 integer (218 binary)
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
@@ -391,7 +388,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   MIR: 14
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 1 nodes (325 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (325 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 7.99986 6.99986 5.99986 -0 
@@ -414,7 +411,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 4e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 3 rows and 74 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 211 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 211 integer (211 binary)
 #&gt; Presolve removed 18 rows and 26 columns
@@ -436,7 +433,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Cover: 4
 #&gt;   Clique: 1
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 7.99983 6.99983 -0 
@@ -485,7 +482,13 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

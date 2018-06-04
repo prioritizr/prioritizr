@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Changelog" />
 
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
@@ -56,11 +58,6 @@
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -76,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -134,7 +131,7 @@
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -152,6 +149,23 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-0-1-1" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-0-1-1" class="anchor"></a>prioritizr 4.0.1.1<small> Unreleased </small>
+</h1>
+<ul>
+<li>The <code>add_relative_targets</code> documentation now makes it clear that locked out planning units are included in the calculations for setting targets (<a href='https://github.com/prioritizr/prioritizr/issues/89'>#89</a>).</li>
+<li>The <code>add_loglinear_targets</code> function now includes a <code>feature_abundances</code> parameter for specifying the total amount of each feature to use when calculating the targets (<a href='https://github.com/prioritizr/prioritizr/issues/89'>#89</a>).</li>
+</ul>
+</div>
+    <div id="prioritizr-4-0-1-released" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-0-1-released" class="anchor"></a>prioritizr 4.0.1 (released)<small> 2018-05-26 </small>
+</h1>
+<ul>
+<li>Release candidate for CRAN.</li>
+</ul>
+</div>
     <div id="prioritizr-4-0-0-12" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-0-0-12" class="anchor"></a>prioritizr 4.0.0.12<small> Unreleased </small>
@@ -765,6 +779,8 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-0-1-1">4.0.1.1</a></li>
+        <li><a href="#prioritizr-4-0-1-released">4.0.1</a></li>
         <li><a href="#prioritizr-4-0-0-12">4.0.0.12</a></li>
         <li><a href="#prioritizr-4-0-0-11">4.0.0.11</a></li>
         <li><a href="#prioritizr-4-0-0-10">4.0.0.10</a></li>
@@ -856,7 +872,13 @@
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 

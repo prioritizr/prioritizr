@@ -21,16 +21,18 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-<link href="../docsearch.css" rel="stylesheet">
-
-
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+<!-- docsearch -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+<link href="../docsearch.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+
+
 <meta property="og:title" content="Feature abundances — feature_abundances" />
 
 <meta property="og:description" content="Calculate the total abundance of each feature found in the planning units
@@ -59,11 +61,6 @@ of a conservation planning problem." />
   gtag('config', 'UA-70466840-4');
 </script>
 
-
-
-<!-- docsearch -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-
   </head>
 
   <body>
@@ -79,7 +76,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.0.12</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.1</span>
       </span>
     </div>
 
@@ -137,7 +134,7 @@ of a conservation planning problem." />
       
       <form class="navbar-form navbar-right" role="search">
         <div class="form-group">
-          <input type="search" class="form-control" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
+          <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
       </form>
       
@@ -250,15 +247,15 @@ is <code>FALSE</code>.</p></td>
 <span class='fu'>print</span>(<span class='no'>a1</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;
-#&gt; 1 spp1                  5.75                 1.
-#&gt; 2 spp2                 43.0                  1.</div><div class='input'>
+#&gt; 1 spp1                  5.75                  1
+#&gt; 2 spp2                 43                     1</div><div class='input'>
 <span class='co'># calculate feature abundances; excluding planning units with \code{NA} costs</span>
 <span class='no'>a2</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_abundances</span>(<span class='no'>p1</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'>print</span>(<span class='no'>a2</span>)</div><div class='output co'>#&gt; # A tibble: 2 x 3
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;
 #&gt; 1 spp1                  4.87              0.848
-#&gt; 2 spp2                 40.0               0.930</div><div class='input'>
+#&gt; 2 spp2                 40                 0.930</div><div class='input'>
 <span class='co'># verify correctness of feature abundance calculations</span>
 <span class='fu'>all.equal</span>(<span class='no'>a1</span>$<span class='no'>absolute_abundance</span>,
           <span class='fu'>c</span>(<span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp1</span>), <span class='fu'>sum</span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
@@ -280,11 +277,11 @@ is <code>FALSE</code>.</p></td>
 <span class='fu'>print</span>(<span class='no'>a3</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 3
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   &lt;chr&gt;                &lt;dbl&gt;              &lt;dbl&gt;
-#&gt; 1 layer.1               83.3                 1.
-#&gt; 2 layer.2               31.2                 1.
-#&gt; 3 layer.3               72.0                 1.
-#&gt; 4 layer.4               42.7                 1.
-#&gt; 5 layer.5               56.7                 1.</div><div class='input'>
+#&gt; 1 layer.1               83.3                  1
+#&gt; 2 layer.2               31.2                  1
+#&gt; 3 layer.3               72.0                  1
+#&gt; 4 layer.4               42.7                  1
+#&gt; 5 layer.5               56.7                  1</div><div class='input'>
 <span class='co'># create problem using total amounts of features in all the planning units</span>
 <span class='co'># (including units with NA cost data)</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
@@ -386,7 +383,13 @@ is <code>FALSE</code>.</p></td>
     
     apiKey: '486efa122ea6783724263412c5f28ab3',
     indexName: 'prioritizr',
-    inputSelector: 'input#search-input.form-control'
+    inputSelector: 'input#search-input.form-control',
+    transformData: function(hits) {
+      return hits.map(function (hit) {
+        hit.url = updateHitURL(hit);
+        return hit;
+      });
+    }
   });
 </script>
 
