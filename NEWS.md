@@ -1,3 +1,7 @@
+# prioritizr 4.0.1.2
+
+- Fix `add_max_cover_objective` in _prioritizr_ vignette (#90).
+
 # prioritizr 4.0.1.1
 
 - The `add_relative_targets` documentation now makes it clear that locked out

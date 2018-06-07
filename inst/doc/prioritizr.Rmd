@@ -222,7 +222,7 @@ print(p3)
 # create a new problem that has the maximum coverage objective and a budget
 # of 5000
 p4 <- problem(sim_pu_raster, sim_features) %>%
-      add_min_set_objective()
+      add_max_cover_objective(5000)
 
 # print the problem
 print(p4)
