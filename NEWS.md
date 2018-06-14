@@ -1,3 +1,15 @@
+# prioritizr 4.0.1.3
+
+- The `problem` function now allows negative values in the cost and feature
+  data (and throws a warning if such data are detected).
+- The `add_absolute_targets` and `add_manual_targets` functions now allow
+  negative targets (but throw a warning if such targets are specified).
+- The `compile` function throws an error if a problem is compiled using
+  the expanded formulation with negative feature data.
+- The `add_absolute_targets` function now throws an warning---instead of an
+  error---if the specified targets are greater than the feature abundances
+  in planning units to accommodate negative values in feature data.
+
 # prioritizr 4.0.1.2
 
 - Fix `add_max_cover_objective` in _prioritizr_ vignette (#90).

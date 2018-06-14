@@ -54,7 +54,9 @@ NULL
 #'   versions of the \pkg{prioritizr} package, it was known as the
 #'   \code{add_corridor_constraints} function but has since been renamed for
 #'   clarity. It was inspired by the mathematical formulations detailed in
-#'   {\"O}nal and Briers (2006) and Cardeira \emph{et al.} 2010.
+#'   {\"O}nal and Briers (2006) and Cardeira \emph{et al.} 2010. Please note
+#'   that these constraints require the expanded formulation and therefore
+#'   cannot be used with feature data that have negative vales.
 #'   \strong{Please note that adding these constraints to a problem will
 #'   drastically increase the amount of time required to solve it.}
 #'

@@ -427,12 +427,13 @@ methods::setMethod(
       raster::nlayers(x) == number_of_zones(features),
       raster::compareRaster(x, features[[1]], res = TRUE, tolerance = 1e-5,
                             stopiffalse = FALSE))
-    if (run_checks)
+    if (run_checks) {
       assertthat::assert_that(
-        all(raster::cellStats(!is.na(x), "sum") > 0),
-        all(raster::cellStats(x, "min") >= 0),
-        all(raster::cellStats(x, "max") >= 0),
-        all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
+        all(raster::cellStats(!is.na(x), "sum") > 0))
+      verify_that(all(raster::cellStats(x, "min") >= 0))
+      verify_that(all(raster::cellStats(raster::stack(as.list(features)),
+                                        "min") >= 0))
+    }
     # convert x to RasterLayer if has only one layer
     if (inherits(x, c("RasterStack", "RasterBrick")) &&
         raster::nlayers(x) == 1)
@@ -491,16 +492,19 @@ methods::setMethod(
       length(x) > 0,
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
-      all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
-                  na.rm = TRUE) == 0),
       raster::compareCRS(x@proj4string, features[[1]]@crs),
       isTRUE(rgeos::gIntersects(methods::as(raster::extent(x),
                                             "SpatialPolygons"),
                                 methods::as(raster::extent(features[[1]]),
                                             "SpatialPolygons"))))
-    if (run_checks)
-      assertthat::assert_that(
+      verify_that(
+        all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
+                    na.rm = TRUE) == 0),
+        msg = "argument to x has negative cost data")
+    if (run_checks) {
+      verify_that(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
+    }
     # compute rij matrix including non-planning unit cells
     rij <- rij_matrix(x, raster::stack(as.list(features)))
     rij <- lapply(seq_len(number_of_zones(features)), function(i) {
@@ -564,9 +568,13 @@ methods::setMethod(
                  names(x)),
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0),
-      all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
-                  na.rm = TRUE) == 0))
+                  na.rm = TRUE) > 0))
+    verify_that(all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
+                            na.rm = TRUE) == 0),
+                msg = "argument to x has negative cost data")
+    verify_that(all(as.matrix(x@data[, unlist(features), drop = FALSE]) < 0,
+                    na.rm = TRUE),
+                msg = "argument to features correspond to negative values")
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(
              x@data[, cost_column, drop = FALSE]))) > 0)
@@ -624,9 +632,13 @@ methods::setMethod(
                  names(x)),
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0),
-      all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
-                  na.rm = TRUE) == 0))
+                  na.rm = TRUE) > 0))
+    verify_that(all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
+                            na.rm = TRUE) == 0),
+                msg = "argument to x has negative cost data")
+    verify_that(all(as.matrix(x[, unlist(features), drop = FALSE]) < 0,
+                    na.rm = TRUE),
+                msg = "argument to features correspond to negative values")
     # create rij matrix
     pos <- which(rowSums(!is.na(as.matrix(x[, cost_column, drop = FALSE]))) > 0)
     rij <- lapply(as.list(features), function(z) {
@@ -671,8 +683,6 @@ methods::setMethod(
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
-      all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
-                  na.rm = TRUE) == 0),
       # features
       assertthat::has_name(features, "id"),
       assertthat::has_name(features, "name"),
@@ -689,6 +699,11 @@ methods::setMethod(
       is.numeric(rij$pu), is.numeric(rij$species), is.numeric(rij$amount),
       all(rij$pu %in% x$id),
       all(rij$species %in% features$id))
+    # verifications
+    verify_that(all(rij$amount > 0))
+    verify_that(all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
+                            na.rm = TRUE) == 0),
+                msg = "argument to x has negative cost data")
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
@@ -765,8 +780,7 @@ methods::setMethod(
       no_extra_arguments(...),
       # x
       all(colSums(is.finite(x)) > 0),
-      all(x > 0, na.rm = TRUE),
-      all(colSums(!is.na(x)) > 0), all(colSums(x < 0, na.rm = TRUE) == 0),
+      all(colSums(!is.na(x)) > 0),
       # features
       assertthat::has_name(features, "id"),
       assertthat::has_name(features, "name"),
@@ -777,11 +791,15 @@ methods::setMethod(
       is.character(features$name) || is.factor(features$name),
       # rij_matrix
       all(vapply(rij_matrix, inherits, logical(1), c("matrix", "dgCMatrix"))),
-      all(vapply(rij_matrix, sum, numeric(1), na.rm = TRUE) > 0),
+      all(vapply(rij_matrix, function(x) sum(is.finite(x)), numeric(1)) > 0),
       # multiple arguments
       ncol(x) == length(rij_matrix),
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
       all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
+    # verifications
+    verify_that(all(vapply(rij_matrix, min, numeric(1), na.rm = TRUE) > 0),
+                msg = "argument to rij_matrix has negative feature data")
+    verify_that(all(x > 0, na.rm = TRUE))
     # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
       names(rij_matrix) <- as.character(seq_along(rij_matrix))

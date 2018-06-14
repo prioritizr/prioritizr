@@ -175,12 +175,12 @@ methods::setMethod(
       inherits(x, "ConservationProblem"),
       inherits(targets, "matrix"), is.numeric(targets),
       isTRUE(all(is.finite(targets))),
-      isTRUE(all(targets >= 0.0)),
       isTRUE(length(targets) > 0),
       nrow(targets) == x$number_of_features(),
-      ncol(targets) == x$number_of_zones(),
-      all(targets >= 0),
-      isTRUE(all(targets <= x$feature_abundances_in_planning_units())))
+      ncol(targets) == x$number_of_zones())
+    verify_that(all(targets >= 0.0, na.rm = TRUE))
+    verify_that(all(targets <= x$feature_abundances_in_planning_units(),
+                    na.rm = TRUE))
     # create targets as data.frame
     if (x$number_of_zones() > 1) {
       target_data <- expand.grid(feature = x$feature_names(),

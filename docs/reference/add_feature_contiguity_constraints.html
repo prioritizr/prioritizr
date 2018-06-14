@@ -83,7 +83,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.2</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.3</span>
       </span>
     </div>
 
@@ -240,7 +240,9 @@ features. See the Details section for more information.</p></td>
   versions of the <span class="pkg">prioritizr</span> package, it was known as the
   <code>add_corridor_constraints</code> function but has since been renamed for
   clarity. It was inspired by the mathematical formulations detailed in
-  \"Onal and Briers (2006) and Cardeira <em>et al.</em> 2010.
+  \"Onal and Briers (2006) and Cardeira <em>et al.</em> 2010. Please note
+  that these constraints require the expanded formulation and therefore
+  cannot be used with feature data that have negative vales.
   <strong>Please note that adding these constraints to a problem will
   drastically increase the amount of time required to solve it.</strong></p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
@@ -563,7 +565,7 @@ connectivity in reserve-network design using graphs.
 #&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
 #&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (100 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6082.28 7019.12 
@@ -590,7 +592,7 @@ connectivity in reserve-network design using graphs.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 5964.22270    0  817          - 5964.22270      -     -    0s
-#&gt;      0     0 5973.19018    0  890          - 5973.19018      -     -    0s
+#&gt;      0     0 5973.19018    0  890          - 5973.19018      -     -    1s
 #&gt;      0     0 5974.24060    0  951          - 5974.24060      -     -    1s
 #&gt;      0     0 5974.59812    0  979          - 5974.59812      -     -    1s
 #&gt;      0     0 5981.69061    0  939          - 5981.69061      -     -    1s
@@ -621,7 +623,7 @@ connectivity in reserve-network design using graphs.
 #&gt;      0     0 5993.53010    0 1095          - 5993.53010      -     -    2s
 #&gt;      0     0 5993.53010    0 1094          - 5993.53010      -     -    2s
 #&gt;      0     2 5993.59840    0 1094          - 5993.59840      -     -    3s
-#&gt;     53    55 7817.41079   34  394          - 5993.68294      -   335    5s
+#&gt;     59    61 7937.11836   39  474          - 5993.68294      -   305    5s
 #&gt; H  147   118                    9095.6069285 5993.68294  34.1%   156    5s
 #&gt; H  176   139                    8874.0196096 5995.87353  32.4%   178    6s
 #&gt; H  203   157                    8629.5143835 5995.87353  30.5%   185    6s
@@ -631,9 +633,9 @@ connectivity in reserve-network design using graphs.
 #&gt; H  312   165                    6754.1573992 5996.96548  11.2%   190    9s
 #&gt;    341   196 6293.74740   27 1016 6754.15740 5996.96548  11.2%   201   10s
 #&gt; H  394   220                    6750.1005609 5997.40740  11.2%   203   11s
-#&gt;    511   322 6536.31849   32 1094 6750.10056 5997.58112  11.1%   223   16s
-#&gt;    526   332 6427.11432   35 1194 6750.10056 5997.58112  11.1%   217   20s
-#&gt; H  536   321                    6575.4232077 5998.76106  8.77%   213   24s
+#&gt;    502   320 6662.30497   33  272 6750.10056 5997.58112  11.1%   226   15s
+#&gt;    523   330 6505.59975   30 1175 6750.10056 5997.58112  11.1%   218   20s
+#&gt; H  536   321                    6575.4232077 5998.76106  8.77%   213   25s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
@@ -643,7 +645,7 @@ connectivity in reserve-network design using graphs.
 #&gt;   Zero half: 25
 #&gt;   Mod-K: 1
 #&gt; 
-#&gt; Explored 536 nodes (152608 simplex iterations) in 24.52 seconds
+#&gt; Explored 536 nodes (152608 simplex iterations) in 25.70 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 6575.42 6750.1 6754.16 ... 9095.61
@@ -733,7 +735,7 @@ connectivity in reserve-network design using graphs.
 #&gt;   StrongCG: 1
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 233 nodes (37624 simplex iterations) in 4.50 seconds
+#&gt; Explored 233 nodes (37624 simplex iterations) in 4.90 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6305.53 
@@ -748,14 +750,14 @@ connectivity in reserve-network design using graphs.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 1080 rows and 1080 columns
-#&gt; Presolve time: 0.03s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 1504 rows, 1410 columns, 6879 nonzeros
 #&gt; Variable types: 0 continuous, 1410 integer (1410 binary)
 #&gt; Presolve removed 290 rows and 0 columns
 #&gt; Presolved: 1214 rows, 1410 columns, 6009 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -794,7 +796,7 @@ connectivity in reserve-network design using graphs.
 #&gt;      0     0 5991.90546    0  381          - 5991.90546      -     -    0s
 #&gt;      0     0 5991.90907    0  380          - 5991.90907      -     -    0s
 #&gt;      0     0 5991.90907    0  374          - 5991.90907      -     -    0s
-#&gt;      0     2 5991.94307    0  374          - 5991.94307      -     -    0s
+#&gt;      0     2 5991.94307    0  374          - 5991.94307      -     -    1s
 #&gt; H  144   103                    6578.0672409 5992.33563  8.90%  78.0    1s
 #&gt; 
 #&gt; Cutting planes:
@@ -804,7 +806,7 @@ connectivity in reserve-network design using graphs.
 #&gt;   StrongCG: 3
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 144 nodes (15818 simplex iterations) in 1.50 seconds
+#&gt; Explored 144 nodes (15818 simplex iterations) in 1.97 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6578.07 

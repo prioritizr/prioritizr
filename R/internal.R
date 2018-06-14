@@ -265,3 +265,22 @@ assertthat::on_failure(no_extra_arguments) <- function(call, env) {
   }
   msg
 }
+
+#' Verify if assertion is met
+#'
+#' Verify if an assertion is tmet and throw a \code{\link{warning}} if it
+#' is not. This function is equivalent to \code{\link[assertthat]{assert_that}}
+#' except that it throws warnings and not errors.
+#'
+#' @param x \code{logical} condition.
+#'
+#' @return \code{logical} if assertion is met and a \code{warning} if it is not.
+#'
+#' @noRd
+verify_that <- function(..., env = parent.frame()) {
+  res <- assertthat::validate_that(..., env = env)
+  if (isTRUE(res))
+      return(TRUE)
+  warning(res)
+  FALSE
+}

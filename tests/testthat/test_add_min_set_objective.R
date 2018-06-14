@@ -46,6 +46,31 @@ test_that("solve (compressed formulation, single zone)", {
   expect_equal(raster::values(s), c(0, 1, 1, NA))
 })
 
+test_that("solve (compressed formulation, single zone, negative values)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create data
+  cost <- raster::raster(matrix(c(1, 2, 2, 0, 0, NA), nrow = 1))
+  locked_in <- 2
+  locked_out <- 1
+  features <- raster::stack(
+    raster::raster(matrix(c(2,  1,  1,  100,  -200, 0), nrow = 1)),
+    raster::raster(matrix(c(10, 10, 10, -200, 100, 10), nrow = 1)))
+  # create problem
+  expect_warning(p <- problem(cost, features) %>%
+                      add_min_set_objective() %>%
+                      add_absolute_targets(c(2, 10)) %>%
+                      add_locked_in_constraints(locked_in) %>%
+                      add_locked_out_constraints(locked_out) %>%
+                      add_default_solver(gap = 0))
+  # solve problem
+  s <- solve(p)
+  # test for correct solution
+  expect_equal(raster::values(s), c(0, 1, 1, 0, 0, NA))
+})
+
 test_that("compile (expanded formulation, single zone)", {
   # generate optimization problem
   data(sim_pu_raster, sim_features)

@@ -101,6 +101,33 @@ test_that("add_manual_targets (explicit, multiple zones)", {
   expect_equal(targets$sense, c(">=", "<=", "=", ">="))
 })
 
+test_that("add_manual_targets (explicit, multiple zones)", {
+  # load data
+  data(sim_pu_zones_stack, sim_features_zones)
+  # create problem
+  expect_warning(
+    p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+         add_manual_targets(tibble::tibble(
+           feature = feature_names(sim_features_zones)[c(1, 1, 2, 3)],
+           zone = list("zone_1", "zone_2", "zone_1", c("zone_1", "zone_2")),
+           sense = c(">=", "<=", "=", ">="),
+           target = c(-1, -2, 1, 2),
+           type = "absolute")))
+  # calculate absolute targets
+  targets <- p$targets$output()
+  # run tests
+  expect_is(targets, "tbl_df")
+  expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
+  expect_is(targets$feature, "integer")
+  expect_is(targets$zone, "list")
+  expect_is(targets$value, "numeric")
+  expect_is(targets$sense, "character")
+  expect_equal(targets$feature, c(1, 1, 2, 3))
+  expect_equivalent(targets$zone, list(1, 2, 1, c(1, 2)))
+  expect_equal(targets$value, c(-1, -2, 1, 2))
+  expect_equal(targets$sense, c(">=", "<=", "=", ">="))
+})
+
 test_that("add_manual_targets (invalid input)", {
   # load data
   data(sim_pu_zones_stack, sim_features_zones)

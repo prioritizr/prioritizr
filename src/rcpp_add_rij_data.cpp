@@ -73,6 +73,10 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
     for (std::size_t i = 0; i < targets_feature.size(); ++i) {
       curr_z = Rcpp::as<Rcpp::IntegerVector>(targets_zone[i]) - 1;
       for (std::size_t z = 0; z < curr_z.size(); ++z) {
+        // check that minimum value is greater than or equal to zero
+        if (rij[curr_z[z]].min() < 0)
+          Rcpp::stop("expanded formulation requires non-negative feature data");
+        // add rij data
         for (auto it = rij[curr_z[z]].begin_col(targets_feature[i]);
              it != rij[curr_z[z]].end_col(targets_feature[i]); ++it) {
           ptr->_A_i.push_back(row + i);

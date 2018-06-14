@@ -104,7 +104,7 @@ test_that("add_absolute_targets (invalid input, single zone)", {
   expect_error(add_absolute_targets(p, c(1, NA)))
   expect_error(add_absolute_targets(p, c("cost", NA_character_)))
   ## targets that exceed largest possible value
-  expect_error(add_absolute_targets(p, 1e+5))
+  expect_warning(add_absolute_targets(p, 1e+5))
 })
 
 test_that("add_absolute_targets (matrix, multiple zones)", {
@@ -194,4 +194,33 @@ test_that("add_absolute_targets (invalid input, multiple zones)", {
   expect_error(add_absolute_targets(p, "target_1"))
   expect_error(add_absolute_targets(p, c("target_1", "name")))
   expect_error(add_absolute_targets(p, c("target_1", "target_2")))
+})
+
+test_that("add_absolute_targets (matrix, multiple zones, negative data)", {
+  # load data
+  data(sim_pu_zones_stack, sim_features_zones)
+  m <- matrix(runif(raster::nlayers(sim_features) *
+                    raster::nlayers(sim_pu_zones_stack), -1, 1),
+              ncol = raster::nlayers(sim_pu_zones_stack),
+              nrow = raster::nlayers(sim_features))
+  # create problem
+  expect_warning(p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+                      add_absolute_targets(m))
+  # calculate absolute targets
+  targets <- p$targets$output()
+  # run tests
+  expect_is(targets, "tbl_df")
+  expect_true(all(names(targets) == c("feature", "zone", "sense", "value")))
+  expect_is(targets$feature, "integer")
+  expect_is(targets$zone, "list")
+  expect_is(targets$value, "numeric")
+  expect_is(targets$sense, "character")
+  expect_equal(targets$feature, rep(seq_len(raster::nlayers(sim_features)),
+                                    raster::nlayers(sim_pu_zones_stack)))
+  expect_equivalent(unlist(targets$zone),
+                    rep(seq_len(raster::nlayers(sim_pu_zones_stack)),
+                        each = raster::nlayers(sim_features)))
+  expect_equal(targets$value, c(m))
+  expect_equal(targets$sense, rep(">=", raster::nlayers(sim_pu_zones_stack) *
+                                        raster::nlayers(sim_features)))
 })
