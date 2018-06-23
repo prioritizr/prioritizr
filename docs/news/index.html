@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.4</span>
       </span>
     </div>
 
@@ -149,6 +149,16 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-0-1-4" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-0-1-4" class="anchor"></a>prioritizr 4.0.1.4<small> Unreleased </small>
+</h1>
+<ul>
+<li>The <code>feature_representation</code> function now allows <code>numeric</code> solutions with attributes (e.g. when output by the <code>solve</code> function) when calculating the represenation problems with <code>numeric</code> planning unit data (<a href='https://github.com/prioritizr/prioritizr/issues/91'>#91</a>).</li>
+<li>The <code>add_manual_targets</code> function threw a warning when some features had targets equal to zero. This resulted in an excessive amount of warnings. Now, warnings are thrown for targets that are less then zero.</li>
+<li>The <code>problem</code> function sometimes incorrectly threw a warning that feature data had negative values when the data actually did not contain negative values. This has now been addressed.</li>
+</ul>
+</div>
     <div id="prioritizr-4-0-1-3" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-0-1-3" class="anchor"></a>prioritizr 4.0.1.3<small> Unreleased </small>
@@ -798,6 +808,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-0-1-4">4.0.1.4</a></li>
         <li><a href="#prioritizr-4-0-1-3">4.0.1.3</a></li>
         <li><a href="#prioritizr-4-0-1-2">4.0.1.2</a></li>
         <li><a href="#prioritizr-4-0-1-1">4.0.1.1</a></li>

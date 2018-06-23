@@ -1,3 +1,15 @@
+# prioritizr 4.0.1.4
+
+- The `feature_representation` function now allows `numeric` solutions with
+  attributes (e.g. when output by the `solve` function) when calculating the
+  represenation problems with `numeric` planning unit data (#91).
+- The `add_manual_targets` function threw a warning when some features had
+  targets equal to zero. This resulted in an excessive amount of warnings. Now,
+  warnings are thrown for targets that are less then zero.
+- The `problem` function sometimes incorrectly threw a warning that feature
+  data had negative values when the data actually did not contain negative
+  values. This has now been addressed.
+
 # prioritizr 4.0.1.3
 
 - The `problem` function now allows negative values in the cost and feature

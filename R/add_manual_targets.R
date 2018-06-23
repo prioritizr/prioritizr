@@ -234,7 +234,7 @@ methods::setMethod(
         is.numeric(targets$target), all(is.finite(targets$target)),
         is.character(targets$type) || is.factor(targets$type),
         all(targets$type %in% c("absolute", "relative")))
-      verify_that(all(targets$target > 0, na.rm = TRUE))
+      verify_that(all(targets$target >= 0, na.rm = TRUE))
       if (x$number_of_zones() > 1 || assertthat::has_name(targets, "zone")) {
         assertthat::assert_that(
           assertthat::has_name(targets, "zone"),

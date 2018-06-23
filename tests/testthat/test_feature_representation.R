@@ -10,6 +10,7 @@ test_that("numeric", {
   # create a solution
   y <- rep(c(0, 1), 5)
   y[is.na(pu$cost)] <- 0
+  attr(y, "runtime") <- 5
   # calculate representation
   r <- feature_representation(x, y)
   # create correct result

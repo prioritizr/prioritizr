@@ -216,7 +216,7 @@ methods::setMethod("feature_representation",
   function(x, solution) {
     # assert valid arguments
     assertthat::assert_that(
-      is.numeric(solution), is.vector(solution),
+      is.numeric(solution),
       is.numeric(x$data$cost), is.matrix(x$data$cost),
       number_of_total_units(x) == length(solution),
       number_of_zones(x) == 1,

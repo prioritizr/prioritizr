@@ -569,10 +569,10 @@ methods::setMethod(
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0))
-    verify_that(all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
-                            na.rm = TRUE) == 0),
+    verify_that(all(as.matrix(x@data[, cost_column, drop = FALSE]) >= 0,
+                            na.rm = TRUE),
                 msg = "argument to x has negative cost data")
-    verify_that(all(as.matrix(x@data[, unlist(features), drop = FALSE]) < 0,
+    verify_that(all(as.matrix(x@data[, unlist(features), drop = FALSE]) >= 0,
                     na.rm = TRUE),
                 msg = "argument to features correspond to negative values")
     # create rij matrix
@@ -633,10 +633,10 @@ methods::setMethod(
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0))
-    verify_that(all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
-                            na.rm = TRUE) == 0),
+    verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
+                    na.rm = TRUE),
                 msg = "argument to x has negative cost data")
-    verify_that(all(as.matrix(x[, unlist(features), drop = FALSE]) < 0,
+    verify_that(all(as.matrix(x[, unlist(features), drop = FALSE]) >= 0,
                     na.rm = TRUE),
                 msg = "argument to features correspond to negative values")
     # create rij matrix
@@ -700,9 +700,9 @@ methods::setMethod(
       all(rij$pu %in% x$id),
       all(rij$species %in% features$id))
     # verifications
-    verify_that(all(rij$amount > 0))
-    verify_that(all(colSums(as.matrix(x[, cost_column, drop = FALSE]) < 0,
-                            na.rm = TRUE) == 0),
+    verify_that(all(rij$amount >= 0))
+    verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
+                    na.rm = TRUE),
                 msg = "argument to x has negative cost data")
     # validate zone data
     if (!"zone" %in% names(rij))
@@ -797,7 +797,7 @@ methods::setMethod(
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
       all(vapply(rij_matrix, nrow, numeric(1)) == nrow(features)))
     # verifications
-    verify_that(all(vapply(rij_matrix, min, numeric(1), na.rm = TRUE) > 0),
+    verify_that(all(vapply(rij_matrix, min, numeric(1), na.rm = TRUE) >= 0),
                 msg = "argument to rij_matrix has negative feature data")
     verify_that(all(x > 0, na.rm = TRUE))
     # add names to rij_matrix if missing

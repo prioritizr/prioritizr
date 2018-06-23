@@ -75,7 +75,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.1.4</span>
       </span>
     </div>
 
@@ -294,7 +294,7 @@
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1985.682 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001780987 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.001842022 </div><div class='input'><span class='fu'>print</span>(<span class='fu'>attr</span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_representation</span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
@@ -443,7 +443,7 @@
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10229.621561
 #&gt; Presolve removed 6 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
@@ -457,7 +457,7 @@
 #&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
 #&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9015.02 10229.6 

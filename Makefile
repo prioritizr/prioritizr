@@ -28,6 +28,7 @@ vigns: install
 	R --slave -e "devtools::build_vignettes()"
 
 site:
+	R --slave -e "pkgdown::clean_site()"
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 
 test:
