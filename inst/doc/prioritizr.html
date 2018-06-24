@@ -917,7 +917,7 @@ p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <p>Many conservation planning exercises require a portfolio of solutions. For example, real-world exercises can involve presenting decision makers with a range of near-optimal decisions. Additionally, the number of times that different planning units are selected in different solutions can provide insight into their relative importance.</p>
 <p>The following methods are available for generating a portfolio of solutions.</p>
 <ul>
-<li><strong>Cuts portfolio</strong>: Generate a portfolio of distinct solutions within a pre-specified optimality gap. If the <em>Gurobi</em> optimization solver is available for solving problems, this is by far the fastest method for generating a portfolio that contains a specific number of solutions that are all within a specified distance from optimality.</li>
+<li><strong>Cuts portfolio</strong>: Generate a portfolio of distinct solutions within a pre-specified optimality gap.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio containing 10 solutions</span>
 <span class="co"># should be created using using Bender's cuts</span>
@@ -941,16 +941,15 @@ p28 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   portfolio:      Cuts portfolio [number_solutions (10)]
 ##   solver:         default</code></pre>
 <ul>
-<li><strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting all the feasible solutions discovered during the optimization process. This is the fastest method for generating a portfolio of solutions. However, it does not return a specified number of solutions and it does not provide any guarantees on the quality of the solutions. This method requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
+<li><strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for contructing the solution pool, but in most cases, setting the method argument to 2 is recomended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio should be created that</span>
-<span class="co"># contains all the feasible solutions encountered during the optimization</span>
-<span class="co"># process</span>
+<span class="co"># contains the 100 solutions nearest to optimality</span>
 p29 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">add_pool_portfolio</span>()
+<span class="st">       </span><span class="kw">add_pool_portfolio</span>(<span class="dt">method =</span> <span class="dv">2</span>, <span class="dt">number_solutions =</span> <span class="dv">100</span>)
 
 <span class="co"># print problem</span>
 <span class="kw">print</span>(p29)</code></pre></div>
@@ -963,7 +962,7 @@ p29 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 ##   decisions:      Binary decision 
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
-##   portfolio:      Pool portfolio
+##   portfolio:      Pool portfolio [method (2), number_solutions (100)]
 ##   solver:         default</code></pre>
 <ul>
 <li><strong>Shuffle portfolio</strong>: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the <em>Gurobi</em> optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.</li>
@@ -1033,7 +1032,7 @@ p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.08 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 2604.74 2949.76 3087.96 20287.2 
@@ -1052,7 +1051,7 @@ p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;runtime&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
-##  0.0803721</code></pre>
+## 0.09949803</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;status&quot;</span>))</code></pre></div>
@@ -1078,8 +1077,8 @@ mp &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(minput)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1114,8 +1113,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw">marxan_problem</span>(<span c
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>

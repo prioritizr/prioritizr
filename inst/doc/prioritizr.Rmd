@@ -559,7 +559,7 @@ Many conservation planning exercises require a portfolio of solutions. For examp
 
 The following methods are available for generating a portfolio of solutions.
 
-* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. If the _Gurobi_ optimization solver is available for solving problems, this is by far the fastest method for generating a portfolio that contains a specific number of solutions that are all within a specified distance from optimality.
+* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
@@ -572,16 +572,15 @@ p28 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p28)
 ```
-* __Pool portfolio__: Generate a portfolio of solutions by extracting all the feasible solutions discovered during the optimization process. This is the fastest method for generating a portfolio of solutions. However, it does not return a specified number of solutions and it does not provide any guarantees on the quality of the solutions. This method requires that the _Gurobi_ optimization solver to be specified for solving problems.
+* __Pool portfolio__: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for contructing the solution pool, but in most cases, setting the method argument to 2 is recomended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the _Gurobi_ optimization solver to be specified for solving problems.
 ```{r}
 # create a problem and specify that a portfolio should be created that
-# contains all the feasible solutions encountered during the optimization
-# process
+# contains the 100 solutions nearest to optimality
 p29 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_pool_portfolio()
+       add_pool_portfolio(method = 2, number_solutions = 100)
 
 # print problem
 print(p29)

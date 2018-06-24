@@ -452,8 +452,10 @@ ConservationProblem <- pproto(
       function(i) Matrix::rowSums(self$data$rij_matrix[[i]][, ind[[i]],
         drop = FALSE], na.rm = TRUE),
       numeric(nrow(self$data$rij_matrix[[1]])))
-   colnames(out) <- self$zone_names()
-   out
+    if (!is.matrix(out))
+      out <- matrix(out, ncol = self$number_of_zones())
+    colnames(out) <- self$zone_names()
+    out
   },
   feature_abundances_in_total_units = function(self) {
     self$data$feature_abundances_in_total_units

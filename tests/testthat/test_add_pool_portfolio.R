@@ -18,7 +18,7 @@ test_that("compile", {
   expect_is(cmp, "OptimizationProblem")
 })
 
-test_that("solve (RasterLayer, single zone)", {
+test_that("solve (RasterLayer, single zone, method = 0)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -40,6 +40,61 @@ test_that("solve (RasterLayer, single zone)", {
   # output checks
   expect_is(s, "list")
   expect_true(length(s) > 1)
+  expect_true(all(sapply(s, inherits, "RasterLayer")))
+  expect_equal(names(s), paste0("solution_", seq_along(s)))
+  for (i in seq_along(s))
+    expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
+})
+
+test_that("solve (RasterLayer, single zone, method = 1)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("gurobi")
+  # create data
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  locked_in <- 2
+  # create problem
+  p <- problem(cost, features) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(c(2, 10)) %>%
+       add_locked_in_constraints(locked_in) %>%
+       add_pool_portfolio(method = 1, number_solutions = 3) %>%
+       add_default_solver(gap = 1)
+  # solve problem
+  s <- solve(p)
+  # output checks
+  expect_is(s, "list")
+  expect_true(length(s) > 1)
+  expect_true(all(sapply(s, inherits, "RasterLayer")))
+  expect_equal(names(s), paste0("solution_", seq_along(s)))
+  for (i in seq_along(s))
+    expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
+})
+test_that("solve (RasterLayer, single zone, method = 2)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("gurobi")
+  # create data
+  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
+  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
+                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
+  locked_in <- 2
+  # create problem
+  p <- problem(cost, features) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(c(2, 10)) %>%
+       add_locked_in_constraints(locked_in) %>%
+       add_pool_portfolio(method = 2, number_solutions = 3) %>%
+       add_default_solver(gap = 0)
+  # solve problem
+  s <- solve(p)
+  # output checks
+  expect_is(s, "list")
+  expect_equal(length(s), 3)
   expect_true(all(sapply(s, inherits, "RasterLayer")))
   expect_equal(names(s), paste0("solution_", seq_along(s)))
   for (i in seq_along(s))

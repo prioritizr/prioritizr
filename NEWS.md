@@ -1,3 +1,12 @@
+# prioritizr 4.0.1.5
+- Fix bug in `feature_abundances` that caused the solve function to throw an
+  error when attempting to solve problems with a single feature.
+- Fix bug in `add_cuts_portfolio` that caused the portfolio to return solutions
+  that were not within the specified optimality gap when using the _Gurobi_
+  solver.
+- Add the ability to specify the search pool method and number of solutions to
+  the `add_pool_portfolio` function.
+
 # prioritizr 4.0.1.4
 - The `feature_representation` function now allows `numeric` solutions with
   attributes (e.g. when output by the `solve` function) when calculating
