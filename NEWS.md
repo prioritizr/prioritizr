@@ -1,3 +1,7 @@
+# prioritizr 4.0.2 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.0.1.6
 - Fix bug in `add_locked_in_constraints` and `add_locked_out_constraints`
   that incorrectly threw an error when using `logical` locked data
