@@ -22,14 +22,16 @@ test_that("add_binary_decisions (solve, single zone)", {
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_raster, sim_features) %>%
+  p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_default_solver(time_limit = 5) %>%
-       solve()
+       add_default_solver(time_limit = 5)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that solutions have correct decisions
-  expect_true(all(raster::values(s) %in% c(0L, 1L, NA_integer_)))
+  expect_true(all(raster::values(s1) %in% c(0L, 1L, NA_integer_)))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("add_binary_decisions (compile, multiple zones)", {
@@ -91,15 +93,17 @@ test_that("add_proportion_decisions (solve, single zone)", {
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_raster, sim_features) %>%
+  p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_proportion_decisions()  %>%
-       add_default_solver(time_limit = 5) %>%
-       solve()
+       add_default_solver(time_limit = 5)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that solutions have correct decisions
-  expect_true(isTRUE(all(na.omit(values(s)) <= 1)))
-  expect_true(isTRUE(all(na.omit(values(s)) >= 0)))
+  expect_true(isTRUE(all(na.omit(values(s1)) <= 1)))
+  expect_true(isTRUE(all(na.omit(values(s1)) >= 0)))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("add_proportion_decisions (compile, multiple zones)", {
@@ -167,15 +171,17 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
-  s <- problem(sim_pu_raster, sim_features) %>%
+  p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_semicontinuous_decisions(0.3) %>%
-       add_default_solver(time_limit = 5) %>%
-       solve()
+       add_default_solver(time_limit = 5)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that solutions have correct decisions
-  expect_true(isTRUE(all(round(na.omit(values(s)), 5) <= 0.3)))
-  expect_true(isTRUE(all(na.omit(values(s)) >= 0)))
+  expect_true(isTRUE(all(round(na.omit(values(s1)), 5) <= 0.3)))
+  expect_true(isTRUE(all(na.omit(values(s1)) >= 0)))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("add_semicontinuous_decisions (compile, multiple zones)", {

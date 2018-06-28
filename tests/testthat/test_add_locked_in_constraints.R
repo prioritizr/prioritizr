@@ -30,11 +30,57 @@ test_that("integer (solve, single zone)", {
   # create problem
   data(sim_pu_raster, sim_features)
   suppressWarnings({
-    s <- problem(sim_pu_raster, sim_features) %>%
+    p <- problem(sim_pu_raster, sim_features) %>%
          add_min_set_objective() %>%
          add_relative_targets(0.1) %>%
          add_binary_decisions() %>%
          add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
+         add_default_solver(time_limit = 5)
+    s1 <- solve(p)
+    s2 <- solve(p)
+  })
+  # check that the solution obeys constraints as expected
+  expect_true(all(raster::Which(is.na(s1), cells = TRUE) ==
+      raster::Which(is.na(sim_pu_raster), cells = TRUE)))
+  expect_true(isTRUE(all(raster::values(s1)[
+    raster::Which(!is.na(s1), cells = TRUE)] == 1)))
+  expect_equal(raster::values(s1), raster::values(s2))
+})
+
+test_that("logical (compile, single zone)", {
+  # create problem
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster)))
+  suppressWarnings(o <- compile(p))
+  # check that constraints added correctly
+  expect_true(isTRUE(all(o$lb()[seq_len(p$number_of_planning_units())] == 1)))
+  # invalid inputs
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_error(p %>% add_locked_in_constraints(c(TRUE)))
+  expect_error(p %>% add_locked_in_constraints(
+    c(TRUE, NA_logical, rep(FALSE, raster::ncell(sim_pu_raster) - 2))))
+})
+
+test_that("logical (solve, single zone)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create problem
+  data(sim_pu_raster, sim_features)
+  suppressWarnings({
+    s <- problem(sim_pu_raster, sim_features) %>%
+         add_min_set_objective() %>%
+         add_relative_targets(0.1) %>%
+         add_binary_decisions() %>%
+         add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster))) %>%
          add_default_solver(time_limit = 5) %>%
          solve()
   })

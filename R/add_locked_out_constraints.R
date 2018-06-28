@@ -189,7 +189,7 @@ methods::setMethod("add_locked_out_constraints",
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_out, "logical"),
       x$number_of_zones() == 1,
-      x$number_of_total_units() == length(x),
+      x$number_of_total_units() == length(locked_out),
       isTRUE(all(is.finite(locked_out))))
     # add constraints
     add_locked_out_constraints(x, matrix(locked_out, ncol = 1))

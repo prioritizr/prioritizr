@@ -67,31 +67,37 @@ test_that("minimum set objective (solve, single zone)", {
   # load data
   data(sim_pu_raster, sim_features)
   # create and solve problem
-  s1 <- problem(sim_pu_raster, sim_features) %>%
+  p1 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.2) %>%
         add_connectivity_penalties(1000,
                                    data = boundary_matrix(sim_pu_raster)) %>%
         add_binary_decisions() %>%
-        add_default_solver(time_limit = 5) %>%
-        solve()
-  s2 <- problem(sim_pu_raster, sim_features) %>%
+        add_default_solver(time_limit = 5)
+  s1_1 <- solve(p1)
+  s1_2 <- solve(p1)
+  p2 <- problem(sim_pu_raster, sim_features) %>%
         add_min_set_objective() %>%
         add_relative_targets(0.2) %>%
         add_connectivity_penalties(-1000,
                                    data = boundary_matrix(sim_pu_raster)) %>%
         add_binary_decisions() %>%
-        add_default_solver(time_limit = 5) %>%
-        solve()
+        add_default_solver(time_limit = 5)
+  s2_1 <- solve(p2)
+  s2_2 <- solve(p2)
   # tests
-  expect_is(s1, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s1))) %in% c(0, 1)))
-  expect_equal(sum(raster::rasterToPolygons(s1, dissolve = TRUE)$layer == 1), 1)
-  expect_is(s2, "RasterLayer")
-  expect_true(all(na.omit(unique(raster::values(s2))) %in% c(0, 1)))
-  s2_adj <- raster::adjacent(s2, raster::Which(s2 == 1, cells = TRUE),
+  expect_is(s1_1, "RasterLayer")
+  expect_is(s1_2, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s1_1))) %in% c(0, 1)))
+  expect_equal(sum(raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
+  expect_equal(raster::values(s1_1), raster::values(s1_2))
+  expect_is(s2_1, "RasterLayer")
+  expect_is(s2_2, "RasterLayer")
+  expect_true(all(na.omit(unique(raster::values(s2_1))) %in% c(0, 1)))
+  s2_adj <- raster::adjacent(s2_1, raster::Which(s2_1 == 1, cells = TRUE),
                              pairs = FALSE)
-  expect_true(all(s2[s2_adj] %in% c(0, NA)))
+  expect_true(all(s2_1[s2_adj] %in% c(0, NA)))
+  expect_equal(raster::values(s2_1), raster::values(s2_2))
 })
 
 test_that("invalid inputs (single zone)", {

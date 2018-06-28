@@ -69,11 +69,13 @@ test_that("solve (single zone)", {
        add_contiguity_constraints() %>%
        add_default_solver(time_limit = 5)
   # solve problem
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that all selected planning units form a contiguous unit
-  agg_s <- aggregate(s[s$solution_1 == 1, ])
+  agg_s <- aggregate(s1[s1$solution_1 == 1, ])
   expect_equal(length(agg_s@polygons), 1)
   expect_equal(length(agg_s@polygons[[1]]), 1)
+  expect_equal(s1$solution_1, s2$solution_1)
 })
 
 test_that("compile (multiple zones)", {

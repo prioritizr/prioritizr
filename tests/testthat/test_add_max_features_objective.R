@@ -52,9 +52,11 @@ test_that("solution (compressed formulation, single zone)", {
         add_absolute_targets(c(2, 10)) %>%
         add_default_solver(gap = 0)
   # solve problem
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # test that solution is correct
-  expect_equal(raster::values(s), c(0, 1, 1, NA))
+  expect_equal(raster::values(s1), c(0, 1, 1, NA))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("compile (expanded formulation, single zone)", {

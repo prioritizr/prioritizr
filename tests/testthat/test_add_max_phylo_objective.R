@@ -80,9 +80,11 @@ test_that("solution (compressed formulation, single zone)", {
        add_locked_out_constraints(locked_out) %>%
        add_default_solver(gap = 0)
   # solve problem
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # test for correct solution
-  expect_equal(raster::values(s), c(0, 0, NA, 1))
+  expect_equal(raster::values(s1), c(0, 0, NA, 1))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("compile (expanded formulation)", {

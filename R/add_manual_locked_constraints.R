@@ -239,8 +239,8 @@ methods::setMethod("add_manual_locked_constraints",
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"))
         locked <- self$get_data("locked_std")
-        invisible(rcpp_apply_locked_constraints(x$ptr, locked$pu,
-                                                 locked$zone,
-                                                 locked$status))
+        invisible(rcpp_apply_locked_constraints(x$ptr, c(locked$pu),
+                                                c(locked$zone),
+                                                locked$status))
       }))
 })

@@ -1,3 +1,16 @@
+# prioritizr 4.0.1.6
+- Fix bug in `add_locked_in_constraints` and `add_locked_out_constraints`
+  that incorrectly threw an error when using `logical` locked data
+  (i.e. `TRUE`/`FALSE`) because it incorrectly thought that valid inputs were
+  invalid.
+- Fix bug in `add_locked_in_constraints`, `add_locked_out_constraints`,
+  and `add_manual_locked_constraints` where solving the same problem object
+  twice resulted in incorrect planning units being locked in or out of the
+  solution (#92).
+- Added unit tests for objectives, constraints, decisions, targets, and
+  penalties to ensure that solving problems twice does not result in
+  different solutions.
+
 # prioritizr 4.0.1.5
 - Fix bug in `feature_abundances` that caused the solve function to throw an
   error when attempting to solve problems with a single feature.

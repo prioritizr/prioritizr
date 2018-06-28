@@ -26,15 +26,17 @@ test_that("data.frame (solve, single zone)", {
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_polygons, sim_features)
-  s <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+  p <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_proportion_decisions() %>%
        add_manual_locked_constraints(data.frame(pu = seq_len(5),
-                                                status = rep(0.3, 10))) %>%
-       solve()
+                                                status = rep(0.3, 10)))
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that the solution obeys constraints as expected
-  expect_true(all(s$solution_1[seq_len(5)] == 0.3))
+  expect_true(all(s1$solution_1[seq_len(5)] == 0.3))
+  expect_equal(s1$solution_1, s2$solution_1)
 })
 
 test_that("data.frame (compile, multiple zones)", {

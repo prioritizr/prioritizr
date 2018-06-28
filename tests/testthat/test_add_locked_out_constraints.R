@@ -1,5 +1,57 @@
 context("add_locked_out_constraints")
 
+test_that("logical (compile, single zone)", {
+  # create problem
+  data(sim_pu_raster, sim_features)
+  locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_locked_out_constraints(locked_out)
+  suppressWarnings(o <- compile(p))
+  # check that constraints added correctly
+  # check that constraints added correctly
+  locked_out_cells <- which(locked_out)
+  locked_out_indices <- match(locked_out_cells,
+    raster::Which(!is.na(sim_pu_raster), cells = TRUE))
+  locked_out_indices <- locked_out_indices[!is.na(locked_out_indices)]
+  expect_true(isTRUE(all(o$ub()[locked_out_indices] == 0)))
+  expect_true(isTRUE(all(o$ub()[-locked_out_indices] == 1)))
+  # invalid inputs
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  expect_error(p %>% add_locked_out_constraints(c(TRUE)))
+  expect_error(p %>% add_locked_out_constraints(
+    c(TRUE, NA_logical, rep(FALSE, raster::ncell(sim_pu_raster) - 2))))
+})
+
+test_that("logical (solve, single zone)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create problem
+  data(sim_pu_raster, sim_features)
+  locked_out <- c(rep(TRUE, 20), rep(FALSE, raster::ncell(sim_pu_raster) - 20))
+  suppressWarnings({
+    s <- problem(sim_pu_raster, sim_features) %>%
+         add_min_set_objective() %>%
+         add_relative_targets(0.1) %>%
+         add_binary_decisions() %>%
+         add_locked_out_constraints(locked_out) %>%
+         add_default_solver(time_limit = 5) %>%
+         solve()
+  })
+  # check that solutions match expectations
+  locked_out_cells <- which(locked_out)
+  locked_out_units <- locked_out_cells[locked_out_cells %in%
+    raster::Which(!is.na(s), cells = TRUE)]
+  expect_true(all(s[locked_out_units] == 0))
+})
+
 test_that("integer (compile, single zone)", {
   # create problem
   data(sim_pu_raster, sim_features)
@@ -16,7 +68,6 @@ test_that("integer (compile, single zone)", {
   locked_out_indices <- locked_out_indices[!is.na(locked_out_indices)]
   expect_true(isTRUE(all(o$ub()[locked_out_indices] == 0)))
   expect_true(isTRUE(all(o$ub()[-locked_out_indices] == 1)))
-  # check that the solution obeys constraints as expected
   # invalid inputs
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -42,11 +93,13 @@ test_that("integer (solve, single zone)", {
        add_locked_out_constraints(1:20) %>%
        add_default_solver(time_limit = 5)
   # check that solutions match expectations
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   locked_out_cells <- 1:20
   locked_out_units <- locked_out_cells[locked_out_cells %in%
-    raster::Which(!is.na(s), cells = TRUE)]
-  expect_true(all(s[locked_out_units] == 0))
+    raster::Which(!is.na(s1), cells = TRUE)]
+  expect_true(all(s1[locked_out_units] == 0))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("integer (compile, multiple zones)", {

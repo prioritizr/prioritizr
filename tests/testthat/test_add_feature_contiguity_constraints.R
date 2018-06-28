@@ -144,9 +144,11 @@ test_that("solve (single zone)", {
        add_absolute_targets(c(6, 30)) %>%
        add_feature_contiguity_constraints(diag(1), data = cl)
   # solve problem
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that solution is correct
-  expect_equal(raster::values(s), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
+  expect_equal(raster::values(s1), c(1, 1, 1, 0, 0, 0, 1, 1, 1))
+  expect_equal(raster::values(s1), raster::values(s2))
 })
 
 test_that("compile (multiple zones)", {

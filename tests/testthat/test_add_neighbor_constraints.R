@@ -72,12 +72,14 @@ test_that("solve (single zone)", {
        add_neighbor_constraints(3) %>%
        add_default_solver(time_limit = 5)
   # solve problem
-  s <- solve(p)
+  s1 <- solve(p)
+  s2 <- solve(p)
   # check that selected planning units have three neighbors
-  n_neighbors <- vapply(rgeos::gIntersects(s[s$solution_1 == 1, ], byid = TRUE,
+  n_neighbors <- vapply(rgeos::gIntersects(s1[s1$solution_1 == 1, ], byid = TRUE,
                                            returnDense = FALSE),
                          length, integer(1))
   expect_true(all(n_neighbors >= 3))
+  expect_equal(s1$solution, s2$solution)
 })
 
 test_that("invalid input (single zone)", {
