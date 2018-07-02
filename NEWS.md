@@ -1,3 +1,11 @@
+# prioritizr 4.0.2.1
+
+- Update warning text when compiling problems that contain (i) objective
+  functions that do not use targets and (ii) targets (#93).
+- Update documentation for the `add_max_utility_objective` and
+  `add_max_cover_objective` functions to make it clearer that they
+  do not use targets (#94).
+
 # prioritizr 4.0.2 (released)
 
 - Release candidate for CRAN.

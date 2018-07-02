@@ -23,9 +23,11 @@ a budget for each each management zone.}
 \description{
 Set the objective of a conservation planning \code{\link{problem}} to
 secure as much of the features as possible without exceeding a budget. This
-type of objective does not require targets. Note that this objective
-does not aim to maximize as much of each feature as possible and so often
-results in solutions that are heavily biased towards specific features.
+type of objective does not use targets, and feature weights should be used
+instead to increase the representation of different features in solutions.
+Note that this objective does not aim to maximize as much of each feature as
+possible and so often results in solutions that are heavily biased towards
+specific features.
 }
 \details{
 A problem objective is used to specify the overall goal of the

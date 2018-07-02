@@ -5,10 +5,12 @@ NULL
 #'
 #' Set the objective of a conservation planning \code{\link{problem}} to
 #' represent at least one instance of as many features as possible within a
-#' given budget. This type of objective does not require the addition of
-#' targets. \strong{Note that the mathematical formulation underpinning this
-#' function is different from versions prior to 3.0.0.0}. See the Details
-#' section for more information on the changes since this version.
+#' given budget. This type of objective does not use targets, and feature
+#' weights should be used instead to increase the representation of different
+#' features in solutions. \strong{Note that the mathematical formulation
+#' underpinning this function is different from versions prior to 3.0.0.0}.
+#' See the Details section for more information on the changes since this
+#' version.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
