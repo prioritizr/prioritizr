@@ -383,7 +383,7 @@ NULL
 #'
 #' @exportMethod add_connectivity_penalties
 #'
-#' @aliases add_connectivity_penalties,ConservationProblem,ANY,ANY,Matrix-method add_connectivity_penalties,ConservationProblem,ANY,ANY,matrix-method add_connectivity_penalties,ConservationProblem,ANY,ANY,data.frame-method add_connectivity_penalties,ConservationProblem,ANY,ANY,array-method
+#' @aliases add_connectivity_penalties,ConservationProblem,ANY,ANY,Matrix-method add_connectivity_penalties,ConservationProblem,ANY,ANY,matrix-method add_connectivity_penalties,ConservationProblem,ANY,ANY,dgCMatrix-method add_connectivity_penalties,ConservationProblem,ANY,ANY,data.frame-method add_connectivity_penalties,ConservationProblem,ANY,ANY,array-method
 NULL
 
 #' @export
@@ -393,31 +393,40 @@ methods::setGeneric("add_connectivity_penalties",
     standardGeneric("add_connectivity_penalties"))
 
 #' @name add_connectivity_penalties
+#' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
+#' @rdname add_connectivity_penalties
+methods::setMethod("add_connectivity_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
+  function(x, penalty, zones, data) {
+     add_connectivity_penalties(x, penalty, zones, methods::as(data, "dgCMatrix"))
+})
+
+#' @name add_connectivity_penalties
 #' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
 #' @rdname add_connectivity_penalties
 methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
-     add_connectivity_penalties(x, penalty, zones, as.matrix(data))
+     add_connectivity_penalties(x, penalty, zones, methods::as(data, "dgCMatrix"))
 })
 
 #' @name add_connectivity_penalties
-#' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
+#' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
 #' @rdname add_connectivity_penalties
 methods::setMethod("add_connectivity_penalties",
-  methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
-  function(x, penalty, zones,  data) {
+  methods::signature("ConservationProblem", "ANY", "ANY", "dgCMatrix"),
+  function(x, penalty, zones, data) {
     # assert valid arguments
     assertthat::assert_that(
       inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
       isTRUE(all(is.finite(penalty))), inherits(zones, c("matrix", "Matrix")),
-      nrow(zones) == ncol(zones), is.numeric(zones[1, 1]),
-      all(is.finite(zones[])),
-      is.numeric(data), ncol(data) == nrow(data),
+      nrow(zones) == ncol(zones), is.numeric(as.vector(zones)),
+      all(is.finite(as.vector(zones))),
+      is.numeric(data@x), ncol(data) == nrow(data),
       max(zones) <= 1, min(zones) >= -1,
       number_of_total_units(x) == ncol(data),
       number_of_zones(x) == ncol(zones),
-      all(is.finite(data)))
+      all(is.finite(data@x)))
     # coerce zones to matrix
     zones <- as.matrix(zones)
     # add row names and column names to zones matrix
@@ -450,7 +459,7 @@ methods::setMethod("add_connectivity_penalties",
           for (z1 in seq_len(ncol(z))) {
             m[[z1]] <- list()
             for (z2 in seq_len(nrow(z))) {
-              m[[z1]][[z2]] <- methods::as(d * z[z1, z2], "dgCMatrix")
+              m[[z1]][[z2]] <- d * z[z1, z2]
             }
           }
           # apply penalties

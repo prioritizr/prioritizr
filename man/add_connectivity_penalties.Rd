@@ -4,17 +4,21 @@
 \alias{add_connectivity_penalties}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,Matrix-method}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,matrix-method}
+\alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,dgCMatrix-method}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,data.frame-method}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,array-method}
 \alias{add_connectivity_penalties}
 \alias{add_connectivity_penalties}
 \alias{add_connectivity_penalties}
 \alias{add_connectivity_penalties}
+\alias{add_connectivity_penalties}
 \title{Add connectivity penalties}
 \usage{
+\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
+
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)
+\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
 
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
 
