@@ -1,3 +1,9 @@
+# prioritizr 4.0.2.3
+
+- The `add_contiguity_constraints` function now uses sparse matrix formats
+  internally for single-zone problems. This means that the constraints
+  can be applied to single-zoned problem with many more planning units.
+
 # prioritizr 4.0.2.2
 
 - The `add_connectivity_penalties` function now uses sparse matrix formats

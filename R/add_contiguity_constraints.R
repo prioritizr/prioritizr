@@ -212,9 +212,10 @@ methods::setMethod("add_contiguity_constraints",
      inherits(data, c("NULL", "Matrix")))
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(all(as.vector(data) %in% c(0, 1)),
+      data <- methods::as(data, "dgCMatrix")
+      assertthat::assert_that(all(data@x %in% c(0, 1)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
-        all(is.finite(as.vector(data))), isSymmetric(data))
+        all(is.finite(data@x)), Matrix::isSymmetric(data))
       d <- list(connected_matrix = data)
     } else {
       # check that planning unit data is spatially referenced
