@@ -2,7 +2,7 @@
 NULL
 
 #' @export
-if (!methods::isClass("tbl_df")) methods::setOldClass("tbl_df")
+#' @importClassesFrom tibble tbl_df
 NULL
 
 # create nrow/ncol/as.list methods for handling tibble's tbl_df class internally
