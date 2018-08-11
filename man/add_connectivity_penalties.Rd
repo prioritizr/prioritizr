@@ -7,11 +7,6 @@
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,dgCMatrix-method}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,data.frame-method}
 \alias{add_connectivity_penalties,ConservationProblem,ANY,ANY,array-method}
-\alias{add_connectivity_penalties}
-\alias{add_connectivity_penalties}
-\alias{add_connectivity_penalties}
-\alias{add_connectivity_penalties}
-\alias{add_connectivity_penalties}
 \title{Add connectivity penalties}
 \usage{
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,matrix}(x, penalty, zones, data)

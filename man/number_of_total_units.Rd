@@ -3,8 +3,6 @@
 \name{number_of_total_units}
 \alias{number_of_total_units}
 \alias{number_of_total_units,ConservationProblem-method}
-\alias{number_of_total_units}
-\alias{number_of_total_units}
 \title{Number of total units}
 \usage{
 number_of_total_units(x)

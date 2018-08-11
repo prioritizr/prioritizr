@@ -5,9 +5,6 @@
 \alias{fast_extract,Raster,SpatialLines-method}
 \alias{fast_extract,Raster,SpatialPoints-method}
 \alias{fast_extract,Raster,SpatialPolygons-method}
-\alias{fast_extract}
-\alias{fast_extract}
-\alias{fast_extract}
 \title{Fast extract}
 \usage{
 \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean, velox = requireNamespace("velox", quietly = TRUE), ...)

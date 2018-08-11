@@ -7,7 +7,8 @@
 \usage{
 compile(x, ...)
 
-\method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
+\method{compile}{ConservationProblem}(x, compressed_formulation = NA,
+  ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

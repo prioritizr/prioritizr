@@ -11,8 +11,8 @@ marxan_problem(x, ...)
 
 \method{marxan_problem}{default}(x, ...)
 
-\method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL, blm = 0,
-  ...)
+\method{marxan_problem}{data.frame}(x, spec, puvspr, bound = NULL,
+  blm = 0, ...)
 
 \method{marxan_problem}{character}(x, ...)
 }

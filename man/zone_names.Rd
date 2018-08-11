@@ -6,10 +6,6 @@
 \alias{zone_names,OptimizationProblem-method}
 \alias{zone_names,ZonesRaster-method}
 \alias{zone_names,ZonesCharacter-method}
-\alias{zone_names}
-\alias{zone_names}
-\alias{zone_names}
-\alias{zone_names}
 \title{Zone names}
 \usage{
 zone_names(x)

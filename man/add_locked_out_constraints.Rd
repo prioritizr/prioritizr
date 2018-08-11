@@ -8,12 +8,6 @@
 \alias{add_locked_out_constraints,ConservationProblem,character-method}
 \alias{add_locked_out_constraints,ConservationProblem,Raster-method}
 \alias{add_locked_out_constraints,ConservationProblem,Spatial-method}
-\alias{add_locked_out_constraints}
-\alias{add_locked_out_constraints}
-\alias{add_locked_out_constraints}
-\alias{add_locked_out_constraints}
-\alias{add_locked_out_constraints}
-\alias{add_locked_out_constraints}
 \title{Add locked out constraints}
 \usage{
 add_locked_out_constraints(x, locked_out)

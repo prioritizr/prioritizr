@@ -6,10 +6,6 @@
 \alias{add_feature_contiguity_constraints,ConservationProblem,ANY,data.frame-method}
 \alias{add_feature_contiguity_constraints,ConservationProblem,ANY,Matrix-method}
 \alias{add_feature_contiguity_constraints,ConservationProblem,ANY,ANY-method}
-\alias{add_feature_contiguity_constraints}
-\alias{add_feature_contiguity_constraints}
-\alias{add_feature_contiguity_constraints}
-\alias{add_feature_contiguity_constraints}
 \title{Add feature contiguity constraints}
 \usage{
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,Matrix}(x, zones, data)

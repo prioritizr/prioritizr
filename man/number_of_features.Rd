@@ -6,11 +6,6 @@
 \alias{number_of_features,OptimizationProblem-method}
 \alias{number_of_features,ZonesRaster-method}
 \alias{number_of_features,ZonesCharacter-method}
-\alias{number_of_features}
-\alias{number_of_features}
-\alias{number_of_features}
-\alias{number_of_features}
-\alias{number_of_features}
 \title{Number of features}
 \usage{
 number_of_features(x)

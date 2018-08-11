@@ -6,10 +6,6 @@
 \alias{add_absolute_targets,ConservationProblem,numeric-method}
 \alias{add_absolute_targets,ConservationProblem,matrix-method}
 \alias{add_absolute_targets,ConservationProblem,character-method}
-\alias{add_absolute_targets}
-\alias{add_absolute_targets}
-\alias{add_absolute_targets}
-\alias{add_absolute_targets}
 \title{Add absolute targets}
 \usage{
 \S4method{add_absolute_targets}{ConservationProblem,numeric}(x, targets)

@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.0.2.3
+Version: 4.0.2.4
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -67,7 +67,7 @@ URL: https://prioritizr.net,
     https://github.com/prioritizr/prioritizr
 BugReports: https://github.com/prioritizr/prioritizr/issues
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Collate:
     'internal.R'
     'pproto.R'

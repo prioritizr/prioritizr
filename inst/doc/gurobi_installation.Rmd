@@ -68,34 +68,34 @@ To activate the license, simply copy and paste the `grbgetkey` command into your
 
 ### Cloud license activation over SSH
 
-If you are activating a special Academic license on a networked system that is not connected to your university's network (e.g. a cloud-based server on [Amazon EC2](https://aws.amazon.com/ec2/) or [NeCTAR](https://nectar.org.au/)), then you will need to use the following instructions. Here, you will need a local computer that is connected to your university's network. For brevity, we will refer to your local computer as _COMPUTER1_ and your networked system whereupon you wish to activate the _Gurobi_ license as _COMPUTER2_. We will also assume that your are running Ubuntu (14.04+) on both systems. The following instructions were adapted from a discussion thread on the [official _Gurobi_ emailing list](https://groups.google.com/forum/#!topic/gurobi/MaEP4cun8o8).
+If you are activating a special Academic license on a networked system that is not connected to your university's network (e.g. a cloud-based server on [Amazon EC2](https://aws.amazon.com/ec2/) or [NeCTAR](https://nectar.org.au/)), then you will need to use the following instructions. Here, you will need a local computer that is connected to your university's network. For brevity, we will refer to your local computer as _COMPUTER1_ and your networked system where upon you wish to activate the _Gurobi_ license as _COMPUTER2_. We will also assume that your are running Ubuntu (14.04+) on both systems. The following instructions were adapted from a discussion thread on the [official _Gurobi_ emailing list](https://groups.google.com/forum/#!topic/gurobi/MaEP4cun8o8).
 
-First, we will need to install `sshserver` on _COMPUTER1_. To do this, open a new bash session and enter the following commands.
+First, we will connect to _COMPUTER2_ using _COMPUTER1_. Here, we will use _USER.COMPUTER2_ to refer to the user name of your account on _COMPUTER2_, and _IP.COMPUTER2_ to refer to the IP address of _COMPUTER2_. If you do not know the IP address of _COMPUTER2_, you should be able to find it on the website where you launched the system. To connect to _COMPUTER2_ from _COMPUTER1_, type the following command into a new terminal session. Note that you may be prompted to enter a password.
+
+```{bash, eval = FALSE}
+ssh USER.COMPUTER2@IP.COMPUTER2
+```
+
+Next, we will install `sshserver` on _COMPUTER2_. To do this, enter the following command into the same terminal session.
 
 ```{bash, eval = FALSE}
 sudo apt-get install openssh-server
 ```
 
-Next, we will use _COMPUTER1_ to connect to _COMPUTER2_. Here, we will use _USER.COMPUTER2_ to refer to the user name of your account on _COMPUTER2_, and _IP.COMPUTER2_ to refer to the IP address of _COMPUTER2_. If you do not know the IP address of _COMPUTER2_, you should be able to find it on the website where you launched the system. To connect to _COMPUTER2_ from _COMPUTER1_, type the following commands in the same bash session as before. Note that you may be prompted to enter a password.
-
-```{bash, eval = FALSE}
-ssh USER.COMPUTER2@IP.COMPUTER2
-```
-
-Next, we will execute the following on command on _COMPUTER2_ to tell it to connect to _COMPUTER1_ when attempting to activate the _Gurubi_ license. Similar to before, we will use _USER.COMPUTER1_ to refer to the user name of your account _COMPUTER1_, and _IP.COMPUTER1_ to refer to the IP address of _COMPUTER1_. If you do not know the IP address of _COMPUTER1_, try visiting this website (https://whatismyipaddress.com) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if  you are unable to connect to _COMPUTER1_ from _COMPUTER2_ you may need to enlist the help of a member of your university's IT Support Team.
+Next, we will execute the following on command on _COMPUTER2_ to tell it to connect to _COMPUTER1_ when attempting to activate the _Gurubi_ license. Similar to before, we will use _USER.COMPUTER1_ to refer to the user name of your account _COMPUTER1_, and _IP.COMPUTER1_ to refer to the IP address of _COMPUTER1_. If you do not know the IP address of _COMPUTER1_, try visiting this website (https://whatismyipaddress.com) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to _COMPUTER1_ from _COMPUTER2_ you may need to enlist the help of a member of your university's IT support team.
 
 ```{bash, eval = FALSE}
 ssh -L 8080:apps.gurobi.com:80 USER.COMPUTER1@IP.COMPUTER1
 ```
 
-Now, we will **open up another bash session** on _COMPUTER1_, connect to _COMPUTER2_ from _COMPUTER1_ using SSH, and then tell _COMPUTER2_ to activate the license. Please replace `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` with the correct license activation code that you saved earlier.
+Now, we will **open up another session** on _COMPUTER1_, connect to _COMPUTER2_ from _COMPUTER1_ using the same SSH command as before, and then tell _COMPUTER2_ to activate the license. Please replace `XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX` with the correct license activation code that you saved earlier (note that the `--http` flag may not be required for _Gurobi_ versions earlier than 8.0.0).
 
 ```{bash, eval = FALSE}
 ssh USER.COMPUTER2@IP.COMPUTER2
-grbgetkey --server=127.0.0.1 --port=8080 --verbose XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+grbgetkey --http --server=127.0.0.1 --port=8080 --verbose XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
-Finally, after having activated the license, we can terminate our SSH sessions and close the bash sessions.
+Finally, after having activated the license, we can terminate our SSH connections and close the bash sessions.
 
 ### Verification
 

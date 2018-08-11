@@ -4,8 +4,6 @@
 \alias{add_manual_locked_constraints}
 \alias{add_manual_locked_constraints,ConservationProblem,data.frame-method}
 \alias{add_manual_locked_constraints,ConservationProblem,tbl_df-method}
-\alias{add_manual_locked_constraints}
-\alias{add_manual_locked_constraints}
 \title{Add manually specified locked constraints}
 \usage{
 add_manual_locked_constraints(x, locked)

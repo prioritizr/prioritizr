@@ -8,12 +8,6 @@
 \alias{add_locked_in_constraints,ConservationProblem,character-method}
 \alias{add_locked_in_constraints,ConservationProblem,Raster-method}
 \alias{add_locked_in_constraints,ConservationProblem,Spatial-method}
-\alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints}
-\alias{add_locked_in_constraints}
 \title{Add locked in constraints}
 \usage{
 add_locked_in_constraints(x, locked_in)

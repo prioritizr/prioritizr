@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_proportion_decisions.R
 \name{add_proportion_decisions}
 \alias{add_proportion_decisions}
-\alias{add_proportion_decisions}
 \title{Add proportion decisions}
 \usage{
 add_proportion_decisions(x)

@@ -3,7 +3,6 @@
 \docType{methods}
 \name{add_loglinear_targets}
 \alias{add_loglinear_targets}
-\alias{add_loglinear_targets}
 \title{Add targets using log-linear scaling}
 \usage{
 add_loglinear_targets(x, lower_bound_amount, lower_bound_target,

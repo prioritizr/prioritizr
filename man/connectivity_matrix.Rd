@@ -5,9 +5,6 @@
 \alias{connectivity_matrix,Spatial,character-method}
 \alias{connectivity_matrix,Spatial,Raster-method}
 \alias{connectivity_matrix,Raster,Raster-method}
-\alias{connectivity_matrix}
-\alias{connectivity_matrix}
-\alias{connectivity_matrix}
 \title{Connectivity matrix}
 \usage{
 \S4method{connectivity_matrix}{Spatial,character}(x, y, ...)

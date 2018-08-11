@@ -13,17 +13,6 @@
 \alias{problem,Spatial,ZonesCharacter-method}
 \alias{problem,data.frame,ZonesCharacter-method}
 \alias{problem,matrix,data.frame-method}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
-\alias{problem}
 \title{Conservation planning problem}
 \usage{
 \S4method{problem}{Raster,Raster}(x, features, run_checks, ...)

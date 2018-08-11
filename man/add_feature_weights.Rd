@@ -4,8 +4,6 @@
 \alias{add_feature_weights}
 \alias{add_feature_weights,ConservationProblem,numeric-method}
 \alias{add_feature_weights,ConservationProblem,matrix-method}
-\alias{add_feature_weights}
-\alias{add_feature_weights}
 \title{Add feature weights}
 \usage{
 \S4method{add_feature_weights}{ConservationProblem,numeric}(x, weights)

@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_cuts_portfolio.R
 \name{add_cuts_portfolio}
 \alias{add_cuts_portfolio}
-\alias{add_cuts_portfolio}
 \title{Add Bender's cuts portfolio}
 \usage{
 add_cuts_portfolio(x, number_solutions = 10L)

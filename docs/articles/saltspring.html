@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.3</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
       </span>
     </div>
 
@@ -149,7 +149,7 @@
 <span class="kw">data</span>(salt_features)</code></pre></div>
 <p>Let’s have a look at the planning unit data. Note that we log-transformed the raster to better visualize the variation in planning unit cost.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print planning unit data</span>
-<span class="kw">print</span>(salt_pu)</code></pre></div>
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(salt_pu)</code></pre></div>
 <pre><code>## class       : RasterLayer 
 ## dimensions  : 270, 190, 51300  (nrow, ncol, ncell)
 ## resolution  : 100, 100  (x, y)
@@ -167,7 +167,7 @@
 <p><img src="saltspring_files/figure-html/unnamed-chunk-4-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>Next, let’s look at the feature data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print features</span>
-<span class="kw">print</span>(salt_features)</code></pre></div>
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(salt_features)</code></pre></div>
 <pre><code>## class       : RasterStack 
 ## dimensions  : 270, 190, 51300, 5  (nrow, ncol, ncell, nlayers)
 ## resolution  : 100, 100  (x, y)
@@ -186,13 +186,13 @@
 <p>In this tutorial, we will only cover a few of the different ways that conservation planning problems can be formulated. The examples used here are provided to highlight how different parameters can substantially—or only slightly—alter solutions. Here, we use the minimum set objective to fulfill all targets and constraints for the smallest cost. This objective is similar to that used in the <em>Marxan</em> decision support tool. To keep this simple, we will set biodiversity targets at 17 % to reflect the <a href="https://www.cbd.int/sp/targets/">Aichi Biodiversity Target 11</a>. Because properties on Salt Spring Island can either be acquired in their entirety or not at all, we leave the decision framework as the default; binary decision making. This means that planning units are either selected in the solution or not selected in the solution—planning units cannot be partially acquired.</p>
 <p>Now we will formulate the conservation planning problem.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_binary_decisions</span>()
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw">print</span>(p1)</code></pre></div>
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p1)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (19263 units)
 ##   cost:           min: 2552, max: 1e+09
@@ -211,9 +211,9 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 <a href="#solving-the-problem" class="anchor"></a>Solving the problem</h2>
 <p>The <em>prioritizr R</em> package supports three different integer linear programming solver packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
 <p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a>, and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))
-<span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))
-<span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(<span class="kw">require</span>(gurobi))
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(<span class="kw">require</span>(Rsymphony))
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
 <p>Now we will try solving the problem using the different solvers. We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># create vector to store plot titles</span>
 s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="co"># create empty stack to store solutions</span>
@@ -221,26 +221,26 @@ s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="c
 <span class="co"># create new problem object with added solver</span>
 <span class="cf">if</span> (<span class="kw">require</span>(<span class="st">"Rsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw">c</span>(titles, <span class="st">"Rsymphony (5s)"</span>)
-  p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_rsymphony_solver</span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
-  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p2))
+  p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
+  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p2))
 }
 
 <span class="cf">if</span> (<span class="kw">require</span>(<span class="st">"Rsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw">c</span>(titles, <span class="st">"Rsymphony (10s)"</span>)
-  p3 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_rsymphony_solver</span>(<span class="dt">time_limit =</span> <span class="dv">10</span>)
-  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p3))
+  p3 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">10</span>)
+  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p3))
 }
 
 <span class="cf">if</span> (<span class="kw">require</span>(<span class="st">"gurobi"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw">c</span>(titles, <span class="st">"Gurobi (5s)"</span>)
-  p4 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_gurobi_solver</span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
-  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p4))
+  p4 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
+  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p4))
 }
 
 <span class="cf">if</span> (<span class="kw">require</span>(<span class="st">"lpsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw">c</span>(titles, <span class="st">"lpsymphony (10s)"</span>)
   p5 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">10</span>)
-  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p5))
+  s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p5))
 }</code></pre></div>
 <pre><code>## Warning in add_lpsymphony_solver(., time_limit = 10): The solution may be
 ## incorrect due to a bug in lpsymphony. Please verify that it is correct, or
@@ -255,13 +255,13 @@ s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="c
 <a href="#adding-connectivity" class="anchor"></a>Adding connectivity</h2>
 <p>Isolated and fragmented populations are often more vulnerable to extinction. As a consequence, landscape connectivity is a key focus of many conservation planning exercises. There are a number of methods that can be used to increase connectivity in prioritizations. These methods typically involve adding constraints to a problem to ensure that solutions exhibit a specific property (e.g. selected planning units that form a contiguous reserve), or adding penalties to a problem to penalize solutions that exhibit specific properties (e.g. high levels of fragmentation). Here we will explore a couple different strategies for increasing connectivity in solutions. For brevity, we will use default solver which is automatically added to a problem if a solver is not manually specified.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># basic problem formulation</span>
-p6 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_relative_targets</span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_binary_decisions</span>()
+p6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw">print</span>(p6)</code></pre></div>
+<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p6)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (19263 units)
 ##   cost:           min: 2552, max: 1e+09
@@ -278,22 +278,22 @@ s2 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="c
 
 <span class="co"># no connectivity requirement</span>
 titles2 &lt;-<span class="st"> </span><span class="kw">c</span>(titles2, <span class="st">"No connectivity"</span>)
-s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw">solve</span>(p6))
+s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p6))
 
 <span class="co"># require at least two for each selected planning unit</span>
 titles2 &lt;-<span class="st"> </span><span class="kw">c</span>(titles2, <span class="st">"Neighbor constraints (two)"</span>)
-p7 &lt;-<span class="st"> </span>p6 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_neighbor_constraints</span>(<span class="dv">2</span>)
-s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw">solve</span>(p7))
+p7 &lt;-<span class="st"> </span>p6 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/add_neighbor_constraints.html">add_neighbor_constraints</a></span>(<span class="dv">2</span>)
+s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p7))
 
 <span class="co"># impose small penalty for fragmented solutions</span>
 titles2 &lt;-<span class="st"> </span><span class="kw">c</span>(titles2, <span class="st">"Boundary penalty (low)"</span>)
 p8 &lt;-<span class="st"> </span>p6 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dv">50</span>, <span class="fl">0.5</span>)
-s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw">solve</span>(p8))
+s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p8))
 
 <span class="co"># impose high penalty for fragmented solutions</span>
 titles2 &lt;-<span class="st"> </span><span class="kw">c</span>(titles2, <span class="st">"Boundary penalty (high)"</span>)
 p9 &lt;-<span class="st"> </span>p6 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dv">500</span>, <span class="fl">0.5</span>)
-s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw">solve</span>(p9))</code></pre></div>
+s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p9))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solutions</span>
 <span class="kw">plot</span>(s2, <span class="dt">main =</span> titles2, <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>),  <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">"grey70"</span>, <span class="st">"darkgreen"</span>))</code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>

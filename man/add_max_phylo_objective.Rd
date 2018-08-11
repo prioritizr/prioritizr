@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_max_phylo_objective.R
 \name{add_max_phylo_objective}
 \alias{add_max_phylo_objective}
-\alias{add_max_phylo_objective}
 \title{Add maximum phylogenetic representation objective}
 \usage{
 add_max_phylo_objective(x, budget, tree)

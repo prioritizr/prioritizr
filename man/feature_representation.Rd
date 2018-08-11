@@ -7,12 +7,6 @@
 \alias{feature_representation,ConservationProblem,data.frame-method}
 \alias{feature_representation,ConservationProblem,Spatial-method}
 \alias{feature_representation,ConservationProblem,Raster-method}
-\alias{feature_representation}
-\alias{feature_representation}
-\alias{feature_representation}
-\alias{feature_representation}
-\alias{feature_representation}
-\alias{feature_representation}
 \title{Feature representation}
 \usage{
 \S4method{feature_representation}{ConservationProblem,numeric}(x, solution)

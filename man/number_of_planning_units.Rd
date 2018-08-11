@@ -4,9 +4,6 @@
 \alias{number_of_planning_units}
 \alias{number_of_planning_units,ConservationProblem-method}
 \alias{number_of_planning_units,OptimizationProblem-method}
-\alias{number_of_planning_units}
-\alias{number_of_planning_units}
-\alias{number_of_planning_units}
 \title{Number of planning units}
 \usage{
 number_of_planning_units(x)

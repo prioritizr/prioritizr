@@ -7,11 +7,6 @@
 \alias{intersecting_units,Spatial,Raster-method}
 \alias{intersecting_units,Spatial,Spatial-method}
 \alias{intersecting_units,data.frame,ANY-method}
-\alias{intersecting_units}
-\alias{intersecting_units}
-\alias{intersecting_units}
-\alias{intersecting_units}
-\alias{intersecting_units}
 \title{Find intersecting units}
 \usage{
 \S4method{intersecting_units}{Raster,Raster}(x, y)

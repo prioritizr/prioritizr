@@ -6,9 +6,6 @@
 \alias{add_manual_targets-method}
 \alias{add_manual_targets,ConservationProblem,data.frame-method}
 \alias{add_manual_targets,ConservationProblem,tbl_df-method}
-\alias{add_manual_targets}
-\alias{add_manual_targets}
-\alias{add_manual_targets}
 \title{Add manual targets}
 \usage{
 \S4method{add_manual_targets}{ConservationProblem,data.frame}(x, targets)

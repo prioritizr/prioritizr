@@ -7,13 +7,11 @@
 \alias{print.ConservationProblem}
 \alias{print.ConservationModifier}
 \alias{print.Id}
-\alias{print}
 \alias{print.OptimizationProblem}
 \alias{print.ScalarParameter}
 \alias{print.ArrayParameter}
 \alias{print.Solver}
 \alias{print.Zones}
-\alias{print}
 \title{Print}
 \usage{
 \method{print}{ConservationProblem}(x, ...)

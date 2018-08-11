@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_shuffle_portfolio.R
 \name{add_shuffle_portfolio}
 \alias{add_shuffle_portfolio}
-\alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
 add_shuffle_portfolio(x, number_solutions = 10L, threads = 1L,

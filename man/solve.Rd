@@ -4,8 +4,6 @@
 \alias{solve}
 \alias{solve,OptimizationProblem,Solver-method}
 \alias{solve,ConservationProblem,missing-method}
-\alias{solve}
-\alias{solve}
 \title{Solve}
 \arguments{
 \item{a}{\code{\link{ConservationProblem-class}} or an

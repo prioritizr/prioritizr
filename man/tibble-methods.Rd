@@ -5,9 +5,6 @@
 \alias{nrow,tbl_df-method}
 \alias{ncol,tbl_df-method}
 \alias{as.list,tbl_df-method}
-\alias{tibble-methods}
-\alias{tibble-methods}
-\alias{tibble-methods}
 \title{Manipulate tibbles}
 \usage{
 \S4method{nrow}{tbl_df}(x)

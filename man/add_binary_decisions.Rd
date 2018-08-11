@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_binary_decisions.R
 \name{add_binary_decisions}
 \alias{add_binary_decisions}
-\alias{add_binary_decisions}
 \title{Add binary decisions}
 \usage{
 add_binary_decisions(x)

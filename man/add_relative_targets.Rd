@@ -7,10 +7,6 @@
 \alias{add_relative_targets,ConservationProblem,numeric-method}
 \alias{add_relative_targets,ConservationProblem,matrix-method}
 \alias{add_relative_targets,ConservationProblem,character-method}
-\alias{add_relative_targets}
-\alias{add_relative_targets}
-\alias{add_relative_targets}
-\alias{add_relative_targets}
 \title{Add relative targets}
 \usage{
 \S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets)

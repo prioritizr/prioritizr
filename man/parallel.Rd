@@ -4,8 +4,6 @@
 \alias{parallel}
 \alias{set_number_of_threads}
 \alias{get_number_of_threads}
-\alias{set_number_of_threads}
-\alias{get_number_of_threads}
 \title{Number of threads for data processing}
 \usage{
 set_number_of_threads(x = 1L)

@@ -1,3 +1,7 @@
+# prioritizr 4.0.2.4
+
+- Update instructions for activating Gurobi licenses on remote machines (#98).
+
 # prioritizr 4.0.2.3
 
 - The `add_contiguity_constraints` function now uses sparse matrix formats

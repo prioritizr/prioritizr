@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_semicontinuous_decisions.R
 \name{add_semicontinuous_decisions}
 \alias{add_semicontinuous_decisions}
-\alias{add_semicontinuous_decisions}
 \title{Add semi-continuous decisions}
 \usage{
 add_semicontinuous_decisions(x, upper_limit)

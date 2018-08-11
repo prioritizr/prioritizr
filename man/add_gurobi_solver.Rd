@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_gurobi_solver.R
 \name{add_gurobi_solver}
 \alias{add_gurobi_solver}
-\alias{add_gurobi_solver}
 \title{Add a \emph{Gurobi} solver}
 \usage{
 add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,

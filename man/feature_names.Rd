@@ -5,10 +5,6 @@
 \alias{feature_names,ConservationProblem-method}
 \alias{feature_names,ZonesRaster-method}
 \alias{feature_names,ZonesCharacter-method}
-\alias{feature_names}
-\alias{feature_names}
-\alias{feature_names}
-\alias{feature_names}
 \title{Feature names}
 \usage{
 feature_names(x)

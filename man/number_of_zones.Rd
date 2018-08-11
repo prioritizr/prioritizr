@@ -6,11 +6,6 @@
 \alias{number_of_zones,OptimizationProblem-method}
 \alias{number_of_zones,ZonesRaster-method}
 \alias{number_of_zones,ZonesCharacter-method}
-\alias{number_of_zones}
-\alias{number_of_zones}
-\alias{number_of_zones}
-\alias{number_of_zones}
-\alias{number_of_zones}
 \title{Number of zones}
 \usage{
 number_of_zones(x)

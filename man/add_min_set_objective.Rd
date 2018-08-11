@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_min_set_objective.R
 \name{add_min_set_objective}
 \alias{add_min_set_objective}
-\alias{add_min_set_objective}
 \title{Add minimum set objective}
 \usage{
 add_min_set_objective(x)

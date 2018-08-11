@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_max_utility_objective.R
 \name{add_max_utility_objective}
 \alias{add_max_utility_objective}
-\alias{add_max_utility_objective}
 \title{Add maximum utility objective}
 \usage{
 add_max_utility_objective(x, budget)

@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_pool_portfolio.R
 \name{add_pool_portfolio}
 \alias{add_pool_portfolio}
-\alias{add_pool_portfolio}
 \title{Add a pool portfolio}
 \usage{
 add_pool_portfolio(x, method = 0, number_solutions = 10)

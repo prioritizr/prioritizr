@@ -4,8 +4,6 @@
 \alias{rij_matrix}
 \alias{rij_matrix,Raster,Raster-method}
 \alias{rij_matrix,Spatial,Raster-method}
-\alias{rij_matrix}
-\alias{rij_matrix}
 \title{Feature by planning unit matrix}
 \usage{
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)

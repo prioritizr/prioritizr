@@ -2,7 +2,6 @@
 % Please edit documentation in R/add_max_features_objective.R
 \name{add_max_features_objective}
 \alias{add_max_features_objective}
-\alias{add_max_features_objective}
 \title{Add maximum feature representation objective}
 \usage{
 add_max_features_objective(x, budget)

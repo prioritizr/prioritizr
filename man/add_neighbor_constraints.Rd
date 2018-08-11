@@ -6,10 +6,6 @@
 \alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,matrix-method}
 \alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,data.frame-method}
 \alias{add_neighbor_constraints,ConservationProblem,ANY,ANY,ANY-method}
-\alias{add_neighbor_constraints}
-\alias{add_neighbor_constraints}
-\alias{add_neighbor_constraints}
-\alias{add_neighbor_constraints}
 \title{Add neighbor constraints}
 \usage{
 \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,ANY}(x, k, zones, data)

@@ -5,9 +5,6 @@
 \alias{add_contiguity_constraints,ConservationProblem,ANY,matrix-method}
 \alias{add_contiguity_constraints,ConservationProblem,ANY,data.frame-method}
 \alias{add_contiguity_constraints,ConservationProblem,ANY,ANY-method}
-\alias{add_contiguity_constraints}
-\alias{add_contiguity_constraints}
-\alias{add_contiguity_constraints}
 \title{Add contiguity constraints}
 \usage{
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)

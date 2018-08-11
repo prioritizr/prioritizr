@@ -4,8 +4,8 @@
 \alias{add_boundary_penalties}
 \title{Add boundary penalties}
 \usage{
-add_boundary_penalties(x, penalty, edge_factor = rep(0.5, number_of_zones(x)),
-  zones = diag(number_of_zones(x)), data = NULL)
+add_boundary_penalties(x, penalty, edge_factor = rep(0.5,
+  number_of_zones(x)), zones = diag(number_of_zones(x)), data = NULL)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
