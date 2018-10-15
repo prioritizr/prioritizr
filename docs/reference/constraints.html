@@ -80,7 +80,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@ to ensure that solutions exhibit a specific characteristic." />
 
     <div class="ref-description">
     
-    <p>A constraint can be added to a conservation planning <code>problem</code>
+    <p>A constraint can be added to a conservation planning <code><a href='problem.html'>problem</a></code>
 to ensure that solutions exhibit a specific characteristic.</p>
     
     </div>
@@ -180,21 +180,21 @@ to ensure that solutions exhibit a specific characteristic.</p>
   constraints do not affect the objective function. The following constraints
   are available.</p>
 <p>The following constraints can be added to a conservation planning
-  <code>problem</code>:</p>
+  <code><a href='problem.html'>problem</a></code>:</p>
 <p></p><dl class='dl-horizontal'>
-    <dt><code>add_locked_in_constraints</code></dt><dd><p>Add constraints to ensure
+    <dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code></dt><dd><p>Add constraints to ensure
     that certain planning units are selected in the solution.</p></dd>
-    <dt><code>add_locked_out_constraints</code></dt><dd><p>Add constraints to ensure
+    <dt><code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code></dt><dd><p>Add constraints to ensure
     that certain planning units are not selected in the solution.</p></dd>
-    <dt><code>add_neighbor_constraints</code></dt><dd><p>Add constraints to
+    <dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></code></dt><dd><p>Add constraints to
     ensure that all selected planning units have at least a certain number
     of neighbors.</p></dd>
-    <dt><code>add_contiguity_constraints</code></dt><dd><p>Add constraints to a
+    <dt><code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></code></dt><dd><p>Add constraints to a
     ensure that all selected planning units are spatially connected to each
     other and form a single contiguous unit.</p></dd>
-    <dt><code>add_feature_contiguity_constraints</code></dt><dd><p>Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+    <dt><code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></code></dt><dd><p>Add constraints to #'     ensure that each feature is represented in a contiguous unit of
     dispersible habitat. These constraints are a more advanced version of
-    those implemented in the <code>add_contiguity_constraints</code>
+    those implemented in the <code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></code>
     function, because they ensure that each feature is represented in a
     contiguous unit and not that the entire solution should form a
     contiguous unit.</p></dd>
@@ -203,7 +203,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
  <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
     
 
@@ -213,25 +213,25 @@ to ensure that solutions exhibit a specific characteristic.</p>
      <span class='no'>sim_locked_out_raster</span>)
 
 <span class='co'># create minimal problem with only targets and no additional constraints</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with locked in constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>sim_locked_in_raster</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></span>(<span class='no'>sim_locked_in_raster</span>)
 
 <span class='co'># create problem with locked in constraints</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_out_constraints</span>(<span class='no'>sim_locked_out_raster</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></span>(<span class='no'>sim_locked_out_raster</span>)
 
 <span class='co'># create problem with neighbor constraints</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>2</span>)
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></span>(<span class='fl'>2</span>)
 
 <span class='co'># create problem with contiguity constraints</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></span>()
 
 <span class='co'># create problem with feature contiguity constraints</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></span>()</div><div class='input'><span class='co'># solve problems</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>lapply</span>(<span class='fu'>list</span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -386,7 +386,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.07 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4329.44 4590.14 
@@ -401,13 +401,13 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 138 rows and 139 columns
-#&gt; Presolve time: 0.08s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 3.947815e+03, 1280 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -432,7 +432,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Gomory: 6
 #&gt;   Zero half: 8
 #&gt; 
-#&gt; Explored 25 nodes (6579 simplex iterations) in 0.78 seconds
+#&gt; Explored 25 nodes (6579 simplex iterations) in 0.71 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4299.6 16464.8 

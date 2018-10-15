@@ -86,7 +86,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -204,9 +204,9 @@ Details section for more information.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Weights can only be applied to problems that have an objective
-  that is budget limited (e.g. <code>add_max_cover_objective</code>). #'
+  that is budget limited (e.g. <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>). #'
   They can be applied to problems that aim to maximize phylogenetic
-  representation (<code>add_max_phylo_objective</code>) to favor the
+  representation (<code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code>) to favor the
   representation of specific features over the representation of
   some phylogenetic branches. Weights cannot be negative values
   and must have values that are equal to or larger than zero.
@@ -225,7 +225,7 @@ Details section for more information.</p></td>
      <code>x</code>, and each cell contains the weight value for a given feature
      that the solution can to secure in a given zone. Note that
      if the problem contains targets created using
-     <code>add_manual_targets</code> then a <code>matrix</code> should be
+     <code><a href='add_manual_targets.html'>add_manual_targets</a></code> then a <code>matrix</code> should be
      supplied containing a single column that indicates that weight for
      fulfilling each target.</p></dd>
     </dl>
@@ -248,10 +248,10 @@ Details section for more information.</p></td>
 <span class='co'># create minimal problem that aims to maximize the number of features</span>
 <span class='co'># adequately conserved given a total budget of 3800. Here, each feature</span>
 <span class='co'># needs 20 % of its habitat for it to be considered adequately conserved</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_features_objective</span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>3800</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>3800</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create weights that assign higher importance to features with less</span>
 <span class='co'># suitable habitat in the study area</span>
@@ -266,7 +266,7 @@ Details section for more information.</p></td>
 <span class='co'># denote higher extinction risk)</span>
 <span class='no'>w3</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='fl'>200</span>)
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w3</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -403,11 +403,11 @@ Details section for more information.</p></td>
 <span class='co'># create problem with a maximum phylogenetic representation objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -473,9 +473,9 @@ Details section for more information.</p></td>
 <span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
 <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
 <span class='co'># feature be much closer to optimality</span>
-<span class='fu'>print</span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
 #&gt; [8] 0.58924564</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'>solve</span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -526,10 +526,10 @@ Details section for more information.</p></td>
 <span class='co'># with 10 % representation targets for each feature, and set</span>
 <span class='co'># a budget such that the total maximum expenditure in all zones</span>
 <span class='co'># cannot exceed 3000</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_features_objective</span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create weights that assign equal weighting for the representation</span>
 <span class='co'># of each feature in each zone except that it does not matter if</span>
@@ -541,7 +541,7 @@ Details section for more information.</p></td>
 
 <span class='co'># create problem with weights</span>
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -590,7 +590,7 @@ Details section for more information.</p></td>
 #&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -624,14 +624,14 @@ Details section for more information.</p></td>
 <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>)),
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem to show the correct method for setting</span>
 <span class='co'># weights for problems with manual targets</span>
-<span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_features_objective</span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>1500</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_manual_targets</span>(<span class='fu'>data.frame</span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"layer.1"</span>, <span class='st'>"layer.4"</span>),
+<span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>1500</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='fu'>data.frame</span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"layer.1"</span>, <span class='st'>"layer.4"</span>),
                                     <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
                                     <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_feature_weights</span>(<span class='fu'>matrix</span>(<span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>200</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
 #&gt; Variable types: 0 continuous, 92 integer (92 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]

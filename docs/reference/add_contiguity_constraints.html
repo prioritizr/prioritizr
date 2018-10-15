@@ -81,7 +81,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ and form a single contiguous unit." />
 
     <div class="ref-description">
     
-    <p>Add constraints to a conservation planning <code>problem</code> to ensure
+    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.</p>
     
@@ -266,14 +266,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create minimal problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with added connected constraints</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -349,16 +349,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
 <span class='co'># 30 seconds to obtain solutions in a feasible period of time</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'>matrix</span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>30</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with added constraints to ensure that the planning units</span>
 <span class='co'># allocated to each zone form a separate contiguous unit</span>
 <span class='no'>z4</span> <span class='kw'>&lt;-</span> <span class='fu'>diag</span>(<span class='fl'>3</span>)
-<span class='fu'>print</span>(<span class='no'>z4</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z4</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z4</span>)
@@ -369,7 +369,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># form a single contiguous unit</span>
 <span class='no'>z5</span> <span class='kw'>&lt;-</span> <span class='fu'>diag</span>(<span class='fl'>3</span>)
 <span class='no'>z5</span>[<span class='fl'>3</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-<span class='fu'>print</span>(<span class='no'>z5</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z5</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
 #&gt; [3,]    0    0    0</div><div class='input'><span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z5</span>)
@@ -379,7 +379,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='no'>z6</span> <span class='kw'>&lt;-</span> <span class='fu'>diag</span>(<span class='fl'>3</span>)
 <span class='no'>z6</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>z6</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='fu'>print</span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z6</span>)</div><div class='input'><span class='co'># solve problems</span>
@@ -461,7 +461,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 3.67 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 3.86 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -595,7 +595,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># create planning unit data</span>
 <span class='no'>pus</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>)]]
 <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] <span class='kw'>&lt;-</span> <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] * <span class='fl'>0.45</span>
-<span class='fu'>print</span>(<span class='no'>pus</span>)</div><div class='output co'>#&gt; class       : RasterStack 
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>pus</span>)</div><div class='output co'>#&gt; class       : RasterStack 
 #&gt; dimensions  : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
 #&gt; resolution  : 0.1, 0.1  (x, y)
 #&gt; extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
@@ -608,16 +608,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='no'>fts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='zones.html'>zones</a></span>(<span class='no'>sim_features</span>, <span class='no'>sim_features</span> * <span class='fl'>0.4</span>,
              <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>sim_features</span>),
              <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"reserve zone"</span>, <span class='st'>"corridor zone"</span>))
-<span class='fu'>print</span>(<span class='no'>fts</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>fts</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
 #&gt; <span class='message'>  zones: reserve zone, corridor zone (2 zones)</span>
 #&gt; <span class='message'>  features: layer.1, layer.2, layer.3, ... (5 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
 <span class='co'># create targets</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>sim_features</span>),
-                          <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>zone_names</span>(<span class='no'>fts</span>))[<span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
+                          <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'>rep</span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
                           <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.3</span>,
                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
-<span class='fu'>print</span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; # A tibble: 5 x 4
 #&gt;   feature zone      target type    
 #&gt;   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
 #&gt; 1 layer.1 &lt;chr [2]&gt;  25.0  absolute
@@ -627,16 +627,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; 5 layer.5 &lt;chr [2]&gt;  17.0  absolute</div><div class='input'>
 <span class='co'># create zones matrix</span>
 <span class='no'>z7</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>print</span>(<span class='no'>z7</span>)</div><div class='output co'>#&gt;      [,1] [,2]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z7</span>)</div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    1
 #&gt; [2,]    1    1</div><div class='input'>
 <span class='co'># create problem</span>
-<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>pus</span>, <span class='no'>fts</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_manual_targets</span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>pus</span>, <span class='no'>fts</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z7</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'>solve</span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
 #&gt; Variable types: 0 continuous, 615 integer (615 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [9e-02, 1e+00]

@@ -81,7 +81,7 @@ software currently installed on the system will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -161,7 +161,7 @@ software currently installed on the system will be used." />
     <div class="ref-description">
     
     <p>Specify the software and configuration used to solve a conservation planning
-<code>problem</code>. By default, the best available
+<code><a href='problem.html'>problem</a></code>. By default, the best available
 software currently installed on the system will be used.</p>
     
     </div>
@@ -170,18 +170,18 @@ software currently installed on the system will be used.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following solvers can be used to find solutions for a
-  conservation planning <code>problem</code>:</p>
+  conservation planning <code><a href='problem.html'>problem</a></code>:</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code>add_default_solver</code></dt><dd><p>This solver uses the best software
     currently installed on the system.</p></dd>
-    <dt><code>add_gurobi_solver</code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
+    <dt><code><a href='add_gurobi_solver.html'>add_gurobi_solver</a></code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
     is a state-of-the-art commercial optimization software with an R package
     interface. It is by far the fastest of the solvers available in this
     package, however, it is also the only solver that is not freely
     available. That said, licenses are available to academics at no cost. The
     <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software
     suite. This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p></dd>
-    <dt><code>add_rsymphony_solver</code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
+    <dt><code><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
     open-source integer programming solver that is part of the Computational
     Infrastructure for Operations Research (COIN-OR) project, an initiative
     to promote development of open-source tools for operations research (a
@@ -201,7 +201,7 @@ software currently installed on the system will be used.</p>
 
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>,  <code><a href='decisions.html'>decisions</a></code>,
  <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
  <code><a href='targets.html'>targets</a></code>.</p></div>
     
 
@@ -210,10 +210,10 @@ software currently installed on the system will be used.</p>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create basic problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create vector to store plot titles</span>
 <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>()
@@ -225,23 +225,23 @@ software currently installed on the system will be used.</p>
 <span class='co'># searching for the optimal solution to 2 seconds</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"Rsymphony"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (2s)"</span>)
-  <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p1</span>))
+  <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>))
 }
 
 <span class='co'># create problem with added rsymphony solver and limit the time spent</span>
 <span class='co'># searching for the optimal solution to 5 seconds</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"Rsymphony"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"Rsymphony (5s)"</span>)
-  <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p2</span>))
+  <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))
 }
 
 <span class='co'># if the gurobi is installed: create problem with added gurobi solver</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"gurobi"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"gurobi (5s)"</span>)
-  <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_gurobi_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p3</span>))
+  <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))
 }</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -278,7 +278,7 @@ software currently installed on the system will be used.</p>
     <span class='fu'>isTRUE</span>(<span class='fu'>Sys.info</span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='no'>titles</span>, <span class='st'>"lpsymphony"</span>)
   <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'>solve</span>(<span class='no'>p4</span>))
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))
 }
 
 <span class='co'># plot solutions</span>

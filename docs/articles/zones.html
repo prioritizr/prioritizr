@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -144,13 +144,13 @@
 t1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)
 
 <span class="co"># build single-zone problem</span>
-p1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(t1) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(t1) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p1)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p1)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -163,7 +163,7 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p1)</code></pre></div>
+s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p1)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
@@ -194,8 +194,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p1, s1)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r1)</code></pre></div>
+r1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p1, s1)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r1)</code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held
 ##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
@@ -221,7 +221,7 @@ t2[, <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0
 t2[, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0.05</span>
 
 <span class="co"># print targets</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(t2)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(t2)</code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.1 0.05
 ## [2,]  0.1 0.05
@@ -235,7 +235,7 @@ t2[, <span class="dv">2</span>] &lt;-<span class="st"> </span><span class="fl">0
 z2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="st">"zone 1"</span> =<span class="st"> </span>sim_features, <span class="st">"zone 2"</span> =<span class="st"> </span>sim_features)
 
 <span class="co"># print zones</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(z2)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(z2)</code></pre></div>
 <pre><code>## Zones
 ##   zones: zone 1, zone 2 (2 zones)
 ##   features: 1, 2, 3, ... (5 features)
@@ -246,7 +246,7 @@ z2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/zones.ht
 pu2 &lt;-<span class="st"> </span><span class="kw">stack</span>(sim_pu_raster, sim_pu_raster)
 
 <span class="co"># print stack</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(pu2)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(pu2)</code></pre></div>
 <pre><code>## class       : RasterStack 
 ## dimensions  : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
 ## resolution  : 0.1, 0.1  (x, y)
@@ -256,13 +256,13 @@ pu2 &lt;-<span class="st"> </span><span class="kw">stack</span>(sim_pu_raster, s
 ## min values  : 190.1328, 190.1328 
 ## max values  : 215.8638, 215.8638</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># build two-zone problem</span>
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(pu2, z2) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(t2) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(pu2, z2) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(t2) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p2)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p2)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          zone 1, zone 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -276,7 +276,7 @@ p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p2)</code></pre></div>
+s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p2)</code></pre></div>
 <pre><code>## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Coefficient statistics:
@@ -307,8 +307,8 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.174668195776e+03, best bound 2.911333350606e+03, gap 8.2949%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p2, s2)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r2)</code></pre></div>
+r2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p2, s2)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r2)</code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    feature zone   absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
@@ -344,13 +344,13 @@ pu3 &lt;-<span class="st"> </span>sim_pu_zones_stack[[<span class="dv">1</span><
 <span class="kw">plot</span>(pu3, <span class="dt">main =</span> <span class="kw">c</span>(<span class="st">"zone 1"</span>, <span class="st">"zone 2"</span>), <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(pu3, <span class="kw"><a href="../reference/zones.html">zones</a></span>(sim_features, sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(t2) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(pu3, <span class="kw"><a href="../reference/zones.html">zones</a></span>(sim_features, sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>)) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(t2) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p3)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          1, 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -364,7 +364,7 @@ p3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p3)</code></pre></div>
+s3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p3)</code></pre></div>
 <pre><code>## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Coefficient statistics:
@@ -395,8 +395,8 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p3, s3)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r3)</code></pre></div>
+r3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p3, s3)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r3)</code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    feature zone  absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -434,7 +434,7 @@ t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw
                      <span class="dt">type =</span> <span class="kw">rep</span>(<span class="st">"absolute"</span>, <span class="dv">5</span>))
 
 <span class="co"># print targets</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(t4)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(t4)</code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   feature zone      target type    
 ##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
@@ -444,16 +444,16 @@ t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw
 ## 4 layer.4 &lt;chr [3]&gt;      8 absolute
 ## 5 layer.5 &lt;chr [3]&gt;      8 absolute</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p4 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="dt">few.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
+p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="dt">few.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
                          <span class="dt">many.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>,
                          <span class="dt">baiting =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.8</span>,
                          <span class="dt">feature_names =</span> <span class="kw">names</span>(sim_features))) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p4)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p4)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -467,7 +467,7 @@ p4 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s4 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p4)</code></pre></div>
+s4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p4)</code></pre></div>
 <pre><code>## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Variable types: 0 continuous, 300 integer (300 binary)
 ## Coefficient statistics:
@@ -500,8 +500,8 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r4 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p4, s4)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r4)</code></pre></div>
+r4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p4, s4)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r4)</code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -543,17 +543,17 @@ l5 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class=
 ## 5  5 baiting      0
 ## 6  6 baiting      0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p5 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="dt">few.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
+p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="dt">few.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
                          <span class="dt">many.traps =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>,
                          <span class="dt">baiting =</span> sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.8</span>,
                          <span class="dt">feature_names =</span> <span class="kw">names</span>(sim_features))) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(l5) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(l5) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p5)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p5)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -567,7 +567,7 @@ p5 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s5 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p5)</code></pre></div>
+s5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p5)</code></pre></div>
 <pre><code>## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Variable types: 0 continuous, 300 integer (300 binary)
 ## Coefficient statistics:
@@ -600,8 +600,8 @@ s5 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r5 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p5, s5)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r5)</code></pre></div>
+r5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p5, s5)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r5)</code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -637,24 +637,24 @@ z6[<span class="dv">2</span>, <span class="dv">1</span>] &lt;-<span class="st"> 
 <span class="kw">rownames</span>(z6) &lt;-<span class="st"> </span><span class="kw">colnames</span>(z6)
 
 <span class="co"># print matrix</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(z6)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(z6)</code></pre></div>
 <pre><code>##            few.traps many.traps baiting
 ## few.traps          1          1       0
 ## many.traps         1          1       0
 ## baiting            0          0       1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
-p6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="st">"few.traps"</span> =<span class="st"> </span>sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
+p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(pu4, <span class="kw"><a href="../reference/zones.html">zones</a></span>(<span class="st">"few.traps"</span> =<span class="st"> </span>sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
                          <span class="st">"many.traps"</span> =<span class="st"> </span>sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.5</span>,
                          <span class="st">"baiting"</span> =<span class="st"> </span>sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.8</span>,
                          <span class="dt">feature_names =</span> <span class="kw">names</span>(sim_features))) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(l5) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(t4) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(l5) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="dv">640</span>, <span class="dt">zones =</span> z6) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p6)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p6)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -668,7 +668,7 @@ p6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p6)</code></pre></div>
+s6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p6)</code></pre></div>
 <pre><code>## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Variable types: 0 continuous, 1200 integer (1200 binary)
 ## Coefficient statistics:
@@ -701,8 +701,8 @@ s6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.046000000000e+04, best bound 1.005600000000e+04, gap 3.8623%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r6 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p6, s6)
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r6)</code></pre></div>
+r6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p6, s6)
+<span class="kw"><a href="../reference/print.html">print</a></span>(r6)</code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;

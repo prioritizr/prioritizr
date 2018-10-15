@@ -87,7 +87,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@ constructing this <code>ConservationProblem-class</code> object, it can be
 customized to meet specific goals using <code><a href='objectives.html'>objectives</a></code>,
 <code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and
 <code><a href='penalties.html'>penalties</a></code>. After building the problem, the
- <code>solve</code> function can be used to identify solutions.</p>
+ <code><a href='solve.html'>solve</a></code> function can be used to identify solutions.</p>
     
     </div>
 
@@ -423,7 +423,7 @@ to <code>FALSE</code>.</p></td>
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
  <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
  <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>,
- <code>feature_representation</code>.</p></div>
+ <code><a href='feature_representation.html'>feature_representation</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -433,27 +433,27 @@ to <code>FALSE</code>.</p></td>
 
 <span class='co'># create problem using raster planning unit data</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using polygon planning unit data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using line planning unit data</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_lines</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem using point planning unit data</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># add columns to polygon planning unit data representing the abundance</span>
 <span class='co'># of species inside them</span>
@@ -465,20 +465,20 @@ to <code>FALSE</code>.</p></td>
 <span class='co'># stored in the columns of an attribute table for a spatial vector data set</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_polygons</span>, <span class='kw'>features</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"spp_1"</span>, <span class='st'>"spp_2"</span>, <span class='st'>"spp_3"</span>),
               <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># alternatively one can supply pre-processed aspatial data</span>
 <span class='no'>costs</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>$<span class='no'>cost</span>
 <span class='no'>features</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'>seq_len</span>(<span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
                        <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>names</span>(<span class='no'>sim_features</span>))
-<span class='no'>rij_mat</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
+<span class='no'>rij_mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rij_matrix.html'>rij_matrix</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>costs</span>, <span class='no'>features</span>, <span class='kw'>rij_matrix</span> <span class='kw'>=</span> <span class='no'>rij_mat</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -506,7 +506,7 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3994.89 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -534,7 +534,7 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -562,7 +562,7 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3589.06 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.589062267616e+03, best bound 3.497406397077e+03, gap 2.5538%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.589062267616e+03, best bound 3.497406397077e+03, gap 2.5538%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -590,7 +590,7 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 1e+01]
@@ -618,7 +618,7 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 2680.47 3735.05 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.680471998357e+03, best bound 2.641300658973e+03, gap 1.4614%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 2.680471998357e+03, best bound 2.641300658973e+03, gap 1.4614%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -669,7 +669,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00176
+#&gt;  - attr(*, "runtime")= Named num 0.00174
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
@@ -678,13 +678,13 @@ to <code>FALSE</code>.</p></td>
 <span class='co'># to the total (absolute) amount of a given feature that needs to be secured</span>
 <span class='co'># in a given zone</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>rpois</span>(<span class='fl'>15</span>, <span class='fl'>1</span>),
-                  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'>number_of_features</span>(<span class='no'>sim_features_zones</span>),
-                  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'>number_of_zones</span>(<span class='no'>sim_features_zones</span>),
-                  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
-                                  <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
+                  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>),
+                  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>),
+                  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
+                                  <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>)))
 
 <span class='co'># print targets</span>
-<span class='fu'>print</span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      0      0
 #&gt; feature_2      1      0      2
 #&gt; feature_3      1      0      2
@@ -692,10 +692,10 @@ to <code>FALSE</code>.</p></td>
 #&gt; feature_5      1      0      0</div><div class='input'>
 <span class='co'># create a multi-zone problem with raster data</span>
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -743,10 +743,10 @@ to <code>FALSE</code>.</p></td>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='problem-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a multi-zone problem with polygon data</span>
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_polygons</span>, <span class='no'>sim_features_zones</span>,
               <span class='kw'>cost_column</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -815,10 +815,10 @@ to <code>FALSE</code>.</p></td>
                     <span class='fu'>c</span>(<span class='st'>"spp1_z2"</span>, <span class='st'>"spp2_z2"</span>, <span class='st'>"spp3_z2"</span>),
                     <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>)),
               <span class='kw'>cost_column</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1</span>:<span class='fl'>2</span>]) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_proportion_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 96 rows, 180 columns and 521 nonzeros
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1</span>:<span class='fl'>2</span>]) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 96 rows, 180 columns and 521 nonzeros
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 5e+00]
 #&gt;   Objective range  [2e+02, 2e+02]

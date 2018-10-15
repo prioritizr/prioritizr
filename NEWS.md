@@ -1,3 +1,10 @@
+# prioritizr 4.0.2.5
+
+- Fix bug in argument validation code for the `category_layer` function that it
+  this function to incorrectly throw an error claiming that the input argument
+  to `x` was invalid when it was in fact valid. This bug is encountered when
+  different layers the argument to `x` have non-NA values in different cells.
+
 # prioritizr 4.0.2.4
 
 - Update instructions for activating Gurobi licenses on remote machines (#98).

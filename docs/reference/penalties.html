@@ -83,7 +83,7 @@ add_min_set_objective)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -162,11 +162,11 @@ add_min_set_objective)." />
 
     <div class="ref-description">
     
-    <p>A penalty can be applied to a conservation planning <code>problem</code> to
+    <p>A penalty can be applied to a conservation planning <code><a href='problem.html'>problem</a></code> to
 penalize solutions according to a specific metric. Penalties---unlike
 <code><a href='constraints.html'>constraints</a></code>---act as an explicit trade-off with the objective
 being minimized or maximized (e.g. solution cost when used with
-<code>add_min_set_objective</code>).</p>
+<code><a href='add_min_set_objective.html'>add_min_set_objective</a></code>).</p>
     
     </div>
 
@@ -179,12 +179,12 @@ being minimized or maximized (e.g. solution cost when used with
   On the other hand, penalties work by specifying trade-offs against the
   main problem objective and are mediated by a penalty factor.</p>
 <p>The following penalties can be added to a conservation planning
-  <code>problem</code>:</p>
+  <code><a href='problem.html'>problem</a></code>:</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code><a href='add_boundary_penalties.html'>add_boundary_penalties</a></code></dt><dd><p>Add penalties to a
     conservation problem to favor solutions that have
     planning units clumped together into contiguous areas.</p></dd>
-    <dt><code>add_connectivity_penalties</code></dt><dd><p>Add penalties to a
+    <dt><code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code></dt><dd><p>Add penalties to a
     conservation problem to favor solutions that select
     planning units with high connectivity between them.</p></dd>
     </dl>
@@ -192,7 +192,7 @@ being minimized or maximized (e.g. solution cost when used with
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='objectives.html'>objectives</a></code> <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+ <code><a href='objectives.html'>objectives</a></code> <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
  <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
     
 
@@ -201,9 +201,9 @@ being minimized or maximized (e.g. solution cost when used with
 <span class='fu'>data</span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>()
 
 <span class='co'># create problem with boundary penalties</span>
@@ -218,8 +218,8 @@ being minimized or maximized (e.g. solution cost when used with
 <span class='no'>scm</span>[<span class='no'>scm</span> <span class='kw'>&lt;</span> <span class='fl'>0.85</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 
 <span class='co'># create problem with connectivity penalties</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_connectivity_penalties</span>(<span class='fl'>25</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>scm</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span>(<span class='fl'>25</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>scm</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]

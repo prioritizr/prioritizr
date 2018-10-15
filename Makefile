@@ -30,6 +30,8 @@ vigns: install
 site:
 	R --slave -e "pkgdown::clean_site()"
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
+	rm docs/CNAME
+	echo -e "prioritizr.net\c" >> docs/CNAME
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1

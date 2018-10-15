@@ -82,7 +82,7 @@ It requires the lpsymphony package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -168,8 +168,8 @@ It requires the <span class="pkg">lpsymphony</span> package.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>add_lpsymphony_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>add_lpsymphony_solver</span>(<span class='no'>x</span>, <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
+  <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,17 +236,17 @@ optimization problems? Defaults to <code>TRUE</code>.</p></td>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># if the package is installed then add solver and generate solution</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># if the package is installed then add solver and generate solution</span>
 <span class='co'># note that this solver is skipped on Linux systems due to the fact</span>
 <span class='co'># that the lpsymphony package randomly crashes on these systems</span>
 <span class='kw'>if</span> (<span class='fu'>require</span>(<span class='no'>lpsymphony</span>) <span class='kw'>&amp;</span>
     <span class='fu'>isTRUE</span>(<span class='fu'>Sys.info</span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='co'># specify solver and generate solution</span>
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_lpsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
-             <span class='fu'>solve</span>()
+             <span class='fu'><a href='solve.html'>solve</a></span>()
 
   <span class='co'># plot solutions</span>
   <span class='fu'>plot</span>(<span class='fu'>stack</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>))

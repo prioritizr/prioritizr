@@ -84,7 +84,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
     <div class="ref-description">
     
     <p>An objective is used to specify the overall goal of a conservation planning
-<code>problem</code>. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
+<code><a href='problem.html'>problem</a></code>. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
@@ -178,27 +178,27 @@ ensuring that the cost of the reserve network does not exceed the budget.</p>
     <p><strong>Please note that failing to specify an objective before attempting
 to solve a problem will return an error.</strong></p>
 <p>The following objectives can be added to a conservation planning
-  <code>problem</code>:</p>
+  <code><a href='problem.html'>problem</a></code>:</p>
 <p></p><dl class='dl-horizontal'>
-    <dt><code>add_min_set_objective</code></dt><dd><p>Minimize the cost of the
+    <dt><code><a href='add_min_set_objective.html'>add_min_set_objective</a></code></dt><dd><p>Minimize the cost of the
     solution whilst ensuring that all targets are met. This objective is
     similar to that used in <em>Marxan</em>.</p></dd>
-    <dt><code>add_max_cover_objective</code></dt><dd><p>Represent at least one
+    <dt><code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code></dt><dd><p>Represent at least one
     instance of as many features as possible within a given budget.</p></dd>
-    <dt><code>add_max_features_objective</code></dt><dd><p>Fulfill as many targets as
+    <dt><code><a href='add_max_features_objective.html'>add_max_features_objective</a></code></dt><dd><p>Fulfill as many targets as
     possible while ensuring that the cost of the solution does not exceed a
     budget.</p></dd>
-    <dt><code>add_max_phylo_objective</code></dt><dd><p>Maximize the phylogenetic
+    <dt><code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code></dt><dd><p>Maximize the phylogenetic
     diversity of the features represented in the solution subject to a
     budget.</p></dd>
-    <dt><code>add_max_utility_objective</code></dt><dd><p>Secure as much of the
+    <dt><code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code></dt><dd><p>Secure as much of the
     features as possible without exceeding a budget.</p></dd>
     </dl>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
-  <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code>problem</code>,
+  <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
   <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
     
 
@@ -207,26 +207,26 @@ to solve a problem will return an error.</strong></p>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>)
 
 <span class='co'># create base problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
 
  <span class='co'># create problem with added minimum set objective</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_min_set_objective</span>()
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>()
 
 <span class='co'># create problem with added maximum coverage objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_cover_objective</span>(<span class='fl'>500</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span>(<span class='fl'>500</span>)
 
 <span class='co'># create problem with added maximum feature representation objective</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_features_objective</span>(<span class='fl'>1500</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>1500</span>)
 
 <span class='co'># create problem with added maximum phylogenetic representation objective</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
 
 <span class='co'># create problem with added maximum utility objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_max_utility_objective</span>(<span class='fl'>5000</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>), <span class='fu'>solve</span>(<span class='no'>p5</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span>(<span class='fl'>5000</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]

@@ -81,7 +81,7 @@ et al. 2016)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ et al. 2016)." />
 
     <div class="ref-description">
     
-    <p>Create a conservation planning <code>problem</code> following the
+    <p>Create a conservation planning <code><a href='problem.html'>problem</a></code> following the
 mathematical formulations used in <em>Marxan</em> (detailed in Beyer
 <em>et al.</em> 2016).</p>
     
@@ -172,8 +172,8 @@ mathematical formulations used in <em>Marxan</em> (detailed in Beyer
 <span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>spec</span>, <span class='no'>puvspr</span>, <span class='kw'>bound</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>blm</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='no'>...</span>)
+<span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>spec</span>, <span class='no'>puvspr</span>, <span class='kw'>bound</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>blm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for character</span>
 <span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
@@ -288,7 +288,7 @@ default argument is zero.</p></td>
   <em>Marxan</em> problems using <span class="pkg">prioritizr</span>. Although this function
   could accommodate asymmetric connectivity in earlier versions of the
   <span class="pkg">prioritizr</span> package, this functionality is no longer available.
-  Please see the <code>add_connectivity_penalties</code> function for
+  Please see the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function for
   adding asymmetric connectivity penalties to a conservation planning
   problem. For more information on the correct formats
   for <em>Marxan</em> input data, see the
@@ -310,7 +310,7 @@ conservation planning problems with integer linear programming.
     <pre class="examples"><div class='input'><span class='co'># create Marxan problem using Marxan input file</span>
 <span class='no'>input_file</span> <span class='kw'>&lt;-</span> <span class='fu'>system.file</span>(<span class='st'>"extdata/input.dat"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"prioritizr"</span>)
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>input_file</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
 #&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -336,7 +336,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (496 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (496 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 
@@ -394,7 +394,7 @@ conservation planning problems with integer linear programming.
 #&gt; 6  30  85     4000</div><div class='input'>
 <span class='co'># create problem without the boundary data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>pu_dat</span>, <span class='no'>spec_dat</span>, <span class='no'>puvspr_dat</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 17 rows, 1751 columns and 4662 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 17 rows, 1751 columns and 4662 nonzeros
 #&gt; Variable types: 0 continuous, 1751 integer (1751 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -438,7 +438,7 @@ conservation planning problems with integer linear programming.
 #&gt; 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</div><div class='input'><span class='co'># create problem with the boundary data and a boundary length modifier</span>
 <span class='co'># set to 5</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>pu_dat</span>, <span class='no'>spec_dat</span>, <span class='no'>puvspr_dat</span>, <span class='no'>bound_dat</span>, <span class='fl'>5</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
 #&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -464,7 +464,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
 #&gt; H    0     0                    9.611012e+09 9.5861e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (535 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (535 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.61101e+09 1.22292e+10 

@@ -83,7 +83,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -203,8 +203,8 @@ Details section for more information.</p></td>
     <p>Targets are used to specify the minimum amount or proportion of a
   feature's distribution that needs to be protected. Most conservation
   planning problems require targets with the exception of the maximum cover
-  (see <code>add_max_cover_objective</code>) and maximum utility
-  (see <code>add_max_utility_objective</code>) problems. Attempting to solve
+  (see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>) and maximum utility
+  (see <code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code>) problems. Attempting to solve
   problems with objectives that require targets without specifying targets
   will throw an error.</p>
 <p>The targets for a problem can be specified in several different ways:</p>
@@ -228,7 +228,7 @@ Details section for more information.</p></td>
     <p>For problems associated with multiple management zones, this function can
   be used to set targets that each pertain to a single feature and a single
   zone. To set targets which can be met through allocating different
-  planning units to multiple zones, see the <code>add_manual_targets</code>
+  planning units to multiple zones, see the <code><a href='add_manual_targets.html'>add_manual_targets</a></code>
   function. An example of a target that could be met through allocations
   to multiple zones might be where each management zone is expected to
   result in a different amount of a feature and the target requires that
@@ -253,9 +253,9 @@ Details section for more information.</p></td>
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create simple problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with targets to secure 3 amounts for each feature</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='fl'>3</span>)
@@ -263,7 +263,7 @@ Details section for more information.</p></td>
 <span class='co'># create problem with varying targets for each feature</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -359,17 +359,17 @@ Details section for more information.</p></td>
 <span class='fu'>plot</span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_absolute_targets-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create a problem with multiple management zones</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_binary_decisions</span>()
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create a problem with targets that specify an equal amount of each feature</span>
 <span class='co'># to be represented in each zone</span>
-<span class='no'>p4_targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'>number_of_features</span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'>number_of_zones</span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
-                                     <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'>print</span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='no'>p4_targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>),
+                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>),
+                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
+                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>)))
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      2      2
 #&gt; feature_2      2      2      2
 #&gt; feature_3      2      2      2
@@ -378,7 +378,7 @@ Details section for more information.</p></td>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 
 <span class='co'># solve problem</span></div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -401,7 +401,7 @@ Details section for more information.</p></td>
 #&gt;      0     0 3352.71666    0    4 4138.76715 3352.71666  19.0%     -    0s
 #&gt; H    0     0                    3663.0326268 3352.71666  8.47%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (28 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (28 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3663.03 4138.77 
@@ -412,11 +412,11 @@ Details section for more information.</p></td>
 <span class='fu'>plot</span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s4</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"equal targets"</span>))</div><div class='img'><img src='add_absolute_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem with targets that require a varying amount of each</span>
 <span class='co'># feature to be represented in each zone</span>
 <span class='no'>p5_targets</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>rpois</span>(<span class='fl'>15</span>, <span class='fl'>1</span>),
-                     <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'>number_of_features</span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'>number_of_zones</span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'>feature_names</span>(<span class='no'>sim_features_zones</span>),
-                                     <span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'>print</span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+                     <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>),
+                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>),
+                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
+                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>)))
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      0      0
 #&gt; feature_2      1      1      2
 #&gt; feature_3      3      3      2
@@ -424,7 +424,7 @@ Details section for more information.</p></td>
 #&gt; feature_5      2      1      1</div><div class='input'>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 <span class='co'># solve problem</span></div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]

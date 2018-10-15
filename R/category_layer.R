@@ -39,7 +39,7 @@ category_layer <- function(x) {
   assertthat::assert_that(inherits(x, "Raster"), raster::nlayers(x) > 1,
                           all(raster::cellStats(!is.na(x), "sum") > 0),
                           all(raster::cellStats(x, "max") >= 0),
-                          raster::cellStats(sum(x), "max") == 1)
+                          raster::cellStats(sum(x, na.rm = TRUE), "max") == 1)
   # initialize raster layer
   out <- raster::setValues(x[[1]], 0)
   out[raster::Which(is.na(x[[1]]))] <- NA_real_

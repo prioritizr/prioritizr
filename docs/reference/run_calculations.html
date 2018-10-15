@@ -83,7 +83,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -198,18 +198,18 @@ means that the same calculations will not be run multiple times.</p>
 <span class='co'># setting different targets on our solution.</span>
 
 <span class='co'># create a conservation problem with no targets</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
      <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span>(<span class='fl'>10</span>, <span class='fl'>0.5</span>)
 
 <span class='co'># create a copies of p and add targets</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.3</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.3</span>)
 
 <span class='co'># now solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>system.time</span>({<span class='fu'>solve</span>(<span class='no'>p1</span>); <span class='fu'>solve</span>(<span class='no'>p2</span>); <span class='fu'>solve</span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>system.time</span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -307,19 +307,19 @@ means that the same calculations will not be run multiple times.</p>
 
 <span class='co'># recreate a conservation problem with no targets and tell R run the</span>
 <span class='co'># preliminary calculations. Note how we use the \%T&gt;\% operator here.</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span>(<span class='fl'>10</span>, <span class='fl'>0.5</span>) <span class='kw'>%T&gt;%</span>
   <span class='fu'>run_calculations</span>()
 
 <span class='co'># create a copies of p and add targets just like before</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.2</span>)
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_relative_targets</span>(<span class='fl'>0.3</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.3</span>)
 
 <span class='co'># solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>system.time</span>({<span class='fu'>solve</span>(<span class='no'>p1</span>); <span class='fu'>solve</span>(<span class='no'>p2</span>); <span class='fu'>solve</span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'>system.time</span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -410,9 +410,9 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
-<span class='fu'>print</span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.537   0.303   0.848 </div><div class='input'><span class='fu'>print</span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.506   0.311   0.811 </div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.548   0.308   0.858 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.553   0.324   0.867 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

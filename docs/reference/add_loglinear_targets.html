@@ -85,7 +85,7 @@ of this function has changed substantially from versions prior to 5.0.0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -164,7 +164,7 @@ of this function has changed substantially from versions prior to 5.0.0." />
 
     <div class="ref-description">
     
-    <p>Add targets to a conservation planning <code>problem</code> by log-linearly
+    <p>Add targets to a conservation planning <code><a href='problem.html'>problem</a></code> by log-linearly
 interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues <em>et al.</em> 2004). Additionally,
 caps can be applied to targets to prevent features with massive
@@ -234,7 +234,7 @@ use when calculating the targets. Defaults to the feature abundances in the #'  
     <p>Targets are used to specify the minimum amount or proportion of a
   feature's distribution that needs to be protected. All conservation
   planning problems require adding targets with the exception of the maximum
-  cover problem (see <code>add_max_cover_objective</code>), which maximizes
+  cover problem (see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>), which maximizes
   all features in the solution and therefore does not require targets.</p>
 <p>Seven parameters are used to calculate the targets:
   <code>lower_bound_amount</code> specifies the first range size threshold,
@@ -251,7 +251,7 @@ use when calculating the targets. Defaults to the feature abundances in the #'  
 <p><strong>Note that the target calculations do not account for the
   size of each planning unit.</strong> Therefore, the feature data should account for
   the size of each planning unit if this is important (e.g. pixel values in
-  the argument to <code>features</code> in the function <code>problem</code> could
+  the argument to <code>features</code> in the function <code><a href='problem.html'>problem</a></code> could
   correspond to amount of land occupied by the feature in \(km^2\) units).</p>
 <p>This function can only be applied to
   <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> objects that are associated with a
@@ -278,11 +278,11 @@ and solutions for meeting national and global conservation area targets.
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create problem using loglinear targets</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
      <span class='fu'>add_loglinear_targets</span>(<span class='fl'>10</span>, <span class='fl'>0.9</span>, <span class='fl'>100</span>, <span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_binary_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>solve</span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]

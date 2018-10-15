@@ -81,7 +81,7 @@ to a different feature and each column corresponds to a different feature." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -188,7 +188,7 @@ features.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to <code>fast_extract</code> if
+      <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> if
 argument to <code>x</code> inherits from a <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>
 object.</p></td>
     </tr>
@@ -207,7 +207,7 @@ object.</p></td>
   third species in the second planning unit would be contained in the
   cell in the third column and in the second column.</p>
 <p>This function can take a long to run for big data sets. To reduce
-  processing time, the <code>set_number_of_threads</code> function
+  processing time, the <code><a href='parallel.html'>set_number_of_threads</a></code> function
   can be used to allocate more computational resources. Additionally,
   dealing with planning units represented with
   <code><a href='http://www.rdocumentation.org/packages/sp/topics/SpatialPolygons'>SpatialPolygonsDataFrame</a></code> object, the
@@ -220,7 +220,7 @@ object.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>set_number_of_threads</code>, <code><a href='http://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='parallel.html'>set_number_of_threads</a></code>, <code><a href='http://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -229,7 +229,7 @@ object.</p></td>
 
 <span class='co'># create rij matrix using raster layer planning units</span>
 <span class='no'>rij_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
-<span class='fu'>print</span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4084749
@@ -310,7 +310,7 @@ object.</p></td>
 #&gt; layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</div><div class='input'>
 <span class='co'># create rij matrix using polygon planning units</span>
 <span class='no'>rij_polygons</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
-<span class='fu'>print</span>(<span class='no'>rij_polygons</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"</div><div class='output co'>#&gt; <span class='message'>   [[ suppressing 90 column names '1', '2', '3' ... ]]</span></div><div class='output co'>#&gt;                                                                              
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_polygons</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"</div><div class='output co'>#&gt; <span class='message'>   [[ suppressing 90 column names '1', '2', '3' ... ]]</span></div><div class='output co'>#&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4084749
 #&gt; layer.3 0.8178213 0.8064534 0.7852441 0.7541320 0.7131559 0.6628435 0.6046204
@@ -390,7 +390,7 @@ object.</p></td>
 #&gt; layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</div><div class='input'>
 <span class='co'># create rij matrix using raster stack planning units</span>
 <span class='no'>rij_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features</span>)
-<span class='fu'>print</span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7219284
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4142271

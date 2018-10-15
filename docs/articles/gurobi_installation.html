@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
       <h1>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2018-08-11</h4>
+            <h4 class="date">2018-10-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -243,9 +243,9 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocum
 ## Optimal solution found (tolerance 1.00e-04)
 ## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the solution</span>
-<span class="kw">print</span>(result<span class="op">$</span>objval) <span class="co"># objective</span></code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(result<span class="op">$</span>objval) <span class="co"># objective</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(result<span class="op">$</span>x)      <span class="co"># decision variables</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/print.html">print</a></span>(result<span class="op">$</span>x)      <span class="co"># decision variables</span></code></pre></div>
 <pre><code>## [1] 1 0 1</code></pre>
 <p>If you see the outputs for <code>result$objval</code> and <code>result$x</code> and you don’t see any error messages, then you have (1) successfully installed the <em>Gurobi</em> software suite, (2) activated a valid license, and (3) successfully installed the <em>gurobi R</em> package. Now you can finally use <em>Gurobi</em> to solve conservation planning problems with <em>prioritizr</em>. If do see an error message, then you might have missed a step while installing the package or activating the license, so try going back through this vignette to see if you missed something.</p>
 </div>
@@ -258,13 +258,13 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocum
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(prioritizr)
 
 <span class="co"># formulate the problem</span>
-p &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="https://prioritizr.net/reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
+p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
+<span class="st">     </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
 
 <span class="co"># solve the problem</span>
-s &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p)</code></pre></div>
+s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p)</code></pre></div>
 <pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:

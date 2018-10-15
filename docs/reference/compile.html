@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -159,7 +159,7 @@
 
     <div class="ref-description">
     
-    <p>Compile a conservation planning <code>problem</code> into an
+    <p>Compile a conservation planning <code><a href='problem.html'>problem</a></code> into an
 (potentially mixed) integer linear programming problem.</p>
     
     </div>
@@ -167,7 +167,8 @@
     <pre class="usage"><span class='fu'>compile</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ConservationProblem</span>
-<span class='fu'>compile</span>(<span class='no'>x</span>, <span class='kw'>compressed_formulation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>compile</span>(<span class='no'>x</span>, <span class='kw'>compressed_formulation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,9 +200,9 @@ defaults to <code>NA</code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function might be useful for those interested in understanding
-  how their conservation planning <code>problem</code> is expressed
+  how their conservation planning <code><a href='problem.html'>problem</a></code> is expressed
   as a mathematical problem. However, if the problem just needs to
-  be solved, then the <code>solve</code> function should just be used.</p>
+  be solved, then the <code><a href='solve.html'>solve</a></code> function should just be used.</p>
 <p><strong>Please note that in nearly all cases, the default argument to
   <code>formulation</code> should be used</strong>. The only situation where manually
   setting the argument to <code>formulation</code> is desirable is during testing.
@@ -213,15 +214,15 @@ defaults to <code>NA</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># build minimal conservation problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
 
 <span class='co'># compile the conservation problem into an optimization problem</span>
 <span class='no'>o</span> <span class='kw'>&lt;-</span> <span class='fu'>compile</span>(<span class='no'>p</span>)
 
 <span class='co'># print the optimization problem</span>
-<span class='fu'>print</span>(<span class='no'>o</span>)</div><div class='output co'>#&gt; <span class='message'>optimization problem</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>o</span>)</div><div class='output co'>#&gt; <span class='message'>optimization problem</span>
 #&gt; <span class='message'>  model sense: min</span>
 #&gt; <span class='message'>  dimensions:  5, 90, 450 (nrow, ncol, ncell)</span>
 #&gt; <span class='message'>  variables:   90 (B)</span></div><div class='input'>

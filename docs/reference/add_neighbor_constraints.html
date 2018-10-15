@@ -81,7 +81,7 @@ number of neighbors that are also selected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ number of neighbors that are also selected in the solution." />
 
     <div class="ref-description">
     
-    <p>Add constraints to a conservation planning <code>problem</code> to ensure
+    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.</p>
     
@@ -291,9 +291,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='fu'>data</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create minimal problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fl'>0.1</span>)
+<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='co'># and neighbors are defined using a rook-style neighborhood</span>
@@ -307,7 +307,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># and neighbors are defined using a queen-style neighborhood</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>,
                <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='connected_matrix.html'>connected_matrix</a></span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>list</span>(<span class='fu'>solve</span>(<span class='no'>p1</span>), <span class='fu'>solve</span>(<span class='no'>p2</span>), <span class='fu'>solve</span>(<span class='no'>p3</span>), <span class='fu'>solve</span>(<span class='no'>p4</span>)))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'>stack</span>(<span class='fu'>list</span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -440,15 +440,15 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># plot solutions</span>
 <span class='fu'>plot</span>(<span class='no'>s1</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span>))</div><div class='img'><img src='add_neighbor_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'>matrix</span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))
 
 <span class='co'># create problem where selected planning units require at least 2 neighbors</span>
 <span class='co'># for each zone and planning units are only considered neighbors if they</span>
 <span class='co'># are allocated to the same zone</span>
 <span class='no'>z6</span> <span class='kw'>&lt;-</span> <span class='fu'>diag</span>(<span class='fl'>3</span>)
-<span class='fu'>print</span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'>rep</span>(<span class='fl'>2</span>, <span class='fl'>3</span>), <span class='no'>z6</span>)
@@ -467,7 +467,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='no'>z8</span> <span class='kw'>&lt;-</span> <span class='fu'>diag</span>(<span class='fl'>3</span>)
 <span class='no'>z8</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>z8</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='fu'>print</span>(<span class='no'>z8</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z8</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='no'>z8</span>)</div><div class='input'><span class='co'># solve problems</span>

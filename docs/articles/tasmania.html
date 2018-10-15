@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -142,7 +142,7 @@
 <span class="kw">data</span>(tas_features)</code></pre></div>
 <p>Now, let’s have a look at the planning unit data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print planning unit data</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(tas_pu)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(tas_pu)</code></pre></div>
 <pre><code>## class       : SpatialPolygonsDataFrame 
 ## features    : 1130 
 ## extent      : 1080623, 1399989, -4840595, -4497092  (xmin, xmax, ymin, ymax)
@@ -157,7 +157,7 @@
 <p><img src="tasmania_files/figure-html/unnamed-chunk-3-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print planning unit data</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(tas_features)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(tas_features)</code></pre></div>
 <pre><code>## class       : RasterStack 
 ## dimensions  : 343, 320, 109760, 62  (nrow, ncol, ncell, nlayers)
 ## resolution  : 1000, 1000  (x, y)
@@ -205,7 +205,7 @@ spec_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span
 ## 5  5 veg5 0.17
 ## 6  6 veg6 0.17</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create table with the planning unit vs. feature data</span>
-puvspr_data &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/rij_matrix.html">rij_matrix</a></span>(tas_pu, tas_features)
+puvspr_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rij_matrix.html">rij_matrix</a></span>(tas_pu, tas_features)
 puvspr_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.html">as</a></span>(puvspr_data, <span class="st">"dgTMatrix"</span>)
 puvspr_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">pu =</span> puvspr_data<span class="op">@</span>j <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">species =</span> puvspr_data<span class="op">@</span>i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,
                           <span class="dt">amount =</span> puvspr_data<span class="op">@</span>x)
@@ -239,7 +239,7 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_p
                      <span class="dt">blm =</span> <span class="fl">0.0005</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p1)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p1)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: data.frame (1130 units)
 ##   cost:           min: 0.19249, max: 61.92727
@@ -253,7 +253,7 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_p
 ##   solver:         default</code></pre>
 <p>Next, we can solve the problem. The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p1)</code></pre></div>
+s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p1)</code></pre></div>
 <pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
@@ -279,7 +279,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## 
 ##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (775 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
@@ -302,8 +302,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 <span class="kw">mean</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 0.280531</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r1 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p1, s1[, <span class="st">"solution_1"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r1)</code></pre></div>
+r1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p1, s1[, <span class="st">"solution_1"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
+<span class="kw"><a href="../reference/print.html">print</a></span>(r1)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
 ##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
@@ -330,15 +330,15 @@ s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <a href="#general-problem-formulation" class="anchor"></a>General problem formulation</h2>
 <p>Now we will formulate the exact same problem using the <code>problem</code> function and the spatially referenced data. We recommend using this approach instead of the <code>marxan_problem</code> because it is more verbose and you can specify exactly how the conservation planning problem should be formulated.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># build problem</span>
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/problem.html">problem</a></span>(tas_pu, tas_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="op">%&gt;%</span>
+p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(tas_pu, tas_features, <span class="dt">cost_column =</span> <span class="st">"cost"</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_locked_in_constraints.html">add_locked_in_constraints</a></span>(<span class="st">"locked_in"</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="dt">penalty =</span> <span class="fl">0.0005</span>, <span class="dt">edge_factor =</span> <span class="dv">1</span>)
 
 <span class="co"># print the problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p2)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p2)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (1130 units)
 ##   cost:           min: 0.19249, max: 61.92727
@@ -351,7 +351,7 @@ p2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
-s2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p2)</code></pre></div>
+s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p2)</code></pre></div>
 <pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
@@ -385,8 +385,8 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.ne
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.160376420636e+04, best bound 1.072357667965e+04, gap 7.5854%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r2 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/feature_representation.html">feature_representation</a></span>(p2, s2[, <span class="st">"solution_1"</span>])
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(r2)</code></pre></div>
+r2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p2, s2[, <span class="st">"solution_1"</span>])
+<span class="kw"><a href="../reference/print.html">print</a></span>(r2)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature  absolute_held relative_held
 ##    &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;
@@ -413,11 +413,11 @@ s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <p>Similar to the <em>Marxan</em> decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing the top 1000 solutions nearest to optimality, and calculate the number of times that each planning unit was selected. Note that this requires the <em>Gurobi</em> software to be installed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with a portfolio added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="https://prioritizr.net/reference/add_pool_portfolio.html">add_pool_portfolio</a></span>(<span class="dt">method =</span> <span class="dv">2</span>, <span class="dt">number_solutions =</span> <span class="dv">1000</span>)
+<span class="st">      </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_pool_portfolio.html">add_pool_portfolio</a></span>(<span class="dt">method =</span> <span class="dv">2</span>, <span class="dt">number_solutions =</span> <span class="dv">1000</span>)
 
 <span class="co"># print problem</span>
-<span class="kw"><a href="https://prioritizr.net/reference/print.html">print</a></span>(p3)</code></pre></div>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (1130 units)
 ##   cost:           min: 0.19249, max: 61.92727
@@ -430,7 +430,7 @@ p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
 ##   portfolio:      Pool portfolio [method (2), number_solutions (1000)]
 ##   solver:         Gurobi [first_feasible (0), gap (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate solutions</span>
-s3 &lt;-<span class="st"> </span><span class="kw"><a href="https://prioritizr.net/reference/solve.html">solve</a></span>(p3)
+s3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p3)
 
 <span class="co"># find column numbers with the solutions</span>
 solution_columns &lt;-<span class="st"> </span><span class="kw">which</span>(<span class="kw">grepl</span>(<span class="st">"solution"</span>, <span class="kw">names</span>(s3)))

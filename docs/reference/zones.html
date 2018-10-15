@@ -80,7 +80,7 @@ under different management zones." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -193,10 +193,10 @@ to <code>NULL</code> which results in sequential integers.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is used to store and organize data for use in a
-  conservation planning <code>problem</code> that has multiple management
+  conservation planning <code><a href='problem.html'>problem</a></code> that has multiple management
   zones. In all cases, the data for each zone is input as a separate
   argument. The correct arguments depends on the type of planning unit data
-  used when building the conservation planning <code>problem</code>.</p>
+  used when building the conservation planning <code><a href='problem.html'>problem</a></code>.</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>,
     <code><a href='http://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code></dt><dd><p><code><a href='http://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>
@@ -230,7 +230,7 @@ to <code>NULL</code> which results in sequential integers.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>problem</code>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -243,7 +243,7 @@ to <code>NULL</code> which results in sequential integers.</p></td>
 <span class='co'># a different species</span>
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>zones</span>(<span class='no'>zone_1</span>, <span class='no'>zone_2</span>, <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"zone_1"</span>, <span class='st'>"zone_2"</span>),
            <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"feature_1"</span>, <span class='st'>"feature_2"</span>, <span class='st'>"feature_3"</span>))
-<span class='fu'>print</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
 #&gt; <span class='message'>  zones: zone_1, zone_2 (2 zones)</span>
 #&gt; <span class='message'>  features: feature_1, feature_2, feature_3 (3 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
@@ -253,7 +253,7 @@ to <code>NULL</code> which results in sequential integers.</p></td>
 <span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='no'>zone_1</span>, <span class='no'>zone_2</span>, <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"zone_1"</span>, <span class='st'>"zone_2"</span>),
           <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"feature_1"</span>, <span class='st'>"feature_2"</span>, <span class='st'>"feature_3"</span>))
 <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'>do.call</span>(<span class='no'>zones</span>, <span class='no'>l</span>)
-<span class='fu'>print</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
 #&gt; <span class='message'>  zones: zone_1, zone_2 (2 zones)</span>
 #&gt; <span class='message'>  features: feature_1, feature_2, feature_3 (3 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
@@ -265,7 +265,7 @@ to <code>NULL</code> which results in sequential integers.</p></td>
            <span class='fu'>c</span>(<span class='st'>"spp1_zone3"</span>, <span class='st'>"spp2_zone3"</span>),
            <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"zone1"</span>, <span class='st'>"zone2"</span>, <span class='st'>"zone3"</span>),
            <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"spp1"</span>, <span class='st'>"spp2"</span>))
-<span class='fu'>print</span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
 #&gt; <span class='message'>  zones: zone1, zone2, zone3 (3 zones)</span>
 #&gt; <span class='message'>  features: spp1, spp2 (2 features)</span>
 #&gt; <span class='message'>  data type: character</span></div></pre>

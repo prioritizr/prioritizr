@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.4</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.5</span>
       </span>
     </div>
 
@@ -192,14 +192,14 @@
 <span class='fu'>data</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># print names of zones in a Zones object</span>
-<span class='fu'>print</span>(<span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>))</div><div class='output co'>#&gt; [1] "zone_1" "zone_2" "zone_3"</div><div class='input'><span class='co'># create problem with multiple zones</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_min_set_objective</span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_relative_targets</span>(<span class='fu'>matrix</span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
-     <span class='fu'>add_binary_decisions</span>()
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>zone_names</span>(<span class='no'>sim_features_zones</span>))</div><div class='output co'>#&gt; [1] "zone_1" "zone_2" "zone_3"</div><div class='input'><span class='co'># create problem with multiple zones</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'>matrix</span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># print zone names in problem</span>
-<span class='fu'>print</span>(<span class='fu'>zone_names</span>(<span class='no'>p</span>))</div><div class='output co'>#&gt; [1] "zone_1" "zone_2" "zone_3"</div></pre>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>zone_names</span>(<span class='no'>p</span>))</div><div class='output co'>#&gt; [1] "zone_1" "zone_2" "zone_3"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
