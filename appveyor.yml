@@ -20,7 +20,7 @@ install:
 
 build_script:
   - travis-tool.sh ensure_remotes
-  - R -e "options(repos=c(CRAN='https://cran.rstudio.com/')); supressWarnings(remotes::install_deps(dependencies = TRUE))"
+  - R -e "options(repos=c(CRAN='https://cran.rstudio.com/')); suppressWarnings(remotes::install_deps(dependencies = TRUE))"
 
 test_script:
   - travis-tool.sh run_tests
