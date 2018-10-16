@@ -396,7 +396,8 @@ methods::setMethod("feature_representation",
                      x$data$rij_matrix[[i]] *
                      matrix(solution[, i], ncol = nrow(solution),
                             nrow = nrow(x$data$rij_matrix[[1]]),
-                            byrow = TRUE)),
+                            byrow = TRUE),
+                     na.rm = TRUE),
                      numeric(nrow(x$data$rij_matrix[[1]])))
     out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
                           absolute_held = c(held),

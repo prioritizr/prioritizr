@@ -1,3 +1,9 @@
+# prioritizr 4.0.2.6
+
+- Fix bug the `feature_representation` function that caused the "amount_held"
+  column to have NA values instead of the correct values. This bug only
+  affected problems with multiple zones.
+
 # prioritizr 4.0.2.5
 
 - Fix bug in argument validation code for the `category_layer` function that it
