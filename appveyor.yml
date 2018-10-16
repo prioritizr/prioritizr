@@ -19,9 +19,9 @@ install:
 # Adapt as necessary starting from here
 
 build_script:
-  - R -e 'writeLines("options(warn = 2)", paste0(normalizePath("~"), "\\.Rprofile"))'
+  - R -e "writeLines('options(warn = 2)', paste0(normalizePath('~'), '\\.Rprofile'))"
   - travis-tool.sh install_deps
-  - R -e 'unlink(paste0(normalizePath("~"), "\\.Rprofile"))'
+  - R -e "unlink(paste0(normalizePath('~'), '\\.Rprofile'))"
 
 test_script:
   - travis-tool.sh run_tests
