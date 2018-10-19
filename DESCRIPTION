@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.0.2.6
+Version: 4.0.2.7
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -117,6 +117,7 @@ Collate:
     'loglinear_interpolation.R'
     'add_loglinear_targets.R'
     'add_lpsymphony_solver.R'
+    'add_mandatory_allocation_constraints.R'
     'tbl_df.R'
     'add_manual_targets.R'
     'add_manual_locked_constraints.R'

@@ -254,13 +254,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // rcpp_add_zones_constraints
-bool rcpp_add_zones_constraints(SEXP x);
-RcppExport SEXP _prioritizr_rcpp_add_zones_constraints(SEXP xSEXP) {
+bool rcpp_add_zones_constraints(SEXP x, std::string sense);
+RcppExport SEXP _prioritizr_rcpp_add_zones_constraints(SEXP xSEXP, SEXP senseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(rcpp_add_zones_constraints(x));
+    Rcpp::traits::input_parameter< std::string >::type sense(senseSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_add_zones_constraints(x, sense));
     return rcpp_result_gen;
 END_RCPP
 }

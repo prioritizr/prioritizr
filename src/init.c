@@ -9,7 +9,7 @@
 
 /* .Call calls */
 extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP);
+extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_contiguity_constraints(SEXP, SEXP, SEXP);
@@ -53,7 +53,7 @@ extern SEXP _prioritizr_rcpp_str_tree_to_sparse_matrix(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_add_rij_data",                                      (DL_FUNC) &_prioritizr_rcpp_add_rij_data,                                      4},
-    {"_prioritizr_rcpp_add_zones_constraints",                             (DL_FUNC) &_prioritizr_rcpp_add_zones_constraints,                             1},
+    {"_prioritizr_rcpp_add_zones_constraints",                             (DL_FUNC) &_prioritizr_rcpp_add_zones_constraints,                             2},
     {"_prioritizr_rcpp_apply_boundary_penalties",                          (DL_FUNC) &_prioritizr_rcpp_apply_boundary_penalties,                          5},
     {"_prioritizr_rcpp_apply_connectivity_penalties",                      (DL_FUNC) &_prioritizr_rcpp_apply_connectivity_penalties,                      3},
     {"_prioritizr_rcpp_apply_contiguity_constraints",                      (DL_FUNC) &_prioritizr_rcpp_apply_contiguity_constraints,                      3},

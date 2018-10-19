@@ -37,9 +37,13 @@ test:
 	R --slave -e "devtools::test()" > test.log 2>&1
 	rm -f tests/testthat/Rplots.pdf
 
+quickcheck:
+	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
+	R --slave -e "devtools::check(build_args = '--no-build-vignettes', args = '--no-build-vignettes')" >> check.log 2>&1
+
 check:
 	echo "\n===== R CMD CHECK =====\n" > check.log 2>&1
-	R --slave -e "devtools::check()" >> check.log 2>&1
+	R --slave -e "devtools::check(build_args = '--no-build-vignettes')" >> check.log 2>&1
 
 spellcheck:
 	echo "\n===== SPELL CHECK =====\n" > spell.log 2>&1

@@ -102,8 +102,18 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   x$objective$calculate(x)
   x$objective$apply(op, x)
   # add constraints for zones
-  if (x$number_of_zones() > 1)
-    rcpp_add_zones_constraints(op$ptr)
+  if (x$number_of_zones() > 1) {
+    # detect if allocation constraints are mandatory
+    r <- try(x$constraints$find("Mandatory allocation constraints"),
+             silent = TRUE)
+    # set constraint type
+    ct <- ifelse(
+      !inherits(r, "try-error") &&
+      isTRUE(x$constraints[[r]]$get_parameter("apply constraints?") == 1L),
+      "=", "<=")
+    # apply constraints
+    rcpp_add_zones_constraints(op$ptr, ct)
+  }
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     x$penalties[[i]]$calculate(x)

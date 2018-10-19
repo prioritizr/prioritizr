@@ -1,3 +1,15 @@
+# prioritizr 4.0.2.7
+
+- New `add_mandatory_allocation_constraints` function. This function can be
+  used to ensure that every planning unit is allocated to a management zone in
+  the solution. It is useful when developing land-use plans where every single
+  parcel of land must be assigned to a specific land-use zone.
+- Add the `add_mandatory_allocation_constraints` to the Management Zones and
+  Prioritizr vignettes.
+- Fix bug in the `$find(x)` method for `Collection` prototypes that caused
+  it to throw an error incorrectly. This method was not used in earlier versions
+  of this package.
+
 # prioritizr 4.0.2.6
 
 - Fix bug the `feature_representation` function that caused the "amount_held"
@@ -169,42 +181,42 @@
 
 - Added functionality to build and solve problems with multiple management
   zones (#14).
-    - New built-in data sets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
-      and `sim_features_zones` for exploring conservation problems with
-      multiple management zones.
-    - New `zones` function and `Zones` class to organize data with multiple
-      zones.
-    - The `problem` function now accepts `Zone` objects as arguments for
-      `feature` to create problems with multiple zones.
-    - The `add_relative_targets` and `add_absolute_targets` functions for adding
-      targets to problems can be used to specify targets for each feature in
-      each zone.
-    - New `add_manual_targets` function for creating targets that pertain to
-      multiple management zones.
-    - The `solve` function now returns a `list` of solutions when generating
-      a portfolio of solutions.
-    - The `add_locked_in_constraints` and `add_locked_out_constraints`
-      functions for specifying which planning units are locked in or out
-      now accept `matrix` arguments for specifying which zones are locked
-      in or out.
-    - New `add_manual_locked_constraints` function to manually specify which
-      planning units should or shouldn't be allocated to specific zones in
-      solutions.
-    - All functions for adding constraints and penalties now have
-      parameters that specify how they should treat planning units allocate to
-      different zones (using the `zones` parameter) and specify how they
-      they should be applied (using the `data` parameter. All of these functions
-      have default arguments that mean that problems with a single zone
-      should have the same optimal solution as problems created in the earlier
-      version of the package.
-    - The `add_feature_weights` function can be used to weight different
-      the representation of each feature in each zone.
-    - The `binary_stack`, `category_layer`, and `category_vector` functions have
-      been provided to help work with data for multiple management zones.
-    - New _Management zones_ vignette on building and solving problems with
-      multiple management zones.
-    - Added mention of zones functionality to package DESCRIPTION, summary (in
-      `?prioritizr`), and README.
+- New built-in data sets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
+  and `sim_features_zones` for exploring conservation problems with
+  multiple management zones.
+- New `zones` function and `Zones` class to organize data with multiple
+  zones.
+- The `problem` function now accepts `Zone` objects as arguments for
+  `feature` to create problems with multiple zones.
+- The `add_relative_targets` and `add_absolute_targets` functions for adding
+  targets to problems can be used to specify targets for each feature in
+  each zone.
+- New `add_manual_targets` function for creating targets that pertain to
+  multiple management zones.
+- The `solve` function now returns a `list` of solutions when generating
+  a portfolio of solutions.
+- The `add_locked_in_constraints` and `add_locked_out_constraints`
+  functions for specifying which planning units are locked in or out
+  now accept `matrix` arguments for specifying which zones are locked
+  in or out.
+- New `add_manual_locked_constraints` function to manually specify which
+  planning units should or shouldn't be allocated to specific zones in
+  solutions.
+- All functions for adding constraints and penalties now have
+  parameters that specify how they should treat planning units allocate to
+  different zones (using the `zones` parameter) and specify how they
+  they should be applied (using the `data` parameter. All of these functions
+  have default arguments that mean that problems with a single zone
+  should have the same optimal solution as problems created in the earlier
+  version of the package.
+- The `add_feature_weights` function can be used to weight different
+  the representation of each feature in each zone.
+- The `binary_stack`, `category_layer`, and `category_vector` functions have
+  been provided to help work with data for multiple management zones.
+- New _Management zones_ vignette on building and solving problems with
+  multiple management zones.
+- Added mention of zones functionality to package DESCRIPTION, summary (in
+  `?prioritizr`), and README.
 - The _Quick Start Guide_ and _Prioritizr Basics_ vignettes have been
   consolidated into the _prioritizr_ vignette.
 - The `marxan_problem` has been updated with more comprehensive documentation

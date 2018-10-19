@@ -45,6 +45,11 @@ NULL
 #'     contiguous unit and not that the entire solution should form a
 #'     contiguous unit.}
 #'
+#'   \item{\code{\link{add_mandatory_allocation_constraints}}}{
+#'     Add constraints to ensure that every planning unit is allocated to a
+#'     management zone in the solution. \strong{This function can only be used
+#'     with problems that contain multiple zones.}}
+#'
 #'  }
 #'
 #' @seealso \code{\link{decisions}}, \code{\link{objectives}},

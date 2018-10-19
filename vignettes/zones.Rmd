@@ -284,6 +284,38 @@ plot(category_layer(s6), main = "solution", axes = FALSE, box = FALSE)
 
 Finally, it appears we might have a viable solution for this made-up conservation problem.
 
+### Multiple zones with fragmentation penalties and mandatory allocations
+
+Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let's see what happens to the solution if we needed to do at least one form of control in every single planning unit.
+
+```{r}
+# create matrix that describe boundary penalties between planning units
+# allocated to different zones
+p7 <- problem(pu4, zones("few.traps" = sim_features * 0.1,
+                         "many.traps" = sim_features * 0.5,
+                         "baiting" = sim_features * 0.8,
+                         feature_names = names(sim_features))) %>%
+      add_min_set_objective() %>%
+      add_manual_targets(t4) %>%
+      add_mandatory_allocation_constraints() %>%
+      add_manual_locked_constraints(l5) %>%
+      add_boundary_penalties(penalty = 640, zones = z6) %>%
+      add_binary_decisions()
+
+# print problem
+print(p7)
+
+# solve problem
+s7 <- solve(p7)
+
+# calculate feature representation
+r7 <- feature_representation(p7, s7)
+print(r7)
+
+# plot solution
+plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
+```
+
 ## Conclusion
 
 Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones using the _prioritizr R_ package. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It's worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the Examples sections of the help pages to get a feel for what different functions do when they are applied to problems with multiple zones.

@@ -117,7 +117,7 @@ Collection <- pproto(
         return(x)
     } else {
       n <- self$ids()
-      x <- match(x, vapply(n, function(j) self[[j]]$name), character(1))
+      x <- match(x, vapply(n, function(j) self[[j]]$name, character(1)))
       if (!is.finite(x))
         stop("item with matching name not found")
       if (base::length(x) > 1)

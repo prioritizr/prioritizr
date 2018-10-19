@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.6</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">4.0.2.7</span>
       </span>
     </div>
 
@@ -153,6 +153,16 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-0-2-7" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-0-2-7" class="anchor"></a>prioritizr 4.0.2.7<small> Unreleased </small>
+</h1>
+<ul>
+<li>New <code>add_mandatory_allocation_constraints</code> function. This function can be used to ensure that every planning unit is allocated to a management zone in the solution. It is useful when developing land-use plans where every single parcel of land must be assigned to a specific land-use zone.</li>
+<li>Add the <code>add_mandatory_allocation_constraints</code> to the Management Zones and Prioritizr vignettes.</li>
+<li>Fix bug in the <code>$find(x)</code> method for <code>Collection</code> prototypes that caused it to throw an error incorrectly. This method was not used in earlier versions of this package.</li>
+</ul>
+</div>
     <div id="prioritizr-4-0-2-6" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-0-2-6" class="anchor"></a>prioritizr 4.0.2.6<small> Unreleased </small>
@@ -379,8 +389,7 @@
 <a href="#prioritizr-4-0-0-0" class="anchor"></a>prioritizr 4.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Added functionality to build and solve problems with multiple management zones (<a href='https://github.com/prioritizr/prioritizr/issues/14'>#14</a>).
-<ul>
+<li>Added functionality to build and solve problems with multiple management zones (<a href='https://github.com/prioritizr/prioritizr/issues/14'>#14</a>).</li>
 <li>New built-in data sets <code>sim_pu_zones_stack</code>, <code>sim_pu_zones_polygons</code>, and <code>sim_features_zones</code> for exploring conservation problems with multiple management zones.</li>
 <li>New <code>zones</code> function and <code>Zones</code> class to organize data with multiple zones.</li>
 <li>The <code>problem</code> function now accepts <code>Zone</code> objects as arguments for <code>feature</code> to create problems with multiple zones.</li>
@@ -394,8 +403,6 @@
 <li>The <code>binary_stack</code>, <code>category_layer</code>, and <code>category_vector</code> functions have been provided to help work with data for multiple management zones.</li>
 <li>New <em>Management zones</em> vignette on building and solving problems with multiple management zones.</li>
 <li>Added mention of zones functionality to package DESCRIPTION, summary (in <code><a href="../reference/prioritizr.html">?prioritizr</a></code>), and README.</li>
-</ul>
-</li>
 <li>The <em>Quick Start Guide</em> and <em>Prioritizr Basics</em> vignettes have been consolidated into the <em>prioritizr</em> vignette.</li>
 <li>The <code>marxan_problem</code> has been updated with more comprehensive documentation and to provide more helpful error messages. For clarity, it will now only work with tabular data in the standard <em>Marxan</em> format.</li>
 </ul>
@@ -889,6 +896,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-0-2-7">4.0.2.7</a></li>
         <li><a href="#prioritizr-4-0-2-6">4.0.2.6</a></li>
         <li><a href="#prioritizr-4-0-2-5">4.0.2.5</a></li>
         <li><a href="#prioritizr-4-0-2-4">4.0.2.4</a></li>

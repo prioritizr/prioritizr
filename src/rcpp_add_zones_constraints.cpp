@@ -2,7 +2,7 @@
 #include "optimization_problem.h"
 
 // [[Rcpp::export]]
-bool rcpp_add_zones_constraints(SEXP x) {
+bool rcpp_add_zones_constraints(SEXP x, std::string sense) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   std::size_t A_original_ncol = ptr->_obj.size();
@@ -17,7 +17,7 @@ bool rcpp_add_zones_constraints(SEXP x) {
       ptr->_A_j.push_back((z * ptr->_number_of_planning_units) + j);
     for (std::size_t z = 0; z < (ptr->_number_of_zones); ++z)
       ptr->_A_x.push_back(1.0);
-    ptr->_sense.push_back("<=");
+    ptr->_sense.push_back(sense);
     ptr->_rhs.push_back(1.0);
     ptr->_row_ids.push_back("pu_zone");
   }

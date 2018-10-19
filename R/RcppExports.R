@@ -89,8 +89,8 @@ rcpp_add_rij_data <- function(x, rij_list, targets_list, compressed_formulation)
     .Call(`_prioritizr_rcpp_add_rij_data`, x, rij_list, targets_list, compressed_formulation)
 }
 
-rcpp_add_zones_constraints <- function(x) {
-    .Call(`_prioritizr_rcpp_add_zones_constraints`, x)
+rcpp_add_zones_constraints <- function(x, sense) {
+    .Call(`_prioritizr_rcpp_add_zones_constraints`, x, sense)
 }
 
 rcpp_apply_boundary_penalties <- function(x, penalty, edge_factor, zones_matrix, boundary_matrix) {
