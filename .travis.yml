@@ -57,7 +57,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 install:
-  - R -e "install.packages('remotes'); suppressWarnings(remotes::install_deps(dependencies = TRUE, type = 'binary'))"
+  - R -e "install.packages('remotes'); suppressWarnings(remotes::install_deps(dependencies = TRUE))"
   - R -e "install.packages(c('covr', 'rmarkdown', 'testthat'))"
 
 after_success:
