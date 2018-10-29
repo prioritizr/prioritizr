@@ -27,6 +27,11 @@ contrib:
 vigns: install
 	R --slave -e "devtools::build_vignettes()"
 
+quicksite:
+	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
+	rm docs/CNAME
+	echo "prioritizr.net\c" >> docs/CNAME
+
 site:
 	R --slave -e "pkgdown::clean_site()"
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"

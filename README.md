@@ -27,7 +27,7 @@ devtools::install_github("prioritizr/prioritizr")
 Citation
 --------
 
-Please using the following citation to cite the *prioritizr R* package in publications:
+Please use the following citation to cite the *prioritizr R* package in publications:
 
 Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.2.7. Available at <https://github.com/prioritizr/prioritizr>.
 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.001616001
+    ## 0.002176046
 
 ``` r
 # extract state message from the solver

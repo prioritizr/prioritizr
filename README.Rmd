@@ -45,7 +45,7 @@ devtools::install_github("prioritizr/prioritizr")
 
 ## Citation
 
-Please using the following citation to cite the _prioritizr R_ package in publications:
+Please use the following citation to cite the _prioritizr R_ package in publications:
 
 ```{r, echo = FALSE, results = "asis", comment = ""}
 cat(paste0("Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ",packageDescription("prioritizr")$Version,". Available at https://github.com/prioritizr/prioritizr.\n"))
