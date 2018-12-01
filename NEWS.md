@@ -1,3 +1,12 @@
+# prioritizr 4.0.2.8
+
+- Fix bug where the `add_neighbor_constraints` and `add_contiguity_constraints`
+  functions used more memory than they actually needed (#102). This is because
+  the argument validation code converted sparse matrix objects (i.e.
+  `dgCMatrix`) to base objects (i.e. `matrix`) class temporarily. This bug
+  only meant inefficient utilization of computer resources---it did not affect
+  the correctness of any results.
+
 # prioritizr 4.0.2.7
 
 - New `add_mandatory_allocation_constraints` function. This function can be

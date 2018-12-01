@@ -51,6 +51,8 @@ test_that("cost=RasterStack, features=RasterStack", {
 })
 
 test_that("cost=SpatialPolygons, features=RasterStack", {
+  # skip test if velox not installed
+  skip_if_not_installed("velox")
   # create data
   data(sim_pu_polygons, sim_features)
   m_1 <- rij_matrix(sim_pu_polygons, sim_features, fun = mean,

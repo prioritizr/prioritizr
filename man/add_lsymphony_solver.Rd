@@ -37,7 +37,7 @@ optimization problems? Defaults to \code{TRUE}.}
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a
-conservation planning problem using the \pkg{lpsymhpony} package. This
+conservation planning problem using the \pkg{lpsymphony} package. This
 function can also be used to customize the behavior of the solver.
 It requires the \pkg{lpsymphony} package.
 }

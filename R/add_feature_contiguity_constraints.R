@@ -284,10 +284,10 @@ methods::setMethod("add_feature_contiguity_constraints",
         if (is.data.frame(data[[i]]))
           data[[i]] <- marxan_boundary_data_to_matrix(x, data[[i]])
         # run checks
-        assertthat::assert_that(all(as.vector(data[[i]]) %in% c(0, 1)),
+        assertthat::assert_that(all(data[[i]]@x %in% c(0, 1)),
           ncol(data[[i]]) == nrow(data[[i]]),
           number_of_total_units(x) == ncol(data[[i]]),
-          all(is.finite(as.vector(data[[i]]))), Matrix::isSymmetric(data[[i]]))
+          all(is.finite(data[[i]]@x)), Matrix::isSymmetric(data[[i]]))
       }
       # create list with data
       d <- list(connected_matrices = data)

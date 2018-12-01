@@ -1,3 +1,5 @@
+Meta
+doc
 # C++ compiled files
 *.o
 *.so
@@ -6,24 +8,26 @@
 # R profile files
 *.Rproj.user
 *.Rhistory
-
+.Rproj.user
 # log files
 gurobi.log
 test.log
 check.log
 spell.log
 gp.log
-
 # system files
 .directory
-
 # cache
 data/intermediate/*
 data/final/results.rda
 code/rmarkdown/figures_files/*
 code/rmarkdown/supporting_information_files/*
-
 # do not ignore the following files
 !.gitkeep
 !*/
-.Rproj.user
+!inst/doc/*.html
+!inst/doc/*.Rmd
+!inst/doc/.gitkeep
+# devtools files
+doc/*
+Meta/*

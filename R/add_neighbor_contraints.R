@@ -198,9 +198,9 @@ methods::setMethod("add_neighbor_constraints",
      inherits(data, c("NULL", "Matrix")))
     if (!is.null(data)) {
       # check argument to data if not NULL
-      assertthat::assert_that(all(as.vector(data) %in% c(0, 1, NA)),
+      assertthat::assert_that(all(as(data, "dgCMatrix")@x %in% c(0, 1, NA)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
-        sum(!is.finite(as.vector(data))) == 0)
+        sum(!is.finite(as(data, "dgCMatrix")@x)) == 0)
       d <- list(connected_matrix = data)
     } else {
       # check that planning unit data is spatially referenced

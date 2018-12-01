@@ -897,11 +897,9 @@ p27 &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster,
 <span class="st">       </span><span class="kw">add_min_set_objective</span>() <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_relative_targets</span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
 <span class="st">       </span><span class="kw">add_binary_decisions</span>() <span class="op">%&gt;%</span>
-<span class="st">       </span><span class="kw">add_lpsymphony_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)</code></pre></div>
-<pre><code>## Warning in add_lpsymphony_solver(., gap = 0): The solution may be incorrect
-## due to a bug in lpsymphony. Please verify that it is correct, or use a
-## different solver to generate solutions.</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print problem</span>
+<span class="st">       </span><span class="kw">add_lpsymphony_solver</span>(<span class="dt">gap =</span> <span class="dv">0</span>)
+
+<span class="co"># print problem</span>
 <span class="kw">print</span>(p27)</code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
@@ -1019,7 +1017,7 @@ p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1035,7 +1033,7 @@ p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre
 ## Cutting planes:
 ##   Gomory: 3
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.10 seconds
+## Explored 1 nodes (347 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 2604.74 2949.76 3087.96 20287.2 
@@ -1054,7 +1052,7 @@ p31 &lt;-<span class="st"> </span><span class="kw">solve</span>(p31)</code></pre
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;runtime&quot;</span>))</code></pre></div>
 <pre><code>## solution_1 
-##  0.1029971</code></pre>
+## 0.08291507</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw">print</span>(<span class="kw">attr</span>(p31, <span class="st">&quot;status&quot;</span>))</code></pre></div>
