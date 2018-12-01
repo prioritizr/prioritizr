@@ -31,15 +31,23 @@ vigns:
 
 
 quicksite:
+	cp docs/favicon.ico /tmp
+	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 	rm docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
+	cp /tmp/favicon.ico docs
+	cp /tmp/logo.png docs
 
 site:
+	cp docs/favicon.ico /tmp
+	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::clean_site()"
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 	rm docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
+	cp /tmp/favicon.ico docs
+	cp /tmp/logo.png docs
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1
