@@ -1,3 +1,7 @@
+# prioritizr 4.0.2.9
+
+- Update publication record vignette.
+
 # prioritizr 4.0.2.8
 
 - Fix bug where the `add_neighbor_constraints` and `add_contiguity_constraints`

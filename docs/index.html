@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.9</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please use the following citation to cite the <em>prioritizr R</em> package in publications:</p>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.2.8. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2018). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.2.9. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
@@ -190,7 +190,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [6e+00, 1e+01]
 ## Found heuristic solution: objective 3934.6218396
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
@@ -204,7 +204,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
 ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
 ## 
-## Explored 1 nodes (16 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3585.96 3934.62 
@@ -217,8 +217,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##    3585.96</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
-<pre><code>## solution_1 
-## 0.01977897</code></pre>
+<pre><code>##  solution_1 
+## 0.001832008</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -285,7 +285,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Found heuristic solution: objective 20287.196992
 ## Found heuristic solution: objective 6442.6427161
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -299,7 +299,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 5422.00754    0   57 6442.64272 5422.00754  15.8%     -    0s
 ## H    0     0                    5788.7291519 5422.00754  6.34%     -    0s
 ## 
-## Explored 1 nodes (121 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (121 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 5788.73 6442.64 20287.2 
