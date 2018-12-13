@@ -84,7 +84,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.10</span>
       </span>
     </div>
 
@@ -219,7 +219,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 2352.9617505
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -263,7 +263,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
 #&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (92 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4014.03 4565.49 18523.2 
@@ -293,7 +293,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 5932.50572    0   16 6599.76317 5932.50572  10.1%     -    0s
 #&gt; H    0     0                    6096.9115786 5932.50572  2.70%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (121 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 6096.91 6599.76 18523.2 
@@ -343,7 +343,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
 #&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2006.35 2352.96 18523.2 
@@ -373,7 +373,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
 #&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (92 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4014.03 4565.49 18523.2 
@@ -412,8 +412,8 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.187   0.627   1.850 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.596   0.412   0.995 </div><div class='input'>
+#&gt;   0.596   0.261   0.861 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.517   0.255   0.754 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

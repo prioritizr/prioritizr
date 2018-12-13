@@ -82,7 +82,7 @@ solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.10</span>
       </span>
     </div>
 
@@ -248,7 +248,7 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 
 <span class='co'># create problem with maximum features objective</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_features_objective</span>(<span class='fl'>1500</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'>add_max_features_objective</span>(<span class='fl'>1800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
@@ -259,17 +259,46 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 6 rows and 95 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolve: All rows and columns removed
+#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
+#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
 #&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+#&gt; 
+#&gt; Root relaxation: objective 4.701027e+00, 23 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0    4.70103    0    6   -0.00000    4.70103      -     -    0s
+#&gt;      0     0    4.69735    0    7   -0.00000    4.69735      -     -    0s
+#&gt;      0     0    4.65824    0    8   -0.00000    4.65824      -     -    0s
+#&gt;      0     0    4.65079    0    9   -0.00000    4.65079      -     -    0s
+#&gt;      0     0    4.64587    0   10   -0.00000    4.64587      -     -    0s
+#&gt;      0     0    4.63767    0   10   -0.00000    4.63767      -     -    0s
+#&gt;      0     0    4.63255    0   10   -0.00000    4.63255      -     -    0s
+#&gt;      0     0    4.63059    0   12   -0.00000    4.63059      -     -    0s
+#&gt;      0     0    4.63010    0   13   -0.00000    4.63010      -     -    0s
+#&gt;      0     0    4.62886    0   14   -0.00000    4.62886      -     -    0s
+#&gt;      0     0    4.62776    0   14   -0.00000    4.62776      -     -    0s
+#&gt;      0     0    4.62759    0   15   -0.00000    4.62759      -     -    0s
+#&gt;      0     0    4.62714    0   16   -0.00000    4.62714      -     -    0s
+#&gt;      0     2    4.62165    0   16   -0.00000    4.62165      -     -    0s
+#&gt; H    3     3                       0.9990541    3.81348   282%  15.0    0s
+#&gt; H   13     4                       1.9990388    3.60705  80.4%  11.6    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Cover: 1
+#&gt;   MIR: 6
+#&gt;   StrongCG: 3
+#&gt; 
+#&gt; Explored 46 nodes (328 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: -0 
+#&gt; Solution count 3: 1.99904 0.999054 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 1.999038833267e+00, best bound 1.999367010252e+00, gap 0.0164%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_features_objective-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create multi-zone problem with maximum features objective,</span>
@@ -323,7 +352,7 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 #&gt;   GUB cover: 1
 #&gt;   Inf proof: 2
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.08 seconds
+#&gt; Explored 63 nodes (1030 simplex iterations) in 0.07 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0

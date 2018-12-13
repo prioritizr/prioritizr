@@ -1,3 +1,7 @@
+# prioritizr 4.0.2.10
+
+- Tweak `add_max_features_objective` example code.
+
 # prioritizr 4.0.2.9
 
 - Update publication record vignette.
