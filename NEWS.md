@@ -1,3 +1,7 @@
+# prioritizr 4.0.2.11
+
+- Fix issue `solve` printing annoying text about `tbl_df` (#75).
+
 # prioritizr 4.0.2.10
 
 - Tweak `add_max_features_objective` example code.

@@ -2,23 +2,14 @@
 NULL
 
 #' @export
-if (!methods::isClass("tbl_df")) methods::setOldClass("tbl_df")
+#' @importClassesFrom tibble tbl_df
 NULL
 
-# create nrow/ncol/as.list methods for handling tibble's tbl_df class internally
-# we do this because nrow/ncol/as.list are overwritten as a S4 generic by the
+# Dear reader,
+# We create nrow/ncol/as.list methods for handling tibble's tbl_df class
+# internally because nrow/ncol/as.list are overwritten as a S4 generic by the
 # raster package, and so R needs to be forcefully told what to do because
-# tibble doesn't export it's S4 class definitions. This means that when
-# we call nrow/ncol/as.list in prioritizr's source code, R uses prioritizr's
-# definition of tbl_df when it is expecting a definition from the tibble
-# package. R then kindly/annoyingly informs us this by printing the following
-# text:
-#
-#   "Found more than one class "tbl_df" in cache; using the first, from
-#   namespace 'prioritizr'"
-#
-# To avoid this R from producing this text, we will methods for
-# internally handling tbl_df objects inside prioritizr.
+# tibble doesn't export it's S4 class methods.
 
 #' Manipulate tibbles
 #'

@@ -10,6 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Management Zones">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://prioritizr.net/logo.png">
@@ -38,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.11</span>
       </span>
     </div>
 
@@ -428,7 +429,7 @@ pu4 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumen
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(pu4, <span class="dt">nr =</span> <span class="dv">1</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-6-1.png" width="432" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create targets</span>
-t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/tibble/topics/tibble">tibble</a></span>(<span class="dt">feature =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(sim_features),
+t4 &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">feature =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(sim_features),
                      <span class="dt">zone =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(pu4))[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">1</span>, <span class="dv">5</span>)],
                      <span class="dt">target =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="dv">8</span>, <span class="dv">5</span>),
                      <span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">"absolute"</span>, <span class="dv">5</span>))
@@ -678,7 +679,7 @@ s6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 308 rows and 232 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 1597 rows, 968 columns, 4872 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Presolve removed 720 rows and 0 columns
@@ -693,7 +694,7 @@ s6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ##      0     0 10054.0986    0   57 20096.0000 10054.0986  50.0%     -    0s
 ## H    0     0                    10460.000000 10054.0986  3.88%     -    0s
 ## 
-## Explored 1 nodes (793 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (793 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 10460 20096 
@@ -753,8 +754,8 @@ p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -769,7 +770,7 @@ s7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 392 rows and 316 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 1513 rows, 884 columns, 4608 nonzeros
 ## Variable types: 0 continuous, 884 integer (884 binary)
 ## Presolve removed 728 rows and 8 columns
@@ -784,7 +785,7 @@ s7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (403 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
@@ -872,7 +873,7 @@ r7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

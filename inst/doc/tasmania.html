@@ -222,7 +222,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30514.663295
 ## Found heuristic solution: objective 12420.567371
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.03s
+## Presolve time: 0.02s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12633.675102
 ## Found heuristic solution: objective 11603.764206
@@ -275,7 +275,7 @@ r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 veg8           0.185          0.248
 ##  9 veg9           1.46           0.242
 ## 10 veg10          0.0716         0.313
-## # ... with 52 more rows</code></pre>
+NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw">as</span>(tas_pu, <span class="st">&quot;SpatialPolygons&quot;</span>), <span class="dt">data =</span> s1)
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -327,7 +327,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.03 seconds
+## Root relaxation: objective 1.072358e+04, 775 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -357,7 +357,7 @@ r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 layer.8         0.185          0.248
 ##  9 layer.9         1.46           0.242
 ## 10 layer.10        0.0716         0.313
-## # ... with 52 more rows</code></pre>
+NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">spplot</span>(s2, <span class="st">&quot;solution_1&quot;</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),
