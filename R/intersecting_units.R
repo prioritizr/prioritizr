@@ -73,8 +73,7 @@ methods::setMethod(
     # assert arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
       isTRUE(raster::nlayers(x) == 1), raster::compareCRS(x@crs, y@crs),
-      raster::compareRaster(x, y, crs = TRUE, res = TRUE, tolerance = 1e-5,
-                            stopiffalse = FALSE))
+      is_comparable_raster(x, y))
     if (inherits(x, c("RasterStack", "RasterBrick"))) x <- x[[1]]
     if (inherits(y, c("RasterStack", "RasterBrick"))) y <- y[[1]]
     y <- as.logical(y)

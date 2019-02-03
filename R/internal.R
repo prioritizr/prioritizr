@@ -284,3 +284,30 @@ verify_that <- function(..., env = parent.frame()) {
   warning(res)
   FALSE
 }
+
+#' Are rasters comparable?
+#'
+#' This function checks if two \code{\link[raster]{Raster-class}} objects
+#' are comarable.
+#'
+#' @param x \code{\link[raster]{Raster-class}} object.
+#'
+#' @param y \code{\link[raster]{Raster-class}} object.
+#'
+#' @return \code{logical} indicating if the two
+#'   \code{\link[raster]{Raster-class}} objects have the same
+#'   resolution, extent, dimensionality, and coordinate system.
+#'
+#' @noRd
+is_comparable_raster <- function(x, y) {
+  assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"))
+  raster::compareCRS(x, y) &&
+  raster::compareRaster(x, y, crs = TRUE, res = TRUE, tolerance = 1e-5,
+                        stopiffalse = FALSE)
+}
+
+assertthat::on_failure(is_comparable_raster) <- function(call, env) {
+  paste0(deparse(call$x), " and ", deparse(call$y),  " are not comparable: ",
+         "they have different spatial resolutions, extents, ",
+         "coordinate reference systems, or dimensionality (rows / columns).")
+}

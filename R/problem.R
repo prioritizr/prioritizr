@@ -425,8 +425,7 @@ methods::setMethod(
       raster::nlayers(x) > 0,
       number_of_features(features) > 0,
       raster::nlayers(x) == number_of_zones(features),
-      raster::compareRaster(x, features[[1]], res = TRUE, tolerance = 1e-5,
-                            stopiffalse = FALSE))
+      is_comparable_raster(x, features[[1]]))
     if (run_checks) {
       assertthat::assert_that(
         all(raster::cellStats(!is.na(x), "sum") > 0))

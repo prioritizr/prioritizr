@@ -1,3 +1,10 @@
+# prioritizr 4.0.2.12
+
+- Fix `bad error message` error being thrown when input rasters are not
+  comparable (i.e. same coordinate reference system, extent, resolutions, and
+  dimensionality) (#104).
+- Add Domisch _et al._ (2019) to publication record vignette.
+
 # prioritizr 4.0.2.11
 
 - Fix issue `solve` printing annoying text about `tbl_df` (#75).

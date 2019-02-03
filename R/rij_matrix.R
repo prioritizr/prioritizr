@@ -78,8 +78,7 @@ methods::setMethod(
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
       raster::nlayers(x) > 0, raster::nlayers(y) > 0,
-      raster::compareRaster(x, y[[1]], res = TRUE, tolerance = 1e-5,
-                            stopiffalse = FALSE))
+      is_comparable_raster(x, y))
     # set included cells
     if (raster::nlayers(x) == 1) {
       included <- raster::Which(!is.na(x), cells = TRUE)

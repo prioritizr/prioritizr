@@ -144,8 +144,7 @@ methods::setMethod(
     # validate that arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
       raster::nlayers(x) == 1, raster::nlayers(y) == 1,
-      raster::compareRaster(x, y, stopiffalse = FALSE, crs = TRUE, res = TRUE,
-                            tolerance = 1e-5))
+      is_comparable_raster(x, y))
     # extract data from first bands in x and y
     x <- x[[1]]
     y <- y[[1]]
