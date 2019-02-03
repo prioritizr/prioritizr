@@ -413,8 +413,8 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.730   0.450   1.186 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.690   0.423   1.103 </div><div class='input'>
+#&gt;   0.666   0.429   1.106 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.605   0.426   1.022 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.
