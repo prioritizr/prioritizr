@@ -121,6 +121,22 @@ class directly.}
 \code{x$render_solver_parameter(id)}
 
 \code{x$render_all_solver_parameters()}
+
+\code{x$get_portfolio_parameter(id)}
+
+\code{x$set_portfolio_parameter(id, value)}
+
+\code{x$render_portfolio_parameter(id)}
+
+\code{x$render_all_portfolio_parameters()}
+
+\code{x$get_penalty_parameter(id)}
+
+\code{x$set_penalty_parameter(id, value)}
+
+\code{x$render_penalty_parameter(id)}
+
+\code{x$render_all_penalty_parameters()}
 }
 
 \section{Arguments}{

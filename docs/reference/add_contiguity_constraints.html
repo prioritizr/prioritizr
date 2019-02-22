@@ -83,7 +83,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.13</span>
       </span>
     </div>
 
@@ -340,7 +340,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.09 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.11 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4329.44 4590.14 
@@ -421,13 +421,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -453,9 +453,10 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    2s
 #&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    2s
 #&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    2s
-#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    2s
-#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    3s
-#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    4s
+#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    3s
+#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    4s
+#&gt;    550   227 infeasible   23      13488.6208 12101.2606  10.3%  67.0    5s
+#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    5s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
@@ -463,7 +464,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 4.65 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 5.47 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -511,7 +512,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 6
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.41 seconds
+#&gt; Explored 97 nodes (4719 simplex iterations) in 0.56 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
@@ -570,7 +571,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 14
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 0.99 seconds
+#&gt; Explored 162 nodes (8747 simplex iterations) in 0.96 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
@@ -615,7 +616,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; <span class='message'>  features: layer.1, layer.2, layer.3, ... (5 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
 <span class='co'># create targets</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
                           <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
                           <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.3</span>,
                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
@@ -646,7 +647,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 48 rows and 47 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 655 rows, 568 columns, 2764 nonzeros
 #&gt; Variable types: 0 continuous, 568 integer (568 binary)
 #&gt; Presolve removed 124 rows and 0 columns
@@ -669,7 +670,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 3
 #&gt;   Zero half: 2
 #&gt; 
-#&gt; Explored 1 nodes (426 simplex iterations) in 0.11 seconds
+#&gt; Explored 1 nodes (426 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6482.83 

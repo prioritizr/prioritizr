@@ -89,7 +89,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.13</span>
       </span>
     </div>
 
@@ -426,7 +426,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 194 rows and 195 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
 #&gt; Variable types: 0 continuous, 1065 integer (1065 binary)
 #&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
@@ -469,13 +469,13 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 608 rows and 529 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 468 rows, 386 columns, 1294 nonzeros
 #&gt; Variable types: 0 continuous, 386 integer (386 binary)
 #&gt; Presolved: 468 rows, 386 columns, 1294 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.168422e+04, 369 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.168422e+04, 369 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -483,7 +483,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 11684.2161    0   81          - 11684.2161      -     -    0s
 #&gt; H    0     0                    12310.758400 11684.2161  5.09%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (447 simplex iterations) in 0.03 seconds
+#&gt; Explored 1 nodes (447 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 12310.8 
@@ -592,13 +592,13 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 369 rows and 369 columns
-#&gt; Presolve time: 0.55s
+#&gt; Presolve time: 0.50s
 #&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
 #&gt; Variable types: 0 continuous, 3426 integer (3426 binary)
 #&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.964223e+03, 5545 iterations, 0.30 seconds
+#&gt; Root relaxation: objective 5.964223e+03, 5545 iterations, 0.28 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -612,8 +612,8 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5982.14288    0  956          - 5982.14288      -     -    1s
 #&gt;      0     0 5985.60715    0 1016          - 5985.60715      -     -    1s
 #&gt;      0     0 5986.15050    0 1083          - 5986.15050      -     -    1s
-#&gt;      0     0 5986.18663    0 1090          - 5986.18663      -     -    2s
-#&gt;      0     0 5986.18663    0 1090          - 5986.18663      -     -    2s
+#&gt;      0     0 5986.18663    0 1090          - 5986.18663      -     -    1s
+#&gt;      0     0 5986.18663    0 1090          - 5986.18663      -     -    1s
 #&gt;      0     0 5989.16270    0 1089          - 5989.16270      -     -    2s
 #&gt;      0     0 5989.26277    0 1054          - 5989.26277      -     -    2s
 #&gt;      0     0 5989.26277    0 1055          - 5989.26277      -     -    2s
@@ -633,35 +633,37 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5993.53010    0 1098          - 5993.53010      -     -    2s
 #&gt;      0     0 5993.53010    0 1099          - 5993.53010      -     -    2s
 #&gt;      0     0 5993.53010    0 1095          - 5993.53010      -     -    2s
-#&gt;      0     0 5993.53010    0 1094          - 5993.53010      -     -    3s
+#&gt;      0     0 5993.53010    0 1094          - 5993.53010      -     -    2s
 #&gt;      0     2 5993.59840    0 1094          - 5993.59840      -     -    4s
-#&gt;      9    11 6064.74132    7 1023          - 5993.68294      -   442    5s
-#&gt; H  147   118                    9095.6069285 5993.68294  34.1%   156    7s
-#&gt; H  176   139                    8874.0196096 5995.87353  32.4%   178    8s
-#&gt; H  203   157                    8629.5143835 5995.87353  30.5%   185    9s
-#&gt; H  230    99                    6774.1900965 5995.87353  11.5%   178    9s
-#&gt;    239   104 6004.51870    8 1110 6774.19010 5996.71360  11.5%   179   10s
-#&gt; H  257   120                    6769.2701548 5996.71360  11.4%   189   11s
-#&gt; H  285   138                    6765.4352048 5996.71360  11.4%   185   11s
-#&gt; H  312   165                    6754.1573992 5996.96548  11.2%   190   12s
-#&gt; H  394   220                    6750.1005609 5997.40740  11.2%   203   15s
-#&gt;    511   322 6536.31849   32 1094 6750.10056 5997.58112  11.1%   223   21s
-#&gt;    525   331 6197.87154   26 1160 6750.10056 5997.58112  11.1%   217   25s
+#&gt;     17    19 6150.92297   13  788          - 5993.68294      -   388    5s
+#&gt; H  147   118                    9095.6069285 5993.68294  34.1%   156    6s
+#&gt; H  176   139                    8874.0196096 5995.87353  32.4%   178    7s
+#&gt; H  203   157                    8629.5143835 5995.87353  30.5%   185    8s
+#&gt; H  230    99                    6774.1900965 5995.87353  11.5%   178    8s
+#&gt; H  257   120                    6769.2701548 5996.71360  11.4%   189    9s
+#&gt;    272   135 6350.84565   33  885 6769.27015 5996.71360  11.4%   190   10s
+#&gt; H  285   138                    6765.4352048 5996.71360  11.4%   185   10s
+#&gt; H  312   165                    6754.1573992 5996.96548  11.2%   190   11s
+#&gt; H  394   220                    6750.1005609 5997.40740  11.2%   203   13s
+#&gt;    455   275 6045.53334    5 1233 6750.10056 5997.58112  11.1%   213   15s
+#&gt;    514   324 6067.48139   10  967 6750.10056 5997.58112  11.1%   222   20s
+#&gt;    527   333 6082.20826   14 1192 6750.10056 5997.58112  11.1%   216   25s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt;   MIR: 14
+#&gt;   Gomory: 5
+#&gt;   Cover: 1
+#&gt;   MIR: 17
 #&gt;   Flow cover: 1
-#&gt;   Zero half: 22
+#&gt;   Zero half: 29
 #&gt;   Mod-K: 1
 #&gt; 
-#&gt; Explored 532 nodes (150802 simplex iterations) in 30.00 seconds
+#&gt; Explored 536 nodes (151463 simplex iterations) in 30.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 8: 6750.1 6754.16 6765.44 ... 9095.61
 #&gt; 
 #&gt; Time limit reached
-#&gt; Best objective 6.750100560852e+03, best bound 5.998296322913e+03, gap 11.1377%
+#&gt; Best objective 6.750100560852e+03, best bound 5.998761061507e+03, gap 11.1308%
 #&gt; Optimize a model with 4495 rows, 3795 columns and 14780 nonzeros
 #&gt; Variable types: 0 continuous, 3795 integer (3795 binary)
 #&gt; Coefficient statistics:
@@ -670,14 +672,14 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 652 rows and 656 columns
-#&gt; Presolve time: 0.41s
+#&gt; Presolve time: 0.37s
 #&gt; Presolved: 3843 rows, 3139 columns, 12612 nonzeros
 #&gt; Variable types: 0 continuous, 3139 integer (3139 binary)
 #&gt; Presolve removed 749 rows and 81 columns
 #&gt; Presolved: 3094 rows, 3058 columns, 10608 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956540e+03, 3679 iterations, 0.19 seconds
+#&gt; Root relaxation: objective 5.956540e+03, 3679 iterations, 0.16 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -705,10 +707,10 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5986.29123    0  920          - 5986.29123      -     -    1s
 #&gt;      0     0 5986.29381    0  921          - 5986.29381      -     -    1s
 #&gt;      0     0 5986.85448    0  890          - 5986.85448      -     -    1s
-#&gt;      0     0 5986.92443    0  873          - 5986.92443      -     -    1s
-#&gt;      0     0 5986.95660    0  938          - 5986.95660      -     -    1s
-#&gt;      0     0 5986.96350    0  942          - 5986.96350      -     -    1s
-#&gt;      0     0 5987.03203    0  912          - 5987.03203      -     -    1s
+#&gt;      0     0 5986.92443    0  873          - 5986.92443      -     -    2s
+#&gt;      0     0 5986.95660    0  938          - 5986.95660      -     -    2s
+#&gt;      0     0 5986.96350    0  942          - 5986.96350      -     -    2s
+#&gt;      0     0 5987.03203    0  912          - 5987.03203      -     -    2s
 #&gt;      0     0 5987.11519    0  931          - 5987.11519      -     -    2s
 #&gt;      0     0 5987.11554    0  932          - 5987.11554      -     -    2s
 #&gt;      0     0 5987.14844    0  904          - 5987.14844      -     -    2s
@@ -737,8 +739,8 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5988.53378    0  949          - 5988.53378      -     -    2s
 #&gt;      0     0 5988.53549    0  945          - 5988.53549      -     -    2s
 #&gt;      0     0 5988.53549    0  942          - 5988.53549      -     -    2s
-#&gt;      0     2 5988.54919    0  941          - 5988.54919      -     -    3s
-#&gt;    161   158 5991.08846    3  802          - 5989.25928      -  85.5    5s
+#&gt;      0     2 5988.54919    0  941          - 5988.54919      -     -    4s
+#&gt;     36    38 6155.84158   28  309          - 5988.57597      -   196    5s
 #&gt; H  233   149                    6305.5335829 5989.25928  5.02%   108    6s
 #&gt; 
 #&gt; Cutting planes:
@@ -746,7 +748,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   StrongCG: 1
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 233 nodes (37624 simplex iterations) in 6.02 seconds
+#&gt; Explored 233 nodes (37624 simplex iterations) in 6.71 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6305.53 
@@ -761,14 +763,14 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 1080 rows and 1080 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 1504 rows, 1410 columns, 6879 nonzeros
 #&gt; Variable types: 0 continuous, 1410 integer (1410 binary)
 #&gt; Presolve removed 290 rows and 0 columns
 #&gt; Presolved: 1214 rows, 1410 columns, 6009 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.05 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -808,7 +810,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5991.90907    0  380          - 5991.90907      -     -    0s
 #&gt;      0     0 5991.90907    0  374          - 5991.90907      -     -    0s
 #&gt;      0     2 5991.94307    0  374          - 5991.94307      -     -    1s
-#&gt; H  144   103                    6578.0672409 5992.33563  8.90%  78.0    1s
+#&gt; H  144   103                    6578.0672409 5992.33563  8.90%  78.0    2s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
@@ -817,7 +819,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   StrongCG: 3
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 144 nodes (15818 simplex iterations) in 1.96 seconds
+#&gt; Explored 144 nodes (15818 simplex iterations) in 2.12 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6578.07 

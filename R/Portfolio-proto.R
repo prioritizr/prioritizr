@@ -79,10 +79,10 @@ Portfolio <- pproto(
       return(paste(self$name, self$parameters$repr()))
     return(self$name)
   },
-  get_paramter = function(self, x) {
+  get_parameter = function(self, x) {
     self$parameters$get(x)
   },
-  set_parameter = function(self, value) {
+  set_parameter = function(self, x, value) {
     self$parameters$set(x, value)
   },
   render_parameter = function(self, x) {

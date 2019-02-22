@@ -806,3 +806,103 @@ test_that("inheritance", {
   expect_equal(p1$constraints$length(), 0)
   expect_equal(p2$constraints$length(), 1)
 })
+
+test_that("get parameter methods", {
+  data(sim_pu_raster, sim_features)
+  x <- problem(sim_pu_raster, sim_features) %>%
+       add_max_features_objective(400) %>%
+       add_absolute_targets(0.1) %>%
+       add_boundary_penalties(200) %>%
+       add_binary_decisions() %>%
+       add_shuffle_portfolio(100) %>%
+       add_locked_in_constraints(1) %>%
+       add_default_solver()
+  id1 <- x$objective$parameters$find("budget")
+  id2 <- x$solver$parameters$find("gap")
+  id3 <- x$constraints[[x$constraints$ids()[1]]]$parameters$ids()[1]
+  id4 <- x$portfolio$parameters$find("number_solutions")
+  id5 <- x$penalties[[x$penalties$ids()[1]]]$parameters$find("penalty")
+  expect_equal(x$get_objective_parameter(as.Id(id1)), 400)
+  expect_equal(x$get_solver_parameter(as.Id(id2)), 0.1)
+  expect_equal(x$get_constraint_parameter(as.Id(id3)),
+               tibble::tibble(pu = 1, zone = factor("layer"), status = 1))
+  expect_equal(x$get_portfolio_parameter(as.Id(id4)), 100)
+  expect_equal(x$get_penalty_parameter(as.Id(id5)), 200)
+})
+
+test_that("set parameter methods", {
+  data(sim_pu_raster, sim_features)
+  x <- problem(sim_pu_raster, sim_features) %>%
+       add_max_features_objective(400) %>%
+       add_absolute_targets(0.1) %>%
+       add_boundary_penalties(200) %>%
+       add_binary_decisions() %>%
+       add_shuffle_portfolio(100) %>%
+       add_locked_in_constraints(1) %>%
+       add_default_solver()
+  id1 <- x$objective$parameters$find("budget")
+  id2 <- x$solver$parameters$find("gap")
+  id3 <- x$constraints[[x$constraints$ids()[1]]]$parameters$ids()[1]
+  id4 <- x$portfolio$parameters$find("number_solutions")
+  id5 <- x$penalties[[x$penalties$ids()[1]]]$parameters$find("penalty")
+  expect_equal(x$get_objective_parameter(as.Id(id1)), 400)
+  expect_equal(x$get_solver_parameter(as.Id(id2)), 0.1)
+  expect_equal(x$get_constraint_parameter(as.Id(id3)),
+               tibble::tibble(pu = 1, zone = factor("layer"), status = 1))
+  expect_equal(x$get_portfolio_parameter(as.Id(id4)), 100)
+  expect_equal(x$get_penalty_parameter(as.Id(id5)), 200)
+  x$set_objective_parameter(as.Id(id1), 90)
+  x$set_solver_parameter(as.Id(id2), 0.2)
+  x$set_constraint_parameter(as.Id(id3),
+                             tibble::tibble(pu = 2, zone = factor("layer"),
+                             status = 1))
+  x$set_portfolio_parameter(as.Id(id4), 300L)
+  x$set_penalty_parameter(as.Id(id5), 500)
+  expect_equal(x$get_objective_parameter(as.Id(id1)), 90)
+  expect_equal(x$get_solver_parameter(as.Id(id2)), 0.2)
+  expect_equal(x$get_constraint_parameter(as.Id(id3)),
+               tibble::tibble(pu = 2, zone = factor("layer"), status = 1))
+  expect_equal(x$get_portfolio_parameter(as.Id(id4)), 300)
+  expect_equal(x$get_penalty_parameter(as.Id(id5)), 500)
+})
+
+test_that("render parameter methods", {
+  data(sim_pu_raster, sim_features)
+  x <- problem(sim_pu_raster, sim_features) %>%
+       add_max_features_objective(400) %>%
+       add_absolute_targets(0.1) %>%
+       add_boundary_penalties(100) %>%
+       add_binary_decisions() %>%
+       add_shuffle_portfolio(100) %>%
+       add_neighbor_constraints(1) %>%
+       add_default_solver()
+  id1 <- x$objective$parameters$find("budget")
+  id2 <- x$solver$parameters$find("gap")
+  id3 <- x$constraints[[x$constraints$ids()[1]]]$
+           parameters$find("number of neighbors")
+  id4 <- x$portfolio$parameters$find("number_solutions")
+  id5 <- x$penalties[[x$penalties$ids()[1]]]$parameters$find("penalty")
+  expect_is(x$render_objective_parameter(as.Id(id1)), "shiny.tag")
+  expect_is(x$render_solver_parameter(as.Id(id2)), "shiny.tag")
+  expect_is(x$render_constraint_parameter(as.Id(id3)), "shiny.tag")
+  expect_is(x$render_portfolio_parameter(as.Id(id4)), "shiny.tag")
+  expect_is(x$render_penalty_parameter(as.Id(id5)),
+            c("shiny.tag", "shiny.tag.list"))
+})
+
+test_that("render all parameters methods", {
+  data(sim_pu_raster, sim_features)
+  x <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(0.1) %>%
+       add_boundary_penalties(100) %>%
+       add_binary_decisions() %>%
+       add_shuffle_portfolio(100) %>%
+       add_neighbor_constraints(1) %>%
+       add_default_solver()
+  expect_is(x$render_all_objective_parameters(), "shiny.tag")
+  expect_is(x$render_all_solver_parameters(), "shiny.tag")
+  expect_is(x$render_all_constraint_parameters(), "shiny.tag")
+  expect_is(x$render_all_portfolio_parameters(), "shiny.tag")
+  expect_is(x$render_all_penalty_parameters(), "shiny.tag")
+})

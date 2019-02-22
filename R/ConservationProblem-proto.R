@@ -121,6 +121,22 @@ NULL
 #'
 #' \code{x$render_all_solver_parameters()}
 #'
+#' \code{x$get_portfolio_parameter(id)}
+#'
+#' \code{x$set_portfolio_parameter(id, value)}
+#'
+#' \code{x$render_portfolio_parameter(id)}
+#'
+#' \code{x$render_all_portfolio_parameters()}
+#'
+#' \code{x$get_penalty_parameter(id)}
+#'
+#' \code{x$set_penalty_parameter(id, value)}
+#'
+#' \code{x$render_penalty_parameter(id)}
+#'
+#' \code{x$render_all_penalty_parameters()}
+#'
 #' @section Arguments:
 #'
 #' \describe{
@@ -535,7 +551,7 @@ ConservationProblem <- pproto(
     self$constraints$render_parameter(id)
   },
   render_all_constraint_parameters = function(self) {
-    self$constraints$render_all_parameter()
+    self$constraints$render_all_parameters()
   },
   get_objective_parameter = function(self, id) {
     self$objective$get_parameter(id)
@@ -547,7 +563,7 @@ ConservationProblem <- pproto(
     self$objective$render_parameter(id)
   },
   render_all_objective_parameters = function(self) {
-    self$objective$render_all_parameter()
+    self$objective$render_all_parameters()
   },
   get_solver_parameter = function(self, id) {
     self$solver$get_parameter(id)
@@ -559,7 +575,7 @@ ConservationProblem <- pproto(
     self$solver$render_parameter(id)
   },
   render_all_solver_parameters = function(self) {
-    self$solver$render_all_parameter()
+    self$solver$render_all_parameters()
   },
   get_portfolio_parameter = function(self, id) {
     self$portfolio$get_parameter(id)
@@ -571,17 +587,17 @@ ConservationProblem <- pproto(
     self$portfolio$render_parameter(id)
   },
   render_all_portfolio_parameters = function(self) {
-    self$portfolio$render_all_parameter()
+    self$portfolio$render_all_parameters()
   },
   get_penalty_parameter = function(self, id) {
-    self$penalty$get_parameter(id)
+    self$penalties$get_parameter(id)
   },
   set_penalty_parameter = function(self, id, value) {
-    self$penalty$set_parameter(id, value)
+    self$penalties$set_parameter(id, value)
   },
   render_penalty_parameter = function(self, id) {
-    self$penalty$render_parameter(id)
+    self$penalties$render_parameter(id)
   },
   render_all_penalty_parameters = function(self) {
-    self$penalty$render_all_parameter()
+    self$penalties$render_all_parameters()
   })

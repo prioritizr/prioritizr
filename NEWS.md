@@ -1,3 +1,11 @@
+# prioritizr 4.0.2.13
+
+- Fix assorted bugs in the render, setter, and getter parameter functions for
+  `ConservationProblem-class` objects. These methods were implemented to be
+  used in future interactive applications and are not currently used in the
+  package. As a consequence, these bugs do not affect the correctness of
+  any results.
+
 # prioritizr 4.0.2.12
 
 - Fix `bad error message` error being thrown when input rasters are not

@@ -79,16 +79,15 @@ Solver <- pproto(
   repr = function(self) {
     paste(self$name, self$parameters$repr())
   },
-  get_paramter = function(self, x) {
+  get_parameter = function(self, x) {
     self$parameters$get(x)
   },
-  set_parameter = function(self, value) {
+  set_parameter = function(self, x, value) {
     self$parameters$set(x, value)
   },
   render_parameter = function(self, x) {
     self$parameters$render(x)
   },
   render_all_parameters = function(self) {
-    shiny::div(class = "Solver",
-                self$parameters$render_all())
+    shiny::div(class = "Solver", self$parameters$render_all())
   })

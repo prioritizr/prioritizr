@@ -62,6 +62,12 @@ NULL
 #'
 #' \item{length}{\code{integer} number of objects inside collection.}
 #'
+#' \item{find}{\code{character} id for object inside collection which
+#'   contains the input id.}
+#'
+#' \item{find_parameter}{\code{character} id for object inside collection which
+#'   contains the input \code{character} object as a parameter.}
+#'
 #' \item{add}{add \code{\link{ConservationModifier-class}} object.}
 #'
 #' \item{remove}{remove an item from the collection.}
@@ -98,11 +104,9 @@ Collection <- pproto(
                          collapse = "\n"), ">"))
     return("<none>")
   },
-  find_parameter = function(id) {
+  find_parameter = function(self, id) {
     n <- self$ids()
-    r <- vapply(n, function(x) {
-        id %in% vapply(self[[x]]$parameters, function(z) z$id)
-    }, logical(1))
+    r <- vapply(n, function(x) id %in% self[[x]]$parameters$ids(), logical(1))
     s <- sum(r)
     if (s == 0) {
       stop("no parameter with matching id found")
@@ -143,15 +147,15 @@ Collection <- pproto(
     invisible(TRUE)
   },
   get_parameter = function(self, id) {
-    assertthat::assert_that(inherits(id), "Id")
+    assertthat::assert_that(inherits(id, "Id"))
     self[[self$find_parameter(id)]]$get_parameter(id)
   },
   set_parameter = function(self, id, value) {
-    assertthat::assert_that(inherits(id), "Id")
+    assertthat::assert_that(inherits(id, "Id"))
     self[[self$find_parameter(id)]]$set_parameter(id, value)
   },
   render_parameter = function(self, id, value) {
-    assertthat::assert_that(inherits(id), "Id")
+    assertthat::assert_that(inherits(id, "Id"))
     self[[self$find_parameter(id)]]$render_parameter(id)
   },
   render_all_parameters = function(self) {

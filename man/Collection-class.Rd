@@ -67,6 +67,12 @@ This prototype represents a collection of
 
 \item{length}{\code{integer} number of objects inside collection.}
 
+\item{find}{\code{character} id for object inside collection which
+  contains the input id.}
+
+\item{find_parameter}{\code{character} id for object inside collection which
+  contains the input \code{character} object as a parameter.}
+
 \item{add}{add \code{\link{ConservationModifier-class}} object.}
 
 \item{remove}{remove an item from the collection.}

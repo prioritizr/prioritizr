@@ -90,7 +90,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.13</span>
       </span>
     </div>
 
@@ -273,7 +273,7 @@ the Details section for more information.</p></td>
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 #&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1985.68 2337.96 
@@ -426,7 +426,7 @@ the Details section for more information.</p></td>
 #&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
 #&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2875.81 3524.8 
@@ -453,7 +453,7 @@ the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 3524.7950998
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -489,7 +489,7 @@ the Details section for more information.</p></td>
 <span class='no'>costs</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]
 
 <span class='co'># create targets</span>
-<span class='no'>targets_dataframe2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/tibble/topics/tibble'>tibble</a></span>(
+<span class='no'>targets_dataframe2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>spp_zone1</span>), <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>)),
   <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&gt;="</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"absolute"</span>, <span class='st'>"absolute"</span>),
   <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>))

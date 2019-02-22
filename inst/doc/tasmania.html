@@ -17,7 +17,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
+<style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -53,29 +53,7 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-
 </style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
@@ -259,7 +237,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## 
 ##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (775 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
@@ -297,7 +275,7 @@ r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 veg8           0.185          0.248
 ##  9 veg9           1.46           0.242
 ## 10 veg10          0.0716         0.313
-## # &lt;e2&gt;&lt;80&gt;&lt;a6&gt; with 52 more rows</code></pre>
+NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw">as</span>(tas_pu, <span class="st">&quot;SpatialPolygons&quot;</span>), <span class="dt">data =</span> s1)
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -341,7 +319,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30514.663295
 ## Found heuristic solution: objective 12420.567371
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.03s
+## Presolve time: 0.02s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12633.675102
 ## Found heuristic solution: objective 11603.764206
@@ -349,14 +327,14 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.04 seconds
+## Root relaxation: objective 1.072358e+04, 775 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.10 seconds
+## Explored 1 nodes (775 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
@@ -379,7 +357,7 @@ r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 layer.8         0.185          0.248
 ##  9 layer.9         1.46           0.242
 ## 10 layer.10        0.0716         0.313
-## # &lt;e2&gt;&lt;80&gt;&lt;a6&gt; with 52 more rows</code></pre>
+NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">spplot</span>(s2, <span class="st">&quot;solution_1&quot;</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),
