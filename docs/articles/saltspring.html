@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.14</span>
       </span>
     </div>
 
@@ -246,7 +246,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 <p>Now let’s visualize the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s1, <span class="dt">main =</span> titles, <span class="dt">breaks =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>),  <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey70"</span>, <span class="st">"darkgreen"</span>))</code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from <em>Gurobi</em> to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (2 seconds vs. 5 seconds), but a more rigorous analysis is needed to investigate this.</p>
+<p>We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from <em>Gurobi</em> to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (5 seconds vs. 10 seconds), but a more rigorous analysis is needed to investigate this.</p>
 </div>
 <div id="adding-connectivity" class="section level2">
 <h2 class="hasAnchor">

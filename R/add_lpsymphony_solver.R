@@ -113,6 +113,8 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       if (is.null(s$solution) ||
           names(s$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
+      if (any(s$solution > 1 | s$solution < 0))
+        stop("infeasible solution returned, try relaxing solver parameters")
       return(list(x = s$solution, objective = s$objval,
                   status = as.character(s$status),
                   runtime = as.double(end_time - start_time,

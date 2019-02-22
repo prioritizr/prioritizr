@@ -149,7 +149,7 @@ Now let's visualize the solutions.
 plot(s1, main = titles, breaks = c(0, 0.5, 1),  col = c("grey70", "darkgreen"))
 ```
 
-We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from _Gurobi_ to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (2 seconds vs. 5 seconds), but a more rigorous analysis is needed to investigate this.
+We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from _Gurobi_ to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (5 seconds vs. 10 seconds), but a more rigorous analysis is needed to investigate this.
 
 ## Adding connectivity
 

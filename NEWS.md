@@ -1,3 +1,8 @@
+# prioritizr 4.0.2.14
+
+- Fix issue where _Rsymphony_ (and potentially _lpsymphony_) return infeasible
+  solutions when subjected to a time limit (#105).
+
 # prioritizr 4.0.2.13
 
 - Fix assorted bugs in the render, setter, and getter parameter functions for
