@@ -108,14 +108,16 @@ This function adds penalties to a conservation planning problem
   }
 
   The boundary penalties are calculated using the following equations. Let
-  \eqn{I} represent the set of planning units, \eqn{Z} represent
-  the set of management zones, and \deqn{X_iz}{Xiz} represent the decision
+  \eqn{I} represent the set of planning units
+  (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
+  the set of management zones (indexed by \eqn{z} or \eqn{y}), and
+  \eqn{X_{iz}}{Xiz} represent the decision
   variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
   values one indicating if planning unit is allocated or not). Also, let
   \eqn{p} represent the argument to \code{penalty}, \eqn{E} represent the
-  argument to \code{edge_factor}, \eqn{W} represent the matrix argument to
-  \code{zones}, and \eqn{B} represent the matrix argument to zones
-  (e.g. generated using \code{\link{boundary_matrix}}).
+  argument to \code{edge_factor}, \eqn{B} represent the matrix argument to
+  \code{data} (e.g. generated using \code{\link{boundary_matrix}}), and
+  \eqn{W} represent the matrix argument to \code{zones}.
 
   \deqn{
   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)

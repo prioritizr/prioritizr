@@ -93,15 +93,18 @@ NULL
 #'   }
 #'
 #'  The connectivity penalties are calculated using the following equations.
-#'  Let \eqn{I} represent the set of planning units, \eqn{Z} represent the set
-#'  of management zones, and \deqn{X_iz}{Xiz} represent the decision
-#'  variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
+#'  Let \eqn{I} represent the set of planning units
+#'  (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
+#'  of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
+#'  represent the decision variable for planning unit \eqn{i} for in zone
+#'  \eqn{z} (e.g. with binary
 #'  values one indicating if planning unit is allocated or not). Also, let
 #'  \eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
-#'  argument to \code{data}, and \eqn{W} represent the argument to \code{zones}.
+#'  argument to \code{data}, and \eqn{W} represent the argument
+#'  to \code{zones}.
 #'
-#'  If the argument to \code{data} is supplied
-#'  as a \code{matrix} or \code{Matrix}, then the penalties are calculated as:
+#'  If the argument to \code{data} is supplied as a \code{matrix} or
+#'  \code{Matrix} object, then the penalties are calculated as:
 #'
 #'  \deqn{
 #'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
@@ -110,7 +113,8 @@ NULL
 #'  }
 #'
 #'  Otherwise, if the argument to \code{data} is supplied as a
-#'  \code{data.frame} or \code{array}, then the penalties are calculated as:
+#'  \code{data.frame} or \code{array} object, then the penalties are
+#'  calculated as:
 #'
 #'  \deqn{
 #'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}

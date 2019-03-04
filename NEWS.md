@@ -1,3 +1,8 @@
+# prioritizr 4.0.2.15
+
+- Fix typos in documentation for `add_boundary_penalties` and
+  `add_connectivity_penalties` function (#106).
+
 # prioritizr 4.0.2.14
 
 - Fix issue where _Rsymphony_ (and potentially _lpsymphony_) return infeasible

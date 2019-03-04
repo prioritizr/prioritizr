@@ -82,7 +82,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.15</span>
       </span>
     </div>
 
@@ -275,14 +275,16 @@ information.</p></td>
     they are allocated to different zones.</p></dd>
     </dl>
     <p>The boundary penalties are calculated using the following equations. Let
-  \(I\) represent the set of planning units, \(Z\) represent
-  the set of management zones, and $$X_iz$$ represent the decision
+  \(I\) represent the set of planning units
+  (indexed by \(i\) or \(j\)), \(Z\) represent
+  the set of management zones (indexed by \(z\) or \(y\)), and
+  \(X_{iz}\) represent the decision
   variable for planning unit \(i\) for in zone \(z\) (e.g. with binary
   values one indicating if planning unit is allocated or not). Also, let
   \(p\) represent the argument to <code>penalty</code>, \(E\) represent the
-  argument to <code>edge_factor</code>, \(W\) represent the matrix argument to
-  <code>zones</code>, and \(B\) represent the matrix argument to zones
-  (e.g. generated using <code><a href='boundary_matrix.html'>boundary_matrix</a></code>).</p>
+  argument to <code>edge_factor</code>, \(B\) represent the matrix argument to
+  <code>data</code> (e.g. generated using <code><a href='boundary_matrix.html'>boundary_matrix</a></code>), and
+  \(W\) represent the matrix argument to <code>zones</code>.</p>
 <p>$$
   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
   \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
@@ -623,7 +625,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 18
 #&gt; 
-#&gt; Explored 527 nodes (18491 simplex iterations) in 3.57 seconds
+#&gt; Explored 527 nodes (18491 simplex iterations) in 3.58 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 15656 15780.7 15922.3 ... 22153.2
@@ -707,7 +709,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 17
 #&gt; 
-#&gt; Explored 523 nodes (17825 simplex iterations) in 4.58 seconds
+#&gt; Explored 523 nodes (17825 simplex iterations) in 4.71 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 15417.9 15894.6 15987.9 ... 18893.1
@@ -755,8 +757,8 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9488.66317    0  465 12676.4127 9488.66317  25.1%     -    0s
 #&gt; H    0     0                    12658.741688 9488.66317  25.0%     -    0s
 #&gt;      0     0 9488.66317    0  465 12658.7417 9488.66317  25.0%     -    0s
-#&gt; H    0     0                    11278.322052 9488.66317  15.9%     -    0s
-#&gt;      0     2 9489.13316    0  465 11278.3221 9489.13316  15.9%     -    0s
+#&gt; H    0     0                    11278.322052 9488.66317  15.9%     -    1s
+#&gt;      0     2 9489.13316    0  465 11278.3221 9489.13316  15.9%     -    1s
 #&gt; H   27    27                    10938.370123 9538.34579  12.8%  61.7    1s
 #&gt; H  108    52                    10332.698302 9546.30398  7.61%  50.0    1s
 #&gt; 
@@ -764,7 +766,7 @@ conservation planning problems with integer linear programming.
 #&gt;   Gomory: 6
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 108 nodes (6428 simplex iterations) in 1.34 seconds
+#&gt; Explored 108 nodes (6428 simplex iterations) in 1.46 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 10332.7 10938.4 11278.3 ... 15601.5
