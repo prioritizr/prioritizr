@@ -1,3 +1,7 @@
+# prioritizr 4.0.2.16
+
+- Add new citations.
+
 # prioritizr 4.0.2.15
 
 - Fix typos in documentation for `add_boundary_penalties` and
