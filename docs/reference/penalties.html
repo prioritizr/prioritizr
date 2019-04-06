@@ -43,6 +43,8 @@ penalize solutions according to a specific metric. Penalties---unlike
 constraints---act as an explicit trade-off with the objective
 being minimized or maximized (e.g. solution cost when used with
 add_min_set_objective)." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +85,7 @@ add_min_set_objective)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
       </span>
     </div>
 
@@ -226,87 +228,86 @@ being minimized or maximized (e.g. solution cost when used with
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4925.2167415
+#&gt; Found heuristic solution: objective 4544.4850483
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.942215e+03, 15 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3942.21463    0    5 4925.21674 3942.21463  20.0%     -    0s
-#&gt; H    0     0                    4032.8009877 3942.21463  2.25%     -    0s
+#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
+#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4032.8 4925.22 
+#&gt; Solution count 2: 3994.89 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.032800987722e+03, best bound 3.942214626580e+03, gap 2.2462%
-#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
-#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
+#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [1e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 18481.430551
-#&gt; Found heuristic solution: objective 4939.2167415
+#&gt; Found heuristic solution: objective 18523.196992
+#&gt; Found heuristic solution: objective 4562.4850483
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
-#&gt; Variable types: 0 continuous, 232 integer (232 binary)
-#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.960557e+03, 87 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.919306e+03, 95 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3960.55676    0   19 4939.21674 3960.55676  19.8%     -    0s
-#&gt; H    0     0                    4053.7766335 3960.55676  2.30%     -    0s
+#&gt;      0     0 3919.30612    0   11 4562.48505 3919.30612  14.1%     -    0s
+#&gt; H    0     0                    4032.6556974 3919.30612  2.81%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (87 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (95 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 4053.78 4939.22 18481.4 
+#&gt; Solution count 3: 4032.66 4562.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.053776633499e+03, best bound 3.960556762789e+03, gap 2.2996%
-#&gt; Optimize a model with 21 rows, 98 columns and 482 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
+#&gt; Best objective 4.032655697444e+03, best bound 3.919306123567e+03, gap 2.8108%
+#&gt; Optimize a model with 25 rows, 100 columns and 490 nonzeros
+#&gt; Variable types: 0 continuous, 100 integer (100 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+01, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4003.3347617
+#&gt; Found heuristic solution: objective 3646.6292724
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 21 rows, 98 columns, 482 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 21 rows, 98 columns, 482 nonzeros
+#&gt; Presolved: 25 rows, 100 columns, 490 nonzeros
+#&gt; Variable types: 0 continuous, 100 integer (100 binary)
+#&gt; Presolved: 25 rows, 100 columns, 490 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.332392e+03, 14 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.295278e+03, 17 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3332.39184    0    5 4003.33476 3332.39184  16.8%     -    0s
-#&gt; H    0     0                    3381.0346239 3332.39184  1.44%     -    0s
+#&gt;      0     0 3295.27762    0    4 3646.62927 3295.27762  9.63%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (14 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (17 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3381.03 4003.33 
+#&gt; Solution count 1: 3646.63 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.381034623940e+03, best bound 3.332391842960e+03, gap 1.4387%</div><div class='input'>
+#&gt; Best objective 3.646629272370e+03, best bound 3.295277619827e+03, gap 9.6350%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"boundary penalties"</span>,

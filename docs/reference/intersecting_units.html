@@ -40,6 +40,8 @@
 
 <meta property="og:description" content="Find which of the units in a spatial data object intersect
 with the units in another spatial data object." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -80,7 +82,7 @@ with the units in another spatial data object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
       </span>
     </div>
 
@@ -227,7 +229,7 @@ with the units in another spatial data object.</p>
 <span class='co'># intersect polygons with raster</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; <span class='warning'>Warning: no non-missing arguments to max; returning -Inf</span></div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'># intersect polygons with polygons</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)

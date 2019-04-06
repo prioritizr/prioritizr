@@ -39,6 +39,8 @@
 <meta property="og:title" content="Solve — solve" />
 
 <meta property="og:description" content="Solve a conservation planning problem." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
       </span>
     </div>
 
@@ -262,29 +264,29 @@
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 9e+00]
-#&gt; Found heuristic solution: objective 2734.3392638
+#&gt;   RHS range        [3e+00, 8e+00]
+#&gt; Found heuristic solution: objective 2337.9617505
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.959092e+03, 11 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1959.09190    0    5 2734.33926 1959.09190  28.4%     -    0s
-#&gt; H    0     0                    2010.9158175 1959.09190  2.58%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2010.92 2734.34 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.010915817515e+03, best bound 1.959091904791e+03, gap 2.5771%</div><div class='input'>
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt; class       : RasterLayer 
 #&gt; dimensions  : 10, 10, 100  (nrow, ncol, ncell)
@@ -297,19 +299,19 @@
 #&gt; </div><div class='input'>
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
-#&gt;   2010.916 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001797915 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt;   1985.682 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
+#&gt; 0.001626015 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r1</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_held relative_held
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1          9.02         0.104
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2          5.72         0.104
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3          7.28         0.101
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4          7.07         0.100
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5          3.06         0.101</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1          8.97         0.108
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2          3.13         0.100
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3          7.43         0.103
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4          4.29         0.101
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5          6.02         0.106</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='solve-1.png' alt='' width='700' height='433' /></div></span><div class='input'><span class='co'># build minimal conservation problem with spatial polygon data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='kw'>cost_column</span> <span class='kw'>=</span> <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
@@ -322,35 +324,35 @@
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2341.4054836
+#&gt;   RHS range        [3e+00, 7e+00]
+#&gt; Found heuristic solution: objective 2145.2678910
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.759828e+03, 15 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.732564e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1759.82778    0    5 2341.40548 1759.82778  24.8%     -    0s
-#&gt; H    0     0                    1800.8047288 1759.82778  2.28%     -    0s
+#&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
+#&gt; H    0     0                    1785.5315740 1732.56396  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1800.8 2341.41 
+#&gt; Solution count 2: 1785.53 2145.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.800804728801e+03, best bound 1.759827783273e+03, gap 2.2755%</div><div class='input'>
+#&gt; Best objective 1.785531573957e+03, best bound 1.732563961206e+03, gap 2.9665%</div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>s2</span>))</div><div class='output co'>#&gt;       cost locked_in locked_out solution_1
 #&gt; 1 215.8638     FALSE      FALSE          0
 #&gt; 2 212.7823     FALSE      FALSE          0
 #&gt; 3 207.4962     FALSE      FALSE          0
-#&gt; 4 208.9322     FALSE      FALSE          0
+#&gt; 4 208.9322     FALSE       TRUE          0
 #&gt; 5 214.0419     FALSE      FALSE          0
 #&gt; 6 213.7636     FALSE      FALSE          0</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
@@ -358,11 +360,11 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r2</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_held relative_held
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1          8.14         0.105
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2          5.16         0.104
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3          6.56         0.101
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4          6.30         0.100
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5          2.74         0.101</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1          8.06         0.108
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2          2.83         0.101
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3          6.68         0.103
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4          3.86         0.101
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5          5.41         0.107</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span>(<span class='no'>s2</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='st'>"solution_1"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='solve-2.png' alt='' width='700' height='433' /></div></span><div class='input'><span class='co'># build multi-zone conservation problem with raster data</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
@@ -377,29 +379,29 @@
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 11939.082206
-#&gt; Presolve removed 5 rows and 0 columns
+#&gt; Found heuristic solution: objective 12614.662551
+#&gt; Presolve removed 3 rows and 0 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 100 rows, 270 columns, 1170 nonzeros
+#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 100 rows, 270 columns, 1170 nonzeros
+#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.056173e+04, 118 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.096484e+04, 94 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 10561.7313    0   10 11939.0822 10561.7313  11.5%     -    0s
-#&gt; H    0     0                    10717.412715 10561.7313  1.45%     -    0s
+#&gt;      0     0 10964.8406    0   14 12614.6626 10964.8406  13.1%     -    0s
+#&gt; H    0     0                    11209.793128 10964.8406  2.19%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (118 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (94 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 10717.4 11939.1 
+#&gt; Solution count 2: 11209.8 12614.7 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.071741271480e+04, best bound 1.056173129324e+04, gap 1.4526%</div><div class='input'>
+#&gt; Best objective 1.120979312806e+04, best bound 1.096484061295e+04, gap 2.1852%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s3</span>)</div><div class='output co'>#&gt; class       : RasterStack 
 #&gt; dimensions  : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)
@@ -415,21 +417,21 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r3</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 15 x 4</span><span>
 #&gt;    feature   zone   absolute_held relative_held
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 zone_1         16.8          0.194
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 zone_1         11.0          0.201
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 zone_1         16.3          0.195
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 zone_1          5.40         0.173
 #&gt; </span><span style='color: #BCBCBC;'> 3</span><span> feature_3 zone_1         14.2          0.198
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 zone_1         11.6          0.165
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 zone_1          5.49         0.181
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 zone_2         15.4          0.178
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 zone_2         10.1          0.185
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 zone_2         13.9          0.193
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 zone_2         13.4          0.189
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 zone_2          5.30         0.175
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 zone_3         13.8          0.160
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 zone_3         10.4          0.190
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 zone_3         13.2          0.184
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 zone_3         11.7          0.165
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 zone_3          5.32         0.176</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 zone_1          6.55         0.154
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 zone_1         10.7          0.189
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 zone_2         15.5          0.186
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 zone_2          6.14         0.197
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 zone_2         14.6          0.203
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 zone_2          7.83         0.184
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 zone_2          9.90         0.175
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 zone_3         14.4          0.173
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 zone_3          5.96         0.191
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 zone_3         12.7          0.177
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 zone_3          7.68         0.180
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 zone_3          9.83         0.173</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='solve-3.png' alt='' width='700' height='433' /></div></span><div class='input'><span class='co'># build multi-zone conservation problem with spatial polygon data</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_polygons</span>, <span class='no'>sim_features_zones</span>,
@@ -445,44 +447,44 @@
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Found heuristic solution: objective 10142.893739
-#&gt; Presolve removed 7 rows and 0 columns
+#&gt; Found heuristic solution: objective 10229.621561
+#&gt; Presolve removed 6 rows and 0 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
+#&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
+#&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.757501e+03, 64 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 8.838392e+03, 43 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 8757.50081    0    9 10142.8937 8757.50081  13.7%     -    0s
-#&gt; H    0     0                    8987.4195297 8757.50081  2.56%     -    0s
+#&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
+#&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (64 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 8987.42 10142.9 
+#&gt; Solution count 2: 9015.02 10229.6 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 8.987419529708e+03, best bound 8.757500808059e+03, gap 2.5582%</div><div class='input'>
+#&gt; Best objective 9.015019126339e+03, best bound 8.838391930390e+03, gap 1.9593%</div><div class='input'>
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>s4</span>))</div><div class='output co'>#&gt;     cost_1   cost_2   cost_3 locked_1 locked_2 locked_3 solution_1_zone_1
-#&gt; 1 215.8638 192.3884 198.4662    FALSE    FALSE    FALSE                 0
-#&gt; 2 212.7823 191.0935 198.9805    FALSE    FALSE    FALSE                 0
-#&gt; 3 207.4962 192.6250 199.7701    FALSE    FALSE    FALSE                 1
-#&gt; 4 208.9322 193.7624 194.9124    FALSE    FALSE    FALSE                 0
-#&gt; 5 214.0419 195.4206 199.0329    FALSE    FALSE    FALSE                 0
-#&gt; 6 213.7636 195.8731 201.0514    FALSE    FALSE    FALSE                 0
+#&gt; 1 215.8638 183.3344 205.4113    FALSE    FALSE    FALSE                 0
+#&gt; 2 212.7823 189.4978 209.6404    FALSE    FALSE    FALSE                 0
+#&gt; 3 207.4962 193.6007 215.4212     TRUE    FALSE    FALSE                 0
+#&gt; 4 208.9322 197.5897 218.5241    FALSE    FALSE    FALSE                 0
+#&gt; 5 214.0419 199.8033 220.7100    FALSE    FALSE    FALSE                 0
+#&gt; 6 213.7636 203.1867 224.6809    FALSE    FALSE    FALSE                 0
 #&gt;   solution_1_zone_2 solution_1_zone_3
-#&gt; 1                 1                 0
+#&gt; 1                 0                 0
 #&gt; 2                 1                 0
-#&gt; 3                 0                 0
-#&gt; 4                 0                 1
-#&gt; 5                 0                 0
-#&gt; 6                 0                 0</div><div class='input'>
+#&gt; 3                 1                 0
+#&gt; 4                 1                 0
+#&gt; 5                 1                 0
+#&gt; 6                 1                 0</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p4</span>, <span class='no'>s4</span>[, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"solution_1_zone_1"</span>,
                                         <span class='st'>"solution_1_zone_2"</span>,
@@ -490,21 +492,21 @@
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r4</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 15 x 4</span><span>
 #&gt;    feature   zone   absolute_held relative_held
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 zone_1         12.2          0.157
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 zone_1          7.82         0.158
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 zone_1         12.4          0.166
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 zone_1          4.35         0.155
 #&gt; </span><span style='color: #BCBCBC;'> 3</span><span> feature_3 zone_1         10.5          0.162
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 zone_1         10.2          0.161
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 zone_1          4.19         0.154
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 zone_2         12.1          0.156
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 zone_2          8.96         0.182
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 zone_2         11.0          0.171
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 zone_2         10.4          0.165
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 zone_2          4.59         0.169
-#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 zone_3         14.1          0.182
-#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 zone_3          9.17         0.186
-#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 zone_3         12.3          0.190
-#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 zone_3         11.1          0.176
-#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 zone_3          4.73         0.173</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 zone_1          6.13         0.161
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 zone_1          8.32         0.163
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 zone_2         10.2          0.136
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 zone_2          5.07         0.181
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 zone_2          9.83         0.151
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 zone_2          6.33         0.167
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 zone_2          6.79         0.133
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 zone_3         14.0          0.187
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 zone_3          4.76         0.170
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 zone_3         12.6          0.193
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 zone_3          5.96         0.157
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 zone_3          9.23         0.180</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
 <span class='no'>s4</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s4</span>@<span class='kw'>data</span>[, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"solution_1_zone_1"</span>,

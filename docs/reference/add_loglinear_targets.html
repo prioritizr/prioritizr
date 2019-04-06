@@ -45,6 +45,8 @@ caps can be applied to targets to prevent features with massive
 distributions from being over-represented
 in solutions (Butchart et al. 2015). Note that the behavior
 of this function has changed substantially from versions prior to 5.0.0." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -85,7 +87,7 @@ of this function has changed substantially from versions prior to 5.0.0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
       </span>
     </div>
 
@@ -289,7 +291,7 @@ and solutions for meeting national and global conservation area targets.
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+01, 2e+01]
-#&gt; Found heuristic solution: objective 11487.771312
+#&gt; Found heuristic solution: objective 11939.016941
 #&gt; Presolve removed 4 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
@@ -297,20 +299,21 @@ and solutions for meeting national and global conservation area targets.
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.100420e+04, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.047148e+04, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 11004.1978    0    1 11487.7713 11004.1978  4.21%     -    0s
+#&gt;      0     0 10471.4792    0    1 11939.0169 10471.4792  12.3%     -    0s
+#&gt; H    0     0                    10532.505579 10471.4792  0.58%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 11487.8 
+#&gt; Solution count 2: 10532.5 11939 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.148777131188e+04, best bound 1.100419782257e+04, gap 4.2095%</div><div class='input'>
+#&gt; Best objective 1.053250557899e+04, best bound 1.047147921397e+04, gap 0.5794%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_loglinear_targets-1.png' alt='' width='700' height='433' /></div></pre>
   </div>

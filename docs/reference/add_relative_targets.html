@@ -43,6 +43,8 @@ representation of features in the study area. Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with NA
 cost data) using the feature_abundances function." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +85,7 @@ cost data) using the feature_abundances function." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
       </span>
     </div>
 
@@ -269,37 +271,37 @@ Details section for more information.</p></td>
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 9e+00]
-#&gt; Found heuristic solution: objective 2734.3392638
+#&gt;   RHS range        [3e+00, 8e+00]
+#&gt; Found heuristic solution: objective 2337.9617505
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.959092e+03, 11 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1959.09190    0    5 2734.33926 1959.09190  28.4%     -    0s
-#&gt; H    0     0                    2010.9158175 1959.09190  2.58%     -    0s
+#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
+#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2010.92 2734.34 
+#&gt; Solution count 2: 1985.68 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.010915817515e+03, best bound 1.959091904791e+03, gap 2.5771%
+#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [9e+00, 3e+01]
-#&gt; Found heuristic solution: objective 10244.872035
+#&gt;   RHS range        [6e+00, 3e+01]
+#&gt; Found heuristic solution: objective 9439.1408525
 #&gt; Presolve removed 4 rows and 0 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
@@ -307,20 +309,20 @@ Details section for more information.</p></td>
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.705199e+03, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 9.190939e+03, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 9705.19927    0    1 10244.8720 9705.19927  5.27%     -    0s
+#&gt;      0     0 9190.93869    0    1 9439.14085 9190.93869  2.63%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 10244.9 
+#&gt; Solution count 1: 9439.14 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.024487203509e+04, best bound 9.705199274575e+03, gap 5.2677%</div><div class='input'>
+#&gt; Best objective 9.439140852480e+03, best bound 9.190938685954e+03, gap 2.6295%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"10 % targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_relative_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem with multiple management zones</span>
@@ -348,29 +350,29 @@ Details section for more information.</p></td>
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 9e+00]
-#&gt; Found heuristic solution: objective 6680.9362414
+#&gt;   RHS range        [1e+00, 8e+00]
+#&gt; Found heuristic solution: objective 7019.1222763
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.816710e+03, 55 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5816.71005    0   14 6680.93624 5816.71005  12.9%     -    0s
-#&gt; H    0     0                    5962.1080428 5816.71005  2.44%     -    0s
+#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
+#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (55 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 5962.11 6680.94 
+#&gt; Solution count 2: 6082.28 7019.12 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.962108042804e+03, best bound 5.816710054645e+03, gap 2.4387%</div><div class='input'>
+#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s4</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal targets"</span>))</div><div class='img'><img src='add_relative_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem with targets that require a varying amount of each</span>
 <span class='co'># feature to be represented in each zone</span>
@@ -391,29 +393,29 @@ Details section for more information.</p></td>
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 9e+00]
-#&gt; Found heuristic solution: objective 6680.9362414
+#&gt;   RHS range        [1e+00, 8e+00]
+#&gt; Found heuristic solution: objective 7019.1222763
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.816710e+03, 55 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5816.71005    0   14 6680.93624 5816.71005  12.9%     -    0s
-#&gt; H    0     0                    5962.1080428 5816.71005  2.44%     -    0s
+#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
+#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (55 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 16 available processors)
+#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 5962.11 6680.94 
+#&gt; Solution count 2: 6082.28 7019.12 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.962108042804e+03, best bound 5.816710054645e+03, gap 2.4387%</div><div class='input'>
+#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s5</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"varying targets"</span>))</div><div class='img'><img src='add_relative_targets-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
