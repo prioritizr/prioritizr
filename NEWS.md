@@ -1,3 +1,7 @@
+# prioritizr 4.0.3 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.0.2.16
 
 - Add new citations.

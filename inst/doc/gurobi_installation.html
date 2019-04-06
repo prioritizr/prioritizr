@@ -12,14 +12,14 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2019-03-28" />
+<meta name="date" content="2019-04-05" />
 
 <title>Gurobi Installation Guide</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
+<style type="text/css" data-origin="pandoc">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -55,11 +55,36 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
 </style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
 <link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
 
 </head>
 
@@ -69,8 +94,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
-<h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2019-03-28</em></h4>
+<h4 class="author">Richard Schuster</h4>
+<h4 class="date">2019-04-05</h4>
 
 
 <div id="TOC">
@@ -199,7 +224,7 @@ result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span
 ## Presolve: All rows and columns removed
 ## 
 ## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-## Thread count was 1 (of 4 available processors)
+## Thread count was 1 (of 16 available processors)
 ## 
 ## Solution count 2: 3 2 
 ## 
@@ -232,33 +257,33 @@ s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></d
 ##   Matrix range     [2e-01, 9e-01]
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+##   RHS range        [3e+00, 9e+00]
+## Found heuristic solution: objective 2734.3392638
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.959092e+03, 11 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+##      0     0 1959.09190    0    5 2734.33926 1959.09190  28.4%     -    0s
+## H    0     0                    2010.9158175 1959.09190  2.58%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-## Thread count was 1 (of 4 available processors)
+## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
+## Thread count was 1 (of 16 available processors)
 ## 
-## Solution count 2: 1985.68 2337.96 
+## Solution count 2: 2010.92 2734.34 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
+## Best objective 2.010915817515e+03, best bound 1.959091904791e+03, gap 2.5771%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(s, <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>), <span class="dt">main =</span> <span class="st">&quot;Solution&quot;</span>,
      <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
 <p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
 </div>
 

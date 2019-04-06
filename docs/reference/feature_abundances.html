@@ -40,8 +40,6 @@
 
 <meta property="og:description" content="Calculate the total abundance of each feature found in the planning units
 of a conservation planning problem." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +80,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -283,11 +281,11 @@ is <code>FALSE</code>.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>a3</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1               83.3                  1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2               31.2                  1
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3               72.0                  1
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4               42.7                  1
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5               56.7                  1</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1               86.5                  1
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2               54.7                  1
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3               71.8                  1
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4               70.6                  1
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5               30.3                  1</div><div class='input'>
 <span class='co'># create problem using total amounts of features in all the planning units</span>
 <span class='co'># (including units with NA cost data)</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
@@ -303,11 +301,11 @@ is <code>FALSE</code>.</p></td>
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+01, 8e+01]
+#&gt;   RHS range        [3e+01, 9e+01]
 #&gt; Presolve time: 0.00s
 #&gt; 
 #&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 0
 #&gt; 
@@ -318,11 +316,11 @@ is <code>FALSE</code>.</p></td>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>a5</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1               74.5              0.895
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2               28.1              0.900
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3               64.9              0.902
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4               38.2              0.895
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5               50.7              0.893</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1               77.8              0.900
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2               49.3              0.901
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3               64.7              0.901
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4               63.0              0.893
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5               27.3              0.900</div><div class='input'>
 <span class='co'># create problem using total amounts of features in the planning units with</span>
 <span class='co'># finite cost data</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
@@ -335,19 +333,19 @@ is <code>FALSE</code>.</p></td>
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+01, 7e+01]
-#&gt; Found heuristic solution: objective 18487.196992
+#&gt;   RHS range        [3e+01, 8e+01]
+#&gt; Found heuristic solution: objective 18443.430551
 #&gt; Presolve removed 5 rows and 90 columns
 #&gt; Presolve time: 0.00s
 #&gt; Presolve: All rows and columns removed
 #&gt; 
 #&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 1: 18487.2 
+#&gt; Solution count 1: 18443.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.848719699208e+04, best bound 1.848719699208e+04, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 1.844343055135e+04, best bound 1.844343055135e+04, gap 0.0000%</div><div class='input'>
 <span class='co'># plot the solution</span>
 <span class='co'># this solution contains all the planning units with finite cost data (i.e.</span>
 <span class='co'># cost data that do not have NA values)</span>

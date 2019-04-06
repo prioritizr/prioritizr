@@ -46,8 +46,6 @@ over other features. This information can be incorporated into the problem
 using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -88,7 +86,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -258,7 +256,7 @@ Details section for more information.</p></td>
 <span class='co'># create weights that assign higher importance to features with less</span>
 <span class='co'># suitable habitat in the study area</span>
 (<span class='no'>w2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>((<span class='fl'>1</span> / <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>)) * <span class='fl'>200</span>))</div><div class='output co'>#&gt;   layer.1   layer.2   layer.3   layer.4   layer.5 
-#&gt;  11.03585 606.63186  16.11015 108.65716  34.01731 </div><div class='input'>
+#&gt;  10.10634  38.59208  16.19564  17.01158 739.90699 </div><div class='input'>
 <span class='co'># create problem using rarity weights</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w2</span>)
 
@@ -282,46 +280,42 @@ Details section for more information.</p></td>
 #&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.909018e+00, 30 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.861092e+00, 25 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.90902    0    6   -0.00000    4.90902      -     -    0s
-#&gt; H    0     0                       1.9979863    4.90902   146%     -    0s
-#&gt; H    0     0                       2.9979659    4.90902  63.7%     -    0s
-#&gt;      0     0    4.90824    0    8    2.99797    4.90824  63.7%     -    0s
-#&gt;      0     0    4.90824    0    9    2.99797    4.90824  63.7%     -    0s
-#&gt;      0     0    4.90731    0    9    2.99797    4.90731  63.7%     -    0s
-#&gt;      0     0    4.90717    0   10    2.99797    4.90717  63.7%     -    0s
-#&gt;      0     0    4.90697    0   11    2.99797    4.90697  63.7%     -    0s
-#&gt;      0     0    4.90693    0   12    2.99797    4.90693  63.7%     -    0s
-#&gt;      0     0    4.90633    0   14    2.99797    4.90633  63.7%     -    0s
-#&gt;      0     0    4.90622    0   14    2.99797    4.90622  63.7%     -    0s
-#&gt;      0     0    4.90340    0   12    2.99797    4.90340  63.6%     -    0s
-#&gt;      0     0    4.90215    0   12    2.99797    4.90215  63.5%     -    0s
-#&gt;      0     0    4.90146    0   11    2.99797    4.90146  63.5%     -    0s
-#&gt;      0     0    4.90135    0   11    2.99797    4.90135  63.5%     -    0s
-#&gt;      0     0    4.90127    0   12    2.99797    4.90127  63.5%     -    0s
-#&gt;      0     2    4.89994    0   12    2.99797    4.89994  63.4%     -    0s
+#&gt;      0     0    4.86109    0    6   -0.00000    4.86109      -     -    0s
+#&gt;      0     0    4.85281    0    7   -0.00000    4.85281      -     -    0s
+#&gt;      0     0    4.85160    0    8   -0.00000    4.85160      -     -    0s
+#&gt;      0     0    4.85032    0    9   -0.00000    4.85032      -     -    0s
+#&gt;      0     0    4.84755    0    9   -0.00000    4.84755      -     -    0s
+#&gt;      0     0    4.84666    0   11   -0.00000    4.84666      -     -    0s
+#&gt;      0     0    4.84153    0   10   -0.00000    4.84153      -     -    0s
+#&gt;      0     0    4.84116    0   10   -0.00000    4.84116      -     -    0s
+#&gt;      0     0    4.84102    0   10   -0.00000    4.84102      -     -    0s
+#&gt;      0     0    4.84101    0   13   -0.00000    4.84101      -     -    0s
+#&gt;      0     0    4.84101    0   13   -0.00000    4.84101      -     -    0s
+#&gt; H    0     0                       1.9980302    4.84101   142%     -    0s
+#&gt;      0     2    4.84053    0   13    1.99803    4.84053   142%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 2
-#&gt;   MIR: 2
-#&gt;   StrongCG: 2
+#&gt;   Cover: 178
+#&gt;   MIR: 6
+#&gt;   Inf proof: 2
 #&gt; 
-#&gt; Explored 8 nodes (234 simplex iterations) in 0.03 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 2770 nodes (24257 simplex iterations) in 0.51 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 2.99797 1.99799 -0 
+#&gt; Solution count 2: 1.99803 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.997965888532e+00, best bound 3.095183750543e+00, gap 3.2428%
+#&gt; Best objective 1.998030237826e+00, best bound 1.998519897325e+00, gap 0.0245%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 6e+02]
+#&gt;   Objective range  [1e-04, 7e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [4e+03, 4e+03]
 #&gt; Found heuristic solution: objective -0.0000000
@@ -331,41 +325,37 @@ Details section for more information.</p></td>
 #&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.747768e+02, 18 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 8.196656e+02, 25 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0  774.77680    0    6   -0.00000  774.77680      -     -    0s
-#&gt;      0     0  774.74919    0    7   -0.00000  774.74919      -     -    0s
-#&gt;      0     0  774.68915    0    9   -0.00000  774.68915      -     -    0s
-#&gt;      0     0  774.68652    0   10   -0.00000  774.68652      -     -    0s
-#&gt;      0     0  774.68452    0   10   -0.00000  774.68452      -     -    0s
-#&gt;      0     0  774.67599    0   11   -0.00000  774.67599      -     -    0s
-#&gt;      0     0  774.65683    0   12   -0.00000  774.65683      -     -    0s
-#&gt;      0     0  774.65490    0   12   -0.00000  774.65490      -     -    0s
-#&gt;      0     0  774.65433    0   13   -0.00000  774.65433      -     -    0s
-#&gt;      0     0  774.62032    0   10   -0.00000  774.62032      -     -    0s
-#&gt;      0     0  774.61987    0    9   -0.00000  774.61987      -     -    0s
-#&gt;      0     0  774.57547    0   10   -0.00000  774.57547      -     -    0s
-#&gt; H    0     0                     142.6724257  774.57547   443%     -    0s
-#&gt;      0     0  774.57044    0   11  142.67243  774.57044   443%     -    0s
-#&gt;      0     0  774.56518    0   12  142.67243  774.56518   443%     -    0s
-#&gt;      0     2  774.50629    0   12  142.67243  774.50629   443%     -    0s
-#&gt; H   52    38                     715.2870222  749.30428  4.76%   5.7    0s
+#&gt;      0     0  819.66564    0    6   -0.00000  819.66564      -     -    0s
+#&gt;      0     0  819.63954    0    7   -0.00000  819.63954      -     -    0s
+#&gt;      0     0  819.55591    0    8   -0.00000  819.55591      -     -    0s
+#&gt;      0     0  819.12459    0    8   -0.00000  819.12459      -     -    0s
+#&gt;      0     0  819.05799    0    9   -0.00000  819.05799      -     -    0s
+#&gt;      0     0  819.05607    0   11   -0.00000  819.05607      -     -    0s
+#&gt;      0     0  819.04921    0   11   -0.00000  819.04921      -     -    0s
+#&gt;      0     0  819.04915    0   11   -0.00000  819.04915      -     -    0s
+#&gt;      0     0  819.03699    0   11   -0.00000  819.03699      -     -    0s
+#&gt; H    0     0                      54.7856602  819.03699  1395%     -    0s
+#&gt; H    0     0                      54.7856686  819.03699  1395%     -    0s
+#&gt;      0     2  818.83972    0   11   54.78567  818.83972  1395%     -    0s
+#&gt; H   40    28                     739.9049383  780.66105  5.51%   4.4    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 5
-#&gt;   MIR: 5
+#&gt;   Cover: 1
+#&gt;   MIR: 2
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 52 nodes (386 simplex iterations) in 0.04 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 41 nodes (232 simplex iterations) in 0.03 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 715.287 142.672 -0 
+#&gt; Solution count 4: 739.905 54.7857 54.7857 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.152870222066e+02, best bound 7.493042811185e+02, gap 4.7557%
+#&gt; Best objective 7.399049383385e+02, best bound 7.806610483892e+02, gap 5.5083%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
@@ -381,21 +371,29 @@ Details section for more information.</p></td>
 #&gt; Presolved: 3 rows, 92 columns, 272 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.999981e+02, 23 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.999979e+02, 12 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0  299.99806    0    2   -0.00000  299.99806      -     -    0s
-#&gt; H    0     0                     299.9980622  299.99806  0.00%     -    0s
+#&gt;      0     0  299.99794    0    2   -0.00000  299.99794      -     -    0s
+#&gt; H    0     0                      99.9979882  299.99794   200%     -    0s
+#&gt;      0     0  299.99794    0    3   99.99799  299.99794   200%     -    0s
+#&gt;      0     2  299.99794    0    3   99.99799  299.99794   200%     -    0s
+#&gt; H  108    94                      99.9979941  299.99794   200%   2.7    0s
+#&gt; H 9906  6341                      99.9979960  299.99794   200%   2.0    0s
+#&gt; H10202  4717                     199.9979453  299.99794  50.0%   1.9    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Cutting planes:
+#&gt;   Flow cover: 1
 #&gt; 
-#&gt; Solution count 2: 299.998 -0 
+#&gt; Explored 10202 nodes (19912 simplex iterations) in 0.59 seconds
+#&gt; Thread count was 1 (of 16 available processors)
+#&gt; 
+#&gt; Solution count 5: 199.998 99.998 99.998 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.999980621935e+02, best bound 2.999980621935e+02, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 1.999979453434e+02, best bound 1.999979453434e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>, <span class='st'>"manual weights"</span>),
      <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -409,49 +407,49 @@ Details section for more information.</p></td>
       <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Objective range  [1e-05, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.530487e+00, 27 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
-#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
-#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
-#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
-#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
-#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
-#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
-#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
-#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
-#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
+#&gt;      0     0    3.53049    0    6   -0.00000    3.53049      -     -    0s
+#&gt;      0     0    3.48401    0    6   -0.00000    3.48401      -     -    0s
+#&gt;      0     0    3.48370    0    7   -0.00000    3.48370      -     -    0s
+#&gt;      0     0    3.48360    0    8   -0.00000    3.48360      -     -    0s
+#&gt; H    0     0                       1.5482356    3.48360   125%     -    0s
+#&gt;      0     0    3.48358    0    9    1.54824    3.48358   125%     -    0s
+#&gt;      0     0    3.17168    0    6    1.54824    3.17168   105%     -    0s
+#&gt;      0     0    3.17168    0    6    1.54824    3.17168   105%     -    0s
+#&gt;      0     2    3.15588    0    6    1.54824    3.15588   104%     -    0s
+#&gt; H    3     2                       2.3877778    2.69451  12.8%   8.0    0s
+#&gt; H   10     0                       2.6945055    2.69451  0.00%   3.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
-#&gt;   MIR: 3
+#&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 10 nodes (87 simplex iterations) in 0.02 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
+#&gt; Solution count 4: 2.69451 2.38778 1.54824 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 2.694505497987e+00, best bound 2.694505497987e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -475,42 +473,42 @@ Details section for more information.</p></td>
 <span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
 <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
 <span class='co'># feature be much closer to optimality</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
-#&gt; [8] 0.58924564</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.51700590 0.35235209 0.62721990 0.09737975 0.30672795 0.99759191 0.52340412
+#&gt; [8] 0.14867732</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 1e+03]
+#&gt;   Objective range  [1e-05, 1e+03]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.004317e+03, 22 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.003530e+03, 25 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1004.31731    0    5   -0.00000 1004.31731      -     -    0s
-#&gt;      0     0 1004.12534    0    6   -0.00000 1004.12534      -     -    0s
-#&gt; H    0     0                    1001.7856331 1004.12534  0.23%     -    0s
+#&gt;      0     0 1003.53049    0    6   -0.00000 1003.53049      -     -    0s
+#&gt;      0     0 1003.48401    0    6   -0.00000 1003.48401      -     -    0s
+#&gt; H    0     0                    1001.5482360 1003.48401  0.19%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt; 
-#&gt; Explored 1 nodes (29 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (33 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 2: 1001.79 -0 
+#&gt; Solution count 2: 1001.55 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.001785633143e+03, best bound 1.004125339227e+03, gap 0.2336%</div><div class='input'>
+#&gt; Best objective 1.001548235972e+03, best bound 1.003484011466e+03, gap 0.1933%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -557,42 +555,53 @@ Details section for more information.</p></td>
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.938175e+00, 243 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 8.038871e+00, 157 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    7.93818    0   11   -0.00000    7.93818      -     -    0s
-#&gt; H    0     0                       3.9996549    7.93818  98.5%     -    0s
-#&gt; H    0     0                       4.9996180    7.93818  58.8%     -    0s
-#&gt;      0     0    7.56188    0   18    4.99962    7.56188  51.2%     -    0s
-#&gt;      0     0    7.56101    0   19    4.99962    7.56101  51.2%     -    0s
-#&gt;      0     0    7.27065    0   11    4.99962    7.27065  45.4%     -    0s
-#&gt;      0     0    7.26884    0   12    4.99962    7.26884  45.4%     -    0s
-#&gt;      0     0    7.26873    0   13    4.99962    7.26873  45.4%     -    0s
-#&gt;      0     0    7.26293    0   14    4.99962    7.26293  45.3%     -    0s
-#&gt; H    0     0                       4.9996480    7.26293  45.3%     -    0s
-#&gt;      0     0    7.26286    0   14    4.99965    7.26286  45.3%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt; H    0     0                       4.9996494    7.25824  45.2%     -    0s
-#&gt;      0     2    7.25729    0   18    4.99965    7.25729  45.2%     -    0s
+#&gt;      0     0    8.03887    0   12   -0.00000    8.03887      -     -    0s
+#&gt; H    0     0                       4.9996057    8.03887  60.8%     -    0s
+#&gt;      0     0    7.84628    0   17    4.99961    7.84628  56.9%     -    0s
+#&gt; H    0     0                       4.9996235    7.84628  56.9%     -    0s
+#&gt;      0     0    7.82805    0   18    4.99962    7.82805  56.6%     -    0s
+#&gt;      0     0    7.80026    0   22    4.99962    7.80026  56.0%     -    0s
+#&gt;      0     0    7.79505    0   26    4.99962    7.79505  55.9%     -    0s
+#&gt;      0     0    7.79038    0   28    4.99962    7.79038  55.8%     -    0s
+#&gt;      0     0    7.78917    0   32    4.99962    7.78917  55.8%     -    0s
+#&gt;      0     0    7.78779    0   29    4.99962    7.78779  55.8%     -    0s
+#&gt;      0     0    7.78743    0   32    4.99962    7.78743  55.8%     -    0s
+#&gt;      0     0    7.78734    0   33    4.99962    7.78734  55.8%     -    0s
+#&gt;      0     0    7.78348    0   32    4.99962    7.78348  55.7%     -    0s
+#&gt; H    0     0                       4.9996318    7.78348  55.7%     -    0s
+#&gt;      0     0    7.78263    0   32    4.99963    7.78263  55.7%     -    0s
+#&gt;      0     0    7.78206    0   34    4.99963    7.78206  55.7%     -    0s
+#&gt;      0     0    7.78185    0   37    4.99963    7.78185  55.6%     -    0s
+#&gt;      0     0    7.77865    0   35    4.99963    7.77865  55.6%     -    0s
+#&gt;      0     0    7.77705    0   33    4.99963    7.77705  55.6%     -    0s
+#&gt;      0     0    7.77691    0   34    4.99963    7.77691  55.5%     -    0s
+#&gt;      0     0    7.77405    0   39    4.99963    7.77405  55.5%     -    0s
+#&gt;      0     0    7.77359    0   39    4.99963    7.77359  55.5%     -    0s
+#&gt;      0     0    7.77346    0   41    4.99963    7.77346  55.5%     -    0s
+#&gt;      0     0    7.77233    0   41    4.99963    7.77233  55.5%     -    0s
+#&gt;      0     0    7.77233    0   41    4.99963    7.77233  55.5%     -    0s
+#&gt;      0     2    7.76968    0   41    4.99963    7.76968  55.4%     -    0s
+#&gt; H   22     4                       4.9996404    7.76260  55.3%  27.0    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 1
-#&gt;   Cover: 6
-#&gt;   MIR: 6
-#&gt;   StrongCG: 2
-#&gt;   GUB cover: 1
-#&gt;   Inf proof: 2
+#&gt;   Gomory: 6
+#&gt;   Cover: 13
+#&gt;   MIR: 14
+#&gt;   StrongCG: 7
+#&gt;   Inf proof: 4
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.07 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 79 nodes (2805 simplex iterations) in 0.14 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
+#&gt; Solution count 5: 4.99964 4.99963 4.99962 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Best objective 4.999640385924e+00, best bound 5.433392965972e+00, gap 8.6757%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -607,21 +616,21 @@ Details section for more information.</p></td>
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.058784e+02, 121 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.060184e+02, 195 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0  105.87844    0   10   -0.00000  105.87844      -     -    0s
-#&gt; H    0     0                     102.9996465  105.87844  2.79%     -    0s
+#&gt;      0     0  106.01841    0   15   -0.00000  106.01841      -     -    0s
+#&gt; H    0     0                     102.9995974  106.01841  2.93%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (195 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 2: 103 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.029996464541e+02, best bound 1.058784434632e+02, gap 2.7950%</div><div class='input'>
+#&gt; Best objective 1.029995973779e+02, best bound 1.060184107668e+02, gap 2.9309%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>)),
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem to show the correct method for setting</span>
@@ -636,7 +645,7 @@ Details section for more information.</p></td>
 <span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
 #&gt; Variable types: 0 continuous, 92 integer (92 binary)
 #&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Matrix range     [5e-01, 2e+02]
 #&gt;   Objective range  [1e-04, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
@@ -646,7 +655,7 @@ Details section for more information.</p></td>
 #&gt; Presolve: All rows and columns removed
 #&gt; 
 #&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
 #&gt; Solution count 1: -0 
 #&gt; 

@@ -43,8 +43,6 @@ results for later use. This function is useful when creating slightly
 different versions of the same conservation planning problem that involve
 the same pre-processing steps (e.g. calculating boundary data), because
 means that the same calculations will not be run multiple times." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -85,7 +83,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -211,96 +209,96 @@ means that the same calculations will not be run multiple times.</p>
 
 <span class='co'># now solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 2352.9617505
+#&gt;   RHS range        [3e+00, 9e+00]
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 2751.3392638
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.981917e+03, 116 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
-#&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
+#&gt;      0     0 1981.91669    0   30 2751.33926 1981.91669  28.0%     -    0s
+#&gt; H    0     0                    2033.5012138 1981.91669  2.54%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (116 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 2006.35 2352.96 18523.2 
+#&gt; Solution count 3: 2033.5 2751.34 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
-#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Best objective 2.033501213844e+03, best bound 1.981916689130e+03, gap 2.5367%
+#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 4565.4850483
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 4944.7167415
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.927147e+03, 92 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.971682e+03, 78 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
-#&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
+#&gt;      0     0 3971.68198    0   20 4944.71674 3971.68198  19.7%     -    0s
+#&gt; H    0     0                    4064.8167445 3971.68198  2.29%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (78 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 4014.03 4565.49 18523.2 
+#&gt; Solution count 3: 4064.82 4944.72 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
-#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Best objective 4.064816744479e+03, best bound 3.971681977860e+03, gap 2.2912%
+#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [9e+00, 2e+01]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 6599.7631720
+#&gt;   RHS range        [9e+00, 3e+01]
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 7189.4403432
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.932506e+03, 121 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.971618e+03, 87 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5932.50572    0   16 6599.76317 5932.50572  10.1%     -    0s
-#&gt; H    0     0                    6096.9115786 5932.50572  2.70%     -    0s
+#&gt;      0     0 5971.61818    0   21 7189.44034 5971.61818  16.9%     -    0s
+#&gt; H    0     0                    6114.3765995 5971.61818  2.33%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (87 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 6096.91 6599.76 18523.2 
+#&gt; Solution count 3: 6114.38 7189.44 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
+#&gt; Best objective 6.114376599539e+03, best bound 5.971618175072e+03, gap 2.3348%</div><div class='input'>
 <span class='co'># This approach is inefficient. Since these problems all share the same</span>
 <span class='co'># planning units it is actually performing the same calculations three times.</span>
 <span class='co'># To avoid this, we can use the "run_calculations" function before creating</span>
@@ -321,100 +319,100 @@ means that the same calculations will not be run multiple times.</p>
 
 <span class='co'># solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 2352.9617505
+#&gt;   RHS range        [3e+00, 9e+00]
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 2751.3392638
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.981917e+03, 116 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
-#&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
+#&gt;      0     0 1981.91669    0   30 2751.33926 1981.91669  28.0%     -    0s
+#&gt; H    0     0                    2033.5012138 1981.91669  2.54%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (116 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 2006.35 2352.96 18523.2 
+#&gt; Solution count 3: 2033.5 2751.34 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
-#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Best objective 2.033501213844e+03, best bound 1.981916689130e+03, gap 2.5367%
+#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 4565.4850483
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 4944.7167415
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.927147e+03, 92 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.971682e+03, 78 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
-#&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
+#&gt;      0     0 3971.68198    0   20 4944.71674 3971.68198  19.7%     -    0s
+#&gt; H    0     0                    4064.8167445 3971.68198  2.29%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (78 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 4014.03 4565.49 18523.2 
+#&gt; Solution count 3: 4064.82 4944.72 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
-#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Best objective 4.064816744479e+03, best bound 3.971681977860e+03, gap 2.2912%
+#&gt; Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+00, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [9e+00, 2e+01]
-#&gt; Found heuristic solution: objective 18523.196992
-#&gt; Found heuristic solution: objective 6599.7631720
+#&gt;   RHS range        [9e+00, 3e+01]
+#&gt; Found heuristic solution: objective 18481.430551
+#&gt; Found heuristic solution: objective 7189.4403432
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
+#&gt; Presolved: 289 rows, 232 columns, 1018 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.932506e+03, 121 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.971618e+03, 87 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5932.50572    0   16 6599.76317 5932.50572  10.1%     -    0s
-#&gt; H    0     0                    6096.9115786 5932.50572  2.70%     -    0s
+#&gt;      0     0 5971.61818    0   21 7189.44034 5971.61818  16.9%     -    0s
+#&gt; H    0     0                    6114.3765995 5971.61818  2.33%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (87 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 3: 6096.91 6599.76 18523.2 
+#&gt; Solution count 3: 6114.38 7189.44 18481.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
+#&gt; Best objective 6.114376599539e+03, best bound 5.971618175072e+03, gap 2.3348%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.582   0.416   1.006 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.523   0.389   0.904 </div><div class='input'>
+#&gt;   0.625   0.417   1.038 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.521   0.468   0.961 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

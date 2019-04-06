@@ -44,8 +44,6 @@ prioritized as opposed to the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to include in
 decisions will solve much faster than problems that use binary-type
 decisions" />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -86,7 +84,7 @@ decisions" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -222,16 +220,16 @@ decisions</p>
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
+#&gt;   RHS range        [3e+00, 9e+00]
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   3.170407e+01   0.000000e+00      0s
-#&gt;       12    1.9315819e+03   0.000000e+00   0.000000e+00      0s
+#&gt;        0    0.0000000e+00   3.441509e+01   0.000000e+00      0s
+#&gt;       11    1.9590919e+03   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Solved in 12 iterations and 0.00 seconds
-#&gt; Optimal objective  1.931581909e+03</div><div class='input'>
+#&gt; Solved in 11 iterations and 0.00 seconds
+#&gt; Optimal objective  1.959091905e+03</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>)</div><div class='img'><img src='add_proportion_decisions-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># build multi-zone conservation problem with proportion decisions</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
@@ -245,16 +243,16 @@ decisions</p>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 3 rows and 0 columns
+#&gt; Presolve removed 5 rows and 0 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
+#&gt; Presolved: 100 rows, 270 columns, 1170 nonzeros
 #&gt; 
 #&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   1.319305e+02   0.000000e+00      0s
-#&gt;       94    1.0964841e+04   0.000000e+00   0.000000e+00      0s
+#&gt;        0    0.0000000e+00   1.219932e+02   0.000000e+00      0s
+#&gt;      118    1.0561731e+04   0.000000e+00   0.000000e+00      0s
 #&gt; 
-#&gt; Solved in 94 iterations and 0.00 seconds
-#&gt; Optimal objective  1.096484061e+04</div><div class='input'>
+#&gt; Solved in 118 iterations and 0.00 seconds
+#&gt; Optimal objective  1.056173129e+04</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>)</div><div class='output co'>#&gt; class       : RasterStack 
 #&gt; dimensions  : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)

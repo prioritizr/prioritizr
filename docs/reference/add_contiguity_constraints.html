@@ -41,8 +41,6 @@
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +81,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -282,71 +280,57 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4544.4850483
+#&gt; Found heuristic solution: objective 4925.2167415
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.942215e+03, 15 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
+#&gt;      0     0 3942.21463    0    5 4925.21674 3942.21463  20.0%     -    0s
+#&gt; H    0     0                    4032.8009877 3942.21463  2.25%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 2: 3994.89 4544.49 
+#&gt; Solution count 2: 4032.8 4925.22 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
-#&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
+#&gt; Best objective 4.032800987722e+03, best bound 3.942214626580e+03, gap 2.2462%
+#&gt; Optimize a model with 235 rows, 232 columns and 1195 nonzeros
+#&gt; Variable types: 0 continuous, 232 integer (232 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 12 rows and 13 columns
+#&gt; Presolve removed 18 rows and 19 columns
 #&gt; Presolve time: 0.01s
-#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
-#&gt; Variable types: 0 continuous, 221 integer (221 binary)
-#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
+#&gt; Presolved: 217 rows, 213 columns, 1012 nonzeros
+#&gt; Variable types: 0 continuous, 213 integer (213 binary)
+#&gt; Presolved: 217 rows, 213 columns, 1012 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 153 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.949091e+03, 114 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 3947.81491    0   90          - 3947.81491      -     -    0s
-#&gt;      0     0 3950.02335    0   90          - 3950.02335      -     -    0s
-#&gt;      0     0 3969.69828    0   79          - 3969.69828      -     -    0s
-#&gt;      0     0 3972.75831    0   87          - 3972.75831      -     -    0s
-#&gt;      0     0 3972.97474    0   90          - 3972.97474      -     -    0s
-#&gt;      0     0 3982.34763    0   99          - 3982.34763      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt; H    0     0                    4590.1395586 3982.41766  13.2%     -    0s
-#&gt;      0     2 3982.61532    0   94 4590.13956 3982.61532  13.2%     -    0s
-#&gt; H   10     8                    4329.4350849 3990.95615  7.82%  40.4    0s
+#&gt;      0     0 3949.09144    0   17          - 3949.09144      -     -    0s
+#&gt; H    0     0                    4098.5383471 3949.09144  3.65%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt;   Zero half: 4
+#&gt; Explored 1 nodes (168 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.07 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 4329.44 4590.14 
+#&gt; Solution count 1: 4098.54 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.329435084863e+03, best bound 3.990956145113e+03, gap 7.8181%</div><div class='input'>
+#&gt; Best objective 4.098538347060e+03, best bound 3.949091441495e+03, gap 3.6463%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
@@ -392,191 +376,198 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 13103.242827
+#&gt; Found heuristic solution: objective 12472.388222
 #&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.177187e+04, 157 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
+#&gt;      0     0 11771.8653    0   19 12472.3882 11771.8653  5.62%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (211 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (157 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 1: 13103.2 
+#&gt; Solution count 1: 12472.4 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.310324282660e+04, best bound 1.199144828715e+04, gap 8.4849%
-#&gt; Optimize a model with 801 rows, 705 columns and 3888 nonzeros
-#&gt; Variable types: 0 continuous, 705 integer (705 binary)
+#&gt; Best objective 1.247238822194e+04, best bound 1.177186533844e+04, gap 5.6166%
+#&gt; Optimize a model with 795 rows, 696 columns and 3855 nonzeros
+#&gt; Variable types: 0 continuous, 696 integer (696 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.03s
-#&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
-#&gt; Variable types: 0 continuous, 642 integer (642 binary)
-#&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
+#&gt; Presolve removed 55 rows and 57 columns
+#&gt; Presolve time: 0.04s
+#&gt; Presolved: 740 rows, 639 columns, 3303 nonzeros
+#&gt; Variable types: 0 continuous, 639 integer (639 binary)
+#&gt; Presolved: 740 rows, 639 columns, 3303 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.180583e+04, 656 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 12078.6848    0  232          - 12078.6848      -     -    0s
-#&gt;      0     0 12085.5969    0  257          - 12085.5969      -     -    0s
-#&gt;      0     0 12085.7681    0  260          - 12085.7681      -     -    0s
-#&gt;      0     0 12089.6741    0  261          - 12089.6741      -     -    0s
-#&gt;      0     0 12089.7376    0  256          - 12089.7376      -     -    0s
-#&gt;      0     0 12090.1799    0  296          - 12090.1799      -     -    0s
-#&gt;      0     0 12090.1799    0  297          - 12090.1799      -     -    0s
-#&gt;      0     0 12090.3692    0  314          - 12090.3692      -     -    0s
-#&gt;      0     0 12090.3866    0  298          - 12090.3866      -     -    0s
-#&gt;      0     0 12090.3892    0  301          - 12090.3892      -     -    0s
-#&gt;      0     0 12090.7541    0  293          - 12090.7541      -     -    0s
-#&gt;      0     0 12090.9158    0  288          - 12090.9158      -     -    0s
-#&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
-#&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
-#&gt;      0     2 12090.9420    0  288          - 12090.9420      -     -    0s
-#&gt; H  281   176                    14047.713034 12098.0721  13.9%  66.9    1s
-#&gt; H  283   175                    14037.892140 12098.0721  13.8%  66.5    1s
-#&gt; H  475   231                    13646.439309 12099.0668  11.3%  68.2    1s
-#&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    1s
-#&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    1s
-#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    1s
-#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    2s
-#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    2s
-#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    3s
+#&gt;      0     0 11805.8341    0  231          - 11805.8341      -     -    0s
+#&gt;      0     0 11809.7433    0  261          - 11809.7433      -     -    0s
+#&gt;      0     0 11811.1460    0  318          - 11811.1460      -     -    0s
+#&gt;      0     0 11812.8926    0  294          - 11812.8926      -     -    0s
+#&gt;      0     0 11813.3857    0  294          - 11813.3857      -     -    0s
+#&gt;      0     0 11813.7784    0  310          - 11813.7784      -     -    0s
+#&gt;      0     0 11814.0223    0  294          - 11814.0223      -     -    0s
+#&gt;      0     0 11814.0306    0  282          - 11814.0306      -     -    0s
+#&gt;      0     0 11814.0350    0  298          - 11814.0350      -     -    0s
+#&gt;      0     0 11814.7490    0  298          - 11814.7490      -     -    0s
+#&gt;      0     0 11814.8099    0  296          - 11814.8099      -     -    0s
+#&gt;      0     0 11815.2348    0  310          - 11815.2348      -     -    0s
+#&gt;      0     0 11815.2621    0  322          - 11815.2621      -     -    0s
+#&gt;      0     0 11815.3397    0  330          - 11815.3397      -     -    0s
+#&gt;      0     0 11815.3397    0  324          - 11815.3397      -     -    0s
+#&gt;      0     2 11815.3640    0  323          - 11815.3640      -     -    0s
+#&gt; H   49    44                    13389.864742 11815.4201  11.8%  71.1    0s
+#&gt; H  216   153                    13243.556408 11817.3972  10.8%  77.6    0s
+#&gt; H  526   304                    13212.353510 11824.4777  10.5%  86.9    2s
+#&gt; H  836   379                    13159.230225 11824.4777  10.1%  93.3    4s
+#&gt; H  845   368                    13150.873435 11824.4777  10.1%  92.4    4s
+#&gt; H  858   348                    13141.944276 11824.4777  10.0%  91.3    4s
+#&gt; H  885   323                    12950.173915 11824.4777  8.69%  91.2    4s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 6
+#&gt;   Gomory: 2
+#&gt;   Cover: 1
+#&gt;   Clique: 2
+#&gt;   MIR: 12
 #&gt;   Flow cover: 1
-#&gt;   Inf proof: 2
-#&gt;   Zero half: 19
+#&gt;   Inf proof: 3
+#&gt;   Zero half: 25
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 3.56 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 885 nodes (82216 simplex iterations) in 4.39 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
+#&gt; Solution count 7: 12950.2 13141.9 13150.9 ... 13389.9
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.322471396275e+04, best bound 1.210126057434e+04, gap 8.4951%
-#&gt; Optimize a model with 569 rows, 560 columns and 3132 nonzeros
-#&gt; Variable types: 0 continuous, 560 integer (560 binary)
+#&gt; Best objective 1.295017391504e+04, best bound 1.182447773032e+04, gap 8.6925%
+#&gt; Optimize a model with 565 rows, 554 columns and 3110 nonzeros
+#&gt; Variable types: 0 continuous, 554 integer (554 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 43 rows and 42 columns
+#&gt; Presolve removed 37 rows and 38 columns
 #&gt; Presolve time: 0.02s
-#&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
-#&gt; Variable types: 0 continuous, 518 integer (518 binary)
-#&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
+#&gt; Presolved: 528 rows, 516 columns, 2741 nonzeros
+#&gt; Variable types: 0 continuous, 516 integer (516 binary)
+#&gt; Presolved: 528 rows, 516 columns, 2741 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.01 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 12048.9738    0  124          - 12048.9738      -     -    0s
-#&gt;      0     0 12064.8593    0  211          - 12064.8593      -     -    0s
-#&gt;      0     0 12064.9819    0  191          - 12064.9819      -     -    0s
-#&gt;      0     0 12065.2489    0  186          - 12065.2489      -     -    0s
-#&gt;      0     0 12066.8399    0  192          - 12066.8399      -     -    0s
-#&gt;      0     0 12067.5686    0  205          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  207          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  207          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  206          - 12067.5686      -     -    0s
-#&gt; H    0     0                    14104.597125 12067.5686  14.4%     -    0s
-#&gt; H    0     0                    14094.359470 12067.5686  14.4%     -    0s
-#&gt; H    0     0                    14079.032410 12067.5686  14.3%     -    0s
-#&gt; H    0     0                    14056.996635 12067.5686  14.2%     -    0s
-#&gt;      0     2 12067.5837    0  206 14056.9966 12067.5837  14.2%     -    0s
-#&gt; H   97    68                    13409.658673 12070.6564  10.0%  39.8    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 5
-#&gt;   Clique: 6
-#&gt;   Inf proof: 1
-#&gt;   Zero half: 6
-#&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.32 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.340965867313e+04, best bound 1.207065639504e+04, gap 9.9854%
-#&gt; Optimize a model with 945 rows, 850 columns and 4468 nonzeros
-#&gt; Variable types: 0 continuous, 850 integer (850 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.07s
-#&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
-#&gt; Variable types: 0 continuous, 777 integer (777 binary)
-#&gt; Presolve removed 122 rows and 0 columns
-#&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.179618e+04, 488 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 12071.0476    0  227          - 12071.0476      -     -    0s
-#&gt;      0     0 12083.8905    0  208          - 12083.8905      -     -    0s
-#&gt;      0     0 12084.9107    0  250          - 12084.9107      -     -    0s
-#&gt;      0     0 12086.3263    0  266          - 12086.3263      -     -    0s
-#&gt;      0     0 12087.8865    0  229          - 12087.8865      -     -    0s
-#&gt;      0     0 12087.9702    0  240          - 12087.9702      -     -    0s
-#&gt;      0     0 12088.0063    0  238          - 12088.0063      -     -    0s
-#&gt;      0     0 12088.0181    0  242          - 12088.0181      -     -    0s
-#&gt;      0     0 12088.0186    0  244          - 12088.0186      -     -    0s
-#&gt;      0     0 12088.2384    0  277          - 12088.2384      -     -    0s
-#&gt;      0     0 12088.3730    0  269          - 12088.3730      -     -    0s
-#&gt;      0     0 12088.3790    0  282          - 12088.3790      -     -    0s
-#&gt;      0     0 12088.4617    0  258          - 12088.4617      -     -    0s
-#&gt;      0     0 12088.9547    0  246          - 12088.9547      -     -    0s
-#&gt;      0     0 12088.9638    0  247          - 12088.9638      -     -    0s
-#&gt;      0     0 12089.1692    0  245          - 12089.1692      -     -    0s
-#&gt;      0     0 12089.2701    0  247          - 12089.2701      -     -    0s
-#&gt;      0     0 12089.2702    0  250          - 12089.2702      -     -    0s
-#&gt;      0     0 12089.2702    0  252          - 12089.2702      -     -    0s
-#&gt;      0     0 12089.2702    0  249          - 12089.2702      -     -    0s
-#&gt;      0     2 12089.2735    0  246          - 12089.2735      -     -    0s
-#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    0s
-#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    0s
-#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    0s
-#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    0s
+#&gt;      0     0 11796.1771    0  184          - 11796.1771      -     -    0s
+#&gt;      0     0 11802.0030    0  215          - 11802.0030      -     -    0s
+#&gt;      0     0 11802.1731    0  238          - 11802.1731      -     -    0s
+#&gt;      0     0 11802.9752    0  226          - 11802.9752      -     -    0s
+#&gt;      0     0 11803.7204    0  237          - 11803.7204      -     -    0s
+#&gt;      0     0 11804.3354    0  239          - 11804.3354      -     -    0s
+#&gt;      0     0 11805.6626    0  233          - 11805.6626      -     -    0s
+#&gt;      0     0 11805.7077    0  233          - 11805.7077      -     -    0s
+#&gt;      0     0 11806.3028    0  251          - 11806.3028      -     -    0s
+#&gt;      0     0 11806.4483    0  240          - 11806.4483      -     -    0s
+#&gt;      0     0 11806.6215    0  252          - 11806.6215      -     -    0s
+#&gt;      0     0 11806.7586    0  250          - 11806.7586      -     -    0s
+#&gt;      0     0 11806.8975    0  241          - 11806.8975      -     -    0s
+#&gt;      0     0 11806.9628    0  254          - 11806.9628      -     -    0s
+#&gt;      0     0 11806.9759    0  247          - 11806.9759      -     -    0s
+#&gt;      0     0 11807.3454    0  247          - 11807.3454      -     -    0s
+#&gt;      0     0 11807.3735    0  250          - 11807.3735      -     -    0s
+#&gt;      0     0 11807.3909    0  242          - 11807.3909      -     -    0s
+#&gt;      0     0 11807.3912    0  248          - 11807.3912      -     -    0s
+#&gt;      0     0 11807.4585    0  248          - 11807.4585      -     -    0s
+#&gt;      0     0 11807.4585    0  245          - 11807.4585      -     -    0s
+#&gt;      0     2 11807.5161    0  245          - 11807.5161      -     -    0s
+#&gt; H   52    43                    12328.889545 11807.5161  4.23%  49.9    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
-#&gt;   Clique: 3
-#&gt;   Inf proof: 1
-#&gt;   Zero half: 14
+#&gt;   Clique: 8
+#&gt;   MIR: 9
+#&gt;   StrongCG: 1
+#&gt;   Zero half: 10
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 0.79 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 52 nodes (3847 simplex iterations) in 0.35 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
+#&gt; Solution count 1: 12328.9 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.326153910029e+04, best bound 1.208973486782e+04, gap 8.8361%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
+#&gt; Best objective 1.232888954535e+04, best bound 1.180751611282e+04, gap 4.2289%
+#&gt; Optimize a model with 936 rows, 838 columns and 4423 nonzeros
+#&gt; Variable types: 0 continuous, 838 integer (838 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 1e+00]
+#&gt;   Objective range  [2e+02, 2e+02]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [1e+00, 2e+01]
+#&gt; Presolve removed 18 rows and 19 columns
+#&gt; Presolve time: 0.03s
+#&gt; Presolved: 918 rows, 819 columns, 4523 nonzeros
+#&gt; Variable types: 0 continuous, 819 integer (819 binary)
+#&gt; Presolve removed 142 rows and 0 columns
+#&gt; Presolved: 776 rows, 819 columns, 4097 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 1.180610e+04, 1098 iterations, 0.02 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 11806.0960    0  248          - 11806.0960      -     -    0s
+#&gt;      0     0 11808.6735    0  303          - 11808.6735      -     -    0s
+#&gt;      0     0 11809.4843    0  316          - 11809.4843      -     -    0s
+#&gt;      0     0 11810.1461    0  302          - 11810.1461      -     -    0s
+#&gt;      0     0 11810.7664    0  298          - 11810.7664      -     -    0s
+#&gt;      0     0 11811.9764    0  326          - 11811.9764      -     -    0s
+#&gt;      0     0 11812.1638    0  329          - 11812.1638      -     -    0s
+#&gt;      0     0 11813.3869    0  292          - 11813.3869      -     -    0s
+#&gt;      0     0 11813.3949    0  292          - 11813.3949      -     -    0s
+#&gt;      0     0 11814.1245    0  327          - 11814.1245      -     -    0s
+#&gt;      0     0 11814.1494    0  318          - 11814.1494      -     -    0s
+#&gt;      0     0 11814.1508    0  331          - 11814.1508      -     -    0s
+#&gt;      0     0 11814.5919    0  349          - 11814.5919      -     -    0s
+#&gt;      0     0 11814.6018    0  341          - 11814.6018      -     -    0s
+#&gt;      0     0 11814.6793    0  343          - 11814.6793      -     -    0s
+#&gt;      0     0 11814.6793    0  340          - 11814.6793      -     -    0s
+#&gt;      0     2 11814.7129    0  337          - 11814.7129      -     -    0s
+#&gt; H   66    57                    13138.536639 11814.7492  10.1%  68.6    0s
+#&gt; H  120   101                    13137.913730 11815.7384  10.1%  69.8    0s
+#&gt; H  445   288                    12917.430954 11817.6400  8.51%  71.1    1s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Gomory: 4
+#&gt;   Cover: 9
+#&gt;   MIR: 12
+#&gt;   Inf proof: 1
+#&gt;   Zero half: 22
+#&gt; 
+#&gt; Explored 445 nodes (33921 simplex iterations) in 1.70 seconds
+#&gt; Thread count was 1 (of 16 available processors)
+#&gt; 
+#&gt; Solution count 3: 12917.4 13137.9 13138.5 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.291743095392e+04, best bound 1.181764003507e+04, gap 8.5140%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s2</span>)
 
 <span class='co'># plot solutions</span>
@@ -622,11 +613,11 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 4</span><span>
 #&gt;   feature zone      target type    
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  25.0  absolute
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   9.36 absolute
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  21.6  absolute
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  12.8  absolute
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  17.0  absolute</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  25.9  absolute
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  16.4  absolute
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  21.5  absolute
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  21.2  absolute
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   9.08 absolute</div><div class='input'>
 <span class='co'># create zones matrix</span>
 <span class='no'>z7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z7</span>)</div><div class='output co'>#&gt;      [,1] [,2]
@@ -638,44 +629,39 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z7</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div></span><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
-#&gt; Variable types: 0 continuous, 615 integer (615 binary)
+<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 696 rows, 606 columns and 3138 nonzeros
+#&gt; Variable types: 0 continuous, 606 integer (606 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [9e-02, 1e+00]
 #&gt;   Objective range  [9e+01, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 48 rows and 47 columns
-#&gt; Presolve time: 0.05s
-#&gt; Presolved: 655 rows, 568 columns, 2764 nonzeros
-#&gt; Variable types: 0 continuous, 568 integer (568 binary)
-#&gt; Presolve removed 124 rows and 0 columns
-#&gt; Presolved: 531 rows, 568 columns, 2392 nonzeros
+#&gt;   RHS range        [1e+00, 3e+01]
+#&gt; Presolve time: 0.01s
+#&gt; Presolved: 696 rows, 606 columns, 3422 nonzeros
+#&gt; Variable types: 0 continuous, 606 integer (606 binary)
+#&gt; Presolve removed 142 rows and 0 columns
+#&gt; Presolved: 554 rows, 606 columns, 2996 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.901727e+03, 161 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.943322e+03, 401 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5901.72702    0   53          - 5901.72702      -     -    0s
-#&gt;      0     0 5913.98711    0   46          - 5913.98711      -     -    0s
-#&gt;      0     0 5919.40013    0   75          - 5919.40013      -     -    0s
-#&gt;      0     0 5921.60014    0   76          - 5921.60014      -     -    0s
-#&gt;      0     0 5925.59486    0   77          - 5925.59486      -     -    0s
-#&gt; H    0     0                    6482.8257651 5925.59486  8.60%     -    0s
+#&gt;      0     0 5943.32189    0   28          - 5943.32189      -     -    0s
+#&gt;      0     0 5946.62653    0   38          - 5946.62653      -     -    0s
+#&gt; H    0     0                    6146.0920350 5946.62653  3.25%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Zero half: 2
+#&gt;   Zero half: 1
 #&gt; 
-#&gt; Explored 1 nodes (426 simplex iterations) in 0.09 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (627 simplex iterations) in 0.03 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 1: 6482.83 
+#&gt; Solution count 1: 6146.09 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.482825765145e+03, best bound 5.925594864697e+03, gap 8.5955%</div><div class='input'>
+#&gt; Best objective 6.146092034958e+03, best bound 5.946626529816e+03, gap 3.2454%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s7</span>, <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

@@ -40,8 +40,6 @@
 
 <meta property="og:description" content="Extract data from a Raster-class object from a
 Spatial-class object using performance enhancing tricks." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -82,7 +80,7 @@ Spatial-class object using performance enhancing tricks." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -196,7 +194,7 @@ have an <code>na.rm</code> argument.</p></td>
     </tr>
     <tr>
       <th>velox</th>
-      <td><p><code>logical</code> should the <code><a href='https://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code>
+      <td><p><code>logical</code> should the <code>velox</code>
 be used for geoprocessing? Defaults to <code>TRUE</code> if the package
 is installed. Note that this only used when <code>x</code> is a
 <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> object.</p></td>
@@ -215,14 +213,14 @@ is installed. Note that this only used when <code>x</code> is a
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Spatial analyses will be conducted using the
-  <code><a href='https://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code> package if it is installed. Additionally,
+  <code>velox</code> package if it is installed. Additionally,
   multiple threads can be used to speed up computation using the
   <code><a href='parallel.html'>set_number_of_threads</a></code> function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/extract'>extract</a></code>,
-  <code><a href='https://www.rdocumentation.org/packages/velox/topics/VeloxRaster_extract'>VeloxRaster_extract</a></code>.</p></div>
+  <code>VeloxRaster_extract</code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -234,20 +232,18 @@ is installed. Note that this only used when <code>x</code> is a
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;    0.02    0.00    0.02 </div><div class='input'>
+#&gt;   0.667   0.000   0.667 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.021   0.000   0.021 </div><div class='input'>
+                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='error'>Error in .local(x, y, ...): the velox R package needs to be installed to use velox</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.004 0 0.003</span></div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
 <span class='co'># spatial data sets</span>
 <span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.015   0.004   2.450 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div><div class='input'>
+                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='error'>Error in .local(x, y, ...): the velox R package needs to be installed to use velox</span></div><div class='output co'>#&gt; <span class='message'>Timing stopped at: 0.003 0 0.003</span></div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

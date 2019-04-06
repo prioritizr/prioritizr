@@ -46,8 +46,6 @@ that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues et al.
 (2002)." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -88,7 +86,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.2.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.3</span>
       </span>
     </div>
 
@@ -298,49 +296,49 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Objective range  [1e-05, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.530487e+00, 27 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
-#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
-#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
-#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
-#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
-#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
-#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
-#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
-#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
-#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
+#&gt;      0     0    3.53049    0    6   -0.00000    3.53049      -     -    0s
+#&gt;      0     0    3.48401    0    6   -0.00000    3.48401      -     -    0s
+#&gt;      0     0    3.48370    0    7   -0.00000    3.48370      -     -    0s
+#&gt;      0     0    3.48360    0    8   -0.00000    3.48360      -     -    0s
+#&gt; H    0     0                       1.5482356    3.48360   125%     -    0s
+#&gt;      0     0    3.48358    0    9    1.54824    3.48358   125%     -    0s
+#&gt;      0     0    3.17168    0    6    1.54824    3.17168   105%     -    0s
+#&gt;      0     0    3.17168    0    6    1.54824    3.17168   105%     -    0s
+#&gt;      0     2    3.15588    0    6    1.54824    3.15588   104%     -    0s
+#&gt; H    3     2                       2.3877778    2.69451  12.8%   8.0    0s
+#&gt; H   10     0                       2.6945055    2.69451  0.00%   3.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
-#&gt;   MIR: 3
+#&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 10 nodes (87 simplex iterations) in 0.02 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
+#&gt; Solution count 4: 2.69451 2.38778 1.54824 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 2.694505497987e+00, best bound 2.694505497987e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_objective-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -370,36 +368,36 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_objective</span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 104 rows, 283 columns and 1917 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 104 rows, 283 columns and 1915 nonzeros
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [2e-06, 9e-01]
+#&gt;   Objective range  [3e-06, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 5e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 97 rows and 187 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 7 rows, 96 columns, 461 nonzeros
+#&gt; Presolved: 7 rows, 96 columns, 460 nonzeros
 #&gt; Variable types: 0 continuous, 96 integer (96 binary)
-#&gt; Presolved: 7 rows, 96 columns, 461 nonzeros
+#&gt; Presolved: 7 rows, 96 columns, 460 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.158588e+00, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.421618e+00, 8 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.15859    0    1   -0.00000    4.15859      -     -    0s
-#&gt; H    0     0                       4.1585876    4.15859  0.00%     -    0s
+#&gt;      0     0    3.42162    0    1   -0.00000    3.42162      -     -    0s
+#&gt; H    0     0                       3.4216183    3.42162  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (8 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 2: 4.15859 -0 
+#&gt; Solution count 2: 3.42162 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.158587616657e+00, best bound 4.158587616657e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 3.421618317246e+00, best bound 3.421618331669e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_objective-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>
@@ -421,36 +419,36 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_objective</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2500</span>, <span class='fl'>500</span>, <span class='fl'>2000</span>), <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 283 columns and 1917 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 283 columns and 1915 nonzeros
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [2e-06, 9e-01]
+#&gt;   Objective range  [3e-06, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
+#&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
-#&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
+#&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.326504e+00, 97 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.544060e+00, 90 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.32650    0    6   -0.00000    4.32650      -     -    0s
-#&gt; H    0     0                       4.1585878    4.32650  4.04%     -    0s
+#&gt;      0     0    3.54406    0    6   -0.00000    3.54406      -     -    0s
+#&gt; H    0     0                       3.4216107    3.54406  3.58%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
+#&gt; Explored 1 nodes (90 simplex iterations) in 0.01 seconds
+#&gt; Thread count was 1 (of 16 available processors)
 #&gt; 
-#&gt; Solution count 2: 4.15859 -0 
+#&gt; Solution count 2: 3.42161 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.158587815617e+00, best bound 4.326503769252e+00, gap 4.0378%</div><div class='input'>
+#&gt; Best objective 3.421610707878e+00, best bound 3.544059772931e+00, gap 3.5787%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_objective-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>
