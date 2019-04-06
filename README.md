@@ -29,7 +29,7 @@ Citation
 
 Please use the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.2.15. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.3. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
     ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3585.96 3934.62 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.007129908
+    ## 0.001706839
 
 ``` r
 # extract state message from the solver
