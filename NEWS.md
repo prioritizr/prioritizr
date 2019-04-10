@@ -1,3 +1,11 @@
+# prioritizr 4.0.4 (released)
+
+- CRAN release.
+
+# prioritizr 4.0.3.1
+
+- Retain debugging symbols to conform with CRAN policies.
+
 # prioritizr 4.0.3 (released)
 
 - Release candidate for CRAN.

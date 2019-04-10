@@ -1,8 +1,2 @@
 # Set 64 bit words to increase matrix dimensionality
 PKG_CPPFLAGS = -DARMA_64BIT_WORD=1 -DARMA_NO_DEBUG=1
-
-# Compact shared object libraries: http://dirk.eddelbuettel.com/blog/2017/08/14#009_compact_shared_libraries
-strippedLib: $(SHLIB)
-	if test -e "/usr/bin/strip"; then /usr/bin/strip -S $(SHLIB); fi
-
-.phony: strippedLib
