@@ -9,7 +9,7 @@ Description: Conservation prioritization using integer
 Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson',
                email='jeffrey.hanson@uqconnect.edu.au', role = c('aut')),
              person(c('Richard'), 'Schuster',
-               email='mail@richard-schuster.com', role = c('aut', 'cre')),
+               email='richard.schuster@glel.carleton.ca', role = c('aut', 'cre')),
              person(c('Nina'), 'Morrell',
                email='nina.morrell@ubc.ca', role = c('aut')),
              person(c('Matthew'), 'Strimas-Mackey',
