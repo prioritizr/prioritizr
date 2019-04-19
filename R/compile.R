@@ -82,7 +82,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   if (is.Waiver(x$targets)) {
     # if objective doesn't actually use targets, create a "fake" targets tibble
     # to initialize rij matrix
-    targets <- tibble::as.tibble(expand.grid(
+    targets <- tibble::as_tibble(expand.grid(
       feature = seq_along(x$feature_names()),
       zone = seq_along(x$zone_names()),
       sense = "?",

@@ -146,7 +146,7 @@ methods::setMethod("add_manual_locked_constraints",
     assertthat::assert_that(inherits(x, "ConservationProblem"),
                             inherits(locked, "data.frame"))
     # add constraints
-    add_manual_locked_constraints(x, tibble::as.tibble(locked))
+    add_manual_locked_constraints(x, tibble::as_tibble(locked))
 })
 
 #' @name add_manual_locked_constraints

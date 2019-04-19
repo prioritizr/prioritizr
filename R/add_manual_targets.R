@@ -209,7 +209,7 @@ methods::setMethod(
   "add_manual_targets",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, targets) {
-    add_manual_targets(x, tibble::as.tibble(targets))
+    add_manual_targets(x, tibble::as_tibble(targets))
 })
 
 #' @name add_manual_targets
