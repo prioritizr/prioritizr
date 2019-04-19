@@ -85,31 +85,23 @@ methods::setMethod(
     } else {
       included <- raster::Which(max(!is.na(x)) > 0, cells = TRUE)
     }
-    # data processing
-    if (raster::canProcessInMemory(x, n = raster::nlayers(y) *
-                                          raster::nlayers(x) + 1)) {
-      # if the all the features can be fit into memory then processes
-      # them all in memory
-      m <- y[]
-      if (!is.matrix(m)) {
-        m <- matrix(m[included], nrow = 1)
-        m[is.na(m)] <- 0
-        m <- methods::as(m, "dgCMatrix")
-      } else {
-        m <- m[included, , drop = FALSE]
-        m[is.na(m)] <- 0
-        m <- Matrix::t(methods::as(m, "dgCMatrix"))
-      }
+    # throw warning if we are likely to enter swap space
+    if (!raster::canProcessInMemory(x, n = raster::nlayers(y) *
+                                          raster::nlayers(x) + 1))
+      warning(paste("planning unit and feature data exceed available system",
+                    "memory, and so processing may take a long time to",
+                    "complete."))
+    # extract data
+    m <- y[included]
+    if (!is.matrix(m)) {
+      m <- Matrix::sparseMatrix(i = rep(1, length(m)), j = seq_along(m),
+                                x = m, dims = list(1, length(m)))
     } else {
-      # othewise, process each feature separately
-        m <- plyr::llply(seq_len(raster::nlayers(y)), .parallel = FALSE,
-          function(i) {
-            m <- matrix(y[[i]][][included], nrow = 1)
-            m[is.na(m)] <- 0
-            m <- methods::as(m, "dgCMatrix")
-          })
-      m <- Reduce(rbind, m[-1], m[[1]])
+      m <- methods::as(t(m), "dgCMatrix")
     }
+    # remove NA values
+    m@x[is.na(m@x)] <- 0
+    m <- Matrix::drop0(m)
     # return result
     return(m)
 })
