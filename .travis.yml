@@ -43,7 +43,6 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages('digest', type = 'source')"; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
 
 install:
   - R -e "install.packages('remotes'); suppressWarnings(remotes::install_deps(dependencies = TRUE))"
