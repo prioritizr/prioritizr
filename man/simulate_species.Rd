@@ -2,7 +2,7 @@
 % Please edit documentation in R/simulate.R
 \name{simulate_species}
 \alias{simulate_species}
-\title{Simulate species habitat suitabilities}
+\title{Simulate species habitat suitability data}
 \usage{
 simulate_species(x, n = 1, model = RandomFields::RMgauss(),
   transform = stats::plogis, ...)

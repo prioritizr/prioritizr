@@ -42,7 +42,7 @@ NULL
 #'   units---\strong{including any planning units with \code{NA} cost values in
 #'   the argument to \code{x}}.
 #'
-#' @return \code{\link[tibble]{tibble}} containing the amount
+#' @return \code{\link[tibble]{tibble}} object containing the amount
 #'   (\code{"absolute_held"}) and proportion (\code{"relative_held"})
 #'   of the distribution of each feature held in the solution. Here, each
 #'   row contains data that pertain to a specific feature in a specific
@@ -89,7 +89,10 @@ NULL
 #'                  spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
 #'
 #' # create problem
-#' p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
+#' p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_binary_decisions()
 #'
 #' # create a solution
 #' s1 <- data.frame(solution = rep(c(1, 0), 5))
@@ -106,6 +109,17 @@ NULL
 #' all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]]) / sum(pu$spp1),
 #'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
 #'                               sum(pu$spp2, na.rm = TRUE)))
+#'
+#' # solve the problem using an exact algorithm solver
+#' s1_2 <- solve(p1)
+#' print(s1_2)
+#'
+#' # calculate feature representation in this solution
+#' # note that we set missing values in the solution_1 explicitly to zero
+#' s1_2$solution_1[is.na(s1_2$solution_1)] <- 0
+#' r1_2 <- feature_representation(p1, s1_2[, "solution_1", drop = FALSE])
+#'
+#' print(r1_2)
 #'
 #' # build minimal conservation problem with raster data
 #' p2 <- problem(sim_pu_raster, sim_features) %>%

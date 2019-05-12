@@ -82,7 +82,7 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   if (is.Waiver(x$targets)) {
     # if objective doesn't actually use targets, create a "fake" targets tibble
     # to initialize rij matrix
-    targets <- tibble::as.tibble(expand.grid(
+    targets <- tibble::as_tibble(expand.grid(
       feature = seq_along(x$feature_names()),
       zone = seq_along(x$zone_names()),
       sense = "?",
@@ -124,14 +124,6 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     x$constraints[[i]]$calculate(x)
     x$constraints[[i]]$apply(op, x)
   }
-  # check that all planning units have not been locked in
-  if (all(op$lb()[seq_len(x$number_of_planning_units() *
-                          x$number_of_zones())] == 1))
-    warning("all planning units are locked in.")
-  # check that all planning units have not been locked out
-  if (all(op$ub()[seq_len(x$number_of_planning_units() *
-                          x$number_of_zones())] == 0))
-    warning("all planning units are locked out.")
   # return problem object
   op
 }

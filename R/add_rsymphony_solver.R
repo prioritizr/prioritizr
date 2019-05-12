@@ -99,7 +99,7 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
     solve = function(self, x) {
       model <- list(
         obj = x$obj(),
-        mat = as.matrix(x$A()),
+        mat = x$A(),
         dir = x$sense(),
         rhs = x$rhs(),
         types = x$vtype(),

@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4.1</span>
       </span>
     </div>
 
@@ -167,7 +167,7 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>Here we will provide an introduction to using the <em>prrioritizr R</em> package to build and solve a conservation planning problem. <strong>Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the <a href="zones.html">zones vignette</a>.</strong></p>
+<p>Here we will provide an introduction to using the <em>prioritizr R</em> package to build and solve a conservation planning problem. <strong>Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the <a href="zones.html">zones vignette</a>.</strong></p>
 <p>First, we will load the <em>prioritizr</em> package.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load prioritizr package</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(prioritizr)</code></pre></div>
@@ -205,7 +205,7 @@
 ## 1 215.8638     FALSE      FALSE
 ## 2 212.7823     FALSE      FALSE
 ## 3 207.4962     FALSE      FALSE
-## 4 208.9322     FALSE       TRUE
+## 4 208.9322     FALSE      FALSE
 ## 5 214.0419     FALSE      FALSE
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units</span>
@@ -541,7 +541,7 @@ p11 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 ##   cost:           min: 190.13276, max: 215.86384
 ##   features:       layer.1, layer.2, layer.3, ... (5 features)
 ##   objective:      Minimum set objective 
-##   targets:        Absolute targets [targets (min: 17.290505409161, max: 21.5906174426385)]
+##   targets:        Absolute targets [targets (min: 17.0516324745796, max: 21.592023140782)]
 ##   decisions:      default
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
@@ -708,8 +708,8 @@ p17 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [9 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -720,7 +720,7 @@ p17 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 ## 1 215.8638     FALSE      FALSE
 ## 2 212.7823     FALSE      FALSE
 ## 3 207.4962     FALSE      FALSE
-## 4 208.9322     FALSE       TRUE
+## 4 208.9322     FALSE      FALSE
 ## 5 214.0419     FALSE      FALSE
 ## 6 213.7636     FALSE      FALSE</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># specify locked in data using the field name</span>
@@ -1011,7 +1011,7 @@ p28 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 ##   solver:         default</code></pre>
 <ul>
 <li>
-<strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for contructing the solution pool, but in most cases, setting the method argument to 2 is recomended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
+<strong>Pool portfolio</strong>: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for constructing the solution pool, but in most cases, setting the method argument to 2 is recommended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the <em>Gurobi</em> optimization solver to be specified for solving problems.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a problem and specify that a portfolio should be created that</span>
 <span class="co"># contains the 100 solutions nearest to optimality</span>
@@ -1073,44 +1073,50 @@ p31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 
 <span class="co"># solve the problem (using the default solver)</span>
 p31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p31)</code></pre></div>
-<pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
-## Variable types: 0 continuous, 234 integer (234 binary)
+<pre><code>## Optimize a model with 289 rows, 232 columns and 1018 nonzeros
+## Variable types: 0 continuous, 232 integer (232 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 1e+00]
 ##   Objective range  [1e+02, 4e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 20287.196992
-## Found heuristic solution: objective 3087.9617505
+##   RHS range        [3e+00, 9e+00]
+## Found heuristic solution: objective 20343.430551
+## Found heuristic solution: objective 3584.3392638
 ## Presolve time: 0.00s
-## Presolved: 293 rows, 234 columns, 1026 nonzeros
-## Variable types: 0 continuous, 234 integer (234 binary)
-## Presolved: 293 rows, 234 columns, 1026 nonzeros
+## Presolved: 289 rows, 232 columns, 1018 nonzeros
+## Variable types: 0 continuous, 232 integer (232 binary)
+## Presolved: 289 rows, 232 columns, 1018 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
+## Root relaxation: objective 2.254206e+03, 162 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 2265.86242    0  234 3087.96175 2265.86242  26.6%     -    0s
-##      0     0 2325.53449    0  232 3087.96175 2325.53449  24.7%     -    0s
-## H    0     0                    2949.7553440 2325.53449  21.2%     -    0s
-##      0     0 2361.03063    0  223 2949.75534 2361.03063  20.0%     -    0s
-##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
-##      0     0 2371.27288    0  222 2949.75534 2371.27288  19.6%     -    0s
-## H    0     0                    2604.7426048 2371.27288  8.96%     -    0s
+##      0     0 2254.20602    0  198 3584.33926 2254.20602  37.1%     -    0s
+## H    0     0                    3048.5224378 2254.20602  26.1%     -    0s
+##      0     0 2328.24544    0  207 3048.52244 2328.24544  23.6%     -    0s
+##      0     0 2334.70868    0  206 3048.52244 2334.70868  23.4%     -    0s
+##      0     0 2360.74916    0  205 3048.52244 2360.74916  22.6%     -    0s
+##      0     0 2362.50483    0  208 3048.52244 2362.50483  22.5%     -    0s
+##      0     0 2364.78966    0  204 3048.52244 2364.78966  22.4%     -    0s
+##      0     0 2364.78966    0  204 3048.52244 2364.78966  22.4%     -    0s
+## H    0     0                    2884.5154646 2364.78966  18.0%     -    0s
+##      0     2 2365.07943    0  204 2884.51546 2365.07943  18.0%     -    0s
+## *  239   140              18    2852.0434723 2415.55325  15.3%  14.4    0s
+## H  246    89                    2666.8346798 2436.52157  8.64%  14.5    0s
 ## 
 ## Cutting planes:
-##   Gomory: 3
+##   Gomory: 6
+##   MIR: 1
 ## 
-## Explored 1 nodes (347 simplex iterations) in 0.09 seconds
+## Explored 246 nodes (3982 simplex iterations) in 0.20 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 2604.74 2949.76 3087.96 20287.2 
+## Solution count 6: 2666.83 2852.04 2884.52 ... 20343.4
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 2.604742604847e+03, best bound 2.371272882044e+03, gap 8.9633%</code></pre>
+## Best objective 2.666834679810e+03, best bound 2.436521570861e+03, gap 8.6362%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(p31, <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-36-1.png" width="336" style="display: block; margin: auto;"></p>
@@ -1119,11 +1125,11 @@ p31 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.h
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract the objective (numerical value being minimized or maximized)</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(p31, <span class="st">"objective"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   2604.743</code></pre>
+##   2666.835</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving solution</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(p31, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##  0.0926981</code></pre>
+##  0.2001688</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver that describes why this specific</span>
 <span class="co"># solution was returned</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(p31, <span class="st">"status"</span>))</code></pre></div>
@@ -1210,46 +1216,46 @@ p32 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.h
 ##   Matrix range     [2e-01, 9e-01]
 ##   Objective range  [2e+02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e+00, 8e+00]
-## Found heuristic solution: objective 2337.9617505
+##   RHS range        [3e+00, 9e+00]
+## Found heuristic solution: objective 2734.3392638
 ## Presolve time: 0.00s
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Presolved: 5 rows, 90 columns, 450 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
+## Root relaxation: objective 1.959092e+03, 11 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+##      0     0 1959.09190    0    5 2734.33926 1959.09190  28.4%     -    0s
+## H    0     0                    2010.9158175 1959.09190  2.58%     -    0s
 ## 
-## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (11 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1985.68 2337.96 
+## Solution count 2: 2010.92 2734.34 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
+## Best objective 2.010915817515e+03, best bound 1.959091904791e+03, gap 2.5771%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the number of selected planning units</span>
 <span class="kw">cellStats</span>(p32, <span class="st">"sum"</span>)</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
 <span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>p32, <span class="st">"sum"</span>)</code></pre></div>
-<pre><code>## [1] 1985.682</code></pre>
+<pre><code>## [1] 2010.916</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
 r27 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p27, p32)
 <span class="kw"><a href="../reference/print.html">print</a></span>(r27)</code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held
 ##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 layer.1          8.97         0.108
-## 2 layer.2          3.13         0.100
-## 3 layer.3          7.43         0.103
-## 4 layer.4          4.29         0.101
-## 5 layer.5          6.02         0.106</code></pre>
+## 1 layer.1          9.02         0.104
+## 2 layer.2          5.72         0.104
+## 3 layer.3          7.28         0.101
+## 4 layer.4          7.07         0.100
+## 5 layer.5          3.06         0.101</code></pre>
 </div>
 </div>
 <div id="conclusion" class="section level2">

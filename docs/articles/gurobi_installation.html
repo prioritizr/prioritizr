@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4.1</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
       <h1>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2019-04-10</h4>
+            <h4 class="date">2019-05-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -175,7 +175,7 @@
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2</code></pre></div>
 <p>Next, we will install <code>sshserver</code> on <em>COMPUTER2</em>. To do this, enter the following command into the same terminal session.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> apt-get install openssh-server</code></pre></div>
-<p>Next, we will execute the following on command on <em>COMPUTER2</em> to tell it to connect to <em>COMPUTER1</em> when attempting to activate the <em>Gurubi</em> license. Similar to before, we will use <em>USER.COMPUTER1</em> to refer to the user name of your account <em>COMPUTER1</em>, and <em>IP.COMPUTER1</em> to refer to the IP address of <em>COMPUTER1</em>. If you do not know the IP address of <em>COMPUTER1</em>, try visiting this website (<a href="https://whatismyipaddress.com" class="uri">https://whatismyipaddress.com</a>) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to <em>COMPUTER1</em> from <em>COMPUTER2</em> you may need to enlist the help of a member of your university’s IT support team.</p>
+<p>Next, we will execute the following on command on <em>COMPUTER2</em> to tell it to connect to <em>COMPUTER1</em> when attempting to activate the <em>Gurobi</em> license. Similar to before, we will use <em>USER.COMPUTER1</em> to refer to the user name of your account <em>COMPUTER1</em>, and <em>IP.COMPUTER1</em> to refer to the IP address of <em>COMPUTER1</em>. If you do not know the IP address of <em>COMPUTER1</em>, try visiting this website (<a href="https://whatismyipaddress.com" class="uri">https://whatismyipaddress.com</a>) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to <em>COMPUTER1</em> from <em>COMPUTER2</em> you may need to enlist the help of a member of your university’s IT support team.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> -L 8080:apps.gurobi.com:80 USER.COMPUTER1@IP.COMPUTER1</code></pre></div>
 <p>Now, we will <strong>open up another session</strong> on <em>COMPUTER1</em>, connect to <em>COMPUTER2</em> from <em>COMPUTER1</em> using the same SSH command as before, and then tell <em>COMPUTER2</em> to activate the license. Please replace <code>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</code> with the correct license activation code that you saved earlier (note that the <code>--http</code> flag may not be required for <em>Gurobi</em> versions earlier than 8.0.0).</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">ssh</span> USER.COMPUTER2@IP.COMPUTER2

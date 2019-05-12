@@ -278,3 +278,30 @@ test_that("silent output when verbose=FALSE", {
   # solve problem silently
   expect_silent(solve(p))
 })
+
+test_that("numerical instability (error when force = FALSE)", {
+  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons$cost[1] <- 1e+35
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_default_solver(time_limit = 5)
+  expect_warning(expect_error(solve(p)))
+})
+
+test_that("numerical instability (solution when force = TRUE)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # make data
+  data(sim_pu_polygons, sim_features)
+  sim_pu_polygons$cost[1] <- 1e+35
+  p <- problem(sim_pu_polygons, sim_features, "cost") %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_default_solver(time_limit = 5)
+  expect_warning(expect_is(solve(p, force = TRUE), "SpatialPolygonsDataFrame"))
+})

@@ -13,6 +13,15 @@
 \code{\link{ConservationProblem-class}} object.}
 
 \item{...}{arguments passed to \code{\link{compile}}.}
+
+\item{run_checks}{\code{logical} flag indicating whether presolve checks
+should be run prior solving the problem. These checks are performed using
+the \code{\link{presolve_check}} function. Defaults to \code{TRUE}.
+Skipping these checks may reduce run time for large problems.}
+
+\item{force}{\code{logical} flag indicating if an attempt to should be
+made to solve the problem even if potential issues were detected during
+the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
@@ -182,5 +191,6 @@ spplot(s4, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
 }
 \seealso{
 \code{\link{feature_representation}}, \code{\link{problem}},
-  \code{\link{solvers}}, \code{\link{category_layer}}.
+  \code{\link{solvers}}, \code{\link{category_layer}},
+  \code{\link{presolve_check}}.
 }

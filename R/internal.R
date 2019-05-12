@@ -268,7 +268,7 @@ assertthat::on_failure(no_extra_arguments) <- function(call, env) {
 
 #' Verify if assertion is met
 #'
-#' Verify if an assertion is tmet and throw a \code{\link{warning}} if it
+#' Verify if an assertion is met and throw a \code{\link[base]{warning}} if it
 #' is not. This function is equivalent to \code{\link[assertthat]{assert_that}}
 #' except that it throws warnings and not errors.
 #'
@@ -281,14 +281,14 @@ verify_that <- function(..., env = parent.frame()) {
   res <- assertthat::validate_that(..., env = env)
   if (isTRUE(res))
       return(TRUE)
-  warning(res)
+  warning(res, immediate. = TRUE)
   FALSE
 }
 
 #' Are rasters comparable?
 #'
 #' This function checks if two \code{\link[raster]{Raster-class}} objects
-#' are comarable.
+#' are comparable.
 #'
 #' @param x \code{\link[raster]{Raster-class}} object.
 #'

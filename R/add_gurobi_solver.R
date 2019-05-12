@@ -37,6 +37,13 @@ NULL
 #'   relaxed solution, and is therefore often reasonably close to optimality.
 #'   Defaults to \code{FALSE}.
 #'
+#' @param numeric_focus \code{logical} should extra attention be paid
+#'   to verifying the accuracy of numerical calculations? This may be
+#'   useful when dealing problems that may suffer from numerical instability
+#'   issues. Beware that it will likely substantially increase run time
+#'   (sets the \emph{Gurobi} \code{NumericFocus} parameter
+#'   to 3). Defaults to \code{FALSE}.
+#'
 #' @param verbose \code{logical} should information be printed while solving
 #'  optimization problems?
 #'
@@ -84,7 +91,7 @@ methods::setClass("GurobiSolver", contains = "Solver")
 #' @export
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                               presolve = 2, threads = 1, first_feasible = 0,
-                              verbose = TRUE) {
+                              numeric_focus = FALSE, verbose = TRUE) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           isTRUE(all(is.finite(gap))),
@@ -98,6 +105,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                           isTRUE(threads <= parallel::detectCores(TRUE)),
                           assertthat::is.scalar(first_feasible),
                           isTRUE(first_feasible == 1 | first_feasible == 0),
+                          assertthat::is.flag(numeric_focus),
+                          assertthat::noNA(numeric_focus),
                           assertthat::is.flag(verbose),
                           requireNamespace("gurobi", quietly = TRUE))
   # add solver
@@ -114,6 +123,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       integer_parameter("threads", threads, lower_limit = 1L,
                         upper_limit = parallel::detectCores(TRUE)),
       binary_parameter("first_feasible", first_feasible),
+      binary_parameter("numeric_focus", numeric_focus),
       binary_parameter("verbose", verbose)),
     solve = function(self, x, ...) {
       # create problem
@@ -132,6 +142,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                 MIPGap = self$parameters$get("gap"),
                 TimeLimit = self$parameters$get("time_limit"),
                 Threads = self$parameters$get("threads"),
+                NumericFocus = self$parameters$get("numeric_focus"),
                 SolutionLimit = self$parameters$get("first_feasible"))
       if (p$SolutionLimit == 0)
         p$SolutionLimit <- NULL

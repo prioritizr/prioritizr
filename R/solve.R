@@ -1,4 +1,4 @@
-#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R
+#' @include internal.R ConservationProblem-proto.R OptimizationProblem-proto.R compile.R presolve_check.R
 NULL
 
 #' Solve
@@ -12,6 +12,15 @@ NULL
 #'   \code{\link{ConservationProblem-class}} object.
 #'
 #' @param ... arguments passed to \code{\link{compile}}.
+#'
+#' @param run_checks \code{logical} flag indicating whether presolve checks
+#'   should be run prior solving the problem. These checks are performed using
+#'   the \code{\link{presolve_check}} function. Defaults to \code{TRUE}.
+#'   Skipping these checks may reduce run time for large problems.
+#'
+#' @param force \code{logical} flag indicating if an attempt to should be
+#'   made to solve the problem even if potential issues were detected during
+#'   the presolve checks. Defaults to \code{FALSE}.
 #'
 #' @details The object returned from this function depends on the argument to
 #'   \code{a}. If the argument to \code{a} is an
@@ -73,7 +82,8 @@ NULL
 #'   optimal solution was found).
 #'
 #' @seealso \code{\link{feature_representation}}, \code{\link{problem}},
-#'   \code{\link{solvers}}, \code{\link{category_layer}}.
+#'   \code{\link{solvers}}, \code{\link{category_layer}},
+#'   \code{\link{presolve_check}}.
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -202,16 +212,27 @@ methods::setMethod(
 methods::setMethod(
   "solve",
   signature(a = "ConservationProblem", b = "missing"),
-  function(a, b, ...) {
-    ## solve problem
-    # assign solver
+  function(a, b, ..., run_checks = TRUE, force = FALSE) {
+    # assert arguments are valid
+    assertthat::assert_that(
+      assertthat::is.flag(run_checks), assertthat::noNA(run_checks),
+      assertthat::is.flag(force), assertthat::noNA(force))
+    # assign default solver and portfolio
     if (inherits(a$solver, "Waiver"))
       a <- add_default_solver(a)
     default_portfolio <- inherits(a$portfolio, "Waiver")
     if (inherits(a$portfolio, "Waiver"))
       a <- add_default_portfolio(a)
-    # compile and solve optimisation problem
+    # run presolve check to try to identify potential problems
+    if (run_checks) {
+      ch <- presolve_check(a)
+      if (!isTRUE(force) && !isTRUE(ch))
+        stop(paste("problem failed presolve checks. For more information see",
+                   "?presolve_check"))
+    }
+    # compile optimisation problem
     opt <- compile.ConservationProblem(a, ...)
+    # solve problem
     sol <- a$portfolio$run(opt, a$solver)
     # check that solution is valid
     if (is.null(sol) || is.null(sol[[1]]$x)) {

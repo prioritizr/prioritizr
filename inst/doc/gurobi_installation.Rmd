@@ -82,7 +82,7 @@ Next, we will install `sshserver` on _COMPUTER2_. To do this, enter the followin
 sudo apt-get install openssh-server
 ```
 
-Next, we will execute the following on command on _COMPUTER2_ to tell it to connect to _COMPUTER1_ when attempting to activate the _Gurubi_ license. Similar to before, we will use _USER.COMPUTER1_ to refer to the user name of your account _COMPUTER1_, and _IP.COMPUTER1_ to refer to the IP address of _COMPUTER1_. If you do not know the IP address of _COMPUTER1_, try visiting this website (https://whatismyipaddress.com) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to _COMPUTER1_ from _COMPUTER2_ you may need to enlist the help of a member of your university's IT support team.
+Next, we will execute the following on command on _COMPUTER2_ to tell it to connect to _COMPUTER1_ when attempting to activate the _Gurobi_ license. Similar to before, we will use _USER.COMPUTER1_ to refer to the user name of your account _COMPUTER1_, and _IP.COMPUTER1_ to refer to the IP address of _COMPUTER1_. If you do not know the IP address of _COMPUTER1_, try visiting this website (https://whatismyipaddress.com) to find out what it is. Also note that your university might automatically block incoming SSH connections, so if you are unable to connect to _COMPUTER1_ from _COMPUTER2_ you may need to enlist the help of a member of your university's IT support team.
 
 ```{bash, eval = FALSE}
 ssh -L 8080:apps.gurobi.com:80 USER.COMPUTER1@IP.COMPUTER1

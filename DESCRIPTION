@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.0.4
+Version: 4.0.4.1
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -61,6 +61,7 @@ Depends:
     proto
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
+Language: en-US
 LazyData: true
 SystemRequirements: C++11
 URL: https://prioritizr.net,
@@ -160,6 +161,7 @@ Collate:
     'penalties.R'
     'portfolios.R'
     'predefined_optimization_problem.R'
+    'presolve_check.R'
     'print.R'
     'problem.R'
     'rij_matrix.R'

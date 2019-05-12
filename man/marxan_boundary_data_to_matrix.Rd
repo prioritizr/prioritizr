@@ -10,7 +10,7 @@ marxan_boundary_data_to_matrix(x, data)
 \item{x}{\code{\link{ConservationProblem-class}} object that contains
 planning unit and zone data to ensure that the argument to
 \code{data} is converted correctly. This argument can be set to
-\code{NULL} if checks are not required (not recomended).}
+\code{NULL} if checks are not required (not recommended).}
 
 \item{data}{\code{data.frame} object with the columns \code{"id1"},
 \code{"id2"}, and \code{"boundary"}. The columns \code{"zone1"} and

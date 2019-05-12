@@ -64,7 +64,7 @@ data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
 ## extract 9 planning units
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 
-## extact conductance data for the 9 planning units
+## extract conductance data for the 9 planning units
 cd <- crop(r, sim_features[[1]])
 
 ## make connectivity matrix

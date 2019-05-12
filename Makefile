@@ -73,6 +73,9 @@ wbcheck:
 solarischeck:
 	R --slave -e "rhub::check(platform = 'solaris-x86-patched', email = 'jeffrey.hanson@uqconnect.edu.au', show_status = FALSE)"
 
+spellcheck:
+	R --slave -e "devtools::document();devtools::spell_check()"
+
 build:
 	R --slave -e "devtools::build()"
 	cp -R doc inst/
@@ -81,4 +84,4 @@ build:
 install:
 	R --slave -e "devtools::install_local('../prioritizr')"
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck

@@ -5,7 +5,8 @@
 \title{Add a \emph{Gurobi} solver}
 \usage{
 add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
-  presolve = 2, threads = 1, first_feasible = 0, verbose = TRUE)
+  presolve = 2, threads = 1, first_feasible = 0,
+  numeric_focus = FALSE, verbose = TRUE)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -37,6 +38,13 @@ constraints, regardless of solution quality. Note that the first feasible
 solution is not an arbitrary solution, rather it is derived from the
 relaxed solution, and is therefore often reasonably close to optimality.
 Defaults to \code{FALSE}.}
+
+\item{numeric_focus}{\code{logical} should extra attention be paid
+to verifying the accuracy of numerical calculations? This may be
+useful when dealing problems that may suffer from numerical instability
+issues. Beware that it will likely substantially increase run time
+(sets the \emph{Gurobi} \code{NumericFocus} parameter
+to 3). Defaults to \code{FALSE}.}
 
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems?}

@@ -74,7 +74,7 @@ After building a conservation problem, it can then be solved to obtain a solutio
 
 ## Usage
 
-Here we will provide an introduction to using the _prrioritizr R_ package to build and solve a conservation planning problem. **Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the [zones vignette](zones.html).**
+Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. **Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the [zones vignette](zones.html).**
 
 First, we will load the _prioritizr_ package.
 
@@ -574,7 +574,7 @@ p28 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p28)
 ```
-* __Pool portfolio__: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for contructing the solution pool, but in most cases, setting the method argument to 2 is recomended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the _Gurobi_ optimization solver to be specified for solving problems.
+* __Pool portfolio__: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for constructing the solution pool, but in most cases, setting the method argument to 2 is recommended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the _Gurobi_ optimization solver to be specified for solving problems.
 ```{r}
 # create a problem and specify that a portfolio should be created that
 # contains the 100 solutions nearest to optimality

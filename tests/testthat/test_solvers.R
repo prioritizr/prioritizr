@@ -91,15 +91,22 @@ test_that("add_gurobi_solver", {
   skip_if_not_installed("gurobi")
   # make data
   data(sim_pu_raster, sim_features)
-  p <- problem(sim_pu_raster, sim_features) %>%
+  p1 <- problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
     add_gurobi_solver(time_limit = 5, verbose = TRUE)
-  s <- solve(p)
+  p2 <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_gurobi_solver(time_limit = 5, numeric_focus = TRUE, verbose = TRUE)
+  s1 <- solve(p1)
+  s2 <- solve(p2)
   # check that solution has correct properties
-  expect_is(s, "Raster")
-  expect_equal(raster::nlayers(s), 1)
-  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+  expect_is(s1, "Raster")
+  expect_equal(raster::nlayers(s1), 1)
+  expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
+  expect_equal(raster::getValues(s1), raster::getValues(s2))
 })

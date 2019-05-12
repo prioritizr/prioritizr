@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4.1</span>
       </span>
     </div>
 
@@ -182,6 +182,19 @@
       <th>...</th>
       <td><p>arguments passed to <code><a href='compile.html'>compile</a></code>.</p></td>
     </tr>
+    <tr>
+      <th>run_checks</th>
+      <td><p><code>logical</code> flag indicating whether presolve checks
+should be run prior solving the problem. These checks are performed using
+the <code><a href='presolve_check.html'>presolve_check</a></code> function. Defaults to <code>TRUE</code>.
+Skipping these checks may reduce run time for large problems.</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p><code>logical</code> flag indicating if an attempt to should be
+made to solve the problem even if potential issues were detected during
+the presolve checks. Defaults to <code>FALSE</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -242,7 +255,8 @@
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='feature_representation.html'>feature_representation</a></code>, <code><a href='problem.html'>problem</a></code>,
-  <code><a href='solvers.html'>solvers</a></code>, <code><a href='category_layer.html'>category_layer</a></code>.</p></div>
+  <code><a href='solvers.html'>solvers</a></code>, <code><a href='category_layer.html'>category_layer</a></code>,
+  <code><a href='presolve_check.html'>presolve_check</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -300,7 +314,7 @@
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1985.682 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.002005816 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.001583099 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)

@@ -1,6 +1,30 @@
+# prioritizr 4.0.4.1
+
+- New `presolve_check` function to investigate potential sources of numerical
+  instability before trying to solve a problem. The manual entry for this
+  function discusses common sources of numerical instability and approaches
+  for fixing them.
+- The `solve` function will now use the `presolve_check` function to
+  verify that problems do not have obvious sources of numerical instability
+  before trying to solve them. If a problem is likely to have numerical
+  instability issues then this function will now throw an error (unless
+  the `solve(x, force = TRUE)`).
+- The `add_rsymphony_solver` function now uses sparse matrix formats so that
+  attempts can be made to solve large problems with SYMPHONY---though it is
+  unlikely that _SYMPHONY_ will be able to solve such problems in a feasible
+  period of time.
+- Fix warnings thrown by the _tibble R_ package when calling
+  `tibble::as.tibble` instead of `tibble::as_tibble`.
+- Add example for calculating feature representation a solution in tabular
+  format output by `solve` (#110).
+- Fix several typos in documentation.
+- Thrown warnings are now immediately visible.
+- Update references in the publication record vignette.
+- Specify English (US) in the DESCRIPTION file.
+
 # prioritizr 4.0.4 (released)
 
-- CRAN release.
+- Release candidate for CRAN.
 
 # prioritizr 4.0.3.1
 
@@ -426,7 +450,7 @@
 - Add more comprehensive tests to portfolios.
 - Fix bug when `numeric` planning unit data and portfolios that caused the
   `solve` to throw an error.
-- Remove R-devel from AppVeyor testing because it fails for unreproducible
+- Remove R-devel from AppVeyor testing because it fails for unknown
   reasons.
 
 # prioritizr 2.0.2.1
@@ -481,7 +505,7 @@
   `ConservationProblem` objects with lots of features can now safely be printed
   without polluting the R console.
 - Attempt to make equations in help files prettier.
-- Fix bug where lpsymhpony and Rsymphony solvers would return solutions
+- Fix bug where _lpsymphony_ and _Rsymphony_ solvers would return solutions
   containing NA values if they did not find a feasible solution within
   the argument to `time_limit`.
 

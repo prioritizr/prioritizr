@@ -8,7 +8,8 @@ loglinear_interpolation(x, coordinate_one_x, coordinate_one_y,
   coordinate_two_x, coordinate_two_y)
 }
 \arguments{
-\item{x}{\code{numeric} \emph{x} values for which interpolate emph{y} values.}
+\item{x}{\code{numeric} \emph{x} values for which interpolate \emph{y}
+values.}
 
 \item{coordinate_one_x}{\code{numeric} value for lower \emph{x}-coordinate.}
 
@@ -26,7 +27,7 @@ Log-linearly interpolate values between two thresholds.
 }
 \details{
 Values are log-linearly interpolated at the \emph{x}-coordinates
-  specified in \code{x} using the lower and upper coordnate arguments to
+  specified in \code{x} using the lower and upper coordinate arguments to
   define the line. Values lesser or greater than these numbers are assigned
   the minimum and maximum \emph{y} coordinates.
 }
