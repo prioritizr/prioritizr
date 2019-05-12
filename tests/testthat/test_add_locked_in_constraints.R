@@ -36,8 +36,8 @@ test_that("integer (solve, single zone)", {
          add_binary_decisions() %>%
          add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
          add_default_solver(time_limit = 5)
-    s1 <- solve(p)
-    s2 <- solve(p)
+    expect_warning(s1 <- solve(p, force = TRUE))
+    expect_warning(s2 <- solve(p, force = TRUE))
   })
   # check that the solution obeys constraints as expected
   expect_true(all(raster::Which(is.na(s1), cells = TRUE) ==
@@ -82,7 +82,7 @@ test_that("logical (solve, single zone)", {
          add_binary_decisions() %>%
          add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster))) %>%
          add_default_solver(time_limit = 5) %>%
-         solve()
+         solve(force = TRUE)
   })
   # check that the solution obeys constraints as expected
   expect_true(all(raster::Which(is.na(s), cells = TRUE) ==

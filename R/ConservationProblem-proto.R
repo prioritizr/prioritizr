@@ -420,7 +420,7 @@ ConservationProblem <- pproto(
     if (inherits(self$data$cost, "Raster")) {
       if (raster::nlayers(self$data$cost) == 1) {
         m <- matrix(self$data$cost[raster::Which(!is.na(self$data$cost))],
-                      ncol = 1)
+                    ncol = 1)
       } else {
         cells <- raster::Which(max(!is.na(self$data$cost)) == 1)
         m <- self$data$cost[cells]

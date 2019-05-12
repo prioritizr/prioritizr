@@ -116,8 +116,8 @@ test_that("minimum set objective (solve, single zone)", {
         add_binary_decisions() %>%
         add_boundary_penalties(-10000, 0.5) %>%
         add_default_solver(time_limit = 5)
-  s2_1 <- solve(p2)
-  s2_2 <- solve(p2)
+  expect_warning(s2_1 <- solve(p2, force = TRUE))
+  expect_warning(s2_2 <- solve(p2, force = TRUE))
   # tests
   expect_is(s1_1, "RasterLayer")
   expect_is(s1_2, "RasterLayer")

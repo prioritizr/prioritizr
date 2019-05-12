@@ -77,16 +77,26 @@ Note that all arguments to \code{solution} must correspond
   a different planning unit, and values correspond to the allocations
   (e.g. values of zero or one).
 
-  Valid solutions should not have non-zero allocations for planning
-  units in zones that have \code{NA} cost values in the argument to
-  \code{x}. In other words, planning units that have \code{NA} cost values
-  in \code{x} should always have a value of zero in the argument to
-  \code{solution}. If an argument is supplied to \code{solution} where
-  this is not the case, then an error will be thrown. Additionally,
-  note that when calculating the proportion of each feature represented
-  in the solution, the denominator is calculated using all planning
-  units---\strong{including any planning units with \code{NA} cost values in
-  the argument to \code{x}}.
+  Solutions must have planning unit statuses set to missing (\code{NA})
+  values for planning units that have missing (\code{NA}) cost data. For
+  problems with multiple zones, this means that planning units must have
+  missing (\code{NA}) allocation values in zones where they have missing
+  (\code{NA}) cost data. In other words, planning units that have missing
+  (\code{NA}) cost values in \code{x} should always have a missing
+  (\code{NA}) value the argument to \code{solution}. If an argument is
+  supplied to
+  \code{solution} where this is not the case, then an error will be thrown.
+  Please note that earlier versions of the \pkg{prioritizr}
+  (prior to 4.0.4.1) required that such planning units always have zero
+  values, but this has been changed to make the handling of missing values
+  more consistent throughout the package.
+
+  Additionally, note that when calculating the proportion of each feature
+  represented in the solution, the denominator is calculated using all
+  planning units---\strong{including any planning units with \code{NA} cost
+  values in the argument to \code{x}}. This is exactly the same equation
+  used when calculating relative targets for problems (e.g.
+  \code{add_relative_targets}).
 }
 \examples{
 # set seed for reproducibility
@@ -109,18 +119,18 @@ p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost") \%>\%
       add_binary_decisions()
 
 # create a solution
-s1 <- data.frame(solution = rep(c(1, 0), 5))
+s1 <- data.frame(solution = c(1, NA, rep(c(1, 0), 4)))
+print(s1)
 
 # calculate feature representation
 r1 <- feature_representation(p1, s1)
-
-# print feature representation
 print(r1)
 
 # verify that feature representation calculations are correct
-all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]]),
+all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE),
                               sum(pu$spp2 * s1[[1]], na.rm = TRUE)))
-all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]]) / sum(pu$spp1),
+all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE) /
+                              sum(pu$spp1),
                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
                               sum(pu$spp2, na.rm = TRUE)))
 
@@ -130,9 +140,7 @@ print(s1_2)
 
 # calculate feature representation in this solution
 # note that we set missing values in the solution_1 explicitly to zero
-s1_2$solution_1[is.na(s1_2$solution_1)] <- 0
 r1_2 <- feature_representation(p1, s1_2[, "solution_1", drop = FALSE])
-
 print(r1_2)
 
 # build minimal conservation problem with raster data

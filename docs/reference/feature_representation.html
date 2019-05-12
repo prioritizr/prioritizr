@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
       </span>
     </div>
 
@@ -243,16 +243,25 @@ object. See the Details section for more information.</p></td>
   column correspond to a different zone and each row correspond to
   a different planning unit, and values correspond to the allocations
   (e.g. values of zero or one).</p>
-<p>Valid solutions should not have non-zero allocations for planning
-  units in zones that have <code>NA</code> cost values in the argument to
-  <code>x</code>. In other words, planning units that have <code>NA</code> cost values
-  in <code>x</code> should always have a value of zero in the argument to
-  <code>solution</code>. If an argument is supplied to <code>solution</code> where
-  this is not the case, then an error will be thrown. Additionally,
-  note that when calculating the proportion of each feature represented
-  in the solution, the denominator is calculated using all planning
-  units---<strong>including any planning units with <code>NA</code> cost values in
-  the argument to <code>x</code></strong>.</p>
+<p>Solutions must have planning unit statuses set to missing (<code>NA</code>)
+  values for planning units that have missing (<code>NA</code>) cost data. For
+  problems with multiple zones, this means that planning units must have
+  missing (<code>NA</code>) allocation values in zones where they have missing
+  (<code>NA</code>) cost data. In other words, planning units that have missing
+  (<code>NA</code>) cost values in <code>x</code> should always have a missing
+  (<code>NA</code>) value the argument to <code>solution</code>. If an argument is
+  supplied to
+  <code>solution</code> where this is not the case, then an error will be thrown.
+  Please note that earlier versions of the <span class="pkg">prioritizr</span>
+  (prior to 4.0.4.1) required that such planning units always have zero
+  values, but this has been changed to make the handling of missing values
+  more consistent throughout the package.</p>
+<p>Additionally, note that when calculating the proportion of each feature
+  represented in the solution, the denominator is calculated using all
+  planning units---<strong>including any planning units with <code>NA</code> cost
+  values in the argument to <code>x</code></strong>. This is exactly the same equation
+  used when calculating relative targets for problems (e.g.
+  <code>add_relative_targets</code>).</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -280,20 +289,29 @@ object. See the Details section for more information.</p></td>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create a solution</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>solution</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>), <span class='fl'>5</span>))
-
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>solution</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>NA</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>), <span class='fl'>4</span>)))
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt;    solution
+#&gt; 1         1
+#&gt; 2        NA
+#&gt; 3         1
+#&gt; 4         0
+#&gt; 5         1
+#&gt; 6         0
+#&gt; 7         1
+#&gt; 8         0
+#&gt; 9         1
+#&gt; 10        0</div><div class='input'>
 <span class='co'># calculate feature representation</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_representation</span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
-
-<span class='co'># print feature representation</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r1</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 3</span><span>
 #&gt;   feature absolute_held relative_held
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'>1</span><span> spp1             3.12         0.541
 #&gt; </span><span style='color: #BCBCBC;'>2</span><span> spp2            14            0.424</div><div class='input'>
 <span class='co'># verify that feature representation calculations are correct</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>r1</span>$<span class='no'>absolute_held</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]]),
-                              <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>r1</span>$<span class='no'>relative_held</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]]) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span>),
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>r1</span>$<span class='no'>absolute_held</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
+                              <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all.equal'>all.equal</a></span>(<span class='no'>r1</span>$<span class='no'>relative_held</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
+                              <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span>),
                               <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
                               <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># solve the problem using an exact algorithm solver</span>
@@ -328,9 +346,7 @@ object. See the Details section for more information.</p></td>
 #&gt; 10 10 0.9254660 0.6178138   NA          0</div><div class='input'>
 <span class='co'># calculate feature representation in this solution</span>
 <span class='co'># note that we set missing values in the solution_1 explicitly to zero</span>
-<span class='no'>s1_2</span>$<span class='no'>solution_1</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NA'>is.na</a></span>(<span class='no'>s1_2</span>$<span class='no'>solution_1</span>)] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='no'>r1_2</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_representation</span>(<span class='no'>p1</span>, <span class='no'>s1_2</span>[, <span class='st'>"solution_1"</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>])
-
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r1_2</span>)</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 3</span><span>
 #&gt;   feature absolute_held relative_held
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>

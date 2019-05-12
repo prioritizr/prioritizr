@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
       </span>
     </div>
 
@@ -137,7 +137,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please use the following citation to cite the <em>prioritizr R</em> package in publications:</p>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.0.4.1. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.0.0. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
@@ -209,7 +209,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
 ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
 ## 
-## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3585.96 3934.62 
@@ -223,7 +223,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>##  solution_1 
-## 0.009530067</code></pre>
+## 0.001672029</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -346,7 +346,7 @@ s4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 6438.13080    0   59 7217.74649 6438.13080  10.8%     -    0s
 ## H    0     0                    6908.4184908 6438.13080  6.81%     -    0s
 ## 
-## Explored 1 nodes (139 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (139 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 6908.42 7217.75 8340.78 

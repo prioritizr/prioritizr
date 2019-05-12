@@ -1,3 +1,9 @@
+# prioritizr 4.1.0.0
+
+- The `feature_representation` function now requires missing (`NA`) values for
+  planning unit statuses in a solution for planning units that have missing
+  (`NA`) cost data.
+
 # prioritizr 4.0.4.1
 
 - New `presolve_check` function to investigate potential sources of numerical
