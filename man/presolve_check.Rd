@@ -40,7 +40,7 @@ This function checks for issues that are likely to result in
   when building the problem (e.g. using an absurdly high
   penalty value or using the wrong dataset to lock in planning units).
   Thus such issues, if they are indeed issues and not false positives, can
-  be fixed by carefully checking the code, data and parameters used to build
+  be fixed by carefully checking the code, data, and parameters used to build
   the conservation planning problem.
 
   This function then checks for values that may lead to numerical instability
@@ -48,7 +48,7 @@ This function checks for issues that are likely to result in
   values in certain components of the optimization problem are over a
   certain threshold (i.e. \eqn{1 \times 10 ^9}{1e+9}) or if the values
   themselves exceed a certain threshold
-  (i.e. \eqn{1 \times 10^10}{1e+10}).
+  (i.e. \eqn{1 \times 10^{10}}{1e+10}).
   In most cases, such issues will simply cause an exact
   algorithm solver to take a very long time to generate a solution. In rare
   cases, such issues can cause incorrect calculations which can lead
