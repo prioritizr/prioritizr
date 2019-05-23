@@ -300,18 +300,22 @@ methods::setMethod(
        for (i in seq_len(nrow(targets))) {
          targets$zone[[i]] <- match(targets$zone[[i]], colnames(abundances))
        }
+       # compute maximum amount of values in each target
+       targets$maximum <- numeric(length(targets$target))
+       for (i in seq_along(targets$maximum)) {
+         zone_id <- targets$zone[[i]]
+         feature_id <- targets$feature[[i]]
+         abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
+         targets$maximum[i] <- sum(abundances[abund_mtx])
+       }
        # add compute relative targets as absolute targets and assign
        # zone ids
        targets$value <- as.numeric(targets$target)
        relative_rows <- which(targets$type == "relative")
-       for (i in seq_along(relative_rows)) {
-          zone_id <- targets$zone[[relative_rows[[i]]]]
-          feature_id <- targets$feature[[relative_rows[[i]]]]
-          abund_mtx <- as.matrix(data.frame(feature_id, zone_id))
-          targets$value[relative_rows[i]] <- sum(abundances[abund_mtx]) *
-                                             targets$target[relative_rows[i]]
+       for (i in relative_rows) {
+          targets$value[i] <- targets$maximum[i] * targets$target[i]
        }
        # return tibble
-       return(targets[, c("feature", "zone", "sense", "value")])
+       return(targets[, c("feature", "zone", "sense", "value", "maximum")])
      }))
 })

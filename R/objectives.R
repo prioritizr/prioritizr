@@ -29,6 +29,10 @@ NULL
 #'     possible while ensuring that the cost of the solution does not exceed a
 #'     budget.}
 #'
+#'   \item{\code{\link{add_min_shortfall_objective}}}{Minimize the shortfall
+#'     for as many targets as possible while ensuring that
+#'     the cost of the solution does not exceed a budget.}
+#'
 #'   \item{\code{\link{add_max_phylo_objective}}}{Maximize the phylogenetic
 #'     diversity of the features represented in the solution subject to a
 #'     budget.}
@@ -59,22 +63,26 @@ NULL
 #'
 #' # create problem with added maximum feature representation objective
 #' p3 <- p %>% add_max_features_objective(1500)
+
+#' # create problem with added minimum shortfall objective
+#' p4 <- p %>% add_min_shortfall_objective(1500)
 #'
 #' # create problem with added maximum phylogenetic representation objective
-#' p4 <- p %>% add_max_phylo_objective(1900, sim_phylogeny)
+#' p5 <- p %>% add_max_phylo_objective(1900, sim_phylogeny)
 #'
 #' # create problem with added maximum utility objective
 #' # note that this objective does not use targets
-#' p5 <- p %>% add_max_utility_objective(5000)
+#' p6 <- p %>% add_max_utility_objective(5000)
 #'
 #' \donttest{
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5))
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE, box = FALSE,
-#'      main = c("minimum set", "maximum coverage", "maximum representation",
-#'               "phylogenetic representation", "maximum utility"))
+#'      main = c("minimum set", "maximum coverage", "maximum features",
+#'               "minimum shortfall", "phylogenetic representation",
+#'               "maximum utility"))
 #' }
 #' @name objectives
 NULL

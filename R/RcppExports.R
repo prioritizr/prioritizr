@@ -141,6 +141,10 @@ rcpp_apply_min_set_objective <- function(x, targets_list, costs) {
     .Call(`_prioritizr_rcpp_apply_min_set_objective`, x, targets_list, costs)
 }
 
+rcpp_apply_min_shortfall_objective <- function(x, targets_list, costs, budget) {
+    .Call(`_prioritizr_rcpp_apply_min_shortfall_objective`, x, targets_list, costs, budget)
+}
+
 rcpp_apply_neighbor_constraints <- function(x, connected_data, k) {
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, k)
 }
