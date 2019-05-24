@@ -13,7 +13,6 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Tasmania Tutorial">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://prioritizr.net/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -39,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.1</span>
       </span>
     </div>
 
@@ -147,7 +146,7 @@
 <pre><code>## class       : SpatialPolygonsDataFrame 
 ## features    : 1130 
 ## extent      : 1080623, 1399989, -4840595, -4497092  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+## crs         : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
 ## variables   : 5
 ## names       :   id,              cost, status, locked_in, locked_out 
 ## min values  :    1, 0.192488262910798,      0,         0,          0 
@@ -159,14 +158,14 @@
 <p>Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print planning unit data</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(tas_features)</code></pre></div>
-<pre><code>## class       : RasterStack 
-## dimensions  : 343, 320, 109760, 62  (nrow, ncol, ncell, nlayers)
-## resolution  : 1000, 1000  (x, y)
-## extent      : 1080496, 1400496, -4841217, -4498217  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
-## names       : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, layer.8, layer.9, layer.10, layer.11, layer.12, layer.13, layer.14, layer.15, ... 
-## min values  :       0,       0,       0,       0,       0,       0,       0,       0,       0,        0,        0,        0,        0,        0,        0, ... 
-## max values  :       1,       1,       1,       1,       1,       1,       1,       1,       1,        1,        1,        1,        1,        1,        1, ...</code></pre>
+<pre><code>## class      : RasterStack 
+## dimensions : 343, 320, 109760, 62  (nrow, ncol, ncell, nlayers)
+## resolution : 1000, 1000  (x, y)
+## extent     : 1080496, 1400496, -4841217, -4498217  (xmin, xmax, ymin, ymax)
+## crs        : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+## names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, layer.8, layer.9, layer.10, layer.11, layer.12, layer.13, layer.14, layer.15, ... 
+## min values :       0,       0,       0,       0,       0,       0,       0,       0,       0,        0,        0,        0,        0,        0,        0, ... 
+## max values :       1,       1,       1,       1,       1,       1,       1,       1,       1,        1,        1,        1,        1,        1,        1, ...</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot map of the first four vegetation classes</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(tas_features[[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]], <span class="dt">main =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"Feature"</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>))</code></pre></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-4-1.png" width="432" style="display: block; margin: auto;"></p>
@@ -265,7 +264,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Found heuristic solution: objective 30514.663295
 ## Found heuristic solution: objective 12420.567371
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.02s
+## Presolve time: 0.04s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12633.675102
 ## Found heuristic solution: objective 11603.764206
@@ -273,14 +272,14 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.03 seconds
+## Root relaxation: objective 1.072358e+04, 775 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.07 seconds
+## Explored 1 nodes (775 simplex iterations) in 0.11 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
@@ -363,7 +362,7 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Found heuristic solution: objective 30514.663295
 ## Found heuristic solution: objective 12420.567371
 ## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.02s
+## Presolve time: 0.06s
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## Found heuristic solution: objective 12633.675102
 ## Found heuristic solution: objective 11603.764206
@@ -371,14 +370,14 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.03 seconds
+## Root relaxation: objective 1.072358e+04, 775 iterations, 0.06 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.07 seconds
+## Explored 1 nodes (775 simplex iterations) in 0.15 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
@@ -429,7 +428,7 @@ p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
 ##   constraints:    &lt;Locked in planning units [257 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      Pool portfolio [method (2), number_solutions (1000)]
-##   solver:         Gurobi [first_feasible (0), gap (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate solutions</span>
 s3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p3)
 

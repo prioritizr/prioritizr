@@ -13,7 +13,6 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Salt Spring Island Tutorial">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://prioritizr.net/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -39,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.1</span>
       </span>
     </div>
 
@@ -151,14 +150,14 @@
 <p>Let’s have a look at the planning unit data. Note that we log-transformed the raster to better visualize the variation in planning unit cost.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print planning unit data</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(salt_pu)</code></pre></div>
-<pre><code>## class       : RasterLayer 
-## dimensions  : 270, 190, 51300  (nrow, ncol, ncell)
-## resolution  : 100, 100  (x, y)
-## extent      : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## data source : in memory
-## names       : SSI_cost7 
-## values      : 2552, 1000000000  (min, max)</code></pre>
+<pre><code>## class      : RasterLayer 
+## dimensions : 270, 190, 51300  (nrow, ncol, ncell)
+## resolution : 100, 100  (x, y)
+## extent     : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
+## crs        : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## source     : memory
+## names      : SSI_cost7 
+## values     : 2552, 1000000000  (min, max)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot histogram of the planning unit costs</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/hist">hist</a></span>(<span class="kw">values</span>(salt_pu), <span class="dt">main =</span> <span class="st">"Distribution of costs"</span>,
      <span class="dt">xlab =</span> <span class="st">"Planning unit costs"</span>)</code></pre></div>
@@ -169,14 +168,14 @@
 <p>Next, let’s look at the feature data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print features</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(salt_features)</code></pre></div>
-<pre><code>## class       : RasterStack 
-## dimensions  : 270, 190, 51300, 5  (nrow, ncol, ncell, nlayers)
-## resolution  : 100, 100  (x, y)
-## extent      : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
-## coord. ref. : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## names       : Old_Forest,  Savannah,   Wetland,     Shrub, Human_negative 
-## min values  :  0.3595050, 0.2979212, 0.1132785, 0.4013101,      0.3703639 
-## max values  :  0.9312289, 0.6608167, 0.6434712, 0.8249719,      0.9032656</code></pre>
+<pre><code>## class      : RasterStack 
+## dimensions : 270, 190, 51300, 5  (nrow, ncol, ncell, nlayers)
+## resolution : 100, 100  (x, y)
+## extent     : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
+## crs        : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## names      : Old_Forest,  Savannah,   Wetland,     Shrub, Human_negative 
+## min values :  0.3595050, 0.2979212, 0.1132785, 0.4013101,      0.3703639 
+## max values :  0.9312289, 0.6608167, 0.6434712, 0.8249719,      0.9032656</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot map showing the distribution of the features</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(salt_features, <span class="dt">main =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(salt_features))</code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-5-1.png" width="432" style="display: block; margin: auto;"></p>

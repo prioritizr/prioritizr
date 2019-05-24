@@ -46,8 +46,6 @@ over other features. This information can be incorporated into the problem
 using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -88,7 +86,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.1</span>
       </span>
     </div>
 
@@ -481,7 +479,7 @@ Details section for more information.</p></td>
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 1e+03]
+#&gt;   Objective range  [5e-06, 9e-01]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
@@ -492,25 +490,34 @@ Details section for more information.</p></td>
 #&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.004317e+03, 22 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 1004.31731    0    5   -0.00000 1004.31731      -     -    0s
-#&gt;      0     0 1004.12534    0    6   -0.00000 1004.12534      -     -    0s
-#&gt; H    0     0                    1001.7856331 1004.12534  0.23%     -    0s
+#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
+#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
+#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
+#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
+#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
+#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
+#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
+#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
+#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
+#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
+#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
+#&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 1 nodes (29 simplex iterations) in 0.00 seconds
+#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1001.79 -0 
+#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.001785633143e+03, best bound 1.004125339227e+03, gap 0.2336%</div><div class='input'>
+#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>

@@ -1,3 +1,9 @@
+# prioritizr 4.1.0.1
+
+- New `add_min_shortfall_objective` function to find solutions that minimize
+  target shortfalls.
+- TODO update main vign
+
 # prioritizr 4.1.0.0
 
 - The `feature_representation` function now requires missing (`NA`) values for

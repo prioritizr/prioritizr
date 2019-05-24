@@ -41,8 +41,6 @@
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +81,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.1</span>
       </span>
     </div>
 
@@ -463,7 +461,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 3.61 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 3.87 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -478,7 +476,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; Variable types: 0 continuous, 518 integer (518 binary)
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
@@ -511,7 +509,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 6
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.32 seconds
+#&gt; Explored 97 nodes (4719 simplex iterations) in 0.37 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
@@ -526,7 +524,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
@@ -570,7 +568,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 14
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 0.80 seconds
+#&gt; Explored 162 nodes (8747 simplex iterations) in 0.83 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
@@ -597,14 +595,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># create planning unit data</span>
 <span class='no'>pus</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>)]]
 <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] <span class='kw'>&lt;-</span> <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] * <span class='fl'>0.45</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>pus</span>)</div><div class='output co'>#&gt; class       : RasterStack 
-#&gt; dimensions  : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
-#&gt; resolution  : 0.1, 0.1  (x, y)
-#&gt; extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#&gt; coord. ref. : NA 
-#&gt; names       : layer.1.1, layer.1.2 
-#&gt; min values  : 190.13276,  85.55974 
-#&gt; max values  : 215.86384,  97.13873 
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>pus</span>)</div><div class='output co'>#&gt; class      : RasterStack 
+#&gt; dimensions : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
+#&gt; resolution : 0.1, 0.1  (x, y)
+#&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
+#&gt; crs        : NA 
+#&gt; names      : layer.1.1, layer.1.2 
+#&gt; min values : 190.13276,  85.55974 
+#&gt; max values : 215.86384,  97.13873 
 #&gt; </div><div class='input'>
 <span class='co'># create biodiversity data</span>
 <span class='no'>fts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='zones.html'>zones</a></span>(<span class='no'>sim_features</span>, <span class='no'>sim_features</span> * <span class='fl'>0.4</span>,

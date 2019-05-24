@@ -39,8 +39,6 @@
 <meta property="og:title" content="Solve — solve" />
 
 <meta property="og:description" content="Solve a conservation planning problem." />
-
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -81,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.0.1</span>
       </span>
     </div>
 
@@ -302,19 +300,19 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
 <span class='co'># print solution</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt; class       : RasterLayer 
-#&gt; dimensions  : 10, 10, 100  (nrow, ncol, ncell)
-#&gt; resolution  : 0.1, 0.1  (x, y)
-#&gt; extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#&gt; coord. ref. : NA 
-#&gt; data source : in memory
-#&gt; names       : layer 
-#&gt; values      : 0, 1  (min, max)
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt; class      : RasterLayer 
+#&gt; dimensions : 10, 10, 100  (nrow, ncol, ncell)
+#&gt; resolution : 0.1, 0.1  (x, y)
+#&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
+#&gt; crs        : NA 
+#&gt; source     : memory
+#&gt; names      : layer 
+#&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1985.682 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001641035 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.003473043 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
@@ -417,14 +415,14 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.120979312806e+04, best bound 1.096484061295e+04, gap 2.1852%</div><div class='input'>
 <span class='co'># print solution</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s3</span>)</div><div class='output co'>#&gt; class       : RasterStack 
-#&gt; dimensions  : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)
-#&gt; resolution  : 0.1, 0.1  (x, y)
-#&gt; extent      : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
-#&gt; coord. ref. : NA 
-#&gt; names       : layer.1.1, layer.1.2, layer.1.3 
-#&gt; min values  :         0,         0,         0 
-#&gt; max values  :         1,         1,         1 
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s3</span>)</div><div class='output co'>#&gt; class      : RasterStack 
+#&gt; dimensions : 10, 10, 100, 3  (nrow, ncol, ncell, nlayers)
+#&gt; resolution : 0.1, 0.1  (x, y)
+#&gt; extent     : 0, 1, 0, 1  (xmin, xmax, ymin, ymax)
+#&gt; crs        : NA 
+#&gt; names      : layer.1.1, layer.1.2, layer.1.3 
+#&gt; min values :         0,         0,         0 
+#&gt; max values :         1,         1,         1 
 #&gt; </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p3</span>, <span class='no'>s3</span>)
@@ -463,7 +461,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10229.621561
 #&gt; Presolve removed 6 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 99 rows, 270 columns, 1080 nonzeros
@@ -477,7 +475,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
 #&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9015.02 10229.6 
