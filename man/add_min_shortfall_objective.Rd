@@ -31,7 +31,7 @@ A problem objective is used to specify the overall goal of the
   addition of objectives---failing to do so will return an error
   message when attempting to solve problem.
 
-  The minimum feature representation objective aims to
+  The minimum shortfall representation objective aims to
   find the set of planning units that minimize the shortfall for the
   representation targets---that is, the fraction of each target that
   remains unmet---for as many features as possible while staying within a
