@@ -13,7 +13,7 @@ bool rcpp_apply_feature_weights(SEXP x, Rcpp::NumericVector weights) {
                      ptr->_number_of_features);
   // add weights
   for (std::size_t i = 0; i < n_weights; ++i)
-    ptr->_obj[A_extra_ncol + i] = weights[i];
+    ptr->_obj[A_extra_ncol + i] *= weights[i];
   // return success
   return true;
 }

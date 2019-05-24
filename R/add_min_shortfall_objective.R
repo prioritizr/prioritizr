@@ -18,21 +18,21 @@ NULL
 #'   The minimum feature representation objective aims to
 #'   find the set of planning units that minimize the shortfall for the
 #'   representation targets---that is, the fraction of each target that
-#'   remains unmnet---for as many features as possible while staying within a
-#'   fixed budget (inspired by TODO). Additionally, weights can be used
-#    to favor the representation of certain features over other features (see
-#'   \code{\link{add_feature_weights}}).
+#'   remains unmet---for as many features as possible while staying within a
+#'   fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
+#'   2005). Additionally, weights can be used
+#'    to favor the representation of certain features over other features (see
+#'   \code{\link{add_feature_weights}}.
 #'
 #'   The minimum shortfall objective for the reserve design problem can be
 #'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 #'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 #'
-#'   \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j
-#'   \frac{y_j}{\sum_{i = 1}^{I} r_{ij}} \\
+#'   \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
 #'   \mathit{subject \space to} \\
 #'   \sum_{i = 1}^{I} x_i r_{ij} + y_j >= t_j \forall j \in J \\
 #'   \sum_{i = 1}^{I} x_i c_i \leq B}{
-#'   Minimize sum_j^J (wj * (yj / sum_i^I r_ij)) subject to
+#'   Minimize sum_j^J wj * (yj / tj) subject to
 #'   sum_i^I (xi * rij) + yj >= tj for all j in J &
 #'   sum_i^I (xi * ci) <= B}
 #'
@@ -45,15 +45,18 @@ NULL
 #'   weight for feature \eqn{j}{j} (defaults to 1 for all features; see
 #'   \code{\link{add_feature_weights}} to specify weights). Additionally,
 #'   \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-#'   cost of planning unit \eqn{i}{i}.
+#'   cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
+#'   variable bounded between zero and infinity, and denotes the shortfall
+#'   for target \eqn{j}{j}.
 #'
 #' @seealso \code{\link{add_feature_weights}}, \code{\link{objectives}}.
 #'
 #' @inherit add_min_set_objective return
 #'
 #' @references
-#'
-#' TODO
+#' Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of
+#' biodiversity in reserve selection: representation, species weighting, and
+#' benefit functions. \emph{Conservation Biology}, 19: 2009--2014.
 #'
 #' @examples
 #' # load data

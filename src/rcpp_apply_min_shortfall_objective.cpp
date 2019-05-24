@@ -9,7 +9,6 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   Rcpp::NumericVector targets_value = targets_list["value"];
   Rcpp::CharacterVector targets_sense = targets_list["sense"];
-  Rcpp::NumericVector targets_max = targets_list["maximum"];
   std::size_t A_extra_ncol;
   std::size_t A_extra_nrow;
   const std::size_t n_targets = targets_value.size();
@@ -29,7 +28,7 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
   // model sense variables
   for (std::size_t i = 0; i < n_targets; ++i)
     ptr->_sense.push_back(Rcpp::as<std::string>(targets_sense[i]));
-  for (std::size_t z = 0; z < budget.size(); ++z)
+  for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
     ptr->_sense.push_back("<=");
   // add in small negative number to objective for planning unit variables to
   // break ties in solution and select solution with cheapest cost
@@ -50,7 +49,7 @@ bool rcpp_apply_min_shortfall_objective(SEXP x, Rcpp::List targets_list,
        ptr->_obj.push_back(0.0);
   // add target totals to convert total amounts to proportions
   for (std::size_t i = 0; i < n_targets; ++i)
-    ptr->_obj.push_back(1.0 / targets_max[i]);
+    ptr->_obj.push_back(1.0 / targets_value[i]);
   // add in upper and lower bounds for the decision variables representing if
   // each species is adequately conserved
   for (std::size_t i = 0; i < n_targets; ++i)

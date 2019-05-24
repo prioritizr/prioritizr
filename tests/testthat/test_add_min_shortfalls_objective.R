@@ -14,8 +14,7 @@ test_that("compile (compressed formulation, single zone)", {
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
   n_features <- raster::nlayers(sim_features)
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu),
-                          1 / unname(raster::cellStats(sim_features, "sum"))))
+  expect_equal(o$obj(), c(rep(0, n_pu), 1 / targ))
   expect_equal(o$sense(), c(rep(">=", n_features), "<="))
   expect_equal(o$rhs(), c(targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("spp_met", n_features)))
@@ -73,8 +72,7 @@ test_that("compile (expanded formulation, single zone)", {
   n_f <- raster::nlayers(sim_features)
   rij <- rij_matrix(sim_pu_raster, sim_features)
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_pu * n_f),
-                          1 / unname(raster::cellStats(sim_features, "sum"))))
+  expect_equal(o$obj(), c(rep(0, n_pu), rep(0, n_pu * n_f), 1 / targ))
   expect_equal(o$sense(), c(rep("<=", n_pu * n_f), rep(">=", n_f), "<="))
   expect_equal(o$rhs(), c(rep(0, n_pu * n_f), targ, b))
   expect_equal(o$col_ids(), c(rep("pu", n_pu), rep("pu_ijz", n_pu * n_f),
@@ -174,12 +172,8 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(),
-    c(rep(0, length(p$planning_unit_costs())),
-      1 / c(raster::cellStats(sim_features_zones[[1]][[1]], "sum"),
-            raster::cellStats(sim_features_zones[[2]][[2]], "sum"),
-            raster::cellStats(sim_features_zones[[1]][[3]], "sum") +
-            raster::cellStats(sim_features_zones[[2]][[3]], "sum"))))
+  expect_equal(o$obj(), c(rep(0, length(p$planning_unit_costs())),
+                          1 / targs$target))
   expect_equal(o$sense(), c(targs$sense, rep("<=", length(b)),
                             rep("<=", n_pu)))
   expect_equal(o$rhs(), c(targs$target, b, rep(1, n_pu)))
@@ -270,12 +264,8 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(),
-    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z),
-      1 / c(raster::cellStats(sim_features_zones[[1]][[1]], "sum"),
-            raster::cellStats(sim_features_zones[[2]][[2]], "sum"),
-            raster::cellStats(sim_features_zones[[1]][[3]], "sum") +
-            raster::cellStats(sim_features_zones[[2]][[3]], "sum"))))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z),
+               1 / targs$target))
   expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
                             targs$sense, rep("<=", length(b)),
                             rep("<=", n_pu)))
@@ -389,12 +379,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(),
-      c(rep(0, n_pu * n_z),
-      1 / c(raster::cellStats(sim_features_zones[[1]][[1]], "sum"),
-            raster::cellStats(sim_features_zones[[2]][[2]], "sum"),
-            raster::cellStats(sim_features_zones[[1]][[3]], "sum") +
-            raster::cellStats(sim_features_zones[[2]][[3]], "sum"))))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), 1 / targs$target))
   expect_equal(o$sense(), c(targs$sense, rep("<=", length(b)),
                             rep("<=", n_pu)))
   expect_equal(o$rhs(), c(targs$target, b, rep(1, n_pu)))
@@ -489,12 +474,8 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
   n_f <- p$number_of_features()
   n_z <- p$number_of_zones()
   expect_equal(o$modelsense(), "min")
-  expect_equal(o$obj(),
-    c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z),
-      1 / c(raster::cellStats(sim_features_zones[[1]][[1]], "sum"),
-            raster::cellStats(sim_features_zones[[2]][[2]], "sum"),
-            raster::cellStats(sim_features_zones[[1]][[3]], "sum") +
-            raster::cellStats(sim_features_zones[[2]][[3]], "sum"))))
+  expect_equal(o$obj(), c(rep(0, n_pu * n_z), rep(0, n_pu * n_f * n_z),
+                          1 / targs$target))
   expect_equal(o$sense(), c(rep("<=", n_f * n_z * n_pu),
                             targs$sense, rep("<=", length(b)),
                             rep("<=", n_pu)))
