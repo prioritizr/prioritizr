@@ -1,3 +1,7 @@
+# prioritizr 4.1.1 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.1.0.1
 
 - New `add_min_shortfall_objective` function to find solutions that minimize
