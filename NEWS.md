@@ -6,7 +6,8 @@
 
 - New `add_min_shortfall_objective` function to find solutions that minimize
   target shortfalls.
-- TODO update main vign
+- Add new `add_min_shortfall_objective` function to main vignette.
+- Fix `problem` tests so that they work when no solvers are installed.
 
 # prioritizr 4.1.0.0
 
