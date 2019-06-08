@@ -28,7 +28,7 @@ env:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
 
 before_script:
-  - Rscript -e "source('http://bioconductor.org/biocLite.R');biocLite('lpsymphony')"
+  - Rscript -e "remotes::install_bioc('lpsymphony')"
 
 before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
