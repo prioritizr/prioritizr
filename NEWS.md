@@ -1,3 +1,7 @@
+# prioritizr 4.1.1.0
+
+- Fix broken link in main vignette.
+
 # prioritizr 4.1.1 (released)
 
 - Release candidate for CRAN.
