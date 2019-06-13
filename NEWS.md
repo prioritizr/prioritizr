@@ -1,3 +1,7 @@
+# prioritizr 4.1.1.1
+
+- Add Bombi _et al._ (in press) to publication record.
+
 # prioritizr 4.1.1.0
 
 - Fix broken link in main vignette.

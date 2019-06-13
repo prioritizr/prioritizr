@@ -521,7 +521,7 @@ print(p25)
 
 ### Add a solver
 
-Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](http://gurobi.com) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.hmtl)__.
+Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](http://gurobi.com) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__.
 
 Currently, the _prioritizr R_ package only supports three different solvers.
 

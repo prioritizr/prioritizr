@@ -16,6 +16,7 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 
 ## Research articles
 
+* [Bombi P, Gnetti V, D'Andrea E, De Cinti B, Taglianti AV, Bologna MA and Matteucci G (in press) Identifying priority sites for insect conservation in forest ecosystems at high resolution: the potential of LiDAR data. _Journal of Insect Conservation_, available at https://doi.org/10.1007/s10841-019-00162-w.](https://doi.org/10.1007/s10841-019-00162-w)
 * [Domisch S, Friedrichs M, Hein T, Borgwardt F, Wetzig A, J&auml;hnig SC, and Langhans SD (2019) Spatially explicit species distribution models: A missed opportunity in conservation planning? _Diversity and Distributions_, **25**, 758--769.](https://doi.org/10.1111/ddi.12891)
 * [Hanson JO, Fuller RA, & Rhodes JR (2019) Conventional methods for enhancing connectivity in conservation planning do not always maintain gene flow. _Journal of Applied Ecology_, **56**, 913--922.](https://doi.org/10.1111/1365-2664.13315)
 * [Schuster, R, Wilson S, Rodewald A, Arcese P, Fink D, Auer T and Bennett J (2019) Optimizing the conservation of migratory species over their full annual cycle. _Nature Communications_, **10**, 1754.](https://doi.org/10.1038/s41467-019-09723-8)
