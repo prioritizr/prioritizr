@@ -133,13 +133,12 @@ all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE) /
                               sum(pu$spp1),
                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
                               sum(pu$spp2, na.rm = TRUE)))
-
+\donttest{
 # solve the problem using an exact algorithm solver
 s1_2 <- solve(p1)
 print(s1_2)
 
 # calculate feature representation in this solution
-# note that we set missing values in the solution_1 explicitly to zero
 r1_2 <- feature_representation(p1, s1_2[, "solution_1", drop = FALSE])
 print(r1_2)
 
@@ -148,7 +147,7 @@ p2 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions()
-\donttest{
+
 # solve the problem
 s2 <- solve(p2)
 

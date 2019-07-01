@@ -1,3 +1,7 @@
+# prioritizr 4.1.1.2
+
+- Fix example throwing an error during CRAN checks.
+
 # prioritizr 4.1.1.1
 
 - Add Bombi _et al._ (in press) to publication record.
