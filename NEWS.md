@@ -1,3 +1,7 @@
+# prioritizr 4.1.2 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.1.1.2
 
 - Fix example throwing an error during CRAN checks.
