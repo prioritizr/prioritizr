@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.1.2
+Version: 4.1.2.1
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -18,7 +18,7 @@ Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson',
                email='m.watts@uq.edu.au', role = c('aut')),
              person(c('Peter'), 'Arcese',
                email='peter.arcese@ubc.ca', role = c('aut')),
-             person(c('Joeseph'), 'Bennett',
+             person(c('Joseph'), 'Bennett',
                email='joseph.bennett@carleton.ca', role = c('aut')),
              person(c('Hugh', 'P'), 'Possingham',
                email='hugh.possingham@tnc.org', role = c('aut')))

@@ -17,9 +17,11 @@ Rcpp::List rcpp_str_tree_to_sparse_matrix(Rcpp::List data) {
     curr_element = data[i];
     if (!Rf_isNull(curr_element)) {
       curr_ints = Rcpp::as<Rcpp::IntegerVector>(data[i]);
-      for (std::size_t j = 0; j < curr_ints.size(); ++j)
+      for (std::size_t j = 0; j < static_cast<std::size_t>(curr_ints.size());
+           ++j)
         rows.push_back(i + 1);
-      for (std::size_t j = 0; j < curr_ints.size(); ++j)
+      for (std::size_t j = 0; j < static_cast<std::size_t>(curr_ints.size());
+           ++j)
         cols.push_back(curr_ints[j]);
     }
   }

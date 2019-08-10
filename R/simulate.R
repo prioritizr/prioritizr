@@ -37,7 +37,6 @@ NULL
 #' # plot simulated data
 #' plot(d, main = "random Gaussian field")
 #' }
-#'
 #' @export
 simulate_data <- function(x, n, model, transform = identity, ...) {
   # assert valid arguments

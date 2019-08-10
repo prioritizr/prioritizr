@@ -29,11 +29,12 @@ NULL
 #' m <- branch_matrix(sim_phylogeny)
 #'
 #' # plot data
+#' \donttest{
 #' par(mfrow = c(1,2))
 #' plot(sim_phylogeny, main = "phylogeny")
 #' plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,
 #'      box = FALSE)
-#'
+#' }
 #' @export
 branch_matrix <- function(x) UseMethod("branch_matrix")
 

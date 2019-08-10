@@ -27,12 +27,15 @@ bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list,
       ptr->_obj.push_back(0.0);
   }
   // add target senses
-  for (std::size_t i = 0; i < targets_value.size(); ++i)
+  for (std::size_t i = 0; i < static_cast<std::size_t>(targets_value.size());
+       ++i)
     ptr->_sense.push_back(Rcpp::as<std::string>(targets_sense[i]));
-  for (std::size_t i = 0; i < targets_value.size(); ++i)
+  for (std::size_t i = 0; i < static_cast<std::size_t>(targets_value.size());
+       ++i)
     ptr->_rhs.push_back(targets_value[i]);
   // add row ids
-  for (std::size_t i = 0; i < targets_value.size(); ++i)
+  for (std::size_t i = 0; i < static_cast<std::size_t>(targets_value.size());
+       ++i)
     ptr->_row_ids.push_back("spp_target");
   // assign model sense
   ptr->_modelsense="min";

@@ -40,8 +40,10 @@ x <- seq(0, 1000)
 y <- loglinear_interpolation(x, 200, 100, 900, 15)
 
 # plot the interpolated values
+\donttest{
 plot(y ~ x)
 
 # add the reference points to the plot (shown in red)
 points(x = c(200, 900), y = c(100, 15), pch = 18, col = "red", cex = 2)
+}
 }

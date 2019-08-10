@@ -152,8 +152,9 @@ locked_out_stack[[2]][2] <- 1
 locked_out_stack[[3]][3] <- 1
 
 # plot locked out stack
+\donttest{
 plot(locked_out_stack)
-
+}
 # add locked out raster units to problem
 p9 <- p9 \%>\% add_locked_out_constraints(locked_out_stack)
 

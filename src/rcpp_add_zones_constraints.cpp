@@ -5,7 +5,6 @@
 bool rcpp_add_zones_constraints(SEXP x, std::string sense) {
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
-  std::size_t A_original_ncol = ptr->_obj.size();
   std::size_t A_original_nrow = ptr->_rhs.size();
   // add constraints to ensure that the total proportion allocated to each zone
   // not exceed one. For binary decisions, this also ensures that each

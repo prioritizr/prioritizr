@@ -1,15 +1,8 @@
+#pragma once
 #ifndef RCPP_BOUNDARY_DATA_H
 #define RCPP_BOUNDARY_DATA_H
 
 #include "package.h"
-#include <vector>
-#include <array>
-#include <string>
-#include <algorithm>
-#include <unordered_map>
-#include <boost/functional/hash.hpp>
-#include <boost/unordered_set.hpp>
-#include <boost/unordered_map.hpp>
 #include "functions.h"
 
 inline bool is_between(double x0, double y0, double x1, double y1, double x2,

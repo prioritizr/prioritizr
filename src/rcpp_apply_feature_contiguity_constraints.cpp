@@ -79,7 +79,6 @@ bool rcpp_apply_feature_contiguity_constraints(SEXP x, Rcpp::List data,
   }
 
   // declare variables
-  std::size_t A_feature_column_start = A_original_ncol;
   std::size_t A_row = (A_original_nrow - 1);
 
   // extract data

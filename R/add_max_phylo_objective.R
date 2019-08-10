@@ -109,9 +109,10 @@ NULL
 #'      sim_features_zones)
 #'
 #' # plot the example phylogeny
+#' \donttest{
 #' par(mfrow = c(1, 1))
 #' plot(sim_phylogeny, main = "simulated phylogeny")
-#'
+#' }
 #' # create problem with a maximum phylogenetic representation objective,
 #' # where each feature needs 10 % of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900

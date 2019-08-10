@@ -11,4 +11,8 @@ require(Rsymphony)
 Sys.unsetenv("R_TESTS")
 
 # run tests
-test_check("prioritizr")
+## except on CRAN's Windows systems to reduce test timings
+if ((!identical(.Platform$OS.type, "windows")) &&
+  identical(Sys.getenv("NOT_CRAN"), "true")) {
+  test_check("prioritizr")
+}

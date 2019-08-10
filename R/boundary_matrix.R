@@ -63,19 +63,21 @@ NULL
 #' bm_ply2 <- boundary_matrix(ply, TRUE)
 #'
 #' # plot raster and boundary matrix
+#' \donttest{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "raster", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
 #'      axes = FALSE, box = FALSE)
-#'
+#' }
 #' # plot polygons and boundary matrices
+#' \donttest{
 #' par(mfrow = c(1, 3))
 #' plot(r, main = "polygons", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
 #'      box = FALSE)
 #' plot(raster(as.matrix(bm_ply2)), main = "boundary matrix (STR)",
 #'             axes = FALSE, box = FALSE)
-#'
+#' }
 #' @export
 boundary_matrix <- function(x, str_tree) UseMethod("boundary_matrix")
 

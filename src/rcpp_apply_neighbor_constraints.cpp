@@ -21,7 +21,6 @@ bool rcpp_apply_neighbor_constraints(SEXP x,
 
   // initialization
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
-  std::size_t A_original_ncol = ptr->_obj.size();
   std::size_t A_original_nrow = ptr->_rhs.size();
 
   // convert the list of list of sparseMatrix objects to a Rcpp classes

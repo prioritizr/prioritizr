@@ -86,7 +86,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.3</span>
       </span>
     </div>
 
@@ -286,10 +286,8 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
      <span class='no'>sim_features_zones</span>)
 
-<span class='co'># plot the example phylogeny</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_objective-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create problem with a maximum phylogenetic representation objective,</span>
+<span class='co'># plot the example phylogeny</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum phylogenetic representation objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
@@ -428,7 +426,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
 #&gt; Presolved: 101 rows, 278 columns, 1907 nonzeros
@@ -442,7 +440,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;      0     0    4.32650    0    6   -0.00000    4.32650      -     -    0s
 #&gt; H    0     0                       4.1585878    4.32650  4.04%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4.15859 -0 
@@ -487,7 +485,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -175,8 +175,9 @@ b_matrix <- boundary_matrix(sim_pu_polygons)
 b_matrix[] <- rescale(b_matrix[])
 
 # visualize connectivity matrix
+\donttest{
 image(b_matrix)
-
+}
 # create a symmetric connectivity matrix where the connectivity between
 # two planning units corresponds to their spatial proximity
 # i.e. planning units that are further apart share less connectivity
@@ -191,8 +192,9 @@ d_matrix[] <- rescale(d_matrix[])
 d_matrix[d_matrix < 0.7] <- 0
 
 # visualize connectivity matrix
+\donttest{
 image(d_matrix)
-
+}
 # create a symmetric connectivity matrix where the connectivity
 # between adjacent two planning units corresponds to their combined
 # value in a field in the planning unit attribute data
@@ -206,8 +208,9 @@ c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
 c_matrix[] <- rescale(c_matrix[])
 
 # visualize connectivity matrix
+\donttest{
 image(c_matrix)
-
+}
 # create an asymmetric connectivity matrix. Here, connectivity occurs between
 # adjacent planning units and, due to rivers flowing southwards
 # through the study area, connectivity from northern planning units to
@@ -238,8 +241,9 @@ for (i in seq_len(length(sim_pu_polygons))) {
 ac_matrix[] <- rescale(ac_matrix[])
 
 # visualize asymmetric connectivity matrix
+\donttest{
 image(ac_matrix)
-
+}
 # create penalties
 penalties <- c(10, 25)
 
@@ -284,8 +288,9 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 a_matrix <- connected_matrix(sim_pu_zones_stack)
 
 # visualize matrix
+\donttest{
 image(a_matrix)
-
+}
 # create a zone matrix where connectivities are only present between
 # planning units that are allocated to the same zone
 zm1 <- as(diag(3), "Matrix")

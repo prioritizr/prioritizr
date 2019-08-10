@@ -34,27 +34,35 @@ NULL
 #' ply_with_holes <- rasterToPolygons(r_with_holes)
 #'
 #' # intersect raster with raster
+#' \donttest{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "x=Raster")
 #' plot(r_with_holes, main = "y=Raster")
+#' }
 #' print(intersecting_units(r, r_with_holes))
 #'
 #' # intersect raster with polygons
+#' \donttest{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "x=Raster")
 #' plot(ply_with_holes, main = "y=Spatial")
+#' }
 #' print(intersecting_units(r, ply_with_holes))
 #'
 #' # intersect polygons with raster
+#' \donttest{
 #' par(mfrow = c(1, 2))
 #' plot(ply, main = "x=Spatial")
 #' plot(r_with_holes, main = "y=Raster")
+#' }
 #' print(intersecting_units(ply, r_with_holes))
 #'
 #' # intersect polygons with polygons
+#' \donttest{
 #' par(mfrow = c(1, 2))
 #' plot(ply, main = "x=Spatial")
 #' plot(ply_with_holes, main = "y=Spatial")
+#' }
 #' print(intersecting_units(ply, ply_with_holes))
 #'
 #' @export

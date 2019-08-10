@@ -85,7 +85,7 @@ data contains data for multiple zones, then an array is returned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.3</span>
       </span>
     </div>
 
@@ -208,9 +208,7 @@ planning unit and zone data to ensure that the argument to
 <span class='co'># convert to matrix</span>
 <span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_boundary_data_to_matrix</span>(<span class='kw'>NULL</span>, <span class='no'>bldf1</span>)
 
-<span class='co'># visualize matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></span>(<span class='no'>m1</span>)</div><div class='img'><img src='marxan_boundary_data_to_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create marxan boundary with three planning units and two zones</span>
+<span class='co'># visualize matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/image'>image</a></span>(<span class='no'>m1</span>)</div><div class='img'><img src='marxan_boundary_data_to_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create marxan boundary with three planning units and two zones</span>
 <span class='no'>bldf2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='kw'>id1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fl'>3</span>), <span class='kw'>id2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fl'>3</span>),
                      <span class='kw'>zone1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>),
                      <span class='kw'>zone2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>))
@@ -266,7 +264,7 @@ planning unit and zone data to ensure that the argument to
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

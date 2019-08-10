@@ -23,13 +23,13 @@ bool rcpp_apply_max_utility_objective(SEXP x,
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
     ptr->_rhs.push_back(0.0);
-  for (std::size_t z = 0; z < budget.size(); ++z)
+  for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
     ptr->_rhs.push_back(budget[z]);
   // model sense variables
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
     ptr->_sense.push_back("=");
-  for (std::size_t z = 0; z < budget.size(); ++z)
+  for (std::size_t z = 0; z < static_cast<std::size_t>(budget.size()); ++z)
     ptr->_sense.push_back("<=");
   // add in small negative number to objective for planning unit variables to
   // break ties in solution and select solution with cheapest cost
@@ -104,7 +104,7 @@ bool rcpp_apply_max_utility_objective(SEXP x,
   for (std::size_t i = 0;
        i < (ptr->_number_of_zones) * (ptr->_number_of_features); ++i)
     ptr->_row_ids.push_back("spp_amount");
-  for (std::size_t i = 0; i < budget.size(); ++i)
+  for (std::size_t i = 0; i < static_cast<std::size_t>(budget.size()); ++i)
     ptr->_row_ids.push_back("budget");
   // set model sense
   ptr->_modelsense = "max";

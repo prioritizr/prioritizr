@@ -70,6 +70,7 @@ NULL
 #' cm_pts <- connected_matrix(pts, distance = 0.1)
 #'
 #' # plot data and the connected matrices
+#' \donttest{
 #' par(mfrow = c(4,2))
 #'
 #' ## plot raster and connected matrix
@@ -91,7 +92,7 @@ NULL
 #' plot(r, main = "points", axes = FALSE, box = FALSE)
 #' plot(raster(as.matrix(cm_pts)), main = "connected matrix", axes = FALSE,
 #'      box = FALSE)
-#'
+#' }
 #' @export
 connected_matrix <- function(x, ...) UseMethod("connected_matrix")
 

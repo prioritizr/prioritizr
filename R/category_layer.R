@@ -31,8 +31,9 @@ NULL
 #' y <- category_layer(x)
 #'
 #' # plot categorical raster and binary stack representation
+#' \donttest{
 #' plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"), nr = 1)
-#'
+#' }
 #' @export
 category_layer <- function(x) {
   # validate argument

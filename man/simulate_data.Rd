@@ -39,7 +39,6 @@ d <- simulate_data(r, n = 1, model = RandomFields::RMgauss())
 # plot simulated data
 plot(d, main = "random Gaussian field")
 }
-
 }
 \seealso{
 \code{\link[RandomFields]{RFsimulate}},

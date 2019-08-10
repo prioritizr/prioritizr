@@ -32,8 +32,9 @@ NULL
 #' m1 <- marxan_boundary_data_to_matrix(NULL, bldf1)
 #'
 #' # visualize matrix
+#' \donttest{
 #' image(m1)
-#'
+#' }
 #' # create marxan boundary with three planning units and two zones
 #' bldf2 <- expand.grid(id1 = seq_len(3), id2 = seq_len(3),
 #'                      zone1 = c("z1", "z2"),

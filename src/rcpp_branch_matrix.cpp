@@ -18,7 +18,8 @@ arma::sp_mat rcpp_branch_matrix(Rcpp::List x) {
   std::size_t curr_node;
   std::size_t curr_branch;
   // main processing
-  for (std::size_t curr_tip=0; curr_tip<tip_labels.size(); ++curr_tip) {
+  for (std::size_t curr_tip = 0;
+       curr_tip < static_cast<std::size_t>(tip_labels.size()); ++curr_tip) {
     // set variables to be the tip corresponding to the i'th species
     curr_node = (curr_tip+1);
     // loop through branches until the curr_pos is pointing to the base

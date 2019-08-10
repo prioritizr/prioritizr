@@ -1,11 +1,8 @@
+#pragma once
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
 #include "package.h"
-#include <vector>
-#include <math.h>
-#include <string>
-#include <algorithm>
 
 // power function, templated to use compile-time loop unrolling
 template<int P>

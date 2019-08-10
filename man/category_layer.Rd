@@ -36,8 +36,9 @@ x <- stack(raster(matrix(c(1, 0, 0, 1, NA, 0), nrow = 3)),
 y <- category_layer(x)
 
 # plot categorical raster and binary stack representation
+\donttest{
 plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"), nr = 1)
-
+}
 }
 \seealso{
 \code{\link{binary_stack}}.

@@ -9,7 +9,6 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
   Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
   // declare variables
   std::size_t row;
-  std::size_t col;
   Rcpp::IntegerVector curr_z;
   Rcpp::IntegerVector targets_feature =  targets_list["feature"];
   targets_feature = targets_feature - 1;
@@ -29,9 +28,11 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
   // set up problem with rij data
   if (compressed_formulation) {
     // assign rij matrix variables
-    for (std::size_t i = 0; i < targets_feature.size(); ++i) {
+    for (std::size_t i = 0;
+         i < static_cast<std::size_t>(targets_feature.size()); ++i) {
       curr_z = Rcpp::as<Rcpp::IntegerVector>(targets_zone[i]) - 1;
-      for (std::size_t z = 0; z < curr_z.size(); ++z) {
+      for (std::size_t z = 0; z < static_cast<std::size_t>(curr_z.size());
+           ++z) {
         for (auto it = rij[curr_z[z]].begin_col(targets_feature[i]);
              it != rij[curr_z[z]].end_col(targets_feature[i]); ++it) {
           ptr->_A_i.push_back(i);
@@ -70,9 +71,11 @@ bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list,
     }
     // add in rij data for targets
     ++row;
-    for (std::size_t i = 0; i < targets_feature.size(); ++i) {
+    for (std::size_t i = 0; i <
+         static_cast<std::size_t>(targets_feature.size()); ++i) {
       curr_z = Rcpp::as<Rcpp::IntegerVector>(targets_zone[i]) - 1;
-      for (std::size_t z = 0; z < curr_z.size(); ++z) {
+      for (std::size_t z = 0; z < static_cast<std::size_t>(curr_z.size());
+           ++z) {
         // check that minimum value is greater than or equal to zero
         if (rij[curr_z[z]].min() < 0)
           Rcpp::stop("expanded formulation requires non-negative feature data");

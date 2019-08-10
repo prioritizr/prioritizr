@@ -181,8 +181,9 @@ NULL
 #' locked_in_stack[[3]][3] <- 1
 #'
 #' # plot locked in stack
+#' \donttest{
 #' plot(locked_in_stack)
-#'
+#' }
 #' # add locked in raster units to problem
 #' p9 <- p9 %>% add_locked_in_constraints(locked_in_stack)
 #'

@@ -83,7 +83,7 @@ boundary are associated with greater connectivity." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.1.3</span>
       </span>
     </div>
 
@@ -242,13 +242,11 @@ object.</p></td>
 <span class='co'>## make connectivity matrix</span>
 <span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>r</span>, <span class='no'>cd</span>)
 
-<span class='co'>## plot data and matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
+<span class='co'>## plot data and matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>cd</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># create connectivity matrix using polygon planning unit data using</span>
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create connectivity matrix using polygon planning unit data using</span>
 <span class='co'># the habitat suitability data for sim_features[[1]] to represent</span>
 <span class='co'># planning unit conductances</span>
 <span class='co'>## subset data to 9 polygons</span>
@@ -257,13 +255,11 @@ object.</p></td>
 <span class='co'>## make connectivity matrix</span>
 <span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>ply</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>]])
 
-<span class='co'>## plot data and matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
+<span class='co'>## plot data and matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -282,7 +278,7 @@ object.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joeseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

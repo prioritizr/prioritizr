@@ -71,12 +71,13 @@ cd <- crop(r, sim_features[[1]])
 cm_raster <- connectivity_matrix(r, cd)
 
 ## plot data and matrix
+\donttest{
 par(mfrow = c(1,3))
 plot(r, main = "planning units", axes = FALSE, box = FALSE)
 plot(cd, main = "conductivity", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(cm_raster)), main = "connectivity", axes = FALSE,
      box = FALSE)
-
+}
 # create connectivity matrix using polygon planning unit data using
 # the habitat suitability data for sim_features[[1]] to represent
 # planning unit conductances
@@ -87,10 +88,11 @@ ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
 cm_ply <- connectivity_matrix(ply, sim_features[[1]])
 
 ## plot data and matrix
+\donttest{
 par(mfrow = c(1,3))
 plot(ply, main = "planning units")
 plot(sim_features[[1]], main = "conductivity", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(cm_ply)), main = "connectivity", axes = FALSE,
      box = FALSE)
-
+}
 }

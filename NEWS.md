@@ -1,3 +1,13 @@
+# prioritizr 4.1.2.1
+
+- Fix typo.
+- Fix broken links to Gurobi academic licenses.
+- Fix compiler warnings thrown during package installation.
+- Skip tests on CRAN's Windows system to reduce CRAN check times.
+- Skip plotting data in examples during testing to reduce CRAN check times.
+- Throw warning message if both the _prioritizr_ and _oppr_ R packages are
+  loaded at the same time.
+
 # prioritizr 4.1.2 (released)
 
 - Release candidate for CRAN.
