@@ -29,7 +29,7 @@ Citation
 
 Please use the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.1.3. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.2.1. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
     ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3585.96 3934.62 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.009751081
+    ## 0.002995968
 
 ``` r
 # extract state message from the solver
@@ -293,7 +293,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 322 rows and 240 columns
-    ## Presolve time: 0.01s
+    ## Presolve time: 0.02s
     ## Presolved: 332 rows, 266 columns, 1065 nonzeros
     ## Variable types: 0 continuous, 266 integer (266 binary)
     ## Found heuristic solution: objective 8340.7813359
@@ -309,7 +309,7 @@ s4 <- solve(p4)
     ##      0     0 6438.13080    0   59 7217.74649 6438.13080  10.8%     -    0s
     ## H    0     0                    6908.4184908 6438.13080  6.81%     -    0s
     ## 
-    ## Explored 1 nodes (139 simplex iterations) in 0.02 seconds
+    ## Explored 1 nodes (139 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 6908.42 7217.75 8340.78 
