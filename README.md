@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.002995968
+    ## 0.001641035
 
 ``` r
 # extract state message from the solver
@@ -293,7 +293,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 322 rows and 240 columns
-    ## Presolve time: 0.02s
+    ## Presolve time: 0.01s
     ## Presolved: 332 rows, 266 columns, 1065 nonzeros
     ## Variable types: 0 continuous, 266 integer (266 binary)
     ## Found heuristic solution: objective 8340.7813359
@@ -309,7 +309,7 @@ s4 <- solve(p4)
     ##      0     0 6438.13080    0   59 7217.74649 6438.13080  10.8%     -    0s
     ## H    0     0                    6908.4184908 6438.13080  6.81%     -    0s
     ## 
-    ## Explored 1 nodes (139 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (139 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 6908.42 7217.75 8340.78 

@@ -8,7 +8,7 @@
 - Throw warning message if both the _prioritizr_ and _oppr_ R packages are
   loaded at the same time.
 
-# prioritizr 4.1.2 (released)
+# prioritizr 4.1.2
 
 - Release candidate for CRAN.
 
