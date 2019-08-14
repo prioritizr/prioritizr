@@ -17,7 +17,7 @@ test_that("numeric", {
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
     add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = TRUE)
+    add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
@@ -158,7 +158,28 @@ test_that("Spatial (single zone)", {
     skip_on_travis()
     skip_on_appveyor()
     skip_if_not(any_solvers_installed())
-
+  # create data
+  data(sim_pu_polygons)
+  pu <- sim_pu_polygons[1:4, ]
+  pu@data <- data.frame(id = seq_len(4),
+                        cost = c(10, 2, NA, 3),
+                        spp1 = c(0, 0, 0, 1),
+                        spp2 = c(10, 5, 10, 6))
+  # create problem
+  p <-
+    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  pu$solution <- c(0, 1, NA, 1)
+  # calculate replacement costs
+  r <- replacement_cost(p, pu[, "solution"])
+  # create correct result
+  pu$rc <- c(0, 8, NA, Inf)
+  # run tests
+  expect_equivalent(r, pu[, "rc"])
 })
 
 test_that("Spatial (multiple zone)", {

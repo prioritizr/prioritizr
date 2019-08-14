@@ -77,6 +77,49 @@ methods::setGeneric("replacement_cost",
   standardGeneric("replacement_cost")
 })
 
+internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
+                                      force) {
+  assertthat::assert_that(inherits(x, "ConservationProblem"),
+                          is.integer(indices), length(indices) > 0,
+                          assertthat::is.flag(run_checks),
+                          assertthat::is.flag(force))
+  # assign default solver and portfolio
+  if (inherits(x$solver, "Waiver"))
+    x <- add_default_solver(x)
+  x <- add_default_portfolio(x)
+  # run presolve check to try to identify potential problems
+  if (run_checks) {
+    ch <- presolve_check(x)
+    if (!isTRUE(force) && !isTRUE(ch))
+      stop(paste("problem failed presolve checks. For more information see",
+                 "?presolve_check"))
+  }
+  # generate objective value for solution if unknown
+  if (is.null(solution_obj))
+    solution_obj <- attr(solve(x), "objective")
+  # compile problem into optimization problem object
+  opt <- compile.ConservationProblem(x)
+  old_ub <- opt$ub()
+  # iterate over solution and store replacement costs
+  alt_solution_obj <- vapply(indices, FUN.VALUE = numeric(1), function(i) {
+    # lock out i'th selected planning unit in solution
+    opt$set_ub(i, 0)
+    # solve problem
+    sol <- x$portfolio$run(opt, x$solver)
+    # check that solution is valid
+    if (is.null(sol) || is.null(sol[[1]]$x)) {
+      out <- Inf
+    } else {
+      out <- sol[[1]][[2]]
+    }
+    # reset upper bound
+    opt$set_ub(i, old_ub[i])
+    # return result
+    out
+  })
+  alt_solution_obj - solution_obj
+}
+
 #' @name replacement_cost
 #' @usage \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution)
 #' @rdname replacement_cost
@@ -85,7 +128,7 @@ methods::setMethod("replacement_cost",
   function(x, solution, run_checks = TRUE, force = FALSE, ...) {
     # assert valid arguments
     assertthat::assert_that(
-      is.numeric(solution),
+      is.numeric(solution), sum(solution, na.rm = TRUE) > 1e-10,
       is.numeric(x$data$cost), is.matrix(x$data$cost),
       number_of_total_units(x) == length(solution),
       number_of_zones(x) == 1,
@@ -93,57 +136,20 @@ methods::setMethod("replacement_cost",
       max(solution, na.rm = TRUE) <= 1,
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
-    # assign default solver and portfolio
-    if (inherits(x$solver, "Waiver"))
-      x <- add_default_solver(x)
-    x <- add_default_portfolio(x)
-    # run presolve check to try to identify potential problems
-    if (run_checks) {
-      ch <- presolve_check(x)
-      if (!isTRUE(force) && !isTRUE(ch))
-        stop(paste("problem failed presolve checks. For more information see",
-                   "?presolve_check"))
-    }
-    # extract objective value for solution
-    if (!is.null(attr(solution, "objective")) &&
-        isTRUE(is.finite(attr(solution, "objective")))) {
-      solution_obj <- attr(solution, "objective")
-    } else {
-      solution_obj <- attr(solve(x), "objective")
-    }
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
     pos2 <- which(!is.na(solution))
     if (!setequal(pos, pos2))
       stop("planning units with NA cost data must have NA allocations in the",
            " solution")
-    solution <- solution[pos]
-    # subset planning units with non-zero statuses
-    solution_ind <- which(solution > 1e-10)
-    # compile problem into optimization problem object
-    opt <- compile.ConservationProblem(x)
-    old_ub <- opt$ub()
-    # iterate over solution and store replacement costs
-    rc <- vapply(solution_ind, FUN.VALUE = numeric(1), function(i) {
-      # lock out i'th selected planning unit in solution
-      opt$set_ub(i, 0)
-      # solve problem
-      sol <- x$portfolio$run(opt, x$solver)
-      # check that solution is valid
-      if (is.null(sol) || is.null(sol[[1]]$x)) {
-        out <- Inf
-      } else {
-        out <- sol[[1]][[2]]
-      }
-      # reset upper bound
-      opt$set_ub(i, old_ub[i])
-      # return result
-      out
-    })
+    # calculate replacement costs
+    indices <- which(solution[pos] > 1e-10)
+    rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
+                                    run_checks, force)
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[pos] <- 0
-    out[pos[solution_ind]] <- rc - solution_obj
+    out[pos[indices]] <- c(rc)
     out
 })
 
@@ -156,6 +162,7 @@ methods::setMethod("replacement_cost",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
+      sum(solution, na.rm = TRUE) > 1e-10,
       is.matrix(x$data$cost), is.numeric(x$data$cost),
       number_of_total_units(x) == nrow(solution),
       number_of_zones(x) == ncol(solution),
@@ -163,24 +170,6 @@ methods::setMethod("replacement_cost",
       max(solution, na.rm = TRUE) <= 1,
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
-    # assign default solver and portfolio
-    if (inherits(x$solver, "Waiver"))
-      x <- add_default_solver(x)
-    x <- add_default_portfolio(x)
-    # run presolve check to try to identify potential problems
-    if (run_checks) {
-      ch <- presolve_check(x)
-      if (!isTRUE(force) && !isTRUE(ch))
-        stop(paste("problem failed presolve checks. For more information see",
-                   "?presolve_check"))
-    }
-    # extract objective value for solution
-    if (!is.null(attr(solution, "objective")) &&
-        isTRUE(is.finite(attr(solution, "objective")))) {
-      solution_obj <- attr(solution, "objective")
-    } else {
-      solution_obj <- attr(solve(x), "objective")
-    }
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
     pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
@@ -191,38 +180,20 @@ methods::setMethod("replacement_cost",
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
-    # subset planning units with non-zero statuses
-    solution_ind <- which(solution_pu > 1e-10)
-    # compile problem into optimization problem object
-    opt <- compile.ConservationProblem(x)
-    old_ub <- opt$ub()
-    # iterate over solution and store replacement costs
-    rc <- vapply(solution_ind, FUN.VALUE = numeric(1), function(i) {
-      # lock out i'th selected planning unit in solution
-      opt$set_ub(i, 0)
-      # solve problem
-      sol <- x$portfolio$run(opt, x$solver)
-      # check that solution is valid
-      if (is.null(sol) || is.null(sol[[1]]$x)) {
-        out <- Inf
-      } else {
-        out <- sol[[1]][[2]]
-      }
-      # reset upper bound
-      opt$set_ub(i, old_ub[i])
-      # return result
-      out
-    })
+    # calculate replacement costs
+    indices <- which(solution_pu > 1e-10)
+    rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
+                                    run_checks, force)
     # return replacement costs
-    out <- x$data$cost
+    out <- matrix(0, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_zones())
     if (x$number_of_zones() > 1) {
       colnames(out) <- paste0("rc_", x$zone_names())
     } else {
       colnames(out) <- "rc"
     }
-    out[] <- 0
-    out[is.na(x$data$cost)] <- NA_real_
-    out[which(solution > 1e-10)] <- rc - solution_obj
+    out[which(is.na(as.matrix(x$data$cost)))] <- NA_real_
+    out[which(solution > 1e-10)] <- rc
     out
 })
 
@@ -235,6 +206,7 @@ methods::setMethod("replacement_cost",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
+      sum(as.matrix(solution), na.rm = TRUE) >= 1e-10,
       number_of_zones(x) == ncol(solution),
       number_of_total_units(x) == nrow(solution),
       is.data.frame(x$data$cost),
@@ -243,24 +215,6 @@ methods::setMethod("replacement_cost",
       max(unlist(solution), na.rm = TRUE) <= 1,
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
-    # assign default solver and portfolio
-    if (inherits(x$solver, "Waiver"))
-      x <- add_default_solver(x)
-    x <- add_default_portfolio(x)
-    # run presolve check to try to identify potential problems
-    if (run_checks) {
-      ch <- presolve_check(x)
-      if (!isTRUE(force) && !isTRUE(ch))
-        stop(paste("problem failed presolve checks. For more information see",
-                   "?presolve_check"))
-    }
-    # extract objective value for solution
-    if (!is.null(attr(solution, "objective")) &&
-        isTRUE(is.finite(attr(solution, "objective")))) {
-      solution_obj <- attr(solution, "objective")
-    } else {
-      solution_obj <- attr(solve(x), "objective")
-    }
     # subset planning units with finite cost values
     solution <- as.matrix(solution)
     pos <- x$planning_unit_indices()
@@ -272,28 +226,10 @@ methods::setMethod("replacement_cost",
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
-    # subset planning units with non-zero statuses
-    solution_ind <- which(solution_pu > 1e-10)
-    # compile problem into optimization problem object
-    opt <- compile.ConservationProblem(x)
-    old_ub <- opt$ub()
-    # iterate over solution and store replacement costs
-    rc <- vapply(solution_ind, FUN.VALUE = numeric(1), function(i) {
-      # lock out i'th selected planning unit in solution
-      opt$set_ub(i, 0)
-      # solve problem
-      sol <- x$portfolio$run(opt, x$solver)
-      # check that solution is valid
-      if (is.null(sol) || is.null(sol[[1]]$x)) {
-        out <- Inf
-      } else {
-        out <- sol[[1]][[2]]
-      }
-      # reset upper bound
-      opt$set_ub(i, old_ub[i])
-      # return result
-      out
-    })
+    # calculate replacement costs
+    indices <- which(solution_pu > 1e-10)
+    rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
+                                    run_checks, force)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -305,7 +241,7 @@ methods::setMethod("replacement_cost",
     pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
       x$data$cost_column, drop = FALSE])))
     out[pos] <- NA_real_
-    out[which(solution > 1e-10)] <- rc - solution_obj
+    out[which(solution > 1e-10)] <- rc
     tibble::as_tibble(out)
 })
 
@@ -328,17 +264,37 @@ methods::setMethod("replacement_cost",
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
     # subset planning units with finite cost values
+    sp_solution <- solution
     solution <- as.matrix(solution@data)
     pos <- x$planning_unit_indices()
     pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
     if (!setequal(pos, pos2))
       stop("planning units with NA cost data must have NA allocations in the",
            " solution")
-    solution <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-
+    solution_pu <- solution[pos, , drop = FALSE]
+    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
+     stop("planning units with NA cost data must have NA allocations in the",
+          " solution")
+    # calculate replacement costs
+    indices <- which(solution_pu > 1e-10)
+    rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
+                                    run_checks, force)
+    # return replacement costs
+    out <- matrix(0, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_zones())
+    if (x$number_of_zones() > 1) {
+      colnames(out) <- paste0("rc_", x$zone_names())
+    } else {
+      colnames(out) <- "rc"
+    }
+    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost@data)[,
+      x$data$cost_column, drop = FALSE])))
+    out[pos] <- NA_real_
+    out[which(solution > 1e-10)] <- rc
+    out <- as.data.frame(out)
+    rownames(out) <- rownames(sp_solution@data)
+    sp_solution@data <- out
+    sp_solution
 })
 
 #' @name replacement_cost
@@ -372,5 +328,4 @@ methods::setMethod("replacement_cost",
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
-
 })
