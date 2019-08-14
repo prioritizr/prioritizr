@@ -138,6 +138,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         ub = x$ub())
       # create parameters
       p <- list(LogToConsole = as.numeric(self$parameters$get("verbose")),
+                LogFile = "",
                 Presolve = self$parameters$get("presolve"),
                 MIPGap = self$parameters$get("gap"),
                 TimeLimit = self$parameters$get("time_limit"),
@@ -156,8 +157,6 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       b <- model$vtype == "B"
       if (is.numeric(x$x))
         x$x[b] <- round(x$x[b])
-      # remove log
-      if (file.exists("gurobi.log")) unlink("gurobi.log")
       # extract solutions
       out <- list(x = x$x, objective = x$objval, status = x$status,
                  runtime = x$runtime)
