@@ -137,16 +137,49 @@ test_that("set_ub", {
   # tests
   expect_equal(x$ub(), l$ub)
   x$set_ub(1, 5)
-  expect_equal(5, 1, 1)
+  expect_equal(x$ub(), c(5, 1, 1))
   x$set_ub(2, 6)
-  expect_equal(5, 6, 1)
+  expect_equal(x$ub(), c(5, 6, 1))
   x$set_ub(3, 7)
-  expect_equal(5, 6, 7)
+  expect_equal(x$ub(), c(5, 6, 7))
   x$set_ub(1, 2)
-  expect_equal(2, 6, 7)
+  expect_equal(x$ub(), c(2, 6, 7))
+  x$set_ub(c(3, 1), c(56, 78))
+  expect_equal(x$ub(), c(78, 6, 56))
   # errors
   expect_error(x$set_ub("a", 2))
   expect_error(x$set_ub(1, "a"))
   expect_error(x$set_ub(-1, "a"))
   expect_error(x$set_ub(1000, 2))
+})
+
+test_that("set_lb", {
+  # data
+  set.seed(600)
+  l <- list(modelsense = "min", number_of_features = 2,
+           number_of_planning_units = 3, number_of_zones = 1,
+           A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
+           A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0.5),
+           ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,
+           sense = c(">=", ">="), vtype = c("B", "B", "B"),
+           row_ids = c("spp_target", "spp_target"),
+           col_ids = c("pu", "pu", "pu"))
+  x <- predefined_optimization_problem(l)
+  # tests
+  expect_equal(x$lb(), l$lb)
+  x$set_lb(1, 5)
+  expect_equal(x$lb(), c(5, 1, 0.5))
+  x$set_lb(2, 6)
+  expect_equal(x$lb(), c(5, 6, 0.5))
+  x$set_lb(3, 7)
+  expect_equal(x$lb(), c(5, 6, 7))
+  x$set_lb(1, 2)
+  expect_equal(x$lb(), c(2, 6, 7))
+  x$set_lb(c(3, 1), c(56, 78))
+  expect_equal(x$lb(), c(78, 6, 56))
+  # errors
+  expect_error(x$set_lb("a", 2))
+  expect_error(x$set_lb(1, "a"))
+  expect_error(x$set_lb(-1, "a"))
+  expect_error(x$set_lb(1000, 2))
 })
