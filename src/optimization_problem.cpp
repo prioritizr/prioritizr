@@ -142,6 +142,12 @@ std::vector<double> rcpp_get_optimization_problem_ub(SEXP x) {
 }
 
 // [[Rcpp::export]]
+void rcpp_set_optimization_problem_ub(SEXP x, std::size_t i, double y) {
+  Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_ub[i - 1] = y;
+  return;
+}
+
+// [[Rcpp::export]]
 std::vector<std::string> rcpp_get_optimization_problem_col_ids(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_col_ids);
 }

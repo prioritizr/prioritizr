@@ -45,6 +45,8 @@ NULL
 #'
 #' \code{x$ub()}
 #'
+#' \code{x$set_ub()}
+#'
 #' \code{x$number_of_planning_units()}
 #'
 #' \code{x$number_of_features()}
@@ -92,6 +94,9 @@ NULL
 #' \item{lb}{\code{numeric} vector of lower bounds for each decision variable.}
 #'
 #' \item{ub}{\code{numeric} vector of upper bounds for each decision variable.}
+#'
+#' \item{set_ub}{\code{invisible(NULL)} set upper bound for a decision
+#'   variable.}
 #'
 #' \item{number_of_features}{\code{integer} number of features in the problem.}
 #'
@@ -177,6 +182,11 @@ OptimizationProblem <- pproto(
   },
   ub = function(self) {
     rcpp_get_optimization_problem_ub(self$ptr)
+  },
+  set_ub = function(self, i, y) {
+    assertthat::assert_that(assertthat::is.count(i), assertthat::is.number(y),
+                            i <= ncol(self))
+    rcpp_set_optimization_problem_ub(self$ptr, i, y)
   },
   number_of_features = function(self) {
     rcpp_get_optimization_problem_number_of_features(self$ptr)

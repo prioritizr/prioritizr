@@ -69,6 +69,10 @@ rcpp_get_optimization_problem_ub <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_ub`, x)
 }
 
+rcpp_set_optimization_problem_ub <- function(x, i, y) {
+    invisible(.Call(`_prioritizr_rcpp_set_optimization_problem_ub`, x, i, y))
+}
+
 rcpp_get_optimization_problem_col_ids <- function(x) {
     .Call(`_prioritizr_rcpp_get_optimization_problem_col_ids`, x)
 }

@@ -1,3 +1,8 @@
+# prioritizr 4.1.2.2
+
+- Add new `replacement_cost` function to calculate irreproducibility scores
+  for each planning unit in a solutions.
+
 # prioritizr 4.1.2.1
 
 - Fix typo.

@@ -121,3 +121,32 @@ test_that("shuffle_columns method", {
                                           index1 = FALSE)
   expect_equal(A(x)[, key], original_matrix)
 })
+
+test_that("set_ub", {
+  # data
+  set.seed(600)
+  l <- list(modelsense = "min", number_of_features = 2,
+           number_of_planning_units = 3, number_of_zones = 1,
+           A_i = c(0L, 1L, 0L, 1L, 0L, 1L), A_j = c(0L, 0L, 1L, 1L, 2L, 2L),
+           A_x = c(2, 10, 1, 10, 1, 10), obj = c(1, 2, 2), lb = c(0, 1, 0),
+           ub = c(0, 1, 1), rhs = c(2, 10), compressed_formulation = TRUE,
+           sense = c(">=", ">="), vtype = c("B", "B", "B"),
+           row_ids = c("spp_target", "spp_target"),
+           col_ids = c("pu", "pu", "pu"))
+  x <- predefined_optimization_problem(l)
+  # tests
+  expect_equal(x$ub(), l$ub)
+  x$set_ub(1, 5)
+  expect_equal(5, 1, 1)
+  x$set_ub(2, 6)
+  expect_equal(5, 6, 1)
+  x$set_ub(3, 7)
+  expect_equal(5, 6, 7)
+  x$set_ub(1, 2)
+  expect_equal(2, 6, 7)
+  # errors
+  expect_error(x$set_ub("a", 2))
+  expect_error(x$set_ub(1, "a"))
+  expect_error(x$set_ub(-1, "a"))
+  expect_error(x$set_ub(1000, 2))
+})

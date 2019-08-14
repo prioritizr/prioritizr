@@ -195,6 +195,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_set_optimization_problem_ub
+void rcpp_set_optimization_problem_ub(SEXP x, std::size_t i, double y);
+RcppExport SEXP _prioritizr_rcpp_set_optimization_problem_ub(SEXP xSEXP, SEXP iSEXP, SEXP ySEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::size_t >::type i(iSEXP);
+    Rcpp::traits::input_parameter< double >::type y(ySEXP);
+    rcpp_set_optimization_problem_ub(x, i, y);
+    return R_NilValue;
+END_RCPP
+}
 // rcpp_get_optimization_problem_col_ids
 std::vector<std::string> rcpp_get_optimization_problem_col_ids(SEXP x);
 RcppExport SEXP _prioritizr_rcpp_get_optimization_problem_col_ids(SEXP xSEXP) {
