@@ -187,7 +187,35 @@ test_that("Spatial (multiple zone)", {
     skip_on_travis()
     skip_on_appveyor()
     skip_if_not(any_solvers_installed())
-
+  # create data
+  data(sim_pu_polygons)
+  pu <- sim_pu_polygons[1:7, ]
+  pu@data <- data.frame(id = seq_len(7),
+                        cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+                        cost_2 = c(10, 10, 10, 10,  4,   1, NA),
+                        spp1_1 = c(1,  2, 0, 0, 0, 0,  0),
+                        spp2_1 = c(NA, 0, 1, 1, 0, 0,  0),
+                        spp1_2 = c(1,  0, 0, 0, 1, 0,  0),
+                        spp2_2 = c(0,  0, 0, 0, 0, 10, 0))
+  targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
+  # create problem
+  p <-
+    problem(pu, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+            c("cost_1", "cost_2")) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(targets) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  pu$solution_1 <- c(1, 0, NA, 1, 0, 0, NA)
+  pu$solution_2 <- c(0, 0, 0, 0, 1, 0, NA)
+  # calculate replacement costs
+  r <- replacement_cost(p, pu[, c("solution_1", "solution_2")])
+  # create correct result
+  pu$rc_1 <- c(1, 0, NA, Inf, 0, 0, NA)
+  pu$rc_2 <- c(0, 0, 0, 0, 7, 0, NA)
+  # run tests
+  expect_equivalent(r, pu[, c("rc_1", "rc_2")])
 })
 
 test_that("Raster (single zone)", {
