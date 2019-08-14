@@ -109,14 +109,13 @@ test_that("data.frame (single zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- data.frame(solution = c(0, 1, NA, 1))
+  s <- tibble::tibble(solution = c(0, 1, NA, 1))
   # calculate replacement costs
   r <- replacement_cost(p, s)
   # create correct result
-  r2 <- matrix(c(0, 8, NA, Inf), ncol = 1)
+  r2 <- tibble::tibble(cost = c(0, 8, NA, Inf))
   # run tests
   expect_equal(r, r2)
-
 })
 
 test_that("data.frame (multiple zone)", {

@@ -107,9 +107,9 @@ methods::setMethod("replacement_cost",
     # extract objective value for solution
     if (!is.null(attr(solution, "objective")) &&
         isTRUE(is.finite(attr(solution, "objective")))) {
-      sol_obj <- attr(solution, "objective")
+      solution_obj <- attr(solution, "objective")
     } else {
-      sol_obj <- attr(solve(x), "objective")
+      solution_obj <- attr(solve(x), "objective")
     }
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
@@ -143,7 +143,7 @@ methods::setMethod("replacement_cost",
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[pos] <- 0
-    out[pos[solution_ind]] <- rc - sol_obj
+    out[pos[solution_ind]] <- rc - solution_obj
     out
 })
 
@@ -177,9 +177,9 @@ methods::setMethod("replacement_cost",
     # extract objective value for solution
     if (!is.null(attr(solution, "objective")) &&
         isTRUE(is.finite(attr(solution, "objective")))) {
-      sol_obj <- attr(solution, "objective")
+      solution_obj <- attr(solution, "objective")
     } else {
-      sol_obj <- attr(solve(x), "objective")
+      solution_obj <- attr(solve(x), "objective")
     }
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
@@ -217,7 +217,7 @@ methods::setMethod("replacement_cost",
     out <- x$data$cost
     out[] <- 0
     out[is.na(x$data$cost)] <- NA_real_
-    out[which(solution > 1e-10)] <- rc - sol_obj
+    out[which(solution > 1e-10)] <- rc - solution_obj
     out
 })
 
@@ -252,9 +252,9 @@ methods::setMethod("replacement_cost",
     # extract objective value for solution
     if (!is.null(attr(solution, "objective")) &&
         isTRUE(is.finite(attr(solution, "objective")))) {
-      sol_obj <- attr(solution, "objective")
+      solution_obj <- attr(solution, "objective")
     } else {
-      sol_obj <- attr(solve(x), "objective")
+      solution_obj <- attr(solve(x), "objective")
     }
     # subset planning units with finite cost values
     solution <- as.matrix(solution)
@@ -290,10 +290,14 @@ methods::setMethod("replacement_cost",
       out
     })
     # return replacement costs
-    out <- x$planning_unit_costs()
-    out[] <- 0
-    out[is.na(x$data$cost)] <- NA_real_
-    out[which(solution > 1e-10)] <- rc - sol_obj
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = ncol(solution),
+                  dimnames = list(NULL, p$data$cost_column))
+    pos <-
+      which(rowSums(!is.na(as.matrix(as.data.frame(p$data$cost)[,
+      p$data$cost_column, drop = FALSE]))) > 0)
+    out[pos] <- 0
+    out[which(solution > 1e-10)] <- rc - solution_obj
     tibble::as_tibble(out)
 })
 
