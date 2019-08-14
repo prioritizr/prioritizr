@@ -215,6 +215,11 @@ methods::setMethod("replacement_cost",
     })
     # return replacement costs
     out <- x$data$cost
+    if (x$number_of_zones() > 1) {
+      colnames(out) <- paste0("rc_", x$zone_names())
+    } else {
+      colnames(out) <- "rc"
+    }
     out[] <- 0
     out[is.na(x$data$cost)] <- NA_real_
     out[which(solution > 1e-10)] <- rc - solution_obj
@@ -290,13 +295,16 @@ methods::setMethod("replacement_cost",
       out
     })
     # return replacement costs
-    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
-                  ncol = ncol(solution),
-                  dimnames = list(NULL, p$data$cost_column))
-    pos <-
-      which(rowSums(!is.na(as.matrix(as.data.frame(p$data$cost)[,
-      p$data$cost_column, drop = FALSE]))) > 0)
-    out[pos] <- 0
+    out <- matrix(0, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_zones())
+    if (x$number_of_zones() > 1) {
+      colnames(out) <- paste0("rc_", x$zone_names())
+    } else {
+      colnames(out) <- "rc"
+    }
+    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
+      x$data$cost_column, drop = FALSE])))
+    out[pos] <- NA_real_
     out[which(solution > 1e-10)] <- rc - solution_obj
     tibble::as_tibble(out)
 })

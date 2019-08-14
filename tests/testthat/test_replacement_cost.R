@@ -53,6 +53,7 @@ test_that("matrix (single zone)", {
   r <- replacement_cost(p, s)
   # create correct result
   r2 <- matrix(c(0, 8, NA, Inf), ncol = 1)
+  colnames(r2) <- "rc"
   # run tests
   expect_equal(r, r2)
 })
@@ -86,7 +87,7 @@ test_that("matrix (multiple zones)", {
   r <- replacement_cost(p, s)
   # create correct result
   r2 <- matrix(c(1, 0, NA, Inf, 0, 0, NA, 0, 0, 0, 0, 7, 0, NA), ncol = 2)
-  colnames(r2) <- names(pu)[c(2, 3)]
+  colnames(r2) <- c("rc_1", "rc_2")
   # run tests
   expect_equal(r, r2)
 })
@@ -113,7 +114,7 @@ test_that("data.frame (single zone)", {
   # calculate replacement costs
   r <- replacement_cost(p, s)
   # create correct result
-  r2 <- tibble::tibble(cost = c(0, 8, NA, Inf))
+  r2 <- tibble::tibble(rc = c(0, 8, NA, Inf))
   # run tests
   expect_equal(r, r2)
 })
@@ -123,6 +124,33 @@ test_that("data.frame (multiple zone)", {
     skip_on_travis()
     skip_on_appveyor()
     skip_if_not(any_solvers_installed())
+  # create data
+  pu <- data.frame(id = seq_len(7),
+                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
+                   cost_2 = c(10, 10, 10, 10,  4,   1, NA),
+                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0),
+                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0),
+                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0),
+                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0))
+  targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
+  # create problem
+  p <-
+    problem(pu, zones(c("spp1_1", "spp2_1"), c("spp1_2", "spp2_2")),
+            c("cost_1", "cost_2")) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(targets) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- data.frame(cost_1 = c(1, 0, NA, 1, 0, 0, NA),
+                  cost_2 = c(0, 0, 0, 0, 1, 0, NA))
+  # calculate replacement costs
+  r <- replacement_cost(p, s)
+  # create correct result
+  r2 <- tibble::tibble(rc_1 = c(1, 0, NA, Inf, 0, 0, NA),
+                       rc_2 = c(0, 0, 0, 0, 7, 0, NA))
+  # run tests
+  expect_equal(r, r2)
 })
 
 test_that("Spatial (single zone)", {
