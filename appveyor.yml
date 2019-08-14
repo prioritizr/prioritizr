@@ -6,6 +6,10 @@ environment:
   matrix:
   - R_version: release
 
+branches:
+  only:
+  - master
+
 # Download script file from GitHub
 init:
   ps: |
