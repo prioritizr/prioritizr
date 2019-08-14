@@ -137,13 +137,25 @@ std::vector<double> rcpp_get_optimization_problem_lb(SEXP x) {
 }
 
 // [[Rcpp::export]]
+void rcpp_set_optimization_problem_lb(SEXP x, std::vector<std::size_t> i,
+                                      std::vector<double> y) {
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  for (std::size_t j = 0; j < static_cast<std::size_t>(i.size()); ++j)
+    ptr->_lb[i[j] - 1] = y[j];
+  return;
+}
+
+// [[Rcpp::export]]
 std::vector<double> rcpp_get_optimization_problem_ub(SEXP x) {
   return(Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_ub);
 }
 
 // [[Rcpp::export]]
-void rcpp_set_optimization_problem_ub(SEXP x, std::size_t i, double y) {
-  Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x)->_ub[i - 1] = y;
+void rcpp_set_optimization_problem_ub(SEXP x, std::vector<std::size_t> i,
+                                      std::vector<double> y) {
+  Rcpp::XPtr<OPTIMIZATIONPROBLEM> ptr = Rcpp::as<Rcpp::XPtr<OPTIMIZATIONPROBLEM>>(x);
+  for (std::size_t j = 0; j < static_cast<std::size_t>(i.size()); ++j)
+    ptr->_ub[i[j] - 1] = y[j];
   return;
 }
 

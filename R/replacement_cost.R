@@ -117,7 +117,10 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
     # return result
     out
   })
-  alt_solution_obj - solution_obj
+  # calculate replacement costs
+  out <- alt_solution_obj - solution_obj
+  # return result
+  out
 }
 
 #' @name replacement_cost
@@ -332,11 +335,7 @@ methods::setMethod("replacement_cost",
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
                                     run_checks, force)
     # prepare output
-    if (x$number_of_zones() > 1) {
-      rc <- cut(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
-    } else {
-      rc <- list(rc)
-    }
+    rc <- split(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
     # return result
     out <- as.list(solution)
     if (x$number_of_zones() > 1) {
@@ -346,7 +345,7 @@ methods::setMethod("replacement_cost",
     }
     for (i in seq_along(out)) {
       out[[i]][!is.na(out[[i]])] <- 0
-      out[[i]][pos2[indices]] <- rc[[i]]
+      out[[i]][solution[[i]] > 1e-10] <- rc[[i]]
     }
     if (length(out) > 1) {
       out <- raster::stack(out)
