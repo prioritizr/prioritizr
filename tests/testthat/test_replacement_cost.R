@@ -120,10 +120,10 @@ test_that("data.frame (single zone)", {
 })
 
 test_that("data.frame (multiple zone)", {
-    skip_on_cran()
-    skip_on_travis()
-    skip_on_appveyor()
-    skip_if_not(any_solvers_installed())
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(7),
                    cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
@@ -154,10 +154,10 @@ test_that("data.frame (multiple zone)", {
 })
 
 test_that("Spatial (single zone)", {
-    skip_on_cran()
-    skip_on_travis()
-    skip_on_appveyor()
-    skip_if_not(any_solvers_installed())
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:4, ]
@@ -183,10 +183,10 @@ test_that("Spatial (single zone)", {
 })
 
 test_that("Spatial (multiple zone)", {
-    skip_on_cran()
-    skip_on_travis()
-    skip_on_appveyor()
-    skip_if_not(any_solvers_installed())
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:7, ]
@@ -219,10 +219,10 @@ test_that("Spatial (multiple zone)", {
 })
 
 test_that("Raster (single zone)", {
-    skip_on_cran()
-    skip_on_travis()
-    skip_on_appveyor()
-    skip_if_not(any_solvers_installed())
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
   # create data
   pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
   features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
@@ -245,12 +245,102 @@ test_that("Raster (single zone)", {
 })
 
 test_that("Raster (multiple zone)", {
-    skip_on_cran()
-    skip_on_travis()
-    skip_on_appveyor()
-    skip_if_not(any_solvers_installed())
-
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create data
+  pu <- raster::stack(
+    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), nrow = 1)),
+    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), nrow = 1)))
+  features <- raster::stack(
+    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), nrow = 1)),
+    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), nrow = 1)),
+    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), nrow = 1)),
+    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), nrow = 1)))
+  targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
+  # create problem
+  p <-
+    problem(pu, zones(features[[c(1, 2)]], features[[c(3, 4)]])) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(targets) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- raster::stack(raster::raster(matrix(c(1, 0, NA, 1, 0, 0, NA), nrow = 1)),
+                     raster::raster(matrix(c(0, 0, 0, 0, 1, 0, NA), nrow = 1)))
+  # calculate replacement costs
+  r <- replacement_cost(p, s)
+  # create correct result
+  r2 <- raster::stack(
+    raster::raster(matrix(c(1, 0, NA, Inf, 0, 0, NA), nrow = 1)),
+    raster::raster(matrix(c(0, 0, 0, 0, 7, 0, NA), nrow = 1)))
+  names(r2) <- c("rc_1", "rc_2")
+  # run tests
+  expect_equal(r, r2)
 })
 
 test_that("invalid inputs", {
+  expect_error({
+    # simulate data
+    pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
+                     spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+    # create problem
+    x <- problem(pu$cost, data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+                 as.matrix(t(pu[, 3:4])))
+    # create a solution
+    y <- rep(c(0, 1), 5)
+    # calculate representation
+    r <- replacement_cost(x, y)
+  })
+  expect_error({
+    # simulate data
+    pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
+                     spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+    # create problem
+    x <- problem(matrix(pu$cost, ncol = 1),
+                 data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+                 as.matrix(t(pu[, 3:4])))
+    # create a solution
+    y <- matrix(rep(c(0, 1), 5), ncol = 1)
+    # calculate representation
+    r <- replacement_cost(x, y)
+  })
+  expect_error({
+    # simulate data
+    pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
+                     spp1 = runif(10), spp2 = c(rpois(9, 4), NA))
+    # create problem
+    x <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
+    # create a solution
+    y <- data.frame(solution = rep(c(0, 1), 5))
+    # calculate representation
+    r <- replacement_cost(x, y)
+  })
+  expect_error({
+    # load data
+    data(sim_pu_polygons)
+    pu <- sim_pu_polygons
+    pu$cost[1:5] <- NA
+    pu$solution <- rep(c(0, 1), 5)
+    pu$spp1 <- runif(10)
+    pu$spp2 <- c(rpois(9, 1), NA)
+    # create problem
+    x <- problem(pu, c("spp1", "spp2"), "cost")
+    # create a solution
+    y <- pu[, "solution"]
+    # calculate representation
+    r <- replacement_cost(x, y)
+  })
+  expect_error({
+    # load data
+    data(sim_pu_raster, sim_features)
+    # create problem
+    x <- problem(sim_pu_raster, sim_features)
+    # create a solution
+    y <- raster::setValues(sim_pu_raster,
+                           rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
+    # calculate representation
+    r <- replacement_cost(x, y)
+  })
 })
