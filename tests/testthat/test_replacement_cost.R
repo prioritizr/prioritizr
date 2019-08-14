@@ -223,7 +223,25 @@ test_that("Raster (single zone)", {
     skip_on_travis()
     skip_on_appveyor()
     skip_if_not(any_solvers_installed())
-
+  # create data
+  pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
+  features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
+                            raster::raster(matrix(c(10, 5, 10, 6), nrow = 1)))
+  # create problem
+  p <-
+    problem(pu, features) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 1))
+  # calculate replacement costs
+  r <- replacement_cost(p, s)
+  # create correct result
+  r2 <- raster::raster(matrix(c(0, 8, NA, Inf), nrow = 1))
+  # run tests
+  expect_equal(r, r2)
 })
 
 test_that("Raster (multiple zone)", {

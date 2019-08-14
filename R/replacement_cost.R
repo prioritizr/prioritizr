@@ -216,13 +216,13 @@ methods::setMethod("replacement_cost",
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
     # subset planning units with finite cost values
-    solution <- as.matrix(solution)
+    solution_matrix <- as.matrix(solution)
     pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
+    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
     if (!setequal(pos, pos2))
       stop("planning units with NA cost data must have NA allocations in the",
            " solution")
-    solution_pu <- solution[pos, , drop = FALSE]
+    solution_pu <- solution_matrix[pos, , drop = FALSE]
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
@@ -264,14 +264,13 @@ methods::setMethod("replacement_cost",
       assertthat::is.flag(run_checks), assertthat::is.flag(force),
       no_extra_arguments(...))
     # subset planning units with finite cost values
-    sp_solution <- solution
-    solution <- as.matrix(solution@data)
+    solution_matrix <- as.matrix(solution@data)
     pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
+    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
     if (!setequal(pos, pos2))
       stop("planning units with NA cost data must have NA allocations in the",
            " solution")
-    solution_pu <- solution[pos, , drop = FALSE]
+    solution_pu <- solution_matrix[pos, , drop = FALSE]
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
@@ -290,11 +289,11 @@ methods::setMethod("replacement_cost",
     pos <- which(is.na(as.matrix(as.data.frame(x$data$cost@data)[,
       x$data$cost_column, drop = FALSE])))
     out[pos] <- NA_real_
-    out[which(solution > 1e-10)] <- rc
+    out[which(solution_matrix > 1e-10)] <- rc
     out <- as.data.frame(out)
-    rownames(out) <- rownames(sp_solution@data)
-    sp_solution@data <- out
-    sp_solution
+    rownames(out) <- rownames(solution@data)
+    solution@data <- out
+    solution
 })
 
 #' @name replacement_cost
@@ -322,10 +321,37 @@ methods::setMethod("replacement_cost",
     if (!setequal(pos, pos2))
       stop("planning units with NA cost data must have NA allocations in the",
            " solution")
-    solution <- solution[pos2]
-    if (!is.matrix(solution))
-      solution <- matrix(solution, ncol = 1)
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
+    solution_matrix <- solution[pos2]
+    if (!is.matrix(solution_matrix))
+      solution_matrix <- matrix(solution_matrix, ncol = 1)
+    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_matrix))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
+    # calculate replacement costs
+    indices <- which(solution_matrix > 1e-10)
+    rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
+                                    run_checks, force)
+    # prepare output
+    if (x$number_of_zones() > 1) {
+      rc <- cut(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
+    } else {
+      rc <- list(rc)
+    }
+    # return result
+    out <- as.list(solution)
+    if (x$number_of_zones() > 1) {
+      names(out) <- paste0("rc_", x$zone_names())
+    } else {
+      names(out) <- "rc"
+    }
+    for (i in seq_along(out)) {
+      out[[i]][!is.na(out[[i]])] <- 0
+      out[[i]][pos2[indices]] <- rc[[i]]
+    }
+    if (length(out) > 1) {
+      out <- raster::stack(out)
+    } else {
+      out <- out[[1]]
+    }
+    out
 })
