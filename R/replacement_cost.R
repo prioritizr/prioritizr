@@ -94,15 +94,19 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
       stop(paste("problem failed presolve checks. For more information see",
                  "?presolve_check"))
   }
-  # generate objective value for solution if unknown
-  if (is.null(solution_obj))
-    solution_obj <- attr(solve(x), "objective")
   # compile problem into optimization problem object
   opt <- compile.ConservationProblem(x)
-  old_ub <- opt$ub()
+  # lock in decisions in the solution
+  opt$set_lb(indices, rep.int(1, length(indices)))
+  # generate objective value for solution if unknown
+  solution_obj <- x$portfolio$run(opt, x$solver)
+  if (is.null(solution_obj) || is.null(solution_obj[[1]]$x))
+    stop("argument to solution is infeasible for this problem")
+  solution_obj <- solution_obj[[1]][[2]]
   # iterate over solution and store replacement costs
   alt_solution_obj <- vapply(indices, FUN.VALUE = numeric(1), function(i) {
     # lock out i'th selected planning unit in solution
+    opt$set_lb(i, 0)
     opt$set_ub(i, 0)
     # solve problem
     sol <- x$portfolio$run(opt, x$solver)
@@ -113,7 +117,7 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
       out <- sol[[1]][[2]]
     }
     # reset upper bound
-    opt$set_ub(i, old_ub[i])
+    opt$set_ub(i, 1)
     # return result
     out
   })
