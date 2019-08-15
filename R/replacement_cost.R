@@ -106,18 +106,19 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
   # iterate over solution and store replacement costs
   alt_solution_obj <- vapply(indices, FUN.VALUE = numeric(1), function(i) {
     # lock out i'th selected planning unit in solution
-    opt$set_lb(i, 0)
-    opt$set_ub(i, 0)
+    x$solver$set_variable_lb(i, 0)
+    x$solver$set_variable_ub(i, 0)
     # solve problem
-    sol <- x$portfolio$run(opt, x$solver)
+    sol <- x$solver$run()
     # check that solution is valid
-    if (is.null(sol) || is.null(sol[[1]]$x)) {
+    if (is.null(sol) || is.null(sol$x)) {
       out <- Inf
     } else {
-      out <- sol[[1]][[2]]
+      out <- sol[[2]]
     }
     # reset upper bound
-    opt$set_ub(i, 1)
+    x$solver$set_variable_lb(i, 1)
+    x$solver$set_variable_ub(i, 1)
     # return result
     out
   })

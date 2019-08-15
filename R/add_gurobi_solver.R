@@ -114,6 +114,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     "GurobiSolver",
     Solver,
     name = "Gurobi",
+    data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
@@ -125,7 +126,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       binary_parameter("first_feasible", first_feasible),
       binary_parameter("numeric_focus", numeric_focus),
       binary_parameter("verbose", verbose)),
-    solve = function(self, x, ...) {
+    calculate = function(self, x, ...) {
       # create problem
       model <- list(
         modelsense = x$modelsense(),
@@ -151,6 +152,24 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       p2 <- list(...)
       if (length(p2) > 0)
         p <- append(p, p2)
+      # store input data and parameters
+      self$set_data("model", model)
+      self$set_data("parameters", p)
+      # return success
+      invisible(TRUE)
+    },
+    set_variable_ub = function(self, index, value) {
+      self$data$model$ub[index] <- value
+      invisible(TRUE)
+    },
+    set_variable_lb = function(self, index, value) {
+      self$data$model$lb[index] <- value
+      invisible(TRUE)
+    },
+    run = function(self, x) {
+      # access input data and parameters
+      model <- self$get_data("model")
+      p <- self$get_data("parameters")
       # solve problem
       x <- gurobi::gurobi(model = model, params = p)
       # round binary variables because default precision is 1e-5
@@ -166,12 +185,15 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         out$pool <- x$pool[-1]
         for (i in seq_len(length(out$pool))) {
           out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-          out$pool[[i]]$status <- ifelse(abs(out$pool[[i]]$objval -
-                                             x$objval) < 1e-5,
-                                         "OPTIMAL", "SUBOPTIMAL")
+          out$pool[[i]]$status <-
+            ifelse(abs(out$pool[[i]]$objval - x$objval) < 1e-5,
+                   "OPTIMAL", "SUBOPTIMAL")
         }
       }
-      # return solution
-      return(out)
+      out
+    },
+    solve = function(self, x, ...) {
+      self$calculate(x, ...)
+      self$run()
     }))
 }
