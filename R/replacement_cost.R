@@ -117,6 +117,7 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
       out <- sol[[1]][[2]]
     }
     # reset upper bound
+    opt$set_lb(i, 1)
     opt$set_ub(i, 1)
     # return result
     out
