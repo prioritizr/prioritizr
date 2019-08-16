@@ -89,7 +89,7 @@ plot(stack(s2), axes = FALSE, box = FALSE)
 # build multi-zone conservation problem with pool portfolio
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.01, 0.05), nrow = 5,
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
                                   ncol = 3)) \%>\%
       add_binary_decisions() \%>\%
       add_pool_portfolio() \%>\%
