@@ -40,6 +40,8 @@
 
 <meta property="og:description" content="Add penalties to a conservation planning problem to favor
 solutions that select planning units with high connectivity between them." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -520,7 +522,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Presolved: 1601 rows, 888 columns, 3642 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.277325e+03, 601 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 2.277325e+03, 601 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -529,8 +531,8 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 2282.91603    0  874 2915.94537 2282.91603  21.7%     -    2s
 #&gt;      0     0 2288.19139    0  871 2915.94537 2288.19139  21.5%     -    2s
 #&gt;      0     0 2288.19139    0  483 2915.94537 2288.19139  21.5%     -    2s
-#&gt;      0     0 2295.81836    0  478 2915.94537 2295.81836  21.3%     -    2s
-#&gt;      0     0 2299.18104    0  478 2915.94537 2299.18104  21.2%     -    2s
+#&gt;      0     0 2295.81836    0  478 2915.94537 2295.81836  21.3%     -    3s
+#&gt;      0     0 2299.18104    0  478 2915.94537 2299.18104  21.2%     -    3s
 #&gt;      0     0 2310.18554    0  450 2915.94537 2310.18554  20.8%     -    3s
 #&gt;      0     0 2314.83207    0  473 2915.94537 2314.83207  20.6%     -    3s
 #&gt;      0     0 2316.71918    0  467 2915.94537 2316.71918  20.5%     -    3s
@@ -538,12 +540,12 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; H    0     0                    2879.5923214 2316.71918  19.5%     -    3s
 #&gt;      0     2 2316.75143    0  467 2879.59232 2316.75143  19.5%     -    3s
 #&gt; H   53    53                    2669.2652017 2367.46532  11.3%  45.8    3s
-#&gt; H  273   209                    2665.1537029 2389.53644  10.3%  56.5    3s
+#&gt; H  273   209                    2665.1537029 2389.53644  10.3%  56.5    4s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
 #&gt; 
-#&gt; Explored 330 nodes (18882 simplex iterations) in 4.07 seconds
+#&gt; Explored 330 nodes (18882 simplex iterations) in 4.60 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 2665.15 2669.27 2879.59 ... 11397
@@ -571,23 +573,23 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; 
 #&gt;      0     0  126.78496    0  695  761.80116  126.78496  83.4%     -    0s
 #&gt; H    0     0                     468.0158310  126.78496  72.9%     -    0s
-#&gt;      0     0  139.58775    0  693  468.01583  139.58775  70.2%     -    1s
+#&gt;      0     0  139.58775    0  693  468.01583  139.58775  70.2%     -    2s
 #&gt;      0     0  148.83710    0  691  468.01583  148.83710  68.2%     -    2s
 #&gt;      0     0  148.83710    0  382  468.01583  148.83710  68.2%     -    2s
-#&gt;      0     0  161.29257    0  380  468.01583  161.29257  65.5%     -    2s
-#&gt;      0     0  170.44305    0  348  468.01583  170.44305  63.6%     -    2s
-#&gt;      0     0  182.28500    0  352  468.01583  182.28500  61.1%     -    2s
-#&gt; H    0     0                     454.2214760  182.28500  59.9%     -    2s
-#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    2s
-#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    2s
-#&gt;      0     2  195.12431    0  378  454.22148  195.12431  57.0%     -    2s
-#&gt; H    1     1                     423.4053090  195.12431  53.9%   0.0    2s
-#&gt; *   49     3               2     421.3259805  329.15212  21.9%  41.5    2s
+#&gt;      0     0  161.29257    0  380  468.01583  161.29257  65.5%     -    3s
+#&gt;      0     0  170.44305    0  348  468.01583  170.44305  63.6%     -    3s
+#&gt;      0     0  182.28500    0  352  468.01583  182.28500  61.1%     -    3s
+#&gt; H    0     0                     454.2214760  182.28500  59.9%     -    3s
+#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    3s
+#&gt;      0     0  194.23505    0  378  454.22148  194.23505  57.2%     -    3s
+#&gt;      0     2  195.12431    0  378  454.22148  195.12431  57.0%     -    3s
+#&gt; H    1     1                     423.4053090  195.12431  53.9%   0.0    3s
+#&gt; *   49     3               2     421.3259805  329.15212  21.9%  41.5    3s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 52 nodes (2800 simplex iterations) in 2.73 seconds
+#&gt; Explored 52 nodes (2800 simplex iterations) in 3.34 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 421.326 423.405 454.221 ... 761.801
@@ -609,7 +611,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Presolved: 581 rows, 378 columns, 1602 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.099126e+03, 223 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.099126e+03, 223 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -621,7 +623,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
 #&gt; 
-#&gt; Explored 1 nodes (267 simplex iterations) in 0.03 seconds
+#&gt; Explored 1 nodes (267 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3244.55 3513.23 15721.1 
@@ -662,7 +664,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
 #&gt; 
-#&gt; Explored 1 nodes (717 simplex iterations) in 0.28 seconds
+#&gt; Explored 1 nodes (717 simplex iterations) in 0.33 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2633.1 2881.14 11572 
@@ -692,7 +694,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 3385.78126    0   24 3824.62184 3385.78126  11.5%     -    0s
 #&gt; H    0     0                    3506.9306268 3385.78126  3.45%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (49 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (49 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3506.93 3824.62 17098.2 
@@ -877,7 +879,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.367447e+03, 811 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 8.367447e+03, 811 iterations, 0.05 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -885,7 +887,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 8367.44688    0  465 10075.9241 8367.44688  17.0%     -    0s
 #&gt; H    0     0                    9108.8765843 8367.44688  8.14%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (811 simplex iterations) in 0.07 seconds
+#&gt; Explored 1 nodes (811 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9108.88 10075.9 
@@ -906,7 +908,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Presolved: 1845 rows, 1140 columns, 5100 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 6.996298e+03, 692 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 6.996298e+03, 692 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -931,7 +933,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Cutting planes:
 #&gt;   Gomory: 9
 #&gt; 
-#&gt; Explored 1 nodes (1944 simplex iterations) in 0.77 seconds
+#&gt; Explored 1 nodes (1944 simplex iterations) in 0.92 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 7719.14 8026.64 8293.46 ... 9675.92
@@ -946,14 +948,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9985.9241439
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 3585 rows, 2010 columns, 12060 nonzeros
 #&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 2715 rows, 2010 columns, 9450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.346175e+03, 2630 iterations, 0.15 seconds
+#&gt; Root relaxation: objective 8.346175e+03, 2630 iterations, 0.18 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -961,7 +963,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 8346.17500    0  329 9985.92414 8346.17500  16.4%     -    0s
 #&gt; H    0     0                    8807.8710351 8346.17500  5.24%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (2996 simplex iterations) in 0.23 seconds
+#&gt; Explored 1 nodes (2996 simplex iterations) in 0.27 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 8807.87 9985.92 
@@ -976,14 +978,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9405.9241439
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 3585 rows, 2010 columns, 12060 nonzeros
 #&gt; Variable types: 0 continuous, 2010 integer (2010 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 2715 rows, 2010 columns, 9450 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 6.957796e+03, 2822 iterations, 0.17 seconds
+#&gt; Root relaxation: objective 6.957796e+03, 2822 iterations, 0.21 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -992,7 +994,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; H    0     0                    7880.3220201 6957.79614  11.7%     -    0s
 #&gt; H    0     0                    7585.3205877 6957.79614  8.27%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (3247 simplex iterations) in 0.32 seconds
+#&gt; Explored 1 nodes (3247 simplex iterations) in 0.38 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 7585.32 7880.32 9405.92 
@@ -1007,7 +1009,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10046.924144
-#&gt; Presolve time: 0.11s
+#&gt; Presolve time: 0.13s
 #&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
@@ -1022,7 +1024,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 8343.96746    0  835 10046.9241 8343.96746  17.0%     -    0s
 #&gt; H    0     0                    9212.6916242 8343.96746  9.43%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (2792 simplex iterations) in 0.41 seconds
+#&gt; Explored 1 nodes (2792 simplex iterations) in 0.43 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9212.69 10046.9 
@@ -1037,14 +1039,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9588.9241439
-#&gt; Presolve time: 0.10s
+#&gt; Presolve time: 0.13s
 #&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 6.879922e+03, 3019 iterations, 0.28 seconds
+#&gt; Root relaxation: objective 6.879922e+03, 3019 iterations, 0.33 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1053,7 +1055,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; H    0     0                    8207.6583757 6879.92223  16.2%     -    0s
 #&gt;      0     0 6886.40574    0 1017 8207.65838 6886.40574  16.1%     -    0s
 #&gt;      0     0 6889.44311    0 1014 8207.65838 6889.44311  16.1%     -    0s
-#&gt;      0     0 6897.13414    0 1048 8207.65838 6897.13414  16.0%     -    0s
+#&gt;      0     0 6897.13414    0 1048 8207.65838 6897.13414  16.0%     -    1s
 #&gt;      0     0 6903.32118    0 1010 8207.65838 6903.32118  15.9%     -    1s
 #&gt;      0     0 6903.36701    0 1010 8207.65838 6903.36701  15.9%     -    1s
 #&gt;      0     0 6904.78908    0 1049 8207.65838 6904.78908  15.9%     -    1s
@@ -1061,45 +1063,45 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 6910.94923    0 1111 8207.65838 6910.94923  15.8%     -    1s
 #&gt;      0     0 6912.92708    0 1108 8207.65838 6912.92708  15.8%     -    1s
 #&gt;      0     0 6913.91403    0 1107 8207.65838 6913.91403  15.8%     -    1s
-#&gt;      0     0 6916.42638    0 1101 8207.65838 6916.42638  15.7%     -    1s
-#&gt;      0     0 6916.91762    0 1100 8207.65838 6916.91762  15.7%     -    1s
+#&gt;      0     0 6916.42638    0 1101 8207.65838 6916.42638  15.7%     -    2s
+#&gt;      0     0 6916.91762    0 1100 8207.65838 6916.91762  15.7%     -    2s
 #&gt;      0     0 6917.38884    0 1100 8207.65838 6917.38884  15.7%     -    2s
 #&gt;      0     0 6918.88208    0 1096 8207.65838 6918.88208  15.7%     -    2s
 #&gt;      0     0 6919.15347    0 1020 8207.65838 6919.15347  15.7%     -    2s
 #&gt;      0     0 6919.64373    0 1019 8207.65838 6919.64373  15.7%     -    2s
 #&gt;      0     0 6920.13400    0 1018 8207.65838 6920.13400  15.7%     -    2s
-#&gt;      0     0 6920.53268    0 1010 8207.65838 6920.53268  15.7%     -    2s
-#&gt;      0     0 6921.31340    0 1011 8207.65838 6921.31340  15.7%     -    2s
-#&gt;      0     0 6921.56168    0 1047 8207.65838 6921.56168  15.7%     -    2s
+#&gt;      0     0 6920.53268    0 1010 8207.65838 6920.53268  15.7%     -    3s
+#&gt;      0     0 6921.31340    0 1011 8207.65838 6921.31340  15.7%     -    3s
+#&gt;      0     0 6921.56168    0 1047 8207.65838 6921.56168  15.7%     -    3s
 #&gt;      0     0 6922.06417    0 1047 8207.65838 6922.06417  15.7%     -    3s
 #&gt;      0     0 6922.56354    0 1046 8207.65838 6922.56354  15.7%     -    3s
 #&gt;      0     0 6923.05570    0 1033 8207.65838 6923.05570  15.7%     -    3s
 #&gt;      0     0 6923.54288    0 1034 8207.65838 6923.54288  15.6%     -    3s
-#&gt;      0     0 6924.02554    0 1041 8207.65838 6924.02554  15.6%     -    3s
-#&gt;      0     0 6924.44575    0 1054 8207.65838 6924.44575  15.6%     -    3s
-#&gt;      0     0 6924.92491    0 1046 8207.65838 6924.92491  15.6%     -    3s
-#&gt;      0     0 6925.75149    0 1048 8207.65838 6925.75149  15.6%     -    3s
+#&gt;      0     0 6924.02554    0 1041 8207.65838 6924.02554  15.6%     -    4s
+#&gt;      0     0 6924.44575    0 1054 8207.65838 6924.44575  15.6%     -    4s
+#&gt;      0     0 6924.92491    0 1046 8207.65838 6924.92491  15.6%     -    4s
+#&gt;      0     0 6925.75149    0 1048 8207.65838 6925.75149  15.6%     -    4s
 #&gt;      0     0 6927.32079    0 1041 8207.65838 6927.32079  15.6%     -    4s
 #&gt;      0     0 6929.26300    0 1032 8207.65838 6929.26300  15.6%     -    4s
 #&gt;      0     0 6929.65907    0 1036 8207.65838 6929.65907  15.6%     -    4s
-#&gt;      0     0 6931.25127    0 1029 8207.65838 6931.25127  15.6%     -    4s
-#&gt;      0     0 6932.35022    0 1037 8207.65838 6932.35022  15.5%     -    4s
-#&gt;      0     0 6933.82641    0 1017 8207.65838 6933.82641  15.5%     -    4s
-#&gt;      0     0 6934.42565    0 1041 8207.65838 6934.42565  15.5%     -    4s
-#&gt;      0     0 6935.17619    0 1042 8207.65838 6935.17619  15.5%     -    4s
-#&gt;      0     0 6935.23706    0 1035 8207.65838 6935.23706  15.5%     -    4s
+#&gt;      0     0 6931.25127    0 1029 8207.65838 6931.25127  15.6%     -    5s
+#&gt;      0     0 6932.35022    0 1037 8207.65838 6932.35022  15.5%     -    5s
+#&gt;      0     0 6933.82641    0 1017 8207.65838 6933.82641  15.5%     -    5s
+#&gt;      0     0 6934.42565    0 1041 8207.65838 6934.42565  15.5%     -    5s
+#&gt;      0     0 6935.17619    0 1042 8207.65838 6935.17619  15.5%     -    5s
+#&gt;      0     0 6935.23706    0 1035 8207.65838 6935.23706  15.5%     -    5s
 #&gt;      0     0 6937.00731    0 1026 8207.65838 6937.00731  15.5%     -    5s
 #&gt;      0     0 6937.04579    0 1021 8207.65838 6937.04579  15.5%     -    5s
 #&gt;      0     0 6937.59042    0 1017 8207.65838 6937.59042  15.5%     -    5s
-#&gt;      0     0 6937.59042    0 1017 8207.65838 6937.59042  15.5%     -    5s
-#&gt; H    0     0                    7772.2754813 6937.59042  10.7%     -    5s
-#&gt; H    0     0                    7516.9431913 6937.59042  7.71%     -    6s
+#&gt;      0     0 6937.59042    0 1017 8207.65838 6937.59042  15.5%     -    6s
+#&gt; H    0     0                    7772.2754813 6937.59042  10.7%     -    6s
+#&gt; H    0     0                    7516.9431913 6937.59042  7.71%     -    7s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
 #&gt;   Zero half: 99
 #&gt; 
-#&gt; Explored 1 nodes (5552 simplex iterations) in 6.08 seconds
+#&gt; Explored 1 nodes (5552 simplex iterations) in 7.06 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 7516.94 7772.28 8207.66 9588.92 
@@ -1114,14 +1116,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10118.924144
-#&gt; Presolve time: 0.10s
+#&gt; Presolve time: 0.12s
 #&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.569664e+03, 2956 iterations, 0.21 seconds
+#&gt; Root relaxation: objective 8.569664e+03, 2956 iterations, 0.25 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1129,7 +1131,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 8569.66432    0  836 10118.9241 8569.66432  15.3%     -    0s
 #&gt; H    0     0                    9381.9905191 8569.66432  8.66%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (3447 simplex iterations) in 0.38 seconds
+#&gt; Explored 1 nodes (3447 simplex iterations) in 0.44 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9381.99 10118.9 
@@ -1144,14 +1146,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9804.9241439
-#&gt; Presolve time: 0.11s
+#&gt; Presolve time: 0.12s
 #&gt; Presolved: 5325 rows, 2880 columns, 17280 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 4455 rows, 2880 columns, 14670 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.568330e+03, 3103 iterations, 0.25 seconds
+#&gt; Root relaxation: objective 7.568330e+03, 3103 iterations, 0.29 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1159,8 +1161,8 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 7568.33011    0 1001 9804.92414 7568.33011  22.8%     -    0s
 #&gt; H    0     0                    9244.0142847 7568.33011  18.1%     -    0s
 #&gt; H    0     0                    8544.1894455 7568.33011  11.4%     -    0s
-#&gt;      0     0 7591.58588    0 1190 8544.18945 7591.58588  11.1%     -    0s
-#&gt;      0     0 7593.30240    0 1193 8544.18945 7593.30240  11.1%     -    0s
+#&gt;      0     0 7591.58588    0 1190 8544.18945 7591.58588  11.1%     -    1s
+#&gt;      0     0 7593.30240    0 1193 8544.18945 7593.30240  11.1%     -    1s
 #&gt;      0     0 7614.90367    0 1034 8544.18945 7614.90367  10.9%     -    1s
 #&gt;      0     0 7615.08830    0 1113 8544.18945 7615.08830  10.9%     -    1s
 #&gt;      0     0 7628.17570    0 1141 8544.18945 7628.17570  10.7%     -    1s
@@ -1169,11 +1171,11 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 7644.91594    0 1200 8544.18945 7644.91594  10.5%     -    1s
 #&gt;      0     0 7655.58429    0 1216 8544.18945 7655.58429  10.4%     -    1s
 #&gt;      0     0 7655.58429    0 1217 8544.18945 7655.58429  10.4%     -    1s
-#&gt;      0     0 7660.00975    0 1226 8544.18945 7660.00975  10.3%     -    1s
-#&gt;      0     0 7660.13285    0 1229 8544.18945 7660.13285  10.3%     -    1s
-#&gt;      0     0 7667.12822    0 1227 8544.18945 7667.12822  10.3%     -    1s
-#&gt;      0     0 7667.81274    0 1237 8544.18945 7667.81274  10.3%     -    1s
-#&gt;      0     0 7667.81274    0 1238 8544.18945 7667.81274  10.3%     -    1s
+#&gt;      0     0 7660.00975    0 1226 8544.18945 7660.00975  10.3%     -    2s
+#&gt;      0     0 7660.13285    0 1229 8544.18945 7660.13285  10.3%     -    2s
+#&gt;      0     0 7667.12822    0 1227 8544.18945 7667.12822  10.3%     -    2s
+#&gt;      0     0 7667.81274    0 1237 8544.18945 7667.81274  10.3%     -    2s
+#&gt;      0     0 7667.81274    0 1238 8544.18945 7667.81274  10.3%     -    2s
 #&gt;      0     0 7680.28210    0 1151 8544.18945 7680.28210  10.1%     -    2s
 #&gt;      0     0 7681.03438    0 1195 8544.18945 7681.03438  10.1%     -    2s
 #&gt;      0     0 7681.03438    0 1196 8544.18945 7681.03438  10.1%     -    2s
@@ -1182,7 +1184,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; Cutting planes:
 #&gt;   Zero half: 141
 #&gt; 
-#&gt; Explored 1 nodes (7680 simplex iterations) in 2.17 seconds
+#&gt; Explored 1 nodes (7680 simplex iterations) in 2.65 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 8544.19 9244.01 9804.92 
@@ -1197,14 +1199,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10084.071885
-#&gt; Presolve time: 0.13s
+#&gt; Presolve time: 0.15s
 #&gt; Presolved: 6485 rows, 2880 columns, 21920 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 5615 rows, 2880 columns, 19310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 8.178938e+03, 1514 iterations, 0.20 seconds
+#&gt; Root relaxation: objective 8.178938e+03, 1514 iterations, 0.24 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1212,7 +1214,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 8178.93759    0  960 10084.0719 8178.93759  18.9%     -    0s
 #&gt; H    0     0                    9010.5140391 8178.93759  9.23%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1514 simplex iterations) in 0.42 seconds
+#&gt; Explored 1 nodes (1514 simplex iterations) in 0.52 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9010.51 10084.1 
@@ -1227,14 +1229,14 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9594.0718845
-#&gt; Presolve time: 0.14s
+#&gt; Presolve time: 0.16s
 #&gt; Presolved: 6485 rows, 2880 columns, 21920 nonzeros
 #&gt; Variable types: 0 continuous, 2880 integer (2880 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 5615 rows, 2880 columns, 19310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 6.327933e+03, 1328 iterations, 0.18 seconds
+#&gt; Root relaxation: objective 6.327933e+03, 1328 iterations, 0.21 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1243,39 +1245,39 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt; H    0     0                    8893.6505996 6327.93284  28.8%     -    0s
 #&gt; H    0     0                    8350.6178501 6327.93284  24.2%     -    0s
 #&gt;      0     0 6349.08567    0 1095 8350.61785 6349.08567  24.0%     -    0s
-#&gt;      0     0 6359.02564    0 1102 8350.61785 6359.02564  23.8%     -    0s
-#&gt;      0     0 6361.68522    0 1102 8350.61785 6361.68522  23.8%     -    0s
+#&gt;      0     0 6359.02564    0 1102 8350.61785 6359.02564  23.8%     -    1s
+#&gt;      0     0 6361.68522    0 1102 8350.61785 6361.68522  23.8%     -    1s
 #&gt;      0     0 6372.77079    0 1086 8350.61785 6372.77079  23.7%     -    1s
 #&gt;      0     0 6381.34325    0 1084 8350.61785 6381.34325  23.6%     -    1s
 #&gt;      0     0 6382.30710    0 1190 8350.61785 6382.30710  23.6%     -    1s
 #&gt;      0     0 6396.92183    0 1186 8350.61785 6396.92183  23.4%     -    1s
 #&gt;      0     0 6397.77410    0 1187 8350.61785 6397.77410  23.4%     -    1s
 #&gt;      0     0 6401.08834    0 1183 8350.61785 6401.08834  23.3%     -    1s
-#&gt;      0     0 6403.24272    0 1184 8350.61785 6403.24272  23.3%     -    2s
+#&gt;      0     0 6403.24272    0 1184 8350.61785 6403.24272  23.3%     -    1s
 #&gt;      0     0 6405.93204    0 1181 8350.61785 6405.93204  23.3%     -    2s
-#&gt;      0     0 6408.56885    0 1182 8350.61785 6408.56885  23.3%     -    3s
-#&gt;      0     0 6411.98230    0 1209 8350.61785 6411.98230  23.2%     -    3s
-#&gt;      0     0 6411.98230    0 1210 8350.61785 6411.98230  23.2%     -    3s
-#&gt;      0     0 6413.78362    0 1207 8350.61785 6413.78362  23.2%     -    4s
-#&gt;      0     0 6416.51231    0 1207 8350.61785 6416.51231  23.2%     -    4s
-#&gt;      0     0 6416.51231    0 1206 8350.61785 6416.51231  23.2%     -    5s
-#&gt;      0     0 6418.35022    0 1207 8350.61785 6418.35022  23.1%     -    5s
-#&gt;      0     0 6420.53839    0 1208 8350.61785 6420.53839  23.1%     -    6s
-#&gt;      0     0 6420.62628    0 1208 8350.61785 6420.62628  23.1%     -    6s
-#&gt; H    0     0                    8264.6239086 6420.62628  22.3%     -    6s
-#&gt;      0     0 6433.98076    0 1202 8264.62391 6433.98076  22.2%     -    6s
-#&gt;      0     0 6439.39644    0 1198 8264.62391 6439.39644  22.1%     -    6s
-#&gt;      0     0 6445.46192    0 1188 8264.62391 6445.46192  22.0%     -    7s
-#&gt;      0     0 6445.99828    0 1185 8264.62391 6445.99828  22.0%     -    7s
-#&gt;      0     0 6446.01262    0 1185 8264.62391 6446.01262  22.0%     -    7s
+#&gt;      0     0 6408.56885    0 1182 8350.61785 6408.56885  23.3%     -    2s
+#&gt;      0     0 6411.98230    0 1209 8350.61785 6411.98230  23.2%     -    2s
+#&gt;      0     0 6411.98230    0 1210 8350.61785 6411.98230  23.2%     -    2s
+#&gt;      0     0 6413.78362    0 1207 8350.61785 6413.78362  23.2%     -    2s
+#&gt;      0     0 6416.51231    0 1207 8350.61785 6416.51231  23.2%     -    3s
+#&gt;      0     0 6416.51231    0 1206 8350.61785 6416.51231  23.2%     -    3s
+#&gt;      0     0 6418.35022    0 1207 8350.61785 6418.35022  23.1%     -    3s
+#&gt;      0     0 6420.53839    0 1208 8350.61785 6420.53839  23.1%     -    3s
+#&gt;      0     0 6420.62628    0 1208 8350.61785 6420.62628  23.1%     -    3s
+#&gt; H    0     0                    8264.6239086 6420.62628  22.3%     -    3s
+#&gt;      0     0 6433.98076    0 1202 8264.62391 6433.98076  22.2%     -    4s
+#&gt;      0     0 6439.39644    0 1198 8264.62391 6439.39644  22.1%     -    4s
+#&gt;      0     0 6445.46192    0 1188 8264.62391 6445.46192  22.0%     -    4s
+#&gt;      0     0 6445.99828    0 1185 8264.62391 6445.99828  22.0%     -    4s
+#&gt;      0     0 6446.01262    0 1185 8264.62391 6446.01262  22.0%     -    4s
+#&gt;      0     0 6446.29655    0 1196 8264.62391 6446.29655  22.0%     -    4s
 #&gt;      0     0 6446.29655    0 1196 8264.62391 6446.29655  22.0%     -    7s
-#&gt;      0     0 6446.29655    0 1196 8264.62391 6446.29655  22.0%     -   11s
-#&gt; H    0     0                    7792.1822762 6446.29655  17.3%     -   11s
-#&gt; H    0     0                    7749.6342428 6446.29655  16.8%     -   12s
-#&gt;      0     0 6906.28153    0  837 7749.63424 6906.28153  10.9%     -   12s
-#&gt; H    0     0                    7633.8881941 6906.28153  9.53%     -   13s
+#&gt; H    0     0                    7792.1822762 6446.29655  17.3%     -    8s
+#&gt; H    0     0                    7749.6342428 6446.29655  16.8%     -    8s
+#&gt;      0     0 6906.28153    0  837 7749.63424 6906.28153  10.9%     -    8s
+#&gt; H    0     0                    7633.8881941 6906.28153  9.53%     -    9s
 #&gt; 
-#&gt; Explored 1 nodes (5858 simplex iterations) in 13.52 seconds
+#&gt; Explored 1 nodes (5858 simplex iterations) in 9.55 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 7633.89 7749.63 7792.18 ... 9594.07
@@ -1343,7 +1345,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 9930.9241439
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 1479 rows, 957 columns, 4412 nonzeros
 #&gt; Variable types: 0 continuous, 957 integer (957 binary)
 #&gt; Presolve removed 22 rows and 0 columns
@@ -1358,19 +1360,19 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 #&gt;      0     0 7525.78580    0  737 9930.92414 7525.78580  24.2%     -    0s
 #&gt; H    0     0                    9151.9154000 7525.78580  17.8%     -    0s
 #&gt; H    0     0                    8732.2878572 7525.78580  13.8%     -    0s
-#&gt;      0     0 7536.84587    0  730 8732.28786 7536.84587  13.7%     -    3s
-#&gt; H    0     0                    8729.6386402 7536.84587  13.7%     -    4s
-#&gt;      0     0 7542.07300    0  687 8729.63864 7542.07300  13.6%     -    4s
-#&gt;      0     0 7555.50875    0  738 8729.63864 7555.50875  13.4%     -    5s
-#&gt;      0     0 7555.60253    0  738 8729.63864 7555.60253  13.4%     -    5s
-#&gt;      0     0 7555.60253    0  737 8729.63864 7555.60253  13.4%     -    5s
-#&gt; H    0     0                    8344.7530888 7555.60253  9.46%     -    6s
+#&gt;      0     0 7536.84587    0  730 8732.28786 7536.84587  13.7%     -    1s
+#&gt; H    0     0                    8729.6386402 7536.84587  13.7%     -    1s
+#&gt;      0     0 7542.07300    0  687 8729.63864 7542.07300  13.6%     -    1s
+#&gt;      0     0 7555.50875    0  738 8729.63864 7555.50875  13.4%     -    1s
+#&gt;      0     0 7555.60253    0  738 8729.63864 7555.60253  13.4%     -    1s
+#&gt;      0     0 7555.60253    0  737 8729.63864 7555.60253  13.4%     -    1s
+#&gt; H    0     0                    8344.7530888 7555.60253  9.46%     -    2s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt;   Zero half: 13
 #&gt; 
-#&gt; Explored 1 nodes (1995 simplex iterations) in 6.77 seconds
+#&gt; Explored 1 nodes (1995 simplex iterations) in 2.28 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 8344.75 8729.64 8732.29 ... 9930.92
@@ -1403,7 +1405,7 @@ conservation, <em>Conservation Letters</em>, 3: 359--368.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

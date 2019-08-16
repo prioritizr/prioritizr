@@ -39,6 +39,8 @@
 <meta property="og:title" content="Solve — solve" />
 
 <meta property="og:description" content="Solve a conservation planning problem." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -292,7 +294,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
 #&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1985.68 2337.96 
@@ -312,7 +314,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1985.682 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.005822182 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.002876997 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
@@ -352,7 +354,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
 #&gt; H    0     0                    1785.5315740 1732.56396  2.97%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1785.53 2145.27 
@@ -548,7 +550,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

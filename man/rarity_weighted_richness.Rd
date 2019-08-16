@@ -58,9 +58,9 @@ Rarity weighted richness scores are calculated using the following
   richness (\emph{RWR}) for planning unit \eqn{k}:
 
   \deqn{
-  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{1}{ \sum_{i}^{I} r_{ij} }
+  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{r_{kj}}{\sum_{i}^{I} r_{ij}}
   }{
-  RWRk = sum_j^J (1 / sum_i^I rij)
+  RWRk = sum_j^J (rkj / sum_i^I rij)
   }
 
   Note that all arguments to \code{solution} must correspond

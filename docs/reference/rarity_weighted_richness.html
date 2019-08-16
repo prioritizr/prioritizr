@@ -48,6 +48,8 @@ time. This is because rarity weighted richness scores cannot (i) account for
 the cost of different planning units, (ii) account for multiple management
 zones, and (iii) identify truly irreplaceable planning units---unlike the
 replacement cost metric which does not suffer any of these limitations." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -235,7 +237,7 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></td>
   associated with planning unit \(i\). To calculate the rarity weighted
   richness (<em>RWR</em>) for planning unit \(k\):</p>
 <p>$$
-  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{1}{ \sum_{i}^{I} r_{ij} }
+  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{r_{kj}}{\sum_{i}^{I} r_{ij}}
   $$</p>
 <p>Note that all arguments to <code>solution</code> must correspond
   to the planning unit data in the argument to <code>x</code> in terms
@@ -315,7 +317,7 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 #&gt; crs        : NA 
 #&gt; source     : memory
 #&gt; names      : layer 
-#&gt; values     : 0, 0  (min, max)
+#&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
 <span class='co'># plot irreplaceability scores</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>rwr1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"rarity weighted richness"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='rarity_weighted_richness-2.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -342,7 +344,7 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">
