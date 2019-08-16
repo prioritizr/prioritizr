@@ -49,7 +49,7 @@ This strategy for generating a portfolio requires problems to
 }
 \examples{
 # set seed for reproducibility
-set.seed(500)
+set.seed(600)
 
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
@@ -57,9 +57,9 @@ data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 # create minimal problem with pool portfolio
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.2) \%>\%
+      add_relative_targets(0.05) \%>\%
       add_pool_portfolio() \%>\%
-      add_default_solver(gap = 0.02, verbose = FALSE)
+      add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem
 s1 <- solve(p1)
@@ -73,7 +73,7 @@ plot(stack(s1), axes = FALSE, box = FALSE)
 # create minimal problem with pool portfolio and find the top 5 solutions
 p2 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.5) \%>\%
+      add_relative_targets(0.05) \%>\%
       add_pool_portfolio(method = 2, number_solutions = 5) \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
 
@@ -89,11 +89,11 @@ plot(stack(s2), axes = FALSE, box = FALSE)
 # build multi-zone conservation problem with pool portfolio
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+      add_relative_targets(matrix(runif(15, 0.01, 0.05), nrow = 5,
                                   ncol = 3)) \%>\%
       add_binary_decisions() \%>\%
       add_pool_portfolio() \%>\%
-      add_default_solver(gap = 0.02, verbose = FALSE)
+      add_default_solver(gap = 0, verbose = FALSE)
 
 # solve the problem
 s3 <- solve(p3)
