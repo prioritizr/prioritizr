@@ -96,20 +96,21 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
      nr = 2)
 ```
 
-Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)).
+Let's say that we want to develop a reserve network that will secure 15% of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 15% ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)), and specify that we want to want optimal solutions from the best solver installed on our system ([`add_default_solver`](https://prioritizr.net/reference/add_default_solver.html)).
 
 ```{r}
 # create problem
 p1 <- problem(sim_pu_polygons, features = sim_features,
               cost_column = "cost") %>%
       add_min_set_objective() %>%
-      add_relative_targets(0.2) %>%
-      add_binary_decisions()
+      add_relative_targets(0.15) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0)
 ```
 
 After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, _prioritizr_ will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the _gurobi_ _R_ package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation.html)**
 
-```{r, fig.height = h, fig.width = w, out.width = ow}
+```{r "minimal_solution", fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
 s1 <- solve(p1)
 
@@ -123,57 +124,81 @@ print(attr(s1, "runtime"))
 print(attr(s1, "status"))
 
 # plot the solution
-s1$solution_1 <- factor(s1$solution_1)
-spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s1, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
 
-```{r, fig.height = h, fig.width = w, out.width = ow}
+```{r "locked_in_constraints", fig.height = h, fig.width = w, out.width = ow}
 # create new problem with locked in constraints added to it
-p2 <- p1 %>% add_locked_in_constraints("locked_in")
+p2 <- p1 %>%
+      add_locked_in_constraints("locked_in")
 
 # solve the problem
 s2 <- solve(p2)
 
 # plot the solution
-s2$solution_1 <- factor(s2$solution_1)
-spplot(s2, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s2, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
+This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 300 (i.e. boundary length modifier; BLM), and an edge factor of 50% so that planning units that occur outer edge of the study area are not overly penalized.
 
-```{r, fig.height = h, fig.width = w, out.width = ow}
+```{r "boundary_penalties", fig.height = h, fig.width = w, out.width = ow}
 # create new problem with boundary penalties added to it
-p3 <- p2 %>% add_boundary_penalties(penalty = 500, edge_factor = 0.5)
+p3 <- p2 %>%
+      add_boundary_penalties(penalty = 300, edge_factor = 0.5)
 
 # solve the problem
 s3 <- solve(p3)
 
 # plot the solution
-s3$solution_1 <- factor(s3$solution_1)
-spplot(s3, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s3, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
 This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.net/reference/add_contiguity_constraints.html)).
 
-```{r, fig.height = h, fig.width = w, out.width = ow}
+```{r "contiguity_constraints", fig.height = h, fig.width = w, out.width = ow}
 # create new problem with contiguity constraints
-p4 <- p3 %>% add_contiguity_constraints()
+p4 <- p3 %>%
+      add_contiguity_constraints()
 
 # solve the problem
 s4 <- solve(p4)
 
 # plot the solution
-s4$solution_1 <- factor(s4$solution_1)
-spplot(s4, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-This short example demonstrates how the _prioritizr R_ package can be used to build a minimal conservation problem, and how constraints and penalties can be iteratively added to the problem to obtain a solution. Although we explored just a few different functions for modifying the a conservation problem, the _prioritizr R_ package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
+After generating this prioritization, we can calculate irreplaceability scores for the planning units selected in the solution. Here we will use the replacement cost metric to calculate these scores. This metric tells us which planning units are important for meeting our targets as cost-effectively as possible. Planning units with higher scores are more irreplaceable than those with lower scores, and planning units with infinite scores are critical for meeting the targets. Note that we override the solver behavior so that it doesn't produce a lot of unnecessary text.
+
+```{r "replacement_cost", fig.height = h, fig.width = w, out.width = ow}
+# solve the problem
+rc <- p4 %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      replacement_cost(s4[, "solution_1"])
+
+# set infinite values as 1.09 so we can plot them
+rc$rc[rc$rc > 100] <- 1.09
+
+# plot the irreplaceability scores
+# planning units that are replaceable are shown in purple, blue, green, and
+# yellow, and planning units that are truly irreplaceable are shown in red
+spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1), at = c(seq(0, 0.9, 0.1), 1.01, 1.1),
+       col.regions = c("#440154", "#482878", "#3E4A89", "#31688E", "#26828E",
+                       "#1F9E89", "#35B779", "#6DCD59", "#B4DE2C", "#FDE725",
+                       "#FF0000"))
+```
+
+This short example demonstrates how the _prioritizr R_ package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how irreplaceability scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the _prioritizr R_ package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
 
 ## Getting help
 

@@ -93,15 +93,16 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;" />
 
-Let's say that we want to develop a reserve network that will secure 20 % of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 20 % ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), and binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)).
+Let's say that we want to develop a reserve network that will secure 15% of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 15% ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)), and specify that we want to want optimal solutions from the best solver installed on our system ([`add_default_solver`](https://prioritizr.net/reference/add_default_solver.html)).
 
 ``` r
 # create problem
 p1 <- problem(sim_pu_polygons, features = sim_features,
               cost_column = "cost") %>%
       add_min_set_objective() %>%
-      add_relative_targets(0.2) %>%
-      add_binary_decisions()
+      add_relative_targets(0.15) %>%
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0)
 ```
 
 After we have built a [`problem`](https://prioritizr.net/reference/problem.html), we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, *prioritizr* will automatically use the best solver currently installed. **It is strongly encouraged to install the [Gurobi software suite and the *gurobi* *R* package to solve problems quickly](http://gurobi.com), for more information on this please refer to the [Gurobi Installation Guide](https://prioritizr.net/articles/gurobi_installation.html)**
@@ -117,29 +118,52 @@ s1 <- solve(p1)
     ##   Matrix range     [2e-01, 9e-01]
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 3934.6218396
+    ##   RHS range        [4e+00, 1e+01]
+    ## Found heuristic solution: objective 3139.8880309
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## Variable types: 0 continuous, 90 integer (90 binary)
     ## Presolved: 5 rows, 90 columns, 450 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
+    ## Root relaxation: objective 2.611170e+03, 13 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
-    ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
+    ##      0     0 2611.17006    0    4 3139.88803 2611.17006  16.8%     -    0s
+    ## H    0     0                    2770.9863254 2611.17006  5.77%     -    0s
+    ## H    0     0                    2763.6685938 2611.17006  5.52%     -    0s
+    ##      0     0 2611.74321    0    5 2763.66859 2611.74321  5.50%     -    0s
+    ## H    0     0                    2757.1834439 2611.74321  5.27%     -    0s
+    ##      0     0 2611.83195    0    6 2757.18344 2611.83195  5.27%     -    0s
+    ##      0     0 2611.88195    0    7 2757.18344 2611.88195  5.27%     -    0s
+    ##      0     0 2611.94509    0    7 2757.18344 2611.94509  5.27%     -    0s
+    ##      0     0 2611.95916    0    8 2757.18344 2611.95916  5.27%     -    0s
+    ##      0     0 2612.11731    0    9 2757.18344 2612.11731  5.26%     -    0s
+    ##      0     0 2612.15193    0    9 2757.18344 2612.15193  5.26%     -    0s
+    ##      0     0 2612.32632    0    9 2757.18344 2612.32632  5.25%     -    0s
+    ##      0     0 2612.36536    0   10 2757.18344 2612.36536  5.25%     -    0s
+    ##      0     0 2612.43206    0   10 2757.18344 2612.43206  5.25%     -    0s
+    ##      0     0 2612.45076    0   10 2757.18344 2612.45076  5.25%     -    0s
+    ##      0     0 2612.51779    0    9 2757.18344 2612.51779  5.25%     -    0s
+    ##      0     2 2612.67761    0    9 2757.18344 2612.67761  5.24%     -    0s
+    ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    0s
+    ##  100399 59306 2669.04537   91    2 2747.37746 2622.35453  4.55%   1.6    5s
+    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    8s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
+    ## Cutting planes:
+    ##   Gomory: 2
+    ##   MIR: 7
+    ##   Flow cover: 2
+    ## 
+    ## Explored 189518 nodes (316635 simplex iterations) in 9.44 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 2: 3585.96 3934.62 
+    ## Solution count 6: 2627.64 2747.38 2757.18 ... 3139.89
     ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%
+    ## Optimal solution found (tolerance 0.00e+00)
+    ## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%
 
 ``` r
 # extract the objective (cost of solution in this case)
@@ -147,15 +171,15 @@ print(attr(s1, "objective"))
 ```
 
     ## solution_1 
-    ##    3585.96
+    ##   2627.639
 
 ``` r
 # extract time spent solving the problem
 print(attr(s1, "runtime"))
 ```
 
-    ##  solution_1 
-    ## 0.001587868
+    ## solution_1 
+    ##   9.444033
 
 ``` r
 # extract state message from the solver
@@ -167,18 +191,19 @@ print(attr(s1, "status"))
 
 ``` r
 # plot the solution
-s1$solution_1 <- factor(s1$solution_1)
-spplot(s1, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s1, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-minimal_solution-1.png" width="400" style="display: block; margin: auto;" />
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
 
 ``` r
 # create new problem with locked in constraints added to it
-p2 <- p1 %>% add_locked_in_constraints("locked_in")
+p2 <- p1 %>%
+      add_locked_in_constraints("locked_in")
 
 # solve the problem
 s2 <- solve(p2)
@@ -190,8 +215,8 @@ s2 <- solve(p2)
     ##   Matrix range     [2e-01, 9e-01]
     ##   Objective range  [2e+02, 2e+02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 4017.6427161
+    ##   RHS range        [4e+00, 1e+01]
+    ## Found heuristic solution: objective 3027.6970854
     ## Presolve removed 0 rows and 10 columns
     ## Presolve time: 0.00s
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
@@ -199,36 +224,72 @@ s2 <- solve(p2)
     ## Presolved: 5 rows, 80 columns, 400 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 3.610717e+03, 15 iterations, 0.00 seconds
+    ## Root relaxation: objective 2.754438e+03, 12 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-    ## H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+    ##      0     0 2754.43796    0    4 3027.69709 2754.43796  9.03%     -    0s
+    ## H    0     0                    2839.1208991 2754.43796  2.98%     -    0s
+    ##      0     0 2754.44157    0    5 2839.12090 2754.44157  2.98%     -    0s
+    ##      0     0 2835.61695    0    3 2839.12090 2835.61695  0.12%     -    0s
+    ##      0     0 2835.66921    0    3 2839.12090 2835.66921  0.12%     -    0s
+    ##      0     0 2835.66921    0    3 2839.12090 2835.66921  0.12%     -    0s
+    ##      0     0 2835.66921    0    3 2839.12090 2835.66921  0.12%     -    0s
+    ##      0     0 2836.21899    0    4 2839.12090 2836.21899  0.10%     -    0s
+    ##      0     0 2836.33448    0    5 2839.12090 2836.33448  0.10%     -    0s
+    ##      0     0 2836.49814    0    5 2839.12090 2836.49814  0.09%     -    0s
+    ##      0     0 2836.77716    0    6 2839.12090 2836.77716  0.08%     -    0s
+    ##      0     0 2836.82966    0    7 2839.12090 2836.82966  0.08%     -    0s
+    ##      0     0 2836.87897    0    7 2839.12090 2836.87897  0.08%     -    0s
+    ##      0     0 2836.88941    0    7 2839.12090 2836.88941  0.08%     -    0s
+    ##      0     0 2836.89055    0    8 2839.12090 2836.89055  0.08%     -    0s
+    ##      0     0 2836.95465    0    8 2839.12090 2836.95465  0.08%     -    0s
+    ##      0     0 2836.95837    0    8 2839.12090 2836.95837  0.08%     -    0s
+    ##      0     0 2837.22974    0    8 2839.12090 2837.22974  0.07%     -    0s
+    ##      0     0 2837.24568    0    7 2839.12090 2837.24568  0.07%     -    0s
+    ##      0     0 2837.31532    0    9 2839.12090 2837.31532  0.06%     -    0s
+    ##      0     0 2837.36017    0   10 2839.12090 2837.36017  0.06%     -    0s
+    ##      0     0 2837.38138    0    8 2839.12090 2837.38138  0.06%     -    0s
+    ##      0     0 2837.39696    0   11 2839.12090 2837.39696  0.06%     -    0s
+    ##      0     0 2837.40036    0   12 2839.12090 2837.40036  0.06%     -    0s
+    ##      0     0 2837.47861    0    9 2839.12090 2837.47861  0.06%     -    0s
+    ## H    0     0                    2838.2640999 2837.47861  0.03%     -    0s
+    ##      0     0 2837.59896    0    9 2838.26410 2837.59896  0.02%     -    0s
+    ##      0     0 2837.64565    0    9 2838.26410 2837.64565  0.02%     -    0s
+    ##      0     0 2837.66216    0    9 2838.26410 2837.66216  0.02%     -    0s
+    ##      0     0 2837.66722    0   10 2838.26410 2837.66722  0.02%     -    0s
+    ##      0     0 2837.67791    0   10 2838.26410 2837.67791  0.02%     -    0s
+    ##      0     0 2837.91263    0    5 2838.26410 2837.91263  0.01%     -    0s
+    ##      0     0 infeasible    0      2838.26410 2838.26410  0.00%     -    0s
     ## 
-    ## Explored 1 nodes (15 simplex iterations) in 0.00 seconds
+    ## Cutting planes:
+    ##   MIR: 4
+    ##   StrongCG: 1
+    ## 
+    ## Explored 1 nodes (82 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 2: 3649.38 4017.64 
+    ## Solution count 3: 2838.26 2839.12 3027.7 
     ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%
+    ## Optimal solution found (tolerance 0.00e+00)
+    ## Best objective 2.838264099909e+03, best bound 2.838264099909e+03, gap 0.0000%
 
 ``` r
 # plot the solution
-s2$solution_1 <- factor(s2$solution_1)
-spplot(s2, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s2, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-locked_in_constraints-1.png" width="400" style="display: block; margin: auto;" />
 
-This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 1 (i.e. boundary length modifier; BLM), and an edge factor of 50 % so that planning units that occur outer edge of the study area are not overly penalized.
+This solution is an improvement over the previous solution. However, it is also highly fragmented. As a consequence, this solution may be associated with increased management costs and the species in this scenario may not benefit substantially from this solution due to edge effects. We can further modify the problem by adding penalties that punish overly fragmented solutions ([`add_boundary_penalties`](https://prioritizr.net/reference/add_boundary_penalties.html)). Here we will use a penalty factor of 300 (i.e. boundary length modifier; BLM), and an edge factor of 50% so that planning units that occur outer edge of the study area are not overly penalized.
 
 ``` r
 # create new problem with boundary penalties added to it
-p3 <- p2 %>% add_boundary_penalties(penalty = 500, edge_factor = 0.5)
+p3 <- p2 %>%
+      add_boundary_penalties(penalty = 300, edge_factor = 0.5)
 
 # solve the problem
 s3 <- solve(p3)
@@ -238,11 +299,11 @@ s3 <- solve(p3)
     ## Variable types: 0 continuous, 234 integer (234 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-01, 1e+00]
-    ##   Objective range  [1e+02, 4e+02]
+    ##   Objective range  [6e+01, 3e+02]
     ##   Bounds range     [1e+00, 1e+00]
-    ##   RHS range        [6e+00, 1e+01]
-    ## Found heuristic solution: objective 20287.196992
-    ## Found heuristic solution: objective 6442.6427161
+    ##   RHS range        [4e+00, 1e+01]
+    ## Found heuristic solution: objective 19567.196992
+    ## Found heuristic solution: objective 4347.6970854
     ## Presolve removed 72 rows and 46 columns
     ## Presolve time: 0.00s
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -250,36 +311,63 @@ s3 <- solve(p3)
     ## Presolved: 221 rows, 188 columns, 832 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 5.422008e+03, 121 iterations, 0.00 seconds
+    ## Root relaxation: objective 3.862929e+03, 120 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 5422.00754    0   57 6442.64272 5422.00754  15.8%     -    0s
-    ## H    0     0                    5788.7291519 5422.00754  6.34%     -    0s
+    ##      0     0 3862.92934    0   65 4347.69709 3862.92934  11.1%     -    0s
+    ## H    0     0                    3963.8685826 3862.92934  2.55%     -    0s
+    ## H    0     0                    3951.7528370 3862.92934  2.25%     -    0s
+    ##      0     0 3885.08664    0   65 3951.75284 3885.08664  1.69%     -    0s
+    ## H    0     0                    3948.5328261 3885.08664  1.61%     -    0s
+    ##      0     0 3889.41281    0   41 3948.53283 3889.41281  1.50%     -    0s
+    ##      0     0 3895.26772    0   67 3948.53283 3895.26772  1.35%     -    0s
+    ##      0     0 3895.26772    0   33 3948.53283 3895.26772  1.35%     -    0s
+    ## H    0     0                    3946.8920000 3895.26772  1.31%     -    0s
+    ##      0     0 3895.26772    0   23 3946.89200 3895.26772  1.31%     -    0s
+    ##      0     0 3895.26772    0   34 3946.89200 3895.26772  1.31%     -    0s
+    ##      0     0 3900.67120    0   33 3946.89200 3900.67120  1.17%     -    0s
+    ##      0     0 3900.93350    0   28 3946.89200 3900.93350  1.16%     -    0s
+    ##      0     0 3912.18222    0   24 3946.89200 3912.18222  0.88%     -    0s
+    ##      0     0 3912.18222    0   23 3946.89200 3912.18222  0.88%     -    0s
+    ## H    0     0                    3939.6015361 3912.18222  0.70%     -    0s
+    ##      0     0 3912.18222    0    9 3939.60154 3912.18222  0.70%     -    0s
+    ##      0     0 3920.23973    0   10 3939.60154 3920.23973  0.49%     -    0s
+    ##      0     0 3921.61905    0   10 3939.60154 3921.61905  0.46%     -    0s
+    ##      0     0 3922.01353    0   10 3939.60154 3922.01353  0.45%     -    0s
+    ##      0     0 3922.15375    0   10 3939.60154 3922.15375  0.44%     -    0s
+    ##      0     0 3926.58057    0   11 3939.60154 3926.58057  0.33%     -    0s
+    ##      0     0 3931.06911    0    6 3939.60154 3931.06911  0.22%     -    0s
+    ##      0     0 3931.06911    0    6 3939.60154 3931.06911  0.22%     -    0s
     ## 
-    ## Explored 1 nodes (121 simplex iterations) in 0.01 seconds
+    ## Cutting planes:
+    ##   Gomory: 1
+    ##   MIR: 1
+    ## 
+    ## Explored 1 nodes (301 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 3: 5788.73 6442.64 20287.2 
+    ## Solution count 7: 3939.6 3946.89 3948.53 ... 19567.2
     ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 5.788729151856e+03, best bound 5.422007536970e+03, gap 6.3351%
+    ## Optimal solution found (tolerance 0.00e+00)
+    ## Best objective 3.939601536145e+03, best bound 3.939601536145e+03, gap 0.0000%
 
 ``` r
 # plot the solution
-s3$solution_1 <- factor(s3$solution_1)
-spplot(s3, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s3, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-13-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-boundary_penalties-1.png" width="400" style="display: block; margin: auto;" />
 
 This solution is even better then the previous solution. However, we are not finished yet. This solution does not maintain connectivity between reserves, and so species may have limited capacity to disperse throughout the solution. To avoid this, we can add contiguity constraints ([`add_contiguity_constraints`](https://prioritizr.net/reference/add_contiguity_constraints.html)).
 
 ``` r
 # create new problem with contiguity constraints
-p4 <- p3 %>% add_contiguity_constraints()
+p4 <- p3 %>%
+      add_contiguity_constraints()
 
 # solve the problem
 s4 <- solve(p4)
@@ -289,44 +377,83 @@ s4 <- solve(p4)
     ## Variable types: 0 continuous, 506 integer (506 binary)
     ## Coefficient statistics:
     ##   Matrix range     [2e-01, 1e+00]
-    ##   Objective range  [1e+02, 4e+02]
+    ##   Objective range  [6e+01, 3e+02]
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
-    ## Presolve removed 322 rows and 240 columns
+    ## Presolve removed 340 rows and 252 columns
     ## Presolve time: 0.01s
-    ## Presolved: 332 rows, 266 columns, 1065 nonzeros
-    ## Variable types: 0 continuous, 266 integer (266 binary)
-    ## Found heuristic solution: objective 8340.7813359
-    ## Found heuristic solution: objective 7217.7464903
-    ## Presolved: 332 rows, 266 columns, 1065 nonzeros
+    ## Presolved: 314 rows, 254 columns, 702 nonzeros
+    ## Variable types: 0 continuous, 254 integer (254 binary)
+    ## Found heuristic solution: objective 7270.1195351
+    ## Found heuristic solution: objective 6070.2074533
+    ## Presolved: 314 rows, 254 columns, 702 nonzeros
     ## 
     ## 
-    ## Root relaxation: objective 6.438131e+03, 85 iterations, 0.00 seconds
+    ## Root relaxation: objective 5.489159e+03, 69 iterations, 0.00 seconds
     ## 
     ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
     ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
     ## 
-    ##      0     0 6438.13080    0   59 7217.74649 6438.13080  10.8%     -    0s
-    ## H    0     0                    6908.4184908 6438.13080  6.81%     -    0s
+    ##      0     0 5489.15943    0   59 6070.20745 5489.15943  9.57%     -    0s
+    ## H    0     0                    5859.8468810 5489.15943  6.33%     -    0s
+    ## H    0     0                    5858.4184908 5489.15943  6.30%     -    0s
+    ##      0     0 5697.13650    0   46 5858.41849 5697.13650  2.75%     -    0s
+    ##      0     0 5697.13650    0   49 5858.41849 5697.13650  2.75%     -    0s
+    ##      0     0 5711.59091    0   35 5858.41849 5711.59091  2.51%     -    0s
+    ##      0     0 5731.33260    0   39 5858.41849 5731.33260  2.17%     -    0s
+    ##      0     0 5731.37109    0   40 5858.41849 5731.37109  2.17%     -    0s
+    ## *    0     0               0    5858.4183883 5858.41839  0.00%     -    0s
     ## 
-    ## Explored 1 nodes (139 simplex iterations) in 0.02 seconds
+    ## Cutting planes:
+    ##   Gomory: 5
+    ##   Zero half: 6
+    ## 
+    ## Explored 1 nodes (259 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
-    ## Solution count 3: 6908.42 7217.75 8340.78 
+    ## Solution count 5: 5858.42 5858.42 5859.85 ... 7270.12
+    ## No other solutions better than 5858.42
     ## 
-    ## Optimal solution found (tolerance 1.00e-01)
-    ## Best objective 6.908418490821e+03, best bound 6.438130802719e+03, gap 6.8075%
+    ## Optimal solution found (tolerance 0.00e+00)
+    ## Best objective 5.858418387501e+03, best bound 5.858418387501e+03, gap 0.0000%
 
 ``` r
 # plot the solution
-s4$solution_1 <- factor(s4$solution_1)
-spplot(s4, "solution_1", col.regions = c('grey90', 'darkgreen'),
-       main = "Solution", xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
+spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
+       col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-14-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-contiguity_constraints-1.png" width="400" style="display: block; margin: auto;" />
 
-This short example demonstrates how the *prioritizr R* package can be used to build a minimal conservation problem, and how constraints and penalties can be iteratively added to the problem to obtain a solution. Although we explored just a few different functions for modifying the a conservation problem, the *prioritizr R* package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
+After generating this prioritization, we can calculate irreplaceability scores for the planning units selected in the solution. Here we will use the replacement cost metric to calculate these scores. This metric tells us which planning units are important for meeting our targets as cost-effectively as possible. Planning units with higher scores are more irreplaceable than those with lower scores, and planning units with infinite scores are critical for meeting the targets. Note that we override the solver behavior so that it doesn't produce a lot of unnecessary text.
+
+``` r
+# solve the problem
+rc <- p4 %>%
+      add_default_solver(gap = 0, verbose = FALSE) %>%
+      replacement_cost(s4[, "solution_1"])
+```
+
+    ## Warning in res(x, ...): overwriting previously defined solver
+
+``` r
+# set infinite values as 1.09 so we can plot them
+rc$rc[rc$rc > 100] <- 1.09
+
+# plot the irreplaceability scores
+# planning units that are replaceable are shown in purple, blue, green, and
+# yellow, and planning units that are truly irreplaceable are shown in red
+spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
+       ylim = c(-0.1, 1.1), at = c(seq(0, 0.9, 0.1), 1.01, 1.1),
+       col.regions = c("#440154", "#482878", "#3E4A89", "#31688E", "#26828E",
+                       "#1F9E89", "#35B779", "#6DCD59", "#B4DE2C", "#FDE725",
+                       "#FF0000"))
+```
+
+<img src="man/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;" />
+
+This short example demonstrates how the *prioritizr R* package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how irreplaceability scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the *prioritizr R* package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
 
 Getting help
 ------------

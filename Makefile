@@ -17,6 +17,7 @@ man:
 
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
+	cp docs/logo.png man/figures
 
 contrib:
 	R --slave -e "rmarkdown::render('CONTRIBUTING.Rmd')"
