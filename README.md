@@ -149,16 +149,16 @@ s1 <- solve(p1)
     ##      0     0 2612.51779    0    9 2757.18344 2612.51779  5.25%     -    0s
     ##      0     2 2612.67761    0    9 2757.18344 2612.67761  5.24%     -    0s
     ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    1s
-    ##  82017 47089 2626.82601   50    4 2747.37746 2621.99645  4.56%   1.6    5s
-    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    9s
-    ##  173309  8653 2623.47180   39    5 2627.63893 2623.40150  0.16%   1.6   10s
+    ##  78766 44940 2688.09411  104    1 2747.37746 2621.92719  4.57%   1.6    5s
+    ##  157512 96432     cutoff   50      2747.37746 2623.19165  4.52%   1.6   10s
+    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6   11s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
     ##   MIR: 7
     ##   Flow cover: 2
     ## 
-    ## Explored 189518 nodes (316635 simplex iterations) in 11.12 seconds
+    ## Explored 189518 nodes (316635 simplex iterations) in 12.24 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2757.18 ... 3139.89
@@ -180,7 +180,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   11.11555
+    ##   12.24227
 
 ``` r
 # extract state message from the solver
@@ -346,7 +346,7 @@ s3 <- solve(p3)
     ##   Gomory: 1
     ##   MIR: 1
     ## 
-    ## Explored 1 nodes (301 simplex iterations) in 0.05 seconds
+    ## Explored 1 nodes (301 simplex iterations) in 0.06 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 7: 3939.6 3946.89 3948.53 ... 19567.2
@@ -427,7 +427,7 @@ spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
 
 <img src="man/figures/README-contiguity_constraints-1.png" width="400" style="display: block; margin: auto;" />
 
-After generating this prioritization, we can calculate irreplaceability scores for the planning units selected in the solution. Here we will use the replacement cost metric to calculate these scores. This metric tells us which planning units are important for meeting our targets as cost-effectively as possible. Planning units with higher scores are more irreplaceable than those with lower scores, and planning units with infinite scores are critical for meeting the targets. Note that we override the solver behavior so that it doesn't produce a lot of unnecessary text.
+Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate irreplaceability scores using the replacement cost method. Under this method, planning units with higher scores are more irreplaceable than those with lower scores. Furthermore, planning units with infinite scores are critical---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
 
 ``` r
 # solve the problem

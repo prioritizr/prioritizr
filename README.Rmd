@@ -177,7 +177,7 @@ spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
        ylim = c(-0.1, 1.1))
 ```
 
-After generating this prioritization, we can calculate irreplaceability scores for the planning units selected in the solution. Here we will use the replacement cost metric to calculate these scores. This metric tells us which planning units are important for meeting our targets as cost-effectively as possible. Planning units with higher scores are more irreplaceable than those with lower scores, and planning units with infinite scores are critical for meeting the targets. Note that we override the solver behavior so that it doesn't produce a lot of unnecessary text.
+Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate irreplaceability scores using the replacement cost method. Under this method, planning units with higher scores are more irreplaceable than those with lower scores. Furthermore, planning units with infinite scores are critical---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
 
 ```{r "replacement_cost", fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
