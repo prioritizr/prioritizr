@@ -4,11 +4,11 @@ NULL
 #' Rarity weighted richness
 #'
 #' Calculate irreplaceability scores for planning units selected in a solution
-#' using rarity weighted richness (Williams \emph{et al.} 1996). Please
+#' using rarity weighted richness (based on Williams \emph{et al.} 1996). Please
 #' note that this method is only recommended for large-scaled conservation
 #' planning exercises (i.e. more than 100'000 planning units) where
 #' irreplaceability scores cannot be calculated using the replacement cost
-#' method (\code{\link{rarity_weighted_richness}}) in a feasible period of
+#' method (\code{\link{replacement_cost}}) in a feasible period of
 #' time. This is because rarity weighted richness scores cannot (i) account for
 #' the cost of different planning units, (ii) account for multiple management
 #' zones, and (iii) identify truly irreplaceable planning units---unlike the
@@ -26,16 +26,19 @@ NULL
 #' @param ... not used.
 #'
 #' @details Rarity weighted richness scores are calculated using the following
-#'   equation. Let \eqn{I} denote the set of planning units (indexed by
+#'   terms . Let \eqn{I} denote the set of planning units (indexed by
 #'   \eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
-#'   \eqn{j}), and let \eqn{r_{ij}} denote the amount of feature \eqn{j}
-#'   associated with planning unit \eqn{i}. To calculate the rarity weighted
-#'   richness (\emph{RWR}) for planning unit \eqn{k}:
+#'   \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
+#'   associated with planning unit \eqn{i}, and let \eqn{M_j} denote the
+#'   maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
+#'   \eqn{i \in I}. To calculate the rarity weighted richness (\emph{RWR}) for
+#'   planning unit \eqn{k}:
 #'
 #'   \deqn{
-#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{r_{kj}}{\sum_{i}^{I} r_{ij}}
+#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{kj}}{M_j} }{
+#'                                           \sum_{i}^{I} r_{ij}}
 #'   }{
-#'   RWRk = sum_j^J (rkj / sum_i^I rij)
+#'   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
 #'   }
 #'
 #'   Note that all arguments to \code{solution} must correspond
@@ -70,8 +73,8 @@ NULL
 #'
 #' @return A \code{numeric}, \code{matrix},
 #'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the replacement costs
-#'   for each planning unit in the solution.
+#'   \code{\link[sp]{Spatial-class}} object containing the rarity weighted
+#'   richness scores for each planning unit in the solution.
 #'
 #' @examples
 #' # seed seed for reproducibility
@@ -107,11 +110,12 @@ NULL
 #' }
 #'
 #' @references
-#' Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
-#' value for cost-effective reserve planning. \emph{Biological Conservation},
-#' 132:  336--342.
+#' Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
+#' (1996) A comparison of richness hotspots, rarity hotspots and complementary
+#' areas for conserving diversity using British birds.
+#' \emph{Conservation Biology}, 10: 155--174.
 #'
-#' @seealso \code{link{irreplaceability}}.
+#' @seealso \code{\link{irreplaceability}}.
 #'
 #' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,Raster-method
 #'
@@ -132,8 +136,10 @@ internal_rarity_weighted_richness <- function(x, indices, rescale) {
                           assertthat::is.flag(rescale))
   # calculate rarity weighted richness for each selected planning unit
   rs <- x$feature_abundances_in_total_units()
+  m <- matrix(apply(x$data$rij_matrix[[1]], 1, max, na.rm = TRUE),
+              nrow = nrow(rs), ncol = length(indices), byrow = FALSE)
   out <- x$data$rij_matrix[[1]][, indices, drop = FALSE]
-  out <- colSums(out / rs[, rep.int(1, ncol(out)), drop = FALSE])
+  out <- colSums((out / m) / rs[, rep.int(1, ncol(out)), drop = FALSE])
   # rescale values if specified
   if (rescale) {
     rescale_ind <- is.finite(out) & (abs(out) > 1e-10)
