@@ -23,7 +23,7 @@ test_that("numeric", {
   # calculate replacement costs
   r <- rarity_weighted_richness(p, s, rescale = FALSE)
   # create correct result
-  r2 <- c(0, (1 / 31), NA, (1 / 31) + (1 / 1))
+  r2 <- c(0, (5 / 31), NA, (6 / 31) + (1 / 1))
   # run tests
   expect_equal(r, r2)
 })
@@ -52,7 +52,7 @@ test_that("matrix (single zone)", {
   # calculate replacement costs
   r <- rarity_weighted_richness(p, s, rescale = FALSE)
   # create correct result
-  r2 <- matrix(c(0, (1 / 31), NA, (1 / 31) + (1 / 1)), ncol = 1)
+  r2 <- matrix(c(0, (5 / 31), NA, (6 / 31) + (1 / 1)), ncol = 1)
   colnames(r2) <- "rwr"
   # run tests
   expect_equal(r, r2)
@@ -110,7 +110,7 @@ test_that("data.frame (single zone)", {
   # calculate replacement costs
   r <- rarity_weighted_richness(p, s, rescale = FALSE)
   # create correct result
-  r2 <- tibble::tibble(rwr = c(0, (1 / 31), NA, (1 / 31) + (1 / 1)))
+  r2 <- tibble::tibble(rwr = c(0, (5 / 31), NA, (6 / 31) + (1 / 1)))
   # run tests
   expect_equal(r, r2)
 })
@@ -139,7 +139,7 @@ test_that("Spatial (single zone)", {
   # calculate replacement costs
   r <- rarity_weighted_richness(p, pu[, "solution"], rescale = FALSE)
   # create correct result
-  pu$rwr <- c(0, (1 / 31), NA, (1 / 31) + (1 / 1))
+  pu$rwr <- c(0, (5 / 31), NA, (6 / 31) + (1 / 1))
   # run tests
   expect_equivalent(r, pu[, "rwr"])
 })
@@ -165,7 +165,7 @@ test_that("Raster (single zone)", {
   # calculate replacement costs
   r <- rarity_weighted_richness(p, s, rescale = FALSE)
   # create correct result
-  r2 <- raster::raster(matrix(c(0, (1 / 31), NA, (1 / 31) + (1 / 1)), nrow = 1))
+  r2 <- raster::raster(matrix(c(0, (5 / 31), NA, (6 / 31) + (1 / 1)), nrow = 1))
   # run tests
   expect_equal(r, r2)
 })

@@ -33,9 +33,9 @@ NULL
 #'   richness (\emph{RWR}) for planning unit \eqn{k}:
 #'
 #'   \deqn{
-#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{1}{ \sum_{i}^{I} r_{ij} }
+#'   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{r_{kj}}{\sum_{i}^{I} r_{ij}}
 #'   }{
-#'   RWRk = sum_j^J (1 / sum_i^I rij)
+#'   RWRk = sum_j^J (rkj / sum_i^I rij)
 #'   }
 #'
 #'   Note that all arguments to \code{solution} must correspond
@@ -131,9 +131,9 @@ internal_rarity_weighted_richness <- function(x, indices, rescale) {
                           is.integer(indices), length(indices) > 0,
                           assertthat::is.flag(rescale))
   # calculate rarity weighted richness for each selected planning unit
-  rs <- 1 / x$feature_abundances_in_total_units()
-  out <- x$data$rij_matrix[[1]][, indices, drop = FALSE] > 1e-10
-  out <- colSums(out * rs[, rep.int(1, ncol(out)), drop = FALSE])
+  rs <- x$feature_abundances_in_total_units()
+  out <- x$data$rij_matrix[[1]][, indices, drop = FALSE]
+  out <- colSums(out / rs[, rep.int(1, ncol(out)), drop = FALSE])
   # rescale values if specified
   if (rescale) {
     rescale_ind <- is.finite(out) & (abs(out) > 1e-10)
