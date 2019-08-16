@@ -39,11 +39,11 @@
 <meta property="og:title" content="Rarity weighted richness — rarity_weighted_richness" />
 
 <meta property="og:description" content="Calculate irreplaceability scores for planning units selected in a solution
-using rarity weighted richness (Williams et al. 1996). Please
+using rarity weighted richness (based on Williams et al. 1996). Please
 note that this method is only recommended for large-scaled conservation
 planning exercises (i.e. more than 100'000 planning units) where
 irreplaceability scores cannot be calculated using the replacement cost
-method (rarity_weighted_richness) in a feasible period of
+method (replacement_cost) in a feasible period of
 time. This is because rarity weighted richness scores cannot (i) account for
 the cost of different planning units, (ii) account for multiple management
 zones, and (iii) identify truly irreplaceable planning units---unlike the
@@ -170,11 +170,11 @@ replacement cost metric which does not suffer any of these limitations." />
     <div class="ref-description">
     
     <p>Calculate irreplaceability scores for planning units selected in a solution
-using rarity weighted richness (Williams <em>et al.</em> 1996). Please
+using rarity weighted richness (based on Williams <em>et al.</em> 1996). Please
 note that this method is only recommended for large-scaled conservation
 planning exercises (i.e. more than 100'000 planning units) where
 irreplaceability scores cannot be calculated using the replacement cost
-method (<code>rarity_weighted_richness</code>) in a feasible period of
+method (<code><a href='replacement_cost.html'>replacement_cost</a></code>) in a feasible period of
 time. This is because rarity weighted richness scores cannot (i) account for
 the cost of different planning units, (ii) account for multiple management
 zones, and (iii) identify truly irreplaceable planning units---unlike the
@@ -225,19 +225,22 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></td>
 
     <p>A <code>numeric</code>, <code>matrix</code>,
   <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code>, or
-  <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object containing the replacement costs
-  for each planning unit in the solution.</p>
+  <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object containing the rarity weighted
+  richness scores for each planning unit in the solution.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Rarity weighted richness scores are calculated using the following
-  equation. Let \(I\) denote the set of planning units (indexed by
+  terms . Let \(I\) denote the set of planning units (indexed by
   \(i\)), let \(J\) denote the set of conservation features (indexed by
-  \(j\)), and let \(r_{ij}\) denote the amount of feature \(j\)
-  associated with planning unit \(i\). To calculate the rarity weighted
-  richness (<em>RWR</em>) for planning unit \(k\):</p>
+  \(j\)), let \(r_{ij}\) denote the amount of feature \(j\)
+  associated with planning unit \(i\), and let \(M_j\) denote the
+  maximum value of feature \(j\) in \(r_{ij}\) in all planning units
+  \(i \in I\). To calculate the rarity weighted richness (<em>RWR</em>) for
+  planning unit \(k\):</p>
 <p>$$
-  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{r_{kj}}{\sum_{i}^{I} r_{ij}}
+  \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{kj}}{M_j} }{
+                                          \sum_{i}^{I} r_{ij}}
   $$</p>
 <p>Note that all arguments to <code>solution</code> must correspond
   to the planning unit data in the argument to <code>x</code> in terms
@@ -270,13 +273,14 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></td>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
-value for cost-effective reserve planning. <em>Biological Conservation</em>,
-132:  336--342.</p>
+    <p>Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
+(1996) A comparison of richness hotspots, rarity hotspots and complementary
+areas for conserving diversity using British birds.
+<em>Conservation Biology</em>, 10: 155--174.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>link{irreplaceability}</code>.</p></div>
+    <div class='dont-index'><p><code><a href='irreplaceability.html'>irreplaceability</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

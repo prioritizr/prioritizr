@@ -183,7 +183,7 @@ NULL
 #' value for cost-effective reserve planning. \emph{Biological Conservation},
 #' 132:  336--342.
 #'
-#' @seealso \code{link{irreplaceability}}.
+#' @seealso \code{\link{irreplaceability}}.
 #'
 #' @aliases replacement_cost,ConservationProblem,numeric-method replacement_cost,ConservationProblem,matrix-method replacement_cost,ConservationProblem,data.frame-method replacement_cost,ConservationProblem,Spatial-method replacement_cost,ConservationProblem,Raster-method
 #'

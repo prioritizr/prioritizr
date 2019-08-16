@@ -204,5 +204,5 @@ value for cost-effective reserve planning. \emph{Biological Conservation},
 132:  336--342.
 }
 \seealso{
-\code{link{irreplaceability}}.
+\code{\link{irreplaceability}}.
 }
