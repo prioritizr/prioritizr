@@ -289,7 +289,7 @@ methods::setMethod(
       pos <- which(rowSums(!is.na(as.matrix(
                as.data.frame(pu)[, a$data$cost_column, drop = FALSE]))) > 0)
       if (!identical(pos, seq_len(a$number_of_total_units()))) {
-        sol_status2 <- matrix(NA, nrow = a$number_of_total_units(),
+        sol_status2 <- matrix(NA_real_, nrow = a$number_of_total_units(),
                               ncol = ncol(sol_status))
         sol_status2[pos, ] <- sol_status
         dimnames(sol_status2) <- dimnames(sol_status)

@@ -42,7 +42,7 @@ NULL
 #' # load data
 #' data(sim_pu_polygons, sim_features)
 #' \donttest{
-#' # we will investigate severals ways for extracting values from a raster
+#' # we will investigate several ways for extracting values from a raster
 #' # using polygons. Specifically, for each band in the raster,
 #' # for each polygon in the vector layer, calculate the average
 #' # of the cells that are inside the polygon.

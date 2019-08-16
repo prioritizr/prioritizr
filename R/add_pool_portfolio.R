@@ -41,7 +41,7 @@ NULL
 #'
 #' @examples
 #' # set seed for reproducibility
-#' set.seed(500)
+#' set.seed(600)
 #'
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
@@ -49,9 +49,9 @@ NULL
 #' # create minimal problem with pool portfolio
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2) %>%
+#'       add_relative_targets(0.05) %>%
 #'       add_pool_portfolio() %>%
-#'       add_default_solver(gap = 0.02, verbose = FALSE)
+#'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem
 #' s1 <- solve(p1)
@@ -65,7 +65,7 @@ NULL
 #' # create minimal problem with pool portfolio and find the top 5 solutions
 #' p2 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.5) %>%
+#'       add_relative_targets(0.05) %>%
 #'       add_pool_portfolio(method = 2, number_solutions = 5) %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
@@ -85,7 +85,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_pool_portfolio() %>%
-#'       add_default_solver(gap = 0.02, verbose = FALSE)
+#'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve the problem
 #' s3 <- solve(p3)

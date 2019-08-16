@@ -47,6 +47,8 @@ customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
  solve function can be used to identify solutions." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -87,7 +89,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -423,7 +425,7 @@ to <code>FALSE</code>.</p></td>
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
  <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
  <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>,
- <code><a href='feature_representation.html'>feature_representation</a></code>.</p></div>
+ <code><a href='feature_representation.html'>feature_representation</a></code>, <code><a href='irreplaceability.html'>irreplaceability</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -669,7 +671,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00238
+#&gt;  - attr(*, "runtime")= Named num 0.00327
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
@@ -749,7 +751,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   RHS range        [1e+00, 4e+00]
 #&gt; Found heuristic solution: objective 3541.8192145
 #&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
@@ -763,7 +765,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;      0     0 2788.19959    0    6 3541.81921 2788.19959  21.3%     -    0s
 #&gt; H    0     0                    2986.8059710 2788.19959  6.65%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (13 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2986.81 3541.82 
@@ -845,7 +847,7 @@ to <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

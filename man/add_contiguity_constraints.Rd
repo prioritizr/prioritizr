@@ -175,7 +175,7 @@ print(fts)
 # create targets
 targets <- tibble::tibble(feature = names(sim_features),
                           zone = list(zone_names(fts))[rep(1, 5)],
-                          target = cellStats(sim_features, "sum") * 0.3,
+                          target = cellStats(sim_features, "sum") * 0.2,
                           type = rep("absolute", 5))
 print(targets)
 

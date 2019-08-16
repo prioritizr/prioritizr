@@ -114,6 +114,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
     "GurobiSolver",
     Solver,
     name = "Gurobi",
+    data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
@@ -125,7 +126,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       binary_parameter("first_feasible", first_feasible),
       binary_parameter("numeric_focus", numeric_focus),
       binary_parameter("verbose", verbose)),
-    solve = function(self, x, ...) {
+    calculate = function(self, x, ...) {
       # create problem
       model <- list(
         modelsense = x$modelsense(),
@@ -138,6 +139,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         ub = x$ub())
       # create parameters
       p <- list(LogToConsole = as.numeric(self$parameters$get("verbose")),
+                LogFile = "",
                 Presolve = self$parameters$get("presolve"),
                 MIPGap = self$parameters$get("gap"),
                 TimeLimit = self$parameters$get("time_limit"),
@@ -150,14 +152,30 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       p2 <- list(...)
       if (length(p2) > 0)
         p <- append(p, p2)
+      # store input data and parameters
+      self$set_data("model", model)
+      self$set_data("parameters", p)
+      # return success
+      invisible(TRUE)
+    },
+    set_variable_ub = function(self, index, value) {
+      self$data$model$ub[index] <- value
+      invisible(TRUE)
+    },
+    set_variable_lb = function(self, index, value) {
+      self$data$model$lb[index] <- value
+      invisible(TRUE)
+    },
+    run = function(self, x) {
+      # access input data and parameters
+      model <- self$get_data("model")
+      p <- self$get_data("parameters")
       # solve problem
       x <- gurobi::gurobi(model = model, params = p)
       # round binary variables because default precision is 1e-5
       b <- model$vtype == "B"
       if (is.numeric(x$x))
         x$x[b] <- round(x$x[b])
-      # remove log
-      if (file.exists("gurobi.log")) unlink("gurobi.log")
       # extract solutions
       out <- list(x = x$x, objective = x$objval, status = x$status,
                  runtime = x$runtime)
@@ -167,12 +185,11 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         out$pool <- x$pool[-1]
         for (i in seq_len(length(out$pool))) {
           out$pool[[i]]$xn[b] <- round(out$pool[[i]]$xn[b])
-          out$pool[[i]]$status <- ifelse(abs(out$pool[[i]]$objval -
-                                             x$objval) < 1e-5,
-                                         "OPTIMAL", "SUBOPTIMAL")
+          out$pool[[i]]$status <-
+            ifelse(abs(out$pool[[i]]$objval - x$objval) < 1e-5,
+                   "OPTIMAL", "SUBOPTIMAL")
         }
       }
-      # return solution
-      return(out)
+      out
     }))
 }

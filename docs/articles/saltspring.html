@@ -13,6 +13,7 @@
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Salt Spring Island Tutorial">
 <meta property="og:description" content="">
+<meta property="og:image" content="https://prioritizr.net/logo.png">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -38,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -189,7 +190,8 @@
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(p1)</code></pre></div>
@@ -203,7 +205,7 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         default</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <p>Note that the <code>%&gt;%</code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don’t have to explicitly specify the decision-type, but we specify it here for clarity.</p>
 </div>
 <div id="solving-the-problem" class="section level2">
@@ -221,27 +223,28 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 <span class="co"># create new problem object with added solver</span>
 <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"Rsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(titles, <span class="st">"Rsymphony (5s)"</span>)
-  p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
+  p2 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>, <span class="dt">time_limit =</span> <span class="dv">5</span>)
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="../reference/solve.html">solve</a></span>(p2))
-}
-
-<span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"Rsymphony"</span>)) {
+}</code></pre></div>
+<pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"Rsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(titles, <span class="st">"Rsymphony (10s)"</span>)
-  p3 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">10</span>)
+  p3 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>, <span class="dt">time_limit =</span> <span class="dv">10</span>)
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="../reference/solve.html">solve</a></span>(p3))
-}
-
-<span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"gurobi"</span>)) {
+}</code></pre></div>
+<pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"gurobi"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(titles, <span class="st">"Gurobi (5s)"</span>)
-  p4 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
+  p4 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>, <span class="dt">time_limit =</span> <span class="dv">5</span>)
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="../reference/solve.html">solve</a></span>(p4))
-}
-
-<span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"lpsymphony"</span>)) {
+}</code></pre></div>
+<pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"lpsymphony"</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(titles, <span class="st">"lpsymphony (10s)"</span>)
-  p5 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="dt">time_limit =</span> <span class="dv">10</span>)
+  p5 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>, <span class="dt">time_limit =</span> <span class="dv">10</span>)
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw"><a href="../reference/solve.html">solve</a></span>(p5))
 }</code></pre></div>
+<pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <p>Now let’s visualize the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s1, <span class="dt">main =</span> titles, <span class="dt">breaks =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>),  <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey70"</span>, <span class="st">"darkgreen"</span>))</code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
@@ -255,7 +258,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
 <span class="st">      </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="st">      </span><span class="kw"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="op">%&gt;%</span>
+<span class="st">      </span><span class="kw"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>)
 
 <span class="co"># print problem</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(p6)</code></pre></div>
@@ -269,7 +273,7 @@ p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         default</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>() <span class="co"># create vector to store plot titles</span>
 s2 &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/stack">stack</a></span>()  <span class="co"># create empty stack to store solutions</span>
 
@@ -296,12 +300,49 @@ s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span clas
 <p><img src="saltspring_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Here we can see that adding the constraints and penalties to the problem has a small, but noticeable effect on the solutions. We would expect to see larger difference between the solutions for problems that contain more than five conservation features. You may also wish to explore the <code>add_connectivity_penalties</code> and <code>add_feature_contiguity_constraints</code> functions. These functions use additional data on landscape resistance to provide a more accurate parametrization of connectivity and, in turn, deliver more effective solutions.</p>
 </div>
+<div id="irreplaceability" class="section level2">
+<h2 class="hasAnchor">
+<a href="#irreplaceability" class="anchor"></a>Irreplaceability</h2>
+<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the “importance” or “priority” of each planning unit selected in a solution.</p>
+<p>Let’s assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://www.rdocumentation.org/packages/base/topics/formatc">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let’s calculate irreplacability scores for each of the planning units selected in that solution using the replacement cost method <span class="citation">(Cabeza &amp; Moilanen 2006)</span>. Under this method, planning units with higher scores are more irreplaceable. Planning units with infinite (<code>Inf</code>) scores are truly irreplaceable (i.e. they contain biodiversity features which cannot be met by protecting any other set of planning units), and those with zero scores are completely replaceable (i.e. they can be swapped for another set of planning units with no loss of performance).</p>
+<p>Unfortunately, this method can take a long time to run for moderate sized problems (i.e. planning units with between 1,000–30,000 planning units). So, instead of using the same problem to generate the replacement costs, we will use a simplified problem that does not contain boundary penalties and uses proportion-type decisions to reduce run times.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem for irreplacability calculations</span>
+p10 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(salt_pu, salt_features) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw"><a href="../reference/add_proportion_decisions.html">add_proportion_decisions</a></span>() <span class="op">%&gt;%</span>
+<span class="st">       </span><span class="kw"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)
+
+<span class="co"># print problem</span>
+<span class="kw"><a href="../reference/print.html">print</a></span>(p10)</code></pre></div>
+<pre><code>## Conservation Problem
+##   planning units: RasterLayer (19263 units)
+##   cost:           min: 2552, max: 1e+09
+##   features:       Old_Forest, Savannah, Wetland, ... (5 features)
+##   objective:      Minimum set objective 
+##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
+##   decisions:      Proportion decision 
+##   constraints:    &lt;none&gt;
+##   penalties:      &lt;none&gt;
+##   portfolio:      default
+##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate irreplacability scores (note this will take a few minutes)</span>
+rc10 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/replacement_cost.html">replacement_cost</a></span>(p10, s2[[<span class="dv">3</span>]])
+
+<span class="co"># plot irreplacability scores</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(rc10, <span class="dt">main =</span> <span class="st">"replacement cost"</span>)</code></pre></div>
+<p><img src="saltspring_files/figure-html/unnamed-chunk-13-1.png" width="700" style="display: block; margin: auto;"></p>
+<p>We can see that the prioritized planning units located on the far eastern side of the study area have the highest irreplacability scores (i.e. greater than 0.95). This result suggests that protecting these places may be critical to the overall success of the prioritization. Since none of the planning have infinite irreplacability scores, we can be confident that additional planning units could be protected to address shortfalls in the event that any one of the prioritized planning units could not be protected.</p>
+</div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-r28">
 <p>BC Assessment. (2015). <em>Property Information Services</em>. URL <a href="http://www.bcassessment.ca" class="uri">http://www.bcassessment.ca</a> [accessed 13 June 2016].</p>
+</div>
+<div id="ref-r31">
+<p>Cabeza, M. &amp; Moilanen, A. (2006). Replacement cost: A practical measure of site value for cost-effective reserve planning. <em>Biological Conservation</em>, <em>132</em>, 336–342.</p>
 </div>
 <div id="ref-r29">
 <p>Morrell, N., Schuster, R., Crombie, M. &amp; Arcese, P. (2017). <em>A Prioritization Tool for the Conservation of Coastal Douglas-fir Forest and Savannah Habitats of the Georgia Basin</em>. The Nature Trust of British Colombia, Coastal Douglas Fir Conservation Partnership, and the Department of Forest and Conservation Sciences, University of British Colombia, URL <a href="http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf" class="uri">http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf</a> [accessed 9 October 2017].</p>
@@ -320,6 +361,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span clas
       <li><a href="#formulating-the-problem">Formulating the Problem</a></li>
       <li><a href="#solving-the-problem">Solving the problem</a></li>
       <li><a href="#adding-connectivity">Adding connectivity</a></li>
+      <li><a href="#irreplaceability">Irreplaceability</a></li>
       <li><a href="#references">References</a></li>
       </ul>
 </div>
@@ -329,7 +371,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s2, <span clas
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com/">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca">Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href="https://jeffrey-hanson.com">Jeffrey O Hanson</a>, <a href="http://www.richard-schuster.com/">Richard Schuster</a>, Nina Morrell, <a href="http://strimas.com">Matthew Strimas-Mackey</a>, Matthew E Watts, <a href="https://arcese.forestry.ubc.ca">Peter Arcese</a>, <a href="https://josephrbennett.wordpress.com/">Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

@@ -311,3 +311,26 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
          "they have different spatial resolutions, extents, ",
          "coordinate reference systems, or dimensionality (rows / columns).")
 }
+
+#' Rescale
+#'
+#' Linearly rescale values in a vector to range between two thresholds.
+#'
+#' @param x \code{numeric} vector.
+#'
+#' @param from \code{numeric} vector indicating the original range of the
+#'  the data.
+#'
+#' @param to \code{numeric} new data range. Defaults to zero and one.
+#'
+#' @details This function is based on the \code{rescale} function in the
+#'   \pkg{scales} package.
+#'
+#' @return \code{numeric} vector.
+#'
+#' @noRd
+rescale <- function(x, from = range(x), to = c(0, 1)) {
+  if ((abs(diff(from)) < 1e-10) || abs(diff(to)) < 1e-10)
+    return(mean(to))
+  (x - from[1]) / diff(from) * diff(to) + to[1]
+}

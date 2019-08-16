@@ -45,7 +45,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
 # solve problem
 s1 <- solve(p1)
 
-# plot solutions
+# plot solution
 plot(s1, main = "solution")
 }
 # build multi-zone conservation problem with binary decisions

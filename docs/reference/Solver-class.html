@@ -43,6 +43,8 @@ optimization problems. This class represents a recipe to
 create solver and and is only recommended for use by expert users. To
 customize the method used to solve optimization problems, please see the
 help page on solvers." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,7 +85,7 @@ help page on solvers." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -176,6 +178,7 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
     
     <dl class='dl-horizontal'>
     <dt>$name</dt><dd><p><code>character</code> name of solver.</p></dd>
+    <dt>$data</dt><dd><p><code>list</code> object optimization problem data.</p></dd>
     <dt>$parameters</dt><dd><p><code>Parameters</code> object with parameters used to customize
   the the solver.</p></dd>
     <dt>$solve</dt><dd><p><code>function</code> used to solve a
@@ -188,7 +191,13 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
     <p><code>x$print()</code></p>
 <p><code>x$show()</code></p>
 <p><code>x$repr()</code></p>
-<p><code>x$solve(op)</code></p>
+<p><code>x$get_data(name)</code></p>
+<p><code>x$set_data(name, value)</code></p>
+<p><code>x$set_variable_ub(index, value)</code></p>
+<p><code>x$set_variable_lb(index, value)</code></p>
+<p><code>x$calculate(op)</code></p>
+<p><code>x$run()</code>
+<code>x$solve(op)</code></p>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
 
@@ -205,6 +214,20 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
 <dt>print</dt><dd><p>print the object.</p></dd>
     <dt>show</dt><dd><p>show the object.</p></dd>
     <dt>repr</dt><dd><p><code>character</code> representation of object.</p></dd>
+    <dt>get_data</dt><dd><p>return an object stored in the <code>data</code> field with
+  the corresponding <code>name</code>. If the object is not present in the
+  <code>data</code> field, a <code>waiver</code> object is returned.</p></dd>
+    <dt>set_data</dt><dd><p>store an object stored in the <code>data</code> field with
+  the corresponding name. If an object with that name already
+  exists then the object is overwritten.</p></dd>
+    <dt>set_variable_ub</dt><dd><p>set the upper bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.</p></dd>
+    <dt>set_variable_lb</dt><dd><p>set the lower bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.</p></dd>
+<dt>calculate</dt><dd><p>ingest a general purpose
+  <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object and convert it to the
+  correct format for the solver.</p></dd>
+<dt>run</dt><dd><p>run the solver and output a solution</p></dd>
     <dt>solve</dt><dd><p>solve an <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> using this
   object.</p></dd>
     </dl>
@@ -229,7 +252,7 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

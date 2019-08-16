@@ -14,7 +14,7 @@ authors:
     href: http://strimas.com
   Peter Arcese:
     href: https://arcese.forestry.ubc.ca
-  Joeseph Bennett:
+  Joseph Bennett:
     href: https://josephrbennett.wordpress.com/
 
 template:
@@ -84,6 +84,13 @@ reference:
     contents:
       - portfolios
       - ends_with("_portfolio")
+
+  - title: Irreplaceability
+    desc: Functions for calculating irreplaceability scores for a solution
+    contents:
+    - irreplaceability
+    - replacement_cost
+    - rarity_weighted_richness
 
   - title: Data simulation
     desc: Functions for simulating new data sets

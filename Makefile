@@ -17,6 +17,7 @@ man:
 
 readme:
 	R --slave -e "rmarkdown::render('README.Rmd')"
+	cp docs/logo.png man/figures
 
 contrib:
 	R --slave -e "rmarkdown::render('CONTRIBUTING.Rmd')"
@@ -35,6 +36,7 @@ quicksite:
 	cp -R doc inst/
 	cp /tmp/favicon.ico docs
 	cp /tmp/logo.png docs
+	cp /tmp/logo.png docs/reference/figures
 
 site:
 	cp docs/favicon.ico /tmp
@@ -46,6 +48,7 @@ site:
 	cp -R doc inst/
 	cp /tmp/favicon.ico docs
 	cp /tmp/logo.png docs
+	cp /tmp/logo.png docs/reference/figures
 
 test:
 	R --slave -e "devtools::test()" > test.log 2>&1

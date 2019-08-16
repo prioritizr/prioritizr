@@ -172,7 +172,7 @@ OptimizationProblem <- pproto(
   sense = function(self) {
     rcpp_get_optimization_problem_sense(self$ptr)
   },
-  lb = function(self) {
+  lb = function(self, i, y) {
     rcpp_get_optimization_problem_lb(self$ptr)
   },
   ub = function(self) {

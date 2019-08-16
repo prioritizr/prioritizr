@@ -421,5 +421,5 @@ spplot(s8, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 \code{\link{constraints}}, \code{\link{decisions}},
  \code{\link{objectives}} \code{\link{penalties}},
  \code{\link{portfolios}}, \code{\link{solvers}}, \code{\link{targets}},
- \code{\link{feature_representation}}.
+ \code{\link{feature_representation}}, \code{\link{irreplaceability}}.
 }

@@ -40,6 +40,8 @@
 
 <meta property="og:description" content="Add penalties to a conservation planning problem to favor
 solutions that have planning units clumped together into contiguous areas." />
+
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -80,7 +82,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -623,7 +625,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 18
 #&gt; 
-#&gt; Explored 527 nodes (18491 simplex iterations) in 4.27 seconds
+#&gt; Explored 527 nodes (18491 simplex iterations) in 4.28 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 15656 15780.7 15922.3 ... 22153.2
@@ -645,7 +647,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1905 iterations, 0.07 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1905 iterations, 0.06 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -700,14 +702,15 @@ conservation planning problems with integer linear programming.
 #&gt;      0     2 13827.3898    0  563 16456.5188 13827.3898  16.0%     -    1s
 #&gt; H  105   103                    16310.857489 13832.3864  15.2%  30.0    1s
 #&gt; H  510   446                    16294.105380 13988.8212  14.1%  29.6    2s
-#&gt; H  513   426                    15987.920808 13988.8212  12.5%  29.4    2s
+#&gt; H  513   426                    15987.920808 13988.8212  12.5%  29.4    3s
 #&gt; H  516   406                    15894.561955 13988.8212  12.0%  29.3    3s
+#&gt;    523   411 15894.5620   70  667 15894.5620 13988.8212  12.0%  28.9    5s
 #&gt; H  523   390                    15417.906443 13988.8212  9.27%  28.9    5s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 17
 #&gt; 
-#&gt; Explored 523 nodes (17825 simplex iterations) in 5.36 seconds
+#&gt; Explored 523 nodes (17825 simplex iterations) in 5.79 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 15417.9 15894.6 15987.9 ... 18893.1
@@ -764,7 +767,7 @@ conservation planning problems with integer linear programming.
 #&gt;   Gomory: 6
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 108 nodes (6428 simplex iterations) in 1.56 seconds
+#&gt; Explored 108 nodes (6428 simplex iterations) in 1.62 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 10332.7 10938.4 11278.3 ... 15601.5
@@ -798,7 +801,7 @@ conservation planning problems with integer linear programming.
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, Joseph Bennett, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
 </div>
 
 <div class="pkgdown">

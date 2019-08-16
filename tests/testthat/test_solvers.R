@@ -61,6 +61,25 @@ test_that("add_rsymphony_solver", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
+test_that("add_rsymphony_solver (variable bounds methods)", {
+  skip_if_not_installed("Rsymphony")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
+  p$solver$calculate(compile.ConservationProblem(p))
+  p$solver$set_variable_ub(1, 0)
+  p$solver$set_variable_lb(2, 1)
+  # check that  solution has correct properties
+  expect_equal(p$solver$data$model$bounds$upper$val,
+               replace(rep(1, p$number_of_planning_units()), 1, 0))
+  expect_equal(p$solver$data$model$bounds$lower$val,
+               replace(rep(0, p$number_of_planning_units()), 2, 1))
+})
+
 test_that("add_lpsymphony_solver", {
   skip_on_cran()
   skip_on_travis()
@@ -81,6 +100,25 @@ test_that("add_lpsymphony_solver", {
   expect_equal(raster::nlayers(s), 1)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
+})
+
+test_that("add_lpsymphony_solver (variable bounds methods)", {
+  skip_if_not_installed("lpsymphony")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_lpsymphony_solver(first_feasible = TRUE, verbose = TRUE)
+  p$solver$calculate(compile.ConservationProblem(p))
+  p$solver$set_variable_ub(1, 0)
+  p$solver$set_variable_lb(2, 1)
+  # check that  solution has correct properties
+  expect_equal(p$solver$data$model$bounds$upper$val,
+               replace(rep(1, p$number_of_planning_units()), 1, 0))
+  expect_equal(p$solver$data$model$bounds$lower$val,
+               replace(rep(0, p$number_of_planning_units()), 2, 1))
 })
 
 test_that("add_gurobi_solver", {
@@ -109,4 +147,23 @@ test_that("add_gurobi_solver", {
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
   expect_equal(raster::getValues(s1), raster::getValues(s2))
+})
+
+test_that("add_gurobi_solver (variable bounds methods)", {
+  skip_if_not_installed("gurobi")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_binary_decisions() %>%
+    add_gurobi_solver(first_feasible = TRUE, verbose = TRUE)
+  p$solver$calculate(compile.ConservationProblem(p))
+  p$solver$set_variable_ub(1, 0)
+  p$solver$set_variable_lb(2, 1)
+  # check that  solution has correct properties
+  expect_equal(p$solver$data$model$ub,
+               replace(rep(1, p$number_of_planning_units()), 1, 0))
+  expect_equal(p$solver$data$model$lb,
+               replace(rep(0, p$number_of_planning_units()), 2, 1))
 })

@@ -150,6 +150,9 @@ This function uses connectivity data to penalize solutions
  replaced with \eqn{p}.
 }
 \examples{
+# set seed for reproducibility
+set.seed(600)
+
 # load Matrix package for visualizing matrices
 require(Matrix)
 
@@ -344,7 +347,7 @@ zm5 <- as(zm5, "Matrix")
 print(zm5)
 
 # create vector of penalties to use creating problems
-penalties2 <- c(5, 30)
+penalties2 <- c(5, 15)
 
 # create multi-zone problems using the adjacent connectivity matrix and
 # different zone matrices
@@ -390,7 +393,7 @@ for (z1 in seq_len(3))
 # note that the zones argument is set to NULL because the connectivity
 # data is an array
 p5 <- list(p3,
-           p3 \%>\% add_connectivity_penalties(30, zones = NULL, c_array))
+           p3 \%>\% add_connectivity_penalties(15, zones = NULL, c_array))
 
 
 # assign names to the problems

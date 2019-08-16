@@ -8,6 +8,10 @@ dist: trusty
 
 warnings_are_errors: true
 
+branches:
+  only:
+  - master
+
 r:
   - release
   - devel
