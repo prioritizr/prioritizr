@@ -330,5 +330,7 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
 #'
 #' @noRd
 rescale <- function(x, from = range(x), to = c(0, 1)) {
+  if ((abs(diff(from)) < 1e-10) || abs(diff(to)) < 1e-10)
+    return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
 }
