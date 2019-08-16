@@ -191,9 +191,5 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         }
       }
       out
-    },
-    solve = function(self, x, ...) {
-      self$calculate(x, ...)
-      self$run()
     }))
 }

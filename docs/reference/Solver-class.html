@@ -83,7 +83,7 @@ help page on solvers." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -113,9 +113,6 @@ help page on solvers." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
-    </li>
-    <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
@@ -176,6 +173,7 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
     
     <dl class='dl-horizontal'>
     <dt>$name</dt><dd><p><code>character</code> name of solver.</p></dd>
+    <dt>$data</dt><dd><p><code>list</code> object optimization problem data.</p></dd>
     <dt>$parameters</dt><dd><p><code>Parameters</code> object with parameters used to customize
   the the solver.</p></dd>
     <dt>$solve</dt><dd><p><code>function</code> used to solve a
@@ -188,7 +186,13 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
     <p><code>x$print()</code></p>
 <p><code>x$show()</code></p>
 <p><code>x$repr()</code></p>
-<p><code>x$solve(op)</code></p>
+<p><code>x$get_data(name)</code></p>
+<p><code>x$set_data(name, value)</code></p>
+<p><code>x$set_variable_ub(index, value)</code></p>
+<p><code>x$set_variable_lb(index, value)</code></p>
+<p><code>x$calculate(op)</code></p>
+<p><code>x$run()</code>
+<code>x$solve(op)</code></p>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
 
@@ -205,6 +209,20 @@ help page on <code><a href='solvers.html'>solvers</a></code></strong>.</p>
 <dt>print</dt><dd><p>print the object.</p></dd>
     <dt>show</dt><dd><p>show the object.</p></dd>
     <dt>repr</dt><dd><p><code>character</code> representation of object.</p></dd>
+    <dt>get_data</dt><dd><p>return an object stored in the <code>data</code> field with
+  the corresponding <code>name</code>. If the object is not present in the
+  <code>data</code> field, a <code>waiver</code> object is returned.</p></dd>
+    <dt>set_data</dt><dd><p>store an object stored in the <code>data</code> field with
+  the corresponding name. If an object with that name already
+  exists then the object is overwritten.</p></dd>
+    <dt>set_variable_ub</dt><dd><p>set the upper bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.</p></dd>
+    <dt>set_variable_lb</dt><dd><p>set the lower bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.</p></dd>
+<dt>calculate</dt><dd><p>ingest a general purpose
+  <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object and convert it to the
+  correct format for the solver.</p></dd>
+<dt>run</dt><dd><p>run the solver and output a solution</p></dd>
     <dt>solve</dt><dd><p>solve an <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> using this
   object.</p></dd>
     </dl>

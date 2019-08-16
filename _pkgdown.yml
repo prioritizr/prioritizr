@@ -85,6 +85,12 @@ reference:
       - portfolios
       - ends_with("_portfolio")
 
+  - title: Irreplaceability
+    desc: Functions for calculating irreplaceability scores for a solution
+    contents:
+    - irreplaceability
+    - replacement_cost
+
   - title: Data simulation
     desc: Functions for simulating new data sets
     contents:

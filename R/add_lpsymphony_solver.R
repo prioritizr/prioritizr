@@ -82,13 +82,15 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
     "LpsymphonySolver",
     Solver,
     name = "Lpsymphony",
+    data = list(),
     parameters = parameters(
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1,
                         upper_limit = .Machine$integer.max),
       binary_parameter("first_feasible", first_feasible),
       binary_parameter("verbose", verbose)),
-    solve = function(self, x) {
+    calculate = function(self, x, ...) {
+      # create model
       model <- list(
         obj = x$obj(),
         mat = as.matrix(x$A()),
@@ -107,6 +109,17 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       model$dir <- replace(model$dir, model$dir == "=", "==")
       model$types <- replace(model$types, model$types == "S", "C")
       p$first_feasible <- as.logical(p$first_feasible)
+      # store input data and parameters
+      self$set_data("model", model)
+      self$set_data("parameters", p)
+      # return success
+      invisible(TRUE)
+    },
+    run = function(self) {
+      # access input data and parameters
+      model <- self$get_data("model")
+      p <- self$get_data("parameters")
+      # solve problem
       start_time <- Sys.time()
       s <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
       end_time <- Sys.time()
@@ -115,9 +128,18 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
         return(NULL)
       if (any(s$solution > 1 | s$solution < 0))
         stop("infeasible solution returned, try relaxing solver parameters")
+      # return output
       return(list(x = s$solution, objective = s$objval,
                   status = as.character(s$status),
                   runtime = as.double(end_time - start_time,
                                       format = "seconds")))
+    },
+    set_variable_ub = function(self, index, value) {
+      self$data$model$bounds$upper$val[index] <- value
+      invisible(TRUE)
+    },
+    set_variable_lb = function(self, index, value) {
+      self$data$model$bounds$lower$val[index] <- value
+      invisible(TRUE)
     }))
 }

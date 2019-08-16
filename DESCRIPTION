@@ -149,6 +149,7 @@ Collate:
     'feature_abundances.R'
     'feature_names.R'
     'feature_representation.R'
+    'irreplaceability.R'
     'magrittr-operators.R'
     'marxan_problem.R'
     'misc.R'

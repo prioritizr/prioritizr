@@ -46,8 +46,6 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 \code{x$ub()}
 
-\code{x$set_ub()}
-
 \code{x$number_of_planning_units()}
 
 \code{x$number_of_features()}
@@ -99,9 +97,6 @@ problem. Data are stored in memory and accessed using an external pointer.
 \item{lb}{\code{numeric} vector of lower bounds for each decision variable.}
 
 \item{ub}{\code{numeric} vector of upper bounds for each decision variable.}
-
-\item{set_ub}{\code{invisible(NULL)} set upper bound for a decision
-  variable.}
 
 \item{number_of_features}{\code{integer} number of features in the problem.}
 

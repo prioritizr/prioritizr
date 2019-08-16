@@ -207,7 +207,7 @@ NULL
 #' @seealso \code{\link{constraints}}, \code{\link{decisions}},
 #'  \code{\link{objectives}} \code{\link{penalties}},
 #'  \code{\link{portfolios}}, \code{\link{solvers}}, \code{\link{targets}},
-#'  \code{\link{feature_representation}}.
+#'  \code{\link{feature_representation}}, \code{\link{irreplaceability}}.
 #'
 #' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method
 #'

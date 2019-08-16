@@ -21,7 +21,7 @@ test_that("numeric", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
   r2 <- c(0, 8, NA, Inf)
   # run tests
@@ -50,9 +50,39 @@ test_that("matrix (single zone)", {
   # create a solution
   s <- matrix(c(0, 1, NA, 1), ncol = 1)
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
   r2 <- matrix(c(0, 8, NA, Inf), ncol = 1)
+  colnames(r2) <- "rc"
+  # run tests
+  expect_equal(r, r2)
+})
+
+test_that("matrix (single zone, rescale = TRUE)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create data
+  pu <- data.frame(id = seq_len(4),
+                   cost = c(10, 2, NA, 3),
+                   spp1 = c(0, 0, 0, 1),
+                   spp2 = c(10, 5, 10, 6))
+  # create problem
+  p <-
+    problem(matrix(pu$cost, ncol = 1),
+            data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+            as.matrix(t(pu[, 3:4]))) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- matrix(c(0, 1, NA, 1), ncol = 1)
+  # calculate replacement costs
+  r <- replacement_cost(p, s, rescale = TRUE)
+  # create correct result
+  r2 <- matrix(c(0, 0.505, NA, Inf), ncol = 1)
   colnames(r2) <- "rc"
   # run tests
   expect_equal(r, r2)
@@ -64,13 +94,13 @@ test_that("matrix (multiple zones)", {
   skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
-  pu <- data.frame(id = seq_len(7),
-                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
-                   cost_2 = c(10, 10, 10, 10,  4,   1, NA),
-                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0),
-                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0),
-                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0),
-                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0))
+  pu <- data.frame(id = seq_len(8),
+                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
+                   cost_2 = c(10, 10, 10, 10,  4,   1, NA, 10),
+                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0, 0),
+                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0, 0),
+                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0, 1),
+                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0, 0))
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -82,11 +112,46 @@ test_that("matrix (multiple zones)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 1, 0, NA), ncol = 2)
+  s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
-  r2 <- matrix(c(1, 0, NA, Inf, 0, 0, NA, 0, 0, 0, 0, 7, 0, NA), ncol = 2)
+  r2 <- matrix(c(1, 0, NA, Inf, 0, 0, NA, 0, 0, 0, 0, 0, 6, 0, NA, 0), ncol = 2)
+  colnames(r2) <- c("rc_1", "rc_2")
+  # run tests
+  expect_equal(r, r2)
+})
+
+test_that("matrix (multiple zones, rescale = TRUE)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create data
+  pu <- data.frame(id = seq_len(8),
+                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
+                   cost_2 = c(10, 10, 10, 10,  4,   1, NA, 10),
+                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0, 0),
+                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0, 0),
+                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0, 1),
+                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0, 0))
+  targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
+  # create problem
+  p <-
+    problem(as.matrix(pu[, c(2, 3)]),
+            data.frame(id = seq_len(2), name = c("spp1", "spp2")),
+            list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(targets) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
+  # calculate replacement costs
+  r <- replacement_cost(p, s, rescale = TRUE)
+  # create correct result
+  r2 <- matrix(c(0.01, 0, NA, Inf, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0),
+               ncol = 2)
   colnames(r2) <- c("rc_1", "rc_2")
   # run tests
   expect_equal(r, r2)
@@ -112,7 +177,7 @@ test_that("data.frame (single zone)", {
   # create a solution
   s <- tibble::tibble(solution = c(0, 1, NA, 1))
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
   r2 <- tibble::tibble(rc = c(0, 8, NA, Inf))
   # run tests
@@ -125,13 +190,13 @@ test_that("data.frame (multiple zone)", {
   skip_on_appveyor()
   skip_if_not(any_solvers_installed())
   # create data
-  pu <- data.frame(id = seq_len(7),
-                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
-                   cost_2 = c(10, 10, 10, 10,  4,   1, NA),
-                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0),
-                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0),
-                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0),
-                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0))
+  pu <- data.frame(id = seq_len(8),
+                   cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
+                   cost_2 = c(10, 10, 10, 10,  4,   1, NA, 10),
+                   spp1_1 = c(1,  2, 0, 0, 0, 0,  0, 0),
+                   spp2_1 = c(NA, 0, 1, 1, 0, 0,  0, 0),
+                   spp1_2 = c(1,  0, 0, 0, 1, 0,  0, 1),
+                   spp2_2 = c(0,  0, 0, 0, 0, 10, 0, 0))
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -142,13 +207,13 @@ test_that("data.frame (multiple zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- data.frame(cost_1 = c(1, 0, NA, 1, 0, 0, NA),
-                  cost_2 = c(0, 0, 0, 0, 1, 0, NA))
+  s <- data.frame(cost_1 = c(1, 0, NA, 1, 0, 0, NA, 0),
+                  cost_2 = c(0, 0, 0, 0, 1, 0, NA, 0))
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
-  r2 <- tibble::tibble(rc_1 = c(1, 0, NA, Inf, 0, 0, NA),
-                       rc_2 = c(0, 0, 0, 0, 7, 0, NA))
+  r2 <- tibble::tibble(rc_1 = c(1, 0, NA, Inf, 0, 0, NA, 0),
+                       rc_2 = c(0, 0, 0, 0, 6, 0, NA, 0))
   # run tests
   expect_equal(r, r2)
 })
@@ -175,7 +240,7 @@ test_that("Spatial (single zone)", {
   # create a solution
   pu$solution <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- replacement_cost(p, pu[, "solution"])
+  r <- replacement_cost(p, pu[, "solution"], rescale = FALSE)
   # create correct result
   pu$rc <- c(0, 8, NA, Inf)
   # run tests
@@ -189,14 +254,14 @@ test_that("Spatial (multiple zone)", {
   skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons)
-  pu <- sim_pu_polygons[1:7, ]
-  pu@data <- data.frame(id = seq_len(7),
-                        cost_1 = c(1,  2,  NA, 3, 100, 100, NA),
-                        cost_2 = c(10, 10, 10, 10,  4,   1, NA),
-                        spp1_1 = c(1,  2, 0, 0, 0, 0,  0),
-                        spp2_1 = c(NA, 0, 1, 1, 0, 0,  0),
-                        spp1_2 = c(1,  0, 0, 0, 1, 0,  0),
-                        spp2_2 = c(0,  0, 0, 0, 0, 10, 0))
+  pu <- sim_pu_polygons[1:8, ]
+  pu@data <- data.frame(id = seq_len(8),
+                        cost_1 = c(1,  2,  NA, 3, 100, 100, NA, 100),
+                        cost_2 = c(10, 10, 10, 10,  4,   1, NA, 10),
+                        spp1_1 = c(1,  2, 0, 0, 0, 0,  0, 0),
+                        spp2_1 = c(NA, 0, 1, 1, 0, 0,  0, 0),
+                        spp1_2 = c(1,  0, 0, 0, 1, 0,  0, 1),
+                        spp2_2 = c(0,  0, 0, 0, 0, 10, 0, 0))
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -207,13 +272,14 @@ test_that("Spatial (multiple zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  pu$solution_1 <- c(1, 0, NA, 1, 0, 0, NA)
-  pu$solution_2 <- c(0, 0, 0, 0, 1, 0, NA)
+  pu$solution_1 <- c(1, 0, NA, 1, 0, 0, NA, 0)
+  pu$solution_2 <- c(0, 0, 0, 0, 1, 0, NA, 0)
   # calculate replacement costs
-  r <- replacement_cost(p, pu[, c("solution_1", "solution_2")])
+  r <- replacement_cost(p, pu[, c("solution_1", "solution_2")],
+                        rescale = FALSE)
   # create correct result
-  pu$rc_1 <- c(1, 0, NA, Inf, 0, 0, NA)
-  pu$rc_2 <- c(0, 0, 0, 0, 7, 0, NA)
+  pu$rc_1 <- c(1, 0, NA, Inf, 0, 0, NA, 0)
+  pu$rc_2 <- c(0, 0, 0, 0, 6, 0, NA, 0)
   # run tests
   expect_equivalent(r, pu[, c("rc_1", "rc_2")])
 })
@@ -237,7 +303,7 @@ test_that("Raster (single zone)", {
   # create a solution
   s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
   r2 <- raster::raster(matrix(c(0, 8, NA, Inf), nrow = 1))
   # run tests
@@ -251,13 +317,13 @@ test_that("Raster (multiple zone)", {
   skip_if_not(any_solvers_installed())
   # create data
   pu <- raster::stack(
-    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA), nrow = 1)),
-    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA), nrow = 1)))
+    raster::raster(matrix(c(1,  2,  NA, 3, 100, 100, NA, 100), nrow = 1)),
+    raster::raster(matrix(c(10, 10, 10, 10,  4,   1, NA, 10), nrow = 1)))
   features <- raster::stack(
-    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), nrow = 1)),
-    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), nrow = 1)),
-    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), nrow = 1)),
-    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), nrow = 1)))
+    raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0, 0), nrow = 1)),
+    raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0, 0), nrow = 1)),
+    raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0, 1), nrow = 1)),
+    raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0, 0), nrow = 1)))
   targets <- matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)
   # create problem
   p <-
@@ -267,14 +333,15 @@ test_that("Raster (multiple zone)", {
     add_binary_decisions() %>%
     add_default_solver(gap = 0, verbose = FALSE)
   # create a solution
-  s <- raster::stack(raster::raster(matrix(c(1, 0, NA, 1, 0, 0, NA), nrow = 1)),
-                     raster::raster(matrix(c(0, 0, 0, 0, 1, 0, NA), nrow = 1)))
+  s <- raster::stack(
+    raster::raster(matrix(c(1, 0, NA, 1, 0, 0, NA, 0), nrow = 1)),
+    raster::raster(matrix(c(0, 0, 0, 0, 1, 0, NA, 0), nrow = 1)))
   # calculate replacement costs
-  r <- replacement_cost(p, s)
+  r <- replacement_cost(p, s, rescale = FALSE)
   # create correct result
   r2 <- raster::stack(
-    raster::raster(matrix(c(1, 0, NA, Inf, 0, 0, NA), nrow = 1)),
-    raster::raster(matrix(c(0, 0, 0, 0, 7, 0, NA), nrow = 1)))
+    raster::raster(matrix(c(1, 0, NA, Inf, 0, 0, NA, 0), nrow = 1)),
+    raster::raster(matrix(c(0, 0, 0,  0,   6, 0, NA, 0), nrow = 1)))
   names(r2) <- c("rc_1", "rc_2")
   # run tests
   expect_equal(r, r2)

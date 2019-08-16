@@ -91,7 +91,8 @@ Now we will formulate the conservation planning problem.
 p1 <- problem(salt_pu, salt_features) %>%
       add_min_set_objective() %>%
       add_relative_targets(0.17) %>%
-      add_binary_decisions()
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0)
 
 # print problem
 print(p1)
@@ -120,25 +121,25 @@ s1 <- stack()  # create empty stack to store solutions
 # create new problem object with added solver
 if (require("Rsymphony")) {
   titles <- c(titles, "Rsymphony (5s)")
-  p2 <- p1 %>% add_rsymphony_solver(time_limit = 5)
+  p2 <- p1 %>% add_rsymphony_solver(gap = 0, time_limit = 5)
   s1 <- addLayer(s1, solve(p2))
 }
 
 if (require("Rsymphony")) {
   titles <- c(titles, "Rsymphony (10s)")
-  p3 <- p1 %>% add_rsymphony_solver(time_limit = 10)
+  p3 <- p1 %>% add_rsymphony_solver(gap = 0, time_limit = 10)
   s1 <- addLayer(s1, solve(p3))
 }
 
 if (require("gurobi")) {
   titles <- c(titles, "Gurobi (5s)")
-  p4 <- p1 %>% add_gurobi_solver(time_limit = 5)
+  p4 <- p1 %>% add_gurobi_solver(gap = 0, time_limit = 5)
   s1 <- addLayer(s1, solve(p4))
 }
 
 if (require("lpsymphony")) {
   titles <- c(titles, "lpsymphony (10s)")
-  p5 <- p1 %>% add_lpsymphony_solver(time_limit = 10)
+  p5 <- p1 %>% add_lpsymphony_solver(gap = 0, time_limit = 10)
   s1 <- addLayer(s1, solve(p5))
 }
 ```
@@ -160,7 +161,8 @@ Isolated and fragmented populations are often more vulnerable to extinction. As 
 p6 <- problem(salt_pu, salt_features) %>%
       add_min_set_objective() %>%
       add_relative_targets(0.17) %>%
-      add_binary_decisions()
+      add_binary_decisions() %>%
+      add_default_solver(gap = 0)
 
 # print problem
 print(p6)
@@ -196,5 +198,33 @@ plot(s2, main = titles2, breaks = c(0, 0.5, 1),  col = c("grey70", "darkgreen"))
 ```
 
 Here we can see that adding the constraints and penalties to the problem has a small, but noticeable effect on the solutions. We would expect to see larger difference between the solutions for problems that contain more than five conservation features. You may also wish to explore the `add_connectivity_penalties` and `add_feature_contiguity_constraints` functions. These functions use additional data on landscape resistance to provide a more accurate parametrization of connectivity and, in turn, deliver more effective solutions.
+
+## Irreplaceability
+
+Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the "importance" or "priority" of each planning unit selected in a solution.
+
+Let's assume that the low boundary length solution (`s2[[3]]`) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the `formatC(cellStats(s2[[3]], "sum"), big.mark = ",")` planning units are the most important. So, let's calculate irreplacability scores for each of the planning units selected in that solution using the replacement cost method [@r31]. Under this method, planning units with higher scores are more irreplaceable. Planning units with infinite (`Inf`) scores are truly irreplaceable (i.e. they contain biodiversity features which cannot be met by protecting any other set of planning units), and those with zero scores are completely replaceable (i.e. they can be swapped for another set of planning units with no loss of performance).
+
+Unfortunately, this method can take a long time to run for moderate sized problems (i.e. planning units with between 1,000--30,000 planning units). So, instead of using the same problem to generate the replacement costs, we will use a simplified problem that does not contain boundary penalties and uses proportion-type decisions to reduce run times.
+
+```{r}
+# create new problem for irreplacability calculations
+p10 <- problem(salt_pu, salt_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.17) %>%
+       add_proportion_decisions() %>%
+       add_default_solver(gap = 0, verbose = FALSE)
+
+# print problem
+print(p10)
+
+# calculate irreplacability scores (note this will take a few minutes)
+rc10 <- replacement_cost(p10, s2[[3]])
+
+# plot irreplacability scores
+plot(rc10, main = "replacement cost")
+```
+
+We can see that the prioritized planning units located on the far eastern side of the study area have the highest irreplacability scores (i.e. greater than 0.95). This result suggests that protecting these places may be critical to the overall success of the prioritization. Since none of the planning have infinite irreplacability scores, we can be confident that additional planning units could be protected to address shortfalls in the event that any one of the prioritized planning units could not be protected.
 
 ## References

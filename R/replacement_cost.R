@@ -3,13 +3,18 @@ NULL
 
 #' Replacement cost
 #'
-#' TODO
+#' Calculate irreplaceability scores for planning units selected in a solution
+#' using the replacement cost method (Cabeza and Moilanen 2006).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
 #'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
 #'   object. See the Details section for more information.
+#'
+#' @param rescale \code{logical} flag indicating if replacement cost
+#'  values---excepting infinite (\code{Inf}) and zero values---should be
+#'  rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.
 #'
 #' @param run_checks \code{logical} flag indicating whether presolve checks
 #'   should be run prior solving the problem. These checks are performed using
@@ -22,7 +27,35 @@ NULL
 #'
 #' @param ... not used.
 #'
-#' @details Note that all arguments to \code{solution} must correspond
+#' @details Using this method, the score for each planning unit is calculated
+#'   as the difference in the objective value of a solution when each planning
+#    unit is locked out and the optimization processes rerun with all other
+#'   selected planning units locked in. In other words, the replacement cost
+#'   metric corresponds to change in solution quality incurred if a given
+#'   planning unit cannot be acquired when implementing the solution and the
+#'   next best planning unit (or set of planning units) will need to be
+#'   considered instead. Thus planning units with a higher score are more
+#'   irreplaceable. For example, when using the minimum set objective function
+#'   (\code{\link{add_min_set_objective}}), the replacement cost scores
+#'   correspond to the additional costs needed to meet targets when each
+#'   planning unit is locked out. When using the maximum utility
+#'   objective function (\code{\link{add_max_utility_objective}}, the
+#'   replacement cost scores correspond to the reduction in the utility when
+#'   each planning unit is locked out. Infinite values mean that no feasible
+#'   solution exists when planning units are locked out---they are
+#'   absolutely essential for obtaining a solution (e.g. they contain rare
+#'   species that are not found in any other planning units or were locked in).
+#'   Zeros values mean that planning units can swapped with other planning units
+#'   and this will have no effect on the performance of the solution at all
+#'   (e.g. because they were only selected due to spatial fragmentation
+#'   penalties). Since these calculations can take a long time to complete, we
+#'   recommend calculating these scores without additional penalties (e.g.
+#'   \code{\link{add_boundary_penalties}}) or constraints (e.g.
+#'   \code{link{add_contiguity_constraints}}). They can be sped up further by
+#'   using proportion-type decisions when calculating the scores (see below for
+#'   an example).
+#'
+#'   Note that all arguments to \code{solution} must correspond
 #'   to the planning unit data in the argument to \code{x} in terms
 #'   of data representation, dimensionality, and spatial attributes (if
 #'   applicable). This means that if the planning unit data in \code{x}
@@ -58,29 +91,117 @@ NULL
 #'   for each planning unit in the solution.
 #'
 #' @examples
-#' # TODO
+#' # seed seed for reproducibility
+#' set.seed(600)
+#'
+#' # load data
+#' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+#'
+#' # create minimal problem with binary decisions
+#' p1 <- problem(sim_pu_raster, sim_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0, verbose = FALSE)
+#' \donttest{
+#' # solve problem
+#' s1 <- solve(p1)
+#'
+#' # print solution
+#' print(s1)
+#'
+#' # plot solution
+#' plot(s1, main = "solution", axes = FALSE, box = FALSE)
+#'
+#' # calculate irreplaceability scores
+#' rc1 <- replacement_cost(p1, s1)
+#'
+#' # print irreplaceability scores
+#' print(rc1)
+#'
+#' # plot irreplaceability scores
+#' plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
+#' }
+#'
+#' # since replacement cost scores can take a long time to calculate with
+#' # binary decisions, we can calculate them using proportion-type
+#' # decision variables. Note we are still calculating the scores for our
+#' # previous solution (s1), we are just using a different optimization
+#' # problem when calculating the scores.
+#' p2 <- problem(sim_pu_raster, sim_features) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_proportion_decisions() %>%
+#'       add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # calculate irreplaceability scores using proportion type decisions
+#' \donttest{
+#' rc2 <- replacement_cost(p2, s1)
+#'
+#' # print irreplaceability scores based on proportion type decisions
+#' print(rc2)
+#'
+#' # plot irreplacability scores based on proportion type decisions
+#' # we can see that the irreplaceability values in rc1 and rc2 are similar,
+#' # and this confirms that the proportion type decisions are a good
+#' # approximation
+#' plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
+#' }
+#'
+#' # build multi-zone conservation problem with binary decisions
+#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0, verbose = FALSE)
+#' \donttest{
+#' # solve the problem
+#' s3 <- solve(p3)
+#'
+#' # print solution
+#' print(s3)
+#'
+#' # plot solution
+#' # each panel corresponds to a different zone, and data show the
+#' # status of each planning unit in a given zone
+#' plot(s3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+#'      box = FALSE)
+#'
+#' # calculate irreplaceability scores
+#' rc3 <- replacement_cost(p3, s3)
+#'
+#' # plot  irreplaceability
+#' # each panel corresponds to a different zone, and data show the
+#' # irreplaceability of each planning unit in a given zone
+#' plot(rc3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+#'      box = FALSE)
+#' }
 #'
 #' @references
-#' # TODO
+#' Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
+#' value for cost-effective reserve planning. \emph{Biological Conservation},
+#' 132:  336--342.
 #'
-#' @name replacement_cost
-NULL
-
+#' @seealso \code{link{irreplaceability}}.
+#'
+#' @aliases replacement_cost,ConservationProblem,numeric-method replacement_cost,ConservationProblem,matrix-method replacement_cost,ConservationProblem,data.frame-method replacement_cost,ConservationProblem,Spatial-method replacement_cost,ConservationProblem,Raster-method
+#'
 #' @name replacement_cost
 #'
 #' @rdname replacement_cost
 #'
 #' @exportMethod replacement_cost
-#'
 methods::setGeneric("replacement_cost",
   function(x, solution, ...) {
   standardGeneric("replacement_cost")
 })
 
-internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
-                                      force) {
+internal_replacement_cost <- function(x, indices, solution_obj, rescale,
+                                      run_checks, force) {
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           is.integer(indices), length(indices) > 0,
+                          assertthat::is.flag(rescale),
                           assertthat::is.flag(run_checks),
                           assertthat::is.flag(force))
   # assign default solver and portfolio
@@ -94,16 +215,20 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
       stop(paste("problem failed presolve checks. For more information see",
                  "?presolve_check"))
   }
-  # compile problem into optimization problem object
+  # contruct problem
   opt <- compile.ConservationProblem(x)
+  x$solver$calculate(opt)
+  modelsense <- opt$modelsense()
+  rm(opt)
   # lock in decisions in the solution
-  opt$set_lb(indices, rep.int(1, length(indices)))
+  x$solver$set_variable_lb(indices, rep.int(1, length(indices)))
+  x$solver$set_variable_ub(indices, rep.int(1, length(indices)))
   # generate objective value for solution if unknown
-  solution_obj <- x$portfolio$run(opt, x$solver)
-  if (is.null(solution_obj) || is.null(solution_obj[[1]]$x))
+  solution_obj <- x$solver$run()
+  if (is.null(solution_obj) || is.null(solution_obj$x))
     stop("argument to solution is infeasible for this problem")
-  solution_obj <- solution_obj[[1]][[2]]
-  # iterate over solution and store replacement costs
+  solution_obj <- solution_obj[[2]]
+  # iterate over decision variables in solution and store new objective values
   alt_solution_obj <- vapply(indices, FUN.VALUE = numeric(1), function(i) {
     # lock out i'th selected planning unit in solution
     x$solver$set_variable_lb(i, 0)
@@ -124,16 +249,23 @@ internal_replacement_cost <- function(x, indices, solution_obj, run_checks,
   })
   # calculate replacement costs
   out <- alt_solution_obj - solution_obj
+  if (identical(modelsense, "max")) # rescale values if maximization problem
+    out <- out * -1
+  # rescale values if specified
+  if (rescale) {
+    rescale_ind <- is.finite(out) & (abs(out) > 1e-10)
+    out[rescale_ind] <- rescale(out[rescale_ind], to = c(0.01, 1))
+  }
   # return result
   out
 }
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution)
+#' @usage \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "numeric"),
-  function(x, solution, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.numeric(solution), sum(solution, na.rm = TRUE) > 1e-10,
@@ -153,7 +285,7 @@ methods::setMethod("replacement_cost",
     # calculate replacement costs
     indices <- which(solution[pos] > 1e-10)
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
-                                    run_checks, force)
+                                    rescale, run_checks, force)
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[pos] <- 0
@@ -162,11 +294,11 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{replacement_cost,matrix}(x, solution)
+#' @usage \S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "matrix"),
-  function(x, solution, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
@@ -191,7 +323,7 @@ methods::setMethod("replacement_cost",
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
-                                    run_checks, force)
+                                    rescale, run_checks, force)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -206,11 +338,11 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution)
+#' @usage \S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "data.frame"),
-  function(x, solution, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
@@ -237,7 +369,7 @@ methods::setMethod("replacement_cost",
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
-                                    run_checks, force)
+                                    rescale, run_checks, force)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -254,11 +386,11 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution)
+#' @usage \S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "Spatial"),
-  function(x, solution, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
     # assert valid arguments
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
@@ -285,7 +417,7 @@ methods::setMethod("replacement_cost",
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
-                                    run_checks, force)
+                                    rescale, run_checks, force)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -305,11 +437,11 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution)
+#' @usage \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "Raster"),
-  function(x, solution, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
       number_of_zones(x) == raster::nlayers(solution),
@@ -338,7 +470,7 @@ methods::setMethod("replacement_cost",
     # calculate replacement costs
     indices <- which(solution_matrix > 1e-10)
     rc <- internal_replacement_cost(x, indices, attr(solution, "objective"),
-                                    run_checks, force)
+                                    rescale, run_checks, force)
     # prepare output
     rc <- split(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
     # return result

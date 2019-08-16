@@ -18,6 +18,8 @@ help page on \code{\link{solvers}}}.
 
 \item{$name}{\code{character} name of solver.}
 
+\item{$data}{\code{list} object optimization problem data.}
+
 \item{$parameters}{\code{Parameters} object with parameters used to customize
   the the solver.}
 
@@ -35,6 +37,17 @@ help page on \code{\link{solvers}}}.
 
 \code{x$repr()}
 
+\code{x$get_data(name)}
+
+\code{x$set_data(name, value)}
+
+\code{x$set_variable_ub(index, value)}
+
+\code{x$set_variable_lb(index, value)}
+
+\code{x$calculate(op)}
+
+\code{x$run()}
 \code{x$solve(op)}
 }
 
@@ -58,6 +71,24 @@ help page on \code{\link{solvers}}}.
 \item{show}{show the object.}
 
 \item{repr}{\code{character} representation of object.}
+
+\item{get_data}{return an object stored in the \code{data} field with
+  the corresponding \code{name}. If the object is not present in the
+  \code{data} field, a \code{waiver} object is returned.}
+
+\item{set_data}{store an object stored in the \code{data} field with
+  the corresponding name. If an object with that name already
+  exists then the object is overwritten.}
+
+\item{set_variable_ub}{set the upper bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.}
+
+\item{set_variable_lb}{set the lower bounds on decision variables in
+  a pre-calculated optimization problem stored in the solver.}
+\item{calculate}{ingest a general purpose
+  \code{\link{OptimizationProblem-class}} object and convert it to the
+  correct format for the solver.}
+\item{run}{run the solver and output a solution}
 
 \item{solve}{solve an \code{\link{OptimizationProblem-class}} using this
   object.}

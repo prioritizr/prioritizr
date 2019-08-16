@@ -1,7 +1,9 @@
 # prioritizr 4.1.2.2
 
-- Add new `replacement_cost` function to calculate irreproducibility scores
-  for each planning unit in a solutions.
+- New `replacement_cost` function to calculate irreproducibility scores
+  for each planning unit in a solutions (#26).
+- New `irreplaceability` manual entry to document functions for calculating
+  irreproducibility scores.
 
 # prioritizr 4.1.2.1
 
@@ -15,7 +17,7 @@
 
 # prioritizr 4.1.2
 
-- Release candidate for CRAN.
+- Release candidate for CRAN (rejected).
 
 # prioritizr 4.1.1.2
 

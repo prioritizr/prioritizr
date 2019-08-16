@@ -81,7 +81,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -111,9 +111,6 @@ and form a single contiguous unit." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
-    </li>
-    <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
@@ -338,7 +335,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.09 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.07 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4329.44 4590.14 
@@ -419,7 +416,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
@@ -461,7 +458,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 4.44 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 4.30 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -509,7 +506,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 6
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.44 seconds
+#&gt; Explored 97 nodes (4719 simplex iterations) in 0.42 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
@@ -524,14 +521,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.09s
+#&gt; Presolve time: 0.08s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
 #&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -568,7 +565,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 14
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 1.07 seconds
+#&gt; Explored 162 nodes (8747 simplex iterations) in 1.15 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
@@ -615,16 +612,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># create targets</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
                           <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
-                          <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.3</span>,
+                          <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.2</span>,
                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 4</span><span>
 #&gt;   feature zone      target type    
 #&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  25.0  absolute
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   9.36 absolute
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  21.6  absolute
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  12.8  absolute
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  17.0  absolute</div><div class='input'>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  16.7  absolute
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   6.24 absolute
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  14.4  absolute
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   8.53 absolute
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  11.3  absolute</div><div class='input'>
 <span class='co'># create zones matrix</span>
 <span class='no'>z7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z7</span>)</div><div class='output co'>#&gt;      [,1] [,2]
@@ -643,37 +640,29 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Objective range  [9e+01, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 48 rows and 47 columns
+#&gt; Presolve removed 41 rows and 40 columns
 #&gt; Presolve time: 0.08s
-#&gt; Presolved: 655 rows, 568 columns, 2764 nonzeros
-#&gt; Variable types: 0 continuous, 568 integer (568 binary)
-#&gt; Presolve removed 124 rows and 0 columns
-#&gt; Presolved: 531 rows, 568 columns, 2392 nonzeros
+#&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
+#&gt; Variable types: 0 continuous, 575 integer (575 binary)
+#&gt; Presolve removed 128 rows and 0 columns
+#&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.901727e+03, 161 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 5901.72702    0   53          - 5901.72702      -     -    0s
-#&gt;      0     0 5913.98711    0   46          - 5913.98711      -     -    0s
-#&gt;      0     0 5919.40013    0   75          - 5919.40013      -     -    0s
-#&gt;      0     0 5921.60014    0   76          - 5921.60014      -     -    0s
-#&gt;      0     0 5925.59486    0   77          - 5925.59486      -     -    0s
-#&gt; H    0     0                    6482.8257651 5925.59486  8.60%     -    0s
+#&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
+#&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Zero half: 2
-#&gt; 
-#&gt; Explored 1 nodes (426 simplex iterations) in 0.12 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: 6482.83 
+#&gt; Solution count 1: 4021.31 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.482825765145e+03, best bound 5.925594864697e+03, gap 8.5955%</div><div class='input'>
+#&gt; Best objective 4.021309540762e+03, best bound 3.896591139934e+03, gap 3.1014%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s7</span>, <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

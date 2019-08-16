@@ -2,17 +2,22 @@
 % Please edit documentation in R/replacement_cost.R
 \name{replacement_cost}
 \alias{replacement_cost}
+\alias{replacement_cost,ConservationProblem,numeric-method}
+\alias{replacement_cost,ConservationProblem,matrix-method}
+\alias{replacement_cost,ConservationProblem,data.frame-method}
+\alias{replacement_cost,ConservationProblem,Spatial-method}
+\alias{replacement_cost,ConservationProblem,Raster-method}
 \title{Replacement cost}
 \usage{
-\S4method{replacement_cost}{ConservationProblem,numeric}(x, solution)
+\S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, ...)
 
-\S4method{replacement_cost}{replacement_cost,matrix}(x, solution)
+\S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, ...)
 
-\S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution)
+\S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, ...)
 
-\S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution)
+\S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, ...)
 
-\S4method{replacement_cost}{ConservationProblem,Raster}(x, solution)
+\S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -20,6 +25,10 @@
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
 object. See the Details section for more information.}
+
+\item{rescale}{\code{logical} flag indicating if replacement cost
+values---excepting infinite (\code{Inf}) and zero values---should be
+rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 
 \item{run_checks}{\code{logical} flag indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
@@ -39,10 +48,38 @@ A \code{numeric}, \code{matrix},
   for each planning unit in the solution.
 }
 \description{
-TODO
+Calculate irreplaceability scores for planning units selected in a solution
+using the replacement cost method (Cabeza and Moilanen 2006).
 }
 \details{
-Note that all arguments to \code{solution} must correspond
+Using this method, the score for each planning unit is calculated
+  as the difference in the objective value of a solution when each planning
+  selected planning units locked in. In other words, the replacement cost
+  metric corresponds to change in solution quality incurred if a given
+  planning unit cannot be acquired when implementing the solution and the
+  next best planning unit (or set of planning units) will need to be
+  considered instead. Thus planning units with a higher score are more
+  irreplaceable. For example, when using the minimum set objective function
+  (\code{\link{add_min_set_objective}}), the replacement cost scores
+  correspond to the additional costs needed to meet targets when each
+  planning unit is locked out. When using the maximum utility
+  objective function (\code{\link{add_max_utility_objective}}, the
+  replacement cost scores correspond to the reduction in the utility when
+  each planning unit is locked out. Infinite values mean that no feasible
+  solution exists when planning units are locked out---they are
+  absolutely essential for obtaining a solution (e.g. they contain rare
+  species that are not found in any other planning units or were locked in).
+  Zeros values mean that planning units can swapped with other planning units
+  and this will have no effect on the performance of the solution at all
+  (e.g. because they were only selected due to spatial fragmentation
+  penalties). Since these calculations can take a long time to complete, we
+  recommend calculating these scores without additional penalties (e.g.
+  \code{\link{add_boundary_penalties}}) or constraints (e.g.
+  \code{link{add_contiguity_constraints}}). They can be sped up further by
+  using proportion-type decisions when calculating the scores (see below for
+  an example).
+
+  Note that all arguments to \code{solution} must correspond
   to the planning unit data in the argument to \code{x} in terms
   of data representation, dimensionality, and spatial attributes (if
   applicable). This means that if the planning unit data in \code{x}
@@ -73,9 +110,99 @@ Note that all arguments to \code{solution} must correspond
   \code{solution} where this is not the case, then an error will be thrown.
 }
 \examples{
-# TODO
+# seed seed for reproducibility
+set.seed(600)
+
+# load data
+data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
+
+# create minimal problem with binary decisions
+p1 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver(gap = 0, verbose = FALSE)
+\donttest{
+# solve problem
+s1 <- solve(p1)
+
+# print solution
+print(s1)
+
+# plot solution
+plot(s1, main = "solution", axes = FALSE, box = FALSE)
+
+# calculate irreplaceability scores
+rc1 <- replacement_cost(p1, s1)
+
+# print irreplaceability scores
+print(rc1)
+
+# plot irreplaceability scores
+plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
+}
+
+# since replacement cost scores can take a long time to calculate with
+# binary decisions, we can calculate them using proportion-type
+# decision variables. Note we are still calculating the scores for our
+# previous solution (s1), we are just using a different optimization
+# problem when calculating the scores.
+p2 <- problem(sim_pu_raster, sim_features) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_proportion_decisions() \%>\%
+      add_default_solver(gap = 0, verbose = FALSE)
+
+# calculate irreplaceability scores using proportion type decisions
+\donttest{
+rc2 <- replacement_cost(p2, s1)
+
+# print irreplaceability scores based on proportion type decisions
+print(rc2)
+
+# plot irreplacability scores based on proportion type decisions
+# we can see that the irreplaceability values in rc1 and rc2 are similar,
+# and this confirms that the proportion type decisions are a good
+# approximation
+plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
+}
+
+# build multi-zone conservation problem with binary decisions
+p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
+      add_min_set_objective() \%>\%
+      add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+                                  ncol = 3)) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver(gap = 0, verbose = FALSE)
+\donttest{
+# solve the problem
+s3 <- solve(p3)
+
+# print solution
+print(s3)
+
+# plot solution
+# each panel corresponds to a different zone, and data show the
+# status of each planning unit in a given zone
+plot(s3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+     box = FALSE)
+
+# calculate irreplaceability scores
+rc3 <- replacement_cost(p3, s3)
+
+# plot  irreplaceability
+# each panel corresponds to a different zone, and data show the
+# irreplaceability of each planning unit in a given zone
+plot(rc3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
+     box = FALSE)
+}
 
 }
 \references{
-# TODO
+Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
+value for cost-effective reserve planning. \emph{Biological Conservation},
+132:  336--342.
+}
+\seealso{
+\code{link{irreplaceability}}.
 }

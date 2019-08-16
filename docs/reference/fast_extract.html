@@ -80,7 +80,7 @@ Spatial-class object using performance enhancing tricks." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
       </span>
     </div>
 
@@ -110,9 +110,6 @@ Spatial-class object using performance enhancing tricks." />
     </li>
     <li>
       <a href="../articles/publication_record.html">Publication Record</a>
-    </li>
-    <li>
-      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
     </li>
     <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
@@ -225,19 +222,19 @@ is installed. Note that this only used when <code>x</code> is a
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)</div><div class='input'><span class='co'># we will investigate severals ways for extracting values from a raster</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)</div><div class='input'><span class='co'># we will investigate several ways for extracting values from a raster</span>
 <span class='co'># using polygons. Specifically, for each band in the raster,</span>
 <span class='co'># for each polygon in the vector layer, calculate the average</span>
 <span class='co'># of the cells that are inside the polygon.</span>
 
 <span class='co'># perform the extraction using the standard raster::extract function</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.000   0.017 </div><div class='input'>
+#&gt;   0.015   0.000   0.015 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function augmented using the</span>
 <span class='co'># "velox" package</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.000   0.015 </div><div class='input'>
+#&gt;   0.015   0.000   0.014 </div><div class='input'>
 <span class='co'># perform extract using the fast_extract function with "velox" package</span>
 <span class='co'># and using two threads for processing. Note that this might be slower</span>
 <span class='co'># due to overheads but should yield faster processing times on larger</span>
@@ -245,7 +242,7 @@ is installed. Note that this only used when <code>x</code> is a
 <span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
                                     <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.023   0.000   3.423 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div><div class='input'>
+#&gt;   0.016   0.000   2.433 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

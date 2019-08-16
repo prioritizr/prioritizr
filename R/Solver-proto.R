@@ -40,6 +40,14 @@ NULL
 #'
 #' \code{x$set_data(name, value)}
 #'
+#' \code{x$set_variable_ub(index, value)}
+#'
+#' \code{x$set_variable_lb(index, value)}
+#'
+#' \code{x$calculate(op)}
+#'
+#' \code{x$run()}
+#"
 #' \code{x$solve(op)}
 #'
 #' @section Arguments:
@@ -68,6 +76,18 @@ NULL
 #'   the corresponding name. If an object with that name already
 #'   exists then the object is overwritten.}
 #'
+#' \item{set_variable_ub}{set the upper bounds on decision variables in
+#'   a pre-calculated optimization problem stored in the solver.}
+#'
+#' \item{set_variable_lb}{set the lower bounds on decision variables in
+#'   a pre-calculated optimization problem stored in the solver.}
+#
+#' \item{calculate}{ingest a general purpose
+#'   \code{\link{OptimizationProblem-class}} object and convert it to the
+#'   correct format for the solver.}
+
+#' \item{run}{run the solver and output a solution}
+#'
 #' \item{solve}{solve an \code{\link{OptimizationProblem-class}} using this
 #'   object.}
 #'
@@ -85,7 +105,16 @@ Solver <- pproto(
   data = list(),
   calculate = function(...) stop("solver is missing a calculate method"),
   run = function(...) stop("solver is missing a run method"),
-  solve = function(...) stop("solver is missing a solve method"),
+  solve = function(self, x, ...) {
+    # build optimization problem
+    self$calculate(x, ...)
+    # run solver and get solution
+    out <- self$run()
+    # clear data store to reduce memory consumption
+    self$data <- list()
+    # return output
+    out
+  },
   parameters = parameters(),
   print = function(self) {
     message(self$repr())
