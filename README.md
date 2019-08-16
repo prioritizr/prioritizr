@@ -133,7 +133,7 @@ s1 <- solve(p1)
     ##      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
     ## H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
     ## 
-    ## Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (16 simplex iterations) in 0.00 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 2: 3585.96 3934.62 
@@ -155,7 +155,7 @@ print(attr(s1, "runtime"))
 ```
 
     ##  solution_1 
-    ## 0.007081985
+    ## 0.001587868
 
 ``` r
 # extract state message from the solver

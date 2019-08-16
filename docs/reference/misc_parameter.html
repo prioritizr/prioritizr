@@ -111,6 +111,9 @@
       <a href="../articles/publication_record.html">Publication Record</a>
     </li>
     <li>
+      <a href="../articles/saltspring.html">Salt Spring Island Tutorial</a>
+    </li>
+    <li>
       <a href="../articles/tasmania.html">Tasmania Tutorial</a>
     </li>
     <li>
@@ -200,7 +203,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>misc_parameter</span>(<span class='st'>"tbl"</span>, <span class='no'>iris</span>,
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>TRUE</span>,
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x17ecc890&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x7173820&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -353,7 +356,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 3b4e296f-fb39-4943-bddf-601c36d5fb81</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 04c57257-2a59-4f65-85af-57a0d68eec91</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
 <span class='no'>p1</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
 <span class='co'># create table parameter with validation function that requires</span>
 <span class='co'># all values in the first column to be less then 200 and that the</span>
@@ -362,7 +365,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all'>all</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>x</span>) <span class='kw'>%in%</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>iris</span>)) <span class='kw'>&amp;&amp;</span>
                                  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/all'>all</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>&lt;</span> <span class='fl'>200</span>),
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/structure'>structure</a></span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x14de6cd8&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xc7fb7e0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -515,7 +518,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 0c271eb6-dd7f-42a2-b003-1fd4cee124bd</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: a2cb29bd-fc01-4d85-8570-f9b9ad8a76df</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>iris2</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris3</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>iris3</span>) <span class='co'># set parameter to iris3</span>
 <span class='no'>p2</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl2"</div><div class='input'>

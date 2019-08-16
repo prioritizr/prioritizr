@@ -225,4 +225,6 @@ rc10 <- replacement_cost(p10, s2[[3]])
 plot(rc10, main = "replacement cost")
 ```
 
+We can see that the prioritized planning units located on the far eastern side of the study area have the highest irreplacability scores (i.e. greater than 0.95). This result suggests that protecting these places may be critical to the overall success of the prioritization. Since none of the planning have infinite irreplacability scores, we can be confident that additional planning units could be protected to address shortfalls in the event that any one of the prioritized planning units could not be protected.
+
 ## References
