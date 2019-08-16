@@ -33,7 +33,8 @@ data(sim_pu_raster, sim_pu_polygons, sim_features)
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(gap = 0, verbose = FALSE)
 
 # solve the problem
 \donttest{
