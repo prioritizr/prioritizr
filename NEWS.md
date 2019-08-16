@@ -1,9 +1,14 @@
 # prioritizr 4.1.2.2
 
-- New `replacement_cost` function to calculate irreproducibility scores
-  for each planning unit in a solutions (#26).
 - New `irreplaceability` manual entry to document functions for calculating
   irreproducibility scores.
+- New `replacement_cost` function to calculate irreproducibility scores
+  for each planning unit in a solution using the replacement cost method (#26).
+- New `rarity_weighted_richness` function to calculate irreproducibility scores
+  for each planning unit in a solution using rarity weighted richness scores
+  (#26).
+- Updated Salt Spring Island vignette with a section on calculating and
+  interpreting irreplaceability scores.
 
 # prioritizr 4.1.2.1
 

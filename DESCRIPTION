@@ -166,6 +166,7 @@ Collate:
     'presolve_check.R'
     'print.R'
     'problem.R'
+    'rarity_weighted_richness.R'
     'solve.R'
     'replacement_cost.R'
     'rij_matrix.R'
