@@ -34,7 +34,7 @@ about how the budget should be allocated.
 Weights can only be applied to problems that have an objective
   that is budget limited (e.g. \code{\link{add_max_cover_objective}}). #'
   They can be applied to problems that aim to maximize phylogenetic
-  representation (\code{\link{add_max_phylo_objective}}) to favor the
+  representation (\code{\link{add_max_phylo_div_objective}}) to favor the
   representation of specific features over the representation of
   some phylogenetic branches. Weights cannot be negative values
   and must have values that are equal to or larger than zero.
@@ -105,11 +105,11 @@ plot(s1, main = c("equal weights", "rarity weights", "manual weights"),
 par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "simulated phylogeny")
 }
-# create problem with a maximum phylogenetic representation objective,
+# create problem with a maximum phylogenetic diversity objective,
 # where each feature needs 10 \% of its distribution to be secured for
 # it to be adequately conserved and a total budget of 1900
 p4 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_max_phylo_objective(1900, sim_phylogeny) \%>\%
+      add_max_phylo_div_objective(1900, sim_phylogeny) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions()
 \donttest{

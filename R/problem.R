@@ -376,7 +376,7 @@ NULL
 #' p8 <- problem(sim_pu_zones_polygons,
 #'               zones(c("spp1_z1", "spp2_z1", "spp3_z1"),
 #'                     c("spp1_z2", "spp2_z2", "spp3_z2"),
-#"                     feature_names = c("spp1", "spp2", "spp3"),
+#                      feature_names = c("spp1", "spp2", "spp3"),
 #'                     zone_names = c("z1", "z2")),
 #'               cost_column = c("cost_1", "cost_2")) %>%
 #'       add_min_set_objective() %>%

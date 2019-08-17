@@ -41,7 +41,7 @@ NULL
 #'   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
 #'   \sum_{j = 1}^{J} y_j w_j \\
 #'   \mathit{subject \space to} \\
-#'   \sum_{i = 1}^{I} x_i r_{ij} >= y_j t_j \forall j \in J \\
+#'   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
 #'   \sum_{i = 1}^{I} x_i c_i \leq B}{
 #'   Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
 #'   sum_i^I (xi * rij) >= (yj tj) for all j in J &

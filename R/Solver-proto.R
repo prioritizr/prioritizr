@@ -47,7 +47,7 @@ NULL
 #' \code{x$calculate(op)}
 #'
 #' \code{x$run()}
-#"
+#'
 #' \code{x$solve(op)}
 #'
 #' @section Arguments:

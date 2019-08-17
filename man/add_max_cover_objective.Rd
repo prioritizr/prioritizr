@@ -59,7 +59,7 @@ A problem objective is used to specify the overall goal of the
   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} y_j w_j \\
   \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} >= y_j \times 1 \forall j \in J \\
+  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B}{
   Maximize sum_i^I (-s * ci * xi) + sum_j^J (yj * wj) subject to
   sum_i^I (xi * rij) >= (yj * 1) for all j in J &

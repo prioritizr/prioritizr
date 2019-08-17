@@ -1,3 +1,14 @@
+# prioritizr 4.1.2.3
+
+- Rename `add_max_phylo_objective` function to `add_max_phylo_div_objective`.
+- New `add_max_phylo_end_objective` function to maximize the phylogenetic
+  endemism of species adequately represented in a prioritization (#113).
+- Add `add_max_phylo_end_objective`, `replacement_cost`, and
+  `rarity_weighted_richness` functions to the Prioritizr vignette.
+- Update simulated phylogeny dataset (`sim_phylogeny`).
+- Update examples for `add_max_phylo_div_objective` function.
+- Prettify equations in the documentation for objective functions.
+
 # prioritizr 4.1.2.2
 
 - New `irreplaceability` manual entry to document functions for calculating

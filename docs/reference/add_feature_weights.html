@@ -88,7 +88,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -208,7 +208,7 @@ Details section for more information.</p></td>
     <p>Weights can only be applied to problems that have an objective
   that is budget limited (e.g. <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>). #'
   They can be applied to problems that aim to maximize phylogenetic
-  representation (<code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code>) to favor the
+  representation (<code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></code>) to favor the
   representation of specific features over the representation of
   some phylogenetic branches. Weights cannot be negative values
   and must have values that are equal to or larger than zero.
@@ -310,7 +310,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 2
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 8 nodes (234 simplex iterations) in 0.04 seconds
+#&gt; Explored 8 nodes (234 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2.99797 1.99799 -0 
@@ -359,7 +359,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 5
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 52 nodes (386 simplex iterations) in 0.05 seconds
+#&gt; Explored 52 nodes (386 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 715.287 142.672 -0 
@@ -401,56 +401,54 @@ Details section for more information.</p></td>
      <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'>
 # plot the example phylogeny
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum phylogenetic representation objective,</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Objective range  [4e-06, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
-#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
-#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
-#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
-#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
-#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
-#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
-#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
-#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
-#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
+#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
+#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
+#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
+#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
+#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
+#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
+#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
+#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
+#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
+#&gt; Solution count 3: 3.53632 2.94027 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -474,51 +472,49 @@ Details section for more information.</p></td>
 <span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
 <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
 <span class='co'># feature be much closer to optimality</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 0.92935310 0.04601484 0.19467348 0.42153320 0.83343759 0.48469318 0.85434472
-#&gt; [8] 0.58924564</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 1.42105185 0.34712544 0.04100098 0.30612447 0.30612447 0.59604770 1.17212960
+#&gt; [8] 1.17212960</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Objective range  [4e-06, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
-#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
-#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
-#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
-#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
-#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
-#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
-#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
-#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
-#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
+#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
+#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
+#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
+#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
+#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
+#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
+#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
+#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
+#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 9 nodes (113 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
+#&gt; Solution count 3: 3.53632 2.94027 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
@@ -559,7 +555,7 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
@@ -594,7 +590,7 @@ Details section for more information.</p></td>
 #&gt;   GUB cover: 1
 #&gt;   Inf proof: 2
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.10 seconds
+#&gt; Explored 63 nodes (1030 simplex iterations) in 0.07 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
@@ -609,7 +605,7 @@ Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
 #&gt; Variable types: 0 continuous, 284 integer (284 binary)
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
@@ -682,7 +678,7 @@ Details section for more information.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

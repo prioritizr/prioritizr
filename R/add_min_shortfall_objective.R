@@ -30,7 +30,7 @@ NULL
 #'
 #'   \deqn{\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
 #'   \mathit{subject \space to} \\
-#'   \sum_{i = 1}^{I} x_i r_{ij} + y_j >= t_j \forall j \in J \\
+#'   \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
 #'   \sum_{i = 1}^{I} x_i c_i \leq B}{
 #'   Minimize sum_j^J wj * (yj / tj) subject to
 #'   sum_i^I (xi * rij) + yj >= tj for all j in J &

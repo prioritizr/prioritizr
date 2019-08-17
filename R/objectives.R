@@ -33,8 +33,12 @@ NULL
 #'     for as many targets as possible while ensuring that
 #'     the cost of the solution does not exceed a budget.}
 #'
-#'   \item{\code{\link{add_max_phylo_objective}}}{Maximize the phylogenetic
+#'   \item{\code{\link{add_max_phylo_div_objective}}}{Maximize the phylogenetic
 #'     diversity of the features represented in the solution subject to a
+#'     budget.}
+#'
+#'   \item{\code{\link{add_max_phylo_end_objective}}}{Maximize the phylogenetic
+#'     endemism of the features represented in the solution subject to a
 #'     budget.}
 #'
 #'   \item{\code{\link{add_max_utility_objective}}}{Secure as much of the
@@ -62,27 +66,31 @@ NULL
 #' p2 <- p %>% add_max_cover_objective(500)
 #'
 #' # create problem with added maximum feature representation objective
-#' p3 <- p %>% add_max_features_objective(1500)
+#' p3 <- p %>% add_max_features_objective(1900)
 
 #' # create problem with added minimum shortfall objective
-#' p4 <- p %>% add_min_shortfall_objective(1500)
+#' p4 <- p %>% add_min_shortfall_objective(1900)
 #'
-#' # create problem with added maximum phylogenetic representation objective
-#' p5 <- p %>% add_max_phylo_objective(1900, sim_phylogeny)
+#' # create problem with added maximum phylogenetic diversity objective
+#' p5 <- p %>% add_max_phylo_div_objective(1900, sim_phylogeny)
+#'
+#' # create problem with added maximum phylogenetic diversity objective
+#' p6 <- p %>% add_max_phylo_end_objective(1900, sim_phylogeny)
 #'
 #' # create problem with added maximum utility objective
 #' # note that this objective does not use targets
-#' p6 <- p %>% add_max_utility_objective(5000)
+#' p7 <- p %>% add_max_utility_objective(1900)
 #'
 #' \donttest{
 #' # solve problems
-#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6))
+#' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6),
+#'            solve(p7))
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE, box = FALSE,
 #'      main = c("minimum set", "maximum coverage", "maximum features",
-#'               "minimum shortfall", "phylogenetic representation",
-#'               "maximum utility"))
+#'               "minimum shortfall", "maximum phylogenetic diversity",
+#'               "maximum phylogenetic endemism", "maximum utility"))
 #' }
 #' @name objectives
 NULL

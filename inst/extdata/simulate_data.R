@@ -94,8 +94,19 @@ sim_pu_points$locked_in <- as.logical(sim_pu_points$locked_in)
 sim_pu_points$locked_out <- as.logical(sim_pu_points$locked_out)
 
 # simulate species phylogeny
+## old tree
 sim_phylogeny <- ape::rtree(n = raster::nlayers(sim_features))
 sim_phylogeny$tip.label <- names(sim_features)
+## new tree
+sim_phylogeny <- structure(
+  list(edge = structure(c(6L, 8L, 8L, 9L, 9L, 6L, 7L, 7L, 8L, 1L, 9L, 2L, 3L,
+                          7L, 4L, 5L), .Dim = c(8L, 2L)),
+      edge.length = c(1.42105185442643, 0.34712544386147, 0.0410009787107508,
+                      0.306124465150719, 0.306124465150719, 0.596047695260495,
+                      1.17212960302741, 1.17212960302741),
+      tip.label = c("layer.1", "layer.2", "layer.3", "layer.4", "layer.5"),
+      Nnode = 4L),
+  class = "phylo", order = "cladewise")
 
 # simulate raster planning unit zone data
 sim_pu_zones_stack <- simulate_cost(sim_landscape, n = 3)

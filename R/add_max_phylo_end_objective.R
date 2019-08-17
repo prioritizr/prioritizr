@@ -1,16 +1,16 @@
 #' @include internal.R pproto.R Objective-proto.R
 NULL
 
-#' Add maximum phylogenetic representation objective
+#' Add maximum phylogenetic endemism objective
 #'
 #' Set the objective of a conservation planning \code{\link{problem}} to
-#' maximize the phylogenetic diversity of the features represented in the
+#' maximize the phylogenetic endemism of the features represented in the
 #' solution subject to a budget. This objective is similar to
-#' \code{\link{add_max_features_objective}} except
-#' that emphasis is placed on representing a phylogenetically diverse set of
-#' species, rather than as many features as possible (subject to weights).
-#' This function was inspired by Faith (1992) and Rodrigues \emph{et al.}
-#' (2002).
+#' \code{\link{add_max_phylo_end_objective}} except
+#' that emphasis is placed on representing species with geographically
+#' restricted evolutionary histories, instead representing as much evolutionary
+#' history as possible. This function was inspired by Faith (1992),
+#' Rodrigues \emph{et al.} (2002), and Rosauer \emph{et al.} (2009).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -29,7 +29,7 @@ NULL
 #'   addition of objectives---failing to do so will return an error
 #'   message when attempting to solve problem.
 #'
-#'   The maximum phylogenetic representation objective finds the set of
+#'   The maximum phylogenetic endemism objective finds the set of
 #'   planning units that meets representation targets for a phylogenetic tree
 #'   while staying within a fixed budget. If multiple solutions can meet all
 #'   targets while staying within budget, the cheapest solution is chosen.
@@ -37,14 +37,14 @@ NULL
 #'   features objective (\code{\link{add_max_features_objective}}) in that it
 #'   allows for both a budget and targets to be set for each feature. However,
 #'   unlike the maximum feature objective, the aim of this objective is to
-#'   maximize the total phylogenetic diversity of the targets met in the
+#'   maximize the total phylogenetic endemism of the targets met in the
 #'   solution, so if multiple targets are provided for a single feature, the
 #'   problem will only need to meet a single target for that feature
 #'   for the phylogenetic benefit for that feature to be counted when
-#'   calculating the phylogenetic diversity of the solution. In other words,
+#'   calculating the phylogenetic endemism of the solution. In other words,
 #'   for multi-zone problems, this objective does not aim to maximize the
-#'   phylogenetic diversity in each zone, but rather this objective
-#'   aims to maximize the phylogenetic diversity of targets that can be met
+#'   phylogenetic endemism in each zone, but rather this objective
+#'   aims to maximize the phylogenetic endemism of targets that can be met
 #'   through allocating planning units to any of the different zones in a
 #'   problem. This can be useful for problems where targets pertain to the total
 #'   amount held for each feature across multiple zones. For example,
@@ -53,22 +53,23 @@ NULL
 #'   (ii) partially restored, or (iii) completely restored management zone.
 #'   Here each target corresponds to a single feature and can be met through
 #'   the total amount of habitat in planning units present to the three
-#'   zones.
+#'   zones. In earlier versions of the \pkg{prioritizr} package, this
+#'   function was named \code{add_max_phylo_end_objective}.
 #'
-#'   The maximum phylogenetic representation objective for the reserve design
+#'   The maximum phylogenetic endemism objective for the reserve design
 #'   problem can be expressed mathematically for a set of planning units
 #'   (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
 #'   indexed by \eqn{j}{j}) as:
 #'
 #'   \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
-#'   \sum_{j = 1}^{J} m_b l_b \\
+#'   \sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
 #'   \mathit{subject \space to} \\
-#'   \sum_{i = 1}^{I} x_i r_{ij} >= y_j t_j \forall j \in J \\
-#'   m_b <= y_j \forall j \in T(b) \\
+#'   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
+#'   m_b \leq y_j \forall j \in T(b) \\
 #'   \sum_{i = 1}^{I} x_i c_i \leq B}{
-#'   Maximize sum_i^I (-s * ci * xi) + sum_j^J (mb * lb) subject to sum_i^I
-#'   (xi * rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) &
-#'   sum_i^I (xi * ci) <= B}
+#'   Maximize sum_i^I (-s * ci * xi) + sum_j^J (mb * lb * (1 / ab))
+#'   subject to sum_i^I (xi * rij) >= (yj * tj) for all j in J &
+#'   mb <= yj for all j in T(b) & sum_i^I (xi * ci) <= B}
 #'
 #'   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
@@ -78,7 +79,11 @@ NULL
 #'   the target \eqn{t_j}{tj} for feature \eqn{j}{j}. Additionally,
 #'   \eqn{T}{T} represents a phylogenetic tree containing features \eqn{j}{j}
 #'   and has the branches \eqn{b} associated within lengths \eqn{l_b}{lb}.
-#'   The binary variable \eqn{m_b}{mb} denotes if
+#'   Each branch \eqn{b \in B}{b in B} is associated with a total amount
+#'   \eqn{a_b}{ab} indicating the total geographic extent or amount of habitat.
+#'   The \eqn{a_b}{ab} variable for a given branch is calculated by summing the
+#'   \eqn{r_{ij}}{rij} data for all features \eqn{j \in J}{j in J} that are
+#'   associated with the branch. The binary variable \eqn{m_b}{mb} denotes if
 #'   at least one feature associated with the branch \eqn{b}{b} has met its
 #'   representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
 #'   the features \eqn{j}{j} associated with branch \eqn{b}{b} using
@@ -100,6 +105,11 @@ NULL
 #' selection of networks of conservation areas. \emph{Biological Conservation},
 #' 105: 103--111.
 #'
+#' Rosauer D, Laffan SW, Crisp, MD, Donnellan SC and Cook LG (2009)
+#' Phylogenetic endemism: a new approach for identifying geographical
+#' concentrations of evolutionary history. \emph{Molecular Ecology}, 18:
+#' 4061--4072.
+#'
 #' @examples
 #' # load ape package
 #' require(ape)
@@ -108,16 +118,16 @@ NULL
 #' data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
 #'      sim_features_zones)
 #'
-#' # plot the example phylogeny
+#' # plot the simulated phylogeny
 #' \donttest{
 #' par(mfrow = c(1, 1))
-#' plot(sim_phylogeny, main = "simulated phylogeny")
+#' plot(sim_phylogeny, main = "phylogeny")
 #' }
-#' # create problem with a maximum phylogenetic representation objective,
+#' # create problem with a maximum diversity representation objective,
 #' # where each feature needs 10 % of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
-#'       add_max_phylo_objective(1900, sim_phylogeny) %>%
+#'       add_max_phylo_end_objective(1900, sim_phylogeny) %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions()
 #' \donttest{
@@ -128,13 +138,16 @@ NULL
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #'
 #' # find which features have their targets met
-#' targets_met1 <- cellStats(s1 * sim_features, "sum") >=
-#'                 (0.1 * cellStats(sim_features, "sum"))
+#' r1 <- feature_representation(p1, s1)
+#' r1$target_met <- r1$relative_held > 0.1
+#' print(r1)
 #'
-#' # plot the example phylogeny and color the represented features in red
-#' plot(sim_phylogeny, main = "represented features",
-#'      tip.color = replace(rep("black", nlayers(sim_features)),
-#'                          which(targets_met1), "red"))
+#' # plot the phylogeny and color the adequately represented features in red
+#' plot(sim_phylogeny, main = "adequately represented features",
+#'      tip.color = replace(
+#'        rep("black", nlayers(sim_features)),
+#'        sim_phylogeny$tip.label %in% r1$feature[r1$target_met],
+#'        "red"))
 #' }
 #' # rename the features in the example phylogeny for use with the
 #' # multi-zone data
@@ -150,10 +163,10 @@ NULL
 #'   type = rep("absolute", number_of_features(sim_features_zones)),
 #'   target = rep(10, number_of_features(sim_features_zones)))
 #'
-#' # create a multi-zone problem with a maximum phylogenetic representation
+#' # create a multi-zone problem with a maximum phylogenetic diversity
 #' # objective, where the total expenditure in all zones is 5000.
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_max_phylo_objective(5000, sim_phylogeny) %>%
+#'       add_max_phylo_end_objective(5000, sim_phylogeny) %>%
 #'       add_manual_targets(targets) %>%
 #'       add_binary_decisions()
 #' \donttest{
@@ -172,16 +185,17 @@ NULL
 #'
 #' # find which features have their targets met
 #' targets_met2 <- amount_held2 >= targets$target
+#' print(targets_met2)
 #'
-#' # plot the example phylogeny and color the represented features in red
-#' plot(sim_phylogeny, main = "represented features",
+#' # plot the phylogeny and color the adequately represented features in red
+#' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
 #'                          which(targets_met2), "red"))
 #' }
-#' # create a multi-zone problem with a maximum phylogenetic representation
+#' # create a multi-zone problem with a maximum phylogenetic diversity
 #' # objective, where each zone has a separate budget.
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-#'       add_max_phylo_objective(c(2500, 500, 2000), sim_phylogeny) %>%
+#'       add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) %>%
 #'       add_manual_targets(targets) %>%
 #'       add_binary_decisions()
 #' \donttest{
@@ -200,18 +214,19 @@ NULL
 #'
 #' # find which features have their targets met
 #' targets_met3 <- amount_held3 >= targets$target
+#' print(targets_met3)
 #'
-#' # plot the example phylogeny and color the represented features in red
-#' plot(sim_phylogeny, main = "represented features",
+#' # plot the phylogeny and color the adequately represented features in red
+#' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
 #'                          which(targets_met3), "red"))
 #' }
-#' @name add_max_phylo_objective
+#' @name add_max_phylo_end_objective
 NULL
 
-#' @rdname add_max_phylo_objective
+#' @rdname add_max_phylo_end_objective
 #' @export
-add_max_phylo_objective <- function(x, budget, tree) {
+add_max_phylo_end_objective <- function(x, budget, tree) {
   # check that dependencies are installed
   if (!requireNamespace("ape"))
     stop("the \"ape\" package needs to be installed to use phylogenetic data")
@@ -239,9 +254,9 @@ add_max_phylo_objective <- function(x, budget, tree) {
   }
   # add objective to problem
   x$add_objective(pproto(
-    "PhylogeneticRepresentationObjective",
+    "PhylogeneticEndemismObjective",
     Objective,
-    name = "Phylogenetic representation objective",
+    name = "Phylogenetic endemism objective",
     parameters = parameters(p),
     data = list(tree = tree),
     calculate = function(self, x) {
@@ -250,9 +265,20 @@ add_max_phylo_objective <- function(x, budget, tree) {
       tr <- self$get_data("tree")
       # order rows to match order of features in problem
       pos <- match(tr$tip.label, x$feature_names())
-      # convert tree into matrix showing which species in which
-      # branches and store the result
-      self$set_data("branch_matrix", branch_matrix(tr)[pos, ])
+      # create re-ordered branch matrix
+      bm <- branch_matrix(tr)[pos, , drop = FALSE]
+      # calculate total abundance of each phylogenetic branch
+      ab <- matrix(rowSums(x$feature_abundances_in_total_units(), na.rm = TRUE),
+                   ncol = ncol(bm), nrow = nrow(bm), byrow = FALSE) * bm
+      # multiply branch lengths by endemism
+      tr$edge.length <- tr$edge.length * (1 / colSums(ab))
+      # manually rescale branch lengths in case they are too small
+      if (min(tr$edge.length) < 1)
+        tr$edge.length <- tr$edge.length * (1 / min(tr$edge.length))
+      # store data
+      self$set_data("branch_matrix", bm)
+      self$set_data("tree_rescaled", tr)
+      # return success
       invisible(TRUE)
     },
     apply = function(self, x, y) {
@@ -262,7 +288,7 @@ add_max_phylo_objective <- function(x, budget, tree) {
         y$feature_targets(), y$planning_unit_costs(),
         self$parameters$get("budget")[[1]],
         self$get_data("branch_matrix"),
-        self$get_data("tree")$edge.length
+        self$get_data("tree_rescaled")$edge.length
       ))
     }))
 }

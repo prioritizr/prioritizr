@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -212,13 +212,13 @@ Defaults to <code>FALSE</code>.</p></td>
 
 <span class='co'># create a numeric matrix parameter</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_matrix_parameter</span>(<span class='st'>"m"</span>, <span class='no'>m</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xe2be238&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xede6408&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;           a         b          c
 #&gt; a 0.8122665 0.0269171 0.38656055
 #&gt; b 0.9639887 0.7706323 0.92975210
-#&gt; c 0.7216369 0.8443418 0.03378785</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 5907960f-0a34-4b4b-ac19-44be28485079</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
+#&gt; c 0.7216369 0.8443418 0.03378785</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 524831bf-3a5e-4eb5-8295-fd03f897ec65</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>m</span> + <span class='fl'>1</span>) <span class='co'># set parameter to new values</span>
 <span class='no'>p1</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "m"</div><div class='input'>
@@ -229,13 +229,13 @@ Defaults to <code>FALSE</code>.</p></td>
 
 <span class='co'># create a binary matrix parameter</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_matrix_parameter</span>(<span class='st'>"m"</span>, <span class='no'>m</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xdd110e8&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xe267ae0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   a b c
 #&gt; a 0 0 0
 #&gt; b 0 0 0
-#&gt; c 0 0 1</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: e70349b3-2bbc-40b0-bbba-30544f2dbf88</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
+#&gt; c 0 0 1</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 8b421d3c-6f32-4b13-9161-dd1dfd6537e9</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>m</span> + <span class='fl'>1</span>) <span class='co'># set parameter to new values</span>
 <span class='no'>p2</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "m"</div></pre>
@@ -255,7 +255,7 @@ Defaults to <code>FALSE</code>.</p></td>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

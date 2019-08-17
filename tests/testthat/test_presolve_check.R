@@ -92,7 +92,7 @@ test_that("instability due to range in branch lengths", {
   data(sim_pu_raster, sim_features, sim_phylogeny)
   sim_phylogeny$edge.length[length(sim_phylogeny$edge.length)] <- 1e+15
   p <- problem(sim_pu_raster, sim_features) %>%
-       add_max_phylo_objective(1900, sim_phylogeny) %>%
+       add_max_phylo_div_objective(1900, sim_phylogeny) %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
   expect_warning(expect_false(presolve_check(p)), "branch", all = TRUE)

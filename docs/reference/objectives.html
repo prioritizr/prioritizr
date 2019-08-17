@@ -86,7 +86,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -193,8 +193,11 @@ to solve a problem will return an error.</strong></p>
     <dt><code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></code></dt><dd><p>Minimize the shortfall
     for as many targets as possible while ensuring that
     the cost of the solution does not exceed a budget.</p></dd>
-    <dt><code><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></code></dt><dd><p>Maximize the phylogenetic
+    <dt><code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></code></dt><dd><p>Maximize the phylogenetic
     diversity of the features represented in the solution subject to a
+    budget.</p></dd>
+    <dt><code><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></code></dt><dd><p>Maximize the phylogenetic
+    endemism of the features represented in the solution subject to a
     budget.</p></dd>
     <dt><code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code></dt><dd><p>Secure as much of the
     features as possible without exceeding a budget.</p></dd>
@@ -223,17 +226,21 @@ to solve a problem will return an error.</strong></p>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span>(<span class='fl'>500</span>)
 
 <span class='co'># create problem with added maximum feature representation objective</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>1500</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>1900</span>)
 <span class='co'># create problem with added minimum shortfall objective</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span>(<span class='fl'>1500</span>)
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span>(<span class='fl'>1900</span>)
 
-<span class='co'># create problem with added maximum phylogenetic representation objective</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_objective.html'>add_max_phylo_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
+<span class='co'># create problem with added maximum phylogenetic diversity objective</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
+
+<span class='co'># create problem with added maximum phylogenetic diversity objective</span>
+<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
 
 <span class='co'># create problem with added maximum utility objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span>(<span class='fl'>5000</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span>(<span class='fl'>1900</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>),
+           <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -300,17 +307,38 @@ to solve a problem will return an error.</strong></p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 6 rows and 95 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolve: All rows and columns removed
+#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
+#&gt; Variable types: 0 continuous, 95 integer (95 binary)
+#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
 #&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+#&gt; 
+#&gt; Root relaxation: objective 4.942863e+00, 21 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0    4.94286    0    5   -0.00000    4.94286      -     -    0s
+#&gt;      0     0    4.72292    0    6   -0.00000    4.72292      -     -    0s
+#&gt; H    0     0                       1.9990360    4.72292   136%     -    0s
+#&gt;      0     0    4.72249    0    7    1.99904    4.72249   136%     -    0s
+#&gt;      0     0    4.72203    0    9    1.99904    4.72203   136%     -    0s
+#&gt;      0     0    4.72203    0    9    1.99904    4.72203   136%     -    0s
+#&gt;      0     2    4.67615    0    9    1.99904    4.67615   134%     -    0s
+#&gt; H    6     3                       1.9990909    3.83301  91.7%   5.3    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Cover: 1
+#&gt;   MIR: 1
+#&gt;   StrongCG: 2
+#&gt; 
+#&gt; Explored 14 nodes (107 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 1: -0 
+#&gt; Solution count 3: 1.99909 1.99904 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%
+#&gt; Best objective 1.999090896800e+00, best bound 2.146005960803e+00, gap 7.3491%
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
@@ -326,75 +354,119 @@ to solve a problem will return an error.</strong></p>
 #&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.075487e+00, 20 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.610918e-02, 19 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    1.07549    0    1    5.00000    1.07549  78.5%     -    0s
-#&gt; H    0     0                       1.3517725    1.07549  20.4%     -    0s
-#&gt; *    0     0               0       1.3034441    1.30344  0.00%     -    0s
+#&gt;      0     0    0.05611    0    3    5.00000    0.05611  98.9%     -    0s
+#&gt; H    0     0                       0.3085453    0.05611  81.8%     -    0s
+#&gt; H    0     0                       0.3012559    0.05611  81.4%     -    0s
+#&gt;      0     0    0.27609    0    2    0.30126    0.27609  8.35%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 1 nodes (25 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (27 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 1.30344 1.35177 5 5 
+#&gt; Solution count 4: 0.301256 0.308545 5 5 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.303444080446e+00, best bound 1.303444080446e+00, gap 0.0000%
-#&gt; Optimize a model with 14 rows, 103 columns and 567 nonzeros
+#&gt; Best objective 3.012559326341e-01, best bound 2.760925799731e-01, gap 8.3528%
+#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [5e-06, 9e-01]
+#&gt;   Objective range  [4e-06, 1e+00]
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 557 nonzeros
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.337104e+00, 26 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0    4.33710    0    5   -0.00000    4.33710      -     -    0s
-#&gt;      0     0    4.21288    0    6   -0.00000    4.21288      -     -    0s
-#&gt; H    0     0                       2.1552851    4.21288  95.5%     -    0s
-#&gt;      0     0    4.20947    0    7    2.15529    4.20947  95.3%     -    0s
-#&gt;      0     0    4.20920    0    8    2.15529    4.20920  95.3%     -    0s
-#&gt;      0     0    4.20824    0    8    2.15529    4.20824  95.3%     -    0s
-#&gt;      0     0    4.20672    0    8    2.15529    4.20672  95.2%     -    0s
-#&gt;      0     0    4.20663    0    9    2.15529    4.20663  95.2%     -    0s
-#&gt;      0     2    4.15328    0    9    2.15529    4.15328  92.7%     -    0s
-#&gt; H    6     3                       2.7445309    3.44216  25.4%   5.0    0s
-#&gt; H    6     3                       2.7445310    3.44216  25.4%   5.0    0s
+#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
+#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
+#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
+#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
+#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
+#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
+#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
+#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
+#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 9 nodes (113 simplex iterations) in 0.03 seconds
+#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 2.74453 2.74453 2.15529 -0 
+#&gt; Solution count 3: 3.53632 2.94027 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.744531030426e+00, best bound 2.744531030426e+00, gap 0.0000%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%
+#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+#&gt; Variable types: 0 continuous, 103 integer (103 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 2e+02]
+#&gt;   Objective range  [1e-04, 7e+01]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [2e+03, 2e+03]
+#&gt; Found heuristic solution: objective -0.0000000
+#&gt; Presolve removed 5 rows and 5 columns
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
+#&gt; Variable types: 0 continuous, 98 integer (98 binary)
+#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 2.016809e+02, 20 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0  201.68085    0    5   -0.00000  201.68085      -     -    0s
+#&gt; H    0     0                     136.2380565  201.68085  48.0%     -    0s
+#&gt;      0     0  197.58020    0    6  136.23806  197.58020  45.0%     -    0s
+#&gt;      0     0  197.51139    0    7  136.23806  197.51139  45.0%     -    0s
+#&gt;      0     0  197.48202    0    8  136.23806  197.48202  45.0%     -    0s
+#&gt;      0     0  197.44732    0    9  136.23806  197.44732  44.9%     -    0s
+#&gt;      0     0  197.43063    0    9  136.23806  197.43063  44.9%     -    0s
+#&gt;      0     0  197.40719    0   10  136.23806  197.40719  44.9%     -    0s
+#&gt;      0     0  197.23708    0   11  136.23806  197.23708  44.8%     -    0s
+#&gt;      0     0  197.23197    0   12  136.23806  197.23197  44.8%     -    0s
+#&gt;      0     0  197.23117    0   12  136.23806  197.23117  44.8%     -    0s
+#&gt;      0     2  197.08891    0   12  136.23806  197.08891  44.7%     -    0s
+#&gt; 
+#&gt; Cutting planes:
+#&gt;   Cover: 1
+#&gt;   MIR: 4
+#&gt;   StrongCG: 2
+#&gt; 
+#&gt; Explored 7 nodes (101 simplex iterations) in 0.03 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 136.238 -0 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 1.362380564988e+02, best bound 1.498277480681e+02, gap 9.9750%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
 #&gt;   Objective range  [1e-04, 1e+00]
 #&gt;   Bounds range     [1e+00, 7e+01]
-#&gt;   RHS range        [5e+03, 5e+03]
+#&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
 #&gt; Presolve time: 0.00s
@@ -403,26 +475,26 @@ to solve a problem will return an error.</strong></p>
 #&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.435117e+01, 1 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.867309e+01, 1 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0   74.35117    0    1   -0.00000   74.35117      -     -    0s
-#&gt; H    0     0                      74.2352258   74.35117  0.16%     -    0s
+#&gt;      0     0   28.67309    0    1   -0.00000   28.67309      -     -    0s
+#&gt; H    0     0                      27.0422471   28.67309  6.03%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 74.2352 -0 
+#&gt; Solution count 2: 27.0422 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.423522579251e+01, best bound 7.435116589289e+01, gap 0.1562%</div><div class='input'>
+#&gt; Best objective 2.704224710814e+01, best bound 2.867309283818e+01, gap 6.0307%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum features"</span>,
-              <span class='st'>"minimum shortfall"</span>, <span class='st'>"phylogenetic representation"</span>,
-              <span class='st'>"maximum utility"</span>))</div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div></pre>
+              <span class='st'>"minimum shortfall"</span>, <span class='st'>"maximum phylogenetic diversity"</span>,
+              <span class='st'>"maximum phylogenetic endemism"</span>, <span class='st'>"maximum utility"</span>))</div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -440,7 +512,7 @@ to solve a problem will return an error.</strong></p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

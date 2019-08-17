@@ -88,7 +88,7 @@ version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -230,7 +230,7 @@ a budget for each each management zone.</p></td>
 <p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} y_j w_j \\
   \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} &gt;= y_j \times 1 \forall j \in J \\
+  \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
   specifying whether planning unit \(i\) has been selected (1) or not
@@ -398,7 +398,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   MIR: 14
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 1 nodes (325 simplex iterations) in 0.09 seconds
+#&gt; Explored 1 nodes (325 simplex iterations) in 0.07 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 7.99986 6.99986 5.99986 -0 
@@ -443,7 +443,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Cover: 4
 #&gt;   Clique: 1
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 7.99983 6.99983 -0 
@@ -474,7 +474,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

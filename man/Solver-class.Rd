@@ -48,6 +48,7 @@ help page on \code{\link{solvers}}}.
 \code{x$calculate(op)}
 
 \code{x$run()}
+
 \code{x$solve(op)}
 }
 

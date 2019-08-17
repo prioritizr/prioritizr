@@ -83,7 +83,7 @@ the cost of the solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ a budget for each each management zone.</p></td>
   \(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
 <p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
   \mathit{subject \space to} \\
-  \sum_{i = 1}^{I} x_i r_{ij} + y_j &gt;= t_j \forall j \in J \\
+  \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
   specifying whether planning unit \(i\) has been selected (1) or not
@@ -348,7 +348,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt; 
 #&gt; *    0     0               0       0.0000000    0.00000  0.00%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (37 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (37 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 0 15 15 
@@ -379,7 +379,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

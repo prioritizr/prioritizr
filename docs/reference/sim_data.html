@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
       </span>
     </div>
 
@@ -278,12 +278,15 @@
 <span class='co'># plot example management zone cost data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_zones_stack</span>)</div><div class='img'><img src='sim_data-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># plot example feature data under different zones</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>3</span>))
-<span class='kw'>for</span> (<span class='no'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>sim_features_zones</span>))
-  <span class='kw'>for</span> (<span class='no'>j</span> <span class='kw'>in</span> <span class='kw pkg'>raster</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/raster/topics/nlayers'>nlayers</a></span>(<span class='no'>sim_features_zones</span><span class='kw'>[[</span><span class='no'>i</span>]]))
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features_zones</span><span class='kw'>[[</span><span class='no'>i</span>]]<span class='kw'>[[</span><span class='no'>j</span>]],
-         <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"Species "</span>, <span class='no'>i</span>, <span class='st'>"(zone "</span>, <span class='no'>j</span> ))</div><div class='img'><img src='sim_data-5.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># plot example feature data for each management zone</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/do.call'>do.call</a></span>(<span class='no'>stack</span>, <span class='no'>sim_features_zones</span>),
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"Species "</span>,
+                   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>)),
+                       <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)),
+                   <span class='st'>" (zone "</span>,
+                   <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)),
+                       <span class='kw'>each</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>)),
+                   <span class='st'>")"</span>))</div><div class='img'><img src='sim_data-5.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -301,7 +304,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com/'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com/'>Joseph Bennett</a>, Hugh P Possingham.</p>
+  <p>Developed by <a href='https://jeffrey-hanson.com'>Jeffrey O Hanson</a>, <a href='http://www.richard-schuster.com'>Richard Schuster</a>, Nina Morrell, <a href='http://strimas.com'>Matthew Strimas-Mackey</a>, Matthew E Watts, <a href='https://arcese.forestry.ubc.ca'>Peter Arcese</a>, <a href='https://josephrbennett.wordpress.com'>Joseph Bennett</a>, <a href='http://www.possinghamlab.org'>Hugh P Possingham</a>.</p>
 </div>
 
 <div class="pkgdown">

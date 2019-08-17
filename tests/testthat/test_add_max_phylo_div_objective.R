@@ -1,4 +1,4 @@
-context("add_max_phylo_objective")
+context("add_max_phylo_div_objective")
 
 test_that("compile (compressed formulation, single zone)", {
   # generate optimization problem
@@ -6,7 +6,7 @@ test_that("compile (compressed formulation, single zone)", {
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_max_phylo_objective(budget = b, tree = sim_phylogeny) %>%
+    add_max_phylo_div_objective(budget = b, tree = sim_phylogeny) %>%
     add_absolute_targets(targ) %>%
     add_binary_decisions()
   o <- compile(p)
@@ -75,7 +75,7 @@ test_that("solution (compressed formulation, single zone)", {
   attr(tr, "order") <- "cladewise"
   # create problem
   p <- problem(cost, features) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_absolute_targets(c(2, 12, 2)) %>%
        add_locked_out_constraints(locked_out) %>%
        add_default_solver(gap = 0)
@@ -93,9 +93,9 @@ test_that("compile (expanded formulation)", {
   b <- floor(raster::cellStats(sim_pu_raster, "sum")) * 0.25
   targ <- unname(floor(raster::cellStats(sim_features, "sum") * 0.25))
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_max_phylo_objective(budget = b, tree = sim_phylogeny) %>%
-    add_absolute_targets(targ) %>%
-    add_binary_decisions()
+       add_max_phylo_div_objective(budget = b, tree = sim_phylogeny) %>%
+       add_absolute_targets(targ) %>%
+       add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
   # run preliminary calculations
   n_pu <- length(sim_pu_raster[[1]][!is.na(sim_pu_raster)])
@@ -178,7 +178,7 @@ test_that("solution (expanded formulation, single zone)", {
   attr(tr, "order") <- "cladewise"
   # create problem
   p <- problem(cost, features) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_absolute_targets(c(2, 12, 2)) %>%
        add_locked_out_constraints(locked_out) %>%
        add_default_solver(gap = 0)
@@ -192,24 +192,24 @@ test_that("invalid inputs (single zone)", {
   # check that invalid arguments result in errors
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_objective(budget = -5, sim_phylogeny)
+    add_max_phylo_div_objective(budget = -5, sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_objective(budget = 0, sim_phylogeny)
+    add_max_phylo_div_objective(budget = 0, sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_objective(budget = NA, sim_phylogeny)
+    add_max_phylo_div_objective(budget = NA, sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_objective(budget = Inf, sim_phylogeny)
+    add_max_phylo_div_objective(budget = Inf, sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_raster, sim_features) %>%
-      add_max_phylo_objective(budget = 5000,
-        ape::drop.tip(sim_phylogeny, "layer.1"))
+    add_max_phylo_div_objective(budget = 5000,
+                                ape::drop.tip(sim_phylogeny, "layer.1"))
     })
 })
 
@@ -225,7 +225,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-       add_max_phylo_objective(budget = b, sim_phylogeny) %>%
+       add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p)
@@ -320,7 +320,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   # create problem
   p <- problem(cost, zones(features[[1:3]], features[[4:6]],
                            feature_names = targs$feature)) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
        add_default_solver(gap = 0)
   # solve problem
@@ -342,7 +342,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-       add_max_phylo_objective(budget = b, sim_phylogeny) %>%
+       add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p)
@@ -439,7 +439,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   # create problem
   p <- problem(cost, zones(features[[1:3]], features[[4:6]],
                            feature_names = targs$feature)) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
        add_default_solver(gap = 0)
   # solve problem
@@ -461,7 +461,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-       add_max_phylo_objective(budget = b, sim_phylogeny) %>%
+       add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
@@ -579,7 +579,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   # create problem
   p <- problem(cost, zones(features[[1:3]], features[[4:6]],
                            feature_names = targs$feature)) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
        add_default_solver(gap = 0)
   # solve problem
@@ -604,7 +604,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
     target = c(5, 300, 10),
     type = c("absolute", "absolute", "absolute"))
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
-       add_max_phylo_objective(budget = b, sim_phylogeny) %>%
+       add_max_phylo_div_objective(budget = b, sim_phylogeny) %>%
        add_manual_targets(targs) %>%
        add_binary_decisions()
   o <- compile(p, compressed_formulation = FALSE)
@@ -724,7 +724,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   # create problem
   p <- problem(cost, zones(features[[1:3]], features[[4:6]],
                            feature_names = targs$feature)) %>%
-       add_max_phylo_objective(budget = budget, tree = tr) %>%
+       add_max_phylo_div_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
        add_default_solver(gap = 0)
   # solve problem
@@ -739,27 +739,27 @@ test_that("invalid inputs (multiple zones)", {
   sim_phylogeny$tip.labels <- feature_names(sim_features_zones)
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_features_objective(budget = c(1, -5, 1), sim_phylogeny)
+    add_max_phylo_div_objective(budget = c(1, -5, 1), sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_features_objective(budget = c(1, NA, 1), sim_phylogeny)
+    add_max_phylo_div_objective(budget = c(1, NA, 1), sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_features_objective(budget = c(NA, NA, NA), sim_phylogeny)
+    add_max_phylo_div_objective(budget = c(NA, NA, NA), sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_features_objective(budget = c(1, Inf, 9), sim_phylogeny)
+    add_max_phylo_div_objective(budget = c(1, Inf, 9), sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_features_objective(budget = c(1, Inf, 9), sim_phylogeny)
+    add_max_phylo_div_objective(budget = c(1, Inf, 9), sim_phylogeny)
   })
   expect_error({
     problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_max_phylo_objective(budget = 5000,
-                            ape::drop.tip(sim_phylogeny, "feature_1"))
+    add_max_phylo_div_objective(budget = 5000,
+                                ape::drop.tip(sim_phylogeny, "feature_1"))
   })
 })

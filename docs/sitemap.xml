@@ -115,7 +115,10 @@
     <loc>https://prioritizr.net/reference/add_max_features_objective.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/add_max_phylo_objective.html</loc>
+    <loc>https://prioritizr.net/reference/add_max_phylo_div_objective.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/add_max_phylo_end_objective.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/add_max_utility_objective.html</loc>
