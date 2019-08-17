@@ -123,7 +123,7 @@ NULL
 #' par(mfrow = c(1, 1))
 #' plot(sim_phylogeny, main = "phylogeny")
 #' }
-#' # create problem with a maximum diversity representation objective,
+#' # create problem with a maximum phylogenetic endemism objective,
 #' # where each feature needs 10 % of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
@@ -163,7 +163,7 @@ NULL
 #'   type = rep("absolute", number_of_features(sim_features_zones)),
 #'   target = rep(10, number_of_features(sim_features_zones)))
 #'
-#' # create a multi-zone problem with a maximum phylogenetic diversity
+#' # create a multi-zone problem with a maximum phylogenetic endemism
 #' # objective, where the total expenditure in all zones is 5000.
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_phylo_end_objective(5000, sim_phylogeny) %>%
@@ -192,7 +192,7 @@ NULL
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
 #'                          which(targets_met2), "red"))
 #' }
-#' # create a multi-zone problem with a maximum phylogenetic diversity
+#' # create a multi-zone problem with a maximum phylogenetic endemism
 #' # objective, where each zone has a separate budget.
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) %>%

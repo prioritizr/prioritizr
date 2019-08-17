@@ -283,14 +283,16 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>ape</span>)
-
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: ape</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘ape’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:raster’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    rotate, zoom</span></div><div class='input'>
 <span class='co'># load data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
      <span class='no'>sim_features_zones</span>)
 
 <span class='co'># plot the simulated phylogeny</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_div_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum diversity representation objective,</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_div_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>

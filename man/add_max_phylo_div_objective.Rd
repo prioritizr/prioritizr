@@ -113,7 +113,7 @@ data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
 par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "phylogeny")
 }
-# create problem with a maximum diversity representation objective,
+# create problem with a maximum phylogenetic diversity objective,
 # where each feature needs 10 \% of its distribution to be secured for
 # it to be adequately conserved and a total budget of 1900
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
