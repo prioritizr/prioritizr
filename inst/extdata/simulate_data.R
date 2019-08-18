@@ -154,18 +154,25 @@ sim_pu_zones_polygons$locked_3 <- is.finite(sim_pu_zones_polygons$locked_3)
 
 ## Export data
 # save data
-save(sim_pu_raster, file = "data/sim_pu_raster.rda", compress = "xz")
-save(sim_pu_zones_stack, file = "data/sim_pu_zones_stack.rda", compress = "xz")
+save(sim_pu_raster, file = "data/sim_pu_raster.rda", compress = "xz",
+     version = 2)
+save(sim_pu_zones_stack, file = "data/sim_pu_zones_stack.rda", compress = "xz",
+     version = 2)
 save(sim_locked_in_raster, file = "data/sim_locked_in_raster.rda",
-     compress = "xz")
+     compress = "xz", version = 2)
 save(sim_locked_out_raster, file = "data/sim_locked_out_raster.rda",
-     compress = "xz")
-save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz")
+     compress = "xz", version = 2)
+save(sim_pu_polygons, file = "data/sim_pu_polygons.rda", compress = "xz",
+     version = 2)
 save(sim_pu_zones_polygons, file = "data/sim_pu_zones_polygons.rda",
-     compress = "xz")
-save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz")
-save(sim_pu_points, file = "data/sim_pu_points.rda", compress = "xz")
-save(sim_features, file = "data/sim_features.rda", compress = "xz")
+     compress = "xz", version = 2)
+save(sim_pu_lines, file = "data/sim_pu_lines.rda", compress = "xz", 
+     version = 2)
+save(sim_pu_points, file = "data/sim_pu_points.rda", compress = "xz",
+     version = 2)
+save(sim_features, file = "data/sim_features.rda", compress = "xz",
+     version = 2)
 save(sim_features_zones, file = "data/sim_features_zones.rda",
-     compress = "xz")
-save(sim_phylogeny, file = "data/sim_phylogeny.rda", compress = "xz")
+     compress = "xz", version = 2)
+save(sim_phylogeny, file = "data/sim_phylogeny.rda", compress = "xz",
+     version = 2)
