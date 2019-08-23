@@ -309,7 +309,7 @@ is_comparable_raster <- function(x, y) {
 assertthat::on_failure(is_comparable_raster) <- function(call, env) {
   paste0(deparse(call$x), " and ", deparse(call$y),  " are not comparable: ",
          "they have different spatial resolutions, extents, ",
-         "coordinate reference systems, or dimensionality (rows / columns).")
+         "coordinate reference systems, or dimensionality (rows / columns)")
 }
 
 #' Rescale

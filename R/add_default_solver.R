@@ -33,7 +33,7 @@ add_default_solver <- function(x, ...) {
       Solver,
       name = "MissingSolver",
       solve = function(self, x) {
-        stop("no optimization problem solvers found on system.")
+        stop("no optimization problem solvers found on system")
       })))
   }
 }

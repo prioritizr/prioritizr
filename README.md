@@ -29,7 +29,7 @@ Citation
 
 Please use the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.2.3. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.2.4. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -148,16 +148,17 @@ s1 <- solve(p1)
     ##      0     0 2612.45076    0   10 2757.18344 2612.45076  5.25%     -    0s
     ##      0     0 2612.51779    0    9 2757.18344 2612.51779  5.25%     -    0s
     ##      0     2 2612.67761    0    9 2757.18344 2612.67761  5.24%     -    0s
-    ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    0s
-    ##  101344 59877 2633.45704   55    2 2747.37746 2622.37892  4.55%   1.6    5s
-    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    8s
+    ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    1s
+    ##  80144 45863 2635.54733   40    4 2747.37746 2621.95176  4.57%   1.6    5s
+    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    9s
+    ##  173435  8644 2624.23862   41    9 2627.63893 2623.41708  0.16%   1.6   10s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
     ##   MIR: 7
     ##   Flow cover: 2
     ## 
-    ## Explored 189518 nodes (316635 simplex iterations) in 9.40 seconds
+    ## Explored 189518 nodes (316635 simplex iterations) in 10.93 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2757.18 ... 3139.89
@@ -179,7 +180,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   9.395773
+    ##   10.93194
 
 ``` r
 # extract state message from the solver

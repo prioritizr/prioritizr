@@ -177,7 +177,7 @@ marxan_problem <- function(x, ...) UseMethod("marxan_problem")
 #' @export
 marxan_problem.default <- function(x, ...) {
   stop("argument to x is not valid, it should be a character file path or ",
-       "a data.frame containing the planning unit data.")
+       "a data.frame containing the planning unit data")
 }
 
 #' @rdname marxan_problem

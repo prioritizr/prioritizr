@@ -119,7 +119,7 @@ ScalarParameter <- pproto(
     pkg <- strsplit(self$widget, "::")[[1]][[1]]
     if (!requireNamespace(pkg, quietly = TRUE))
       stop(paste0("the \"", pkg, "\" R package must be installed to render",
-                  " this parameter."))
+                  " this parameter"))
     # extract function
     f <- do.call(getFromNamespace,
       as.list(rev(strsplit(self$widget, "::")[[1]])))

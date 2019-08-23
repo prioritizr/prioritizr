@@ -83,7 +83,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.4</span>
       </span>
     </div>
 
@@ -312,7 +312,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; Variable types: 0 continuous, 221 integer (221 binary)
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
@@ -340,7 +340,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Gomory: 4
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.15 seconds
+#&gt; Explored 10 nodes (793 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4329.44 4590.14 
@@ -393,13 +393,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 13103.242827
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -452,10 +452,10 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H  475   231                    13646.439309 12099.0668  11.3%  68.2    1s
 #&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    1s
 #&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    1s
-#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    1s
+#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    2s
 #&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    2s
-#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    2s
-#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    3s
+#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    3s
+#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    4s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 6
@@ -463,7 +463,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 3.58 seconds
+#&gt; Explored 591 nodes (40890 simplex iterations) in 4.57 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
@@ -478,13 +478,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; Variable types: 0 continuous, 518 integer (518 binary)
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -511,7 +511,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 6
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.32 seconds
+#&gt; Explored 97 nodes (4719 simplex iterations) in 0.65 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
@@ -526,14 +526,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.15s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
 #&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -559,10 +559,10 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12089.2702    0  252          - 12089.2702      -     -    0s
 #&gt;      0     0 12089.2702    0  249          - 12089.2702      -     -    0s
 #&gt;      0     2 12089.2735    0  246          - 12089.2735      -     -    0s
-#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    0s
-#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    0s
-#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    0s
-#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    0s
+#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    1s
+#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    1s
+#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    1s
+#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 4
@@ -570,7 +570,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 1
 #&gt;   Zero half: 14
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 0.78 seconds
+#&gt; Explored 162 nodes (8747 simplex iterations) in 1.57 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
@@ -646,14 +646,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.12s
 #&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
 #&gt; Variable types: 0 continuous, 575 integer (575 binary)
 #&gt; Presolve removed 128 rows and 0 columns
 #&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -661,7 +661,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
 #&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.14 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4021.31 

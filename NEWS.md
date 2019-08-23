@@ -1,3 +1,10 @@
+# prioritizr 4.1.2.4
+
+- Update `solve` function to throw a more accurate and helpful error
+  message when no solutions are found (e.g. due to problem infeasibility or
+  solver time limits).
+- Standardize error messages so that none of them end in a full stop.
+
 # prioritizr 4.1.2.3
 
 - Rename `add_max_phylo_objective` function to `add_max_phylo_div_objective`.

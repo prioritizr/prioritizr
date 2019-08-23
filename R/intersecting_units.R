@@ -173,6 +173,6 @@ methods::setMethod(
   methods::signature(x = "data.frame", y = "ANY"),
   function(x, y) {
     stop("planning units are stored as a data.frame and so the required ",
-         "spatial analysis cannot be performed.")
+         "spatial analysis cannot be performed")
   }
 )

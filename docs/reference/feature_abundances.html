@@ -82,7 +82,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.4</span>
       </span>
     </div>
 
@@ -313,7 +313,8 @@ is <code>FALSE</code>.</p></td>
 #&gt; 
 #&gt; Model is infeasible
 #&gt; Best objective -, best bound -, gap -
-#&gt; Error in .local(a, b, ...) : conservation problem is infeasible</div><div class='input'><span class='co'># calculate feature abundances; excluding planning units with \code{NA} costs</span>
+#&gt; Error in .local(a, b, ...) : 
+#&gt;   no solution found (e.g. due to problem infeasibility or time limits)</div><div class='input'><span class='co'># calculate feature abundances; excluding planning units with \code{NA} costs</span>
 <span class='no'>a5</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_abundances</span>(<span class='no'>p3</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>a5</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_abundance relative_abundance
