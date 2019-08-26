@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.5</span>
       </span>
     </div>
 
@@ -155,6 +155,15 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-1-2-5" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-1-2-5" class="anchor"></a>prioritizr 4.1.2.5<small> Unreleased </small>
+</h1>
+<ul>
+<li>Update <code>add_gurobi_solver</code>, <code>add_lpsymphony_solver</code>, and <code>add_rsymphony_solver</code> functions so that they will not return solutions with values less than zero or greater than one when solving problems with proportion-type decisions. This issue is the result of inconsistent precision when performing floating point arithmetic (<a href='https://github.com/prioritizr/prioritizr/issues/117'>#117</a>).</li>
+<li>Update <code>add_locked_in_constraints</code> and <code>add_locked_out_constraints</code> functions to provide a more helpful error message the <code>locked_in</code>/<code>locked_out</code> argument refers to a column with data that are not logical (i.e. <code>TRUE</code>/<code>FALSE</code>; <a href='https://github.com/prioritizr/prioritizr/issues/118'>#118</a>).</li>
+</ul>
+</div>
     <div id="prioritizr-4-1-2-4" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-1-2-4" class="anchor"></a>prioritizr 4.1.2.4<small> Unreleased </small>
@@ -1115,6 +1124,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-1-2-5">4.1.2.5</a></li>
         <li><a href="#prioritizr-4-1-2-4">4.1.2.4</a></li>
         <li><a href="#prioritizr-4-1-2-3">4.1.2.3</a></li>
         <li><a href="#prioritizr-4-1-2-2">4.1.2.2</a></li>

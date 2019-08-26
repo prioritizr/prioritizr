@@ -1,3 +1,15 @@
+# prioritizr 4.1.2.5
+
+- Update `add_gurobi_solver`, `add_lpsymphony_solver`, and
+  `add_rsymphony_solver` functions so that they will not return solutions with
+  values less than zero or greater than one when solving problems with
+  proportion-type decisions. This issue is the result of inconsistent precision
+  when performing floating point arithmetic (#117).
+- Update `add_locked_in_constraints` and `add_locked_out_constraints` functions
+  to provide a more helpful error message the `locked_in`/`locked_out`
+  argument refers to a column with data that are not logical (i.e.
+  `TRUE`/`FALSE`; #118).
+
 # prioritizr 4.1.2.4
 
 - Update `solve` function to throw a more accurate and helpful error

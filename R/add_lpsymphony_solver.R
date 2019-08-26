@@ -121,16 +121,28 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       p <- self$get_data("parameters")
       # solve problem
       start_time <- Sys.time()
-      s <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
+      x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
       end_time <- Sys.time()
-      if (is.null(s$solution) ||
-          names(s$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+      if (is.null(x$solution) ||
+          names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
-      if (any(s$solution > 1 | s$solution < 0))
-        stop("infeasible solution returned, try relaxing solver parameters")
+      if (any(x$solution > 1)) {
+        if (max(x$solution) < 1.01) {
+          x$solution[x$solution > 1] <- 1
+        } else {
+          stop("infeasible solution returned, try relaxing solver parameters")
+        }
+      }
+      if (any(x$solution < 0)) {
+        if (min(x$solution) > -0.01) {
+          x$solution[x$solution < 0] <- 0
+        } else {
+          stop("infeasible solution returned, try relaxing solver parameters")
+        }
+      }
       # return output
-      return(list(x = s$solution, objective = s$objval,
-                  status = as.character(s$status),
+      return(list(x = x$solution, objective = x$objval,
+                  status = as.character(x$status),
                   runtime = as.double(end_time - start_time,
                                       format = "seconds")))
     },

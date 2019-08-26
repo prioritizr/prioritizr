@@ -176,6 +176,12 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       b <- model$vtype == "B"
       if (is.numeric(x$x))
         x$x[b] <- round(x$x[b])
+      # truncate semi-continuous variables
+      s <- model$vtype == "S"
+      if (is.numeric(x$x)) {
+        x$x[s] <- pmax(x$x[s], 0)
+        x$x[s] <- pmin(x$x[s], 1)
+      }
       # extract solutions
       out <- list(x = x$x, objective = x$objval, status = x$status,
                  runtime = x$runtime)

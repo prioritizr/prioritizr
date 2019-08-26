@@ -278,9 +278,12 @@ methods::setMethod("add_locked_in_constraints",
       is.character(locked_in), !anyNA(locked_in),
       inherits(x$data$cost, c("data.frame", "Spatial")),
       x$number_of_zones() == length(locked_in),
-      all(locked_in %in% names(x$data$cost)),
+      all(locked_in %in% names(x$data$cost)))
+    assertthat::assert_that(
       all(vapply(as.data.frame(x$data$cost)[, locked_in, drop = FALSE],
-                 inherits, logical(1), "logical")))
+                 inherits, logical(1), "logical")),
+      msg = paste("argument to locked_in refers to a column with data",
+                  "that are not logical (i.e TRUE/FALSE)"))
     # add constraints
     add_locked_in_constraints(x,
       as.matrix(as.data.frame(x$data$cost)[, locked_in, drop = FALSE]))

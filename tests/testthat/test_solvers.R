@@ -40,7 +40,7 @@ test_that("add_default_solver (spatial cost data)", {
   expect_true(raster::compareCRS(s, sim_pu_polygons))
 })
 
-test_that("add_rsymphony_solver", {
+test_that("add_rsymphony_solver (binary decisions)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -57,6 +57,32 @@ test_that("add_rsymphony_solver", {
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
   expect_equal(raster::nlayers(s), 1)
+  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
+})
+
+test_that("add_rsymphony_solver (proportion decisions)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("Rsymphony")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_rsymphony_solver(gap = 0, verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
+  expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
+  expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
+              na.rm = TRUE), 0.01)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
@@ -80,7 +106,7 @@ test_that("add_rsymphony_solver (variable bounds methods)", {
                replace(rep(0, p$number_of_planning_units()), 2, 1))
 })
 
-test_that("add_lpsymphony_solver", {
+test_that("add_lpsymphony_solver (binary decisions)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -98,6 +124,33 @@ test_that("add_lpsymphony_solver", {
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
   expect_equal(raster::nlayers(s), 1)
+  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
+})
+
+test_that("add_lpsymphony_solver (proportion decisions)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("lpsymphony")
+  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_lpsymphony_solver(gap = 0, verbose = FALSE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
+  expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
+  expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
+              na.rm = TRUE), 0.01)
   expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
@@ -121,7 +174,7 @@ test_that("add_lpsymphony_solver (variable bounds methods)", {
                replace(rep(0, p$number_of_planning_units()), 2, 1))
 })
 
-test_that("add_gurobi_solver", {
+test_that("add_gurobi_solver (binary decisions)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -144,9 +197,35 @@ test_that("add_gurobi_solver", {
   # check that solution has correct properties
   expect_is(s1, "Raster")
   expect_equal(raster::nlayers(s1), 1)
+  expect_equal(sort(unique(raster::getValues(s1))), c(0, 1))
   expect_true(raster::compareRaster(sim_pu_raster, s1, res = TRUE, crs = TRUE,
                                     tolerance = 1e-5, stopiffalse = FALSE))
   expect_equal(raster::getValues(s1), raster::getValues(s2))
+})
+
+test_that("add_gurobi_solver (proportion decisions)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("gurobi")
+  # make data
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+    add_min_set_objective() %>%
+    add_relative_targets(0.1) %>%
+    add_proportion_decisions() %>%
+    add_gurobi_solver(gap = 0, verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_is(s, "Raster")
+  expect_equal(raster::nlayers(s), 1)
+  expect_gte(min(raster::getValues(s), na.rm = TRUE), 0)
+  expect_lte(max(raster::getValues(s), na.rm = TRUE), 1)
+  expect_gt(max(raster::getValues(s) - round(raster::getValues(s)),
+              na.rm = TRUE), 0.01)
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
 })
 
 test_that("add_gurobi_solver (variable bounds methods)", {
