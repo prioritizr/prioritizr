@@ -1,3 +1,10 @@
+# prioritizr 4.1.2.6
+
+- Update `replacement_cost` function to use parallel processing to speed up
+  calculations (#119).
+- New `add_manual_bounded_constraints` function to apply lower and upper bounds
+  on planning units statuses in a solution (#118).
+
 # prioritizr 4.1.2.5
 
 - Update `add_gurobi_solver`, `add_lpsymphony_solver`, and

@@ -9,14 +9,14 @@ NULL
 #' than the \code{\link{add_locked_in_constraints}} and
 #' \code{\link{add_locked_out_constraints}} functions.
 #'
-#' @usage add_manual_locked_constraints(x, locked)
+#' @usage add_manual_locked_constraints(x, data)
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param locked \code{data.frame} or \code{\link[tibble]{tibble}} object. See
+#' @param data \code{data.frame} or \code{\link[tibble]{tibble}} object. See
 #'   the Details section for more information.
 #'
-#' @details The argument to \code{locked} must contain the following fields
+#' @details The argument to \code{data} must contain the following fields
 #'   (columns):
 #'
 #'   \describe{
@@ -58,10 +58,10 @@ NULL
 #' p2 <- p1 %>% add_locked_in_constraints("locked_in")
 #'
 #' # create identical problem using add_manual_locked_constraints
-#' locked_dataframe <- data.frame(pu = which(sim_pu_polygons$locked_in),
-#'                                status = 1)
+#' locked_data <- data.frame(pu = which(sim_pu_polygons$locked_in),
+#'                           status = 1)
 #'
-#' p3 <- p1 %>% add_manual_locked_constraints(locked_dataframe)
+#' p3 <- p1 %>% add_manual_locked_constraints(locked_data)
 #' \donttest{
 #' # solve problems
 #' s1 <- solve(p1)
@@ -91,16 +91,16 @@ NULL
 #' # planning units 1, 2, and 3 must be allocated to zone 1 in the solution
 #' # planning units 4, and 5 must be allocated to zone 2 in the solution
 #' # planning units 8 and 9 must not be allocated to zone 3 in the solution
-#' locked_dataframe2 <- data.frame(pu = c(1, 2, 3, 4, 5, 8, 9),
-#'                                 zone = c(rep("zone_1", 3), rep("zone_2", 2),
-#'                                          rep("zone_3", 2)),
-#'                                 status = c(rep(1, 5), rep(0, 2)))
+#' locked_data2 <- data.frame(pu = c(1, 2, 3, 4, 5, 8, 9),
+#'                            zone = c(rep("zone_1", 3), rep("zone_2", 2),
+#'                                     rep("zone_3", 2)),
+#'                            status = c(rep(1, 5), rep(0, 2)))
 #'
 #' # print locked constraint data
-#' print(locked_dataframe2)
+#' print(locked_data2)
 #'
 #' # create problem with added constraints
-#' p5 <- p4 %>% add_manual_locked_constraints(locked_dataframe2)
+#' p5 <- p4 %>% add_manual_locked_constraints(locked_data2)
 #' \donttest{
 #' # solve problem
 #' s4 <- solve(p4)
@@ -132,59 +132,59 @@ NULL
 #'
 #' @export
 methods::setGeneric("add_manual_locked_constraints",
-                    signature = methods::signature("x", "locked"),
-                    function(x, locked)
+                    signature = methods::signature("x", "data"),
+                    function(x, data)
                       standardGeneric("add_manual_locked_constraints"))
 
 #' @name add_manual_locked_constraints
-#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,data.frame}(x, locked)
+#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,data.frame}(x, data)
 #' @rdname add_manual_locked_constraints
 methods::setMethod("add_manual_locked_constraints",
   methods::signature("ConservationProblem", "data.frame"),
-  function(x, locked) {
+  function(x, data) {
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
-                            inherits(locked, "data.frame"))
+                            inherits(data, "data.frame"))
     # add constraints
-    add_manual_locked_constraints(x, tibble::as_tibble(locked))
+    add_manual_locked_constraints(x, tibble::as_tibble(data))
 })
 
 #' @name add_manual_locked_constraints
-#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, locked)
+#' @usage \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, data)
 #' @rdname add_manual_locked_constraints
 methods::setMethod("add_manual_locked_constraints",
   methods::signature("ConservationProblem", "tbl_df"),
-  function(x, locked) {
+  function(x, data) {
     # define function to validate data
-    validate_data <- function(locked) {
+    validate_data <- function(data) {
       assertthat::assert_that(inherits(x, "ConservationProblem"),
-                              inherits(locked, "tbl_df"),
-                              nrow(locked) > 0,
-                              assertthat::has_name(locked, "pu"),
-                              is.numeric(locked$pu),
-                              all(is.finite(locked$pu)),
-                              all(locked$pu == round(locked$pu)),
-                              max(locked$pu) <= number_of_total_units(x),
-                              min(locked$pu) >= 0,
-                              assertthat::has_name(locked, "status"),
-                              is.numeric(locked$status),
-                              all(is.finite(locked$status)))
-      if (assertthat::has_name(locked, "zone") || x$number_of_zones() > 1)
-        assertthat::assert_that(assertthat::has_name(locked, "zone"),
-                                is.character(locked$zone) ||
-                                  is.factor(locked$zone),
-                                all(as.character(locked$zone) %in%
+                              inherits(data, "tbl_df"),
+                              nrow(data) > 0,
+                              assertthat::has_name(data, "pu"),
+                              is.numeric(data$pu),
+                              all(is.finite(data$pu)),
+                              all(data$pu == round(data$pu)),
+                              max(data$pu) <= number_of_total_units(x),
+                              min(data$pu) >= 0,
+                              assertthat::has_name(data, "status"),
+                              is.numeric(data$status),
+                              all(is.finite(data$status)))
+      if (assertthat::has_name(data, "zone") || x$number_of_zones() > 1)
+        assertthat::assert_that(assertthat::has_name(data, "zone"),
+                                is.character(data$zone) ||
+                                  is.factor(data$zone),
+                                all(as.character(data$zone) %in%
                                   zone_names(x)))
       return(TRUE)
     }
     # assert valid arguments
-    validate_data(locked)
+    validate_data(data)
     # set attributes
     if (x$number_of_zones() == 1) {
-      if (all(locked$status == 1)) {
+      if (all(data$status == 1)) {
         class_name <- "LockedInConstraint"
         constraint_name <- "Locked in planning units"
-      } else if (all(locked$status == 0)) {
+      } else if (all(data$status == 0)) {
          class_name <- "LockedOutConstraint"
         constraint_name <- "Locked out planning units"
       } else {
@@ -210,16 +210,16 @@ methods::setMethod("add_manual_locked_constraints",
         paste0(self$name, " [", nrow(self$parameters$get("Locked data")),
                " locked units]")
       },
-      parameters = parameters(misc_parameter("Locked data", locked,
+      parameters = parameters(misc_parameter("Locked data", data,
                                              vfun, rfun)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
         # get locked data
-        locked <- self$parameters$get("Locked data")
+        data <- self$parameters$get("Locked data")
         # convert zone names to indices
-        if (!assertthat::has_name(locked, "zone"))
-          locked$zone <- x$zone_names()[1]
-        locked$zone <- match(locked$zone, x$zone_names())
+        if (!assertthat::has_name(data, "zone"))
+          data$zone <- x$zone_names()[1]
+        data$zone <- match(data$zone, x$zone_names())
         # remove rows for raster cells that aren't really planning units
         # i.e. contain NA values in all zones
         pu <- x$get_data("cost")
@@ -229,18 +229,18 @@ methods::setMethod("add_manual_locked_constraints",
           } else {
             units <- raster::Which(max(!is.na(pu)) > 0, cells = TRUE)
           }
-          locked$pu <- match(locked$pu, units)
-          locked <- locked[!is.na(locked$pu), ]
+          data$pu <- match(data$pu, units)
+          data <- data[!is.na(data$pu), ]
         }
-        self$set_data("locked_std", locked)
+        self$set_data("data_std", data)
         invisible(TRUE)
       },
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
           inherits(y, "ConservationProblem"))
-        locked <- self$get_data("locked_std")
-        invisible(rcpp_apply_locked_constraints(x$ptr, c(locked$pu),
-                                                c(locked$zone),
-                                                locked$status))
+        data <- self$get_data("data_std")
+        invisible(rcpp_apply_locked_constraints(x$ptr, c(data$pu),
+                                                c(data$zone),
+                                                data$status))
       }))
 })

@@ -9,15 +9,15 @@
 \alias{replacement_cost,ConservationProblem,Raster-method}
 \title{Replacement cost}
 \usage{
-\S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, ...)
+\S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
 
-\S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, ...)
+\S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
 
-\S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, ...)
+\S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, threads, ...)
 
-\S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, ...)
+\S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
 
-\S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, ...)
+\S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -38,6 +38,10 @@ Skipping these checks may reduce run time for large problems.}
 \item{force}{\code{logical} flag indicating if an attempt to should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to \code{FALSE}.}
+
+\item{threads}{\code{integer} number of threads to use for the
+optimization algorithm. The default value of 1 will result in only
+one thread being used.}
 
 \item{...}{not used.}
 }

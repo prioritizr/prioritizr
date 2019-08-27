@@ -6,16 +6,16 @@
 \alias{add_manual_locked_constraints,ConservationProblem,tbl_df-method}
 \title{Add manually specified locked constraints}
 \usage{
-add_manual_locked_constraints(x, locked)
+add_manual_locked_constraints(x, data)
 
-\S4method{add_manual_locked_constraints}{ConservationProblem,data.frame}(x, locked)
+\S4method{add_manual_locked_constraints}{ConservationProblem,data.frame}(x, data)
 
-\S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, locked)
+\S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
-\item{locked}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
+\item{data}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
 the Details section for more information.}
 }
 \description{
@@ -26,7 +26,7 @@ than the \code{\link{add_locked_in_constraints}} and
 \code{\link{add_locked_out_constraints}} functions.
 }
 \details{
-The argument to \code{locked} must contain the following fields
+The argument to \code{data} must contain the following fields
   (columns):
 
   \describe{
@@ -66,10 +66,10 @@ p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
 p2 <- p1 \%>\% add_locked_in_constraints("locked_in")
 
 # create identical problem using add_manual_locked_constraints
-locked_dataframe <- data.frame(pu = which(sim_pu_polygons$locked_in),
-                               status = 1)
+locked_data <- data.frame(pu = which(sim_pu_polygons$locked_in),
+                          status = 1)
 
-p3 <- p1 \%>\% add_manual_locked_constraints(locked_dataframe)
+p3 <- p1 \%>\% add_manual_locked_constraints(locked_data)
 \donttest{
 # solve problems
 s1 <- solve(p1)
@@ -99,16 +99,16 @@ p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
 # planning units 1, 2, and 3 must be allocated to zone 1 in the solution
 # planning units 4, and 5 must be allocated to zone 2 in the solution
 # planning units 8 and 9 must not be allocated to zone 3 in the solution
-locked_dataframe2 <- data.frame(pu = c(1, 2, 3, 4, 5, 8, 9),
-                                zone = c(rep("zone_1", 3), rep("zone_2", 2),
-                                         rep("zone_3", 2)),
-                                status = c(rep(1, 5), rep(0, 2)))
+locked_data2 <- data.frame(pu = c(1, 2, 3, 4, 5, 8, 9),
+                           zone = c(rep("zone_1", 3), rep("zone_2", 2),
+                                    rep("zone_3", 2)),
+                           status = c(rep(1, 5), rep(0, 2)))
 
 # print locked constraint data
-print(locked_dataframe2)
+print(locked_data2)
 
 # create problem with added constraints
-p5 <- p4 \%>\% add_manual_locked_constraints(locked_dataframe2)
+p5 <- p4 \%>\% add_manual_locked_constraints(locked_data2)
 \donttest{
 # solve problem
 s4 <- solve(p4)

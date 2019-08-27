@@ -347,6 +347,29 @@ test_that("Raster (multiple zone)", {
   expect_equal(r, r2)
 })
 
+test_that("Raster (multiple threads)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # load data
+  data(sim_pu_raster, sim_features)
+  # build problem
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.4) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0.1, verbose = FALSE)
+  # find solution
+  s <- solve(p)
+  # calculate replacement costs without parallel processing
+  r1 <- replacement_cost(p, s)
+  # calculate replacement costs with parallel processing
+  r2 <- replacement_cost(p, s, threads = 2)
+  # verify that parallel processing generates the same result
+  expect_identical(as.matrix(r1), as.matrix(r2))
+})
+
 test_that("invalid inputs", {
   expect_error({
     # simulate data

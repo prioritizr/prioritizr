@@ -280,6 +280,21 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_bounded_constraints
+bool rcpp_apply_bounded_constraints(SEXP x, Rcpp::IntegerVector pu, Rcpp::IntegerVector zone, Rcpp::NumericVector lower, Rcpp::NumericVector upper);
+RcppExport SEXP _prioritizr_rcpp_apply_bounded_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP lowerSEXP, SEXP upperSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type pu(puSEXP);
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type zone(zoneSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type lower(lowerSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type upper(upperSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_bounded_constraints(x, pu, zone, lower, upper));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_connectivity_penalties
 bool rcpp_apply_connectivity_penalties(SEXP x, double penalty, Rcpp::List data);
 RcppExport SEXP _prioritizr_rcpp_apply_connectivity_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {

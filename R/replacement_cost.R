@@ -25,6 +25,10 @@ NULL
 #'   made to solve the problem even if potential issues were detected during
 #'   the presolve checks. Defaults to \code{FALSE}.
 #'
+#' @param threads \code{integer} number of threads to use for the
+#'   optimization algorithm. The default value of 1 will result in only
+#'   one thread being used.
+#'
 #' @param ... not used.
 #'
 #' @details Using this method, the score for each planning unit is calculated
@@ -197,12 +201,16 @@ methods::setGeneric("replacement_cost",
   standardGeneric("replacement_cost")
 })
 
-internal_replacement_cost <- function(x, indices, rescale, run_checks, force) {
+internal_replacement_cost <- function(x, indices, rescale, run_checks, force,
+                                      threads = 1L) {
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           is.integer(indices), length(indices) > 0,
                           assertthat::is.flag(rescale),
                           assertthat::is.flag(run_checks),
-                          assertthat::is.flag(force))
+                          assertthat::is.flag(force),
+                          isTRUE(all(is.finite(threads))),
+                          assertthat::is.count(threads),
+                          isTRUE(threads <= parallel::detectCores(TRUE)))
   # assign default solver and portfolio
   if (inherits(x$solver, "Waiver"))
     x <- add_default_solver(x)
@@ -227,25 +235,45 @@ internal_replacement_cost <- function(x, indices, rescale, run_checks, force) {
   if (is.null(solution_obj) || is.null(solution_obj$x))
     stop("argument to solution is infeasible for this problem")
   solution_obj <- solution_obj[[2]]
+  # prepare cluster for parallel processing
+  if (isTRUE(threads > 1L)) {
+    # initialize cluster
+    cl <- parallel::makeCluster(threads, "PSOCK")
+    # move data to workers
+    parallel::clusterExport(cl, c("indices", "x"), envir = environment())
+    # set default cluster
+    doParallel::registerDoParallel(cl)
+  }
   # iterate over decision variables in solution and store new objective values
-  alt_solution_obj <- vapply(indices, FUN.VALUE = numeric(1), function(i) {
-    # lock out i'th selected planning unit in solution
-    x$solver$set_variable_lb(i, 0)
-    x$solver$set_variable_ub(i, 0)
-    # solve problem
-    sol <- x$solver$run()
-    # check that solution is valid
-    if (is.null(sol) || is.null(sol$x)) {
-      out <- Inf
-    } else {
-      out <- sol[[2]]
-    }
-    # reset upper bound
-    x$solver$set_variable_lb(i, 1)
-    x$solver$set_variable_ub(i, 1)
-    # return result
-    out
+  alt_solution_obj <- plyr::llply(distribute_load(length(indices)),
+                                  .parallel = isTRUE(threads > 1),
+                                  .fun = function(y) {
+    vapply(indices[y], FUN.VALUE = numeric(1), function(i) {
+      # lock out i'th selected planning unit in solution
+      x$solver$set_variable_lb(i, 0)
+      x$solver$set_variable_ub(i, 0)
+      # solve problem
+      sol <- x$solver$run()
+      # check that solution is valid
+      if (is.null(sol) || is.null(sol$x)) {
+        out <- Inf
+      } else {
+        out <- sol[[2]]
+      }
+      # reset upper bound
+      x$solver$set_variable_lb(i, 1)
+      x$solver$set_variable_ub(i, 1)
+      # return result
+      out
+    })
   })
+  alt_solution_obj <- unlist(alt_solution_obj, recursive = TRUE,
+                             use.names = FALSE)
+  # kill works if needed
+  if (isTRUE(threads > 1L)) {
+    doParallel::stopImplicitCluster()
+    cl <- parallel::stopCluster(cl)
+  }
   # calculate replacement costs
   out <- alt_solution_obj - solution_obj
   if (identical(modelsense, "max")) # rescale values if maximization problem
@@ -260,11 +288,12 @@ internal_replacement_cost <- function(x, indices, rescale, run_checks, force) {
 }
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, ...)
+#' @usage \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "numeric"),
-  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.numeric(solution), sum(solution, na.rm = TRUE) > 1e-10,
@@ -283,7 +312,8 @@ methods::setMethod("replacement_cost",
            " solution")
     # calculate replacement costs
     indices <- which(solution[pos] > 1e-10)
-    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[pos] <- 0
@@ -292,11 +322,12 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, ...)
+#' @usage \S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "matrix"),
-  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
@@ -320,7 +351,8 @@ methods::setMethod("replacement_cost",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -335,11 +367,12 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, ...)
+#' @usage \S4method{replacement_cost}{ConservationProblem,data.frame}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "data.frame"),
-  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
@@ -365,7 +398,8 @@ methods::setMethod("replacement_cost",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -382,11 +416,12 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, ...)
+#' @usage \S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "Spatial"),
-  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
     # assert valid arguments
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
@@ -412,7 +447,8 @@ methods::setMethod("replacement_cost",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -432,11 +468,12 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
-#' @usage \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, ...)
+#' @usage \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
   methods::signature("ConservationProblem", "Raster"),
-  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE, ...) {
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
       number_of_zones(x) == raster::nlayers(solution),
@@ -464,7 +501,8 @@ methods::setMethod("replacement_cost",
           " solution")
     # calculate replacement costs
     indices <- which(solution_matrix > 1e-10)
-    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
     # prepare output
     rc <- split(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
     # return result

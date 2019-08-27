@@ -82,7 +82,7 @@ using the replacement cost method (Cabeza and Moilanen 2006)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.6</span>
       </span>
     </div>
 
@@ -167,19 +167,19 @@ using the replacement cost method (Cabeza and Moilanen 2006).</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>...</span>)
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>...</span>)
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,data.frame</span>
-<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>...</span>)
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
-<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>...</span>)
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,6 +212,12 @@ Skipping these checks may reduce run time for large problems.</p></td>
       <td><p><code>logical</code> flag indicating if an attempt to should be
 made to solve the problem even if potential issues were detected during
 the presolve checks. Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p><code>integer</code> number of threads to use for the
+optimization algorithm. The default value of 1 will result in only
+one thread being used.</p></td>
     </tr>
     <tr>
       <th>...</th>
