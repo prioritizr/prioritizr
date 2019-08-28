@@ -107,7 +107,7 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
   # make data
   data(sim_pu_zones_polygons, sim_features_zones)
   # solve problem
-  s <- problem(sim_pu_zones_polygons, sim_features_zones,
+  p <- problem(sim_pu_zones_polygons, sim_features_zones,
                cost_column = c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%
        add_absolute_targets(
@@ -115,8 +115,8 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(30, remove_duplicates = FALSE) %>%
-       add_default_solver(gap = 0) %>%
-       solve()
+       add_default_solver(gap = 0, verbose = FALSE)
+  s <- solve(p)
   # output checks
   expect_is(s, "SpatialPolygonsDataFrame")
   expect_true(all(paste0("solution_", rep(seq_len(10), 3), "_",
@@ -125,11 +125,9 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
   for (i in seq_len(30)) {
     for (j in zone_names(sim_features_zones)) {
       curr_col <- paste0("solution_", i, "_", j)
-      curr_s <- s[s[[curr_col]] ==  1, curr_col]
-      k <- match(j, zone_names(sim_features_zones))
-      expect_true(all(colSums(raster::extract(sim_features_zones[[k]],
-                                              curr_s, fun = "sum",
-                                              small = TRUE)) >= 2))
+      curr_s <- which(s[[curr_col]] == 1)
+      curr_repr <- rowSums(p$data$rij_matrix[[j]][, curr_s, drop = FALSE])
+      expect_true(all(curr_repr >= 2))
     }
   }
 })

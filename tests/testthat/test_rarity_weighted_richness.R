@@ -28,6 +28,36 @@ test_that("numeric", {
   expect_equal(r, r2)
 })
 
+test_that("numeric (feature with zero abundance in all planning units)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # create data
+  pu <- data.frame(id = seq_len(4),
+                   cost = c(10, 2, NA, 3),
+                   spp1 = c(0, 0, 0, 1),
+                   spp2 = c(10, 5, 10, 6),
+                   spp3 = c(0, 0, 0, 0))
+  # create problem
+  p <-
+    problem(pu$cost, data.frame(id = seq_len(3),
+                                name = c("spp1", "spp2", "spp3")),
+            as.matrix(t(pu[, 3:5]))) %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10, 0)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  s <- c(0, 1, NA, 1)
+  # calculate replacement costs
+  r <- rarity_weighted_richness(p, s, rescale = FALSE)
+  # create correct result
+  r2 <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
+  # run tests
+  expect_equal(r, r2)
+})
+
 test_that("matrix (single zone)", {
   skip_on_cran()
   skip_on_travis()

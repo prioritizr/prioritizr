@@ -139,7 +139,13 @@ internal_rarity_weighted_richness <- function(x, indices, rescale) {
   m <- matrix(apply(x$data$rij_matrix[[1]], 1, max, na.rm = TRUE),
               nrow = nrow(rs), ncol = length(indices), byrow = FALSE)
   out <- x$data$rij_matrix[[1]][, indices, drop = FALSE]
-  out <- colSums((out / m) / rs[, rep.int(1, ncol(out)), drop = FALSE])
+  ## account for divide by zero issues result in NaNs
+  out <- (out / m)
+  out[!is.finite(out)] <- 0
+  ## account for divide by zero issues result in NaNs
+  out <- out / rs[, rep.int(1, ncol(out)), drop = FALSE]
+  out[!is.finite(out)] <- 0
+  out <- colSums(out)
   # rescale values if specified
   if (rescale) {
     rescale_ind <- is.finite(out) & (abs(out) > 1e-10)

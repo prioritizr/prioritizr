@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
       </span>
     </div>
 
@@ -155,6 +155,15 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-4-1-2-7" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-4-1-2-7" class="anchor"></a>prioritizr 4.1.2.7<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fix issue with <code>rarity_weighted_richness</code> returning incorrect scores when the feature data contains one feature that has zeros amounts in all planning units (e.g. the <code>tas_features</code> object in the <em>prioritizrdata</em> R package; <a href='https://github.com/prioritizr/prioritizr/issues/120'>#120</a>).</li>
+<li>Fix issue with <code>add_gurobi_solver</code> returning solution statuses that are slightly larger than one (e.g. 1+1.0e-10) when solving problems with proportion-type decisions (<a href='https://github.com/prioritizr/prioritizr/issues/118'>#118</a>).</li>
+</ul>
+</div>
     <div id="prioritizr-4-1-2-6" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-1-2-6" class="anchor"></a>prioritizr 4.1.2.6<small> Unreleased </small>
@@ -1133,6 +1142,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-4-1-2-7">4.1.2.7</a></li>
         <li><a href="#prioritizr-4-1-2-6">4.1.2.6</a></li>
         <li><a href="#prioritizr-4-1-2-5">4.1.2.5</a></li>
         <li><a href="#prioritizr-4-1-2-4">4.1.2.4</a></li>

@@ -1,3 +1,12 @@
+# prioritizr 4.1.2.7
+
+- Fix issue with `rarity_weighted_richness` returning incorrect scores when
+  the feature data contains one feature that has zeros amounts in all planning
+  units (e.g. the `tas_features` object in the _prioritizrdata_ R package;
+  #120).
+- Fix issue with `add_gurobi_solver` returning solution statuses that are
+  slightly larger than one (e.g. 1+1.0e-10) when solving problems with proportion-type decisions (#118).
+
 # prioritizr 4.1.2.6
 
 - Update `replacement_cost` function to use parallel processing to speed up

@@ -8,10 +8,10 @@ test_that("add_default_solver (raster cost data)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_default_solver(time_limit = 5)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_default_solver(time_limit = 5)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -28,10 +28,10 @@ test_that("add_default_solver (spatial cost data)", {
   # make data
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_default_solver(time_limit = 5)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_default_solver(time_limit = 5)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "SpatialPolygonsDataFrame"))
@@ -49,10 +49,10 @@ test_that("add_rsymphony_solver (binary decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -71,10 +71,10 @@ test_that("add_rsymphony_solver (proportion decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_proportion_decisions() %>%
-    add_rsymphony_solver(gap = 0, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_proportion_decisions() %>%
+       add_rsymphony_solver(gap = 0, verbose = TRUE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -87,15 +87,39 @@ test_that("add_rsymphony_solver (proportion decisions)", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
+test_that("add_rsymphony_solver (proportion decisions, floating point)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("Rsymphony")
+  skip_if_not_installed("prioritizrdata")
+  # make data
+  data(tas_pu, tas_features, package = "prioritizrdata")
+  p <- problem(tas_pu, tas_features, cost = "cost") %>%
+       add_min_set_objective() %>%
+       add_relative_targets(1) %>%
+       add_proportion_decisions() %>%
+       add_rsymphony_solver(gap = 0, verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "SpatialPolygonsDataFrame"))
+  expect_true("solution_1" %in% names(s@data))
+  expect_equal(nrow(s), nrow(tas_pu))
+  expect_is(s$solution_1, "numeric")
+  expect_gte(min(s$solution_1), 0)
+  expect_lte(max(s$solution_1), 1)
+})
+
 test_that("add_rsymphony_solver (variable bounds methods)", {
   skip_if_not_installed("Rsymphony")
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_rsymphony_solver(first_feasible = TRUE, verbose = TRUE)
   p$solver$calculate(compile.ConservationProblem(p))
   p$solver$set_variable_ub(1, 0)
   p$solver$set_variable_lb(2, 1)
@@ -116,10 +140,10 @@ test_that("add_lpsymphony_solver (binary decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_lpsymphony_solver(first_feasible = TRUE, verbose = FALSE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_lpsymphony_solver(first_feasible = TRUE, verbose = FALSE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -139,10 +163,10 @@ test_that("add_lpsymphony_solver (proportion decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_proportion_decisions() %>%
-    add_lpsymphony_solver(gap = 0, verbose = FALSE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_proportion_decisions() %>%
+       add_lpsymphony_solver(gap = 0, verbose = FALSE)
   s <- solve(p)
   # check that solution has correct properties
   expect_true(inherits(s, "Raster"))
@@ -155,15 +179,40 @@ test_that("add_lpsymphony_solver (proportion decisions)", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
+test_that("add_lpsymphony_solver (proportion decisions, floating point)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("lpsymphony")
+  skip_if_not_installed("prioritizrdata")
+  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
+  # make data
+  data(tas_pu, tas_features, package = "prioritizrdata")
+  p <- problem(tas_pu, tas_features, cost = "cost") %>%
+       add_min_set_objective() %>%
+       add_relative_targets(1) %>%
+       add_proportion_decisions() %>%
+       add_lpsymphony_solver(gap = 0, verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "SpatialPolygonsDataFrame"))
+  expect_true("solution_1" %in% names(s@data))
+  expect_equal(nrow(s), nrow(tas_pu))
+  expect_is(s$solution_1, "numeric")
+  expect_gte(min(s$solution_1), 0)
+  expect_lte(max(s$solution_1), 1)
+})
+
 test_that("add_lpsymphony_solver (variable bounds methods)", {
   skip_if_not_installed("lpsymphony")
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_lpsymphony_solver(first_feasible = TRUE, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_lpsymphony_solver(first_feasible = TRUE, verbose = TRUE)
   p$solver$calculate(compile.ConservationProblem(p))
   p$solver$set_variable_ub(1, 0)
   p$solver$set_variable_lb(2, 1)
@@ -183,15 +232,15 @@ test_that("add_gurobi_solver (binary decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p1 <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_gurobi_solver(time_limit = 5, verbose = TRUE)
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_gurobi_solver(time_limit = 5, verbose = TRUE)
   p2 <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_gurobi_solver(time_limit = 5, numeric_focus = TRUE, verbose = TRUE)
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_gurobi_solver(time_limit = 5, numeric_focus = TRUE, verbose = TRUE)
   s1 <- solve(p1)
   s2 <- solve(p2)
   # check that solution has correct properties
@@ -212,10 +261,10 @@ test_that("add_gurobi_solver (proportion decisions)", {
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_proportion_decisions() %>%
-    add_gurobi_solver(gap = 0, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_proportion_decisions() %>%
+       add_gurobi_solver(gap = 0, verbose = TRUE)
   s <- solve(p)
   # check that solution has correct properties
   expect_is(s, "Raster")
@@ -228,15 +277,39 @@ test_that("add_gurobi_solver (proportion decisions)", {
                                     tolerance = 1e-5, stopiffalse = FALSE))
 })
 
+test_that("add_gurobi_solver (proportion decisions, floating point)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  skip_if_not_installed("gurobi")
+  skip_if_not_installed("prioritizrdata")
+  # make data
+  data(tas_pu, tas_features, package = "prioritizrdata")
+  p <- problem(tas_pu, tas_features, cost = "cost") %>%
+       add_min_set_objective() %>%
+       add_relative_targets(1) %>%
+       add_proportion_decisions() %>%
+       add_gurobi_solver(gap = 0, verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "SpatialPolygonsDataFrame"))
+  expect_true("solution_1" %in% names(s@data))
+  expect_equal(nrow(s), nrow(tas_pu))
+  expect_is(s$solution_1, "numeric")
+  expect_gte(min(s$solution_1), 0)
+  expect_lte(max(s$solution_1), 1)
+})
+
 test_that("add_gurobi_solver (variable bounds methods)", {
   skip_if_not_installed("gurobi")
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
-    add_min_set_objective() %>%
-    add_relative_targets(0.1) %>%
-    add_binary_decisions() %>%
-    add_gurobi_solver(first_feasible = TRUE, verbose = TRUE)
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_gurobi_solver(first_feasible = TRUE, verbose = TRUE)
   p$solver$calculate(compile.ConservationProblem(p))
   p$solver$set_variable_ub(1, 0)
   p$solver$set_variable_lb(2, 1)

@@ -172,15 +172,18 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       p <- self$get_data("parameters")
       # solve problem
       x <- gurobi::gurobi(model = model, params = p)
-      # round binary variables because default precision is 1e-5
+      # fix potential floating point arithmetic issues
       b <- model$vtype == "B"
-      if (is.numeric(x$x))
-        x$x[b] <- round(x$x[b])
-      # truncate semi-continuous variables
-      s <- model$vtype == "S"
       if (is.numeric(x$x)) {
-        x$x[s] <- pmax(x$x[s], 0)
-        x$x[s] <- pmin(x$x[s], 1)
+        ## round binary variables because default precision is 1e-5
+        x$x[b] <- round(x$x[b])
+        ## truncate semicontinuous variables
+        v <- model$vtype == "S"
+        x$x[v] <- pmax(x$x[v], 0)
+        x$x[v] <- pmin(x$x[v], 1)
+        ## truncate variables to account for rounding issues
+        x$x <- pmax(x$x, model$lb)
+        x$x <- pmin(x$x, model$ub)
       }
       # extract solutions
       out <- list(x = x$x, objective = x$objval, status = x$status,

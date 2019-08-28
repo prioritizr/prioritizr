@@ -35,11 +35,11 @@ test_that("solve (compressed formulation, single zone)", {
                             raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
-          add_min_set_objective() %>%
-          add_absolute_targets(c(2, 10)) %>%
-          add_locked_in_constraints(locked_in) %>%
-          add_locked_out_constraints(locked_out) %>%
-          add_default_solver(gap = 0)
+       add_min_set_objective() %>%
+       add_absolute_targets(c(2, 10)) %>%
+       add_locked_in_constraints(locked_in) %>%
+       add_locked_out_constraints(locked_out) %>%
+       add_default_solver(gap = 0)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -128,11 +128,11 @@ test_that("solve (expanded formulation, single zone)", {
                             raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
   # create problem
   p <- problem(cost, features) %>%
-          add_min_set_objective() %>%
-          add_absolute_targets(c(2, 10)) %>%
-          add_locked_in_constraints(locked_in) %>%
-          add_locked_out_constraints(locked_out) %>%
-          add_default_solver(gap = 0)
+       add_min_set_objective() %>%
+       add_absolute_targets(c(2, 10)) %>%
+       add_locked_in_constraints(locked_in) %>%
+       add_locked_out_constraints(locked_out) %>%
+       add_default_solver(gap = 0)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
