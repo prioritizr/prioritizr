@@ -245,7 +245,7 @@ internal_replacement_cost <- function(x, indices, rescale, run_checks, force,
     doParallel::registerDoParallel(cl)
   }
   # iterate over decision variables in solution and store new objective values
-  alt_solution_obj <- plyr::llply(distribute_load(length(indices)),
+  alt_solution_obj <- plyr::llply(distribute_load(length(indices), threads),
                                   .parallel = isTRUE(threads > 1),
                                   .fun = function(y) {
     vapply(indices[y], FUN.VALUE = numeric(1), function(i) {
