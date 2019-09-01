@@ -8,10 +8,12 @@
 
 <title>Identifier — new_id • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,12 +38,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+
 <meta property="og:title" content="Identifier — new_id" />
-
 <meta property="og:description" content="Generate a new unique identifier." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -81,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -127,7 +129,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -159,34 +160,30 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Generate a new unique identifier.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>new_id</span>()</pre>
-        
+
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>Id</code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Identifiers are made using the <code><a href='https://www.rdocumentation.org/packages/uuid/topics/UUIDgenerate'>UUIDgenerate</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/uuid/topics/UUIDgenerate'>UUIDgenerate</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create new id</span>
 <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='fu'>new_id</span>()
 
 <span class='co'># print id</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>id: 549dd965-ae64-42a5-bf16-4a6d2c1e9bce</span></div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; <span class='message'>id: e9af1e17-4e1e-4757-a244-e243d8c2a937</span></div><div class='input'>
 <span class='co'># convert to character</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "549dd965-ae64-42a5-bf16-4a6d2c1e9bce"</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] "e9af1e17-4e1e-4757-a244-e243d8c2a937"</div><div class='input'>
 <span class='co'># check if it is an Id object</span>
 <span class='fu'><a href='is.html'>is.Id</a></span>(<span class='no'>i</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
@@ -194,13 +191,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

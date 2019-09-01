@@ -20,7 +20,8 @@ NULL
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Details section for more information.
 #'
-#' @inherit add_connected_constraints return seealso
+#' @inherit add_contiguity_constraints return seealso
+#' @inherit add_locked_in_constraints details
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -264,7 +265,8 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_zones() == raster::nlayers(locked_out),
       all(max(raster::cellStats(locked_out, "sum")) > 0))
     if (raster::nlayers(locked_out) > 1)
-      assertthat::assert_that(raster::cellStats(sum(locked_out), "max") <= 1)
+      assertthat::assert_that(raster::cellStats(sum(locked_out, na.rm = TRUE),
+                                                "max") <= 1)
     # create matrix with statuses
     if (inherits(x$data$cost, "Raster") && x$number_of_zones() > 1) {
       status <- vapply(seq_len(x$number_of_zones()),

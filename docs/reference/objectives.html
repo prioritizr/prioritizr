@@ -8,10 +8,12 @@
 
 <title>Problem objective — objectives • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,17 +38,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Problem objective — objectives" />
 
+<meta property="og:title" content="Problem objective — objectives" />
 <meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
 problem. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
 ensuring that the cost of the reserve network does not exceed the budget." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -86,7 +88,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -132,7 +134,6 @@ ensuring that the cost of the reserve network does not exceed the budget." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -164,17 +165,16 @@ ensuring that the cost of the reserve network does not exceed the budget." />
     </div>
 
     <div class="ref-description">
-    
     <p>An objective is used to specify the overall goal of a conservation planning
 <code><a href='problem.html'>problem</a></code>. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
 ensuring that the cost of the reserve network does not exceed the budget.</p>
-    
     </div>
 
-        
+
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><strong>Please note that failing to specify an objective before attempting
@@ -202,13 +202,11 @@ to solve a problem will return an error.</strong></p>
     <dt><code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code></dt><dd><p>Secure as much of the
     features as possible without exceeding a budget.</p></dd>
     </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
   <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
   <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -368,7 +366,7 @@ to solve a problem will return an error.</strong></p>
 #&gt;   Cover: 1
 #&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 1 nodes (27 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (27 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 0.301256 0.308545 5 5 
@@ -409,7 +407,7 @@ to solve a problem will return an error.</strong></p>
 #&gt;   Cover: 1
 #&gt;   MIR: 3
 #&gt; 
-#&gt; Explored 9 nodes (107 simplex iterations) in 0.03 seconds
+#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -454,7 +452,7 @@ to solve a problem will return an error.</strong></p>
 #&gt;   MIR: 4
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 7 nodes (101 simplex iterations) in 0.04 seconds
+#&gt; Explored 7 nodes (101 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 136.238 -0 
@@ -499,11 +497,8 @@ to solve a problem will return an error.</strong></p>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

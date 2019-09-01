@@ -8,10 +8,12 @@
 
 <title><em>Marxan</em> conservation problem — marxan_problem • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,14 +38,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="<em>Marxan</em> conservation problem — marxan_problem" />
 
+<meta property="og:title" content="<em>Marxan</em> conservation problem — marxan_problem" />
 <meta property="og:description" content="Create a conservation planning problem following the
 mathematical formulations used in Marxan (detailed in Beyer
 et al. 2016)." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -83,7 +85,7 @@ et al. 2016)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -129,7 +131,6 @@ et al. 2016)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -161,11 +162,9 @@ et al. 2016)." />
     </div>
 
     <div class="ref-description">
-    
     <p>Create a conservation planning <code><a href='problem.html'>problem</a></code> following the
 mathematical formulations used in <em>Marxan</em> (detailed in Beyer
 <em>et al.</em> 2016).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -179,7 +178,7 @@ mathematical formulations used in <em>Marxan</em> (detailed in Beyer
 
 <span class='co'># S3 method for character</span>
 <span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -279,11 +278,10 @@ has an effect when argument to <code>x</code> is a <code>data.frame</code>. The
 default argument is zero.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is provided as a convenient wrapper for solving
@@ -296,7 +294,6 @@ default argument is zero.</p></td>
   for <em>Marxan</em> input data, see the
   <a href='http://marxan.net'>official <em>Marxan</em> website</a> and Ball
   <em>et al.</em> (2009).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -306,7 +303,6 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 <p>Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
 conservation planning problems with integer linear programming.
 <em>Ecological Modelling</em>, 228: 14--22.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create Marxan problem using Marxan input file</span>
@@ -324,13 +320,13 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.221531e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.08s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 496 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 496 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -338,7 +334,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (496 simplex iterations) in 0.12 seconds
+#&gt; Explored 1 nodes (496 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.59415e+09 1.22153e+10 
@@ -423,7 +419,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5646e+09    0    9 1.2198e+10 9.5646e+09  21.6%     -    0s
 #&gt; H    0     0                    9.584380e+09 9.5646e+09  0.21%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.58438e+09 1.2198e+10 
@@ -452,7 +448,7 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.222917e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.08s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
@@ -466,7 +462,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
 #&gt; H    0     0                    9.611012e+09 9.5861e+09  0.26%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (535 simplex iterations) in 0.12 seconds
+#&gt; Explored 1 nodes (535 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.61101e+09 1.22292e+10 
@@ -486,13 +482,9 @@ conservation planning problems with integer linear programming.
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

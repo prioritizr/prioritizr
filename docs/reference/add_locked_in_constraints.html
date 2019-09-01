@@ -8,10 +8,12 @@
 
 <title>Add locked in constraints — add_locked_in_constraints • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,8 +38,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Add locked in constraints — add_locked_in_constraints" />
 
+<meta property="og:title" content="Add locked in constraints — add_locked_in_constraints" />
 <meta property="og:description" content="Add constraints to a conservation planning problem to ensure
 that specific planning units are selected (or allocated
 to a specific zone) in the solution. For example, it may be desirable to
@@ -48,9 +50,9 @@ add_locked_out_constraints. For problems with non-binary
 planning unit allocations (e.g. proportions), the
 add_manual_locked_constraints function can be used to lock
 planning unit allocations to a specific value." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -90,7 +92,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -136,7 +138,6 @@ planning unit allocations to a specific value." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -168,7 +169,6 @@ planning unit allocations to a specific value." />
     </div>
 
     <div class="ref-description">
-    
     <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
 that specific planning units are selected (or allocated
 to a specific zone) in the solution. For example, it may be desirable to
@@ -179,7 +179,6 @@ planning units should be locked out of a solution, use
 planning unit allocations (e.g. proportions), the
 <code><a href='add_manual_locked_constraints.html'>add_manual_locked_constraints</a></code> function can be used to lock
 planning unit allocations to a specific value.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
@@ -201,7 +200,7 @@ planning unit allocations to a specific value.</p>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
 <span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,7 +214,11 @@ planning unit allocations to a specific value.</p>
 locked in. See the Details section for more information.</p></td>
     </tr>
     </table>
-    
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraints
+  added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The locked planning units can be specified in several different
@@ -255,13 +258,15 @@ locked in. See the Details section for more information.</p></td>
     in the solution. For problems that contain multiple zones, the
     <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object must contain a layer
     for each zone. Note that for multi-band arguments, each pixel must
-    only contain a non-zero value in a single band.</p></dd>
-    </dl>
-    
+    only contain a non-zero value in a single band. Additionally, if the
+    cost data in <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, we
+    recommend standardizing <code>NA</code> values in this dataset with the cost
+    data. In other words, the pixels in <code>x</code> that have <code>NA</code> values
+    should also have <code>NA</code> values in the locked data.</p></dd>
+  </dl>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -486,7 +491,7 @@ locked in. See the Details section for more information.</p></td>
 #&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
 #&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2875.81 3524.8 
@@ -595,11 +600,9 @@ locked in. See the Details section for more information.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
+      <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

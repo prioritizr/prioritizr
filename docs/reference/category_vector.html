@@ -8,10 +8,12 @@
 
 <title>Category vector — category_vector • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,14 +38,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Category vector — category_vector" />
 
+<meta property="og:title" content="Category vector — category_vector" />
 <meta property="og:description" content="Convert a data.frame or matrix containing binary
 (integer) fields (columns) into a integer vector
 indicating the column index where each row is 1." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -83,7 +85,7 @@ indicating the column index where each row is 1." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -129,7 +131,6 @@ indicating the column index where each row is 1." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -161,11 +162,9 @@ indicating the column index where each row is 1." />
     </div>
 
     <div class="ref-description">
-    
     <p>Convert a <code>data.frame</code> or <code>matrix</code> containing binary
 (<code>integer</code>) fields (columns) into a <code>integer</code> <code>vector</code>
 indicating the column index where each row is <code>1</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>category_vector</span>(<span class='no'>x</span>)
@@ -175,7 +174,7 @@ indicating the column index where each row is <code>1</code>.</p>
 
 <span class='co'># S3 method for matrix</span>
 <span class='fu'>category_vector</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -184,22 +183,19 @@ indicating the column index where each row is <code>1</code>.</p>
       <td><p><code>matrix</code> object.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>integer</code> <code>vector</code></p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is conceptually similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/maxCol'>max.col</a></code>
   except that rows with no values equal to <code>1</code> values are assigned a
   value of zero. Also, note that in the argument to <code>x</code>, each row must
   contain only a single value equal to <code>1</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/maxCol'>max.col</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create matrix with logical fields</span>
@@ -221,13 +217,9 @@ indicating the column index where each row is <code>1</code>.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

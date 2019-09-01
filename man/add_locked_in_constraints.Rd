@@ -30,6 +30,10 @@ add_locked_in_constraints(x, locked_in)
 \item{locked_in}{Object that determines which planning units that should be
 locked in. See the Details section for more information.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the constraints
+  added to it.
+}
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
 that specific planning units are selected (or allocated
@@ -86,8 +90,11 @@ The locked planning units can be specified in several different
     in the solution. For problems that contain multiple zones, the
     \code{\link[raster]{Raster-class}} object must contain a layer
     for each zone. Note that for multi-band arguments, each pixel must
-    only contain a non-zero value in a single band.}
-
+    only contain a non-zero value in a single band. Additionally, if the
+    cost data in \code{x} is a \code{\link[raster]{Raster-class}} object, we
+    recommend standardizing \code{NA} values in this dataset with the cost
+    data. In other words, the pixels in \code{x} that have \code{NA} values
+    should also have \code{NA} values in the locked data.}
   }
 }
 \examples{

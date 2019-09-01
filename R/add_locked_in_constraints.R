@@ -64,11 +64,14 @@ NULL
 #'     in the solution. For problems that contain multiple zones, the
 #'     \code{\link[raster]{Raster-class}} object must contain a layer
 #'     for each zone. Note that for multi-band arguments, each pixel must
-#'     only contain a non-zero value in a single band.}
-#'
+#'     only contain a non-zero value in a single band. Additionally, if the
+#'     cost data in \code{x} is a \code{\link[raster]{Raster-class}} object, we
+#'     recommend standardizing \code{NA} values in this dataset with the cost
+#'     data. In other words, the pixels in \code{x} that have \code{NA} values
+#'     should also have \code{NA} values in the locked data.}
 #'   }
 #'
-#' @inherit add_connected_constraints return seealso
+#' @inherit add_contiguity_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -315,7 +318,8 @@ methods::setMethod("add_locked_in_constraints",
       x$number_of_zones() == raster::nlayers(locked_in),
       all(max(raster::cellStats(locked_in, "sum")) > 0))
     if (raster::nlayers(locked_in) > 1)
-      assertthat::assert_that(raster::cellStats(sum(locked_in), "max") <= 1)
+      assertthat::assert_that(raster::cellStats(sum(locked_in, na.rm = TRUE),
+                                                "max") <= 1)
     # create matrix with statuses
     if (inherits(x$data$cost, "Raster") && x$number_of_zones() > 1) {
       status <- vapply(seq_len(x$number_of_zones()),

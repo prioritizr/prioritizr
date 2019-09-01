@@ -8,10 +8,12 @@
 
 <title>Add feature weights — add_feature_weights • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,8 +38,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Add feature weights — add_feature_weights" />
 
+<meta property="og:title" content="Add feature weights — add_feature_weights" />
 <meta property="og:description" content="Conservation planning problems that aim to maximize the
 representation of features given a budget often will not able to conserve
 all of the features unless the budget is very high. In such budget-limited
@@ -46,9 +48,9 @@ over other features. This information can be incorporated into the problem
 using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -88,7 +90,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -134,7 +136,6 @@ about how the budget should be allocated." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -166,7 +167,6 @@ about how the budget should be allocated." />
     </div>
 
     <div class="ref-description">
-    
     <p>Conservation planning problems that aim to maximize the
 representation of features given a budget often will not able to conserve
 all of the features unless the budget is very high. In such budget-limited
@@ -175,7 +175,6 @@ over other features. This information can be incorporated into the problem
 using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
@@ -183,7 +182,7 @@ about how the budget should be allocated.</p>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
 <span class='fu'>add_feature_weights</span>(<span class='no'>x</span>, <span class='no'>weights</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -197,12 +196,11 @@ about how the budget should be allocated.</p>
 Details section for more information.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the weights
   added to it.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Weights can only be applied to problems that have an objective
@@ -231,11 +229,9 @@ Details section for more information.</p></td>
      supplied containing a single column that indicates that weight for
      fulfilling each target.</p></dd>
     </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='objectives.html'>objectives</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
@@ -359,7 +355,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 5
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 52 nodes (386 simplex iterations) in 0.05 seconds
+#&gt; Explored 52 nodes (386 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 715.287 142.672 -0 
@@ -555,7 +551,7 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
@@ -590,7 +586,7 @@ Details section for more information.</p></td>
 #&gt;   GUB cover: 1
 #&gt;   Inf proof: 2
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.10 seconds
+#&gt; Explored 63 nodes (1030 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
@@ -605,7 +601,7 @@ Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
 #&gt; Variable types: 0 continuous, 284 integer (284 binary)
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
@@ -663,13 +659,9 @@ Details section for more information.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

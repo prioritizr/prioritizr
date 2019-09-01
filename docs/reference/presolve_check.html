@@ -8,10 +8,12 @@
 
 <title>Presolve check — presolve_check • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,8 +38,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Presolve check — presolve_check" />
 
+<meta property="og:title" content="Presolve check — presolve_check" />
 <meta property="og:description" content="Check a conservation planning problem for potential issues
 before trying to solve it. Specifically, problems are checked for (i) values
 that are likely to result in &quot;strange&quot; solutions and (ii) values that are
@@ -46,9 +48,9 @@ run times when solving it. Although these checks are provided to help
 diagnose potential issues, please be aware that some detected issues may be
 false positives. Please note that these checks will not be able to
 verify if  a problem has a feasible solution or not." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -88,7 +90,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -134,7 +136,6 @@ verify if  a problem has a feasible solution or not." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -166,7 +167,6 @@ verify if  a problem has a feasible solution or not." />
     </div>
 
     <div class="ref-description">
-    
     <p>Check a conservation planning <code><a href='problem.html'>problem</a></code> for potential issues
 before trying to solve it. Specifically, problems are checked for (i) values
 that are likely to result in "strange" solutions and (ii) values that are
@@ -175,7 +175,6 @@ run times when solving it. Although these checks are provided to help
 diagnose potential issues, please be aware that some detected issues may be
 false positives. Please note that these checks will not be able to
 verify if  a problem has a feasible solution or not.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>presolve_check</span>(<span class='no'>x</span>)
@@ -185,7 +184,7 @@ verify if  a problem has a feasible solution or not.</p>
 
 <span class='co'># S3 method for OptimizationProblem</span>
 <span class='fu'>presolve_check</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -195,12 +194,11 @@ verify if  a problem has a feasible solution or not.</p>
 <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>logical</code> value indicating if all checks are passed
   successfully.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function checks for issues that are likely to result in
@@ -285,11 +283,9 @@ verify if  a problem has a feasible solution or not.</p>
   issues can substantially increase run time. So, if you have problems that
   are already taking an unreasonable time to solve, then this will not help
   at all.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>, <code><a href='solve.html'>solve</a></code>, <a href='http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html'>http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html</a>, <a href='http://files.gurobi.com/Numerics.pdf'>http://files.gurobi.com/Numerics.pdf</a>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -367,13 +363,9 @@ verify if  a problem has a feasible solution or not.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

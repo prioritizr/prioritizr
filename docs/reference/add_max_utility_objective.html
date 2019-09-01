@@ -8,10 +8,12 @@
 
 <title>Add maximum utility objective — add_max_utility_objective • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,8 +38,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Add maximum utility objective — add_max_utility_objective" />
 
+<meta property="og:title" content="Add maximum utility objective — add_max_utility_objective" />
 <meta property="og:description" content="Set the objective of a conservation planning problem to
 secure as much of the features as possible without exceeding a budget. This
 type of objective does not use targets, and feature weights should be used
@@ -45,9 +47,9 @@ instead to increase the representation of different features in solutions.
 Note that this objective does not aim to maximize as much of each feature as
 possible and so often results in solutions that are heavily biased towards
 specific features." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -87,7 +89,7 @@ specific features." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -133,7 +135,6 @@ specific features." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -165,7 +166,6 @@ specific features." />
     </div>
 
     <div class="ref-description">
-    
     <p>Set the objective of a conservation planning <code><a href='problem.html'>problem</a></code> to
 secure as much of the features as possible without exceeding a budget. This
 type of objective does not use targets, and feature weights should be used
@@ -173,11 +173,10 @@ instead to increase the representation of different features in solutions.
 Note that this objective does not aim to maximize as much of each feature as
 possible and so often results in solutions that are heavily biased towards
 specific features.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>add_max_utility_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -194,12 +193,11 @@ for the entire solution or a <code>numeric</code> <code>vector</code> to specify
 a budget for each each management zone.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the objective
   added to it.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A problem objective is used to specify the overall goal of the
@@ -236,11 +234,9 @@ a budget for each each management zone.</p></td>
   <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code> but has since been renamed as
   <code>add_max_utility_objective</code> to avoid confusion with historical
   formulations of the maximum coverage problem.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights</a></code>, <code><a href='objectives.html'>objectives</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -284,7 +280,7 @@ a budget for each each management zone.</p></td>
 #&gt; Cutting planes:
 #&gt;   Cover: 2
 #&gt; 
-#&gt; Explored 14 nodes (32 simplex iterations) in 0.01 seconds
+#&gt; Explored 14 nodes (32 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 74.2715 74.2352 -0 
@@ -413,13 +409,9 @@ a budget for each each management zone.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

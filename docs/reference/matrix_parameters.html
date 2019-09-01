@@ -8,10 +8,12 @@
 
 <title>Matrix parameters — matrix_parameters • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,12 +38,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
+
 <meta property="og:title" content="Matrix parameters — matrix_parameters" />
-
 <meta property="og:description" content="Create a parameter that represents a matrix object." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -81,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -127,7 +129,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -159,16 +160,14 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create a parameter that represents a matrix object.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>numeric_matrix_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>, <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmin</span>,
   <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmax</span>, <span class='kw'>symmetric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>binary_matrix_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>, <span class='kw'>symmetric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -198,11 +197,10 @@ system.</p></td>
 Defaults to <code>FALSE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='MiscParameter-class.html'>MiscParameter-class</a></code> object.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create matrix</span>
@@ -212,13 +210,13 @@ Defaults to <code>FALSE</code>.</p></td>
 
 <span class='co'># create a numeric matrix parameter</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_matrix_parameter</span>(<span class='st'>"m"</span>, <span class='no'>m</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x14eecac8&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x177ca4b8&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;           a         b          c
 #&gt; a 0.8122665 0.0269171 0.38656055
 #&gt; b 0.9639887 0.7706323 0.92975210
-#&gt; c 0.7216369 0.8443418 0.03378785</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 117d0451-20fb-432c-8da7-d0e40ba6dc9c</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
+#&gt; c 0.7216369 0.8443418 0.03378785</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 436d9b0b-ff28-464d-87b5-4385c4893d47</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>m</span> + <span class='fl'>1</span>) <span class='co'># set parameter to new values</span>
 <span class='no'>p1</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "m"</div><div class='input'>
@@ -229,13 +227,13 @@ Defaults to <code>FALSE</code>.</p></td>
 
 <span class='co'># create a binary matrix parameter</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_matrix_parameter</span>(<span class='st'>"m"</span>, <span class='no'>m</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0xf9db630&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x158624d0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   a b c
 #&gt; a 0 0 0
 #&gt; b 0 0 0
-#&gt; c 0 0 1</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 4a6a2a5f-434c-43b5-bfba-2f049f08b0b2</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
+#&gt; c 0 0 1</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 167058c2-0c15-4740-af21-b4be56e8ff46</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>m</span>[, -<span class='fl'>1</span>]) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>m</span> + <span class='fl'>1</span>) <span class='co'># set parameter to new values</span>
 <span class='no'>p2</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "m"</div></pre>
@@ -244,9 +242,7 @@ Defaults to <code>FALSE</code>.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

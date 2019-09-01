@@ -1,3 +1,13 @@
+# prioritizr 4.1.2.8
+
+- Update `add_locked_in_constraints` and `add_locked_out_constraints`
+  functions so that they no longer throw an unnecessary warning when
+  when they are added to multi-zone problems using raster data with `NA` values.
+- Update documentation for `add_locked_in_constraints` and
+  `add_locked_out_constraints` functions to provide recommended practices
+  for raster data.
+- Update documentation for constraints missing "See also" and "Value" sections.
+
 # prioritizr 4.1.2.7
 
 - Fix issue with `rarity_weighted_richness` returning incorrect scores when
@@ -5,7 +15,8 @@
   units (e.g. the `tas_features` object in the _prioritizrdata_ R package;
   #120).
 - Fix issue with `add_gurobi_solver` returning solution statuses that are
-  slightly larger than one (e.g. 1+1.0e-10) when solving problems with proportion-type decisions (#118).
+  slightly larger than one (e.g. 1+1.0e-10) when solving problems with
+  proportion-type decisions (#118).
 
 # prioritizr 4.1.2.6
 

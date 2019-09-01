@@ -53,6 +53,10 @@ automatically using the \code{\link{connected_matrix}} function and so
 all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the constraints
+  added to it.
+}
 \description{
 Add constraints to a \code{\link{problem}} to ensure that each feature is
 represented in a contiguous unit of dispersible habitat. These constraints
@@ -220,4 +224,7 @@ Hanson JO, Fuller RA, & Rhodes JR (2018) Conventional methods for enhancing
 connectivity in conservation planning do not always maintain gene flow.
 \emph{Journal of Applied Ecology}, In press:
 \url{https://doi.org/10.1111/1365-2664.13315}.
+}
+\seealso{
+\code{\link{constraints}}.
 }

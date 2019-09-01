@@ -109,7 +109,7 @@ NULL
 #'
 #'   }
 #'
-#' @inherit add_connected_constraints return seealso
+#' @inherit add_contiguity_constraints return seealso
 #'
 #' @references
 #'

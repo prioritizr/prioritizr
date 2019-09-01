@@ -8,10 +8,12 @@
 
 <title>Add a pool portfolio — add_pool_portfolio • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,14 +38,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Add a pool portfolio — add_pool_portfolio" />
 
+<meta property="og:title" content="Add a pool portfolio — add_pool_portfolio" />
 <meta property="og:description" content="Generate a portfolio of solutions for a conservation planning
 problem by extracting all the feasible solutions
 discovered during the optimization process." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -83,7 +85,7 @@ discovered during the optimization process." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -129,7 +131,6 @@ discovered during the optimization process." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -161,15 +162,13 @@ discovered during the optimization process." />
     </div>
 
     <div class="ref-description">
-    
     <p>Generate a portfolio of solutions for a conservation planning
 <code><a href='problem.html'>problem</a></code> by extracting all the feasible solutions
 discovered during the optimization process.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>add_pool_portfolio</span>(<span class='no'>x</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>number_solutions</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -199,12 +198,11 @@ different solutions. Note that this argument has no effect if the
 argument to <code>method</code> is <code>0</code>. Defaults to 10.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the portfolio
   added to it.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This strategy for generating a portfolio requires problems to
@@ -217,11 +215,9 @@ argument to <code>method</code> is <code>0</code>. Defaults to 10.</p></td>
   Also, except for when the <code>method</code> argument is set to 2, none of
   the search methods provide any guarantees on the number of returned
   solutions.</strong></p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='portfolios.html'>portfolios</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -285,7 +281,7 @@ argument to <code>method</code> is <code>0</code>. Defaults to 10.</p></td>
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #&gt;  - attr(*, "status")= Named chr [1:9] "OPTIMAL" "SUBOPTIMAL" "SUBOPTIMAL" "SUBOPTIMAL" ...
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#&gt;  - attr(*, "runtime")= Named num [1:9] 5.19 5.19 5.19 5.19 5.19 ...
+#&gt;  - attr(*, "runtime")= Named num [1:9] 3.84 3.84 3.84 3.84 3.84 ...
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...</div><div class='input'>
 <span class='co'># plot solutions in portfolio</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s3</span>, <span class='no'>category_layer</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -295,13 +291,9 @@ argument to <code>method</code> is <code>0</code>. Defaults to 10.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -8,10 +8,12 @@
 
 <title>Scalar parameters — scalar_parameters • prioritizr</title>
 
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -36,16 +38,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Scalar parameters — scalar_parameters" />
 
+<meta property="og:title" content="Scalar parameters — scalar_parameters" />
 <meta property="og:description" content="These functions are used to create parameters that consist of a single
 number. Parameters have a name, a value, a defined range of acceptable
 values, a default value, a class, and a shiny widget for
 modifying them. If values are supplied to a parameter that are unacceptable
 then an error is thrown." />
-
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -85,7 +87,7 @@ then an error is thrown." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.2.8</span>
       </span>
     </div>
 
@@ -131,7 +133,6 @@ then an error is thrown." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/prioritizr/prioritizr">
@@ -163,13 +164,11 @@ then an error is thrown." />
     </div>
 
     <div class="ref-description">
-    
     <p>These functions are used to create parameters that consist of a single
 number. Parameters have a name, a value, a defined range of acceptable
 values, a default value, a class, and a <code><a href='https://www.rdocumentation.org/packages/shiny/topics/shiny-package'>shiny</a></code> widget for
 modifying them. If values are supplied to a parameter that are unacceptable
 then an error is thrown.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>proportion_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>)
@@ -182,7 +181,7 @@ then an error is thrown.</p>
 
 <span class='fu'>numeric_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>, <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmin</span>,
   <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmax</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -208,11 +207,10 @@ the largest acceptable value for <code>value</code>. Defaults to
 the largest possible number on the system.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='ScalarParameter-class.html'>ScalarParameter-class</a></code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Below is a list of parameter generating functions and a brief
@@ -225,36 +223,35 @@ the largest possible number on the system.</p></td>
     <dt>binary_parameter</dt><dd><p>A parameter that is restricted to <code>integer</code>
     values of zero or one.</p></dd>
     </dl>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># proportion parameter</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>proportion_parameter</span>(<span class='st'>'prop'</span>, <span class='fl'>0.5</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 325c723e-1b0c-4f6d-8aca-7caee6958655</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 400333c0-9720-4159-9bda-6462882b65fb</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
 <span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>0.1</span>) <span class='co'># check if 0.1 is a validate input</span>
 <span class='no'>p1</span>$<span class='fu'>set</span>(<span class='fl'>0.1</span>) <span class='co'># change value to 0.1</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># binary parameter</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_parameter</span>(<span class='st'>'bin'</span>, <span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: d37d466f-58b9-4e61-8955-8625eaeaed5b</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 60cad296-dfc5-45bd-806b-78a695dab30e</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>1L</span>) <span class='co'># check if 1L is a validate input</span>
 <span class='no'>p2</span>$<span class='fu'>set</span>(<span class='fl'>1L</span>) <span class='co'># change value to 1L</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># integer parameter</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>integer_parameter</span>(<span class='st'>'int'</span>, <span class='fl'>5L</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: db137f85-3131-405b-ae07-147b43e6f1b9</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>5.6</span>) <span class='co'># check if 5.6 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 59a53f4c-c930-4bac-9ef5-f5e1379aaa03</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>5.6</span>) <span class='co'># check if 5.6 is a validate input</span>
 <span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>2L</span>) <span class='co'># check if 2L is a validate input</span>
 <span class='no'>p3</span>$<span class='fu'>set</span>(<span class='fl'>2L</span>) <span class='co'># change value to 2L</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>int (2)</span></div><div class='input'>
 <span class='co'># numeric parameter</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'dbl'</span>, -<span class='fl'>7.6</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: a09669a9-72c5-43e3-ad97-7b73c1a8f39e</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>NA</span>) <span class='co'># check if NA is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 555e7d0a-c851-452d-af46-029d423d90ef</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>NA</span>) <span class='co'># check if NA is a validate input</span>
 <span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>8.9</span>) <span class='co'># check if 8.9 is a validate input</span>
 <span class='no'>p4</span>$<span class='fu'>set</span>(<span class='fl'>8.9</span>) <span class='co'># change value to 8.9</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>dbl (8.9)</span></div><div class='input'>
 <span class='co'># numeric parameter with lower bounds</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'bdbl'</span>, <span class='fl'>6</span>, <span class='kw'>lower_limit</span><span class='kw'>=</span><span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: b1f9e39e-4a6c-436d-b5fd-15a0f863bbb5</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>validate</span>(-<span class='fl'>10</span>) <span class='co'># check if -10 is a validate input</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/get'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: a1986e84-4118-4d0b-8dee-145ec5aa1176</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>validate</span>(-<span class='fl'>10</span>) <span class='co'># check if -10 is a validate input</span>
 <span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='fl'>90</span>) <span class='co'># check if 90 is a validate input</span>
 <span class='no'>p5</span>$<span class='fu'>set</span>(<span class='fl'>90</span>) <span class='co'># change value to 8.9</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>bdbl (90)</span></div><div class='input'>
@@ -264,11 +261,8 @@ the largest possible number on the system.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

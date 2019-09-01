@@ -18,6 +18,10 @@ add_manual_bounded_constraints(x, data)
 \item{data}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
 the Details section for more information.}
 }
+\value{
+\code{\link{ConservationProblem-class}} object with the constraints
+  added to it.
+}
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
 that the planning unit values (e.g. proportion, binary) in a solution
