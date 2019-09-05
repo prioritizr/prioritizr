@@ -1,3 +1,7 @@
+# prioritizr 4.1.3 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.1.2.8
 
 - Update `add_locked_in_constraints` and `add_locked_out_constraints`
