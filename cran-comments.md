@@ -5,13 +5,12 @@
 ## Notes
 
 * checking installed package size ... NOTE
-  installed size is 25.5Mb
+  installed size is 11.2Mb
   sub-directories of 1Mb or more:
-    Meta   1.1Mb
-    R      1.2Mb
-    doc    3.2Mb
+    R      1.1Mb
+    doc    2.2Mb
     help   2.1Mb
-    libs  15.4Mb
+    libs   3.0Mb
 
     **The package makes extensive use of C++ code to reduce run time.**
 
