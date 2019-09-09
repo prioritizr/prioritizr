@@ -1,3 +1,7 @@
+# prioritizr 4.1.3.1
+
+- Fix typo in README.
+
 # prioritizr 4.1.3 (released)
 
 - Release candidate for CRAN.

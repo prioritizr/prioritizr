@@ -29,7 +29,7 @@ Citation
 
 Please use the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.3. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.3.1. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -149,15 +149,16 @@ s1 <- solve(p1)
     ##      0     0 2612.51779    0    9 2757.18344 2612.51779  5.25%     -    0s
     ##      0     2 2612.67761    0    9 2757.18344 2612.67761  5.24%     -    0s
     ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    0s
-    ##  100399 59306 2669.04537   91    2 2747.37746 2622.35453  4.55%   1.6    5s
-    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    8s
+    ##  96131 56622 2636.04873   50    3 2747.37746 2622.28190  4.55%   1.6    5s
+    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6    9s
+    ##  179584  8290 2626.28572   53    3 2627.63893 2623.41708  0.16%   1.6   10s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
     ##   MIR: 7
     ##   Flow cover: 2
     ## 
-    ## Explored 189518 nodes (316635 simplex iterations) in 9.46 seconds
+    ## Explored 189518 nodes (316635 simplex iterations) in 10.62 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2757.18 ... 3139.89
@@ -179,7 +180,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   9.457826
+    ##   10.61855
 
 ``` r
 # extract state message from the solver
@@ -267,7 +268,7 @@ s2 <- solve(p2)
     ##   MIR: 4
     ##   StrongCG: 1
     ## 
-    ## Explored 1 nodes (82 simplex iterations) in 0.01 seconds
+    ## Explored 1 nodes (82 simplex iterations) in 0.02 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -345,7 +346,7 @@ s3 <- solve(p3)
     ##   Gomory: 1
     ##   MIR: 1
     ## 
-    ## Explored 1 nodes (301 simplex iterations) in 0.04 seconds
+    ## Explored 1 nodes (301 simplex iterations) in 0.09 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 7: 3939.6 3946.89 3948.53 ... 19567.2
@@ -458,4 +459,4 @@ This short example demonstrates how the *prioritizr R* package can be used to bu
 Getting help
 ------------
 
-Please refer to the [package website](https://prioritizr.net/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions from improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.net/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions for improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
