@@ -1,3 +1,8 @@
+# prioritizr 4.1.3.2
+
+- Add Rodewald _et al._ (2019) to publication record.
+- Update reference for Bombi _et al._ (2019) in publication record.
+
 # prioritizr 4.1.3.1
 
 - Fix typo in README.
