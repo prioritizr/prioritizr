@@ -29,7 +29,7 @@ Citation
 
 Please use the following citation to cite the *prioritizr R* package in publications:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.3.2. Available at <https://github.com/prioritizr/prioritizr>.
+Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2019). prioritizr: Systematic Conservation Prioritization in R. R package version 4.1.3.3. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -148,22 +148,17 @@ s1 <- solve(p1)
     ##      0     0 2612.45076    0   10 2757.18344 2612.45076  5.25%     -    0s
     ##      0     0 2612.51779    0    9 2757.18344 2612.51779  5.25%     -    0s
     ##      0     2 2612.67761    0    9 2757.18344 2612.67761  5.24%     -    0s
-    ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    2s
-    ##  39289 19359 2663.94585   80    1 2747.37746 2620.66568  4.61%   1.7    5s
-    ##  69552 38974 2644.92708   42    4 2747.37746 2621.69326  4.57%   1.6   10s
-    ##  95513 56160 2624.10408   76    1 2747.37746 2622.27398  4.55%   1.6   15s
-    ##  125248 75789 2625.23492   35    4 2747.37746 2622.77882  4.54%   1.6   20s
-    ##  148642 90802 2661.74020   75    2 2747.37746 2623.08847  4.52%   1.6   25s
-    ##  167290 102584 2702.36136   48    1 2747.37746 2623.30621  4.52%   1.6   30s
-    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6   31s
-    ##  189065  3878     cutoff   51      2627.63893 2626.18343  0.06%   1.7   35s
+    ## H10326  6090                    2747.3774616 2619.58181  4.65%   1.7    1s
+    ##  85181 49419 2636.64100   90    1 2747.37746 2622.05197  4.56%   1.6    5s
+    ##  166360 102133 2694.24747   69    2 2747.37746 2623.29267  4.52%   1.6   10s
+    ## H173128  8666                    2627.6389306 2623.36502  0.16%   1.6   10s
     ## 
     ## Cutting planes:
     ##   Gomory: 2
     ##   MIR: 7
     ##   Flow cover: 2
     ## 
-    ## Explored 189518 nodes (316635 simplex iterations) in 35.08 seconds
+    ## Explored 189518 nodes (316635 simplex iterations) in 11.56 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 2627.64 2747.38 2757.18 ... 3139.89
@@ -185,7 +180,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   35.08239
+    ##   11.55695
 
 ``` r
 # extract state message from the solver
@@ -273,7 +268,7 @@ s2 <- solve(p2)
     ##   MIR: 4
     ##   StrongCG: 1
     ## 
-    ## Explored 1 nodes (82 simplex iterations) in 0.02 seconds
+    ## Explored 1 nodes (82 simplex iterations) in 0.01 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -351,7 +346,7 @@ s3 <- solve(p3)
     ##   Gomory: 1
     ##   MIR: 1
     ## 
-    ## Explored 1 nodes (301 simplex iterations) in 0.06 seconds
+    ## Explored 1 nodes (301 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 7: 3939.6 3946.89 3948.53 ... 19567.2
@@ -387,7 +382,7 @@ s4 <- solve(p4)
     ##   Bounds range     [1e+00, 1e+00]
     ##   RHS range        [1e+00, 1e+01]
     ## Presolve removed 340 rows and 252 columns
-    ## Presolve time: 0.03s
+    ## Presolve time: 0.01s
     ## Presolved: 314 rows, 254 columns, 702 nonzeros
     ## Variable types: 0 continuous, 254 integer (254 binary)
     ## Found heuristic solution: objective 7270.1195351
@@ -414,7 +409,7 @@ s4 <- solve(p4)
     ##   Gomory: 5
     ##   Zero half: 6
     ## 
-    ## Explored 1 nodes (259 simplex iterations) in 0.07 seconds
+    ## Explored 1 nodes (259 simplex iterations) in 0.03 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 5858.42 5858.42 5859.85 ... 7270.12

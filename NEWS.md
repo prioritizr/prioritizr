@@ -1,3 +1,9 @@
+# prioritizr 4.1.3.3
+
+- Fix `rij_matrix` so that amounts are calculated correctly for
+  vector-based planning unit data.
+- Fix documentation for `fast_extract`.
+
 # prioritizr 4.1.3.2
 
 - Add Rodewald _et al._ (2019) to publication record.

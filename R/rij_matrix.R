@@ -14,6 +14,10 @@ NULL
 #' @param y \code{\link[raster]{Raster-class}} object representing the
 #'   features.
 #'
+#' @param fun \code{function} for summarizing values inside each planning unit.
+#'   This parameter is only used when the argument to \code{x} is a
+#'   \code{\link[sp]{Spatial-class}} object. Defaults to \code{sum}.
+#'
 #' @param ... additional arguments passed to \code{\link{fast_extract}} if
 #'   argument to \code{x} inherits from a \code{\link[sp]{Spatial-class}}
 #'   object.
@@ -78,7 +82,8 @@ methods::setMethod(
     # assert that arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
       raster::nlayers(x) > 0, raster::nlayers(y) > 0,
-      is_comparable_raster(x, y))
+      is_comparable_raster(x, y),
+      no_extra_arguments(...))
     # set included cells
     if (raster::nlayers(x) == 1) {
       included <- raster::Which(!is.na(x), cells = TRUE)
@@ -115,13 +120,13 @@ methods::setMethod(
 })
 
 #' @name rij_matrix
-#' @usage \S4method{rij_matrix}{Spatial,Raster}(x, y, ...)
+#' @usage \S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
 #' @rdname rij_matrix
 methods::setMethod(
   "rij_matrix",
   signature(x = "Spatial", y = "Raster"),
-  function(x, y,  ...) {
-    m <- fast_extract(x = y, y = x, df = FALSE, sp = FALSE, ...)
+  function(x, y, fun = sum, ...) {
+    m <- fast_extract(x = y, y = x, df = FALSE, sp = FALSE, fun = fun, ...)
     if (raster::nlayers(y) == 1)
       m <- matrix(m, ncol = 1)
     m[is.na(m[])] <- 0

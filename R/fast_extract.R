@@ -11,7 +11,7 @@ NULL
 #' @param y \code{\link[sp]{Spatial-class}} object.
 #'
 #' @param fun \code{function} used to summarize values. Defaults to
-#'   \code{\link{sum}}. Note that this only used when \code{x} is a
+#'   \code{\link{mean}}. Note that this only used when \code{x} is a
 #'   \code{\link[sp]{SpatialPolygons-class}} or a
 #'   \code{\link[sp]{SpatialLines-class}} object. This function must
 #'   have an \code{na.rm} argument.

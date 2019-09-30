@@ -8,7 +8,7 @@
 \usage{
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
-\S4method{rij_matrix}{Spatial,Raster}(x, y, ...)
+\S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} or
@@ -17,6 +17,10 @@ planning units.}
 
 \item{y}{\code{\link[raster]{Raster-class}} object representing the
 features.}
+
+\item{fun}{\code{function} for summarizing values inside each planning unit.
+This parameter is only used when the argument to \code{x} is a
+\code{\link[sp]{Spatial-class}} object. Defaults to \code{sum}.}
 
 \item{...}{additional arguments passed to \code{\link{fast_extract}} if
 argument to \code{x} inherits from a \code{\link[sp]{Spatial-class}}

@@ -365,7 +365,7 @@ test_that("Raster (multiple threads)", {
   # calculate replacement costs without parallel processing
   r1 <- replacement_cost(p, s)
   # calculate replacement costs with parallel processing
-  r2 <- replacement_cost(p, s, threads = 2)
+  suppressWarnings({r2 <- replacement_cost(p, s, threads = 2)})
   # verify that parallel processing generates the same result
   expect_identical(as.matrix(r1), as.matrix(r2))
 })
