@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tasmania Tutorial • prioritizr</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4</span>
       </span>
     </div>
 
@@ -213,13 +219,13 @@ puvspr_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.
 
 <span class="co"># print first six rows</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(puvspr_data)</code></pre></div>
-<pre><code>##   pu species     amount
-## 1  3      54 0.02777778
-## 2  3      59 0.33333333
-## 3  5      30 0.05000000
-## 4  6      27 0.03225806
-## 5  6      35 0.03225806
-## 6  7      12 0.01587302</code></pre>
+<pre><code>##   pu species amount
+## 1  3      54      1
+## 2  3      59     12
+## 3  5      30      1
+## 4  6      27      1
+## 5  6      35      1
+## 6  7      12      1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create table with the boundary data</span>
 bound_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span>(tas_pu)
 bound_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.html">as</a></span>(bound_data, <span class="st">"dgTMatrix"</span>)
@@ -258,35 +264,35 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 <pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e-02, 1e+00]
+##   Matrix range     [1e+00, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e-03, 3e+00]
+##   RHS range        [2e-01, 2e+02]
 ## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12420.567371
-## Presolve removed 1796 rows and 1172 columns
+## Found heuristic solution: objective 12367.087377
+## Presolve removed 1798 rows and 1172 columns
 ## Presolve time: 0.03s
-## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
-## Found heuristic solution: objective 12633.675102
-## Found heuristic solution: objective 11603.764206
+## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
+## Found heuristic solution: objective 12746.195965
+## Found heuristic solution: objective 11481.838167
 ## Variable types: 0 continuous, 3106 integer (3106 binary)
-## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
+## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.03 seconds
+## Root relaxation: objective 1.075393e+04, 816 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
+##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.07 seconds
+## Explored 1 nodes (816 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
+## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.160376420636e+04, best bound 1.072357667965e+04, gap 7.5854%</code></pre>
+## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print first six rows of solution object</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(s1)</code></pre></div>
 <pre><code>##   id     cost status locked_in locked_out solution_1
@@ -298,26 +304,26 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## 7  6 51.26218      0     FALSE      FALSE          0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count number of planning units in solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 317</code></pre>
+<pre><code>## [1] 318</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># proportion of planning units in solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 0.280531</code></pre>
+<pre><code>## [1] 0.2814159</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p1, s1[, <span class="st">"solution_1"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
 <span class="kw"><a href="../reference/print.html">print</a></span>(r1)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
 ##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-##  1 veg1           0.107          0.176
-##  2 veg2           0.563          0.172
-##  3 veg3           0.0930         0.231
-##  4 veg4           0.172          0.309
-##  5 veg5           0.0775         0.191
-##  6 veg6           0.0606         0.176
-##  7 veg7           0.0462         0.191
-##  8 veg8           0.185          0.248
-##  9 veg9           1.46           0.242
-## 10 veg10          0.0716         0.313
+##  1 veg1                8         0.242
+##  2 veg2               42         0.243
+##  3 veg3                6         0.25 
+##  4 veg4               12         0.387
+##  5 veg5                5         0.217
+##  6 veg6                6         0.273
+##  7 veg7                3         0.2  
+##  8 veg8                9         0.2  
+##  9 veg9               69         0.180
+## 10 veg10               5         0.357
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw"><a href="../reference/as.html">as</a></span>(tas_pu, <span class="st">"SpatialPolygons"</span>), <span class="dt">data =</span> s1)
@@ -356,51 +362,51 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 <pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e-02, 1e+00]
+##   Matrix range     [1e+00, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e-03, 3e+00]
+##   RHS range        [2e-01, 2e+02]
 ## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12420.567371
-## Presolve removed 1796 rows and 1172 columns
-## Presolve time: 0.03s
-## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
-## Found heuristic solution: objective 12633.675102
-## Found heuristic solution: objective 11603.764206
+## Found heuristic solution: objective 12367.087377
+## Presolve removed 1798 rows and 1172 columns
+## Presolve time: 0.04s
+## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
+## Found heuristic solution: objective 12746.195965
+## Found heuristic solution: objective 11481.838167
 ## Variable types: 0 continuous, 3106 integer (3106 binary)
-## Presolved: 4562 rows, 3106 columns, 10000 nonzeros
+## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.072358e+04, 775 iterations, 0.04 seconds
+## Root relaxation: objective 1.075393e+04, 816 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10723.5767    0  118 11603.7642 10723.5767  7.59%     -    0s
+##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
 ## 
-## Explored 1 nodes (775 simplex iterations) in 0.08 seconds
+## Explored 1 nodes (816 simplex iterations) in 0.11 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11603.8 12417.3 12633.7 29785.4 
+## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.160376420636e+04, best bound 1.072357667965e+04, gap 7.5854%</code></pre>
+## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p2, s2[, <span class="st">"solution_1"</span>])
 <span class="kw"><a href="../reference/print.html">print</a></span>(r2)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature  absolute_held relative_held
 ##    &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1         0.107          0.176
-##  2 layer.2         0.563          0.172
-##  3 layer.3         0.0930         0.231
-##  4 layer.4         0.172          0.309
-##  5 layer.5         0.0775         0.191
-##  6 layer.6         0.0606         0.176
-##  7 layer.7         0.0462         0.191
-##  8 layer.8         0.185          0.248
-##  9 layer.9         1.46           0.242
-## 10 layer.10        0.0716         0.313
+##  1 layer.1              8         0.242
+##  2 layer.2             42         0.243
+##  3 layer.3              6         0.25 
+##  4 layer.4             12         0.387
+##  5 layer.5              5         0.217
+##  6 layer.6              6         0.273
+##  7 layer.7              3         0.2  
+##  8 layer.8              9         0.2  
+##  9 layer.9             69         0.180
+## 10 layer.10             5         0.357
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)

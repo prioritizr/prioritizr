@@ -122,6 +122,7 @@ NULL
 #'
 #' plot(s5, main = "locked in (polygon input)")
 #' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#'
 #' }
 #'
 #' # create minimal multi-zone problem with spatial data

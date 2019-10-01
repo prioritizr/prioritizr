@@ -1,3 +1,7 @@
+# prioritizr 4.1.4 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 4.1.3.3
 
 - Fix `rij_matrix` so that amounts are calculated correctly for
