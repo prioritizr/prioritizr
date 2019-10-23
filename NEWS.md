@@ -1,3 +1,7 @@
+# prioritizr 4.1.4.1
+
+- Add Scriven _et al._ (in press) to publication record.
+
 # prioritizr 4.1.4 (released)
 
 - Release candidate for CRAN.
@@ -10,7 +14,7 @@
 
 # prioritizr 4.1.3.2
 
-- Add Rodewald _et al._ (2019) to publication record.
+- Add Rodewald _et al._ (in press) to publication record.
 - Update reference for Bombi _et al._ (2019) in publication record.
 
 # prioritizr 4.1.3.1

@@ -91,7 +91,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4.1</span>
       </span>
     </div>
 
@@ -649,10 +649,10 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt; H  312   165                    6754.1573992 5996.96548  11.2%   190    9s
 #&gt;    336   191 6238.21877   25  922 6754.15740 5996.96548  11.2%   200   10s
 #&gt; H  394   220                    6750.1005609 5997.40740  11.2%   203   11s
-#&gt;    511   322 6536.31849   32 1094 6750.10056 5997.58112  11.1%   223   16s
+#&gt;    511   322 6536.31849   32 1094 6750.10056 5997.58112  11.1%   223   15s
 #&gt;    526   332 6427.11432   35 1194 6750.10056 5997.58112  11.1%   217   20s
 #&gt;    536   339 6093.19596   23 1295 6750.10056 5998.39350  11.1%   213   25s
-#&gt; H  536   321                    6575.4232077 5998.76106  8.77%   213   25s
+#&gt; H  536   321                    6575.4232077 5998.76106  8.77%   213   26s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
@@ -662,7 +662,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Zero half: 25
 #&gt;   Mod-K: 1
 #&gt; 
-#&gt; Explored 536 nodes (152608 simplex iterations) in 25.86 seconds
+#&gt; Explored 536 nodes (152608 simplex iterations) in 26.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 9: 6575.42 6750.1 6754.16 ... 9095.61
@@ -677,14 +677,14 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 652 rows and 656 columns
-#&gt; Presolve time: 0.30s
+#&gt; Presolve time: 0.35s
 #&gt; Presolved: 3843 rows, 3139 columns, 12612 nonzeros
 #&gt; Variable types: 0 continuous, 3139 integer (3139 binary)
 #&gt; Presolve removed 749 rows and 81 columns
 #&gt; Presolved: 3094 rows, 3058 columns, 10608 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956540e+03, 3679 iterations, 0.13 seconds
+#&gt; Root relaxation: objective 5.956540e+03, 3679 iterations, 0.16 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -695,7 +695,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5969.97402    0  691          - 5969.97402      -     -    0s
 #&gt;      0     0 5970.20934    0  704          - 5970.20934      -     -    0s
 #&gt;      0     0 5970.24138    0  705          - 5970.24138      -     -    0s
-#&gt;      0     0 5975.77093    0  828          - 5975.77093      -     -    0s
+#&gt;      0     0 5975.77093    0  828          - 5975.77093      -     -    1s
 #&gt;      0     0 5976.29135    0  856          - 5976.29135      -     -    1s
 #&gt;      0     0 5976.94935    0  857          - 5976.94935      -     -    1s
 #&gt;      0     0 5976.98442    0  827          - 5976.98442      -     -    1s
@@ -726,33 +726,34 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5987.31702    0  881          - 5987.31702      -     -    1s
 #&gt;      0     0 5987.32632    0  888          - 5987.32632      -     -    1s
 #&gt;      0     0 5987.50129    0  902          - 5987.50129      -     -    1s
-#&gt;      0     0 5987.54099    0  908          - 5987.54099      -     -    1s
-#&gt;      0     0 5987.56418    0  916          - 5987.56418      -     -    1s
-#&gt;      0     0 5987.57285    0  913          - 5987.57285      -     -    1s
-#&gt;      0     0 5987.69546    0  940          - 5987.69546      -     -    1s
-#&gt;      0     0 5987.75945    0  936          - 5987.75945      -     -    1s
-#&gt;      0     0 5987.82662    0  904          - 5987.82662      -     -    1s
-#&gt;      0     0 5987.85507    0  941          - 5987.85507      -     -    1s
-#&gt;      0     0 5987.88073    0  925          - 5987.88073      -     -    1s
-#&gt;      0     0 5987.89359    0  946          - 5987.89359      -     -    1s
-#&gt;      0     0 5987.90436    0  949          - 5987.90436      -     -    1s
-#&gt;      0     0 5987.90565    0  952          - 5987.90565      -     -    1s
-#&gt;      0     0 5988.48112    0  845          - 5988.48112      -     -    1s
-#&gt;      0     0 5988.48760    0  924          - 5988.48760      -     -    1s
-#&gt;      0     0 5988.51496    0  935          - 5988.51496      -     -    1s
-#&gt;      0     0 5988.52976    0  915          - 5988.52976      -     -    1s
-#&gt;      0     0 5988.53378    0  949          - 5988.53378      -     -    1s
-#&gt;      0     0 5988.53549    0  945          - 5988.53549      -     -    1s
+#&gt;      0     0 5987.54099    0  908          - 5987.54099      -     -    2s
+#&gt;      0     0 5987.56418    0  916          - 5987.56418      -     -    2s
+#&gt;      0     0 5987.57285    0  913          - 5987.57285      -     -    2s
+#&gt;      0     0 5987.69546    0  940          - 5987.69546      -     -    2s
+#&gt;      0     0 5987.75945    0  936          - 5987.75945      -     -    2s
+#&gt;      0     0 5987.82662    0  904          - 5987.82662      -     -    2s
+#&gt;      0     0 5987.85507    0  941          - 5987.85507      -     -    2s
+#&gt;      0     0 5987.88073    0  925          - 5987.88073      -     -    2s
+#&gt;      0     0 5987.89359    0  946          - 5987.89359      -     -    2s
+#&gt;      0     0 5987.90436    0  949          - 5987.90436      -     -    2s
+#&gt;      0     0 5987.90565    0  952          - 5987.90565      -     -    2s
+#&gt;      0     0 5988.48112    0  845          - 5988.48112      -     -    2s
+#&gt;      0     0 5988.48760    0  924          - 5988.48760      -     -    2s
+#&gt;      0     0 5988.51496    0  935          - 5988.51496      -     -    2s
+#&gt;      0     0 5988.52976    0  915          - 5988.52976      -     -    2s
+#&gt;      0     0 5988.53378    0  949          - 5988.53378      -     -    2s
+#&gt;      0     0 5988.53549    0  945          - 5988.53549      -     -    2s
 #&gt;      0     0 5988.53549    0  942          - 5988.53549      -     -    2s
-#&gt;      0     2 5988.54919    0  941          - 5988.54919      -     -    2s
-#&gt; H  233   149                    6305.5335829 5989.25928  5.02%   108    4s
+#&gt;      0     2 5988.54919    0  941          - 5988.54919      -     -    3s
+#&gt;    196   193 6047.39262   31  424          - 5989.25928      -   109    5s
+#&gt; H  233   149                    6305.5335829 5989.25928  5.02%   108    5s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   MIR: 31
 #&gt;   StrongCG: 1
 #&gt;   Zero half: 9
 #&gt; 
-#&gt; Explored 233 nodes (37624 simplex iterations) in 4.53 seconds
+#&gt; Explored 233 nodes (37624 simplex iterations) in 5.24 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6305.53 
@@ -774,7 +775,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt; Presolved: 1214 rows, 1410 columns, 6009 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 5.956523e+03, 1702 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -813,7 +814,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5991.90546    0  381          - 5991.90546      -     -    0s
 #&gt;      0     0 5991.90907    0  380          - 5991.90907      -     -    0s
 #&gt;      0     0 5991.90907    0  374          - 5991.90907      -     -    0s
-#&gt;      0     2 5991.94307    0  374          - 5991.94307      -     -    0s
+#&gt;      0     2 5991.94307    0  374          - 5991.94307      -     -    1s
 #&gt; H  144   103                    6578.0672409 5992.33563  8.90%  78.0    1s
 #&gt; 
 #&gt; Cutting planes:
@@ -823,7 +824,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   StrongCG: 3
 #&gt;   Zero half: 19
 #&gt; 
-#&gt; Explored 144 nodes (15818 simplex iterations) in 1.52 seconds
+#&gt; Explored 144 nodes (15818 simplex iterations) in 1.67 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6578.07 
