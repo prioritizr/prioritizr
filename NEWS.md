@@ -1,3 +1,9 @@
+# prioritizr 4.1.4.2
+
+- Add Rodewald _et al._ (2019) to publication record.
+- Update in press version of Rodewald _et al._ (2019).
+- Make error message for `presolve_check` function more informative (#124).
+
 # prioritizr 4.1.4.1
 
 - Add Scriven _et al._ (in press) to publication record.

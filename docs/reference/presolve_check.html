@@ -90,7 +90,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4.2</span>
       </span>
     </div>
 
@@ -318,7 +318,7 @@ verify if  a problem has a feasible solution or not.</p>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some issues, such as long solve time or suboptimal solutions, when</span>
 <span class='co'># trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: planning units with (relatively) very high costs, note this may be a false positive</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># create a minimal problem with connectivity penalties values that have</span>
 <span class='co'># a really high penalty value that is likely to cause numerical instability</span>
 <span class='co'># issues when trying to solve the it</span>
@@ -332,11 +332,11 @@ verify if  a problem has a feasible solution or not.</p>
 <span class='co'># run presolve checks</span>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some numerical instability issues when trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are (relatively) very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># let's forcibly solve the problem using Gurobi and tell it to</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># let's forcibly solve the problem using Gurobi and tell it to</span>
 <span class='co'># be extra careful about numerical instability problems</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>numeric_focus</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are (relatively) very high</span></div><div class='output co'>#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
 #&gt; Variable types: 0 continuous, 378 integer (378 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]

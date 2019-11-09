@@ -224,24 +224,24 @@ presolve_check.OptimizationProblem <- function(x) {
     n <- x$col_ids()[r]
     ### throw warnings
     if (("pu" %in% n))
-      warning(paste("planning units with (relatively) very high costs,",
-                    "note this may be a false positive"),
+      warning(paste("planning units with very high (> 1e+6) or very low",
+                    "(< 1e-6) non-zero cost values note this may be a false",
+                    "positive"),
               immediate. = TRUE)
     if ("spp_met" %in% n)
-      warning("feature targets with (relatively) very high target weights",
+      warning(paste0("feature targets with very high target weights (> 1e+6)"),
               immediate. = TRUE)
     if ("amount" %in% n)
-      warning("features with (relatively) very high weights",
+      warning("features with (relatively) very high weights (> 1e+6)",
               immediate. = TRUE)
     if ("branch_met" %in% n)
-      warning("features with (relatively) very large branch lengths",
+      warning("features with (relatively) very large branch lengths (> 1e+6)",
               immediate. = TRUE)
     if ("b" %in% n)
-      warning("penalty multiplied boundary lengths are (relatively) very high",
+      warning("penalty multiplied boundary lengths are very high",
               immediate. = TRUE)
     if ("c" %in% n)
-      warning(paste("penalty multiplied connectivity values are (relatively)",
-                    "very high"),
+      warning(paste("penalty multiplied connectivity values are very high"),
               immediate. = TRUE)
   }
   ## rhs
@@ -253,13 +253,14 @@ presolve_check.OptimizationProblem <- function(x) {
     n <- x$row_ids()[r]
     ### throw warnings
     if ("n" %in% n)
-    warning("number of neighbors required are (relatively) very high",
+    warning("number of neighbors required is very high (> 1e+6)",
               immediate. = TRUE)
     if ("budget" %in% n)
-      warning("budget is are (relatively) very high",
+      warning("budget is very high (> 1e+6)",
               immediate. = TRUE)
     if ("spp_target" %in% n)
-      warning("features target values are (relatively) very high",
+      warning(paste0("features targets are very high (> 1e+6) or ",
+                     "very low non-zero (< 1e-6) values"),
               immediate. = TRUE)
   }
   ## constraint matrix
@@ -276,11 +277,12 @@ presolve_check.OptimizationProblem <- function(x) {
     rn <- rn[r]
     ### throw warnings
     if ("budget" %in% rn)
-      warning("planning units with (relatively) high values",
+      warning(paste("planning units with very high (> 1e+6) or very low",
+                    "(< 1e-6) non-zero values"),
               immediate. = TRUE)
     if (("pu_ijz" %in% cn) | ("pu" %in% cn))
       warning(paste("feature amounts in planning units have",
-                    "(relatively) high values"),
+                    "very high (> 1e+6) or very low (< 1e-6) non-zero values"),
               immediate. = TRUE)
   }
   # return check
