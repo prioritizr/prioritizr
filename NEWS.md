@@ -1,3 +1,7 @@
+# prioritizr 4.1.4.3
+
+- Add Williams _et al._ (in press) to publication record.
+
 # prioritizr 4.1.4.2
 
 - Add Rodewald _et al._ (2019) to publication record.
