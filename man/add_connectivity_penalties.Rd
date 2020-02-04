@@ -53,8 +53,6 @@ correspond to the strength of connectivity between
 different planning units. Thus connections between planning units
 that are associated with higher values are more favorable in the solution.
 See the Details section for more information.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the penalties

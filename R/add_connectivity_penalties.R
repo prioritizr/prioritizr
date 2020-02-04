@@ -40,8 +40,6 @@ NULL
 #'   that are associated with higher values are more favorable in the solution.
 #'   See the Details section for more information.
 #'
-#' @param ... not used.
-#'
 #' @details This function uses connectivity data to penalize solutions
 #'   that have low connectivity. It can accommodate symmetric and asymmetric
 #'   relationships between planning units. Although \emph{Marxan}

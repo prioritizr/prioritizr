@@ -85,7 +85,7 @@ discovered during the optimization process." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.4.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5</span>
       </span>
     </div>
 
@@ -281,7 +281,7 @@ argument to <code>method</code> is <code>0</code>. Defaults to 10.</p></td>
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #&gt;  - attr(*, "status")= Named chr [1:9] "OPTIMAL" "SUBOPTIMAL" "SUBOPTIMAL" "SUBOPTIMAL" ...
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#&gt;  - attr(*, "runtime")= Named num [1:9] 4.61 4.61 4.61 4.61 4.61 ...
+#&gt;  - attr(*, "runtime")= Named num [1:9] 3.98 3.98 3.98 3.98 3.98 ...
 #&gt;   ..- attr(*, "names")= chr [1:9] "solution_1" "solution_2" "solution_3" "solution_4" ...</div><div class='input'>
 <span class='co'># plot solutions in portfolio</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s3</span>, <span class='no'>category_layer</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,

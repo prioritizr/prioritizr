@@ -7,8 +7,6 @@ NULL
 #'
 #' @param x Any object.
 #'
-#' @param ... not used.
-#'
 #' @return None.
 #'
 #' @seealso \code{\link[methods]{show}}.

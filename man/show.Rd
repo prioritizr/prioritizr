@@ -24,8 +24,6 @@
 }
 \arguments{
 \item{x}{Any object.}
-
-\item{...}{not used.}
 }
 \value{
 None.

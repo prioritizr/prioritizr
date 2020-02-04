@@ -1,3 +1,11 @@
+# prioritizr 4.1.5 (released)
+
+- Release candidate for CRAN.
+
+# prioritizr 4.1.4.4
+
+- Fix warnings in R-devel CRAN checks related to documentation.
+
 # prioritizr 4.1.4.3
 
 - Add Williams _et al._ (in press) to publication record.
