@@ -1,3 +1,7 @@
+# prioritizr 4.1.5.1
+
+- Add Lin _et al._ (in press) to publication record.
+
 # prioritizr 4.1.5 (released)
 
 - Release candidate for CRAN.

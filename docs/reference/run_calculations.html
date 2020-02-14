@@ -87,7 +87,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.1</span>
       </span>
     </div>
 
@@ -387,7 +387,7 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;   RHS range        [9e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 6599.7631720
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -410,8 +410,8 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.692   0.278   0.971 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.530   0.313   0.834 </div><div class='input'>
+#&gt;   1.079   0.444   1.525 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.889   0.431   1.308 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.
