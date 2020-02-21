@@ -1,3 +1,9 @@
+# prioritizr 4.1.5.2
+
+- Fix bug in `add_rsymphony_solver` and `add_lpsymphony_solver` throwing an
+  an infeasible error message for feasible problems containing continuous or
+  semi-continuous variables.
+
 # prioritizr 4.1.5.1
 
 - Add Lin _et al._ (in press) to publication record.

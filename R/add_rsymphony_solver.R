@@ -142,20 +142,22 @@ add_rsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       if (is.null(x$solution) ||
           names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
         return(NULL)
-        if (any(x$solution > 1)) {
-          if (max(x$solution) < 1.01) {
-            x$solution[x$solution > 1] <- 1
-          } else {
-            stop("infeasible solution returned, try relaxing solver parameters")
-          }
+      # fix floating point issues with binary variables
+      b <- which(model$types == "B")
+      if (any(x$solution[b] > 1)) {
+        if (max(x$solution[b]) < 1.01) {
+          x$solution[x$solution[b] > 1] <- 1
+        } else {
+          stop("infeasible solution returned, try relaxing solver parameters")
         }
-        if (any(x$solution < 0)) {
-          if (min(x$solution) > -0.01) {
-            x$solution[x$solution < 0] <- 0
-          } else {
-            stop("infeasible solution returned, try relaxing solver parameters")
-          }
+      }
+      if (any(x$solution[b] < 0)) {
+        if (min(x$solution[b]) > -0.01) {
+          x$solution[x$solution[b] < 0] <- 0
+        } else {
+          stop("infeasible solution returned, try relaxing solver parameters")
         }
+      }
       # return output
       return(list(x = x$solution, objective = x$objval,
                   status = as.character(x$status),

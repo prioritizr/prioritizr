@@ -130,6 +130,27 @@ test_that("add_rsymphony_solver (variable bounds methods)", {
                replace(rep(0, p$number_of_planning_units()), 2, 1))
 })
 
+test_that("add_rsymphony_solver (mix of binary and continuous variables)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("Rsymphony")
+  # make data
+  b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_max_utility_objective(b) %>%
+       add_binary_decisions() %>%
+       add_rsymphony_solver(verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
+})
+
 test_that("add_lpsymphony_solver (binary decisions)", {
   skip_on_cran()
   skip_on_travis()
@@ -221,6 +242,28 @@ test_that("add_lpsymphony_solver (variable bounds methods)", {
                replace(rep(1, p$number_of_planning_units()), 1, 0))
   expect_equal(p$solver$data$model$bounds$lower$val,
                replace(rep(0, p$number_of_planning_units()), 2, 1))
+})
+
+test_that("add_lpsymphony_solver (mix of binary and continuous variables)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("lpsymphony")
+  skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
+  # make data
+  b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_max_utility_objective(b) %>%
+       add_binary_decisions() %>%
+       add_lpsymphony_solver(verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
 })
 
 test_that("add_gurobi_solver (binary decisions)", {
@@ -318,4 +361,25 @@ test_that("add_gurobi_solver (variable bounds methods)", {
                replace(rep(1, p$number_of_planning_units()), 1, 0))
   expect_equal(p$solver$data$model$lb,
                replace(rep(0, p$number_of_planning_units()), 2, 1))
+})
+
+test_that("add_gurobi_solver (mix of binary and continuous variables)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not_installed("gurobi")
+  # make data
+  b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
+  data(sim_pu_raster, sim_features)
+  p <- problem(sim_pu_raster, sim_features) %>%
+       add_max_utility_objective(b) %>%
+       add_binary_decisions() %>%
+       add_gurobi_solver(verbose = TRUE)
+  s <- solve(p)
+  # check that solution has correct properties
+  expect_true(inherits(s, "Raster"))
+  expect_equal(raster::nlayers(s), 1)
+  expect_equal(sort(unique(raster::getValues(s))), c(0, 1))
+  expect_true(raster::compareRaster(sim_pu_raster, s, res = TRUE, crs = TRUE,
+                                    tolerance = 1e-5, stopiffalse = FALSE))
 })
