@@ -85,7 +85,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -270,7 +270,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 
 <span class='co'># create problem with added connected constraints</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -290,16 +292,18 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
+#&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3994.89 4544.49 
+#&gt; Solution count 2: 3988.81 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
+#&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
+#&gt; Model fingerprint: 0x6b9fa975
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -307,7 +311,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; Variable types: 0 continuous, 221 integer (221 binary)
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
@@ -319,29 +323,29 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3947.81491    0   90          - 3947.81491      -     -    0s
-#&gt;      0     0 3950.02335    0   90          - 3950.02335      -     -    0s
-#&gt;      0     0 3969.69828    0   79          - 3969.69828      -     -    0s
-#&gt;      0     0 3972.75831    0   87          - 3972.75831      -     -    0s
-#&gt;      0     0 3972.97474    0   90          - 3972.97474      -     -    0s
-#&gt;      0     0 3982.34763    0   99          - 3982.34763      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt;      0     0 3982.41766    0   94          - 3982.41766      -     -    0s
-#&gt; H    0     0                    4590.1395586 3982.41766  13.2%     -    0s
-#&gt;      0     2 3982.61532    0   94 4590.13956 3982.61532  13.2%     -    0s
-#&gt; H   10     8                    4329.4350849 3990.95615  7.82%  40.4    0s
+#&gt;      0     0 3952.98944    0   79          - 3952.98944      -     -    0s
+#&gt;      0     0 3969.70422    0   80          - 3969.70422      -     -    0s
+#&gt;      0     0 3972.97474    0   89          - 3972.97474      -     -    0s
+#&gt;      0     0 3982.34764    0   98          - 3982.34764      -     -    0s
+#&gt;      0     0 3982.41767    0   94          - 3982.41767      -     -    0s
+#&gt;      0     0 3984.42060    0   91          - 3984.42060      -     -    0s
+#&gt;      0     0 3984.42060    0   90          - 3984.42060      -     -    0s
+#&gt; H    0     0                    4608.4138755 3984.42060  13.5%     -    0s
+#&gt;      0     2 3984.65223    0   90 4608.41388 3984.65223  13.5%     -    0s
+#&gt; H   27    21                    4285.2176945 3985.13341  7.00%  16.2    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
+#&gt;   Gomory: 3
+#&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 10 nodes (793 simplex iterations) in 0.15 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 4329.44 4590.14 
+#&gt; Solution count 2: 4285.22 4608.41 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.329435084863e+03, best bound 3.990956145113e+03, gap 7.8181%</div><div class='input'>
+#&gt; Best objective 4.285217694549e+03, best bound 3.985133414355e+03, gap 7.0028%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
@@ -380,7 +384,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z6</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x168289c2
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -401,14 +407,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; 
 #&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (211 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (211 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 13103.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.310324282660e+04, best bound 1.199144828715e+04, gap 8.4849%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 801 rows, 705 columns and 3888 nonzeros
+#&gt; Model fingerprint: 0x54884945
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -422,50 +430,66 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 759 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207868e+04, 691 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 12078.6848    0  232          - 12078.6848      -     -    0s
-#&gt;      0     0 12085.5969    0  257          - 12085.5969      -     -    0s
-#&gt;      0     0 12085.7681    0  260          - 12085.7681      -     -    0s
-#&gt;      0     0 12089.6741    0  261          - 12089.6741      -     -    0s
-#&gt;      0     0 12089.7376    0  256          - 12089.7376      -     -    0s
-#&gt;      0     0 12090.1799    0  296          - 12090.1799      -     -    0s
-#&gt;      0     0 12090.1799    0  297          - 12090.1799      -     -    0s
-#&gt;      0     0 12090.3692    0  314          - 12090.3692      -     -    0s
-#&gt;      0     0 12090.3866    0  298          - 12090.3866      -     -    0s
-#&gt;      0     0 12090.3892    0  301          - 12090.3892      -     -    0s
-#&gt;      0     0 12090.7541    0  293          - 12090.7541      -     -    0s
-#&gt;      0     0 12090.9158    0  288          - 12090.9158      -     -    0s
-#&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
-#&gt;      0     0 12090.9158    0  289          - 12090.9158      -     -    0s
-#&gt;      0     2 12090.9420    0  288          - 12090.9420      -     -    0s
-#&gt; H  281   176                    14047.713034 12098.0721  13.9%  66.9    1s
-#&gt; H  283   175                    14037.892140 12098.0721  13.8%  66.5    1s
-#&gt; H  475   231                    13646.439309 12099.0668  11.3%  68.2    1s
-#&gt; H  488   217                    13512.549977 12099.0668  10.5%  66.7    1s
-#&gt; H  502   230                    13507.591329 12099.0668  10.4%  65.0    1s
-#&gt; H  513   227                    13505.730681 12099.0668  10.4%  63.7    1s
-#&gt; H  526   224                    13489.865400 12099.0668  10.3%  62.1    2s
-#&gt; H  533   218                    13488.620825 12099.0668  10.3%  61.3    2s
-#&gt; H  591   230                    13224.713963 12101.2606  8.50%  66.9    3s
+#&gt;      0     0 12085.1278    0  262          - 12085.1278      -     -    0s
+#&gt;      0     0 12085.1447    0  265          - 12085.1447      -     -    0s
+#&gt;      0     0 12087.6584    0  273          - 12087.6584      -     -    0s
+#&gt;      0     0 12090.4265    0  256          - 12090.4265      -     -    0s
+#&gt;      0     0 12090.5254    0  258          - 12090.5254      -     -    0s
+#&gt;      0     0 12090.5254    0  258          - 12090.5254      -     -    0s
+#&gt;      0     0 12091.6962    0  272          - 12091.6962      -     -    0s
+#&gt;      0     0 12091.8121    0  266          - 12091.8121      -     -    0s
+#&gt;      0     0 12092.4439    0  259          - 12092.4439      -     -    0s
+#&gt;      0     0 12092.6098    0  261          - 12092.6098      -     -    0s
+#&gt;      0     0 12092.6098    0  261          - 12092.6098      -     -    0s
+#&gt;      0     0 12092.6506    0  276          - 12092.6506      -     -    0s
+#&gt;      0     0 12092.8058    0  279          - 12092.8058      -     -    0s
+#&gt;      0     0 12092.8058    0  279          - 12092.8058      -     -    0s
+#&gt;      0     0 12092.8197    0  282          - 12092.8197      -     -    0s
+#&gt;      0     0 12092.8197    0  280          - 12092.8197      -     -    0s
+#&gt;      0     2 12092.8774    0  279          - 12092.8774      -     -    0s
+#&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
+#&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    1s
+#&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    1s
+#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    3s
+#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    3s
+#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    4s
+#&gt;    861   349 12174.9677   29  261 14084.9863 12109.8197  14.0%  78.8    5s
+#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    6s
+#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    6s
+#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5    6s
+#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4    7s
+#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0    7s
+#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6    7s
+#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6    7s
+#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5    7s
+#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7    7s
+#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2    7s
+#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1    7s
+#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8    8s
+#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5    9s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 6
-#&gt;   Flow cover: 1
-#&gt;   Inf proof: 2
-#&gt;   Zero half: 19
+#&gt;   Gomory: 7
+#&gt;   Clique: 4
+#&gt;   Inf proof: 10
+#&gt;   Zero half: 22
 #&gt; 
-#&gt; Explored 591 nodes (40890 simplex iterations) in 3.68 seconds
+#&gt; Explored 1979 nodes (146817 simplex iterations) in 9.66 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 9: 13224.7 13488.6 13489.9 ... 14047.7
+#&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.322471396275e+04, best bound 1.210126057434e+04, gap 8.4951%
+#&gt; Best objective 1.335184911249e+04, best bound 1.211954868919e+04, gap 9.2294%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 569 rows, 560 columns and 3132 nonzeros
+#&gt; Model fingerprint: 0xc50b65ea
 #&gt; Variable types: 0 continuous, 560 integer (560 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -479,41 +503,39 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 503 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.204897e+04, 467 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 12048.9738    0  124          - 12048.9738      -     -    0s
-#&gt;      0     0 12064.8593    0  211          - 12064.8593      -     -    0s
-#&gt;      0     0 12064.9819    0  191          - 12064.9819      -     -    0s
-#&gt;      0     0 12065.2489    0  186          - 12065.2489      -     -    0s
-#&gt;      0     0 12066.8399    0  192          - 12066.8399      -     -    0s
-#&gt;      0     0 12067.5686    0  205          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  207          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  207          - 12067.5686      -     -    0s
-#&gt;      0     0 12067.5686    0  206          - 12067.5686      -     -    0s
-#&gt; H    0     0                    14104.597125 12067.5686  14.4%     -    0s
-#&gt; H    0     0                    14094.359470 12067.5686  14.4%     -    0s
-#&gt; H    0     0                    14079.032410 12067.5686  14.3%     -    0s
-#&gt; H    0     0                    14056.996635 12067.5686  14.2%     -    0s
-#&gt;      0     2 12067.5837    0  206 14056.9966 12067.5837  14.2%     -    0s
-#&gt; H   97    68                    13409.658673 12070.6564  10.0%  39.8    0s
+#&gt;      0     0 12048.9738    0  123          - 12048.9738      -     -    0s
+#&gt;      0     0 12055.7661    0  163          - 12055.7661      -     -    0s
+#&gt;      0     0 12066.3754    0  196          - 12066.3754      -     -    0s
+#&gt;      0     0 12066.7537    0  208          - 12066.7537      -     -    0s
+#&gt;      0     0 12068.5463    0  225          - 12068.5463      -     -    0s
+#&gt;      0     0 12068.8100    0  233          - 12068.8100      -     -    0s
+#&gt;      0     0 12069.3568    0  241          - 12069.3568      -     -    0s
+#&gt;      0     0 12069.3568    0  241          - 12069.3568      -     -    0s
+#&gt; H    0     0                    14104.597125 12069.3568  14.4%     -    0s
+#&gt; H    0     0                    14094.852035 12069.3568  14.4%     -    0s
+#&gt;      0     2 12069.3646    0  241 14094.8520 12069.3646  14.4%     -    0s
+#&gt; H   85    84                    13139.068116 12069.4349  8.14%  25.6    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 5
-#&gt;   Clique: 6
-#&gt;   Inf proof: 1
-#&gt;   Zero half: 6
+#&gt;   Gomory: 6
+#&gt;   Clique: 3
+#&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 97 nodes (4719 simplex iterations) in 0.33 seconds
+#&gt; Explored 86 nodes (3062 simplex iterations) in 0.29 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 13409.7 14057 14079 ... 14104.6
+#&gt; Solution count 3: 13139.1 14094.9 14104.6 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.340965867313e+04, best bound 1.207065639504e+04, gap 9.9854%
+#&gt; Best objective 1.313906811551e+04, best bound 1.206943489459e+04, gap 8.1409%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 945 rows, 850 columns and 4468 nonzeros
+#&gt; Model fingerprint: 0x5b79ada6
 #&gt; Variable types: 0 continuous, 850 integer (850 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -528,50 +550,41 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 801 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207105e+04, 875 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 12071.0476    0  227          - 12071.0476      -     -    0s
-#&gt;      0     0 12083.8905    0  208          - 12083.8905      -     -    0s
-#&gt;      0     0 12084.9107    0  250          - 12084.9107      -     -    0s
-#&gt;      0     0 12086.3263    0  266          - 12086.3263      -     -    0s
-#&gt;      0     0 12087.8865    0  229          - 12087.8865      -     -    0s
-#&gt;      0     0 12087.9702    0  240          - 12087.9702      -     -    0s
-#&gt;      0     0 12088.0063    0  238          - 12088.0063      -     -    0s
-#&gt;      0     0 12088.0181    0  242          - 12088.0181      -     -    0s
-#&gt;      0     0 12088.0186    0  244          - 12088.0186      -     -    0s
-#&gt;      0     0 12088.2384    0  277          - 12088.2384      -     -    0s
-#&gt;      0     0 12088.3730    0  269          - 12088.3730      -     -    0s
-#&gt;      0     0 12088.3790    0  282          - 12088.3790      -     -    0s
-#&gt;      0     0 12088.4617    0  258          - 12088.4617      -     -    0s
-#&gt;      0     0 12088.9547    0  246          - 12088.9547      -     -    0s
-#&gt;      0     0 12088.9638    0  247          - 12088.9638      -     -    0s
-#&gt;      0     0 12089.1692    0  245          - 12089.1692      -     -    0s
-#&gt;      0     0 12089.2701    0  247          - 12089.2701      -     -    0s
-#&gt;      0     0 12089.2702    0  250          - 12089.2702      -     -    0s
-#&gt;      0     0 12089.2702    0  252          - 12089.2702      -     -    0s
-#&gt;      0     0 12089.2702    0  249          - 12089.2702      -     -    0s
-#&gt;      0     2 12089.2735    0  246          - 12089.2735      -     -    0s
-#&gt; H  107    79                    13567.507336 12089.6253  10.9%  41.3    0s
-#&gt; H  109    81                    13563.547296 12089.6253  10.9%  40.6    0s
-#&gt; *  114    86              62    13543.943995 12089.6253  10.7%  39.0    0s
-#&gt; H  162    99                    13261.539100 12089.7349  8.84%  42.8    0s
+#&gt;      0     0 12071.0476    0  229          - 12071.0476      -     -    0s
+#&gt;      0     0 12083.8905    0  211          - 12083.8905      -     -    0s
+#&gt;      0     0 12084.9202    0  249          - 12084.9202      -     -    0s
+#&gt;      0     0 12086.2128    0  262          - 12086.2128      -     -    0s
+#&gt;      0     0 12086.4955    0  263          - 12086.4955      -     -    0s
+#&gt;      0     0 12086.9402    0  271          - 12086.9402      -     -    0s
+#&gt;      0     0 12086.9750    0  270          - 12086.9750      -     -    0s
+#&gt;      0     0 12087.0002    0  244          - 12087.0002      -     -    0s
+#&gt;      0     0 12087.0048    0  267          - 12087.0048      -     -    0s
+#&gt;      0     0 12087.0326    0  250          - 12087.0326      -     -    0s
+#&gt;      0     0 12087.0326    0  242          - 12087.0326      -     -    0s
+#&gt;      0     2 12087.0595    0  242          - 12087.0595      -     -    0s
+#&gt; H   60    47                    13531.146254 12087.0595  10.7%  29.3    0s
+#&gt; H   60    47                    13514.979731 12087.0595  10.6%  29.3    0s
+#&gt; H   87    65                    13512.830309 12087.2931  10.5%  42.3    0s
+#&gt; H  141    76                    13295.350187 12088.0827  9.08%  72.9    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 4
-#&gt;   Clique: 3
-#&gt;   Inf proof: 1
-#&gt;   Zero half: 14
+#&gt;   Gomory: 7
+#&gt;   MIR: 1
+#&gt;   Inf proof: 2
+#&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 162 nodes (8747 simplex iterations) in 0.81 seconds
+#&gt; Explored 142 nodes (12037 simplex iterations) in 0.96 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 13261.5 13543.9 13563.5 13567.5 
+#&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.326153910029e+04, best bound 1.208973486782e+04, gap 8.8361%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
+#&gt; Best objective 1.329535018732e+04, best bound 1.208808271922e+04, gap 9.0804%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s2</span>)
 
 <span class='co'># plot solutions</span>
@@ -633,7 +646,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z7</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div></span><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
+<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
+#&gt; Model fingerprint: 0xf807d970
 #&gt; Variable types: 0 continuous, 615 integer (615 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [9e-02, 1e+00]

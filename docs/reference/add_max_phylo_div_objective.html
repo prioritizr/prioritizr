@@ -90,7 +90,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -292,7 +292,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+#&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -319,14 +321,17 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
 #&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
 #&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
-#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
+#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
+#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
+#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
+#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
+#&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -371,7 +376,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 104 rows, 283 columns and 1915 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 104 rows, 283 columns and 1915 nonzeros
+#&gt; Model fingerprint: 0x20546489
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -392,15 +399,16 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    5.05558    0    1   -0.00000    5.05558      -     -    0s
-#&gt; H    0     0                       5.0555788    5.05558  0.00%     -    0s
+#&gt; H    0     0                       3.8834554    5.05558  30.2%     -    0s
+#&gt; H    0     0                       5.0555775    5.05558  0.00%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 5.05558 -0 
+#&gt; Solution count 3: 5.05558 3.88346 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.055578773911e+00, best bound 5.055578773911e+00, gap 0.0000%</div><div class='input'>
+#&gt; Best objective 5.055577499895e+00, best bound 5.055578671837e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_div_objective-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>
@@ -423,7 +431,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2500</span>, <span class='fl'>500</span>, <span class='fl'>2000</span>), <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 283 columns and 1915 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 283 columns and 1915 nonzeros
+#&gt; Model fingerprint: 0xa9bb83d0
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -452,7 +462,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt; Solution count 2: 5.05558 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 5.055578938831e+00, best bound 5.319633591566e+00, gap 5.2230%</div><div class='input'>
+#&gt; Best objective 5.055578907883e+00, best bound 5.319633591566e+00, gap 5.2230%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_div_objective-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>

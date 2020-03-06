@@ -89,7 +89,7 @@ specific features." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -247,7 +247,9 @@ a budget for each each management zone.</p></td>
       <span class='fu'>add_max_utility_objective</span>(<span class='fl'>5000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Model fingerprint: 0x75ade7c1
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -274,13 +276,19 @@ a budget for each each management zone.</p></td>
 #&gt;      0     0   74.28961    0    1   74.27147   74.28961  0.02%     -    0s
 #&gt;      0     0   74.28961    0    2   74.27147   74.28961  0.02%     -    0s
 #&gt;      0     0   74.28596    0    2   74.27147   74.28596  0.02%     -    0s
-#&gt;      0     0   74.28596    0    2   74.27147   74.28596  0.02%     -    0s
-#&gt;      0     2   74.28417    0    2   74.27147   74.28417  0.02%     -    0s
+#&gt;      0     0   74.28498    0    4   74.27147   74.28498  0.02%     -    0s
+#&gt;      0     0   74.28417    0    2   74.27147   74.28417  0.02%     -    0s
+#&gt;      0     0   74.28410    0    6   74.27147   74.28410  0.02%     -    0s
+#&gt;      0     0   74.28247    0    6   74.27147   74.28247  0.01%     -    0s
+#&gt;      0     0   74.28247    0    6   74.27147   74.28247  0.01%     -    0s
+#&gt;      0     2   74.28226    0    6   74.27147   74.28226  0.01%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 2
+#&gt;   Cover: 3
+#&gt;   MIR: 2
+#&gt;   StrongCG: 1
 #&gt; 
-#&gt; Explored 14 nodes (32 simplex iterations) in 0.01 seconds
+#&gt; Explored 21 nodes (55 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 74.2715 74.2352 -0 
@@ -295,7 +303,9 @@ a budget for each each management zone.</p></td>
       <span class='fu'>add_max_utility_objective</span>(<span class='fl'>5000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0x1b273c19
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -319,26 +329,28 @@ a budget for each each management zone.</p></td>
 #&gt; H    0     0                      74.5659436   76.91841  3.15%     -    0s
 #&gt;      0     0   76.90382    0    2   74.56594   76.90382  3.14%     -    0s
 #&gt; H    0     0                      76.8663921   76.90382  0.05%     -    0s
-#&gt;      0     0   76.88964    0    3   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88964    0    1   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88964    0    1   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88964    0    3   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88964    0    4   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88964    0    4   76.86639   76.88964  0.03%     -    0s
-#&gt;      0     0   76.88723    0    5   76.86639   76.88723  0.03%     -    0s
-#&gt;      0     0   76.88701    0    6   76.86639   76.88701  0.03%     -    0s
-#&gt;      0     0   76.87946    0    7   76.86639   76.87946  0.02%     -    0s
-#&gt;      0     0   76.87927    0    7   76.86639   76.87927  0.02%     -    0s
-#&gt;      0     0   76.87904    0    8   76.86639   76.87904  0.02%     -    0s
-#&gt;      0     0   76.87904    0    8   76.86639   76.87904  0.02%     -    0s
-#&gt;      0     2   76.87645    0    8   76.86639   76.87645  0.01%     -    0s
+#&gt;      0     0   76.89002    0    3   76.86639   76.89002  0.03%     -    0s
+#&gt;      0     0   76.89002    0    1   76.86639   76.89002  0.03%     -    0s
+#&gt;      0     0   76.89002    0    1   76.86639   76.89002  0.03%     -    0s
+#&gt;      0     0   76.89002    0    3   76.86639   76.89002  0.03%     -    0s
+#&gt;      0     0   76.89002    0    4   76.86639   76.89002  0.03%     -    0s
+#&gt;      0     0   76.88913    0    5   76.86639   76.88913  0.03%     -    0s
+#&gt;      0     0   76.88879    0    6   76.86639   76.88879  0.03%     -    0s
+#&gt;      0     0   76.88233    0    6   76.86639   76.88233  0.02%     -    0s
+#&gt;      0     0   76.88112    0    6   76.86639   76.88112  0.02%     -    0s
+#&gt;      0     0   76.87939    0    7   76.86639   76.87939  0.02%     -    0s
+#&gt;      0     0   76.87914    0    8   76.86639   76.87914  0.02%     -    0s
+#&gt;      0     0   76.87832    0    8   76.86639   76.87832  0.02%     -    0s
+#&gt;      0     0   76.87640    0    5   76.86639   76.87640  0.01%     -    0s
+#&gt;      0     0   76.87625    0    6   76.86639   76.87625  0.01%     -    0s
+#&gt;      0     2   76.87622    0    6   76.86639   76.87622  0.01%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 4
+#&gt;   Cover: 1
 #&gt;   MIR: 2
-#&gt;   StrongCG: 1
+#&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 6 nodes (43 simplex iterations) in 0.01 seconds
+#&gt; Explored 4 nodes (37 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 76.8664 74.5659 -0 
@@ -353,7 +365,9 @@ a budget for each each management zone.</p></td>
       <span class='fu'>add_max_utility_objective</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1000</span>, <span class='fl'>2000</span>, <span class='fl'>3000</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0x0d15a0b2
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -374,31 +388,39 @@ a budget for each each management zone.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0   87.92265    0    3   -0.00000   87.92265      -     -    0s
-#&gt; H    0     0                      86.3712662   87.92265  1.80%     -    0s
-#&gt; H    0     0                      86.4414936   87.92265  1.71%     -    0s
-#&gt;      0     0   86.48574    0    4   86.44149   86.48574  0.05%     -    0s
-#&gt;      0     0   86.47613    0    4   86.44149   86.47613  0.04%     -    0s
-#&gt;      0     0   86.47613    0    4   86.44149   86.47613  0.04%     -    0s
-#&gt;      0     0   86.47613    0    1   86.44149   86.47613  0.04%     -    0s
-#&gt;      0     0   86.47613    0    4   86.44149   86.47613  0.04%     -    0s
-#&gt;      0     0   86.47613    0    4   86.44149   86.47613  0.04%     -    0s
-#&gt;      0     0   86.47595    0    6   86.44149   86.47595  0.04%     -    0s
-#&gt;      0     0   86.47594    0    7   86.44149   86.47594  0.04%     -    0s
-#&gt;      0     0   86.47594    0    7   86.44149   86.47594  0.04%     -    0s
-#&gt; H    0     0                      86.4493810   86.47594  0.03%     -    0s
-#&gt; H    0     0                      86.4735470   86.47594  0.00%     -    0s
-#&gt;      0     0   86.47594    0    2   86.47355   86.47594  0.00%     -    0s
-#&gt; H    0     0                      86.4735471   86.47594  0.00%     -    0s
-#&gt;      0     0     cutoff    0        86.47355   86.47355  0.00%     -    0s
+#&gt; H    0     0                      86.3925730   87.92265  1.77%     -    0s
+#&gt; H    0     0                      86.4414954   87.92265  1.71%     -    0s
+#&gt;      0     0   86.52619    0    1   86.44150   86.52619  0.10%     -    0s
+#&gt; H    0     0                      86.4414968   86.52619  0.10%     -    0s
+#&gt;      0     0   86.51632    0    2   86.44150   86.51632  0.09%     -    0s
+#&gt;      0     0   86.48573    0    4   86.44150   86.48573  0.05%     -    0s
+#&gt;      0     0   86.48573    0    3   86.44150   86.48573  0.05%     -    0s
+#&gt;      0     0   86.48573    0    6   86.44150   86.48573  0.05%     -    0s
+#&gt; H    0     0                      86.4668758   86.48573  0.02%     -    0s
+#&gt; H    0     0                      86.4735445   86.48573  0.01%     -    0s
+#&gt;      0     0   86.48289    0    2   86.47354   86.48289  0.01%     -    0s
+#&gt;      0     0   86.48289    0    3   86.47354   86.48289  0.01%     -    0s
+#&gt; H    0     0                      86.4735471   86.48289  0.01%     -    0s
+#&gt;      0     0   86.48289    0    4   86.47355   86.48289  0.01%     -    0s
+#&gt;      0     0   86.48289    0    2   86.47355   86.48289  0.01%     -    0s
+#&gt;      0     0   86.48263    0    6   86.47355   86.48263  0.01%     -    0s
+#&gt;      0     0   86.47613    0    4   86.47355   86.47613  0.00%     -    0s
+#&gt;      0     0   86.47595    0    6   86.47355   86.47595  0.00%     -    0s
+#&gt;      0     0   86.47567    0    6   86.47355   86.47567  0.00%     -    0s
+#&gt;      0     0   86.47552    0    2   86.47355   86.47552  0.00%     -    0s
+#&gt;      0     0   86.47551    0    6   86.47355   86.47551  0.00%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
-#&gt;   Cover: 2
+#&gt;   Cover: 1
+#&gt;   MIR: 2
+#&gt;   StrongCG: 2
+#&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 1 nodes (131 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (150 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 6: 86.4735 86.4735 86.4494 ... -0
+#&gt; Solution count 7: 86.4735 86.4735 86.4669 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 0.00e+00)
 #&gt; Best objective 8.647354705008e+01, best bound 8.647354705008e+01, gap 0.0000%</div><div class='input'>

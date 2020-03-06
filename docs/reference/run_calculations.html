@@ -87,7 +87,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -208,7 +208,9 @@ means that the same calculations will not be run multiple times.</p>
 
 <span class='co'># now solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x4ec556ff
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -238,7 +240,9 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x5edda74f
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -261,14 +265,16 @@ means that the same calculations will not be run multiple times.</p>
 #&gt;      0     0 3927.14693    0   15 4565.48505 3927.14693  14.0%     -    0s
 #&gt; H    0     0                    4014.0258012 3927.14693  2.16%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (92 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (92 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4014.03 4565.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x4e6dbbf4
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -318,7 +324,9 @@ means that the same calculations will not be run multiple times.</p>
 
 <span class='co'># solve each of the different problems and record the time spent</span>
 <span class='co'># solving them</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>); <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)})</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x4ec556ff
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -348,7 +356,9 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.006347830733e+03, best bound 1.945078273075e+03, gap 3.0538%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x5edda74f
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -378,7 +388,9 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.014025801209e+03, best bound 3.927146930435e+03, gap 2.1644%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x4e6dbbf4
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -410,8 +422,8 @@ means that the same calculations will not be run multiple times.</p>
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.654   0.414   1.064 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.547   0.369   0.905 </div><div class='input'>
+#&gt;   0.684   0.252   0.943 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.594   0.248   0.832 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

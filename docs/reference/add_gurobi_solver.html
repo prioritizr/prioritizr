@@ -85,7 +85,7 @@ customize the behavior of the solver. It requires the gurobi package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -266,7 +266,9 @@ optimization problems?</p></td>
   <span class='co'># plot solutions</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>),
        <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -286,15 +288,15 @@ optimization problems?</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; Solution count 2: 1987.4 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='img'><img src='add_gurobi_solver-1.png' alt='' width='700' height='433' /></div></pre>
+#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='img'><img src='add_gurobi_solver-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

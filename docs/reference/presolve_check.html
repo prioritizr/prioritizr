@@ -90,7 +90,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -336,7 +336,9 @@ verify if  a problem has a feasible solution or not.</p>
 <span class='co'># be extra careful about numerical instability problems</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>numeric_focus</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
+#&gt; Model fingerprint: 0xaaf590f0
 #&gt; Variable types: 0 continuous, 378 integer (378 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -350,6 +352,7 @@ verify if  a problem has a feasible solution or not.</p>
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: -2.88e+17 
+#&gt; No other solutions better than -2.88e+17
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective -2.880000000000e+17, best bound -2.880000000000e+17, gap 0.0000%</div><div class='input'>

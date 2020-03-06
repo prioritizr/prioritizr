@@ -88,7 +88,7 @@ decisions" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -213,7 +213,9 @@ decisions</p>
      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
      <span class='fu'>add_proportion_decisions</span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xb1a01a19
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
 #&gt;   Objective range  [2e+02, 2e+02]
@@ -235,7 +237,9 @@ decisions</p>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>,
                                   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_proportion_decisions</span>()</div><div class='input'><span class='co'># solve the problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0xeb45c5ad
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]

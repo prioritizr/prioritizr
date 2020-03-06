@@ -85,7 +85,7 @@ et al. 2016)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -308,7 +308,9 @@ conservation planning problems with integer linear programming.
     <pre class="examples"><div class='input'><span class='co'># create Marxan problem using Marxan input file</span>
 <span class='no'>input_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"extdata/input.dat"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"prioritizr"</span>)
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>input_file</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+#&gt; Model fingerprint: 0x07b422d3
 #&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -320,7 +322,7 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.221531e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
@@ -332,15 +334,15 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
-#&gt; H    0     0                    9.594148e+09 9.5689e+09  0.26%     -    0s
+#&gt; H    0     0                    9.600192e+09 9.5689e+09  0.33%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (496 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 9.59415e+09 1.22153e+10 
+#&gt; Solution count 2: 9.60019e+09 1.22153e+10 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.594148369417e+09, best bound 9.568884517812e+09, gap 0.2633%</div><div class='input'>
+#&gt; Best objective 9.600192354368e+09, best bound 9.568884517812e+09, gap 0.3261%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>s1</span>)</div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1
 #&gt; 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0
@@ -392,7 +394,9 @@ conservation planning problems with integer linear programming.
 #&gt; 6  30  85     4000</div><div class='input'>
 <span class='co'># create problem without the boundary data</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>pu_dat</span>, <span class='no'>spec_dat</span>, <span class='no'>puvspr_dat</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 17 rows, 1751 columns and 4662 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 17 rows, 1751 columns and 4662 nonzeros
+#&gt; Model fingerprint: 0x0f760b30
 #&gt; Variable types: 0 continuous, 1751 integer (1751 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -417,26 +421,28 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9.5646e+09    0    9 1.2198e+10 9.5646e+09  21.6%     -    0s
-#&gt; H    0     0                    9.584380e+09 9.5646e+09  0.21%     -    0s
+#&gt; H    0     0                    9.662765e+09 9.5646e+09  1.02%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 9.58438e+09 1.2198e+10 
+#&gt; Solution count 2: 9.66277e+09 1.2198e+10 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.584379906156e+09, best bound 9.564574962832e+09, gap 0.2066%</div><div class='input'>
+#&gt; Best objective 9.662765473705e+09, best bound 9.564574962832e+09, gap 1.0162%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>s2</span>)</div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1
 #&gt; 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0
 #&gt; 2 30   752727.5      3 1110623 -4496943     FALSE       TRUE          0
-#&gt; 3 56  3734907.5      0 1092623 -4500408     FALSE      FALSE          1
+#&gt; 3 56  3734907.5      0 1092623 -4500408     FALSE      FALSE          0
 #&gt; 4 58  1695902.1      0 1116623 -4500408     FALSE      FALSE          0
 #&gt; 5 84  3422025.6      0 1098623 -4503872     FALSE      FALSE          0
 #&gt; 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</div><div class='input'><span class='co'># create problem with the boundary data and a boundary length modifier</span>
 <span class='co'># set to 5</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_problem</span>(<span class='no'>pu_dat</span>, <span class='no'>spec_dat</span>, <span class='no'>puvspr_dat</span>, <span class='no'>bound_dat</span>, <span class='fl'>5</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
+#&gt; Model fingerprint: 0x968e6f70
 #&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [5e-01, 4e+07]
@@ -448,7 +454,7 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.222917e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
@@ -460,15 +466,15 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
-#&gt; H    0     0                    9.611012e+09 9.5861e+09  0.26%     -    0s
+#&gt; H    0     0                    9.617312e+09 9.5861e+09  0.32%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (535 simplex iterations) in 0.09 seconds
+#&gt; Explored 1 nodes (535 simplex iterations) in 0.08 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 9.61101e+09 1.22292e+10 
+#&gt; Solution count 2: 9.61731e+09 1.22292e+10 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.611012369417e+09, best bound 9.586122737736e+09, gap 0.2590%</div><div class='input'>
+#&gt; Best objective 9.617312354368e+09, best bound 9.586122737736e+09, gap 0.3243%</div><div class='input'>
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>s3</span>)</div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1
 #&gt; 1  3        0.0      0 1116623 -4493479     FALSE      FALSE          0

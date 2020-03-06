@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -755,8 +755,8 @@ p19 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [10 locked units]
-##                    Locked out planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [10 locked units]
+##                    Locked in planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1120,7 +1120,9 @@ p33 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 
 <span class="co"># solve the problem (using the default solver)</span>
 s33 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p33)</code></pre></div>
-<pre><code>## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+## Model fingerprint: 0xbd38144b
 ## Variable types: 0 continuous, 234 integer (234 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 1e+00]
@@ -1231,8 +1233,8 @@ mp2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [1 locked units]
-##                    Locked in planning units [317 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [317 locked units]
+##                    Locked out planning units [1 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (0), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1249,7 +1251,9 @@ p34 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem
 
 <span class="co"># solve the problem</span>
 s34 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p34)</code></pre></div>
-<pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Model fingerprint: 0x6442bf6e
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]
@@ -1269,15 +1273,15 @@ s34 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.h
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
 ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1985.68 2337.96 
+## Solution count 2: 1987.4 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
+## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s34, <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
@@ -1287,18 +1291,18 @@ s34 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.h
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate the cost of the solution</span>
 <span class="kw">cellStats</span>(sim_pu_raster <span class="op">*</span><span class="st"> </span>s34, <span class="st">"sum"</span>)</code></pre></div>
-<pre><code>## [1] 1985.682</code></pre>
+<pre><code>## [1] 1987.399</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate how well features are represented in the solution</span>
 r34 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p34, s34)
 <span class="kw"><a href="../reference/print.html">print</a></span>(r34)</code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held
 ##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 layer.1          8.97         0.108
+## 1 layer.1          8.91         0.107
 ## 2 layer.2          3.13         0.100
-## 3 layer.3          7.43         0.103
-## 4 layer.4          4.29         0.101
-## 5 layer.5          6.02         0.106</code></pre>
+## 3 layer.3          7.34         0.102
+## 4 layer.4          4.35         0.102
+## 5 layer.5          6.01         0.106</code></pre>
 </div>
 <div id="irreplaceability" class="section level3">
 <h3 class="hasAnchor">

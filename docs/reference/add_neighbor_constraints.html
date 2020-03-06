@@ -85,7 +85,7 @@ number of neighbors that are also selected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -304,7 +304,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># and neighbors are defined using a queen-style neighborhood</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>,
                <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='connected_matrix.html'>connected_matrix</a></span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -324,16 +326,18 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; Solution count 2: 1987.4 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%
+#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
+#&gt; Model fingerprint: 0x0b3d7b91
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -362,7 +366,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.993624737145e+03, best bound 1.932118304023e+03, gap 3.0852%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
+#&gt; Model fingerprint: 0x5dab9335
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+00]
@@ -388,17 +394,19 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; H    0     0                    2019.4822081 1941.28796  3.87%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 7
-#&gt;   MIR: 2
+#&gt;   Cover: 8
+#&gt;   MIR: 1
 #&gt; 
-#&gt; Explored 1 nodes (69 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (66 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2019.48 2416.7 3605.44 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.019482208068e+03, best bound 1.941287964291e+03, gap 3.8720%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
+#&gt; Model fingerprint: 0x02b24172
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 3e+00]
@@ -420,20 +428,22 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; 
 #&gt;      0     0 1933.73436    0   12 2746.92519 1933.73436  29.6%     -    0s
 #&gt; H    0     0                    2416.4661768 1933.73436  20.0%     -    0s
-#&gt;      0     0 1938.57643    0   15 2416.46618 1938.57643  19.8%     -    0s
-#&gt; H    0     0                    2018.7760790 1938.57643  3.97%     -    0s
+#&gt;      0     0 1938.73344    0   15 2416.46618 1938.73344  19.8%     -    0s
+#&gt; H    0     0                    2406.8778073 1938.73344  19.5%     -    0s
+#&gt; H    0     0                    2012.0737704 1938.73344  3.65%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 5
-#&gt;   MIR: 6
+#&gt;   MIR: 3
+#&gt;   RLT: 3
 #&gt; 
 #&gt; Explored 1 nodes (59 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 2018.78 2416.47 2746.93 
+#&gt; Solution count 4: 2012.07 2406.88 2416.47 2746.93 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.018776078984e+03, best bound 1.938576429999e+03, gap 3.9727%</div><div class='input'>
+#&gt; Best objective 2.012073770352e+03, best bound 1.938733436295e+03, gap 3.6450%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span>))</div><div class='img'><img src='add_neighbor_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones</span>
@@ -469,7 +479,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; [2,]    1    1    0
 #&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='no'>z8</span>)</div><div class='input'><span class='co'># solve problems</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>p5</span>, <span class='no'>p6</span>, <span class='no'>p7</span>, <span class='no'>p8</span>)
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x60594edc
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -498,7 +510,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 375 rows, 270 columns and 2760 nonzeros
+#&gt; Model fingerprint: 0x063f1d09
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+00]
@@ -513,7 +527,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.950461e+03, 264 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 5.950461e+03, 263 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -522,14 +536,16 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; H    0     0                    7453.2524990 5950.46090  20.2%     -    0s
 #&gt; H    0     0                    6495.8274057 5950.46090  8.40%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (264 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (263 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 6495.83 7453.25 10188.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 6.495827405667e+03, best bound 5.950460895938e+03, gap 8.3956%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 375 rows, 270 columns and 2670 nonzeros
+#&gt; Model fingerprint: 0x212b62c8
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+00]
@@ -560,7 +576,9 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 6.326635590527e+03, best bound 5.941652389062e+03, gap 6.0851%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 375 rows, 270 columns and 3250 nonzeros
+#&gt; Model fingerprint: 0xc933c78f
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+00]

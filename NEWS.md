@@ -1,3 +1,8 @@
+# prioritizr 4.1.5.3
+
+- Add `ferrier_score` function for calculating irreplaceability scores
+  following Ferrier _et al._ 2000.
+
 # prioritizr 4.1.5.2
 
 - Fix bug in `add_rsymphony_solver` and `add_lpsymphony_solver` throwing an

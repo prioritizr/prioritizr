@@ -84,7 +84,7 @@ distribution that needs to be protected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -212,7 +212,9 @@ to solve a problem that requires targets will throw an error.</strong></p>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
                                           <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
                                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>))</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -232,16 +234,18 @@ to solve a problem that requires targets will throw an error.</strong></p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; Solution count 2: 1987.4 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%
+#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x5f206fcc
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -271,7 +275,9 @@ to solve a problem that requires targets will throw an error.</strong></p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x72c51dbb
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -292,16 +298,18 @@ to solve a problem that requires targets will throw an error.</strong></p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 10471.4792    0    1 11939.0169 10471.4792  12.3%     -    0s
-#&gt; H    0     0                    10532.505579 10471.4792  0.58%     -    0s
+#&gt; H    0     0                    10531.710068 10471.4792  0.57%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 10532.5 11939 
+#&gt; Solution count 2: 10531.7 11939 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.053250557899e+04, best bound 1.047147921397e+04, gap 0.5794%
+#&gt; Best objective 1.053171006771e+04, best bound 1.047147921397e+04, gap 0.5719%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -321,15 +329,15 @@ to solve a problem that requires targets will throw an error.</strong></p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; Solution count 2: 1987.4 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
+#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>, <span class='st'>"loglinear targets"</span>,

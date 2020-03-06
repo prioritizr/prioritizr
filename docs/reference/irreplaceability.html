@@ -85,7 +85,7 @@ problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -174,14 +174,26 @@ of planning units in a solution to a conservation planning
     <p>The following methods are available for calculating
   irreplaceability scores:</p><dl class='dl-horizontal'>
     <dt><code><a href='replacement_cost.html'>replacement_cost</a></code></dt><dd><p>Calculate irreplaceability scores
-    using the replacement cost method. This method is generally recommended
-   for calculating irreplaceability scores.</p></dd>
+    based on the replacement cost method described in Cabeza and Moilanen
+    (2006). This method is recommended for calculating irreplaceability
+    scores.</p></dd>
+    <dt><code><a href='ferrier_score.html'>ferrier_score</a></code></dt><dd><p>Calculate irreplaceability scores
+    using the method outlined in Ferrier <em>et al.</em> (2000).</p></dd>
     <dt><code><a href='rarity_weighted_richness.html'>rarity_weighted_richness</a></code></dt><dd><p>Calculate irreplaceability
     scores using rarity weighted richness. This method is only recommended
     for particularly large-scale conservation planning problems where
     the replacement cost method would take too long to produce scores in
     a feasible period of time.</p></dd>
     </dl>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
+value for cost-effective reserve planning. <em>Biological Conservation</em>,
+132:  336--342.</p>
+<p>Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
+irreplaceability of areas for achieving a conservation goal, its application
+to real-world planning, and a research agenda for further refinement.
+<em>Biological Conservation</em>, 93: 303--325.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>.</p></div>
@@ -197,21 +209,30 @@ of planning units in a solution to a conservation planning
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># solve the problem</span></div><div class='input'><span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='input'>
-# plot solution
-</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='irreplaceability-1.png' alt='' width='700' height='433' /></div><div class='input'>
-# calculate irreplaceability scores using replacement cost scores
-</div><div class='input'><span class='no'>rc1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='replacement_cost.html'>replacement_cost</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)</div><div class='input'>
-# calculate irreplaceability scores using rarity weighted richness scores
-</div><div class='input'><span class='no'>rc2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rarity_weighted_richness.html'>rarity_weighted_richness</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)</div><div class='input'>
-# plot irreplaceability scores
-</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>rc1</span>, <span class='no'>rc2</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"replacement cost"</span>, <span class='st'>"rarity weighted richness"</span>))</div><div class='img'><img src='irreplaceability-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># solve the problem</span>
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)
+
+<span class='co'># plot solution</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='irreplaceability-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate irreplaceability scores using replacement cost scores</span>
+<span class='no'>ir1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='replacement_cost.html'>replacement_cost</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
+
+<span class='co'># calculate irreplaceability scores using Ferrier et al 2000 method</span>
+<span class='no'>ir2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ferrier_score.html'>ferrier_score</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
+
+<span class='co'># calculate irreplaceability scores using rarity weighted richness scores</span>
+<span class='no'>ir3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rarity_weighted_richness.html'>rarity_weighted_richness</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
+
+<span class='co'># plot irreplaceability scores</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>ir1</span>, <span class='no'>ir2</span>, <span class='no'>ir3</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"replacement cost"</span>, <span class='st'>"Ferrier score"</span>,
+              <span class='st'>"rarity weighted richness"</span>))</div><div class='img'><img src='irreplaceability-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#details">Details</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

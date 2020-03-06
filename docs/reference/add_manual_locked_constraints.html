@@ -87,7 +87,7 @@ add_locked_out_constraints functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -241,7 +241,9 @@ the Details section for more information.</p></td>
                           <span class='kw'>status</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_manual_locked_constraints</span>(<span class='no'>locked_data</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xc281cda7
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -269,7 +271,9 @@ the Details section for more information.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xf64e9343
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -290,15 +294,17 @@ the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xf64e9343
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -319,15 +325,15 @@ the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'>
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"none locked in"</span>)
@@ -364,7 +370,9 @@ the Details section for more information.</p></td>
 #&gt; 7  9 zone_3      0</div><div class='input'>
 <span class='co'># create problem with added constraints</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_manual_locked_constraints</span>(<span class='no'>locked_data2</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x75ffcde5
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -393,7 +401,9 @@ the Details section for more information.</p></td>
 #&gt; Solution count 2: 10160.2 11123.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x31cdb3b6
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -415,7 +425,7 @@ the Details section for more information.</p></td>
 #&gt; 
 #&gt;      0     0 9914.68289    0   13 10775.4711 9914.68289  7.99%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (71 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (71 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 10775.5 

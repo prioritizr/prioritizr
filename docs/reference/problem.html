@@ -91,7 +91,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -476,7 +476,9 @@ to <code>FALSE</code>.</p></td>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -496,15 +498,17 @@ to <code>FALSE</code>.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
+#&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3994.89 4544.49 
+#&gt; Solution count 2: 3988.81 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xc281cda7
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -532,7 +536,9 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xa1a8c941
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 4e+00]
@@ -560,7 +566,9 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 2656.92 4956.55 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.656921404445e+03, best bound 2.632170339948e+03, gap 0.9316%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 2.656921404445e+03, best bound 2.632170339948e+03, gap 0.9316%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xc281cda7
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -588,7 +596,9 @@ to <code>FALSE</code>.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
+#&gt; Model fingerprint: 0x315ee794
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 2e+01]
@@ -608,15 +618,17 @@ to <code>FALSE</code>.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 2635.75660    0    3 3735.04777 2635.75660  29.4%     -    0s
-#&gt; H    0     0                    2647.7603173 2635.75660  0.45%     -    0s
+#&gt; H    0     0                    2814.6987646 2635.75660  6.36%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2647.76 3735.05 
+#&gt; Solution count 2: 2814.7 3735.05 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.647760317307e+03, best bound 2.635756597764e+03, gap 0.4534%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 2.814698764626e+03, best bound 2.635756597764e+03, gap 6.3574%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xc281cda7
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -667,7 +679,7 @@ to <code>FALSE</code>.</p></td>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00212
+#&gt;  - attr(*, "runtime")= Named num 0.00214
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
@@ -693,7 +705,9 @@ to <code>FALSE</code>.</p></td>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0xfdcb2e28
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -738,7 +752,9 @@ to <code>FALSE</code>.</p></td>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0xfdcb2e28
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -804,7 +820,9 @@ to <code>FALSE</code>.</p></td>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets</span>[<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1</span>:<span class='fl'>2</span>]) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 96 rows, 180 columns and 518 nonzeros
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 96 rows, 180 columns and 518 nonzeros
+#&gt; Model fingerprint: 0x6a12431b
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 5e+00]
 #&gt;   Objective range  [2e+02, 2e+02]

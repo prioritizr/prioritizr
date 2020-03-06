@@ -85,7 +85,7 @@ solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -247,7 +247,9 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fl'>1800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Model fingerprint: 0x8ad86d1c
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -267,34 +269,73 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    4.70103    0    6   -0.00000    4.70103      -     -    0s
-#&gt;      0     0    4.69735    0    7   -0.00000    4.69735      -     -    0s
-#&gt;      0     0    4.65824    0    8   -0.00000    4.65824      -     -    0s
-#&gt;      0     0    4.65079    0    9   -0.00000    4.65079      -     -    0s
-#&gt;      0     0    4.64587    0   10   -0.00000    4.64587      -     -    0s
-#&gt;      0     0    4.63767    0   10   -0.00000    4.63767      -     -    0s
-#&gt;      0     0    4.63255    0   10   -0.00000    4.63255      -     -    0s
-#&gt;      0     0    4.63059    0   12   -0.00000    4.63059      -     -    0s
-#&gt;      0     0    4.63010    0   13   -0.00000    4.63010      -     -    0s
-#&gt;      0     0    4.62886    0   14   -0.00000    4.62886      -     -    0s
-#&gt;      0     0    4.62776    0   14   -0.00000    4.62776      -     -    0s
-#&gt;      0     0    4.62759    0   15   -0.00000    4.62759      -     -    0s
-#&gt;      0     0    4.62714    0   16   -0.00000    4.62714      -     -    0s
-#&gt;      0     2    4.62165    0   16   -0.00000    4.62165      -     -    0s
-#&gt; H    3     3                       0.9990541    3.81348   282%  15.0    0s
-#&gt; H   13     4                       1.9990388    3.60705  80.4%  11.6    0s
+#&gt;      0     0    4.70094    0    8   -0.00000    4.70094      -     -    0s
+#&gt;      0     0    4.70062    0    9   -0.00000    4.70062      -     -    0s
+#&gt;      0     0    4.69925    0   10   -0.00000    4.69925      -     -    0s
+#&gt;      0     0    4.69529    0    8   -0.00000    4.69529      -     -    0s
+#&gt;      0     0    4.69465    0    9   -0.00000    4.69465      -     -    0s
+#&gt;      0     0    4.69442    0   10   -0.00000    4.69442      -     -    0s
+#&gt;      0     0    4.69378    0   11   -0.00000    4.69378      -     -    0s
+#&gt;      0     0    4.66223    0    8   -0.00000    4.66223      -     -    0s
+#&gt;      0     0    4.66136    0    9   -0.00000    4.66136      -     -    0s
+#&gt;      0     0    4.65975    0   11   -0.00000    4.65975      -     -    0s
+#&gt;      0     0    4.65866    0   10   -0.00000    4.65866      -     -    0s
+#&gt;      0     0    4.65813    0   10   -0.00000    4.65813      -     -    0s
+#&gt;      0     0    4.65696    0   11   -0.00000    4.65696      -     -    0s
+#&gt;      0     0    4.65297    0   12   -0.00000    4.65297      -     -    0s
+#&gt;      0     0    4.65192    0   13   -0.00000    4.65192      -     -    0s
+#&gt;      0     0    4.65145    0   14   -0.00000    4.65145      -     -    0s
+#&gt;      0     0    4.65139    0   15   -0.00000    4.65139      -     -    0s
+#&gt;      0     0    4.65122    0   16   -0.00000    4.65122      -     -    0s
+#&gt;      0     0    4.65077    0   18   -0.00000    4.65077      -     -    0s
+#&gt; H    0     0                       1.9990374    4.65077   133%     -    0s
+#&gt;      0     0    4.65072    0   18    1.99904    4.65072   133%     -    0s
+#&gt;      0     0    4.56295    0    9    1.99904    4.56295   128%     -    0s
+#&gt;      0     0    4.55748    0   11    1.99904    4.55748   128%     -    0s
+#&gt;      0     0    4.52804    0   11    1.99904    4.52804   127%     -    0s
+#&gt;      0     0    4.51882    0   11    1.99904    4.51882   126%     -    0s
+#&gt;      0     0    4.51799    0   13    1.99904    4.51799   126%     -    0s
+#&gt;      0     0    4.51572    0   15    1.99904    4.51572   126%     -    0s
+#&gt;      0     0    4.51563    0   15    1.99904    4.51563   126%     -    0s
+#&gt;      0     0    4.51306    0   19    1.99904    4.51306   126%     -    0s
+#&gt;      0     0    4.51241    0   19    1.99904    4.51241   126%     -    0s
+#&gt;      0     0    4.51221    0   19    1.99904    4.51221   126%     -    0s
+#&gt;      0     0    4.51213    0   19    1.99904    4.51213   126%     -    0s
+#&gt;      0     0    4.51078    0   20    1.99904    4.51078   126%     -    0s
+#&gt;      0     0    4.51029    0   20    1.99904    4.51029   126%     -    0s
+#&gt;      0     0    4.50913    0   22    1.99904    4.50913   126%     -    0s
+#&gt;      0     0    4.50887    0   22    1.99904    4.50887   126%     -    0s
+#&gt;      0     0    4.50877    0   23    1.99904    4.50877   126%     -    0s
+#&gt;      0     0    4.50519    0   21    1.99904    4.50519   125%     -    0s
+#&gt;      0     0    4.50466    0   24    1.99904    4.50466   125%     -    0s
+#&gt;      0     0    4.50457    0   25    1.99904    4.50457   125%     -    0s
+#&gt;      0     0    4.48891    0   16    1.99904    4.48891   125%     -    0s
+#&gt;      0     0    4.48875    0   16    1.99904    4.48875   125%     -    0s
+#&gt;      0     0    4.48862    0   17    1.99904    4.48862   125%     -    0s
+#&gt;      0     0    4.48392    0   19    1.99904    4.48392   124%     -    0s
+#&gt;      0     0    4.48348    0   21    1.99904    4.48348   124%     -    0s
+#&gt;      0     0    4.47642    0   19    1.99904    4.47642   124%     -    0s
+#&gt;      0     0    4.47459    0   20    1.99904    4.47459   124%     -    0s
+#&gt;      0     0    4.47380    0   20    1.99904    4.47380   124%     -    0s
+#&gt;      0     0    4.47357    0   21    1.99904    4.47357   124%     -    0s
+#&gt;      0     0    4.47344    0   22    1.99904    4.47344   124%     -    0s
+#&gt;      0     0    4.46919    0   21    1.99904    4.46919   124%     -    0s
+#&gt;      0     0    4.46897    0   22    1.99904    4.46897   124%     -    0s
+#&gt;      0     0    4.46748    0   19    1.99904    4.46748   123%     -    0s
+#&gt;      0     2    4.44365    0   19    1.99904    4.44365   122%     -    0s
+#&gt; H    7     3                       1.9990909    3.18604  59.4%  18.3    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 6
-#&gt;   StrongCG: 3
+#&gt;   MIR: 11
+#&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 46 nodes (328 simplex iterations) in 0.03 seconds
+#&gt; Explored 25 nodes (669 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 1.99904 0.999054 -0 
+#&gt; Solution count 3: 1.99909 1.99904 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.999038833267e+00, best bound 1.999367010252e+00, gap 0.0164%</div><div class='input'>
+#&gt; Best objective 1.999090896800e+00, best bound 2.158929727285e+00, gap 7.9956%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_features_objective-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create multi-zone problem with maximum features objective,</span>
@@ -305,7 +346,9 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0xe9518199
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -313,48 +356,53 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.938175e+00, 243 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 7.938175e+00, 248 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    7.93818    0   11   -0.00000    7.93818      -     -    0s
-#&gt; H    0     0                       3.9996549    7.93818  98.5%     -    0s
-#&gt; H    0     0                       4.9996180    7.93818  58.8%     -    0s
+#&gt; H    0     0                       4.9996186    7.93818  58.8%     -    0s
 #&gt;      0     0    7.56188    0   18    4.99962    7.56188  51.2%     -    0s
-#&gt;      0     0    7.56101    0   19    4.99962    7.56101  51.2%     -    0s
-#&gt;      0     0    7.27065    0   11    4.99962    7.27065  45.4%     -    0s
-#&gt;      0     0    7.26884    0   12    4.99962    7.26884  45.4%     -    0s
-#&gt;      0     0    7.26873    0   13    4.99962    7.26873  45.4%     -    0s
-#&gt;      0     0    7.26293    0   14    4.99962    7.26293  45.3%     -    0s
-#&gt; H    0     0                       4.9996480    7.26293  45.3%     -    0s
-#&gt;      0     0    7.26286    0   14    4.99965    7.26286  45.3%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt; H    0     0                       4.9996494    7.25824  45.2%     -    0s
-#&gt;      0     2    7.25729    0   18    4.99965    7.25729  45.2%     -    0s
+#&gt; H    0     0                       4.9996398    7.56188  51.2%     -    0s
+#&gt;      0     0    7.56101    0   19    4.99964    7.56101  51.2%     -    0s
+#&gt;      0     0    7.27065    0   11    4.99964    7.27065  45.4%     -    0s
+#&gt; H    0     0                       4.9996466    7.27065  45.4%     -    0s
+#&gt;      0     0    7.26884    0   12    4.99965    7.26884  45.4%     -    0s
+#&gt;      0     0    7.25820    0   14    4.99965    7.25820  45.2%     -    0s
+#&gt; H    0     0                       4.9996473    7.25820  45.2%     -    0s
+#&gt;      0     0    7.25660    0   16    4.99965    7.25660  45.1%     -    0s
+#&gt;      0     0    7.25580    0   18    4.99965    7.25580  45.1%     -    0s
+#&gt;      0     0    7.25572    0   19    4.99965    7.25572  45.1%     -    0s
+#&gt;      0     0    7.25341    0   21    4.99965    7.25341  45.1%     -    0s
+#&gt;      0     0    7.25246    0   22    4.99965    7.25246  45.1%     -    0s
+#&gt;      0     0    7.25219    0   23    4.99965    7.25219  45.1%     -    0s
+#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
+#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
+#&gt; H    0     0                       4.9996488    7.25144  45.0%     -    0s
+#&gt;      0     2    7.25041    0   24    4.99965    7.25041  45.0%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
-#&gt;   Cover: 6
-#&gt;   MIR: 6
-#&gt;   StrongCG: 2
+#&gt;   Cover: 10
+#&gt;   MIR: 5
+#&gt;   StrongCG: 4
 #&gt;   GUB cover: 1
-#&gt;   Inf proof: 2
+#&gt;   RLT: 6
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.07 seconds
+#&gt; Explored 124 nodes (1709 simplex iterations) in 0.16 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
+#&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'>
+#&gt; Best objective 4.999648781179e+00, best bound 5.312475879683e+00, gap 6.2570%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_features_objective-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create multi-zone problem with maximum features objective,</span>
 <span class='co'># with 10 % representation targets for each feature, and set</span>
@@ -363,7 +411,9 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0x0e0fbd30
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -383,12 +433,13 @@ persistence of biodiversity. <em>Trends in Ecology \&amp; Evolution</em>,
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0   14.99889    0    6   -0.00000   14.99889      -     -    0s
+#&gt; H    0     0                       4.9995792   14.99889   200%     -    0s
 #&gt; H    0     0                      14.9989002   14.99890  0.00%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (44 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 14.9989 -0 
+#&gt; Solution count 3: 14.9989 4.99958 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.499890022234e+01, best bound 1.499890022234e+01, gap 0.0000%</div><div class='input'>

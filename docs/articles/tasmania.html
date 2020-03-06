@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -255,7 +255,9 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_p
 <p>Next, we can solve the problem. The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p1)</code></pre></div>
-<pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+## Model fingerprint: 0x1673cf10
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 4e+01]
@@ -267,23 +269,22 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Presolve removed 1798 rows and 1172 columns
 ## Presolve time: 0.03s
 ## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
-## Found heuristic solution: objective 12746.195965
 ## Found heuristic solution: objective 11481.838167
 ## Variable types: 0 continuous, 3106 integer (3106 binary)
 ## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.075393e+04, 816 iterations, 0.04 seconds
+## Root relaxation: objective 1.075393e+04, 769 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
 ## 
-## Explored 1 nodes (816 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (769 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
+## Solution count 3: 11481.8 12367.1 30514.7 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>
@@ -353,7 +354,9 @@ p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p2)</code></pre></div>
-<pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+## Model fingerprint: 0x1673cf10
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 4e+01]
@@ -365,23 +368,22 @@ s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## Presolve removed 1798 rows and 1172 columns
 ## Presolve time: 0.03s
 ## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
-## Found heuristic solution: objective 12746.195965
 ## Found heuristic solution: objective 11481.838167
 ## Variable types: 0 continuous, 3106 integer (3106 binary)
 ## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.075393e+04, 816 iterations, 0.04 seconds
+## Root relaxation: objective 1.075393e+04, 769 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
 ## 
-## Explored 1 nodes (816 simplex iterations) in 0.08 seconds
+## Explored 0 nodes (769 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
+## Solution count 3: 11481.8 12367.1 30514.7 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>

@@ -85,7 +85,7 @@ software currently installed on the system will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.3</span>
       </span>
     </div>
 
@@ -242,7 +242,9 @@ software currently installed on the system will be used.</p>
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>titles</span>, <span class='st'>"gurobi (5s)"</span>)
   <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))
-}</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+}</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -262,15 +264,15 @@ software currently installed on the system will be used.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1985.68 2337.96 
+#&gt; Solution count 2: 1987.4 2337.96 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</div><div class='input'>
+#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
 <span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
 <span class='co'># note that this solver is skipped on Linux systems due to instability</span>
 <span class='co'># issues</span>

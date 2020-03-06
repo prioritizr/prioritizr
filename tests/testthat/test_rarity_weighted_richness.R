@@ -1,10 +1,6 @@
 context("rarity_weighted_richness")
 
 test_that("numeric", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -29,10 +25,6 @@ test_that("numeric", {
 })
 
 test_that("numeric (feature with zero abundance in all planning units)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -59,10 +51,6 @@ test_that("numeric (feature with zero abundance in all planning units)", {
 })
 
 test_that("matrix (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -89,10 +77,6 @@ test_that("matrix (single zone)", {
 })
 
 test_that("matrix (single zone, rescale = TRUE)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -119,10 +103,6 @@ test_that("matrix (single zone, rescale = TRUE)", {
 })
 
 test_that("data.frame (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -147,10 +127,6 @@ test_that("data.frame (single zone)", {
 })
 
 test_that("Spatial (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:4, ]
@@ -176,10 +152,6 @@ test_that("Spatial (single zone)", {
 })
 
 test_that("Raster (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
   features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
