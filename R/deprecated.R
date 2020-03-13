@@ -34,3 +34,52 @@ add_corridor_constraints <- function(...) {
   paste0("this function has been renamed as the",
     "add_feature_contiguity_constraints function")
 }
+
+#' @rdname prioritizr-deprecated
+#' @section  \code{set_number_of_threads}: this function is no longer needed now that superior data extraction methods are implemented.
+#'   function.
+#' @export
+set_number_of_threads <- function(...) {
+  .Deprecated("set_number_of_threads")
+  paste0("this function is no longer needed now that superior data ",
+         "extraction methods are implemented.")
+}
+
+#' @rdname prioritizr-deprecated
+#' @section  \code{get_number_of_threads}: this function is no longer needed now that superior data extraction methods are implemented.
+#'   function.
+#' @export
+get_number_of_threads <- function(...) {
+  .Deprecated("get_number_of_threads")
+  paste0("this function is no longer needed now that superior data ",
+         "extraction methods are implemented.")
+}
+
+#' @rdname prioritizr-deprecated
+#' @section  \code{is.parallel}: this function is no longer needed now that superior data extraction methods are implemented.
+#'   function.
+#' @export
+is.parallel <- function(...) {
+  .Deprecated("is.parallel")
+  paste0("this function is no longer needed now that superior data ",
+         "extraction methods are implemented.")
+}
+
+#' @rdname prioritizr-deprecated
+#' @section  \code{add_pool_portfolio}: this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
+#'   function.
+#' @export
+is.parallel <- function(...) {
+  .Deprecated("is.parallel")
+  paste0("this function is no longer needed now that superior data ",
+         "extraction methods are implemented.")
+}
+
+#' @rdname prioritizr-deprecated
+#' @section  \code{connected_matrix}: this function has been renamed as
+#' the \code{\link{adjacency_matrix}} function.
+#' @export
+connected_matrix <- function(...) {
+  .Deprecated("connected_matrix")
+  paste0("this function has been renamed as the adjacency_matrix function.")
+}

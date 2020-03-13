@@ -14,10 +14,10 @@ test_that("x=Raster,y=Raster", {
 test_that("x=Spatial,y=Spatial", {
   # generate data
   data(sim_pu_polygons)
-  x <- sim_pu_polygons
-  y <- sim_pu_polygons[10:15, ]
+  x <- sim_pu_polygons[1:10, ]
+  y <- sim_pu_polygons[5:15, ]
   # run tests
-  expect_equal(intersecting_units(x, y), 10:15)
+  expect_equal(intersecting_units(x, y), 5:10)
   # check that invalid arguments result in errors
   expect_error(intersecting_units(x, `crs<-`(y, sp::CRS("+init=epsg:4326"))))
   expect_error(intersecting_units(x[1:5, ], x[50:55, ]))

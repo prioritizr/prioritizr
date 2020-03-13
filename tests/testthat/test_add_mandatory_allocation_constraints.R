@@ -139,7 +139,7 @@ test_that("solve (compressed formulation, multiple zones)", {
        add_mandatory_allocation_constraints() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- p %>% solve()
   # tests
@@ -168,7 +168,7 @@ test_that("solve (expanded formulation, multiple zones)", {
        add_mandatory_allocation_constraints() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- p %>% solve(compressed_formulation = FALSE)
   # tests

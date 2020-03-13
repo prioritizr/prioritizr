@@ -3,11 +3,12 @@ NULL
 
 #' Category vector
 #'
-#' Convert a \code{data.frame} or \code{matrix} containing binary
-#' (\code{integer}) fields (columns) into a \code{integer} \code{vector}
-#' indicating the column index where each row is \code{1}.
+#' Convert an object containing binary (\code{integer}) fields (columns) into a
+#' \code{integer} \code{vector} indicating the column index where each row is
+#' \code{1}.
 #'
-#' @param x \code{matrix} object.
+#' @param x \code{matrix}, \code{data.frame}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object.
 #'
 #' @details This function is conceptually similar to \code{\link[base]{max.col}}
 #'   except that rows with no values equal to \code{1} values are assigned a
@@ -43,6 +44,22 @@ category_vector.data.frame <- function(x) {
                           nrow(x) >= 1, ncol(x) >= 1,
                           all(vapply(x, inherits, logical(1), "numeric")))
   category_vector(as.matrix(x))
+}
+
+#' @rdname category_vector
+#' @method category_vector sf
+#' @export
+category_vector.sf <- function(x) {
+  assertthat::assert_that(inherits(x, "sf"))
+  category_vector(sf::st_drop_geometry(x))
+}
+
+#' @rdname category_vector
+#' @method category_vector Spatial
+#' @export
+category_vector.Spatial <- function(x) {
+  assertthat::assert_that(inherits(x, "Spatial"))
+  category_vector(x@data)
 }
 
 #' @rdname category_vector

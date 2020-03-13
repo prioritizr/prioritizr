@@ -5,7 +5,9 @@ NULL
 #'
 #' Generate a portfolio of solutions for a conservation planning
 #' \code{\link{problem}} using Bender's cuts (discussed in Rodrigues
-#' \emph{et al.} 2000).
+#' \emph{et al.} 2000). This is recommended as a replacement for
+#'  \code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
+#'  available.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -21,8 +23,9 @@ NULL
 #'   \strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
 #'   solution pool to speed up the process of obtaining multiple solutions.
 #'   However, it would sometimes return solutions that were not within the
-#'   specified optimality gap. To address this, all solution pool methods are
-#'   provided by the \code{\link{add_pool_portfolio}} function.}
+#'   specified optimality gap. To address this, we have added alternative
+#'   methods for generating solution portfolios, please refer to the
+#'   \code{\link{portfolios}} documentation for more information.}
 #'
 #' @seealso \code{\link{portfolios}}.
 #'

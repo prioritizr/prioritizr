@@ -65,7 +65,7 @@ test_that("minimum set objective (compile, single zone)", {
   }
 })
 
-test_that("minimum set objective (compile, data, single zone)", {
+test_that("minimum set objective (compile, single zone)", {
   # load data
   data(sim_pu_raster, sim_features)
   bm <- boundary_matrix(sim_pu_raster)
@@ -107,7 +107,7 @@ test_that("minimum set objective (solve, single zone)", {
         add_relative_targets(0.1) %>%
         add_binary_decisions() %>%
         add_boundary_penalties(10000, 0.5) %>%
-        add_default_solver(time_limit = 5)
+        add_default_solver(time_limit = 5, verbose = FALSE)
   s1_1 <- solve(p1)
   s1_2 <- solve(p1)
   p2 <- problem(sim_pu_raster, sim_features) %>%
@@ -115,14 +115,15 @@ test_that("minimum set objective (solve, single zone)", {
         add_relative_targets(0.1) %>%
         add_binary_decisions() %>%
         add_boundary_penalties(-10000, 0.5) %>%
-        add_default_solver(time_limit = 5)
+        add_default_solver(time_limit = 5, verbose = FALSE)
   expect_warning(s2_1 <- solve(p2, force = TRUE))
   expect_warning(s2_2 <- solve(p2, force = TRUE))
   # tests
   expect_is(s1_1, "RasterLayer")
   expect_is(s1_2, "RasterLayer")
   expect_true(all(na.omit(unique(raster::values(s1_1))) %in% c(0, 1)))
-  expect_equal(sum(raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
+  expect_equal(sum(
+    raster::rasterToPolygons(s1_1, dissolve = TRUE)$layer == 1), 1)
   expect_equal(raster::values(s1_1), raster::values(s1_2))
   expect_is(s2_1, "RasterLayer")
   expect_is(s2_2, "RasterLayer")
@@ -296,7 +297,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   }
 })
 
-test_that("minimum set objective (compile, data, multiple zones)", {
+test_that("minimum set objective (compile, multiple zones)", {
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)
   p_zones <- matrix(0, ncol = 3, nrow = 3)
@@ -350,12 +351,41 @@ test_that("minimum set objective (solve, multiple zones)", {
        add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
        add_binary_decisions() %>%
        add_boundary_penalties(5, p_edge_factor,  p_zones) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that solution forms a single cluster
   expect_is(s, "SpatialPolygonsDataFrame")
   expect_true(all(s$solution_1_zone_1 %in% c(0, 1, NA)))
   expect_true(all(s$solution_1_zone_2 %in% c(0, 1, NA)))
   expect_true(all(s$solution_1_zone_3 %in% c(0, 1, NA)))
+})
+
+test_that("minimum set objective (compile, Spatial and sf are identical)", {
+  # data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  penalty <- 5
+  p_zones <- matrix(0, ncol = 3, nrow = 3)
+  diag(p_zones) <- c(0.7, 0.8, 0.9)
+  p_zones[upper.tri(p_zones)] <- c(0.1, 0.2, 0.3)
+  p_zones[lower.tri(p_zones)] <- p_zones[upper.tri(p_zones)]
+  p_edge_factor <- seq(0.1, 0.1 * 3, 0.1)
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+       add_binary_decisions() %>%
+       add_boundary_penalties(penalty, p_edge_factor, p_zones)
+  p2 <- problem(sf::st_as_sf(sim_pu_zones_polygons), sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
+       add_binary_decisions() %>%
+       add_boundary_penalties(penalty, p_edge_factor, p_zones)
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  # tests
+  expect_equal(o1, o2)
 })
 
 test_that("invalid inputs (single zone)", {

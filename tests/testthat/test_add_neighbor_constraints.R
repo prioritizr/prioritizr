@@ -1,6 +1,6 @@
 context("add_neighbor_constraints")
 
-test_that("compile (single zone)", {
+test_that("compile (Spatial, single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
@@ -13,7 +13,7 @@ test_that("compile (single zone)", {
   n_pu <- length(sim_pu_polygons)
   n_f <- raster::nlayers(sim_features)
   neighbor_rows <- n_f + seq_len(n_pu)
-  c_matrix <- connected_matrix(sim_pu_polygons)
+  c_matrix <- adjacency_matrix(sim_pu_polygons)
   # check that rhs has been added correctly
   expect_equal(o$rhs()[neighbor_rows], rep(0, n_pu))
   # check that sense has been added correctly
@@ -28,7 +28,7 @@ test_that("compile (single zone)", {
   }
 })
 
-test_that("compile (single zone, data)", {
+test_that("compile (manually data specified, single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   sim_pu_polygons <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
@@ -38,15 +38,15 @@ test_that("compile (single zone, data)", {
   # compile problems
   o1 <- p %>% add_neighbor_constraints(1) %>% compile()
   o2 <- p %>% add_neighbor_constraints(1,
-    data = connected_matrix(sim_pu_polygons)) %>% compile()
+    data = adjacency_matrix(sim_pu_polygons)) %>% compile()
   o3 <- p %>% add_neighbor_constraints(1,
-    data = sim_pu_polygons %>% connected_matrix() %>% as.matrix()) %>% compile()
+    data = sim_pu_polygons %>% adjacency_matrix() %>% as.matrix()) %>% compile()
   o4 <- p %>% add_neighbor_constraints(1,
-    data = sim_pu_polygons %>% connected_matrix() %>%
+    data = sim_pu_polygons %>% adjacency_matrix() %>%
            matrix_to_triplet_dataframe() %>%
            setNames(c("id1", "id2", "boundary"))) %>% compile()
   o5 <- p %>% add_neighbor_constraints(1, zones = NULL,
-    data = sim_pu_polygons %>% connected_matrix() %>% as.matrix() %>% c() %>%
+    data = sim_pu_polygons %>% adjacency_matrix() %>% as.matrix() %>% c() %>%
     array(dim = c(rep(length(sim_pu_polygons), 2), 1, 1))) %>% compile()
   # compare problems
   expect_equal(o1$obj(), o2$obj())
@@ -59,7 +59,7 @@ test_that("compile (single zone, data)", {
   expect_true(all(o5$A() == o5$A()))
 })
 
-test_that("solve (single zone)", {
+test_that("solve (Spatial, single zone)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -70,14 +70,14 @@ test_that("solve (single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_neighbor_constraints(3) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
   # check that selected planning units have three neighbors
-  n_neighbors <- vapply(rgeos::gIntersects(s1[s1$solution_1 == 1, ], byid = TRUE,
-                                           returnDense = FALSE),
-                         length, integer(1))
+  n_neighbors <-
+    vapply(rgeos::gIntersects(s1[s1$solution_1 == 1, ], byid = TRUE,
+                             returnDense = FALSE), length, integer(1))
   expect_true(all(n_neighbors >= 3))
   expect_equal(s1$solution, s2$solution)
 })
@@ -99,7 +99,7 @@ test_that("invalid input (single zone)", {
   })
 })
 
-test_that("compile (multiple zones)", {
+test_that("compile (Raster, multiple zones)", {
   # load data
   data(sim_pu_zones_stack, sim_features_zones)
   # create data
@@ -108,10 +108,11 @@ test_that("compile (multiple zones)", {
   zones[1, 2] <- 1
   zones[2, 1] <- 1
   # create problem
+  adj_m <- adjacency_matrix(sim_pu_zones_stack, directions = 8)
   p <- problem(sim_pu_zones_stack, sim_features_zones) %>%
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
-       add_neighbor_constraints(k, zones)
+       add_neighbor_constraints(k, zones, data = adj_m)
   # compile problem
   o <- compile(p)
   # preliminary calculations
@@ -120,7 +121,7 @@ test_that("compile (multiple zones)", {
   n_z <- p$number_of_zones()
   neighbor_rows <- (n_f * n_z) + n_pu + seq_len(n_pu * n_z)
   # create array with neighboring data
-  c_matrix <- connected_matrix(sim_pu_zones_stack)
+  c_matrix <- adj_m
   c_array <- array(0, dim = c(nrow(c_matrix), ncol(c_matrix), 3, 3))
   for (z1 in seq_len(3))
     for (z2 in seq_len(3))
@@ -148,7 +149,7 @@ test_that("compile (multiple zones)", {
   expect_true(all(o$A()[neighbor_rows, ] == correct_matrix))
 })
 
-test_that("compile (multiple zones, data)", {
+test_that("compile (manually specified data, multiple zones)", {
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)
   # create different data formats
@@ -156,7 +157,7 @@ test_that("compile (multiple zones, data)", {
   z <- diag(3)
   z[1, 2] <- 1
   z[2, 1] <- 1
-  cm1 <- connected_matrix(sim_pu_zones_polygons)
+  cm1 <- adjacency_matrix(sim_pu_zones_polygons)
   cm2 <- as.matrix(cm1)
   cdf <- cm1 %>% matrix_to_triplet_dataframe() %>%
                  setNames(c("id1", "id2", "boundary"))
@@ -186,7 +187,7 @@ test_that("compile (multiple zones, data)", {
   expect_true(all(o5$A() == o5$A()))
 })
 
-test_that("solve (multiple zones)", {
+test_that("solve (Spatial, multiple zones)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -202,14 +203,14 @@ test_that("solve (multiple zones)", {
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) %>%
        add_neighbor_constraints(k, z) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # run tests
   for (z in seq_along(k)) {
     curr_column <- paste0("solution_1_zone_", z)
-    n_neighbors <- vapply(rgeos::gIntersects(s[s[[curr_column]] == 1, ],
-                                             byid = TRUE,
-                                             returnDense = FALSE),
-                           length, integer(1))
+    n_neighbors <-
+      vapply(rgeos::gIntersects(s[s[[curr_column]] == 1, ],byid = TRUE,
+                                returnDense = FALSE), length, integer(1))
     expect_true(all(n_neighbors >= k[z]))
   }
 })
@@ -241,4 +242,30 @@ test_that("invalid input (multiple zones)", {
   expect_error(add_neighbor_constraints(p, k, NULL, a + 1))
   expect_error(add_neighbor_constraints(p, k, NULL, a - 2))
   expect_error(add_neighbor_constraints(p, k, NULL, `[<-`(a, 1, 1, 1, 1, NA)))
+})
+
+test_that("compile (sf identical to Spatial, multiple zones)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_pu_zones_sf, sim_features_zones)
+  # create data
+  k <- seq_len(3)
+  zones <- diag(3)
+  zones[1, 2] <- 1
+  zones[2, 1] <- 1
+  # create problems
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_neighbor_constraints(k, zones)
+  p2 <- problem(sf::st_as_sf(sim_pu_zones_polygons), sim_features_zones,
+        c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_neighbor_constraints(k, zones)
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  # run tests
+  expect_equal(o1, o2)
 })

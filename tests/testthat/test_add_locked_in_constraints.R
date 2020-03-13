@@ -35,7 +35,7 @@ test_that("integer (solve, single zone)", {
          add_relative_targets(0.1) %>%
          add_binary_decisions() %>%
          add_locked_in_constraints(seq_len(raster::ncell(sim_pu_raster))) %>%
-         add_default_solver(time_limit = 5)
+         add_default_solver(time_limit = 5, verbose = FALSE)
     expect_warning(s1 <- solve(p, force = TRUE))
     expect_warning(s2 <- solve(p, force = TRUE))
   })
@@ -81,7 +81,7 @@ test_that("logical (solve, single zone)", {
          add_relative_targets(0.1) %>%
          add_binary_decisions() %>%
          add_locked_in_constraints(rep(TRUE, raster::ncell(sim_pu_raster))) %>%
-         add_default_solver(time_limit = 5) %>%
+         add_default_solver(time_limit = 5, verbose = FALSE) %>%
          solve(force = TRUE)
   })
   # check that the solution obeys constraints as expected
@@ -142,6 +142,7 @@ test_that("matrix (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(status) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   for (i in seq_len(raster::nlayers(sim_pu_zones_stack)))
@@ -153,7 +154,7 @@ test_that("matrix (solve, multiple zones)", {
       raster::Which(!is.na(s[[i]]), cells = TRUE)] == as.numeric(i == 1)))
 })
 
-test_that("character (compile, single zone)", {
+test_that("character (compile, Spatial, single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
@@ -196,7 +197,7 @@ test_that("character (compile, single zone)", {
   })
 })
 
-test_that("character (solve, single zone)", {
+test_that("character (solve, Spatial, single zone)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -208,13 +209,13 @@ test_that("character (solve, single zone)", {
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints("locked_in") %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_in)] == 1))
 })
 
-test_that("character (compile, multiple zones)", {
+test_that("character (compile, Spatial, multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
   targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
@@ -265,7 +266,7 @@ test_that("character (compile, multiple zones)", {
   })
 })
 
-test_that("character (solve, multiple zones)", {
+test_that("character (solve, Spatial, multiple zones)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -285,6 +286,7 @@ test_that("character (solve, multiple zones)", {
        add_relative_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
@@ -304,7 +306,7 @@ test_that("character (solve, single zone, proportion decisions)", {
        add_relative_targets(0.1) %>%
        add_proportion_decisions() %>%
        add_locked_in_constraints("locked_in") %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1[which(sim_pu_polygons$locked_in)] == 1))
@@ -327,6 +329,7 @@ test_that("character (solve, multiple zones, proportion decisions)", {
        add_relative_targets(targets) %>%
        add_proportion_decisions() %>%
        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
@@ -402,7 +405,7 @@ test_that("raster (solve, single zone)", {
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(sim_locked_in_raster) %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints
   locked_in_cells <- raster::Which(sim_locked_in_raster & !is.na(sim_pu_raster),
@@ -469,6 +472,7 @@ test_that("raster (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(status) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   for (i in seq_len(raster::nlayers(sim_pu_zones_stack)))
@@ -535,7 +539,7 @@ test_that("spatial (solve, single zone)", {
        add_binary_decisions() %>%
        add_locked_in_constraints(sim_pu_polygons[
          sim_pu_polygons$locked_in, ]) %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   locked_in_units <- which(sim_pu_polygons$locked_in)
   expect_true(all(s$solution_1[locked_in_units] == 1))
@@ -553,6 +557,67 @@ test_that("spatial (compile, multiple zones)", {
     add_absolute_targets(targets) %>%
     add_binary_decisions() %>%
     add_locked_in_constraints(sim_pu_polygons[1:5, ]) %>%
+    add_default_solver(verbose = FALSE) %>%
     solve()
   })
+})
+
+test_that("sf (compile, sf identical to Spatial, single zone)", {
+  # create problem
+  data(sim_pu_polygons, sim_features)
+  sim_sf <- sf::st_as_sf(sim_pu_polygons)
+  # make problems
+  p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(sim_pu_polygons[1:5, ])
+  p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(sim_sf[1:5, ])
+  p3 <- problem(sim_sf, sim_features, "cost") %>%
+        add_min_set_objective() %>%
+        add_relative_targets(0.1) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(sim_sf[1:5, ])
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  o3 <- as.list(compile(p3))
+  # tests
+  expect_equal(o1, o2)
+  expect_equal(o1, o3)
+})
+
+test_that("character (compile, sf identical to Spatial, multiple zones)", {
+  # create problem
+  data(sim_pu_zones_polygons, sim_pu_zones_sf, sim_features_zones)
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
+  targets[] <- 0
+  targets[, 1] <- 1
+  sim_pu_zones_polygons$locked_1 <- TRUE
+  sim_pu_zones_polygons$locked_2 <- FALSE
+  sim_pu_zones_polygons$locked_3 <- FALSE
+  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  # make problems
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(targets) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
+  p2 <- problem(sim_sf, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(targets) %>%
+        add_binary_decisions() %>%
+        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  # tests
+  expect_equal(o1, o2)
 })

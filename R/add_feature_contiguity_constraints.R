@@ -45,7 +45,7 @@ NULL
 #'   which sets of planning units should be treated as being connected
 #'   for which features using a \code{list} of objects. The default argument
 #'   is \code{NULL} which means that the connection data is calculated
-#'   automatically using the \code{\link{connected_matrix}} function and so
+#'   automatically using the \code{\link{adjacency_matrix}} function and so
 #'   all adjacent planning units are treated as being connected for all
 #'   features. See the Details section for more information.
 #'
@@ -67,7 +67,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{\code{NULL}}{connection data should be calculated automatically
-#'     using the \code{\link{connected_matrix}} function. This is the default
+#'     using the \code{\link{adjacency_matrix}} function. This is the default
 #'     argument and means that all adjacent planning units are treated
 #'     as potentially dispersible for all features.
 #'     Note that the connection data must be manually defined
@@ -297,10 +297,11 @@ methods::setMethod("add_feature_contiguity_constraints",
           all(is.finite(data[[i]]@x)), Matrix::isSymmetric(data[[i]]))
       }
       # create list with data
-      d <- list(connected_matrices = data)
+      d <- list(matrices = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster")),
+      assertthat::assert_that(inherits(x$data$cost,
+                                       c("Spatial", "Raster", "sf")),
         msg = paste("argument to data must be supplied because planning unit",
                     "data are not in a spatially referenced format"))
       d <- list()
@@ -332,15 +333,15 @@ methods::setMethod("add_feature_contiguity_constraints",
     data = d,
     calculate = function(self, x) {
       # generate connectivity data
-      if (is.Waiver(self$get_data("connected_matrices"))) {
+      if (is.Waiver(self$get_data("matrices"))) {
         # create matrix
-        data <- connected_matrix(x$data$cost)
+        data <- adjacency_matrix(x$data$cost)
         # coerce matrix to full matrix
         data <- methods::as(data, "dgCMatrix")
         # create list for each feature
         data <- list(data)[rep(1, number_of_features(x))]
         # store data
-        self$set_data("connected_matrices", data)
+        self$set_data("matrices", data)
       }
       # return success
       invisible(TRUE)
@@ -351,8 +352,8 @@ methods::setMethod("add_feature_contiguity_constraints",
       if (as.logical(self$parameters$get("apply constraints?"))) {
         # extract list of connectivity matrices
         ind <- y$planning_unit_indices()
-        # format connected matrix
-        d <- self$get_data("connected_matrices")
+        # format matrices
+        d <- self$get_data("matrices")
         d <- lapply(d, `[`, ind, ind, drop = FALSE)
         # extract clusters from z
         z <- list()

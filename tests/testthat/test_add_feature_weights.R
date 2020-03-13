@@ -47,7 +47,7 @@ test_that("solve (compressed formulation, single zone)", {
        add_max_utility_objective(budget = budget) %>%
        add_feature_weights(c(1, 1, 100)) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -119,7 +119,7 @@ test_that("solve (expanded formulation, single zone)", {
        add_max_utility_objective(budget = budget) %>%
        add_feature_weights(c(1, 1, 100)) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
@@ -223,7 +223,7 @@ test_that("solve (compressed formulation, multiple zones)", {
        add_max_features_objective(budget = budget) %>%
        add_manual_targets(targs[, -6]) %>%
        add_feature_weights(matrix(targs$weight, ncol = 1)) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test for correct solution
@@ -330,7 +330,7 @@ test_that("solve (expanded formulation, multiple zones)", {
        add_max_features_objective(budget = budget) %>%
        add_manual_targets(targs[, -6]) %>%
        add_feature_weights(matrix(targs$weight, ncol = 1)) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test for correct solution

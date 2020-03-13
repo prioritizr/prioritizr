@@ -8,8 +8,9 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
-#'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-#'   object. See the Details section for more information.
+#'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object. See the Details section for more
+#'   information.
 #'
 #' @details Note that all arguments to \code{solution} must correspond
 #'   to the planning unit data in the argument to \code{x} in terms
@@ -80,7 +81,7 @@ NULL
 #'
 #' @name feature_representation
 #'
-#' @aliases feature_representation,ConservationProblem,numeric-method feature_representation,ConservationProblem,matrix-method feature_representation,ConservationProblem,data.frame-method feature_representation,ConservationProblem,Spatial-method feature_representation,ConservationProblem,Raster-method
+#' @aliases feature_representation,ConservationProblem,numeric-method feature_representation,ConservationProblem,matrix-method feature_representation,ConservationProblem,data.frame-method feature_representation,ConservationProblem,Spatial-method feature_representation,ConservationProblem,sf-method feature_representation,ConservationProblem,Raster-method
 #'
 #' @seealso \code{\link{problem}}, \code{\link{feature_abundances}}.
 #'
@@ -89,8 +90,8 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons, sim_features, sim_pu_zones_stack,
-#'      sim_pu_zones_polygons, sim_features_zones)
+#' data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
+#'     sim_pu_zones_stack, sim_features_zones)
 #'
 #'
 #' # create a simple conservation planning data set so we can see exactly
@@ -147,7 +148,7 @@ NULL
 #' # plot solution
 #' plot(s2, main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' # build minimal conservation problem with spatial polygon data
+#' # build minimal conservation problem with polygon (Spatial) data
 #' p3 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
@@ -186,8 +187,9 @@ NULL
 #' # plot solution
 #' plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' # build multi-zone conservation problem with spatial polygon data
-#' p5 <- problem(sim_pu_zones_polygons, sim_features_zones,
+#'
+#' # build multi-zone conservation problem with polygon (sf) data
+#' p5 <- problem(sim_pu_zones_sf, sim_features_zones,
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
@@ -208,13 +210,13 @@ NULL
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
-#' s5$solution <- category_vector(s5@data[, c("solution_1_zone_1",
-#'                                            "solution_1_zone_2",
-#'                                            "solution_1_zone_3")])
+#' s5$solution <- category_vector(s5[, c("solution_1_zone_1",
+#'                                       "solution_1_zone_2",
+#'                                       "solution_1_zone_3")])
 #' s5$solution <- factor(s5$solution)
 #'
 #' # plot solution
-#' spplot(s5, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+#' plot(s5[, "solution"])
 #' }
 NULL
 
@@ -243,22 +245,8 @@ methods::setMethod("feature_representation",
       number_of_zones(x) == 1,
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos]
-    # calculate amount of each feature in each planning unit
-    total <- x$feature_abundances_in_total_units()
-    held <- rowSums(x$data$rij_matrix[[1]] *
-                    matrix(solution, ncol = length(solution),
-                           nrow = nrow(x$data$rij_matrix[[1]]),
-                           byrow = TRUE))
-    tibble::tibble(feature = x$feature_names(),
-                   absolute_held = c(held),
-                   relative_held = c(held / total))
+    # perform calculations
+    internal_feature_representation(x, matrix(solution, ncol = 1))
 })
 
 #' @name feature_representation
@@ -275,35 +263,8 @@ methods::setMethod("feature_representation",
       number_of_zones(x) == ncol(solution),
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # calculate amount of each feature in each planning unit
-    total <- x$feature_abundances_in_total_units()
-    held <- vapply(seq_len(x$number_of_zones()),
-                   FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-                   function(i) {
-      rowSums(x$data$rij_matrix[[i]] *
-              matrix(solution[, i], ncol = nrow(solution),
-                     nrow = nrow(x$data$rij_matrix[[1]]),
-                     byrow = TRUE),
-              na.rm = TRUE)
-    })
-    out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
-                          absolute_held = c(held),
-                          relative_held = c(held / total))
-    if (x$number_of_zones() > 1) {
-      out$zone <- rep(x$zone_names(), each = x$number_of_features())
-      out <- out[, c(1, 4, 2, 3), drop = FALSE]
-    }
-    out
+    # perform calculations
+    internal_feature_representation(x, solution)
 })
 
 #' @name feature_representation
@@ -321,36 +282,8 @@ methods::setMethod("feature_representation",
       is.numeric(unlist(solution)),
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1)
-    # subset planning units with finite cost values
-    solution <- as.matrix(solution)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    # calculate amount of each feature in each planning unit
-    total <- x$feature_abundances_in_total_units()
-    held <- vapply(seq_len(x$number_of_zones()),
-                   FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-                   function(i) {
-      rowSums(x$data$rij_matrix[[i]] *
-              matrix(solution[, i], ncol = nrow(solution),
-                     nrow = nrow(x$data$rij_matrix[[1]]),
-                     byrow = TRUE),
-              na.rm = TRUE)
-    })
-    out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
-                          absolute_held = c(held),
-                          relative_held = c(held / total))
-    if (x$number_of_zones() > 1) {
-      out$zone <- rep(x$zone_names(), each = x$number_of_features())
-      out <- out[, c(1, 4, 2, 3), drop = FALSE]
-    }
-    out
+    # perform calculations
+    internal_feature_representation(x, as.matrix(solution))
 })
 
 #' @name feature_representation
@@ -369,36 +302,29 @@ methods::setMethod("feature_representation",
       is.numeric(unlist(solution@data)),
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1)
-    # subset planning units with finite cost values
-    solution <- as.matrix(solution@data)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    # calculate amount of each feature in each planning unit
-    total <- x$feature_abundances_in_total_units()
-    held <- vapply(seq_len(x$number_of_zones()),
-                   FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-                   function(i) {
-      rowSums(x$data$rij_matrix[[i]] *
-              matrix(solution[, i], ncol = nrow(solution),
-                     nrow = nrow(x$data$rij_matrix[[1]]),
-                     byrow = TRUE),
-              na.rm = TRUE)
-    })
-    out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
-                          absolute_held = c(held),
-                          relative_held = c(held / total))
-    if (x$number_of_zones() > 1) {
-      out$zone <- rep(x$zone_names(), each = x$number_of_features())
-      out <- out[, c(1, 4, 2, 3), drop = FALSE]
-    }
-    out
+    # perform calculations
+    internal_feature_representation(x, as.matrix(solution@data))
+})
+
+#' @name feature_representation
+#' @usage \S4method{feature_representation}{ConservationProblem,sf}(x, solution)
+#' @rdname feature_representation
+methods::setMethod("feature_representation",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, solution) {
+    # assert valid arguments
+    assertthat::assert_that(
+      inherits(solution, "sf"),
+      inherits(x$data$cost, "sf"))
+    solution <- sf::st_drop_geometry(solution)
+    assertthat::assert_that(
+      number_of_zones(x) == ncol(solution),
+      number_of_total_units(x) == nrow(solution),
+      is.numeric(unlist(solution)),
+      min(unlist(solution), na.rm = TRUE) >= 0,
+      max(unlist(solution), na.rm = TRUE) <= 1)
+    # perform calculations
+    internal_feature_representation(x, as.matrix(solution))
 })
 
 #' @name feature_representation
@@ -431,23 +357,43 @@ methods::setMethod("feature_representation",
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
-    # calculate amount of each feature in each planning unit
-    total <- x$feature_abundances_in_total_units()
-    held <- vapply(seq_len(x$number_of_zones()),
-                   FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-                   function(i) {
-      rowSums(x$data$rij_matrix[[i]] *
-              matrix(solution[, i], ncol = nrow(solution),
-                     nrow = nrow(x$data$rij_matrix[[1]]),
-                     byrow = TRUE),
-              na.rm = TRUE)
-    })
-    out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
-                          absolute_held = c(held),
-                          relative_held = c(held / total))
-    if (x$number_of_zones() > 1) {
-      out$zone <- rep(x$zone_names(), each = x$number_of_features())
-      out <- out[, c(1, 4, 2, 3), drop = FALSE]
-    }
-    out
+    # run calculations
+    internal_feature_representation(x, solution, subset_units = FALSE)
 })
+
+internal_feature_representation <- function(x, solution, subset_units = TRUE) {
+  # assert arguments are valid
+  assertthat::assert_that(inherits(x, "ConservationProblem"),
+    is.matrix(solution))
+  # subset planning units with finite cost values
+  if (subset_units) {
+    pos <- x$planning_unit_indices()
+    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
+    if (!setequal(pos, pos2))
+      stop("planning units with NA cost data must have NA allocations in the",
+           " solution")
+    solution <- solution[pos, , drop = FALSE]
+    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
+      stop("planning units with NA cost data must have NA allocations in the",
+           " solution")
+  }
+  # calculate amount of each feature in each planning unit
+  total <- x$feature_abundances_in_total_units()
+  held <- vapply(seq_len(x$number_of_zones()),
+                 FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
+                 function(i) {
+    rowSums(x$data$rij_matrix[[i]] *
+            matrix(solution[, i], ncol = nrow(solution),
+                   nrow = nrow(x$data$rij_matrix[[1]]),
+                   byrow = TRUE),
+            na.rm = TRUE)
+  })
+  out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
+                        absolute_held = unname(c(held)),
+                        relative_held = unname(c(held / total)))
+  if (x$number_of_zones() > 1) {
+    out$zone <- rep(x$zone_names(), each = x$number_of_features())
+    out <- out[, c(1, 4, 2, 3), drop = FALSE]
+  }
+  out
+}

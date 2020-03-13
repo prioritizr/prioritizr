@@ -4,27 +4,28 @@
 \alias{rij_matrix}
 \alias{rij_matrix,Raster,Raster-method}
 \alias{rij_matrix,Spatial,Raster-method}
+\alias{rij_matrix,sf,Raster-method}
 \title{Feature by planning unit matrix}
 \usage{
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
 \S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
+
+\S4method{rij_matrix}{sf,Raster}(x, y, fun, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}} or
-\code{\link[sp]{Spatial-class}} object representing the
-planning units.}
+\item{x}{\code{\link[raster]{Raster-class}},
+\code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+representing the planning units.}
 
 \item{y}{\code{\link[raster]{Raster-class}} object representing the
 features.}
 
-\item{fun}{\code{function} for summarizing values inside each planning unit.
+\item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
-\code{\link[sp]{Spatial-class}} object. Defaults to \code{sum}.}
+\code{\link[sp]{Spatial-class}} object. Defaults to \code{"sum"}.}
 
-\item{...}{additional arguments passed to \code{\link{fast_extract}} if
-argument to \code{x} inherits from a \code{\link[sp]{Spatial-class}}
-object.}
+\item{...}{not used.}
 }
 \value{
 \code{\link{Matrix}{dgCMatrix-class}} object.
@@ -57,19 +58,23 @@ The sparse matrix represents the spatial intersection between the
 }
 \examples{
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_stack)
+data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_pu_zones_stack)
 
 # create rij matrix using raster layer planning units
 rij_raster <- rij_matrix(sim_pu_raster, sim_features)
 print(rij_raster)
 
-# create rij matrix using polygon planning units
+# create rij matrix using polygon (Spatial) planning units
 rij_polygons <- rij_matrix(sim_pu_polygons, sim_features)
 print(rij_polygons)
 
+# create rij matrix using polygon (sf) planning units
+rij_sf <- rij_matrix(sim_pu_sf, sim_features)
+print(rij_sf)
+
 # create rij matrix using raster stack planning units
-rij_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
-print(rij_raster)
+rij_zones_raster <- rij_matrix(sim_pu_zones_stack, sim_features)
+print(rij_zones_raster)
 }
 \seealso{
 \code{\link{set_number_of_threads}}, \code{\link[velox]{velox}}.

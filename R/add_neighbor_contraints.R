@@ -30,7 +30,7 @@ NULL
 #'   \code{array} object showing which planning units are neighbors with each
 #'   other. The argument defaults to \code{NULL} which means that the
 #'   neighborhood data is calculated automatically using the
-#'   \code{\link{connected_matrix}} function. See the Details section for more
+#'   \code{\link{adjacency_matrix}} function. See the Details section for more
 #'   information.
 #'
 #' @details This function uses neighborhood data identify solutions that
@@ -43,7 +43,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{\code{NULL}}{neighborhood data should be calculated automatically
-#'     using the \code{\link{connected_matrix}} function. This is the default
+#'     using the \code{\link{adjacency_matrix}} function. This is the default
 #'     argument. Note that the neighborhood data must be manually defined
 #'     using one of the other formats below when the planning unit data
 #'     in the argument to \code{x} is not spatially referenced (e.g.
@@ -122,7 +122,7 @@ NULL
 #' # create problem with constraints that require 3 neighbor
 #' # and neighbors are defined using a queen-style neighborhood
 #' p4 <- p1 %>% add_neighbor_constraints(3,
-#'                data = connected_matrix(sim_pu_raster, directions = 8))
+#'                data = adjacency_matrix(sim_pu_raster, directions = 8))
 #'
 #' \donttest{
 #' # solve problems
@@ -202,10 +202,11 @@ methods::setMethod("add_neighbor_constraints",
                                   c(0, 1, NA)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
         sum(!is.finite(methods::as(data, "dgCMatrix")@x)) == 0)
-      d <- list(connected_matrix = data)
+      d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster")),
+      assertthat::assert_that(inherits(x$data$cost,
+                                       c("Spatial", "Raster", "sf")),
         msg = paste("argument to data must be supplied because planning unit",
                     "data are not in a spatially referenced format"))
       d <- list()
@@ -236,14 +237,14 @@ methods::setMethod("add_neighbor_constraints",
         binary_matrix_parameter("zones", zones, symmetric = FALSE)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
-        # generate connected matrix if null
-        if (is.Waiver(self$get_data("connected_matrix"))) {
+        # generate adjacency matrix if null
+        if (is.Waiver(self$get_data("matrix"))) {
           # create matrix
-          data <- connected_matrix(x$data$cost)
+          data <- adjacency_matrix(x$data$cost)
           # coerce matrix to full matrix
           data <- methods::as(data, "dgCMatrix")
           # store data
-          self$set_data("connected_matrix", data)
+          self$set_data("matrix", data)
         }
         # return success
         invisible(TRUE)
@@ -255,7 +256,7 @@ methods::setMethod("add_neighbor_constraints",
         if (any(k > 0)) {
           # extract data and parameters
           ind <- y$planning_unit_indices()
-          d <- self$get_data("connected_matrix")[ind, ind]
+          d <- self$get_data("matrix")[ind, ind]
           z <- self$parameters$get("zones")
           # generate list of sparse matrix objects
           m <- list()
@@ -320,7 +321,7 @@ methods::setMethod("add_neighbor_constraints",
       p <- integer_parameter("number of neighbors", as.integer(k),
                              lower_limit = 0)
     }
-    # convert connected matrix to list of sparse matrices
+    # convert matrix to list of sparse matrices
     indices <- x$planning_unit_indices()
     m <- list()
     for (z1 in seq_len(dim(data)[3])) {
@@ -334,7 +335,7 @@ methods::setMethod("add_neighbor_constraints",
     x$add_constraint(pproto(
       "NeighborConstraint",
       Constraint,
-      data = list(connected_matrix_list = m),
+      data = list(matrix_list = m),
       name = "Neighbor constraints",
       parameters = parameters(p),
       apply = function(self, x, y) {
@@ -343,7 +344,7 @@ methods::setMethod("add_neighbor_constraints",
         k <- self$parameters$get("number of neighbors")[[1]]
         if (any(k > 0))
           rcpp_apply_neighbor_constraints(x$ptr,
-            self$get_data("connected_matrix_list"), k)
+            self$get_data("matrix_list"), k)
         invisible(TRUE)
       }))
 })

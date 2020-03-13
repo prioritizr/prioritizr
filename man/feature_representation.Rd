@@ -6,6 +6,7 @@
 \alias{feature_representation,ConservationProblem,matrix-method}
 \alias{feature_representation,ConservationProblem,data.frame-method}
 \alias{feature_representation,ConservationProblem,Spatial-method}
+\alias{feature_representation,ConservationProblem,sf-method}
 \alias{feature_representation,ConservationProblem,Raster-method}
 \title{Feature representation}
 \usage{
@@ -17,14 +18,17 @@
 
 \S4method{feature_representation}{ConservationProblem,Spatial}(x, solution)
 
+\S4method{feature_representation}{ConservationProblem,sf}(x, solution)
+
 \S4method{feature_representation}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-object. See the Details section for more information.}
+\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+or \code{\link[sf]{sf}} object. See the Details section for more
+information.}
 }
 \value{
 \code{\link[tibble]{tibble}} object containing the amount
@@ -103,8 +107,8 @@ Note that all arguments to \code{solution} must correspond
 set.seed(500)
 
 # load data
-data(sim_pu_raster, sim_pu_polygons, sim_features, sim_pu_zones_stack,
-     sim_pu_zones_polygons, sim_features_zones)
+data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
+    sim_pu_zones_stack, sim_features_zones)
 
 
 # create a simple conservation planning data set so we can see exactly
@@ -161,7 +165,7 @@ print(r2)
 # plot solution
 plot(s2, main = "solution", axes = FALSE, box = FALSE)
 }
-# build minimal conservation problem with spatial polygon data
+# build minimal conservation problem with polygon (Spatial) data
 p3 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
@@ -200,8 +204,9 @@ print(r4)
 # plot solution
 plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
 }
-# build multi-zone conservation problem with spatial polygon data
-p5 <- problem(sim_pu_zones_polygons, sim_features_zones,
+
+# build multi-zone conservation problem with polygon (sf) data
+p5 <- problem(sim_pu_zones_sf, sim_features_zones,
               cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
@@ -222,13 +227,13 @@ print(r5)
 
 # create new column representing the zone id that each planning unit
 # was allocated to in the solution
-s5$solution <- category_vector(s5@data[, c("solution_1_zone_1",
-                                           "solution_1_zone_2",
-                                           "solution_1_zone_3")])
+s5$solution <- category_vector(s5[, c("solution_1_zone_1",
+                                      "solution_1_zone_2",
+                                      "solution_1_zone_3")])
 s5$solution <- factor(s5$solution)
 
 # plot solution
-spplot(s5, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+plot(s5[, "solution"])
 }
 }
 \seealso{

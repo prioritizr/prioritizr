@@ -29,7 +29,7 @@ NULL
 #'   object showing which planning units are connected with each
 #'   other. The argument defaults to \code{NULL} which means that the
 #'   connection data is calculated automatically using the
-#'   \code{\link{connected_matrix}} function. See the Details section for more
+#'   \code{\link{adjacency_matrix}} function. See the Details section for more
 #'   information.
 #'
 #' @details This function uses connection data to identify solutions that
@@ -43,7 +43,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{\code{NULL}}{connection data should be calculated automatically
-#'     using the \code{\link{connected_matrix}} function. This is the default
+#'     using the \code{\link{adjacency_matrix}} function. This is the default
 #'     argument. Note that the connection data must be manually defined
 #'     using one of the other formats below when the planning unit data
 #'     in the argument to \code{x} is not spatially referenced (e.g.
@@ -216,10 +216,11 @@ methods::setMethod("add_contiguity_constraints",
       assertthat::assert_that(all(data@x %in% c(0, 1)),
         ncol(data) == nrow(data), number_of_total_units(x) == ncol(data),
         all(is.finite(data@x)), Matrix::isSymmetric(data))
-      d <- list(connected_matrix = data)
+      d <- list(matrix = data)
     } else {
       # check that planning unit data is spatially referenced
-      assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster")),
+      assertthat::assert_that(inherits(x$data$cost,
+                                       c("Spatial", "Raster", "sf")),
         msg = paste("argument to data must be supplied because planning unit",
                     "data are not in a spatially referenced format"))
       d <- list()
@@ -243,14 +244,14 @@ methods::setMethod("add_contiguity_constraints",
         binary_matrix_parameter("zones", zones, symmetric = TRUE)),
       calculate = function(self, x) {
         assertthat::assert_that(inherits(x, "ConservationProblem"))
-        # generate connected matrix if null
-        if (is.Waiver(self$get_data("connected_matrix"))) {
+        # generate matrix if null
+        if (is.Waiver(self$get_data("matrix"))) {
           # create matrix
-          data <- connected_matrix(x$data$cost)
+          data <- adjacency_matrix(x$data$cost)
           # coerce matrix to full matrix
           data <- methods::as(data, "dgCMatrix")
           # store data
-          self$set_data("connected_matrix", data)
+          self$set_data("matrix", data)
         }
         # return success
         invisible(TRUE)
@@ -261,7 +262,7 @@ methods::setMethod("add_contiguity_constraints",
         if (as.logical(self$parameters$get("apply constraints?")[[1]])) {
           # extract data and parameters
           ind <- y$planning_unit_indices()
-          d <- self$get_data("connected_matrix")[ind, ind, drop = FALSE]
+          d <- self$get_data("matrix")[ind, ind, drop = FALSE]
           z <- self$parameters$get("zones")
           # extract clusters from z
           z_cl <- igraph::graph_from_adjacency_matrix(z, diag = FALSE,

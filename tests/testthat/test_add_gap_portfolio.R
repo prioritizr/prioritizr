@@ -1,4 +1,4 @@
-context("add_pool_portfolio")
+context("add_gap_portfolio")
 
 test_that("compile", {
   skip_if_not_installed("gurobi")
@@ -10,15 +10,15 @@ test_that("compile", {
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
-       add_pool_portfolio() %>%
-       add_default_solver(gap = 0.2)
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gurobi_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   cmp <- compile(p)
   # tests
   expect_is(cmp, "OptimizationProblem")
 })
 
-test_that("solve (RasterLayer, single zone, method = 0)", {
+test_that("solve (RasterLayer, single zone)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
@@ -33,68 +33,13 @@ test_that("solve (RasterLayer, single zone, method = 0)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
-       add_pool_portfolio() %>%
-       add_default_solver(gap = 0)
+       add_gap_portfolio(number_solutions = 5, gap = 0.5) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
-  expect_true(length(s) > 1)
-  expect_true(all(sapply(s, inherits, "RasterLayer")))
-  expect_equal(names(s), paste0("solution_", seq_along(s)))
-  for (i in seq_along(s))
-    expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
-})
-
-test_that("solve (RasterLayer, single zone, method = 1)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not_installed("gurobi")
-  # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
-  locked_in <- 2
-  # create problem
-  p <- problem(cost, features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(c(2, 10)) %>%
-       add_locked_in_constraints(locked_in) %>%
-       add_pool_portfolio(method = 1, number_solutions = 3) %>%
-       add_default_solver(gap = 1)
-  # solve problem
-  s <- solve(p)
-  # output checks
-  expect_is(s, "list")
-  expect_true(length(s) > 1)
-  expect_true(all(sapply(s, inherits, "RasterLayer")))
-  expect_equal(names(s), paste0("solution_", seq_along(s)))
-  for (i in seq_along(s))
-    expect_true(all(raster::cellStats(s[[i]] * features, "sum") >= c(2, 10)))
-})
-test_that("solve (RasterLayer, single zone, method = 2)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not_installed("gurobi")
-  # create data
-  cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
-  features <- raster::stack(raster::raster(matrix(c(2, 1, 1, 0), ncol = 4)),
-                            raster::raster(matrix(c(10, 10, 10, 10), ncol = 4)))
-  locked_in <- 2
-  # create problem
-  p <- problem(cost, features) %>%
-       add_min_set_objective() %>%
-       add_absolute_targets(c(2, 10)) %>%
-       add_locked_in_constraints(locked_in) %>%
-       add_pool_portfolio(method = 2, number_solutions = 3) %>%
-       add_default_solver(gap = 0)
-  # solve problem
-  s <- solve(p)
-  # output checks
-  expect_is(s, "list")
-  expect_equal(length(s), 3)
+  expect_equal(length(s), 2) # only two solutions meet this gap
   expect_true(all(sapply(s, inherits, "RasterLayer")))
   expect_equal(names(s), paste0("solution_", seq_along(s)))
   for (i in seq_along(s))
@@ -114,14 +59,14 @@ test_that("solve (RasterStack, multiple zones)", {
        add_absolute_targets(matrix(2,
                             nrow = number_of_features(sim_features_zones),
                             ncol = number_of_zones(sim_features_zones))) %>%
-       add_pool_portfolio() %>%
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
-  expect_true(length(s) > 1)
+  expect_equal(length(s), 5)
   expect_true(all(sapply(s, inherits, "RasterStack")))
   expect_equal(names(s), paste0("solution_", seq_along(s)))
   for (i in seq_along(s))
@@ -141,8 +86,8 @@ test_that("solve (SpatialPolygonsDataFrame, single zone)", {
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
-       add_pool_portfolio() %>%
-       add_default_solver(gap = 0)
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -172,8 +117,8 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
          matrix(2, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
-       add_pool_portfolio() %>%
-       add_default_solver(gap = 0) %>%
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # output checks
   expect_is(s, "SpatialPolygonsDataFrame")
@@ -209,15 +154,15 @@ test_that("solve (numeric, single zone)", {
   p <- problem(costs, features, rij_matrix = rij_mat) %>%
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
-       add_pool_portfolio() %>%
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
   n_solutions <- length(s)
-  expect_true(length(s) > 1)
+  expect_equal(length(s), 5)
   expect_equal(names(s), paste0("solution_", seq_len(n_solutions)))
   expect_true(all(sapply(s, inherits, "numeric")))
   expect_true(all(sapply(s, length) == length(costs)))
@@ -250,13 +195,13 @@ test_that("solve (matrix, multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(targs) %>%
        add_binary_decisions() %>%
-       add_pool_portfolio() %>%
-       add_default_solver(gap = 0)
+       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
   expect_is(s, "list")
-  expect_true(length(s) > 1)
+  expect_equal(length(s), 5)
   n_solutions <- length(s)
   expect_equal(names(s), paste0("solution_", seq_len(n_solutions)))
   expect_true(all(sapply(s, inherits, "matrix")))

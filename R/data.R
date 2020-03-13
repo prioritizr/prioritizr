@@ -41,7 +41,12 @@ NULL
 #'   The attribute table follows the same conventions as for
 #'   \code{sim_pu_polygons}.}
 #'
-#' \item{\code{sim_pu_zone_polygons}}{Planning units represented as polygon
+#' \item{\code{sim_pu_sf}}{Planning units represented as polygon data
+#'   using the \code{\link[sf]{sf}} package.
+#'   The attribute table follows the same conventions as for
+#'   \code{sim_pu_polygons}.}
+#'
+#' \item{\code{sim_pu_zones_polygons}}{Planning units represented as polygon
 #'   data. The attribute table contains fields (columns) indicating the
 #'   expenditure required for prioritizing each planning unit under different
 #'   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
@@ -50,6 +55,10 @@ NULL
 #'   In these locked fields, planning units that should not be locked to a
 #'   specific value are assigned a \code{NA} value.}
 #'
+#' \item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
+#'   using the \code{\link[sf]{sf}} package. The attribute tables follows
+#'   the same conventions as for \code{sim_pu_zone_polygons}.}
+
 #' \item{\code{sim_features}}{The simulated distribution of ten species.
 #'   Pixel values indicate habitat suitability.}
 #'
@@ -62,7 +71,7 @@ NULL
 #'
 #' @docType data
 #'
-#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_stack sim_features sim_features_zones sim_phylogeny
+#' @aliases sim_pu_polygons sim_pu_zones_polygons sim_pu_points sim_pu_lines sim_pu_raster sim_locked_in_raster sim_locked_out_raster sim_pu_zones_stack sim_features sim_features_zones sim_phylogeny sim_pu_sf sim_pu_zones_sf
 #'
 #' @usage data(sim_pu_polygons)
 #'
@@ -71,6 +80,10 @@ NULL
 #' @usage data(sim_pu_points)
 #
 #' @usage data(sim_pu_lines)
+#'
+#' @usage data(sim_pu_sf)
+#'
+#' @usage data(sim_pu_zones_sf)
 #'
 #' @usage data(sim_pu_raster)
 #'
@@ -94,6 +107,10 @@ NULL
 #'
 #' \item{sim_pu_zones_polygons}{
 #'   \code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+#'
+#' \item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+#'
+#' \item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
 #'
 #' \item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
 #'
@@ -124,9 +141,9 @@ NULL
 #' # load data
 #' data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
 #'      sim_locked_in_raster, sim_locked_out_raster, sim_phylogeny,
-#'      sim_features)
+#'      sim_features, sim_pu_sf)
 #'
-#' # plot example planning unit data
+#' # plot example Spatial-class planning unit data
 #' \donttest{
 #' par(mfrow = c(2, 3))
 #' plot(sim_pu_raster, main = "planning units (raster)")
@@ -135,6 +152,9 @@ NULL
 #' plot(sim_pu_polygons, main = "planning units (polygons)")
 #' plot(sim_pu_lines, main = "planning units (lines)")
 #' plot(sim_pu_points, main = "planning units (points)")
+#'
+#' # plot example sf-class planning unit data
+#' plot(sim_pu_sf)
 #'
 #' # plot example phylogeny data
 #' par(mfrow = c(1, 1))
@@ -174,7 +194,10 @@ NULL
 "sim_pu_zones_polygons"
 
 #' @rdname sim_data
-"sim_pu_zones_polygons"
+"sim_pu_sf"
+
+#' @rdname sim_data
+"sim_pu_zones_sf"
 
 #' @rdname sim_data
 "sim_pu_lines"

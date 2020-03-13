@@ -17,10 +17,12 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
-#'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-#'   object. See the Details section for more information.
+#'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object. See the Details section for more
+#'   information.
 #'
-#' @param rescale \code{logical} flag indicating non-zero scores should be
+#' @param rescale \code{logical} flag indicating if replacement cost
+#'  values---excepting infinite (\code{Inf}) and zero values---should be
 #'  rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.
 #'
 #' @param ... not used.
@@ -41,20 +43,24 @@ NULL
 #'   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
 #'   }
 #'
-#'   Note that all arguments to \code{solution} must correspond
+#'   The argument to \code{solution} must correspond
 #'   to the planning unit data in the argument to \code{x} in terms
 #'   of data representation, dimensionality, and spatial attributes (if
 #'   applicable). This means that if the planning unit data in \code{x}
 #'   is a \code{numeric} vector then the argument to \code{solution} must be a
-#'   \code{numeric} vector with the same number of elements, if the planning
+#'   \code{numeric} vector with the same number of elements; if the planning
 #'   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
 #'   argument to \code{solution} must also be a
 #'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-#'   columns and the same resolution, extent, and coordinate reference system,
+#'   columns and the same resolution, extent, and coordinate reference system;
 #'   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
 #'   object then the argument to \code{solution} must also be a
 #'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-#'   features (e.g. polygons) and have the same coordinate reference system,
+#'   features (e.g. polygons) and have the same coordinate reference system;
+#'   if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+#'   object then the argument to \code{solution} must also be a
+#'   \code{\link[sf]{sf}} object and have the same number of spatial
+#'   features (e.g. polygons) and have the same coordinate reference system;
 #'   if the planning units in \code{x} are a \code{data.frame} then the
 #'   argument to \code{solution} must also be a \code{data.frame} with each
 #'   column correspond to a different zone and each row correspond to
@@ -117,7 +123,7 @@ NULL
 #'
 #' @seealso \code{\link{irreplaceability}}.
 #'
-#' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,Raster-method
+#' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,sf-method rarity_weighted_richness,ConservationProblem,Raster-method
 #'
 #' @name rarity_weighted_richness
 #'
@@ -195,8 +201,8 @@ methods::setMethod("rarity_weighted_richness",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
-      sum(solution, na.rm = TRUE) > 1e-10,
       is.matrix(x$data$cost), is.numeric(x$data$cost),
+      sum(solution, na.rm = TRUE) > 1e-10,
       number_of_total_units(x) == nrow(solution),
       number_of_zones(x) == 1,
       min(solution, na.rm = TRUE) >= 0,
@@ -237,10 +243,10 @@ methods::setMethod("rarity_weighted_richness",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
+      is.data.frame(x$data$cost),
       sum(as.matrix(solution), na.rm = TRUE) >= 1e-10,
       number_of_zones(x) == 1,
       number_of_total_units(x) == nrow(solution),
-      is.data.frame(x$data$cost),
       is.numeric(unlist(solution)),
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1,
@@ -284,9 +290,9 @@ methods::setMethod("rarity_weighted_richness",
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
+      class(x$data$cost)[1] == class(solution)[1],
       number_of_zones(x) == 1,
       number_of_total_units(x) == nrow(solution@data),
-      class(x$data$cost)[1] == class(solution)[1],
       is.numeric(unlist(solution@data)),
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1,
@@ -324,6 +330,54 @@ methods::setMethod("rarity_weighted_richness",
 })
 
 #' @name rarity_weighted_richness
+#' @usage \S4method{rarity_weighted_richness}{ConservationProblem,sf}(x, solution, rescale, ...)
+#' @rdname rarity_weighted_richness
+methods::setMethod("rarity_weighted_richness",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, solution, rescale = TRUE, ...) {
+    # assert valid arguments
+    assertthat::assert_that(
+      inherits(solution, "sf"),
+      inherits(x$data$cost, "sf"))
+    solution2 <- sf::st_drop_geometry(solution)
+    assertthat::assert_that(
+      number_of_zones(x) == 1,
+      number_of_total_units(x) == nrow(solution2),
+      is.numeric(unlist(solution2)),
+      min(unlist(solution2), na.rm = TRUE) >= 0,
+      max(unlist(solution2), na.rm = TRUE) <= 1,
+      no_extra_arguments(...))
+    # subset planning units with finite cost values
+    solution_matrix <- as.matrix(solution2)
+    pos <- x$planning_unit_indices()
+    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
+    if (!setequal(pos, pos2))
+      stop("planning units with NA cost data must have NA allocations in the",
+           " solution")
+    solution_pu <- solution_matrix[pos, , drop = FALSE]
+    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
+     stop("planning units with NA cost data must have NA allocations in the",
+          " solution")
+    # calculate replacement costs
+    indices <- which(solution_pu > 1e-10)
+    rc <- internal_rarity_weighted_richness(x, indices, rescale)
+    # return replacement costs
+    out <- matrix(0, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_zones())
+    if (x$number_of_zones() > 1) {
+      colnames(out) <- paste0("rwr_", x$zone_names())
+    } else {
+      colnames(out) <- "rwr"
+    }
+    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
+      x$data$cost_column, drop = FALSE])))
+    out[pos] <- NA_real_
+    out[which(solution_matrix > 1e-10)] <- rc
+    out <- as.data.frame(out)
+    sf::st_as_sf(sf::st_geometry(x$data$cost), out)
+})
+
+#' @name rarity_weighted_richness
 #' @usage \S4method{rarity_weighted_richness}{ConservationProblem,Raster}(x, solution, rescale, ...)
 #' @rdname rarity_weighted_richness
 methods::setMethod("rarity_weighted_richness",
@@ -331,6 +385,7 @@ methods::setMethod("rarity_weighted_richness",
   function(x, solution, rescale = TRUE, ...) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
+      inherits(x$data$cost, "Raster"),
       number_of_zones(x) == 1,
       raster::compareCRS(x$data$cost@crs, solution@crs),
       is_comparable_raster(x$data$cost, solution[[1]]),

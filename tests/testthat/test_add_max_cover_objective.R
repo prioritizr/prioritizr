@@ -44,7 +44,7 @@ test_that("solve (compressed formulation, single zone)", {
   p <- problem(cost, features) %>%
         add_max_cover_objective(budget = budget) %>%
         add_locked_out_constraints(locked_out) %>%
-        add_default_solver(gap = 0)
+        add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -113,7 +113,7 @@ test_that("solve (expanded formulation, single zone)", {
   p <- problem(cost, features) %>%
         add_max_cover_objective(budget = budget) %>%
         add_locked_out_constraints(locked_out) %>%
-        add_default_solver(gap = 0)
+        add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -214,7 +214,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -311,7 +311,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -390,7 +390,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -491,7 +491,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct

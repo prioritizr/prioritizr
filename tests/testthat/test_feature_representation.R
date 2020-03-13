@@ -212,6 +212,75 @@ test_that("Spatial (multiple zone)", {
   expect_equal(nrow(na.omit(r)), nrow(r))
 })
 
+test_that("sf (single zone)", {
+  # load data
+  data(sim_pu_sf)
+  pu <- sim_pu_sf
+  pu$cost[1:5] <- NA
+  pu$solution <- rep(c(0, 1), 5)
+  pu$solution[is.na(pu$cost)] <- NA_real_
+  pu$spp1 <- runif(10)
+  pu$spp2 <- c(rpois(9, 1), NA)
+  # create problem
+  x <- problem(pu, c("spp1", "spp2"), "cost")
+  # create a solution
+  y <- pu[, "solution"]
+  # calculate representation
+  r <- feature_representation(x, y)
+  # create correct result
+  r2 <- tibble::tibble(
+    feature = c("spp1", "spp2"),
+    absolute_held = c(sum(c(pu$spp1 * pu$solution)[!is.na(pu$cost)],
+                          na.rm = TRUE),
+                      sum(c(pu$spp2 * pu$solution)[!is.na(pu$cost)],
+                          na.rm = TRUE)),
+    relative_held = absolute_held / c(sum(pu$spp1, na.rm  = TRUE),
+                                      sum(pu$spp2, na.rm  = TRUE)))
+  # run tests
+  expect_equal(r, r2)
+  expect_equal(nrow(na.omit(r)), nrow(r))
+})
+
+test_that("sf (multiple zone)", {
+  # load data
+  data(sim_pu_zones_sf)
+  pu <- sim_pu_zones_sf
+  pu$spp1_1 <- c(NA, runif(nrow(pu) - 1))
+  pu$spp2_1 <- c(rpois(nrow(pu) - 1, 1),
+                                    NA)
+  pu$spp1_2 <- c(NA, runif(nrow(pu) - 1))
+  pu$spp2_2 <- rpois(nrow(pu), 1)
+  pu$s1 <- rep(c(0, 0.5), nrow(pu) / 2)
+  pu$s2 <- rep(c(0.5, 0), nrow(pu) / 2)
+  pu$s1[is.na(pu$cost_1)] <- NA_real_
+  pu$s2[is.na(pu$cost_2)] <- NA_real_
+  # create problem
+  x <- problem(pu,
+               zones(z1 = c("spp1_1", "spp2_1"), z2 = c("spp1_2", "spp2_2"),
+                     feature_names = c("spp1", "spp2")),
+               c("cost_1", "cost_2"))
+  # create a solution
+  y <- sf::st_drop_geometry(pu[, c("s1", "s2")])
+  # calculate representation
+  r <- feature_representation(x, y)
+  # create correct result
+  pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
+  r2 <- tibble::tibble(
+    feature = rep(c("spp1", "spp2"), 2),
+    zone = rep(c("z1", "z2"), each = 2),
+    absolute_held = c(sum(c(pu$spp1_1 * y[, 1])[pos], na.rm = TRUE),
+                      sum(c(pu$spp2_1 * y[, 1])[pos], na.rm = TRUE),
+                      sum(c(pu$spp1_2 * y[, 2])[pos], na.rm = TRUE),
+                      sum(c(pu$spp2_2 * y[, 2])[pos], na.rm = TRUE)),
+    relative_held = absolute_held / c(sum(pu$spp1_1, na.rm  = TRUE),
+                                      sum(pu$spp2_1, na.rm  = TRUE),
+                                      sum(pu$spp1_2, na.rm  = TRUE),
+                                      sum(pu$spp2_2, na.rm  = TRUE)))
+  # run tests
+  expect_equal(r, r2)
+  expect_equal(nrow(na.omit(r)), nrow(r))
+})
+
 test_that("Raster (single zone)", {
   # load data
   data(sim_pu_raster, sim_features)
@@ -228,9 +297,10 @@ test_that("Raster (single zone)", {
   s <- y[raster::Which(!is.na(sim_pu_raster), cells = TRUE)]
   r2 <- tibble::tibble(
     feature = names(sim_features),
-    absolute_held = rowSums(rij * matrix(s, ncol = length(s), nrow = nrow(rij),
-                                         byrow = TRUE)),
-    relative_held = absolute_held / raster::cellStats(sim_features, "sum"))
+    absolute_held = unname(rowSums(rij * matrix(s, ncol = length(s),
+      nrow = nrow(rij), byrow = TRUE))),
+    relative_held = unname(absolute_held / raster::cellStats(sim_features,
+                                                             "sum")))
   # run tests
   expect_equal(r, r2)
   expect_equal(nrow(na.omit(r)), nrow(r))
@@ -268,27 +338,26 @@ test_that("Raster (multiple zone)", {
     feature = rep(feature_names(sim_features_zones), 3),
     zone = rep(zone_names(sim_features_zones),
                each = number_of_features(sim_features_zones)),
-    absolute_held = c(sum(rij[[1]][1, ] * s[, 1], na.rm = TRUE),
-                      sum(rij[[1]][2, ] * s[, 1], na.rm = TRUE),
-                      sum(rij[[1]][3, ] * s[, 1], na.rm = TRUE),
-                      sum(rij[[1]][4, ] * s[, 1], na.rm = TRUE),
-                      sum(rij[[1]][5, ] * s[, 1], na.rm = TRUE),
-                      sum(rij[[2]][1, ] * s[, 2], na.rm = TRUE),
-                      sum(rij[[2]][2, ] * s[, 2], na.rm = TRUE),
-                      sum(rij[[2]][3, ] * s[, 2], na.rm = TRUE),
-                      sum(rij[[2]][4, ] * s[, 2], na.rm = TRUE),
-                      sum(rij[[2]][5, ] * s[, 2], na.rm = TRUE),
-                      sum(rij[[3]][1, ] * s[, 3], na.rm = TRUE),
-                      sum(rij[[3]][2, ] * s[, 3], na.rm = TRUE),
-                      sum(rij[[3]][3, ] * s[, 3], na.rm = TRUE),
-                      sum(rij[[3]][4, ] * s[, 3], na.rm = TRUE),
-                      sum(rij[[3]][5, ] * s[, 3], na.rm = TRUE)),
-    relative_held = c(absolute_held[1:5] /
-                      raster::cellStats(sim_features_zones[[1]], "sum"),
-                      absolute_held[6:10] /
-                      raster::cellStats(sim_features_zones[[2]], "sum"),
-                      absolute_held[11:15] /
-                      raster::cellStats(sim_features_zones[[3]], "sum")))
+    absolute_held = unname(c(sum(rij[[1]][1, ] * s[, 1], na.rm = TRUE),
+                             sum(rij[[1]][2, ] * s[, 1], na.rm = TRUE),
+                             sum(rij[[1]][3, ] * s[, 1], na.rm = TRUE),
+                             sum(rij[[1]][4, ] * s[, 1], na.rm = TRUE),
+                             sum(rij[[1]][5, ] * s[, 1], na.rm = TRUE),
+                             sum(rij[[2]][1, ] * s[, 2], na.rm = TRUE),
+                             sum(rij[[2]][2, ] * s[, 2], na.rm = TRUE),
+                             sum(rij[[2]][3, ] * s[, 2], na.rm = TRUE),
+                             sum(rij[[2]][4, ] * s[, 2], na.rm = TRUE),
+                             sum(rij[[2]][5, ] * s[, 2], na.rm = TRUE),
+                             sum(rij[[3]][1, ] * s[, 3], na.rm = TRUE),
+                             sum(rij[[3]][2, ] * s[, 3], na.rm = TRUE),
+                             sum(rij[[3]][3, ] * s[, 3], na.rm = TRUE),
+                             sum(rij[[3]][4, ] * s[, 3], na.rm = TRUE),
+                             sum(rij[[3]][5, ] * s[, 3], na.rm = TRUE))),
+    relative_held = unname(c(
+      absolute_held[1:5] / raster::cellStats(sim_features_zones[[1]], "sum"),
+      absolute_held[6:10] / raster::cellStats(sim_features_zones[[2]], "sum"),
+      absolute_held[11:15] / raster::cellStats(sim_features_zones[[3]],
+                                               "sum"))))
   # run tests
   expect_equal(r, r2)
   expect_equal(nrow(na.omit(r)), nrow(r))

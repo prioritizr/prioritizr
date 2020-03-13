@@ -10,7 +10,7 @@ test_that("compile", {
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
        add_shuffle_portfolio(2) %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   cmp <- compile(p)
   # tests
@@ -33,7 +33,7 @@ test_that("solve (RasterLayer, single zone)", {
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -60,7 +60,7 @@ test_that("solve (RasterStack, multiple zones)", {
                             ncol = number_of_zones(sim_features_zones))) %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -86,7 +86,7 @@ test_that("solve (SpatialPolygonsDataFrame, single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -148,7 +148,8 @@ test_that("solve (numeric, single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
-       add_binary_decisions()
+       add_binary_decisions() %>%
+       add_default_solver(verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -187,7 +188,7 @@ test_that("solve (matrix, multiple zones)", {
        add_absolute_targets(targs) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(10, remove_duplicates = FALSE) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -223,7 +224,7 @@ test_that("solve (no duplicates)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
        add_shuffle_portfolio(100, remove_duplicates = TRUE) %>%
-       add_default_solver(gap = 0.001)
+       add_default_solver(gap = 0.001, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -253,7 +254,7 @@ test_that("solve (parallel processing)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
        add_shuffle_portfolio(10, threads = 2, remove_duplicates = FALSE) %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- suppressWarnings(solve(p))
   # output checks

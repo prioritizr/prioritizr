@@ -14,7 +14,7 @@ test_that("x=RasterLayer, y=RasterStack (single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "RasterLayer")
@@ -42,7 +42,7 @@ test_that("x=RasterStack, y=ZonesRaster (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "RasterStack")
@@ -68,7 +68,7 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack (single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "SpatialPolygonsDataFrame")
@@ -96,7 +96,7 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "SpatialPolygonsDataFrame")
@@ -120,7 +120,7 @@ test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "SpatialPolygonsDataFrame")
@@ -147,10 +147,119 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "SpatialPolygonsDataFrame")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("x=sf, y=RasterStack (single zone)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
+           as("SpatialPolygonsDataFrame") %>%
+           sf::st_as_sf()
+  costs$cost <- c(1, 2, NA, 3)
+  spp <- raster::stack(raster::raster(matrix(c(1, 2, 0, 0), byrow = TRUE,
+                                             ncol = 2)),
+                       raster::raster(matrix(c(NA, 0, 1, 1), byrow = TRUE,
+                                             ncol = 2)))
+  # solve problem
+  s <- problem(costs, spp, cost_column = "cost") %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(c(1, 1)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
+       solve()
+  # tests
+  expect_is(s, "sf")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+})
+
+test_that("x=sf, y=ZonesRaster (multiple zones)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+           as("SpatialPolygonsDataFrame") %>%
+           sf::st_as_sf()
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+    spp <- raster::stack(
+      raster::raster(matrix(c(1,  2, 0, 0, 0, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(NA, 0, 1, 1, 0, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(1,  0, 0, 0, 1, 0,  0), ncol = 7)),
+      raster::raster(matrix(c(0,  0, 0, 0, 0, 10, 0), ncol = 7)))
+  # solve problem
+  s <- problem(costs, zones(spp[[1:2]], spp[[3:4]]),
+               cost_column = c("cost_1", "cost_2")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
+       solve()
+  # tests
+  expect_is(s, "sf")
+  expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
+  expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
+})
+
+test_that("x=sf, y=character (single zone)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
+           as("SpatialPolygonsDataFrame") %>%
+           sf::st_as_sf()
+  costs$cost <- c(1, 2, NA, 3)
+  costs$spp1 <- c(1, 2, 0, 0)
+  costs$spp2 <- c(NA, 0, 1, 1)
+  # solve problem
+  s <- problem(costs, c("spp1", "spp2"), cost_column = "cost") %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(c(1, 1)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
+       solve()
+  # tests
+  expect_is(s, "sf")
+  expect_equal(s$solution_1, c(1, 0, NA, 1))
+})
+
+test_that("x=sf, y=ZonesCharacter (multiple zones)", {
+  skip_on_cran()
+  skip_on_travis()
+  skip_on_appveyor()
+  skip_if_not(any_solvers_installed())
+  # make data
+  costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
+           as("SpatialPolygonsDataFrame") %>%
+           sf::st_as_sf()
+  costs$cost_1 <- c(1,  2,  NA, 3, 100, 100, NA)
+  costs$cost_2 <- c(10, 10, 10, 10,  4,   1, NA)
+  costs$spp1_z1 <- c(1,  2, 0, 0, 0, 0,  0)
+  costs$spp2_z1 <- c(NA, 0, 1, 1, 0, 0,  0)
+  costs$spp1_z2 <- c(1,  0, 0, 0, 1, 0,  0)
+  costs$spp2_z2 <- c(0,  0, 0, 0, 0, 10, 0)
+  # solve problem
+  s <- problem(costs, zones(c("spp1_z1", "spp2_z1"), c("spp1_z2", "spp2_z2")),
+               cost_column  = c("cost_1", "cost_2")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
+       add_binary_decisions() %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
+       solve()
+  # tests
+  expect_is(s, "sf")
   expect_equal(s$solution_1_1, c(1, 0, NA, 1, 0, 0, NA))
   expect_equal(s$solution_1_2, c(0, 0, 0,  0, 1, 0, NA))
 })
@@ -170,7 +279,7 @@ test_that("x=data.frame, y=data.frame (single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # run tests
   expect_is(s, "data.frame")
@@ -201,7 +310,7 @@ test_that("x=data.frame, y=data.frame (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "data.frame")
@@ -223,7 +332,7 @@ test_that("x=numeric, y=data.frame (single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(1, 1)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # run tests
   expect_is(s, "numeric")
@@ -252,7 +361,7 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0) %>%
+       add_default_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # tests
   expect_is(s, "matrix")
@@ -286,7 +395,7 @@ test_that("numerical instability (error when force = FALSE)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_default_solver(time_limit = 5)
+    add_default_solver(time_limit = 5, verbose = FALSE)
   expect_warning(expect_error(solve(p)))
 })
 
@@ -302,6 +411,6 @@ test_that("numerical instability (solution when force = TRUE)", {
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
     add_binary_decisions() %>%
-    add_default_solver(time_limit = 5)
+    add_default_solver(time_limit = 5, verbose = FALSE)
   expect_warning(expect_is(solve(p, force = TRUE), "SpatialPolygonsDataFrame"))
 })

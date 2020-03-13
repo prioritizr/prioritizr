@@ -286,7 +286,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_default_solver(time_limit = 60)
 
 # create matrix showing which planning units are adjacent to other units
-a_matrix <- connected_matrix(sim_pu_zones_stack)
+a_matrix <- adjacency_matrix(sim_pu_zones_stack)
 
 # visualize matrix
 \donttest{

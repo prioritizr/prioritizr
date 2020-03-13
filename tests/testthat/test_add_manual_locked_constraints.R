@@ -31,7 +31,8 @@ test_that("data.frame (solve, single zone)", {
        add_relative_targets(0.1) %>%
        add_proportion_decisions() %>%
        add_manual_locked_constraints(data.frame(pu = seq_len(5),
-                                                status = rep(0.3, 10)))
+                                                status = rep(0.3, 10))) %>%
+       add_default_solver(verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that the solution obeys constraints as expected
@@ -89,6 +90,7 @@ test_that("data.frame (solve, multiple zones)", {
                                                 zone = c(rep("zone_1", 5),
                                                              "zone_2"),
                                                 status = 0.3)) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1[seq_len(5)] == 0.3))

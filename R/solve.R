@@ -90,8 +90,8 @@ NULL
 #' set.seed(500)
 #'
 #' # load data
-#' data(sim_pu_raster, sim_pu_polygons, sim_features, sim_pu_zones_stack,
-#'      sim_pu_zones_polygons, sim_features_zones)
+#' data(sim_pu_raster, sim_pu_polygons, sim_pu_sf, sim_features,
+#'      sim_pu_zones_stack, sim_pu_zones_sf, sim_features_zones)
 #'
 #' # build minimal conservation problem with raster data
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
@@ -117,7 +117,7 @@ NULL
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' # build minimal conservation problem with spatial polygon data
+#' # build minimal conservation problem with polygon (Spatial) data
 #' p2 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
@@ -136,29 +136,29 @@ NULL
 #' # plot solution
 #' spplot(s2, zcol = "solution_1", main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' # build multi-zone conservation problem with raster data
-#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'
+#' # build minimal conservation problem with polygon (sf) data
+#' p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
-#'                                   ncol = 3)) %>%
+#'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions()
 #' \donttest{
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
-#' # print solution
-#' print(s3)
+#' # print first six rows of the attribute table
+#' print(head(s3))
 #'
 #' # calculate feature representation in the solution
-#' r3 <- feature_representation(p3, s3)
+#' r3 <- feature_representation(p3, s3[, "solution_1"])
 #' print(r3)
 #'
 #' # plot solution
-#' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
+#' plot(s3[, "solution_1"])
 #' }
-#' # build multi-zone conservation problem with spatial polygon data
-#' p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
-#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
+#'
+#' # build multi-zone conservation problem with raster data
+#' p4 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
@@ -167,24 +167,45 @@ NULL
 #' # solve the problem
 #' s4 <- solve(p4)
 #'
-#' # print first six rows of the attribute table
-#' print(head(s4))
+#' # print solution
+#' print(s4)
 #'
 #' # calculate feature representation in the solution
-#' r4 <- feature_representation(p4, s4[, c("solution_1_zone_1",
+#' r4 <- feature_representation(p4, s4)
+#' print(r4)
+#'
+#' # plot solution
+#' plot(category_layer(s4), main = "solution", axes = FALSE, box = FALSE)
+#' }
+#' # build multi-zone conservation problem with polygon (sf) data
+#' p5 <- problem(sim_pu_zones_sf, sim_features_zones,
+#'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
+#'                                   ncol = 3)) %>%
+#'       add_binary_decisions()
+#' \donttest{
+#' # solve the problem
+#' s5 <- solve(p5)
+#'
+#' # print first six rows of the attribute table
+#' print(head(s5))
+#'
+#' # calculate feature representation in the solution
+#' r5 <- feature_representation(p5, s5[, c("solution_1_zone_1",
 #'                                         "solution_1_zone_2",
 #'                                         "solution_1_zone_3")])
-#' print(r4)
+#' print(r5)
 #'
 #' # create new column representing the zone id that each planning unit
 #' # was allocated to in the solution
-#' s4$solution <- category_vector(s4@data[, c("solution_1_zone_1",
-#'                                            "solution_1_zone_2",
-#'                                            "solution_1_zone_3")])
-#' s4$solution <- factor(s4$solution)
+#' s5$solution <- category_vector(s5[, c("solution_1_zone_1",
+#'                                       "solution_1_zone_2",
+#'                                       "solution_1_zone_3")])
+#' s5$solution <- factor(s5$solution)
 #'
 #' # plot solution
-#' spplot(s4, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
+#' plot(s5[, "solution"])
 #' }
 #' @name solve
 #'
@@ -273,7 +294,7 @@ methods::setMethod(
         return(ret)
       })
       names(ret) <- paste0("solution_", seq_along(sol))
-    } else if (inherits(pu, c("data.frame", "Spatial"))) {
+    } else if (inherits(pu, c("data.frame", "Spatial", "sf"))) {
       # Spatial* or data.frame planning units
       sol_status <- do.call(cbind, sol_status)
       if (a$number_of_zones() == 1) {
@@ -301,6 +322,8 @@ methods::setMethod(
       if (inherits(pu, "Spatial")) {
         ret <- pu
         ret@data <- cbind(ret@data, as.data.frame(sol_status2))
+      } else if (inherits(pu, "sf")) {
+        ret <- tibble::add_column(pu, as.data.frame(sol_status2))
       } else {
         ret <- cbind(pu, as.data.frame(sol_status2))
       }

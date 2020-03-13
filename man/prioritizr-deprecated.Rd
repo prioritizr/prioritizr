@@ -4,11 +4,25 @@
 \alias{prioritizr-deprecated}
 \alias{add_connected_constraints}
 \alias{add_corridor_constraints}
+\alias{set_number_of_threads}
+\alias{get_number_of_threads}
+\alias{is.parallel}
+\alias{connected_matrix}
 \title{Deprecated functions in the \pkg{prioritizr} package}
 \usage{
 add_connected_constraints(...)
 
 add_corridor_constraints(...)
+
+set_number_of_threads(...)
+
+get_number_of_threads(...)
+
+is.parallel(...)
+
+is.parallel(...)
+
+connected_matrix(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -27,6 +41,31 @@ functionality are also listed below.
  this function has been
   reimagined as the \code{\link{add_feature_contiguity_constraints}}
   function.
+}
+
+\section{\code{set_number_of_threads}}{
+ this function is no longer needed now that superior data extraction methods are implemented.
+  function.
+}
+
+\section{\code{get_number_of_threads}}{
+ this function is no longer needed now that superior data extraction methods are implemented.
+  function.
+}
+
+\section{\code{is.parallel}}{
+ this function is no longer needed now that superior data extraction methods are implemented.
+  function.
+}
+
+\section{\code{add_pool_portfolio}}{
+ this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
+  function.
+}
+
+\section{\code{connected_matrix}}{
+ this function has been renamed as
+the \code{\link{adjacency_matrix}} function.
 }
 
 \keyword{internal}

@@ -47,7 +47,7 @@ test_that("solve (compressed formulation, single zone)", {
        add_max_utility_objective(budget = budget) %>%
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -119,7 +119,7 @@ test_that("solve (expanded formulation, single zone)", {
        add_max_utility_objective(budget = budget) %>%
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -221,7 +221,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
        add_manual_locked_constraints(data.frame(pu = c(1, 2),
                                                 zone = c("2", "2"),
                                                 status = c(0, 1))) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -319,7 +319,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
        add_manual_locked_constraints(data.frame(pu = c(1, 2),
                                                 zone = c("2", "2"),
                                                 status = c(0, 1))) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -399,7 +399,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
        add_manual_locked_constraints(data.frame(pu = c(1, 2),
                                                 zone = c("2", "2"),
                                                 status = c(0, 1))) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -501,7 +501,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
        add_manual_locked_constraints(data.frame(pu = c(1, 2),
                                                 zone = c("2", "2"),
                                                 status = c(0, 1))) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct

@@ -6,6 +6,11 @@
 \alias{intersecting_units,Raster,Spatial-method}
 \alias{intersecting_units,Spatial,Raster-method}
 \alias{intersecting_units,Spatial,Spatial-method}
+\alias{intersecting_units,sf,Spatial-method}
+\alias{intersecting_units,Spatial,sf-method}
+\alias{intersecting_units,sf,sf-method}
+\alias{intersecting_units,Raster,sf-method}
+\alias{intersecting_units,sf,Raster-method}
 \alias{intersecting_units,data.frame,ANY-method}
 \title{Find intersecting units}
 \usage{
@@ -13,9 +18,19 @@
 
 \S4method{intersecting_units}{Spatial,Spatial}(x, y)
 
-\S4method{intersecting_units}{Raster,Spatial}(x, y)
+\S4method{intersecting_units}{sf,Spatial}(x, y)
 
 \S4method{intersecting_units}{Spatial,Raster}(x, y)
+
+\S4method{intersecting_units}{Spatial,sf}(x, y)
+
+\S4method{intersecting_units}{Raster,Spatial}(x, y)
+
+\S4method{intersecting_units}{sf,sf}(x, y)
+
+\S4method{intersecting_units}{Raster,sf}(x, y)
+
+\S4method{intersecting_units}{sf,Raster}(x, y)
 
 \S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
@@ -32,17 +47,13 @@
 Find which of the units in a spatial data object intersect
 with the units in another spatial data object.
 }
-\details{
-The \code{\link{set_number_of_threads}} can be used to distribute
-  computations among multiple threads and potentially reduce run time.
-}
 \examples{
 # create data
 r <- raster(matrix(1:9, byrow = TRUE, ncol=3))
 r_with_holes <- r
 r_with_holes[c(1, 5, 9)] <- NA
 ply <- rasterToPolygons(r)
-ply_with_holes <- rasterToPolygons(r_with_holes)
+ply_with_holes <- st_as_sf(rasterToPolygons(r_with_holes))
 
 # intersect raster with raster
 \donttest{
@@ -52,32 +63,31 @@ plot(r_with_holes, main = "y=Raster")
 }
 print(intersecting_units(r, r_with_holes))
 
-# intersect raster with polygons
+# intersect raster with polygons (sf)
 \donttest{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
-plot(ply_with_holes, main = "y=Spatial")
+plot(ply_with_holes, main = "y=sf")
 }
 print(intersecting_units(r, ply_with_holes))
 
-# intersect polygons with raster
+# intersect polygons (Spatial) with raster
 \donttest{
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
+plot(ply, main = "x=sf")
 plot(r_with_holes, main = "y=Raster")
 }
 print(intersecting_units(ply, r_with_holes))
 
-# intersect polygons with polygons
+# intersect polygons (Spatial) with polygons (sf)
 \donttest{
 par(mfrow = c(1, 2))
-plot(ply, main = "x=Spatial")
-plot(ply_with_holes, main = "y=Spatial")
+plot(ply, main = "x=sf")
+plot(ply_with_holes, main = "y=sf")
 }
 print(intersecting_units(ply, ply_with_holes))
 
 }
 \seealso{
-\code{\link{fast_extract}}, \code{\link{set_number_of_threads}},
-  \code{\link{get_number_of_threads}}.
+\code{\link{fast_extract}}.
 }

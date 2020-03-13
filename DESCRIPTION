@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 4.1.5.2
+Version: 5.0.0.0
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -36,6 +36,8 @@ Imports:
     parallel,
     doParallel,
     magrittr,
+    exactextractr,
+    fasterize,
     tibble(>= 2.0.0)
 Suggests:
     testthat,
@@ -45,7 +47,6 @@ Suggests:
     xtable,
     rhandsontable,
     RandomFields,
-    velox,
     maptools,
     PBSmapping,
     spdep,
@@ -55,9 +56,10 @@ Suggests:
     rmarkdown,
     prioritizrdata
 Depends:
-    R(>= 3.4.0),
+    R(>= 3.5.0),
     raster,
     sp,
+    sf,
     proto
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
@@ -109,8 +111,10 @@ Collate:
     'add_default_portfolio.R'
     'add_default_solver.R'
     'add_default_targets.R'
+    'add_extra_portfolio.R'
     'add_feature_contiguity_constraints.R'
     'add_feature_weights.R'
+    'add_gap_portfolio.R'
     'add_gurobi_solver.R'
     'intersecting_units.R'
     'add_locked_in_constraints.R'
@@ -131,22 +135,22 @@ Collate:
     'add_min_set_objective.R'
     'add_min_shortfall_objective.R'
     'add_neighbor_contraints.R'
-    'add_pool_portfolio.R'
     'add_proportion_decisions.R'
     'add_relative_targets.R'
     'add_rsymphony_solver.R'
     'add_semicontinuous_decisions.R'
     'add_shuffle_portfolio.R'
+    'add_top_portfolio.R'
+    'adjacency_matrix.R'
     'boundary_matrix.R'
     'branch_matrix.R'
     'compile.R'
-    'connected_matrix.R'
     'connectivity_matrix.R'
     'constraints.R'
     'data.R'
     'decisions.R'
     'deprecated.R'
-    'parallel.R'
+    'distribute_load.R'
     'fast_extract.R'
     'feature_abundances.R'
     'feature_names.R'
@@ -168,11 +172,13 @@ Collate:
     'presolve_check.R'
     'print.R'
     'problem.R'
+    'proximity_matrix.R'
     'rarity_weighted_richness.R'
     'solve.R'
     'replacement_cost.R'
     'rij_matrix.R'
     'run_calculations.R'
+    'sf.R'
     'show.R'
     'simulate.R'
     'solvers.R'

@@ -140,11 +140,12 @@ test_that("x=SpatialPolygonsDataFrame, features=RasterStack", {
   expect_equal(rownames(x$feature_abundances_in_planning_units()),
                names(sim_features))
   # tests for feature_abundances_in_total_units field
-  expect_equivalent(x$feature_abundances_in_total_units(),
-                    matrix(colSums(raster::extract(sim_features,
-                                                   sim_pu_polygons,
-                                                   "sum", na.rm = TRUE)),
-                           ncol = 1))
+  expect_lte(
+    max(abs(x$feature_abundances_in_total_units() -
+       colSums(exactextractr::exact_extract(
+         sim_features, sf::st_as_sf(sim_pu_polygons), "sum",
+         progress = FALSE)))),
+    1e-6)
   expect_equal(colnames(x$feature_abundances_in_total_units()),
                "cost")
   expect_equal(rownames(x$feature_abundances_in_total_units()),

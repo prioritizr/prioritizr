@@ -100,7 +100,7 @@ test_that("instability due to range in branch lengths", {
 
 test_that("all negative planning unit costs", {
   data(sim_pu_raster, sim_features)
-  cm <- connected_matrix(sim_pu_raster)
+  cm <- adjacency_matrix(sim_pu_raster)
   diag(cm) <- 1
   p <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%

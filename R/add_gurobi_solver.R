@@ -150,8 +150,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
         p$SolutionLimit <- NULL
       # add extra parameters from portfolio if needed
       p2 <- list(...)
-      if (length(p2) > 0)
-        p <- append(p, p2)
+      for (i in seq_along(p2))
+        p[[names(p2)[i]]] <- p2[[i]]
       # store input data and parameters
       self$set_data("model", model)
       self$set_data("parameters", p)

@@ -33,7 +33,8 @@ test_that("data.frame (solve, single zone)", {
        add_proportion_decisions() %>%
        add_manual_bounded_constraints(data.frame(pu = seq_len(5),
                                                  lower = rep(0.3, 10),
-                                                 upper = rep(0.35, 10)))
+                                                 upper = rep(0.35, 10))) %>%
+       add_default_solver(verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that the solution obeys constraints as expected
@@ -94,6 +95,7 @@ test_that("data.frame (solve, multiple zones)", {
                                                              "zone_2"),
                                                 lower = 0.3,
                                                 upper = 0.35)) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1[seq_len(5)] >= 0.3))

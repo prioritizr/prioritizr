@@ -88,7 +88,7 @@ test_that("solution (compressed formulation, single zone)", {
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_absolute_targets(c(2, 12, 2)) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -199,7 +199,7 @@ test_that("solution (expanded formulation, single zone)", {
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_absolute_targets(c(2, 12, 2)) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
@@ -350,7 +350,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
                            feature_names = targs$feature)) %>%
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test for correct solution
@@ -479,7 +479,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
                            feature_names = targs$feature)) %>%
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test for correct solution
@@ -629,7 +629,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
                            feature_names = targs$feature)) %>%
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
@@ -784,7 +784,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
                            feature_names = targs$feature)) %>%
        add_max_phylo_end_objective(budget = budget, tree = tr) %>%
        add_manual_targets(targs) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution

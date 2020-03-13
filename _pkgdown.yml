@@ -102,15 +102,7 @@ reference:
   - title: Geoprocessing
     desc: Functions for manipulating spatial data sets
     contents:
-      - fast_extract
       - intersecting_units
-
-  - title: Parallel processing
-    desc: Functions for controlling multi-threaded processing
-    contents:
-      - distribute_load
-      - is.parallel
-      - parallel
 
   - title: Processing multi-zone data
     desc: Functions for manipulating data that pertain to multiple zones
@@ -151,6 +143,7 @@ reference:
       - run_calculations
       - feature_representation
       - feature_abundances
+      - distribute_load
 
   - title: Class definitions and methods
     desc: >

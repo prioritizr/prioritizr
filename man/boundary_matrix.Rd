@@ -6,6 +6,7 @@
 \alias{boundary_matrix.SpatialPolygons}
 \alias{boundary_matrix.SpatialLines}
 \alias{boundary_matrix.SpatialPoints}
+\alias{boundary_matrix.sf}
 \alias{boundary_matrix.default}
 \title{Boundary matrix}
 \usage{
@@ -19,12 +20,15 @@ boundary_matrix(x, str_tree)
 
 \method{boundary_matrix}{SpatialPoints}(x, str_tree = FALSE)
 
+\method{boundary_matrix}{sf}(x, str_tree = FALSE)
+
 \method{boundary_matrix}{default}(x, str_tree = FALSE)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{SpatialLines-class}}, or
-\code{\link[sp]{SpatialPolygons-class}} object. If \code{x} is a
+\code{\link[sp]{SpatialLines-class}},
+\code{\link[sp]{SpatialPolygons-class}},
+\code{\link[sf]{sf}} object representing planning units. If \code{x} is a
 \code{\link[raster]{Raster-class}} object then it must have only one
 layer.}
 
@@ -51,7 +55,7 @@ planning unit exhibits.
 This function returns a \code{\link[Matrix]{dsCMatrix-class}}
   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
   the shared boundary between two different planning units. Cells on the
-  diagonal indicate length of a given planning unit"s edges that have no
+  diagonal indicate length of a given planning unit's edges that have no
   neighbors (e.g. for edges of planning units found along the
   coastline). \strong{This function assumes the data are in a coordinate
   system where Euclidean distances accurately describe the proximity
@@ -69,16 +73,20 @@ data(sim_pu_raster, sim_pu_polygons)
 # subset data to reduce processing time
 r <- crop(sim_pu_raster, c(0, 0.3, 0, 0.3))
 ply <- sim_pu_polygons[c(1:2, 10:12, 20:22), ]
+ply2 <- st_as_sf(ply)
 
 # create boundary matrix using raster data
 bm_raster <- boundary_matrix(r)
 
-# create boundary matrix using polygon data
+# create boundary matrix using polygon (Spatial) data
 bm_ply1 <- boundary_matrix(ply)
 
-# create boundary matrix using polygon data and GEOS STR query trees
+# create boundary matrix using polygon (sf) data
+bm_ply2 <- boundary_matrix(ply2)
+
+# create boundary matrix with polygon (Spatial) data and GEOS STR query trees
 # to speed up processing
-bm_ply2 <- boundary_matrix(ply, TRUE)
+bm_ply3 <- boundary_matrix(ply, TRUE)
 
 # plot raster and boundary matrix
 \donttest{
@@ -90,10 +98,13 @@ plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
 # plot polygons and boundary matrices
 \donttest{
 par(mfrow = c(1, 3))
-plot(r, main = "polygons", axes = FALSE, box = FALSE)
+plot(r, main = "polygons (Spatial)", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,
      box = FALSE)
-plot(raster(as.matrix(bm_ply2)), main = "boundary matrix (STR)",
+plot(r, main = "polygons (sf)", axes = FALSE, box = FALSE)
+plot(raster(as.matrix(bm_ply2)), main = "boundary matrix", axes = FALSE,
+     box = FALSE)
+plot(raster(as.matrix(bm_ply3)), main = "boundary matrix (Spatial, STR)",
             axes = FALSE, box = FALSE)
 }
 }

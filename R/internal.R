@@ -64,83 +64,6 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
   }
 }
 
-#' Parallel extract
-#'
-#' Extract data from a \code{\link[raster]{Raster-class}} object using
-#' a \code{\link[sp]{Spatial-class}} object using parallel processing.
-#'
-#' @param x \code{\link[raster]{Raster-class}} object.
-#'
-#' @param y \code{\link[sp]{Spatial-class}} object.
-#'
-#' @param fun \code{function} to compute values.
-#'
-#' @param ... additional arguments passed to \code{\link[raster]{extract}}.
-#'
-#' @details This function is essentially a wrapper for
-#'   \code{\link[raster]{extract}}. To enable parallel processing,
-#'   use the \code{\link{set_number_of_threads}} function.
-#'
-#' @return \code{data.frame}, \code{matrix}, or \code{list} object
-#'   depending on the arguments.
-#'
-#' @noRd
-parallelized_extract <- function(x, y, fun=mean, ...) {
-  # assert that arguments are valid
-  assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Spatial"),
-      inherits(fun, "function"), raster::compareCRS(x@crs, y@proj4string),
-      rgeos::gIntersects(methods::as(raster::extent(x[[1]]), "SpatialPolygons"),
-        methods::as(raster::extent(y), "SpatialPolygons")), is.parallel())
-  # data processing
-  args <- list(...)
-  parallel::clusterExport(.pkgenv$cluster, c("x", "y", "fun", "args"),
-                          envir = environment())
-  m <- plyr::llply(distribute_load(length(y)), .parallel = TRUE,
-    function(i) {
-      return(do.call(raster::extract,
-        append(list(x = x, y = y[i, ], fun = fun), args)))
-    })
-  parallel::clusterEvalQ(.pkgenv$cluster, {
-      rm("x", "y", "fun", "args")
-  })
-  # combine parallel runs
-  if (inherits(m[[1]], c("matrix", "data.frame"))) {
-    m <- do.call(rbind, m)
-  } else {
-    m <- do.call(append, m)
-  }
-  # return result
-  return(m)
-}
-
-#' Velox extract
-#'
-#' This function is a wrapper for \code{\link{velox}{VeloxRaster-extract}}.
-#'
-#' @param x \code{\link[raster]{Raster-class}} object.
-#'
-#' @param y \code{\link[sp]{Spatial-class}} object.
-#'
-#' @param fun \code{function} to compute values.
-#'
-#' @param df \code{logical} should results be returned as a \code{data.frame}?
-#'
-#' @param ... not used.
-#'
-#' @return \code{matrix} or \code{data.frame} depending on arguments.
-#'
-#' @noRd
-velox_extract <- function(x, y, fun, df = FALSE, ...) {
-  assertthat::assert_that(inherits(x, "Raster"), inherits(y, "SpatialPolygons"),
-    inherits(fun, "function"), assertthat::is.flag(df))
-  m <- velox::velox(x)$extract(y, fun)
-  if (df) {
-    m <- cbind(data.frame(ID = seq_len(length(y))), as.data.frame(m))
-    names(m) <- c("ID", names(x))
-  }
-  return(m)
-}
-
 #' Align text
 #'
 #' Format text by adding a certain number of spaces after new line characters.
@@ -320,4 +243,55 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
   if ((abs(diff(from)) < 1e-10) || abs(diff(to)) < 1e-10)
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
+}
+
+#' Convert a crs object to a CRS object
+#'
+#' Convert a \code{\link[sf]{st_crs}} object to a \code{\link[sp]{CRS}}
+#' object
+#'
+#' @param \code{\link[sf]{st_crs}} object.
+#'
+#' @return \code{\link[sp]{CRS}} object.
+#'
+#' @noRd
+as_CRS <- function(x) {
+  assertthat::assert_that(inherits(x, "crs"))
+  sp::CRS(x$proj4string)
+}
+
+#' Do extents intersect?
+#'
+#' Verify if the extents of two spatial objects intersect or not.
+#'
+#' @param x \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object.
+#'
+#' @param y \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object.
+#'
+#' @return \code{logical}.
+#'
+#' @noRd
+intersecting_extents <- function(x, y) {
+  assertthat::assert_that(
+    inherits(x, c("Raster", "Spatial", "sf")),
+    inherits(y, c("Raster", "Spatial", "sf")))
+  isTRUE(rgeos::gIntersects(
+    methods::as(raster::extent(x), "SpatialPolygons"),
+    methods::as(raster::extent(y), "SpatialPolygons")))
+}
+
+#' Geometry classes
+#'
+#' Extract geometry class names from a \code{\link[sf]{sf}} object.
+#'
+#' @param x  \code{\link[sf]{sf}} object.
+#'
+#' @return \code{character} object.
+#'
+#' @noRd
+geometry_classes <- function(x) {
+  assertthat::assert_that(inherits(x, "sf"))
+  vapply(sf::st_geometry(x), class, character(3))[2, ]
 }

@@ -1,3 +1,29 @@
+# prioritizr 5.0.0.0
+
+- Add full support for _sf_ R package (#6).
+- Add Flower _et al._ (2020) to publication record (#131).
+- New `proximity_matrix` function to generate matrices indicating which
+  planning units are within a certain distance of each other (#6).
+- Rename `connected_matrix` function to `adjacency_matrix` function to follow
+  the naming conventions of other spatial association functions (#6).
+- New `add_extra_portfolio`, `add_top_portfolio`, `add_gap_portfolio` functions
+  to provide specific options for generating portfolios (#134).
+- Enhance `intersecting_units` and `fast_extract` functions to use the
+  _exactextractr_ and _fasterize_ R packages to speed up raster data extraction
+  (#130).
+- Fix compatibility issues with upcoming version of tibble (3.0.0).
+- Fix bug in `boundary_matrix` function when handling `SpatialPolygon` planning
+  unit data that contain multiple polygons (e.g. a single planning unit
+  contains to two separate islands) (#132).
+- Remove _velox_ dependency since it may be archived on CRAN (#130).
+- Deprecate `set_number_of_threads`, `get_number_of_threads`, and `is.parallel`
+  functions since they are no longer used with new data extraction methods.
+- Deprecate `add_pool_portfolio` function because the new
+  `add_extra_portfolio` and `add_top_portfolio` functions provide this
+  functionality (#134).
+- Built-in datasets are now saved with latest workspace version
+  (i.e. version 3).
+
 # prioritizr 4.1.5.2
 
 - Fix bug in `add_rsymphony_solver` and `add_lpsymphony_solver` throwing an

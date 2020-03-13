@@ -1,10 +1,6 @@
 context("rarity_weighted_richness")
 
 test_that("numeric", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -16,8 +12,7 @@ test_that("numeric", {
             as.matrix(t(pu[, 3:4]))) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
@@ -29,10 +24,6 @@ test_that("numeric", {
 })
 
 test_that("numeric (feature with zero abundance in all planning units)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -46,8 +37,7 @@ test_that("numeric (feature with zero abundance in all planning units)", {
             as.matrix(t(pu[, 3:5]))) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10, 0)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
@@ -59,10 +49,6 @@ test_that("numeric (feature with zero abundance in all planning units)", {
 })
 
 test_that("matrix (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -75,8 +61,7 @@ test_that("matrix (single zone)", {
             as.matrix(t(pu[, 3:4]))) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- matrix(c(0, 1, NA, 1), ncol = 1)
   # calculate replacement costs
@@ -89,10 +74,6 @@ test_that("matrix (single zone)", {
 })
 
 test_that("matrix (single zone, rescale = TRUE)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -105,8 +86,7 @@ test_that("matrix (single zone, rescale = TRUE)", {
             as.matrix(t(pu[, 3:4]))) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- matrix(c(0, 1, NA, 1), ncol = 1)
   # calculate replacement costs
@@ -119,10 +99,6 @@ test_that("matrix (single zone, rescale = TRUE)", {
 })
 
 test_that("data.frame (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- data.frame(id = seq_len(4),
                    cost = c(10, 2, NA, 3),
@@ -133,8 +109,7 @@ test_that("data.frame (single zone)", {
     problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- tibble::tibble(solution = c(0, 1, NA, 1))
   # calculate replacement costs
@@ -147,10 +122,6 @@ test_that("data.frame (single zone)", {
 })
 
 test_that("Spatial (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   data(sim_pu_polygons)
   pu <- sim_pu_polygons[1:4, ]
@@ -163,8 +134,32 @@ test_that("Spatial (single zone)", {
     problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
+  # create a solution
+  pu$solution <- c(0, 1, NA, 1)
+  # calculate replacement costs
+  r <- rarity_weighted_richness(p, pu[, "solution"], rescale = FALSE)
+  # create correct result
+  pu$rwr <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
+  # run tests
+  expect_equivalent(r, pu[, "rwr"])
+})
+
+test_that("sf (single zone)", {
+  # create data
+  data(sim_pu_polygons)
+  pu <- sim_pu_polygons[1:4, ]
+  pu@data <- data.frame(id = seq_len(4),
+                        cost = c(10, 2, NA, 3),
+                        spp1 = c(0, 0, 0, 1),
+                        spp2 = c(10, 5, 10, 6))
+  pu <- sf::st_as_sf(pu)
+  # create problem
+  p <-
+    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions()
   # create a solution
   pu$solution <- c(0, 1, NA, 1)
   # calculate replacement costs
@@ -176,10 +171,6 @@ test_that("Spatial (single zone)", {
 })
 
 test_that("Raster (single zone)", {
-  skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
-  skip_if_not(any_solvers_installed())
   # create data
   pu <- raster::raster(matrix(c(10, 2, NA, 3), nrow = 1))
   features <- raster::stack(raster::raster(matrix(c(0, 0, 0, 1), nrow = 1)),
@@ -189,8 +180,7 @@ test_that("Raster (single zone)", {
     problem(pu, features) %>%
     add_min_set_objective() %>%
     add_absolute_targets(c(1, 10)) %>%
-    add_binary_decisions() %>%
-    add_default_solver(gap = 0, verbose = FALSE)
+    add_binary_decisions()
   # create a solution
   s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate replacement costs
@@ -282,8 +272,7 @@ test_that("invalid inputs", {
               list(as.matrix(t(pu[, 4:5])), as.matrix(t(pu[, 6:7])))) %>%
       add_min_set_objective() %>%
       add_absolute_targets(targets) %>%
-      add_binary_decisions() %>%
-      add_default_solver(gap = 0, verbose = FALSE)
+      add_binary_decisions()
     # create a solution
     s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
     # calculate replacement costs

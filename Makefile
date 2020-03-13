@@ -23,6 +23,13 @@ contrib:
 	R --slave -e "rmarkdown::render('CONTRIBUTING.Rmd')"
 
 vigns:
+	rm -f vignettes/*.html
+	rm -f .build.timestamp
+	rm -f vignettes/*.R
+	rm -f doc/*.html
+	rm -f doc/*.Rmd
+	rm -f inst/doc/*.html
+	rm -f inst/doc/*.Rmd
 	R --slave -e "devtools::build_vignettes()"
 	cp -R doc inst/
 	touch inst/doc/.gitkeep

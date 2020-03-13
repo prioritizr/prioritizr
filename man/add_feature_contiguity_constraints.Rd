@@ -49,7 +49,7 @@ different dispersal capabilities, then it may be desirable to specify
 which sets of planning units should be treated as being connected
 for which features using a \code{list} of objects. The default argument
 is \code{NULL} which means that the connection data is calculated
-automatically using the \code{\link{connected_matrix}} function and so
+automatically using the \code{\link{adjacency_matrix}} function and so
 all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
@@ -87,7 +87,7 @@ This function uses connection data to identify solutions that
   \describe{
 
   \item{\code{NULL}}{connection data should be calculated automatically
-    using the \code{\link{connected_matrix}} function. This is the default
+    using the \code{\link{adjacency_matrix}} function. This is the default
     argument and means that all adjacent planning units are treated
     as potentially dispersible for all features.
     Note that the connection data must be manually defined
