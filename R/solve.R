@@ -319,13 +319,14 @@ methods::setMethod(
         sol_status2 <- sol_status
       }
       # cbind solutions to planning unit data
+      sol_status2 <- as.data.frame(sol_status2)
       if (inherits(pu, "Spatial")) {
         ret <- pu
-        ret@data <- cbind(ret@data, as.data.frame(sol_status2))
+        ret@data <- cbind(ret@data, sol_status2)
       } else if (inherits(pu, "sf")) {
-        ret <- tibble::add_column(pu, as.data.frame(sol_status2))
+        ret <- sf::st_sf(data.frame(pu, sol_status2))
       } else {
-        ret <- cbind(pu, as.data.frame(sol_status2))
+        ret <- cbind(pu, sol_status2)
       }
     } else if (is.matrix(pu)) {
       # matrix planning units
