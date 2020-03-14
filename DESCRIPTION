@@ -59,7 +59,7 @@ Depends:
     R(>= 3.5.0),
     raster,
     sp,
-    sf,
+    sf (>= 0.8-0),
     proto
 LinkingTo: Rcpp, RcppArmadillo, BH
 License: GPL-3
