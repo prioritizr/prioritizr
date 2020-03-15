@@ -6,6 +6,7 @@
 \alias{fast_extract,Raster,SpatialPoints-method}
 \alias{fast_extract,Raster,SpatialPolygons-method}
 \alias{fast_extract,Raster,sf-method}
+\alias{fast_extract,Raster,sfc-method}
 \title{Fast extract}
 \usage{
 \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
@@ -13,6 +14,8 @@
 \S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
 
 \S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = "mean", ...)
+
+\S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
 
 \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
 }
@@ -39,7 +42,7 @@ Extract data from a \code{\link[raster]{Raster-class}} object.
 }
 \details{
 This function is simply a wrapper that uses
-  \code{link[raster]{extract}} to extract data for
+  \code{\link[raster]{extract}} to extract data for
   \code{\link[sp]{SpatialPoints-class}} and
   \code{\link[sp]{SpatialLines-class}} and
   non-polygonal \code{\link[sf]{sf}} data, and
