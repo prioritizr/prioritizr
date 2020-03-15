@@ -35,8 +35,7 @@ before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
   - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then mkdir -p ~/.R; fi;
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX14FLAGS=-O3 -mtune=native -march=native -Wno-unused-variable -Wno-unused-function  -Wno-macro-redefined" >> ~/.R/Makevars; fi;
-  -  if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX14=g++ -std=c++1y -fPIC" >> ~/.R/Makevars; fi;
+  -  if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX14=g++ -std=c++1y" >> ~/.R/Makevars; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get --yes --force-yes update -qq; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable; fi;
