@@ -25,7 +25,7 @@ NULL
 #'   \code{\link[exactextractr]{exact_extract}}.
 #'
 #' @details This function is simply a wrapper that uses
-#'   \code{link[raster]{extract}} to extract data for
+#'   \code{\link[raster]{extract}} to extract data for
 #'   \code{\link[sp]{SpatialPoints-class}} and
 #'   \code{\link[sp]{SpatialLines-class}} and
 #'   non-polygonal \code{\link[sf]{sf}} data, and
@@ -61,7 +61,7 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "SpatialPolygons"),
   function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_as_sf(y), y, fun, ...)
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
 })
 
 #' @name fast_extract
@@ -71,7 +71,7 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "SpatialPoints"),
   function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_as_sf(y), y, fun, ...)
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
 })
 
 #' @name fast_extract
@@ -81,7 +81,17 @@ methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "SpatialLines"),
   function(x, y, fun = "mean", ...) {
-    fast_extract(x, sf::st_as_sf(y), y, fun, ...)
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "Raster", y = "sfc"),
+  function(x, y, fun = "mean", ...) {
+    fast_extract(x, sf::st_sf(y), fun, ...)
 })
 
 #' @name fast_extract
