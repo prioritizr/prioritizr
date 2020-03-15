@@ -47,7 +47,7 @@ NULL
 #' # show result
 #' print(head(result))
 #'
-#' @aliases fast_extract,Raster,SpatialLines-method fast_extract,Raster,SpatialPoints-method fast_extract,Raster,SpatialPolygons-method fast_extract,Raster,sf-method
+#' @aliases fast_extract,Raster,SpatialLines-method fast_extract,Raster,SpatialPoints-method fast_extract,Raster,SpatialPolygons-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method
 #'
 #' @export
 methods::setGeneric("fast_extract",
