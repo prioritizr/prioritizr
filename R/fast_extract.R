@@ -122,14 +122,14 @@ methods::setMethod(
     point_idx <- grepl("POINT", geomc, fixed = TRUE)
     if (any(point_idx)) {
         out[point_idx, ] <- as.matrix(raster::extract(
-          x = x, y = sf::as_Spatial(y[point_idx, ]), fun = fun2, df = TRUE,
+          x = x, y = y[point_idx, ], fun = fun2, df = TRUE,
           na.rm = FALSE)[, -1, drop = FALSE])
     }
     # process line geometries
     line_idx <- grepl("LINE", geomc, fixed = TRUE)
     if (any(line_idx)) {
         out[line_idx, ] <- as.matrix(raster::extract(
-          x = x, y = sf::as_Spatial(y[line_idx, ]), fun = fun2, df = TRUE,
+          x = x, y = y[line_idx, ], fun = fun2, df = TRUE,
           na.rm = FALSE)[, -1, drop = FALSE])
     }
     # process polygon geometries
