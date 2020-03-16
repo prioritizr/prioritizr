@@ -35,8 +35,9 @@ before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
   - echo "options(repos = c(CRAN='http://cran.rstudio.com'))" > ~/.Rprofile
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then mkdir -p ~/.R; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX14=g++-8" >> ~/.R/Makevars; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX=g++-8" >> ~/.R/Makevars; fi;
-  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CXX=gcc-8" >> ~/.R/Makevars; fi;
+  - if [ "$TRAVIS_OS_NAME" == "linux" ]; then echo "CC=gcc-8" >> ~/.R/Makevars; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get --yes --force-yes update -qq; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install -y; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install build-essential software-properties-common; fi;
