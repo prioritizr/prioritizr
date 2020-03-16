@@ -197,7 +197,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
     f <- match(targs$feature[i], feature_names(sim_features_zones))
     counter <- counter + 1
     for (z in zs)
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
     m[counter, (n_z * n_pu) + i] <- -1 * targs$target[i]
   }
   counter <- counter + 1
@@ -309,7 +309,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
       for (pu in seq_len(n_pu)) {
         col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
                ((f - 1) * n_pu) + pu
-        m[counter, col] <- p$data$rij[[z]][f, pu]
+        m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
       m[counter, col] <- -1 * targs$target[i]
@@ -405,7 +405,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
     f <- match(targs$feature[i], feature_names(sim_features_zones))
     counter <- counter + 1
     for (z in zs)
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
     m[counter, (n_z * n_pu) + i] <- -1 * targs$target[i]
   }
   counter <- counter + 1
@@ -521,7 +521,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
       for (pu in seq_len(n_pu)) {
         col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
                ((f - 1) * n_pu) + pu
-        m[counter, col] <- p$data$rij[[z]][f, pu]
+        m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + i
       m[counter, col] <- -1 * targs$target[i]

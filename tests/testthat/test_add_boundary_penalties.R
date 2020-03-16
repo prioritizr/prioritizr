@@ -269,7 +269,7 @@ test_that("minimum set objective (compile, multiple zones)", {
   for (z in seq_len(n_z)) {
     for (i in seq_len(n_f)) {
       curr_amount <- rep(0, (n_pu * n_z) + n_z_p)
-      curr_amount[((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][i, ]
+      curr_amount[((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][i, ]
       expect_equal(o$A()[((z - 1) * n_f) + i, ], curr_amount)
     }
   }

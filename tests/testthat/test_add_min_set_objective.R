@@ -167,10 +167,10 @@ test_that("compile (compressed formulation, multiple zones)", {
   # test model matrix
   m <- matrix(0, nrow = 3 + n_pu, ncol = n_pu * n_zone)
   ## targets
-  m[1, seq_len(n_pu)] <- p$data$rij[[1]][1, ]
-  m[2, n_pu + seq_len(n_pu)] <- p$data$rij[[2]][2, ]
-  m[3, seq_len(n_pu)] <- p$data$rij[[1]][3, ]
-  m[3, (n_pu * 2) + seq_len(n_pu)] <- p$data$rij[[3]][3, ]
+  m[1, seq_len(n_pu)] <- p$data$rij_matrix[[1]][1, ]
+  m[2, n_pu + seq_len(n_pu)] <- p$data$rij_matrix[[2]][2, ]
+  m[3, seq_len(n_pu)] <- p$data$rij_matrix[[1]][3, ]
+  m[3, (n_pu * 2) + seq_len(n_pu)] <- p$data$rij_matrix[[3]][3, ]
   ## zone constraints
   for (i in seq_len(n_pu))
     m[3 + i, c(i, n_pu + i, n_pu + n_pu + i) ] <- 1
@@ -260,21 +260,21 @@ test_that("compile (expanded formulation, multiple zones)", {
   }
   ## targets
   r <- r + 1
-  m[r, (n_pu * n_zone) + seq_len(n_pu)] <- p$data$rij[[1]][1, ]
+  m[r, (n_pu * n_zone) + seq_len(n_pu)] <- p$data$rij_matrix[[1]][1, ]
   r <- r + 1
   m[r, (n_pu * n_zone) +
        (1 * n_pu * n_feature) +
        (1 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[2]][2, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[2]][2, ]
   r <- r + 1
   m[r, (n_pu * n_zone) +
        (0 * n_pu * n_feature) +
        (2 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[1]][3, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[1]][3, ]
   m[r, (n_pu * n_zone) +
        (2 * n_pu * n_feature) +
        (2 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[3]][3, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[3]][3, ]
   ## zone constraints
   for (i in seq_len(n_pu))
     m[r + i, c(i, n_pu + i, n_pu + n_pu + i)] <- 1

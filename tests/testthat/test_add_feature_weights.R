@@ -178,7 +178,7 @@ test_that("compile (compressed formulation, multiple zones)", {
   for (z in seq_len(n_z)) {
     for (f in seq_len(n_f)) {
       counter <- counter + 1
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
       m[counter, (n_z * n_pu) + ((z - 1) * n_f) + f] <- -1
     }
   }
@@ -282,7 +282,7 @@ test_that("compile (expanded formulation, multiple zones)", {
       for (pu in seq_len(n_pu)) {
         col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
                ((f - 1) * n_pu) + pu
-        m[counter, col] <- p$data$rij[[z]][f, pu]
+        m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + ((z - 1) * n_f) + f
       m[counter, col] <- -1
