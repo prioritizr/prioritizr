@@ -27,7 +27,7 @@ NULL
 #'   so it is recommended to use \code{\link[raster]{Raster-class}} data
 #'   for planning units where possible.
 #'
-#' @return \code{\link{Matrix}{dgCMatrix-class}} sparse matrix object.
+#' @return \code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the
 #'   planning units and the features. Rows correspond to planning units,
 #'   and columns correspond to features. Values correspond to the amount
