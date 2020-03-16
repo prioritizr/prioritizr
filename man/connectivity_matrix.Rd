@@ -9,6 +9,8 @@
 \alias{connectivity_matrix,sf,Raster-method}
 \title{Connectivity matrix}
 \usage{
+connectivity_matrix(x, y, ...)
+
 \S4method{connectivity_matrix}{Spatial,Raster}(x, y, ...)
 
 \S4method{connectivity_matrix}{Spatial,character}(x, y, ...)

@@ -10,6 +10,8 @@
 \alias{rarity_weighted_richness,ConservationProblem,Raster-method}
 \title{Rarity weighted richness}
 \usage{
+rarity_weighted_richness(x, solution, ...)
+
 \S4method{rarity_weighted_richness}{ConservationProblem,numeric}(x, solution, rescale, ...)
 
 \S4method{rarity_weighted_richness}{ConservationProblem,matrix}(x, solution, rescale, ...)
@@ -30,11 +32,11 @@
 or \code{\link[sf]{sf}} object. See the Details section for more
 information.}
 
+\item{...}{not used.}
+
 \item{rescale}{\code{logical} flag indicating if replacement cost
 values---excepting infinite (\code{Inf}) and zero values---should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
-
-\item{...}{not used.}
 }
 \value{
 A \code{numeric}, \code{matrix},

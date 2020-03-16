@@ -14,6 +14,8 @@
 \alias{intersecting_units,data.frame,ANY-method}
 \title{Find intersecting units}
 \usage{
+intersecting_units(x, y)
+
 \S4method{intersecting_units}{Raster,Raster}(x, y)
 
 \S4method{intersecting_units}{Spatial,Spatial}(x, y)

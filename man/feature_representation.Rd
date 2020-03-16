@@ -10,6 +10,8 @@
 \alias{feature_representation,ConservationProblem,Raster-method}
 \title{Feature representation}
 \usage{
+feature_representation(x, solution)
+
 \S4method{feature_representation}{ConservationProblem,numeric}(x, solution)
 
 \S4method{feature_representation}{ConservationProblem,matrix}(x, solution)

@@ -17,7 +17,8 @@
 \alias{sim_pu_sf}
 \alias{sim_pu_zones_sf}
 \title{Simulated conservation planning data}
-\format{\describe{
+\format{
+\describe{
 
 \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
   object.}
@@ -50,9 +51,60 @@
 
 \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
 
-}}
+}
+
+An object of class \code{RasterStack} of dimension 10 x 10 x 5.
+
+An object of class \code{ZonesRaster} (inherits from \code{Zones}) of length 3.
+
+An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 6 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 4 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 7 columns.
+
+An object of class \code{SpatialLinesDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{SpatialPointsDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+
+An object of class \code{RasterStack} of dimension 10 x 10 x 3.
+
+An object of class \code{phylo} of length 4.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+}
 \usage{
 data(sim_pu_polygons)
+
+data(sim_pu_zones_polygons)
+
+data(sim_pu_points)
+
+data(sim_pu_lines)
+
+data(sim_pu_sf)
+
+data(sim_pu_zones_sf)
+
+data(sim_pu_raster)
+
+data(sim_locked_in_raster)
+
+data(sim_locked_out_raster)
+
+data(sim_pu_zones_stack)
+
+data(sim_features)
+
+data(sim_features_zones)
+
+data(sim_phylogeny)
 
 sim_features
 
@@ -143,7 +195,7 @@ Simulated data for making spatial prioritizations.
 \item{\code{sim_features_zones}}{The simulated distribution for five
   species under three different management zones.}
 
-\item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
+ \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
 
 }
 }

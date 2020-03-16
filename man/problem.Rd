@@ -19,6 +19,8 @@
 \alias{problem,sf,ZonesRaster-method}
 \title{Conservation planning problem}
 \usage{
+problem(x, features, ...)
+
 \S4method{problem}{Raster,Raster}(x, features, run_checks, ...)
 
 \S4method{problem}{Raster,ZonesRaster}(x, features, run_checks, ...)
@@ -136,6 +138,14 @@ cells to \code{NA}, or use the \code{add_locked_out_constraint}.}
 
  }}
 
+\item{...}{not used.}
+
+\item{run_checks}{\code{logical} flag indicating whether checks should be
+run to ensure the integrity of the input data. These checks are run by
+default; however, for large data sets they may increase run time. If it is
+taking a prohibitively long time to create the prioritization problem, it
+is suggested to try setting \code{run_checks} to \code{FALSE}.}
+
 \item{cost_column}{\code{character} name or \code{integer} indicating the
 column(s) with the cost data. This argument must be supplied when the
 argument to \code{x} is a \code{\link[sp]{Spatial-class}} or
@@ -166,17 +176,6 @@ set the argument to \code{cost_column} as a single column name.}
 
    }}
 
-\item{rij_matrix}{\code{list} of \code{matrix} or
-\code{\link[Matrix]{dgCMatrix-class}}
-objects specifying the amount of each feature (rows) within each planning
-unit (columns) for each zone. The \code{list} elements denote
-different zones, matrix rows denote features, and matrix columns denote
-planning units. For convenience, the argument to
-\code{rij_matrix} can be a single \code{matrix} or
-\code{\link[Matrix]{dgCMatrix-class}} when specifying a problem with a
-single management zone. This argument is only used when the argument
-to \code{x} is a \code{numeric} or \code{matrix} object.}
-
 \item{zones}{\code{data.frame} containing information on the zones. This
   argument is only used when argument to \code{x} and \code{y} are
   both \code{data.frame} objects and the problem being built contains
@@ -192,13 +191,16 @@ to \code{x} is a \code{numeric} or \code{matrix} object.}
 
   }}
 
-\item{run_checks}{\code{logical} flag indicating whether checks should be
-run to ensure the integrity of the input data. These checks are run by
-default; however, for large data sets they may increase run time. If it is
-taking a prohibitively long time to create the prioritization problem, it
-is suggested to try setting \code{run_checks} to \code{FALSE}.}
-
-\item{...}{not used.}
+\item{rij_matrix}{\code{list} of \code{matrix} or
+\code{\link[Matrix]{dgCMatrix-class}}
+objects specifying the amount of each feature (rows) within each planning
+unit (columns) for each zone. The \code{list} elements denote
+different zones, matrix rows denote features, and matrix columns denote
+planning units. For convenience, the argument to
+\code{rij_matrix} can be a single \code{matrix} or
+\code{\link[Matrix]{dgCMatrix-class}} when specifying a problem with a
+single management zone. This argument is only used when the argument
+to \code{x} is a \code{numeric} or \code{matrix} object.}
 }
 \value{
 A \code{\link{ConservationProblem-class}} object containing the

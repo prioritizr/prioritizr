@@ -7,6 +7,8 @@
 \alias{rij_matrix,sf,Raster-method}
 \title{Feature by planning unit matrix}
 \usage{
+rij_matrix(x, y, ...)
+
 \S4method{rij_matrix}{Raster,Raster}(x, y, ...)
 
 \S4method{rij_matrix}{Spatial,Raster}(x, y, fun, ...)
@@ -21,12 +23,12 @@ representing the planning units.}
 \item{y}{\code{\link[raster]{Raster-class}} object representing the
 features.}
 
+\item{...}{not used.}
+
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
 \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
 Defaults to \code{"sum"}.}
-
-\item{...}{not used.}
 }
 \value{
 \code{\link{Matrix}{dgCMatrix-class}} sparse matrix object.

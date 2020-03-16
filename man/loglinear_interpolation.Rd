@@ -4,8 +4,13 @@
 \alias{loglinear_interpolation}
 \title{Log-linear interpolation}
 \usage{
-loglinear_interpolation(x, coordinate_one_x, coordinate_one_y,
-  coordinate_two_x, coordinate_two_y)
+loglinear_interpolation(
+  x,
+  coordinate_one_x,
+  coordinate_one_y,
+  coordinate_two_x,
+  coordinate_two_y
+)
 }
 \arguments{
 \item{x}{\code{numeric} \emph{x} values for which interpolate \emph{y}

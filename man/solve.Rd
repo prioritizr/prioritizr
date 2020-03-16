@@ -5,6 +5,11 @@
 \alias{solve,OptimizationProblem,Solver-method}
 \alias{solve,ConservationProblem,missing-method}
 \title{Solve}
+\usage{
+\S4method{solve}{OptimizationProblem,Solver}(a, b, ...)
+
+\S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
+}
 \arguments{
 \item{a}{\code{\link{ConservationProblem-class}} or an
 \code{\link{OptimizationProblem-class}} object.}

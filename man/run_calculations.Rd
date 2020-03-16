@@ -51,7 +51,7 @@ s1 <- system.time({solve(p1); solve(p2); solve(p3)})
 # problem
 
 # recreate a conservation problem with no targets and tell R run the
-# preliminary calculations. Note how we use the \\\%T>\\\% operator here.
+# preliminary calculations. Note how we use the \\%T>\\% operator here.
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_boundary_penalties(10, 0.5) \%T>\%

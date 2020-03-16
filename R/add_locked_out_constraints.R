@@ -213,7 +213,8 @@ methods::setMethod("add_locked_out_constraints",
       all(rowSums(locked_out) <= 1))
     # create data.frame with statuses
     ind <- which(locked_out, arr.ind = TRUE)
-    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0)
+    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0,
+                    stringsAsFactors = FALSE)
     # add constraints
     add_manual_locked_constraints(x, y)
 })

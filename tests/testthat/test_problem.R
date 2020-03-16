@@ -1067,7 +1067,7 @@ test_that("get parameter methods", {
   id5 <- x$penalties[[x$penalties$ids()[1]]]$parameters$find("penalty")
   expect_equal(x$get_objective_parameter(as.Id(id1)), 400)
   expect_equal(x$get_constraint_parameter(as.Id(id3)),
-               tibble::tibble(pu = 1, zone = factor("layer"), status = 1))
+               tibble::tibble(pu = 1, zone = "layer", status = 1))
   expect_equal(x$get_portfolio_parameter(as.Id(id4)), 100)
   expect_equal(x$get_penalty_parameter(as.Id(id5)), 200)
   skip_if_not(any_solvers_installed())
@@ -1091,18 +1091,18 @@ test_that("set parameter methods", {
   id5 <- x$penalties[[x$penalties$ids()[1]]]$parameters$find("penalty")
   expect_equal(x$get_objective_parameter(as.Id(id1)), 400)
   expect_equal(x$get_constraint_parameter(as.Id(id3)),
-               tibble::tibble(pu = 1, zone = factor("layer"), status = 1))
+               tibble::tibble(pu = 1, zone = "layer", status = 1))
   expect_equal(x$get_portfolio_parameter(as.Id(id4)), 100)
   expect_equal(x$get_penalty_parameter(as.Id(id5)), 200)
   x$set_objective_parameter(as.Id(id1), 90)
   x$set_constraint_parameter(as.Id(id3),
-                             tibble::tibble(pu = 2, zone = factor("layer"),
+                             tibble::tibble(pu = 2, zone = "layer",
                              status = 1))
   x$set_portfolio_parameter(as.Id(id4), 300L)
   x$set_penalty_parameter(as.Id(id5), 500)
   expect_equal(x$get_objective_parameter(as.Id(id1)), 90)
   expect_equal(x$get_constraint_parameter(as.Id(id3)),
-               tibble::tibble(pu = 2, zone = factor("layer"), status = 1))
+               tibble::tibble(pu = 2, zone = "layer", status = 1))
   expect_equal(x$get_portfolio_parameter(as.Id(id4)), 300)
   expect_equal(x$get_penalty_parameter(as.Id(id5)), 500)
   skip_if_not(any_solvers_installed())
@@ -1138,6 +1138,7 @@ test_that("render parameter methods", {
 })
 
 test_that("render all parameters methods", {
+  skip_if_not_installed("rhandsontable")
   data(sim_pu_raster, sim_features)
   x <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%

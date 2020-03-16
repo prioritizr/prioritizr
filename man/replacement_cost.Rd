@@ -10,6 +10,8 @@
 \alias{replacement_cost,ConservationProblem,Raster-method}
 \title{Replacement cost}
 \usage{
+replacement_cost(x, solution, ...)
+
 \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
 
 \S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
@@ -30,6 +32,8 @@
 or \code{\link[sf]{sf}} object. See the Details section for more
 information.}
 
+\item{...}{not used.}
+
 \item{rescale}{\code{logical} flag indicating if replacement cost
 values---excepting infinite (\code{Inf}) and zero values---should be
 rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
@@ -46,8 +50,6 @@ the presolve checks. Defaults to \code{FALSE}.}
 \item{threads}{\code{integer} number of threads to use for the
 optimization algorithm. The default value of 1 will result in only
 one thread being used.}
-
-\item{...}{not used.}
 }
 \value{
 A \code{numeric}, \code{matrix},

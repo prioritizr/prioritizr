@@ -9,6 +9,8 @@
 \alias{fast_extract,Raster,sfc-method}
 \title{Fast extract}
 \usage{
+fast_extract(x, y, ...)
+
 \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
 
 \S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
@@ -25,11 +27,11 @@
 \item{y}{\code{\link[sp]{Spatial-class}} or
 \code{\link[sf]{sf}} object.}
 
+\item{...}{not used.}
+
 \item{fun}{\code{character} name of statistic to summarize data. Defaults
 to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
 Defaults to \code{"mean"}.}
-
-\item{...}{not used.}
 }
 \value{
 \code{matrix} containing the summary amount of each feature

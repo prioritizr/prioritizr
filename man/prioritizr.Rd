@@ -3,7 +3,6 @@
 \docType{package}
 \name{prioritizr}
 \alias{prioritizr}
-\alias{prioritizr-package}
 \title{\pkg{prioritizr}}
 \description{
 The \pkg{prioritizr R} package uses integer linear programming (ILP)
