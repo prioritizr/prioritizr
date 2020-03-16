@@ -67,7 +67,7 @@ test_that("geometry_classes", {
 })
 
 test_that("as_CRS", {
-  x <- sp::CRS("+init=epsg:5683") # random CRS
+  x <- sp::CRS("+init=epsg:4326")
   expect_true(raster::compareCRS(as_CRS(sf::st_crs(x)), x))
 })
 
