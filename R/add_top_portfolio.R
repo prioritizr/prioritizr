@@ -66,9 +66,6 @@ NULL
 #' @name add_top_portfolio
 NULL
 
-#' @export
-methods::setClass("TopPortfolio", contains = "Portfolio")
-
 #' @rdname add_top_portfolio
 #' @export
 add_top_portfolio <- function(x, number_solutions) {

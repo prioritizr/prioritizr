@@ -72,9 +72,6 @@ NULL
 #' @name add_shuffle_portfolio
 NULL
 
-#' @export
-methods::setClass("ShufflePortfolio", contains = "Portfolio")
-
 #' @rdname add_shuffle_portfolio
 #' @export
 add_shuffle_portfolio <- function(x, number_solutions = 10L, threads = 1L,

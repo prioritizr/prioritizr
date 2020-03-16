@@ -84,9 +84,6 @@ NULL
 #' @name add_gurobi_solver
 NULL
 
-#' @export
-methods::setClass("GurobiSolver", contains = "Solver")
-
 #' @rdname add_gurobi_solver
 #' @export
 add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,

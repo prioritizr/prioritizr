@@ -81,9 +81,6 @@ NULL
 #' @name add_cuts_portfolio
 NULL
 
-#' @export
-methods::setClass("CutsPortfolio", contains = "Portfolio")
-
 #' @rdname add_cuts_portfolio
 #' @export
 add_cuts_portfolio <- function(x, number_solutions = 10L) {

@@ -4,9 +4,16 @@
 \alias{add_gurobi_solver}
 \title{Add a \emph{Gurobi} solver}
 \usage{
-add_gurobi_solver(x, gap = 0.1, time_limit = .Machine$integer.max,
-  presolve = 2, threads = 1, first_feasible = 0,
-  numeric_focus = FALSE, verbose = TRUE)
+add_gurobi_solver(
+  x,
+  gap = 0.1,
+  time_limit = .Machine$integer.max,
+  presolve = 2,
+  threads = 1,
+  first_feasible = 0,
+  numeric_focus = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

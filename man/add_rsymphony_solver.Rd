@@ -4,8 +4,13 @@
 \alias{add_rsymphony_solver}
 \title{Add a SYMPHONY solver with \pkg{Rsymphony}}
 \usage{
-add_rsymphony_solver(x, gap = 0.1, time_limit = -1,
-  first_feasible = 0, verbose = TRUE)
+add_rsymphony_solver(
+  x,
+  gap = 0.1,
+  time_limit = -1,
+  first_feasible = 0,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

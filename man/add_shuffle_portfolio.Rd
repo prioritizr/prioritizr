@@ -4,8 +4,12 @@
 \alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
-add_shuffle_portfolio(x, number_solutions = 10L, threads = 1L,
-  remove_duplicates = TRUE)
+add_shuffle_portfolio(
+  x,
+  number_solutions = 10L,
+  threads = 1L,
+  remove_duplicates = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

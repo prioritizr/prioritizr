@@ -52,9 +52,6 @@ NULL
 #' @name add_lsymphony_solver
 NULL
 
-#' @export
-methods::setClass("LpsymphonySolver", contains = "Solver")
-
 #' @rdname add_lsymphony_solver
 #' @export
 add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,

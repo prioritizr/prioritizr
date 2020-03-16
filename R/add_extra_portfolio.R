@@ -64,9 +64,6 @@ NULL
 #' @name add_extra_portfolio
 NULL
 
-#' @export
-methods::setClass("ExtraPortfolio", contains = "Portfolio")
-
 #' @rdname add_extra_portfolio
 #' @export
 add_extra_portfolio <- function(x) {

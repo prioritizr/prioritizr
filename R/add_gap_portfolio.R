@@ -81,9 +81,6 @@ NULL
 #' @name add_gap_portfolio
 NULL
 
-#' @export
-methods::setClass("GapPortfolio", contains = "Portfolio")
-
 #' @rdname add_gap_portfolio
 #' @export
 add_gap_portfolio <- function(x, number_solutions, gap = 0.1) {
