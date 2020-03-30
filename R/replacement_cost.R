@@ -95,9 +95,9 @@ NULL
 #'   \code{solution} where this is not the case, then an error will be thrown.
 #'
 #' @return A \code{numeric}, \code{matrix},
-#'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the replacement costs
-#'   for each planning unit in the solution.
+#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object containing the replacement costs for each
+#'   planning unit in the solution.
 #'
 #' @examples
 #' # seed seed for reproducibility

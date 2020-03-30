@@ -73,14 +73,13 @@ NULL
 #'   for problems containing multiple zones.
 #'
 #' @return A \code{numeric}, \code{matrix},
-#'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the solution to
-#'   the problem. Additionally, the returned object will have the following
-#'   additional attributes: \code{"objective"} containing the solution's
-#'   objective, \code{"runtime"} denoting the number of seconds that elapsed
-#'   while solving the problem, and \code{"status"} describing the
-#'   status of the solution (e.g. \code{"OPTIMAL"} indicates that the
-#'   optimal solution was found).
+#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object containing the solution to the problem.
+#'   Additionally, the returned object will have the following additional
+#'   attributes: \code{"objective"} containing the solution's objective,
+#'   \code{"runtime"} denoting the number of seconds that elapsed while solving
+#'   the problem, and \code{"status"} describing the status of the solution
+#'   (e.g. \code{"OPTIMAL"} indicates that the optimal solution was found).
 #'
 #' @seealso \code{\link{feature_representation}}, \code{\link{problem}},
 #'   \code{\link{solvers}}, \code{\link{category_layer}},
