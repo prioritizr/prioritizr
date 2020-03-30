@@ -306,7 +306,7 @@ p4 <- problem(sim_pu_points, sim_features, "cost") \%>\%
       add_binary_decisions()
 
 # create problem using polygon (sf) planning unit data
-p5 <- problem(st_as_sf(sim_pu_polygons), sim_features, "cost") \%>\%
+p5 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
       add_binary_decisions()

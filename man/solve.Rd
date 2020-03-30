@@ -30,14 +30,13 @@ the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the solution to
-  the problem. Additionally, the returned object will have the following
-  additional attributes: \code{"objective"} containing the solution's
-  objective, \code{"runtime"} denoting the number of seconds that elapsed
-  while solving the problem, and \code{"status"} describing the
-  status of the solution (e.g. \code{"OPTIMAL"} indicates that the
-  optimal solution was found).
+  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+  or \code{\link[sf]{sf}} object containing the solution to the problem.
+  Additionally, the returned object will have the following additional
+  attributes: \code{"objective"} containing the solution's objective,
+  \code{"runtime"} denoting the number of seconds that elapsed while solving
+  the problem, and \code{"status"} describing the status of the solution
+  (e.g. \code{"OPTIMAL"} indicates that the optimal solution was found).
 }
 \description{
 Solve a conservation planning \code{\link{problem}}.
@@ -75,7 +74,8 @@ The object returned from this function depends on the argument to
     If multiple solutions are generated, then the solution is returned as
     a \code{list} of \code{Raster} objects.}
 
-  \item{\code{\link[sp]{Spatial-class}} or \code{data.frame}}{
+  \item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or 
+    \code{data.frame}}{
     containing the solution in fields (columns). Here, each row
     corresponds to a different planning unit. If the argument to \code{x}
     contains a single zone, the fields containing solutions are named

@@ -63,25 +63,25 @@ information.}
 Calculate how well features are represented in a solution.
 }
 \details{
-Note that all arguments to \code{solution} must correspond
-  to the planning unit data in the argument to \code{x} in terms
-  of data representation, dimensionality, and spatial attributes (if
-  applicable). This means that if the planning unit data in \code{x}
-  is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements, if the planning
-  unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-  argument to \code{solution} must also be a
-  \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system,
-  if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system,
-  if the planning units in \code{x} are a \code{data.frame} then the
+Note that all arguments to \code{solution} must correspond to the
+  planning unit data in the argument to \code{x} in terms of data
+  representation, dimensionality, and spatial attributes (if applicable).
+  This means that if the planning unit data in \code{x} is a \code{numeric}
+  vector then the argument to \code{solution} must be a \code{numeric} vector
+  with the same number of elements, if the planning unit data in \code{x} is
+  a \code{\link[raster]{RasterLayer-class}} then the argument to
+  \code{solution} must also be a \code{\link[raster]{RasterLayer-class}} with
+  the same number of rows and columns and the same resolution, extent, and
+  coordinate reference system, if the planning unit data in \code{x} is a
+  \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object then the
+  argument to \code{solution} must also be a \code{\link[sp]{Spatial-class}}
+  or \code{\link[sf]{sf}} object, respectively, and have the same number of
+  spatial features (e.g. polygons) and have the same coordinate reference
+  system, if the planning units in \code{x} are a \code{data.frame} then the
   argument to \code{solution} must also be a \code{data.frame} with each
-  column correspond to a different zone and each row correspond to
-  a different planning unit, and values correspond to the allocations
-  (e.g. values of zero or one).
+  column correspond to a different zone and each row correspond to a
+  different planning unit, and values correspond to the allocations (e.g.
+  values of zero or one).
 
   Solutions must have planning unit statuses set to missing (\code{NA})
   values for planning units that have missing (\code{NA}) cost data. For

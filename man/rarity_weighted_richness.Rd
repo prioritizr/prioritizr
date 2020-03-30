@@ -40,15 +40,15 @@ rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the rarity weighted
-  richness scores for each planning unit in the solution.
+  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+  or \code{\link[sf]{sf}} object containing the rarity weighted richness
+  scores for each planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
 using rarity weighted richness (based on Williams \emph{et al.} 1996). Please
 note that this method is only recommended for large-scaled conservation
-planning exercises (i.e. more than 100'000 planning units) where
+planning exercises (i.e. more than 100,000 planning units) where
 irreplaceability scores cannot be calculated using the replacement cost
 method (\code{\link{replacement_cost}}) in a feasible period of
 time. This is because rarity weighted richness scores cannot (i) account for

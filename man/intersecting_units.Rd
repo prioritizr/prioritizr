@@ -69,14 +69,14 @@ print(intersecting_units(r, r_with_holes))
 \donttest{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
-plot(ply_with_holes, main = "y=sf")
+plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
 }
 print(intersecting_units(r, ply_with_holes))
 
 # intersect polygons (Spatial) with raster
 \donttest{
 par(mfrow = c(1, 2))
-plot(ply, main = "x=sf")
+plot(ply, main = "x=Spatial")
 plot(r_with_holes, main = "y=Raster")
 }
 print(intersecting_units(ply, r_with_holes))
@@ -84,8 +84,8 @@ print(intersecting_units(ply, r_with_holes))
 # intersect polygons (Spatial) with polygons (sf)
 \donttest{
 par(mfrow = c(1, 2))
-plot(ply, main = "x=sf")
-plot(ply_with_holes, main = "y=sf")
+plot(ply, main = "x=Spatial")
+plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
 }
 print(intersecting_units(ply, ply_with_holes))
 

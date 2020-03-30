@@ -31,7 +31,7 @@ This parameter is only used when the argument to \code{x} is a
 Defaults to \code{"sum"}.}
 }
 \value{
-\code{\link{Matrix}{dgCMatrix-class}} sparse matrix object.
+\code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
   The sparse matrix represents the spatial intersection between the
   planning units and the features. Rows correspond to planning units,
   and columns correspond to features. Values correspond to the amount

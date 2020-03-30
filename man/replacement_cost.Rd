@@ -53,9 +53,9 @@ one thread being used.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the replacement costs
-  for each planning unit in the solution.
+  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+  or \code{\link[sf]{sf}} object containing the replacement costs for each
+  planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
