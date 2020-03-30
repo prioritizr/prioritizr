@@ -54,7 +54,8 @@ NULL
 #'     If multiple solutions are generated, then the solution is returned as
 #'     a \code{list} of \code{Raster} objects.}
 #'
-#'   \item{\code{\link[sp]{Spatial-class}} or \code{data.frame}}{
+#'   \item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or 
+#'     \code{data.frame}}{
 #'     containing the solution in fields (columns). Here, each row
 #'     corresponds to a different planning unit. If the argument to \code{x}
 #'     contains a single zone, the fields containing solutions are named
