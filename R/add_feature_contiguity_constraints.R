@@ -54,7 +54,7 @@ NULL
 #'   versions of the \pkg{prioritizr} package, it was known as the
 #'   \code{add_corridor_constraints} function but has since been renamed for
 #'   clarity. It was inspired by the mathematical formulations detailed in
-#'   {\"O}nal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
+#'   Onal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
 #'   example that has used these constraints, see Hanson, Fuller,
 #'   and Rhodes (2018). Please note
 #'   that these constraints require the expanded formulation and therefore
@@ -114,7 +114,7 @@ NULL
 #' @references
 #'
 #' @references
-#' {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected
+#' Onal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. \emph{Operations Research}, 54: 379--388.
 #'
 #' Cardeira JO, Pinto LS, Cabeza M and Gaston KJ (2010) Species specific
