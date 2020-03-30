@@ -526,7 +526,7 @@ methods::setMethod(
       verify_that(
         all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
                     na.rm = TRUE) == 0),
-        msg = "argument to x has negative cost data")
+        msg = "argument to x has negative cost values")
     if (run_checks) {
       verify_that(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
@@ -589,15 +589,22 @@ methods::setMethod(
       no_extra_arguments(...),
       length(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column),
+      number_of_zones(features) == length(cost_column))
+    assertthat::assert_that(
       all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
                  names(x)),
+      msg = paste("argument to features contains column names that are",
+                  "not present in the argument to x"))
+    assertthat::assert_that(
       all(vapply(x@data[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      msg = "argument to x has non-numeric cost data")
+    assertthat::assert_that(
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0))
+        na.rm = TRUE) > 0),
+      msg = "argument to x has missing (NA) cost values")
     verify_that(all(as.matrix(x@data[, cost_column, drop = FALSE]) >= 0,
                             na.rm = TRUE),
-                msg = "argument to x has negative cost data")
+                msg = "argument to x has negative cost values")
     verify_that(all(as.matrix(x@data[, unlist(features), drop = FALSE]) >= 0,
                     na.rm = TRUE),
                 msg = "argument to features correspond to negative values")
@@ -653,15 +660,22 @@ methods::setMethod(
       no_extra_arguments(...),
       nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column),
+      number_of_zones(features) == length(cost_column))
+    assertthat::assert_that(
       all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
                  names(x)),
+      msg = paste("argument to features contains column names that are",
+                  "not present in the argument to x"))
+    assertthat::assert_that(
       all(vapply(x[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      msg = "argument to x has non-numeric cost data")
+    assertthat::assert_that(
       all(colSums(!is.na(as.matrix(x[, cost_column, drop = FALSE])),
-                  na.rm = TRUE) > 0))
+        na.rm = TRUE) > 0),
+      msg = "argument to x has missing (NA) cost values")
     verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
                     na.rm = TRUE),
-                msg = "argument to x has negative cost data")
+                msg = "argument to x has negative cost values")
     verify_that(all(as.matrix(x[, unlist(features), drop = FALSE]) >= 0,
                     na.rm = TRUE),
                 msg = "argument to features correspond to negative values")
@@ -729,7 +743,7 @@ methods::setMethod(
     verify_that(all(rij$amount >= 0))
     verify_that(all(as.matrix(x[, cost_column, drop = FALSE]) >= 0,
                     na.rm = TRUE),
-                msg = "argument to x has negative cost data")
+                msg = "argument to x has negative cost values")
     # validate zone data
     if (!"zone" %in% names(rij))
       rij$zone <- 1
@@ -896,7 +910,7 @@ methods::setMethod(
       verify_that(
         all(colSums(as.matrix(x2[, cost_column, drop = FALSE]) < 0,
                     na.rm = TRUE) == 0),
-        msg = "argument to x has negative cost data")
+        msg = "argument to x has negative cost values")
     if (run_checks) {
       verify_that(
         all(raster::cellStats(raster::stack(as.list(features)), "min") >= 0))
@@ -958,19 +972,31 @@ methods::setMethod(
       no_extra_arguments(...),
       nrow(x) > 0, is.character(cost_column), !anyNA(cost_column),
       all(cost_column %in% names(x)),
-      number_of_zones(features) == length(cost_column),
-      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
-                 names(x)))
-    assertthat::assert_that(all(!geometry_classes(x) %in%
-                                c("GEOMETRYCOLLECTION", "MULTIPOINT")))
+      number_of_zones(features) == length(cost_column))
+    assertthat::assert_that(
+      all(!geometry_classes(x) %in% c("GEOMETRYCOLLECTION", "MULTIPOINT")),
+      msg = paste("argument to x contains invalid geometry types",
+                  "(i.e. GEOMETRYCOLLECTION or MULTIPOINT)"))
     x2 <- sf::st_drop_geometry(x)
+    assertthat::assert_that(
+      all(unlist(as.list(features), recursive = TRUE, use.names = FALSE) %in%
+                 names(x2)),
+      msg = paste("argument to features contains column names that are",
+                  "not present in the argument to x"))
+    assertthat::assert_that(
+      all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
+      msg = "argument to x has non-numeric cost data")
+    assertthat::assert_that(
+      all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
+        na.rm = TRUE) > 0),
+      msg = "argument to x has missing (NA) cost values")
     assertthat::assert_that(
       all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0))
     verify_that(all(as.matrix(x2[, cost_column, drop = FALSE]) >= 0,
                             na.rm = TRUE),
-                msg = "argument to x has negative cost data")
+                msg = "argument to x has negative cost values")
     verify_that(all(as.matrix(x2[, unlist(features), drop = FALSE]) >= 0,
                     na.rm = TRUE),
                 msg = "argument to features correspond to negative values")
