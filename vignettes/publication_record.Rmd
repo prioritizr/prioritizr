@@ -18,7 +18,9 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 
 ### 2020
 * [Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, e158.](https://doi.org/10.1111/csp2.158)
+* [Hanson, J.O., Rhodes, J.R., Butchart, S.H., Buchanan, G.M., Rondinini, C., Ficetola, G.F. and Fuller, R.A., 2020. Global conservation of species’ niches. _Nature_, pp.1-3.](https://doi.org/10.1038/s41586-020-2138-7)
 * [Lin H-Y, Robinson KF, and Walter L (in press) Trade-offs among road-stream crossing upgrade prioritizations based on connectivity restoration and erosion risk control. _River Research and Applications_, **36**: 371--382.](https://doi.org/10.1002/rra.3593)
+* [Visalli, M.E., Best, B.D., Cabral, R.B., Cheung, W.W., Clark, N.A., Garilao, C., Kaschner, K., Kesner-Reyes, K., Lam, V.W., Maxwell, S.M. and Mayorga, J., 2020. Data-driven approach for highlighting priority areas for protection in marine areas beyond national jurisdiction. _Marine Policy_, p.103927.](https://doi.org/10.1016/j.marpol.2020.103927)
 
 ### 2019
 * [Bombi P, Gnetti V, D'Andrea E, De Cinti B, Taglianti AV, Bologna MAm and Matteucci G (2019) Identifying priority sites for insect conservation in forest ecosystems at high resolution: the potential of LiDAR data. _Journal of Insect Conservation_, **23**: 689--698.](https://doi.org/10.1007/s10841-019-00162-w)
