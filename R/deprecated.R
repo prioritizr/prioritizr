@@ -19,7 +19,7 @@ NULL
 #'   to the \code{\link{add_contiguity_constraints}} function.
 #' @export
 add_connected_constraints <- function(...) {
-  .Deprecated("add_connected_constraints")
+  .Deprecated("add_contiguity_constraints")
   paste0("this function has been renamed as the add_contiguity_constraints",
     "function")
 }
@@ -30,7 +30,7 @@ add_connected_constraints <- function(...) {
 #'   function.
 #' @export
 add_corridor_constraints <- function(...) {
-  .Deprecated("add_corridor_constraints")
+  .Deprecated("add_feature_contiguity_constraints")
   paste0("this function has been renamed as the",
     "add_feature_contiguity_constraints function")
 }
@@ -40,9 +40,7 @@ add_corridor_constraints <- function(...) {
 #'   function.
 #' @export
 set_number_of_threads <- function(...) {
-  .Deprecated("set_number_of_threads")
-  paste0("this function is no longer needed now that superior data ",
-         "extraction methods are implemented.")
+  .Deprecated(msg = "this function is no longer needed now that superior data extraction methods are implemented.")
 }
 
 #' @rdname prioritizr-deprecated
@@ -50,9 +48,7 @@ set_number_of_threads <- function(...) {
 #'   function.
 #' @export
 get_number_of_threads <- function(...) {
-  .Deprecated("get_number_of_threads")
-  paste0("this function is no longer needed now that superior data ",
-         "extraction methods are implemented.")
+  .Deprecated(msg = "this function is no longer needed now that superior data extraction methods are implemented.")
 }
 
 #' @rdname prioritizr-deprecated
@@ -60,19 +56,15 @@ get_number_of_threads <- function(...) {
 #'   function.
 #' @export
 is.parallel <- function(...) {
-  .Deprecated("is.parallel")
-  paste0("this function is no longer needed now that superior data ",
-         "extraction methods are implemented.")
+  .Deprecated(msg = "this function is no longer needed now that superior data extraction methods are implemented.")
 }
 
 #' @rdname prioritizr-deprecated
 #' @section  \code{add_pool_portfolio}: this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
 #'   function.
 #' @export
-is.parallel <- function(...) {
-  .Deprecated("is.parallel")
-  paste0("this function is no longer needed now that superior data ",
-         "extraction methods are implemented.")
+add_pool_portfolio <- function(...) {
+  .Deprecated(msg = "this function is deprecated and replaced by add_extra_portfolio and add_top_portfolio")
 }
 
 #' @rdname prioritizr-deprecated
@@ -80,6 +72,6 @@ is.parallel <- function(...) {
 #' the \code{\link{adjacency_matrix}} function.
 #' @export
 connected_matrix <- function(...) {
-  .Deprecated("connected_matrix")
+  .Deprecated("adjacency_matrix")
   paste0("this function has been renamed as the adjacency_matrix function.")
 }
