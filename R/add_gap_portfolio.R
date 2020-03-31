@@ -14,7 +14,7 @@ NULL
 #'
 #' @param number_solutions \code{integer} number of solutions required.
 #'
-#' @param gap \code{numeric} gap to optimality for solutions in the portfolio.
+#' @param pool_gap \code{numeric} gap to optimality for solutions in the portfolio.
 #'  This relative gap specifies a threshold worst-case performance for
 #'  solutions in the portfolio. For example, value of 0.1 will result in the
 #'  portfolio returning solutions that are within 10\% of an optimal solution.
@@ -47,7 +47,7 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.05) %>%
-#'       add_gap_portfolio(number_solutions = 5, gap = 0.2) %>%
+#'       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
@@ -65,7 +65,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
-#'       add_gap_portfolio(number_solutions = 5, gap = 0.2) %>%
+#'       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve problem and generate portfolio
@@ -83,11 +83,11 @@ NULL
 
 #' @rdname add_gap_portfolio
 #' @export
-add_gap_portfolio <- function(x, number_solutions, gap = 0.1) {
+add_gap_portfolio <- function(x, number_solutions, pool_gap = 0.1) {
   # assert that arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
     assertthat::is.count(number_solutions), assertthat::noNA(number_solutions),
-    assertthat::is.number(gap), assertthat::noNA(gap), isTRUE(gap >= 0))
+    assertthat::is.number(pool_gap), assertthat::noNA(pool_gap), isTRUE(pool_gap >= 0))
   # check that version 8.0.0 or greater of gurobi is installed
   if (!requireNamespace("gurobi", quietly = TRUE))
     stop(paste("the gurobi R package is required to generate solutions ",
@@ -103,7 +103,7 @@ add_gap_portfolio <- function(x, number_solutions, gap = 0.1) {
     parameters = parameters(
       integer_parameter("number_solutions", number_solutions,
                         lower_limit = 1L),
-      numeric_parameter("gap", gap, lower_limit = 0)),
+      numeric_parameter("pool_gap", pool_gap, lower_limit = 0)),
     run = function(self, x, solver) {
       ## check that problems has gurobi solver
       if (!inherits(solver, "GurobiSolver"))
@@ -111,12 +111,12 @@ add_gap_portfolio <- function(x, number_solutions, gap = 0.1) {
                    "with portfolio method"))
       ## check that solver gap <= portfolio gap
       assertthat::assert_that(
-        solver$parameters$get("gap") <= self$parameters$get("gap"),
+        solver$parameters$get("gap") <= self$parameters$get("pool_gap"),
         msg = "solver gap not smaller than or equal to portfolio gap")
       ## solve problem, and with gap of zero
       sol <- solver$solve(x, PoolSearchMode = 2,
         PoolSolutions = self$parameters$get("number_solutions"),
-        PoolGap = self$parameters$get("gap"))
+        PoolGap = self$parameters$get("pool_gap"))
       ## compile results
       if (!is.null(sol$pool)) {
         sol <- append(list(sol[-5]),

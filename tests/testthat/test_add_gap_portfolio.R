@@ -10,7 +10,7 @@ test_that("compile", {
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_gurobi_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   cmp <- compile(p)
@@ -33,7 +33,7 @@ test_that("solve (RasterLayer, single zone)", {
        add_min_set_objective() %>%
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
-       add_gap_portfolio(number_solutions = 5, gap = 0.5) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 0.5) %>%
        add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -59,7 +59,7 @@ test_that("solve (RasterStack, multiple zones)", {
        add_absolute_targets(matrix(2,
                             nrow = number_of_features(sim_features_zones),
                             ncol = number_of_zones(sim_features_zones))) %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_binary_decisions() %>%
        add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
@@ -86,7 +86,7 @@ test_that("solve (SpatialPolygonsDataFrame, single zone)", {
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
@@ -117,7 +117,7 @@ test_that("solve (SpatialPolygonsDataFrame, multiple zones)", {
          matrix(2, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_gurobi_solver(gap = 0, verbose = FALSE) %>%
        solve()
   # output checks
@@ -154,7 +154,7 @@ test_that("solve (numeric, single zone)", {
   p <- problem(costs, features, rij_matrix = rij_mat) %>%
        add_min_set_objective() %>%
        add_absolute_targets(2) %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_binary_decisions() %>%
        add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
@@ -195,7 +195,7 @@ test_that("solve (matrix, multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(targs) %>%
        add_binary_decisions() %>%
-       add_gap_portfolio(number_solutions = 5, gap = 1) %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 1) %>%
        add_gurobi_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
