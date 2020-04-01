@@ -619,7 +619,7 @@ p32 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_gap_portfolio(number_solutions = 5, gap = 0.2)
+       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
 print(p32)

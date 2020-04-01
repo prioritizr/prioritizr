@@ -238,7 +238,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
@@ -322,21 +322,21 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30256.853351
 ## Found heuristic solution: objective 12699.649052
 ## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## Found heuristic solution: objective 11645.738446
 ## Variable types: 0 continuous, 3132 integer (3132 binary)
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.05 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
@@ -371,7 +371,7 @@ s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <p>Similar to the <em>Marxan</em> decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing 1000 solutions within 20% of optimality, and calculate the number of times that each planning unit was selected. Note that this requires the <em>Gurobi</em> software to be installed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with a portfolio added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw">add_gap_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">1000</span>, <span class="dt">gap =</span> <span class="fl">0.2</span>)
+<span class="st">      </span><span class="kw">add_gap_portfolio</span>(<span class="dt">number_solutions =</span> <span class="dv">1000</span>, <span class="dt">pool_gap =</span> <span class="fl">0.2</span>)
 
 <span class="co"># print problem</span>
 <span class="kw">print</span>(p3)</code></pre></div>
@@ -384,7 +384,7 @@ p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
 ##   decisions:      Binary decision 
 ##   constraints:    &lt;Locked in planning units [257 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
-##   portfolio:      Gap portfolio [gap (0.2), number_solutions (1000)]
+##   portfolio:      Gap portfolio [number_solutions (1000), pool_gap (0.2)]
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate solutions</span>
 s3 &lt;-<span class="st"> </span><span class="kw">solve</span>(p3)

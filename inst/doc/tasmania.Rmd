@@ -187,7 +187,7 @@ Similar to the _Marxan_ decision support tool, we can generate a portfolio of so
 ```{r}
 # create new problem with a portfolio added to it
 p3 <- p2 %>%
-      add_gap_portfolio(number_solutions = 1000, gap = 0.2)
+      add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
 
 # print problem
 print(p3)
