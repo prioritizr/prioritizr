@@ -90,7 +90,7 @@ version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -273,7 +273,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_binary_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fl'>500</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 120 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 6 rows, 95 columns and 120 nonzeros
+#&gt; Model fingerprint: 0xd891ef4e
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 2e+02]
@@ -281,24 +283,14 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [5e+02, 5e+02]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 90 columns
+#&gt; Presolve removed 6 rows and 95 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 5 columns, 5 nonzeros
-#&gt; Variable types: 0 continuous, 5 integer (5 binary)
-#&gt; Presolved: 1 rows, 5 columns, 5 nonzeros
+#&gt; Presolve: All rows and columns removed
 #&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.999790e+00, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt; *    0     0               0       1.9997896    1.99979  0.00%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 1.99979 -0 
+#&gt; Solution count 2: 1.99979 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.999789559459e+00, best bound 1.999789559459e+00, gap 0.0000%</div><div class='input'>
@@ -320,7 +312,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_binary_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fl'>800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1478 nonzeros
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 285 columns and 1478 nonzeros
+#&gt; Model fingerprint: 0x68301a72
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -343,63 +337,42 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;      0     0    9.47122    0   11   -0.00000    9.47122      -     -    0s
 #&gt; H    0     0                       5.9998641    9.47122  57.9%     -    0s
 #&gt; H    0     0                       6.9998616    9.47122  35.3%     -    0s
-#&gt;      0     0    9.46244    0   12    6.99986    9.46244  35.2%     -    0s
-#&gt;      0     0    9.44779    0   11    6.99986    9.44779  35.0%     -    0s
-#&gt;      0     0    9.22110    0   11    6.99986    9.22110  31.7%     -    0s
-#&gt; H    0     0                       7.9998572    9.22110  15.3%     -    0s
-#&gt;      0     0    9.21941    0   10    7.99986    9.21941  15.2%     -    0s
-#&gt;      0     0    9.21099    0   10    7.99986    9.21099  15.1%     -    0s
-#&gt;      0     0    9.20750    0   13    7.99986    9.20750  15.1%     -    0s
-#&gt;      0     0    9.20646    0   14    7.99986    9.20646  15.1%     -    0s
-#&gt;      0     0    9.19887    0   13    7.99986    9.19887  15.0%     -    0s
-#&gt;      0     0    9.19795    0   12    7.99986    9.19795  15.0%     -    0s
-#&gt;      0     0    9.19636    0   12    7.99986    9.19636  15.0%     -    0s
-#&gt;      0     0    9.19632    0   13    7.99986    9.19632  15.0%     -    0s
-#&gt;      0     0    9.19300    0   14    7.99986    9.19300  14.9%     -    0s
-#&gt;      0     0    9.19031    0   17    7.99986    9.19031  14.9%     -    0s
-#&gt;      0     0    9.18573    0   15    7.99986    9.18573  14.8%     -    0s
-#&gt;      0     0    9.18570    0   16    7.99986    9.18570  14.8%     -    0s
-#&gt;      0     0    9.16782    0   15    7.99986    9.16782  14.6%     -    0s
-#&gt;      0     0    9.16558    0   16    7.99986    9.16558  14.6%     -    0s
-#&gt;      0     0    9.15341    0   17    7.99986    9.15341  14.4%     -    0s
-#&gt;      0     0    9.15305    0   18    7.99986    9.15305  14.4%     -    0s
-#&gt;      0     0    9.15027    0   14    7.99986    9.15027  14.4%     -    0s
-#&gt;      0     0    9.14971    0   15    7.99986    9.14971  14.4%     -    0s
-#&gt;      0     0    9.14922    0   16    7.99986    9.14922  14.4%     -    0s
-#&gt;      0     0    9.14884    0   14    7.99986    9.14884  14.4%     -    0s
-#&gt;      0     0    9.14293    0   16    7.99986    9.14293  14.3%     -    0s
-#&gt;      0     0    9.14270    0   17    7.99986    9.14270  14.3%     -    0s
-#&gt;      0     0    9.12731    0   12    7.99986    9.12731  14.1%     -    0s
-#&gt;      0     0    9.12669    0   13    7.99986    9.12669  14.1%     -    0s
-#&gt;      0     0    9.12449    0   13    7.99986    9.12449  14.1%     -    0s
-#&gt;      0     0    9.12437    0   14    7.99986    9.12437  14.1%     -    0s
-#&gt;      0     0    9.11853    0   17    7.99986    9.11853  14.0%     -    0s
-#&gt;      0     0    9.09748    0   12    7.99986    9.09748  13.7%     -    0s
-#&gt;      0     0    9.09710    0   15    7.99986    9.09710  13.7%     -    0s
-#&gt;      0     0    8.94560    0   15    7.99986    8.94560  11.8%     -    0s
-#&gt;      0     0    8.93949    0   16    7.99986    8.93949  11.7%     -    0s
-#&gt;      0     0    8.92501    0   17    7.99986    8.92501  11.6%     -    0s
-#&gt;      0     0    8.92371    0   19    7.99986    8.92371  11.5%     -    0s
-#&gt;      0     0    8.92324    0   18    7.99986    8.92324  11.5%     -    0s
-#&gt;      0     0    8.91598    0   19    7.99986    8.91598  11.5%     -    0s
-#&gt;      0     0    8.91200    0   20    7.99986    8.91200  11.4%     -    0s
-#&gt;      0     0    8.90474    0   20    7.99986    8.90474  11.3%     -    0s
-#&gt;      0     0    8.89779    0   20    7.99986    8.89779  11.2%     -    0s
-#&gt;      0     0    8.35877    0   11    7.99986    8.35877  4.49%     -    0s
+#&gt;      0     0    9.42563    0   12    6.99986    9.42563  34.7%     -    0s
+#&gt;      0     0    9.41603    0   10    6.99986    9.41603  34.5%     -    0s
+#&gt;      0     0    9.41213    0   12    6.99986    9.41213  34.5%     -    0s
+#&gt; H    0     0                       6.9998619    9.41213  34.5%     -    0s
+#&gt;      0     0    9.39313    0   14    6.99986    9.39313  34.2%     -    0s
+#&gt;      0     0    9.35702    0   13    6.99986    9.35702  33.7%     -    0s
+#&gt; H    0     0                       6.9998622    9.35702  33.7%     -    0s
+#&gt;      0     0    9.35423    0   13    6.99986    9.35423  33.6%     -    0s
+#&gt;      0     0    9.00669    0    6    6.99986    9.00669  28.7%     -    0s
+#&gt;      0     0    8.99699    0   17    6.99986    8.99699  28.5%     -    0s
+#&gt;      0     0    8.97564    0   15    6.99986    8.97564  28.2%     -    0s
+#&gt;      0     0    8.83544    0   14    6.99986    8.83544  26.2%     -    0s
+#&gt;      0     0    8.83342    0   16    6.99986    8.83342  26.2%     -    0s
+#&gt;      0     0    8.83191    0   17    6.99986    8.83191  26.2%     -    0s
+#&gt;      0     0    8.82227    0   16    6.99986    8.82227  26.0%     -    0s
+#&gt;      0     0    8.63557    0   15    6.99986    8.63557  23.4%     -    0s
+#&gt;      0     0    8.62601    0   14    6.99986    8.62601  23.2%     -    0s
+#&gt;      0     0    8.62498    0   16    6.99986    8.62498  23.2%     -    0s
+#&gt;      0     0    8.62486    0   17    6.99986    8.62486  23.2%     -    0s
+#&gt;      0     0    8.29173    0   18    6.99986    8.29173  18.5%     -    0s
+#&gt;      0     0    8.00714    0   12    6.99986    8.00714  14.4%     -    0s
+#&gt;      0     0    8.00714    0   12    6.99986    8.00714  14.4%     -    0s
+#&gt;      0     0    8.00683    0   12    6.99986    8.00683  14.4%     -    0s
+#&gt; H    0     0                       7.9998572    8.00683  0.09%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 1
-#&gt;   Cover: 5
-#&gt;   MIR: 14
-#&gt;   StrongCG: 2
+#&gt;   Cover: 2
+#&gt;   MIR: 11
 #&gt; 
-#&gt; Explored 1 nodes (325 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (244 simplex iterations) in 0.12 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 4: 7.99986 6.99986 5.99986 -0 
+#&gt; Solution count 6: 7.99986 6.99986 6.99986 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.999857206152e+00, best bound 8.358770248057e+00, gap 4.4865%</div><div class='input'>
+#&gt; Best objective 7.999857206152e+00, best bound 8.006834536852e+00, gap 0.0872%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_cover_objective-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create multi-zone problem with maximum utility objective that</span>
@@ -407,7 +380,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_binary_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>400</span>, <span class='fl'>400</span>, <span class='fl'>400</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 108 rows, 285 columns and 1478 nonzeros
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 108 rows, 285 columns and 1478 nonzeros
+#&gt; Model fingerprint: 0xbd8c0c6e
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -415,11 +390,11 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 4e+02]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 3 rows and 74 columns
+#&gt; Presolve removed 2 rows and 69 columns
 #&gt; Presolve time: 0.01s
-#&gt; Presolved: 105 rows, 211 columns, 1026 nonzeros
-#&gt; Variable types: 0 continuous, 211 integer (211 binary)
-#&gt; Presolve removed 18 rows and 26 columns
+#&gt; Presolved: 106 rows, 216 columns, 1037 nonzeros
+#&gt; Variable types: 0 continuous, 216 integer (216 binary)
+#&gt; Presolve removed 19 rows and 31 columns
 #&gt; Presolved: 87 rows, 185 columns, 956 nonzeros
 #&gt; 
 #&gt; 
@@ -429,6 +404,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    8.99746    0    5   -0.00000    8.99746      -     -    0s
+#&gt; H    0     0                       0.9999630    8.99746   800%     -    0s
 #&gt; H    0     0                       6.9998278    8.99746  28.5%     -    0s
 #&gt; H    0     0                       7.9998255    8.99746  12.5%     -    0s
 #&gt;      0     0     cutoff    0         7.99983    7.99983  0.00%     -    0s
@@ -437,11 +413,13 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Gomory: 3
 #&gt;   Cover: 4
 #&gt;   Clique: 1
+#&gt;   MIR: 2
+#&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 1 nodes (35 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (36 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 7.99983 6.99983 -0 
+#&gt; Solution count 4: 7.99983 6.99983 0.999963 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 7.999825481935e+00, best bound 7.999825481935e+00, gap 0.0000%</div><div class='input'>

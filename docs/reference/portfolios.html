@@ -87,7 +87,7 @@ near-optimal solutions can be a useful." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -181,14 +181,34 @@ near-optimal solutions can be a useful.</p>
   <code><a href='problem.html'>problem</a></code>:</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code>add_default_portfolio</code></dt><dd><p>Generate a single solution.</p></dd>
+    <dt><code><a href='add_extra_portfolio.html'>add_extra_portfolio</a></code></dt><dd><p>Generate a portfolio of solutions
+    by storing feasible solutions found during the optimization
+    process. This method is useful for quickly obtaining multiple solutions,
+    but does not provide any guarantees on the number of solutions, or
+    the quality of solutions.
+    Note that it requires the <em>Gurobi</em> solver.</p></dd>
+    <dt><code><a href='add_top_portfolio.html'>add_top_portfolio</a></code></dt><dd><p>Generate a portfolio of
+    solutions by finding a pre-specified number of solutions that
+    are closest to optimality (i.e the top solutions). This is useful
+    for examining differences among near-optimal solutions.
+    It can also be used to generate multiple solutions and, in turn,
+    to calculate selection frequencies for small problems.
+    Note that it requires the <em>Gurobi</em> solver.</p></dd>
+    <dt><code><a href='add_gap_portfolio.html'>add_gap_portfolio</a></code></dt><dd><p>Generate a portfolio of solutions
+    by finding a certain number of solutions that are all within a pre-
+    specified optimality gap. This method is useful for generating
+    multiple solutions that can be used to calculate selection frequencies
+    for moderate and large-sized problems (similar to <em>Marxan</em>).
+    Note that it requires the <em>Gurobi</em> solver.</p></dd>
     <dt><code><a href='add_cuts_portfolio.html'>add_cuts_portfolio</a></code></dt><dd><p>Generate a portfolio of distinct
-    solutions within a pre-specified optimality gap using Bender's cuts.</p></dd>
-    <dt><code><a href='add_pool_portfolio.html'>add_pool_portfolio</a></code></dt><dd><p>Generate a portfolio of solutions
-    by extracting all the feasible solutions discovered during the
-    optimization process.</p></dd>
-    <dt><code><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio</a></code></dt><dd><p>Generate a portfolio of
+    solutions within a pre-specified optimality gap using Bender's cuts.
+    This is recommended as a replacement for <code><a href='add_top_portfolio.html'>add_top_portfolio</a></code>
+    when the <em>Gurobi</em> software is not available.</p></dd>
+  <dt><code><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio</a></code></dt><dd><p>Generate a portfolio of
     solutions by randomly reordering the data prior to attempting to solve
-    the problem.</p></dd>
+    the problem.
+    This is recommended as a replacement for <code><a href='add_gap_portfolio.html'>add_gap_portfolio</a></code>
+    when the <em>Gurobi</em> software is not available.</p></dd>
     </dl>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -207,22 +227,33 @@ near-optimal solutions can be a useful.</p>
      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.02</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'># create problem with cuts portfolio</span>
+<span class='co'># create problem with cuts portfolio with 4 solutions</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_cuts_portfolio.html'>add_cuts_portfolio</a></span>(<span class='fl'>4</span>)
 
-<span class='co'># create problem with shuffle portfolio</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio</a></span>(<span class='fl'>4</span>)</div><div class='input'><span class='co'># create problem with pool portfolio</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_pool_portfolio.html'>add_pool_portfolio</a></span>()
+<span class='co'># create problem with shuffle portfolio with 4 solutions</span>
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio</a></span>(<span class='fl'>4</span>)</div><div class='input'><span class='co'># create problem with extra portfolio</span>
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_extra_portfolio.html'>add_extra_portfolio</a></span>()
+
+<span class='co'># create problem with top portfolio with 4 solutions</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_top_portfolio.html'>add_top_portfolio</a></span>(<span class='fl'>4</span>)
+
+<span class='co'># create problem with gap portfolio with 4 solutions within 50% of optimality</span>
+<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_gap_portfolio.html'>add_gap_portfolio</a></span>(<span class='fl'>4</span>, <span class='fl'>0.5</span>)
 
 <span class='co'># solve problems and create solution portfolios</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>))
 
-<span class='co'># plot solutions from cuts portfolio</span>
+<span class='co'># plot solutions from extra portfolio</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>1</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># plot solutions from shuffle portfolio</span>
+<span class='co'># plot solutions from top portfolio</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>2</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># plot solutions from pool portfolio</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># plot solutions from gap portfolio</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>3</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot solutions from cuts portfolio</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>4</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot solutions from shuffle portfolio</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s</span><span class='kw'>[[</span><span class='fl'>5</span>]]), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='portfolios-5.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

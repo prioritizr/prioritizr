@@ -84,7 +84,7 @@ using the replacement cost method (Cabeza and Moilanen 2006)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -165,7 +165,9 @@ using the replacement cost method (Cabeza and Moilanen 2006)." />
 using the replacement cost method (Cabeza and Moilanen 2006).</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
+    <pre class="usage"><span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for ConservationProblem,numeric</span>
 <span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
@@ -175,6 +177,9 @@ using the replacement cost method (Cabeza and Moilanen 2006).</p>
 <span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
+<span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for ConservationProblem,sf</span>
 <span class='fu'>replacement_cost</span>(<span class='no'>x</span>, <span class='no'>solution</span>, <span class='no'>rescale</span>, <span class='no'>run_checks</span>, <span class='no'>force</span>, <span class='no'>threads</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
@@ -190,8 +195,13 @@ using the replacement cost method (Cabeza and Moilanen 2006).</p>
     <tr>
       <th>solution</th>
       <td><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
-<code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>, or <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>
-object. See the Details section for more information.</p></td>
+<code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>, <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>,
+or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object. See the Details section for more
+information.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>not used.</p></td>
     </tr>
     <tr>
       <th>rescale</th>
@@ -218,22 +228,19 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 optimization algorithm. The default value of 1 will result in only
 one thread being used.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>not used.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>numeric</code>, <code>matrix</code>,
-  <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code>, or
-  <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object containing the replacement costs
-  for each planning unit in the solution.</p>
+  <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code>, <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>,
+  or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object containing the replacement costs for each
+  planning unit in the solution.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Using this method, the score for each planning unit is calculated
   as the difference in the objective value of a solution when each planning
+   unit is locked out and the optimization processes rerun with all other
   selected planning units locked in. In other words, the replacement cost
   metric corresponds to change in solution quality incurred if a given
   planning unit cannot be acquired when implementing the solution and the
@@ -258,20 +265,24 @@ one thread being used.</p></td>
   <code>link{add_contiguity_constraints}</code>). They can be sped up further by
   using proportion-type decisions when calculating the scores (see below for
   an example).</p>
-<p>Note that all arguments to <code>solution</code> must correspond
+<p>The argument to <code>solution</code> must correspond
   to the planning unit data in the argument to <code>x</code> in terms
   of data representation, dimensionality, and spatial attributes (if
   applicable). This means that if the planning unit data in <code>x</code>
   is a <code>numeric</code> vector then the argument to <code>solution</code> must be a
-  <code>numeric</code> vector with the same number of elements, if the planning
+  <code>numeric</code> vector with the same number of elements; if the planning
   unit data in <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code> then the
   argument to <code>solution</code> must also be a
   <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>RasterLayer-class</a></code> with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system,
+  columns and the same resolution, extent, and coordinate reference system;
   if the planning unit data in <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>
   object then the argument to <code>solution</code> must also be a
   <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system,
+  features (e.g. polygons) and have the same coordinate reference system;
+  if the planning unit data in <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code>
+  object then the argument to <code>solution</code> must also be a
+  <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object and have the same number of spatial
+  features (e.g. polygons) and have the same coordinate reference system;
   if the planning units in <code>x</code> are a <code>data.frame</code> then the
   argument to <code>solution</code> must also be a <code>data.frame</code> with each
   column correspond to a different zone and each row correspond to

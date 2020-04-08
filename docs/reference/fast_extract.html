@@ -40,8 +40,7 @@
 
 
 <meta property="og:title" content="Fast extract — fast_extract" />
-<meta property="og:description" content="Extract data from a Raster-class object from a
-Spatial-class object using performance enhancing tricks." />
+<meta property="og:description" content="Extract data from a Raster-class object." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -84,7 +83,7 @@ Spatial-class object using performance enhancing tricks." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -161,18 +160,25 @@ Spatial-class object using performance enhancing tricks." />
     </div>
 
     <div class="ref-description">
-    <p>Extract data from a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object from a
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object using performance enhancing tricks.</p>
+    <p>Extract data from a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for Raster,SpatialPolygons</span>
-<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"velox"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
-<span class='co'># S4 method for Raster,SpatialLines</span>
-<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='no'>...</span>)
+<span class='co'># S4 method for Raster,SpatialPolygons</span>
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for Raster,SpatialPoints</span>
-<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>mean</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for Raster,SpatialLines</span>
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for Raster,sfc</span>
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for Raster,sf</span>
+<span class='fu'>fast_extract</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,67 +189,57 @@ Spatial-class object using performance enhancing tricks." />
     </tr>
     <tr>
       <th>y</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object.</p></td>
-    </tr>
-    <tr>
-      <th>fun</th>
-      <td><p><code>function</code> used to summarize values. Defaults to
-<code><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></code>. Note that this only used when <code>x</code> is a
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> or a
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLines-class'>SpatialLines-class</a></code> object. This function must
-have an <code>na.rm</code> argument.</p></td>
-    </tr>
-    <tr>
-      <th>velox</th>
-      <td><p><code>logical</code> should the <code><a href='https://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code>
-be used for geoprocessing? Defaults to <code>TRUE</code> if the package
-is installed. Note that this only used when <code>x</code> is a
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> object.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or
+<code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to <code><a href='https://www.rdocumentation.org/packages/raster/topics/extract'>extract</a></code>.</p></td>
+      <td><p>not used.</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p><code>character</code> name of statistic to summarize data. Defaults
+to <code>"mean"</code>. Available options include <code>"sum"</code> or <code>"mean"</code>.
+Defaults to <code>"mean"</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>data.frame</code>, <code>matrix</code>, or <code>list</code> object
-  depending on the arguments.</p>
+    <p><code>matrix</code> containing the summary amount of each feature
+   within each planning unit. Rows correspond to different spatial features
+  in the argument to <code>y</code> and columns correspond to different raster
+  layers in the argument to <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Spatial analyses will be conducted using the
-  <code><a href='https://www.rdocumentation.org/packages/velox/topics/velox'>velox</a></code> package if it is installed. Additionally,
-  multiple threads can be used to speed up computation using the
-  <code><a href='parallel.html'>set_number_of_threads</a></code> function.</p>
+    <p>This function is simply a wrapper that uses
+  <code><a href='https://www.rdocumentation.org/packages/raster/topics/extract'>extract</a></code> to extract data for
+  <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPoints-class'>SpatialPoints-class</a></code> and
+  <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLines-class'>SpatialLines-class</a></code> and
+  non-polygonal <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> data, and
+  <code><a href='https://www.rdocumentation.org/packages/exactextractr/topics/exact_extract'>exact_extract</a></code> for
+  <code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> and
+  polygonal <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> data.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/extract'>extract</a></code>,
-  <code><a href='https://www.rdocumentation.org/packages/velox/topics/VeloxRaster_extract'>VeloxRaster_extract</a></code>.</p></div>
+  <code><a href='https://www.rdocumentation.org/packages/exactextractr/topics/exact_extract'>exact_extract</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)</div><div class='input'><span class='co'># we will investigate several ways for extracting values from a raster</span>
-<span class='co'># using polygons. Specifically, for each band in the raster,</span>
-<span class='co'># for each polygon in the vector layer, calculate the average</span>
-<span class='co'># of the cells that are inside the polygon.</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_sf</span>, <span class='no'>sim_features</span>)
 
-<span class='co'># perform the extraction using the standard raster::extract function</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.000   0.016 </div><div class='input'>
-<span class='co'># perform extract using the fast_extract function augmented using the</span>
-<span class='co'># "velox" package</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.015   0.000   0.015 </div><div class='input'>
-<span class='co'># perform extract using the fast_extract function with "velox" package</span>
-<span class='co'># and using two threads for processing. Note that this might be slower</span>
-<span class='co'># due to overheads but should yield faster processing times on larger</span>
-<span class='co'># spatial data sets</span>
-<span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.time'>system.time</a></span>({<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_polygons</span>,
-                                    <span class='kw'>velox</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)})</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.010   0.008   2.439 </div><div class='input'><span class='fu'><a href='parallel.html'>set_number_of_threads</a></span>(<span class='fl'>1</span>)</div><div class='input'>
+<span class='co'># extract data</span>
+<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'>fast_extract</span>(<span class='no'>sim_features</span>, <span class='no'>sim_pu_sf</span>)
+
+<span class='co'># show result</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>result</span>))</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]      [,4]      [,5]
+#&gt; [1,] 0.7150548 0.2900901 0.8178213 0.2199663 0.4533809
+#&gt; [2,] 0.6990429 0.3052216 0.8064534 0.2713800 0.4413639
+#&gt; [3,] 0.6859317 0.3266036 0.7852441 0.3296247 0.4343547
+#&gt; [4,] 0.6783193 0.3510977 0.7541320 0.3900085 0.4355628
+#&gt; [5,] 0.6782107 0.3750470 0.7131559 0.4468281 0.4474871
+#&gt; [6,] 0.6863252 0.3950113 0.6628435 0.4946333 0.4714105</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

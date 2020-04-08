@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connected matrix — connected_matrix • prioritizr</title>
+<title>Adjacency matrix — adjacency_matrix • prioritizr</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,10 @@
 
 
 
-<meta property="og:title" content="Connected matrix — connected_matrix" />
-<meta property="og:description" content="Create a matrix showing which planning units are spatially connected to
-each other." />
+<meta property="og:title" content="Adjacency matrix — adjacency_matrix" />
+<meta property="og:description" content="Create a matrix showing which planning units are spatially adjacent to
+each other. Note that this also include planning units that overlap
+with each other too." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -84,7 +85,7 @@ each other." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -155,42 +156,47 @@ each other." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connected matrix</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/connected_matrix.R'><code>R/connected_matrix.R</code></a></small>
-    <div class="hidden name"><code>connected_matrix.Rd</code></div>
+    <h1>Adjacency matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/adjacency_matrix.R'><code>R/adjacency_matrix.R</code></a></small>
+    <div class="hidden name"><code>adjacency_matrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a matrix showing which planning units are spatially connected to
-each other.</p>
+    <p>Create a matrix showing which planning units are spatially adjacent to
+each other. Note that this also include planning units that overlap
+with each other too.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for Raster</span>
-<span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>4L</span>, <span class='no'>...</span>)
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>4L</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for SpatialPolygons</span>
-<span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for SpatialLines</span>
-<span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for SpatialPoints</span>
-<span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>distance</span>, <span class='no'>...</span>)
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for sf</span>
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>connected_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>adjacency_matrix</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object. Note that if <code>x</code> is a
-<code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must have only one
-layer.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLines-class'>SpatialLines-class</a></code>,
+or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object
+representing planning units.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -200,84 +206,74 @@ layer.</p></td>
       <th>directions</th>
       <td><p><code>integer</code> If <code>x</code> is a
 <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, the number of directions
-in which cells should be connected: 4 (rook's case), 8 (queen's case),
-16 (knight and one-cell queen moves), or "bishop" to connect cells with
-one-cell diagonal moves.</p></td>
-    </tr>
-    <tr>
-      <th>distance</th>
-      <td><p><code>numeric</code> If <code>x</code> is a
-<code>SpatialPoints-class</code> object, the distance that planning units
-have to be within in order to qualify as being connected.</p></td>
+in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
+case), 16 (knight and one-cell queen moves), or "bishop" to for cells
+with one-cell diagonal moves.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> object.</p>
+    <p><code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> sparse symmetric matrix.
+  Each row and column represents a planning unit.
+  Cells values indicate if different planning units are
+  adjacent to each other or not (using ones and zeros).
+  To reduce computational burden, cells among the matrix diagonal are
+  set to zero. Furthermore, if the argument to <code>x</code> is a
+  <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, then cells with <code>NA</code>
+  values are set to zero too.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a <code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dgCMatrix-class'>dgCMatrix-class</a></code> sparse
-  matrix. Cells along the off-diagonal indicate if two planning units are
-  connected. Cells along the diagonal are zero to reduce memory consumption.
-  Note that for <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> arguments to <code>x</code>,
-  pixels with <code>NA</code> have zeros in the returned object to reduce
-  memory consumption and be consistent with <code><a href='boundary_matrix.html'>boundary_matrix</a></code>,
-  and <code><a href='connectivity_matrix.html'>connectivity_matrix</a></code>.</p>
+    <p>Spatial processing is completed using
+  <code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_binary_pred'>st_intersects</a></code> for <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> and
+  <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> objects,
+  and <code><a href='https://www.rdocumentation.org/packages/raster/topics/adjacent'>adjacent</a></code> for <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>
+  objects.
+  Prior to version 5.0.0,  this function was named
+  <code>connected_matrix</code>. It has been renamed to be consistent
+  with other spatial association matrix functions.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_lines</span>, <span class='no'>sim_pu_points</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_sf</span>, <span class='no'>sim_pu_lines</span>)
 
-<span class='co'># create connected matrix using raster data</span>
+<span class='co'># create adjacency matrix using raster data</span>
 <span class='co'>## crop raster to 9 cells</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_pu_raster</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>))
 
-<span class='co'>## make connected matrix</span>
-<span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>r</span>)
+<span class='co'>## make adjacency matrix</span>
+<span class='no'>am_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>adjacency_matrix</span>(<span class='no'>r</span>)
 
-<span class='co'># create connected matrix using polygon data</span>
+<span class='co'># create adjacency matrix using polygons (sf) data</span>
 <span class='co'>## subset 9 polygons</span>
-<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_sf</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
 
-<span class='co'>## make connected matrix</span>
-<span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>ply</span>)
+<span class='co'>## make adjacency matrix</span>
+<span class='no'>am_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>adjacency_matrix</span>(<span class='no'>ply</span>)
 
-<span class='co'># create connected matrix using polygon line</span>
+<span class='co'># create adjacency matrix using lines (Spatial) data</span>
 <span class='co'>## subset 9 lines</span>
 <span class='no'>lns</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_lines</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
 
-<span class='co'>## make connected matrix</span>
-<span class='no'>cm_lns</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>lns</span>)
+<span class='co'>## make adjacency matrix</span>
+<span class='no'>am_lns</span> <span class='kw'>&lt;-</span> <span class='fu'>adjacency_matrix</span>(<span class='no'>lns</span>)
 
-<span class='co'>## create connected matrix using point data</span>
-<span class='co'>## subset 9 points</span>
-<span class='no'>pts</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_points</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+<span class='co'># plot data and the adjacency matrices</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>))
 
-<span class='co'># make connected matrix</span>
-<span class='no'>cm_pts</span> <span class='kw'>&lt;-</span> <span class='fu'>connected_matrix</span>(<span class='no'>pts</span>, <span class='kw'>distance</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)
-
-<span class='co'># plot data and the connected matrices</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>2</span>))
-
-<span class='co'>## plot raster and connected matrix</span>
+<span class='co'>## plot raster and adjacency matrix</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>am_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adjacency matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'>## plot polygons and connected matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+<span class='co'>## plot polygons (sf) and adjacency matrix</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons (sf)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>am_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adjacency matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='co'>## plot lines and connected matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"lines"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_lns</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='co'>## plot points and connected matrix</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"points"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_pts</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connected matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connected_matrix-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'>## plot lines (Spatial) and adjacency matrix</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"lines (Spatial)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>am_lns</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adjacency matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='adjacency_matrix-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

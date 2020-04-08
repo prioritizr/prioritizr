@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -165,6 +165,30 @@
 
     <pre class="usage"><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_polygons</span>)
 
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_zones_polygons</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_points</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_lines</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_sf</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_zones_sf</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_locked_in_raster</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_locked_out_raster</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_zones_stack</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_features</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_features_zones</span>)
+
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_phylogeny</span>)
+
 <span class='no'>sim_features</span>
 
 <span class='no'>sim_features_zones</span>
@@ -173,7 +197,9 @@
 
 <span class='no'>sim_pu_zones_polygons</span>
 
-<span class='no'>sim_pu_zones_polygons</span>
+<span class='no'>sim_pu_sf</span>
+
+<span class='no'>sim_pu_zones_sf</span>
 
 <span class='no'>sim_pu_lines</span>
 
@@ -196,6 +222,8 @@
     <dt>sim_pu_polygons</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygonsDataFrame-class'>SpatialPolygonsDataFrame-class</a></code>
   object.</p></dd>
     <dt>sim_pu_zones_polygons</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygonsDataFrame-class'>SpatialPolygonsDataFrame-class</a></code> object.</p></dd>
+    <dt>sim_pu_sf</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object.</p></dd>
+    <dt>sim_pu_zones_sf</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object.</p></dd>
     <dt>sim_pu_lines</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLinesDataFrame-class'>SpatialLinesDataFrame-class</a></code> object.</p></dd>
     <dt>sim_pu_points</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPointsDataFrame-class'>SpatialPointsDataFrame-class</a></code>
   object.</p></dd>
@@ -209,6 +237,19 @@
     <dt>sim_features_zones</dt><dd><p><code><a href='zones.html'>ZonesRaster</a></code> object.</p></dd>
     <dt>sim_phylogeny</dt><dd><p><code><a href='https://www.rdocumentation.org/packages/ape/topics/read.tree'>phylo</a></code> object.</p></dd>
     </dl>
+    <p>An object of class <code>RasterStack</code> of dimension 10 x 10 x 5.</p>
+<p>An object of class <code>ZonesRaster</code> (inherits from <code>Zones</code>) of length 3.</p>
+<p>An object of class <code>SpatialPolygonsDataFrame</code> with 90 rows and 3 columns.</p>
+<p>An object of class <code>SpatialPolygonsDataFrame</code> with 90 rows and 6 columns.</p>
+<p>An object of class <code>sf</code> (inherits from <code>data.frame</code>) with 90 rows and 4 columns.</p>
+<p>An object of class <code>sf</code> (inherits from <code>data.frame</code>) with 90 rows and 7 columns.</p>
+<p>An object of class <code>SpatialLinesDataFrame</code> with 90 rows and 3 columns.</p>
+<p>An object of class <code>SpatialPointsDataFrame</code> with 90 rows and 3 columns.</p>
+<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
+<p>An object of class <code>RasterStack</code> of dimension 10 x 10 x 3.</p>
+<p>An object of class <code>phylo</code> of length 4.</p>
+<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
+<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <dl class='dl-horizontal'>
@@ -239,7 +280,11 @@
     <dt><code>sim_pu_lines</code></dt><dd><p>Planning units represented as line data.
   The attribute table follows the same conventions as for
   <code>sim_pu_polygons</code>.</p></dd>
-    <dt><code>sim_pu_zone_polygons</code></dt><dd><p>Planning units represented as polygon
+    <dt><code>sim_pu_sf</code></dt><dd><p>Planning units represented as polygon data
+  using the <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> package.
+  The attribute table follows the same conventions as for
+  <code>sim_pu_polygons</code>.</p></dd>
+    <dt><code>sim_pu_zones_polygons</code></dt><dd><p>Planning units represented as polygon
   data. The attribute table contains fields (columns) indicating the
   expenditure required for prioritizing each planning unit under different
   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
@@ -247,7 +292,10 @@
   assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
   In these locked fields, planning units that should not be locked to a
   specific value are assigned a <code>NA</code> value.</p></dd>
-    <dt><code>sim_features</code></dt><dd><p>The simulated distribution of ten species.
+    <dt><code>sim_pu_zones_sf</code></dt><dd><p>Planning units represented as polygon data
+  using the <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> package. The attribute tables follows
+  the same conventions as for <code>sim_pu_zone_polygons</code>.</p></dd>
+<dt><code>sim_features</code></dt><dd><p>The simulated distribution of ten species.
   Pixel values indicate habitat suitability.</p></dd>
     <dt><code>sim_features_zones</code></dt><dd><p>The simulated distribution for five
   species under three different management zones.</p></dd>
@@ -258,24 +306,26 @@
     <pre class="examples"><div class='input'><span class='co'># load data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_lines</span>, <span class='no'>sim_pu_points</span>, <span class='no'>sim_pu_raster</span>,
      <span class='no'>sim_locked_in_raster</span>, <span class='no'>sim_locked_out_raster</span>, <span class='no'>sim_phylogeny</span>,
-     <span class='no'>sim_features</span>)
+     <span class='no'>sim_features</span>, <span class='no'>sim_pu_sf</span>)
 
-<span class='co'># plot example planning unit data</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
+<span class='co'># plot example Spatial-class planning unit data</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_locked_in_raster</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in units (raster)"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_locked_out_raster</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked out units (raster)"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (polygons)"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_lines</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (lines)"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_points</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (points)"</span>)</div><div class='img'><img src='sim_data-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># plot example sf-class planning unit data</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_sf</span>)</div><div class='img'><img src='sim_data-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example phylogeny data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='kw pkg'>ape</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ape/topics/plot.phylo'>plot.phylo</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='sim_data-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw pkg'>ape</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ape/topics/plot.phylo'>plot.phylo</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='sim_data-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example feature data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features</span>)</div><div class='img'><img src='sim_data-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features</span>)</div><div class='img'><img src='sim_data-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example management zone cost data</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_zones_stack</span>)</div><div class='img'><img src='sim_data-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_pu_zones_stack</span>)</div><div class='img'><img src='sim_data-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># plot example feature data for each management zone</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/do.call'>do.call</a></span>(<span class='no'>stack</span>, <span class='no'>sim_features_zones</span>),
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"Species "</span>,
@@ -284,7 +334,7 @@
                    <span class='st'>" (zone "</span>,
                    <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)),
                        <span class='kw'>each</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>)),
-                   <span class='st'>")"</span>))</div><div class='img'><img src='sim_data-5.png' alt='' width='700' height='433' /></div></pre>
+                   <span class='st'>")"</span>))</div><div class='img'><img src='sim_data-6.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

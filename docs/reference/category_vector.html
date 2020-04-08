@@ -40,9 +40,9 @@
 
 
 <meta property="og:title" content="Category vector — category_vector" />
-<meta property="og:description" content="Convert a data.frame or matrix containing binary
-(integer) fields (columns) into a integer vector
-indicating the column index where each row is 1." />
+<meta property="og:description" content="Convert an object containing binary (integer) fields (columns) into a
+integer vector indicating the column index where each row is
+1." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -85,7 +85,7 @@ indicating the column index where each row is 1." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -162,14 +162,20 @@ indicating the column index where each row is 1." />
     </div>
 
     <div class="ref-description">
-    <p>Convert a <code>data.frame</code> or <code>matrix</code> containing binary
-(<code>integer</code>) fields (columns) into a <code>integer</code> <code>vector</code>
-indicating the column index where each row is <code>1</code>.</p>
+    <p>Convert an object containing binary (<code>integer</code>) fields (columns) into a
+<code>integer</code> <code>vector</code> indicating the column index where each row is
+<code>1</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>category_vector</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for data.frame</span>
+<span class='fu'>category_vector</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for sf</span>
+<span class='fu'>category_vector</span>(<span class='no'>x</span>)
+
+<span class='co'># S3 method for Spatial</span>
 <span class='fu'>category_vector</span>(<span class='no'>x</span>)
 
 <span class='co'># S3 method for matrix</span>
@@ -180,7 +186,8 @@ indicating the column index where each row is <code>1</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>matrix</code> object.</p></td>
+      <td><p><code>matrix</code>, <code>data.frame</code>, <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>,
+or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object.</p></td>
     </tr>
     </table>
 

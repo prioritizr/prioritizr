@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -113,7 +113,7 @@
       <h1>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2020-02-21</h4>
+            <h4 class="date">2020-04-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -224,7 +224,9 @@ model<span class="op">$</span>A          &lt;-<span class="st"> </span><span cla
 
 <span class="co"># solve the optimization problem using Gurobi</span>
 result &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/gurobi/topics/gurobi">gurobi</a></span>(model, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>())</code></pre></div>
-<pre><code>## Optimize a model with 2 rows, 3 columns and 5 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 2 rows, 3 columns and 5 nonzeros
+## Model fingerprint: 0x15e5f516
 ## Variable types: 0 continuous, 3 integer (3 binary)
 ## Coefficient statistics:
 ##   Matrix range     [1e+00, 3e+00]
@@ -239,7 +241,7 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 ## Explored 0 nodes (0 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 3 2 
+## Solution count 2: 3 
 ## 
 ## Optimal solution found (tolerance 1.00e-04)
 ## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</code></pre>
@@ -266,7 +268,9 @@ p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.h
 
 <span class="co"># solve the problem</span>
 s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p)</code></pre></div>
-<pre><code>## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 5 rows, 90 columns and 450 nonzeros
+## Model fingerprint: 0x6442bf6e
 ## Variable types: 0 continuous, 90 integer (90 binary)
 ## Coefficient statistics:
 ##   Matrix range     [2e-01, 9e-01]
@@ -286,15 +290,15 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.htm
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-## H    0     0                    1985.6818841 1931.58191  2.72%     -    0s
+## H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
 ## 
 ## Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 2: 1985.68 2337.96 
+## Solution count 2: 1987.4 2337.96 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.985681884076e+03, best bound 1.931581908865e+03, gap 2.7245%</code></pre>
+## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s, <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
      <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>

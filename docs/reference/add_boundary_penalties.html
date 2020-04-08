@@ -84,7 +84,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -165,8 +165,13 @@ solutions that have planning units clumped together into contiguous areas." />
 solutions that have planning units clumped together into contiguous areas.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_boundary_penalties</span>(<span class='no'>x</span>, <span class='no'>penalty</span>, <span class='kw'>edge_factor</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0.5</span>,
-  <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)), <span class='kw'>zones</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>add_boundary_penalties</span>(
+  <span class='no'>x</span>,
+  <span class='no'>penalty</span>,
+  <span class='kw'>edge_factor</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0.5</span>, <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
+  <span class='kw'>zones</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -328,7 +333,9 @@ conservation planning problems with integer linear programming.
 <span class='co'># create a problem using precomputed boundary data</span>
 <span class='no'>bmat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='boundary_matrix.html'>boundary_matrix</a></span>(<span class='no'>sim_pu_raster</span>)
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>bmat</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -348,16 +355,18 @@ conservation planning problems with integer linear programming.
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3994.8945897 3899.05601  2.40%     -    0s
+#&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3994.89 4544.49 
+#&gt; Solution count 2: 3988.81 4544.49 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.994894589653e+03, best bound 3.899056011987e+03, gap 2.3990%
+#&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0xb7af95e4
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -387,7 +396,9 @@ conservation planning problems with integer linear programming.
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.196479191930e+03, best bound 4.064319933597e+03, gap 3.1493%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0x2604fb63
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -409,10 +420,10 @@ conservation planning problems with integer linear programming.
 #&gt; 
 #&gt;      0     0 4531.72483    0  234 5594.48505 4531.72483  19.0%     -    0s
 #&gt;      0     0 4604.44812    0  232 5594.48505 4604.44812  17.7%     -    0s
-#&gt;      0     0 4664.43086    0  226 5594.48505 4664.43086  16.6%     -    0s
+#&gt;      0     0 4664.43086    0  225 5594.48505 4664.43086  16.6%     -    0s
 #&gt;      0     0 4667.41801    0  229 5594.48505 4667.41801  16.6%     -    0s
 #&gt;      0     0 4669.60093    0  229 5594.48505 4669.60093  16.5%     -    0s
-#&gt;      0     0 4685.75922    0  225 5594.48505 4685.75922  16.2%     -    0s
+#&gt;      0     0 4685.65525    0  222 5594.48505 4685.65525  16.2%     -    0s
 #&gt;      0     0 4694.51190    0  204 5594.48505 4694.51190  16.1%     -    0s
 #&gt;      0     0 4694.56564    0  204 5594.48505 4694.56564  16.1%     -    0s
 #&gt;      0     0 4694.56564    0  204 5594.48505 4694.56564  16.1%     -    0s
@@ -422,14 +433,16 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 1 nodes (456 simplex iterations) in 0.12 seconds
+#&gt; Explored 1 nodes (470 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 5175.18 5330.73 5594.49 20287.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 5.175180704712e+03, best bound 4.694565636923e+03, gap 9.2869%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
+#&gt; Model fingerprint: 0xb7af95e4
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -520,7 +533,9 @@ conservation planning problems with integer linear programming.
 <span class='no'>p10</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>500</span>, <span class='kw'>zone</span> <span class='kw'>=</span> <span class='no'>zm10</span>)</div><div class='input'><span class='co'># solve problems</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)),
             <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)),
-            <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p10</span>)))</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+            <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p10</span>)))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x168289c2
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -541,14 +556,16 @@ conservation planning problems with integer linear programming.
 #&gt; 
 #&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (211 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (211 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 13103.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.310324282660e+04, best bound 1.199144828715e+04, gap 8.4849%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 975 rows, 705 columns and 3360 nonzeros
+#&gt; Model fingerprint: 0x9ae2b322
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -562,22 +579,26 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.228259e+04, 618 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.228259e+04, 575 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 12282.5861    0  310 14008.2428 12282.5861  12.3%     -    0s
-#&gt; H    0     0                    13450.185104 12282.5861  8.68%     -    0s
+#&gt; H    0     0                    13778.654077 12282.5861  10.9%     -    0s
+#&gt; H    0     0                    13659.707836 12282.5861  10.1%     -    0s
+#&gt; H    0     0                    13451.469667 12282.5861  8.69%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (618 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (575 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 13450.2 14008.2 
+#&gt; Solution count 4: 13451.5 13659.7 13778.7 14008.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.345018510397e+04, best bound 1.228258611787e+04, gap 8.6809%
+#&gt; Best objective 1.345146966676e+04, best bound 1.228258611787e+04, gap 8.6896%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 975 rows, 705 columns and 3360 nonzeros
+#&gt; Model fingerprint: 0x3ccabb57
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -591,43 +612,38 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 713 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 655 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 13620.1452    0  655 22153.2428 13620.1452  38.5%     -    0s
-#&gt; H    0     0                    20128.117363 13620.1452  32.3%     -    0s
-#&gt; H    0     0                    19796.492982 13620.1452  31.2%     -    0s
-#&gt;      0     0 13772.8695    0  664 19796.4930 13772.8695  30.4%     -    0s
-#&gt; H    0     0                    19578.669240 13772.8695  29.7%     -    0s
-#&gt;      0     0 13775.6927    0  659 19578.6692 13775.6927  29.6%     -    0s
-#&gt;      0     0 13798.1920    0  611 19578.6692 13798.1920  29.5%     -    0s
-#&gt; H    0     0                    19552.871081 13798.1920  29.4%     -    0s
-#&gt;      0     0 13823.3790    0  611 19552.8711 13823.3790  29.3%     -    0s
-#&gt;      0     0 13823.4016    0  616 19552.8711 13823.4016  29.3%     -    0s
-#&gt;      0     0 13834.6267    0  640 19552.8711 13834.6267  29.2%     -    0s
-#&gt; H    0     0                    19360.827217 13834.6267  28.5%     -    0s
-#&gt;      0     0 13867.3124    0  663 19360.8272 13867.3124  28.4%     -    0s
-#&gt;      0     0 13868.1508    0  658 19360.8272 13868.1508  28.4%     -    0s
-#&gt;      0     0 13868.1508    0  658 19360.8272 13868.1508  28.4%     -    0s
-#&gt; H    0     0                    16529.592722 13868.1508  16.1%     -    0s
-#&gt; H    0     0                    15922.309412 13868.1508  12.9%     -    0s
-#&gt;      0     2 13869.2667    0  658 15922.3094 13869.2667  12.9%     -    0s
-#&gt; H  527   408                    15780.713406 14112.4138  10.6%  29.6    3s
-#&gt; H  527   387                    15656.048982 14112.4138  9.86%  29.6    3s
+#&gt; H    0     0                    20154.993440 13620.1452  32.4%     -    0s
+#&gt;      0     0 13770.3047    0  624 20154.9934 13770.3047  31.7%     -    0s
+#&gt; H    0     0                    19969.144300 13770.3047  31.0%     -    0s
+#&gt;      0     0 13878.2308    0  604 19969.1443 13878.2308  30.5%     -    0s
+#&gt;      0     0 13881.4949    0  614 19969.1443 13881.4949  30.5%     -    0s
+#&gt;      0     0 13911.8533    0  611 19969.1443 13911.8533  30.3%     -    0s
+#&gt; H    0     0                    18843.311920 13911.8533  26.2%     -    0s
+#&gt;      0     0 13911.8533    0  611 18843.3119 13911.8533  26.2%     -    0s
+#&gt; H    0     0                    16204.385441 13911.8533  14.1%     -    0s
+#&gt; H    0     0                    15678.285614 13911.8533  11.3%     -    0s
+#&gt;      0     2 13912.0561    0  611 15678.2856 13912.0561  11.3%     -    0s
+#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 18
+#&gt;   Gomory: 8
 #&gt; 
-#&gt; Explored 527 nodes (18491 simplex iterations) in 3.69 seconds
+#&gt; Explored 136 nodes (5394 simplex iterations) in 0.74 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 15656 15780.7 15922.3 ... 22153.2
+#&gt; Solution count 7: 15521.9 15678.3 16204.4 ... 22153.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.565604898208e+04, best bound 1.411241378650e+04, gap 9.8597%
+#&gt; Best objective 1.552190437486e+04, best bound 1.401120436180e+04, gap 9.7327%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 1845 rows, 1140 columns and 5100 nonzeros
+#&gt; Model fingerprint: 0xada27267
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -642,7 +658,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1905 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.06 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -651,14 +667,16 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    2881.3718971 2576.99025  10.6%     -    0s
 #&gt; H    0     0                    2794.5621583 2576.99025  7.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (2016 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (1800 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2794.56 2881.37 8303.24 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.794562158270e+03, best bound 2.576990253978e+03, gap 7.7855%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 1555 rows, 995 columns and 4520 nonzeros
+#&gt; Model fingerprint: 0xae681357
 #&gt; Variable types: 0 continuous, 995 integer (995 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -673,45 +691,39 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 995 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 714 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 13620.1452    0  655 21613.2428 13620.1452  37.0%     -    0s
-#&gt; H    0     0                    20845.425726 13620.1452  34.7%     -    0s
-#&gt; H    0     0                    19467.036465 13620.1452  30.0%     -    0s
-#&gt;      0     0 13728.2763    0  637 19467.0365 13728.2763  29.5%     -    0s
-#&gt; H    0     0                    18893.082095 13728.2763  27.3%     -    0s
-#&gt;      0     0 13729.6980    0  642 18893.0821 13729.6980  27.3%     -    0s
-#&gt;      0     0 13730.2911    0  642 18893.0821 13730.2911  27.3%     -    0s
-#&gt;      0     0 13790.5901    0  627 18893.0821 13790.5901  27.0%     -    0s
-#&gt;      0     0 13801.0123    0  598 18893.0821 13801.0123  27.0%     -    0s
-#&gt;      0     0 13822.5175    0  551 18893.0821 13822.5175  26.8%     -    0s
-#&gt; H    0     0                    18751.740399 13822.5175  26.3%     -    0s
-#&gt;      0     0 13826.9360    0  563 18751.7404 13826.9360  26.3%     -    0s
-#&gt;      0     0 13826.9360    0  563 18751.7404 13826.9360  26.3%     -    0s
-#&gt; H    0     0                    17431.702421 13826.9360  20.7%     -    0s
-#&gt; H    0     0                    17347.291320 13826.9360  20.3%     -    0s
-#&gt; H    0     0                    16456.518756 13826.9360  16.0%     -    1s
-#&gt;      0     2 13827.3898    0  563 16456.5188 13827.3898  16.0%     -    1s
-#&gt; H  105   103                    16310.857489 13832.3864  15.2%  30.0    1s
-#&gt; H  510   446                    16294.105380 13988.8212  14.1%  29.6    2s
-#&gt; H  513   426                    15987.920808 13988.8212  12.5%  29.4    2s
-#&gt; H  516   406                    15894.561955 13988.8212  12.0%  29.3    2s
-#&gt; H  523   390                    15417.906443 13988.8212  9.27%  28.9    4s
+#&gt; H    0     0                    20679.750176 13620.1452  34.1%     -    0s
+#&gt; H    0     0                    20023.371279 13620.1452  32.0%     -    0s
+#&gt;      0     0 13745.4959    0  683 20023.3713 13745.4959  31.4%     -    0s
+#&gt; H    0     0                    16814.522531 13745.4959  18.3%     -    0s
+#&gt;      0     0 13745.7308    0  683 16814.5225 13745.7308  18.3%     -    0s
+#&gt;      0     0 13831.7639    0  604 16814.5225 13831.7639  17.7%     -    0s
+#&gt;      0     0 13844.7800    0  593 16814.5225 13844.7800  17.7%     -    0s
+#&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
+#&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
+#&gt;      0     2 13864.0559    0  594 16814.5225 13864.0559  17.5%     -    0s
+#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    0s
+#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    0s
+#&gt; H  116    75                    15585.976112 13876.1302  11.0%  36.8    1s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 17
+#&gt;   Gomory: 9
 #&gt; 
-#&gt; Explored 523 nodes (17825 simplex iterations) in 4.76 seconds
+#&gt; Explored 290 nodes (11724 simplex iterations) in 1.51 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 15417.9 15894.6 15987.9 ... 18893.1
+#&gt; Solution count 7: 15586 15730 15944.4 ... 21613.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.541790644258e+04, best bound 1.398882115772e+04, gap 9.2690%
+#&gt; Best objective 1.558597611216e+04, best bound 1.403676075946e+04, gap 9.9398%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 1120 rows, 705 columns and 3795 nonzeros
+#&gt; Model fingerprint: 0xe02f3708
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -725,49 +737,42 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 1120 rows, 705 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.328641e+03, 523 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.328641e+03, 598 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 9328.64105    0  481 15601.5217 9328.64105  40.2%     -    0s
-#&gt; H    0     0                    14404.516545 9328.64105  35.2%     -    0s
-#&gt;      0     0 9376.71069    0  435 14404.5165 9376.71069  34.9%     -    0s
-#&gt; H    0     0                    13853.093457 9376.71069  32.3%     -    0s
-#&gt; H    0     0                    13263.346834 9376.71069  29.3%     -    0s
-#&gt;      0     0 9388.30013    0  435 13263.3468 9388.30013  29.2%     -    0s
-#&gt;      0     0 9433.68734    0  467 13263.3468 9433.68734  28.9%     -    0s
-#&gt; H    0     0                    12771.763887 9433.68734  26.1%     -    0s
-#&gt;      0     0 9440.54053    0  473 12771.7639 9440.54053  26.1%     -    0s
-#&gt;      0     0 9440.69940    0  473 12771.7639 9440.69940  26.1%     -    0s
-#&gt;      0     0 9467.62898    0  467 12771.7639 9467.62898  25.9%     -    0s
-#&gt; H    0     0                    12676.412706 9467.62898  25.3%     -    0s
-#&gt;      0     0 9473.57609    0  476 12676.4127 9473.57609  25.3%     -    0s
-#&gt;      0     0 9478.31995    0  478 12676.4127 9478.31995  25.2%     -    0s
-#&gt;      0     0 9479.01242    0  477 12676.4127 9479.01242  25.2%     -    0s
-#&gt;      0     0 9481.17466    0  480 12676.4127 9481.17466  25.2%     -    0s
-#&gt;      0     0 9484.66372    0  479 12676.4127 9484.66372  25.2%     -    0s
-#&gt;      0     0 9485.82314    0  478 12676.4127 9485.82314  25.2%     -    0s
-#&gt;      0     0 9486.99589    0  479 12676.4127 9486.99589  25.2%     -    0s
-#&gt;      0     0 9488.66317    0  465 12676.4127 9488.66317  25.1%     -    0s
-#&gt; H    0     0                    12658.741688 9488.66317  25.0%     -    0s
-#&gt;      0     0 9488.66317    0  465 12658.7417 9488.66317  25.0%     -    0s
-#&gt; H    0     0                    11278.322052 9488.66317  15.9%     -    0s
-#&gt;      0     2 9489.13316    0  465 11278.3221 9489.13316  15.9%     -    1s
-#&gt; H   27    27                    10938.370123 9538.34579  12.8%  61.7    1s
-#&gt; H  108    52                    10332.698302 9546.30398  7.61%  50.0    1s
+#&gt; H    0     0                    13044.004782 9328.64105  28.5%     -    0s
+#&gt; H    0     0                    12904.982021 9328.64105  27.7%     -    0s
+#&gt;      0     0 9365.33880    0  432 12904.9820 9365.33880  27.4%     -    0s
+#&gt;      0     0 9366.98721    0  433 12904.9820 9366.98721  27.4%     -    0s
+#&gt;      0     0 9419.01666    0  495 12904.9820 9419.01666  27.0%     -    0s
+#&gt; H    0     0                    12721.479342 9419.01666  26.0%     -    0s
+#&gt;      0     0 9437.43529    0  445 12721.4793 9437.43529  25.8%     -    0s
+#&gt; H    0     0                    12537.815277 9437.43529  24.7%     -    0s
+#&gt;      0     0 9438.92869    0  439 12537.8153 9438.92869  24.7%     -    0s
+#&gt;      0     0 9468.77042    0  444 12537.8153 9468.77042  24.5%     -    0s
+#&gt; H    0     0                    12536.982752 9468.77042  24.5%     -    0s
+#&gt;      0     0 9468.97121    0  452 12536.9828 9468.97121  24.5%     -    0s
+#&gt;      0     0 9476.40339    0  490 12536.9828 9476.40339  24.4%     -    0s
+#&gt;      0     0 9481.28491    0  494 12536.9828 9481.28491  24.4%     -    0s
+#&gt;      0     0 9481.28491    0  494 12536.9828 9481.28491  24.4%     -    0s
+#&gt; H    0     0                    10821.329400 9481.28491  12.4%     -    0s
+#&gt;      0     2 9481.69481    0  494 10821.3294 9481.69481  12.4%     -    0s
+#&gt; H   54    42                    10555.622013 9510.15787  9.90%  52.0    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 6
-#&gt;   Zero half: 9
+#&gt;   Gomory: 3
+#&gt;   Zero half: 29
 #&gt; 
-#&gt; Explored 108 nodes (6428 simplex iterations) in 1.38 seconds
+#&gt; Explored 55 nodes (3884 simplex iterations) in 0.74 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 10: 10332.7 10938.4 11278.3 ... 15601.5
+#&gt; Solution count 8: 10555.6 10821.3 12537 ... 15601.5
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.033269830160e+04, best bound 9.546303983599e+03, gap 7.6107%</div><div class='input'>
+#&gt; Best objective 1.055562201321e+04, best bound 9.510157867559e+03, gap 9.9043%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"within zone clumping (low)"</span>,
                   <span class='st'>"within zone clumping (high)"</span>, <span class='st'>"between zone clumping"</span>,

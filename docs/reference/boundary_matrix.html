@@ -85,7 +85,7 @@ planning unit exhibits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -181,6 +181,9 @@ planning unit exhibits.</p>
 <span class='co'># S3 method for SpatialPoints</span>
 <span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
+<span class='co'># S3 method for sf</span>
+<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
 <span class='co'># S3 method for default</span>
 <span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
@@ -190,8 +193,9 @@ planning unit exhibits.</p>
     <tr>
       <th>x</th>
       <td><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>,
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLines-class'>SpatialLines-class</a></code>, or
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code> object. If <code>x</code> is a
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLines-class'>SpatialLines-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygons-class'>SpatialPolygons-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object representing planning units. If <code>x</code> is a
 <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must have only one
 layer.</p></td>
     </tr>
@@ -218,7 +222,7 @@ is <code>FALSE</code>.</p></td>
     <p>This function returns a <code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code>
   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
   the shared boundary between two different planning units. Cells on the
-  diagonal indicate length of a given planning unit"s edges that have no
+  diagonal indicate length of a given planning unit's edges that have no
   neighbors (e.g. for edges of planning units found along the
   coastline). <strong>This function assumes the data are in a coordinate
   system where Euclidean distances accurately describe the proximity
@@ -236,27 +240,33 @@ is <code>FALSE</code>.</p></td>
 <span class='co'># subset data to reduce processing time</span>
 <span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_pu_raster</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>))
 <span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+<span class='no'>ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>st_as_sf</span>(<span class='no'>ply</span>)
 
 <span class='co'># create boundary matrix using raster data</span>
 <span class='no'>bm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>r</span>)
 
-<span class='co'># create boundary matrix using polygon data</span>
+<span class='co'># create boundary matrix using polygon (Spatial) data</span>
 <span class='no'>bm_ply1</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>)
 
-<span class='co'># create boundary matrix using polygon data and GEOS STR query trees</span>
+<span class='co'># create boundary matrix using polygon (sf) data</span>
+<span class='no'>bm_ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply2</span>)
+
+<span class='co'># create boundary matrix with polygon (Spatial) data and GEOS STR query trees</span>
 <span class='co'># to speed up processing</span>
-<span class='no'>bm_ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>, <span class='fl'>TRUE</span>)
+<span class='no'>bm_ply3</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>, <span class='fl'>TRUE</span>)
 
 <span class='co'># plot raster and boundary matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>bm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>,
      <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'># plot polygons and boundary matrices
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons (Spatial)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>bm_ply1</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>bm_ply2</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix (STR)"</span>,
-            <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons (sf)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>bm_ply2</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>bm_ply3</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix (Spatial, STR)"</span>,
+            <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -90,7 +90,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -264,7 +264,9 @@ Details section for more information.</p></td>
 <span class='co'># denote higher extinction risk)</span>
 <span class='no'>w3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='fl'>200</span>)
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w3</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Model fingerprint: 0x15e6d43f
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -286,34 +288,32 @@ Details section for more information.</p></td>
 #&gt;      0     0    4.90902    0    6   -0.00000    4.90902      -     -    0s
 #&gt; H    0     0                       1.9979863    4.90902   146%     -    0s
 #&gt; H    0     0                       2.9979659    4.90902  63.7%     -    0s
-#&gt;      0     0    4.90824    0    8    2.99797    4.90824  63.7%     -    0s
 #&gt;      0     0    4.90824    0    9    2.99797    4.90824  63.7%     -    0s
-#&gt;      0     0    4.90731    0    9    2.99797    4.90731  63.7%     -    0s
-#&gt;      0     0    4.90717    0   10    2.99797    4.90717  63.7%     -    0s
-#&gt;      0     0    4.90697    0   11    2.99797    4.90697  63.7%     -    0s
-#&gt;      0     0    4.90693    0   12    2.99797    4.90693  63.7%     -    0s
-#&gt;      0     0    4.90633    0   14    2.99797    4.90633  63.7%     -    0s
-#&gt;      0     0    4.90622    0   14    2.99797    4.90622  63.7%     -    0s
-#&gt;      0     0    4.90340    0   12    2.99797    4.90340  63.6%     -    0s
-#&gt;      0     0    4.90215    0   12    2.99797    4.90215  63.5%     -    0s
-#&gt;      0     0    4.90146    0   11    2.99797    4.90146  63.5%     -    0s
-#&gt;      0     0    4.90135    0   11    2.99797    4.90135  63.5%     -    0s
-#&gt;      0     0    4.90127    0   12    2.99797    4.90127  63.5%     -    0s
-#&gt;      0     2    4.89994    0   12    2.99797    4.89994  63.4%     -    0s
+#&gt;      0     0    4.90725    0    9    2.99797    4.90725  63.7%     -    0s
+#&gt;      0     0    4.90713    0   10    2.99797    4.90713  63.7%     -    0s
+#&gt;      0     0    4.90686    0   14    2.99797    4.90686  63.7%     -    0s
+#&gt;      0     0    4.90685    0   14    2.99797    4.90685  63.7%     -    0s
+#&gt;      0     0    4.90599    0   11    2.99797    4.90599  63.6%     -    0s
+#&gt;      0     0    4.90593    0   13    2.99797    4.90593  63.6%     -    0s
+#&gt;      0     0    4.90592    0   14    2.99797    4.90592  63.6%     -    0s
+#&gt;      0     2    4.90477    0   14    2.99797    4.90477  63.6%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 2
-#&gt;   MIR: 2
-#&gt;   StrongCG: 2
+#&gt;   Cover: 1
+#&gt;   MIR: 6
+#&gt;   StrongCG: 3
+#&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 8 nodes (234 simplex iterations) in 0.03 seconds
+#&gt; Explored 8 nodes (231 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2.99797 1.99799 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.997965888532e+00, best bound 3.095183750543e+00, gap 3.2428%
+#&gt; Best objective 2.997965888532e+00, best bound 2.997988029529e+00, gap 0.0007%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Model fingerprint: 0xcde35cb0
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -333,36 +333,42 @@ Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0  774.77680    0    6   -0.00000  774.77680      -     -    0s
-#&gt;      0     0  774.74919    0    7   -0.00000  774.74919      -     -    0s
-#&gt;      0     0  774.68915    0    9   -0.00000  774.68915      -     -    0s
-#&gt;      0     0  774.68652    0   10   -0.00000  774.68652      -     -    0s
-#&gt;      0     0  774.68452    0   10   -0.00000  774.68452      -     -    0s
-#&gt;      0     0  774.67599    0   11   -0.00000  774.67599      -     -    0s
-#&gt;      0     0  774.65683    0   12   -0.00000  774.65683      -     -    0s
-#&gt;      0     0  774.65490    0   12   -0.00000  774.65490      -     -    0s
-#&gt;      0     0  774.65433    0   13   -0.00000  774.65433      -     -    0s
-#&gt;      0     0  774.62032    0   10   -0.00000  774.62032      -     -    0s
-#&gt;      0     0  774.61987    0    9   -0.00000  774.61987      -     -    0s
-#&gt;      0     0  774.57547    0   10   -0.00000  774.57547      -     -    0s
-#&gt; H    0     0                     142.6724257  774.57547   443%     -    0s
-#&gt;      0     0  774.57044    0   11  142.67243  774.57044   443%     -    0s
-#&gt;      0     0  774.56518    0   12  142.67243  774.56518   443%     -    0s
-#&gt;      0     2  774.50629    0   12  142.67243  774.50629   443%     -    0s
-#&gt; H   52    38                     715.2870222  749.30428  4.76%   5.7    0s
+#&gt;      0     0  774.71251    0    9   -0.00000  774.71251      -     -    0s
+#&gt;      0     0  774.69670    0   11   -0.00000  774.69670      -     -    0s
+#&gt;      0     0  774.69259    0   11   -0.00000  774.69259      -     -    0s
+#&gt;      0     0  774.68882    0   11   -0.00000  774.68882      -     -    0s
+#&gt;      0     0  774.68208    0   10   -0.00000  774.68208      -     -    0s
+#&gt;      0     0  774.68139    0   11   -0.00000  774.68139      -     -    0s
+#&gt;      0     0  774.66995    0   13   -0.00000  774.66995      -     -    0s
+#&gt; H    0     0                      45.0511449  774.66995  1620%     -    0s
+#&gt; H    0     0                     153.7082788  774.66995   404%     -    0s
+#&gt;      0     0  774.66871    0   12  153.70828  774.66871   404%     -    0s
+#&gt;      0     0  774.66860    0   13  153.70828  774.66860   404%     -    0s
+#&gt;      0     0  774.65196    0   14  153.70828  774.65196   404%     -    0s
+#&gt;      0     0  774.64180    0   15  153.70828  774.64180   404%     -    0s
+#&gt;      0     0  774.63891    0   16  153.70828  774.63891   404%     -    0s
+#&gt;      0     0  774.58304    0   15  153.70828  774.58304   404%     -    0s
+#&gt;      0     0  774.57292    0   15  153.70828  774.57292   404%     -    0s
+#&gt;      0     0  774.57018    0   15  153.70828  774.57018   404%     -    0s
+#&gt;      0     0  774.56045    0   15  153.70828  774.56045   404%     -    0s
+#&gt; H    0     0                     606.6298845  774.56045  27.7%     -    0s
+#&gt; H    0     0                     715.2870431  774.56045  8.29%     -    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Cover: 5
-#&gt;   MIR: 5
-#&gt;   StrongCG: 2
+#&gt;   MIR: 6
+#&gt;   StrongCG: 1
+#&gt;   RLT: 2
 #&gt; 
-#&gt; Explored 52 nodes (386 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (157 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 3: 715.287 142.672 -0 
+#&gt; Solution count 5: 715.287 606.63 153.708 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.152870222066e+02, best bound 7.493042811185e+02, gap 4.7557%
+#&gt; Best objective 7.152870430944e+02, best bound 7.745604502585e+02, gap 8.2867%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
+#&gt; Model fingerprint: 0x34972506
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -383,12 +389,14 @@ Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0  299.99806    0    2   -0.00000  299.99806      -     -    0s
+#&gt; H    0     0                     199.9980909  299.99806  50.0%     -    0s
 #&gt; H    0     0                     299.9980622  299.99806  0.00%     -    0s
+#&gt;      0     0  299.99806    0    2  299.99806  299.99806  0.00%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (23 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 299.998 -0 
+#&gt; Solution count 3: 299.998 199.998 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.999980621935e+02, best bound 2.999980621935e+02, gap 0.0000%</div><div class='input'>
@@ -404,7 +412,9 @@ Details section for more information.</p></td>
       <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+#&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -431,14 +441,17 @@ Details section for more information.</p></td>
 #&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
 #&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
 #&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
-#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
+#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
+#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
+#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
+#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
+#&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -470,7 +483,9 @@ Details section for more information.</p></td>
 <span class='co'># feature be much closer to optimality</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 1.42105185 0.34712544 0.04100098 0.30612447 0.30612447 0.59604770 1.17212960
 #&gt; [8] 1.17212960</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
+#&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -497,14 +512,17 @@ Details section for more information.</p></td>
 #&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
 #&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
 #&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     2    5.23706    0    9    2.94027    5.23706  78.1%     -    0s
-#&gt; H    6     3                       3.5363171    4.24819  20.1%   8.0    0s
+#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
+#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
+#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
+#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 1
 #&gt;   MIR: 3
+#&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (107 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -543,7 +561,9 @@ Details section for more information.</p></td>
 
 <span class='co'># create problem with weights</span>
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0xe9518199
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -551,48 +571,55 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.938175e+00, 243 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 7.938175e+00, 248 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0    7.93818    0   11   -0.00000    7.93818      -     -    0s
-#&gt; H    0     0                       3.9996549    7.93818  98.5%     -    0s
-#&gt; H    0     0                       4.9996180    7.93818  58.8%     -    0s
+#&gt; H    0     0                       4.9996186    7.93818  58.8%     -    0s
 #&gt;      0     0    7.56188    0   18    4.99962    7.56188  51.2%     -    0s
-#&gt;      0     0    7.56101    0   19    4.99962    7.56101  51.2%     -    0s
-#&gt;      0     0    7.27065    0   11    4.99962    7.27065  45.4%     -    0s
-#&gt;      0     0    7.26884    0   12    4.99962    7.26884  45.4%     -    0s
-#&gt;      0     0    7.26873    0   13    4.99962    7.26873  45.4%     -    0s
-#&gt;      0     0    7.26293    0   14    4.99962    7.26293  45.3%     -    0s
-#&gt; H    0     0                       4.9996480    7.26293  45.3%     -    0s
-#&gt;      0     0    7.26286    0   14    4.99965    7.26286  45.3%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt;      0     0    7.25824    0   18    4.99965    7.25824  45.2%     -    0s
-#&gt; H    0     0                       4.9996494    7.25824  45.2%     -    0s
-#&gt;      0     2    7.25729    0   18    4.99965    7.25729  45.2%     -    0s
+#&gt; H    0     0                       4.9996398    7.56188  51.2%     -    0s
+#&gt;      0     0    7.56101    0   19    4.99964    7.56101  51.2%     -    0s
+#&gt;      0     0    7.27065    0   11    4.99964    7.27065  45.4%     -    0s
+#&gt; H    0     0                       4.9996466    7.27065  45.4%     -    0s
+#&gt;      0     0    7.26884    0   12    4.99965    7.26884  45.4%     -    0s
+#&gt;      0     0    7.25820    0   14    4.99965    7.25820  45.2%     -    0s
+#&gt; H    0     0                       4.9996473    7.25820  45.2%     -    0s
+#&gt;      0     0    7.25660    0   16    4.99965    7.25660  45.1%     -    0s
+#&gt;      0     0    7.25580    0   18    4.99965    7.25580  45.1%     -    0s
+#&gt;      0     0    7.25572    0   19    4.99965    7.25572  45.1%     -    0s
+#&gt;      0     0    7.25341    0   21    4.99965    7.25341  45.1%     -    0s
+#&gt;      0     0    7.25246    0   22    4.99965    7.25246  45.1%     -    0s
+#&gt;      0     0    7.25219    0   23    4.99965    7.25219  45.1%     -    0s
+#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
+#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
+#&gt; H    0     0                       4.9996488    7.25144  45.0%     -    0s
+#&gt;      0     2    7.25041    0   24    4.99965    7.25041  45.0%     -    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
-#&gt;   Cover: 6
-#&gt;   MIR: 6
-#&gt;   StrongCG: 2
+#&gt;   Cover: 10
+#&gt;   MIR: 5
+#&gt;   StrongCG: 4
 #&gt;   GUB cover: 1
-#&gt;   Inf proof: 2
+#&gt;   RLT: 6
 #&gt; 
-#&gt; Explored 63 nodes (1030 simplex iterations) in 0.08 seconds
+#&gt; Explored 124 nodes (1709 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 4.99965 4.99965 4.99962 ... -0
+#&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999649366173e+00, best bound 5.273354104240e+00, gap 5.4745%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Best objective 4.999648781179e+00, best bound 5.312475879683e+00, gap 6.2570%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
+#&gt; Model fingerprint: 0xbdbcef08
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -633,7 +660,9 @@ Details section for more information.</p></td>
                                     <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_feature_weights</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>200</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
+#&gt; Model fingerprint: 0x2bbe4267
 #&gt; Variable types: 0 continuous, 92 integer (92 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 2e+02]
@@ -649,6 +678,7 @@ Details section for more information.</p></td>
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: -0 
+#&gt; No other solutions better than -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%</div><div class='input'>

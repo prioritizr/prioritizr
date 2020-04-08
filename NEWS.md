@@ -1,8 +1,8 @@
 # prioritizr 5.0.0.0
 
 - Add full support for _sf_ R package (#6).
-- Add Flower _et al._ (2020), Hanson _et al._ (2020), and Visalli _et al._
-  (2020) to publication record (#131).
+- Add Flower _et al._ (2020), Hanson _et al._ (2020), and
+  Visalli _et al._ (2020) to publication record (#131).
 - New `proximity_matrix` function to generate matrices indicating which
   planning units are within a certain distance of each other (#6).
 - Rename `connected_matrix` function to `adjacency_matrix` function to follow

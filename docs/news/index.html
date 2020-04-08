@@ -82,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -157,6 +157,25 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-5-0-0-0" class="section level1">
+<h1 class="page-header">
+<a href="#prioritizr-5-0-0-0" class="anchor"></a>prioritizr 5.0.0.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Add full support for <em>sf</em> R package (<a href='https://github.com/prioritizr/prioritizr/issues/6'>#6</a>).</li>
+<li>Add Flower <em>et al.</em> (2020), Hanson <em>et al.</em> (2020), and Visalli <em>et al.</em> (2020) to publication record (<a href='https://github.com/prioritizr/prioritizr/issues/131'>#131</a>).</li>
+<li>New <code>proximity_matrix</code> function to generate matrices indicating which planning units are within a certain distance of each other (<a href='https://github.com/prioritizr/prioritizr/issues/6'>#6</a>).</li>
+<li>Rename <code>connected_matrix</code> function to <code>adjacency_matrix</code> function to follow the naming conventions of other spatial association functions (<a href='https://github.com/prioritizr/prioritizr/issues/6'>#6</a>).</li>
+<li>New <code>add_extra_portfolio</code>, <code>add_top_portfolio</code>, <code>add_gap_portfolio</code> functions to provide specific options for generating portfolios (<a href='https://github.com/prioritizr/prioritizr/issues/134'>#134</a>).</li>
+<li>Enhance <code>intersecting_units</code> and <code>fast_extract</code> functions to use the <em>exactextractr</em> and <em>fasterize</em> R packages to speed up raster data extraction (<a href='https://github.com/prioritizr/prioritizr/issues/130'>#130</a>).</li>
+<li>Fix compatibility issues with upcoming version of tibble (3.0.0).</li>
+<li>Fix bug in <code>boundary_matrix</code> function when handling <code>SpatialPolygon</code> planning unit data that contain multiple polygons (e.g. a single planning unit contains to two separate islands) (<a href='https://github.com/prioritizr/prioritizr/issues/132'>#132</a>).</li>
+<li>Remove <em>velox</em> dependency since it may be archived on CRAN (<a href='https://github.com/prioritizr/prioritizr/issues/130'>#130</a>).</li>
+<li>Deprecate <code>set_number_of_threads</code>, <code>get_number_of_threads</code>, and <code>is.parallel</code> functions since they are no longer used with new data extraction methods.</li>
+<li>Deprecate <code>add_pool_portfolio</code> function because the new <code>add_extra_portfolio</code> and <code>add_top_portfolio</code> functions provide this functionality (<a href='https://github.com/prioritizr/prioritizr/issues/134'>#134</a>).</li>
+<li>Built-in datasets are now saved with latest workspace version (i.e. version 3).</li>
+</ul>
+</div>
     <div id="prioritizr-4-1-5-2" class="section level1">
 <h1 class="page-header">
 <a href="#prioritizr-4-1-5-2" class="anchor"></a>prioritizr 4.1.5.2<small> Unreleased </small>
@@ -1254,6 +1273,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#prioritizr-5-0-0-0">5.0.0.0</a></li>
         <li><a href="#prioritizr-4-1-5-2">4.1.5.2</a></li>
         <li><a href="#prioritizr-4-1-5-1">4.1.5.1</a></li>
         <li><a href="#prioritizr-4-1-5-released">4.1.5</a></li>
