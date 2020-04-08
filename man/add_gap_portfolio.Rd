@@ -4,14 +4,14 @@
 \alias{add_gap_portfolio}
 \title{Add a gap portfolio}
 \usage{
-add_gap_portfolio(x, number_solutions, gap = 0.1)
+add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 
-\item{gap}{\code{numeric} gap to optimality for solutions in the portfolio.
+\item{pool_gap}{\code{numeric} gap to optimality for solutions in the portfolio.
 This relative gap specifies a threshold worst-case performance for
 solutions in the portfolio. For example, value of 0.1 will result in the
 portfolio returning solutions that are within 10\% of an optimal solution.
@@ -53,7 +53,7 @@ data(sim_pu_raster, sim_features)
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.05) \%>\%
-      add_gap_portfolio(number_solutions = 5, gap = 0.2) \%>\%
+      add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio
@@ -71,7 +71,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
                                   ncol = 3)) \%>\%
-      add_gap_portfolio(number_solutions = 5, gap = 0.2) \%>\%
+      add_gap_portfolio(number_solutions = 5, pool_gap = 0.2) \%>\%
       add_default_solver(gap = 0, verbose = FALSE)
 
 # solve problem and generate portfolio

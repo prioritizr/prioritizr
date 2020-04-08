@@ -7,6 +7,7 @@
 \alias{set_number_of_threads}
 \alias{get_number_of_threads}
 \alias{is.parallel}
+\alias{add_pool_portfolio}
 \alias{connected_matrix}
 \title{Deprecated functions in the \pkg{prioritizr} package}
 \usage{
@@ -20,7 +21,7 @@ get_number_of_threads(...)
 
 is.parallel(...)
 
-is.parallel(...)
+add_pool_portfolio(...)
 
 connected_matrix(...)
 }
