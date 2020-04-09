@@ -51,8 +51,11 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install udunits; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install basictex; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages('digest', type = 'source')"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install titling; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install framed; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install inconsolata; fi;
 
 install:
