@@ -240,6 +240,8 @@ test_that("RasterLayer", {
   s <- rbind(0, s)
   # tests
   expect_true(all(b == s))
+  # experimental functionality
+  skip_on_os("mac")
   expect_error(boundary_matrix(x, TRUE))
 })
 
@@ -255,6 +257,8 @@ test_that("RasterStack", {
   s <- rbind(0, s)
   # tests
   expect_true(all(b == s))
+  # experimental functionality
+  skip_on_os("mac")
   expect_error(boundary_matrix(x, TRUE))
 })
 
