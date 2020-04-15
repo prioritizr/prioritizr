@@ -42,59 +42,59 @@ test_that("SpatialPolygons (hexagons)", {
   expect_lte(max(abs(b2 - s)), 1e-8)
 })
 
-test_that("SpatialPolygons (real data - simple shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  x <- tas_pu[c(300, 279), ]
-  b1 <- boundary_matrix(x)
-  # calculate total length
-  total_length <- rgeos::gLength(x, byid = TRUE)
-  shared_length <- rgeos::gLength(rgeos::gIntersection(
-    methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
-  # make correct matrix
-  s <- Matrix::sparseMatrix(
-    i = c(0, 0, 1),
-    j = c(0, 1, 1),
-    x = c(total_length[1] - shared_length, shared_length,
-          total_length[2] - shared_length),
-    index1 = FALSE, symmetric = TRUE)
-  # tests
-  expect_is(b1, "dsCMatrix")
-  expect_lte(max(abs(b1 - s)), 1e-8)
-  # experimental functionality
-  skip_on_os("mac")
-  b2 <- boundary_matrix(x, TRUE)
-  expect_is(b2, "dsCMatrix")
-  expect_lte(max(abs(b2 - s)), 1e-8)
-})
-
-test_that("SpatialPolygons (real data - complex shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  x <- tas_pu[c(2, 4), ]
-  b1 <- boundary_matrix(x)
-  # calculate total length
-  total_length <- rgeos::gLength(x, byid = TRUE)
-  shared_length <- rgeos::gLength(rgeos::gIntersection(
-    methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
-  # make correct matrix
-  s <- Matrix::sparseMatrix(
-    i = c(0, 0, 1),
-    j = c(0, 1, 1),
-    x = c(total_length[1] - shared_length, shared_length,
-          total_length[2] - shared_length),
-    index1 = FALSE, symmetric = TRUE)
-  # tests
-  expect_is(b1, "dsCMatrix")
-  expect_lte(max(abs(b1 - s)), 1e-8)
-  # experimental functionality
-  skip_on_os("mac")
-  b2 <- boundary_matrix(x, TRUE)
-  expect_is(b2, "dsCMatrix")
-  expect_lte(max(abs(b2 - s)), 1e-8)
-})
+# test_that("SpatialPolygons (real data - simple shapes)", {
+#   skip_if_not_installed("prioritizrdata")
+#   # load data
+#   data(tas_pu, package = "prioritizrdata")
+#   x <- tas_pu[c(300, 279), ]
+#   b1 <- boundary_matrix(x)
+#   # calculate total length
+#   total_length <- rgeos::gLength(x, byid = TRUE)
+#   shared_length <- rgeos::gLength(rgeos::gIntersection(
+#     methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
+#   # make correct matrix
+#   s <- Matrix::sparseMatrix(
+#     i = c(0, 0, 1),
+#     j = c(0, 1, 1),
+#     x = c(total_length[1] - shared_length, shared_length,
+#           total_length[2] - shared_length),
+#     index1 = FALSE, symmetric = TRUE)
+#   # tests
+#   expect_is(b1, "dsCMatrix")
+#   expect_lte(max(abs(b1 - s)), 1e-8)
+#   # experimental functionality
+#   skip_on_os("mac")
+#   b2 <- boundary_matrix(x, TRUE)
+#   expect_is(b2, "dsCMatrix")
+#   expect_lte(max(abs(b2 - s)), 1e-8)
+# })
+#
+# test_that("SpatialPolygons (real data - complex shapes)", {
+#   skip_if_not_installed("prioritizrdata")
+#   # load data
+#   data(tas_pu, package = "prioritizrdata")
+#   x <- tas_pu[c(2, 4), ]
+#   b1 <- boundary_matrix(x)
+#   # calculate total length
+#   total_length <- rgeos::gLength(x, byid = TRUE)
+#   shared_length <- rgeos::gLength(rgeos::gIntersection(
+#     methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
+#   # make correct matrix
+#   s <- Matrix::sparseMatrix(
+#     i = c(0, 0, 1),
+#     j = c(0, 1, 1),
+#     x = c(total_length[1] - shared_length, shared_length,
+#           total_length[2] - shared_length),
+#     index1 = FALSE, symmetric = TRUE)
+#   # tests
+#   expect_is(b1, "dsCMatrix")
+#   expect_lte(max(abs(b1 - s)), 1e-8)
+#   # experimental functionality
+#   skip_on_os("mac")
+#   b2 <- boundary_matrix(x, TRUE)
+#   expect_is(b2, "dsCMatrix")
+#   expect_lte(max(abs(b2 - s)), 1e-8)
+# })
 
 test_that("SpatialPolygons (vertices not aligned)", {
   # data
@@ -171,43 +171,43 @@ test_that("sf (hexagons)", {
   expect_lte(max(abs(b2 - s)), 1e-8)
 })
 
-test_that("sf (real data - simple shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  x <- tas_pu[c(300, 279), ]
-  y <- sf::st_as_sf(x)
-  # create matrices
-  s <- boundary_matrix(x)
-  b1 <- boundary_matrix(y)
-  # tests
-  expect_is(b1, "dsCMatrix")
-  expect_lte(max(abs(b1 - s)), 1e-8)
-  # experimental functionality
-  skip_on_os("mac")
-  b2 <- boundary_matrix(y, TRUE)
-  expect_is(b2, "dsCMatrix")
-  expect_lte(max(abs(b2 - s)), 1e-8)
-})
-
-test_that("sf (real data - complex shapes)", {
-  skip_if_not_installed("prioritizrdata")
-  # load data
-  data(tas_pu, package = "prioritizrdata")
-  x <- tas_pu[c(2, 4), ]
-  y <- sf::st_as_sf(x)
-  # create matrices
-  s <- boundary_matrix(x)
-  b1 <- boundary_matrix(y)
-  # tests
-  expect_is(b1, "dsCMatrix")
-  expect_lte(max(abs(b1 - s)), 1e-8)
-  # experimental functionality
-  skip_on_os("mac")
-  b2 <- boundary_matrix(y, TRUE)
-  expect_is(b2, "dsCMatrix")
-  expect_lte(max(abs(b2 - s)), 1e-8)
-})
+# test_that("sf (real data - simple shapes)", {
+#   skip_if_not_installed("prioritizrdata")
+#   # load data
+#   data(tas_pu, package = "prioritizrdata")
+#   x <- tas_pu[c(300, 279), ]
+#   y <- sf::st_as_sf(x)
+#   # create matrices
+#   s <- boundary_matrix(x)
+#   b1 <- boundary_matrix(y)
+#   # tests
+#   expect_is(b1, "dsCMatrix")
+#   expect_lte(max(abs(b1 - s)), 1e-8)
+#   # experimental functionality
+#   skip_on_os("mac")
+#   b2 <- boundary_matrix(y, TRUE)
+#   expect_is(b2, "dsCMatrix")
+#   expect_lte(max(abs(b2 - s)), 1e-8)
+# })
+#
+# test_that("sf (real data - complex shapes)", {
+#   skip_if_not_installed("prioritizrdata")
+#   # load data
+#   data(tas_pu, package = "prioritizrdata")
+#   x <- tas_pu[c(2, 4), ]
+#   y <- sf::st_as_sf(x)
+#   # create matrices
+#   s <- boundary_matrix(x)
+#   b1 <- boundary_matrix(y)
+#   # tests
+#   expect_is(b1, "dsCMatrix")
+#   expect_lte(max(abs(b1 - s)), 1e-8)
+#   # experimental functionality
+#   skip_on_os("mac")
+#   b2 <- boundary_matrix(y, TRUE)
+#   expect_is(b2, "dsCMatrix")
+#   expect_lte(max(abs(b2 - s)), 1e-8)
+# })
 
 test_that("sf (vertices not aligned)", {
   # data
