@@ -190,24 +190,26 @@ test_that("sf (real data - simple shapes)", {
   expect_lte(max(abs(b2 - s)), 1e-8)
 })
 
-# test_that("sf (real data - complex shapes)", {
-#   skip_if_not_installed("prioritizrdata")
-#   # load data
-#   data(tas_pu, package = "prioritizrdata")
-#   x <- tas_pu[c(2, 4), ]
-#   y <- sf::st_as_sf(x)
-#   # create matrices
-#   s <- boundary_matrix(x)
-#   b1 <- boundary_matrix(y)
-#   # tests
-#   expect_is(b1, "dsCMatrix")
-#   expect_lte(max(abs(b1 - s)), 1e-8)
-#   # experimental functionality
-#   skip_on_os("mac")
-#   b2 <- boundary_matrix(y, TRUE)
-#   expect_is(b2, "dsCMatrix")
-#   expect_lte(max(abs(b2 - s)), 1e-8)
-# })
+
+# this test here seems to error
+test_that("sf (real data - complex shapes)", {
+  skip_if_not_installed("prioritizrdata")
+  # load data
+  data(tas_pu, package = "prioritizrdata")
+  x <- tas_pu[c(2, 4), ]
+  y <- sf::st_as_sf(x)
+  # create matrices
+  s <- boundary_matrix(x)
+  b1 <- boundary_matrix(y)
+  # tests
+  expect_is(b1, "dsCMatrix")
+  expect_lte(max(abs(b1 - s)), 1e-8)
+  # experimental functionality
+  skip_on_os("mac")
+  b2 <- boundary_matrix(y, TRUE)
+  expect_is(b2, "dsCMatrix")
+  expect_lte(max(abs(b2 - s)), 1e-8)
+})
 
 test_that("sf (vertices not aligned)", {
   # data
