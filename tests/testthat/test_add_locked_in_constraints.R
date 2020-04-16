@@ -365,7 +365,7 @@ test_that("raster (compile, single zone)", {
   })
   expect_error({
     data(sim_locked_in_raster)
-    sim_locked_in_raster@crs <- sp::CRS("+init=epsg:4326")
+    sim_locked_in_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     problem(sim_pu_raster, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%
@@ -517,7 +517,8 @@ test_that("spatial (compile, single zone)", {
   expect_error({
     data(sim_pu_polygons, sim_features)
     sim_pu_polygons2 <- sim_pu_polygons[1:10, ]
-    sim_pu_polygons2@proj4string <- sp::CRS("+init=epsg:4326")
+    sim_pu_polygons2@proj4string <-
+      sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     problem(sim_pu_polygons, sim_features) %>%
     add_min_set_objective() %>%
     add_relative_targets(0.1) %>%

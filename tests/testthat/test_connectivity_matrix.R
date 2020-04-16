@@ -62,7 +62,7 @@ test_that("x=Spatial, y=Raster", {
   })
   expect_error({
     data(sim_pu_polygons, sim_pu_raster)
-    sim_pu_raster@crs <- sp::CRS("+init=epsg:4326")
+    sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     connectivity_matrix(sim_pu_polygons, sim_pu_raster)
   })
 })
@@ -106,7 +106,7 @@ test_that("x=sf, y=Raster", {
   })
   expect_error({
     data(sim_pu_sf, sim_pu_raster)
-    sim_pu_raster@crs <- sp::CRS("+init=epsg:4326")
+    sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     connectivity_matrix(sim_pu_sf, sim_pu_raster)
   })
 })
@@ -147,7 +147,7 @@ test_that("x=Raster, y=Raster", {
   })
   expect_error({
     data(sim_pu_raster, sim_features)
-    sim_pu_raster@crs <- sp::CRS("+init=epsg:4326")
+    sim_pu_raster@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     connectivity_matrix(sim_features, sim_pu_raster)
   })
 })

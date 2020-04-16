@@ -10,7 +10,7 @@ test_that("is_comparable_raster (valid inputs)", {
   # expect false
   expect_false({
     data(sim_pu_raster, sim_features)
-    sim_features@crs <- sp::CRS("+init=epsg:4326")
+    sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     is_comparable_raster(sim_pu_raster, sim_features)
   })
   expect_false({
@@ -22,7 +22,7 @@ test_that("is_comparable_raster (valid inputs)", {
   # expect error
   expect_error({
     data(sim_pu_raster, sim_features)
-    sim_features@crs <- sp::CRS("+init=epsg:4326")
+    sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     assertthat::assert_that(is_comparable_raster(sim_pu_raster, sim_features))
   })
   expect_error({
@@ -67,7 +67,7 @@ test_that("geometry_classes", {
 })
 
 test_that("as_CRS", {
-  x <- sp::CRS("+init=epsg:4326")
+  x <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
   expect_true(raster::compareCRS(as_CRS(sf::st_crs(x)), x))
 })
 

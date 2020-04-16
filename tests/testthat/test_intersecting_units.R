@@ -7,7 +7,7 @@ test_that("x=Raster,y=Raster", {
   # run tests
   expect_equal(intersecting_units(x, y), c(7:16))
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
   expect_error(intersecting_units(x, raster::disaggregate(y, fact = 2)))
 })
@@ -20,7 +20,7 @@ test_that("x=Spatial,y=Spatial", {
   # run tests
   expect_equal(intersecting_units(x, y), 5:10)
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
   expect_error(intersecting_units(x[1:5, ], x[50:55, ]))
 })
@@ -37,7 +37,7 @@ test_that("x=Raster,y=Spatial", {
   # run tests
   expect_equal(intersecting_units(x, y), cell_index)
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
 })
 
@@ -50,7 +50,7 @@ test_that("x=Spatial,y=Raster", {
   # run tests
   expect_equal(intersecting_units(x, y), which(sim_pu_polygons$cost < m))
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
 })
 
@@ -91,7 +91,7 @@ test_that("x=sf,y=Raster", {
   # run tests
   expect_equal(intersecting_units(x, y), which(sim_pu_sf$cost < m))
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
 })
 
@@ -103,7 +103,7 @@ test_that("x=sf,y=Spatial", {
   # run tests
   expect_equal(intersecting_units(x, y), 5:10)
   # check that invalid arguments result in errors
-  y_crs <- `crs<-`(y, value = sp::CRS("+init=epsg:4326"))
+  y_crs <- `crs<-`(y, value = sp::CRS("+proj=longlat +datum=WGS84 +no_defs"))
   expect_error(intersecting_units(x, y_crs))
   expect_error(intersecting_units(x[1:5, ], x[50:55, ]))
 })
