@@ -257,7 +257,16 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #' @noRd
 as_CRS <- function(x) {
   assertthat::assert_that(inherits(x, "crs"))
-  sp::CRS(x$proj4string)
+  if (is.character(x$wkt)) {
+    # sf version 0.9 compatibility
+    out <- suppressWarnings(methods::as(x, "CRS"))
+  } else if (is.character(x$proj4string)) {
+    # sf version 0.8 compatibility
+    out <- sp::CRS(x$proj4string)
+  } else {
+    stop("argument to x is not a valid \"crs\"-class object")
+  }
+  out
 }
 
 #' Do extents intersect?

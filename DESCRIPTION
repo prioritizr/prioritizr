@@ -25,7 +25,7 @@ Authors@R: c(person(c('Jeffrey', 'O'), 'Hanson',
 Imports:
     utils,
     methods,
-    assertthat(>= 0.2.0),
+    assertthat (>= 0.2.0),
     data.table,
     uuid,
     Matrix,
@@ -36,9 +36,9 @@ Imports:
     parallel,
     doParallel,
     magrittr,
-    exactextractr,
-    fasterize,
-    tibble(>= 2.0.0)
+    exactextractr (>= 0.2.0),
+    fasterize (>= 1.0.2),
+    tibble (>= 2.0.0)
 Suggests:
     testthat,
     knitr,
@@ -56,7 +56,7 @@ Suggests:
     rmarkdown,
     prioritizrdata
 Depends:
-    R(>= 3.5.0),
+    R (>= 3.5.0),
     raster,
     sp,
     sf (>= 0.8-0),
