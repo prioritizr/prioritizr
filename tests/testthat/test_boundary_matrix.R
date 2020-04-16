@@ -190,9 +190,7 @@ test_that("sf (real data - simple shapes)", {
   expect_lte(max(abs(b2 - s)), 1e-8)
 })
 
-
-# this test here seems to error
-test_that("sf (real data - complex shapes)", {
+test_that("sf (real data - complex shapes)", { # here
   skip_if_not_installed("prioritizrdata")
   # load data
   data(tas_pu, package = "prioritizrdata")
