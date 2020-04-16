@@ -26,15 +26,11 @@ env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
     - _R_CHECK_DONTTEST_EXAMPLES_=FALSE
-  - UBUNTUGIS=stable
-  - UBUNTUGIS=unstable
 
 matrix:
   exclude:
     - os: osx
       r: devel
-    - os: osx
-      env: UBUNTUGIS=unstable
 
 before_install:
   - echo "TRAVIS_OS_NAME = $TRAVIS_OS_NAME"
