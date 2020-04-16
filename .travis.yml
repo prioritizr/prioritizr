@@ -26,8 +26,8 @@ env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
     - _R_CHECK_DONTTEST_EXAMPLES_=FALSE
-  UBUNTUGIS=stable
-  UBUNTUGIS=unstable
+  - UBUNTUGIS=stable
+  - UBUNTUGIS=unstable
 
 matrix:
   exclude:
