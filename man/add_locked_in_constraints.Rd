@@ -8,6 +8,7 @@
 \alias{add_locked_in_constraints,ConservationProblem,character-method}
 \alias{add_locked_in_constraints,ConservationProblem,Raster-method}
 \alias{add_locked_in_constraints,ConservationProblem,Spatial-method}
+\alias{add_locked_in_constraints,ConservationProblem,sf-method}
 \title{Add locked in constraints}
 \usage{
 add_locked_in_constraints(x, locked_in)
@@ -21,6 +22,8 @@ add_locked_in_constraints(x, locked_in)
 \S4method{add_locked_in_constraints}{ConservationProblem,character}(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,Spatial}(x, locked_in)
+
+\S4method{add_locked_in_constraints}{ConservationProblem,sf}(x, locked_in)
 
 \S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 }
@@ -60,7 +63,7 @@ The locked planning units can be specified in several different
   \describe{
 
   \item{\code{integer}}{\code{vector} of indices pertaining to which
-    planning units should be locked in the solution. This argument is only
+    planning units should be locked for the solution. This argument is only
     compatible with problems that contain a single zone.}
 
   \item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
@@ -77,17 +80,24 @@ The locked planning units can be specified in several different
     value.}
 
   \item{\code{character}}{field (column) name(s) that indicate if planning
-    units should be locked in the solution. This type of argument is only
+    units should be locked for the solution. This type of argument is only
     compatible if the planning units in the argument to \code{x} are a
-    \code{\link[sp]{Spatial-class}} or \code{data.frame} object. The fields
+    \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+    \code{data.frame} object. The fields
     (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
-    values indicating if the planning unit is to be locked in the solution.
+    values indicating if the planning unit is to be locked for the solution.
     For problems containing multiple zones, this argument should contain
     a field (column) name for each management zone.}
 
+  \item{\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}}}{
+    planning units in \code{x} that spatially intersect with the
+    argument to \code{y} (according to \code{\link{intersecting_units}}
+    are locked for to the solution. Note that this option is only available
+    for problems that contain a single management zone.}
+
   \item{\code{\link[raster]{Raster-class}}}{planning units in \code{x}
     that intersect with non-zero and non-\code{NA} raster cells are locked
-    in the solution. For problems that contain multiple zones, the
+    for the solution. For problems that contain multiple zones, the
     \code{\link[raster]{Raster-class}} object must contain a layer
     for each zone. Note that for multi-band arguments, each pixel must
     only contain a non-zero value in a single band. Additionally, if the

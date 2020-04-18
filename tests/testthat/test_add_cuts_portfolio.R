@@ -12,7 +12,7 @@ test_that("compile", {
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
        add_cuts_portfolio(2) %>%
-       add_default_solver(gap = 0.2)
+       add_default_solver(gap = 0.2, verbose = FALSE)
   # compile problem
   cmp <- compile(p)
   # tests
@@ -33,7 +33,7 @@ test_that("solve (number_solutions within limit, single zone, Rsymphony)", {
         add_min_set_objective() %>%
         add_absolute_targets(c(2, 10)) %>%
         add_cuts_portfolio(2) %>%
-        add_rsymphony_solver(gap = 0.2)
+        add_rsymphony_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -59,7 +59,7 @@ test_that("solve (number_solutions within limit, single zone, gurobi)", {
         add_min_set_objective() %>%
         add_absolute_targets(c(2, 10)) %>%
         add_cuts_portfolio(2) %>%
-        add_gurobi_solver(gap = 0.2)
+        add_gurobi_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -87,7 +87,7 @@ test_that("solve (number_solutions within limit, multiple zones, Rsymphony)", {
        add_absolute_targets(targets) %>%
        add_cuts_portfolio(2) %>%
        add_binary_decisions() %>%
-       add_rsymphony_solver(gap = 0.2)
+       add_rsymphony_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -121,7 +121,7 @@ test_that("solve (number_solutions within limit, multiple zones, gurobi)", {
        add_absolute_targets(targets) %>%
        add_cuts_portfolio(2) %>%
        add_binary_decisions() %>%
-       add_gurobi_solver(gap = 0.2)
+       add_gurobi_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # output checks
@@ -156,7 +156,7 @@ test_that("solve (number_solutions outside limit, Rsymphony)", {
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
        add_cuts_portfolio(100) %>%
-       add_rsymphony_solver(gap = 0.2)
+       add_rsymphony_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- suppressWarnings(tryCatch(solve(p),
                 warning = function(w) return(list(solve(p), w$message))))
@@ -190,7 +190,7 @@ test_that("solve (number_solutions outside limit, gurobi)", {
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
        add_cuts_portfolio(100) %>%
-       add_gurobi_solver(gap = 0.2)
+       add_gurobi_solver(gap = 0.2, verbose = FALSE)
   # solve problem
   s <- suppressWarnings(tryCatch(solve(p),
                 warning = function(w) return(list(solve(p), w$message))))

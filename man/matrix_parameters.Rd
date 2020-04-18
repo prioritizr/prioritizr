@@ -6,8 +6,13 @@
 \alias{binary_matrix_parameter}
 \title{Matrix parameters}
 \usage{
-numeric_matrix_parameter(name, value, lower_limit = .Machine$double.xmin,
-  upper_limit = .Machine$double.xmax, symmetric = FALSE)
+numeric_matrix_parameter(
+  name,
+  value,
+  lower_limit = .Machine$double.xmin,
+  upper_limit = .Machine$double.xmax,
+  symmetric = FALSE
+)
 
 binary_matrix_parameter(name, value, symmetric = FALSE)
 }

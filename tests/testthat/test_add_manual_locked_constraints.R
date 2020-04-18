@@ -31,7 +31,8 @@ test_that("data.frame (solve, single zone)", {
        add_relative_targets(0.1) %>%
        add_proportion_decisions() %>%
        add_manual_locked_constraints(data.frame(pu = seq_len(5),
-                                                status = rep(0.3, 10)))
+                                                status = rep(0.3, 10))) %>%
+       add_default_solver(verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that the solution obeys constraints as expected
@@ -39,7 +40,7 @@ test_that("data.frame (solve, single zone)", {
   expect_equal(s1$solution_1, s2$solution_1)
 })
 
-test_that("data.frame (compile, multiple zones)", {
+test_that("data.frame (compile, multiple zones (factor))", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
   targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
@@ -56,8 +57,40 @@ test_that("data.frame (compile, multiple zones)", {
        add_proportion_decisions() %>%
        add_manual_locked_constraints(data.frame(pu = c(seq_len(5), 20),
                                                 zone = c(rep("zone_1", 5),
-                                                             "zone_2"),
-                                                status = 0.3))
+                                                         "zone_2"),
+                                                status = 0.3,
+                                                stringsAsFactors = TRUE))
+  suppressWarnings(o <- compile(p))
+  # check that constraints added correctly
+  locked_pos <- c(seq_len(5), nrow(sim_pu_zones_polygons) + 20)
+  other_pos <- setdiff(seq_len(p$number_of_planning_units() *
+                               p$number_of_zones()), locked_pos)
+  expect_true(isTRUE(all(o$lb()[locked_pos] == 0.3)))
+  expect_true(isTRUE(all(o$ub()[locked_pos] == 0.3)))
+  expect_true(isTRUE(all(o$lb()[other_pos] == 0)))
+  expect_true(isTRUE(all(o$ub()[other_pos] == 1)))
+})
+
+test_that("data.frame (compile, multiple zones (character))", {
+  # create problem
+  data(sim_pu_zones_polygons, sim_features_zones)
+  targets <- matrix(FALSE, nrow = number_of_features(sim_features_zones),
+                    ncol = number_of_zones(sim_features_zones))
+  targets[] <- 0
+  targets[, 1] <- 1
+  sim_pu_zones_polygons$locked_1 <- TRUE
+  sim_pu_zones_polygons$locked_2 <- FALSE
+  sim_pu_zones_polygons$locked_3 <- FALSE
+  p <- problem(sim_pu_zones_polygons, sim_features_zones,
+               c("cost_1", "cost_2", "cost_3")) %>%
+       add_min_set_objective() %>%
+       add_absolute_targets(targets) %>%
+       add_proportion_decisions() %>%
+       add_manual_locked_constraints(data.frame(pu = c(seq_len(5), 20),
+                                                zone = c(rep("zone_1", 5),
+                                                         "zone_2"),
+                                                status = 0.3,
+                                                stringsAsFactors = TRUE))
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
   locked_pos <- c(seq_len(5), nrow(sim_pu_zones_polygons) + 20)
@@ -89,6 +122,7 @@ test_that("data.frame (solve, multiple zones)", {
                                                 zone = c(rep("zone_1", 5),
                                                              "zone_2"),
                                                 status = 0.3)) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1[seq_len(5)] == 0.3))

@@ -10,6 +10,7 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
 
   /// declare variables and preallocate memory
   std::vector<std::size_t> PID = data["PID"];
+  std::vector<std::size_t> SID = data["SID"];
   std::vector<double> X = data["X"];
   std::vector<double> Y = data["Y"];
 
@@ -41,12 +42,13 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
     std::size_t j = 0;
     if (!str_tree) {
       while (i != PID.size()) {
-        if (PID[i] == PID[currPidStart]) {
+        if ((PID[i] == PID[currPidStart]) & (SID[i] == SID[currPidStart])) {
           j = 0;
           while (j != PID.size()) {
             if (PID[currPidStart] != PID[j]) {
               if (is_between(X[i], Y[i], X[i - 1], Y[i - 1], X[j], Y[j])) {
                 PID.insert(PID.begin() + i, PID[i]);
+                SID.insert(SID.begin() + i, SID[i]);
                 X.insert(X.begin() + i, X[j]);
                 Y.insert(Y.begin() + i, Y[j]);
               }
@@ -101,6 +103,7 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
                            Y[curr_j_vertex])) {
               // insert vertex
               PID.insert(PID.begin() + curr_i_vertex , PID[curr_i_vertex]);
+              SID.insert(SID.begin() + curr_i_vertex , SID[curr_i_vertex]);
               X.insert(X.begin() + curr_i_vertex, X[curr_j_vertex]);
               Y.insert(Y.begin() + curr_i_vertex, Y[curr_j_vertex]);
               // increment i/j start vertices if needed
@@ -126,9 +129,9 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
   std::iota(pos.begin(), pos.end(), 1);
   currPidStart = 0;
   for (std::size_t i = 1; i != PID.size(); ++i) {
-    if (PID[i] == PID[currPidStart]) {
-      currLine = LINE(PID[i], pos[i], pos[i-1], X[i], Y[i], X[i-1],
-                      Y[i-1], tol);
+    if ((PID[i] == PID[currPidStart]) & (SID[i] == SID[currPidStart])) {
+      currLine = LINE(PID[i], pos[i], pos[i - 1], X[i], Y[i], X[i - 1],
+                      Y[i - 1], tol);
       line_UMMAP.insert(std::pair<LINEID, LINE>(currLine._id,
                                                 currLine));
       line_id.insert(currLine._id);
@@ -140,6 +143,8 @@ Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm,
   // free memory
   PID.clear();
   PID.shrink_to_fit();
+  SID.clear();
+  SID.shrink_to_fit();
   X.clear();
   X.shrink_to_fit();
   Y.clear();

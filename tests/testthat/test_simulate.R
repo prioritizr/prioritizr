@@ -1,6 +1,7 @@
 context("simulation")
 
 test_that("simulate_data", {
+  skip_if_not_installed("RandomFields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 100, nrow = 100))
   s <- simulate_data(r, n = 2, model = RandomFields::RMgauss(),
@@ -15,6 +16,7 @@ test_that("simulate_data", {
 })
 
 test_that("simulate_species", {
+  skip_if_not_installed("RandomFields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 100, nrow = 100))
   s <- simulate_species(r, n = 2)
@@ -28,6 +30,7 @@ test_that("simulate_species", {
 })
 
 test_that("simulate_cost", {
+  skip_if_not_installed("RandomFields")
   # simulate data
   r <- raster::raster(matrix(1, ncol = 100, nrow = 100))
   s <- simulate_cost(r, n = 2)

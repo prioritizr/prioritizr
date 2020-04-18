@@ -36,7 +36,7 @@ are both allocated to the same zone.}
 object showing which planning units are connected with each
 other. The argument defaults to \code{NULL} which means that the
 connection data is calculated automatically using the
-\code{\link{connected_matrix}} function. See the Details section for more
+\code{\link{adjacency_matrix}} function. See the Details section for more
 information.}
 }
 \value{
@@ -60,7 +60,7 @@ This function uses connection data to identify solutions that
   \describe{
 
   \item{\code{NULL}}{connection data should be calculated automatically
-    using the \code{\link{connected_matrix}} function. This is the default
+    using the \code{\link{adjacency_matrix}} function. This is the default
     argument. Note that the connection data must be manually defined
     using one of the other formats below when the planning unit data
     in the argument to \code{x} is not spatially referenced (e.g.

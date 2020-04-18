@@ -208,7 +208,7 @@ methods::setMethod("add_manual_bounded_constraints",
         # convert zone names to indices
         if (!assertthat::has_name(data, "zone"))
           data$zone <- x$zone_names()[1]
-        data$zone <- match(data$zone, x$zone_names())
+        data$zone <- match(as.character(data$zone), x$zone_names())
         # remove rows for raster cells that aren't really planning units
         # i.e. contain NA values in all zones
         pu <- x$get_data("cost")

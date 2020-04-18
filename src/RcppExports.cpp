@@ -544,3 +544,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_summarize_exactextractr
+Rcpp::NumericMatrix rcpp_summarize_exactextractr(Rcpp::List x, std::size_t nrow, std::size_t ncol, std::string fun);
+RcppExport SEXP _prioritizr_rcpp_summarize_exactextractr(SEXP xSEXP, SEXP nrowSEXP, SEXP ncolSEXP, SEXP funSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
+    Rcpp::traits::input_parameter< std::size_t >::type nrow(nrowSEXP);
+    Rcpp::traits::input_parameter< std::size_t >::type ncol(ncolSEXP);
+    Rcpp::traits::input_parameter< std::string >::type fun(funSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_summarize_exactextractr(x, nrow, ncol, fun));
+    return rcpp_result_gen;
+END_RCPP
+}

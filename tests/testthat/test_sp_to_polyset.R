@@ -1,6 +1,8 @@
 context("sp to PolySet")
 
 test_that("SpatialPolygons", {
+  skip_if_not_installed("maptools")
+  skip_if_not_installed("PBSmapping")
   data(sim_pu_polygons)
   x <- as.data.frame(rcpp_sp_to_polyset(sim_pu_polygons@polygons, "Polygons"))
   s <- as.data.frame(maptools::SpatialPolygons2PolySet(sim_pu_polygons))
@@ -10,6 +12,8 @@ test_that("SpatialPolygons", {
 })
 
 test_that("SpatialLines", {
+  skip_if_not_installed("maptools")
+  skip_if_not_installed("PBSmapping")
   data(sim_pu_polygons)
   sim_pu_polygons <- as(sim_pu_polygons, "SpatialLines")
   x <- as.data.frame(rcpp_sp_to_polyset(sim_pu_polygons@lines, "Lines"))

@@ -143,7 +143,7 @@ NULL
 #' # create a minimal problem with connectivity penalties values that have
 #' # a really high penalty value that is likely to cause numerical instability
 #' # issues when trying to solve the it
-#' cm <- connected_matrix(sim_pu_raster)
+#' cm <- adjacency_matrix(sim_pu_raster)
 #' p3 <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
 #'      add_relative_targets(0.1) %>%

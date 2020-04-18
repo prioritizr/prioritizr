@@ -84,7 +84,7 @@ with the units in another spatial data object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -165,16 +165,33 @@ with the units in another spatial data object." />
 with the units in another spatial data object.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for Raster,Raster</span>
+    <pre class="usage"><span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for Raster,Raster</span>
 <span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
 <span class='co'># S4 method for Spatial,Spatial</span>
 <span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
-<span class='co'># S4 method for Raster,Spatial</span>
+<span class='co'># S4 method for sf,Spatial</span>
 <span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
 <span class='co'># S4 method for Spatial,Raster</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for Spatial,sf</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for Raster,Spatial</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for sf,sf</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for Raster,sf</span>
+<span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
+
+<span class='co'># S4 method for sf,Raster</span>
 <span class='fu'>intersecting_units</span>(<span class='no'>x</span>, <span class='no'>y</span>)
 
 <span class='co'># S4 method for data.frame,ANY</span>
@@ -197,14 +214,9 @@ with the units in another spatial data object.</p>
 
     <p><code>integer</code> indices of the units in <code>x</code> that intersect with
   <code>y</code>.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The <code><a href='parallel.html'>set_number_of_threads</a></code> can be used to distribute
-  computations among multiple threads and potentially reduce run time.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='fast_extract.html'>fast_extract</a></code>, <code><a href='parallel.html'>set_number_of_threads</a></code>,
-  <code><a href='parallel.html'>get_number_of_threads</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='fast_extract.html'>fast_extract</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create data</span>
@@ -212,23 +224,23 @@ with the units in another spatial data object.</p>
 <span class='no'>r_with_holes</span> <span class='kw'>&lt;-</span> <span class='no'>r</span>
 <span class='no'>r_with_holes</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>9</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
 <span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='fu'>rasterToPolygons</span>(<span class='no'>r</span>)
-<span class='no'>ply_with_holes</span> <span class='kw'>&lt;-</span> <span class='fu'>rasterToPolygons</span>(<span class='no'>r_with_holes</span>)
+<span class='no'>ply_with_holes</span> <span class='kw'>&lt;-</span> <span class='fu'>st_as_sf</span>(<span class='fu'>rasterToPolygons</span>(<span class='no'>r_with_holes</span>))
 
 <span class='co'># intersect raster with raster</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Raster"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
-# intersect raster with polygons
+# intersect raster with polygons (sf)
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Raster"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Spatial"</span>)</div><div class='img'><img src='intersecting_units-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
-# intersect polygons with raster
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=sf"</span>, <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='intersecting_units-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+# intersect polygons (Spatial) with raster
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
-# intersect polygons with polygons
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 5 6 7 8</div><div class='input'>
+# intersect polygons (Spatial) with polygons (sf)
 </div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Spatial"</span>)</div><div class='img'><img src='intersecting_units-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=sf"</span>, <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='intersecting_units-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -236,7 +248,6 @@ with the units in another spatial data object.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

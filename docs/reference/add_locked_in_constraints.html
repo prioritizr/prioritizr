@@ -92,7 +92,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -198,6 +198,9 @@ planning unit allocations to a specific value.</p>
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
 <span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
 
+<span class='co'># S4 method for ConservationProblem,sf</span>
+<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+
 <span class='co'># S4 method for ConservationProblem,Raster</span>
 <span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)</pre>
 
@@ -232,7 +235,7 @@ locked in. See the Details section for more information.</p></td>
   <code>NA</code> values.</p>
 <p></p><dl class='dl-horizontal'>
     <dt><code>integer</code></dt><dd><p><code>vector</code> of indices pertaining to which
-    planning units should be locked in the solution. This argument is only
+    planning units should be locked for the solution. This argument is only
     compatible with problems that contain a single zone.</p></dd>
     <dt><code>logical</code></dt><dd><p><code>vector</code> containing <code>TRUE</code> and/or
     <code>FALSE</code> values that indicate which planning units should be locked
@@ -246,16 +249,21 @@ locked in. See the Details section for more information.</p></td>
     zone. Thus each row should only contain at most a single <code>TRUE</code>
     value.</p></dd>
     <dt><code>character</code></dt><dd><p>field (column) name(s) that indicate if planning
-    units should be locked in the solution. This type of argument is only
+    units should be locked for the solution. This type of argument is only
     compatible if the planning units in the argument to <code>x</code> are a
-    <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or <code>data.frame</code> object. The fields
+    <code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code>, <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code>, or
+    <code>data.frame</code> object. The fields
     (columns) must have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
-    values indicating if the planning unit is to be locked in the solution.
+    values indicating if the planning unit is to be locked for the solution.
     For problems containing multiple zones, this argument should contain
     a field (column) name for each management zone.</p></dd>
+    <dt><code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
+    argument to <code>y</code> (according to <code><a href='intersecting_units.html'>intersecting_units</a></code>
+    are locked for to the solution. Note that this option is only available
+    for problems that contain a single management zone.</p></dd>
     <dt><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code></dt><dd><p>planning units in <code>x</code>
     that intersect with non-zero and non-<code>NA</code> raster cells are locked
-    in the solution. For problems that contain multiple zones, the
+    for the solution. For problems that contain multiple zones, the
     <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object must contain a layer
     for each zone. Note that for multi-band arguments, each pixel must
     only contain a non-zero value in a single band. Additionally, if the
@@ -293,7 +301,9 @@ locked in. See the Details section for more information.</p></td>
 <span class='co'># create problem with added locked in constraints using spatial polygon data</span>
 <span class='no'>locked_in</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='no'>sim_pu_polygons</span>$<span class='no'>locked_in</span> <span class='kw'>==</span> <span class='fl'>1</span>, ]
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_in</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x8a299781
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -321,7 +331,9 @@ locked in. See the Details section for more information.</p></td>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -342,15 +354,17 @@ locked in. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -371,15 +385,17 @@ locked in. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -400,15 +416,17 @@ locked in. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -429,15 +447,15 @@ locked in. See the Details section for more information.</p></td>
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 3610.71743    0    4 4017.64272 3610.71743  10.1%     -    0s
-#&gt; H    0     0                    3649.3763088 3610.71743  1.06%     -    0s
+#&gt; H    0     0                    3655.0632348 3610.71743  1.21%     -    0s
 #&gt; 
 #&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 3649.38 4017.64 
+#&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.649376308848e+03, best bound 3.610717428789e+03, gap 1.0593%</div><div class='input'>
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"none locked in"</span>)
@@ -468,7 +486,9 @@ locked in. See the Details section for more information.</p></td>
 <span class='no'>locked_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>locked_matrix</span>)
 
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_matrix</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x1bde86be
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -508,7 +528,9 @@ locked in. See the Details section for more information.</p></td>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span>(<span class='no'>s6</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_locked_in_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create multi-zone problem with locked in constraints using field names</span>
 <span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"locked_1"</span>, <span class='st'>"locked_2"</span>, <span class='st'>"locked_3"</span>))</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x617a8fe5
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -562,7 +584,9 @@ locked in. See the Details section for more information.</p></td>
 
 <span class='co'># plot locked in stack</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>locked_in_stack</span>)</div><div class='img'><img src='add_locked_in_constraints-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># add locked in raster units to problem</span>
 <span class='no'>p9</span> <span class='kw'>&lt;-</span> <span class='no'>p9</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_in_stack</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0x56303b56
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]

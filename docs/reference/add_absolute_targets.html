@@ -87,7 +87,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -171,7 +171,9 @@ planning units for which their summed feature values are equal to or greater
 than 10.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for ConservationProblem,numeric</span>
+    <pre class="usage"><span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
+
+<span class='co'># S4 method for ConservationProblem,numeric</span>
 <span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
@@ -261,7 +263,9 @@ Details section for more information.</p></td>
 <span class='co'># create problem with varying targets for each feature</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>)</div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x5f206fcc
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -291,7 +295,9 @@ Details section for more information.</p></td>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0xc7d35387
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -318,7 +324,8 @@ Details section for more information.</p></td>
 #&gt;      0     0 1057.80283    0    3 1203.16636 1057.80283  12.1%     -    0s
 #&gt;      0     0 1058.46353    0    5 1203.16636 1058.46353  12.0%     -    0s
 #&gt;      0     0 1058.81005    0    6 1203.16636 1058.81005  12.0%     -    0s
-#&gt;      0     0 1059.11832    0    7 1203.16636 1059.11832  12.0%     -    0s
+#&gt;      0     0 1059.13748    0    7 1203.16636 1059.13748  12.0%     -    0s
+#&gt;      0     0 1059.14643    0    7 1203.16636 1059.14643  12.0%     -    0s
 #&gt;      0     0 1059.26405    0    7 1203.16636 1059.26405  12.0%     -    0s
 #&gt;      0     0 1059.40704    0    8 1203.16636 1059.40704  11.9%     -    0s
 #&gt; H    0     0                    1198.9978032 1059.40704  11.6%     -    0s
@@ -336,23 +343,55 @@ Details section for more information.</p></td>
 #&gt;      0     0 1061.93275    0   10 1198.99780 1061.93275  11.4%     -    0s
 #&gt;      0     0 1061.95846    0   11 1198.99780 1061.95846  11.4%     -    0s
 #&gt;      0     0 1061.98232    0   11 1198.99780 1061.98232  11.4%     -    0s
-#&gt;      0     2 1062.01639    0   11 1198.99780 1062.01639  11.4%     -    0s
-#&gt; H  711   252                    1190.9502353 1066.45272  10.5%   1.3    0s
+#&gt;      0     0 1062.53294    0   10 1198.99780 1062.53294  11.4%     -    0s
+#&gt;      0     0 1062.59102    0   11 1198.99780 1062.59102  11.4%     -    0s
+#&gt;      0     0 1062.64002    0   12 1198.99780 1062.64002  11.4%     -    0s
+#&gt;      0     0 1062.67669    0   12 1198.99780 1062.67669  11.4%     -    0s
+#&gt;      0     0 1062.70456    0   12 1198.99780 1062.70456  11.4%     -    0s
+#&gt;      0     0 1062.75563    0   12 1198.99780 1062.75563  11.4%     -    0s
+#&gt;      0     0 1062.76560    0   12 1198.99780 1062.76560  11.4%     -    0s
+#&gt;      0     0 1062.80195    0   12 1198.99780 1062.80195  11.4%     -    0s
+#&gt;      0     0 1062.83285    0   11 1198.99780 1062.83285  11.4%     -    0s
+#&gt;      0     0 1062.83607    0   12 1198.99780 1062.83607  11.4%     -    0s
+#&gt;      0     0 1062.90267    0   11 1198.99780 1062.90267  11.4%     -    0s
+#&gt;      0     0 1062.99477    0   11 1198.99780 1062.99477  11.3%     -    0s
+#&gt;      0     0 1062.99612    0   11 1198.99780 1062.99612  11.3%     -    0s
+#&gt;      0     0 1063.49293    0    8 1198.99780 1063.49293  11.3%     -    0s
+#&gt;      0     0 1063.59020    0    8 1198.99780 1063.59020  11.3%     -    0s
+#&gt;      0     0 1063.62456    0    8 1198.99780 1063.62456  11.3%     -    0s
+#&gt;      0     0 1063.93069    0    7 1198.99780 1063.93069  11.3%     -    0s
+#&gt;      0     0 1063.95295    0    6 1198.99780 1063.95295  11.3%     -    0s
+#&gt;      0     0 1063.95326    0    7 1198.99780 1063.95326  11.3%     -    0s
+#&gt;      0     0 1063.98542    0    7 1198.99780 1063.98542  11.3%     -    0s
+#&gt;      0     0 1064.04430    0    7 1198.99780 1064.04430  11.3%     -    0s
+#&gt;      0     0 1064.06142    0    8 1198.99780 1064.06142  11.3%     -    0s
+#&gt;      0     0 1064.07931    0    8 1198.99780 1064.07931  11.3%     -    0s
+#&gt;      0     0 1064.36010    0    8 1198.99780 1064.36010  11.2%     -    0s
+#&gt;      0     0 1064.53791    0    9 1198.99780 1064.53791  11.2%     -    0s
+#&gt;      0     0 1064.54361    0   10 1198.99780 1064.54361  11.2%     -    0s
+#&gt;      0     0 1064.54803    0   10 1198.99780 1064.54803  11.2%     -    0s
+#&gt;      0     0 1064.56710    0   10 1198.99780 1064.56710  11.2%     -    0s
+#&gt;      0     0 1064.57155    0   10 1198.99780 1064.57155  11.2%     -    0s
+#&gt;      0     0 1064.71810    0    9 1198.99780 1064.71810  11.2%     -    0s
+#&gt;      0     0 1064.74687    0   10 1198.99780 1064.74687  11.2%     -    0s
+#&gt;      0     0 1064.75032    0   11 1198.99780 1064.75032  11.2%     -    0s
+#&gt;      0     0 1064.75455    0   12 1198.99780 1064.75455  11.2%     -    0s
+#&gt;      0     0 1064.75455    0   12 1198.99780 1064.75455  11.2%     -    0s
+#&gt;      0     2 1064.84041    0   12 1198.99780 1064.84041  11.2%     -    0s
+#&gt; H  551   337                    1187.6318940 1078.44388  9.19%   1.3    0s
 #&gt; 
 #&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Cover: 19
-#&gt;   MIR: 8
-#&gt;   StrongCG: 10
-#&gt;   Zero half: 1
+#&gt;   Gomory: 1
+#&gt;   Cover: 2
+#&gt;   MIR: 2
 #&gt; 
-#&gt; Explored 3533 nodes (4936 simplex iterations) in 0.28 seconds
+#&gt; Explored 551 nodes (908 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 5: 1190.95 1199 1203.17 ... 1364.2
+#&gt; Solution count 5: 1187.63 1199 1203.17 ... 1364.2
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.190950235328e+03, best bound 1.071859173701e+03, gap 9.9997%</div><div class='input'>
+#&gt; Best objective 1.187631893954e+03, best bound 1.078443876208e+03, gap 9.1938%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_absolute_targets-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -376,7 +415,9 @@ Details section for more information.</p></td>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 
 <span class='co'># solve problem</span></div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
@@ -422,7 +463,9 @@ Details section for more information.</p></td>
 #&gt; feature_5      2      1      1</div><div class='input'>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 <span class='co'># solve problem</span></div><div class='input'><span class='co'># solve problem</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
+#&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]

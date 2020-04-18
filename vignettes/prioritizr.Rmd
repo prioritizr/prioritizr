@@ -584,44 +584,71 @@ Many conservation planning exercises require a portfolio of solutions. For examp
 
 The following methods are available for generating a portfolio of solutions.
 
-* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap.
+
+* __Extra portfolio__: Generate a portfolio of solutions by storing feasible solutions found during the optimization process. Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
+```{r}
+# create a problem and specify that a portfolio should be created using
+# extra solutions found while solving the problem
+p30 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_extra_portfolio()
+
+# print problem
+print(p30)
+```
+* __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
+```{r}
+# create a problem and specify that a portfolio should be created using
+# the top five solutions
+p31 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_top_portfolio(number_solutions = 5)
+
+# print problem
+print(p31)
+```
+* __Gap portfolio__: Generate a portfolio of solutions by finding a certain number of solutions that are all within a pre-specified optimality gap. This method is especially useful for generating multiple solutions that can used be to calculate selection frequencies (similar to _Marxan_). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
+```{r}
+# create a problem and specify that a portfolio should be created by
+# finding five solutions within 10% of optimality
+p32 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
+
+# print problem
+print(p32)
+```
+* __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p30 <- problem(sim_pu_raster, sim_features) %>%
+p33 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p30)
-```
-* __Pool portfolio__: Generate a portfolio of solutions by extracting feasible solutions from the solution pool. There are various methods for constructing the solution pool, but in most cases, setting the method argument to 2 is recommended because this will mean that the solution pool will contain a set number of solutions that are nearest to optimality (e.g. the top 10 solutions nearest to optimality). This method is the fastest for generating a portfolio of solutions, but it requires that the _Gurobi_ optimization solver to be specified for solving problems.
-```{r}
-# create a problem and specify that a portfolio should be created that
-# contains the 100 solutions nearest to optimality
-p31 <- problem(sim_pu_raster, sim_features) %>%
-       add_min_set_objective() %>%
-       add_relative_targets(0.1) %>%
-       add_binary_decisions() %>%
-       add_pool_portfolio(method = 2, number_solutions = 100)
-
-# print problem
-print(p31)
+print(p33)
 ```
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p32 <- problem(sim_pu_raster, sim_features) %>%
+p34 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
 
 # print problem
-print(p32)
+print(p34)
 ```
 
 ### Solve the problem
@@ -630,17 +657,17 @@ Finally, after formulating our conservation planning problem and specifying how 
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p33 <- problem(sim_pu_raster, sim_features) %>%
+p35 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
        add_binary_decisions()
 
 # solve the problem (using the default solver)
-s33 <- solve(p33)
+s35 <- solve(p35)
 
 # plot solution
-plot(s33, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s35, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -650,14 +677,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(p33, "objective"))
+print(attr(p35, "objective"))
 
 # extract time spent solving solution
-print(attr(p33, "runtime"))
+print(attr(p35, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(p33, "status"))
+print(attr(p35, "status"))
 ```
 
 ### _Marxan_ problems
@@ -712,27 +739,27 @@ After obtaining the solution to a conservation planning problem, it can be usefu
 
 ```{r}
 # formulate the problem
-p34 <- problem(sim_pu_raster, sim_features) %>%
+p36 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # solve the problem
-s34 <- solve(p34)
+s36 <- solve(p36)
 
 # plot solution
-plot(s34, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s36, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 
 # calculate the number of selected planning units
-cellStats(s34, "sum")
+cellStats(s36, "sum")
 
 # calculate the cost of the solution
-cellStats(sim_pu_raster * s34, "sum")
+cellStats(sim_pu_raster * s36, "sum")
 
 # calculate how well features are represented in the solution
-r34 <- feature_representation(p34, s34)
-print(r34)
+r36 <- feature_representation(p36, s36)
+print(r36)
 ```
 
 ### Irreplaceability
@@ -743,15 +770,15 @@ The _prioritizr R_ package offers two methods for calculating irreplaceability s
 
 ```{r, fig.width = 6.5, fig.height = 2.5}
 # calculate replacement cost scores and make the solver quiet
-rc34 <- p34 %>%
-        add_default_solver(verbose = FALSE) %>%
-        replacement_cost(s34)
+rc36 <- p36 %>%
+        add_default_solver(gap = 0, verbose = FALSE) %>%
+        replacement_cost(s36)
 
 # calculate rarity weighted richness scores
-rwr34 <- rarity_weighted_richness(p34, s34)
+rwr36 <- rarity_weighted_richness(p36, s36)
 
 # plot irreplaceability scores
-plot(stack(rc34, rwr34),
+plot(stack(rc36, rwr36),
      main = c("replacement cost", "rarity weighted richness"))
 ```
 

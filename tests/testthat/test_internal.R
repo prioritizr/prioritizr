@@ -10,7 +10,7 @@ test_that("is_comparable_raster (valid inputs)", {
   # expect false
   expect_false({
     data(sim_pu_raster, sim_features)
-    sim_features@crs <- sp::CRS("+init=epsg:4326")
+    sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     is_comparable_raster(sim_pu_raster, sim_features)
   })
   expect_false({
@@ -22,7 +22,7 @@ test_that("is_comparable_raster (valid inputs)", {
   # expect error
   expect_error({
     data(sim_pu_raster, sim_features)
-    sim_features@crs <- sp::CRS("+init=epsg:4326")
+    sim_features@crs <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
     assertthat::assert_that(is_comparable_raster(sim_pu_raster, sim_features))
   })
   expect_error({
@@ -38,4 +38,58 @@ test_that("is_comparable_raster (invalid inputs)", {
   expect_error({
     is_comparable_raster(sim_pu_raster, "a")
   })
+})
+
+test_that("geometry_classes", {
+  # data creation based on https://github.com/r-spatial/sf/blob/master/R/sfg.R
+  p1 <- sf::st_point(c(1, 2))
+  pts <- matrix(1:10, , 2)
+  mp1 <- sf::st_multipoint(pts)
+  ls1 <- sf::st_linestring(pts)
+  outer <- matrix(c(0, 0, 10, 0, 10, 10, 0, 10, 0, 0), ncol = 2, byrow = TRUE)
+  hole1 <- matrix(c(1, 1, 1, 2, 2, 2, 2, 1, 1, 1), ncol = 2, byrow = TRUE)
+  hole2 <- matrix(c(5, 5, 5, 6, 6, 6, 6, 5, 5, 5), ncol = 2, byrow = TRUE)
+  pts <- list(outer, hole1, hole2)
+  ml1 <- sf::st_multilinestring(pts)
+  pl1 <- sf::st_polygon(pts)
+  pol1 <- list(outer, hole1, hole2)
+  pol2 <- list(outer + 12, hole1 + 12)
+  pol3 <- list(outer + 24)
+  mp <- list(pol1,pol2,pol3)
+  mpl1 <- sf::st_multipolygon(mp)
+  gc1 <- sf::st_geometrycollection(list(p1, ls1, pl1, mp1))
+  # create sf object from all possible geometry classes
+  x <- sf::st_as_sf(st_sfc(list(p1, mp1, ls1, ml1, pl1, mpl1, gc1)))
+  # tests
+  expect_equal(geometry_classes(x), c("POINT", "MULTIPOINT", "LINESTRING",
+                                      "MULTILINESTRING", "POLYGON",
+                                      "MULTIPOLYGON", "GEOMETRYCOLLECTION"))
+})
+
+test_that("intersecting_extents", {
+  expect_true(intersecting_extents(
+    sim_pu_polygons[1, ], sim_pu_polygons[1:10, ]))
+  expect_true(intersecting_extents(
+    sim_pu_sf[1, ], sim_pu_sf[1:10, ]))
+  expect_true(intersecting_extents(
+    sim_pu_sf[1, ], sim_pu_polygons[1:10, ]))
+  expect_true(intersecting_extents(
+    sim_pu_sf[1, ], sim_pu_raster))
+  expect_true(intersecting_extents(
+    sim_pu_polygons[1, ], sim_pu_raster))
+  expect_true(intersecting_extents(
+    raster::crop(sim_pu_raster, sim_pu_polygons[1, ]), sim_pu_raster))
+  expect_false(intersecting_extents(
+    sim_pu_polygons[1, ], sim_pu_polygons[7, ]))
+  expect_false(intersecting_extents(
+    sim_pu_sf[1, ], sim_pu_sf[7, ]))
+  expect_false(intersecting_extents(
+    sim_pu_sf[1, ], sim_pu_polygons[7, ]))
+  expect_false(intersecting_extents(
+    sim_pu_sf[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+  expect_false(intersecting_extents(
+    sim_pu_polygons[1, ], raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
+  expect_false(intersecting_extents(
+    raster::crop(sim_pu_raster, sim_pu_polygons[1, ]),
+    raster::crop(sim_pu_raster, sim_pu_polygons[7, ])))
 })

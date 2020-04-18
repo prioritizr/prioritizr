@@ -5,75 +5,65 @@
 \alias{fast_extract,Raster,SpatialLines-method}
 \alias{fast_extract,Raster,SpatialPoints-method}
 \alias{fast_extract,Raster,SpatialPolygons-method}
+\alias{fast_extract,Raster,sf-method}
+\alias{fast_extract,Raster,sfc-method}
 \title{Fast extract}
 \usage{
-\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean, velox = requireNamespace("velox", quietly = TRUE), ...)
+fast_extract(x, y, ...)
 
-\S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = mean, ...)
+\S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
 
-\S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = mean, ...)
+\S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
+
+\S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = "mean", ...)
+
+\S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
+
+\S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
 }
 \arguments{
 \item{x}{\code{\link[raster]{Raster-class}} object.}
 
-\item{y}{\code{\link[sp]{Spatial-class}} object.}
+\item{y}{\code{\link[sp]{Spatial-class}} or
+\code{\link[sf]{sf}} object.}
 
-\item{fun}{\code{function} used to summarize values. Defaults to
-\code{\link{mean}}. Note that this only used when \code{x} is a
-\code{\link[sp]{SpatialPolygons-class}} or a
-\code{\link[sp]{SpatialLines-class}} object. This function must
-have an \code{na.rm} argument.}
+\item{...}{not used.}
 
-\item{velox}{\code{logical} should the \code{\link[velox]{velox}}
-be used for geoprocessing? Defaults to \code{TRUE} if the package
-is installed. Note that this only used when \code{x} is a
-\code{\link[sp]{SpatialPolygons-class}} object.}
-
-\item{...}{additional arguments passed to \code{\link[raster]{extract}}.}
+\item{fun}{\code{character} name of statistic to summarize data. Defaults
+to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
+Defaults to \code{"mean"}.}
 }
 \value{
-\code{data.frame}, \code{matrix}, or \code{list} object
-  depending on the arguments.
+\code{matrix} containing the summary amount of each feature
+   within each planning unit. Rows correspond to different spatial features
+  in the argument to \code{y} and columns correspond to different raster
+  layers in the argument to \code{x}.
 }
 \description{
-Extract data from a \code{\link[raster]{Raster-class}} object from a
-\code{\link[sp]{Spatial-class}} object using performance enhancing tricks.
+Extract data from a \code{\link[raster]{Raster-class}} object.
 }
 \details{
-Spatial analyses will be conducted using the
-  \code{\link[velox]{velox}} package if it is installed. Additionally,
-  multiple threads can be used to speed up computation using the
-  \code{\link{set_number_of_threads}} function.
+This function is simply a wrapper that uses
+  \code{\link[raster]{extract}} to extract data for
+  \code{\link[sp]{SpatialPoints-class}} and
+  \code{\link[sp]{SpatialLines-class}} and
+  non-polygonal \code{\link[sf]{sf}} data, and
+  \code{\link[exactextractr]{exact_extract}} for
+  \code{\link[sp]{SpatialPolygons-class}} and
+  polygonal \code{\link[sf]{sf}} data.
 }
 \examples{
 # load data
-data(sim_pu_polygons, sim_features)
-\donttest{
-# we will investigate several ways for extracting values from a raster
-# using polygons. Specifically, for each band in the raster,
-# for each polygon in the vector layer, calculate the average
-# of the cells that are inside the polygon.
+data(sim_pu_sf, sim_features)
 
-# perform the extraction using the standard raster::extract function
-system.time({result <- fast_extract(sim_features, sim_pu_polygons)})
+# extract data
+result <- fast_extract(sim_features, sim_pu_sf)
 
-# perform extract using the fast_extract function augmented using the
-# "velox" package
-system.time({result <- fast_extract(sim_features, sim_pu_polygons,
-                                    velox = TRUE)})
-
-# perform extract using the fast_extract function with "velox" package
-# and using two threads for processing. Note that this might be slower
-# due to overheads but should yield faster processing times on larger
-# spatial data sets
-set_number_of_threads(2)
-system.time({result <- fast_extract(sim_features, sim_pu_polygons,
-                                    velox = TRUE)})
-set_number_of_threads(1)
-}
+# show result
+print(head(result))
 
 }
 \seealso{
 \code{\link[raster]{extract}},
-  \code{\link[velox]{VeloxRaster_extract}}.
+  \code{\link[exactextractr]{exact_extract}}.
 }

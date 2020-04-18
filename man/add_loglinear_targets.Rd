@@ -5,10 +5,16 @@
 \alias{add_loglinear_targets}
 \title{Add targets using log-linear scaling}
 \usage{
-add_loglinear_targets(x, lower_bound_amount, lower_bound_target,
-  upper_bound_amount, upper_bound_target, cap_amount = NULL,
-  cap_target = NULL, abundances = feature_abundances(x, na.rm =
-  FALSE)$absolute_abundance)
+add_loglinear_targets(
+  x,
+  lower_bound_amount,
+  lower_bound_target,
+  upper_bound_amount,
+  upper_bound_target,
+  cap_amount = NULL,
+  cap_target = NULL,
+  abundances = feature_abundances(x, na.rm = FALSE)$absolute_abundance
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

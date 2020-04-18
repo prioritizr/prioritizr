@@ -1,38 +1,37 @@
-#' @include internal.R parallel.R
+#' @include internal.R
 NULL
 
 #' Fast extract
 #'
-#' Extract data from a \code{\link[raster]{Raster-class}} object from a
-#' \code{\link[sp]{Spatial-class}} object using performance enhancing tricks.
+#' Extract data from a \code{\link[raster]{Raster-class}} object.
 #'
 #' @param x \code{\link[raster]{Raster-class}} object.
 #'
-#' @param y \code{\link[sp]{Spatial-class}} object.
+#' @param y \code{\link[sp]{Spatial-class}} or
+#'          \code{\link[sf]{sf}} object.
 #'
-#' @param fun \code{function} used to summarize values. Defaults to
-#'   \code{\link{mean}}. Note that this only used when \code{x} is a
-#'   \code{\link[sp]{SpatialPolygons-class}} or a
-#'   \code{\link[sp]{SpatialLines-class}} object. This function must
-#'   have an \code{na.rm} argument.
+#' @param fun \code{character} name of statistic to summarize data. Defaults
+#'   to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
+#'   Defaults to \code{"mean"}.
 #'
-#' @param velox \code{logical} should the \code{\link[velox]{velox}}
-#'   be used for geoprocessing? Defaults to \code{TRUE} if the package
-#'   is installed. Note that this only used when \code{x} is a
-#'   \code{\link[sp]{SpatialPolygons-class}} object.
+#' @param ... not used.
 #'
-#' @param ... additional arguments passed to \code{\link[raster]{extract}}.
-#'
-#' @return \code{data.frame}, \code{matrix}, or \code{list} object
-#'   depending on the arguments.
+#' @return \code{matrix} containing the summary amount of each feature
+#'    within each planning unit. Rows correspond to different spatial features
+#'   in the argument to \code{y} and columns correspond to different raster
+#'   layers in the argument to \code{x}.
 #'
 #' @seealso \code{\link[raster]{extract}},
-#'   \code{\link[velox]{VeloxRaster_extract}}.
+#'   \code{\link[exactextractr]{exact_extract}}.
 #'
-#' @details Spatial analyses will be conducted using the
-#'   \code{\link[velox]{velox}} package if it is installed. Additionally,
-#'   multiple threads can be used to speed up computation using the
-#'   \code{\link{set_number_of_threads}} function.
+#' @details This function is simply a wrapper that uses
+#'   \code{\link[raster]{extract}} to extract data for
+#'   \code{\link[sp]{SpatialPoints-class}} and
+#'   \code{\link[sp]{SpatialLines-class}} and
+#'   non-polygonal \code{\link[sf]{sf}} data, and
+#'   \code{\link[exactextractr]{exact_extract}} for
+#'   \code{\link[sp]{SpatialPolygons-class}} and
+#'   polygonal \code{\link[sf]{sf}} data.
 #'
 #' @name fast_extract
 #'
@@ -40,32 +39,15 @@ NULL
 #'
 #' @examples
 #' # load data
-#' data(sim_pu_polygons, sim_features)
-#' \donttest{
-#' # we will investigate several ways for extracting values from a raster
-#' # using polygons. Specifically, for each band in the raster,
-#' # for each polygon in the vector layer, calculate the average
-#' # of the cells that are inside the polygon.
+#' data(sim_pu_sf, sim_features)
 #'
-#' # perform the extraction using the standard raster::extract function
-#' system.time({result <- fast_extract(sim_features, sim_pu_polygons)})
+#' # extract data
+#' result <- fast_extract(sim_features, sim_pu_sf)
 #'
-#' # perform extract using the fast_extract function augmented using the
-#' # "velox" package
-#' system.time({result <- fast_extract(sim_features, sim_pu_polygons,
-#'                                     velox = TRUE)})
+#' # show result
+#' print(head(result))
 #'
-#' # perform extract using the fast_extract function with "velox" package
-#' # and using two threads for processing. Note that this might be slower
-#' # due to overheads but should yield faster processing times on larger
-#' # spatial data sets
-#' set_number_of_threads(2)
-#' system.time({result <- fast_extract(sim_features, sim_pu_polygons,
-#'                                     velox = TRUE)})
-#' set_number_of_threads(1)
-#' }
-#'
-#' @aliases fast_extract,Raster,SpatialLines-method fast_extract,Raster,SpatialPoints-method fast_extract,Raster,SpatialPolygons-method
+#' @aliases fast_extract,Raster,SpatialLines-method fast_extract,Raster,SpatialPoints-method fast_extract,Raster,SpatialPolygons-method fast_extract,Raster,sf-method fast_extract,Raster,sfc-method
 #'
 #' @export
 methods::setGeneric("fast_extract",
@@ -73,94 +55,105 @@ methods::setGeneric("fast_extract",
                     function(x, y, ...) standardGeneric("fast_extract"))
 
 #' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = mean, velox = requireNamespace("velox", quietly = TRUE), ...)
-#' @rdname fast_extract
-methods::setMethod(
-    "fast_extract",
-    signature(x = "Raster", y = "SpatialPolygons"),
-    function(x, y, fun = mean,
-             velox = requireNamespace("velox", quietly = TRUE), ...) {
-    # assert arguments are valid
-    assertthat::assert_that(inherits(x, "Raster"),
-      inherits(y, "SpatialPolygons"),
-      isTRUE(is.null(fun) || inherits(fun, "function")),
-      assertthat::is.flag(velox), raster::compareCRS(x@crs, y@proj4string),
-      rgeos::gIntersects(methods::as(raster::extent(x[[1]]), "SpatialPolygons"),
-        methods::as(raster::extent(y), "SpatialPolygons")))
-    if (velox & !requireNamespace("velox", quietly = TRUE))
-      stop("the velox R package needs to be installed to use velox")
-    # data processing
-    args <- list(...)
-    if (velox & !(isTRUE(args$cellnumbers) || isTRUE(args$sp))) {
-      if (inherits(x, "RasterBrick"))
-        x <- raster::stack(x)
-      if (is.parallel()) {
-        # use the velox with parallel processing
-        parallel::clusterExport(.pkgenv$cluster, c("x", "y", "fun", "args",
-          "velox_extract"), envir = environment())
-        m <- plyr::llply(distribute_load(length(y)), .parallel = TRUE,
-          function(i) {
-              return(do.call(velox_extract, append(
-                list(x = x, y = y[i, ], fun = fun), args)))
-          })
-        parallel::clusterEvalQ(.pkgenv$cluster, {
-            rm("x", "y", "fun", "args")
-        })
-        m <- do.call(rbind, m)
-      } else {
-        # use the velox without parallel processing
-        m <- velox_extract(x = x, y = y, fun = fun, ...)
-      }
-    } else {
-      if (is.parallel()) {
-        m <- parallelized_extract(x = x, y = y, fun = fun, ...)
-      } else {
-        m <- raster::extract(x = x, y = y, fun = fun, ...)
-      }
-    }
-    # return result
-    return(m)
-  }
-)
-
-#' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = mean, ...)
+#' @usage \S4method{fast_extract}{Raster,SpatialPolygons}(x, y, fun = "mean", ...)
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
-  signature(x = "Raster", y = "SpatialLines"),
-  function(x, y, fun = mean, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(inherits(x, "Raster"), inherits(y, "SpatialLines"),
-        inherits(fun, "function"), raster::compareCRS(x@crs, y@proj4string),
-        rgeos::gIntersects(methods::as(raster::extent(x[[1]]),
-                                       "SpatialPolygons"),
-                           methods::as(raster::extent(y), "SpatialPolygons")))
-    # data processing
-    if (is.parallel()) {
-      m <- parallelized_extract(x = x, y = y, fun = fun, ...)
-    } else {
-      m <- raster::extract(x = x, y = y, fun = fun, ...)
-    }
-    # return result
-    return(m)
-  }
-)
+  signature(x = "Raster", y = "SpatialPolygons"),
+  function(x, y, fun = "mean", ...) {
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
+})
 
 #' @name fast_extract
-#' @usage \S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = mean, ...)
+#' @usage \S4method{fast_extract}{Raster,SpatialPoints}(x, y, fun = "mean", ...)
 #' @rdname fast_extract
 methods::setMethod(
   "fast_extract",
   signature(x = "Raster", y = "SpatialPoints"),
-  function(x, y, fun = mean, ...) {
-    # assert that arguments are valid
-    assertthat::assert_that(inherits(x, "Raster"), inherits(y, "SpatialPoints"),
-        inherits(fun, "function"), raster::compareCRS(x@crs, y@proj4string),
-        rgeos::gIntersects(methods::as(raster::extent(x[[1]]),
-                                       "SpatialPolygons"),
-                           methods::as(raster::extent(y), "SpatialPolygons")))
+  function(x, y, fun = "mean", ...) {
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{Raster,SpatialLines}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "Raster", y = "SpatialLines"),
+  function(x, y, fun = "mean", ...) {
+    fast_extract(x, sf::st_as_sf(y), fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{Raster,sfc}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "Raster", y = "sfc"),
+  function(x, y, fun = "mean", ...) {
+    fast_extract(x, sf::st_sf(y), fun, ...)
+})
+
+#' @name fast_extract
+#' @usage \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
+#' @rdname fast_extract
+methods::setMethod(
+  "fast_extract",
+  signature(x = "Raster", y = "sf"),
+  function(x, y, fun = "mean", ...) {
+    # assert arguments are valid
+    assertthat::assert_that(
+      inherits(x, "Raster"),
+      inherits(y, "sf"),
+      assertthat::is.string(fun),
+      sf::st_crs(x@crs) == sf::st_crs(y),
+      intersecting_extents(x, y))
+    assertthat::assert_that(all(!geometry_classes(y) %in%
+                                  c("GEOMETRYCOLLECTION", "MULTIPOINT")))
+    assertthat::assert_that(fun %in% c("mean", "sum"))
+    # determine summary statistic
+    if (identical(fun, "mean")) fun2 <- mean
+    if (identical(fun, "sum")) fun2 <- sum
+    # since the coordinate reference systems have been verified,
+    # coerce them to NA coordinate reference systems to avoid PROJ7 warnings
+    # in exactextractr::exact_extract
+    sf::st_crs(y) <- sf::st_crs(NA_character_)
+    x@crs <- sp::CRS(NA_character_)
+    # identify geometry classes
+    geomc <- geometry_classes(y)
+    # prepare output vector
+    out <- matrix(NA_real_, nrow = nrow(y), ncol = raster::nlayers(x))
+    # process point geometries
+    point_idx <- grepl("POINT", geomc, fixed = TRUE)
+    if (any(point_idx)) {
+        out[point_idx, ] <- as.matrix(raster::extract(
+          x = x, y = y[point_idx, ], fun = fun2, df = TRUE,
+          na.rm = FALSE)[, -1, drop = FALSE])
+    }
+    # process line geometries
+    line_idx <- grepl("LINE", geomc, fixed = TRUE)
+    if (any(line_idx)) {
+        out[line_idx, ] <- as.matrix(raster::extract(
+          x = x, y = y[line_idx, ], fun = fun2, df = TRUE,
+          na.rm = FALSE)[, -1, drop = FALSE])
+    }
+    # process polygon geometries
+    poly_idx <- grepl("POLYGON", geomc, fixed = TRUE)
+    if (any(poly_idx)) {
+      if (raster::canProcessInMemory(x, n = 1, verbose = FALSE)) {
+        out[poly_idx, ] <-
+          rcpp_summarize_exactextractr(exactextractr::exact_extract(
+              x, y[poly_idx, ], fun = NULL, progress = FALSE),
+              nrow = sum(poly_idx), ncol = raster::nlayers(x), fun = fun)
+      } else {
+        out[poly_idx, ] <-
+          as.matrix(exactextractr::exact_extract(x, y[poly_idx, ], fun = fun,
+                                                 progress = TRUE))
+      }
+    }
+    # round really small values to zero
+    out[abs(out) < 1e-10] <- 0
     # return result
-    return(raster::extract(x, y, fun = fun, ...))
+    out
   }
 )

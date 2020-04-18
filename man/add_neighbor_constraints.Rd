@@ -40,7 +40,7 @@ only considered neighbors if they are both allocated to the same zone.}
 \code{array} object showing which planning units are neighbors with each
 other. The argument defaults to \code{NULL} which means that the
 neighborhood data is calculated automatically using the
-\code{\link{connected_matrix}} function. See the Details section for more
+\code{\link{adjacency_matrix}} function. See the Details section for more
 information.}
 }
 \value{
@@ -63,7 +63,7 @@ This function uses neighborhood data identify solutions that
   \describe{
 
   \item{\code{NULL}}{neighborhood data should be calculated automatically
-    using the \code{\link{connected_matrix}} function. This is the default
+    using the \code{\link{adjacency_matrix}} function. This is the default
     argument. Note that the neighborhood data must be manually defined
     using one of the other formats below when the planning unit data
     in the argument to \code{x} is not spatially referenced (e.g.
@@ -128,7 +128,7 @@ p3 <- p1 \%>\% add_neighbor_constraints(2)
 # create problem with constraints that require 3 neighbor
 # and neighbors are defined using a queen-style neighborhood
 p4 <- p1 \%>\% add_neighbor_constraints(3,
-               data = connected_matrix(sim_pu_raster, directions = 8))
+               data = adjacency_matrix(sim_pu_raster, directions = 8))
 
 \donttest{
 # solve problems

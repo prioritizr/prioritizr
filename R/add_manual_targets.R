@@ -295,7 +295,8 @@ methods::setMethod(
          targets$sense <- ">="
        targets$sense <- as.character(targets$sense)
        # convert feature names to indices
-       targets$feature <- match(targets$feature, rownames(abundances))
+       targets$feature <- match(as.character(targets$feature),
+                                rownames(abundances))
        # convert zone names to indices
        for (i in seq_len(nrow(targets))) {
          targets$zone[[i]] <- match(targets$zone[[i]], colnames(abundances))

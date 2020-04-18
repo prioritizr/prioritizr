@@ -3,6 +3,8 @@
 \name{category_vector}
 \alias{category_vector}
 \alias{category_vector.data.frame}
+\alias{category_vector.sf}
+\alias{category_vector.Spatial}
 \alias{category_vector.matrix}
 \title{Category vector}
 \usage{
@@ -10,18 +12,23 @@ category_vector(x)
 
 \method{category_vector}{data.frame}(x)
 
+\method{category_vector}{sf}(x)
+
+\method{category_vector}{Spatial}(x)
+
 \method{category_vector}{matrix}(x)
 }
 \arguments{
-\item{x}{\code{matrix} object.}
+\item{x}{\code{matrix}, \code{data.frame}, \code{\link[sp]{Spatial-class}},
+or \code{\link[sf]{sf}} object.}
 }
 \value{
 \code{integer} \code{vector}
 }
 \description{
-Convert a \code{data.frame} or \code{matrix} containing binary
-(\code{integer}) fields (columns) into a \code{integer} \code{vector}
-indicating the column index where each row is \code{1}.
+Convert an object containing binary (\code{integer}) fields (columns) into a
+\code{integer} \code{vector} indicating the column index where each row is
+\code{1}.
 }
 \details{
 This function is conceptually similar to \code{\link[base]{max.col}}

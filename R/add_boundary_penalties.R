@@ -284,7 +284,7 @@ add_boundary_penalties <- function(x, penalty,
       stop("argument to data is of a class that is not supported")
     }
   } else {
-    assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster")),
+    assertthat::assert_that(inherits(x$data$cost, c("Spatial", "Raster", "sf")),
         msg = paste("argument to data must be supplied because planning unit",
                     "data are not in a spatially referenced format"))
 

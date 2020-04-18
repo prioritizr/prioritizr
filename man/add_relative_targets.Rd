@@ -9,6 +9,8 @@
 \alias{add_relative_targets,ConservationProblem,character-method}
 \title{Add relative targets}
 \usage{
+add_relative_targets(x, targets)
+
 \S4method{add_relative_targets}{ConservationProblem,numeric}(x, targets)
 
 \S4method{add_relative_targets}{ConservationProblem,matrix}(x, targets)

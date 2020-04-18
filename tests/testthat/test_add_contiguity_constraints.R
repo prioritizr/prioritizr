@@ -11,7 +11,7 @@ test_that("compile (single zone)", {
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
-  cm <- as(connected_matrix(sim_pu_polygons), "dgCMatrix")
+  cm <- as(adjacency_matrix(sim_pu_polygons), "dgCMatrix")
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   class(cm) <- "dgCMatrix"
   cm <- as(cm, "dgTMatrix")
@@ -67,7 +67,7 @@ test_that("solve (single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_contiguity_constraints() %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -93,7 +93,7 @@ test_that("compile (multiple zones)", {
   # compile problem
   o <- compile(p)
   # perform preliminary calculations
-  cm <- as(connected_matrix(sim_pu_zones_polygons), "dgCMatrix")
+  cm <- as(adjacency_matrix(sim_pu_zones_polygons), "dgCMatrix")
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   class(cm) <- "dgCMatrix"
   cm <- as(cm, "dgTMatrix")
@@ -192,7 +192,7 @@ test_that("solve (multiple zones)", {
        add_min_set_objective() %>%
        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
        add_contiguity_constraints(z) %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that all selected planning units form a contiguous unit
   agg_c1 <- aggregate(s[s$solution_1_zone_1 == 1 | s$solution_1_zone_2 == 1, ])
@@ -203,10 +203,36 @@ test_that("solve (multiple zones)", {
   expect_equal(length(agg_c2@polygons[[1]]), 1)
 })
 
+test_that("compile (Spatial and sf are identical)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  z <- diag(3)
+  z[1, 2] <- 1
+  z[2, 1] <- 1
+  sim_pu_zones_polygons <- sim_pu_zones_polygons[c(1:2, 10:12, 20:22), ]
+  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  # create problems
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_contiguity_constraints(z)
+  p2 <- problem(sim_sf, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_contiguity_constraints(z)
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  # tests
+  expect_equal(o1, o2)
+})
+
 test_that("invalid inputs (single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
-  cm <- as.matrix(connected_matrix(sim_pu_polygons))
+  cm <- as.matrix(adjacency_matrix(sim_pu_polygons))
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1)
@@ -225,7 +251,7 @@ test_that("invalid inputs (single zone)", {
 test_that("invalid inputs (multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  cm <- as.matrix(connected_matrix(sim_pu_zones_polygons))
+  cm <- as.matrix(adjacency_matrix(sim_pu_zones_polygons))
   p <- problem(sim_pu_zones_polygons, sim_features_zones,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%

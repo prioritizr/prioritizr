@@ -44,7 +44,7 @@ test_that("solve (compressed formulation, single zone)", {
   p <- problem(cost, features) %>%
         add_max_cover_objective(budget = budget) %>%
         add_locked_out_constraints(locked_out) %>%
-        add_default_solver(gap = 0)
+        add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -113,7 +113,7 @@ test_that("solve (expanded formulation, single zone)", {
   p <- problem(cost, features) %>%
         add_max_cover_objective(budget = budget) %>%
         add_locked_out_constraints(locked_out) %>%
-        add_default_solver(gap = 0)
+        add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -178,7 +178,7 @@ test_that("compile (compressed formulation, multiple zones, scalar budget)", {
   for (z in seq_len(n_z)) {
     for (f in seq_len(n_f)) {
       counter <- counter + 1
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
       m[counter, (n_z * n_pu) + ((z - 1) * n_f) + f] <- -1
     }
   }
@@ -214,7 +214,7 @@ test_that("solve (compressed formulation, multiple zones, scalar budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -273,7 +273,7 @@ test_that("compile (expanded formulation, multiple zones, scalar budget)", {
       for (pu in seq_len(n_pu)) {
         col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
                ((f - 1) * n_pu) + pu
-        m[counter, col] <- p$data$rij[[z]][f, pu]
+        m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + ((z - 1) * n_f) + f
       m[counter, col] <- -1
@@ -311,7 +311,7 @@ test_that("solve (expanded formulation, multiple zones, scalar budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct
@@ -350,7 +350,7 @@ test_that("compile (compressed formulation, multiple zones, vector budget)", {
   for (z in seq_len(n_z)) {
     for (f in seq_len(n_f)) {
       counter <- counter + 1
-      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij[[z]][f, ]
+      m[counter, ((z - 1) * n_pu) + seq_len(n_pu)] <- p$data$rij_matrix[[z]][f, ]
       m[counter, (n_z * n_pu) + ((z - 1) * n_f) + f] <- -1
     }
   }
@@ -390,7 +390,7 @@ test_that("solve (compressed formulation, multiple zones, vector budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p)
   # test that solution is correct
@@ -449,7 +449,7 @@ test_that("compile (expanded formulation, multiple zones, vector budget)", {
       for (pu in seq_len(n_pu)) {
         col <- (n_pu * n_z) + ((z - 1) * n_f * n_pu) +
                ((f - 1) * n_pu) + pu
-        m[counter, col] <- p$data$rij[[z]][f, pu]
+        m[counter, col] <- p$data$rij_matrix[[z]][f, pu]
       }
       col <- (n_pu * n_z) + (n_pu * n_f * n_z) + ((z - 1) * n_f) + f
       m[counter, col] <- -1
@@ -491,7 +491,7 @@ test_that("solve (expanded formulation, multiple zones, vector budget)", {
   p <- problem(cost, zones(features[[1:2]], features[[3:4]])) %>%
        add_max_cover_objective(budget = budget) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test that solution is correct

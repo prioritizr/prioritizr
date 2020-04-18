@@ -14,14 +14,21 @@
 \alias{sim_features}
 \alias{sim_features_zones}
 \alias{sim_phylogeny}
+\alias{sim_pu_sf}
+\alias{sim_pu_zones_sf}
 \title{Simulated conservation planning data}
-\format{\describe{
+\format{
+\describe{
 
 \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
   object.}
 
 \item{sim_pu_zones_polygons}{
   \code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+
+\item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+
+\item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
 
 \item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
 
@@ -44,9 +51,60 @@
 
 \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
 
-}}
+}
+
+An object of class \code{RasterStack} of dimension 10 x 10 x 5.
+
+An object of class \code{ZonesRaster} (inherits from \code{Zones}) of length 3.
+
+An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 6 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 4 columns.
+
+An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 7 columns.
+
+An object of class \code{SpatialLinesDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{SpatialPointsDataFrame} with 90 rows and 3 columns.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+
+An object of class \code{RasterStack} of dimension 10 x 10 x 3.
+
+An object of class \code{phylo} of length 4.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+
+An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
+}
 \usage{
 data(sim_pu_polygons)
+
+data(sim_pu_zones_polygons)
+
+data(sim_pu_points)
+
+data(sim_pu_lines)
+
+data(sim_pu_sf)
+
+data(sim_pu_zones_sf)
+
+data(sim_pu_raster)
+
+data(sim_locked_in_raster)
+
+data(sim_locked_out_raster)
+
+data(sim_pu_zones_stack)
+
+data(sim_features)
+
+data(sim_features_zones)
+
+data(sim_phylogeny)
 
 sim_features
 
@@ -56,7 +114,9 @@ sim_pu_polygons
 
 sim_pu_zones_polygons
 
-sim_pu_zones_polygons
+sim_pu_sf
+
+sim_pu_zones_sf
 
 sim_pu_lines
 
@@ -112,7 +172,12 @@ Simulated data for making spatial prioritizations.
   The attribute table follows the same conventions as for
   \code{sim_pu_polygons}.}
 
-\item{\code{sim_pu_zone_polygons}}{Planning units represented as polygon
+\item{\code{sim_pu_sf}}{Planning units represented as polygon data
+  using the \code{\link[sf]{sf}} package.
+  The attribute table follows the same conventions as for
+  \code{sim_pu_polygons}.}
+
+\item{\code{sim_pu_zones_polygons}}{Planning units represented as polygon
   data. The attribute table contains fields (columns) indicating the
   expenditure required for prioritizing each planning unit under different
   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
@@ -121,13 +186,16 @@ Simulated data for making spatial prioritizations.
   In these locked fields, planning units that should not be locked to a
   specific value are assigned a \code{NA} value.}
 
+\item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
+  using the \code{\link[sf]{sf}} package. The attribute tables follows
+  the same conventions as for \code{sim_pu_zone_polygons}.}
 \item{\code{sim_features}}{The simulated distribution of ten species.
   Pixel values indicate habitat suitability.}
 
 \item{\code{sim_features_zones}}{The simulated distribution for five
   species under three different management zones.}
 
-\item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
+ \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
 
 }
 }
@@ -135,9 +203,9 @@ Simulated data for making spatial prioritizations.
 # load data
 data(sim_pu_polygons, sim_pu_lines, sim_pu_points, sim_pu_raster,
      sim_locked_in_raster, sim_locked_out_raster, sim_phylogeny,
-     sim_features)
+     sim_features, sim_pu_sf)
 
-# plot example planning unit data
+# plot example Spatial-class planning unit data
 \donttest{
 par(mfrow = c(2, 3))
 plot(sim_pu_raster, main = "planning units (raster)")
@@ -146,6 +214,9 @@ plot(sim_locked_out_raster, main = "locked out units (raster)")
 plot(sim_pu_polygons, main = "planning units (polygons)")
 plot(sim_pu_lines, main = "planning units (lines)")
 plot(sim_pu_points, main = "planning units (points)")
+
+# plot example sf-class planning unit data
+plot(sim_pu_sf)
 
 # plot example phylogeny data
 par(mfrow = c(1, 1))

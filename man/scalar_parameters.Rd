@@ -12,12 +12,19 @@ proportion_parameter(name, value)
 
 binary_parameter(name, value)
 
-integer_parameter(name, value,
+integer_parameter(
+  name,
+  value,
   lower_limit = as.integer(-.Machine$integer.max),
-  upper_limit = as.integer(.Machine$integer.max))
+  upper_limit = as.integer(.Machine$integer.max)
+)
 
-numeric_parameter(name, value, lower_limit = .Machine$double.xmin,
-  upper_limit = .Machine$double.xmax)
+numeric_parameter(
+  name,
+  value,
+  lower_limit = .Machine$double.xmin,
+  upper_limit = .Machine$double.xmax
+)
 }
 \arguments{
 \item{name}{\code{character} name of parameter.}

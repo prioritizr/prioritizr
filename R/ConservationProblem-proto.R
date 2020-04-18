@@ -361,6 +361,10 @@ ConservationProblem <- pproto(
       return(sum(rowSums(!is.na(as.matrix(
         as.data.frame(self$data$cost)[, self$data$cost_column,
                       drop = FALSE]))) > 0))
+    } else if (inherits(self$data$cost, "sf")) {
+      return(sum(rowSums(!is.na(as.matrix(
+        sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
+                                             drop = FALSE]))) > 0))
     } else if (is.matrix(self$data$cost)) {
       return(sum(rowSums(!is.na(self$data$cost)) > 0))
     } else {
@@ -378,6 +382,10 @@ ConservationProblem <- pproto(
       return(unname(which(rowSums(!is.na(as.matrix(
              as.data.frame(self$data$cost)[, self$data$cost_column,
               drop = FALSE]))) > 0)))
+    } else if (inherits(self$data$cost, "sf")) {
+      return(sum(rowSums(!is.na(as.matrix(
+        sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
+                                             drop = FALSE]))) > 0))
     } else if (is.matrix(self$data$cost)) {
       return(unname(which(rowSums(!is.na(self$data$cost)) > 0)))
     } else {
@@ -393,7 +401,7 @@ ConservationProblem <- pproto(
                       function(i) raster::Which(!is.na(self$data$cost[[i]]),
                                                 cells = TRUE))
       }
-    } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
+    } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
       out <- lapply(self$data$cost_column,
                     function(i) which(!is.na(self$data$cost[[i]])))
     } else if (is.matrix(self$data$cost)) {
@@ -408,7 +416,7 @@ ConservationProblem <- pproto(
   number_of_total_units = function(self) {
     if (inherits(self$data$cost, "Raster")) {
       return(raster::ncell(self$data$cost))
-    } else if (inherits(self$data$cost, c("data.frame", "Spatial"))) {
+    } else if (inherits(self$data$cost, c("data.frame", "Spatial", "sf"))) {
       return(nrow(self$data$cost))
     } else if (is.matrix(self$data$cost)) {
       return(nrow(self$data$cost))
@@ -432,6 +440,10 @@ ConservationProblem <- pproto(
                           "data.frame"))) {
       m <- as.matrix(as.data.frame(self$data$cost)[, self$data$cost_column,
                                                      drop = FALSE])
+    } else if (inherits(self$data$cost, "sf")) {
+      m <-
+        as.matrix(sf::st_drop_geometry(self$data$cost)[, self$data$cost_column,
+                                                       drop = FALSE])
     } else if (is.matrix(self$data$cost)) {
       m <- self$data$cost
     } else {

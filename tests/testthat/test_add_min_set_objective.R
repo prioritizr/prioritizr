@@ -39,7 +39,7 @@ test_that("solve (compressed formulation, single zone)", {
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -66,7 +66,7 @@ test_that("solve (compressed formulation, single zone, negative values)", {
                       add_absolute_targets(c(2, 10)) %>%
                       add_locked_in_constraints(locked_in) %>%
                       add_locked_out_constraints(locked_out) %>%
-                      add_default_solver(gap = 0))
+                      add_default_solver(gap = 0, verbose = FALSE))
   # solve problem
   s <- solve(p)
   # test for correct solution
@@ -132,7 +132,7 @@ test_that("solve (expanded formulation, single zone)", {
        add_absolute_targets(c(2, 10)) %>%
        add_locked_in_constraints(locked_in) %>%
        add_locked_out_constraints(locked_out) %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- solve(p, compressed_formulation = FALSE)
   # test for correct solution
@@ -167,10 +167,10 @@ test_that("compile (compressed formulation, multiple zones)", {
   # test model matrix
   m <- matrix(0, nrow = 3 + n_pu, ncol = n_pu * n_zone)
   ## targets
-  m[1, seq_len(n_pu)] <- p$data$rij[[1]][1, ]
-  m[2, n_pu + seq_len(n_pu)] <- p$data$rij[[2]][2, ]
-  m[3, seq_len(n_pu)] <- p$data$rij[[1]][3, ]
-  m[3, (n_pu * 2) + seq_len(n_pu)] <- p$data$rij[[3]][3, ]
+  m[1, seq_len(n_pu)] <- p$data$rij_matrix[[1]][1, ]
+  m[2, n_pu + seq_len(n_pu)] <- p$data$rij_matrix[[2]][2, ]
+  m[3, seq_len(n_pu)] <- p$data$rij_matrix[[1]][3, ]
+  m[3, (n_pu * 2) + seq_len(n_pu)] <- p$data$rij_matrix[[3]][3, ]
   ## zone constraints
   for (i in seq_len(n_pu))
     m[3 + i, c(i, n_pu + i, n_pu + n_pu + i) ] <- 1
@@ -199,7 +199,7 @@ test_that("solve (compressed formulation, multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- p %>% solve()
   # tests
@@ -260,21 +260,21 @@ test_that("compile (expanded formulation, multiple zones)", {
   }
   ## targets
   r <- r + 1
-  m[r, (n_pu * n_zone) + seq_len(n_pu)] <- p$data$rij[[1]][1, ]
+  m[r, (n_pu * n_zone) + seq_len(n_pu)] <- p$data$rij_matrix[[1]][1, ]
   r <- r + 1
   m[r, (n_pu * n_zone) +
        (1 * n_pu * n_feature) +
        (1 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[2]][2, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[2]][2, ]
   r <- r + 1
   m[r, (n_pu * n_zone) +
        (0 * n_pu * n_feature) +
        (2 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[1]][3, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[1]][3, ]
   m[r, (n_pu * n_zone) +
        (2 * n_pu * n_feature) +
        (2 * n_pu) +
-       seq_len(n_pu)] <- p$data$rij[[3]][3, ]
+       seq_len(n_pu)] <- p$data$rij_matrix[[3]][3, ]
   ## zone constraints
   for (i in seq_len(n_pu))
     m[r + i, c(i, n_pu + i, n_pu + n_pu + i)] <- 1
@@ -303,7 +303,7 @@ test_that("solve (expanded formulation, multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(matrix(c(1, 1, 1, 0), nrow = 2, ncol = 2)) %>%
        add_binary_decisions() %>%
-       add_default_solver(gap = 0)
+       add_default_solver(gap = 0, verbose = FALSE)
   # solve problem
   s <- p %>% solve(compressed_formulation = FALSE)
   # tests

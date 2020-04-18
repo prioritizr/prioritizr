@@ -6,9 +6,12 @@
 \alias{rarity_weighted_richness,ConservationProblem,matrix-method}
 \alias{rarity_weighted_richness,ConservationProblem,data.frame-method}
 \alias{rarity_weighted_richness,ConservationProblem,Spatial-method}
+\alias{rarity_weighted_richness,ConservationProblem,sf-method}
 \alias{rarity_weighted_richness,ConservationProblem,Raster-method}
 \title{Rarity weighted richness}
 \usage{
+rarity_weighted_richness(x, solution, ...)
+
 \S4method{rarity_weighted_richness}{ConservationProblem,numeric}(x, solution, rescale, ...)
 
 \S4method{rarity_weighted_richness}{ConservationProblem,matrix}(x, solution, rescale, ...)
@@ -17,31 +20,35 @@
 
 \S4method{rarity_weighted_richness}{ConservationProblem,Spatial}(x, solution, rescale, ...)
 
+\S4method{rarity_weighted_richness}{ConservationProblem,sf}(x, solution, rescale, ...)
+
 \S4method{rarity_weighted_richness}{ConservationProblem,Raster}(x, solution, rescale, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-object. See the Details section for more information.}
-
-\item{rescale}{\code{logical} flag indicating non-zero scores should be
-rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
+\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+or \code{\link[sf]{sf}} object. See the Details section for more
+information.}
 
 \item{...}{not used.}
+
+\item{rescale}{\code{logical} flag indicating if replacement cost
+values---excepting infinite (\code{Inf}) and zero values---should be
+rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the rarity weighted
-  richness scores for each planning unit in the solution.
+  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+  or \code{\link[sf]{sf}} object containing the rarity weighted richness
+  scores for each planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
 using rarity weighted richness (based on Williams \emph{et al.} 1996). Please
 note that this method is only recommended for large-scaled conservation
-planning exercises (i.e. more than 100'000 planning units) where
+planning exercises (i.e. more than 100,000 planning units) where
 irreplaceability scores cannot be calculated using the replacement cost
 method (\code{\link{replacement_cost}}) in a feasible period of
 time. This is because rarity weighted richness scores cannot (i) account for
@@ -66,20 +73,24 @@ Rarity weighted richness scores are calculated using the following
   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
   }
 
-  Note that all arguments to \code{solution} must correspond
+  The argument to \code{solution} must correspond
   to the planning unit data in the argument to \code{x} in terms
   of data representation, dimensionality, and spatial attributes (if
   applicable). This means that if the planning unit data in \code{x}
   is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements, if the planning
+  \code{numeric} vector with the same number of elements; if the planning
   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
   argument to \code{solution} must also be a
   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system,
+  columns and the same resolution, extent, and coordinate reference system;
   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
   object then the argument to \code{solution} must also be a
   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system,
+  features (e.g. polygons) and have the same coordinate reference system;
+  if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+  object then the argument to \code{solution} must also be a
+  \code{\link[sf]{sf}} object and have the same number of spatial
+  features (e.g. polygons) and have the same coordinate reference system;
   if the planning units in \code{x} are a \code{data.frame} then the
   argument to \code{solution} must also be a \code{data.frame} with each
   column correspond to a different zone and each row correspond to

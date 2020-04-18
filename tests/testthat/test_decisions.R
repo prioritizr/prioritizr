@@ -26,7 +26,7 @@ test_that("add_binary_decisions (solve, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solutions have correct decisions
@@ -65,7 +65,7 @@ test_that("add_binary_decisions (solve, multiple zones)", {
          matrix(1, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_binary_decisions() %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
   expect_true(all(c(raster::values(s)) %in% c(0L, 1L, NA_integer_)))
@@ -97,7 +97,7 @@ test_that("add_proportion_decisions (solve, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_proportion_decisions()  %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solutions have correct decisions
@@ -137,7 +137,7 @@ test_that("add_proportion_decisions (solve, multiple zones)", {
          matrix(1, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_proportion_decisions() %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
   expect_true(all(round(na.omit(raster::values(s)), 5) <= 1))
@@ -175,7 +175,7 @@ test_that("add_semicontinuous_decisions (solve, single zone)", {
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_semicontinuous_decisions(0.3) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   s1 <- solve(p)
   s2 <- solve(p)
   # check that solutions have correct decisions
@@ -215,7 +215,7 @@ test_that("add_semicontinuous_decisions (solve, multiple zones)", {
          matrix(1, nrow = number_of_features(sim_features_zones),
                 ncol = number_of_zones(sim_features_zones))) %>%
        add_semicontinuous_decisions(0.3) %>%
-       add_default_solver(time_limit = 5) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions have correct decisions
   expect_true(all(round(na.omit(raster::values(s)), 5) <= 0.3))

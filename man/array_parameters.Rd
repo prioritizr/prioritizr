@@ -12,13 +12,21 @@ proportion_parameter_array(name, value, label)
 
 binary_parameter_array(name, value, label)
 
-integer_parameter_array(name, value, label,
+integer_parameter_array(
+  name,
+  value,
+  label,
   lower_limit = rep(as.integer(-.Machine$integer.max), length(value)),
-  upper_limit = rep(as.integer(.Machine$integer.max), length(value)))
+  upper_limit = rep(as.integer(.Machine$integer.max), length(value))
+)
 
-numeric_parameter_array(name, value, label,
+numeric_parameter_array(
+  name,
+  value,
+  label,
   lower_limit = rep(.Machine$double.xmin, length(value)),
-  upper_limit = rep(.Machine$double.xmax, length(value)))
+  upper_limit = rep(.Machine$double.xmax, length(value))
+)
 }
 \arguments{
 \item{name}{\code{character} name of parameter.}

@@ -4,10 +4,14 @@
 \alias{simulate_cost}
 \title{Simulate cost data}
 \usage{
-simulate_cost(x, n = 1,
-  model = RandomFields::RPpoisson(RandomFields::RMtruncsupport(radius =
-  raster::xres(x) * 10, RandomFields::RMgauss())), transform = identity,
-  ...)
+simulate_cost(
+  x,
+  n = 1,
+  model = RandomFields::RPpoisson(RandomFields::RMtruncsupport(radius = raster::xres(x)
+    * 10, RandomFields::RMgauss())),
+  transform = identity,
+  ...
+)
 }
 \arguments{
 \item{x}{\code{\link[raster]{RasterLayer-class}} object to use as}

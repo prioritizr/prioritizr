@@ -16,17 +16,15 @@ Rcpp::List rcpp_list_to_matrix_indices(Rcpp::List x,
   // main processing
   int n;
   SEXP tmp;
-  Rcpp::NumericVector v;
+  Rcpp::IntegerVector v;
   for (std::size_t i = 0; i != static_cast<std::size_t>(x.size()); ++i) {
     n = std::stoi(x_names[i]);
     tmp = x[i];
     if (!Rf_isNull(tmp)) {
-      v = Rcpp::as<Rcpp::NumericVector>(tmp);
+      v = Rcpp::as<Rcpp::IntegerVector>(tmp);
       for (std::size_t j = 0; j != static_cast<std::size_t>(v.size()); ++j) {
-        if (n != v[j]) {
-          I.push_back(v[j]);
-          J.push_back(n);
-        }
+        I.push_back(v[j]);
+        J.push_back(n);
       }
     }
   }

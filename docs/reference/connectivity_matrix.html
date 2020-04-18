@@ -87,7 +87,7 @@ boundary are associated with greater connectivity." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -171,10 +171,18 @@ planning units that each have higher a conductance and share a greater
 boundary are associated with greater connectivity.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S4 method for Spatial,character</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for Spatial,Raster</span>
+<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for Spatial,character</span>
+<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for sf,character</span>
+<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+
+<span class='co'># S4 method for sf,Raster</span>
 <span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
 <span class='co'># S4 method for Raster,Raster</span>
@@ -185,10 +193,13 @@ boundary are associated with greater connectivity.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> or
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object representing planning units. If
-<code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must
-contain a single band.</p></td>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialPolygonsDataFrame-class'>SpatialPolygonsDataFrame-class</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/SpatialLinesDataFrame-class'>SpatialLinesDataFrame-class</a></code>,
+or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object
+representing planning units.
+If <code>x</code> is a <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object then it must
+contain a single layer.</p></td>
     </tr>
     <tr>
       <th>y</th>
@@ -197,38 +208,40 @@ of different areas across the study area, or a <code>character</code> object
 denoting a column name in the attribute table of <code>x</code> that contains
 the conductance values. Note that argument to <code>y</code> can only be a
 <code>character</code> object if the argument to <code>x</code> is a
-<code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> object. Additionally, note that if
-argument to <code>x</code> is a <code>Raster-class</code> object then
+<code><a href='https://www.rdocumentation.org/packages/sp/topics/Spatial-class'>Spatial-class</a></code> or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object.
+Also, note that if the argument to <code>x</code> is a
+<code>Raster-class</code> object then
 argument to <code>y</code> must have the same spatial properties as it
 (i.e. coordinate system, extent, resolution).</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> for extracting
-and calculating the conductance for each unit. These arguments
-are only used if argument to <code>x</code> is a <code>link[sp]{Spatial-class}</code>
-object and argument to <code>y</code> is a <code>Raster-class</code>
-object.</p></td>
+      <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract</a></code> for
+extracting and calculating the conductance values for each planning unit.
+These arguments are only used if argument to <code>x</code> is a
+<code>link[sp]{Spatial-class}</code> or <code><a href='https://www.rdocumentation.org/packages/sf/topics/sf'>sf</a></code> object and argument
+to <code>y</code> is a <code>Raster-class</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> sparse symmetric matrix object.</p>
+    <p><code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code> sparse symmetric matrix.
+  Each row and column represents a planning unit.
+  Cells values indicate the connectivity between different pairs of planning
+  units.
+  To reduce computational burden, cells among the matrix diagonal are
+  set to zero. Furthermore, if the argument to <code>x</code> is a
+  <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> object, then cells with <code>NA</code>
+  values are set to zero too.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a <code><a href='https://www.rdocumentation.org/packages/Matrix/topics/dsCMatrix-class'>dsCMatrix-class</a></code>
-  sparse symmetric matrix. Each row and column represents a planning unit.
-  Cell values represent the connectivity between two planning units. To
-  reduce computational burden for <code><a href='https://www.rdocumentation.org/packages/raster/topics/Raster-classes'>Raster-class</a></code> data,
-  data are missing for cells with <code>NA</code> values in the argument to
-  <code>x</code>. Furthermore, all cells along the diagonal are missing values
-  since a planing unit does not share connectivity with itself.</p>
+    <p>Shared boundary calculations are performed using
+  <code><a href='boundary_matrix.html'>boundary_matrix</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_lines</span>, <span class='no'>sim_pu_points</span>,
-     <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_sf</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create connectivity matrix using raster planning unit data using</span>
 <span class='co'># the raster cost values to represent conductance</span>
@@ -242,23 +255,22 @@ object.</p></td>
 <span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>r</span>, <span class='no'>cd</span>)
 
 <span class='co'>## plot data and matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>cd</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create connectivity matrix using polygon planning unit data using</span>
 <span class='co'># the habitat suitability data for sim_features[[1]] to represent</span>
 <span class='co'># planning unit conductances</span>
 <span class='co'>## subset data to 9 polygons</span>
-<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_sf</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
 
 <span class='co'>## make connectivity matrix</span>
 <span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>ply</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>]])
 
-<span class='co'>## plot data and matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'>## plot data and matrix</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>))
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (sf)"</span>)</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>cm_ply</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div></pre>
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

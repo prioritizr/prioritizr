@@ -5,8 +5,13 @@
 \alias{add_lpsymphony_solver}
 \title{Add a SYMPHONY solver with \pkg{lpsymphony}}
 \usage{
-add_lpsymphony_solver(x, gap = 0.1, time_limit = -1,
-  first_feasible = 0, verbose = TRUE)
+add_lpsymphony_solver(
+  x,
+  gap = 0.1,
+  time_limit = -1,
+  first_feasible = 0,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}

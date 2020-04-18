@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">4.1.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
       </span>
     </div>
 
@@ -213,13 +213,13 @@ puvspr_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.
 
 <span class="co"># print first six rows</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(puvspr_data)</code></pre></div>
-<pre><code>##   pu species amount
-## 1  3      54      1
-## 2  3      59     12
-## 3  5      30      1
-## 4  6      27      1
-## 5  6      35      1
-## 6  7      12      1</code></pre>
+<pre><code>##   pu species      amount
+## 1  1      59  0.05791271
+## 2  2      30  0.05362251
+## 3  2      59  0.25362776
+## 4  3      54  1.00000000
+## 5  3      59 11.45609002
+## 6  3      60  0.01451710</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create table with the boundary data</span>
 bound_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span>(tas_pu)
 bound_data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as.html">as</a></span>(bound_data, <span class="st">"dgTMatrix"</span>)
@@ -228,7 +228,7 @@ bound_data &lt;-<span class="st"> </span><span class="kw"><a href="https://www.r
 <span class="co"># print first six rows</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(bound_data)</code></pre></div>
 <pre><code>##   id1 id2  boundary
-## 1   1   1 10259.010
+## 1   1   1  6271.170
 ## 2   3   1  3899.140
 ## 3   6   1   153.133
 ## 4   2   2 23878.508
@@ -255,38 +255,39 @@ p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/marxan_p
 <p>Next, we can solve the problem. The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p1)</code></pre></div>
-<pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 6358 rows, 4278 columns and 14708 nonzeros
+## Model fingerprint: 0xe970a584
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e+00, 4e+01]
+##   Matrix range     [1e-05, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [2e-01, 2e+02]
-## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12367.087377
-## Presolve removed 1798 rows and 1172 columns
+##   RHS range        [1e-02, 2e+02]
+## Found heuristic solution: objective 30256.853351
+## Found heuristic solution: objective 12699.649052
+## Presolve removed 1765 rows and 1146 columns
 ## Presolve time: 0.03s
-## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
-## Found heuristic solution: objective 12746.195965
-## Found heuristic solution: objective 11481.838167
-## Variable types: 0 continuous, 3106 integer (3106 binary)
-## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
+## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
+## Found heuristic solution: objective 11645.738446
+## Variable types: 0 continuous, 3132 integer (3132 binary)
+## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.075393e+04, 816 iterations, 0.04 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
+##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 1 nodes (816 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
+## Solution count 3: 11645.7 12699.6 30256.9 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>
+## Best objective 1.164573844582e+04, best bound 1.066993657412e+04, gap 8.3790%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print first six rows of solution object</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(s1)</code></pre></div>
 <pre><code>##   id     cost status locked_in locked_out solution_1
@@ -294,30 +295,30 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.ht
 ## 3  2 19.86301      0     FALSE      FALSE          0
 ## 4  3 59.68051      0     FALSE      FALSE          0
 ## 5  4 32.41614      0     FALSE      FALSE          0
-## 6  5 26.17706      0     FALSE      FALSE          0
+## 6  5 26.17706      0     FALSE      FALSE          1
 ## 7  6 51.26218      0     FALSE      FALSE          0</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count number of planning units in solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sum">sum</a></span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 318</code></pre>
+<pre><code>## [1] 323</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># proportion of planning units in solution</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/mean">mean</a></span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
-<pre><code>## [1] 0.2814159</code></pre>
+<pre><code>## [1] 0.2858407</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p1, s1[, <span class="st">"solution_1"</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
 <span class="kw"><a href="../reference/print.html">print</a></span>(r1)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
 ##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-##  1 veg1                8         0.242
-##  2 veg2               42         0.243
-##  3 veg3                6         0.25 
-##  4 veg4               12         0.387
-##  5 veg5                5         0.217
-##  6 veg6                6         0.273
-##  7 veg7                3         0.2  
-##  8 veg8                9         0.2  
-##  9 veg9               69         0.180
-## 10 veg10               5         0.357
+##  1 veg1             7.60         0.230
+##  2 veg2            41.6          0.240
+##  3 veg3             6.23         0.255
+##  4 veg4             8.22         0.246
+##  5 veg5             5.99         0.248
+##  6 veg6             5.14         0.226
+##  7 veg7             2.94         0.183
+##  8 veg8            10.6          0.236
+##  9 veg9            75.0          0.195
+## 10 veg10            4.00         0.274
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw"><a href="../reference/as.html">as</a></span>(tas_pu, <span class="st">"SpatialPolygons"</span>), <span class="dt">data =</span> s1)
@@ -353,54 +354,55 @@ p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.
 ##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># solve problem</span>
 s2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p2)</code></pre></div>
-<pre><code>## Optimize a model with 6358 rows, 4278 columns and 14152 nonzeros
+<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+## Optimize a model with 6358 rows, 4278 columns and 14708 nonzeros
+## Model fingerprint: 0xe970a584
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e+00, 4e+01]
+##   Matrix range     [1e-05, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [2e-01, 2e+02]
-## Found heuristic solution: objective 30514.663295
-## Found heuristic solution: objective 12367.087377
-## Presolve removed 1798 rows and 1172 columns
+##   RHS range        [1e-02, 2e+02]
+## Found heuristic solution: objective 30256.853351
+## Found heuristic solution: objective 12699.649052
+## Presolve removed 1765 rows and 1146 columns
 ## Presolve time: 0.03s
-## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
-## Found heuristic solution: objective 12746.195965
-## Found heuristic solution: objective 11481.838167
-## Variable types: 0 continuous, 3106 integer (3106 binary)
-## Presolved: 4560 rows, 3106 columns, 9965 nonzeros
+## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
+## Found heuristic solution: objective 11645.738446
+## Variable types: 0 continuous, 3132 integer (3132 binary)
+## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.075393e+04, 816 iterations, 0.04 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10753.9264    0  107 11481.8382 10753.9264  6.34%     -    0s
+##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 1 nodes (816 simplex iterations) in 0.08 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 4: 11481.8 12363.8 12746.2 29785.4 
+## Solution count 3: 11645.7 12699.6 30256.9 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.148183816723e+04, best bound 1.075392643015e+04, gap 6.3397%</code></pre>
+## Best objective 1.164573844582e+04, best bound 1.066993657412e+04, gap 8.3790%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/feature_representation.html">feature_representation</a></span>(p2, s2[, <span class="st">"solution_1"</span>])
 <span class="kw"><a href="../reference/print.html">print</a></span>(r2)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature  absolute_held relative_held
 ##    &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1              8         0.242
-##  2 layer.2             42         0.243
-##  3 layer.3              6         0.25 
-##  4 layer.4             12         0.387
-##  5 layer.5              5         0.217
-##  6 layer.6              6         0.273
-##  7 layer.7              3         0.2  
-##  8 layer.8              9         0.2  
-##  9 layer.9             69         0.180
-## 10 layer.10             5         0.357
+##  1 layer.1           7.60         0.230
+##  2 layer.2          41.6          0.240
+##  3 layer.3           6.23         0.255
+##  4 layer.4           8.22         0.246
+##  5 layer.5           5.99         0.248
+##  6 layer.6           5.14         0.226
+##  7 layer.7           2.94         0.183
+##  8 layer.8          10.6          0.236
+##  9 layer.9          75.0          0.195
+## 10 layer.10          4.00         0.274
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -411,11 +413,10 @@ s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="
 <div id="selection-frequencies" class="section level2">
 <h2 class="hasAnchor">
 <a href="#selection-frequencies" class="anchor"></a>Selection frequencies</h2>
-<p>Similar to the <em>Marxan</em> decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing the top 1000 solutions nearest to optimality, and calculate the number of times that each planning unit was selected. Note that this requires the <em>Gurobi</em> software to be installed.</p>
+<p>Similar to the <em>Marxan</em> decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing 1000 solutions within 20% of optimality, and calculate the number of times that each planning unit was selected. Note that this requires the <em>Gurobi</em> software to be installed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new problem with a portfolio added to it</span>
 p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="dt">gap =</span> <span class="dv">0</span>) <span class="op">%&gt;%</span>
-<span class="st">      </span><span class="kw"><a href="../reference/add_pool_portfolio.html">add_pool_portfolio</a></span>(<span class="dt">method =</span> <span class="dv">2</span>, <span class="dt">number_solutions =</span> <span class="dv">1000</span>)
+<span class="st">      </span><span class="kw"><a href="../reference/add_gap_portfolio.html">add_gap_portfolio</a></span>(<span class="dt">number_solutions =</span> <span class="dv">1000</span>, <span class="dt">pool_gap =</span> <span class="fl">0.2</span>)
 
 <span class="co"># print problem</span>
 <span class="kw"><a href="../reference/print.html">print</a></span>(p3)</code></pre></div>
@@ -428,8 +429,8 @@ p3 &lt;-<span class="st"> </span>p2 <span class="op">%&gt;%</span>
 ##   decisions:      Binary decision 
 ##   constraints:    &lt;Locked in planning units [257 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
-##   portfolio:      Pool portfolio [method (2), number_solutions (1000)]
-##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   portfolio:      Gap portfolio [number_solutions (1000), pool_gap (0.2)]
+##   solver:         default</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># generate solutions</span>
 s3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p3)
 

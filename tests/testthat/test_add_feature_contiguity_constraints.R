@@ -142,7 +142,8 @@ test_that("solve (single zone)", {
   p <- problem(cost, features) %>%
        add_min_set_objective() %>%
        add_absolute_targets(c(6, 30)) %>%
-       add_feature_contiguity_constraints(diag(1), data = cl)
+       add_feature_contiguity_constraints(diag(1), data = cl) %>%
+       add_default_solver(verbose = FALSE)
   # solve problem
   s1 <- solve(p)
   s2 <- solve(p)
@@ -195,7 +196,7 @@ test_that("compile (multiple zones)", {
   n_z <- number_of_zones(features)
   rij <- lapply(seq_len(2), function(i) rij_matrix(cost, features[[i]]))
   costs <- raster::values(cost)
-  cm <- connected_matrix(cost)
+  cm <- adjacency_matrix(cost)
   cm <- Matrix::forceSymmetric(cm, uplo = "L")
   class(cm) <- "dgCMatrix"
   cm <- methods::as(cm, "dgTMatrix")
@@ -385,6 +386,7 @@ test_that("solve (multiple zones)", {
        add_min_set_objective() %>%
        add_absolute_targets(targets) %>%
        add_feature_contiguity_constraints(zm) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # run tests
   expect_is(s, "RasterStack")
@@ -394,10 +396,37 @@ test_that("solve (multiple zones)", {
                c(0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0))
 })
 
+test_that("compile (Spatial and sf are identical)", {
+  # load data
+  data(sim_pu_zones_polygons, sim_features_zones)
+  z <- diag(3)
+  z[1, 2] <- 1
+  z[2, 1] <- 1
+  sim_pu_zones_polygons <- sim_pu_zones_polygons[c(1:2, 10:12, 20:22), ]
+  sim_sf <- sf::st_as_sf(sim_pu_zones_polygons)
+  # create problems
+  p1 <- problem(sim_pu_zones_polygons, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_feature_contiguity_constraints(z)
+  p2 <- problem(sim_sf, sim_features_zones,
+                c("cost_1", "cost_2", "cost_3")) %>%
+        add_min_set_objective() %>%
+        add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) %>%
+        add_feature_contiguity_constraints(z)
+  # compile problems
+  o1 <- as.list(compile(p1))
+  o2 <- as.list(compile(p2))
+  # tests
+  expect_equal(o1, o2)
+})
+
+
 test_that("invalid inputs (single zone)", {
   # create problem
   data(sim_pu_polygons, sim_features)
-  cm <- as.matrix(connected_matrix(sim_pu_polygons))
+  cm <- as.matrix(adjacency_matrix(sim_pu_polygons))
   p <- problem(sim_pu_polygons, sim_features, "cost") %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1)
@@ -417,7 +446,7 @@ test_that("invalid inputs (single zone)", {
 test_that("invalid inputs (multiple zones)", {
   # create problem
   data(sim_pu_zones_polygons, sim_features_zones)
-  cm <- as.matrix(connected_matrix(sim_pu_zones_polygons))
+  cm <- as.matrix(adjacency_matrix(sim_pu_zones_polygons))
   p <- problem(sim_pu_zones_polygons, sim_features_zones,
                c("cost_1", "cost_2", "cost_3")) %>%
        add_min_set_objective() %>%

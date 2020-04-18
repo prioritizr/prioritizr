@@ -34,7 +34,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{\code{integer}}{\code{vector} of indices pertaining to which
-#'     planning units should be locked in the solution. This argument is only
+#'     planning units should be locked for the solution. This argument is only
 #'     compatible with problems that contain a single zone.}
 #'
 #'   \item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
@@ -51,17 +51,24 @@ NULL
 #'     value.}
 #'
 #'   \item{\code{character}}{field (column) name(s) that indicate if planning
-#'     units should be locked in the solution. This type of argument is only
+#'     units should be locked for the solution. This type of argument is only
 #'     compatible if the planning units in the argument to \code{x} are a
-#'     \code{\link[sp]{Spatial-class}} or \code{data.frame} object. The fields
+#'     \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+#'     \code{data.frame} object. The fields
 #'     (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
-#'     values indicating if the planning unit is to be locked in the solution.
+#'     values indicating if the planning unit is to be locked for the solution.
 #'     For problems containing multiple zones, this argument should contain
 #'     a field (column) name for each management zone.}
 #'
+#'   \item{\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}}}{
+#'     planning units in \code{x} that spatially intersect with the
+#'     argument to \code{y} (according to \code{\link{intersecting_units}}
+#'     are locked for to the solution. Note that this option is only available
+#'     for problems that contain a single management zone.}
+#'
 #'   \item{\code{\link[raster]{Raster-class}}}{planning units in \code{x}
 #'     that intersect with non-zero and non-\code{NA} raster cells are locked
-#'     in the solution. For problems that contain multiple zones, the
+#'     for the solution. For problems that contain multiple zones, the
 #'     \code{\link[raster]{Raster-class}} object must contain a layer
 #'     for each zone. Note that for multi-band arguments, each pixel must
 #'     only contain a non-zero value in a single band. Additionally, if the
@@ -204,7 +211,7 @@ NULL
 #'
 #' @exportMethod add_locked_in_constraints
 #'
-#' @aliases add_locked_in_constraints,ConservationProblem,numeric-method add_locked_in_constraints,ConservationProblem,logical-method add_locked_in_constraints,ConservationProblem,matrix-method add_locked_in_constraints,ConservationProblem,character-method  add_locked_in_constraints,ConservationProblem,Raster-method add_locked_in_constraints,ConservationProblem,Spatial-method
+#' @aliases add_locked_in_constraints,ConservationProblem,numeric-method add_locked_in_constraints,ConservationProblem,logical-method add_locked_in_constraints,ConservationProblem,matrix-method add_locked_in_constraints,ConservationProblem,character-method  add_locked_in_constraints,ConservationProblem,Raster-method add_locked_in_constraints,ConservationProblem,Spatial-method add_locked_in_constraints,ConservationProblem,sf-method
 
 #'
 #' @export
@@ -266,7 +273,8 @@ methods::setMethod("add_locked_in_constraints",
       all(rowSums(locked_in) <= 1))
     # create data.frame with statuses
     ind <- which(locked_in, arr.ind = TRUE)
-    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 1)
+    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 1,
+                    stringsAsFactors = FALSE)
     # add constraints
     add_manual_locked_constraints(x, y)
 })
@@ -280,7 +288,7 @@ methods::setMethod("add_locked_in_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       is.character(locked_in), !anyNA(locked_in),
-      inherits(x$data$cost, c("data.frame", "Spatial")),
+      inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
       x$number_of_zones() == length(locked_in),
       all(locked_in %in% names(x$data$cost)))
     assertthat::assert_that(
@@ -302,6 +310,20 @@ methods::setMethod("add_locked_in_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_in, "Spatial"),
+      x$number_of_zones() == 1)
+    # add constraints
+    add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))
+})
+
+#' @name add_locked_in_constraints
+#' @usage \S4method{add_locked_in_constraints}{ConservationProblem,sf}(x, locked_in)
+#' @rdname add_locked_in_constraints
+methods::setMethod("add_locked_in_constraints",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, locked_in) {
+    # assert valid arguments
+    assertthat::assert_that(inherits(x, "ConservationProblem"),
+      inherits(locked_in, "sf"),
       x$number_of_zones() == 1)
     # add constraints
     add_locked_in_constraints(x, intersecting_units(x$data$cost, locked_in))

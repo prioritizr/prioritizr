@@ -177,3 +177,7 @@ rcpp_str_tree_to_sparse_matrix <- function(data) {
     .Call(`_prioritizr_rcpp_str_tree_to_sparse_matrix`, data)
 }
 
+rcpp_summarize_exactextractr <- function(x, nrow, ncol, fun) {
+    .Call(`_prioritizr_rcpp_summarize_exactextractr`, x, nrow, ncol, fun)
+}
+

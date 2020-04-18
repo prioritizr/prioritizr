@@ -4,8 +4,12 @@
 \alias{add_shuffle_portfolio}
 \title{Add a shuffle portfolio}
 \usage{
-add_shuffle_portfolio(x, number_solutions = 10L, threads = 1L,
-  remove_duplicates = TRUE)
+add_shuffle_portfolio(
+  x,
+  number_solutions = 10L,
+  threads = 1L,
+  remove_duplicates = TRUE
+)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
@@ -26,7 +30,9 @@ be removed? Defaults to \code{TRUE}.}
 \description{
 Generate a portfolio of solutions for a conservation planning
 \code{\link{problem}} by randomly reordering the data prior to
-solving the problem ().
+solving the problem. This is recommended as a replacement for
+\code{\link{add_top_portfolio}} when the \emph{Gurobi} software is not
+available.
 }
 \details{
 This strategy for generating a portfolio of solutions often

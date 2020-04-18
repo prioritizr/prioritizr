@@ -182,13 +182,12 @@ spplot(s2, "solution_1", col.regions = c("grey90", "darkgreen"),
 
 ## Selection frequencies
 
-Similar to the _Marxan_ decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing the top 1000 solutions nearest to optimality, and calculate the number of times that each planning unit was selected. Note that this requires the _Gurobi_ software to be installed.
+Similar to the _Marxan_ decision support tool, we can generate a portfolio of solutions and compute the planning unit selection frequencies to understand their relative importance. This can be useful when trying to understand which planning units in the solution are the most irreplaceable. To do this, we will create a portfolio containing 1000 solutions within 20% of optimality, and calculate the number of times that each planning unit was selected. Note that this requires the _Gurobi_ software to be installed.
 
 ```{r}
 # create new problem with a portfolio added to it
 p3 <- p2 %>%
-      add_gurobi_solver(gap = 0) %>%
-      add_pool_portfolio(method = 2, number_solutions = 1000)
+      add_gap_portfolio(number_solutions = 1000, pool_gap = 0.2)
 
 # print problem
 print(p3)

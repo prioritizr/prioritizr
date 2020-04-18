@@ -9,8 +9,9 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
-#'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-#'   object. See the Details section for more information.
+#'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object. See the Details section for more
+#'   information.
 #'
 #' @param rescale \code{logical} flag indicating if replacement cost
 #'  values---excepting infinite (\code{Inf}) and zero values---should be
@@ -33,7 +34,7 @@ NULL
 #'
 #' @details Using this method, the score for each planning unit is calculated
 #'   as the difference in the objective value of a solution when each planning
-#    unit is locked out and the optimization processes rerun with all other
+#'    unit is locked out and the optimization processes rerun with all other
 #'   selected planning units locked in. In other words, the replacement cost
 #'   metric corresponds to change in solution quality incurred if a given
 #'   planning unit cannot be acquired when implementing the solution and the
@@ -59,20 +60,24 @@ NULL
 #'   using proportion-type decisions when calculating the scores (see below for
 #'   an example).
 #'
-#'   Note that all arguments to \code{solution} must correspond
+#'   The argument to \code{solution} must correspond
 #'   to the planning unit data in the argument to \code{x} in terms
 #'   of data representation, dimensionality, and spatial attributes (if
 #'   applicable). This means that if the planning unit data in \code{x}
 #'   is a \code{numeric} vector then the argument to \code{solution} must be a
-#'   \code{numeric} vector with the same number of elements, if the planning
+#'   \code{numeric} vector with the same number of elements; if the planning
 #'   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
 #'   argument to \code{solution} must also be a
 #'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-#'   columns and the same resolution, extent, and coordinate reference system,
+#'   columns and the same resolution, extent, and coordinate reference system;
 #'   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
 #'   object then the argument to \code{solution} must also be a
 #'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-#'   features (e.g. polygons) and have the same coordinate reference system,
+#'   features (e.g. polygons) and have the same coordinate reference system;
+#'   if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+#'   object then the argument to \code{solution} must also be a
+#'   \code{\link[sf]{sf}} object and have the same number of spatial
+#'   features (e.g. polygons) and have the same coordinate reference system;
 #'   if the planning units in \code{x} are a \code{data.frame} then the
 #'   argument to \code{solution} must also be a \code{data.frame} with each
 #'   column correspond to a different zone and each row correspond to
@@ -90,9 +95,9 @@ NULL
 #'   \code{solution} where this is not the case, then an error will be thrown.
 #'
 #' @return A \code{numeric}, \code{matrix},
-#'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the replacement costs
-#'   for each planning unit in the solution.
+#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+#'   or \code{\link[sf]{sf}} object containing the replacement costs for each
+#'   planning unit in the solution.
 #'
 #' @examples
 #' # seed seed for reproducibility
@@ -189,7 +194,7 @@ NULL
 #'
 #' @seealso \code{\link{irreplaceability}}.
 #'
-#' @aliases replacement_cost,ConservationProblem,numeric-method replacement_cost,ConservationProblem,matrix-method replacement_cost,ConservationProblem,data.frame-method replacement_cost,ConservationProblem,Spatial-method replacement_cost,ConservationProblem,Raster-method
+#' @aliases replacement_cost,ConservationProblem,numeric-method replacement_cost,ConservationProblem,matrix-method replacement_cost,ConservationProblem,data.frame-method replacement_cost,ConservationProblem,Spatial-method replacement_cost,ConservationProblem,sf-method replacement_cost,ConservationProblem,Raster-method
 #'
 #' @name replacement_cost
 #'
@@ -331,8 +336,8 @@ methods::setMethod("replacement_cost",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
-      sum(solution, na.rm = TRUE) > 1e-10,
       is.matrix(x$data$cost), is.numeric(x$data$cost),
+      sum(solution, na.rm = TRUE) > 1e-10,
       number_of_total_units(x) == nrow(solution),
       number_of_zones(x) == ncol(solution),
       min(solution, na.rm = TRUE) >= 0,
@@ -376,10 +381,10 @@ methods::setMethod("replacement_cost",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
+      is.data.frame(x$data$cost),
       sum(as.matrix(solution), na.rm = TRUE) >= 1e-10,
       number_of_zones(x) == ncol(solution),
       number_of_total_units(x) == nrow(solution),
-      is.data.frame(x$data$cost),
       is.numeric(unlist(solution)),
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1,
@@ -426,9 +431,9 @@ methods::setMethod("replacement_cost",
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
+      class(x$data$cost)[1] == class(solution)[1],
       number_of_zones(x) == ncol(solution@data),
       number_of_total_units(x) == nrow(solution@data),
-      class(x$data$cost)[1] == class(solution)[1],
       is.numeric(unlist(solution@data)),
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1,
@@ -468,6 +473,57 @@ methods::setMethod("replacement_cost",
 })
 
 #' @name replacement_cost
+#' @usage \S4method{replacement_cost}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
+#' @rdname replacement_cost
+methods::setMethod("replacement_cost",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, solution, rescale = TRUE, run_checks = TRUE, force = FALSE,
+           threads = 1L, ...) {
+    # assert valid arguments
+    assertthat::assert_that(
+      inherits(solution, "sf"),
+      inherits(x$data$cost, "sf"))
+    solution2 <- sf::st_drop_geometry(solution)
+    assertthat::assert_that(
+      number_of_zones(x) == ncol(solution2),
+      number_of_total_units(x) == nrow(solution2),
+      is.numeric(unlist(solution2)),
+      min(unlist(solution2), na.rm = TRUE) >= 0,
+      max(unlist(solution2), na.rm = TRUE) <= 1,
+      assertthat::is.flag(run_checks), assertthat::is.flag(force),
+      no_extra_arguments(...))
+    # subset planning units with finite cost values
+    solution_matrix <- as.matrix(solution2)
+    pos <- x$planning_unit_indices()
+    pos2 <- which(rowSums(is.na(solution_matrix)) != ncol(solution_matrix))
+    if (!setequal(pos, pos2))
+      stop("planning units with NA cost data must have NA allocations in the",
+           " solution")
+    solution_pu <- solution_matrix[pos, , drop = FALSE]
+    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution_pu))))
+     stop("planning units with NA cost data must have NA allocations in the",
+          " solution")
+    # calculate replacement costs
+    indices <- which(solution_pu > 1e-10)
+    rc <- internal_replacement_cost(x, indices, rescale, run_checks, force,
+                                    threads)
+    # return replacement costs
+    out <- matrix(0, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_zones())
+    if (x$number_of_zones() > 1) {
+      colnames(out) <- paste0("rc_", x$zone_names())
+    } else {
+      colnames(out) <- "rc"
+    }
+    pos <- which(is.na(as.matrix(as.data.frame(x$data$cost)[,
+      x$data$cost_column, drop = FALSE])))
+    out[pos] <- NA_real_
+    out[which(solution_matrix > 1e-10)] <- rc
+    out <- as.data.frame(out)
+    sf::st_as_sf(sf::st_geometry(x$data$cost), out)
+})
+
+#' @name replacement_cost
 #' @usage \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 #' @rdname replacement_cost
 methods::setMethod("replacement_cost",
@@ -476,9 +532,10 @@ methods::setMethod("replacement_cost",
            threads = 1L, ...) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
-      number_of_zones(x) == raster::nlayers(solution),
-      raster::compareCRS(x$data$cost@crs, solution@crs),
+      inherits(x$data$cost, "Raster"),
       is_comparable_raster(x$data$cost, solution[[1]]),
+      number_of_zones(x) == raster::nlayers(solution),
+      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs),
       min(raster::cellStats(solution, "min")) >= 0,
       max(raster::cellStats(solution, "max")) <= 1,
       assertthat::is.flag(run_checks), assertthat::is.flag(force),

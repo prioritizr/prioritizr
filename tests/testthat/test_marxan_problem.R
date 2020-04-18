@@ -45,7 +45,7 @@ test_that("character (solve)", {
   # make problem
   path <- system.file("extdata/input.dat", package = "prioritizr")
   p <- marxan_problem(path) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
   s <- solve(p)
   # tests
@@ -67,7 +67,7 @@ test_that("character (solve, absolute INPUTDIR path)", {
   writeLines(f, path)
   # make problem
   p <- marxan_problem(path) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
   s <- solve(p)
   # tests
@@ -85,24 +85,20 @@ test_that("character (solve, absolute file paths)", {
   path <- file.path(tempfile(fileext = ".dat"))
   f <- readLines(system.file("extdata/input.dat", package = "prioritizr"))
   f[grep("INPUTDIR", f, fixed = TRUE)] <- ""
-  f[grep("SPECNAME", f, fixed = TRUE)] <- paste("SPECNAME",
-                                          system.file("extdata/input/spec.dat",
-                                                      package = "prioritizr"))
-  f[grep("PUNAME", f, fixed = TRUE)] <- paste("PUNAME",
-                                        system.file("extdata/input/pu.dat",
-                                                    package = "prioritizr"))
+  f[grep("SPECNAME", f, fixed = TRUE)] <-
+    paste("SPECNAME", system.file("extdata/input/spec.dat",
+                                  package = "prioritizr"))
+  f[grep("PUNAME", f, fixed = TRUE)] <-
+    paste("PUNAME", system.file("extdata/input/pu.dat", package = "prioritizr"))
   f[grep("PUVSPRNAME", f, fixed = TRUE)] <- paste("PUVSPRNAME",
-                                            system.file(
-                                              "extdata/input/puvspr.dat",
-                                              package = "prioritizr"))
-  f[grep("BOUNDNAME", f, fixed = TRUE)] <- paste("BOUNDNAME",
-                                           system.file(
-                                             "extdata/input/bound.dat",
-                                              package = "prioritizr"))
+    system.file( "extdata/input/puvspr.dat", package = "prioritizr"))
+  f[grep("BOUNDNAME", f, fixed = TRUE)] <-
+    paste("BOUNDNAME", system.file("extdata/input/bound.dat",
+                                   package = "prioritizr"))
   writeLines(f, path)
   # make problem
   p <- marxan_problem(path) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
   s <- solve(p)
   # tests
@@ -195,7 +191,7 @@ test_that("data.frame (solve, boundary penalties)", {
   bound_data <- read.table(file.path(wd, "bound.dat"), header = TRUE,
                            sep = "\t")
   p <- marxan_problem(pu_data, spec_data, puvspr_data, bound_data, blm = 1) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
   s <- solve(p)
   # tests
@@ -217,7 +213,7 @@ test_that("data.frame (solve, no boundary penalties)", {
   puvspr_data <- read.table(file.path(wd, "puvspr.dat"), header = TRUE,
                             sep = ",")
   p <- marxan_problem(pu_data, spec_data, puvspr_data) %>%
-       add_default_solver(time_limit = 5)
+       add_default_solver(time_limit = 5, verbose = FALSE)
   # check that problem can be solved
   s <- solve(p)
   # tests

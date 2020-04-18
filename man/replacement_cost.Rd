@@ -6,9 +6,12 @@
 \alias{replacement_cost,ConservationProblem,matrix-method}
 \alias{replacement_cost,ConservationProblem,data.frame-method}
 \alias{replacement_cost,ConservationProblem,Spatial-method}
+\alias{replacement_cost,ConservationProblem,sf-method}
 \alias{replacement_cost,ConservationProblem,Raster-method}
 \title{Replacement cost}
 \usage{
+replacement_cost(x, solution, ...)
+
 \S4method{replacement_cost}{ConservationProblem,numeric}(x, solution, rescale, run_checks, force, threads, ...)
 
 \S4method{replacement_cost}{ConservationProblem,matrix}(x, solution, rescale, run_checks, force, threads, ...)
@@ -17,14 +20,19 @@
 
 \S4method{replacement_cost}{ConservationProblem,Spatial}(x, solution, rescale, run_checks, force, threads, ...)
 
+\S4method{replacement_cost}{ConservationProblem,sf}(x, solution, rescale, run_checks, force, threads, ...)
+
 \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 }
 \arguments{
 \item{x}{\code{\link{ConservationProblem-class}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
-object. See the Details section for more information.}
+\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
+or \code{\link[sf]{sf}} object. See the Details section for more
+information.}
+
+\item{...}{not used.}
 
 \item{rescale}{\code{logical} flag indicating if replacement cost
 values---excepting infinite (\code{Inf}) and zero values---should be
@@ -42,14 +50,12 @@ the presolve checks. Defaults to \code{FALSE}.}
 \item{threads}{\code{integer} number of threads to use for the
 optimization algorithm. The default value of 1 will result in only
 one thread being used.}
-
-\item{...}{not used.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the replacement costs
-  for each planning unit in the solution.
+  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+  or \code{\link[sf]{sf}} object containing the replacement costs for each
+  planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
@@ -58,6 +64,7 @@ using the replacement cost method (Cabeza and Moilanen 2006).
 \details{
 Using this method, the score for each planning unit is calculated
   as the difference in the objective value of a solution when each planning
+   unit is locked out and the optimization processes rerun with all other
   selected planning units locked in. In other words, the replacement cost
   metric corresponds to change in solution quality incurred if a given
   planning unit cannot be acquired when implementing the solution and the
@@ -83,20 +90,24 @@ Using this method, the score for each planning unit is calculated
   using proportion-type decisions when calculating the scores (see below for
   an example).
 
-  Note that all arguments to \code{solution} must correspond
+  The argument to \code{solution} must correspond
   to the planning unit data in the argument to \code{x} in terms
   of data representation, dimensionality, and spatial attributes (if
   applicable). This means that if the planning unit data in \code{x}
   is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements, if the planning
+  \code{numeric} vector with the same number of elements; if the planning
   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
   argument to \code{solution} must also be a
   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system,
+  columns and the same resolution, extent, and coordinate reference system;
   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
   object then the argument to \code{solution} must also be a
   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system,
+  features (e.g. polygons) and have the same coordinate reference system;
+  if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+  object then the argument to \code{solution} must also be a
+  \code{\link[sf]{sf}} object and have the same number of spatial
+  features (e.g. polygons) and have the same coordinate reference system;
   if the planning units in \code{x} are a \code{data.frame} then the
   argument to \code{solution} must also be a \code{data.frame} with each
   column correspond to a different zone and each row correspond to

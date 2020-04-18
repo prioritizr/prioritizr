@@ -151,7 +151,7 @@ NULL
 #'
 #' @exportMethod add_locked_out_constraints
 #'
-#' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,Spatial-method
+#' @aliases add_locked_out_constraints,ConservationProblem,numeric-method add_locked_out_constraints,ConservationProblem,logical-method add_locked_out_constraints,ConservationProblem,matrix-method add_locked_out_constraints,ConservationProblem,character-method add_locked_out_constraints,ConservationProblem,Raster-method add_locked_out_constraints,ConservationProblem,Spatial-method add_locked_out_constraints,ConservationProblem,sf-method
 #'
 #' @export
 methods::setGeneric("add_locked_out_constraints",
@@ -213,7 +213,8 @@ methods::setMethod("add_locked_out_constraints",
       all(rowSums(locked_out) <= 1))
     # create data.frame with statuses
     ind <- which(locked_out, arr.ind = TRUE)
-    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0)
+    y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0,
+                    stringsAsFactors = FALSE)
     # add constraints
     add_manual_locked_constraints(x, y)
 })
@@ -227,7 +228,7 @@ methods::setMethod("add_locked_out_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       is.character(locked_out), !anyNA(locked_out),
-      inherits(x$data$cost, c("data.frame", "Spatial")),
+      inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
       x$number_of_zones() == length(locked_out),
       all(locked_out %in% names(x$data$cost)))
       assertthat::assert_that(
@@ -249,6 +250,20 @@ methods::setMethod("add_locked_out_constraints",
     # assert valid arguments
     assertthat::assert_that(inherits(x, "ConservationProblem"),
       inherits(locked_out, "Spatial"),
+      x$number_of_zones() == 1)
+    # add constraints
+    add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
+})
+
+#' @name add_locked_out_constraints
+#' @usage \S4method{add_locked_out_constraints}{ConservationProblem,sf}(x, locked_out)
+#' @rdname add_locked_out_constraints
+methods::setMethod("add_locked_out_constraints",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, locked_out) {
+    # assert valid arguments
+    assertthat::assert_that(inherits(x, "ConservationProblem"),
+      inherits(locked_out, "sf"),
       x$number_of_zones() == 1)
     # add constraints
     add_locked_out_constraints(x, intersecting_units(x$data$cost, locked_out))
