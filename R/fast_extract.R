@@ -114,6 +114,11 @@ methods::setMethod(
     # determine summary statistic
     if (identical(fun, "mean")) fun2 <- mean
     if (identical(fun, "sum")) fun2 <- sum
+    # since the coordinate reference systems have been verified,
+    # coerce them to NA coordinate reference systems to avoid PROJ7 warnings
+    # in exactextractr::exact_extract
+    sf::st_crs(y) <- sf::st_crs(NA_character_)
+    x@crs <- sp::CRS(NA_character_)
     # identify geometry classes
     geomc <- geometry_classes(y)
     # prepare output vector
