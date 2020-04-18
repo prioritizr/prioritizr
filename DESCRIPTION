@@ -49,7 +49,6 @@ Suggests:
     RandomFields,
     maptools,
     PBSmapping,
-    spdep,
     gurobi,
     lpsymphony,
     Rsymphony,
