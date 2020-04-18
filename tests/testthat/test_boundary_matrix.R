@@ -49,9 +49,10 @@ test_that("SpatialPolygons (real data - simple shapes)", {
   x <- tas_pu[c(300, 279), ]
   b1 <- boundary_matrix(x)
   # calculate total length
-  total_length <- rgeos::gLength(x, byid = TRUE)
-  shared_length <- rgeos::gLength(rgeos::gIntersection(
-    methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
+  x2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(x), "MULTILINESTRING"))
+  total_length <- as.numeric(sf::st_length(x2))
+  shared_length <- as.numeric(sf::st_length(sf::st_intersection(x2[[1]],
+                                                                x2[[2]])))
   # make correct matrix
   s <- Matrix::sparseMatrix(
     i = c(0, 0, 1),
@@ -76,9 +77,10 @@ test_that("SpatialPolygons (real data - complex shapes)", {
   x <- tas_pu[c(2, 4), ]
   b1 <- boundary_matrix(x)
   # calculate total length
-  total_length <- rgeos::gLength(x, byid = TRUE)
-  shared_length <- rgeos::gLength(rgeos::gIntersection(
-    methods::as(x[1, ], "SpatialLines"), methods::as(x[2, ], "SpatialLines")))
+  x2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(x), "MULTILINESTRING"))
+  total_length <- as.numeric(sf::st_length(x2))
+  shared_length <- as.numeric(sf::st_length(sf::st_intersection(x2[[1]],
+                                                                x2[[2]])))
   # make correct matrix
   s <- Matrix::sparseMatrix(
     i = c(0, 0, 1),

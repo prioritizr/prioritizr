@@ -191,7 +191,8 @@ boundary_matrix.sf <- function(x, str_tree = FALSE) {
       "see ?constraints alternative constraints")
   if (any(grepl("GEOMETRYCOLLECTION", geomc, fixed = TRUE)))
     stop("geometry collection data are not supported")
-  boundary_matrix(sf::as_Spatial(x), str_tree = str_tree)
+  boundary_matrix(sf::as_Spatial(sf::st_set_crs(x, sf::st_crs(NA_character_))),
+                  str_tree = str_tree)
 }
 
 #' @rdname boundary_matrix
