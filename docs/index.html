@@ -284,7 +284,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 2.73 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 2.62 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -298,7 +298,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   2.730812</code></pre>
+##   2.621191</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
