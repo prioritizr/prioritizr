@@ -75,9 +75,8 @@ test_that("solve (Spatial, single zone)", {
   s1 <- solve(p)
   s2 <- solve(p)
   # check that selected planning units have three neighbors
-  n_neighbors <-
-    vapply(rgeos::gIntersects(s1[s1$solution_1 == 1, ], byid = TRUE,
-                             returnDense = FALSE), length, integer(1))
+  n_neighbors <- vapply(sf::st_intersects(
+    sf::st_as_sf(s1[s1$solution_1 == 1, ])), length, integer(1))
   expect_true(all(n_neighbors >= 3))
   expect_equal(s1$solution, s2$solution)
 })
@@ -208,9 +207,8 @@ test_that("solve (Spatial, multiple zones)", {
   # run tests
   for (z in seq_along(k)) {
     curr_column <- paste0("solution_1_zone_", z)
-    n_neighbors <-
-      vapply(rgeos::gIntersects(s[s[[curr_column]] == 1, ],byid = TRUE,
-                                returnDense = FALSE), length, integer(1))
+    n_neighbors <- vapply(sf::st_intersects(
+      sf::st_as_sf(s[s[[curr_column]] == 1, ])), length, integer(1))
     expect_true(all(n_neighbors >= k[z]))
   }
 })

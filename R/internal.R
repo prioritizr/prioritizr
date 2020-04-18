@@ -262,9 +262,10 @@ intersecting_extents <- function(x, y) {
   assertthat::assert_that(
     inherits(x, c("Raster", "Spatial", "sf")),
     inherits(y, c("Raster", "Spatial", "sf")))
-  isTRUE(rgeos::gIntersects(
-    methods::as(raster::extent(x), "SpatialPolygons"),
-    methods::as(raster::extent(y), "SpatialPolygons")))
+  isTRUE(sf::st_intersects(
+    sf::st_as_sf(methods::as(raster::extent(x), "SpatialPolygons")),
+    sf::st_as_sf(methods::as(raster::extent(y), "SpatialPolygons")),
+    sparse = FALSE)[[1]])
 }
 
 #' Geometry classes

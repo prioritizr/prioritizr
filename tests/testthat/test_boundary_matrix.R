@@ -107,16 +107,16 @@ test_that("SpatialPolygons (vertices not aligned)", {
   # make boundary matrix
   b1 <- boundary_matrix(x)
   # make correct matrix
+  x2 <- sf::st_geometry(sf::st_cast(sf::st_as_sf(x), "MULTILINESTRING"))
   s <- matrix(nrow = 3, ncol = 3)
   for (i in seq_len(3)) {
     for (j in seq_len(3)) {
       if (i != j)
-        s[i, j] <- rgeos::gLength(rgeos::gIntersection(
-                     methods::as(x[i, ], "SpatialLines"),
-                     methods::as(x[j, ], "SpatialLines")))
+        s[i, j] <-
+          as.numeric(sf::st_length(sf::st_intersection(x2[[i]], x2[[j]])))
     }
   }
-  total_length <- rgeos::gLength(x, byid = TRUE)
+  total_length <- as.numeric(sf::st_length(x2))
   diag(s) <- total_length - rowSums(s, na.rm = TRUE)
   s <- Matrix::Matrix(s, sparse = TRUE)
   # tests
