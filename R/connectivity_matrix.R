@@ -150,10 +150,13 @@ methods::setMethod(
   signature(x = "sf", y = "Raster"),
   function(x, y, ...) {
     # assert that arguments are valid
-    assertthat::assert_that(inherits(x, "sf"), inherits(y, "Raster"),
+    assertthat::assert_that(
+      inherits(x, "sf"),
+      inherits(y, "Raster"),
       raster::nlayers(y) == 1)
-    assertthat::assert_that(intersecting_extents(x, y),
-      raster::compareCRS(as_CRS(sf::st_crs(x)), y@crs))
+    assertthat::assert_that(
+      sf::st_crs(x) == sf::st_crs(y@crs),
+      intersecting_extents(x, y))
     # extract conductance values
     cv <- fast_extract(y, x, ...)
     # generate connectivity data for each pair of connected units

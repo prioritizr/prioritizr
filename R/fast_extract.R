@@ -106,7 +106,7 @@ methods::setMethod(
       inherits(x, "Raster"),
       inherits(y, "sf"),
       assertthat::is.string(fun),
-      raster::compareCRS(as_CRS(sf::st_crs(y)), x@crs),
+      sf::st_crs(x@crs) == sf::st_crs(y),
       intersecting_extents(x, y))
     assertthat::assert_that(all(!geometry_classes(y) %in%
                                   c("GEOMETRYCOLLECTION", "MULTIPOINT")))

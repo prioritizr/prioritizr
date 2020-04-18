@@ -76,7 +76,8 @@ methods::setMethod(
   function(x, y) {
     # assert arguments are valid
     assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"),
-      isTRUE(raster::nlayers(x) == 1), raster::compareCRS(x@crs, y@crs),
+      isTRUE(raster::nlayers(x) == 1),
+      sf::st_crs(x@crs) == sf::st_crs(y@crs),
       is_comparable_raster(x, y))
     if (inherits(x, c("RasterStack", "RasterBrick"))) x <- x[[1]]
     if (inherits(y, c("RasterStack", "RasterBrick"))) y <- y[[1]]
@@ -151,7 +152,7 @@ methods::setMethod(
     # assert arguments are valid
     assertthat::assert_that(
       inherits(x, "sf"), inherits(y, "sf"),
-      raster::compareCRS(as_CRS(sf::st_crs(x)), as_CRS(sf::st_crs(y))),
+      sf::st_crs(x) == sf::st_crs(y),
       intersecting_extents(x, y))
     # find out which units in x intersect with any units in y
     int1 <- sf::st_intersects(x, y, sparse = TRUE)
@@ -183,7 +184,7 @@ methods::setMethod(
     assertthat::assert_that(
       inherits(x, "Raster"), inherits(y, "sf"),
       isTRUE(raster::nlayers(x) == 1),
-      raster::compareCRS(x@crs, as_CRS(sf::st_crs(y))),
+      sf::st_crs(x@crs) == sf::st_crs(y),
       intersecting_extents(x, y))
     intersecting_units(x = x,  y = fasterize::fasterize(y, x, field = NULL))
   }
@@ -199,7 +200,7 @@ methods::setMethod("intersecting_units",
     assertthat::assert_that(
       inherits(x, "sf"), inherits(y, "Raster"),
       isTRUE(raster::nlayers(y) == 1),
-      raster::compareCRS(as_CRS(sf::st_crs(x)), y@crs),
+      sf::st_crs(x) == sf::st_crs(y@crs),
       intersecting_extents(x, y))
     # prepare raster data
     if (inherits(y, c("RasterStack", "RasterBrick")))

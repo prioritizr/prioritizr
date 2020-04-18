@@ -37,7 +37,8 @@ test_that("add_default_solver (spatial cost data)", {
   expect_true(inherits(s, "SpatialPolygonsDataFrame"))
   expect_equal(length(s), length(sim_pu_polygons))
   expect_equal(s@polygons, sim_pu_polygons@polygons)
-  expect_true(raster::compareCRS(s, sim_pu_polygons))
+  expect_true(sf::st_crs(s@proj4string) ==
+              sf::st_crs(sim_pu_polygons@proj4string))
 })
 
 test_that("add_rsymphony_solver (binary decisions)", {

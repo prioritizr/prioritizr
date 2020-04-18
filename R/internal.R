@@ -210,9 +210,9 @@ verify_that <- function(..., env = parent.frame()) {
 #'
 #' @noRd
 is_comparable_raster <- function(x, y) {
-  assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster"))
-  raster::compareCRS(x, y) &&
-  raster::compareRaster(x, y, crs = TRUE, res = TRUE, tolerance = 1e-5,
+  assertthat::assert_that(inherits(x, "Raster"), inherits(y, "Raster")) &&
+  sf::st_crs(x@crs) == sf::st_crs(y@crs) &&
+  raster::compareRaster(x, y, crs = FALSE, res = TRUE, tolerance = 1e-5,
                         stopiffalse = FALSE)
 }
 
@@ -243,30 +243,6 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
   if ((abs(diff(from)) < 1e-10) || abs(diff(to)) < 1e-10)
     return(mean(to))
   (x - from[1]) / diff(from) * diff(to) + to[1]
-}
-
-#' Convert a crs object to a CRS object
-#'
-#' Convert a \code{\link[sf]{st_crs}} object to a \code{\link[sp]{CRS}}
-#' object
-#'
-#' @param \code{\link[sf]{st_crs}} object.
-#'
-#' @return \code{\link[sp]{CRS}} object.
-#'
-#' @noRd
-as_CRS <- function(x) {
-  assertthat::assert_that(inherits(x, "crs"))
-  if (is.character(x$wkt)) {
-    # sf version 0.9 compatibility
-    out <- suppressWarnings(methods::as(x, "CRS"))
-  } else if (is.character(x$proj4string)) {
-    # sf version 0.8 compatibility
-    out <- sp::CRS(x$proj4string)
-  } else {
-    stop("argument to x is not a valid \"crs\"-class object")
-  }
-  out
 }
 
 #' Do extents intersect?

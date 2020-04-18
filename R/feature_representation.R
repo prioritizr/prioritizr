@@ -240,7 +240,8 @@ methods::setMethod("feature_representation",
     # assert valid arguments
     assertthat::assert_that(
       is.numeric(solution),
-      is.numeric(x$data$cost), is.matrix(x$data$cost),
+      is.numeric(x$data$cost), is.matrix(x$data$cost))
+    assertthat::assert_that(
       number_of_total_units(x) == length(solution),
       number_of_zones(x) == 1,
       min(solution, na.rm = TRUE) >= 0,
@@ -258,7 +259,8 @@ methods::setMethod("feature_representation",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
-      is.matrix(x$data$cost), is.numeric(x$data$cost),
+      is.matrix(x$data$cost), is.numeric(x$data$cost))
+    assertthat::assert_that(
       number_of_total_units(x) == nrow(solution),
       number_of_zones(x) == ncol(solution),
       min(solution, na.rm = TRUE) >= 0,
@@ -276,9 +278,10 @@ methods::setMethod("feature_representation",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
+      is.data.frame(x$data$cost))
+    assertthat::assert_that(
       number_of_zones(x) == ncol(solution),
       number_of_total_units(x) == nrow(solution),
-      is.data.frame(x$data$cost),
       is.numeric(unlist(solution)),
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1)
@@ -296,9 +299,11 @@ methods::setMethod("feature_representation",
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
+      class(x$data$cost)[1] == class(solution)[1])
+    assertthat::assert_that(
       number_of_zones(x) == ncol(solution@data),
+      sf::st_crs(x$data$cost@proj4string) == sf::st_crs(solution@proj4string),
       number_of_total_units(x) == nrow(solution@data),
-      class(x$data$cost)[1] == class(solution)[1],
       is.numeric(unlist(solution@data)),
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1)
@@ -318,6 +323,7 @@ methods::setMethod("feature_representation",
       inherits(x$data$cost, "sf"))
     solution <- sf::st_drop_geometry(solution)
     assertthat::assert_that(
+      sf::st_crs(x$data$cost) == sf::st_crs(solution),
       number_of_zones(x) == ncol(solution),
       number_of_total_units(x) == nrow(solution),
       is.numeric(unlist(solution)),
@@ -336,8 +342,10 @@ methods::setMethod("feature_representation",
     # assert valid arguments
     assertthat::assert_that(
       inherits(solution, "Raster"),
+      inherits(x$data$cost, "Raster"))
+    assertthat::assert_that(
       number_of_zones(x) == raster::nlayers(solution),
-      raster::compareCRS(x$data$cost@crs, solution@crs),
+      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs),
       is_comparable_raster(x$data$cost, solution[[1]]),
       min(raster::cellStats(solution, "min")) >= 0,
       max(raster::cellStats(solution, "max")) <= 1)

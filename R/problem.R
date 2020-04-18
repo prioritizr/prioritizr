@@ -521,7 +521,7 @@ methods::setMethod(
       length(x) > 0,
       all(colSums(!is.na(as.matrix(x@data[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
-      raster::compareCRS(x@proj4string, features[[1]]@crs),
+      sf::st_crs(x@proj4string) == sf::st_crs(features[[1]]@crs),
       intersecting_extents(x, features[[1]]))
       verify_that(
         all(colSums(as.matrix(x@data[, cost_column, drop = FALSE]) < 0,
@@ -905,7 +905,7 @@ methods::setMethod(
       all(vapply(x2[, cost_column, drop = FALSE], is.numeric, logical(1))),
       all(colSums(!is.na(as.matrix(x2[, cost_column, drop = FALSE])),
                   na.rm = TRUE) > 0),
-      raster::compareCRS(as_CRS(sf::st_crs(x)), features[[1]]@crs),
+      sf::st_crs(x) == sf::st_crs(features[[1]]@crs),
       intersecting_extents(x, features[[1]]))
       verify_that(
         all(colSums(as.matrix(x2[, cost_column, drop = FALSE]) < 0,

@@ -66,11 +66,6 @@ test_that("geometry_classes", {
                                       "MULTIPOLYGON", "GEOMETRYCOLLECTION"))
 })
 
-test_that("as_CRS", {
-  x <- sp::CRS("+proj=longlat +datum=WGS84 +no_defs")
-  expect_true(raster::compareCRS(as_CRS(sf::st_crs(x)), x))
-})
-
 test_that("intersecting_extents", {
   expect_true(intersecting_extents(
     sim_pu_polygons[1, ], sim_pu_polygons[1:10, ]))

@@ -97,8 +97,10 @@ test_that("x=sf, y=RasterStack (mean)", {
   data(sim_pu_sf, sim_features)
   m <- rij_matrix(sim_pu_sf, sim_features, fun = "mean")
   # calculate correct result
-  m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "mean",
-                                     progress = FALSE)
+  suppressWarnings({
+    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "mean",
+                                       progress = FALSE)
+  })
   m2 <- as(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
@@ -111,8 +113,10 @@ test_that("x=sf, y=RasterStack (sum)", {
   data(sim_pu_sf, sim_features)
   m <- rij_matrix(sim_pu_sf, sim_features, fun = "sum")
   # calculate correct result
-  m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "sum",
-                                     progress = FALSE)
+  suppressWarnings({
+    m2 <- exactextractr::exact_extract(sim_features, sim_pu_sf, fun = "sum",
+                                       progress = FALSE)
+  })
   m2 <- as(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # run tests
@@ -131,13 +135,17 @@ test_that("x=sf, y=RasterStack (complex example, mean)", {
   # run calculations
   m <- rij_matrix(tas_pu, tas_features, fun = "mean")
   # calculate correct result
-  m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "mean",
-                                     progress = FALSE)
+  suppressWarnings({
+    m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "mean",
+                                       progress = FALSE)
+  })
   m2 <- as(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # calculate correct result using R
-  m3 <- exactextractr::exact_extract(tas_features, tas_pu, fun = NULL,
-                                     progress = FALSE)
+  suppressWarnings({
+    m3 <- exactextractr::exact_extract(tas_features, tas_pu, fun = NULL,
+                                       progress = FALSE)
+  })
   m3 <- sapply(m3, function(x) {
     v <- x[, seq_len(ncol(x) - 1), drop = FALSE]
     p <- x[, ncol(x), drop = TRUE]
@@ -163,13 +171,17 @@ test_that("x=sf, y=RasterStack (complex example, sum)", {
   # run calculations
   m <- rij_matrix(tas_pu, tas_features, fun = "sum")
   # calculate correct result using exact exactextractr
-  m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "sum",
-                                     progress = FALSE)
+  suppressWarnings({
+    m2 <- exactextractr::exact_extract(tas_features, tas_pu, fun = "sum",
+                                       progress = FALSE)
+  })
   m2 <- as(as.matrix(m2), "dgCMatrix")
   m2 <- Matrix::t(m2)
   # calculate correct result using R
-  m3 <- exactextractr::exact_extract(tas_features, tas_pu, fun = NULL,
-                                     progress = FALSE)
+  suppressWarnings({
+    m3 <- exactextractr::exact_extract(tas_features, tas_pu, fun = NULL,
+                                       progress = FALSE)
+  })
   m3 <- sapply(m3, function(x) {
     v <- x[, seq_len(ncol(x) - 1), drop = FALSE]
     p <- x[, ncol(x), drop = TRUE]
