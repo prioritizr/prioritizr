@@ -24,7 +24,7 @@ NULL
 #'   design exercise and their corresponding cost. It may be desirable to
 #'   exclude some planning units from the analysis, for example those outside
 #'   the study area. To exclude planning units, set the cost for those raster
-#'   cells to \code{NA}, or use the \code{add_locked_out_constraint}.
+#'   cells to \code{NA}, or use the \code{add_locked_out_constraint} function.
 #'
 #' @param features The feature data can be specified in a variety of ways.
 #'   The specific formats that can be used depend on the cost data format (i.e.
@@ -205,7 +205,8 @@ NULL
 #'   vectors of known coefficients, and \emph{A} is the constraint
 #'   matrix. The final term specifies a series of structural
 #'   constraints where relational operators for the constraint can be either
-#'   \eqn{\ge, =, or \le} the coefficients. For example, in the minimum set
+#'   \eqn{\ge}, \eqn{=}, or \eqn{\le} the coefficients. For example, in the
+#'   minimum set
 #'   cover problem, \emph{c} would be a vector of costs for each planning unit,
 #'   \emph{b} a vector of targets for each conservation feature, the relational
 #'   operator would be \eqn{\ge} for all features, and \emph{A} would be the

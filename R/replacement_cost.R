@@ -4,7 +4,7 @@ NULL
 #' Replacement cost
 #'
 #' Calculate irreplaceability scores for planning units selected in a solution
-#' using the replacement cost method (Cabeza and Moilanen 2006).
+#' based on the replacement cost method (Cabeza and Moilanen 2006).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -188,7 +188,7 @@ NULL
 #' }
 #'
 #' @references
-#' Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
+#' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
 #' value for cost-effective reserve planning. \emph{Biological Conservation},
 #' 132:  336--342.
 #'

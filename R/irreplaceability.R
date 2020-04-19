@@ -12,8 +12,12 @@ NULL
 #'   \describe{
 #'
 #'   \item{\code{\link{replacement_cost}}}{Calculate irreplaceability scores
-#'     using the replacement cost method. This method is generally recommended
-#'    for calculating irreplaceability scores.}
+#'     based on the replacement cost method described in Cabeza and Moilanen
+#'     (2006). This method is recommended for calculating irreplaceability
+#'     scores.}
+#'
+#'   \item{\code{\link{ferrier_score}}}{Calculate irreplaceability scores
+#'     using the method outlined in Ferrier \emph{et al.} (2000).}
 #'
 #'   \item{\code{\link{rarity_weighted_richness}}}{Calculate irreplaceability
 #'     scores using rarity weighted richness. This method is only recommended
@@ -23,9 +27,20 @@ NULL
 #'
 #'   }
 #'
+#' @references
+#' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
+#' value for cost-effective reserve planning. \emph{Biological Conservation},
+#' 132:  336--342.
+#'
+#' Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
+#' irreplaceability of areas for achieving a conservation goal, its application
+#' to real-world planning, and a research agenda for further refinement.
+#' \emph{Biological Conservation}, 93: 303--325.
+
 #' @seealso \code{\link{problem}}.
 #'
 #' @examples
+#' \donttest{
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_features)
 #'
@@ -37,29 +52,25 @@ NULL
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # solve the problem
-#' \donttest{
 #' s1 <- solve(p1)
-#' }
 #'
 #' # plot solution
-#' \donttest{
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # calculate irreplaceability scores using replacement cost scores
-#' \donttest{
-#' rc1 <- replacement_cost(p1, s1)
-#' }
+#' ir1 <- replacement_cost(p1, s1)
+#'
+#' # calculate irreplaceability scores using Ferrier et al 2000 method,
+#' # and extract the total irreplaceability scores
+#' ir2 <- ferrier_score(p1, s1)[["total"]]
 #'
 #' # calculate irreplaceability scores using rarity weighted richness scores
-#' \donttest{
-#' rc2 <- rarity_weighted_richness(p1, s1)
-#' }
+#' ir3 <- rarity_weighted_richness(p1, s1)
 #'
 #' # plot irreplaceability scores
-#' \donttest{
-#' plot(stack(rc1, rc2), axes = FALSE, box = FALSE,
-#'      main = c("replacement cost", "rarity weighted richness"))
+#' plot(stack(ir1, ir2, ir3), axes = FALSE, box = FALSE,
+#'      main = c("replacement cost", "Ferrier score",
+#'               "rarity weighted richness"))
 #' }
 #' @name irreplaceability
 NULL
