@@ -54,32 +54,16 @@ double calculate_feat_unit_irrep_value(
 
   // intermediate calculations
   double stdev = calculate_standard_dev(
-    feat_sum_amount = feat_sum_amount,
-    feat_sum_amount_sqr = feat_sum_amount_sqr,
-    n_pu = n_pu);
+    feat_sum_amount, feat_sum_amount_sqr, n_pu);
   double rx_removed = calculate_rx_removed(
-    n_pu = n_pu,
-    portfolio_size = portfolio_size,
-    stdev = stdev,
-    feat_amount = feat_amount,
-    feat_target = feat_target,
-    mean_feat_amount_per_pu = mean_feat_amount_per_pu,
-    feat_sum_amount = feat_sum_amount);
+    n_pu, portfolio_size, stdev, feat_amount, feat_target,
+    mean_feat_amount_per_pu, feat_sum_amount);
   double rx_included = calculate_rx_included(
-    n_pu = n_pu,
-    portfolio_size = portfolio_size,
-    stdev = stdev,
-    feat_amount = feat_amount,
-    feat_target = feat_target,
-    mean_feat_amount_per_pu = mean_feat_amount_per_pu);
+    n_pu, portfolio_size, stdev, feat_amount, feat_target,
+    mean_feat_amount_per_pu);
   double rx_excluded = calculate_rx_excluded(
-    n_pu = n_pu,
-    portfolio_size = portfolio_size,
-    stdev = stdev,
-    feat_amount = feat_amount,
-    feat_target = feat_target,
-    feat_sum_amount = feat_sum_amount,
-    mean_feat_amount_per_pu = mean_feat_amount_per_pu);
+    n_pu, portfolio_size, stdev, feat_amount, feat_target, feat_sum_amount,
+    mean_feat_amount_per_pu);
 
   // calculate irreplaceability
   double irrep_value;
@@ -87,12 +71,8 @@ double calculate_feat_unit_irrep_value(
       irrep_value = 0.0;
   } else {
     irrep_value = calculate_irr_feature(
-      wt_include = wt_include,
-      wt_exclude = wt_exclude,
-      rx_removed = rx_removed,
-      rx_included = rx_included,
-      rx_excluded = rx_excluded,
-      feat_amount = feat_amount);
+      wt_include, wt_exclude, rx_removed, rx_included, rx_excluded,
+      feat_amount);
   }
 
   // return result
@@ -128,7 +108,7 @@ double calculate_rx_removed(
   double rx_removed;
   double z;
   double adjusted_portfolio_size = calculate_adjusted_portfolio_size(
-    n_pu = n_pu - 1.0, portfolio_size = portfolio_size - 1.0);
+    n_pu - 1.0, portfolio_size - 1.0);
   double adj_sd = stdev * adjusted_portfolio_size;
   // main
   if ((feat_sum_amount - feat_amount) < feat_target) {
@@ -158,7 +138,7 @@ double calculate_rx_included(
   double mean_target_per_portfolio_size =
     (feat_target - feat_amount) / (portfolio_size - 1.0);
   double adjusted_portfolio_size = calculate_adjusted_portfolio_size(
-      n_pu = n_pu - 1, portfolio_size = portfolio_size - 1.0);
+      n_pu - 1, portfolio_size - 1.0);
   double adj_sd = stdev * adjusted_portfolio_size;
   // main
   if (feat_amount >= feat_target) {
@@ -188,7 +168,7 @@ double calculate_rx_excluded(
   double z;
   double mean_target_per_portfolio_size = feat_target / portfolio_size;
   double adjusted_portfolio_size = calculate_adjusted_portfolio_size(
-    n_pu = n_pu - 1.0, portfolio_size = portfolio_size);
+    n_pu - 1.0, portfolio_size);
   double adj_sd = stdev * adjusted_portfolio_size;
   // main
   if ((feat_sum_amount - feat_amount) < feat_target) {
