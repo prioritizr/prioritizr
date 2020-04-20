@@ -29,7 +29,7 @@ ferrier_score(x, solution)
 object. See the Details section for more information.}
 }
 \value{
-A \code{numeric}, \code{matrix},
+A \code{matrix}, \code{\link[tibble]{tibble}},
   \code{\link[raster]{RasterLayer-class}}, or
   \code{\link[sp]{Spatial-class}} object containing the scores for each
   planning unit selected in the solution.
@@ -40,8 +40,8 @@ a solution using the method outlined in Ferrier \emph{et al.} (2000).
 Specifically, the scores are implemented following the CLUZ decision support
 tool (Smith 2019).
 Here, scores are calculated separately for each feature within
-each planning unit and then summed together to estimate the
-irreplaceability of each planning unit (i.e. summed irreplaceability).
+each planning unit. Additionally, a total irreplaceability score is also
+calculated as the sum of the irreplaceability scores for each planning unit.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
 It will throw an error for other types of problems.
