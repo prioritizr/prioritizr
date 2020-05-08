@@ -104,7 +104,7 @@ fs1 <- ferrier_score(p1, s1)
 print(fs1)
 
 # plot total irreplaceability scores
-plot(fs1, zcol = "total", main = "Ferrier scores", axes = FALSE, box = FALSE)
+plot(fs1, axes = FALSE, box = FALSE)
 }
 
 }
