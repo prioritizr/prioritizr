@@ -26,12 +26,12 @@ Rcpp::NumericMatrix rcpp_summarize_exactextractr(Rcpp::List x,
   for (std::size_t i = 0; i < nrow; ++i) {
     /// extract data
     curr_df = Rcpp::as<Rcpp::DataFrame>(x[i]);
-    curr_props = curr_df[_, ncol];
+    curr_props = curr_df[ncol];
     curr_df_nrow = curr_props.size();
     /// iterate over each layer column
     for (std::size_t j = 0; j < ncol; ++j) {
       /// extract values from j'th layer
-      curr_values = curr_df[_, j];
+      curr_values = curr_df[j];
       /// find out which values are not NA
       curr_is_not_na = !Rcpp::is_na(curr_values);
       /// store output value
