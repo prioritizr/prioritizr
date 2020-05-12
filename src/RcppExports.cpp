@@ -496,6 +496,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_ferrier_score
+arma::sp_mat rcpp_ferrier_score(arma::sp_mat& rij, Rcpp::NumericVector& targets, double portfolio_size, arma::sp_mat& out);
+RcppExport SEXP _prioritizr_rcpp_ferrier_score(SEXP rijSEXP, SEXP targetsSEXP, SEXP portfolio_sizeSEXP, SEXP outSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type rij(rijSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector& >::type targets(targetsSEXP);
+    Rcpp::traits::input_parameter< double >::type portfolio_size(portfolio_sizeSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat& >::type out(outSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_ferrier_score(rij, targets, portfolio_size, out));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_forbid_solution
 bool rcpp_forbid_solution(SEXP x, Rcpp::IntegerVector solution);
 RcppExport SEXP _prioritizr_rcpp_forbid_solution(SEXP xSEXP, SEXP solutionSEXP) {

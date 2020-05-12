@@ -40,7 +40,8 @@ will be used to pre-compute which planning units are adjacent to
 each other and potentially reduce the processing time required to
 generate the boundary matrices. This argument is only used when
 the planning unit data are vector-based polygons (i.e.
-\code{\link[sp]{SpatialPolygonsDataFrame}} objects). The default argument
+\code{\link[sp]{SpatialPolygonsDataFrame}} objects). \strong{Note that
+using \code{TRUE} may crash Mac OSX systems.} The default argument
 is \code{FALSE}.}
 }
 \value{

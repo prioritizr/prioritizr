@@ -59,7 +59,7 @@ A \code{numeric}, \code{matrix},
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
-using the replacement cost method (Cabeza and Moilanen 2006).
+based on the replacement cost method (Cabeza and Moilanen 2006).
 }
 \details{
 Using this method, the score for each planning unit is calculated
@@ -214,7 +214,7 @@ plot(rc3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
 
 }
 \references{
-Cabeza M and Moilanen (2006) Replacement cost: A practical measure of site
+Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
 value for cost-effective reserve planning. \emph{Biological Conservation},
 132:  336--342.
 }

@@ -17,6 +17,7 @@ NULL
 #' @return \code{list} object.
 #'
 #' @examples
+#' \donttest{
 #'
 #' # imagine that we have 10 jobs that need processing. For simplicity,
 #' # our jobs will involve adding 1 to each element in 1:10.
@@ -56,6 +57,7 @@ NULL
 #' result <- plyr::llply(l, function(i) x[i] + 1, .parallel = TRUE)
 #' cl <- parallel::stopCluster(cl)
 #' print(result)
+#' }
 #'
 #' @name distribute_load
 #'

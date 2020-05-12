@@ -92,6 +92,7 @@ reference:
     contents:
     - irreplaceability
     - replacement_cost
+    - ferrier_score
     - rarity_weighted_richness
 
   - title: Data simulation

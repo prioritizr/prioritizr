@@ -161,6 +161,10 @@ rcpp_branch_matrix <- function(x) {
     .Call(`_prioritizr_rcpp_branch_matrix`, x)
 }
 
+rcpp_ferrier_score <- function(rij, targets, portfolio_size, out) {
+    .Call(`_prioritizr_rcpp_ferrier_score`, rij, targets, portfolio_size, out)
+}
+
 rcpp_forbid_solution <- function(x, solution) {
     .Call(`_prioritizr_rcpp_forbid_solution`, x, solution)
 }

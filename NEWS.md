@@ -1,3 +1,8 @@
+# prioritizr 5.0.0.1
+
+- New `ferrier_score` function to compute irreplaceability scores following
+  Ferrier _et al_ (2000).
+
 # prioritizr 5.0.0.0
 
 - Add full support for _sf_ R package (#6).
