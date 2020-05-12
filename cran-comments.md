@@ -14,6 +14,11 @@
 
     **The package makes extensive use of C++ code to reduce run time.**
 
+* checking package dependencies ... NOTE
+  Packages suggested but not available for checking: 'gurobi'
+
+    **The package uses the gurobi R package that is distributed with Gurobi software suite (and not availble on CRAN).**
+
 ## Test environments
 
 * [Ubuntu 14.04, R-release (travis-ci)](https://travis-ci.org/prioritizr/prioritizr/builds)
