@@ -91,7 +91,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.0.1</span>
       </span>
     </div>
 
@@ -242,7 +242,7 @@ customized to meet specific goals using <code><a href='objectives.html'>objectiv
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
-cells to <code>NA</code>, or use the <code>add_locked_out_constraint</code>.</p></td>
+cells to <code>NA</code>, or use the <code>add_locked_out_constraint</code> function.</p></td>
     </tr>
     <tr>
       <th>features</th>
@@ -429,7 +429,8 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
   vectors of known coefficients, and <em>A</em> is the constraint
   matrix. The final term specifies a series of structural
   constraints where relational operators for the constraint can be either
-  \(\ge, =, or \le\) the coefficients. For example, in the minimum set
+  \(\ge\), \(=\), or \(\le\) the coefficients. For example, in the
+  minimum set
   cover problem, <em>c</em> would be a vector of costs for each planning unit,
   <em>b</em> a vector of targets for each conservation feature, the relational
   operator would be \(\ge\) for all features, and <em>A</em> would be the
@@ -742,7 +743,7 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00216
+#&gt;  - attr(*, "runtime")= Named num 0.00207
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='img'><img src='problem-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create some problems with multiple zones</span>
 
 <span class='co'># first, create a matrix containing the targets for multi-zone problems</span>
