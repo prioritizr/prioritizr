@@ -24,6 +24,7 @@ This function returns a \code{list} containing an element for
   specifying the indices that the worker should process.
 }
 \examples{
+\donttest{
 
 # imagine that we have 10 jobs that need processing. For simplicity,
 # our jobs will involve adding 1 to each element in 1:10.
@@ -63,5 +64,6 @@ l <- distribute_load(length(x), n = 2)
 result <- plyr::llply(l, function(i) x[i] + 1, .parallel = TRUE)
 cl <- parallel::stopCluster(cl)
 print(result)
+}
 
 }
