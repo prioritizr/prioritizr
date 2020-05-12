@@ -351,7 +351,7 @@ test_that("minimum set objective (solve, multiple zones)", {
        add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
        add_binary_decisions() %>%
        add_boundary_penalties(5, p_edge_factor,  p_zones) %>%
-       add_default_solver(verbose = FALSE, gap = gap) %>%
+       add_default_solver(verbose = FALSE) %>%
        solve()
   # check that solution forms a single cluster
   expect_is(s, "SpatialPolygonsDataFrame")
