@@ -1,3 +1,7 @@
+# prioritizr 5.0.1 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 5.0.0.1
 
 - New `ferrier_score` function to compute irreplaceability scores following

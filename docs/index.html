@@ -126,18 +126,23 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The latest official version of the <em>prioritizr R</em> package can be installed using the following <em>R</em> code.</p>
+<p>The latest official version of the <em>prioritizr R</em> package can be installed from the <a href="https://cran.r-project.org/">Comprehensive R Archive Network (CRAN)</a> using the following <em>R</em> code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"prioritizr"</span>, <span class="dt">repos =</span> <span class="st">"https://cran.rstudio.com/"</span>)</code></pre></div>
-<p>Alternatively, the latest development version can be installed using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(devtools))
-  <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/remote-reexports">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</code></pre></div>
+<p>Alternatively, the latest development version can be installed from <a href="https://github.com/prioritizr/prioritizr">GitHub</a> using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(remotes)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)
+remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</code></pre></div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#citation" class="anchor"></a>Citation</h2>
-<p>Please use the following citation to cite the <em>prioritizr R</em> package in publications:</p>
+<p>Please cite the <em>prioritizr R</em> package when using it in publications. To cite the latest official version, please use:</p>
+<blockquote>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="uri">https://CRAN.R-project.org/package=prioritizr</a>.</p>
+</blockquote>
+<p>Alternatively, to cite the latest development version, please use:</p>
+<blockquote>
 <p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+</blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
 <div id="usage" class="section level2">
@@ -162,12 +167,12 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and color them according to acquisition cost</span>
 <span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"cost"</span>, <span class="dt">main =</span> <span class="st">"Planning unit cost"</span>,
        <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="400" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="400" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot the planning units and show which planning units are inside protected</span>
 <span class="co"># areas (colored in yellow)</span>
 <span class="kw">spplot</span>(sim_pu_polygons, <span class="st">"locked_in"</span>, <span class="dt">main =</span> <span class="st">"Planning units in protected areas"</span>,
        <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="400" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="400" style="display: block; margin: auto;"></p>
 <p>Conservation features are represented using a stack of raster data (i.e. <code>RasterStack</code> objects). A <code>RasterStack</code> represents a collection of <code>RasterLayers</code> with the same spatial properties (i.e. spatial extent, coordinate system, dimensionality, and resolution). Each <code>RasterLayer</code> in the stack describes the distribution of a conservation feature.</p>
 <p>In our example, the <code>sim_features</code> object is a <code>RasterStack</code> object that contains 5 layers. Each <code>RasterLayer</code> describes the distribution of a species. Specifically, the pixel values denote the proportion of suitable habitat across different areas inside the study area. For a given layer, pixels with a value of one are comprised entirely of suitable habitat for the feature, and pixels with a value of zero contain no suitable habitat.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load feature data</span>
@@ -176,7 +181,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <span class="co"># plot the distribution of suitable habitat for each feature</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(sim_features, <span class="dt">main =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/paste">paste</a></span>(<span class="st">"Feature"</span>, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/seq">seq_len</a></span>(<span class="kw">nlayers</span>(sim_features))),
      <span class="dt">nr =</span> <span class="dv">2</span>)</code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-unnamed-chunk-11-1.png" width="800" style="display: block; margin: auto;"></p>
 <p>Let’s say that we want to develop a reserve network that will secure 15% of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a> that will use a minimum set objective (<a href="https://prioritizr.net/reference/add_min_set_objective.html"><code>add_min_set_objective</code></a>), with relative targets of 15% (<a href="https://prioritizr.net/reference/add_relative_targets.html"><code>add_relative_targets</code></a>), binary decisions (<a href="https://prioritizr.net/reference/add_binary_decisions.html"><code>add_binary_decisions</code></a>), and specify that we want to want optimal solutions from the best solver installed on our system (<a href="https://prioritizr.net/reference/add_default_solver.html"><code>add_default_solver</code></a>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create problem</span>
 p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/problem.html">problem</a></span>(sim_pu_polygons, <span class="dt">features =</span> sim_features,
@@ -284,7 +289,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 2.69 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 2.72 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -298,7 +303,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##   2.692501</code></pre>
+##    2.72449</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -439,7 +444,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   GUB cover: 2
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -529,7 +534,7 @@ rc<span class="op">$</span>rc[rc<span class="op">$</span>rc <span class="op">&gt
 <div id="getting-help" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help" class="anchor"></a>Getting help</h2>
-<p>Please refer to the <a href="https://prioritizr.net/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains <a href="https://prioritizr.net/articles/prioritizr.html">a comprehensive tutorial on systematic conservation planning using the package</a>, <a href="https://prioritizr.net/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, <a href="https://prioritizr.net/articles/zones.html">a tutorial on building and solving problems that contain multiple management zones</a>, and two worked examples involving real-world data in <a href="https://prioritizr.net/articles/tasmania.html">Tasmania, Australia</a> and <a href="https://prioritizr.net/articles/saltspring.html">Salt Spring Island, Canada</a>. Additionally, check out the <a href="https://github.com/prioritizr/teaching">teaching repository</a> for seminar slides and workshop materials. If you have any questions about using the <em>prioritizr R</em> package or suggestions for improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
+<p>Please refer to the <a href="https://prioritizr.net/index.html">package website</a> for more information on the <em>prioritizr R</em> package. This website contains <a href="https://prioritizr.net/articles/prioritizr.html">a comprehensive tutorial on the package</a>, <a href="https://prioritizr.net/articles/gurobi_installation.html">instructions for installing the <em>Gurobi</em> software suite to solve large-scale and complex conservation planning problems</a>, and <a href="https://prioritizr.net/articles/zones.html">a tutorial on solving problems with multiple management zones</a>. It also provides two worked examples that involve real-world data from <a href="https://prioritizr.net/articles/tasmania.html">Tasmania, Australia</a> and <a href="https://prioritizr.net/articles/saltspring.html">Salt Spring Island, Canada</a>. Additionally, slides for previous seminars about the package can be found in <a href="https://github.com/prioritizr/teaching">teaching repository</a>. Furthermore, materials accompanying previous workshops are also available online too (i.e. the <a href="https://prioritizr.github.io/cibio-workshop/">CIBIO 2019 workshop</a> and the <a href="https://prioritizr.github.io/PacMara_workshop/">PacMara 2019 workshop</a>). If you have any questions about using the <em>prioritizr R</em> package or suggestions for improving it, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue at the package’s online code repository</a>.</p>
 </div>
 </div>
   </div>

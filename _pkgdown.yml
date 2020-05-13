@@ -103,6 +103,7 @@ reference:
   - title: Geoprocessing
     desc: Functions for manipulating spatial data sets
     contents:
+      - fast_extract
       - intersecting_units
 
   - title: Processing multi-zone data

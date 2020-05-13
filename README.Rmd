@@ -29,26 +29,39 @@ The _prioritizr R_ package uses integer linear programming (ILP) techniques to p
 
 ## Installation
 
-The latest official version of the _prioritizr R_ package can be installed using the following _R_ code.
+The latest official version of the _prioritizr R_ package can be installed from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/) using the following _R_ code.
 
 ```{r, eval = FALSE}
 install.packages("prioritizr", repos = "https://cran.rstudio.com/")
 ```
 
-Alternatively, the latest development version can be installed using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.
+Alternatively, the latest development version can be installed from [GitHub](https://github.com/prioritizr/prioritizr) using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.
 
 ```{r, eval = FALSE}
-if (!require(devtools))
-  install.packages("devtools")
-devtools::install_github("prioritizr/prioritizr")
+if (!require(remotes)) install.packages("remotes")
+remotes::install_github("prioritizr/prioritizr")
 ```
 
 ## Citation
 
-Please use the following citation to cite the _prioritizr R_ package in publications:
+Please cite the _prioritizr R_ package when using it in publications. To cite the latest official version, please use:
+
+```{r, include = FALSE}
+off_version <- available.packages()["prioritizr","Version"]
+dev_version <- packageDescription("prioritizr")$Version
+if (length(strsplit(as.character(dev_version), ".", fixed = TRUE)[[1]]) == 3) {
+  off_version <- dev_version
+}
+```
 
 ```{r, echo = FALSE, results = "asis", comment = ""}
-cat(paste0("Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ",packageDescription("prioritizr")$Version,". Available at https://github.com/prioritizr/prioritizr.\n"))
+cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", off_version,". Available at https://CRAN.R-project.org/package=prioritizr.\n"))
+```
+
+Alternatively, to cite the latest development version, please use:
+
+```{r, echo = FALSE, results = "asis", comment = ""}
+cat(paste0("> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (",format(Sys.time(), "%Y"),"). prioritizr: Systematic Conservation Prioritization in R. R package version ", dev_version, ". Available at https://github.com/prioritizr/prioritizr.\n"))
 ```
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the _prioritizr R_ package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
@@ -202,4 +215,4 @@ This short example demonstrates how the _prioritizr R_ package can be used to bu
 
 ## Getting help
 
-Please refer to the [package website](https://prioritizr.net/index.html) for more information on the _prioritizr R_ package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the _prioritizr R_ package or suggestions for improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.net/index.html) for more information on the _prioritizr R_ package. This website contains [a comprehensive tutorial on the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the _Gurobi_ software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), and [a tutorial on solving problems with multiple management zones](https://prioritizr.net/articles/zones.html). It also provides two worked examples that involve real-world data from [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, slides for previous seminars about the package can be found in [teaching repository](https://github.com/prioritizr/teaching). Furthermore, materials accompanying previous workshops are also available online too (i.e. the [CIBIO 2019 workshop](https://prioritizr.github.io/cibio-workshop/) and the [PacMara 2019 workshop](https://prioritizr.github.io/PacMara_workshop/)). If you have any questions about using the _prioritizr R_ package or suggestions for improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).

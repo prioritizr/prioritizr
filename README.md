@@ -10,26 +10,29 @@ The *prioritizr R* package uses integer linear programming (ILP) techniques to p
 Installation
 ------------
 
-The latest official version of the *prioritizr R* package can be installed using the following *R* code.
+The latest official version of the *prioritizr R* package can be installed from the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/) using the following *R* code.
 
 ``` r
 install.packages("prioritizr", repos = "https://cran.rstudio.com/")
 ```
 
-Alternatively, the latest development version can be installed using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.
+Alternatively, the latest development version can be installed from [GitHub](https://github.com/prioritizr/prioritizr) using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.
 
 ``` r
-if (!require(devtools))
-  install.packages("devtools")
-devtools::install_github("prioritizr/prioritizr")
+if (!require(remotes)) install.packages("remotes")
+remotes::install_github("prioritizr/prioritizr")
 ```
 
 Citation
 --------
 
-Please use the following citation to cite the *prioritizr R* package in publications:
+Please cite the *prioritizr R* package when using it in publications. To cite the latest official version, please use:
 
-Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <https://github.com/prioritizr/prioritizr>.
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <https://CRAN.R-project.org/package=prioritizr>.
+
+Alternatively, to cite the latest development version, please use:
+
+> Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <https://github.com/prioritizr/prioritizr>.
 
 Additionally, we keep a [record of publications](https://prioritizr.net/articles/publication_record.html) that use the *prioritizr R* package. If you use this package in any reports or publications, please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add it to the record.
 
@@ -67,7 +70,7 @@ spplot(sim_pu_polygons, "cost", main = "Planning unit cost",
        xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="400" style="display: block; margin: auto;" />
 
 ``` r
 # plot the planning units and show which planning units are inside protected
@@ -76,7 +79,7 @@ spplot(sim_pu_polygons, "locked_in", main = "Planning units in protected areas",
        xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="400" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="400" style="display: block; margin: auto;" />
 
 Conservation features are represented using a stack of raster data (i.e. `RasterStack` objects). A `RasterStack` represents a collection of `RasterLayers` with the same spatial properties (i.e. spatial extent, coordinate system, dimensionality, and resolution). Each `RasterLayer` in the stack describes the distribution of a conservation feature.
 
@@ -91,7 +94,7 @@ plot(sim_features, main = paste("Feature", seq_len(nlayers(sim_features))),
      nr = 2)
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="800" style="display: block; margin: auto;" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="800" style="display: block; margin: auto;" />
 
 Let's say that we want to develop a reserve network that will secure 15% of the distribution for each feature in the study area for minimal cost. In this planning scenario, we can either purchase all of the land inside a given planning unit, or none of the land inside a given planning unit. Thus we will create a new [`problem`](https://prioritizr.net/reference/problem.html) that will use a minimum set objective ([`add_min_set_objective`](https://prioritizr.net/reference/add_min_set_objective.html)), with relative targets of 15% ([`add_relative_targets`](https://prioritizr.net/reference/add_relative_targets.html)), binary decisions ([`add_binary_decisions`](https://prioritizr.net/reference/add_binary_decisions.html)), and specify that we want to want optimal solutions from the best solver installed on our system ([`add_default_solver`](https://prioritizr.net/reference/add_default_solver.html)).
 
@@ -208,7 +211,7 @@ s1 <- solve(p1)
     ##   StrongCG: 25
     ##   Flow cover: 2
     ## 
-    ## Explored 31196 nodes (83170 simplex iterations) in 2.78 seconds
+    ## Explored 31196 nodes (83170 simplex iterations) in 2.94 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -230,7 +233,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   2.777433
+    ##    2.93768
 
 ``` r
 # extract state message from the solver
@@ -506,4 +509,4 @@ This short example demonstrates how the *prioritizr R* package can be used to bu
 Getting help
 ------------
 
-Please refer to the [package website](https://prioritizr.net/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on systematic conservation planning using the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), [a tutorial on building and solving problems that contain multiple management zones](https://prioritizr.net/articles/zones.html), and two worked examples involving real-world data in [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, check out the [teaching repository](https://github.com/prioritizr/teaching) for seminar slides and workshop materials. If you have any questions about using the *prioritizr R* package or suggestions for improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
+Please refer to the [package website](https://prioritizr.net/index.html) for more information on the *prioritizr R* package. This website contains [a comprehensive tutorial on the package](https://prioritizr.net/articles/prioritizr.html), [instructions for installing the *Gurobi* software suite to solve large-scale and complex conservation planning problems](https://prioritizr.net/articles/gurobi_installation.html), and [a tutorial on solving problems with multiple management zones](https://prioritizr.net/articles/zones.html). It also provides two worked examples that involve real-world data from [Tasmania, Australia](https://prioritizr.net/articles/tasmania.html) and [Salt Spring Island, Canada](https://prioritizr.net/articles/saltspring.html). Additionally, slides for previous seminars about the package can be found in [teaching repository](https://github.com/prioritizr/teaching). Furthermore, materials accompanying previous workshops are also available online too (i.e. the [CIBIO 2019 workshop](https://prioritizr.github.io/cibio-workshop/) and the [PacMara 2019 workshop](https://prioritizr.github.io/PacMara_workshop/)). If you have any questions about using the *prioritizr R* package or suggestions for improving it, please [file an issue at the package's online code repository](https://github.com/prioritizr/prioritizr/issues/new).
