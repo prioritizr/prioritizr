@@ -24,9 +24,8 @@ will return solutions with a higher degree of spatial clumping,
 and smaller \code{penalty} values will return solutions with a smaller
 degree of clumping. Note that negative \code{penalty} values will
 return solutions that are more spread out. This parameter is equivalent to
-the
-\href{http://marxan.net/downloads/uq_marxan_web_2/module2.html}{boundary length modifier (BLM)}
-parameter in \href{http://marxan.net}{\emph{Marxan}}.}
+the boundary length modifier (BLM)
+parameter in \href{https://marxansolutions.org/}{\emph{Marxan}}.}
 
 \item{edge_factor}{\code{numeric} proportion to scale
 planning unit edges (or borders) that do not have any neighboring planning
@@ -65,7 +64,7 @@ information.}
  added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link{problem}} to favor
+Add penalties to a conservation planning \code{\link{problem}} to favour
 solutions that have planning units clumped together into contiguous areas.
 }
 \details{
@@ -73,7 +72,8 @@ This function adds penalties to a conservation planning problem
   to penalize fragmented solutions. It was is inspired by Ball \emph{et al.}
   (2009) and Beyer \emph{et al.} (2016). The \code{penalty} argument is
   equivalent to the boundary length modifier (\code{BLM}) used in
-  \href{http://marxan.net}{\emph{Marxan}}. Note that this function can only
+  \href{https://marxansolutions.org}{\emph{Marxan}}.
+  Note that this function can only
   be used to represent symmetric relationships between planning units. If
   asymmetric relationships are required, use the
   \code{\link{add_connectivity_penalties}} function.

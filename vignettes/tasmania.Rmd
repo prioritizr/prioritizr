@@ -24,7 +24,7 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check)
 
 ## Introduction
 
-The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the _prioritizr R_ package. It is also written for conservation planners that have used the _Marxan_ decision support tool [@r3] and are interested in applying the _prioritizr R_ package to their own work. The data set used in this tutorial was obtained from the ["Introduction to Marxan" course](http://marxan.net/courses). This data was originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
+The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the _prioritizr R_ package. It is also written for conservation planners that have used the _Marxan_ decision support tool [@r3] and are interested in applying the _prioritizr R_ package to their own work. The data set used in this tutorial was obtained from the _Introduction to Marxan_ course. This data was originally a subset of a larger spatial prioritization project performed under contract to Australia's Department of Environment and Water Resources [@r30].
 
 Please note that this tutorial uses data from the _prioritizrdata R_, so ensure that it is installed before trying out the code yourself.
 

@@ -100,9 +100,11 @@ NULL
 #'   \pkg{prioritizr} package, this functionality is no longer available.
 #'   Please see the \code{\link{add_connectivity_penalties}} function for
 #'   adding asymmetric connectivity penalties to a conservation planning
-#'   problem. For more information on the correct formats
+#'   problem.
+#'
+#' @seealso For more information on the correct format for
 #'   for \emph{Marxan} input data, see the
-#'   \href{http://marxan.net}{official \emph{Marxan} website} and Ball
+#'   \href{https://marxansolutions.org}{official \emph{Marxan} website} and Ball
 #'   \emph{et al.} (2009).
 #'
 #' @return \code{\link{ConservationProblem-class}} object.
