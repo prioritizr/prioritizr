@@ -234,9 +234,6 @@ NULL
 #' @name problem
 #'
 #' @examples
-#' # load sf package
-#' library(sf)
-#'
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
 #'      sim_pu_sf, sim_features)
@@ -247,6 +244,7 @@ NULL
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions()
 #'
+#' \donttest{
 #' # create problem using polygon (Spatial) planning unit data
 #' p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
@@ -295,7 +293,6 @@ NULL
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions()
 #'
-#' \donttest{
 #' # solve problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -363,14 +360,14 @@ NULL
 #' # in the solution (note this only works for problems with binary decisions)
 #' par(mfrow = c(1, 1))
 #' plot(category_layer(s8), axes = FALSE, box = FALSE)
-#' }
+#'
 #' # create a multi-zone problem with polygon data
 #' p9 <- problem(sim_pu_zones_polygons, sim_features_zones,
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#'
 #' # solve problem
 #' s9 <- solve(p9)
 #'
@@ -383,7 +380,7 @@ NULL
 #'
 #' # plot solution
 #' spplot(s9, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
-#' }
+#'
 #' # create a multi-zone problem with polygon planning unit data
 #' # and where fields (columns) in the attribute table correspond
 #' # to feature abundances
@@ -413,7 +410,7 @@ NULL
 #'        add_min_set_objective() %>%
 #'        add_absolute_targets(targets[1:3, 1:2]) %>%
 #'        add_proportion_decisions()
-#' \donttest{
+#'
 #' # solve problem
 #' s10 <- solve(p10)
 #'

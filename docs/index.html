@@ -280,7 +280,8 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##      0     0 2614.32230    0   13 2747.37746 2614.32230  4.84%     -    0s
 ##      0     0 2614.32331    0   13 2747.37746 2614.32331  4.84%     -    0s
 ##      0     2 2614.33358    0   13 2747.37746 2614.33358  4.84%     -    0s
-## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    0s
+## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    1s
+##  15363  1741 2622.20091   34   15 2627.63893 2621.06286  0.25%   2.4    5s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
@@ -289,7 +290,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 2.61 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 8.90 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -303,7 +304,7 @@ s1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract time spent solving the problem</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"runtime"</span>))</code></pre></div>
 <pre><code>## solution_1 
-##    2.60973</code></pre>
+##   8.902081</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># extract state message from the solver</span>
 <span class="kw"><a href="reference/print.html">print</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attr">attr</a></span>(s1, <span class="st">"status"</span>))</code></pre></div>
 <pre><code>## solution_1 
@@ -444,7 +445,7 @@ s3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/solve.html"
 ## Cutting planes:
 ##   GUB cover: 2
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
