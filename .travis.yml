@@ -4,7 +4,7 @@ language: r
 
 sudo: required
 
-dist: trusty
+dist: xenial
 
 warnings_are_errors: true
 
