@@ -23,7 +23,8 @@ NULL
 #' @param presolve \code{integer} number indicating how intensively the
 #'   solver should try to simplify the problem before solving it. The default
 #'   value of 2 indicates to that the solver should be very aggressive in
-#'   trying to simplify the problem.
+#'   trying to simplify the problem. A value of -1 corresponds to an automatic 
+#'   setting, other options are off (0) and conservative (1). 
 #'
 #' @param threads \code{integer} number of threads to use for the
 #'   optimization algorithm. The default value of 1 will result in only
@@ -96,7 +97,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
                           isTRUE(gap >= 0), isTRUE(all(is.finite(time_limit))),
                           assertthat::is.count(time_limit),
                           isTRUE(all(is.finite(presolve))),
-                          assertthat::is.count(presolve), isTRUE(presolve <= 2),
+                          assertthat::is.scalar(presolve), isTRUE(presolve >= -1 & presolve <= 2),
                           isTRUE(all(is.finite(threads))),
                           assertthat::is.count(threads),
                           isTRUE(threads <= parallel::detectCores(TRUE)),
@@ -116,7 +117,7 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       numeric_parameter("gap", gap, lower_limit = 0),
       integer_parameter("time_limit", time_limit, lower_limit = -1L,
                         upper_limit = as.integer(.Machine$integer.max)),
-      integer_parameter("presolve", presolve, lower_limit = 0L,
+      integer_parameter("presolve", presolve, lower_limit = -1L,
                         upper_limit = 2L),
       integer_parameter("threads", threads, lower_limit = 1L,
                         upper_limit = parallel::detectCores(TRUE)),

@@ -1,3 +1,7 @@
+# prioritizr 5.0.1.1
+
+- Gurobi solver presolve value range extended to allow for values between -1 and 2.
+
 # prioritizr 5.0.1 (released)
 
 - Release candidate for CRAN.
