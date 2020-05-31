@@ -30,10 +30,11 @@ The solver will return the current best solution when this time limit is
 exceeded.}
 
 \item{presolve}{\code{integer} number indicating how intensively the
-solver should try to simplify the problem before solving it. The default
-value of 2 indicates to that the solver should be very aggressive in
-trying to simplify the problem. A value of -1 corresponds to an automatic 
-setting, other options are off (0) and conservative (1).}
+solver should try to simplify the problem before solving it. Available
+options are: (-1) automatically determine the intensity of
+pre-solving, (0) disable pre-solving, (1) conservative
+level of pre-solving, and (2) very aggressive level of pre-solving .
+The default value is 2.}
 
 \item{threads}{\code{integer} number of threads to use for the
 optimization algorithm. The default value of 1 will result in only

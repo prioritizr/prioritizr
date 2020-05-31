@@ -8,23 +8,36 @@
 
 <title>Add boundary penalties — add_boundary_penalties • prioritizr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -33,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -43,7 +56,6 @@
 <meta property="og:description" content="Add penalties to a conservation planning problem to favour
 solutions that have planning units clumped together into contiguous areas." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -68,9 +80,10 @@ solutions that have planning units clumped together into contiguous areas." />
   gtag('config', 'UA-70466840-4');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,7 +97,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.2</span>
       </span>
     </div>
 
@@ -92,7 +105,7 @@ solutions that have planning units clumped together into contiguous areas." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,14 +145,14 @@ solutions that have planning units clumped together into contiguous areas." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/prioritizr/prioritizr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -150,6 +163,7 @@ solutions that have planning units clumped together into contiguous areas." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -168,8 +182,8 @@ solutions that have planning units clumped together into contiguous areas.</p>
     <pre class="usage"><span class='fu'>add_boundary_penalties</span>(
   <span class='no'>x</span>,
   <span class='no'>penalty</span>,
-  <span class='kw'>edge_factor</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>0.5</span>, <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
-  <span class='kw'>zones</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
+  <span class='kw'>edge_factor</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0.5</span>, <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
+  <span class='kw'>zones</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>x</span>)),
   <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
@@ -250,21 +264,24 @@ information.</p></td>
   asymmetric relationships are required, use the
   <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
 <p>The argument to <code>data</code> can be specified in several different ways:</p>
-<p></p><dl class='dl-horizontal'>
-    <dt><code>NULL</code></dt><dd><p>the boundary data are automatically calculated
+<p></p><dl'>
+
+  <dt><code>NULL</code></dt><dd><p>the boundary data are automatically calculated
     using the <code><a href='boundary_matrix.html'>boundary_matrix</a></code> function. This argument is the
     default. Note that the boundary data must be manually defined
     using one of the other formats below when the planning unit data
     in the argument to <code>x</code> is not spatially referenced (e.g.
     in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
-    <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+
+  <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
     different planning units and the value of each cell represents the
     amount of shared boundary length between two different planning units.
     Cells that occur along the matrix diagonal represent the amount of
     exposed boundary associated with each planning unit that has
     no neighbor (e.g. these value might pertain the length of coastline
     in a planning unit).</p></dd>
-    <dt><code>data.frame</code></dt><dd><p>containing the columns <code>"id1"</code>,
+
+  <dt><code>data.frame</code></dt><dd><p>containing the columns <code>"id1"</code>,
     <code>"id2"</code>, and <code>"boundary"</code>. The values in the column
     <code>"boundary"</code> show the total amount of shared boundary between the
     two planning units indicated the columns <code>"id1"</code> and <code>"id2"</code>.
@@ -276,8 +293,11 @@ information.</p></td>
     zones, the argument to <code>zones</code> should be used to control the
     relative importance of spatially clumping planning units together when
     they are allocated to different zones.</p></dd>
-    </dl>
-    <p>The boundary penalties are calculated using the following equations. Let
+
+  
+</dl>
+
+<p>The boundary penalties are calculated using the following equations. Let
   \(I\) represent the set of planning units
   (indexed by \(i\) or \(j\)), \(Z\) represent
   the set of management zones (indexed by \(z\) or \(y\)), and
@@ -311,10 +331,10 @@ conservation planning problems with integer linear programming.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>500</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>500</span>)
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create minimal problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
@@ -332,8 +352,11 @@ conservation planning problems with integer linear programming.
 
 <span class='co'># create a problem using precomputed boundary data</span>
 <span class='no'>bmat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='boundary_matrix.html'>boundary_matrix</a></span>(<span class='no'>sim_pu_raster</span>)
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>bmat</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>50</span>, <span class='fl'>1</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>bmat</span>)
+
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -375,13 +398,13 @@ conservation planning problems with integer linear programming.
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18847.196992
 #&gt; Found heuristic solution: objective 4724.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -389,7 +412,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 4064.31993    0   52 4724.48505 4064.31993  14.0%     -    0s
 #&gt; H    0     0                    4196.4791919 4064.31993  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (186 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (186 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4196.48 4724.49 18847.2 
@@ -413,7 +436,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -433,7 +456,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 1 nodes (470 simplex iterations) in 0.10 seconds
+#&gt; Explored 1 nodes (470 simplex iterations) in 0.14 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 5175.18 5330.73 5594.49 20287.2 
@@ -473,18 +496,19 @@ conservation planning problems with integer linear programming.
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.196479191930e+03, best bound 4.064319933597e+03, gap 3.1493%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>,
-                 <span class='st'>"precomputed data"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_boundary_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones and limit the run-time for</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"small penalties"</span>, <span class='st'>"high penalties"</span>,
+                 <span class='st'>"precomputed data"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_boundary_penalties-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create minimal problem with multiple zones and limit the run-time for</span>
 <span class='co'># solver to 10 seconds so this example doesn't take too long</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>0.2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
 
 <span class='co'># create zone matrix which favors clumping planning units that are</span>
 <span class='co'># allocated to the same zone together - note that this is the default</span>
-<span class='no'>zm6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>zm6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
@@ -497,8 +521,8 @@ conservation planning problems with integer linear programming.
 
 <span class='co'># create zone matrix which favors clumping units that are allocated to</span>
 <span class='co'># different zones together</span>
-<span class='no'>zm8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='no'>zm8</span>) <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='no'>zm8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='no'>zm8</span>) <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm8</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    0    1    1
 #&gt; [2,]    1    0    1
@@ -510,9 +534,9 @@ conservation planning problems with integer linear programming.
 <span class='co'># that are allocated to the same zone together. It will also prefer</span>
 <span class='co'># clumping planning units in zones 1 and 2 together over having</span>
 <span class='co'># these planning units with no neighbors in the solution</span>
-<span class='no'>zm9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
-<span class='no'>zm9</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lower.tri'>upper.tri</a></span>(<span class='no'>zm9</span>)] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
-<span class='no'>zm9</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lower.tri'>lower.tri</a></span>(<span class='no'>zm9</span>)] <span class='kw'>&lt;-</span> <span class='no'>zm9</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lower.tri'>upper.tri</a></span>(<span class='no'>zm9</span>)]
+<span class='no'>zm9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>zm9</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>upper.tri</a></span>(<span class='no'>zm9</span>)] <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
+<span class='no'>zm9</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>lower.tri</a></span>(<span class='no'>zm9</span>)] <span class='kw'>&lt;-</span> <span class='no'>zm9</span>[<span class='fu'><a href='https://rdrr.io/r/base/lower.tri.html'>upper.tri</a></span>(<span class='no'>zm9</span>)]
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm9</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]  1.0  0.3    0
 #&gt; [2,]  0.3  1.0    0
@@ -523,15 +547,18 @@ conservation planning problems with integer linear programming.
 <span class='co'># create zone matrix which favors clumping planning units in zones 1 and 2</span>
 <span class='co'># together, and favors planning units in zone 3 being spread out</span>
 <span class='co'># (i.e. negative clumping)</span>
-<span class='no'>zm10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>zm10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
 <span class='no'>zm10</span>[<span class='fl'>3</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> -<span class='fl'>1</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm10</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
 #&gt; [3,]    0    0   -1</div><div class='input'>
 <span class='co'># create problem with the zone matrix</span>
-<span class='no'>p10</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>500</span>, <span class='kw'>zone</span> <span class='kw'>=</span> <span class='no'>zm10</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)),
+<span class='no'>p10</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_boundary_penalties</span>(<span class='fl'>500</span>, <span class='kw'>zone</span> <span class='kw'>=</span> <span class='no'>zm10</span>)
+
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)),
             <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)),
             <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p10</span>)))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
@@ -543,20 +570,20 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 13103.242827
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
 #&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (211 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (211 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 13103.2 
@@ -573,13 +600,13 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 14008.242827
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.228259e+04, 575 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.228259e+04, 575 iterations, 0.07 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -589,7 +616,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    13659.707836 12282.5861  10.1%     -    0s
 #&gt; H    0     0                    13451.469667 12282.5861  8.69%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (575 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (575 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13451.5 13659.7 13778.7 14008.2 
@@ -606,13 +633,13 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 22153.242827
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 655 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 655 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -629,12 +656,12 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    16204.385441 13911.8533  14.1%     -    0s
 #&gt; H    0     0                    15678.285614 13911.8533  11.3%     -    0s
 #&gt;      0     2 13912.0561    0  611 15678.2856 13912.0561  11.3%     -    0s
-#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    0s
+#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 8
 #&gt; 
-#&gt; Explored 136 nodes (5394 simplex iterations) in 0.73 seconds
+#&gt; Explored 136 nodes (5394 simplex iterations) in 1.32 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15521.9 15678.3 16204.4 ... 22153.2
@@ -651,14 +678,14 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 8303.2428266
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 1845 rows, 1140 columns, 6840 nonzeros
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.13 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -667,7 +694,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    2881.3718971 2576.99025  10.6%     -    0s
 #&gt; H    0     0                    2794.5621583 2576.99025  7.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1800 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (1800 simplex iterations) in 0.36 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2794.56 2881.37 8303.24 
@@ -691,7 +718,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 995 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.06 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -707,14 +734,14 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     2 13864.0559    0  594 16814.5225 13864.0559  17.5%     -    0s
-#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    0s
-#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    0s
+#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    1s
+#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    1s
 #&gt; H  116    75                    15585.976112 13876.1302  11.0%  36.8    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 9
 #&gt; 
-#&gt; Explored 290 nodes (11724 simplex iterations) in 1.50 seconds
+#&gt; Explored 290 nodes (11724 simplex iterations) in 2.40 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15586 15730 15944.4 ... 21613.2
@@ -737,7 +764,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 1120 rows, 705 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.328641e+03, 598 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 9.328641e+03, 598 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -760,13 +787,13 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9481.28491    0  494 12536.9828 9481.28491  24.4%     -    0s
 #&gt; H    0     0                    10821.329400 9481.28491  12.4%     -    0s
 #&gt;      0     2 9481.69481    0  494 10821.3294 9481.69481  12.4%     -    0s
-#&gt; H   54    42                    10555.622013 9510.15787  9.90%  52.0    0s
+#&gt; H   54    42                    10555.622013 9510.15787  9.90%  52.0    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt;   Zero half: 29
 #&gt; 
-#&gt; Explored 55 nodes (3884 simplex iterations) in 0.73 seconds
+#&gt; Explored 55 nodes (3884 simplex iterations) in 1.06 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 8: 10555.6 10821.3 12537 ... 15601.5
@@ -774,24 +801,19 @@ conservation planning problems with integer linear programming.
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.055562201321e+04, best bound 9.510157867559e+03, gap 9.9043%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"within zone clumping (low)"</span>,
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"within zone clumping (low)"</span>,
                   <span class='st'>"within zone clumping (high)"</span>, <span class='st'>"between zone clumping"</span>,
                   <span class='st'>"within + between clumping"</span>, <span class='st'>"negative clumping"</span>),
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_boundary_penalties-2.png' alt='' width='700' height='433' /></div></pre>
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_boundary_penalties-2.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -799,8 +821,9 @@ conservation planning problems with integer linear programming.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -823,6 +846,8 @@ conservation planning problems with integer linear programming.
 </script>
 
 
+
   </body>
 </html>
+
 

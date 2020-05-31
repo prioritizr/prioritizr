@@ -17,9 +17,10 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 ## Research articles
 
 ### 2020
-* [Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, e158.](https://doi.org/10.1111/csp2.158)
-* [Hanson JO, Rhodes JR, Butchart SHM, Buchanan GM, Rondinini C, Ficetola GF, and Fuller RA (2020). Global conservation of species' niches. _Nature_, **In press**: https://doi.org/10.1038/s41586-020-2138-7.](https://doi.org/10.1038/s41586-020-2138-7)
+* [Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, **2**: e158.](https://doi.org/10.1111/csp2.158)
+* [Hanson JO, Rhodes JR, Butchart SHM, Buchanan GM, Rondinini C, Ficetola GF, and Fuller RA (2020). Global conservation of species' niches. _Nature_, **580**: 232--234.](https://doi.org/10.1038/s41586-020-2138-7)
 * [Lin H-Y, Robinson KF, and Walter L (2020) Trade-offs among road-stream crossing upgrade prioritizations based on connectivity restoration and erosion risk control. _River Research and Applications_, **36**: 371--382.](https://doi.org/10.1002/rra.3593)
+* [Schuster R, Hanson JO, Strimas-Mackey M & Bennett JR (2020) Exact integer linear programming solvers outperform simulated annealing for solving conservation planning problems. _PeerJ_, **8**: e9258.](https://doi.org/10.7717/peerj.9258)
 * [Visalli ME, Best BD, Cabral RB, Cheung WWL, Clark NA, Garilao C, Kaschner K, Kesner-Reyes K, Lam VWY, Maxwell SM, Mayorga J, Moeller HV, Morgan L, Crespo GO, Pinsky ML, White TD, and McCauley DJ (2020) Data-driven approach for highlighting priority areas for protection in marine areas beyond national jurisdiction. _Marine Policy_, **In press**: https://doi.org/10.1016/j.marpol.2020.103927.](https://doi.org/10.1016/j.marpol.2020.103927)
 
 ### 2019

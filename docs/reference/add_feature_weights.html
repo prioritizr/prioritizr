@@ -8,23 +8,36 @@
 
 <title>Add feature weights — add_feature_weights • prioritizr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -33,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -49,7 +62,6 @@ using weights. Weights can be applied to a problem to favor the
 representation of some features over other features when making decisions
 about how the budget should be allocated." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -74,9 +86,10 @@ about how the budget should be allocated." />
   gtag('config', 'UA-70466840-4');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -90,7 +103,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.2</span>
       </span>
     </div>
 
@@ -98,7 +111,7 @@ about how the budget should be allocated." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -138,14 +151,14 @@ about how the budget should be allocated." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/prioritizr/prioritizr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -156,6 +169,7 @@ about how the budget should be allocated." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -215,11 +229,13 @@ Details section for more information.</p></td>
   that the optimization process will favor cheaper solutions over solutions
   that meet feature targets (or occurrences) when feature weights are
   lower than 0.01.</strong></p>
-<p></p><dl class='dl-horizontal'>
-    <dt><code>numeric</code></dt><dd><p>containing weights for each feature. Note that this
+<p></p><dl'>
+
+  <dt><code>numeric</code></dt><dd><p>containing weights for each feature. Note that this
     type of argument cannot be used to specify weights for problems with
     multiple zones.</p></dd>
-    <dt><code>matrix</code></dt><dd><p>containing weights for each feature in each zone.
+
+  <dt><code>matrix</code></dt><dd><p>containing weights for each feature in each zone.
      Here, each row corresponds to a different feature in argument to
      <code>x</code>, each column corresponds to a different zone in argument to
      <code>x</code>, and each cell contains the weight value for a given feature
@@ -228,19 +244,22 @@ Details section for more information.</p></td>
      <code><a href='add_manual_targets.html'>add_manual_targets</a></code> then a <code>matrix</code> should be
      supplied containing a single column that indicates that weight for
      fulfilling each target.</p></dd>
-    </dl>
+
+  
+</dl>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='objectives.html'>objectives</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: ape</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>ape</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: ape</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: 'ape'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:raster':</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    rotate, zoom</span></div><div class='input'>
 <span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
      <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create minimal problem that aims to maximize the number of features</span>
@@ -253,7 +272,7 @@ Details section for more information.</p></td>
 
 <span class='co'># create weights that assign higher importance to features with less</span>
 <span class='co'># suitable habitat in the study area</span>
-(<span class='no'>w2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Log'>exp</a></span>((<span class='fl'>1</span> / <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>)) * <span class='fl'>200</span>))</div><div class='output co'>#&gt;   layer.1   layer.2   layer.3   layer.4   layer.5 
+(<span class='no'>w2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span>((<span class='fl'>1</span> / <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>)) * <span class='fl'>200</span>))</div><div class='output co'>#&gt;   layer.1   layer.2   layer.3   layer.4   layer.5 
 #&gt;  11.03585 606.63186  16.11015 108.65716  34.01731 </div><div class='input'>
 <span class='co'># create problem using rarity weights</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w2</span>)
@@ -262,9 +281,11 @@ Details section for more information.</p></td>
 <span class='co'># certain features. These weights could be based on a pre-calculated index</span>
 <span class='co'># (e.g. an index measuring extinction risk where higher values</span>
 <span class='co'># denote higher extinction risk)</span>
-<span class='no'>w3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='fl'>200</span>)
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w3</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>w3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='fl'>200</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w3</span>)
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x15e6d43f
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -304,7 +325,7 @@ Details section for more information.</p></td>
 #&gt;   StrongCG: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 8 nodes (231 simplex iterations) in 0.03 seconds
+#&gt; Explored 8 nodes (231 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2.99797 1.99799 -0 
@@ -359,7 +380,7 @@ Details section for more information.</p></td>
 #&gt;   StrongCG: 1
 #&gt;   RLT: 2
 #&gt; 
-#&gt; Explored 1 nodes (157 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (157 simplex iterations) in 0.05 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 715.287 606.63 153.708 ... -0
@@ -401,17 +422,22 @@ Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.999980621935e+02, best bound 2.999980621935e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>, <span class='st'>"manual weights"</span>),
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'>
-# plot the example phylogeny
-</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>, <span class='st'>"manual weights"</span>),
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+
+<span class='co'># plot the example phylogeny</span>
+<span class='co'># \donttest{</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x19bea6ab
@@ -451,7 +477,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -459,15 +485,16 @@ Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
 <span class='no'>targets_met4</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s4</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
                 (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))
 
 <span class='co'># plot the example phylogeny and color the represented features in red</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
-     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/replace'>replace</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                         <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/which'>which</a></span>(<span class='no'>targets_met4</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># we can see here that the third feature ("layer.3", i.e.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
+     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>targets_met4</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># we can see here that the third feature ("layer.3", i.e.</span>
 <span class='co'># sim_features[[3]]) is not represented in the solution. Let us pretend</span>
 <span class='co'># that it is absolutely critical this feature is adequately conserved</span>
 <span class='co'># in the solution. For example, this feature could represent a species</span>
@@ -476,13 +503,14 @@ Details section for more information.</p></td>
 <span class='co'># a solution that conserves the third feature whilst also aiming to</span>
 <span class='co'># maximize phylogenetic diversity, we will create a set of weights that</span>
 <span class='co'># assign a particularly high weighting to the third feature</span>
-<span class='no'>w5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
+<span class='no'>w5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>1000</span>, <span class='fl'>0</span>, <span class='fl'>0</span>)
 
 <span class='co'># we can see that this weighting (i.e. w5[3]) has a much higher value than</span>
 <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
 <span class='co'># feature be much closer to optimality</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 1.42105185 0.34712544 0.04100098 0.30612447 0.30612447 0.59604770 1.17212960
-#&gt; [8] 1.17212960</div><div class='input'><span class='co'># create problem with high weighting for the third feature and solve it</span>
+#&gt; [8] 1.17212960</div><div class='input'><span class='co'># \donttest{</span>
+<span class='co'># create problem with high weighting for the third feature and solve it</span>
 <span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x19bea6ab
@@ -522,7 +550,7 @@ Details section for more information.</p></td>
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -530,7 +558,7 @@ Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
 <span class='no'>targets_met5</span> <span class='kw'>&lt;-</span> <span class='fu'>cellStats</span>(<span class='no'>s5</span> * <span class='no'>sim_features</span>, <span class='st'>"sum"</span>) <span class='kw'>&gt;</span>
                 (<span class='fl'>0.1</span> * <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>))
@@ -540,27 +568,30 @@ Details section for more information.</p></td>
 <span class='co'># third feature. This means that, given the budget, we are faced with the</span>
 <span class='co'># trade-off of conserving either the third feature, or a phylogenetically</span>
 <span class='co'># diverse set of three different features.</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
-     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/replace'>replace</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                         <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/which'>which</a></span>(<span class='no'>targets_met5</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create multi-zone problem with maximum features objective,</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"represented features"</span>,
+     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>targets_met5</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_feature_weights-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create multi-zone problem with maximum features objective,</span>
 <span class='co'># with 10 % representation targets for each feature, and set</span>
 <span class='co'># a budget such that the total maximum expenditure in all zones</span>
 <span class='co'># cannot exceed 3000</span>
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create weights that assign equal weighting for the representation</span>
 <span class='co'># of each feature in each zone except that it does not matter if</span>
 <span class='co'># feature 1 is represented in zone 1 and it really important</span>
 <span class='co'># that feature 3 is really in zone 1</span>
-<span class='no'>w7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+<span class='no'>w7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)
 <span class='no'>w7</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='no'>w7</span>[<span class='fl'>3</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>100</span>
 
 <span class='co'># create problem with weights</span>
-<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)</div><div class='input'><span class='co'># solve problems</span>
+<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
 <span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0xe9518199
@@ -571,7 +602,7 @@ Details section for more information.</p></td>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
@@ -611,7 +642,7 @@ Details section for more information.</p></td>
 #&gt;   GUB cover: 1
 #&gt;   RLT: 6
 #&gt; 
-#&gt; Explored 124 nodes (1709 simplex iterations) in 0.16 seconds
+#&gt; Explored 124 nodes (1709 simplex iterations) in 0.43 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
@@ -628,7 +659,7 @@ Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
 #&gt; Variable types: 0 continuous, 284 integer (284 binary)
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
@@ -650,16 +681,19 @@ Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.029996464541e+02, best bound 1.058784434632e+02, gap 2.7950%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>)),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem to show the correct method for setting</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>)),
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create minimal problem to show the correct method for setting</span>
 <span class='co'># weights for problems with manual targets</span>
 <span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='kw'>budget</span> <span class='kw'>=</span> <span class='fl'>1500</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"layer.1"</span>, <span class='st'>"layer.4"</span>),
+      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"layer.1"</span>, <span class='st'>"layer.4"</span>),
                                     <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
                                     <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_feature_weights</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>200</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'>add_feature_weights</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>200</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
 #&gt; Model fingerprint: 0x2bbe4267
@@ -683,20 +717,16 @@ Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s8</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-8.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s8</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-8.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -704,8 +734,9 @@ Details section for more information.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -728,6 +759,8 @@ Details section for more information.</p></td>
 </script>
 
 
+
   </body>
 </html>
+
 

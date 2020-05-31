@@ -8,23 +8,36 @@
 
 <title>Add manual targets — add_manual_targets • prioritizr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -33,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -51,7 +64,6 @@ pertain to the allocations of planning units in multiple zones, and (iii)
 set targets that require different senses (e.g. targets which specify the
 solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -76,9 +88,10 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
   gtag('config', 'UA-70466840-4');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -92,7 +105,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.2</span>
       </span>
     </div>
 
@@ -100,7 +113,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -140,14 +153,14 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/prioritizr/prioritizr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -158,6 +171,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -217,38 +231,48 @@ the Details section for more information.</p></td>
   problems with objectives that require targets without specifying targets
   will throw an error.</p>
 <p>The <code>targets</code> argument should contain the following fields (columns):</p>
-<p></p><dl class='dl-horizontal'>
-    <dt><code>"feature"</code></dt><dd><p><code>character</code> name of features in argument
+<p></p><dl'>
+
+  <dt><code>"feature"</code></dt><dd><p><code>character</code> name of features in argument
     to <code>x</code>.</p></dd>
-    <dt><code>"zone"</code></dt><dd><p><code>character</code> name of zones in argument to
+
+  <dt><code>"zone"</code></dt><dd><p><code>character</code> name of zones in argument to
     <code>x</code>. This field (column) is optional for arguments to <code>x</code>
     that do not contain multiple zones.</p></dd>
-    <dt><code>"type"</code></dt><dd><p><code>character</code> describing the type of target.
+
+  <dt><code>"type"</code></dt><dd><p><code>character</code> describing the type of target.
     Acceptable values include <code>"absolute"</code> and <code>"relative"</code>.
     These values correspond to <code><a href='add_absolute_targets.html'>add_absolute_targets</a></code>,
     and <code><a href='add_relative_targets.html'>add_relative_targets</a></code> respectively.</p></dd>
-    <dt><code>"sense"</code></dt><dd><p><code>character</code> sense of the target. Acceptable
+
+  <dt><code>"sense"</code></dt><dd><p><code>character</code> sense of the target. Acceptable
     values include: <code>"&gt;="</code>, <code>"&lt;="</code>, and <code>"="</code>. This field
     (column) is optional and if it is missing then target senses will
     default to <code>"&gt;="</code> values.</p></dd>
-    <dt><code>"target"</code></dt><dd><p><code>numeric</code> target threshold.</p></dd>
-    </dl>
+
+  <dt><code>"target"</code></dt><dd><p><code>numeric</code> target threshold.</p></dd>
+
+  
+</dl>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='targets.html'>targets</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>500</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>500</span>)
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create problem with 10 % relative targets</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x6442bf6e
@@ -281,13 +305,16 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create equivalent problem using add_manual_targets</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='input'><span class='co'># }</span>
+<span class='co'># create equivalent problem using add_manual_targets</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
+      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>),
                                     <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>, <span class='kw'>sense</span> <span class='kw'>=</span> <span class='st'>"&gt;="</span>,
                                     <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x6442bf6e
@@ -320,13 +347,16 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem with targets set for only a few features</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create problem with targets set for only a few features</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-        <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>)[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
+      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+        <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>)[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
         <span class='kw'>sense</span> <span class='kw'>=</span> <span class='st'>"&gt;="</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 3 rows, 90 columns and 270 nonzeros
 #&gt; Model fingerprint: 0x2927b007
@@ -359,16 +389,19 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.979983477518e+03, best bound 1.890261766558e+03, gap 4.5314%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s3</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create problem that aims to secure at least 10 % of the habitat for one</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s3</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create problem that aims to secure at least 10 % of the habitat for one</span>
 <span class='co'># feature whilst ensuring that the solution does not capture more than</span>
 <span class='co'># 20 units habitat for different feature</span>
 <span class='co'># create problem with targets set for only a few features</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-        <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
-        <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&lt;="</span>), <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.2</span>))) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'>add_manual_targets</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(
+        <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>)[<span class='fl'>1</span>:<span class='fl'>2</span>], <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"relative"</span>,
+        <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&lt;="</span>), <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.2</span>))) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 2 rows, 90 columns and 180 nonzeros
 #&gt; Model fingerprint: 0x2af48887
@@ -401,14 +434,17 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.944643309632e+03, best bound 1.792848946888e+03, gap 7.8058%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a multi-zone problem that requires a specific amount of each</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create a multi-zone problem that requires a specific amount of each</span>
 <span class='co'># feature in each zone</span>
-<span class='no'>targets_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Poisson'>rpois</a></span>(<span class='fl'>15</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>targets_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>15</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='no'>targets_matrix</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xa65df5d2
@@ -442,16 +478,19 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s5</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create equivalent problem using add_manual_targets</span>
-<span class='no'>targets_dataframe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/expand.grid'>expand.grid</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s5</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create equivalent problem using add_manual_targets</span>
+<span class='no'>targets_dataframe</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
                                  <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>),
                                  <span class='kw'>sense</span> <span class='kw'>=</span> <span class='st'>"&gt;="</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"absolute"</span>)
-<span class='no'>targets_dataframe</span>$<span class='no'>target</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='no'>targets_matrix</span>)
+<span class='no'>targets_dataframe</span>$<span class='no'>target</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>targets_matrix</span>)
 
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'>add_manual_targets</span>(<span class='no'>targets_dataframe</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xa65df5d2
@@ -485,7 +524,9 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem that requires a total of 20 units of habitat to be</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s6</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='co'># }</span>
+<span class='co'># create a problem that requires a total of 20 units of habitat to be</span>
 <span class='co'># captured for two species. This can be achieved through representing</span>
 <span class='co'># habitat in two zones. The first zone represents a full restoration of the</span>
 <span class='co'># habitat and a second zone represents a partial restoration of the habitat</span>
@@ -494,23 +535,25 @@ the Details section for more information.</p></td>
 <span class='co'># restoration</span>
 
 <span class='co'># create data</span>
-<span class='no'>spp_zone1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>as.list</a></span>(<span class='no'>sim_features_zones</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]<span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]
+<span class='no'>spp_zone1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>sim_features_zones</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]<span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]
 <span class='no'>spp_zone2</span> <span class='kw'>&lt;-</span> <span class='no'>spp_zone1</span> * <span class='fl'>0.5</span>
 <span class='no'>costs</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]
 
 <span class='co'># create targets</span>
 <span class='no'>targets_dataframe2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>spp_zone1</span>), <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>)),
-  <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&gt;="</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"absolute"</span>, <span class='st'>"absolute"</span>),
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>))
+  <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>spp_zone1</span>), <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>)),
+  <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&gt;="</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"absolute"</span>, <span class='st'>"absolute"</span>),
+  <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>))
 
 <span class='co'># create problem</span>
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>costs</span>, <span class='fu'><a href='zones.html'>zones</a></span>(<span class='no'>spp_zone1</span>, <span class='no'>spp_zone2</span>,
-                           <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>spp_zone1</span>),
-                           <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>))) <span class='kw'>%&gt;%</span>
+                           <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>spp_zone1</span>),
+                           <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>))) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'>add_manual_targets</span>(<span class='no'>targets_dataframe2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div><div class='input'><span class='co'># solve problem</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problem</span>
 <span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 92 rows, 180 columns and 540 nonzeros
 #&gt; Model fingerprint: 0xc5634b61
@@ -545,20 +588,16 @@ the Details section for more information.</p></td>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.252396844383e+04, best bound 1.238651459270e+04, gap 1.0975%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-7.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s7</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_manual_targets-5.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -566,8 +605,9 @@ the Details section for more information.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -590,6 +630,8 @@ the Details section for more information.</p></td>
 </script>
 
 
+
   </body>
 </html>
+
 

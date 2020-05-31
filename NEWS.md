@@ -1,6 +1,13 @@
+# prioritizr 5.0.1.2
+
+- Add Schuster _et al._ (2020) to publication record.
+- Update Hanson _et al._ (2020) in publication record.
+- Update Flower _et al._ (2020) in publication record.
+
 # prioritizr 5.0.1.1
 
-- Gurobi solver presolve value range extended to allow for values between -1 and 2.
+- Update `add_gurobi_solver` function to provide more options for controlling
+  the pre-solve step when solving a problem.
 
 # prioritizr 5.0.1 (released)
 

@@ -6,15 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gurobi Installation Guide • prioritizr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><!-- docsearch --><script src="../docsearch.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous">
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script><meta property="og:title" content="Gurobi Installation Guide">
-<meta property="og:description" content="">
+<meta property="og:description" content="prioritizr">
 <meta property="og:image" content="https://prioritizr.net/logo.png">
-<meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -26,7 +33,7 @@
   gtag('config', 'UA-70466840-4');
 </script>
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -39,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.2</span>
       </span>
     </div>
 
@@ -47,7 +54,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -87,13 +94,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/prioritizr/prioritizr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
-<form class="navbar-form navbar-right" role="search">
+<form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
 </div>
@@ -107,13 +114,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Gurobi Installation Guide</h1>
+      <h1 data-toc-skip>Gurobi Installation Guide</h1>
                         <h4 class="author">Richard Schuster</h4>
             
-            <h4 class="date">2020-05-13</h4>
+            <h4 class="date">2020-05-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/prioritizr/prioritizr/blob/master/vignettes/gurobi_installation.Rmd"><code>vignettes/gurobi_installation.Rmd</code></a></small>
       <div class="hidden name"><code>gurobi_installation.Rmd</code></div>
@@ -201,29 +209,29 @@
 <h2 class="hasAnchor">
 <a href="#r-package-installation" class="anchor"></a><em>R</em> package installation</h2>
 <p>Now we will install the <em>gurobi R</em> package distributed with the <em>Gurobi</em> software suite. The <em>gurobi</em> <em>R</em> package installation file should be located within the folder where you installed the <em>Gurobi</em> software suite. Assuming you installed <em>Gurobi</em> in the default location and assuming you installed version 8.0.0, Windows users can install <em>gurobi</em> <em>R</em> package by running the following code from within <em>R</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"c:/gurobi800/win64/R/gurobi_8.0-0.zip"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="kw">NULL</span>)</pre></body></html></div>
 <p>Additionally, Linux users can install the <em>gurobi</em> <em>R</em> package by running the following code from within R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/file.path">file.path</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Sys.getenv">Sys.getenv</a></span>(<span class="st">"GUROBI_HOME"</span>),
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GUROBI_HOME"</span>),
                            <span class="st">"R/gurobi_8.0-0_R_x86_64-pc-linux-gnu.tar.gz"</span>),
-                 <span class="dt">repos =</span> <span class="ot">NULL</span>)</code></pre></div>
+                 <span class="kw">repos</span> <span class="kw">=</span> <span class="kw">NULL</span>)</pre></body></html></div>
 <p>Next, you will need to install the <em>slam R</em> package because the <em>gurobi</em> <em>R</em> package needs this package to work. Both Windows and Linux users can do this by running the code below in <em>R</em>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"slam"</span>, <span class="dt">repos =</span> <span class="st">"https://cloud.r-project.org"</span>)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"slam"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="st">"https://cloud.r-project.org"</span>)</pre></body></html></div>
 <p>Let’s check that the <em>gurobi</em> <em>R</em> package has been successfully installed. To do this, we can try using the <em>gurobi R</em> package to solve an optimization problem. Copy and paste the <em>R</em> code below into <em>R</em>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load gurobi package</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(gurobi)</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># load gurobi package</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gurobi</span>)</pre></body></html></div>
 <pre><code>## Loading required package: slam</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create optimization problem</span>
-model &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>()
-model<span class="op">$</span>obj        &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)
-model<span class="op">$</span>modelsense &lt;-<span class="st"> "max"</span>
-model<span class="op">$</span>rhs        &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>, <span class="dv">1</span>)
-model<span class="op">$</span>sense      &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"&lt;"</span>, <span class="st">"&gt;"</span>)
-model<span class="op">$</span>vtype      &lt;-<span class="st"> "B"</span>
-model<span class="op">$</span>A          &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">ncol =</span> <span class="dv">3</span>,
-                           <span class="dt">byrow =</span> <span class="ot">TRUE</span>)
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># create optimization problem</span>
+<span class="no">model</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>()
+<span class="no">model</span>$<span class="no">obj</span>        <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>)
+<span class="no">model</span>$<span class="no">modelsense</span> <span class="kw">&lt;-</span> <span class="st">"max"</span>
+<span class="no">model</span>$<span class="no">rhs</span>        <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">4</span>, <span class="fl">1</span>)
+<span class="no">model</span>$<span class="no">sense</span>      <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"&lt;"</span>, <span class="st">"&gt;"</span>)
+<span class="no">model</span>$<span class="no">vtype</span>      <span class="kw">&lt;-</span> <span class="st">"B"</span>
+<span class="no">model</span>$<span class="no">A</span>          <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">0</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">3</span>,
+                           <span class="kw">byrow</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="co"># solve the optimization problem using Gurobi</span>
-result &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/gurobi/topics/gurobi">gurobi</a></span>(model, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>())</code></pre></div>
+<span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/gurobi/man/gurobi.html">gurobi</a></span>(<span class="no">model</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>())</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 ## Optimize a model with 2 rows, 3 columns and 5 nonzeros
 ## Model fingerprint: 0x15e5f516
@@ -245,10 +253,10 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 ## 
 ## Optimal solution found (tolerance 1.00e-04)
 ## Best objective 3.000000000000e+00, best bound 3.000000000000e+00, gap 0.0000%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># print the solution</span>
-<span class="kw"><a href="../reference/print.html">print</a></span>(result<span class="op">$</span>objval) <span class="co"># objective</span></code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># print the solution</span>
+<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">result</span>$<span class="no">objval</span>) <span class="co"># objective</span></pre></body></html></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/print.html">print</a></span>(result<span class="op">$</span>x)      <span class="co"># decision variables</span></code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">result</span>$<span class="no">x</span>)      <span class="co"># decision variables</span></pre></body></html></div>
 <pre><code>## [1] 1 0 1</code></pre>
 <p>If you see the outputs for <code>result$objval</code> and <code>result$x</code> and you don’t see any error messages, then you have (1) successfully installed the <em>Gurobi</em> software suite, (2) activated a valid license, and (3) successfully installed the <em>gurobi R</em> package. Now you can finally use <em>Gurobi</em> to solve conservation planning problems with <em>prioritizr</em>. If do see an error message, then you might have missed a step while installing the package or activating the license, so try going back through this vignette to see if you missed something.</p>
 </div>
@@ -258,16 +266,16 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 </h2>
 <p>If you successfully installed the <em>Gurobi</em> software suite and the <em>gurobi</em> <em>R</em> package, you can now try solving conservation planning problems using the <em>prioritzr</em> <em>R</em> package. Although the <em>prioritizr</em> <em>R</em> package should automatically detect that <em>Gurobi</em> has been installed, you can use the function <code>add_gurobi_solver</code> to manually specify that <em>Gurobi</em> should be used to solve problems. This function is also useful because you can use it to customize the optimization process (e.g. specify the desired optimality gap or set a limit on how much time should be spent searching for a solution).</p>
 <p>Finally, to check that everything has been installed correctly, we will use the <em>Gurobi</em> software suite to solve a reserve selection problem created using the <em>prioritzr</em> <em>R</em> package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(prioritizr)
+<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizr</span>)
 
 <span class="co"># formulate the problem</span>
-p &lt;-<span class="st"> </span><span class="kw"><a href="../reference/problem.html">problem</a></span>(sim_pu_raster, sim_features) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="op">%&gt;%</span>
-<span class="st">     </span><span class="kw"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
+<span class="no">p</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">sim_pu_raster</span>, <span class="no">sim_features</span>) <span class="kw">%&gt;%</span>
+     <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
+     <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.1</span>) <span class="kw">%&gt;%</span>
+     <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>()
 
 <span class="co"># solve the problem</span>
-s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.html">solve</a></span>(p)</code></pre></div>
+<span class="no">s</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -299,32 +307,22 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.htm
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/plot">plot</a></span>(s, <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="dt">main =</span> <span class="st">"Solution"</span>,
-     <span class="dt">xlim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="dt">ylim =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">1.1</span>))</code></pre></div>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">s</span>, <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"grey90"</span>, <span class="st">"darkgreen"</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"Solution"</span>,
+     <span class="kw">xlim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.1</span>, <span class="fl">1.1</span>), <span class="kw">ylim</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(-<span class="fl">0.1</span>, <span class="fl">1.1</span>))</pre></body></html></div>
 <p><img src="gurobi_installation_files/figure-html/unnamed-chunk-13-1.png" width="336" style="display: block; margin: auto;"></p>
 <p>After running this code, hopefully, you should some information printed on-screen about the optimization process and <em>R</em> should produce a map displaying a solution. If this code does not produce any errors, then you have successfully installed everything and can begin using <em>Gurobi</em> and the <em>prioritizr R</em> package to solve your very own conservation planning problems.</p>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li><a href="#obtaining-a-license">Obtaining a license</a></li>
-      <li><a href="#downloading-the-gurobi-software-suite">Downloading the <em>Gurobi</em> software suite</a></li>
-      <li><a href="#software-installation">Software installation</a></li>
-      <li><a href="#license-activation">License activation</a></li>
-      <li><a href="#r-package-installation"><em>R</em> package installation</a></li>
-      <li><a href="#solving-a-prioritzr-problem-with-gurobi">Solving a <em>prioritzr</em> problem with <em>Gurobi</em></a></li>
-      </ul>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
@@ -332,8 +330,9 @@ s &lt;-<span class="st"> </span><span class="kw"><a href="../reference/solve.htm
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
 </div>
 

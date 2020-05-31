@@ -8,23 +8,36 @@
 
 <title>Add contiguity constraints — add_contiguity_constraints • prioritizr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -33,7 +46,7 @@
 
 <!-- docsearch -->
 <script src="../docsearch.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.1/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/docsearch.js/2.6.3/docsearch.min.css" integrity="sha256-QOSRU/ra9ActyXkIBbiIB144aDBdtvXBcNc3OTNuX/Q=" crossorigin="anonymous" />
 <link href="../docsearch.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
 
@@ -44,7 +57,6 @@
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -69,9 +81,10 @@ and form a single contiguous unit." />
   gtag('config', 'UA-70466840-4');
 </script>
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -85,7 +98,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.2</span>
       </span>
     </div>
 
@@ -93,7 +106,7 @@ and form a single contiguous unit." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -133,14 +146,14 @@ and form a single contiguous unit." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/prioritizr/prioritizr">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/prioritizr/prioritizr/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
       </ul>
       
-      <form class="navbar-form navbar-right" role="search">
+      <form class="navbar-form navbar-right hidden-xs hidden-sm" role="search">
         <div class="form-group">
           <input type="search" class="form-control" name="search-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off">
         </div>
@@ -151,6 +164,7 @@ and form a single contiguous unit." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -224,20 +238,23 @@ information.</p></td>
   <code>add_connected_constraints</code> function. It was inspired by the
   mathematical formulations detailed in \"Onal and Briers (2006).</p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
-<p></p><dl class='dl-horizontal'>
-    <dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
+<p></p><dl'>
+
+  <dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
     using the <code><a href='adjacency_matrix.html'>adjacency_matrix</a></code> function. This is the default
     argument. Note that the connection data must be manually defined
     using one of the other formats below when the planning unit data
     in the argument to <code>x</code> is not spatially referenced (e.g.
     in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
-    <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+
+  <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
     different planning units and the value of each cell indicates if the
     two planning units are connected or not. Cell values should be binary
     <code>numeric</code> values (i.e. one or zero). Cells that occur along the
     matrix diagonal have no effect on the solution at all because each
     planning unit cannot be a connected with itself.</p></dd>
-    <dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
+
+  <dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
     <code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
     denotes the connectivity between two planning units following the
     <em>Marxan</em> format. The field <code>boundary</code> should contain
@@ -249,7 +266,10 @@ information.</p></td>
     also included (e.g. if data is present for planning units 2 and 3, then
     the same amount of connectivity is expected for planning units 3 and 2,
     unless connectivity data is also provided for planning units 3 and 2).</p></dd>
-    </dl>
+
+  
+</dl>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>\"Onal H and Briers RA (2006) Optimal selection of a connected
@@ -260,7 +280,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
 
 <span class='co'># create minimal problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
@@ -269,8 +289,10 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with added connected constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -294,7 +316,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
 #&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3988.81 4544.49 
@@ -339,7 +361,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.16 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -347,18 +369,19 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.285217694549e+03, best bound 3.985133414355e+03, gap 7.0028%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
 <span class='co'># 30 seconds to obtain solutions in a feasible period of time</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.2</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>30</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># create problem with added constraints to ensure that the planning units</span>
 <span class='co'># allocated to each zone form a separate contiguous unit</span>
-<span class='no'>z4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>z4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z4</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
@@ -368,7 +391,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># units allocated to each zone form a separate contiguous unit,</span>
 <span class='co'># except for planning units allocated to zone 2 which do not need</span>
 <span class='co'># form a single contiguous unit</span>
-<span class='no'>z5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>z5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
 <span class='no'>z5</span>[<span class='fl'>3</span>, <span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z5</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
@@ -377,14 +400,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 
 <span class='co'># create problem with added constraints that ensure that the planning</span>
 <span class='co'># units allocated to zones 1 and 2 form a contiguous unit</span>
-<span class='no'>z6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/diag'>diag</a></span>(<span class='fl'>3</span>)
+<span class='no'>z6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
 <span class='no'>z6</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='no'>z6</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
-#&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z6</span>)</div><div class='input'><span class='co'># solve problems</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z6</span>)
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x168289c2
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -424,7 +449,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.03s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
@@ -456,23 +481,25 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
 #&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    1s
 #&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    1s
-#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    3s
-#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    3s
-#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    4s
-#&gt;    889   350 12122.5396   27  246 14084.9863 12109.8197  14.0%  77.6    5s
-#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    6s
-#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    6s
-#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5    7s
-#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4    7s
-#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0    7s
-#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6    7s
-#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6    7s
-#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5    7s
-#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7    8s
-#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2    8s
-#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1    8s
-#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8    8s
-#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   10s
+#&gt;    531   305 12109.8197   17  306 14248.7319 12109.8197  15.0%  68.7    5s
+#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    5s
+#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    7s
+#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    8s
+#&gt;   1005   377 13573.0839   45   78 14084.9863 12110.6643  14.0%  77.5   10s
+#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1   12s
+#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0   12s
+#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5   12s
+#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4   13s
+#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0   13s
+#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6   13s
+#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6   13s
+#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5   13s
+#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7   14s
+#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2   14s
+#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   14s
+#&gt;   1463   502 12155.3923   25  277 13732.0403 12113.8154  11.8%  73.6   15s
+#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   15s
+#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   18s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 7
@@ -480,7 +507,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 10
 #&gt;   Zero half: 22
 #&gt; 
-#&gt; Explored 1979 nodes (146817 simplex iterations) in 10.00 seconds
+#&gt; Explored 1979 nodes (146817 simplex iterations) in 18.26 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
@@ -497,7 +524,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; Variable types: 0 continuous, 518 integer (518 binary)
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
@@ -526,7 +553,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 3
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 86 nodes (3062 simplex iterations) in 0.29 seconds
+#&gt; Explored 86 nodes (3062 simplex iterations) in 0.37 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 13139.1 14094.9 14104.6 
@@ -543,14 +570,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.08s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
 #&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 875 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207105e+04, 875 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -570,7 +597,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H   60    47                    13531.146254 12087.0595  10.7%  29.3    0s
 #&gt; H   60    47                    13514.979731 12087.0595  10.6%  29.3    0s
 #&gt; H   87    65                    13512.830309 12087.2931  10.5%  42.3    0s
-#&gt; H  141    76                    13295.350187 12088.0827  9.08%  72.9    0s
+#&gt; H  141    76                    13295.350187 12088.0827  9.08%  72.9    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 7
@@ -578,18 +605,19 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 142 nodes (12037 simplex iterations) in 0.95 seconds
+#&gt; Explored 142 nodes (12037 simplex iterations) in 1.23 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.329535018732e+04, best bound 1.208808271922e+04, gap 9.0804%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/stack'>stack</a></span>(<span class='no'>s2</span>)
+#&gt; Best objective 1.329535018732e+04, best bound 1.208808271922e+04, gap 9.0804%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>s2</span>)
 
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"p4"</span>, <span class='st'>"p5"</span>, <span class='st'>"p6"</span>))</div><div class='img'><img src='add_contiguity_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># create a problem that has a main "reserve zone" and a secondary</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"p4"</span>, <span class='st'>"p5"</span>, <span class='st'>"p6"</span>))</div><div class='img'><img src='add_contiguity_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create a problem that has a main "reserve zone" and a secondary</span>
 <span class='co'># "corridor zone" to connect up import areas. Here, each feature has a</span>
 <span class='co'># target of 30 % of its distribution. If a planning unit is allocated to the</span>
 <span class='co'># "reserve zone", then the prioritization accrues 100 % of the amount of</span>
@@ -603,7 +631,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># link up the planning units allocated to the "reserve zone"</span>
 
 <span class='co'># create planning unit data</span>
-<span class='no'>pus</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>)]]
+<span class='no'>pus</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>)]]
 <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] <span class='kw'>&lt;-</span> <span class='no'>pus</span><span class='kw'>[[</span><span class='fl'>2</span>]] * <span class='fl'>0.45</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>pus</span>)</div><div class='output co'>#&gt; class      : RasterStack 
 #&gt; dimensions : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
@@ -616,27 +644,27 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; </div><div class='input'>
 <span class='co'># create biodiversity data</span>
 <span class='no'>fts</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='zones.html'>zones</a></span>(<span class='no'>sim_features</span>, <span class='no'>sim_features</span> * <span class='fl'>0.4</span>,
-             <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
-             <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"reserve zone"</span>, <span class='st'>"corridor zone"</span>))
+             <span class='kw'>feature_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>),
+             <span class='kw'>zone_names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"reserve zone"</span>, <span class='st'>"corridor zone"</span>))
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>fts</span>)</div><div class='output co'>#&gt; <span class='message'>Zones</span>
 #&gt; <span class='message'>  zones: reserve zone, corridor zone (2 zones)</span>
 #&gt; <span class='message'>  features: layer.1, layer.2, layer.3, ... (5 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
 <span class='co'># create targets</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>sim_features</span>),
-                          <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>),
+                          <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
                           <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.2</span>,
-                          <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 4</span><span>
+                          <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 4</span><span>
 #&gt;   feature zone      target type    
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  16.7  absolute
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   6.24 absolute
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  14.4  absolute
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>   8.53 absolute
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 </span><span style='color: #949494;'>&lt;chr [2]&gt;</span><span>  11.3  absolute</div><div class='input'>
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>1</span><span> layer.1 </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>  16.7  absolute
+#&gt; </span><span style='color: #555555;'>2</span><span> layer.2 </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>   6.24 absolute
+#&gt; </span><span style='color: #555555;'>3</span><span> layer.3 </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>  14.4  absolute
+#&gt; </span><span style='color: #555555;'>4</span><span> layer.4 </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>   8.53 absolute
+#&gt; </span><span style='color: #555555;'>5</span><span> layer.5 </span><span style='color: #555555;'>&lt;chr [2]&gt;</span><span>  11.3  absolute</div><div class='input'>
 <span class='co'># create zones matrix</span>
-<span class='no'>z7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='no'>z7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z7</span>)</div><div class='output co'>#&gt;      [,1] [,2]
 #&gt; [1,]    1    1
 #&gt; [2,]    1    1</div><div class='input'>
@@ -645,7 +673,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_contiguity_constraints</span>(<span class='no'>z7</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()</div></span><div class='input'><span class='co'># solve problems</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='co'># \donttest{</span>
+<span class='co'># solve problems</span>
 <span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
 #&gt; Model fingerprint: 0xf807d970
@@ -656,14 +686,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.10s
 #&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
 #&gt; Variable types: 0 continuous, 575 integer (575 binary)
 #&gt; Presolve removed 128 rows and 0 columns
 #&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -671,7 +701,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
 #&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.12 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4021.31 
@@ -679,21 +709,16 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.021309540762e+03, best bound 3.896591139934e+03, gap 3.1014%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>s7</span>, <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s7</span>, <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_contiguity_constraints-3.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -701,8 +726,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
+
       </footer>
    </div>
 
@@ -725,6 +751,8 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 </script>
 
 
+
   </body>
 </html>
+
 
