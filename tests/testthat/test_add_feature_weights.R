@@ -361,3 +361,25 @@ test_that("invalid inputs (multiple zones)", {
     add_max_cover_objective(budget = c(1, Inf, 9))
   })
 })
+
+test_that("throw warning with minimum set objective", {
+  # generate optimization problem
+  data(sim_pu_raster, sim_features)
+  p1 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions()
+  p2 <- p1 %>% add_feature_weights(runif(raster::nlayers(sim_features)))
+  # tests
+  o1 <- compile(p1)
+  expect_warning({o2 <- compile(p2)})
+  expect_equal(o1$modelsense(), o2$modelsense())
+  expect_equal(o1$obj(), o2$obj())
+  expect_equal(o1$sense(), o2$sense())
+  expect_equal(o1$rhs(), o2$rhs())
+  expect_equal(o1$col_ids(), o2$col_ids())
+  expect_equal(o1$row_ids(), o2$row_ids())
+  expect_equal(o1$A(), o2$A())
+  expect_equal(o1$lb(), o2$lb())
+  expect_equal(o1$ub(), o2$ub())
+})

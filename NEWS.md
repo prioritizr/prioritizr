@@ -1,3 +1,8 @@
+# prioritizr 5.0.1.3
+
+- Update `compile` to throw warning when compiling problems that include
+  feature weights and an objective function that does not use feature weights.
+
 # prioritizr 5.0.1.2
 
 - Add Schuster _et al._ (2020) to publication record.
