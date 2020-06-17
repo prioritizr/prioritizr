@@ -360,6 +360,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_linear_penalties
+bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty, arma::sp_mat data);
+RcppExport SEXP _prioritizr_rcpp_apply_linear_penalties(SEXP xSEXP, SEXP penaltySEXP, SEXP dataSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type penalty(penaltySEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type data(dataSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_linear_penalties(x, penalty, data));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_locked_constraints
 bool rcpp_apply_locked_constraints(SEXP x, Rcpp::IntegerVector pu, Rcpp::IntegerVector zone, Rcpp::NumericVector status);
 RcppExport SEXP _prioritizr_rcpp_apply_locked_constraints(SEXP xSEXP, SEXP puSEXP, SEXP zoneSEXP, SEXP statusSEXP) {

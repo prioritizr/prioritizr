@@ -1,3 +1,14 @@
+# prioritizr 5.0.1.4
+
+- New `add_linear_penalties` to add penalties that penalize planning units
+  according to a linear metric.
+- New `add_feature_connectivity_penalties` to add penalties that favor
+  solutions which represent features in adjacent planning units with high
+  connectivity. Unlike the `add_connectivity_penalties` function, this
+  new function can be used to specify different connectivity values for
+  different features (e.g. to accommodate different habitat preferences for
+  different species).
+
 # prioritizr 5.0.1.3
 
 - Update `compile` to throw warning when compiling problems that include

@@ -122,6 +122,7 @@ Collate:
     'add_feature_weights.R'
     'add_gap_portfolio.R'
     'add_gurobi_solver.R'
+    'add_linear_penalties.R'
     'intersecting_units.R'
     'add_locked_in_constraints.R'
     'add_locked_out_constraints.R'
