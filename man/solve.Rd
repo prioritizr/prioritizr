@@ -37,20 +37,41 @@ A \code{numeric}, \code{matrix},
   \code{"runtime"} denoting the number of seconds that elapsed while solving
   the problem, and \code{"status"} describing the status of the solution
   (e.g. \code{"OPTIMAL"} indicates that the optimal solution was found).
+  In most cases, the first solution (e.g. \code{"solution_001"}))
+  will contain the best solution found by the solver (note that this
+  may not be an optimal solution depending on the gap used to solve
+  the problem and noting that the default gap is 0.1).
 }
 \description{
 Solve a conservation planning \code{\link{problem}}.
 }
 \details{
-The object returned from this function depends on the argument to
+After formulating a conservation planning \code{\link{problem}},
+  it can be solved using an exact algorithm solver (see \code{\link{solvers}}
+  for available solvers). If no solver has been explicitly specified,
+  then the best available exact algorithm solver will be used by default
+  (see \code{\link{add_default_solver}}. Although these exact algorithm
+  solvers will often display a lot of information that isn't really that
+  helpful (e.g. nodes, cutting planes), they do display information
+  about the progress they are making on solving the problem (e.g. the
+  performance of the best solution found at a given point in time). If
+  potential issues were detected during the
+  presolve checks (see \code{\link{presolve_check}})
+  and the problem is being forcibly solved (i.e. with \code{force = TRUE}),
+  then it is also worth checking for any warnings displayed by the solver
+  to see if these potential issues are actually causing issues
+  (e.g. \emph{Gurobi} can display warnings that include
+  \code{"Warning: Model contains large matrix coefficient range"} and
+  \code{"Warning: Model contains large rhs"}).
+
+  The object returned from this function depends on the argument to
   \code{a}. If the argument to \code{a} is an
   \code{\link{OptimizationProblem-class}} object, then the
   solution is returned as a \code{logical} \code{vector} showing the status
-  of each planning unit in each zone. On the other hand, if the argument
-  to \code{a} is an \code{\link{ConservationProblem-class}} object,
-  then the type of object returned depends on the number of solutions
-  generated and the type data used to represent planning unit costs in the
-  argument to \code{a}.
+  of each planning unit in each zone. However, in most cases, the argument
+  to \code{a} is an \code{\link{ConservationProblem-class}} object, and so
+  the type of object returned depends on the number of solutions
+  generated and the type data used to represent the planning units:
 
   \describe{
 
@@ -74,7 +95,7 @@ The object returned from this function depends on the argument to
     If multiple solutions are generated, then the solution is returned as
     a \code{list} of \code{Raster} objects.}
 
-  \item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or 
+  \item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
     \code{data.frame}}{
     containing the solution in fields (columns). Here, each row
     corresponds to a different planning unit. If the argument to \code{x}
@@ -87,10 +108,9 @@ The object returned from this function depends on the argument to
 
   }
 
-  Since this function returns an object that specifies how much of each
-  planning unit is allocated to each management zone, it may be useful to use
-  the \code{\link{category_layer}} function to reformat the output
-  for problems containing multiple zones.
+  After solving problems that contain multiple zones,
+  it may be useful to use the \code{\link{category_layer}} or
+  \code{\link{category_vector}} function to reformat the output.
 }
 \examples{
 # set seed for reproducibility

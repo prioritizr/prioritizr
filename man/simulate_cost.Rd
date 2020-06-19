@@ -14,7 +14,8 @@ simulate_cost(
 )
 }
 \arguments{
-\item{x}{\code{\link[raster]{RasterLayer-class}} object to use as}
+\item{x}{\code{\link[raster]{RasterLayer-class}} object to use as
+a template.}
 
 \item{n}{\code{integer} number of species to simulate.}
 

@@ -2,12 +2,11 @@
 
 - New `add_linear_penalties` to add penalties that penalize planning units
   according to a linear metric.
-- New `add_feature_connectivity_penalties` to add penalties that favor
-  solutions which represent features in adjacent planning units with high
-  connectivity. Unlike the `add_connectivity_penalties` function, this
-  new function can be used to specify different connectivity values for
-  different features (e.g. to accommodate different habitat preferences for
-  different species).
+- Update `connectivity_matrix` documentation to provide an example of how
+  to generate connectivity matrices that account for functional connectivity.
+- Add more information to the documentation for the `solve` function.
+- Add links to the documentation for the  `solve` function to the Salt Spring
+  Island and Tasmania vignettes.
 
 # prioritizr 5.0.1.3
 

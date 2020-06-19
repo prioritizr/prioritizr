@@ -9,7 +9,7 @@ bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty,
   std::size_t curr_i;
   std::size_t curr_j;
   std::size_t curr_col;
-  std::size_t curr_value;
+  double curr_value;
 
   // rescale penalty, thus
   // if the objective is to maximize benefit:
@@ -33,9 +33,9 @@ bool rcpp_apply_linear_penalties(SEXP x, Rcpp::NumericVector penalty,
     // get row and column indices for cell
     curr_i = it.row();
     curr_j = it.col();
-    curr_value = (*it) * penalty[curr_i];
+    curr_value = (*it) * penalty[curr_j];
     if (std::abs(curr_value) > 1.0e-15) {
-      curr_col = (curr_i * ptr->_number_of_planning_units) + curr_j;
+      curr_col = (curr_j * ptr->_number_of_planning_units) + curr_i;
       pu_zone_penalties[curr_col] += curr_value;
     }
   }

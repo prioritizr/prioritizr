@@ -206,7 +206,6 @@ presolve_check.OptimizationProblem <- function(x) {
     warning("all planning units locked in", immediate. = TRUE)
   }
   # check if all planning units have negative costs
-
   if (((x$modelsense() == "min") && all(x$obj()[seq_len(n_pu_vars)] < 0)) ||
       ((x$modelsense() == "max") && all(x$obj()[seq_len(n_pu_vars)] > 0))) {
     out <- FALSE

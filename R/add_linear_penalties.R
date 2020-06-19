@@ -4,17 +4,21 @@ NULL
 #' Add linear penalties
 #'
 #' Add penalties to a conservation planning \code{\link{problem}} to penalize
-#' solutions that select planning units according to a specific metric
-#' (e.g. anthropogenic impact).
+#' solutions that select planning units with higher values from a specific
+#' data source (e.g. anthropogenic impact). These penalties assume
+#' a linear trade-off between the penalty values and the primary
+#' objective of the conservation planning \code{\link{problem}} (e.g.
+#' solution cost for minimum set problems; \code{\link{add_min_set_objective}}.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param penalty \code{numeric} penalty value that is used to scale the
-#'   importance avoiding planning units with high \code{data} values.
-#'   Higher \code{penalty} value can be used to obtain solutions that
+#'   importance not selecting planning units with high \code{data} values.
+#'   Higher \code{penalty} values can be used to obtain solutions that
 #'   are strongly averse to selecting places with high \code{data}
 #'   values, and smaller \code{penalty} values can be used to obtain solutions
-#'   that avoid places with high \code{data} values. Note that negative
+#'   that only avoid places with especially high \code{data} values.
+#'   Note that negative
 #'   \code{penalty} values can be used to obtain solutions that prefer places
 #'   with high \code{data} values. Additionally, when adding these
 #'   penalties to problems with multiple zones, the argument to \code{penalty}
@@ -62,14 +66,13 @@ NULL
 #'     planning unit data and the argument to code{data} must have exactly
 #'     the same dimensionality, extent, and missingness).
 #'     For problems involving multiple zones, the argument to \code{data} must
-#'     contain a layer for each zone.
-#'     If a planning unit only overlaps with missing \code{NA} values
-#'     or doesn't overlap with any pixels in the argument to \code{data},
-#'     then an error will be thrown.}
+#'     contain a layer for each zone.}
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{where columns correspond to
-#'     different planning units and rows correspond to different zones.
-#'     These values must not contain any missing (\code{NA}) values.}
+#'   \item{\code{matrix}, \code{Matrix}}{containing \code{numeric} values
+#'     that specify data for penalizing each planning unit.
+#'     Each row corresponds to a planning unit, each column corresponds to a
+#'     zone, and each cell indicates the data for penalizing a planning unit
+#'     when it is allocated to a given zone.}
 #'
 #'   }
 #'
@@ -83,12 +86,12 @@ NULL
 #'  \eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
 #'  \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
 #'  \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-#'  \code{data} if supplied as a matrix object). The penalties are calculated
+#'  \code{data} if supplied as a \code{matrix} object).
 #'
 #'  \deqn{
-#'  \sum_{i}^{I} \sum_{z}^{Z} -P_z \times D_{iz} \times X_{iz}
+#'  \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
 #'  }{
-#'  sum_i^I sum_z^Z (-Pz * Diz * Xiz)
+#'  sum_i^I sum_z^Z (Pz * Diz * Xiz)
 #'  }
 #'
 #'  Note that when the problem objective is to maximize some measure of
@@ -98,7 +101,91 @@ NULL
 #' @inherit add_linear_penalties return seealso
 #'
 #' @examples
-#' # TODO
+#' # set seed for reproducibility
+#' set.seed(600)
+#'
+#' # load data
+#' data(sim_pu_polygons, sim_pu_zones_stack, sim_features, sim_features_zones)
+#'
+#' # add a column to contain the penalty data for each planning unit
+#' # e.g. these values could indicate the level of habitat
+#' sim_pu_polygons$penalty_data <- runif(nrow(sim_pu_polygons))
+#'
+#' # plot the penalty data to visualise its spatial distribution
+#' spplot(sim_pu_polygons, zcol = "penalty_data", main = "penalty data",
+#'        axes = FALSE, box = FALSE)
+#'
+#' # create minimal problem with minimum set objective,
+#' # this does not use the penalty data
+#' p1 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.1) %>%
+#'       add_binary_decisions()
+#'
+#' # print problem
+#' print(p1)
+#'
+#' # create an updated version of the previous problem,
+#' # with the penalties added to it
+#' p2 <- p1 %>% add_linear_penalties(100, data = "penalty_data")
+#'
+#' # print problem
+#' print(p2)
+#'
+#' \donttest{
+#' # solve the two problems
+#' s1 <- solve(p1)
+#' s2 <- solve(p2)
+#'
+#' # plot the solutions and compare them,
+#' # since we supplied a very high penalty value (i.e. 100), relative
+#' # to the range of values in the penalty data and the objective function,
+#' # the solution in s2 is very sensitive to values in the penalty data
+#' spplot(s1, zcol = "solution_1", main = "solution without penalties",
+#'        axes = FALSE, box = FALSE)
+#' spplot(s2, zcol = "solution_1", main = "solution with penalties",
+#'        axes = FALSE, box = FALSE)
+#'
+#' # for real conservation planning exercises,
+#' # it would be worth exploring a range of penalty values (e.g. ranging
+#' # from 1 to 100 increments of 5) to explore the trade-offs
+#' }
+#'
+#' # now, let's examine a conservation planning exercise involving multiple
+#' # management zones
+#'
+#' # create targets for each feature within each zone,
+#' # these targets indicate that each zone needs to represent 10% of the
+#' # spatial distribution of each feature
+#' targ <- matrix(0.1, ncol = number_of_zones(sim_features_zones),
+#'                nrow = number_of_features(sim_features_zones))
+#'
+#' # create penalty data for allocating each planning unit to each zone,
+#' # these data will be generated by simulating values
+#' penalty_stack <- simulate_cost(sim_pu_zones_stack[[1]],
+#'                                n = number_of_zones(sim_features_zones))
+#'
+#' # plot the penalty data, each layer corresponds to a different zone
+#' plot(penalty_stack, main = "penalty data", axes = FALSE, box = FALSE)
+#'
+#' # create a multi-zone problem with the minimum set objective
+#' # and penalties for allocating planning units to each zone,
+#' # with a penalty scaling factor of 1 for each zone
+#' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(targ) %>%
+#'       add_linear_penalties(c(1, 1, 1), penalty_stack) %>%
+#'       add_binary_decisions()
+#'
+#' # print problem
+#' print(p3)
+#'
+#' # solve problem
+#' s3 <- solve(p3)
+#'
+#' # plot solution
+#' plot(category_layer(s3), main = "multi-zone solution",
+#'      axes = FALSE, box = FALSE)
 #'
 #' @name add_linear_penalties
 #'
@@ -122,9 +209,16 @@ methods::setMethod("add_linear_penalties",
     # validate arguments
     assertthat::assert_that(
       inherits(x$data$cost, c("data.frame", "Spatial", "sf")),
-      is.numeric(penalty), assertthat::noNA(penalty)
-      assertthat::noNA(data), number_of_zones(x) == length(data),
-      all(data %in% names(x$data$cost)))
+      msg = paste("argument to data is a character and planning units",
+                  "specified in x are not a data.frame, Spatial, or sf object"))
+    assertthat::assert_that(
+      is.numeric(penalty), assertthat::noNA(penalty),
+      number_of_zones(x) == length(penalty),
+      assertthat::noNA(data), number_of_zones(x) == length(data))
+    assertthat::assert_that(
+      all(data %in% names(x$data$cost)),
+      msg = paste("argument to data is not a field name in the planning units",
+                  "specified in x"))
     # extract planning unit data
     d <- x$data$cost
     if (inherits(d, "Spatial")) {
@@ -154,9 +248,10 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "numeric"),
   function(x, penalty, data) {
     assertthat::assert_that(
-      is.numeric(penalty), assertthat::noNA(penalty)
+      is.numeric(penalty), assertthat::noNA(penalty),
+      number_of_zones(x) == length(penalty),
       assertthat::noNA(data), number_of_total_units(x) == length(data))
-    add_linear_penalties(x, penalty, matrix(x, nrow = 1))
+      add_linear_penalties(x, penalty, matrix(data, ncol = 1))
 })
 
 #' @name add_linear_penalties
@@ -166,9 +261,11 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "matrix"),
   function(x, penalty, data) {
     assertthat::assert_that(
-      is.numeric(penalty), assertthat::noNA(penalty)
-      assertthat::noNA(c(data)), number_of_total_units(x) == ncol(data),
-      number_of_zones(x) == nrow(data))
+      is.numeric(penalty), assertthat::noNA(penalty),
+      number_of_zones(x) == length(penalty),
+      assertthat::noNA(c(data)),
+      number_of_total_units(x) == nrow(data),
+      number_of_zones(x) == ncol(data))
     add_linear_penalties(x, penalty, methods::as(data, "dgCMatrix"))
 })
 
@@ -179,9 +276,11 @@ methods::setMethod("add_linear_penalties",
   methods::signature("ConservationProblem", "ANY", "Matrix"),
   function(x, penalty, data) {
     assertthat::assert_that(
-      is.numeric(penalty), assertthat::noNA(penalty)
+      is.numeric(penalty), assertthat::noNA(penalty),
+      number_of_zones(x) == length(penalty),
       assertthat::noNA(c(data)),
-      number_of_total_units(x) == ncol(data), number_of_zones(x) == nrow(data))
+      number_of_total_units(x) == nrow(data),
+      number_of_zones(x) == ncol(data))
     add_linear_penalties(x, penalty, methods::as(data, "dgCMatrix"))
 })
 
@@ -195,7 +294,7 @@ methods::setMethod("add_linear_penalties",
     assertthat::assert_that(
       inherits(x, "ConservationProblem"),
       inherits(data, "Raster"),
-      is.numeric(penalty), assertthat::noNA(penalty)
+      is.numeric(penalty), assertthat::noNA(penalty),
       number_of_zones(x) == raster::nlayers(data),
       number_of_zones(x) == length(penalty),
       inherits(x$data$cost, c("sf", "Spatial", "Raster")))
@@ -204,10 +303,11 @@ methods::setMethod("add_linear_penalties",
       d <- fast_extract(data, x$data$cost, fun = "sum")
     } else {
       assertthat::assert_that(is_comparable_raster(x$data$cost, data[[1]]))
-      d <- t(as.matrix(raster::as.data.frame(data)))
+      d <- as.matrix(raster::as.data.frame(data))
     }
+    d[is.na(d)] <- 0
     # add penalties
-    add_linear_penalties(x, penalty, methods::as(data, "dgCMatrix"))
+    add_linear_penalties(x, penalty, methods::as(d, "dgCMatrix"))
 })
 
 #' @name add_linear_penalties
@@ -220,27 +320,35 @@ methods::setMethod("add_linear_penalties",
     assertthat::assert_that(
       inherits(x, "ConservationProblem"),
       is.numeric(penalty), isTRUE(all(is.finite(penalty))),
+      number_of_zones(x) == length(penalty),
       is.numeric(data@x), all(is.finite(data@x),
-      number_of_total_units(x) == ncol(data),
-      number_of_zones(x) == nrow(data)))
+      number_of_total_units(x) == nrow(data),
+      number_of_zones(x) == ncol(data)))
+    # create parameters
+    if (number_of_zones(x) == 1) {
+      p <- numeric_parameter("penalty", penalty)
+    } else {
+      p <- numeric_parameter_array("penalty", penalty, x$zone_names())
+    }
     # add penalties
     x$add_penalty(pproto(
       "LinearPenalty",
       Penalty,
       name = "Linear penalties",
       data = list(data = data),
-      parameters = parameters(numeric_parameter_array("penalty", penalty)),
+      parameters = parameters(p),
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
                                 inherits(y, "ConservationProblem"))
         # extract parameters
         p <- self$parameters$get("penalty")
+        if (inherits(p, "data.frame")) p <- p[[1]]
         if (min(abs(p)) > 1e-50) {
           # extract data
           indices <- y$planning_unit_indices()
-          d <- self$get_data("data")[, indices, drop = FALSE]
+          d <- self$get_data("data")[indices, , drop = FALSE]
           # apply penalties
-          rcpp_apply_linear_penalties(x$ptr, p, m)
+          rcpp_apply_linear_penalties(x$ptr, p, d)
         }
         invisible(TRUE)
     }))

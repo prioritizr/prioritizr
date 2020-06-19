@@ -51,6 +51,7 @@ Suggests:
     knitr,
     roxygen2,
     shiny,
+    scales,
     xtable,
     rhandsontable,
     RandomFields,

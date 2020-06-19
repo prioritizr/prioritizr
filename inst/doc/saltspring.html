@@ -172,7 +172,7 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))
 <span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))
 <span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
-<p>Now we will try solving the problem using the different solvers. We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
+<p>Now we will try solving the problem using the different solvers (see <a href="https://prioritizr.net/reference/solve.html"><code>?solve</code></a> for more information). We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">titles &lt;-<span class="st"> </span><span class="kw">c</span>() <span class="co"># create vector to store plot titles</span>
 s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="co"># create empty stack to store solutions</span>
 

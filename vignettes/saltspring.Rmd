@@ -112,7 +112,7 @@ print(require(Rsymphony))
 print(require(lpsymphony))
 ```
 
-Now we will try solving the problem using the different solvers. We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the `time_limit` parameter), and see how this alters the solutions.
+Now we will try solving the problem using the different solvers (see [`?solve`](https://prioritizr.net/reference/solve.html) for more information). We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the `time_limit` parameter), and see how this alters the solutions.
 
 ```{r, message = FALSE, results = "hide"}
 titles <- c() # create vector to store plot titles

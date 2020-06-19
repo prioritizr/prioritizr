@@ -6,7 +6,7 @@ NULL
 #' Simulate spatially auto-correlated data.
 #'
 #' @param x \code{\link[raster]{RasterLayer-class}} object to use as
-#    a template.
+#'    a template.
 #'
 #' @param n \code{integer} number of species to simulate.
 #'
