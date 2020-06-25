@@ -1,3 +1,13 @@
+# prioritizr 5.0.1.4
+
+- New `add_linear_penalties` to add penalties that penalize planning units
+  according to a linear metric.
+- Update `connectivity_matrix` documentation to provide an example of how
+  to generate connectivity matrices that account for functional connectivity.
+- Add more information to the documentation for the `solve` function.
+- Add links to the documentation for the  `solve` function to the Salt Spring
+  Island and Tasmania vignettes.
+
 # prioritizr 5.0.1.3
 
 - Update `compile` to throw warning when compiling problems that include

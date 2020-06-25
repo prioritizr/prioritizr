@@ -121,6 +121,10 @@ rcpp_apply_feature_weights <- function(x, weights) {
     .Call(`_prioritizr_rcpp_apply_feature_weights`, x, weights)
 }
 
+rcpp_apply_linear_penalties <- function(x, penalty, data) {
+    .Call(`_prioritizr_rcpp_apply_linear_penalties`, x, penalty, data)
+}
+
 rcpp_apply_locked_constraints <- function(x, pu, zone, status) {
     .Call(`_prioritizr_rcpp_apply_locked_constraints`, x, pu, zone, status)
 }

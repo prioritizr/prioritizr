@@ -490,6 +490,24 @@ p23 <- problem(sim_pu_raster, sim_features[[1:4]]) %>%
 # print problem
 print(p23)
 ```
+* __Linear penalties__: Add penalties to penalize solutions that select planning units according to a certain variable (e.g. anthropogenic pressure).
+```{r}
+# create data for penalizing planning units
+pen_raster <- simulate_cost(sim_pu_raster)
+
+# create problem with penalties that penalize solutions that select
+# planning units with high values in the pen_raster object,
+# here we will use a penalty value of 5 to indicate the trade-off (scaling)
+# between the penalty values (in the sim_pu_raster) and the main objective
+# (i.e. the cost of the solution)
+p24 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_linear_penalties(penalty = 5, data = pen_raster)
+
+# print problem
+print(p24)
+```
 
 ### Add the decision types
 
@@ -500,36 +518,36 @@ The _prioritizr R_ package currently offers the following types of decisions for
 * __Binary decisions__: Add a binary decision to a conservation planning problem. This is the classic decision of either prioritizing or not prioritizing a planning unit. Typically, this decision has the assumed action of buying the planning unit to include in a protected area network. If no decision is added to a problem object, then this decision class will be used by default.
 ```{r}
 # add binary decisions to a problem
-p24 <- problem(sim_pu_raster, sim_features) %>%
+p25 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # print problem
-print(p24)
+print(p25)
 ```
 * __Proportion decisions__: Add a proportion decision to a problem. This is a relaxed decision where a part of a planning unit can be prioritized, as opposed to the default of the entire planning unit. Typically, this decision has the assumed action of buying a fraction of a planning unit to include in a protected area network. Generally, problems can be solved much faster with proportion-type decisions than binary-type decisions, so they can be very useful when commercial solvers are not available.
 ```{r}
 # add proportion decisions to a problem
-p25 <- problem(sim_pu_raster, sim_features) %>%
+p26 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_proportion_decisions()
 
 # print problem
-print(p25)
+print(p26)
 ```
 * __Semi-continuous decisions__: Add a semi-continuous decision to a problem. This decision is similar to proportion decisions except that it has an upper bound parameter. By default, the decision can range from prioritizing none (0%) to all (100%) of a planning unit. However, a upper bound can be specified to ensure that at most only a fraction (e.g. 80%) of a planning unit can be purchased. This type of decision may be useful when it is not practical to conserve the entire area indicated by a planning unit.
 ```{r}
 # add semi-continuous decisions to a problem, where we can only manage at most
 # 50 % of the area encompassed by a planning unit
-p26 <- problem(sim_pu_raster, sim_features) %>%
+p27 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_semicontinuous_decisions(0.5)
 
 # print problem
-print(p26)
+print(p27)
 ```
 
 ### Add a solver
@@ -542,40 +560,40 @@ Currently, the _prioritizr R_ package only supports three different solvers.
 ```{r}
 # create a problem and specify that Gurobi should be used to solve the problem
 # and specify an optimality gap of zero to obtain the optimal solution
-p27 <- problem(sim_pu_raster, sim_features) %>%
+p28 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_gurobi_solver(gap = 0)
 
 # print problem
-print(p27)
+print(p28)
 ```
 * __*Rsymphony* solver__: [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research. The _Rsymphony R_ package provides an interface to COIN-OR and is available on The Comprehensive R Archive Network (CRAN).
 ```{r}
 # create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p28 <- problem(sim_pu_raster, sim_features) %>%
+p29 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_rsymphony_solver(gap = 0)
 
 # print problem
-print(p28)
+print(p29)
 ```
 * __*lpsymphony* solver__: The _lpsymphony R_ package provides a different interface to the COIN-OR software suite. This package may be easier to install on Windows and Mac OSX operating systems than the _Rsymphony R_ package. Unlike the _Rsymphony R_ package, the _lpsymphony R_ package is distributed through [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html).
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p29 <- problem(sim_pu_raster, sim_features) %>%
+p30 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_lpsymphony_solver(gap = 0)
 
 # print problem
-print(p29)
+print(p30)
 ```
 
 ### Add a portfolio
@@ -589,66 +607,66 @@ The following methods are available for generating a portfolio of solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p30 <- problem(sim_pu_raster, sim_features) %>%
+p31 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_extra_portfolio()
 
 # print problem
-print(p30)
+print(p31)
 ```
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p31 <- problem(sim_pu_raster, sim_features) %>%
+p32 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p31)
+print(p32)
 ```
 * __Gap portfolio__: Generate a portfolio of solutions by finding a certain number of solutions that are all within a pre-specified optimality gap. This method is especially useful for generating multiple solutions that can used be to calculate selection frequencies (similar to _Marxan_). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p32 <- problem(sim_pu_raster, sim_features) %>%
+p33 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p32)
+print(p33)
 ```
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p33 <- problem(sim_pu_raster, sim_features) %>%
+p34 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p33)
+print(p34)
 ```
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p34 <- problem(sim_pu_raster, sim_features) %>%
+p35 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
 
 # print problem
-print(p34)
+print(p35)
 ```
 
 ### Solve the problem
@@ -657,17 +675,17 @@ Finally, after formulating our conservation planning problem and specifying how 
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p35 <- problem(sim_pu_raster, sim_features) %>%
+p36 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
        add_binary_decisions()
 
 # solve the problem (using the default solver)
-s35 <- solve(p35)
+s36 <- solve(p36)
 
 # plot solution
-plot(s35, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s36, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -677,14 +695,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(p35, "objective"))
+print(attr(p36, "objective"))
 
 # extract time spent solving solution
-print(attr(p35, "runtime"))
+print(attr(p36, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(p35, "status"))
+print(attr(p36, "status"))
 ```
 
 ### _Marxan_ problems
@@ -739,27 +757,27 @@ After obtaining the solution to a conservation planning problem, it can be usefu
 
 ```{r}
 # formulate the problem
-p36 <- problem(sim_pu_raster, sim_features) %>%
+p37 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # solve the problem
-s36 <- solve(p36)
+s37 <- solve(p37)
 
 # plot solution
-plot(s36, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s37, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 
 # calculate the number of selected planning units
-cellStats(s36, "sum")
+cellStats(s37, "sum")
 
 # calculate the cost of the solution
-cellStats(sim_pu_raster * s36, "sum")
+cellStats(sim_pu_raster * s37, "sum")
 
 # calculate how well features are represented in the solution
-r36 <- feature_representation(p36, s36)
-print(r36)
+r37 <- feature_representation(p37, s37)
+print(r37)
 ```
 
 ### Irreplaceability
@@ -774,28 +792,28 @@ Below we will use these three approaches to calculate irreplaceability scores.
 
 ```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
-rc36 <- p36 %>%
+rc37 <- p37 %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
         replacement_cost(s36)
 
 # plot replacement cost scores
-plot(rc36, main = "replacement cost")
+plot(rc37, main = "replacement cost")
 ```
 
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier irreplaceability scores and extract total score
-fs36 <- ferrier_score(p36, s36)[["total"]]
+fs37 <- ferrier_score(p37, s37)[["total"]]
 
 # plot Ferrier scores
-plot(fs36, main = "Ferrier scores")
+plot(fs37, main = "Ferrier scores")
 ```
 
 ```{r, fig.height = h, fig.width = w}
 # calculate rarity weighted richness scores
-rwr36 <- rarity_weighted_richness(p36, s36)
+rwr37 <- rarity_weighted_richness(p37, s37)
 
 # plot replacement cost scores
-plot(rwr36, main = "rarity weighted richness")
+plot(rwr37, main = "rarity weighted richness")
 ```
 
 Although rarity weighted richness scores can approximate scores derived from the other two methods in certain conservation planning exercises, we can see that the rarity weighted richness scores provide completely different results in this case.
