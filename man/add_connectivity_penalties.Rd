@@ -20,13 +20,13 @@
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units with strong connectivity between them compared
 to the main problem objective (e.g. solution cost when the argument to
 \code{x} has a minimum set objective set using
-\code{\link{add_min_set_objective}}). Higher \code{penalty} values
+\code{\link[=add_min_set_objective]{add_min_set_objective()}}). Higher \code{penalty} values
 can be used to obtain solutions with a high degree of connectivity,
 and smaller \code{penalty} values can be used to obtain solutions with a
 small degree of connectivity. Note that negative \code{penalty} values can
@@ -56,11 +56,11 @@ that are associated with higher values are more favorable in the solution.
 See the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the penalties
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the penalties
 added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link{problem}} to favor
+Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor
 solutions that select planning units with high connectivity between them.
 }
 \details{
@@ -413,5 +413,5 @@ Incorporating asymmetric connectivity into spatial decision making for
 conservation, \emph{Conservation Letters}, 3: 359--368.
 }
 \seealso{
-\code{\link{penalties}}.
+\code{\link[=penalties]{penalties()}}.
 }

@@ -37,9 +37,9 @@ intersecting_units(x, y)
 \S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
-\item{x}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
+\item{x}{\code{\link[=Spatial-class]{Spatial-class()}} or \code{\link[=Raster-class]{Raster-class()}} object.}
 
-\item{y}{\code{\link{Spatial-class}} or \code{\link{Raster-class}} object.}
+\item{y}{\code{\link[=Spatial-class]{Spatial-class()}} or \code{\link[=Raster-class]{Raster-class()}} object.}
 }
 \value{
 \code{integer} indices of the units in \code{x} that intersect with
@@ -91,5 +91,5 @@ print(intersecting_units(ply, ply_with_holes))
 
 }
 \seealso{
-\code{\link{fast_extract}}.
+\code{\link[=fast_extract]{fast_extract()}}.
 }

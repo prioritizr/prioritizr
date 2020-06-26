@@ -7,9 +7,9 @@ NULL
 #' management zone in the solution. **This function can only be used with
 #' problems that contain multiple zones.**
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
-#' @details For a conservation planning \code{\link{problem}} with multiple
+#' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that
 #'   assigns each and every single planning unit to a zone. For example, when
 #'   developing land-use plans, some decision makers may require that each and
@@ -23,10 +23,10 @@ NULL
 #'   problem with multiple zones must be allocated to a management zone (i.e.
 #'   zone allocation is mandatory).
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraints
+#' @return [ConservationProblem-class()] object with the constraints
 #'   added to it.
 #'
-#' @seealso \code{\link{constraints}}.
+#' @seealso [constraints()].
 #'
 #' @examples
 #' # set seed for reproducibility

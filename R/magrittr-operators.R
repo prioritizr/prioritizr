@@ -8,7 +8,7 @@ NULL
 #'
 #' @param lhs,rhs An object and a function.
 #'
-#' @seealso \code{\link[magrittr]{\%>\%}}, \code{\link{tee}}.
+#' @seealso [magrittr::%>%()], [tee()].
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -41,7 +41,7 @@ NULL
 #'
 #' @param lhs,rhs An object and a function.
 #'
-#' @seealso \code{\link[magrittr]{\%T>\%}}, \code{\link{pipe}}.
+#' @seealso [magrittr::%T>%()], [pipe()].
 #'
 #' @examples
 #' # the tee operator returns the left-hand side of the result and can be

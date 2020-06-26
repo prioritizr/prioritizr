@@ -13,7 +13,7 @@ should interact directly with this class.}
 
 \describe{
 
-\item{$id}{\code{\link{Id}} identifier for parameter.}
+\item{$id}{\code{\link[=Id]{Id()}} identifier for parameter.}
 
 \item{$name}{\code{character} name of parameter.}
 
@@ -31,7 +31,7 @@ permitted value for each element in \verb{$value}.}
 permitted value for each element in \verb{$value}.}
 
 \item{$widget}{\code{function} used to construct a
-\code{\link[shiny]{shiny}} interface for modifying values.}
+\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -55,5 +55,5 @@ permitted value for each element in \verb{$value}.}
 }
 
 \seealso{
-\code{\link{ScalarParameter-class}}.
+\code{\link[=ScalarParameter-class]{ScalarParameter-class()}}.
 }

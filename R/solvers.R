@@ -4,18 +4,18 @@ NULL
 #' Problem solvers
 #'
 #' Specify the software and configuration used to solve a conservation planning
-#' \code{\link{problem}}. By default, the best available
+#' [problem()]. By default, the best available
 #' software currently installed on the system will be used.
 #'
 #' @details The following solvers can be used to find solutions for a
-#'   conservation planning \code{\link{problem}}:
+#'   conservation planning [problem()]:
 #'
 #'   \describe{
 #'
 #'   \item{`add_default_solver`}{This solver uses the best software
 #'     currently installed on the system.}
 #'
-#'   \item{\code{\link{add_gurobi_solver}}}{[*Gurobi*](http://gurobi.com)
+#'   \item{[add_gurobi_solver()]}{[*Gurobi*](http://gurobi.com)
 #'     is a state-of-the-art commercial optimization software with an R package
 #'     interface. It is by far the fastest of the solvers available in this
 #'     package, however, it is also the only solver that is not freely
@@ -23,7 +23,7 @@ NULL
 #'     \pkg{gurobi} package is distributed with the *Gurobi* software
 #'     suite. This solver uses the \pkg{gurobi} package to solve problems.}
 #'
-#'   \item{\code{\link{add_rsymphony_solver}}}{
+#'   \item{[add_rsymphony_solver()]}{
 #'     [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
 #'     open-source integer programming solver that is part of the Computational
 #'     Infrastructure for Operations Research (COIN-OR) project, an initiative
@@ -32,7 +32,7 @@ NULL
 #'     provides an interface to COIN-OR and is available on CRAN. This solver
 #'     uses the \pkg{Rsymphony} package to solve problems.}
 #'
-#'   \item{\code{\link{add_lpsymphony_solver}}}{The \pkg{lpsymphony} package
+#'   \item{[add_lpsymphony_solver()]}{The \pkg{lpsymphony} package
 #'     provides a different interface to the COIN-OR software suite. Unlike the
 #'     \pkg{Rsymhpony} package, the \pkg{lpsymphony} package is distributed
 #'     through
@@ -44,10 +44,10 @@ NULL
 #'
 #' @name solvers
 #'
-#' @seealso \code{\link{constraints}},  \code{\link{decisions}},
-#'  \code{\link{objectives}} \code{\link{penalties}},
-#'  \code{\link{portfolios}}, \code{\link{problem}},
-#'  \code{\link{targets}}.
+#' @seealso [constraints()],  [decisions()],
+#'  [objectives()] [penalties()],
+#'  [portfolios()], [problem()],
+#'  [targets()].
 #'
 #' @examples
 #' \donttest{

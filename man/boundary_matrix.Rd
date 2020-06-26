@@ -25,27 +25,27 @@ boundary_matrix(x, str_tree)
 \method{boundary_matrix}{default}(x, str_tree = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{SpatialLines-class}},
-\code{\link[sp]{SpatialPolygons-class}},
-\code{\link[sf]{sf}} object representing planning units. If \code{x} is a
-\code{\link[raster]{Raster-class}} object then it must have only one
+\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
+\code{\link[sp:SpatialLines-class]{sp::SpatialLines-class()}},
+\code{\link[sp:SpatialPolygons-class]{sp::SpatialPolygons-class()}},
+\code{\link[sf:sf]{sf::sf()}} object representing planning units. If \code{x} is a
+\code{\link[raster:Raster-classes]{raster::Raster-class()}} object then it must have only one
 layer.}
 
 \item{str_tree}{\code{logical} should a
 \href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
 to pre-process data? If \code{TRUE}, then the experimental
-\code{\link[rgeos]{gUnarySTRtreeQuery}} function
+\code{\link[rgeos:experimental-functions]{rgeos::gUnarySTRtreeQuery()}} function
 will be used to pre-compute which planning units are adjacent to
 each other and potentially reduce the processing time required to
 generate the boundary matrices. This argument is only used when
 the planning unit data are vector-based polygons (i.e.
-\code{\link[sp]{SpatialPolygonsDataFrame}} objects). \strong{Note that
+\code{\link[sp:SpatialPolygons]{sp::SpatialPolygonsDataFrame()}} objects). \strong{Note that
 using \code{TRUE} may crash Mac OSX systems.} The default argument
 is \code{FALSE}.}
 }
 \value{
-\code{\link{Matrix}{dsCMatrix-class}} object.
+\code{[Matrix]{dsCMatrix-class}} object.
 }
 \description{
 Generate a matrix describing the amount of shared boundary length
@@ -53,7 +53,7 @@ between different planning units, and the amount of exposed edge length each
 planning unit exhibits.
 }
 \details{
-This function returns a \code{\link[Matrix]{dsCMatrix-class}}
+This function returns a \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix-class()}}
 symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 the shared boundary between two different planning units. Cells on the
 diagonal indicate length of a given planning unit's edges that have no
@@ -64,7 +64,7 @@ between two points on the earth}. Thus spatial data in a longitude/latitude
 coordinate system (i.e.
 \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
-function. Note that for \code{\link[raster]{Raster-class}} objects
+function. Note that for \code{\link[raster:Raster-classes]{raster::Raster-class()}} objects
 boundaries are missing for cells that have \code{NA} values in all cells.
 }
 \examples{

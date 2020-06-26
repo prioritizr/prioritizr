@@ -5,14 +5,14 @@ NULL
 #'
 #' Irreplaceability scores can be used to assess the relative importance
 #' of planning units in a solution to a conservation planning
-#' \code{\link{problem}}.
+#' [problem()].
 #'
 #' @details
 #' The following methods are available for calculating irreplaceability scores:
 #'
 #' \describe{
 #'
-#' \item{\code{\link{replacement_cost}}}{
+#' \item{[replacement_cost()]}{
 #'   The replacement cost scores (based
 #'   on Cabeza and Moilanen 2006) quantify the change in the objective
 #'   function (e.g. additional costs required to meet feature targets) of the
@@ -22,7 +22,7 @@ NULL
 #'   (iv) identify truly irreplaceable planning units (denoted with infinite
 #'   values).}
 #'
-#' \item{\code{\link{ferrier_score}}}{
+#' \item{[ferrier_score()]}{
 #'  The Ferrier scores (Ferrier *et al.* 2000) quantify the importance of
 #'  planning units for meeting feature targets. They can only be applied to
 #'  conservation problems with a minimum set objective and a single zone (i.e.
@@ -31,7 +31,7 @@ NULL
 #'  score for each feature within each planning unit, providing insight into
 #'  why certain planning units are more important than other planning units.}
 #'
-#' \item{\code{\link{rarity_weighted_richness}}}{
+#' \item{[rarity_weighted_richness()]}{
 #'  The rarity weighted richness scores (based on Williams *et al.*
 #' 1996) are simply a measure of biological diversity. They do not account for
 #' planning costs, multiple management zones, objective functions, or feature
@@ -74,7 +74,7 @@ NULL
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
 #'
-#' @seealso \code{\link{problem}}.
+#' @seealso [problem()].
 #'
 #' @examples
 #' \donttest{

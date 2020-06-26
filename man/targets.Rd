@@ -12,21 +12,21 @@ distribution that needs to be protected in the solution.
 to solve a problem that requires targets will throw an error.}
 
 The following functions can be used to specify targets for a
-conservation planning \code{\link{problem}}:
+conservation planning \code{\link[=problem]{problem()}}:
 
 \describe{
 
-\item{\code{\link{add_relative_targets}}}{Set targets as a proportion
+\item{\code{\link[=add_relative_targets]{add_relative_targets()}}}{Set targets as a proportion
 (between 0 and 1) of the total amount of each feature in the
 the study area.}
 
-\item{\code{\link{add_absolute_targets}}}{Set targets that denote the
+\item{\code{\link[=add_absolute_targets]{add_absolute_targets()}}}{Set targets that denote the
 minimum amount of each feature required in the prioritization.}
 
-\item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
+\item{\code{\link[=add_loglinear_targets]{add_loglinear_targets()}}}{Set targets as a proportion
 (between 0 and 1) that are calculated using log-linear interpolation.}
 
-\item{\code{\link{add_manual_targets}}}{Set targets manually.}
+\item{\code{\link[=add_manual_targets]{add_manual_targets()}}}{Set targets manually.}
 
 }
 }
@@ -63,8 +63,8 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{decisions}},
-\code{\link{objectives}} \code{\link{penalties}},
-\code{\link{portfolios}}, \code{\link{problem}},
-\code{\link{solvers}}.
+\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
+\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}},
+\code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
+\code{\link[=solvers]{solvers()}}.
 }

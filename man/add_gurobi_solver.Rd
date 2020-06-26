@@ -16,7 +16,7 @@ add_gurobi_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative when
 solving problems using \pkg{gurobi}, and will cause the optimizer to
@@ -59,7 +59,7 @@ to 3). Defaults to \code{FALSE}.}
 optimization problems?}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the solver added
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the solver added
 to it.
 }
 \description{
@@ -99,5 +99,5 @@ if (require("gurobi")) {
 }
 }
 \seealso{
-\code{\link{solvers}}.
+\code{\link[=solvers]{solvers()}}.
 }

@@ -7,17 +7,17 @@ NULL
 #' `integer` `vector` indicating the column index where each row is
 #' `1`.
 #'
-#' @param x `matrix`, `data.frame`, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object.
+#' @param x `matrix`, `data.frame`, [sp::Spatial-class()],
+#'   or [sf::sf()] object.
 #'
-#' @details This function is conceptually similar to \code{\link[base]{max.col}}
+#' @details This function is conceptually similar to [base::max.col()]
 #'   except that rows with no values equal to `1` values are assigned a
 #'   value of zero. Also, note that in the argument to `x`, each row must
 #'   contain only a single value equal to `1`.
 #'
 #' @return `integer` `vector`
 #'
-#' @seealso \code{\link[base]{max.col}}
+#' @seealso [base::max.col()]
 #'
 #' @examples
 #' # create matrix with logical fields

@@ -7,26 +7,26 @@ NULL
 #' between different planning units, and the amount of exposed edge length each
 #' planning unit exhibits.
 #'
-#' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sp]{SpatialLines-class}},
-#'   \code{\link[sp]{SpatialPolygons-class}},
-#'   \code{\link[sf]{sf}} object representing planning units. If `x` is a
-#'   \code{\link[raster]{Raster-class}} object then it must have only one
+#' @param x [raster::Raster-class()],
+#'   [sp::SpatialLines-class()],
+#'   [sp::SpatialPolygons-class()],
+#'   [sf::sf()] object representing planning units. If `x` is a
+#'   [raster::Raster-class()] object then it must have only one
 #'   layer.
 #'
 #' @param str_tree `logical` should a
 #'   [GEOS STRtree](https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html) be used to
 #'   to pre-process data? If `TRUE`, then the experimental
-#'   \code{\link[rgeos]{gUnarySTRtreeQuery}} function
+#'   [rgeos::gUnarySTRtreeQuery()] function
 #'   will be used to pre-compute which planning units are adjacent to
 #'   each other and potentially reduce the processing time required to
 #'   generate the boundary matrices. This argument is only used when
 #'   the planning unit data are vector-based polygons (i.e.
-#'   \code{\link[sp]{SpatialPolygonsDataFrame}} objects). **Note that
+#'   [sp::SpatialPolygonsDataFrame()] objects). **Note that
 #'   using `TRUE` may crash Mac OSX systems.** The default argument
 #'   is `FALSE`.
 #'
-#' @details This function returns a \code{\link[Matrix]{dsCMatrix-class}}
+#' @details This function returns a [Matrix::dsCMatrix-class()]
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
 #'   diagonal indicate length of a given planning unit's edges that have no
@@ -37,10 +37,10 @@ NULL
 #'   coordinate system (i.e.
 #'   [WGS84](http://spatialreference.org/ref/epsg/wgs-84/))
 #'   should be reprojected to another coordinate system before using this
-#'   function. Note that for \code{\link[raster]{Raster-class}} objects
+#'   function. Note that for [raster::Raster-class()] objects
 #'   boundaries are missing for cells that have `NA` values in all cells.
 #'
-#' @return \code{\link{Matrix}{dsCMatrix-class}} object.
+#' @return \code{[Matrix]{dsCMatrix-class}} object.
 #'
 #' @name boundary_matrix
 #'

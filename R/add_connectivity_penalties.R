@@ -3,16 +3,16 @@ NULL
 
 #' Add connectivity penalties
 #'
-#' Add penalties to a conservation planning \code{\link{problem}} to favor
+#' Add penalties to a conservation planning [problem()] to favor
 #' solutions that select planning units with high connectivity between them.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units with strong connectivity between them compared
 #'   to the main problem objective (e.g. solution cost when the argument to
 #'   `x` has a minimum set objective set using
-#'   \code{\link{add_min_set_objective}}). Higher `penalty` values
+#'   [add_min_set_objective()]). Higher `penalty` values
 #'   can be used to obtain solutions with a high degree of connectivity,
 #'   and smaller `penalty` values can be used to obtain solutions with a
 #'   small degree of connectivity. Note that negative `penalty` values can

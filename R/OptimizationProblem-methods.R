@@ -4,9 +4,9 @@ NULL
 #' Optimization problem methods
 #'
 #' These functions are used to access data from an
-#' \code{\link{OptimizationProblem-class}} object.
+#' [OptimizationProblem-class()] object.
 #'
-#' @param x \code{\link{OptimizationProblem-class}} object.
+#' @param x [OptimizationProblem-class()] object.
 #'
 #' @details The functions return the following data:
 #'
@@ -27,7 +27,7 @@ NULL
 #'
 #' \item{obj}{`numeric` vector specifying the objective function.}
 #'
-#' \item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
+#' \item{A}{[Matrix::dgCMatrix-class()] matrix object defining the
 #'   problem matrix.}
 #'
 #' \item{rhs}{`numeric` vector with right-hand-side linear constraints}
@@ -49,7 +49,7 @@ NULL
 #'
 #' }
 #'
-#' @return \code{\link[Matrix]{dgCMatrix-class}}, `numeric` vector,
+#' @return [Matrix::dgCMatrix-class()], `numeric` vector,
 #'   `numeric` vector, or scalar `integer` depending on the method
 #'   used.
 #'
@@ -295,11 +295,11 @@ methods::setMethod("compressed_formulation", "OptimizationProblem",
 
 #' Convert `OptimizationProblem` to list
 #'
-#' @param x \code{\link{OptimizationProblem-class}} object.
+#' @param x [OptimizationProblem-class()] object.
 #'
 #' @param ... not used.
 #'
-#' @return \code{\link{list}} object.
+#' @return [list()] object.
 #'
 #' @method as.list OptimizationProblem
 #'

@@ -3,19 +3,19 @@ NULL
 
 #' Add locked out constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that specific planning units are not selected
 #' (or allocated to a specific zone) in the solution. For example, it may be
 #' useful to lock out planning units that have been degraded and are not
 #' suitable for conserving species. If specific planning units should be locked
-#' in to the solution, use \code{\link{add_locked_out_constraints}}. For
+#' in to the solution, use [add_locked_out_constraints()]. For
 #' problems with non-binary planning unit allocations (e.g. proportions), the
-#' \code{\link{add_manual_locked_constraints}} function can be used to lock
+#' [add_manual_locked_constraints()] function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Details section for more information.

@@ -15,21 +15,21 @@ add_manual_targets(x, targets)
 \S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
-\item{targets}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
+\item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
 the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the targets added
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the targets added
 to it.
 }
 \description{
-Set targets for a conservation planning \code{\link{problem}} by manually
+Set targets for a conservation planning \code{\link[=problem]{problem()}} by manually
 specifying all the required information for each target. This function
 is useful because it can be used to customize all aspects of a target. For
 most cases, targets can be specified using the
-\code{link{add_absolute_targets}} and \code{\link{add_relative_targets}}
+\code{link{add_absolute_targets}} and \code{\link[=add_relative_targets]{add_relative_targets()}}
 functions. However, this function can be used to (i) mix absolute and
 relative targets for different features and zones, (ii) set targets that
 pertain to the allocations of planning units in multiple zones, and (iii)
@@ -40,8 +40,8 @@ solution should not exceed a certain quantity using \code{"<="} values).
 Targets are used to specify the minimum amount or proportion of a
 feature's distribution that needs to be protected. Most conservation
 planning problems require targets with the exception of the maximum cover
-(see \code{\link{add_max_cover_objective}}) and maximum utility
-(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+(see \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}) and maximum utility
+(see \code{\link[=add_max_utility_objective]{add_max_utility_objective()}}) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.
 
@@ -58,8 +58,8 @@ that do not contain multiple zones.}
 
 \item{\code{"type"}}{\code{character} describing the type of target.
 Acceptable values include \code{"absolute"} and \code{"relative"}.
-These values correspond to \code{\link{add_absolute_targets}},
-and \code{\link{add_relative_targets}} respectively.}
+These values correspond to \code{\link[=add_absolute_targets]{add_absolute_targets()}},
+and \code{\link[=add_relative_targets]{add_relative_targets()}} respectively.}
 
 \item{\code{"sense"}}{\code{character} sense of the target. Acceptable
 values include: \code{">="}, \code{"<="}, and \code{"="}. This field
@@ -201,5 +201,5 @@ plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link{targets}}.
+\code{\link[=targets]{targets()}}.
 }

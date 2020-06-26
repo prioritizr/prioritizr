@@ -5,19 +5,19 @@
 \title{Problem solvers}
 \description{
 Specify the software and configuration used to solve a conservation planning
-\code{\link{problem}}. By default, the best available
+\code{\link[=problem]{problem()}}. By default, the best available
 software currently installed on the system will be used.
 }
 \details{
 The following solvers can be used to find solutions for a
-conservation planning \code{\link{problem}}:
+conservation planning \code{\link[=problem]{problem()}}:
 
 \describe{
 
 \item{\code{add_default_solver}}{This solver uses the best software
 currently installed on the system.}
 
-\item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{\emph{Gurobi}}
+\item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{\href{http://gurobi.com}{\emph{Gurobi}}
 is a state-of-the-art commercial optimization software with an R package
 interface. It is by far the fastest of the solvers available in this
 package, however, it is also the only solver that is not freely
@@ -25,7 +25,7 @@ available. That said, licenses are available to academics at no cost. The
 \pkg{gurobi} package is distributed with the \emph{Gurobi} software
 suite. This solver uses the \pkg{gurobi} package to solve problems.}
 
-\item{\code{\link{add_rsymphony_solver}}}{
+\item{\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}}{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
 open-source integer programming solver that is part of the Computational
 Infrastructure for Operations Research (COIN-OR) project, an initiative
@@ -34,7 +34,7 @@ field that includes linear programming). The \pkg{Rsymphony} package
 provides an interface to COIN-OR and is available on CRAN. This solver
 uses the \pkg{Rsymphony} package to solve problems.}
 
-\item{\code{\link{add_lpsymphony_solver}}}{The \pkg{lpsymphony} package
+\item{\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}}{The \pkg{lpsymphony} package
 provides a different interface to the COIN-OR software suite. Unlike the
 \pkg{Rsymhpony} package, the \pkg{lpsymphony} package is distributed
 through
@@ -100,8 +100,8 @@ plot(s, main = titles, axes = FALSE, box = FALSE)
 
 }
 \seealso{
-\code{\link{constraints}},  \code{\link{decisions}},
-\code{\link{objectives}} \code{\link{penalties}},
-\code{\link{portfolios}}, \code{\link{problem}},
-\code{\link{targets}}.
+\code{\link[=constraints]{constraints()}},  \code{\link[=decisions]{decisions()}},
+\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}},
+\code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
+\code{\link[=targets]{targets()}}.
 }

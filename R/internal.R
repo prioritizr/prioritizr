@@ -1,6 +1,6 @@
 #' Check
 #'
-#' Check that the output from \code{\link[assert_that]{see_if}}
+#' Check that the output from [assertthat::see_if()]
 #' is valid.
 #'
 #' @param x `character` or `object`
@@ -41,7 +41,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #'   numbers, the second column contains the column numbers, and the
 #'   third column contains the cell values.
 #
-#' @return \code{\link[Matrix]{dgCMatrix-class}} object.
+#' @return [Matrix::dgCMatrix-class()] object.
 #'
 #' @noRd
 triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
@@ -178,8 +178,8 @@ assertthat::on_failure(no_extra_arguments) <- function(call, env) {
 
 #' Verify if assertion is met
 #'
-#' Verify if an assertion is met and throw a \code{\link[base]{warning}} if it
-#' is not. This function is equivalent to \code{\link[assertthat]{assert_that}}
+#' Verify if an assertion is met and throw a [base::warning()] if it
+#' is not. This function is equivalent to [assertthat::assert_that()]
 #' except that it throws warnings and not errors.
 #'
 #' @param x `logical` condition.
@@ -197,15 +197,15 @@ verify_that <- function(..., env = parent.frame()) {
 
 #' Are rasters comparable?
 #'
-#' This function checks if two \code{\link[raster]{Raster-class}} objects
+#' This function checks if two [raster::Raster-class()] objects
 #' are comparable.
 #'
-#' @param x \code{\link[raster]{Raster-class}} object.
+#' @param x [raster::Raster-class()] object.
 #'
-#' @param y \code{\link[raster]{Raster-class}} object.
+#' @param y [raster::Raster-class()] object.
 #'
 #' @return `logical` indicating if the two
-#'   \code{\link[raster]{Raster-class}} objects have the same
+#'   [raster::Raster-class()] objects have the same
 #'   resolution, extent, dimensionality, and coordinate system.
 #'
 #' @noRd
@@ -249,11 +249,11 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #'
 #' Verify if the extents of two spatial objects intersect or not.
 #'
-#' @param x \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object.
+#' @param x [raster::Raster-class()], [sp::Spatial-class()],
+#'   or [sf::sf()] object.
 #'
-#' @param y \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object.
+#' @param y [raster::Raster-class()], [sp::Spatial-class()],
+#'   or [sf::sf()] object.
 #'
 #' @return `logical`.
 #'
@@ -270,9 +270,9 @@ intersecting_extents <- function(x, y) {
 
 #' Geometry classes
 #'
-#' Extract geometry class names from a \code{\link[sf]{sf}} object.
+#' Extract geometry class names from a [sf::sf()] object.
 #'
-#' @param x  \code{\link[sf]{sf}} object.
+#' @param x  [sf::sf()] object.
 #'
 #' @return `character` object.
 #'

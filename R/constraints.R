@@ -3,14 +3,14 @@ NULL
 
 #' Conservation problem constraints
 #'
-#' A constraint can be added to a conservation planning \code{\link{problem}}
+#' A constraint can be added to a conservation planning [problem()]
 #' to ensure that solutions exhibit a specific characteristic.
 #'
 #' @details Constraints can be used to ensure that solutions exhibit
 #'   a range of different characteristics. For instance, they can be
 #'   used to lock in or lock out certain planning units from the solution, such
 #'   as protected areas or degraded land (respectively).
-#'   Additionally, similar to the \code{\link{penalties}} functions,
+#'   Additionally, similar to the [penalties()] functions,
 #'   some of the constraint functions can be used to increase connectivity in a
 #'   solution. The key difference between a penalty and a constraint, however,
 #'   is that constraints work by invalidating solutions that do not exhibit
@@ -20,41 +20,41 @@ NULL
 #'   are available.
 #'
 #'   The following constraints can be added to a conservation planning
-#'   \code{\link{problem}}:
+#'   [problem()]:
 #'
 #'   \describe{
 #'
-#'   \item{\code{\link{add_locked_in_constraints}}}{Add constraints to ensure
+#'   \item{[add_locked_in_constraints()]}{Add constraints to ensure
 #'     that certain planning units are selected in the solution.}
 #'
-#'   \item{\code{\link{add_locked_out_constraints}}}{Add constraints to ensure
+#'   \item{[add_locked_out_constraints()]}{Add constraints to ensure
 #'     that certain planning units are not selected in the solution.}
 #'
-#'   \item{\code{\link{add_neighbor_constraints}}}{Add constraints to
+#'   \item{[add_neighbor_constraints()]}{Add constraints to
 #'     ensure that all selected planning units have at least a certain number
 #'     of neighbors.}
 #'
-#'   \item{\code{\link{add_contiguity_constraints}}}{Add constraints to a
+#'   \item{[add_contiguity_constraints()]}{Add constraints to a
 #'     ensure that all selected planning units are spatially connected to each
 #'     other and form a single contiguous unit.}
 #'
-#'   \item{\code{\link{add_feature_contiguity_constraints}}}{Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+#'   \item{[add_feature_contiguity_constraints()]}{Add constraints to #'     ensure that each feature is represented in a contiguous unit of
 #'     dispersible habitat. These constraints are a more advanced version of
-#'     those implemented in the \code{\link{add_contiguity_constraints}}
+#'     those implemented in the [add_contiguity_constraints()]
 #'     function, because they ensure that each feature is represented in a
 #'     contiguous unit and not that the entire solution should form a
 #'     contiguous unit.}
 #'
-#'   \item{\code{\link{add_mandatory_allocation_constraints}}}{
+#'   \item{[add_mandatory_allocation_constraints()]}{
 #'     Add constraints to ensure that every planning unit is allocated to a
 #'     management zone in the solution. **This function can only be used
 #'     with problems that contain multiple zones.**}
 #'
 #'  }
 #'
-#' @seealso \code{\link{decisions}}, \code{\link{objectives}},
-#'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
-#'  \code{\link{solvers}}, \code{\link{targets}}.
+#' @seealso [decisions()], [objectives()],
+#'  [penalties()], [portfolios()], [problem()],
+#'  [solvers()], [targets()].
 #'
 #' @examples
 #' # load data

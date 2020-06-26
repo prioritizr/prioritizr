@@ -13,12 +13,12 @@ NULL
 
 #' Manipulate tibbles
 #'
-#' Assorted functions for manipulating \code{\link[tibble]{tibble}} objects.
+#' Assorted functions for manipulating [tibble::tibble()] objects.
 #'
-#' @param x \code{\link[tibble]{tibble}} object.
+#' @param x [tibble::tibble()] object.
 #'
 #' @details The following methods are provided from manipulating
-#'   \code{\link[tibble]{tibble}} objects.
+#'   [tibble::tibble()] objects.
 #'
 #'   \describe{
 #'   \item{nrow}{extract `integer` number of rows.}

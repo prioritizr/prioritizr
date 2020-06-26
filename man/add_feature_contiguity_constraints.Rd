@@ -17,7 +17,7 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
@@ -49,19 +49,19 @@ different dispersal capabilities, then it may be desirable to specify
 which sets of planning units should be treated as being connected
 for which features using a \code{list} of objects. The default argument
 is \code{NULL} which means that the connection data is calculated
-automatically using the \code{\link{adjacency_matrix}} function and so
+automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function and so
 all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
 added to it.
 }
 \description{
-Add constraints to a \code{\link{problem}} to ensure that each feature is
+Add constraints to a \code{\link[=problem]{problem()}} to ensure that each feature is
 represented in a contiguous unit of dispersible habitat. These constraints
 are a more advanced version of those implemented in the
-\code{\link{add_contiguity_constraints}} function, because they ensure that
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function, because they ensure that
 each feature is represented in a contiguous unit and not that the entire
 solution should form a contiguous unit. Additionally, this function
 can use data showing the distribution of dispersible habitat for each
@@ -87,7 +87,7 @@ The argument to \code{data} can be specified in several ways:
 \describe{
 
 \item{\code{NULL}}{connection data should be calculated automatically
-using the \code{\link{adjacency_matrix}} function. This is the default
+using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
 argument and means that all adjacent planning units are treated
 as potentially dispersible for all features.
 Note that the connection data must be manually defined
@@ -226,5 +226,5 @@ connectivity in conservation planning do not always maintain gene flow.
 \url{https://doi.org/10.1111/1365-2664.13315}.
 }
 \seealso{
-\code{\link{constraints}}.
+\code{\link[=constraints]{constraints()}}.
 }

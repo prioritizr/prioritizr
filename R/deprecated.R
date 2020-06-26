@@ -16,7 +16,7 @@ NULL
 
 #' @rdname prioritizr-deprecated
 #' @section  `add_connected_constraints`: this function has been renamed
-#'   to the \code{\link{add_contiguity_constraints}} function.
+#'   to the [add_contiguity_constraints()] function.
 #' @export
 add_connected_constraints <- function(...) {
   .Deprecated("add_contiguity_constraints")
@@ -26,7 +26,7 @@ add_connected_constraints <- function(...) {
 
 #' @rdname prioritizr-deprecated
 #' @section  `add_corridor_constraints`: this function has been
-#'   reimagined as the \code{\link{add_feature_contiguity_constraints}}
+#'   reimagined as the [add_feature_contiguity_constraints()]
 #'   function.
 #' @export
 add_corridor_constraints <- function(...) {
@@ -60,7 +60,7 @@ is.parallel <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  `add_pool_portfolio`: this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
+#' @section  `add_pool_portfolio`: this function is replaced by [add_extra_portfolio()] and [add_top_portfolio()].
 #'   function.
 #' @export
 add_pool_portfolio <- function(...) {
@@ -69,7 +69,7 @@ add_pool_portfolio <- function(...) {
 
 #' @rdname prioritizr-deprecated
 #' @section  `connected_matrix`: this function has been renamed as
-#' the \code{\link{adjacency_matrix}} function.
+#' the [adjacency_matrix()] function.
 #' @export
 connected_matrix <- function(...) {
   .Deprecated("adjacency_matrix")

@@ -50,5 +50,5 @@ a <- 1:4
 print(a)
 }
 \seealso{
-\code{\link[base]{print}}.
+\code{\link[base:print]{base::print()}}.
 }

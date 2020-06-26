@@ -42,7 +42,7 @@ NULL
 #'   `sim_pu_polygons`.}
 #'
 #' \item{`sim_pu_sf`}{Planning units represented as polygon data
-#'   using the \code{\link[sf]{sf}} package.
+#'   using the [sf::sf()] package.
 #'   The attribute table follows the same conventions as for
 #'   `sim_pu_polygons`.}
 #'
@@ -56,7 +56,7 @@ NULL
 #'   specific value are assigned a `NA` value.}
 #'
 #' \item{`sim_pu_zones_sf`}{Planning units represented as polygon data
-#'   using the \code{\link[sf]{sf}} package. The attribute tables follows
+#'   using the [sf::sf()] package. The attribute tables follows
 #'   the same conventions as for `sim_pu_zone_polygons`.}
 #'
 #' \item{`sim_features`}{The simulated distribution of ten species.
@@ -102,36 +102,36 @@ NULL
 #' @format
 #' \describe{
 #'
-#' \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
+#' \item{sim_pu_polygons}{[sp::SpatialPolygonsDataFrame-class()]
 #'   object.}
 #'
 #' \item{sim_pu_zones_polygons}{
-#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+#'   [sp::SpatialPolygonsDataFrame-class()] object.}
 #'
-#' \item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+#' \item{sim_pu_sf}{[sf::sf()] object.}
 #'
-#' \item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
+#' \item{sim_pu_zones_sf}{[sf::sf()] object.}
 #'
-#' \item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
+#' \item{sim_pu_lines}{[sp::SpatialLinesDataFrame-class()] object.}
 #'
-#' \item{sim_pu_points}{\code{\link[sp]{SpatialPointsDataFrame-class}}
+#' \item{sim_pu_points}{[sp::SpatialPointsDataFrame-class()]
 #'   object.}
 #'
-#' \item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
+#' \item{sim_pu_raster}{[raster::RasterLayer-class()] object.}
 #'
-#' \item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
+#' \item{sim_pu_zones_stack}{[raster::RasterStack-class()] object.}
 #'
-#' \item{sim_locked_in_raster}{\code{\link[raster]{RasterLayer-class}}
+#' \item{sim_locked_in_raster}{[raster::RasterLayer-class()]
 #'   object.}
 #'
-#' \item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
+#' \item{sim_locked_out_raster}{[raster::RasterLayer-class()]
 #'   object.}
 #'
-#' \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
+#' \item{sim_features}{[raster::RasterStack-class()] object.}
 #'
-#' \item{sim_features_zones}{\code{\link{ZonesRaster}} object.}
+#' \item{sim_features_zones}{[ZonesRaster()] object.}
 #'
-#' \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
+#' \item{sim_phylogeny}{[ape::phylo()] object.}
 #'
 #' }
 #'

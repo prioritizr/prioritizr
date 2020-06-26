@@ -5,25 +5,25 @@ NULL
 #'
 #' Simulate spatially auto-correlated data.
 #'
-#' @param x \code{\link[raster]{RasterLayer-class}} object to use as
+#' @param x [raster::RasterLayer-class()] object to use as
 #'    a template.
 #'
 #' @param n `integer` number of species to simulate.
 #'
-#' @param model \code{\link[RandomFields]{RP}} model object
+#' @param model [RandomFields::RP()] model object
 #'   to use for simulating data.
 #'
 #' @param transform `function` to transform values output
 #'   from the random fields simulation.
 #'
 #' @param ... additional arguments passed to
-#'   \code{\link[RandomFields]{RFsimulate}}.
+#'   [RandomFields::RFsimulate()].
 #'
-#' @return \code{\link[raster]{RasterStack-class}} object with a
+#' @return [raster::RasterStack-class()] object with a
 #'   layer for each species.
 #'
-#' @seealso \code{\link[RandomFields]{RFsimulate}},
-#'   \code{\link{simulate_cost}}, \code{\link{simulate_species}}.
+#' @seealso [RandomFields::RFsimulate()],
+#'   [simulate_cost()], [simulate_species()].
 #'
 #' @examples
 #' \donttest{
@@ -73,9 +73,9 @@ simulate_data <- function(x, n, model, transform = identity, ...) {
 #'
 #' @inheritParams simulate_data
 #'
-#' @return \code{\link[raster]{RasterStack-class}} object.
+#' @return [raster::RasterStack-class()] object.
 #'
-#' @seealso \code{\link{simulate_data}}.
+#' @seealso [simulate_data()].
 #'
 #' @examples
 #' \donttest{
@@ -103,9 +103,9 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #'
 #' @inheritParams simulate_data
 #'
-#' @return \code{\link[raster]{RasterStack-class}} object.
+#' @return [raster::RasterStack-class()] object.
 #'
-#' @seealso \code{\link{simulate_data}}.
+#' @seealso [simulate_data()].
 #'
 #' @examples
 #' \donttest{

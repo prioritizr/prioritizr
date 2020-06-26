@@ -6,28 +6,28 @@ NULL
 #' Generate a matrix showing the amount of each feature in each planning
 #' unit (also known as an *rij* matrix).
 #'
-#' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+#' @param x [raster::Raster-class()],
+#'   [sp::Spatial-class()], or [sf::sf()] object
 #'   representing the planning units.
 #'
-#' @param y \code{\link[raster]{Raster-class}} object representing the
+#' @param y [raster::Raster-class()] object representing the
 #'   features.
 #'
 #' @param fun `character` for summarizing values inside each planning unit.
 #'   This parameter is only used when the argument to `x` is a
-#'   \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
+#'   [sp::Spatial-class()] or [sf::sf()] object.
 #'   Defaults to `"sum"`.
 #'
 #' @param ... not used.
 #'
 #' @details
-#'   Generally, processing vector (i.e. \code{\link[sp]{Spatial-class}} or
-#'   \code{\link[sf]{sf}}) data takes much
-#'   longer to process then \code{\link[raster]{Raster-class}} data,
-#'   so it is recommended to use \code{\link[raster]{Raster-class}} data
+#'   Generally, processing vector (i.e. [sp::Spatial-class()] or
+#'   [sf::sf()]) data takes much
+#'   longer to process then [raster::Raster-class()] data,
+#'   so it is recommended to use [raster::Raster-class()] data
 #'   for planning units where possible.
 #'
-#' @return \code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
+#' @return [Matrix::dgCMatrix-class()] sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the
 #'   planning units and the features. Rows correspond to planning units,
 #'   and columns correspond to features. Values correspond to the amount

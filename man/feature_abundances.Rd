@@ -10,14 +10,14 @@ feature_abundances(x, na.rm)
 \method{feature_abundances}{ConservationProblem}(x, na.rm = FALSE)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{na.rm}{\code{logical} should planning units with \code{NA} cost
 data be excluded from the abundance calculations? The default argument
 is \code{FALSE}.}
 }
 \value{
-\code{\link[tibble]{tibble}} containing the total amount
+\code{\link[tibble:tibble]{tibble::tibble()}} containing the total amount
 (\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
 of the distribution of each feature in the planning units. Here, each
 row contains data that pertain to a specific feature in a specific
@@ -54,7 +54,7 @@ Planning units can have cost data with finite values
 (e.g. 0.1, 3, 100) and \code{NA} values. This functionality is provided so
 that locations which are not available for protected area acquisition can
 be included when calculating targets for conservation features
-(e.g. when targets are specified using \code{\link{add_relative_targets}}).
+(e.g. when targets are specified using \code{\link[=add_relative_targets]{add_relative_targets()}}).
 If the total amount of each feature in all the planning units is
 required---including the planning units with \code{NA} cost data---then the
 the \code{na.rm} argument should be set to \code{FALSE}. However, if
@@ -141,5 +141,5 @@ plot(s5)
 }
 }
 \seealso{
-\code{\link{problem}}, \code{\link{feature_representation}}.
+\code{\link[=problem]{problem()}}, \code{\link[=feature_representation]{feature_representation()}}.
 }

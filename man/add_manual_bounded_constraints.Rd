@@ -13,20 +13,20 @@ add_manual_bounded_constraints(x, data)
 \S4method{add_manual_bounded_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
-\item{data}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
+\item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
 the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
 added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link{problem}} to ensure
+Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
 that the planning unit values (e.g. proportion, binary) in a solution
 range between specific lower and upper bounds. This function offers more
-fine-grained control than the \code{\link{add_manual_locked_constraints}}
+fine-grained control than the \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}}
 function and is is most useful for problems involving proportion-type
 or semi-continuous decisions.
 }
@@ -137,5 +137,5 @@ spplot(s4, zcol = c("solution", "solution_bounded"), axes = FALSE,
 }
 }
 \seealso{
-\code{\link{constraints}}.
+\code{\link[=constraints]{constraints()}}.
 }

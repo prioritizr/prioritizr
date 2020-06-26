@@ -17,7 +17,7 @@ objectives (e.g. certain areas are locked into the solution). Finally,
 a conservation planning problem---unlike an optimization problem---also
 requires a method to solve the problem. \strong{This class represents a
 planning problem, to actually build and then solve a planning problem,
-use the \code{\link{problem}} function. Only experts should use this
+use the \code{\link[=problem]{problem()}} function. Only experts should use this
 class directly.}
 }
 \section{Fields}{
@@ -26,25 +26,25 @@ class directly.}
 
 \item{$data}{\code{list} object containing data.}
 
-\item{$objective}{\code{\link{Objective-class}} object used to represent how
+\item{$objective}{\code{\link[=Objective-class]{Objective-class()}} object used to represent how
 the targets relate to the solution.}
 
-\item{$decisions}{\code{\link{Decision-class}} object used to represent the
+\item{$decisions}{\code{\link[=Decision-class]{Decision-class()}} object used to represent the
 type of decision made on planning units.}
 
-\item{$targets}{\code{\link{Target-class}} object used to represent
+\item{$targets}{\code{\link[=Target-class]{Target-class()}} object used to represent
 representation targets for features.}
 
-\item{$penalties}{\code{\link{Collection-class}} object used to represent
-additional \code{\link{penalties}} that the problem is subject to.}
+\item{$penalties}{\code{\link[=Collection-class]{Collection-class()}} object used to represent
+additional \code{\link[=penalties]{penalties()}} that the problem is subject to.}
 
-\item{$constraints}{\code{\link{Collection-class}} object used to represent
-additional \code{\link{constraints}} that the problem is subject to.}
+\item{$constraints}{\code{\link[=Collection-class]{Collection-class()}} object used to represent
+additional \code{\link[=constraints]{constraints()}} that the problem is subject to.}
 
-\item{$portfolio}{\code{\link{Portfolio-class}} object used to represent
+\item{$portfolio}{\code{\link[=Portfolio-class]{Portfolio-class()}} object used to represent
 the method for generating a portfolio of solutions.}
 
-\item{$solver}{\code{\link{Solver-class}} object used to solve the problem.}
+\item{$solver}{\code{\link[=Solver-class]{Solver-class()}} object used to solve the problem.}
 
 }
 }
@@ -148,24 +148,24 @@ the method for generating a portfolio of solutions.}
 
 \item{value}{an object.}
 
-\item{obj}{\code{\link{Objective-class}} object.}
+\item{obj}{\code{\link[=Objective-class]{Objective-class()}} object.}
 
-\item{dec}{\code{\link{Decision-class}} object.}
+\item{dec}{\code{\link[=Decision-class]{Decision-class()}} object.}
 
-\item{con}{\code{\link{Constraint-class}} object.}
+\item{con}{\code{\link[=Constraint-class]{Constraint-class()}} object.}
 
-\item{pol}{\code{\link{Portfolio-class}} object.}
+\item{pol}{\code{\link[=Portfolio-class]{Portfolio-class()}} object.}
 
-\item{sol}{\code{\link{Solver-class}} object.}
+\item{sol}{\code{\link[=Solver-class]{Solver-class()}} object.}
 
-\item{targ}{\code{\link{Target-class}} object.}
+\item{targ}{\code{\link[=Target-class]{Target-class()}} object.}
 
-\item{cost}{\code{\link[raster]{RasterLayer-class}},
-\code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
-\code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
+\item{cost}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}},
+\code{\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame-class()}}, or
+\code{\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame-class()}} object showing spatial
 representation of the planning units and their cost.}
 
-\item{features}{\code{\link{Zones-class}} or \code{data.frame} object
+\item{features}{\code{\link[=Zones-class]{Zones-class()}} or \code{data.frame} object
 containing feature data.}
 
 \item{id}{\code{Id} object that refers to a specific parameter.}
@@ -220,25 +220,25 @@ different feature.}
 abundance of each feature in each zone. Each column corresponds to a
 different zone and each row corresponds to a different feature.}
 
-\item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
+\item{feature_targets}{\code{\link[tibble:tibble]{tibble::tibble()}} with feature targets.}
 
 \item{number_of_zones}{\code{integer} number of zones.}
 
 \item{zone_names}{\code{character} names of zones in problem.}
 
-\item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
+\item{add_objective}{return a new  \code{\link[=ConservationProblem-class]{ConservationProblem-class()}}
 with the objective added to it.}
 
-\item{add_decisions}{return a new \code{\link{ConservationProblem-class}}
+\item{add_decisions}{return a new \code{\link[=ConservationProblem-class]{ConservationProblem-class()}}
 object with the decision added to it.}
 
-\item{add_portfolio}{return a new \code{\link{ConservationProblem-class}}
+\item{add_portfolio}{return a new \code{\link[=ConservationProblem-class]{ConservationProblem-class()}}
 object with the portfolio method added to it.}
 
-\item{add_solver}{return a new \code{\link{ConservationProblem-class}} object
+\item{add_solver}{return a new \code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object
 with the solver added to it.}
 
-\item{add_constraint}{return a new \code{\link{ConservationProblem-class}}
+\item{add_constraint}{return a new \code{\link[=ConservationProblem-class]{ConservationProblem-class()}}
 object with the constraint added to it.}
 
 \item{add_targets}{return a copy with the targets added to the problem.}

@@ -20,36 +20,36 @@
 \format{
 \describe{
 
-\item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
+\item{sim_pu_polygons}{\code{\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame-class()}}
 object.}
 
 \item{sim_pu_zones_polygons}{
-\code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+\code{\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame-class()}} object.}
 
-\item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+\item{sim_pu_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
-\item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
+\item{sim_pu_zones_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
-\item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
+\item{sim_pu_lines}{\code{\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame-class()}} object.}
 
-\item{sim_pu_points}{\code{\link[sp]{SpatialPointsDataFrame-class}}
+\item{sim_pu_points}{\code{\link[sp:SpatialPointsDataFrame-class]{sp::SpatialPointsDataFrame-class()}}
 object.}
 
-\item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
+\item{sim_pu_raster}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} object.}
 
-\item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
+\item{sim_pu_zones_stack}{\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object.}
 
-\item{sim_locked_in_raster}{\code{\link[raster]{RasterLayer-class}}
+\item{sim_locked_in_raster}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}
 object.}
 
-\item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
+\item{sim_locked_out_raster}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}
 object.}
 
-\item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
+\item{sim_features}{\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object.}
 
-\item{sim_features_zones}{\code{\link{ZonesRaster}} object.}
+\item{sim_features_zones}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
 
-\item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
+\item{sim_phylogeny}{\code{\link[ape:read.tree]{ape::phylo()}} object.}
 
 }
 
@@ -173,7 +173,7 @@ The attribute table follows the same conventions as for
 \code{sim_pu_polygons}.}
 
 \item{\code{sim_pu_sf}}{Planning units represented as polygon data
-using the \code{\link[sf]{sf}} package.
+using the \code{\link[sf:sf]{sf::sf()}} package.
 The attribute table follows the same conventions as for
 \code{sim_pu_polygons}.}
 
@@ -187,7 +187,7 @@ In these locked fields, planning units that should not be locked to a
 specific value are assigned a \code{NA} value.}
 
 \item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
-using the \code{\link[sf]{sf}} package. The attribute tables follows
+using the \code{\link[sf:sf]{sf::sf()}} package. The attribute tables follows
 the same conventions as for \code{sim_pu_zone_polygons}.}
 
 \item{\code{sim_features}}{The simulated distribution of ten species.

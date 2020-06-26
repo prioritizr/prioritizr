@@ -8,10 +8,10 @@ NULL
 #' Portfolio prototype
 #'
 #' This prototype is used to represent methods for generating portfolios of
-#' optimization problems. \strong{This class represents a recipe to
+#' optimization problems. **This class represents a recipe to
 #' create portfolio generating method and is only recommended for use by expert
 #' users. To customize the method used to generate portfolios, please see the
-#' help page on \code{\link{portfolios}}}.
+#' help page on [portfolios()]**.
 #' @section Fields:
 #'
 #' \describe{
@@ -37,9 +37,9 @@ NULL
 #' @section Arguments:
 #' \describe{
 #'
-#' \item{x}{\code{\link{Solver-class}} object.}
+#' \item{x}{[Solver-class()] object.}
 #'
-#' \item{op}{\code{\link{OptimizationProblem-class}} object.}
+#' \item{op}{[OptimizationProblem-class()] object.}
 #'
 #' }
 #'
@@ -52,8 +52,8 @@ NULL
 #'
 #' \item{repr}{`character` representation of object.}
 #'
-#' \item{run}{solve an \code{\link{OptimizationProblem-class}} object using this
-#'   object and a \code{\link{Solver-class}} object.}
+#' \item{run}{solve an [OptimizationProblem-class()] object using this
+#'   object and a [Solver-class()] object.}
 #'
 #' }
 #'

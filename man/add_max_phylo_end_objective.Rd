@@ -7,7 +7,7 @@
 add_max_phylo_end_objective(x, budget, tree)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -15,18 +15,18 @@ to \code{budget} can be a single \code{numeric} value to specify a budget
 for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 
-\item{tree}{\code{\link{phylo}} object specifying a phylogenetic tree
+\item{tree}{\code{\link[=phylo]{phylo()}} object specifying a phylogenetic tree
 for the conservation features.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
 added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 maximize the phylogenetic endemism of the features represented in the
 solution subject to a budget. This objective is similar to
-\code{\link{add_max_phylo_end_objective}} except
+\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}} except
 that emphasis is placed on representing species with geographically
 restricted evolutionary histories, instead representing as much evolutionary
 history as possible. This function was inspired by Faith (1992),
@@ -44,7 +44,7 @@ planning units that meets representation targets for a phylogenetic tree
 while staying within a fixed budget. If multiple solutions can meet all
 targets while staying within budget, the cheapest solution is chosen.
 Note that this objective is similar to the maximum
-features objective (\code{\link{add_max_features_objective}}) in that it
+features objective (\code{\link[=add_max_features_objective]{add_max_features_objective()}}) in that it
 allows for both a budget and targets to be set for each feature. However,
 unlike the maximum feature objective, the aim of this objective is to
 maximize the total phylogenetic endemism of the targets met in the
@@ -81,7 +81,7 @@ indexed by \eqn{j}{j}) as:
   subject to sum_i^I (xi * rij) >= (yj * tj) for all j in J &
   mb <= yj for all j in T(b) & sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
@@ -229,5 +229,5 @@ concentrations of evolutionary history. \emph{Molecular Ecology}, 18:
 4061--4072.
 }
 \seealso{
-\code{\link{objectives}}, \code{\link{branch_matrix}}.
+\code{\link[=objectives]{objectives()}}, \code{\link[=branch_matrix]{branch_matrix()}}.
 }

@@ -9,11 +9,11 @@ NULL
 #'
 #' Generate a new unique identifier.
 #'
-#' @details Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
+#' @details Identifiers are made using the [uuid::UUIDgenerate()].
 #'
 #' @return `Id` object.
 #'
-#' @seealso \code{\link[uuid]{UUIDgenerate}}.
+#' @seealso [uuid::UUIDgenerate()].
 #'
 #' @examples
 #' # create new id

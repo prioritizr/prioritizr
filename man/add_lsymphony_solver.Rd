@@ -14,7 +14,7 @@ add_lpsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is absolute and
 expresses the acceptable deviance from the optimal objective. For example,
@@ -37,7 +37,7 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the solver added
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the solver added
 to it.
 }
 \description{
@@ -84,5 +84,5 @@ if (require(lpsymphony) &
 
 }
 \seealso{
-\code{\link{solvers}}.
+\code{\link[=solvers]{solvers()}}.
 }

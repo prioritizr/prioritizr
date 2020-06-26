@@ -5,7 +5,7 @@
 \title{Problem objective}
 \description{
 An objective is used to specify the overall goal of a conservation planning
-\code{\link{problem}}. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
+\code{\link[=problem]{problem()}}. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
@@ -16,34 +16,34 @@ ensuring that the cost of the reserve network does not exceed the budget.
 to solve a problem will return an error.}
 
 The following objectives can be added to a conservation planning
-\code{\link{problem}}:
+\code{\link[=problem]{problem()}}:
 
 \describe{
 
-\item{\code{\link{add_min_set_objective}}}{Minimize the cost of the
+\item{\code{\link[=add_min_set_objective]{add_min_set_objective()}}}{Minimize the cost of the
 solution whilst ensuring that all targets are met. This objective is
 similar to that used in \emph{Marxan}.}
 
-\item{\code{\link{add_max_cover_objective}}}{Represent at least one
+\item{\code{\link[=add_max_cover_objective]{add_max_cover_objective()}}}{Represent at least one
 instance of as many features as possible within a given budget.}
 
-\item{\code{\link{add_max_features_objective}}}{Fulfill as many targets as
+\item{\code{\link[=add_max_features_objective]{add_max_features_objective()}}}{Fulfill as many targets as
 possible while ensuring that the cost of the solution does not exceed a
 budget.}
 
-\item{\code{\link{add_min_shortfall_objective}}}{Minimize the shortfall
+\item{\code{\link[=add_min_shortfall_objective]{add_min_shortfall_objective()}}}{Minimize the shortfall
 for as many targets as possible while ensuring that
 the cost of the solution does not exceed a budget.}
 
-\item{\code{\link{add_max_phylo_div_objective}}}{Maximize the phylogenetic
+\item{\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}}{Maximize the phylogenetic
 diversity of the features represented in the solution subject to a
 budget.}
 
-\item{\code{\link{add_max_phylo_end_objective}}}{Maximize the phylogenetic
+\item{\code{\link[=add_max_phylo_end_objective]{add_max_phylo_end_objective()}}}{Maximize the phylogenetic
 endemism of the features represented in the solution subject to a
 budget.}
 
-\item{\code{\link{add_max_utility_objective}}}{Secure as much of the
+\item{\code{\link[=add_max_utility_objective]{add_max_utility_objective()}}}{Secure as much of the
 features as possible without exceeding a budget.}
 
 }
@@ -91,7 +91,7 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{decisions}},
-\code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
-\code{\link{solvers}}, \code{\link{targets}}.
+\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
+\code{\link[=penalties]{penalties()}}, \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
+\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
 }

@@ -3,16 +3,16 @@ NULL
 
 #' Add maximum phylogenetic diversity objective
 #'
-#' Set the objective of a conservation planning \code{\link{problem}} to
+#' Set the objective of a conservation planning [problem()] to
 #' maximize the phylogenetic diversity of the features represented in the
 #' solution subject to a budget. This objective is similar to
-#' \code{\link{add_max_features_objective}} except
+#' [add_max_features_objective()] except
 #' that emphasis is placed on representing a phylogenetically diverse set of
 #' species, rather than as many features as possible (subject to weights).
 #' This function was inspired by Faith (1992) and Rodrigues *et al.*
 #' (2002).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
@@ -20,7 +20,7 @@ NULL
 #'   for the entire solution or a `numeric` `vector` to specify
 #'   a budget for each each management zone.
 #'
-#' @param tree \code{\link{phylo}} object specifying a phylogenetic tree
+#' @param tree [phylo()] object specifying a phylogenetic tree
 #'   for the conservation features.
 #'
 #' @details A problem objective is used to specify the overall goal of the
@@ -34,7 +34,7 @@ NULL
 #'   while staying within a fixed budget. If multiple solutions can meet all
 #'   targets while staying within budget, the cheapest solution is chosen.
 #'   Note that this objective is similar to the maximum
-#'   features objective (\code{\link{add_max_features_objective}}) in that it
+#'   features objective ([add_max_features_objective()]) in that it
 #'   allows for both a budget and targets to be set for each feature. However,
 #'   unlike the maximum feature objective, the aim of this objective is to
 #'   maximize the total phylogenetic diversity of the targets met in the
@@ -71,7 +71,7 @@ NULL
 #'   (xi * rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) &
 #'   sum_i^I (xi * ci) <= B}
 #'
-#'   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions()] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #'   unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
@@ -89,7 +89,7 @@ NULL
 #'   will return a cheapest solution when there are multiple solutions that
 #'   represent the same amount of all features within the budget.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{branch_matrix}}.
+#' @seealso [objectives()], [branch_matrix()].
 #'
 #' @inherit add_min_set_objective return
 #'

@@ -16,7 +16,7 @@ This prototype is used to represent a parameter that can be any object.
 
 \item{$name}{\code{character} name of parameter.}
 
-\item{$value}{\code{\link[tibble]{tibble}} object.}
+\item{$value}{\code{\link[tibble:tibble]{tibble::tibble()}} object.}
 
 \item{$validator}{\code{list} object containing a \code{function} that
 is used to validate changes to the parameter.}
@@ -72,12 +72,12 @@ construct a \emph{shiny} interface for modifying values.}
 
 \item{reset}{update the parameter value to be the default value.}
 
-\item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
 parameter values.}
 
 }
 }
 
 \seealso{
-\code{\link{Parameter-class}}.
+\code{\link[=Parameter-class]{Parameter-class()}}.
 }

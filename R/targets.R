@@ -10,28 +10,28 @@ NULL
 #' to solve a problem that requires targets will throw an error.**
 #'
 #' @details The following functions can be used to specify targets for a
-#'   conservation planning \code{\link{problem}}:
+#'   conservation planning [problem()]:
 #'
 #'   \describe{
 #'
-#'   \item{\code{\link{add_relative_targets}}}{Set targets as a proportion
+#'   \item{[add_relative_targets()]}{Set targets as a proportion
 #'     (between 0 and 1) of the total amount of each feature in the
 #'     the study area.}
 #'
-#'   \item{\code{\link{add_absolute_targets}}}{Set targets that denote the
+#'   \item{[add_absolute_targets()]}{Set targets that denote the
 #'     minimum amount of each feature required in the prioritization.}
 #'
-#'   \item{\code{\link{add_loglinear_targets}}}{Set targets as a proportion
+#'   \item{[add_loglinear_targets()]}{Set targets as a proportion
 #'     (between 0 and 1) that are calculated using log-linear interpolation.}
 #'
-#'   \item{\code{\link{add_manual_targets}}}{Set targets manually.}
+#'   \item{[add_manual_targets()]}{Set targets manually.}
 #'
 #'   }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{decisions}},
-#'  \code{\link{objectives}} \code{\link{penalties}},
-#'  \code{\link{portfolios}}, \code{\link{problem}},
-#'  \code{\link{solvers}}.
+#' @seealso [constraints()], [decisions()],
+#'  [objectives()] [penalties()],
+#'  [portfolios()], [problem()],
+#'  [solvers()].
 #'
 #' @examples
 #' # load data

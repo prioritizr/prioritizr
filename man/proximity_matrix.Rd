@@ -25,8 +25,8 @@ proximity_matrix(x, distance)
 \method{proximity_matrix}{default}(x, distance)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, or \code{\link[sf:sf]{sf::sf()}} object
 representing planning units.}
 
 \item{distance}{\code{numeric} distance threshold. Planning units
@@ -34,14 +34,14 @@ that are further apart from each other than this threshold are
 not treated as being within proximity of each other.}
 }
 \value{
-\code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
+\code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix-class()}} sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate
 if the pair-wise distances between different planning units are within
 the distance threshold or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+\code{\link[raster:Raster-classes]{raster::Raster-class()}} object, then cells with \code{NA}
 values are set to zero too.
 }
 \description{
@@ -50,7 +50,7 @@ spatial proximity to each other.
 }
 \details{
 Proximity calculations are performed using
-\code{\link[sf]{st_is_within_distance}}.
+\code{\link[sf:geos_binary_pred]{sf::st_is_within_distance()}}.
 }
 \examples{
 # load data

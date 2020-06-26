@@ -7,14 +7,14 @@
 add_binary_decisions(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the decisions
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the decisions
 added to it.
 }
 \description{
-Add a binary decision to a conservation planning \code{\link{problem}}.
+Add a binary decision to a conservation planning \code{\link[=problem]{problem()}}.
 This is the classic decision of either prioritizing or not prioritizing a
 planning unit. Typically, this decision has the assumed action of buying
 the planning unit to include in a protected area network. If no decision is
@@ -66,5 +66,5 @@ plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link{decisions}}.
+\code{\link[=decisions]{decisions()}}.
 }

@@ -3,11 +3,11 @@ NULL
 
 #' Optimization problem
 #'
-#' Generate a new empty \code{\link{OptimizationProblem-class}} object.
+#' Generate a new empty [OptimizationProblem-class()] object.
 #'
-#' @return \code{\link{OptimizationProblem-class}} object.
+#' @return [OptimizationProblem-class()] object.
 #'
-#' @seealso \code{\link{OptimizationProblem-methods}}
+#' @seealso [OptimizationProblem-methods()]
 #'
 #' @examples
 #' # create empty OptimizationProblem object

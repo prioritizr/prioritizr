@@ -8,9 +8,9 @@ NULL
 #' Conservation problem modifier prototype
 #'
 #' This super-prototype is used to represent prototypes that in turn are used to
-#' modify a \code{\link{ConservationProblem-class}} object. Specifically, the
-#' \code{\link{Constraint-class}}, \code{\link{Decision-class}},
-#' \code{\link{Objective-class}}, and \code{\link{Target-class}} prototypes
+#' modify a [ConservationProblem-class()] object. Specifically, the
+#' [Constraint-class()], [Decision-class()],
+#' [Objective-class()], and [Target-class()] prototypes
 #' inherit from this class. **Only experts should interact with
 #' this class directly because changes to these class will have profound and
 #' far reaching effects.**
@@ -68,9 +68,9 @@ NULL
 #'
 #' \item{id}{`id` or `name` of parameter}
 #'
-#' \item{cp}{\code{\link{ConservationProblem-class}} object}
+#' \item{cp}{[ConservationProblem-class()] object}
 #'
-#' \item{op}{\code{\link{OptimizationProblem-class}} object}
+#' \item{op}{[OptimizationProblem-class()] object}
 #'
 #' }
 #'
@@ -98,12 +98,12 @@ NULL
 #'   `ConservationProblem` objects.}
 #'
 #' \item{output}{`function` used to generate an output from the object.
-#'   This method is only used for \code{\link{Target-class}} objects.}
+#'   This method is only used for [Target-class()] objects.}
 #'
 #' \item{apply}{`function` used to apply the modifier to an
-#'   \code{\link{OptimizationProblem-class}} object.
-#'   This is used by \code{\link{Constraint-class}},
-#'   \code{\link{Decision-class}}, and \code{\link{Objective-class}} objects.}
+#'   [OptimizationProblem-class()] object.
+#'   This is used by [Constraint-class()],
+#'   [Decision-class()], and [Objective-class()] objects.}
 #'
 #' \item{get_parameter}{retrieve the value of a parameter.}
 #'
@@ -115,7 +115,7 @@ NULL
 #' \item{render_parameter}{generate a *shiny* widget to modify the
 #'   the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_parameters}{generate a \code{\link[shiny]{div}}
+#' \item{render_all_parameters}{generate a [shiny::div()]
 #'   containing all the parameters" widgets.}
 #'
 #' }

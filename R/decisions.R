@@ -8,32 +8,32 @@ NULL
 #' turning an entire planning unit into a protected area, turning part
 #' of a planning unit into a protected area, or allocating a planning
 #' unit to a specific management zone. If no decision is explicitly added to a
-#' \code{\link{problem}}, then binary decisions will be used by default.
+#' [problem()], then binary decisions will be used by default.
 #'
 #' @details Only a single type of decision can be added to a conservation
-#'   planning \code{\link{problem}}.**If multiple decisions are added
+#'   planning [problem()].**If multiple decisions are added
 #'   to problem, then the last one to be added will be used.**
 #'
 #'   The following decisions can be added to a conservation planning
-#'   \code{\link{problem}}:
+#'   [problem()]:
 #'
 #'   \describe{
 #'
-#'   \item{\code{\link{add_binary_decisions}}}{Add a binary decision to a
+#'   \item{[add_binary_decisions()]}{Add a binary decision to a
 #'     conservation planning `problem`. This is the classic decision of
 #'     either prioritizing or not prioritizing a planning unit. Typically, this
 #'     decision has the assumed action of buying the planning unit to include
 #'     in a protected area network. If no decision is added to a problem object
 #'     then this decision class will be used by default.}
 #'
-#'   \item{\code{\link{add_proportion_decisions}}}{Add a proportion decision to
+#'   \item{[add_proportion_decisions()]}{Add a proportion decision to
 #'     a conservation planning `problem`. This is a relaxed decision
 #'     where a part of a planning unit can be prioritized, as opposed to the
 #'     default of the entire planning unit. Typically, this decision
 #'     has the assumed action of buying a fraction of a planning unit to
 #'     include in a protected area network.}
 #'
-#'   \item{\code{\link{add_semicontinuous_decisions}}}{Add a semi-continuous
+#'   \item{[add_semicontinuous_decisions()]}{Add a semi-continuous
 #'     decision to a conservation planning `problem`. This decision is
 #'     similar to `add_proportion_decision` except that it has an upper
 #'     bound parameter. By default, the decision can range from prioritizing
@@ -45,9 +45,9 @@ NULL
 #'
 #'   }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{objectives}},
-#'  \code{\link{penalties}}, \code{\link{portfolios}}, \code{\link{problem}},
-#'  \code{\link{solvers}}, \code{\link{targets}}.
+#' @seealso [constraints()], [objectives()],
+#'  [penalties()], [portfolios()], [problem()],
+#'  [solvers()], [targets()].
 #'
 #' @examples
 #' # load data

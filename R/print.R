@@ -11,7 +11,7 @@ NULL
 #'
 #' @return None.
 #'
-#' @seealso \code{\link[base]{print}}.
+#' @seealso [base::print()].
 #'
 #' @name print
 #'

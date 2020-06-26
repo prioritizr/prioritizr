@@ -3,11 +3,11 @@ NULL
 
 #' Add contiguity constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   connection scheme for different zones. Each row and column corresponds
@@ -29,7 +29,7 @@ NULL
 #'   object showing which planning units are connected with each
 #'   other. The argument defaults to `NULL` which means that the
 #'   connection data is calculated automatically using the
-#'   \code{\link{adjacency_matrix}} function. See the Details section for more
+#'   [adjacency_matrix()] function. See the Details section for more
 #'   information.
 #'
 #' @details This function uses connection data to identify solutions that
@@ -43,7 +43,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{`NULL`}{connection data should be calculated automatically
-#'     using the \code{\link{adjacency_matrix}} function. This is the default
+#'     using the [adjacency_matrix()] function. This is the default
 #'     argument. Note that the connection data must be manually defined
 #'     using one of the other formats below when the planning unit data
 #'     in the argument to `x` is not spatially referenced (e.g.
@@ -71,10 +71,10 @@ NULL
 #'
 #'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraints
+#' @return [ConservationProblem-class()] object with the constraints
 #'   added to it.
 #'
-#' @seealso \code{\link{constraints}}.
+#' @seealso [constraints()].
 #'
 #' @references
 #' {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected

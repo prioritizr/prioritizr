@@ -17,7 +17,7 @@ NULL
 #'
 #' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{\code{\link[tibble]{tibble}} object.}
+#' \item{$value}{[tibble::tibble()] object.}
 #'
 #' \item{$validator}{`list` object containing a `function` that
 #'   is used to validate changes to the parameter.}
@@ -67,14 +67,14 @@ NULL
 #'
 #' \item{reset}{update the parameter value to be the default value.}
 #'
-#' \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+#' \item{render}{create a [shiny::shiny()] widget to modify
 #'               parameter values.}
 #'
 #' }
 #'
 #' @name MiscParameter-class
 #'
-#' @seealso \code{\link{Parameter-class}}.
+#' @seealso [Parameter-class()].
 #'
 #' @aliases MiscParameter
 NULL

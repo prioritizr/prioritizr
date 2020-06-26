@@ -8,17 +8,17 @@ NULL
 #' note that this method is only recommended for large-scaled conservation
 #' planning exercises (i.e. more than 100,000 planning units) where
 #' irreplaceability scores cannot be calculated using the replacement cost
-#' method (\code{\link{replacement_cost}}) in a feasible period of
+#' method ([replacement_cost()]) in a feasible period of
 #' time. This is because rarity weighted richness scores cannot (i) account for
 #' the cost of different planning units, (ii) account for multiple management
 #' zones, and (iii) identify truly irreplaceable planning units---unlike the
 #' replacement cost metric which does not suffer any of these limitations.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
-#'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object. See the Details section for more
+#'   [raster::Raster-class()], [sp::Spatial-class()],
+#'   or [sf::sf()] object. See the Details section for more
 #'   information.
 #'
 #' @param rescale `logical` flag indicating if replacement cost
@@ -49,17 +49,17 @@ NULL
 #'   applicable). This means that if the planning unit data in `x`
 #'   is a `numeric` vector then the argument to `solution` must be a
 #'   `numeric` vector with the same number of elements; if the planning
-#'   unit data in `x` is a \code{\link[raster]{RasterLayer-class}} then the
+#'   unit data in `x` is a [raster::RasterLayer-class()] then the
 #'   argument to `solution` must also be a
-#'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
+#'   [raster::RasterLayer-class()] with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system;
-#'   if the planning unit data in `x` is a \code{\link[sp]{Spatial-class}}
+#'   if the planning unit data in `x` is a [sp::Spatial-class()]
 #'   object then the argument to `solution` must also be a
-#'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
+#'   [sp::Spatial-class()] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
-#'   if the planning unit data in `x` is a \code{\link[sf]{sf}}
+#'   if the planning unit data in `x` is a [sf::sf()]
 #'   object then the argument to `solution` must also be a
-#'   \code{\link[sf]{sf}} object and have the same number of spatial
+#'   [sf::sf()] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
 #'   if the planning units in `x` are a `data.frame` then the
 #'   argument to `solution` must also be a `data.frame` with each
@@ -78,8 +78,8 @@ NULL
 #'   `solution` where this is not the case, then an error will be thrown.
 #'
 #' @return A `numeric`, `matrix`,
-#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object containing the rarity weighted richness
+#'   [raster::RasterLayer-class()], [sp::Spatial-class()],
+#'   or [sf::sf()] object containing the rarity weighted richness
 #'   scores for each planning unit in the solution.
 #'
 #' @examples
@@ -121,7 +121,7 @@ NULL
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
 #'
-#' @seealso \code{\link{irreplaceability}}.
+#' @seealso [irreplaceability()].
 #'
 #' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,sf-method rarity_weighted_richness,ConservationProblem,Raster-method
 #'

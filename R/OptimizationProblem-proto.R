@@ -83,7 +83,7 @@ NULL
 #'
 #' \item{obj}{`numeric` vector of objective function.}
 #'
-#' \item{A}{\code{\link[Matrix]{dgCMatrix-class}} model matrix }
+#' \item{A}{[Matrix::dgCMatrix-class()] model matrix }
 #'
 #' \item{rhs}{`numeric` vector of right-hand-side constraints.}
 #'

@@ -31,7 +31,7 @@ NULL
 #'   that `$value` is permitted to be.}
 #'
 #' \item{$widget}{`function` used to construct a
-#'                \code{\link[shiny]{shiny}} interface for modifying values.}
+#'                [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -75,14 +75,14 @@ NULL
 #'
 #' \item{reset}{update the parameter value to be the default value.}
 #'
-#' \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+#' \item{render}{create a [shiny::shiny()] widget to modify
 #'               parameter values.}
 #'
 #' }
 #'
 #' @name ScalarParameter-class
 #'
-#' @seealso \code{\link{Parameter-class}}, \code{\link{ArrayParameter-class}}.
+#' @seealso [Parameter-class()], [ArrayParameter-class()].
 #'
 #' @aliases ScalarParameter
 NULL

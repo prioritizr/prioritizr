@@ -5,8 +5,8 @@ NULL
 #'
 #' Extract the number of zones in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}},
-#'   \code{\link{OptimizationProblem-class}},or \code{\link{Zones}} object.
+#' @param x [ConservationProblem-class()],
+#'   [OptimizationProblem-class()],or [Zones()] object.
 #'
 #' @return `integer` number of zones.
 #'

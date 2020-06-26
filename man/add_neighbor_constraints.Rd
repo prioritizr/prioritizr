@@ -17,7 +17,7 @@
 \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{k}{\code{integer} minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
@@ -40,15 +40,15 @@ only considered neighbors if they are both allocated to the same zone.}
 \code{array} object showing which planning units are neighbors with each
 other. The argument defaults to \code{NULL} which means that the
 neighborhood data is calculated automatically using the
-\code{\link{adjacency_matrix}} function. See the Details section for more
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function. See the Details section for more
 information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraint
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraint
 added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link{problem}} to ensure
+Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
 that all selected planning units in the solution have at least a certain
 number of neighbors that are also selected in the solution.
 }
@@ -63,7 +63,7 @@ The argument to \code{data} can be specified in several ways:
 \describe{
 
 \item{\code{NULL}}{neighborhood data should be calculated automatically
-using the \code{\link{adjacency_matrix}} function. This is the default
+using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
 argument. Note that the neighborhood data must be manually defined
 using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
@@ -188,5 +188,5 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{penalties}}.
+\code{\link[=constraints]{constraints()}}, \code{\link[=penalties]{penalties()}}.
 }

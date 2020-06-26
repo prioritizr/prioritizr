@@ -3,19 +3,19 @@ NULL
 
 #' Solve
 #'
-#' Solve a conservation planning \code{\link{problem}}.
+#' Solve a conservation planning [problem()].
 #'
-#' @param a \code{\link{ConservationProblem-class}} or an
-#'   \code{\link{OptimizationProblem-class}} object.
+#' @param a [ConservationProblem-class()] or an
+#'   [OptimizationProblem-class()] object.
 #'
-#' @param b \code{\link{Solver-class}} object. Not used if `a` is an
-#'   \code{\link{ConservationProblem-class}} object.
+#' @param b [Solver-class()] object. Not used if `a` is an
+#'   [ConservationProblem-class()] object.
 #'
-#' @param ... arguments passed to \code{\link{compile}}.
+#' @param ... arguments passed to [compile()].
 #'
 #' @param run_checks `logical` flag indicating whether presolve checks
 #'   should be run prior solving the problem. These checks are performed using
-#'   the \code{\link{presolve_check}} function. Defaults to `TRUE`.
+#'   the [presolve_check()] function. Defaults to `TRUE`.
 #'   Skipping these checks may reduce run time for large problems.
 #'
 #' @param force `logical` flag indicating if an attempt to should be
@@ -23,17 +23,17 @@ NULL
 #'   the presolve checks. Defaults to `FALSE`.
 #'
 #' @details
-#'   After formulating a conservation planning \code{\link{problem}},
-#'   it can be solved using an exact algorithm solver (see \code{\link{solvers}}
+#'   After formulating a conservation planning [problem()],
+#'   it can be solved using an exact algorithm solver (see [solvers()]
 #'   for available solvers). If no solver has been explicitly specified,
 #'   then the best available exact algorithm solver will be used by default
-#'   (see \code{\link{add_default_solver}}. Although these exact algorithm
+#'   (see [add_default_solver()]. Although these exact algorithm
 #'   solvers will often display a lot of information that isn't really that
 #'   helpful (e.g. nodes, cutting planes), they do display information
 #'   about the progress they are making on solving the problem (e.g. the
 #'   performance of the best solution found at a given point in time). If
 #'   potential issues were detected during the
-#'   presolve checks (see \code{\link{presolve_check}})
+#'   presolve checks (see [presolve_check()])
 #'   and the problem is being forcibly solved (i.e. with `force = TRUE`),
 #'   then it is also worth checking for any warnings displayed by the solver
 #'   to see if these potential issues are actually causing issues
@@ -43,10 +43,10 @@ NULL
 #'
 #'   The object returned from this function depends on the argument to
 #'   `a`. If the argument to `a` is an
-#'   \code{\link{OptimizationProblem-class}} object, then the
+#'   [OptimizationProblem-class()] object, then the
 #'   solution is returned as a `logical` `vector` showing the status
 #'   of each planning unit in each zone. However, in most cases, the argument
-#'   to `a` is an \code{\link{ConservationProblem-class}} object, and so
+#'   to `a` is an [ConservationProblem-class()] object, and so
 #'   the type of object returned depends on the number of solutions
 #'   generated and the type data used to represent the planning units:
 #'
@@ -63,16 +63,16 @@ NULL
 #'     multiple solutions are generated, then the solution is returned as
 #'     a `list` of `matrix` objects.}
 #'
-#'   \item{\code{\link[raster]{Raster-class}}}{object containing the solution
+#'   \item{[raster::Raster-class()]}{object containing the solution
 #'     in pixel values. If the argument to `x` contains a single
 #'     management zone, then a `RasterLayer` object will be returned.
 #'     Otherwise, if the argument to `x` contains multiple zones, then a
-#'     \code{\link[raster]{RasterStack-class}} object
+#'     [raster::RasterStack-class()] object
 #'     will be returned containing a different layer for each management zone.
 #'     If multiple solutions are generated, then the solution is returned as
 #'     a `list` of `Raster` objects.}
 #'
-#'   \item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+#'   \item{[sp::Spatial-class()], [sf::sf()], or
 #'     `data.frame`}{
 #'     containing the solution in fields (columns). Here, each row
 #'     corresponds to a different planning unit. If the argument to `x`
@@ -86,12 +86,12 @@ NULL
 #'   }
 #'
 #'   After solving problems that contain multiple zones,
-#'   it may be useful to use the \code{\link{category_layer}} or
-#'   \code{\link{category_vector}} function to reformat the output.
+#'   it may be useful to use the [category_layer()] or
+#'   [category_vector()] function to reformat the output.
 #'
 #' @return A `numeric`, `matrix`,
-#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object containing the solution to the problem.
+#'   [raster::RasterLayer-class()], [sp::Spatial-class()],
+#'   or [sf::sf()] object containing the solution to the problem.
 #'   Additionally, the returned object will have the following additional
 #'   attributes: `"objective"` containing the solution's objective,
 #'   `"runtime"` denoting the number of seconds that elapsed while solving
@@ -102,9 +102,9 @@ NULL
 #'   may not be an optimal solution depending on the gap used to solve
 #'   the problem and noting that the default gap is 0.1).
 #'
-#' @seealso \code{\link{feature_representation}}, \code{\link{problem}},
-#'   \code{\link{solvers}}, \code{\link{category_layer}},
-#'   \code{\link{presolve_check}}.
+#' @seealso [feature_representation()], [problem()],
+#'   [solvers()], [category_layer()],
+#'   [presolve_check()].
 #'
 #' @examples
 #' # set seed for reproducibility

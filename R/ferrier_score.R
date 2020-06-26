@@ -14,10 +14,10 @@ NULL
 #' a minimum set objective and a single zone.
 #' It will throw an error for other types of problems.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
-#'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
+#'   [raster::Raster-class()], or [sp::Spatial-class()]
 #'   object. See the Details section for more information.
 #'
 #' @details
@@ -27,13 +27,13 @@ NULL
 #'   applicable). This means that if the planning unit data in `x`
 #'   is a `numeric` vector then the argument to `solution` must be a
 #'   `numeric` vector with the same number of elements, if the planning
-#'   unit data in `x` is a \code{\link[raster]{RasterLayer-class}} then the
+#'   unit data in `x` is a [raster::RasterLayer-class()] then the
 #'   argument to `solution` must also be a
-#'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
+#'   [raster::RasterLayer-class()] with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system,
-#'   if the planning unit data in `x` is a \code{\link[sp]{Spatial-class}}
+#'   if the planning unit data in `x` is a [sp::Spatial-class()]
 #'   object then the argument to `solution` must also be a
-#'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
+#'   [sp::Spatial-class()] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system,
 #'   if the planning units in `x` are a `data.frame` then the
 #'   argument to `solution` must also be a `data.frame` with each
@@ -45,9 +45,9 @@ NULL
 #'   If an argument is supplied to
 #'   `solution` where this is not the case, then an error will be thrown.
 #'
-#' @return A `matrix`, \code{\link[tibble]{tibble}},
-#'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the scores for each
+#' @return A `matrix`, [tibble::tibble()],
+#'   [raster::RasterLayer-class()], or
+#'   [sp::Spatial-class()] object containing the scores for each
 #'   planning unit selected in the solution.
 #'
 #' @references
@@ -96,7 +96,7 @@ NULL
 #' plot(fs1, axes = FALSE, box = FALSE)
 #' }
 #'
-#' @seealso \code{\link{irreplaceability}}.
+#' @seealso [irreplaceability()].
 #'
 #' @aliases ferrier_score,ConservationProblem,numeric-method ferrier_score,ConservationProblem,matrix-method ferrier_score,ConservationProblem,data.frame-method ferrier_score,ConservationProblem,Spatial-method ferrier_score,ConservationProblem,Raster-method
 #'

@@ -7,7 +7,7 @@
 add_max_features_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,11 +16,11 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
 added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 fulfill as many targets as possible while ensuring that the cost of the
 solution does not exceed a budget.
 }
@@ -32,14 +32,14 @@ addition of objectives---failing to do so will return an error
 message when attempting to solve problem.
 
 The maximum feature representation objective is an enhanced version of the
-maximum coverage objective \code{\link{add_max_cover_objective}} because
+maximum coverage objective \code{\link[=add_max_cover_objective]{add_max_cover_objective()}} because
 targets can be used to ensure that a certain amount of each feature is
 required in order for them to be adequately represented (similar to the
-minimum set objective (see \code{\link{add_min_set_objective}}). This
+minimum set objective (see \code{\link[=add_min_set_objective]{add_min_set_objective()}}). This
 objective finds the set of planning units that meets representation targets
 for as many features as possible while staying within a fixed budget
 (inspired by Cabeza and Moilanen 2001). Additionally, weights can be used
-\code{\link{add_feature_weights}}). If multiple solutions can meet the same
+\code{\link[=add_feature_weights]{add_feature_weights()}}). If multiple solutions can meet the same
 number of weighted targets while staying within budget, the cheapest
 solution is returned.
 
@@ -56,14 +56,14 @@ expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   sum_i^I (xi * rij) >= (yj tj) for all j in J &
   sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
 \eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
 the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-\code{\link{add_feature_weights}} to specify weights). Additionally,
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights). Additionally,
 \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
 cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
 to shrink the costs so that the problem will return a cheapest solution
@@ -123,5 +123,5 @@ persistence of biodiversity. \emph{Trends in Ecology & Evolution},
 16: 242--248.
 }
 \seealso{
-\code{\link{add_feature_weights}}, \code{\link{objectives}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \code{\link[=objectives]{objectives()}}.
 }

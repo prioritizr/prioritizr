@@ -35,12 +35,12 @@ functionality are also listed below.
 }
 \section{\code{add_connected_constraints}}{
  this function has been renamed
-to the \code{\link{add_contiguity_constraints}} function.
+to the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function.
 }
 
 \section{\code{add_corridor_constraints}}{
  this function has been
-reimagined as the \code{\link{add_feature_contiguity_constraints}}
+reimagined as the \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}}
 function.
 }
 
@@ -60,13 +60,13 @@ function.
 }
 
 \section{\code{add_pool_portfolio}}{
- this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
+ this function is replaced by \code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.
 function.
 }
 
 \section{\code{connected_matrix}}{
  this function has been renamed as
-the \code{\link{adjacency_matrix}} function.
+the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
 }
 
 \keyword{internal}

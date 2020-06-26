@@ -89,16 +89,16 @@ compressed_formulation(x)
 \S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link{OptimizationProblem-class}} object.}
+\item{x}{\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
 }
 \value{
-\code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
+\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix-class()}}, \code{numeric} vector,
 \code{numeric} vector, or scalar \code{integer} depending on the method
 used.
 }
 \description{
 These functions are used to access data from an
-\code{\link{OptimizationProblem-class}} object.
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.
 }
 \details{
 The functions return the following data:
@@ -120,7 +120,7 @@ binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
 
 \item{obj}{\code{numeric} vector specifying the objective function.}
 
-\item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
+\item{A}{\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix-class()}} matrix object defining the
 problem matrix.}
 
 \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}

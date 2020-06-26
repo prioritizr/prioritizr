@@ -7,7 +7,7 @@
 add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 
@@ -16,16 +16,16 @@ This relative gap specifies a threshold worst-case performance for
 solutions in the portfolio. For example, value of 0.1 will result in the
 portfolio returning solutions that are within 10\% of an optimal solution.
 Note that the gap specified in the solver (i.e.
-\code{\link{add_gurobi_solver}} must be less than or equal to the gap
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}} must be less than or equal to the gap
 specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the portfolio
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the portfolio
 added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link{problem}} by finding a certain number of solutions that
+\code{\link[=problem]{problem()}} by finding a certain number of solutions that
 are all within a pre-specified optimality gap. This method is useful for
 generating multiple solutions that can be used to calculate selection
 frequencies for moderate and large-sized problems (similar to
@@ -34,7 +34,7 @@ frequencies for moderate and large-sized problems (similar to
 \details{
 This strategy for generating a portfolio requires problems to
 be solved using the \emph{Gurobi} software suite (i.e. using
-\code{\link{add_gurobi_solver}}. Specifically, version 9.0.0 (or greater)
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 9.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 Note that the number of solutions returned may be less than the argument to
 \code{number_solutions}, if the total number of solutions that
@@ -86,5 +86,5 @@ plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
 }
 }
 \seealso{
-\code{\link{portfolios}}.
+\code{\link[=portfolios]{portfolios()}}.
 }

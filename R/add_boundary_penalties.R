@@ -3,16 +3,16 @@ NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation planning \code{\link{problem}} to favour
+#' Add penalties to a conservation planning [problem()] to favour
 #' solutions that have planning units clumped together into contiguous areas.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared
 #'   to the main problem objective (e.g. solution cost when the argument to
 #'   `x` has a minimum set objective set using
-#'   \code{\link{add_min_set_objective}}). Higher `penalty` values
+#'   [add_min_set_objective()]). Higher `penalty` values
 #'   will return solutions with a higher degree of spatial clumping,
 #'   and smaller `penalty` values will return solutions with a smaller
 #'   degree of clumping. Note that negative `penalty` values will
@@ -60,14 +60,14 @@ NULL
 #'   Note that this function can only
 #'   be used to represent symmetric relationships between planning units. If
 #'   asymmetric relationships are required, use the
-#'   \code{\link{add_connectivity_penalties}} function.
+#'   [add_connectivity_penalties()] function.
 #'
 #'   The argument to `data` can be specified in several different ways:
 #'
 #'   \describe{
 #'
 #'   \item{`NULL`}{the boundary data are automatically calculated
-#'     using the \code{\link{boundary_matrix}} function. This argument is the
+#'     using the [boundary_matrix()] function. This argument is the
 #'     default. Note that the boundary data must be manually defined
 #'     using one of the other formats below when the planning unit data
 #'     in the argument to `x` is not spatially referenced (e.g.
@@ -105,7 +105,7 @@ NULL
 #'   values one indicating if planning unit is allocated or not). Also, let
 #'   \eqn{p} represent the argument to `penalty`, \eqn{E} represent the
 #'   argument to `edge_factor`, \eqn{B} represent the matrix argument to
-#'   `data` (e.g. generated using \code{\link{boundary_matrix}}), and
+#'   `data` (e.g. generated using [boundary_matrix()]), and
 #'   \eqn{W} represent the matrix argument to `zones`.
 #'
 #'   \deqn{
@@ -121,10 +121,10 @@ NULL
 #'  benefit and not minimize some measure of cost, the term \eqn{p} is
 #'  replaced with \eqn{-p}.
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the penalties
+#' @return [ConservationProblem-class()] object with the penalties
 #'  added to it.
 #'
-#' @seealso \code{\link{penalties}}.
+#' @seealso [penalties()].
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

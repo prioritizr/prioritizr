@@ -3,27 +3,27 @@ NULL
 
 #' Add manual targets
 #'
-#' Set targets for a conservation planning \code{\link{problem}} by manually
+#' Set targets for a conservation planning [problem()] by manually
 #' specifying all the required information for each target. This function
 #' is useful because it can be used to customize all aspects of a target. For
 #' most cases, targets can be specified using the
-#' \code{link{add_absolute_targets}} and \code{\link{add_relative_targets}}
+#' \code{link{add_absolute_targets}} and [add_relative_targets()]
 #' functions. However, this function can be used to (i) mix absolute and
 #' relative targets for different features and zones, (ii) set targets that
 #' pertain to the allocations of planning units in multiple zones, and (iii)
 #' set targets that require different senses (e.g. targets which specify the
 #' solution should not exceed a certain quantity using `"<="` values).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
-#' @param targets `data.frame` or \code{\link[tibble]{tibble}} object. See
+#' @param targets `data.frame` or [tibble::tibble()] object. See
 #'   the Details section for more information.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. Most conservation
 #'   planning problems require targets with the exception of the maximum cover
-#'   (see \code{\link{add_max_cover_objective}}) and maximum utility
-#'   (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+#'   (see [add_max_cover_objective()]) and maximum utility
+#'   (see [add_max_utility_objective()]) problems. Attempting to solve
 #'   problems with objectives that require targets without specifying targets
 #'   will throw an error.
 #'
@@ -40,8 +40,8 @@ NULL
 #'
 #'   \item{`"type"`}{`character` describing the type of target.
 #'     Acceptable values include `"absolute"` and `"relative"`.
-#'     These values correspond to \code{\link{add_absolute_targets}},
-#'     and \code{\link{add_relative_targets}} respectively.}
+#'     These values correspond to [add_absolute_targets()],
+#'     and [add_relative_targets()] respectively.}
 #'
 #'   \item{`"sense"`}{`character` sense of the target. Acceptable
 #'     values include: `">="`, `"<="`, and `"="`. This field
@@ -52,10 +52,10 @@ NULL
 #'
 #'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the targets added
+#' @return [ConservationProblem-class()] object with the targets added
 #'   to it.
 #'
-#' @seealso \code{\link{targets}}.
+#' @seealso [targets()].
 #'
 #' @examples
 #' # set seed for reproducibility

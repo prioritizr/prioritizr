@@ -7,14 +7,14 @@
 add_min_set_objective(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
 added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 minimize the cost of the solution whilst ensuring that all targets are met.
 This objective is similar to that used in
 \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
@@ -43,7 +43,7 @@ mathematically for a set of planning units (\eqn{I}{I} indexed by
   Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
   j in J}
 
-Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
@@ -93,5 +93,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link{objectives}}, \code{\link{targets}}.
+\code{\link[=objectives]{objectives()}}, \code{\link[=targets]{targets()}}.
 }

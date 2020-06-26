@@ -7,21 +7,21 @@
 add_semicontinuous_decisions(x, upper_limit)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{upper_limit}{\code{numeric} value specifying the maximum proportion
 of a planning unit that can be reserved (e.g. set to 0.8 for 80\%).}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the decisions
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the decisions
 added to it.
 }
 \description{
 Add a semi-continuous decision to a conservation planning
-\code{\link{problem}}. This is a relaxed decision where a part of a planning
+\code{\link[=problem]{problem()}}. This is a relaxed decision where a part of a planning
 unit can be prioritized, as opposed to the entire planning unit, which is
-the default function (see \code{\link{add_binary_decisions}}).
-This decision is similar to the \code{\link{add_proportion_decisions}}
+the default function (see \code{\link[=add_binary_decisions]{add_binary_decisions()}}).
+This decision is similar to the \code{\link[=add_proportion_decisions]{add_proportion_decisions()}}
 function except that it has an upper bound parameter. By default, the
 decision can range from prioritizing none (0\%) to all (100\%) of a
 planning unit. However, an upper bound can be specified to ensure that at
@@ -76,5 +76,5 @@ plot(s2, axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link{decisions}}.
+\code{\link[=decisions]{decisions()}}.
 }

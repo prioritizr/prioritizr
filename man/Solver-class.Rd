@@ -9,7 +9,7 @@ This prototype is used to generate objects that represent methods for solving
 optimization problems. \strong{This class represents a recipe to
 create solver and and is only recommended for use by expert users. To
 customize the method used to solve optimization problems, please see the
-help page on \code{\link{solvers}}}.
+help page on \code{\link[=solvers]{solvers()}}}.
 }
 \section{Fields}{
 
@@ -24,7 +24,7 @@ help page on \code{\link{solvers}}}.
 the the solver.}
 
 \item{$solve}{\code{function} used to solve a
-\code{\link{OptimizationProblem-class}} object.}
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
 }
 }
 
@@ -56,9 +56,9 @@ the the solver.}
 
 \describe{
 
-\item{x}{\code{\link{Solver-class}} object.}
+\item{x}{\code{\link[=Solver-class]{Solver-class()}} object.}
 
-\item{op}{\code{\link{OptimizationProblem-class}} object.}
+\item{op}{\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
 
 }
 }
@@ -87,11 +87,11 @@ a pre-calculated optimization problem stored in the solver.}
 \item{set_variable_lb}{set the lower bounds on decision variables in
 a pre-calculated optimization problem stored in the solver.}
 \item{calculate}{ingest a general purpose
-\code{\link{OptimizationProblem-class}} object and convert it to the
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object and convert it to the
 correct format for the solver.}
 \item{run}{run the solver and output a solution}
 
-\item{solve}{solve an \code{\link{OptimizationProblem-class}} using this
+\item{solve}{solve an \code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} using this
 object.}
 
 }

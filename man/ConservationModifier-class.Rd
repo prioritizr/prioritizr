@@ -6,9 +6,9 @@
 \title{Conservation problem modifier prototype}
 \description{
 This super-prototype is used to represent prototypes that in turn are used to
-modify a \code{\link{ConservationProblem-class}} object. Specifically, the
-\code{\link{Constraint-class}}, \code{\link{Decision-class}},
-\code{\link{Objective-class}}, and \code{\link{Target-class}} prototypes
+modify a \code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object. Specifically, the
+\code{\link[=Constraint-class]{Constraint-class()}}, \code{\link[=Decision-class]{Decision-class()}},
+\code{\link[=Objective-class]{Objective-class()}}, and \code{\link[=Target-class]{Target-class()}} prototypes
 inherit from this class. \strong{Only experts should interact with
 this class directly because changes to these class will have profound and
 far reaching effects.}
@@ -71,9 +71,9 @@ to \code{TRUE}.}
 
 \item{id}{\code{id} or \code{name} of parameter}
 
-\item{cp}{\code{\link{ConservationProblem-class}} object}
+\item{cp}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object}
 
-\item{op}{\code{\link{OptimizationProblem-class}} object}
+\item{op}{\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object}
 
 }
 }
@@ -103,12 +103,12 @@ in the \code{data} slot of the input \code{ConservationModifier} or
 \code{ConservationProblem} objects.}
 
 \item{output}{\code{function} used to generate an output from the object.
-This method is only used for \code{\link{Target-class}} objects.}
+This method is only used for \code{\link[=Target-class]{Target-class()}} objects.}
 
 \item{apply}{\code{function} used to apply the modifier to an
-\code{\link{OptimizationProblem-class}} object.
-This is used by \code{\link{Constraint-class}},
-\code{\link{Decision-class}}, and \code{\link{Objective-class}} objects.}
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.
+This is used by \code{\link[=Constraint-class]{Constraint-class()}},
+\code{\link[=Decision-class]{Decision-class()}}, and \code{\link[=Objective-class]{Objective-class()}} objects.}
 
 \item{get_parameter}{retrieve the value of a parameter.}
 
@@ -120,7 +120,7 @@ parameters.}
 \item{render_parameter}{generate a \emph{shiny} widget to modify the
 the value of a parameter (specified by argument \code{id}).}
 
-\item{render_all_parameters}{generate a \code{\link[shiny]{div}}
+\item{render_all_parameters}{generate a \code{\link[shiny:reexports]{shiny::div()}}
 containing all the parameters" widgets.}
 
 }

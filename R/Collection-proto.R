@@ -8,11 +8,11 @@ NULL
 #' Collection prototype
 #'
 #' This prototype represents a collection of
-#' \code{\link{ConservationModifier-class}} objects.
+#' [ConservationModifier-class()] objects.
 #'
 #' @section Fields:
 #' \describe{
-#'   \item{$...}{\code{\link{ConservationModifier-class}} objects stored
+#'   \item{$...}{[ConservationModifier-class()] objects stored
 #'      in the collection.}
 #' }
 #'
@@ -68,7 +68,7 @@ NULL
 #' \item{find_parameter}{`character` id for object inside collection which
 #'   contains the input `character` object as a parameter.}
 #'
-#' \item{add}{add \code{\link{ConservationModifier-class}} object.}
+#' \item{add}{add [ConservationModifier-class()] object.}
 #'
 #' \item{remove}{remove an item from the collection.}
 #'
@@ -81,12 +81,12 @@ NULL
 #' \item{render_parameter}{generate a *shiny* widget to modify the
 #'   the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_parameters}{generate a \code{\link[shiny]{div}}
+#' \item{render_all_parameters}{generate a [shiny::div()]
 #'   containing all the parameters" widgets.}
 #'
 #' }
 #'
-#' @seealso \code{\link{Constraint-class}}, \code{\link{Penalty-class}}.
+#' @seealso [Constraint-class()], [Penalty-class()].
 #'
 #' @name Collection-class
 #'

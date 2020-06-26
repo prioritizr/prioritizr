@@ -8,19 +8,19 @@ NULL
 #' spatial distribution of the planning units and their costs, as well as
 #' the features (e.g. species, ecosystems) that need to be conserved. After
 #' constructing this `ConservationProblem-class` object, it can be
-#' customized to meet specific goals using \code{\link{objectives}},
-#' \code{\link{targets}}, \code{\link{constraints}}, and
-#' \code{\link{penalties}}. After building the problem, the
-#'  \code{\link{solve}} function can be used to identify solutions.
+#' customized to meet specific goals using [objectives()],
+#' [targets()], [constraints()], and
+#' [penalties()]. After building the problem, the
+#'  [solve()] function can be used to identify solutions.
 #'
-#' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sf]{sf}},
-#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}},
-#'   \code{\link[sp]{SpatialLinesDataFrame-class}},
-#'   \code{\link[sp]{SpatialPointsDataFrame-class}},
-#'   \code{\link{data.frame}} object,
-#'   \code{\link{numeric}} vector, or
-#'   \code{\link{matrix}} specifying the planning units to use in the reserve
+#' @param x [raster::Raster-class()],
+#'   [sf::sf()],
+#'   [sp::SpatialPolygonsDataFrame-class()],
+#'   [sp::SpatialLinesDataFrame-class()],
+#'   [sp::SpatialPointsDataFrame-class()],
+#'   [data.frame()] object,
+#'   [numeric()] vector, or
+#'   [matrix()] specifying the planning units to use in the reserve
 #'   design exercise and their corresponding cost. It may be desirable to
 #'   exclude some planning units from the analysis, for example those outside
 #'   the study area. To exclude planning units, set the cost for those raster
@@ -33,27 +33,27 @@ NULL
 #'   data can be specified following:
 #'
 #'   \itemize{
-#'   \item \code{x = \link[raster]{RasterLayer-class}}, or
-#'     \code{x = \link[sp]{Spatial-class}},
-#'     or \code{x = \link[sf]{sf}}:
-#'     \code{y = \link[raster]{Raster-class}}
+#'   \item `x = [RasterLayer-class][raster::RasterLayer-class]`, or
+#'     `x = [Spatial-class][sp::Spatial-class]`,
+#'     or `x = [sf][sf::sf]`:
+#'     `y = [Raster-class][raster::Raster-class]`
 #'     object showing the distribution of conservation features. Missing
 #'     values (i.e. `NA` values) can be used to indicate the absence of
 #'     a feature in a particular cell instead of explicitly setting these
 #'     cells to zero. Note that this argument type for `features` can
 #'     only be used to specify data for problems involving a single zone.
-#'   \item \code{x = \link[sp]{Spatial-class}},
-#'     \code{x = \link[sf]{sf}},
+#'   \item `x = [Spatial-class][sp::Spatial-class]`,
+#'     `x = [sf][sf::sf]`,
 #'     or `x = data.frame`:
 #'     `y = character` vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit. Note that this argument
 #'     type can only be used to create problems involving a single zone.
-#'   \item \code{x = \link{Spatial-class}},
-#'     \code{x = \link[sf]{sf}},
+#'   \item `x = [Spatial-class]`,
+#'     `x = [sf][sf::sf]`,
 #'     `x = data.frame`,
 #'     `x = numeric` vector, or
-#'     \code{x = \link{matrix}}: `y = data.frame` object
+#'     `x = [matrix]`: `y = data.frame` object
 #'     containing the names of the features. Note that if this
 #'     type of argument is supplied to `features` then the argument
 #'     `rij` or `rij_matrix` must also be supplied. This type of
@@ -75,17 +75,17 @@ NULL
 #'   data can be specified following:
 #'
 #'   \itemize{
-#'   \item \code{x = \link[raster]{RasterStack-class}},
-#'     \code{x = \link[raster]{RasterBrick-class}},
-#'     \code{x = \link[sp]{Spatial-class}},
-#'     or \code{x = \link[sf]{sf}}: \code{y = \link{ZonesRaster}}
+#'   \item `x = [RasterStack-class][raster::RasterStack-class]`,
+#'     `x = [RasterBrick-class][raster::RasterBrick-class]`,
+#'     `x = [Spatial-class][sp::Spatial-class]`,
+#'     or `x = [sf][sf::sf]`: `y = [ZonesRaster]`
 #'     object showing the distribution of conservation features in multiple
 #'     zones. As above, missing values (i.e. `NA` values) can be used to
 #'     indicate the absence of a feature in a particular cell instead of
 #'     explicitly setting these cells to zero.
-#'   \item \code{x = \link[sp]{Spatial-class}},
-#'     \code{x = \link[sf]{sf}},
-#'     or `x = data.frame`: \code{y = \link{ZonesCharacter}}
+#'   \item `x = [Spatial-class][sp::Spatial-class]`,
+#'     `x = [sf][sf::sf]`,
+#'     or `x = data.frame`: `y = [ZonesCharacter]`
 #'     object with column names that correspond to the abundance or
 #'     occurrence of different features in each planning unit in different
 #'     zones.
@@ -93,7 +93,7 @@ NULL
 #'
 #' @param cost_column `character` name or `integer` indicating the
 #'   column(s) with the cost data. This argument must be supplied when the
-#'   argument to `x` is a \code{\link[sp]{Spatial-class}} or
+#'   argument to `x` is a [sp::Spatial-class()] or
 #'   `data.frame` object. This argument should contain the name of each
 #'   column containing cost data for each management zone when creating
 #'   problems with multiple zones. To create a problem with a single zone, then
@@ -122,13 +122,13 @@ NULL
 #'    }
 #'
 #' @param rij_matrix `list` of `matrix` or
-#'    \code{\link[Matrix]{dgCMatrix-class}}
+#'    [Matrix::dgCMatrix-class()]
 #'    objects specifying the amount of each feature (rows) within each planning
 #'    unit (columns) for each zone. The `list` elements denote
 #'    different zones, matrix rows denote features, and matrix columns denote
 #'    planning units. For convenience, the argument to
 #'    `rij_matrix` can be a single `matrix` or
-#'    \code{\link[Matrix]{dgCMatrix-class}} when specifying a problem with a
+#'    [Matrix::dgCMatrix-class()] when specifying a problem with a
 #'    single management zone. This argument is only used when the argument
 #'    to `x` is a `numeric` or `matrix` object.
 #'
@@ -169,7 +169,7 @@ NULL
 #'   Finally, in some types of reserve design models, representation targets
 #'   must be set for each conservation feature, such as 20 % of the current
 #'   extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-#'   (see \code{\link{targets}}).
+#'   (see [targets()]).
 #'
 #'   The goal of the reserve design exercise is then to optimize the trade-off
 #'   between conservation benefit and socioeconomic cost, i.e. to get the most
@@ -178,7 +178,7 @@ NULL
 #'   decision variables, subject to a series of constraints. The decision
 #'   variables are what we control, usually there is one binary variable for
 #'   each planning unit specifying whether or not to protect that unit (but
-#'   other approaches are available, see \code{\link{decisions}}). The
+#'   other approaches are available, see [decisions()]). The
 #'   constraints can be thought of as rules that need to be followed, for
 #'   example, that the reserve must stay within a certain budget or meet the
 #'   representation targets.
@@ -211,13 +211,13 @@ NULL
 #'   initialize large-scale conservation planning problems that involve
 #'   millions of planning units.
 #'
-#' @return A \code{\link{ConservationProblem-class}} object containing the
+#' @return A [ConservationProblem-class()] object containing the
 #'   basic data used to build a prioritization problem.
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{decisions}},
-#'  \code{\link{objectives}} \code{\link{penalties}},
-#'  \code{\link{portfolios}}, \code{\link{solvers}}, \code{\link{targets}},
-#'  \code{\link{feature_representation}}, \code{\link{irreplaceability}}.
+#' @seealso [constraints()], [decisions()],
+#'  [objectives()] [penalties()],
+#'  [portfolios()], [solvers()], [targets()],
+#'  [feature_representation()], [irreplaceability()].
 #'
 #' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method
 #'

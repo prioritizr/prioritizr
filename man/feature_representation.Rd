@@ -25,15 +25,15 @@ feature_representation(x, solution)
 \S4method{feature_representation}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object. See the Details section for more
+\code{\link[raster:Raster-classes]{raster::Raster-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
 information.}
 }
 \value{
-\code{\link[tibble]{tibble}} object containing the amount
+\code{\link[tibble:tibble]{tibble::tibble()}} object containing the amount
 (\code{"absolute_held"}) and proportion (\code{"relative_held"})
 of the distribution of each feature held in the solution. Here, each
 row contains data that pertain to a specific feature in a specific
@@ -69,13 +69,13 @@ representation, dimensionality, and spatial attributes (if applicable).
 This means that if the planning unit data in \code{x} is a \code{numeric}
 vector then the argument to \code{solution} must be a \code{numeric} vector
 with the same number of elements, if the planning unit data in \code{x} is
-a \code{\link[raster]{RasterLayer-class}} then the argument to
-\code{solution} must also be a \code{\link[raster]{RasterLayer-class}} with
+a \code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} then the argument to
+\code{solution} must also be a \code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} with
 the same number of rows and columns and the same resolution, extent, and
 coordinate reference system, if the planning unit data in \code{x} is a
-\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object then the
-argument to \code{solution} must also be a \code{\link[sp]{Spatial-class}}
-or \code{\link[sf]{sf}} object, respectively, and have the same number of
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}} or \code{\link[sf:sf]{sf::sf()}} object then the
+argument to \code{solution} must also be a \code{\link[sp:Spatial-class]{sp::Spatial-class()}}
+or \code{\link[sf:sf]{sf::sf()}} object, respectively, and have the same number of
 spatial features (e.g. polygons) and have the same coordinate reference
 system, if the planning units in \code{x} are a \code{data.frame} then the
 argument to \code{solution} must also be a \code{data.frame} with each
@@ -239,5 +239,5 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link{problem}}, \code{\link{feature_abundances}}.
+\code{\link[=problem]{problem()}}, \code{\link[=feature_abundances]{feature_abundances()}}.
 }

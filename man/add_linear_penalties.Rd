@@ -23,7 +23,7 @@
 \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
 importance not selecting planning units with high \code{data} values.
@@ -38,18 +38,18 @@ penalties to problems with multiple zones, the argument to \code{penalty}
 must have a value for each zone.}
 
 \item{data}{\code{character}, \code{numeric},
-\code{\link[raster]{Raster-class}}, \code{matrix}, or \code{Matrix} object
+\code{\link[raster:Raster-classes]{raster::Raster-class()}}, \code{matrix}, or \code{Matrix} object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Details section for more information.}
 }
 \description{
-Add penalties to a conservation planning \code{\link{problem}} to penalize
+Add penalties to a conservation planning \code{\link[=problem]{problem()}} to penalize
 solutions that select planning units with higher values from a specific
 data source (e.g. anthropogenic impact). These penalties assume
 a linear trade-off between the penalty values and the primary
-objective of the conservation planning \code{\link{problem}} (e.g.
-solution cost for minimum set problems; \code{\link{add_min_set_objective}}.
+objective of the conservation planning \code{\link[=problem]{problem()}} (e.g.
+solution cost for minimum set problems; \code{\link[=add_min_set_objective]{add_min_set_objective()}}.
 }
 \details{
 This function penalizes solutions that have higher values according
@@ -61,7 +61,7 @@ several different ways:
 \item{\code{character}}{field (column) name(s) that contain the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame} object. The fields (columns) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
 For problems involving multiple zones, the argument to \code{data} must
@@ -72,18 +72,18 @@ each planning unit. These values must not contain any missing
 (\code{NA}) values. Note that this type of argument is only available
 for planning units that contain a single zone.}
 
-\item{\code{\link[raster]{Raster-class}}}{containing the data for
+\item{\code{\link[raster:Raster-classes]{raster::Raster-class()}}}{containing the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to \code{x} are
-\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
-or \code{\link[raster]{Raster-class}} (i.e. they are in a spatially
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, \code{\link[sf:sf]{sf::sf()}}, or
+or \code{\link[raster:Raster-classes]{raster::Raster-class()}} (i.e. they are in a spatially
 referenced format).
-If the planning unit data are a \code{\link[sp]{Spatial-class}} or
-\code{\link[sf]{sf}} object, then the
+If the planning unit data are a \code{\link[sp:Spatial-class]{sp::Spatial-class()}} or
+\code{\link[sf:sf]{sf::sf()}} object, then the
 penalty \code{data} are calculated by overlaying the planning units with
 the argument to \code{data} and calculating the sum of the values.
 If the planning unit data are in the
-\code{\link[raster]{Raster-class}} then the penalty \code{data} are
+\code{\link[raster:Raster-classes]{raster::Raster-class()}} then the penalty \code{data} are
 calculated by extracting the cell values (note that the
 planning unit data and the argument to code{data} must have exactly
 the same dimensionality, extent, and missingness).

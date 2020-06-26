@@ -14,7 +14,7 @@ new_id()
 Generate a new unique identifier.
 }
 \details{
-Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
+Identifiers are made using the \code{\link[uuid:UUIDgenerate]{uuid::UUIDgenerate()}}.
 }
 \examples{
 # create new id
@@ -31,5 +31,5 @@ is.Id(i)
 
 }
 \seealso{
-\code{\link[uuid]{UUIDgenerate}}.
+\code{\link[uuid:UUIDgenerate]{uuid::UUIDgenerate()}}.
 }

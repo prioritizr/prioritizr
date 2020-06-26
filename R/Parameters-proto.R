@@ -7,7 +7,7 @@ NULL
 
 #' Parameters class
 #'
-#' This class represents a collection of \code{\link{Parameter-class}} objects.
+#' This class represents a collection of [Parameter-class()] objects.
 #' It provides methods for accessing, updating, and rendering the parameters
 #' stored inside it.
 #'
@@ -15,7 +15,7 @@ NULL
 #' \describe{
 #'
 #' \item{$parameters}{`list` object containing
-#'   \code{\link{Parameter-class}} objects.}
+#'   [Parameter-class()] objects.}
 #'
 #' }
 #'
@@ -45,9 +45,9 @@ NULL
 #'
 #' @section Arguments:
 #' \describe{
-#' \item{id}{\code{\link{Id}} object.}
+#' \item{id}{[Id()] object.}
 #'
-#' \item{p}{\code{\link{Parameter-class}} object.}
+#' \item{p}{[Parameter-class()] object.}
 #'
 #' \item{value}{any object.}
 #'
@@ -78,7 +78,7 @@ NULL
 #' \item{render}{generate a *shiny* widget to modify the
 #'   the value of a parameter (specified by argument `Id`).}
 #'
-#' \item{render_all}{generate a \code{\link[shiny]{div}}
+#' \item{render_all}{generate a [shiny::div()]
 #'   containing all the parameters" widgets.}
 #'
 #' }

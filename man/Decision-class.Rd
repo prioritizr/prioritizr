@@ -9,9 +9,9 @@ This prototype  used to represent the type of decision that is made
 when prioritizing planning units. \strong{This prototype represents
 a recipe to make a decision, to actually specify
 the type of decision in a planning problem, see the help page on
-\code{\link{decisions}}. Only experts should use this class directly.}
-This class inherits from the \code{\link{ConservationModifier-class}}.
+\code{\link[=decisions]{decisions()}}. Only experts should use this class directly.}
+This class inherits from the \code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
 }
 \seealso{
-\code{\link{ConservationModifier-class}}.
+\code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
 }

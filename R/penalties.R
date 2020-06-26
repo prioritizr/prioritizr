@@ -3,11 +3,11 @@ NULL
 
 #' Conservation problem penalties
 #'
-#' A penalty can be applied to a conservation planning \code{\link{problem}} to
+#' A penalty can be applied to a conservation planning [problem()] to
 #' penalize solutions according to a specific metric. Penalties---unlike
-#' \code{\link{constraints}}---act as an explicit trade-off with the objective
+#' [constraints()]---act as an explicit trade-off with the objective
 #' being minimized or maximized (e.g. solution cost when used with
-#' \code{\link{add_min_set_objective}}).
+#' [add_min_set_objective()]).
 #'
 #' @details Both penalties and constraints can be used to modify a problem and
 #'   identify solutions that exhibit specific characteristics. Constraints work
@@ -16,28 +16,28 @@ NULL
 #'   main problem objective and are mediated by a penalty factor.
 #'
 #'   The following penalties can be added to a conservation planning
-#'   \code{\link{problem}}:
+#'   [problem()]:
 #'
 #'   \describe{
 #'
-#'   \item{\code{\link{add_boundary_penalties}}}{Add penalties to a
+#'   \item{[add_boundary_penalties()]}{Add penalties to a
 #'     conservation problem to favor solutions that have
 #'     planning units clumped together into contiguous areas.}
 #'
-#'   \item{\code{\link{add_connectivity_penalties}}}{Add penalties to a
+#'   \item{[add_connectivity_penalties()]}{Add penalties to a
 #'     conservation problem to favor solutions that select
 #'     planning units with high connectivity between them.}
 #'
-#'   \item{\code{\link{add_linear_penalties}}}{Add penalties to a
+#'   \item{[add_linear_penalties()]}{Add penalties to a
 #'     conservation problem to favor solutions that avoid selecting
 #'     planning units based on a certain variable
 #'     (e.g. anthropogenic pressure).}
 #'
 #'   }
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{decisions}},
-#'  \code{\link{objectives}} \code{\link{portfolios}}, \code{\link{problem}},
-#'  \code{\link{solvers}}, \code{\link{targets}}.
+#' @seealso [constraints()], [decisions()],
+#'  [objectives()] [portfolios()], [problem()],
+#'  [solvers()], [targets()].
 #'
 #' @examples
 #' # load data

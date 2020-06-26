@@ -32,5 +32,5 @@ None.
 Display information about an object.
 }
 \seealso{
-\code{\link[methods]{show}}.
+\code{\link[methods:show]{methods::show()}}.
 }

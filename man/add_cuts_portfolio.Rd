@@ -7,20 +7,20 @@
 add_cuts_portfolio(x, number_solutions = 10L)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the portfolio
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the portfolio
 added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link{problem}} using Bender's cuts (discussed in Rodrigues
+\code{\link[=problem]{problem()}} using Bender's cuts (discussed in Rodrigues
 \emph{et al.} 2000). This is recommended as a replacement for
-\code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}} when the \emph{Gurobi} software is not
 available.
 }
 \details{
@@ -34,7 +34,7 @@ solution pool to speed up the process of obtaining multiple solutions.
 However, it would sometimes return solutions that were not within the
 specified optimality gap. To address this, we have added alternative
 methods for generating solution portfolios, please refer to the
-\code{\link{portfolios}} documentation for more information.}
+\code{\link[=portfolios]{portfolios()}} documentation for more information.}
 }
 \examples{
 # set seed for reproducibility
@@ -84,5 +84,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link{portfolios}}.
+\code{\link[=portfolios]{portfolios()}}.
 }

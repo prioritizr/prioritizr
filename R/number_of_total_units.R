@@ -5,8 +5,8 @@ NULL
 #'
 #' Extract the number of total units in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or
-#'   \code{\link{OptimizationProblem-class}} object.
+#' @param x [ConservationProblem-class()] or
+#'   [OptimizationProblem-class()] object.
 #'
 #' @return `integer` number of total units.
 #'

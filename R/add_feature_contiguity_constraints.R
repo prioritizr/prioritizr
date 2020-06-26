@@ -3,17 +3,17 @@ NULL
 
 #' Add feature contiguity constraints
 #'
-#' Add constraints to a \code{\link{problem}} to ensure that each feature is
+#' Add constraints to a [problem()] to ensure that each feature is
 #' represented in a contiguous unit of dispersible habitat. These constraints
 #' are a more advanced version of those implemented in the
-#' \code{\link{add_contiguity_constraints}} function, because they ensure that
+#' [add_contiguity_constraints()] function, because they ensure that
 #' each feature is represented in a contiguous unit and not that the entire
 #' solution should form a contiguous unit. Additionally, this function
 #' can use data showing the distribution of dispersible habitat for each
 #' feature to ensure that all features can disperse through out the areas
 #' designated for their conservation.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param zones `matrix`, `Matrix` or `list` object describing
 #'   the connection scheme for different zones. For `matrix` or
@@ -45,7 +45,7 @@ NULL
 #'   which sets of planning units should be treated as being connected
 #'   for which features using a `list` of objects. The default argument
 #'   is `NULL` which means that the connection data is calculated
-#'   automatically using the \code{\link{adjacency_matrix}} function and so
+#'   automatically using the [adjacency_matrix()] function and so
 #'   all adjacent planning units are treated as being connected for all
 #'   features. See the Details section for more information.
 #'
@@ -67,7 +67,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{`NULL`}{connection data should be calculated automatically
-#'     using the \code{\link{adjacency_matrix}} function. This is the default
+#'     using the [adjacency_matrix()] function. This is the default
 #'     argument and means that all adjacent planning units are treated
 #'     as potentially dispersible for all features.
 #'     Note that the connection data must be manually defined

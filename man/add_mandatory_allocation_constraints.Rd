@@ -8,10 +8,10 @@
 \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
 added to it.
 }
 \description{
@@ -20,7 +20,7 @@ management zone in the solution. \strong{This function can only be used with
 problems that contain multiple zones.}
 }
 \details{
-For a conservation planning \code{\link{problem}} with multiple
+For a conservation planning \code{\link[=problem]{problem()}} with multiple
 management zones, it may sometimes be desirable to obtain a solution that
 assigns each and every single planning unit to a zone. For example, when
 developing land-use plans, some decision makers may require that each and
@@ -70,5 +70,5 @@ plot(stack(c1, c2), main = c("default", "mandatory allocation"),
 }
 }
 \seealso{
-\code{\link{constraints}}.
+\code{\link[=constraints]{constraints()}}.
 }

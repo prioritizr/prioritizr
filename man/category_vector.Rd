@@ -19,8 +19,8 @@ category_vector(x)
 \method{category_vector}{matrix}(x)
 }
 \arguments{
-\item{x}{\code{matrix}, \code{data.frame}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object.}
+\item{x}{\code{matrix}, \code{data.frame}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+or \code{\link[sf:sf]{sf::sf()}} object.}
 }
 \value{
 \code{integer} \code{vector}
@@ -31,7 +31,7 @@ Convert an object containing binary (\code{integer}) fields (columns) into a
 \code{1}.
 }
 \details{
-This function is conceptually similar to \code{\link[base]{max.col}}
+This function is conceptually similar to \code{\link[base:maxCol]{base::max.col()}}
 except that rows with no values equal to \code{1} values are assigned a
 value of zero. Also, note that in the argument to \code{x}, each row must
 contain only a single value equal to \code{1}.
@@ -50,5 +50,5 @@ y <- category_vector(x)
 print(y)
 }
 \seealso{
-\code{\link[base]{max.col}}
+\code{\link[base:maxCol]{base::max.col()}}
 }

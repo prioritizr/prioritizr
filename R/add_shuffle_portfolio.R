@@ -4,12 +4,12 @@ NULL
 #' Add a shuffle portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' \code{\link{problem}} by randomly reordering the data prior to
+#' [problem()] by randomly reordering the data prior to
 #' solving the problem. This is recommended as a replacement for
-#' \code{\link{add_top_portfolio}} when the *Gurobi* software is not
+#' [add_top_portfolio()] when the *Gurobi* software is not
 #' available.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.

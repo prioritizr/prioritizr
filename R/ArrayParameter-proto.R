@@ -36,7 +36,7 @@ NULL
 #'   permitted values.}
 #'
 #' \item{$widget}{`function` used to construct a
-#'   \code{\link[shiny]{shiny}} interface for modifying values.}
+#'   [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -59,7 +59,7 @@ NULL
 #'
 #' @section Arguments:
 #' \describe{
-#' \item{tbl}{\code{\link{data.frame}} containing new parameter values with
+#' \item{tbl}{[data.frame()] containing new parameter values with
 #'            row names indicating the labels and a column called "values"
 #'            containing the new parameter values.}
 #' \item{...}{arguments passed to function in `widget` field.}
@@ -76,20 +76,20 @@ NULL
 #'
 #' \item{validate}{check if a proposed new set of parameters are valid.}
 #'
-#' \item{get}{return a \code{\link[base]{data.frame}} containing the
+#' \item{get}{return a [base::data.frame()] containing the
 #'   parameter values.}
 #'
 #' \item{set}{update the parameter values using a
-#'   \code{\link[base]{data.frame}}.}
+#'   [base::data.frame()].}
 #'
 #' \item{reset}{update the parameter values to be the default values.}
 #'
-#' \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+#' \item{render}{create a [shiny::shiny()] widget to modify
 #'   parameter values.}
 #'
 #' }
 #'
-#' @seealso \code{\link{ScalarParameter-class}}, \code{\link{Parameter-class}}.
+#' @seealso [ScalarParameter-class()], [Parameter-class()].
 #'
 #' @name ArrayParameter-class
 #'

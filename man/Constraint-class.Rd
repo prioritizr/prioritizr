@@ -8,9 +8,9 @@
 This prototype is used to represent the constraints used when making a
 prioritization. \strong{This prototype represents a recipe, to actually
 add constraints to a planning problem, see the help page on
-\code{\link{constraints}}. Only experts should use this class directly.} This
-prototype inherits from the \code{\link{ConservationModifier-class}}.
+\code{\link[=constraints]{constraints()}}. Only experts should use this class directly.} This
+prototype inherits from the \code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
 }
 \seealso{
-\code{\link{ConservationModifier-class}}.
+\code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
 }

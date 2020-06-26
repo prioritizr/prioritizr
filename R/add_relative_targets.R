@@ -7,9 +7,9 @@ NULL
 #' representation of features in the study area. Please note that proportions
 #' are scaled according to the features' total abundances in the study area
 #' (including any locked out planning units, or planning units with `NA`
-#' cost data) using the \code{\link{feature_abundances}} function.
+#' cost data) using the [feature_abundances()] function.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param targets Object that specifies the targets for each feature. See the
 #'   Details section for more information.

@@ -3,11 +3,11 @@ NULL
 
 #' Add neighbor constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that all selected planning units in the solution have at least a certain
 #' number of neighbors that are also selected in the solution.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param k `integer` minimum number of neighbors for selected
 #'   planning units in the solution. For problems with multiple zones,
@@ -30,7 +30,7 @@ NULL
 #'   `array` object showing which planning units are neighbors with each
 #'   other. The argument defaults to `NULL` which means that the
 #'   neighborhood data is calculated automatically using the
-#'   \code{\link{adjacency_matrix}} function. See the Details section for more
+#'   [adjacency_matrix()] function. See the Details section for more
 #'   information.
 #'
 #' @details This function uses neighborhood data identify solutions that
@@ -43,7 +43,7 @@ NULL
 #'   \describe{
 #'
 #'   \item{`NULL`}{neighborhood data should be calculated automatically
-#'     using the \code{\link{adjacency_matrix}} function. This is the default
+#'     using the [adjacency_matrix()] function. This is the default
 #'     argument. Note that the neighborhood data must be manually defined
 #'     using one of the other formats below when the planning unit data
 #'     in the argument to `x` is not spatially referenced (e.g.
@@ -88,10 +88,10 @@ NULL
 #'
 #'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraint
+#' @return [ConservationProblem-class()] object with the constraint
 #'   added to it.
 #'
-#' @seealso \code{\link{constraints}}, \code{\link{penalties}}.
+#' @seealso [constraints()], [penalties()].
 #'
 #' @references
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving

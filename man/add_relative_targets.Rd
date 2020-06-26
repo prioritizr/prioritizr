@@ -18,13 +18,13 @@ add_relative_targets(x, targets)
 \S4method{add_relative_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{targets}{Object that specifies the targets for each feature. See the
 Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the targets added
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the targets added
 to it.
 }
 \description{
@@ -32,14 +32,14 @@ Set targets as a proportion (between 0 and 1) of the maximum level of
 representation of features in the study area. Please note that proportions
 are scaled according to the features' total abundances in the study area
 (including any locked out planning units, or planning units with \code{NA}
-cost data) using the \code{\link{feature_abundances}} function.
+cost data) using the \code{\link[=feature_abundances]{feature_abundances()}} function.
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
 feature's distribution that needs to be protected. Most conservation
 planning problems require targets with the exception of the maximum cover
-(see \code{\link{add_max_cover_objective}}) and maximum utility
-(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+(see \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}) and maximum utility
+(see \code{\link[=add_max_utility_objective]{add_max_utility_objective()}}) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.
 
@@ -70,7 +70,7 @@ This argument must contain a field (column) name for each zone.}
 For problems associated with multiple management zones, this function can
 be used to set targets that each pertain to a single feature and a single
 zone. To set targets which can be met through allocating different
-planning units to multiple zones, see the \code{\link{add_manual_targets}}
+planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
 function. An example of a target that could be met through allocations
 to multiple zones might be where each management zone is expected to
 result in a different amount of a feature and the target requires that
@@ -149,5 +149,5 @@ plot(category_layer(s5), main = c("varying targets"))
 
 }
 \seealso{
-\code{\link{targets}}.
+\code{\link[=targets]{targets()}}.
 }

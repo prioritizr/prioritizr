@@ -3,7 +3,7 @@ NULL
 
 #' Add proportion decisions
 #'
-#' Add a proportion decision to a conservation planning \code{\link{problem}}.
+#' Add a proportion decision to a conservation planning [problem()].
 #' This is a relaxed decision where a part of a planning unit can be
 #' prioritized as opposed to the entire planning unit. Typically, this decision
 #' has the assumed action of buying a fraction of a planning unit to include in
@@ -11,7 +11,7 @@ NULL
 #' decisions will solve much faster than problems that use binary-type
 #' decisions
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @inherit add_binary_decisions details return seealso
 #'

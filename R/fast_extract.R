@@ -3,12 +3,12 @@ NULL
 
 #' Fast extract
 #'
-#' Extract data from a \code{\link[raster]{Raster-class}} object.
+#' Extract data from a [raster::Raster-class()] object.
 #'
-#' @param x \code{\link[raster]{Raster-class}} object.
+#' @param x [raster::Raster-class()] object.
 #'
-#' @param y \code{\link[sp]{Spatial-class}} or
-#'          \code{\link[sf]{sf}} object.
+#' @param y [sp::Spatial-class()] or
+#'          [sf::sf()] object.
 #'
 #' @param fun `character` name of statistic to summarize data. Defaults
 #'   to `"mean"`. Available options include `"sum"` or `"mean"`.
@@ -21,17 +21,17 @@ NULL
 #'   in the argument to `y` and columns correspond to different raster
 #'   layers in the argument to `x`.
 #'
-#' @seealso \code{\link[raster]{extract}},
-#'   \code{\link[exactextractr]{exact_extract}}.
+#' @seealso [raster::extract()],
+#'   [exactextractr::exact_extract()].
 #'
 #' @details This function is simply a wrapper that uses
-#'   \code{\link[raster]{extract}} to extract data for
-#'   \code{\link[sp]{SpatialPoints-class}} and
-#'   \code{\link[sp]{SpatialLines-class}} and
-#'   non-polygonal \code{\link[sf]{sf}} data, and
-#'   \code{\link[exactextractr]{exact_extract}} for
-#'   \code{\link[sp]{SpatialPolygons-class}} and
-#'   polygonal \code{\link[sf]{sf}} data.
+#'   [raster::extract()] to extract data for
+#'   [sp::SpatialPoints-class()] and
+#'   [sp::SpatialLines-class()] and
+#'   non-polygonal [sf::sf()] data, and
+#'   [exactextractr::exact_extract()] for
+#'   [sp::SpatialPolygons-class()] and
+#'   polygonal [sf::sf()] data.
 #'
 #' @name fast_extract
 #'

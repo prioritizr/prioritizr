@@ -25,11 +25,11 @@ replacement_cost(x, solution, ...)
 \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object. See the Details section for more
+\code{\link[raster:Raster-classes]{raster::Raster-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
 information.}
 
 \item{...}{not used.}
@@ -40,7 +40,7 @@ rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 
 \item{run_checks}{\code{logical} flag indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
-the \code{\link{presolve_check}} function. Defaults to \code{TRUE}.
+the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
 Skipping these checks may reduce run time for large problems.}
 
 \item{force}{\code{logical} flag indicating if an attempt to should be
@@ -53,8 +53,8 @@ one thread being used.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-\code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object containing the replacement costs for each
+\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+or \code{\link[sf:sf]{sf::sf()}} object containing the replacement costs for each
 planning unit in the solution.
 }
 \description{
@@ -71,10 +71,10 @@ planning unit cannot be acquired when implementing the solution and the
 next best planning unit (or set of planning units) will need to be
 considered instead. Thus planning units with a higher score are more
 irreplaceable. For example, when using the minimum set objective function
-(\code{\link{add_min_set_objective}}), the replacement cost scores
+(\code{\link[=add_min_set_objective]{add_min_set_objective()}}), the replacement cost scores
 correspond to the additional costs needed to meet targets when each
 planning unit is locked out. When using the maximum utility
-objective function (\code{\link{add_max_utility_objective}}, the
+objective function (\code{\link[=add_max_utility_objective]{add_max_utility_objective()}}, the
 replacement cost scores correspond to the reduction in the utility when
 each planning unit is locked out. Infinite values mean that no feasible
 solution exists when planning units are locked out---they are
@@ -85,7 +85,7 @@ and this will have no effect on the performance of the solution at all
 (e.g. because they were only selected due to spatial fragmentation
 penalties). Since these calculations can take a long time to complete, we
 recommend calculating these scores without additional penalties (e.g.
-\code{\link{add_boundary_penalties}}) or constraints (e.g.
+\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}) or constraints (e.g.
 \code{link{add_contiguity_constraints}}). They can be sped up further by
 using proportion-type decisions when calculating the scores (see below for
 an example).
@@ -96,17 +96,17 @@ of data representation, dimensionality, and spatial attributes (if
 applicable). This means that if the planning unit data in \code{x}
 is a \code{numeric} vector then the argument to \code{solution} must be a
 \code{numeric} vector with the same number of elements; if the planning
-unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
+unit data in \code{x} is a \code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} then the
 argument to \code{solution} must also be a
-\code{\link[raster]{RasterLayer-class}} with the same number of rows and
+\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} with the same number of rows and
 columns and the same resolution, extent, and coordinate reference system;
-if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
+if the planning unit data in \code{x} is a \code{\link[sp:Spatial-class]{sp::Spatial-class()}}
 object then the argument to \code{solution} must also be a
-\code{\link[sp]{Spatial-class}} object and have the same number of spatial
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}} object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system;
-if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+if the planning unit data in \code{x} is a \code{\link[sf:sf]{sf::sf()}}
 object then the argument to \code{solution} must also be a
-\code{\link[sf]{sf}} object and have the same number of spatial
+\code{\link[sf:sf]{sf::sf()}} object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system;
 if the planning units in \code{x} are a \code{data.frame} then the
 argument to \code{solution} must also be a \code{data.frame} with each
@@ -219,5 +219,5 @@ value for cost-effective reserve planning. \emph{Biological Conservation},
 132:  336--342.
 }
 \seealso{
-\code{\link{irreplaceability}}.
+\code{\link[=irreplaceability]{irreplaceability()}}.
 }

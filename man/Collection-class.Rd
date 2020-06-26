@@ -6,12 +6,12 @@
 \title{Collection prototype}
 \description{
 This prototype represents a collection of
-\code{\link{ConservationModifier-class}} objects.
+\code{\link[=ConservationModifier-class]{ConservationModifier-class()}} objects.
 }
 \section{Fields}{
 
 \describe{
-\item{$...}{\code{\link{ConservationModifier-class}} objects stored
+\item{$...}{\code{\link[=ConservationModifier-class]{ConservationModifier-class()}} objects stored
 in the collection.}
 }
 }
@@ -73,7 +73,7 @@ contains the input id.}
 \item{find_parameter}{\code{character} id for object inside collection which
 contains the input \code{character} object as a parameter.}
 
-\item{add}{add \code{\link{ConservationModifier-class}} object.}
+\item{add}{add \code{\link[=ConservationModifier-class]{ConservationModifier-class()}} object.}
 
 \item{remove}{remove an item from the collection.}
 
@@ -86,12 +86,12 @@ to a new object.}
 \item{render_parameter}{generate a \emph{shiny} widget to modify the
 the value of a parameter (specified by argument \code{id}).}
 
-\item{render_all_parameters}{generate a \code{\link[shiny]{div}}
+\item{render_all_parameters}{generate a \code{\link[shiny:reexports]{shiny::div()}}
 containing all the parameters" widgets.}
 
 }
 }
 
 \seealso{
-\code{\link{Constraint-class}}, \code{\link{Penalty-class}}.
+\code{\link[=Constraint-class]{Constraint-class()}}, \code{\link[=Penalty-class]{Penalty-class()}}.
 }

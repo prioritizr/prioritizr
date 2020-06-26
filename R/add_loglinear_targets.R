@@ -3,7 +3,7 @@ NULL
 
 #' Add targets using log-linear scaling
 #'
-#' Add targets to a conservation planning \code{\link{problem}} by log-linearly
+#' Add targets to a conservation planning [problem()] by log-linearly
 #' interpolating the targets between thresholds based on the total amount of
 #' each feature in the study area (Rodrigues *et al.* 2004). Additionally,
 #' caps can be applied to targets to prevent features with massive
@@ -11,7 +11,7 @@ NULL
 #' in solutions (Butchart *et al.* 2015). **Note that the behavior
 #' of this function has changed substantially from versions prior to 5.0.0**.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param lower_bound_amount `numeric` threshold.
 #'
@@ -33,12 +33,12 @@ NULL
 #'   Defaults to `NULL` so that targets are not capped.
 #'
 #' @param abundances `numeric` total amount of each feature to
-#'  use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link{feature_abundances}} function.
+#'  use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the [feature_abundances()] function.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation
 #'   planning problems require adding targets with the exception of the maximum
-#'   cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
+#'   cover problem (see [add_max_cover_objective()]), which maximizes
 #'   all features in the solution and therefore does not require targets.
 #'
 #'   Seven parameters are used to calculate the targets:
@@ -57,16 +57,16 @@ NULL
 #'   **Note that the target calculations do not account for the
 #'   size of each planning unit.** Therefore, the feature data should account for
 #'   the size of each planning unit if this is important (e.g. pixel values in
-#'   the argument to `features` in the function \code{\link{problem}} could
+#'   the argument to `features` in the function [problem()] could
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
 #'
 #'   This function can only be applied to
-#'   \code{\link{ConservationProblem-class}} objects that are associated with a
+#'   [ConservationProblem-class()] objects that are associated with a
 #'   single zone.
 #'
 #' @inherit add_relative_targets return
 #'
-#' @seealso \code{\link{targets}}, \code{\link{loglinear_interpolation}}.
+#' @seealso [targets()], [loglinear_interpolation()].
 #'
 #' @references
 #' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

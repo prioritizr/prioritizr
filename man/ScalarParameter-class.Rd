@@ -30,7 +30,7 @@ that \verb{$value} is permitted to be.}
 that \verb{$value} is permitted to be.}
 
 \item{$widget}{\code{function} used to construct a
-\code{\link[shiny]{shiny}} interface for modifying values.}
+\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -80,12 +80,12 @@ that \verb{$value} is permitted to be.}
 
 \item{reset}{update the parameter value to be the default value.}
 
-\item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
 parameter values.}
 
 }
 }
 
 \seealso{
-\code{\link{Parameter-class}}, \code{\link{ArrayParameter-class}}.
+\code{\link[=Parameter-class]{Parameter-class()}}, \code{\link[=ArrayParameter-class]{ArrayParameter-class()}}.
 }

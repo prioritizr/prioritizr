@@ -14,7 +14,7 @@
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds
@@ -36,15 +36,15 @@ are both allocated to the same zone.}
 object showing which planning units are connected with each
 other. The argument defaults to \code{NULL} which means that the
 connection data is calculated automatically using the
-\code{\link{adjacency_matrix}} function. See the Details section for more
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function. See the Details section for more
 information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
 added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link{problem}} to ensure
+Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.
 }
@@ -60,7 +60,7 @@ The argument to \code{data} can be specified in several ways:
 \describe{
 
 \item{\code{NULL}}{connection data should be calculated automatically
-using the \code{\link{adjacency_matrix}} function. This is the default
+using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
 argument. Note that the connection data must be manually defined
 using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
@@ -202,5 +202,5 @@ plot(s7, "solution", axes = FALSE, box = FALSE)
 reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
-\code{\link{constraints}}.
+\code{\link[=constraints]{constraints()}}.
 }

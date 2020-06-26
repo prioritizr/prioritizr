@@ -13,7 +13,7 @@ NULL
 #' @section Fields:
 #' \describe{
 #'
-#' \item{$id}{\code{\link{Id}} identifier for parameter.}
+#' \item{$id}{[Id()] identifier for parameter.}
 #'
 #' \item{$name}{`character` name of parameter.}
 #'
@@ -31,7 +31,7 @@ NULL
 #'   permitted value for each element in `$value`.}
 #'
 #' \item{$widget}{`function` used to construct a
-#'                \code{\link[shiny]{shiny}} interface for modifying values.}
+#'                [shiny::shiny()] interface for modifying values.}
 #' }
 #'
 #' @section Usage:
@@ -49,7 +49,7 @@ NULL
 #' \item{reset}{change the parameter values to be the default values.}
 #' }
 #'
-#' @seealso \code{\link{ScalarParameter-class}}.
+#' @seealso [ScalarParameter-class()].
 #'
 #' @name Parameter-class
 #'

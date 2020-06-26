@@ -7,14 +7,14 @@
 add_proportion_decisions(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the decisions
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the decisions
 added to it.
 }
 \description{
-Add a proportion decision to a conservation planning \code{\link{problem}}.
+Add a proportion decision to a conservation planning \code{\link[=problem]{problem()}}.
 This is a relaxed decision where a part of a planning unit can be
 prioritized as opposed to the entire planning unit. Typically, this decision
 has the assumed action of buying a fraction of a planning unit to include in
@@ -68,5 +68,5 @@ plot(s2, axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link{decisions}}.
+\code{\link[=decisions]{decisions()}}.
 }

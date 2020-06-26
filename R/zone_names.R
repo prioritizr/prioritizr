@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the names of zones in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or \code{\link{Zones}}
+#' @param x [ConservationProblem-class()] or [Zones()]
 #    object.
 #'
 #' @return `character` zone names.

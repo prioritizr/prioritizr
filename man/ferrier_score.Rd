@@ -22,16 +22,16 @@ ferrier_score(x, solution)
 \S4method{ferrier_score}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
+\code{\link[raster:Raster-classes]{raster::Raster-class()}}, or \code{\link[sp:Spatial-class]{sp::Spatial-class()}}
 object. See the Details section for more information.}
 }
 \value{
-A \code{matrix}, \code{\link[tibble]{tibble}},
-\code{\link[raster]{RasterLayer-class}}, or
-\code{\link[sp]{Spatial-class}} object containing the scores for each
+A \code{matrix}, \code{\link[tibble:tibble]{tibble::tibble()}},
+\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}, or
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}} object containing the scores for each
 planning unit selected in the solution.
 }
 \description{
@@ -53,13 +53,13 @@ of data representation, dimensionality, and spatial attributes (if
 applicable). This means that if the planning unit data in \code{x}
 is a \code{numeric} vector then the argument to \code{solution} must be a
 \code{numeric} vector with the same number of elements, if the planning
-unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
+unit data in \code{x} is a \code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} then the
 argument to \code{solution} must also be a
-\code{\link[raster]{RasterLayer-class}} with the same number of rows and
+\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} with the same number of rows and
 columns and the same resolution, extent, and coordinate reference system,
-if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
+if the planning unit data in \code{x} is a \code{\link[sp:Spatial-class]{sp::Spatial-class()}}
 object then the argument to \code{solution} must also be a
-\code{\link[sp]{Spatial-class}} object and have the same number of spatial
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}} object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system,
 if the planning units in \code{x} are a \code{data.frame} then the
 argument to \code{solution} must also be a \code{data.frame} with each
@@ -119,5 +119,5 @@ systems and other ecological networks. \emph{Research Ideas and Outcomes}
 5: e33510.
 }
 \seealso{
-\code{\link{irreplaceability}}.
+\code{\link[=irreplaceability]{irreplaceability()}}.
 }

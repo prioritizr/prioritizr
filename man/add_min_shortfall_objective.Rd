@@ -7,7 +7,7 @@
 add_min_shortfall_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,11 +16,11 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
 added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 minimize the shortfall for as many targets as possible while ensuring that
 the cost of the solution does not exceed a budget.
 }
@@ -38,7 +38,7 @@ remains unmet---for as many features as possible while staying within a
 fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
 2005). Additionally, weights can be used
 to favor the representation of certain features over other features (see
-\code{\link{add_feature_weights}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}.
 
 The minimum shortfall objective for the reserve design problem can be
 expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
@@ -52,14 +52,14 @@ expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   sum_i^I (xi * rij) + yj >= tj for all j in J &
   sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
 \eqn{j}{j}, \eqn{y_j}{yj} denotes the representation shortfall for
 the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-\code{\link{add_feature_weights}} to specify weights). Additionally,
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights). Additionally,
 \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
 cost of planning unit \eqn{i}{i}. Note that \eqn{y_j}{yj} is a continuous
 variable bounded between zero and infinity, and denotes the shortfall
@@ -118,5 +118,5 @@ biodiversity in reserve selection: representation, species weighting, and
 benefit functions. \emph{Conservation Biology}, 19: 2009--2014.
 }
 \seealso{
-\code{\link{add_feature_weights}}, \code{\link{objectives}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \code{\link[=objectives]{objectives()}}.
 }

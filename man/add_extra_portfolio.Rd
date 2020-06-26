@@ -7,15 +7,15 @@
 add_extra_portfolio(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the portfolio
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the portfolio
 added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link{problem}} by storing feasible solutions
+\code{\link[=problem]{problem()}} by storing feasible solutions
 discovered during the optimization process.
 This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or
@@ -24,7 +24,7 @@ the quality of solutions.
 \details{
 This strategy for generating a portfolio requires problems to
 be solved using the \emph{Gurobi} software suite (i.e. using
-\code{\link{add_gurobi_solver}}. Specifically, version 8.0.0 (or greater)
+\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}. Specifically, version 8.0.0 (or greater)
 of the \pkg{gurobi} package must be installed.
 }
 \examples{
@@ -71,5 +71,5 @@ plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
 }
 }
 \seealso{
-\code{\link{portfolios}}.
+\code{\link[=portfolios]{portfolios()}}.
 }

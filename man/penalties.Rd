@@ -4,11 +4,11 @@
 \alias{penalties}
 \title{Conservation problem penalties}
 \description{
-A penalty can be applied to a conservation planning \code{\link{problem}} to
+A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
 penalize solutions according to a specific metric. Penalties---unlike
-\code{\link{constraints}}---act as an explicit trade-off with the objective
+\code{\link[=constraints]{constraints()}}---act as an explicit trade-off with the objective
 being minimized or maximized (e.g. solution cost when used with
-\code{\link{add_min_set_objective}}).
+\code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 }
 \details{
 Both penalties and constraints can be used to modify a problem and
@@ -18,19 +18,19 @@ On the other hand, penalties work by specifying trade-offs against the
 main problem objective and are mediated by a penalty factor.
 
 The following penalties can be added to a conservation planning
-\code{\link{problem}}:
+\code{\link[=problem]{problem()}}:
 
 \describe{
 
-\item{\code{\link{add_boundary_penalties}}}{Add penalties to a
+\item{\code{\link[=add_boundary_penalties]{add_boundary_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that have
 planning units clumped together into contiguous areas.}
 
-\item{\code{\link{add_connectivity_penalties}}}{Add penalties to a
+\item{\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that select
 planning units with high connectivity between them.}
 
-\item{\code{\link{add_linear_penalties}}}{Add penalties to a
+\item{\code{\link[=add_linear_penalties]{add_linear_penalties()}}}{Add penalties to a
 conservation problem to favor solutions that avoid selecting
 planning units based on a certain variable
 (e.g. anthropogenic pressure).}
@@ -84,7 +84,7 @@ plot(s, axes = FALSE, box = FALSE,
  }
 }
 \seealso{
-\code{\link{constraints}}, \code{\link{decisions}},
-\code{\link{objectives}} \code{\link{portfolios}}, \code{\link{problem}},
-\code{\link{solvers}}, \code{\link{targets}}.
+\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
+\code{\link[=objectives]{objectives()}} \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
+\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
 }

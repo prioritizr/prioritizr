@@ -3,7 +3,7 @@ NULL
 
 #' Predefined optimization problem
 #'
-#' Create a new \code{\link{OptimizationProblem-class}} object.
+#' Create a new [OptimizationProblem-class()] object.
 #'
 #' @param x `list` object containing data to construct the problem.
 #'

@@ -6,7 +6,7 @@ NULL
 #' Calculate the total abundance of each feature found in the planning units
 #' of a conservation planning problem.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param na.rm `logical` should planning units with `NA` cost
 #'   data be excluded from the abundance calculations? The default argument
@@ -16,7 +16,7 @@ NULL
 #'   (e.g. 0.1, 3, 100) and `NA` values. This functionality is provided so
 #'   that locations which are not available for protected area acquisition can
 #'   be included when calculating targets for conservation features
-#'   (e.g. when targets are specified using \code{\link{add_relative_targets}}).
+#'   (e.g. when targets are specified using [add_relative_targets()]).
 #'   If the total amount of each feature in all the planning units is
 #'   required---including the planning units with `NA` cost data---then the
 #'   the `na.rm` argument should be set to `FALSE`. However, if
@@ -25,7 +25,7 @@ NULL
 #'   each feature---then the `na.rm` argument should be set to
 #'   `TRUE`.
 #'
-#' @return \code{\link[tibble]{tibble}} containing the total amount
+#' @return [tibble::tibble()] containing the total amount
 #'   (`"absolute_abundance"`) and proportion (`"relative_abundance"`)
 #'   of the distribution of each feature in the planning units. Here, each
 #'   row contains data that pertain to a specific feature in a specific
@@ -53,7 +53,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso \code{\link{problem}}, \code{\link{feature_representation}}.
+#' @seealso [problem()], [feature_representation()].
 #'
 #' @examples
 #' # load data

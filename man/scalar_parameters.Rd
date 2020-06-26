@@ -41,12 +41,12 @@ the largest acceptable value for \code{value}. Defaults to
 the largest possible number on the system.}
 }
 \value{
-\code{\link{ScalarParameter-class}} object.
+\code{\link[=ScalarParameter-class]{ScalarParameter-class()}} object.
 }
 \description{
 These functions are used to create parameters that consist of a single
 number. Parameters have a name, a value, a defined range of acceptable
-values, a default value, a class, and a \code{\link[shiny]{shiny}} widget for
+values, a default value, a class, and a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget for
 modifying them. If values are supplied to a parameter that are unacceptable
 then an error is thrown.
 }

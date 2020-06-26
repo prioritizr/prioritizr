@@ -3,20 +3,20 @@ NULL
 
 #' Add locked in constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that specific planning units are selected (or allocated
 #' to a specific zone) in the solution. For example, it may be desirable to
 #' lock in planning units that are inside existing protected areas so that the
 #' solution fills in the gaps in the existing reserve network. If specific
 #' planning units should be locked out of a solution, use
-#' \code{\link{add_locked_out_constraints}}. For problems with non-binary
+#' [add_locked_out_constraints()]. For problems with non-binary
 #' planning unit allocations (e.g. proportions), the
-#' \code{\link{add_manual_locked_constraints}} function can be used to lock
+#' [add_manual_locked_constraints()] function can be used to lock
 #' planning unit allocations to a specific value.
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
 #' @param locked_in Object that determines which planning units that should be
 #'   locked in. See the Details section for more information.
@@ -24,9 +24,9 @@ NULL
 #' @details The locked planning units can be specified in several different
 #'   ways. Generally, the locked data should correspond to the planning units
 #'   in the argument to `x.` To help make working with
-#'   \code{\link{Raster-class}} planning unit data easier,
+#'   [Raster-class()] planning unit data easier,
 #'   the locked data should correspond to cell indices in the
-#'   \code{\link{Raster-class}} data. For example, `integer` arguments
+#'   [Raster-class()] data. For example, `integer` arguments
 #'   should correspond to cell indices and `logical` arguments should have
 #'   a value for each cell---regardless of which planning unit cells contain
 #'   `NA` values.
@@ -53,26 +53,26 @@ NULL
 #'   \item{`character`}{field (column) name(s) that indicate if planning
 #'     units should be locked for the solution. This type of argument is only
 #'     compatible if the planning units in the argument to `x` are a
-#'     \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+#'     [sp::Spatial-class()], [sf::sf()], or
 #'     `data.frame` object. The fields
 #'     (columns) must have `logical`  (i.e. `TRUE` or `FALSE`)
 #'     values indicating if the planning unit is to be locked for the solution.
 #'     For problems containing multiple zones, this argument should contain
 #'     a field (column) name for each management zone.}
 #'
-#'   \item{\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}}}{
+#'   \item{[sp::Spatial-class()] or [sf::sf()]}{
 #'     planning units in `x` that spatially intersect with the
-#'     argument to `y` (according to \code{\link{intersecting_units}}
+#'     argument to `y` (according to [intersecting_units()]
 #'     are locked for to the solution. Note that this option is only available
 #'     for problems that contain a single management zone.}
 #'
-#'   \item{\code{\link[raster]{Raster-class}}}{planning units in `x`
+#'   \item{[raster::Raster-class()]}{planning units in `x`
 #'     that intersect with non-zero and non-`NA` raster cells are locked
 #'     for the solution. For problems that contain multiple zones, the
-#'     \code{\link[raster]{Raster-class}} object must contain a layer
+#'     [raster::Raster-class()] object must contain a layer
 #'     for each zone. Note that for multi-band arguments, each pixel must
 #'     only contain a non-zero value in a single band. Additionally, if the
-#'     cost data in `x` is a \code{\link[raster]{Raster-class}} object, we
+#'     cost data in `x` is a [raster::Raster-class()] object, we
 #'     recommend standardizing `NA` values in this dataset with the cost
 #'     data. In other words, the pixels in `x` that have `NA` values
 #'     should also have `NA` values in the locked data.}
@@ -205,7 +205,7 @@ NULL
 #' # plot solution
 #' plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' @seealso \code{\link{constraints}}.
+#' @seealso [constraints()].
 #'
 #' @name add_locked_in_constraints
 #'

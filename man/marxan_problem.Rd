@@ -104,10 +104,10 @@ has an effect when argument to \code{x} is a \code{data.frame}. The
 default argument is zero.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object.
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.
 }
 \description{
-Create a conservation planning \code{\link{problem}} following the
+Create a conservation planning \code{\link[=problem]{problem()}} following the
 mathematical formulations used in \emph{Marxan} (detailed in Beyer
 \emph{et al.} 2016).
 }
@@ -116,7 +116,7 @@ This function is provided as a convenient wrapper for solving
 \emph{Marxan} problems using \pkg{prioritizr}. Although this function
 could accommodate asymmetric connectivity in earlier versions of the
 \pkg{prioritizr} package, this functionality is no longer available.
-Please see the \code{\link{add_connectivity_penalties}} function for
+Please see the \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function for
 adding asymmetric connectivity penalties to a conservation planning
 problem.
 }

@@ -13,13 +13,13 @@ add_boundary_penalties(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
 to the main problem objective (e.g. solution cost when the argument to
 \code{x} has a minimum set objective set using
-\code{\link{add_min_set_objective}}). Higher \code{penalty} values
+\code{\link[=add_min_set_objective]{add_min_set_objective()}}). Higher \code{penalty} values
 will return solutions with a higher degree of spatial clumping,
 and smaller \code{penalty} values will return solutions with a smaller
 degree of clumping. Note that negative \code{penalty} values will
@@ -60,11 +60,11 @@ between different planning units. See the Details section for more
 information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the penalties
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the penalties
 added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link{problem}} to favour
+Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favour
 solutions that have planning units clumped together into contiguous areas.
 }
 \details{
@@ -76,14 +76,14 @@ equivalent to the boundary length modifier (\code{BLM}) used in
 Note that this function can only
 be used to represent symmetric relationships between planning units. If
 asymmetric relationships are required, use the
-\code{\link{add_connectivity_penalties}} function.
+\code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function.
 
 The argument to \code{data} can be specified in several different ways:
 
 \describe{
 
 \item{\code{NULL}}{the boundary data are automatically calculated
-using the \code{\link{boundary_matrix}} function. This argument is the
+using the \code{\link[=boundary_matrix]{boundary_matrix()}} function. This argument is the
 default. Note that the boundary data must be manually defined
 using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
@@ -121,7 +121,7 @@ variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
 values one indicating if planning unit is allocated or not). Also, let
 \eqn{p} represent the argument to \code{penalty}, \eqn{E} represent the
 argument to \code{edge_factor}, \eqn{B} represent the matrix argument to
-\code{data} (e.g. generated using \code{\link{boundary_matrix}}), and
+\code{data} (e.g. generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
 \eqn{W} represent the matrix argument to \code{zones}.
 
 \deqn{
@@ -244,5 +244,5 @@ conservation planning problems with integer linear programming.
 \emph{Ecological Modelling}, 228: 14--22.
 }
 \seealso{
-\code{\link{penalties}}.
+\code{\link[=penalties]{penalties()}}.
 }

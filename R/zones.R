@@ -16,7 +16,7 @@ NULL
 #' Organize biodiversity data into the expected amount of different features
 #' under different management zones.
 #'
-#' @param ... \code{\link[raster]{raster}} or `character` objects that
+#' @param ... [raster::raster()] or `character` objects that
 #'   pertain to the biodiversity data. See Details for more information.
 #'
 #' @param zone_names `character` names of the management zones. Defaults
@@ -26,25 +26,25 @@ NULL
 #'   to `NULL` which results in sequential integers.
 #'
 #' @details This function is used to store and organize data for use in a
-#'   conservation planning \code{\link{problem}} that has multiple management
+#'   conservation planning [problem()] that has multiple management
 #'   zones. In all cases, the data for each zone is input as a separate
 #'   argument. The correct arguments depends on the type of planning unit data
-#'   used when building the conservation planning \code{\link{problem}}.
+#'   used when building the conservation planning [problem()].
 #'
 #'   \describe{
-#'   \item{\code{\link[raster]{Raster-class}},
-#'     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+#'   \item{[raster::Raster-class()],
+#'     [sp::Spatial-class()]}{[raster::Raster-class()]
 #'     data denoting the amount of each feature present assuming each
 #'     management zone. Data for each zone are specified in separate
 #'     arguments, and the data for each feature in a given zone are specified
-#'     in separate layers in a \code{\link[raster]{stack}} object. Note that
+#'     in separate layers in a [raster::stack()] object. Note that
 #'     all layers for a given zone must have `NA` values in exactly the
 #'     same cells.}
-#'   \item{\code{\link{Spatial}}, `data.frame`}{`character` vector
+#'   \item{[Spatial()], `data.frame`}{`character` vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit for each zone. Note that
 #'     these columns must not contain any `NA` values.}
-#'   \item{\code{\link{Spatial}}, `data.frame` or
+#'   \item{[Spatial()], `data.frame` or
 #'     `matrix`}{`data.frame` denoting the amount of each feature
 #'     in each zone. Following conventions used in *Marxan*,
 #'     `data.frame` objects should be supplied with the columns:
@@ -62,9 +62,9 @@ NULL
 #'     missing from the table are treated as zero.}
 #'   }
 #'
-#' @return \code{\link{Zones-class}} object.
+#' @return [Zones-class()] object.
 #'
-#' @seealso \code{\link{problem}}.
+#' @seealso [problem()].
 #'
 #' @aliases Zones-class ZonesCharacter ZonesRaster Zones
 #'

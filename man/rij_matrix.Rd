@@ -16,22 +16,22 @@ rij_matrix(x, y, ...)
 \S4method{rij_matrix}{sf,Raster}(x, y, fun, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, or \code{\link[sf:sf]{sf::sf()}} object
 representing the planning units.}
 
-\item{y}{\code{\link[raster]{Raster-class}} object representing the
+\item{y}{\code{\link[raster:Raster-classes]{raster::Raster-class()}} object representing the
 features.}
 
 \item{...}{not used.}
 
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
-\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}} or \code{\link[sf:sf]{sf::sf()}} object.
 Defaults to \code{"sum"}.}
 }
 \value{
-\code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
+\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix-class()}} sparse matrix object.
 The sparse matrix represents the spatial intersection between the
 planning units and the features. Rows correspond to planning units,
 and columns correspond to features. Values correspond to the amount
@@ -44,10 +44,10 @@ Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing vector (i.e. \code{\link[sp]{Spatial-class}} or
-\code{\link[sf]{sf}}) data takes much
-longer to process then \code{\link[raster]{Raster-class}} data,
-so it is recommended to use \code{\link[raster]{Raster-class}} data
+Generally, processing vector (i.e. \code{\link[sp:Spatial-class]{sp::Spatial-class()}} or
+\code{\link[sf:sf]{sf::sf()}}) data takes much
+longer to process then \code{\link[raster:Raster-classes]{raster::Raster-class()}} data,
+so it is recommended to use \code{\link[raster:Raster-classes]{raster::Raster-class()}} data
 for planning units where possible.
 }
 \examples{

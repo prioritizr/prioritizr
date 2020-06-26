@@ -3,17 +3,17 @@ NULL
 
 #' Add manually specified locked constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that solutions allocate (or do not allocate) specific planning units to
 #' specific management zones. This function offers more fine-grained control
-#' than the \code{\link{add_locked_in_constraints}} and
-#' \code{\link{add_locked_out_constraints}} functions.
+#' than the [add_locked_in_constraints()] and
+#' [add_locked_out_constraints()] functions.
 #'
 #' @usage add_manual_locked_constraints(x, data)
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [ConservationProblem-class()] object.
 #'
-#' @param data `data.frame` or \code{\link[tibble]{tibble}} object. See
+#' @param data `data.frame` or [tibble::tibble()] object. See
 #'   the Details section for more information.
 #'
 #' @details The argument to `data` must contain the following fields
@@ -31,10 +31,10 @@ NULL
 #'     of each planning unit should be allocated to each zone in the solution.
 #'     For example, the `numeric` values could be binary values (i.e. zero
 #'     or one) for problems containing binary-type decision variables
-#'     (using the \code{\link{add_binary_decisions}} function). Alternatively,
+#'     (using the [add_binary_decisions()] function). Alternatively,
 #'     the `numeric` values could be proportions (e.g. 0.5) for problems
 #'     containing proportion-type decision variables (using the
-#'     \code{\link{add_proportion_decisions}}).}
+#'     [add_proportion_decisions()]).}
 #'
 #'   }
 #'
@@ -122,7 +122,7 @@ NULL
 #' spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
 #'        box = FALSE)
 #' }
-#' @seealso \code{\link{constraints}}.
+#' @seealso [constraints()].
 #'
 #' @name add_manual_locked_constraints
 #'

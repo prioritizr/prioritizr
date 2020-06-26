@@ -5,7 +5,7 @@
 \alias{Parameters}
 \title{Parameters class}
 \description{
-This class represents a collection of \code{\link{Parameter-class}} objects.
+This class represents a collection of \code{\link[=Parameter-class]{Parameter-class()}} objects.
 It provides methods for accessing, updating, and rendering the parameters
 stored inside it.
 }
@@ -14,7 +14,7 @@ stored inside it.
 \describe{
 
 \item{$parameters}{\code{list} object containing
-\code{\link{Parameter-class}} objects.}
+\code{\link[=Parameter-class]{Parameter-class()}} objects.}
 
 }
 }
@@ -48,9 +48,9 @@ stored inside it.
 \section{Arguments}{
 
 \describe{
-\item{id}{\code{\link{Id}} object.}
+\item{id}{\code{\link[=Id]{Id()}} object.}
 
-\item{p}{\code{\link{Parameter-class}} object.}
+\item{p}{\code{\link[=Parameter-class]{Parameter-class()}} object.}
 
 \item{value}{any object.}
 
@@ -82,7 +82,7 @@ to a new object.}
 \item{render}{generate a \emph{shiny} widget to modify the
 the value of a parameter (specified by argument \code{Id}).}
 
-\item{render_all}{generate a \code{\link[shiny]{div}}
+\item{render_all}{generate a \code{\link[shiny:reexports]{shiny::div()}}
 containing all the parameters" widgets.}
 
 }

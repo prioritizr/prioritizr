@@ -3,7 +3,7 @@ NULL
 
 #' *Marxan* conservation problem
 #'
-#' Create a conservation planning \code{\link{problem}} following the
+#' Create a conservation planning [problem()] following the
 #' mathematical formulations used in *Marxan* (detailed in Beyer
 #' *et al.* 2016).
 #'
@@ -98,7 +98,7 @@ NULL
 #'   *Marxan* problems using \pkg{prioritizr}. Although this function
 #'   could accommodate asymmetric connectivity in earlier versions of the
 #'   \pkg{prioritizr} package, this functionality is no longer available.
-#'   Please see the \code{\link{add_connectivity_penalties}} function for
+#'   Please see the [add_connectivity_penalties()] function for
 #'   adding asymmetric connectivity penalties to a conservation planning
 #'   problem.
 #'
@@ -107,7 +107,7 @@ NULL
 #'   [official *Marxan* website](https://marxansolutions.org) and Ball
 #'   *et al.* (2009).
 #'
-#' @return \code{\link{ConservationProblem-class}} object.
+#' @return [ConservationProblem-class()] object.
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

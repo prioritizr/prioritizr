@@ -7,7 +7,7 @@
 add_max_cover_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,11 +16,11 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
 added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
@@ -45,8 +45,8 @@ used in conservation planning problems dealing with binary biodiversity
 data that indicate the presence/absence of suitable habitat
 (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
 representation of certain features over other features (see
-\code{\link{add_feature_weights}}). Check out the
-\code{\link{add_max_features_objective}} for a more
+\code{\link[=add_feature_weights]{add_feature_weights()}}). Check out the
+\code{\link[=add_max_features_objective]{add_max_features_objective()}} for a more
 generalized formulation which can accommodate user-specified representation
 targets.
 
@@ -65,13 +65,13 @@ expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   sum_i^I (xi * rij) >= (yj * 1) for all j in J &
   sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
 the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-\code{\link{add_feature_weights}} to specify weights). Additionally,
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights). Additionally,
 \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
 cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
 to shrink the costs so that the problem will return a cheapest solution
@@ -79,10 +79,10 @@ when there are multiple solutions that represent the same amount of all
 features within the budget.
 
 Note that this formulation is functionally equivalent to the
-\code{\link{add_max_features_objective}} function with absolute targets
+\code{\link[=add_max_features_objective]{add_max_features_objective()}} function with absolute targets
 set to 1. Please note that in versions prior to 3.0.0.0, this objective
 function implemented a different mathematical formulation. To
-the \code{\link{add_max_utility_objective}} function.
+the \code{\link[=add_max_utility_objective]{add_max_utility_objective()}} function.
 }
 \examples{
 # load data
@@ -153,5 +153,5 @@ Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
 covering location problem. \emph{Biological Conservation}, 76: 105--112.
 }
 \seealso{
-\code{\link{add_feature_weights}}, \code{\link{objectives}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \code{\link[=objectives]{objectives()}}.
 }

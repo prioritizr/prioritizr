@@ -14,14 +14,14 @@
 \S4method{as.list}{tbl_df}(x)
 }
 \arguments{
-\item{x}{\code{\link[tibble]{tibble}} object.}
+\item{x}{\code{\link[tibble:tibble]{tibble::tibble()}} object.}
 }
 \description{
-Assorted functions for manipulating \code{\link[tibble]{tibble}} objects.
+Assorted functions for manipulating \code{\link[tibble:tibble]{tibble::tibble()}} objects.
 }
 \details{
 The following methods are provided from manipulating
-\code{\link[tibble]{tibble}} objects.
+\code{\link[tibble:tibble]{tibble::tibble()}} objects.
 
 \describe{
 \item{nrow}{extract \code{integer} number of rows.}

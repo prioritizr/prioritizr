@@ -6,12 +6,12 @@ NULL
 #' Convert a `data.frame` object that follows the *Marxan* format
 #' to a matrix format. This function is useful for converting
 #' `data.frame` objects to `matrix` or `array` objects that
-#' are used by the various \code{\link{penalties}} and
-#' \code{\link{constraints}} functions. If the boundary data contains data for
+#' are used by the various [penalties()] and
+#' [constraints()] functions. If the boundary data contains data for
 #' a single zone, then a matrix object is returned. Otherwise if the boundary
 #' data contains data for multiple zones, then an array is returned.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object that contains
+#' @param x [ConservationProblem-class()] object that contains
 #'   planning unit and zone data to ensure that the argument to
 #'   `data` is converted correctly. This argument can be set to
 #'   `NULL` if checks are not required (not recommended).
@@ -20,7 +20,7 @@ NULL
 #'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
 #'   `"zone2"` can also be provided to indicate zone data.
 #'
-#' @return `array` or sparse matrix (\code{\link{dgCMatrix-class}}) object.
+#' @return `array` or sparse matrix ([dgCMatrix-class()]) object.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone

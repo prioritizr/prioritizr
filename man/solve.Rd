@@ -11,17 +11,17 @@
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link{ConservationProblem-class}} or an
-\code{\link{OptimizationProblem-class}} object.}
+\item{a}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} or an
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
 
-\item{b}{\code{\link{Solver-class}} object. Not used if \code{a} is an
-\code{\link{ConservationProblem-class}} object.}
+\item{b}{\code{\link[=Solver-class]{Solver-class()}} object. Not used if \code{a} is an
+\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
 
-\item{...}{arguments passed to \code{\link{compile}}.}
+\item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
 \item{run_checks}{\code{logical} flag indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
-the \code{\link{presolve_check}} function. Defaults to \code{TRUE}.
+the \code{\link[=presolve_check]{presolve_check()}} function. Defaults to \code{TRUE}.
 Skipping these checks may reduce run time for large problems.}
 
 \item{force}{\code{logical} flag indicating if an attempt to should be
@@ -30,8 +30,8 @@ the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-\code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object containing the solution to the problem.
+\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+or \code{\link[sf:sf]{sf::sf()}} object containing the solution to the problem.
 Additionally, the returned object will have the following additional
 attributes: \code{"objective"} containing the solution's objective,
 \code{"runtime"} denoting the number of seconds that elapsed while solving
@@ -43,20 +43,20 @@ may not be an optimal solution depending on the gap used to solve
 the problem and noting that the default gap is 0.1).
 }
 \description{
-Solve a conservation planning \code{\link{problem}}.
+Solve a conservation planning \code{\link[=problem]{problem()}}.
 }
 \details{
-After formulating a conservation planning \code{\link{problem}},
-it can be solved using an exact algorithm solver (see \code{\link{solvers}}
+After formulating a conservation planning \code{\link[=problem]{problem()}},
+it can be solved using an exact algorithm solver (see \code{\link[=solvers]{solvers()}}
 for available solvers). If no solver has been explicitly specified,
 then the best available exact algorithm solver will be used by default
-(see \code{\link{add_default_solver}}. Although these exact algorithm
+(see \code{\link[=add_default_solver]{add_default_solver()}}. Although these exact algorithm
 solvers will often display a lot of information that isn't really that
 helpful (e.g. nodes, cutting planes), they do display information
 about the progress they are making on solving the problem (e.g. the
 performance of the best solution found at a given point in time). If
 potential issues were detected during the
-presolve checks (see \code{\link{presolve_check}})
+presolve checks (see \code{\link[=presolve_check]{presolve_check()}})
 and the problem is being forcibly solved (i.e. with \code{force = TRUE}),
 then it is also worth checking for any warnings displayed by the solver
 to see if these potential issues are actually causing issues
@@ -66,10 +66,10 @@ to see if these potential issues are actually causing issues
 
 The object returned from this function depends on the argument to
 \code{a}. If the argument to \code{a} is an
-\code{\link{OptimizationProblem-class}} object, then the
+\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object, then the
 solution is returned as a \code{logical} \code{vector} showing the status
 of each planning unit in each zone. However, in most cases, the argument
-to \code{a} is an \code{\link{ConservationProblem-class}} object, and so
+to \code{a} is an \code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object, and so
 the type of object returned depends on the number of solutions
 generated and the type data used to represent the planning units:
 
@@ -86,16 +86,16 @@ and fields (columns) correspond to different  management zones. If
 multiple solutions are generated, then the solution is returned as
 a \code{list} of \code{matrix} objects.}
 
-\item{\code{\link[raster]{Raster-class}}}{object containing the solution
+\item{\code{\link[raster:Raster-classes]{raster::Raster-class()}}}{object containing the solution
 in pixel values. If the argument to \code{x} contains a single
 management zone, then a \code{RasterLayer} object will be returned.
 Otherwise, if the argument to \code{x} contains multiple zones, then a
-\code{\link[raster]{RasterStack-class}} object
+\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object
 will be returned containing a different layer for each management zone.
 If multiple solutions are generated, then the solution is returned as
 a \code{list} of \code{Raster} objects.}
 
-\item{\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+\item{\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame}}{
 containing the solution in fields (columns). Here, each row
 corresponds to a different planning unit. If the argument to \code{x}
@@ -109,8 +109,8 @@ of the management zone.}
 }
 
 After solving problems that contain multiple zones,
-it may be useful to use the \code{\link{category_layer}} or
-\code{\link{category_vector}} function to reformat the output.
+it may be useful to use the \code{\link[=category_layer]{category_layer()}} or
+\code{\link[=category_vector]{category_vector()}} function to reformat the output.
 }
 \examples{
 # set seed for reproducibility
@@ -236,7 +236,7 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link{feature_representation}}, \code{\link{problem}},
-\code{\link{solvers}}, \code{\link{category_layer}},
-\code{\link{presolve_check}}.
+\code{\link[=feature_representation]{feature_representation()}}, \code{\link[=problem]{problem()}},
+\code{\link[=solvers]{solvers()}}, \code{\link[=category_layer]{category_layer()}},
+\code{\link[=presolve_check]{presolve_check()}}.
 }

@@ -11,7 +11,7 @@
 zones(..., zone_names = NULL, feature_names = NULL)
 }
 \arguments{
-\item{...}{\code{\link[raster]{raster}} or \code{character} objects that
+\item{...}{\code{\link[raster:raster]{raster::raster()}} or \code{character} objects that
 pertain to the biodiversity data. See Details for more information.}
 
 \item{zone_names}{\code{character} names of the management zones. Defaults
@@ -21,7 +21,7 @@ to \code{NULL} which results in sequential integers.}
 to \code{NULL} which results in sequential integers.}
 }
 \value{
-\code{\link{Zones-class}} object.
+\code{\link[=Zones-class]{Zones-class()}} object.
 }
 \description{
 Organize biodiversity data into the expected amount of different features
@@ -29,25 +29,25 @@ under different management zones.
 }
 \details{
 This function is used to store and organize data for use in a
-conservation planning \code{\link{problem}} that has multiple management
+conservation planning \code{\link[=problem]{problem()}} that has multiple management
 zones. In all cases, the data for each zone is input as a separate
 argument. The correct arguments depends on the type of planning unit data
-used when building the conservation planning \code{\link{problem}}.
+used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
-\item{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
+\item{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
+\code{\link[sp:Spatial-class]{sp::Spatial-class()}}}{\code{\link[raster:Raster-classes]{raster::Raster-class()}}
 data denoting the amount of each feature present assuming each
 management zone. Data for each zone are specified in separate
 arguments, and the data for each feature in a given zone are specified
-in separate layers in a \code{\link[raster]{stack}} object. Note that
+in separate layers in a \code{\link[raster:stack]{raster::stack()}} object. Note that
 all layers for a given zone must have \code{NA} values in exactly the
 same cells.}
-\item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+\item{\code{\link[=Spatial]{Spatial()}}, \code{data.frame}}{\code{character} vector
 with column names that correspond to the abundance or occurrence of
 different features in each planning unit for each zone. Note that
 these columns must not contain any \code{NA} values.}
-\item{\code{\link{Spatial}}, \code{data.frame} or
+\item{\code{\link[=Spatial]{Spatial()}}, \code{data.frame} or
 \code{matrix}}{\code{data.frame} denoting the amount of each feature
 in each zone. Following conventions used in \emph{Marxan},
 \code{data.frame} objects should be supplied with the columns:
@@ -98,5 +98,5 @@ z <- zones(c("spp1_zone1", "spp2_zone1"),
 print(z)
 }
 \seealso{
-\code{\link{problem}}.
+\code{\link[=problem]{problem()}}.
 }

@@ -11,9 +11,9 @@ NULL
 #' it creates a matrix that shows which periods of evolutionary history
 #' each species have experienced.
 #'
-#' @param x \code{\link[ape]{phylo}} tree object.
+#' @param x [ape::phylo()] tree object.
 #'
-#' @return \code{\link[Matrix]{dgCMatrix-class}} sparse matrix object. Each row
+#' @return [Matrix::dgCMatrix-class()] sparse matrix object. Each row
 #'   corresponds to a different species. Each column corresponds to a different
 #'   branch. Species that inherit from a given branch are denoted with a one.
 #'
