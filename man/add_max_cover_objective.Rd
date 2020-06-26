@@ -17,7 +17,7 @@ a budget for each each management zone.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the objective
-  added to it.
+added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link{problem}} to
@@ -31,32 +31,32 @@ version.
 }
 \details{
 A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the \pkg{prioritizr} package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.
+conservation planning problem. Please note that all conservation
+planning problems formulated in the \pkg{prioritizr} package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.
 
-  The maximum coverage objective seeks to find the set of planning units that
-  maximizes the number of represented features, while keeping cost within a
-  fixed budget. Here, features are treated as being represented if
-  the reserve system contains at least a single instance of a feature
-  (i.e. an amount greater than 1). This formulation has often been
-  used in conservation planning problems dealing with binary biodiversity
-  data that indicate the presence/absence of suitable habitat
-  (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
-  representation of certain features over other features (see
-  \code{\link{add_feature_weights}}). Check out the
-  \code{\link{add_max_features_objective}} for a more
-  generalized formulation which can accommodate user-specified representation
-  targets.
+The maximum coverage objective seeks to find the set of planning units that
+maximizes the number of represented features, while keeping cost within a
+fixed budget. Here, features are treated as being represented if
+the reserve system contains at least a single instance of a feature
+(i.e. an amount greater than 1). This formulation has often been
+used in conservation planning problems dealing with binary biodiversity
+data that indicate the presence/absence of suitable habitat
+(e.g. Church & Velle 1974). Additionally, weights can be used to favor the
+representation of certain features over other features (see
+\code{\link{add_feature_weights}}). Check out the
+\code{\link{add_max_features_objective}} for a more
+generalized formulation which can accommodate user-specified representation
+targets.
 
-  This formulation is based on the historical maximum coverage reserve
-  selection formulation (Church & Velle 1974; Church \emph{et al.} 1996).
-  The maximum coverage objective for the reserve design problem can be
-  expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-  \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+This formulation is based on the historical maximum coverage reserve
+selection formulation (Church & Velle 1974; Church \emph{et al.} 1996).
+The maximum coverage objective for the reserve design problem can be
+expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
+\eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
-  \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
+\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} y_j w_j \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
@@ -65,24 +65,24 @@ A problem objective is used to specify the overall goal of the
   sum_i^I (xi * rij) >= (yj * 1) for all j in J &
   sum_i^I (xi * ci) <= B}
 
-  Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
-  specifying whether planning unit \eqn{i}{i} has been selected (1) or not
-  (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-  unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
-  the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
-  weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-  \code{\link{add_feature_weights}} to specify weights). Additionally,
-  \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-  cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
-  to shrink the costs so that the problem will return a cheapest solution
-  when there are multiple solutions that represent the same amount of all
-  features within the budget.
+Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+(0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
+unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
+the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
+weight for feature \eqn{j}{j} (defaults to 1 for all features; see
+\code{\link{add_feature_weights}} to specify weights). Additionally,
+\eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
+cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
+to shrink the costs so that the problem will return a cheapest solution
+when there are multiple solutions that represent the same amount of all
+features within the budget.
 
-  Note that this formulation is functionally equivalent to the
-  \code{\link{add_max_features_objective}} function with absolute targets
-  set to 1. Please note that in versions prior to 3.0.0.0, this objective
-  function implemented a different mathematical formulation. To
-  the \code{\link{add_max_utility_objective}} function.
+Note that this formulation is functionally equivalent to the
+\code{\link{add_max_features_objective}} function with absolute targets
+set to 1. Please note that in versions prior to 3.0.0.0, this objective
+function implemented a different mathematical formulation. To
+the \code{\link{add_max_utility_objective}} function.
 }
 \examples{
 # load data

@@ -52,21 +52,21 @@ then an error is thrown.
 }
 \details{
 Below is a list of parameter generating functions and a brief
-  description of each.
+description of each.
 
-  \describe{
+\describe{
 
-  \item{proportion_parameter}{A parameter that is a \code{double} and bounded
-    between zero and one.}
+\item{proportion_parameter}{A parameter that is a \code{double} and bounded
+between zero and one.}
 
-  \item{integer_parameter}{A parameter that is a \code{integer}.}
+\item{integer_parameter}{A parameter that is a \code{integer}.}
 
-  \item{numeric_parameter}{A parameter that is a \code{double}.}
+\item{numeric_parameter}{A parameter that is a \code{double}.}
 
-  \item{binary_parameter}{A parameter that is restricted to \code{integer}
-    values of zero or one.}
+\item{binary_parameter}{A parameter that is restricted to \code{integer}
+values of zero or one.}
 
-  }
+}
 }
 \examples{
 # proportion parameter

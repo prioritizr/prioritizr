@@ -25,7 +25,7 @@ be removed? Defaults to \code{TRUE}.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
@@ -36,10 +36,10 @@ available.
 }
 \details{
 This strategy for generating a portfolio of solutions often
-  results in different solutions, depending on optimality gap, but may
-  return duplicate solutions. In general, this strategy is most effective
-  when problems are quick to solve and multiple threads are available for
-  solving each problem separately.
+results in different solutions, depending on optimality gap, but may
+return duplicate solutions. In general, this strategy is most effective
+when problems are quick to solve and multiple threads are available for
+solving each problem separately.
 }
 \examples{
 # set seed for reproducibility

@@ -18,32 +18,32 @@ is \code{FALSE}.}
 }
 \value{
 \code{\link[tibble]{tibble}} containing the total amount
-  (\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
-  of the distribution of each feature in the planning units. Here, each
-  row contains data that pertain to a specific feature in a specific
-  management zone (if multiple zones are present). This object
-  contains the following columns:
+(\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
+of the distribution of each feature in the planning units. Here, each
+row contains data that pertain to a specific feature in a specific
+management zone (if multiple zones are present). This object
+contains the following columns:
 
-  \describe{
+\describe{
 
-  \item{feature}{\code{character} name of the feature.}
+\item{feature}{\code{character} name of the feature.}
 
-  \item{zone}{\code{character} name of the zone (not included when the
-    argument to \code{x} contains only one management zone).}
+\item{zone}{\code{character} name of the zone (not included when the
+argument to \code{x} contains only one management zone).}
 
-  \item{absolute_abundance}{\code{numeric} amount of each feature in the
-    planning units. If the problem contains multiple zones, then this
-    column shows how well each feature is represented in a each
-    zone.}
+\item{absolute_abundance}{\code{numeric} amount of each feature in the
+planning units. If the problem contains multiple zones, then this
+column shows how well each feature is represented in a each
+zone.}
 
-  \item{relative_abundance}{\code{numeric} proportion of the feature's
-    distribution in the planning units. If the argument to \code{na.rm} is
-    \code{FALSE}, then this column will only contain values equal to one.
-    Otherwise, if the argument to \code{na.rm} is \code{TRUE} and planning
-    units with \code{NA} cost data contain non-zero amounts of each feature,
-    then this column will contain values between zero and one.}
+\item{relative_abundance}{\code{numeric} proportion of the feature's
+distribution in the planning units. If the argument to \code{na.rm} is
+\code{FALSE}, then this column will only contain values equal to one.
+Otherwise, if the argument to \code{na.rm} is \code{TRUE} and planning
+units with \code{NA} cost data contain non-zero amounts of each feature,
+then this column will contain values between zero and one.}
 
-  }
+}
 }
 \description{
 Calculate the total abundance of each feature found in the planning units
@@ -51,17 +51,17 @@ of a conservation planning problem.
 }
 \details{
 Planning units can have cost data with finite values
-  (e.g. 0.1, 3, 100) and \code{NA} values. This functionality is provided so
-  that locations which are not available for protected area acquisition can
-  be included when calculating targets for conservation features
-  (e.g. when targets are specified using \code{\link{add_relative_targets}}).
-  If the total amount of each feature in all the planning units is
-  required---including the planning units with \code{NA} cost data---then the
-  the \code{na.rm} argument should be set to \code{FALSE}. However, if
-  the planning units with \code{NA} cost data should be
-  excluded---for instance, to calculate the highest feasible targets for
-  each feature---then the \code{na.rm} argument should be set to
-  \code{TRUE}.
+(e.g. 0.1, 3, 100) and \code{NA} values. This functionality is provided so
+that locations which are not available for protected area acquisition can
+be included when calculating targets for conservation features
+(e.g. when targets are specified using \code{\link{add_relative_targets}}).
+If the total amount of each feature in all the planning units is
+required---including the planning units with \code{NA} cost data---then the
+the \code{na.rm} argument should be set to \code{FALSE}. However, if
+the planning units with \code{NA} cost data should be
+excluded---for instance, to calculate the highest feasible targets for
+each feature---then the \code{na.rm} argument should be set to
+\code{TRUE}.
 }
 \examples{
 # load data

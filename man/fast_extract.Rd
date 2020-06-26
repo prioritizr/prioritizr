@@ -35,22 +35,22 @@ Defaults to \code{"mean"}.}
 }
 \value{
 \code{matrix} containing the summary amount of each feature
-   within each planning unit. Rows correspond to different spatial features
-  in the argument to \code{y} and columns correspond to different raster
-  layers in the argument to \code{x}.
+within each planning unit. Rows correspond to different spatial features
+in the argument to \code{y} and columns correspond to different raster
+layers in the argument to \code{x}.
 }
 \description{
 Extract data from a \code{\link[raster]{Raster-class}} object.
 }
 \details{
 This function is simply a wrapper that uses
-  \code{\link[raster]{extract}} to extract data for
-  \code{\link[sp]{SpatialPoints-class}} and
-  \code{\link[sp]{SpatialLines-class}} and
-  non-polygonal \code{\link[sf]{sf}} data, and
-  \code{\link[exactextractr]{exact_extract}} for
-  \code{\link[sp]{SpatialPolygons-class}} and
-  polygonal \code{\link[sf]{sf}} data.
+\code{\link[raster]{extract}} to extract data for
+\code{\link[sp]{SpatialPoints-class}} and
+\code{\link[sp]{SpatialLines-class}} and
+non-polygonal \code{\link[sf]{sf}} data, and
+\code{\link[exactextractr]{exact_extract}} for
+\code{\link[sp]{SpatialPolygons-class}} and
+polygonal \code{\link[sf]{sf}} data.
 }
 \examples{
 # load data
@@ -65,5 +65,5 @@ print(head(result))
 }
 \seealso{
 \code{\link[raster]{extract}},
-  \code{\link[exactextractr]{exact_extract}}.
+\code{\link[exactextractr]{exact_extract}}.
 }

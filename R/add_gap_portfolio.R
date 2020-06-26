@@ -17,7 +17,7 @@ NULL
 #' @param pool_gap \code{numeric} gap to optimality for solutions in the portfolio.
 #'  This relative gap specifies a threshold worst-case performance for
 #'  solutions in the portfolio. For example, value of 0.1 will result in the
-#'  portfolio returning solutions that are within 10\% of an optimal solution.
+#'  portfolio returning solutions that are within 10% of an optimal solution.
 #'  Note that the gap specified in the solver (i.e.
 #'  \code{\link{add_gurobi_solver}} must be less than or equal to the gap
 #'  specified to generate the portfolio. Defaults to 0.1.

@@ -21,7 +21,7 @@ specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
@@ -33,12 +33,12 @@ frequencies for moderate and large-sized problems (similar to
 }
 \details{
 This strategy for generating a portfolio requires problems to
-  be solved using the \emph{Gurobi} software suite (i.e. using
-  \code{\link{add_gurobi_solver}}. Specifically, version 9.0.0 (or greater)
-  of the \pkg{gurobi} package must be installed.
-  Note that the number of solutions returned may be less than the argument to
-  \code{number_solutions}, if the total number of solutions that
-  meet the optimality gap is less than the number of solutions requested.
+be solved using the \emph{Gurobi} software suite (i.e. using
+\code{\link{add_gurobi_solver}}. Specifically, version 9.0.0 (or greater)
+of the \pkg{gurobi} package must be installed.
+Note that the number of solutions returned may be less than the argument to
+\code{number_solutions}, if the total number of solutions that
+meet the optimality gap is less than the number of solutions requested.
 }
 \examples{
 \donttest{

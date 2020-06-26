@@ -9,16 +9,16 @@ NULL
 #' the default function (see \code{\link{add_binary_decisions}}).
 #' This decision is similar to the \code{\link{add_proportion_decisions}}
 #' function except that it has an upper bound parameter. By default, the
-#' decision can range from prioritizing none (0 \%) to all (100 \%) of a
+#' decision can range from prioritizing none (0%) to all (100%) of a
 #' planning unit. However, an upper bound can be specified to ensure that at
-#' most only a fraction (e.g. 80 \%) of a planning unit can be preserved. This
+#' most only a fraction (e.g. 80%) of a planning unit can be preserved. This
 #' type of decision may be useful when it is not practical to conserve entire
 #' planning units.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @param upper_limit \code{numeric} value specifying the maximum proportion
-#'   of a planning unit that can be reserved (e.g. set to 0.8 for 80 \%).
+#'   of a planning unit that can be reserved (e.g. set to 0.8 for 80%).
 #'
 #' @inherit add_binary_decisions details return seealso
 #'

@@ -52,20 +52,20 @@ to create a parameter with conflicting settings then an error will be thrown.
 }
 \details{
 Below is a list of parameter generating functions and a brief
-  description of each.
+description of each.
 \describe{
 
-  \item{proportion_parameter_array}{a parameter that consists of multiple
-   \code{numeric} values that are between zero and one.}
+\item{proportion_parameter_array}{a parameter that consists of multiple
+\code{numeric} values that are between zero and one.}
 
-  \item{binary_parameter_array}{a parameter that consists of multiple
-    \code{integer} values that are either zero or one.}
+\item{binary_parameter_array}{a parameter that consists of multiple
+\code{integer} values that are either zero or one.}
 
-  \item{integer_parameter_array}{a parameter that consists of multiple
-    \code{integer} values.}
+\item{integer_parameter_array}{a parameter that consists of multiple
+\code{integer} values.}
 
-  \item{numeric_parameter_array}{a parameter that consists of multiple
-    \code{numeric} values.}
+\item{numeric_parameter_array}{a parameter that consists of multiple
+\code{numeric} values.}
 
 }
 }

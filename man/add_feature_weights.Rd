@@ -18,7 +18,7 @@ Details section for more information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the weights
-  added to it.
+added to it.
 }
 \description{
 Conservation planning problems that aim to maximize the
@@ -32,35 +32,35 @@ about how the budget should be allocated.
 }
 \details{
 Weights can only be applied to problems that have an objective
-  that is budget limited (e.g. \code{\link{add_max_cover_objective}}). #'
-  They can be applied to problems that aim to maximize phylogenetic
-  representation (\code{\link{add_max_phylo_div_objective}}) to favor the
-  representation of specific features over the representation of
-  some phylogenetic branches. Weights cannot be negative values
-  and must have values that are equal to or larger than zero.
-  \strong{Note that planning unit costs are scaled to 0.01 to identify
-  the cheapest solution among multiple optimal solutions. This means
-  that the optimization process will favor cheaper solutions over solutions
-  that meet feature targets (or occurrences) when feature weights are
-  lower than 0.01.}
+that is budget limited (e.g. \code{\link{add_max_cover_objective}}). #'
+They can be applied to problems that aim to maximize phylogenetic
+representation (\code{\link{add_max_phylo_div_objective}}) to favor the
+representation of specific features over the representation of
+some phylogenetic branches. Weights cannot be negative values
+and must have values that are equal to or larger than zero.
+\strong{Note that planning unit costs are scaled to 0.01 to identify
+the cheapest solution among multiple optimal solutions. This means
+that the optimization process will favor cheaper solutions over solutions
+that meet feature targets (or occurrences) when feature weights are
+lower than 0.01.}
 
-  \describe{
+\describe{
 
-  \item{\code{numeric}}{containing weights for each feature. Note that this
-    type of argument cannot be used to specify weights for problems with
-    multiple zones.}
+\item{\code{numeric}}{containing weights for each feature. Note that this
+type of argument cannot be used to specify weights for problems with
+multiple zones.}
 
-  \item{\code{matrix}}{containing weights for each feature in each zone.
-     Here, each row corresponds to a different feature in argument to
-     \code{x}, each column corresponds to a different zone in argument to
-     \code{x}, and each cell contains the weight value for a given feature
-     that the solution can to secure in a given zone. Note that
-     if the problem contains targets created using
-     \code{\link{add_manual_targets}} then a \code{matrix} should be
-     supplied containing a single column that indicates that weight for
-     fulfilling each target.}
+\item{\code{matrix}}{containing weights for each feature in each zone.
+Here, each row corresponds to a different feature in argument to
+\code{x}, each column corresponds to a different zone in argument to
+\code{x}, and each cell contains the weight value for a given feature
+that the solution can to secure in a given zone. Note that
+if the problem contains targets created using
+\code{\link{add_manual_targets}} then a \code{matrix} should be
+supplied containing a single column that indicates that weight for
+fulfilling each target.}
 
-  }
+}
 }
 \examples{
 # load ape package

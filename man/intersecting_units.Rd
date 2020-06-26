@@ -43,7 +43,7 @@ intersecting_units(x, y)
 }
 \value{
 \code{integer} indices of the units in \code{x} that intersect with
-  \code{y}.
+\code{y}.
 }
 \description{
 Find which of the units in a spatial data object intersect

@@ -41,13 +41,13 @@ with one-cell diagonal moves.}
 }
 \value{
 \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
-  Each row and column represents a planning unit.
-  Cells values indicate if different planning units are
-  adjacent to each other or not (using ones and zeros).
-  To reduce computational burden, cells among the matrix diagonal are
-  set to zero. Furthermore, if the argument to \code{x} is a
-  \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
-  values are set to zero too.
+Each row and column represents a planning unit.
+Cells values indicate if different planning units are
+adjacent to each other or not (using ones and zeros).
+To reduce computational burden, cells among the matrix diagonal are
+set to zero. Furthermore, if the argument to \code{x} is a
+\code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+values are set to zero too.
 }
 \description{
 Create a matrix showing which planning units are spatially adjacent to
@@ -56,13 +56,13 @@ with each other too.
 }
 \details{
 Spatial processing is completed using
-  \code{\link[sf]{st_intersects}} for \code{\link[sp]{Spatial-class}} and
-  \code{\link[sf]{sf}} objects,
-  and \code{\link[raster]{adjacent}} for \code{\link[raster]{Raster-class}}
-  objects.
-  Prior to version 5.0.0,  this function was named
-  \code{connected_matrix}. It has been renamed to be consistent
-  with other spatial association matrix functions.
+\code{\link[sf]{st_intersects}} for \code{\link[sp]{Spatial-class}} and
+\code{\link[sf]{sf}} objects,
+and \code{\link[raster]{adjacent}} for \code{\link[raster]{Raster-class}}
+objects.
+Prior to version 5.0.0,  this function was named
+\code{connected_matrix}. It has been renamed to be consistent
+with other spatial association matrix functions.
 }
 \examples{
 # load data

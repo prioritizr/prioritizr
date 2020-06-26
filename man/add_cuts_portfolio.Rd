@@ -14,27 +14,27 @@ different solutions. Defaults to 10.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
 \code{\link{problem}} using Bender's cuts (discussed in Rodrigues
 \emph{et al.} 2000). This is recommended as a replacement for
- \code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
- available.
+\code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
+available.
 }
 \details{
 This strategy for generating a portfolio of solutions involves
-  solving the problem multiple times and adding additional constraints
-  to forbid previously obtained solutions. In general, this strategy is most
-  useful when problems take a long time to solve and benefit from
-  having multiple threads allocated for solving an individual problem.
-  \strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
-  solution pool to speed up the process of obtaining multiple solutions.
-  However, it would sometimes return solutions that were not within the
-  specified optimality gap. To address this, we have added alternative
-  methods for generating solution portfolios, please refer to the
-  \code{\link{portfolios}} documentation for more information.}
+solving the problem multiple times and adding additional constraints
+to forbid previously obtained solutions. In general, this strategy is most
+useful when problems take a long time to solve and benefit from
+having multiple threads allocated for solving an individual problem.
+\strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
+solution pool to speed up the process of obtaining multiple solutions.
+However, it would sometimes return solutions that were not within the
+specified optimality gap. To address this, we have added alternative
+methods for generating solution portfolios, please refer to the
+\code{\link{portfolios}} documentation for more information.}
 }
 \examples{
 # set seed for reproducibility

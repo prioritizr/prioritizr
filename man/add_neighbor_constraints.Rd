@@ -45,7 +45,7 @@ information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the constraint
-  added to it.
+added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
@@ -54,59 +54,59 @@ number of neighbors that are also selected in the solution.
 }
 \details{
 This function uses neighborhood data identify solutions that
-  surround planning units with a minimum number of neighbors. It
-  was inspired by the mathematical formulations detailed in
-  Billionnet (2013) and Beyer \emph{et al.} (2016).
+surround planning units with a minimum number of neighbors. It
+was inspired by the mathematical formulations detailed in
+Billionnet (2013) and Beyer \emph{et al.} (2016).
 
-  The argument to \code{data} can be specified in several ways:
+The argument to \code{data} can be specified in several ways:
 
-  \describe{
+\describe{
 
-  \item{\code{NULL}}{neighborhood data should be calculated automatically
-    using the \code{\link{adjacency_matrix}} function. This is the default
-    argument. Note that the neighborhood data must be manually defined
-    using one of the other formats below when the planning unit data
-    in the argument to \code{x} is not spatially referenced (e.g.
-    in \code{data.frame} or \code{numeric} format).}
+\item{\code{NULL}}{neighborhood data should be calculated automatically
+using the \code{\link{adjacency_matrix}} function. This is the default
+argument. Note that the neighborhood data must be manually defined
+using one of the other formats below when the planning unit data
+in the argument to \code{x} is not spatially referenced (e.g.
+in \code{data.frame} or \code{numeric} format).}
 
-  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-    different planning units and the value of each cell indicates if the
-    two planning units are neighbors or not. Cell values should be binary
-    \code{numeric} values (i.e. one or zero). Cells that occur along the
-    matrix diagonal have no effect on the solution at all because each
-    planning unit cannot be a neighbor with itself.}
+\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+different planning units and the value of each cell indicates if the
+two planning units are neighbors or not. Cell values should be binary
+\code{numeric} values (i.e. one or zero). Cells that occur along the
+matrix diagonal have no effect on the solution at all because each
+planning unit cannot be a neighbor with itself.}
 
-  \item{\code{data.frame}}{containing the fields (columns)
-    \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-    denotes the connectivity between two planning units following the
-    \emph{Marxan} format. The field \code{boundary} should contain
-    binary \code{numeric} values that indicate if the two planning units
-    specified in the fields \code{"id1"} and \code{"id2"} are neighbors
-    or not. This data can be used to describe symmetric or
-    asymmetric relationships between planning units. By default,
-    input data is assumed to be symmetric unless asymmetric data is
-    also included (e.g. if data is present for planning units 2 and 3, then
-    the same amount of connectivity is expected for planning units 3 and 2,
-    unless connectivity data is also provided for planning units 3 and 2).
-    If the argument to \code{x} contains multiple zones, then the columns
-    \code{"zone1"} and \code{"zone2"} can optionally be provided to manually
-    specify if the neighborhood data pertain to specific zones. The fields
-    \code{"zone1"} and \code{"zone2"} should contain the \code{character}
-    names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
-    are present, then the argument to \code{zones} must be \code{NULL}.}
+\item{\code{data.frame}}{containing the fields (columns)
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+denotes the connectivity between two planning units following the
+\emph{Marxan} format. The field \code{boundary} should contain
+binary \code{numeric} values that indicate if the two planning units
+specified in the fields \code{"id1"} and \code{"id2"} are neighbors
+or not. This data can be used to describe symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).
+If the argument to \code{x} contains multiple zones, then the columns
+\code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+specify if the neighborhood data pertain to specific zones. The fields
+\code{"zone1"} and \code{"zone2"} should contain the \code{character}
+names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
+are present, then the argument to \code{zones} must be \code{NULL}.}
 
-  \item{\code{array}}{containing four-dimensions where binary
-    \code{numeric} values indicate if planning unit should be treated
-    as being neighbors with every other planning unit when they
-    are allocated to every combination of management zone. The first two
-    dimensions (i.e. rows and columns) correspond to the planning units,
-    and second two dimensions correspond to the management zones. For
-    example, if the argument to \code{data} had a value of 1 at the index
-    \code{data[1, 2, 3, 4]} this would indicate that planning unit 1 and
-    planning unit 2 should be treated as neighbors when they are
-    allocated to zones 3 and 4 respectively.}
+\item{\code{array}}{containing four-dimensions where binary
+\code{numeric} values indicate if planning unit should be treated
+as being neighbors with every other planning unit when they
+are allocated to every combination of management zone. The first two
+dimensions (i.e. rows and columns) correspond to the planning units,
+and second two dimensions correspond to the management zones. For
+example, if the argument to \code{data} had a value of 1 at the index
+\code{data[1, 2, 3, 4]} this would indicate that planning unit 1 and
+planning unit 2 should be treated as neighbors when they are
+allocated to zones 3 and 4 respectively.}
 
-  }
+}
 }
 \examples{
 # load data

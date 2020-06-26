@@ -35,14 +35,14 @@ not treated as being within proximity of each other.}
 }
 \value{
 \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
-  Each row and column represents a planning unit.
-  Cells values indicate
-  if the pair-wise distances between different planning units are within
-  the distance threshold or not (using ones and zeros).
-  To reduce computational burden, cells among the matrix diagonal are
-  set to zero. Furthermore, if the argument to \code{x} is a
-  \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
-  values are set to zero too.
+Each row and column represents a planning unit.
+Cells values indicate
+if the pair-wise distances between different planning units are within
+the distance threshold or not (using ones and zeros).
+To reduce computational burden, cells among the matrix diagonal are
+set to zero. Furthermore, if the argument to \code{x} is a
+\code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+values are set to zero too.
 }
 \description{
 Create a matrix showing which planning units are within a certain
@@ -50,7 +50,7 @@ spatial proximity to each other.
 }
 \details{
 Proximity calculations are performed using
-  \code{\link[sf]{st_is_within_distance}}.
+\code{\link[sf]{st_is_within_distance}}.
 }
 \examples{
 # load data

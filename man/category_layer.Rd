@@ -22,9 +22,9 @@ identifiers.
 }
 \details{
 This function is provided to help manage data that encompass
-  multiple management zones. For instance, this function may be helpful
-  for interpreting solutions for problems associated with multiple zones that
-  have binary decisions.
+multiple management zones. For instance, this function may be helpful
+for interpreting solutions for problems associated with multiple zones that
+have binary decisions.
 }
 \examples{
 # create a binary raster stack

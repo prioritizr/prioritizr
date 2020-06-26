@@ -11,8 +11,8 @@ This prototype represents a collection of
 \section{Fields}{
 
 \describe{
-  \item{$...}{\code{\link{ConservationModifier-class}} objects stored
-     in the collection.}
+\item{$...}{\code{\link{ConservationModifier-class}} objects stored
+in the collection.}
 }
 }
 
@@ -68,26 +68,26 @@ This prototype represents a collection of
 \item{length}{\code{integer} number of objects inside collection.}
 
 \item{find}{\code{character} id for object inside collection which
-  contains the input id.}
+contains the input id.}
 
 \item{find_parameter}{\code{character} id for object inside collection which
-  contains the input \code{character} object as a parameter.}
+contains the input \code{character} object as a parameter.}
 
 \item{add}{add \code{\link{ConservationModifier-class}} object.}
 
 \item{remove}{remove an item from the collection.}
 
 \item{get_parameter}{retrieve the value of a parameter in the object
-  using an \code{id} object.}
+using an \code{id} object.}
 
 \item{set_parameter}{change the value of a parameter in the object
-  to a new object.}
+to a new object.}
 
 \item{render_parameter}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_parameters}{generate a \code{\link[shiny]{div}}
-  containing all the parameters" widgets.}
+containing all the parameters" widgets.}
 
 }
 }

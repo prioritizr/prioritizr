@@ -20,7 +20,7 @@ the Details section for more information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
+added to it.
 }
 \description{
 Add constraints to a conservation planning \code{\link{problem}} to ensure
@@ -32,25 +32,25 @@ or semi-continuous decisions.
 }
 \details{
 The argument to \code{data} must contain the following fields
-  (columns):
+(columns):
 
-  \describe{
+\describe{
 
-  \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+\item{\code{"pu"}}{\code{integer} planning unit identifier.}
 
-  \item{\code{"zone"}}{\code{character} names of zones. Note that this
-    argument is optional for arguments to \code{x} that contain a single
-    zone.}
+\item{\code{"zone"}}{\code{character} names of zones. Note that this
+argument is optional for arguments to \code{x} that contain a single
+zone.}
 
-  \item{\code{"lower"}}{\code{numeric} values indicating the minimum
-    value that each planning unit can be allocated to in each zone
-    in the solution.}
+\item{\code{"lower"}}{\code{numeric} values indicating the minimum
+value that each planning unit can be allocated to in each zone
+in the solution.}
 
-  \item{\code{"upper"}}{\code{numeric} values indicating the maximum
-    value that each planning unit can be allocated to in each zone
-    in the solution.}
+\item{\code{"upper"}}{\code{numeric} values indicating the maximum
+value that each planning unit can be allocated to in each zone
+in the solution.}
 
-  }
+}
 }
 \examples{
 # set seed for reproducibility

@@ -11,7 +11,7 @@ add_extra_portfolio(x)
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
@@ -23,9 +23,9 @@ the quality of solutions.
 }
 \details{
 This strategy for generating a portfolio requires problems to
-  be solved using the \emph{Gurobi} software suite (i.e. using
-  \code{\link{add_gurobi_solver}}. Specifically, version 8.0.0 (or greater)
-  of the \pkg{gurobi} package must be installed.
+be solved using the \emph{Gurobi} software suite (i.e. using
+\code{\link{add_gurobi_solver}}. Specifically, version 8.0.0 (or greater)
+of the \pkg{gurobi} package must be installed.
 }
 \examples{
 \donttest{

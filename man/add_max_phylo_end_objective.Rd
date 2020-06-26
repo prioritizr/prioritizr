@@ -20,7 +20,7 @@ for the conservation features.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the objective
-  added to it.
+added to it.
 }
 \description{
 Set the objective of a conservation planning \code{\link{problem}} to
@@ -34,44 +34,44 @@ Rodrigues \emph{et al.} (2002), and Rosauer \emph{et al.} (2009).
 }
 \details{
 A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the \pkg{prioritizr} package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.
+conservation planning problem. Please note that all conservation
+planning problems formulated in the \pkg{prioritizr} package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.
 
-  The maximum phylogenetic endemism objective finds the set of
-  planning units that meets representation targets for a phylogenetic tree
-  while staying within a fixed budget. If multiple solutions can meet all
-  targets while staying within budget, the cheapest solution is chosen.
-  Note that this objective is similar to the maximum
-  features objective (\code{\link{add_max_features_objective}}) in that it
-  allows for both a budget and targets to be set for each feature. However,
-  unlike the maximum feature objective, the aim of this objective is to
-  maximize the total phylogenetic endemism of the targets met in the
-  solution, so if multiple targets are provided for a single feature, the
-  problem will only need to meet a single target for that feature
-  for the phylogenetic benefit for that feature to be counted when
-  calculating the phylogenetic endemism of the solution. In other words,
-  for multi-zone problems, this objective does not aim to maximize the
-  phylogenetic endemism in each zone, but rather this objective
-  aims to maximize the phylogenetic endemism of targets that can be met
-  through allocating planning units to any of the different zones in a
-  problem. This can be useful for problems where targets pertain to the total
-  amount held for each feature across multiple zones. For example,
-  each feature might have a non-zero amount of suitable habitat in each
-  planning unit when the planning units are assigned to a (i) not restored,
-  (ii) partially restored, or (iii) completely restored management zone.
-  Here each target corresponds to a single feature and can be met through
-  the total amount of habitat in planning units present to the three
-  zones. In earlier versions of the \pkg{prioritizr} package, this
-  function was named \code{add_max_phylo_end_objective}.
+The maximum phylogenetic endemism objective finds the set of
+planning units that meets representation targets for a phylogenetic tree
+while staying within a fixed budget. If multiple solutions can meet all
+targets while staying within budget, the cheapest solution is chosen.
+Note that this objective is similar to the maximum
+features objective (\code{\link{add_max_features_objective}}) in that it
+allows for both a budget and targets to be set for each feature. However,
+unlike the maximum feature objective, the aim of this objective is to
+maximize the total phylogenetic endemism of the targets met in the
+solution, so if multiple targets are provided for a single feature, the
+problem will only need to meet a single target for that feature
+for the phylogenetic benefit for that feature to be counted when
+calculating the phylogenetic endemism of the solution. In other words,
+for multi-zone problems, this objective does not aim to maximize the
+phylogenetic endemism in each zone, but rather this objective
+aims to maximize the phylogenetic endemism of targets that can be met
+through allocating planning units to any of the different zones in a
+problem. This can be useful for problems where targets pertain to the total
+amount held for each feature across multiple zones. For example,
+each feature might have a non-zero amount of suitable habitat in each
+planning unit when the planning units are assigned to a (i) not restored,
+(ii) partially restored, or (iii) completely restored management zone.
+Here each target corresponds to a single feature and can be met through
+the total amount of habitat in planning units present to the three
+zones. In earlier versions of the \pkg{prioritizr} package, this
+function was named \code{add_max_phylo_end_objective}.
 
-  The maximum phylogenetic endemism objective for the reserve design
-  problem can be expressed mathematically for a set of planning units
-  (\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
-  indexed by \eqn{j}{j}) as:
+The maximum phylogenetic endemism objective for the reserve design
+problem can be expressed mathematically for a set of planning units
+(\eqn{I}{I} indexed by \eqn{i}{i}) and a set of features (\eqn{J}{J}
+indexed by \eqn{j}{j}) as:
 
-  \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
+\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} m_b l_b \frac{1}{a_b} \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
@@ -81,27 +81,27 @@ A problem objective is used to specify the overall goal of the
   subject to sum_i^I (xi * rij) >= (yj * tj) for all j in J &
   mb <= yj for all j in T(b) & sum_i^I (xi * ci) <= B}
 
-  Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
-  specifying whether planning unit \eqn{i}{i} has been selected (1) or not
-  (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-  unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
-  \eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
-  the target \eqn{t_j}{tj} for feature \eqn{j}{j}. Additionally,
-  \eqn{T}{T} represents a phylogenetic tree containing features \eqn{j}{j}
-  and has the branches \eqn{b} associated within lengths \eqn{l_b}{lb}.
-  Each branch \eqn{b \in B}{b in B} is associated with a total amount
-  \eqn{a_b}{ab} indicating the total geographic extent or amount of habitat.
-  The \eqn{a_b}{ab} variable for a given branch is calculated by summing the
-  \eqn{r_{ij}}{rij} data for all features \eqn{j \in J}{j in J} that are
-  associated with the branch. The binary variable \eqn{m_b}{mb} denotes if
-  at least one feature associated with the branch \eqn{b}{b} has met its
-  representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
-  the features \eqn{j}{j} associated with branch \eqn{b}{b} using
-  \eqn{T(b)}{T(b)}. Finally, \eqn{B}{B} is the budget allocated for the
-  solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
-  \eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
-  will return a cheapest solution when there are multiple solutions that
-  represent the same amount of all features within the budget.
+Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+(0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
+unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
+\eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
+the target \eqn{t_j}{tj} for feature \eqn{j}{j}. Additionally,
+\eqn{T}{T} represents a phylogenetic tree containing features \eqn{j}{j}
+and has the branches \eqn{b} associated within lengths \eqn{l_b}{lb}.
+Each branch \eqn{b \in B}{b in B} is associated with a total amount
+\eqn{a_b}{ab} indicating the total geographic extent or amount of habitat.
+The \eqn{a_b}{ab} variable for a given branch is calculated by summing the
+\eqn{r_{ij}}{rij} data for all features \eqn{j \in J}{j in J} that are
+associated with the branch. The binary variable \eqn{m_b}{mb} denotes if
+at least one feature associated with the branch \eqn{b}{b} has met its
+representation as indicated by \eqn{y_j}{yj}. For brevity, we denote
+the features \eqn{j}{j} associated with branch \eqn{b}{b} using
+\eqn{T(b)}{T(b)}. Finally, \eqn{B}{B} is the budget allocated for the
+solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
+\eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
+will return a cheapest solution when there are multiple solutions that
+represent the same amount of all features within the budget.
 }
 \examples{
 # load ape package

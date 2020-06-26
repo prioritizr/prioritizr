@@ -25,7 +25,7 @@ Details section for more information.}
 }
 \value{
 \code{\link{ConservationProblem-class}} object with the targets added
-  to it.
+to it.
 }
 \description{
 Set targets as a proportion (between 0 and 1) of the maximum level of
@@ -36,51 +36,51 @@ cost data) using the \code{\link{feature_abundances}} function.
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
-  feature's distribution that needs to be protected. Most conservation
-  planning problems require targets with the exception of the maximum cover
-  (see \code{\link{add_max_cover_objective}}) and maximum utility
-  (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
-  problems with objectives that require targets without specifying targets
-  will throw an error.
+feature's distribution that needs to be protected. Most conservation
+planning problems require targets with the exception of the maximum cover
+(see \code{\link{add_max_cover_objective}}) and maximum utility
+(see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+problems with objectives that require targets without specifying targets
+will throw an error.
 
-  The targets for a problem can be specified in several different ways:
+The targets for a problem can be specified in several different ways:
 
-  \describe{
+\describe{
 
-  \item{\code{numeric}}{\code{vector} of target values for each feature.
-    Additionally, for convenience, this type of argument can be a single
-    value to assign the same target to each feature. Note that this type of
-    argument cannot be used to specify targets for problems with multiple
-    zones.}
+\item{\code{numeric}}{\code{vector} of target values for each feature.
+Additionally, for convenience, this type of argument can be a single
+value to assign the same target to each feature. Note that this type of
+argument cannot be used to specify targets for problems with multiple
+zones.}
 
-  \item{\code{matrix}}{containing a target for each feature in each zone.
-    Here, each row corresponds to a different feature in argument to
-    \code{x}, each column corresponds to a different zone in argument to
-    \code{x}, and each cell contains the target value for a given feature
-    that the solution needs to secure in a given zone.}
+\item{\code{matrix}}{containing a target for each feature in each zone.
+Here, each row corresponds to a different feature in argument to
+\code{x}, each column corresponds to a different zone in argument to
+\code{x}, and each cell contains the target value for a given feature
+that the solution needs to secure in a given zone.}
 
-  \item{\code{character}}{containing the names of fields (columns) in the
-    feature data associated with the argument to \code{x} that contain
-    targets. This type of argument can only be used when the
-    feature data associated with \code{x} is a \code{data.frame}.
-    This argument must contain a field (column) name for each zone.}
+\item{\code{character}}{containing the names of fields (columns) in the
+feature data associated with the argument to \code{x} that contain
+targets. This type of argument can only be used when the
+feature data associated with \code{x} is a \code{data.frame}.
+This argument must contain a field (column) name for each zone.}
 
-  }
+}
 
-  For problems associated with multiple management zones, this function can
-  be used to set targets that each pertain to a single feature and a single
-  zone. To set targets which can be met through allocating different
-  planning units to multiple zones, see the \code{\link{add_manual_targets}}
-  function. An example of a target that could be met through allocations
-  to multiple zones might be where each management zone is expected to
-  result in a different amount of a feature and the target requires that
-  the total amount of the feature in all zones must exceed a certain
-  threshold. In other words, the target does not require that any single
-  zone secure a specific amount of the feature, but the total amount held
-  in all zones must secure a specific amount. Thus the target could,
-  potentially, be met through allocating all planning units to any specific
-  management zone, or through allocating the planning units to different
-  combinations of management zones.
+For problems associated with multiple management zones, this function can
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the \code{\link{add_manual_targets}}
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.
 }
 \examples{
 # set seed for reproducibility

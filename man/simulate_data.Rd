@@ -23,7 +23,7 @@ from the random fields simulation.}
 }
 \value{
 \code{\link[raster]{RasterStack-class}} object with a
-  layer for each species.
+layer for each species.
 }
 \description{
 Simulate spatially auto-correlated data.
@@ -43,5 +43,5 @@ plot(d, main = "random Gaussian field")
 }
 \seealso{
 \code{\link[RandomFields]{RFsimulate}},
-  \code{\link{simulate_cost}}, \code{\link{simulate_species}}.
+\code{\link{simulate_cost}}, \code{\link{simulate_species}}.
 }

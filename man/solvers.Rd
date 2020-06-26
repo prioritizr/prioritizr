@@ -10,37 +10,37 @@ software currently installed on the system will be used.
 }
 \details{
 The following solvers can be used to find solutions for a
-  conservation planning \code{\link{problem}}:
+conservation planning \code{\link{problem}}:
 
-  \describe{
+\describe{
 
-  \item{\code{add_default_solver}}{This solver uses the best software
-    currently installed on the system.}
+\item{\code{add_default_solver}}{This solver uses the best software
+currently installed on the system.}
 
-  \item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{\emph{Gurobi}}
-    is a state-of-the-art commercial optimization software with an R package
-    interface. It is by far the fastest of the solvers available in this
-    package, however, it is also the only solver that is not freely
-    available. That said, licenses are available to academics at no cost. The
-    \pkg{gurobi} package is distributed with the \emph{Gurobi} software
-    suite. This solver uses the \pkg{gurobi} package to solve problems.}
+\item{\code{\link{add_gurobi_solver}}}{\href{http://gurobi.com}{\emph{Gurobi}}
+is a state-of-the-art commercial optimization software with an R package
+interface. It is by far the fastest of the solvers available in this
+package, however, it is also the only solver that is not freely
+available. That said, licenses are available to academics at no cost. The
+\pkg{gurobi} package is distributed with the \emph{Gurobi} software
+suite. This solver uses the \pkg{gurobi} package to solve problems.}
 
-  \item{\code{\link{add_rsymphony_solver}}}{
-    \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-    open-source integer programming solver that is part of the Computational
-    Infrastructure for Operations Research (COIN-OR) project, an initiative
-    to promote development of open-source tools for operations research (a
-    field that includes linear programming). The \pkg{Rsymphony} package
-    provides an interface to COIN-OR and is available on CRAN. This solver
-    uses the \pkg{Rsymphony} package to solve problems.}
+\item{\code{\link{add_rsymphony_solver}}}{
+\href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+open-source integer programming solver that is part of the Computational
+Infrastructure for Operations Research (COIN-OR) project, an initiative
+to promote development of open-source tools for operations research (a
+field that includes linear programming). The \pkg{Rsymphony} package
+provides an interface to COIN-OR and is available on CRAN. This solver
+uses the \pkg{Rsymphony} package to solve problems.}
 
-  \item{\code{\link{add_lpsymphony_solver}}}{The \pkg{lpsymphony} package
-    provides a different interface to the COIN-OR software suite. Unlike the
-    \pkg{Rsymhpony} package, the \pkg{lpsymphony} package is distributed
-    through
-    \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-    The \pkg{lpsymphony} package may be easier to install on Windows or
-    Max OSX systems than the \pkg{Rsymphony} package.}
+\item{\code{\link{add_lpsymphony_solver}}}{The \pkg{lpsymphony} package
+provides a different interface to the COIN-OR software suite. Unlike the
+\pkg{Rsymhpony} package, the \pkg{lpsymphony} package is distributed
+through
+\href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+The \pkg{lpsymphony} package may be easier to install on Windows or
+Max OSX systems than the \pkg{Rsymphony} package.}
 
 }
 }
@@ -101,7 +101,7 @@ plot(s, main = titles, axes = FALSE, box = FALSE)
 }
 \seealso{
 \code{\link{constraints}},  \code{\link{decisions}},
- \code{\link{objectives}} \code{\link{penalties}},
- \code{\link{portfolios}}, \code{\link{problem}},
- \code{\link{targets}}.
+\code{\link{objectives}} \code{\link{penalties}},
+\code{\link{portfolios}}, \code{\link{problem}},
+\code{\link{targets}}.
 }

@@ -101,23 +101,23 @@ problem. Data are stored in memory and accessed using an external pointer.
 \item{number_of_features}{\code{integer} number of features in the problem.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units in
-  the problem.}
+the problem.}
 
 \item{number_of_zones}{\code{integer} number of zones in the
-  problem.}
+problem.}
 
 \item{col_ids}{\code{character} names describing each decision variable
-  (column) in the model matrix.}
+(column) in the model matrix.}
 
 \item{row_ids}{\code{character} names describing each constraint (row) in
-  in the model matrix.}
+in the model matrix.}
 
 \item{compressed_formulation}{is the optimization problem formulated
-  using a compressed version of the rij matrix?}
+using a compressed version of the rij matrix?}
 
 \item{shuffle_columns}{randomly shuffle the columns in the problem. This
-  should almost never be called manually and only should only be called
- after the optimization problem has been fully constructed.}
+should almost never be called manually and only should only be called
+after the optimization problem has been fully constructed.}
 
 }
 }

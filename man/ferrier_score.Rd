@@ -30,9 +30,9 @@ object. See the Details section for more information.}
 }
 \value{
 A \code{matrix}, \code{\link[tibble]{tibble}},
-  \code{\link[raster]{RasterLayer-class}}, or
-  \code{\link[sp]{Spatial-class}} object containing the scores for each
-  planning unit selected in the solution.
+\code{\link[raster]{RasterLayer-class}}, or
+\code{\link[sp]{Spatial-class}} object containing the scores for each
+planning unit selected in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in
@@ -48,28 +48,28 @@ It will throw an error for other types of problems.
 }
 \details{
 The argument to \code{solution} must correspond
-  to the planning unit data in the argument to \code{x} in terms
-  of data representation, dimensionality, and spatial attributes (if
-  applicable). This means that if the planning unit data in \code{x}
-  is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements, if the planning
-  unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-  argument to \code{solution} must also be a
-  \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system,
-  if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system,
-  if the planning units in \code{x} are a \code{data.frame} then the
-  argument to \code{solution} must also be a \code{data.frame} with each
-  column correspond to a different zone and each row correspond to
-  a different planning unit, and values correspond to the allocations
-  (e.g. values of zero or one). Furthermore, solutions must have planning
-  unit statuses set to missing (\code{NA})
-  values for planning units that have missing (\code{NA}) cost data.
-  If an argument is supplied to
-  \code{solution} where this is not the case, then an error will be thrown.
+to the planning unit data in the argument to \code{x} in terms
+of data representation, dimensionality, and spatial attributes (if
+applicable). This means that if the planning unit data in \code{x}
+is a \code{numeric} vector then the argument to \code{solution} must be a
+\code{numeric} vector with the same number of elements, if the planning
+unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
+argument to \code{solution} must also be a
+\code{\link[raster]{RasterLayer-class}} with the same number of rows and
+columns and the same resolution, extent, and coordinate reference system,
+if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
+object then the argument to \code{solution} must also be a
+\code{\link[sp]{Spatial-class}} object and have the same number of spatial
+features (e.g. polygons) and have the same coordinate reference system,
+if the planning units in \code{x} are a \code{data.frame} then the
+argument to \code{solution} must also be a \code{data.frame} with each
+column correspond to a different zone and each row correspond to
+a different planning unit, and values correspond to the allocations
+(e.g. values of zero or one). Furthermore, solutions must have planning
+unit statuses set to missing (\code{NA})
+values for planning units that have missing (\code{NA}) cost data.
+If an argument is supplied to
+\code{solution} where this is not the case, then an error will be thrown.
 }
 \examples{
 # seed seed for reproducibility

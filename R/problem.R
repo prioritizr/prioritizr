@@ -33,7 +33,6 @@ NULL
 #'   data can be specified following:
 #'
 #'   \itemize{
-#'
 #'   \item \code{x = \link[raster]{RasterLayer-class}}, or
 #'     \code{x = \link[sp]{Spatial-class}},
 #'     or \code{x = \link[sf]{sf}}:
@@ -43,7 +42,6 @@ NULL
 #'     a feature in a particular cell instead of explicitly setting these
 #'     cells to zero. Note that this argument type for \code{features} can
 #'     only be used to specify data for problems involving a single zone.
-#'
 #'   \item \code{x = \link[sp]{Spatial-class}},
 #'     \code{x = \link[sf]{sf}},
 #'     or \code{x = data.frame}:
@@ -51,7 +49,6 @@ NULL
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit. Note that this argument
 #'     type can only be used to create problems involving a single zone.
-#'
 #'   \item \code{x = \link{Spatial-class}},
 #'     \code{x = \link[sf]{sf}},
 #'     \code{x = data.frame},
@@ -63,9 +60,7 @@ NULL
 #'     argument should follow the conventions used by \emph{Marxan}, wherein
 #'     each row corresponds to a different feature. It must also contain the
 #'     following columns:
-#'
 #'     \describe{
-#'
 #'     \item{\code{"id"}}{\code{integer} unique identifier for each feature
 #'       These identifiers are used in the argument to \code{rij}.}
 #'     \item{\code{"name"}}{\code{character} name for each feature.}
@@ -80,7 +75,6 @@ NULL
 #'   data can be specified following:
 #'
 #'   \itemize{
-#'
 #'   \item \code{x = \link[raster]{RasterStack-class}},
 #'     \code{x = \link[raster]{RasterBrick-class}},
 #'     \code{x = \link[sp]{Spatial-class}},
@@ -89,14 +83,12 @@ NULL
 #'     zones. As above, missing values (i.e. \code{NA} values) can be used to
 #'     indicate the absence of a feature in a particular cell instead of
 #'     explicitly setting these cells to zero.
-#'
 #'   \item \code{x = \link[sp]{Spatial-class}},
 #'     \code{x = \link[sf]{sf}},
 #'     or \code{x = data.frame}: \code{y = \link{ZonesCharacter}}
 #'     object with column names that correspond to the abundance or
 #'     occurrence of different features in each planning unit in different
 #'     zones.
-#'
 #'  }
 #'
 #' @param cost_column \code{character} name or \code{integer} indicating the

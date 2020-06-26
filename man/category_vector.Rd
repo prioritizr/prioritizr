@@ -32,9 +32,9 @@ Convert an object containing binary (\code{integer}) fields (columns) into a
 }
 \details{
 This function is conceptually similar to \code{\link[base]{max.col}}
-  except that rows with no values equal to \code{1} values are assigned a
-  value of zero. Also, note that in the argument to \code{x}, each row must
-  contain only a single value equal to \code{1}.
+except that rows with no values equal to \code{1} values are assigned a
+value of zero. Also, note that in the argument to \code{x}, each row must
+contain only a single value equal to \code{1}.
 }
 \examples{
 # create matrix with logical fields

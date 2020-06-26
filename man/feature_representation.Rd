@@ -34,75 +34,75 @@ information.}
 }
 \value{
 \code{\link[tibble]{tibble}} object containing the amount
-  (\code{"absolute_held"}) and proportion (\code{"relative_held"})
-  of the distribution of each feature held in the solution. Here, each
-  row contains data that pertain to a specific feature in a specific
-  management zone (if multiple zones are present). This object
-  contains the following columns:
+(\code{"absolute_held"}) and proportion (\code{"relative_held"})
+of the distribution of each feature held in the solution. Here, each
+row contains data that pertain to a specific feature in a specific
+management zone (if multiple zones are present). This object
+contains the following columns:
 
-  \describe{
+\describe{
 
-  \item{feature}{\code{character} name of the feature.}
+\item{feature}{\code{character} name of the feature.}
 
-  \item{zone}{\code{character} name of the zone (not included when the
-    argument to \code{x} contains only one management zone).}
+\item{zone}{\code{character} name of the zone (not included when the
+argument to \code{x} contains only one management zone).}
 
-  \item{absolute_held}{\code{numeric} total amount of each feature secured in
-    the solution. If the problem contains multiple zones, then this
-    column shows how well each feature is represented in a each
-    zone.}
+\item{absolute_held}{\code{numeric} total amount of each feature secured in
+the solution. If the problem contains multiple zones, then this
+column shows how well each feature is represented in a each
+zone.}
 
-  \item{relative_held}{\code{numeric} proportion of the feature's
-    distribution held in the solution. If the problem contains
-    multiple zones, then this column shows how well each feature is
-    represented in each zone.}
+\item{relative_held}{\code{numeric} proportion of the feature's
+distribution held in the solution. If the problem contains
+multiple zones, then this column shows how well each feature is
+represented in each zone.}
 
-  }
+}
 }
 \description{
 Calculate how well features are represented in a solution.
 }
 \details{
 Note that all arguments to \code{solution} must correspond to the
-  planning unit data in the argument to \code{x} in terms of data
-  representation, dimensionality, and spatial attributes (if applicable).
-  This means that if the planning unit data in \code{x} is a \code{numeric}
-  vector then the argument to \code{solution} must be a \code{numeric} vector
-  with the same number of elements, if the planning unit data in \code{x} is
-  a \code{\link[raster]{RasterLayer-class}} then the argument to
-  \code{solution} must also be a \code{\link[raster]{RasterLayer-class}} with
-  the same number of rows and columns and the same resolution, extent, and
-  coordinate reference system, if the planning unit data in \code{x} is a
-  \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object then the
-  argument to \code{solution} must also be a \code{\link[sp]{Spatial-class}}
-  or \code{\link[sf]{sf}} object, respectively, and have the same number of
-  spatial features (e.g. polygons) and have the same coordinate reference
-  system, if the planning units in \code{x} are a \code{data.frame} then the
-  argument to \code{solution} must also be a \code{data.frame} with each
-  column correspond to a different zone and each row correspond to a
-  different planning unit, and values correspond to the allocations (e.g.
-  values of zero or one).
+planning unit data in the argument to \code{x} in terms of data
+representation, dimensionality, and spatial attributes (if applicable).
+This means that if the planning unit data in \code{x} is a \code{numeric}
+vector then the argument to \code{solution} must be a \code{numeric} vector
+with the same number of elements, if the planning unit data in \code{x} is
+a \code{\link[raster]{RasterLayer-class}} then the argument to
+\code{solution} must also be a \code{\link[raster]{RasterLayer-class}} with
+the same number of rows and columns and the same resolution, extent, and
+coordinate reference system, if the planning unit data in \code{x} is a
+\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object then the
+argument to \code{solution} must also be a \code{\link[sp]{Spatial-class}}
+or \code{\link[sf]{sf}} object, respectively, and have the same number of
+spatial features (e.g. polygons) and have the same coordinate reference
+system, if the planning units in \code{x} are a \code{data.frame} then the
+argument to \code{solution} must also be a \code{data.frame} with each
+column correspond to a different zone and each row correspond to a
+different planning unit, and values correspond to the allocations (e.g.
+values of zero or one).
 
-  Solutions must have planning unit statuses set to missing (\code{NA})
-  values for planning units that have missing (\code{NA}) cost data. For
-  problems with multiple zones, this means that planning units must have
-  missing (\code{NA}) allocation values in zones where they have missing
-  (\code{NA}) cost data. In other words, planning units that have missing
-  (\code{NA}) cost values in \code{x} should always have a missing
-  (\code{NA}) value the argument to \code{solution}. If an argument is
-  supplied to
-  \code{solution} where this is not the case, then an error will be thrown.
-  Please note that earlier versions of the \pkg{prioritizr}
-  (prior to 4.0.4.1) required that such planning units always have zero
-  values, but this has been changed to make the handling of missing values
-  more consistent throughout the package.
+Solutions must have planning unit statuses set to missing (\code{NA})
+values for planning units that have missing (\code{NA}) cost data. For
+problems with multiple zones, this means that planning units must have
+missing (\code{NA}) allocation values in zones where they have missing
+(\code{NA}) cost data. In other words, planning units that have missing
+(\code{NA}) cost values in \code{x} should always have a missing
+(\code{NA}) value the argument to \code{solution}. If an argument is
+supplied to
+\code{solution} where this is not the case, then an error will be thrown.
+Please note that earlier versions of the \pkg{prioritizr}
+(prior to 4.0.4.1) required that such planning units always have zero
+values, but this has been changed to make the handling of missing values
+more consistent throughout the package.
 
-  Additionally, note that when calculating the proportion of each feature
-  represented in the solution, the denominator is calculated using all
-  planning units---\strong{including any planning units with \code{NA} cost
-  values in the argument to \code{x}}. This is exactly the same equation
-  used when calculating relative targets for problems (e.g.
-  \code{add_relative_targets}).
+Additionally, note that when calculating the proportion of each feature
+represented in the solution, the denominator is calculated using all
+planning units---\strong{including any planning units with \code{NA} cost
+values in the argument to \code{x}}. This is exactly the same equation
+used when calculating relative targets for problems (e.g.
+\code{add_relative_targets}).
 }
 \examples{
 # set seed for reproducibility

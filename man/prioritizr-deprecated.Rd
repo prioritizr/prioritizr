@@ -35,33 +35,33 @@ functionality are also listed below.
 }
 \section{\code{add_connected_constraints}}{
  this function has been renamed
-  to the \code{\link{add_contiguity_constraints}} function.
+to the \code{\link{add_contiguity_constraints}} function.
 }
 
 \section{\code{add_corridor_constraints}}{
  this function has been
-  reimagined as the \code{\link{add_feature_contiguity_constraints}}
-  function.
+reimagined as the \code{\link{add_feature_contiguity_constraints}}
+function.
 }
 
 \section{\code{set_number_of_threads}}{
  this function is no longer needed now that superior data extraction methods are implemented.
-  function.
+function.
 }
 
 \section{\code{get_number_of_threads}}{
  this function is no longer needed now that superior data extraction methods are implemented.
-  function.
+function.
 }
 
 \section{\code{is.parallel}}{
  this function is no longer needed now that superior data extraction methods are implemented.
-  function.
+function.
 }
 
 \section{\code{add_pool_portfolio}}{
  this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
-  function.
+function.
 }
 
 \section{\code{connected_matrix}}{

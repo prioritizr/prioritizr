@@ -19,10 +19,10 @@ This prototype is used to represent a parameter that can be any object.
 \item{$value}{\code{\link[tibble]{tibble}} object.}
 
 \item{$validator}{\code{list} object containing a \code{function} that
-  is used to validate changes to the parameter.}
+is used to validate changes to the parameter.}
 
 \item{$widget}{\code{list} object containing a \code{function} used to
-  construct a \emph{shiny} interface for modifying values.}
+construct a \emph{shiny} interface for modifying values.}
 }
 }
 
@@ -53,7 +53,7 @@ This prototype is used to represent a parameter that can be any object.
 
 \item{...}{arguments passed to \code{$widget}.}
 
- }
+}
 }
 
 \section{Details}{
@@ -73,7 +73,7 @@ This prototype is used to represent a parameter that can be any object.
 \item{reset}{update the parameter value to be the default value.}
 
 \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
-              parameter values.}
+parameter values.}
 
 }
 }

@@ -29,13 +29,13 @@ interact directly with this prototype.}
 \item{$class}{\code{character} class of values.}
 
 \item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
-  permitted values.}
+permitted values.}
 
 \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
-  permitted values.}
+permitted values.}
 
 \item{$widget}{\code{function} used to construct a
-  \code{\link[shiny]{shiny}} interface for modifying values.}
+\code{\link[shiny]{shiny}} interface for modifying values.}
 }
 }
 
@@ -63,8 +63,8 @@ interact directly with this prototype.}
 
 \describe{
 \item{tbl}{\code{\link{data.frame}} containing new parameter values with
-           row names indicating the labels and a column called "values"
-           containing the new parameter values.}
+row names indicating the labels and a column called "values"
+containing the new parameter values.}
 \item{...}{arguments passed to function in \code{widget} field.}
 }
 }
@@ -82,15 +82,15 @@ interact directly with this prototype.}
 \item{validate}{check if a proposed new set of parameters are valid.}
 
 \item{get}{return a \code{\link[base]{data.frame}} containing the
-  parameter values.}
+parameter values.}
 
 \item{set}{update the parameter values using a
-  \code{\link[base]{data.frame}}.}
+\code{\link[base]{data.frame}}.}
 
 \item{reset}{update the parameter values to be the default values.}
 
 \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
-  parameter values.}
+parameter values.}
 
 }
 }

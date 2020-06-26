@@ -53,9 +53,9 @@ one thread being used.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-  or \code{\link[sf]{sf}} object containing the replacement costs for each
-  planning unit in the solution.
+\code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
+or \code{\link[sf]{sf}} object containing the replacement costs for each
+planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
@@ -63,66 +63,66 @@ based on the replacement cost method (Cabeza and Moilanen 2006).
 }
 \details{
 Using this method, the score for each planning unit is calculated
-  as the difference in the objective value of a solution when each planning
-   unit is locked out and the optimization processes rerun with all other
-  selected planning units locked in. In other words, the replacement cost
-  metric corresponds to change in solution quality incurred if a given
-  planning unit cannot be acquired when implementing the solution and the
-  next best planning unit (or set of planning units) will need to be
-  considered instead. Thus planning units with a higher score are more
-  irreplaceable. For example, when using the minimum set objective function
-  (\code{\link{add_min_set_objective}}), the replacement cost scores
-  correspond to the additional costs needed to meet targets when each
-  planning unit is locked out. When using the maximum utility
-  objective function (\code{\link{add_max_utility_objective}}, the
-  replacement cost scores correspond to the reduction in the utility when
-  each planning unit is locked out. Infinite values mean that no feasible
-  solution exists when planning units are locked out---they are
-  absolutely essential for obtaining a solution (e.g. they contain rare
-  species that are not found in any other planning units or were locked in).
-  Zeros values mean that planning units can swapped with other planning units
-  and this will have no effect on the performance of the solution at all
-  (e.g. because they were only selected due to spatial fragmentation
-  penalties). Since these calculations can take a long time to complete, we
-  recommend calculating these scores without additional penalties (e.g.
-  \code{\link{add_boundary_penalties}}) or constraints (e.g.
-  \code{link{add_contiguity_constraints}}). They can be sped up further by
-  using proportion-type decisions when calculating the scores (see below for
-  an example).
+as the difference in the objective value of a solution when each planning
+unit is locked out and the optimization processes rerun with all other
+selected planning units locked in. In other words, the replacement cost
+metric corresponds to change in solution quality incurred if a given
+planning unit cannot be acquired when implementing the solution and the
+next best planning unit (or set of planning units) will need to be
+considered instead. Thus planning units with a higher score are more
+irreplaceable. For example, when using the minimum set objective function
+(\code{\link{add_min_set_objective}}), the replacement cost scores
+correspond to the additional costs needed to meet targets when each
+planning unit is locked out. When using the maximum utility
+objective function (\code{\link{add_max_utility_objective}}, the
+replacement cost scores correspond to the reduction in the utility when
+each planning unit is locked out. Infinite values mean that no feasible
+solution exists when planning units are locked out---they are
+absolutely essential for obtaining a solution (e.g. they contain rare
+species that are not found in any other planning units or were locked in).
+Zeros values mean that planning units can swapped with other planning units
+and this will have no effect on the performance of the solution at all
+(e.g. because they were only selected due to spatial fragmentation
+penalties). Since these calculations can take a long time to complete, we
+recommend calculating these scores without additional penalties (e.g.
+\code{\link{add_boundary_penalties}}) or constraints (e.g.
+\code{link{add_contiguity_constraints}}). They can be sped up further by
+using proportion-type decisions when calculating the scores (see below for
+an example).
 
-  The argument to \code{solution} must correspond
-  to the planning unit data in the argument to \code{x} in terms
-  of data representation, dimensionality, and spatial attributes (if
-  applicable). This means that if the planning unit data in \code{x}
-  is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements; if the planning
-  unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-  argument to \code{solution} must also be a
-  \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system;
-  if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system;
-  if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sf]{sf}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system;
-  if the planning units in \code{x} are a \code{data.frame} then the
-  argument to \code{solution} must also be a \code{data.frame} with each
-  column correspond to a different zone and each row correspond to
-  a different planning unit, and values correspond to the allocations
-  (e.g. values of zero or one).
+The argument to \code{solution} must correspond
+to the planning unit data in the argument to \code{x} in terms
+of data representation, dimensionality, and spatial attributes (if
+applicable). This means that if the planning unit data in \code{x}
+is a \code{numeric} vector then the argument to \code{solution} must be a
+\code{numeric} vector with the same number of elements; if the planning
+unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
+argument to \code{solution} must also be a
+\code{\link[raster]{RasterLayer-class}} with the same number of rows and
+columns and the same resolution, extent, and coordinate reference system;
+if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
+object then the argument to \code{solution} must also be a
+\code{\link[sp]{Spatial-class}} object and have the same number of spatial
+features (e.g. polygons) and have the same coordinate reference system;
+if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
+object then the argument to \code{solution} must also be a
+\code{\link[sf]{sf}} object and have the same number of spatial
+features (e.g. polygons) and have the same coordinate reference system;
+if the planning units in \code{x} are a \code{data.frame} then the
+argument to \code{solution} must also be a \code{data.frame} with each
+column correspond to a different zone and each row correspond to
+a different planning unit, and values correspond to the allocations
+(e.g. values of zero or one).
 
-  Solutions must have planning unit statuses set to missing (\code{NA})
-  values for planning units that have missing (\code{NA}) cost data. For
-  problems with multiple zones, this means that planning units must have
-  missing (\code{NA}) allocation values in zones where they have missing
-  (\code{NA}) cost data. In other words, planning units that have missing
-  (\code{NA}) cost values in \code{x} should always have a missing
-  (\code{NA}) value the argument to \code{solution}. If an argument is
-  supplied to
-  \code{solution} where this is not the case, then an error will be thrown.
+Solutions must have planning unit statuses set to missing (\code{NA})
+values for planning units that have missing (\code{NA}) cost data. For
+problems with multiple zones, this means that planning units must have
+missing (\code{NA}) allocation values in zones where they have missing
+(\code{NA}) cost data. In other words, planning units that have missing
+(\code{NA}) cost values in \code{x} should always have a missing
+(\code{NA}) value the argument to \code{solution}. If an argument is
+supplied to
+\code{solution} where this is not the case, then an error will be thrown.
 }
 \examples{
 # seed seed for reproducibility

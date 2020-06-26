@@ -19,7 +19,7 @@ help page on \code{\link{portfolios}}}.
 \item{$name}{\code{character} name of portfolio method.}
 
 \item{$parameters}{\code{Parameters} object with parameters used to customize
-  the the portfolio.}
+the the portfolio.}
 
 \item{$run}{\code{function} used to generate a portfolio.}
 }
@@ -59,7 +59,7 @@ help page on \code{\link{portfolios}}}.
 \item{repr}{\code{character} representation of object.}
 
 \item{run}{solve an \code{\link{OptimizationProblem-class}} object using this
-  object and a \code{\link{Solver-class}} object.}
+object and a \code{\link{Solver-class}} object.}
 
 }
 }

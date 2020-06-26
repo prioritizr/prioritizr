@@ -21,18 +21,18 @@ Assorted functions for manipulating \code{\link[tibble]{tibble}} objects.
 }
 \details{
 The following methods are provided from manipulating
-  \code{\link[tibble]{tibble}} objects.
+\code{\link[tibble]{tibble}} objects.
 
-  \describe{
-  \item{nrow}{extract \code{integer} number of rows.}
+\describe{
+\item{nrow}{extract \code{integer} number of rows.}
 
-  \item{ncol}{extract \code{integer} number of columns.}
+\item{ncol}{extract \code{integer} number of columns.}
 
-  \item{as.list}{convert to a \code{list}.}
+\item{as.list}{convert to a \code{list}.}
 
-  \item{print}{print the object.}
+\item{print}{print the object.}
 
-  }
+}
 }
 \examples{
 # load tibble package

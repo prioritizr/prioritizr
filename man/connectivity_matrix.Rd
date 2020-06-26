@@ -49,13 +49,13 @@ to \code{y} is a \code{\link{Raster-class}} object.}
 }
 \value{
 \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
-  Each row and column represents a planning unit.
-  Cells values indicate the connectivity between different pairs of planning
-  units.
-  To reduce computational burden, cells among the matrix diagonal are
-  set to zero. Furthermore, if the argument to \code{x} is a
-  \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
-  values are set to zero too.
+Each row and column represents a planning unit.
+Cells values indicate the connectivity between different pairs of planning
+units.
+To reduce computational burden, cells among the matrix diagonal are
+set to zero. Furthermore, if the argument to \code{x} is a
+\code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+values are set to zero too.
 }
 \description{
 Create a matrix showing the connectivity between planning units. Connectivity
@@ -66,7 +66,7 @@ boundary are associated with greater connectivity.
 }
 \details{
 Shared boundary calculations are performed using
-  \code{\link{boundary_matrix}}.
+\code{\link{boundary_matrix}}.
 }
 \examples{
 # load data

@@ -14,7 +14,7 @@ stored inside it.
 \describe{
 
 \item{$parameters}{\code{list} object containing
-  \code{\link{Parameter-class}} objects.}
+\code{\link{Parameter-class}} objects.}
 
 }
 }
@@ -74,16 +74,16 @@ stored inside it.
 
 \item{length}{return \code{integer} number of parameters in object.}
 \item{get}{retrieve the value of a parameter in the object
-   using an \code{Id} object.}
+using an \code{Id} object.}
 
 \item{set}{change the value of a parameter in the object
-   to a new object.}
+to a new object.}
 
 \item{render}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{Id}).}
+the value of a parameter (specified by argument \code{Id}).}
 
 \item{render_all}{generate a \code{\link[shiny]{div}}
-  containing all the parameters" widgets.}
+containing all the parameters" widgets.}
 
 }
 }

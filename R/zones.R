@@ -32,7 +32,6 @@ NULL
 #'   used when building the conservation planning \code{\link{problem}}.
 #'
 #'   \describe{
-#'
 #'   \item{\code{\link[raster]{Raster-class}},
 #'     \code{\link[sp]{Spatial-class}}}{\code{\link[raster]{Raster-class}}
 #'     data denoting the amount of each feature present assuming each
@@ -41,35 +40,26 @@ NULL
 #'     in separate layers in a \code{\link[raster]{stack}} object. Note that
 #'     all layers for a given zone must have \code{NA} values in exactly the
 #'     same cells.}
-#'
 #'   \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit for each zone. Note that
 #'     these columns must not contain any \code{NA} values.}
-#'
 #'   \item{\code{\link{Spatial}}, \code{data.frame} or
 #'     \code{matrix}}{\code{data.frame} denoting the amount of each feature
 #'     in each zone. Following conventions used in \emph{Marxan},
 #'     \code{data.frame} objects should be supplied with the columns:
-#'
 #'     \describe{
-#'
 #'     \item{\code{"pu"}}{\code{integer} planning unit identifier.}
-#'
 #'     \item{\code{"species"}}{\code{integer} feature identifier.}
-#'
 #'     \item{\code{"amount"}}{\code{numeric} amount of the feature in the
 #'       planning unit for a given zone.}
-#'
 #'     }
-#'
 #'     Note that data for each zone are specified in a separate argument, and
 #'     the data contained in a single \code{data.frame} object correspond to
 #'     a single zone. Also, note that data are not required for all
 #'     combinations of planning units, features, and zones. The amounts of
 #'     features in planning units assuming different management zones that are
 #'     missing from the table are treated as zero.}
-#'
 #'   }
 #'
 #' @return \code{\link{Zones-class}} object.

@@ -20,10 +20,10 @@ indicate the presence/absence of that category in the input object.
 }
 \details{
 This function is provided to help manage data that encompass
-  multiple management zones. For instance, this function may be helpful
-  for preparing raster data for \code{\link{add_locked_in_constraints}} and
-  \code{\link{add_locked_out_constraints}} since they require binary
-  \code{\link[raster]{RasterStack-class}} objects as input arguments.
+multiple management zones. For instance, this function may be helpful
+for preparing raster data for \code{\link{add_locked_in_constraints}} and
+\code{\link{add_locked_out_constraints}} since they require binary
+\code{\link[raster]{RasterStack-class}} objects as input arguments.
 }
 \examples{
 # create raster with categorical identifers

@@ -53,72 +53,72 @@ solution cost for minimum set problems; \code{\link{add_min_set_objective}}.
 }
 \details{
 This function penalizes solutions that have higher values according
-  to a specific metric. The argument to \code{data} can be specified in
-  several different ways:
+to a specific metric. The argument to \code{data} can be specified in
+several different ways:
 
-  \describe{
+\describe{
 
-  \item{\code{character}}{field (column) name(s) that contain the data for
-    penalizing planning units. This type of argument is only
-    compatible if the planning units in the argument to \code{x} are a
-    \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
-    \code{data.frame} object. The fields (columns) must have \code{numeric}
-    values, and must not contain any missing (\code{NA}) values.
-    For problems involving multiple zones, the argument to \code{data} must
-    contain a field name for each zone.}
+\item{\code{character}}{field (column) name(s) that contain the data for
+penalizing planning units. This type of argument is only
+compatible if the planning units in the argument to \code{x} are a
+\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+\code{data.frame} object. The fields (columns) must have \code{numeric}
+values, and must not contain any missing (\code{NA}) values.
+For problems involving multiple zones, the argument to \code{data} must
+contain a field name for each zone.}
 
-  \item{\code{numeric}}{\code{vector} containing the data for penalizing
-    each planning unit. These values must not contain any missing
-    (\code{NA}) values. Note that this type of argument is only available
-    for planning units that contain a single zone.}
+\item{\code{numeric}}{\code{vector} containing the data for penalizing
+each planning unit. These values must not contain any missing
+(\code{NA}) values. Note that this type of argument is only available
+for planning units that contain a single zone.}
 
-  \item{\code{\link[raster]{Raster-class}}}{containing the data for
-    penalizing planning units. This type of argument is only
-    compatible if the planning units in the argument to \code{x} are
-    \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
-    or \code{\link[raster]{Raster-class}} (i.e. they are in a spatially
-    referenced format).
-    If the planning unit data are a \code{\link[sp]{Spatial-class}} or
-    \code{\link[sf]{sf}} object, then the
-    penalty \code{data} are calculated by overlaying the planning units with
-    the argument to \code{data} and calculating the sum of the values.
-    If the planning unit data are in the
-    \code{\link[raster]{Raster-class}} then the penalty \code{data} are
-    calculated by extracting the cell values (note that the
-    planning unit data and the argument to code{data} must have exactly
-    the same dimensionality, extent, and missingness).
-    For problems involving multiple zones, the argument to \code{data} must
-    contain a layer for each zone.}
+\item{\code{\link[raster]{Raster-class}}}{containing the data for
+penalizing planning units. This type of argument is only
+compatible if the planning units in the argument to \code{x} are
+\code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
+or \code{\link[raster]{Raster-class}} (i.e. they are in a spatially
+referenced format).
+If the planning unit data are a \code{\link[sp]{Spatial-class}} or
+\code{\link[sf]{sf}} object, then the
+penalty \code{data} are calculated by overlaying the planning units with
+the argument to \code{data} and calculating the sum of the values.
+If the planning unit data are in the
+\code{\link[raster]{Raster-class}} then the penalty \code{data} are
+calculated by extracting the cell values (note that the
+planning unit data and the argument to code{data} must have exactly
+the same dimensionality, extent, and missingness).
+For problems involving multiple zones, the argument to \code{data} must
+contain a layer for each zone.}
 
-  \item{\code{matrix}, \code{Matrix}}{containing \code{numeric} values
-    that specify data for penalizing each planning unit.
-    Each row corresponds to a planning unit, each column corresponds to a
-    zone, and each cell indicates the data for penalizing a planning unit
-    when it is allocated to a given zone.}
+\item{\code{matrix}, \code{Matrix}}{containing \code{numeric} values
+that specify data for penalizing each planning unit.
+Each row corresponds to a planning unit, each column corresponds to a
+zone, and each cell indicates the data for penalizing a planning unit
+when it is allocated to a given zone.}
 
-  }
+}
 
- The linear penalties are calculated using the following equations.
- Let \eqn{I} denote the set of planning units
- (indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
- \eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
- planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
- values one indicating if planning unit is allocated or not). Also, let
- \eqn{P_z} represent the penalty scaling value for zones
- \eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
- \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
- \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
- \code{data} if supplied as a \code{matrix} object).
+The linear penalties are calculated using the following equations.
+Let \eqn{I} denote the set of planning units
+(indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
+\eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
+planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\eqn{P_z} represent the penalty scaling value for zones
+\eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
+\eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
+\eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
+\code{data} if supplied as a \code{matrix} object).
 
- \deqn{
+\deqn{
  \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
  }{
  sum_i^I sum_z^Z (Pz * Diz * Xiz)
  }
 
- Note that when the problem objective is to maximize some measure of
- benefit and not minimize some measure of cost, the term \eqn{P_z} is
- replaced with \eqn{-P_z}.
+Note that when the problem objective is to maximize some measure of
+benefit and not minimize some measure of cost, the term \eqn{P_z} is
+replaced with \eqn{-P_z}.
 }
 \examples{
 # set seed for reproducibility

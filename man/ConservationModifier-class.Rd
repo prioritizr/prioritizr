@@ -25,8 +25,8 @@ far reaching effects.}
 \item{$data}{\code{list} object with data.}
 
 \item{$compressed_formulation}{\code{logical} can this constraint be applied
-   to the compressed version of the conservation planning problem?. Defaults
-   to \code{TRUE}.}
+to the compressed version of the conservation planning problem?. Defaults
+to \code{TRUE}.}
 
 }
 }
@@ -89,39 +89,39 @@ far reaching effects.}
 \item{repr}{return \code{character} representation of the object.}
 
 \item{get_data}{return an object stored in the \code{data} field with
-  the corresponding \code{name}. If the object is not present in the
-  \code{data} field, a \code{waiver} object is returned.}
+the corresponding \code{name}. If the object is not present in the
+\code{data} field, a \code{waiver} object is returned.}
 
 \item{set_data}{store an object stored in the \code{data} field with
-  the corresponding name. If an object with that name already
-  exists then the object is overwritten.}
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
 
 \item{calculate}{\code{function} used to perform preliminary calculations
-  and store the data so that they can be reused later without
-  performing the same calculations multiple times. Data can be stored
-  in the \code{data} slot of the input \code{ConservationModifier} or
-  \code{ConservationProblem} objects.}
+and store the data so that they can be reused later without
+performing the same calculations multiple times. Data can be stored
+in the \code{data} slot of the input \code{ConservationModifier} or
+\code{ConservationProblem} objects.}
 
 \item{output}{\code{function} used to generate an output from the object.
-  This method is only used for \code{\link{Target-class}} objects.}
+This method is only used for \code{\link{Target-class}} objects.}
 
 \item{apply}{\code{function} used to apply the modifier to an
-  \code{\link{OptimizationProblem-class}} object.
-  This is used by \code{\link{Constraint-class}},
-  \code{\link{Decision-class}}, and \code{\link{Objective-class}} objects.}
+\code{\link{OptimizationProblem-class}} object.
+This is used by \code{\link{Constraint-class}},
+\code{\link{Decision-class}}, and \code{\link{Objective-class}} objects.}
 
 \item{get_parameter}{retrieve the value of a parameter.}
 
 \item{get_all_parameters}{generate \code{list} containing all the
-  parameters.}
+parameters.}
 
 \item{set_parameter}{change the value of a parameter to new value.}
 
 \item{render_parameter}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_parameters}{generate a \code{\link[shiny]{div}}
-  containing all the parameters" widgets.}
+containing all the parameters" widgets.}
 
 }
 }
