@@ -66,5 +66,5 @@ plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=decisions]{decisions()}}.
+\link{decisions}.
 }

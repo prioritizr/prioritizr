@@ -28,10 +28,10 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints()], [decisions()],
-#'  [objectives()] [penalties()],
-#'  [portfolios()], [problem()],
-#'  [solvers()].
+#' @seealso [constraints], [decisions],
+#'  [objectives] [penalties],
+#'  [portfolios], [problem()],
+#'  [solvers].
 #'
 #' @examples
 #' # load data

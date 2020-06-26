@@ -136,5 +136,5 @@ spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}.
+\link{constraints}.
 }

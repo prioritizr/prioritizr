@@ -70,5 +70,5 @@ plot(stack(c1, c2), main = c("default", "mandatory allocation"),
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}.
+\link{constraints}.
 }

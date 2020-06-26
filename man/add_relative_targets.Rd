@@ -149,5 +149,5 @@ plot(category_layer(s5), main = c("varying targets"))
 
 }
 \seealso{
-\code{\link[=targets]{targets()}}.
+\link{targets}.
 }

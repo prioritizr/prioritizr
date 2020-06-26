@@ -66,7 +66,7 @@ NULL
 #'
 #' @inherit add_relative_targets return
 #'
-#' @seealso [targets()], [loglinear_interpolation()].
+#' @seealso [targets], [loglinear_interpolation()].
 #'
 #' @references
 #' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

@@ -60,7 +60,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the solver added
 #'   to it.
 #'
-#' @seealso [solvers()].
+#' @seealso [solvers].
 #'
 #' @examples
 #' # load data

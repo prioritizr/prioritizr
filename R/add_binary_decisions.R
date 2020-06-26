@@ -22,7 +22,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the decisions
 #'   added to it.
 #'
-#' @seealso [decisions()].
+#' @seealso [decisions].
 #'
 #' @examples
 #' # set seed for reproducibility

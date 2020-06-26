@@ -24,7 +24,7 @@ NULL
 #'
 #' @details
 #'   After formulating a conservation planning [problem()],
-#'   it can be solved using an exact algorithm solver (see [solvers()]
+#'   it can be solved using an exact algorithm solver (see [solvers]
 #'   for available solvers). If no solver has been explicitly specified,
 #'   then the best available exact algorithm solver will be used by default
 #'   (see [add_default_solver()]. Although these exact algorithm
@@ -103,7 +103,7 @@ NULL
 #'   the problem and noting that the default gap is 0.1).
 #'
 #' @seealso [feature_representation()], [problem()],
-#'   [solvers()], [category_layer()],
+#'   [solvers], [category_layer()],
 #'   [presolve_check()].
 #'
 #' @examples

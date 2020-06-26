@@ -15,5 +15,5 @@ This function adds the default decision types to a conservation planning
 the \code{\link[=add_binary_decisions]{add_binary_decisions()}} function.
 }
 \seealso{
-\code{\link[=decisions]{decisions()}}.
+\link{decisions}.
 }

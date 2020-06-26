@@ -25,9 +25,9 @@ NULL
 #'   However, it would sometimes return solutions that were not within the
 #'   specified optimality gap. To address this, we have added alternative
 #'   methods for generating solution portfolios, please refer to the
-#'   [portfolios()] documentation for more information.**
+#'   [portfolios] documentation for more information.**
 #'
-#' @seealso [portfolios()].
+#' @seealso [portfolios].
 #'
 #' @return [ConservationProblem-class()] object with the portfolio
 #'   added to it.

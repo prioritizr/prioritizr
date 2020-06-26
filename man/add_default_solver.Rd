@@ -21,5 +21,5 @@ Ranked from best to worst, the available solvers that can be used are:
 (\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}).
 }
 \seealso{
-\code{\link[=solvers]{solvers()}}.
+\link{solvers}.
 }

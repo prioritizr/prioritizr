@@ -44,10 +44,10 @@ NULL
 #'
 #' @name solvers
 #'
-#' @seealso [constraints()],  [decisions()],
-#'  [objectives()] [penalties()],
-#'  [portfolios()], [problem()],
-#'  [targets()].
+#' @seealso [constraints],  [decisions],
+#'  [objectives], [penalties],
+#'  [portfolios], [problem()],
+#'  [targets].
 #'
 #' @examples
 #' \donttest{

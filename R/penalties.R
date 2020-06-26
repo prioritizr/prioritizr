@@ -5,7 +5,7 @@ NULL
 #'
 #' A penalty can be applied to a conservation planning [problem()] to
 #' penalize solutions according to a specific metric. Penalties---unlike
-#' [constraints()]---act as an explicit trade-off with the objective
+#' [constraints]---act as an explicit trade-off with the objective
 #' being minimized or maximized (e.g. solution cost when used with
 #' [add_min_set_objective()]).
 #'
@@ -35,9 +35,9 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints()], [decisions()],
-#'  [objectives()] [portfolios()], [problem()],
-#'  [solvers()], [targets()].
+#' @seealso [constraints], [decisions],
+#'  [objectives] [portfolios], [problem()],
+#'  [solvers], [targets].
 #'
 #' @examples
 #' # load data

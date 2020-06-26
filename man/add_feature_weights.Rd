@@ -209,5 +209,5 @@ plot(s8, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=objectives]{objectives()}}.
+\link{objectives}.
 }

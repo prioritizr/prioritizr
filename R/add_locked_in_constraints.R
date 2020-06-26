@@ -205,7 +205,7 @@ NULL
 #' # plot solution
 #' plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' @seealso [constraints()].
+#' @seealso [constraints].
 #'
 #' @name add_locked_in_constraints
 #'

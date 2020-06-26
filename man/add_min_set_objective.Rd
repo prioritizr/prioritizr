@@ -43,7 +43,7 @@ mathematically for a set of planning units (\eqn{I}{I} indexed by
   Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
   j in J}
 
-Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
@@ -93,5 +93,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link[=objectives]{objectives()}}, \code{\link[=targets]{targets()}}.
+\link{objectives}, \link{targets}.
 }

@@ -226,5 +226,5 @@ connectivity in conservation planning do not always maintain gene flow.
 \url{https://doi.org/10.1111/1365-2664.13315}.
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}.
+\link{constraints}.
 }

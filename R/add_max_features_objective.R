@@ -47,7 +47,7 @@ NULL
 #'   sum_i^I (xi * rij) >= (yj tj) for all j in J &
 #'   sum_i^I (xi * ci) <= B}
 #'
-#'   Here, \eqn{x_i}{xi} is the [decisions()] variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #'   unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
@@ -61,7 +61,7 @@ NULL
 #'   when there are multiple solutions that represent the same amount of all
 #'   features within the budget.
 #'
-#' @seealso [add_feature_weights()], [objectives()].
+#' @seealso [add_feature_weights()], [objectives].
 #'
 #' @inherit add_min_set_objective return
 #'

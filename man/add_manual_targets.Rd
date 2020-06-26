@@ -201,5 +201,5 @@ plot(category_layer(s7), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=targets]{targets()}}.
+\link{targets}.
 }

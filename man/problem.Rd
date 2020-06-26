@@ -204,9 +204,9 @@ specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this \code{ConservationProblem-class} object, it can be
-customized to meet specific goals using \code{\link[=objectives]{objectives()}},
-\code{\link[=targets]{targets()}}, \code{\link[=constraints]{constraints()}}, and
-\code{\link[=penalties]{penalties()}}. After building the problem, the
+customized to meet specific goals using \link{objectives},
+\link{targets}, \link{constraints}, and
+\link{penalties}. After building the problem, the
 \code{\link[=solve]{solve()}} function can be used to identify solutions.
 }
 \details{
@@ -224,7 +224,7 @@ presence or absence) or area of occurrence within each planning unit.
 Finally, in some types of reserve design models, representation targets
 must be set for each conservation feature, such as 20 \% of the current
 extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-(see \code{\link[=targets]{targets()}}).
+(see \link{targets}).
 
 The goal of the reserve design exercise is then to optimize the trade-off
 between conservation benefit and socioeconomic cost, i.e. to get the most
@@ -233,7 +233,7 @@ optimization problem is to minimize an objective function over a set of
 decision variables, subject to a series of constraints. The decision
 variables are what we control, usually there is one binary variable for
 each planning unit specifying whether or not to protect that unit (but
-other approaches are available, see \code{\link[=decisions]{decisions()}}). The
+other approaches are available, see \link{decisions}). The
 constraints can be thought of as rules that need to be followed, for
 example, that the reserve must stay within a certain budget or meet the
 representation targets.
@@ -452,8 +452,8 @@ spplot(s10, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
-\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}},
-\code{\link[=portfolios]{portfolios()}}, \code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}},
+\link{constraints}, \link{decisions},
+\link{objectives} \link{penalties},
+\link{portfolios}, \link{solvers}, \link{targets},
 \code{\link[=feature_representation]{feature_representation()}}, \code{\link[=irreplaceability]{irreplaceability()}}.
 }

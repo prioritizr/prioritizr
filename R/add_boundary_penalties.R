@@ -124,7 +124,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the penalties
 #'  added to it.
 #'
-#' @seealso [penalties()].
+#' @seealso [penalties].
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

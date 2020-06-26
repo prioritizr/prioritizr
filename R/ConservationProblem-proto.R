@@ -37,10 +37,10 @@ NULL
 #'   representation targets for features.}
 #'
 #' \item{$penalties}{[Collection-class()] object used to represent
-#'   additional [penalties()] that the problem is subject to.}
+#'   additional [penalties] that the problem is subject to.}
 #'
 #' \item{$constraints}{[Collection-class()] object used to represent
-#'   additional [constraints()] that the problem is subject to.}
+#'   additional [constraints] that the problem is subject to.}
 #'
 #' \item{$portfolio}{[Portfolio-class()] object used to represent
 #'   the method for generating a portfolio of solutions.}

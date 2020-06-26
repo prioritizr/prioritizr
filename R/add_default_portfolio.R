@@ -8,7 +8,7 @@ NULL
 #'
 #' @param x [ConservationProblem-class()] object.
 #'
-#' @seealso [portfolios()].
+#' @seealso [portfolios].
 #'
 #' @noRd
 add_default_portfolio <- function(x) {

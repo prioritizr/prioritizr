@@ -11,7 +11,7 @@ NULL
 #' when prioritizing planning units. **This prototype represents
 #' a recipe to make a decision, to actually specify
 #' the type of decision in a planning problem, see the help page on
-#' [decisions()]. Only experts should use this class directly.**
+#' [decisions]. Only experts should use this class directly.**
 #' This class inherits from the [ConservationModifier-class()].
 #'
 #' @seealso [ConservationModifier-class()].

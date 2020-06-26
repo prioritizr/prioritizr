@@ -36,10 +36,10 @@ type of decision made on planning units.}
 representation targets for features.}
 
 \item{$penalties}{\code{\link[=Collection-class]{Collection-class()}} object used to represent
-additional \code{\link[=penalties]{penalties()}} that the problem is subject to.}
+additional \link{penalties} that the problem is subject to.}
 
 \item{$constraints}{\code{\link[=Collection-class]{Collection-class()}} object used to represent
-additional \code{\link[=constraints]{constraints()}} that the problem is subject to.}
+additional \link{constraints} that the problem is subject to.}
 
 \item{$portfolio}{\code{\link[=Portfolio-class]{Portfolio-class()}} object used to represent
 the method for generating a portfolio of solutions.}

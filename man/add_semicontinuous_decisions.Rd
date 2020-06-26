@@ -76,5 +76,5 @@ plot(s2, axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=decisions]{decisions()}}.
+\link{decisions}.
 }

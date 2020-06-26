@@ -47,7 +47,7 @@ Solve a conservation planning \code{\link[=problem]{problem()}}.
 }
 \details{
 After formulating a conservation planning \code{\link[=problem]{problem()}},
-it can be solved using an exact algorithm solver (see \code{\link[=solvers]{solvers()}}
+it can be solved using an exact algorithm solver (see \link{solvers}
 for available solvers). If no solver has been explicitly specified,
 then the best available exact algorithm solver will be used by default
 (see \code{\link[=add_default_solver]{add_default_solver()}}. Although these exact algorithm
@@ -237,6 +237,6 @@ plot(s5[, "solution"])
 }
 \seealso{
 \code{\link[=feature_representation]{feature_representation()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=category_layer]{category_layer()}},
+\link{solvers}, \code{\link[=category_layer]{category_layer()}},
 \code{\link[=presolve_check]{presolve_check()}}.
 }

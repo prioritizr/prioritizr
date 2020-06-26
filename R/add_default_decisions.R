@@ -9,7 +9,7 @@ NULL
 #'
 #' @param x [ConservationProblem-class()] object.
 #'
-#' @seealso [decisions()].
+#' @seealso [decisions].
 #'
 #' @export
 add_default_decisions <- function(x) {

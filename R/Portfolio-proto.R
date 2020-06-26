@@ -11,7 +11,7 @@ NULL
 #' optimization problems. **This class represents a recipe to
 #' create portfolio generating method and is only recommended for use by expert
 #' users. To customize the method used to generate portfolios, please see the
-#' help page on [portfolios()]**.
+#' help page on [portfolios]**.
 #' @section Fields:
 #'
 #' \describe{

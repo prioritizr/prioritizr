@@ -74,7 +74,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the constraints
 #'   added to it.
 #'
-#' @seealso [constraints()].
+#' @seealso [constraints].
 #'
 #' @references
 #' {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected

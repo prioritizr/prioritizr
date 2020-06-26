@@ -6,7 +6,7 @@
 \description{
 A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
 penalize solutions according to a specific metric. Penalties---unlike
-\code{\link[=constraints]{constraints()}}---act as an explicit trade-off with the objective
+\link{constraints}---act as an explicit trade-off with the objective
 being minimized or maximized (e.g. solution cost when used with
 \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
 }
@@ -84,7 +84,7 @@ plot(s, axes = FALSE, box = FALSE,
  }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
-\code{\link[=objectives]{objectives()}} \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
+\link{constraints}, \link{decisions},
+\link{objectives} \link{portfolios}, \code{\link[=problem]{problem()}},
+\link{solvers}, \link{targets}.
 }

@@ -73,5 +73,5 @@ plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
 }
 }
 \seealso{
-\code{\link[=portfolios]{portfolios()}}.
+\link{portfolios}.
 }

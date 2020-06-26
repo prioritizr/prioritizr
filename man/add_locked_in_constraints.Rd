@@ -234,5 +234,5 @@ plot(category_layer(s9), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}.
+\link{constraints}.
 }

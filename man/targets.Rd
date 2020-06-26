@@ -63,8 +63,8 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
-\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}},
-\code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}.
+\link{constraints}, \link{decisions},
+\link{objectives} \link{penalties},
+\link{portfolios}, \code{\link[=problem]{problem()}},
+\link{solvers}.
 }

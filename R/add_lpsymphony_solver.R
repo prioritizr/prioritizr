@@ -23,7 +23,7 @@ NULL
 #'
 #' @inherit add_rsymphony_solver seealso return
 #'
-#' @seealso [solvers()].
+#' @seealso [solvers].
 #'
 #' @examples
 #' # load data

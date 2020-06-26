@@ -76,7 +76,7 @@ plot(s, main = c("default (binary)", "binary", "proportion",
 
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=objectives]{objectives()}},
-\code{\link[=penalties]{penalties()}}, \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
+\link{constraints}, \link{objectives},
+\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
+\link{solvers}, \link{targets}.
 }

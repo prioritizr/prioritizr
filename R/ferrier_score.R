@@ -96,7 +96,7 @@ NULL
 #' plot(fs1, axes = FALSE, box = FALSE)
 #' }
 #'
-#' @seealso [irreplaceability()].
+#' @seealso [irreplaceability].
 #'
 #' @aliases ferrier_score,ConservationProblem,numeric-method ferrier_score,ConservationProblem,matrix-method ferrier_score,ConservationProblem,data.frame-method ferrier_score,ConservationProblem,Spatial-method ferrier_score,ConservationProblem,Raster-method
 #'

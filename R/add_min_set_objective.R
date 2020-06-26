@@ -33,7 +33,7 @@ NULL
 #'   Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
 #'   j in J}
 #'
-#'   Here, \eqn{x_i}{xi} is the [decisions()] variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 #'   \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
@@ -47,7 +47,7 @@ NULL
 #' efficiency, and accountability: adapting reserve selection algorithms to
 #' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
-#' @seealso [objectives()], [targets()].
+#' @seealso [objectives], [targets].
 #'
 #' @return [ConservationProblem-class()] object with the objective
 #'   added to it.

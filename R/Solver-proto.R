@@ -11,7 +11,7 @@ NULL
 #' optimization problems. **This class represents a recipe to
 #' create solver and and is only recommended for use by expert users. To
 #' customize the method used to solve optimization problems, please see the
-#' help page on [solvers()]**.
+#' help page on [solvers]**.
 #'
 #' @section Fields:
 #'

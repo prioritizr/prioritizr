@@ -82,7 +82,7 @@ indexed by \eqn{j}{j}) as:
   (xi * rij) >= (yj * tj) for all j in J & mb <= yj for all j in T(b) &
   sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
@@ -221,5 +221,5 @@ selection of networks of conservation areas. \emph{Biological Conservation},
 105: 103--111.
 }
 \seealso{
-\code{\link[=objectives]{objectives()}}, \code{\link[=branch_matrix]{branch_matrix()}}.
+\link{objectives}, \code{\link[=branch_matrix]{branch_matrix()}}.
 }

@@ -56,7 +56,7 @@ expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   sum_i^I (xi * rij) >= (yj tj) for all j in J &
   sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
@@ -123,5 +123,5 @@ persistence of biodiversity. \emph{Trends in Ecology & Evolution},
 16: 242--248.
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \code{\link[=objectives]{objectives()}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
 }

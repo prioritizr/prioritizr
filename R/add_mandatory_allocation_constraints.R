@@ -26,7 +26,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the constraints
 #'   added to it.
 #'
-#' @seealso [constraints()].
+#' @seealso [constraints].
 #'
 #' @examples
 #' # set seed for reproducibility

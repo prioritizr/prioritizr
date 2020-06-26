@@ -100,8 +100,8 @@ plot(s, main = titles, axes = FALSE, box = FALSE)
 
 }
 \seealso{
-\code{\link[=constraints]{constraints()}},  \code{\link[=decisions]{decisions()}},
-\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}},
-\code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=targets]{targets()}}.
+\link{constraints},  \link{decisions},
+\link{objectives}, \link{penalties},
+\link{portfolios}, \code{\link[=problem]{problem()}},
+\link{targets}.
 }

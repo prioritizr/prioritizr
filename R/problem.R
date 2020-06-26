@@ -8,9 +8,9 @@ NULL
 #' spatial distribution of the planning units and their costs, as well as
 #' the features (e.g. species, ecosystems) that need to be conserved. After
 #' constructing this `ConservationProblem-class` object, it can be
-#' customized to meet specific goals using [objectives()],
-#' [targets()], [constraints()], and
-#' [penalties()]. After building the problem, the
+#' customized to meet specific goals using [objectives],
+#' [targets], [constraints], and
+#' [penalties]. After building the problem, the
 #'  [solve()] function can be used to identify solutions.
 #'
 #' @param x [raster::Raster-class()],
@@ -169,7 +169,7 @@ NULL
 #'   Finally, in some types of reserve design models, representation targets
 #'   must be set for each conservation feature, such as 20 % of the current
 #'   extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-#'   (see [targets()]).
+#'   (see [targets]).
 #'
 #'   The goal of the reserve design exercise is then to optimize the trade-off
 #'   between conservation benefit and socioeconomic cost, i.e. to get the most
@@ -178,7 +178,7 @@ NULL
 #'   decision variables, subject to a series of constraints. The decision
 #'   variables are what we control, usually there is one binary variable for
 #'   each planning unit specifying whether or not to protect that unit (but
-#'   other approaches are available, see [decisions()]). The
+#'   other approaches are available, see [decisions]). The
 #'   constraints can be thought of as rules that need to be followed, for
 #'   example, that the reserve must stay within a certain budget or meet the
 #'   representation targets.
@@ -214,10 +214,10 @@ NULL
 #' @return A [ConservationProblem-class()] object containing the
 #'   basic data used to build a prioritization problem.
 #'
-#' @seealso [constraints()], [decisions()],
-#'  [objectives()] [penalties()],
-#'  [portfolios()], [solvers()], [targets()],
-#'  [feature_representation()], [irreplaceability()].
+#' @seealso [constraints], [decisions],
+#'  [objectives] [penalties],
+#'  [portfolios], [solvers], [targets],
+#'  [feature_representation()], [irreplaceability].
 #'
 #' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method
 #'

@@ -15,7 +15,7 @@ NULL
 #'
 #' @param ... arguments passed to the solver.
 #'
-#' @seealso [solvers()].
+#' @seealso [solvers].
 #'
 #' @export
 add_default_solver <- function(x, ...) {

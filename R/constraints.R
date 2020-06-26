@@ -10,7 +10,7 @@ NULL
 #'   a range of different characteristics. For instance, they can be
 #'   used to lock in or lock out certain planning units from the solution, such
 #'   as protected areas or degraded land (respectively).
-#'   Additionally, similar to the [penalties()] functions,
+#'   Additionally, similar to the [penalties] functions,
 #'   some of the constraint functions can be used to increase connectivity in a
 #'   solution. The key difference between a penalty and a constraint, however,
 #'   is that constraints work by invalidating solutions that do not exhibit
@@ -52,9 +52,9 @@ NULL
 #'
 #'  }
 #'
-#' @seealso [decisions()], [objectives()],
-#'  [penalties()], [portfolios()], [problem()],
-#'  [solvers()], [targets()].
+#' @seealso [decisions], [objectives],
+#'  [penalties], [portfolios], [problem()],
+#'  [solvers], [targets].
 #'
 #' @examples
 #' # load data

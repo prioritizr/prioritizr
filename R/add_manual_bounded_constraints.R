@@ -123,7 +123,7 @@ NULL
 #' spplot(s4, zcol = c("solution", "solution_bounded"), axes = FALSE,
 #'        box = FALSE)
 #' }
-#' @seealso [constraints()].
+#' @seealso [constraints].
 #'
 #' @name add_manual_bounded_constraints
 #'

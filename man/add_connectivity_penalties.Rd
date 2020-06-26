@@ -413,5 +413,5 @@ Incorporating asymmetric connectivity into spatial decision making for
 conservation, \emph{Conservation Letters}, 3: 359--368.
 }
 \seealso{
-\code{\link[=penalties]{penalties()}}.
+\link{penalties}.
 }

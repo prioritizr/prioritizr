@@ -188,5 +188,5 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=penalties]{penalties()}}.
+\link{constraints}, \link{penalties}.
 }

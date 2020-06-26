@@ -23,8 +23,8 @@ planning unit and zone data to ensure that the argument to
 Convert a \code{data.frame} object that follows the \emph{Marxan} format
 to a matrix format. This function is useful for converting
 \code{data.frame} objects to \code{matrix} or \code{array} objects that
-are used by the various \code{\link[=penalties]{penalties()}} and
-\code{\link[=constraints]{constraints()}} functions. If the boundary data contains data for
+are used by the various \link{penalties} and
+\link{constraints} functions. If the boundary data contains data for
 a single zone, then a matrix object is returned. Otherwise if the boundary
 data contains data for multiple zones, then an array is returned.
 }

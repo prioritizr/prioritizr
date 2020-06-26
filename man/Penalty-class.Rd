@@ -9,7 +9,7 @@ This prototype is used to represent penalties that are added to the
 objective function when making a conservation problem.
 \strong{This prototype represents a recipe, to actually
 add penalties to a planning problem, see the help page on
-\code{\link[=penalties]{penalties()}}. Only experts should use this class directly.} This
+\link{penalties}. Only experts should use this class directly.} This
 prototype inherits from the \code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
 }
 \seealso{

@@ -9,7 +9,7 @@ This prototype is used to represent methods for generating portfolios of
 optimization problems. \strong{This class represents a recipe to
 create portfolio generating method and is only recommended for use by expert
 users. To customize the method used to generate portfolios, please see the
-help page on \code{\link[=portfolios]{portfolios()}}}.
+help page on \link{portfolios}}.
 }
 \section{Fields}{
 

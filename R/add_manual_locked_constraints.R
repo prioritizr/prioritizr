@@ -122,7 +122,7 @@ NULL
 #' spplot(s4, zcol = c("solution", "solution_locked"), axes = FALSE,
 #'        box = FALSE)
 #' }
-#' @seealso [constraints()].
+#' @seealso [constraints].
 #'
 #' @name add_manual_locked_constraints
 #'

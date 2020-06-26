@@ -51,7 +51,7 @@ expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
   Maximize sum_i^I (-s * ci * xi) + sum_j^J (aj * wj) subject to
   aj = sum_i^I (xi * rij) for all j in J & sum_i^I (xi * ci) <= B}
 
-Here, \eqn{x_i}{xi} is the \code{\link[=decisions]{decisions()}} variable (e.g.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
 specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 unit \eqn{i}{i}, \eqn{A_j}{Aj} is the amount of feature \eqn{j}{j}
@@ -116,5 +116,5 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=add_feature_weights]{add_feature_weights()}}, \code{\link[=objectives]{objectives()}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
 }

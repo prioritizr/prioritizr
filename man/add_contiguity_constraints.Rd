@@ -202,5 +202,5 @@ plot(s7, "solution", axes = FALSE, box = FALSE)
 reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}.
+\link{constraints}.
 }

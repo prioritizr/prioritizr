@@ -91,7 +91,7 @@ plot(s, axes = FALSE, box = FALSE,
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}}, \code{\link[=decisions]{decisions()}},
-\code{\link[=penalties]{penalties()}}, \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
+\link{constraints}, \link{decisions},
+\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
+\link{solvers}, \link{targets}.
 }

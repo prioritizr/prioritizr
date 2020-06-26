@@ -34,7 +34,7 @@ solution pool to speed up the process of obtaining multiple solutions.
 However, it would sometimes return solutions that were not within the
 specified optimality gap. To address this, we have added alternative
 methods for generating solution portfolios, please refer to the
-\code{\link[=portfolios]{portfolios()}} documentation for more information.}
+\link{portfolios} documentation for more information.}
 }
 \examples{
 # set seed for reproducibility
@@ -84,5 +84,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link[=portfolios]{portfolios()}}.
+\link{portfolios}.
 }

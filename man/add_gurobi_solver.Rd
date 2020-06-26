@@ -99,5 +99,5 @@ if (require("gurobi")) {
 }
 }
 \seealso{
-\code{\link[=solvers]{solvers()}}.
+\link{solvers}.
 }

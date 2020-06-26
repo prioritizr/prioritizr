@@ -102,7 +102,7 @@ plot(stack(s[[5]]), axes = FALSE, box = FALSE)
 }
 }
 \seealso{
-\code{\link[=constraints]{constraints()}},  \code{\link[=decisions]{decisions()}},
-\code{\link[=objectives]{objectives()}} \code{\link[=penalties]{penalties()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
+\link{constraints},  \link{decisions},
+\link{objectives} \link{penalties}, \code{\link[=problem]{problem()}},
+\link{solvers}, \link{targets}.
 }

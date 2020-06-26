@@ -84,5 +84,5 @@ if (require(lpsymphony) &
 
 }
 \seealso{
-\code{\link[=solvers]{solvers()}}.
+\link{solvers}.
 }

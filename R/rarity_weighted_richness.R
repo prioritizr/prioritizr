@@ -121,7 +121,7 @@ NULL
 #' areas for conserving diversity using British birds.
 #' *Conservation Biology*, 10: 155--174.
 #'
-#' @seealso [irreplaceability()].
+#' @seealso [irreplaceability].
 #'
 #' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,sf-method rarity_weighted_richness,ConservationProblem,Raster-method
 #'

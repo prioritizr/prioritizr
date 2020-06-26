@@ -51,7 +51,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the weights
 #'   added to it.
 #'
-#' @seealso [objectives()].
+#' @seealso [objectives].
 #'
 #' @examples
 #' # load ape package

@@ -55,7 +55,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the targets added
 #'   to it.
 #'
-#' @seealso [targets()].
+#' @seealso [targets].
 #'
 #' @examples
 #' # set seed for reproducibility

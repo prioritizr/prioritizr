@@ -55,7 +55,7 @@ NULL
 #'   sum_i^I (xi * rij) >= (yj * 1) for all j in J &
 #'   sum_i^I (xi * ci) <= B}
 #'
-#'   Here, \eqn{x_i}{xi} is the [decisions()] variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #'   unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet

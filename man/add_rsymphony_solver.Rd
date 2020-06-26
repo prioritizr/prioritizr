@@ -78,5 +78,5 @@ if (require("Rsymphony")) {
 
 }
 \seealso{
-\code{\link[=solvers]{solvers()}}.
+\link{solvers}.
 }

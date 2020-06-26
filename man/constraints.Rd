@@ -12,7 +12,7 @@ Constraints can be used to ensure that solutions exhibit
 a range of different characteristics. For instance, they can be
 used to lock in or lock out certain planning units from the solution, such
 as protected areas or degraded land (respectively).
-Additionally, similar to the \code{\link[=penalties]{penalties()}} functions,
+Additionally, similar to the \link{penalties} functions,
 some of the constraint functions can be used to increase connectivity in a
 solution. The key difference between a penalty and a constraint, however,
 is that constraints work by invalidating solutions that do not exhibit
@@ -90,7 +90,7 @@ plot(s, box = FALSE, axes = FALSE, nr = 2,
 }
 }
 \seealso{
-\code{\link[=decisions]{decisions()}}, \code{\link[=objectives]{objectives()}},
-\code{\link[=penalties]{penalties()}}, \code{\link[=portfolios]{portfolios()}}, \code{\link[=problem]{problem()}},
-\code{\link[=solvers]{solvers()}}, \code{\link[=targets]{targets()}}.
+\link{decisions}, \link{objectives},
+\link{penalties}, \link{portfolios}, \code{\link[=problem]{problem()}},
+\link{solvers}, \link{targets}.
 }

@@ -46,9 +46,9 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [constraints()], [decisions()],
-#'   [penalties()], [portfolios()], [problem()],
-#'   [solvers()], [targets()].
+#' @seealso [constraints], [decisions],
+#'   [penalties], [portfolios], [problem()],
+#'   [solvers], [targets].
 #'
 #' @examples
 #' # load data

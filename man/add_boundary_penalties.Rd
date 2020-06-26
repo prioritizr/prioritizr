@@ -244,5 +244,5 @@ conservation planning problems with integer linear programming.
 \emph{Ecological Modelling}, 228: 14--22.
 }
 \seealso{
-\code{\link[=penalties]{penalties()}}.
+\link{penalties}.
 }

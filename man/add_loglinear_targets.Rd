@@ -113,5 +113,5 @@ and solutions for meeting national and global conservation area targets.
 \emph{Conservation Letters}, 8: 329--337.
 }
 \seealso{
-\code{\link[=targets]{targets()}}, \code{\link[=loglinear_interpolation]{loglinear_interpolation()}}.
+\link{targets}, \code{\link[=loglinear_interpolation]{loglinear_interpolation()}}.
 }

@@ -91,7 +91,7 @@ NULL
 #' @return [ConservationProblem-class()] object with the constraint
 #'   added to it.
 #'
-#' @seealso [constraints()], [penalties()].
+#' @seealso [constraints], [penalties].
 #'
 #' @references
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
