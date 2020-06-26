@@ -206,6 +206,11 @@ being minimized or maximized (e.g. solution cost when used with
     conservation problem to favor solutions that select
     planning units with high connectivity between them.</p></dd>
 
+  <dt><code><a href='add_linear_penalties.html'>add_linear_penalties</a></code></dt><dd><p>Add penalties to a
+    conservation problem to favor solutions that avoid selecting
+    planning units based on a certain variable
+    (e.g. anthropogenic pressure).</p></dd>
+
   
 </dl>
 
@@ -217,7 +222,7 @@ being minimized or maximized (e.g. solution cost when used with
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_points</span>, <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
 <span class='co'># create basic problem</span>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
@@ -238,9 +243,21 @@ being minimized or maximized (e.g. solution cost when used with
 
 <span class='co'># create problem with connectivity penalties</span>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span>(<span class='fl'>25</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>scm</span>)
+
+<span class='co'># create problem with linear penalties,</span>
+<span class='co'># here the penalties will be based on random numbers to keep it simple</span>
+
+<span class='co'># simulate penalty data</span>
+<span class='no'>sim_penalty_raster</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simulate_cost.html'>simulate_cost</a></span>(<span class='no'>sim_pu_raster</span>)
+
+<span class='co'># plot penalty data</span>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_penalty_raster</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"penalty data"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='penalties-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># create problem with linear penalties, with a penalty scaling factor of 100</span>
+<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_linear_penalties.html'>add_linear_penalties</a></span>(<span class='fl'>100</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sim_penalty_raster</span>)
+
 <span class='co'># \donttest{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -332,11 +349,42 @@ being minimized or maximized (e.g. solution cost when used with
 #&gt; Solution count 1: 3646.63 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.646629272370e+03, best bound 3.295277619827e+03, gap 9.6350%</div><div class='input'>
+#&gt; Best objective 3.646629272370e+03, best bound 3.295277619827e+03, gap 9.6350%
+#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
+#&gt; Model fingerprint: 0x76f97be6
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Coefficient statistics:
+#&gt;   Matrix range     [2e-01, 9e-01]
+#&gt;   Objective range  [2e+04, 2e+04]
+#&gt;   Bounds range     [1e+00, 1e+00]
+#&gt;   RHS range        [6e+00, 2e+01]
+#&gt; Found heuristic solution: objective 448327.49045
+#&gt; Presolve time: 0.00s
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; Variable types: 0 continuous, 90 integer (90 binary)
+#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
+#&gt; 
+#&gt; 
+#&gt; Root relaxation: objective 3.861099e+05, 15 iterations, 0.00 seconds
+#&gt; 
+#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+#&gt; 
+#&gt;      0     0 386109.872    0    4 448327.490 386109.872  13.9%     -    0s
+#&gt; H    0     0                    395536.44581 386109.872  2.38%     -    0s
+#&gt; 
+#&gt; Explored 1 nodes (15 simplex iterations) in 0.00 seconds
+#&gt; Thread count was 1 (of 4 available processors)
+#&gt; 
+#&gt; Solution count 2: 395536 448327 
+#&gt; 
+#&gt; Optimal solution found (tolerance 1.00e-01)
+#&gt; Best objective 3.955364458117e+05, best bound 3.861098723845e+05, gap 2.3832%</div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
      <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"boundary penalties"</span>,
-              <span class='st'>"connectivity penalties"</span>))</div><div class='img'><img src='penalties-1.png' alt='' width='700' height='433' /></div><div class='input'> # }
+              <span class='st'>"connectivity penalties"</span>, <span class='st'>"linear penalties"</span>))</div><div class='img'><img src='penalties-2.png' alt='' width='700' height='433' /></div><div class='input'> # }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

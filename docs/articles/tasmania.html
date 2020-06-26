@@ -260,7 +260,7 @@
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (5e-04), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<p>Next, we can solve the problem. The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
+<p>Next, we can solve the problem (see <a href="https://prioritizr.net/reference/solve.html"><code><a href="../reference/solve.html">?solve</a></code></a> for more information). The <em>prioritizr</em> R package supports three different exact algorithm software packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these different solvers, but each software should return similar results. Note that you will need at least one of these package installed on your system to solve problems. We recommend using the <em>gurobi</em> solver if possible, and have used this solver when building this tutorial. After solving the problem, we will calculate some statistics to describe the solution. Note that the planning unit selections are stored in the “solution_1” column of the solution object.</p>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p1</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
@@ -275,21 +275,21 @@
 ## Found heuristic solution: objective 30256.853351
 ## Found heuristic solution: objective 12699.649052
 ## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## Found heuristic solution: objective 11645.738446
 ## Variable types: 0 continuous, 3132 integer (3132 binary)
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.05 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.03 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
@@ -374,21 +374,21 @@
 ## Found heuristic solution: objective 30256.853351
 ## Found heuristic solution: objective 12699.649052
 ## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## Found heuristic solution: objective 11645.738446
 ## Variable types: 0 continuous, 3132 integer (3132 binary)
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.05 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
