@@ -79,5 +79,5 @@ parameter values.}
 }
 
 \seealso{
-\code{\link[=Parameter-class]{Parameter-class()}}.
+\linkS4class{Parameter}.
 }

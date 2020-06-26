@@ -25,10 +25,10 @@ rarity_weighted_richness(x, solution, ...)
 \S4method{rarity_weighted_richness}{ConservationProblem,Raster}(x, solution, rescale, ...)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster:Raster-classes]{raster::Raster-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+\link[raster:Raster-classes]{raster::Raster}, \link[sp:Spatial-class]{sp::Spatial},
 or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
 information.}
 
@@ -40,7 +40,7 @@ rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+\link[raster:Raster-classes]{raster::RasterLayer}, \link[sp:Spatial-class]{sp::Spatial},
 or \code{\link[sf:sf]{sf::sf()}} object containing the rarity weighted richness
 scores for each planning unit in the solution.
 }
@@ -79,13 +79,13 @@ of data representation, dimensionality, and spatial attributes (if
 applicable). This means that if the planning unit data in \code{x}
 is a \code{numeric} vector then the argument to \code{solution} must be a
 \code{numeric} vector with the same number of elements; if the planning
-unit data in \code{x} is a \code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} then the
+unit data in \code{x} is a \link[raster:Raster-classes]{raster::RasterLayer} then the
 argument to \code{solution} must also be a
-\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} with the same number of rows and
+\link[raster:Raster-classes]{raster::RasterLayer} with the same number of rows and
 columns and the same resolution, extent, and coordinate reference system;
-if the planning unit data in \code{x} is a \code{\link[sp:Spatial-class]{sp::Spatial-class()}}
+if the planning unit data in \code{x} is a \link[sp:Spatial-class]{sp::Spatial}
 object then the argument to \code{solution} must also be a
-\code{\link[sp:Spatial-class]{sp::Spatial-class()}} object and have the same number of spatial
+\link[sp:Spatial-class]{sp::Spatial} object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system;
 if the planning unit data in \code{x} is a \code{\link[sf:sf]{sf::sf()}}
 object then the argument to \code{solution} must also be a
@@ -148,5 +148,5 @@ areas for conserving diversity using British birds.
 \emph{Conservation Biology}, 10: 155--174.
 }
 \seealso{
-\code{\link[=irreplaceability]{irreplaceability()}}.
+\link{irreplaceability}.
 }

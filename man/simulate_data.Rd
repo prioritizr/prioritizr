@@ -7,7 +7,7 @@
 simulate_data(x, n, model, transform = identity, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} object to use as
+\item{x}{\link[raster:Raster-classes]{raster::RasterLayer} object to use as
 a template.}
 
 \item{n}{\code{integer} number of species to simulate.}
@@ -22,7 +22,7 @@ from the random fields simulation.}
 \code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
 }
 \value{
-\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object with a
+\link[raster:Raster-classes]{raster::RasterStack} object with a
 layer for each species.
 }
 \description{

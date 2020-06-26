@@ -11,7 +11,7 @@ NULL
 #' a single zone, then a matrix object is returned. Otherwise if the boundary
 #' data contains data for multiple zones, then an array is returned.
 #'
-#' @param x [ConservationProblem-class()] object that contains
+#' @param x [ConservationProblem-class] object that contains
 #'   planning unit and zone data to ensure that the argument to
 #'   `data` is converted correctly. This argument can be set to
 #'   `NULL` if checks are not required (not recommended).
@@ -20,7 +20,7 @@ NULL
 #'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
 #'   `"zone2"` can also be provided to indicate zone data.
 #'
-#' @return `array` or sparse matrix ([dgCMatrix-class()]) object.
+#' @return `array` or sparse matrix ([dgCMatrix-class]) object.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone

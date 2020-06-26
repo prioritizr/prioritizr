@@ -28,13 +28,13 @@ add_locked_in_constraints(x, locked_in)
 \S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{locked_in}{Object that determines which planning units that should be
 locked in. See the Details section for more information.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
+\linkS4class{ConservationProblem} object with the constraints
 added to it.
 }
 \description{
@@ -53,9 +53,9 @@ planning unit allocations to a specific value.
 The locked planning units can be specified in several different
 ways. Generally, the locked data should correspond to the planning units
 in the argument to \code{x.} To help make working with
-\code{\link[=Raster-class]{Raster-class()}} planning unit data easier,
+\linkS4class{Raster} planning unit data easier,
 the locked data should correspond to cell indices in the
-\code{\link[=Raster-class]{Raster-class()}} data. For example, \code{integer} arguments
+\linkS4class{Raster} data. For example, \code{integer} arguments
 should correspond to cell indices and \code{logical} arguments should have
 a value for each cell---regardless of which planning unit cells contain
 \code{NA} values.
@@ -82,26 +82,26 @@ value.}
 \item{\code{character}}{field (column) name(s) that indicate if planning
 units should be locked for the solution. This type of argument is only
 compatible if the planning units in the argument to \code{x} are a
-\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, \code{\link[sf:sf]{sf::sf()}}, or
+\link[sp:Spatial-class]{sp::Spatial}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame} object. The fields
 (columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
 values indicating if the planning unit is to be locked for the solution.
 For problems containing multiple zones, this argument should contain
 a field (column) name for each management zone.}
 
-\item{\code{\link[sp:Spatial-class]{sp::Spatial-class()}} or \code{\link[sf:sf]{sf::sf()}}}{
+\item{\link[sp:Spatial-class]{sp::Spatial} or \code{\link[sf:sf]{sf::sf()}}}{
 planning units in \code{x} that spatially intersect with the
 argument to \code{y} (according to \code{\link[=intersecting_units]{intersecting_units()}}
 are locked for to the solution. Note that this option is only available
 for problems that contain a single management zone.}
 
-\item{\code{\link[raster:Raster-classes]{raster::Raster-class()}}}{planning units in \code{x}
+\item{\link[raster:Raster-classes]{raster::Raster}}{planning units in \code{x}
 that intersect with non-zero and non-\code{NA} raster cells are locked
 for the solution. For problems that contain multiple zones, the
-\code{\link[raster:Raster-classes]{raster::Raster-class()}} object must contain a layer
+\link[raster:Raster-classes]{raster::Raster} object must contain a layer
 for each zone. Note that for multi-band arguments, each pixel must
 only contain a non-zero value in a single band. Additionally, if the
-cost data in \code{x} is a \code{\link[raster:Raster-classes]{raster::Raster-class()}} object, we
+cost data in \code{x} is a \link[raster:Raster-classes]{raster::Raster} object, we
 recommend standardizing \code{NA} values in this dataset with the cost
 data. In other words, the pixels in \code{x} that have \code{NA} values
 should also have \code{NA} values in the locked data.}

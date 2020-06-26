@@ -74,7 +74,7 @@ NULL
 #'
 #' @name MiscParameter-class
 #'
-#' @seealso [Parameter-class()].
+#' @seealso [Parameter-class].
 #'
 #' @aliases MiscParameter
 NULL

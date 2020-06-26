@@ -9,7 +9,7 @@ NULL
 #'  [add_gap_portfolio()] when the *Gurobi* software is not
 #'  available.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.
@@ -29,7 +29,7 @@ NULL
 #'
 #' @seealso [portfolios].
 #'
-#' @return [ConservationProblem-class()] object with the portfolio
+#' @return [ConservationProblem-class] object with the portfolio
 #'   added to it.
 #'
 #' @references

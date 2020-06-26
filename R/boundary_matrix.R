@@ -7,11 +7,11 @@ NULL
 #' between different planning units, and the amount of exposed edge length each
 #' planning unit exhibits.
 #'
-#' @param x [raster::Raster-class()],
-#'   [sp::SpatialLines-class()],
-#'   [sp::SpatialPolygons-class()],
+#' @param x [raster::Raster-class],
+#'   [sp::SpatialLines-class],
+#'   [sp::SpatialPolygons-class],
 #'   [sf::sf()] object representing planning units. If `x` is a
-#'   [raster::Raster-class()] object then it must have only one
+#'   [raster::Raster-class] object then it must have only one
 #'   layer.
 #'
 #' @param str_tree `logical` should a
@@ -26,7 +26,7 @@ NULL
 #'   using `TRUE` may crash Mac OSX systems.** The default argument
 #'   is `FALSE`.
 #'
-#' @details This function returns a [Matrix::dsCMatrix-class()]
+#' @details This function returns a [Matrix::dsCMatrix-class]
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
 #'   diagonal indicate length of a given planning unit's edges that have no
@@ -37,7 +37,7 @@ NULL
 #'   coordinate system (i.e.
 #'   [WGS84](http://spatialreference.org/ref/epsg/wgs-84/))
 #'   should be reprojected to another coordinate system before using this
-#'   function. Note that for [raster::Raster-class()] objects
+#'   function. Note that for [raster::Raster-class] objects
 #'   boundaries are missing for cells that have `NA` values in all cells.
 #'
 #' @return \code{[Matrix]{dsCMatrix-class}} object.

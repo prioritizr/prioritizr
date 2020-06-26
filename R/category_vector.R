@@ -7,7 +7,7 @@ NULL
 #' `integer` `vector` indicating the column index where each row is
 #' `1`.
 #'
-#' @param x `matrix`, `data.frame`, [sp::Spatial-class()],
+#' @param x `matrix`, `data.frame`, [sp::Spatial-class],
 #'   or [sf::sf()] object.
 #'
 #' @details This function is conceptually similar to [base::max.col()]

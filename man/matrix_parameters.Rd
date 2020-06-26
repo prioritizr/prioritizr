@@ -33,7 +33,7 @@ system.}
 Defaults to \code{FALSE}.}
 }
 \value{
-\code{\link[=MiscParameter-class]{MiscParameter-class()}} object.
+\linkS4class{MiscParameter} object.
 }
 \description{
 Create a parameter that represents a matrix object.

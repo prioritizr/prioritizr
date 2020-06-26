@@ -10,8 +10,8 @@ objective function when making a conservation problem.
 \strong{This prototype represents a recipe, to actually
 add penalties to a planning problem, see the help page on
 \link{penalties}. Only experts should use this class directly.} This
-prototype inherits from the \code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
+prototype inherits from the \linkS4class{ConservationModifier}.
 }
 \seealso{
-\code{\link[=ConservationModifier-class]{ConservationModifier-class()}}.
+\linkS4class{ConservationModifier}.
 }

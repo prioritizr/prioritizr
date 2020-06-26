@@ -5,11 +5,11 @@ NULL
 #'
 #' Solve a conservation planning [problem()].
 #'
-#' @param a [ConservationProblem-class()] or an
-#'   [OptimizationProblem-class()] object.
+#' @param a [ConservationProblem-class] or an
+#'   [OptimizationProblem-class] object.
 #'
-#' @param b [Solver-class()] object. Not used if `a` is an
-#'   [ConservationProblem-class()] object.
+#' @param b [Solver-class] object. Not used if `a` is an
+#'   [ConservationProblem-class] object.
 #'
 #' @param ... arguments passed to [compile()].
 #'
@@ -43,10 +43,10 @@ NULL
 #'
 #'   The object returned from this function depends on the argument to
 #'   `a`. If the argument to `a` is an
-#'   [OptimizationProblem-class()] object, then the
+#'   [OptimizationProblem-class] object, then the
 #'   solution is returned as a `logical` `vector` showing the status
 #'   of each planning unit in each zone. However, in most cases, the argument
-#'   to `a` is an [ConservationProblem-class()] object, and so
+#'   to `a` is an [ConservationProblem-class] object, and so
 #'   the type of object returned depends on the number of solutions
 #'   generated and the type data used to represent the planning units:
 #'
@@ -63,16 +63,16 @@ NULL
 #'     multiple solutions are generated, then the solution is returned as
 #'     a `list` of `matrix` objects.}
 #'
-#'   \item{[raster::Raster-class()]}{object containing the solution
+#'   \item{[raster::Raster-class]}{object containing the solution
 #'     in pixel values. If the argument to `x` contains a single
 #'     management zone, then a `RasterLayer` object will be returned.
 #'     Otherwise, if the argument to `x` contains multiple zones, then a
-#'     [raster::RasterStack-class()] object
+#'     [raster::RasterStack-class] object
 #'     will be returned containing a different layer for each management zone.
 #'     If multiple solutions are generated, then the solution is returned as
 #'     a `list` of `Raster` objects.}
 #'
-#'   \item{[sp::Spatial-class()], [sf::sf()], or
+#'   \item{[sp::Spatial-class], [sf::sf()], or
 #'     `data.frame`}{
 #'     containing the solution in fields (columns). Here, each row
 #'     corresponds to a different planning unit. If the argument to `x`
@@ -90,7 +90,7 @@ NULL
 #'   [category_vector()] function to reformat the output.
 #'
 #' @return A `numeric`, `matrix`,
-#'   [raster::RasterLayer-class()], [sp::Spatial-class()],
+#'   [raster::RasterLayer-class], [sp::Spatial-class],
 #'   or [sf::sf()] object containing the solution to the problem.
 #'   Additionally, the returned object will have the following additional
 #'   attributes: `"objective"` containing the solution's objective,

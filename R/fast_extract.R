@@ -3,11 +3,11 @@ NULL
 
 #' Fast extract
 #'
-#' Extract data from a [raster::Raster-class()] object.
+#' Extract data from a [raster::Raster-class] object.
 #'
-#' @param x [raster::Raster-class()] object.
+#' @param x [raster::Raster-class] object.
 #'
-#' @param y [sp::Spatial-class()] or
+#' @param y [sp::Spatial-class] or
 #'          [sf::sf()] object.
 #'
 #' @param fun `character` name of statistic to summarize data. Defaults
@@ -26,11 +26,11 @@ NULL
 #'
 #' @details This function is simply a wrapper that uses
 #'   [raster::extract()] to extract data for
-#'   [sp::SpatialPoints-class()] and
-#'   [sp::SpatialLines-class()] and
+#'   [sp::SpatialPoints-class] and
+#'   [sp::SpatialLines-class] and
 #'   non-polygonal [sf::sf()] data, and
 #'   [exactextractr::exact_extract()] for
-#'   [sp::SpatialPolygons-class()] and
+#'   [sp::SpatialPolygons-class] and
 #'   polygonal [sf::sf()] data.
 #'
 #' @name fast_extract

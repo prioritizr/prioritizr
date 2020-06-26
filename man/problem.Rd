@@ -52,11 +52,11 @@ problem(x, features, ...)
 \S4method{problem}{sf,ZonesCharacter}(x, features, cost_column, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
+\item{x}{\link[raster:Raster-classes]{raster::Raster},
 \code{\link[sf:sf]{sf::sf()}},
-\code{\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame-class()}},
-\code{\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame-class()}},
-\code{\link[sp:SpatialPointsDataFrame-class]{sp::SpatialPointsDataFrame-class()}},
+\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame},
+\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame},
+\link[sp:SpatialPointsDataFrame-class]{sp::SpatialPointsDataFrame},
 \code{\link[=data.frame]{data.frame()}} object,
 \code{\link[=numeric]{numeric()}} vector, or
 \code{\link[=matrix]{matrix()}} specifying the planning units to use in the reserve
@@ -140,7 +140,7 @@ is suggested to try setting \code{run_checks} to \code{FALSE}.}
 
 \item{cost_column}{\code{character} name or \code{integer} indicating the
 column(s) with the cost data. This argument must be supplied when the
-argument to \code{x} is a \code{\link[sp:Spatial-class]{sp::Spatial-class()}} or
+argument to \code{x} is a \link[sp:Spatial-class]{sp::Spatial} or
 \code{data.frame} object. This argument should contain the name of each
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
@@ -184,18 +184,18 @@ columns:
 }}
 
 \item{rij_matrix}{\code{list} of \code{matrix} or
-\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix-class()}}
+\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The \code{list} elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 \code{rij_matrix} can be a single \code{matrix} or
-\code{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix-class()}} when specifying a problem with a
+\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix} when specifying a problem with a
 single management zone. This argument is only used when the argument
 to \code{x} is a \code{numeric} or \code{matrix} object.}
 }
 \value{
-A \code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object containing the
+A \linkS4class{ConservationProblem} object containing the
 basic data used to build a prioritization problem.
 }
 \description{
@@ -455,5 +455,5 @@ spplot(s10, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 \link{constraints}, \link{decisions},
 \link{objectives} \link{penalties},
 \link{portfolios}, \link{solvers}, \link{targets},
-\code{\link[=feature_representation]{feature_representation()}}, \code{\link[=irreplaceability]{irreplaceability()}}.
+\code{\link[=feature_representation]{feature_representation()}}, \link{irreplaceability}.
 }

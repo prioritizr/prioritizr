@@ -11,11 +11,11 @@
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} or an
-\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
+\item{a}{\linkS4class{ConservationProblem} or an
+\linkS4class{OptimizationProblem} object.}
 
-\item{b}{\code{\link[=Solver-class]{Solver-class()}} object. Not used if \code{a} is an
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{b}{\linkS4class{Solver} object. Not used if \code{a} is an
+\linkS4class{ConservationProblem} object.}
 
 \item{...}{arguments passed to \code{\link[=compile]{compile()}}.}
 
@@ -30,7 +30,7 @@ the presolve checks. Defaults to \code{FALSE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+\link[raster:Raster-classes]{raster::RasterLayer}, \link[sp:Spatial-class]{sp::Spatial},
 or \code{\link[sf:sf]{sf::sf()}} object containing the solution to the problem.
 Additionally, the returned object will have the following additional
 attributes: \code{"objective"} containing the solution's objective,
@@ -66,10 +66,10 @@ to see if these potential issues are actually causing issues
 
 The object returned from this function depends on the argument to
 \code{a}. If the argument to \code{a} is an
-\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object, then the
+\linkS4class{OptimizationProblem} object, then the
 solution is returned as a \code{logical} \code{vector} showing the status
 of each planning unit in each zone. However, in most cases, the argument
-to \code{a} is an \code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object, and so
+to \code{a} is an \linkS4class{ConservationProblem} object, and so
 the type of object returned depends on the number of solutions
 generated and the type data used to represent the planning units:
 
@@ -86,16 +86,16 @@ and fields (columns) correspond to different  management zones. If
 multiple solutions are generated, then the solution is returned as
 a \code{list} of \code{matrix} objects.}
 
-\item{\code{\link[raster:Raster-classes]{raster::Raster-class()}}}{object containing the solution
+\item{\link[raster:Raster-classes]{raster::Raster}}{object containing the solution
 in pixel values. If the argument to \code{x} contains a single
 management zone, then a \code{RasterLayer} object will be returned.
 Otherwise, if the argument to \code{x} contains multiple zones, then a
-\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object
+\link[raster:Raster-classes]{raster::RasterStack} object
 will be returned containing a different layer for each management zone.
 If multiple solutions are generated, then the solution is returned as
 a \code{list} of \code{Raster} objects.}
 
-\item{\code{\link[sp:Spatial-class]{sp::Spatial-class()}}, \code{\link[sf:sf]{sf::sf()}}, or
+\item{\link[sp:Spatial-class]{sp::Spatial}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame}}{
 containing the solution in fields (columns). Here, each row
 corresponds to a different planning unit. If the argument to \code{x}

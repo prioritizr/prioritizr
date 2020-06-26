@@ -7,14 +7,14 @@ NULL
 #' each other. Note that this also include planning units that overlap
 #' with each other too.
 #'
-#' @param x [raster::Raster-class()],
-#'   [sp::SpatialPolygons-class()],
-#'   [sp::SpatialLines-class()],
+#' @param x [raster::Raster-class],
+#'   [sp::SpatialPolygons-class],
+#'   [sp::SpatialLines-class],
 #'   or [sf::sf()] object
 #'   representing planning units.
 #'
 #' @param directions `integer` If `x` is a
-#'   [raster::Raster-class()] object, the number of directions
+#'   [raster::Raster-class] object, the number of directions
 #'   in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 #'   case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 #'   with one-cell diagonal moves.
@@ -22,21 +22,21 @@ NULL
 #' @param ... not used.
 #'
 #' @details Spatial processing is completed using
-#'   [sf::st_intersects()] for [sp::Spatial-class()] and
+#'   [sf::st_intersects()] for [sp::Spatial-class] and
 #'   [sf::sf()] objects,
-#'   and [raster::adjacent()] for [raster::Raster-class()]
+#'   and [raster::adjacent()] for [raster::Raster-class]
 #'   objects.
 #'   Prior to version 5.0.0,  this function was named
 #'   `connected_matrix`. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
-#' @return [Matrix::dsCMatrix-class()] sparse symmetric matrix.
+#' @return [Matrix::dsCMatrix-class] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if different planning units are
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [raster::Raster-class()] object, then cells with `NA`
+#'   [raster::Raster-class] object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name adjacency_matrix

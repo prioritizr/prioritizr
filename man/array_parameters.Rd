@@ -44,7 +44,7 @@ value for each element in \code{value}. Defaults to the
 largest  possible number on the system.}
 }
 \value{
-\code{\link[=ArrayParameter-class]{ArrayParameter-class()}} object.
+\linkS4class{ArrayParameter} object.
 }
 \description{
 Create parameters that consist of multiple numbers. If an attempt is made

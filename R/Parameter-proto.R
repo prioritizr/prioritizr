@@ -49,7 +49,7 @@ NULL
 #' \item{reset}{change the parameter values to be the default values.}
 #' }
 #'
-#' @seealso [ScalarParameter-class()].
+#' @seealso [ScalarParameter-class].
 #'
 #' @name Parameter-class
 #'

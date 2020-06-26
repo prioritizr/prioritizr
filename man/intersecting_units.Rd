@@ -37,9 +37,9 @@ intersecting_units(x, y)
 \S4method{intersecting_units}{data.frame,ANY}(x, y)
 }
 \arguments{
-\item{x}{\code{\link[=Spatial-class]{Spatial-class()}} or \code{\link[=Raster-class]{Raster-class()}} object.}
+\item{x}{\linkS4class{Spatial} or \linkS4class{Raster} object.}
 
-\item{y}{\code{\link[=Spatial-class]{Spatial-class()}} or \code{\link[=Raster-class]{Raster-class()}} object.}
+\item{y}{\linkS4class{Spatial} or \linkS4class{Raster} object.}
 }
 \value{
 \code{integer} indices of the units in \code{x} that intersect with

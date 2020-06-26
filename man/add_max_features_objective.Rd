@@ -7,7 +7,7 @@
 add_max_features_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,7 +16,7 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the objective
+\linkS4class{ConservationProblem} object with the objective
 added to it.
 }
 \description{

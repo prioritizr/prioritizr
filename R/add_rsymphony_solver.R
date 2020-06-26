@@ -8,7 +8,7 @@ NULL
 #' function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{Rsymphony} package.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is absolute and
 #'   expresses the acceptable deviance from the optimal objective. For example,

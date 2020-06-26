@@ -55,5 +55,5 @@ permitted value for each element in \verb{$value}.}
 }
 
 \seealso{
-\code{\link[=ScalarParameter-class]{ScalarParameter-class()}}.
+\linkS4class{ScalarParameter}.
 }

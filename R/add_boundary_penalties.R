@@ -6,7 +6,7 @@ NULL
 #' Add penalties to a conservation planning [problem()] to favour
 #' solutions that have planning units clumped together into contiguous areas.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared
@@ -121,7 +121,7 @@ NULL
 #'  benefit and not minimize some measure of cost, the term \eqn{p} is
 #'  replaced with \eqn{-p}.
 #'
-#' @return [ConservationProblem-class()] object with the penalties
+#' @return [ConservationProblem-class] object with the penalties
 #'  added to it.
 #'
 #' @seealso [penalties].

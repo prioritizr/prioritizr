@@ -8,10 +8,10 @@
 \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraints
+\linkS4class{ConservationProblem} object with the constraints
 added to it.
 }
 \description{

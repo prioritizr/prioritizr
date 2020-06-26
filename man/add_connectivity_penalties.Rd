@@ -20,7 +20,7 @@
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units with strong connectivity between them compared
@@ -56,7 +56,7 @@ that are associated with higher values are more favorable in the solution.
 See the Details section for more information.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the penalties
+\linkS4class{ConservationProblem} object with the penalties
 added to it.
 }
 \description{

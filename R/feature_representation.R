@@ -5,10 +5,10 @@ NULL
 #'
 #' Calculate how well features are represented in a solution.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
-#'   [raster::Raster-class()], [sp::Spatial-class()],
+#'   [raster::Raster-class], [sp::Spatial-class],
 #'   or [sf::sf()] object. See the Details section for more
 #'   information.
 #'
@@ -18,12 +18,12 @@ NULL
 #'   This means that if the planning unit data in `x` is a `numeric`
 #'   vector then the argument to `solution` must be a `numeric` vector
 #'   with the same number of elements, if the planning unit data in `x` is
-#'   a [raster::RasterLayer-class()] then the argument to
-#'   `solution` must also be a [raster::RasterLayer-class()] with
+#'   a [raster::RasterLayer-class] then the argument to
+#'   `solution` must also be a [raster::RasterLayer-class] with
 #'   the same number of rows and columns and the same resolution, extent, and
 #'   coordinate reference system, if the planning unit data in `x` is a
-#'   [sp::Spatial-class()] or [sf::sf()] object then the
-#'   argument to `solution` must also be a [sp::Spatial-class()]
+#'   [sp::Spatial-class] or [sf::sf()] object then the
+#'   argument to `solution` must also be a [sp::Spatial-class]
 #'   or [sf::sf()] object, respectively, and have the same number of
 #'   spatial features (e.g. polygons) and have the same coordinate reference
 #'   system, if the planning units in `x` are a `data.frame` then the

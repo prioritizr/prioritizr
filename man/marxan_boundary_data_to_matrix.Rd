@@ -7,7 +7,7 @@
 marxan_boundary_data_to_matrix(x, data)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object that contains
+\item{x}{\linkS4class{ConservationProblem} object that contains
 planning unit and zone data to ensure that the argument to
 \code{data} is converted correctly. This argument can be set to
 \code{NULL} if checks are not required (not recommended).}
@@ -17,7 +17,7 @@ planning unit and zone data to ensure that the argument to
 \code{"zone2"} can also be provided to indicate zone data.}
 }
 \value{
-\code{array} or sparse matrix (\code{\link[=dgCMatrix-class]{dgCMatrix-class()}}) object.
+\code{array} or sparse matrix (\linkS4class{dgCMatrix}) object.
 }
 \description{
 Convert a \code{data.frame} object that follows the \emph{Marxan} format

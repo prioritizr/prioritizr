@@ -13,8 +13,8 @@ presolve_check(x)
 \method{presolve_check}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} or an
-\code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} or an
+\linkS4class{OptimizationProblem} object.}
 }
 \value{
 \code{logical} value indicating if all checks are passed

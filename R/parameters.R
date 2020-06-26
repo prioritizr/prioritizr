@@ -39,7 +39,7 @@ NULL
 #'
 #'   }
 #'
-#' @return [ScalarParameter-class()] object.
+#' @return [ScalarParameter-class] object.
 #'
 #' @examples
 #' # proportion parameter
@@ -180,7 +180,7 @@ numeric_parameter <- function(name, value,
 #'
 #' }
 #'
-#' @return [ArrayParameter-class()] object.
+#' @return [ArrayParameter-class] object.
 #'
 #' @examples
 #' # proportion parameter array
@@ -336,7 +336,7 @@ numeric_parameter_array <- function(name, value, label,
 #'   should must have a single argument that accepts a valid object and return
 #'   a `shiny.tag` or `shiny.tag.list` object.
 #'
-#' @return [MiscParameter-class()] object.
+#' @return [MiscParameter-class] object.
 #'
 #' @examples
 #' # load data
@@ -399,7 +399,7 @@ misc_parameter <- function(name, value, validator, widget) {
 #' @param symmetric `logical` must the must be matrix be symmetric?
 #'   Defaults to `FALSE`.
 #'
-#' @return [MiscParameter-class()] object.
+#' @return [MiscParameter-class] object.
 #'
 #' @examples
 #' # create matrix
@@ -469,9 +469,9 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
 #'
 #' Create a new collection of `Parameter` objects.
 #'
-#' @param ... [Parameter-class()] objects.
+#' @param ... [Parameter-class] objects.
 #'
-#' @return [Parameters-class()] object.
+#' @return [Parameters-class] object.
 #'
 #' @seealso [array_parameters()], [scalar_parameters()].
 #'

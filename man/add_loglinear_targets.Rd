@@ -17,7 +17,7 @@ add_loglinear_targets(
 )
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{lower_bound_amount}{\code{numeric} threshold.}
 
@@ -42,7 +42,7 @@ Defaults to \code{NULL} so that targets are not capped.}
 use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the targets added
+\linkS4class{ConservationProblem} object with the targets added
 to it.
 }
 \description{
@@ -81,7 +81,7 @@ the argument to \code{features} in the function \code{\link[=problem]{problem()}
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
 
 This function can only be applied to
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} objects that are associated with a
+\linkS4class{ConservationProblem} objects that are associated with a
 single zone.
 }
 \examples{

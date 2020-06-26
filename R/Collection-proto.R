@@ -8,11 +8,11 @@ NULL
 #' Collection prototype
 #'
 #' This prototype represents a collection of
-#' [ConservationModifier-class()] objects.
+#' [ConservationModifier-class] objects.
 #'
 #' @section Fields:
 #' \describe{
-#'   \item{$...}{[ConservationModifier-class()] objects stored
+#'   \item{$...}{[ConservationModifier-class] objects stored
 #'      in the collection.}
 #' }
 #'
@@ -68,7 +68,7 @@ NULL
 #' \item{find_parameter}{`character` id for object inside collection which
 #'   contains the input `character` object as a parameter.}
 #'
-#' \item{add}{add [ConservationModifier-class()] object.}
+#' \item{add}{add [ConservationModifier-class] object.}
 #'
 #' \item{remove}{remove an item from the collection.}
 #'
@@ -86,7 +86,7 @@ NULL
 #'
 #' }
 #'
-#' @seealso [Constraint-class()], [Penalty-class()].
+#' @seealso [Constraint-class], [Penalty-class].
 #'
 #' @name Collection-class
 #'

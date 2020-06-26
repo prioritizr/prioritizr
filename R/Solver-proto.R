@@ -25,7 +25,7 @@ NULL
 #'   the the solver.}
 #'
 #' \item{$solve}{`function` used to solve a
-#'   [OptimizationProblem-class()] object.}
+#'   [OptimizationProblem-class] object.}
 #' }
 #'
 #' @section Usage:
@@ -53,9 +53,9 @@ NULL
 #' @section Arguments:
 #' \describe{
 #'
-#' \item{x}{[Solver-class()] object.}
+#' \item{x}{[Solver-class] object.}
 #'
-#' \item{op}{[OptimizationProblem-class()] object.}
+#' \item{op}{[OptimizationProblem-class] object.}
 #'
 #' }
 #'
@@ -83,12 +83,12 @@ NULL
 #'   a pre-calculated optimization problem stored in the solver.}
 #
 #' \item{calculate}{ingest a general purpose
-#'   [OptimizationProblem-class()] object and convert it to the
+#'   [OptimizationProblem-class] object and convert it to the
 #'   correct format for the solver.}
 
 #' \item{run}{run the solver and output a solution}
 #'
-#' \item{solve}{solve an [OptimizationProblem-class()] using this
+#' \item{solve}{solve an [OptimizationProblem-class] using this
 #'   object.}
 #'
 #' }

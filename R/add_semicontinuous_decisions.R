@@ -15,7 +15,7 @@ NULL
 #' type of decision may be useful when it is not practical to conserve entire
 #' planning units.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param upper_limit `numeric` value specifying the maximum proportion
 #'   of a planning unit that can be reserved (e.g. set to 0.8 for 80%).

@@ -6,12 +6,12 @@
 \title{Collection prototype}
 \description{
 This prototype represents a collection of
-\code{\link[=ConservationModifier-class]{ConservationModifier-class()}} objects.
+\linkS4class{ConservationModifier} objects.
 }
 \section{Fields}{
 
 \describe{
-\item{$...}{\code{\link[=ConservationModifier-class]{ConservationModifier-class()}} objects stored
+\item{$...}{\linkS4class{ConservationModifier} objects stored
 in the collection.}
 }
 }
@@ -73,7 +73,7 @@ contains the input id.}
 \item{find_parameter}{\code{character} id for object inside collection which
 contains the input \code{character} object as a parameter.}
 
-\item{add}{add \code{\link[=ConservationModifier-class]{ConservationModifier-class()}} object.}
+\item{add}{add \linkS4class{ConservationModifier} object.}
 
 \item{remove}{remove an item from the collection.}
 
@@ -93,5 +93,5 @@ containing all the parameters" widgets.}
 }
 
 \seealso{
-\code{\link[=Constraint-class]{Constraint-class()}}, \code{\link[=Penalty-class]{Penalty-class()}}.
+\linkS4class{Constraint}, \linkS4class{Penalty}.
 }

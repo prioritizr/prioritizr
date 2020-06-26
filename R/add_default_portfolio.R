@@ -6,7 +6,7 @@ NULL
 #' Generate a portfolio for a conservation planning [problem()]
 #' that contains a single solution.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @seealso [portfolios].
 #'

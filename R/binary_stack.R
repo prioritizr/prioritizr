@@ -3,20 +3,20 @@ NULL
 
 #' Binary stack
 #'
-#' Convert a [raster::RasterLayer-class()] object containing
-#' categorical identifiers into a [raster::RasterStack-class()]
+#' Convert a [raster::RasterLayer-class] object containing
+#' categorical identifiers into a [raster::RasterStack-class]
 #' object where each layer corresponds to a different identifier and values
 #' indicate the presence/absence of that category in the input object.
 #'
-#' @param x [raster::Raster-class()] object containing a single layer.
+#' @param x [raster::Raster-class] object containing a single layer.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful
 #'   for preparing raster data for [add_locked_in_constraints()] and
 #'   [add_locked_out_constraints()] since they require binary
-#'   [raster::RasterStack-class()] objects as input arguments.
+#'   [raster::RasterStack-class] objects as input arguments.
 #'
-#' @return [raster::RasterStack-class()] object.
+#' @return [raster::RasterStack-class] object.
 #'
 #' @seealso [category_layer()].
 #'

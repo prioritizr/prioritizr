@@ -7,7 +7,7 @@
 add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 
@@ -20,7 +20,7 @@ Note that the gap specified in the solver (i.e.
 specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the portfolio
+\linkS4class{ConservationProblem} object with the portfolio
 added to it.
 }
 \description{

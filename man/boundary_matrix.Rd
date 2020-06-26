@@ -25,11 +25,11 @@ boundary_matrix(x, str_tree)
 \method{boundary_matrix}{default}(x, str_tree = FALSE)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
-\code{\link[sp:SpatialLines-class]{sp::SpatialLines-class()}},
-\code{\link[sp:SpatialPolygons-class]{sp::SpatialPolygons-class()}},
+\item{x}{\link[raster:Raster-classes]{raster::Raster},
+\link[sp:SpatialLines-class]{sp::SpatialLines},
+\link[sp:SpatialPolygons-class]{sp::SpatialPolygons},
 \code{\link[sf:sf]{sf::sf()}} object representing planning units. If \code{x} is a
-\code{\link[raster:Raster-classes]{raster::Raster-class()}} object then it must have only one
+\link[raster:Raster-classes]{raster::Raster} object then it must have only one
 layer.}
 
 \item{str_tree}{\code{logical} should a
@@ -53,7 +53,7 @@ between different planning units, and the amount of exposed edge length each
 planning unit exhibits.
 }
 \details{
-This function returns a \code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix-class()}}
+This function returns a \link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix}
 symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 the shared boundary between two different planning units. Cells on the
 diagonal indicate length of a given planning unit's edges that have no
@@ -64,7 +64,7 @@ between two points on the earth}. Thus spatial data in a longitude/latitude
 coordinate system (i.e.
 \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
-function. Note that for \code{\link[raster:Raster-classes]{raster::Raster-class()}} objects
+function. Note that for \link[raster:Raster-classes]{raster::Raster} objects
 boundaries are missing for cells that have \code{NA} values in all cells.
 }
 \examples{

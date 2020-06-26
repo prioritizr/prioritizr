@@ -7,10 +7,10 @@
 parameters(...)
 }
 \arguments{
-\item{...}{\code{\link[=Parameter-class]{Parameter-class()}} objects.}
+\item{...}{\linkS4class{Parameter} objects.}
 }
 \value{
-\code{\link[=Parameters-class]{Parameters-class()}} object.
+\linkS4class{Parameters} object.
 }
 \description{
 Create a new collection of \code{Parameter} objects.

@@ -22,9 +22,9 @@ fast_extract(x, y, ...)
 \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}} object.}
+\item{x}{\link[raster:Raster-classes]{raster::Raster} object.}
 
-\item{y}{\code{\link[sp:Spatial-class]{sp::Spatial-class()}} or
+\item{y}{\link[sp:Spatial-class]{sp::Spatial} or
 \code{\link[sf:sf]{sf::sf()}} object.}
 
 \item{...}{not used.}
@@ -40,16 +40,16 @@ in the argument to \code{y} and columns correspond to different raster
 layers in the argument to \code{x}.
 }
 \description{
-Extract data from a \code{\link[raster:Raster-classes]{raster::Raster-class()}} object.
+Extract data from a \link[raster:Raster-classes]{raster::Raster} object.
 }
 \details{
 This function is simply a wrapper that uses
 \code{\link[raster:extract]{raster::extract()}} to extract data for
-\code{\link[sp:SpatialPoints-class]{sp::SpatialPoints-class()}} and
-\code{\link[sp:SpatialLines-class]{sp::SpatialLines-class()}} and
+\link[sp:SpatialPoints-class]{sp::SpatialPoints} and
+\link[sp:SpatialLines-class]{sp::SpatialLines} and
 non-polygonal \code{\link[sf:sf]{sf::sf()}} data, and
 \code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for
-\code{\link[sp:SpatialPolygons-class]{sp::SpatialPolygons-class()}} and
+\link[sp:SpatialPolygons-class]{sp::SpatialPolygons} and
 polygonal \code{\link[sf:sf]{sf::sf()}} data.
 }
 \examples{

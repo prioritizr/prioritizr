@@ -11,9 +11,9 @@ NULL
 #' prioritization. **This prototype represents a recipe, to actually
 #' add constraints to a planning problem, see the help page on
 #' [constraints]. Only experts should use this class directly.** This
-#' prototype inherits from the [ConservationModifier-class()].
+#' prototype inherits from the [ConservationModifier-class].
 #'
-#' @seealso [ConservationModifier-class()].
+#' @seealso [ConservationModifier-class].
 #'
 #' @name Constraint-class
 #'

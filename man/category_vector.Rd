@@ -19,7 +19,7 @@ category_vector(x)
 \method{category_vector}{matrix}(x)
 }
 \arguments{
-\item{x}{\code{matrix}, \code{data.frame}, \code{\link[sp:Spatial-class]{sp::Spatial-class()}},
+\item{x}{\code{matrix}, \code{data.frame}, \link[sp:Spatial-class]{sp::Spatial},
 or \code{\link[sf:sf]{sf::sf()}} object.}
 }
 \value{

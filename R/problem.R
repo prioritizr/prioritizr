@@ -13,11 +13,11 @@ NULL
 #' [penalties]. After building the problem, the
 #'  [solve()] function can be used to identify solutions.
 #'
-#' @param x [raster::Raster-class()],
+#' @param x [raster::Raster-class],
 #'   [sf::sf()],
-#'   [sp::SpatialPolygonsDataFrame-class()],
-#'   [sp::SpatialLinesDataFrame-class()],
-#'   [sp::SpatialPointsDataFrame-class()],
+#'   [sp::SpatialPolygonsDataFrame-class],
+#'   [sp::SpatialLinesDataFrame-class],
+#'   [sp::SpatialPointsDataFrame-class],
 #'   [data.frame()] object,
 #'   [numeric()] vector, or
 #'   [matrix()] specifying the planning units to use in the reserve
@@ -93,7 +93,7 @@ NULL
 #'
 #' @param cost_column `character` name or `integer` indicating the
 #'   column(s) with the cost data. This argument must be supplied when the
-#'   argument to `x` is a [sp::Spatial-class()] or
+#'   argument to `x` is a [sp::Spatial-class] or
 #'   `data.frame` object. This argument should contain the name of each
 #'   column containing cost data for each management zone when creating
 #'   problems with multiple zones. To create a problem with a single zone, then
@@ -122,13 +122,13 @@ NULL
 #'    }
 #'
 #' @param rij_matrix `list` of `matrix` or
-#'    [Matrix::dgCMatrix-class()]
+#'    [Matrix::dgCMatrix-class]
 #'    objects specifying the amount of each feature (rows) within each planning
 #'    unit (columns) for each zone. The `list` elements denote
 #'    different zones, matrix rows denote features, and matrix columns denote
 #'    planning units. For convenience, the argument to
 #'    `rij_matrix` can be a single `matrix` or
-#'    [Matrix::dgCMatrix-class()] when specifying a problem with a
+#'    [Matrix::dgCMatrix-class] when specifying a problem with a
 #'    single management zone. This argument is only used when the argument
 #'    to `x` is a `numeric` or `matrix` object.
 #'
@@ -211,7 +211,7 @@ NULL
 #'   initialize large-scale conservation planning problems that involve
 #'   millions of planning units.
 #'
-#' @return A [ConservationProblem-class()] object containing the
+#' @return A [ConservationProblem-class] object containing the
 #'   basic data used to build a prioritization problem.
 #'
 #' @seealso [constraints], [decisions],

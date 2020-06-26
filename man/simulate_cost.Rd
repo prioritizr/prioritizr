@@ -14,7 +14,7 @@ simulate_cost(
 )
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} object to use as
+\item{x}{\link[raster:Raster-classes]{raster::RasterLayer} object to use as
 a template.}
 
 \item{n}{\code{integer} number of species to simulate.}
@@ -29,7 +29,7 @@ from the random fields simulation.}
 \code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
 }
 \value{
-\code{\link[raster:Raster-classes]{raster::RasterStack-class()}} object.
+\link[raster:Raster-classes]{raster::RasterStack} object.
 }
 \description{
 This function generates cost layers using random field models. By default,

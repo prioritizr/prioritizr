@@ -10,7 +10,7 @@ predefined_optimization_problem(x)
 \item{x}{\code{list} object containing data to construct the problem.}
 }
 \description{
-Create a new \code{\link[=OptimizationProblem-class]{OptimizationProblem-class()}} object.
+Create a new \linkS4class{OptimizationProblem} object.
 }
 \details{
 The argument to \code{x} must be a list that contains the following

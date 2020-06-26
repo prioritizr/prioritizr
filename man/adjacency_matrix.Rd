@@ -25,28 +25,28 @@ adjacency_matrix(x, ...)
 \method{adjacency_matrix}{default}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}},
-\code{\link[sp:SpatialPolygons-class]{sp::SpatialPolygons-class()}},
-\code{\link[sp:SpatialLines-class]{sp::SpatialLines-class()}},
+\item{x}{\link[raster:Raster-classes]{raster::Raster},
+\link[sp:SpatialPolygons-class]{sp::SpatialPolygons},
+\link[sp:SpatialLines-class]{sp::SpatialLines},
 or \code{\link[sf:sf]{sf::sf()}} object
 representing planning units.}
 
 \item{...}{not used.}
 
 \item{directions}{\code{integer} If \code{x} is a
-\code{\link[raster:Raster-classes]{raster::Raster-class()}} object, the number of directions
+\link[raster:Raster-classes]{raster::Raster} object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.}
 }
 \value{
-\code{\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix-class()}} sparse symmetric matrix.
+\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix} sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate if different planning units are
 adjacent to each other or not (using ones and zeros).
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\code{\link[raster:Raster-classes]{raster::Raster-class()}} object, then cells with \code{NA}
+\link[raster:Raster-classes]{raster::Raster} object, then cells with \code{NA}
 values are set to zero too.
 }
 \description{
@@ -56,9 +56,9 @@ with each other too.
 }
 \details{
 Spatial processing is completed using
-\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\link[sp:Spatial-class]{sp::Spatial-class()}} and
+\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \link[sp:Spatial-class]{sp::Spatial} and
 \code{\link[sf:sf]{sf::sf()}} objects,
-and \code{\link[raster:adjacent]{raster::adjacent()}} for \code{\link[raster:Raster-classes]{raster::Raster-class()}}
+and \code{\link[raster:adjacent]{raster::adjacent()}} for \link[raster:Raster-classes]{raster::Raster}
 objects.
 Prior to version 5.0.0,  this function was named
 \code{connected_matrix}. It has been renamed to be consistent

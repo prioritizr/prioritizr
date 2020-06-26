@@ -3,9 +3,9 @@ NULL
 
 #' Optimization problem
 #'
-#' Generate a new empty [OptimizationProblem-class()] object.
+#' Generate a new empty [OptimizationProblem-class] object.
 #'
-#' @return [OptimizationProblem-class()] object.
+#' @return [OptimizationProblem-class] object.
 #'
 #' @seealso [OptimizationProblem-methods()]
 #'

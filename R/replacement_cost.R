@@ -6,10 +6,10 @@ NULL
 #' Calculate irreplaceability scores for planning units selected in a solution
 #' based on the replacement cost method (Cabeza and Moilanen 2006).
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
-#'   [raster::Raster-class()], [sp::Spatial-class()],
+#'   [raster::Raster-class], [sp::Spatial-class],
 #'   or [sf::sf()] object. See the Details section for more
 #'   information.
 #'
@@ -66,13 +66,13 @@ NULL
 #'   applicable). This means that if the planning unit data in `x`
 #'   is a `numeric` vector then the argument to `solution` must be a
 #'   `numeric` vector with the same number of elements; if the planning
-#'   unit data in `x` is a [raster::RasterLayer-class()] then the
+#'   unit data in `x` is a [raster::RasterLayer-class] then the
 #'   argument to `solution` must also be a
-#'   [raster::RasterLayer-class()] with the same number of rows and
+#'   [raster::RasterLayer-class] with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system;
-#'   if the planning unit data in `x` is a [sp::Spatial-class()]
+#'   if the planning unit data in `x` is a [sp::Spatial-class]
 #'   object then the argument to `solution` must also be a
-#'   [sp::Spatial-class()] object and have the same number of spatial
+#'   [sp::Spatial-class] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
 #'   if the planning unit data in `x` is a [sf::sf()]
 #'   object then the argument to `solution` must also be a
@@ -95,7 +95,7 @@ NULL
 #'   `solution` where this is not the case, then an error will be thrown.
 #'
 #' @return A `numeric`, `matrix`,
-#'   [raster::RasterLayer-class()], [sp::Spatial-class()],
+#'   [raster::RasterLayer-class], [sp::Spatial-class],
 #'   or [sf::sf()] object containing the replacement costs for each
 #'   planning unit in the solution.
 #'

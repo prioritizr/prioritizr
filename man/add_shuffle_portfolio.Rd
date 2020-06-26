@@ -12,7 +12,7 @@ add_shuffle_portfolio(
 )
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
@@ -24,7 +24,7 @@ the solution portfolio. Defaults to 1.}
 be removed? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the portfolio
+\linkS4class{ConservationProblem} object with the portfolio
 added to it.
 }
 \description{

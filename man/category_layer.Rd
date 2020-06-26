@@ -7,17 +7,17 @@
 category_layer(x)
 }
 \arguments{
-\item{x}{\code{\link[raster:Raster-classes]{raster::Raster-class()}} object containing a multiple
+\item{x}{\link[raster:Raster-classes]{raster::Raster} object containing a multiple
 layers. Note that pixels must be 0, 1 or \code{NA} values.}
 }
 \value{
-\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} object.
+\link[raster:Raster-classes]{raster::RasterLayer} object.
 }
 \description{
-Convert a \code{\link[raster:Raster-classes]{raster::RasterStack-class()}}
+Convert a \link[raster:Raster-classes]{raster::RasterStack}
 object where each layer corresponds to a different identifier and values
 indicate the presence/absence of that category into a
-\code{\link[raster:Raster-classes]{raster::RasterLayer-class()}} object containing categorical
+\link[raster:Raster-classes]{raster::RasterLayer} object containing categorical
 identifiers.
 }
 \details{

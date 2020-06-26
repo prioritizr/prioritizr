@@ -87,5 +87,5 @@ parameter values.}
 }
 
 \seealso{
-\code{\link[=Parameter-class]{Parameter-class()}}, \code{\link[=ArrayParameter-class]{ArrayParameter-class()}}.
+\linkS4class{Parameter}, \linkS4class{ArrayParameter}.
 }

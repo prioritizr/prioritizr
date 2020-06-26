@@ -3,13 +3,13 @@ NULL
 
 #' Category layer
 #'
-#' Convert a [raster::RasterStack-class()]
+#' Convert a [raster::RasterStack-class]
 #' object where each layer corresponds to a different identifier and values
 #' indicate the presence/absence of that category into a
-#' [raster::RasterLayer-class()] object containing categorical
+#' [raster::RasterLayer-class] object containing categorical
 #' identifiers.
 #'
-#' @param x [raster::Raster-class()] object containing a multiple
+#' @param x [raster::Raster-class] object containing a multiple
 #'   layers. Note that pixels must be 0, 1 or `NA` values.
 #'
 #' @details This function is provided to help manage data that encompass
@@ -17,7 +17,7 @@ NULL
 #'   for interpreting solutions for problems associated with multiple zones that
 #'   have binary decisions.
 #'
-#' @return [raster::RasterLayer-class()] object.
+#' @return [raster::RasterLayer-class] object.
 #'
 #' @seealso [binary_stack()].
 #'

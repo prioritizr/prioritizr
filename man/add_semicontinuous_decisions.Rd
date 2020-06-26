@@ -7,13 +7,13 @@
 add_semicontinuous_decisions(x, upper_limit)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{upper_limit}{\code{numeric} value specifying the maximum proportion
 of a planning unit that can be reserved (e.g. set to 0.8 for 80\%).}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the decisions
+\linkS4class{ConservationProblem} object with the decisions
 added to it.
 }
 \description{

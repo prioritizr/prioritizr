@@ -9,7 +9,7 @@ NULL
 #' [add_top_portfolio()] when the *Gurobi* software is not
 #' available.
 #'
-#' @param x [ConservationProblem-class()] object.
+#' @param x [ConservationProblem-class] object.
 #'
 #' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.

@@ -32,8 +32,8 @@ NULL
 #'   used when building the conservation planning [problem()].
 #'
 #'   \describe{
-#'   \item{[raster::Raster-class()],
-#'     [sp::Spatial-class()]}{[raster::Raster-class()]
+#'   \item{[raster::Raster-class],
+#'     [sp::Spatial-class]}{[raster::Raster-class]
 #'     data denoting the amount of each feature present assuming each
 #'     management zone. Data for each zone are specified in separate
 #'     arguments, and the data for each feature in a given zone are specified
@@ -62,7 +62,7 @@ NULL
 #'     missing from the table are treated as zero.}
 #'   }
 #'
-#' @return [Zones-class()] object.
+#' @return [Zones-class] object.
 #'
 #' @seealso [problem()].
 #'

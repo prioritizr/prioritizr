@@ -17,7 +17,7 @@
 \S4method{add_neighbor_constraints}{ConservationProblem,ANY,ANY,array}(x, k, zones, data)
 }
 \arguments{
-\item{x}{\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object.}
+\item{x}{\linkS4class{ConservationProblem} object.}
 
 \item{k}{\code{integer} minimum number of neighbors for selected
 planning units in the solution. For problems with multiple zones,
@@ -44,7 +44,7 @@ neighborhood data is calculated automatically using the
 information.}
 }
 \value{
-\code{\link[=ConservationProblem-class]{ConservationProblem-class()}} object with the constraint
+\linkS4class{ConservationProblem} object with the constraint
 added to it.
 }
 \description{
