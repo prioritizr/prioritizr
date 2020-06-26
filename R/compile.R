@@ -8,13 +8,13 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param compressed_formulation \code{logical} should the conservation problem
+#' @param compressed_formulation `logical` should the conservation problem
 #'   compiled into a compressed version of a planning problem?
-#'   If \code{TRUE} then the problem is expressed using the compressed
-#'   formulation. If \code{FALSE} then the problem is expressed using the
-#'   expanded formulation. If \code{NA}, then the compressed is used unless one
+#'   If `TRUE` then the problem is expressed using the compressed
+#'   formulation. If `FALSE` then the problem is expressed using the
+#'   expanded formulation. If `NA`, then the compressed is used unless one
 #'   of the constraints requires the expanded formulation. This argument
-#'   defaults to \code{NA}.
+#'   defaults to `NA`.
 #'
 #' @param ... not used.
 #'
@@ -23,10 +23,10 @@ NULL
 #'   as a mathematical problem. However, if the problem just needs to
 #'   be solved, then the \code{\link{solve}} function should just be used.
 #'
-#'   \strong{Please note that in nearly all cases, the default argument to
-#'   \code{formulation} should be used}. The only situation where manually
-#'   setting the argument to \code{formulation} is desirable is during testing.
-#'   Manually setting the argument to \code{formulation} will at best
+#'   **Please note that in nearly all cases, the default argument to
+#'   `formulation` should be used**. The only situation where manually
+#'   setting the argument to `formulation` is desirable is during testing.
+#'   Manually setting the argument to `formulation` will at best
 #'   have no effect on the problem. At worst, it may result in
 #'   an error, a misspecified problem, or unnecessarily long
 #'   solve times.

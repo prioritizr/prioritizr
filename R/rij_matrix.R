@@ -4,7 +4,7 @@ NULL
 #' Feature by planning unit matrix
 #'
 #' Generate a matrix showing the amount of each feature in each planning
-#' unit (also known as an \emph{rij} matrix).
+#' unit (also known as an *rij* matrix).
 #'
 #' @param x \code{\link[raster]{Raster-class}},
 #'   \code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
@@ -13,10 +13,10 @@ NULL
 #' @param y \code{\link[raster]{Raster-class}} object representing the
 #'   features.
 #'
-#' @param fun \code{character} for summarizing values inside each planning unit.
-#'   This parameter is only used when the argument to \code{x} is a
+#' @param fun `character` for summarizing values inside each planning unit.
+#'   This parameter is only used when the argument to `x` is a
 #'   \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
-#'   Defaults to \code{"sum"}.
+#'   Defaults to `"sum"`.
 #'
 #' @param ... not used.
 #'

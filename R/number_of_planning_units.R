@@ -8,7 +8,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} or
 #'   \code{\link{OptimizationProblem-class}} object.
 #'
-#' @return \code{integer} number of planning units.
+#' @return `integer` number of planning units.
 #'
 #' @name number_of_planning_units
 #'

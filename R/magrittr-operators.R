@@ -3,7 +3,7 @@ NULL
 
 #' Pipe operator
 #'
-#' This package uses the pipe operator (\code{\%>\%}) to express nested code
+#' This package uses the pipe operator (`\%>\%`) to express nested code
 #' as a series of imperative procedures.
 #'
 #' @param lhs,rhs An object and a function.
@@ -37,7 +37,7 @@ NULL
 
 #' Tee operator
 #'
-#' This package uses the "tee" operator (\code{\%T>\%}) to modify objects.
+#' This package uses the "tee" operator (`\%T>\%`) to modify objects.
 #'
 #' @param lhs,rhs An object and a function.
 #'

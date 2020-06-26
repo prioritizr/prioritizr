@@ -8,7 +8,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}},
 #'   \code{\link{OptimizationProblem-class}} or \code{\link{Zones}} object.
 #'
-#' @return \code{integer} number of features.
+#' @return `integer` number of features.
 #'
 #' @name number_of_features
 #'

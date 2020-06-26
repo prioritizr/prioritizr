@@ -1,11 +1,11 @@
 #' @include internal.R
 NULL
 
-#' Convert \emph{Marxan} boundary data to a matrix format
+#' Convert *Marxan* boundary data to a matrix format
 #'
-#' Convert a \code{data.frame} object that follows the \emph{Marxan} format
+#' Convert a `data.frame` object that follows the *Marxan* format
 #' to a matrix format. This function is useful for converting
-#' \code{data.frame} objects to \code{matrix} or \code{array} objects that
+#' `data.frame` objects to `matrix` or `array` objects that
 #' are used by the various \code{\link{penalties}} and
 #' \code{\link{constraints}} functions. If the boundary data contains data for
 #' a single zone, then a matrix object is returned. Otherwise if the boundary
@@ -13,14 +13,14 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object that contains
 #'   planning unit and zone data to ensure that the argument to
-#'   \code{data} is converted correctly. This argument can be set to
-#'   \code{NULL} if checks are not required (not recommended).
+#'   `data` is converted correctly. This argument can be set to
+#'   `NULL` if checks are not required (not recommended).
 #'
-#' @param data \code{data.frame} object with the columns \code{"id1"},
-#'   \code{"id2"}, and \code{"boundary"}. The columns \code{"zone1"} and
-#'   \code{"zone2"} can also be provided to indicate zone data.
+#' @param data `data.frame` object with the columns `"id1"`,
+#'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
+#'   `"zone2"` can also be provided to indicate zone data.
 #'
-#' @return \code{array} or sparse matrix (\code{\link{dgCMatrix-class}}) object.
+#' @return `array` or sparse matrix (\code{\link{dgCMatrix-class}}) object.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone

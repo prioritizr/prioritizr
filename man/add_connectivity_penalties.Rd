@@ -28,7 +28,8 @@ to the main problem objective (e.g. solution cost when the argument to
 \code{x} has a minimum set objective set using
 \code{\link{add_min_set_objective}}). Higher \code{penalty} values
 can be used to obtain solutions with a high degree of connectivity,
-and smaller \code{penalty} values can be used to obtain solutions with a #'   small degree of connectivity. Note that negative \code{penalty} values can
+and smaller \code{penalty} values can be used to obtain solutions with a
+small degree of connectivity. Note that negative \code{penalty} values can
 be used to obtain solutions that have very little connectivity.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the

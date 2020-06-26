@@ -8,7 +8,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} or \code{\link{Zones}}
 #    object.
 #'
-#' @return \code{character} feature names.
+#' @return `character` feature names.
 #'
 #' @name feature_names
 #'

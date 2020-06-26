@@ -6,8 +6,8 @@ NULL
 #' Targets are used to specify the minimum amount or proportion of a feature's
 #' distribution that needs to be protected in the solution.
 #'
-#' \strong{Please note that most objectives require targets, and attempting
-#' to solve a problem that requires targets will throw an error.}
+#' **Please note that most objectives require targets, and attempting
+#' to solve a problem that requires targets will throw an error.**
 #'
 #' @details The following functions can be used to specify targets for a
 #'   conservation planning \code{\link{problem}}:

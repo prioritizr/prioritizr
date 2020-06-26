@@ -9,15 +9,15 @@ NULL
 #' \code{\link{add_max_features_objective}} except
 #' that emphasis is placed on representing a phylogenetically diverse set of
 #' species, rather than as many features as possible (subject to weights).
-#' This function was inspired by Faith (1992) and Rodrigues \emph{et al.}
+#' This function was inspired by Faith (1992) and Rodrigues *et al.*
 #' (2002).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param budget \code{numeric} value specifying the maximum expenditure of
+#' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
-#'   to \code{budget} can be a single \code{numeric} value to specify a budget
-#'   for the entire solution or a \code{numeric} \code{vector} to specify
+#'   to `budget` can be a single `numeric` value to specify a budget
+#'   for the entire solution or a `numeric` `vector` to specify
 #'   a budget for each each management zone.
 #'
 #' @param tree \code{\link{phylo}} object specifying a phylogenetic tree
@@ -54,7 +54,7 @@ NULL
 #'   Here each target corresponds to a single feature and can be met through
 #'   the total amount of habitat in planning units present to the three
 #'   zones. In earlier versions of the \pkg{prioritizr} package, this
-#'   function was named \code{add_max_phylo_div_objective}.
+#'   function was named `add_max_phylo_div_objective`.
 #'
 #'   The maximum phylogenetic diversity objective for the reserve design
 #'   problem can be expressed mathematically for a set of planning units
@@ -97,10 +97,10 @@ NULL
 #'
 #' @references
 #' Faith DP (1992) Conservation evaluation and phylogenetic diversity.
-#' \emph{Biological Conservation}, 61: 1--10.
+#' *Biological Conservation*, 61: 1--10.
 #'
 #' Rodrigues ASL and Gaston KJ (2002) Maximising phylogenetic diversity in the
-#' selection of networks of conservation areas. \emph{Biological Conservation},
+#' selection of networks of conservation areas. *Biological Conservation*,
 #' 105: 103--111.
 #'
 #' @examples

@@ -21,11 +21,11 @@ NULL
 #'   \code{\link[tibble]{tibble}} objects.
 #'
 #'   \describe{
-#'   \item{nrow}{extract \code{integer} number of rows.}
+#'   \item{nrow}{extract `integer` number of rows.}
 #'
-#'   \item{ncol}{extract \code{integer} number of columns.}
+#'   \item{ncol}{extract `integer` number of columns.}
 #'
-#'   \item{as.list}{convert to a \code{list}.}
+#'   \item{as.list}{convert to a `list`.}
 #'
 #'   \item{print}{print the object.}
 #'

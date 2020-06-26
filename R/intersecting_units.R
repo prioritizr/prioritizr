@@ -10,8 +10,8 @@ NULL
 #'
 #' @param y \code{\link{Spatial-class}} or \code{\link{Raster-class}} object.
 #'
-#' @return \code{integer} indices of the units in \code{x} that intersect with
-#'   \code{y}.
+#' @return `integer` indices of the units in `x` that intersect with
+#'   `y`.
 #'
 #' @name intersecting_units
 #'

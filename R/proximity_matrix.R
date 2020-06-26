@@ -10,7 +10,7 @@ NULL
 #'   \code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
 #'   representing planning units.
 #'
-#' @param distance \code{numeric} distance threshold. Planning units
+#' @param distance `numeric` distance threshold. Planning units
 #'   that are further apart from each other than this threshold are
 #'   not treated as being within proximity of each other.
 #'
@@ -23,8 +23,8 @@ NULL
 #'   if the pair-wise distances between different planning units are within
 #'   the distance threshold or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to \code{x} is a
-#'   \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+#'   set to zero. Furthermore, if the argument to `x` is a
+#'   \code{\link[raster]{Raster-class}} object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name proximity_matrix

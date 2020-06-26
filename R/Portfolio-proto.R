@@ -16,23 +16,23 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{$name}{\code{character} name of portfolio method.}
+#' \item{$name}{`character` name of portfolio method.}
 #'
-#' \item{$parameters}{\code{Parameters} object with parameters used to customize
+#' \item{$parameters}{`Parameters` object with parameters used to customize
 #'   the the portfolio.}
 #'
-#' \item{$run}{\code{function} used to generate a portfolio.}
+#' \item{$run}{`function` used to generate a portfolio.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$run(op, sol)}
+#' `x$run(op, sol)`
 #'
 #' @section Arguments:
 #' \describe{
@@ -50,7 +50,7 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{\code{character} representation of object.}
+#' \item{repr}{`character` representation of object.}
 #'
 #' \item{run}{solve an \code{\link{OptimizationProblem-class}} object using this
 #'   object and a \code{\link{Solver-class}} object.}

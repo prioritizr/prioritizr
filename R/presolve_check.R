@@ -93,7 +93,7 @@ NULL
 #'   can be calculated as the sum of the weight values for the other features
 #'   and adding a small number to it (e.g. 1). Finally, if you're running out
 #'   of ideas for addressing numerical stability issues you have one remaining
-#'   option: you can use the \code{numeric_focus} argument in the
+#'   option: you can use the `numeric_focus` argument in the
 #'   \code{\link{add_gurobi_solver}} function to tell the solver to pay extra
 #'   attention to numerical instability issues. This is not a free lunch,
 #'   however, because telling the solver to pay extra attention to numerical
@@ -101,10 +101,10 @@ NULL
 #'   are already taking an unreasonable time to solve, then this will not help
 #'   at all.
 #'
-#' @return \code{logical} value indicating if all checks are passed
+#' @return `logical` value indicating if all checks are passed
 #'   successfully.
 #'
-#' @seealso \code{\link{problem}}, \code{\link{solve}}, \url{http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html}, \url{http://files.gurobi.com/Numerics.pdf}.
+#' @seealso \code{\link{problem}}, \code{\link{solve}}, <http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html>, <http://files.gurobi.com/Numerics.pdf>.
 #'
 #' @examples
 #' # set seed for reproducibility

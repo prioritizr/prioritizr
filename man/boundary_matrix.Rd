@@ -61,7 +61,7 @@ neighbors (e.g. for edges of planning units found along the
 coastline). \strong{This function assumes the data are in a coordinate
 system where Euclidean distances accurately describe the proximity
 between two points on the earth}. Thus spatial data in a longitude/latitude
-coordinate system (aka
+coordinate system (i.e.
 \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
 should be reprojected to another coordinate system before using this
 function. Note that for \code{\link[raster]{Raster-class}} objects

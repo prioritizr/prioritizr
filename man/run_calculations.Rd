@@ -23,7 +23,7 @@ means that the same calculations will not be run multiple times.
 This function is used for the effect of modifying the input
 \code{\link{ConservationProblem-class}} object. As such, it does not return
 anything. To use this function with \code{\link{pipe}} operators, use the
-\code{\%T>\%} operator and not the \code{\%>\%} operator.
+\verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }
 \examples{
 \donttest{

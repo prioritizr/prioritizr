@@ -4,8 +4,8 @@ NULL
 #' Add mandatory allocation constraints
 #'
 #' Add constraints to ensure that every planning unit is allocated to a
-#' management zone in the solution. \strong{This function can only be used with
-#' problems that contain multiple zones.}
+#' management zone in the solution. **This function can only be used with
+#' problems that contain multiple zones.**
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'

@@ -8,61 +8,61 @@ NULL
 #' Array parameter prototype
 #'
 #' This prototype is used to represent a parameter has multiple values. Each
-#' value is has a label to differentiate values. \strong{Only experts should
-#' interact directly with this prototype.}
+#' value is has a label to differentiate values. **Only experts should
+#' interact directly with this prototype.**
 #'
 #' @section Fields:
 #'
 #' \describe{
 #'
-#' \item{$id}{\code{character} identifier for parameter.}
+#' \item{$id}{`character` identifier for parameter.}
 #'
-#' \item{$name}{\code{character} name of parameter.}
+#' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{\code{numeric} \code{vector} of values.}
+#' \item{$value}{`numeric` `vector` of values.}
 #'
-#' \item{$label}{\code{character} \code{vector} of names for each value.}
+#' \item{$label}{`character` `vector` of names for each value.}
 #'
-#' \item{$default}{\code{numeric} \code{vector} of default values.}
+#' \item{$default}{`numeric` `vector` of default values.}
 #'
-#' \item{$length}{\code{integer} number of values.}
+#' \item{$length}{`integer` number of values.}
 #'
-#' \item{$class}{\code{character} class of values.}
+#' \item{$class}{`character` class of values.}
 #'
-#' \item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
+#' \item{$lower_limit}{`numeric` `vector` specifying the minimum
 #'   permitted values.}
 #'
-#' \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
+#' \item{$upper_limit}{`numeric` `vector` specifying the maximum
 #'   permitted values.}
 #'
-#' \item{$widget}{\code{function} used to construct a
+#' \item{$widget}{`function` used to construct a
 #'   \code{\link[shiny]{shiny}} interface for modifying values.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$validate(tbl)}
+#' `x$validate(tbl)`
 #'
-#' \code{x$get()}
+#' `x$get()`
 #'
-#' \code{x$set(tbl)}
+#' `x$set(tbl)`
 #'
-#' \code{x$reset()}
+#' `x$reset()`
 #'
-#' \code{x$render(...)}
+#' `x$render(...)`
 #'
 #' @section Arguments:
 #' \describe{
 #' \item{tbl}{\code{\link{data.frame}} containing new parameter values with
 #'            row names indicating the labels and a column called "values"
 #'            containing the new parameter values.}
-#' \item{...}{arguments passed to function in \code{widget} field.}
+#' \item{...}{arguments passed to function in `widget` field.}
 #' }
 #'
 #' @section Details:
@@ -72,7 +72,7 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{\code{character} representation of object.}
+#' \item{repr}{`character` representation of object.}
 #'
 #' \item{validate}{check if a proposed new set of parameters are valid.}
 #'

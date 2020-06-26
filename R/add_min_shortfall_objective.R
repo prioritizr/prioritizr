@@ -19,7 +19,7 @@ NULL
 #'   find the set of planning units that minimize the shortfall for the
 #'   representation targets---that is, the fraction of each target that
 #'   remains unmet---for as many features as possible while staying within a
-#'   fixed budget (inspired by Table 1, equation IV, Arponen \emph{et al.}
+#'   fixed budget (inspired by Table 1, equation IV, Arponen *et al.*
 #'   2005). Additionally, weights can be used
 #'    to favor the representation of certain features over other features (see
 #'   \code{\link{add_feature_weights}}.
@@ -56,7 +56,7 @@ NULL
 #' @references
 #' Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of
 #' biodiversity in reserve selection: representation, species weighting, and
-#' benefit functions. \emph{Conservation Biology}, 19: 2009--2014.
+#' benefit functions. *Conservation Biology*, 19: 2009--2014.
 #'
 #' @examples
 #' # load data

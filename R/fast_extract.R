@@ -10,16 +10,16 @@ NULL
 #' @param y \code{\link[sp]{Spatial-class}} or
 #'          \code{\link[sf]{sf}} object.
 #'
-#' @param fun \code{character} name of statistic to summarize data. Defaults
-#'   to \code{"mean"}. Available options include \code{"sum"} or \code{"mean"}.
-#'   Defaults to \code{"mean"}.
+#' @param fun `character` name of statistic to summarize data. Defaults
+#'   to `"mean"`. Available options include `"sum"` or `"mean"`.
+#'   Defaults to `"mean"`.
 #'
 #' @param ... not used.
 #'
-#' @return \code{matrix} containing the summary amount of each feature
+#' @return `matrix` containing the summary amount of each feature
 #'    within each planning unit. Rows correspond to different spatial features
-#'   in the argument to \code{y} and columns correspond to different raster
-#'   layers in the argument to \code{x}.
+#'   in the argument to `y` and columns correspond to different raster
+#'   layers in the argument to `x`.
 #'
 #' @seealso \code{\link[raster]{extract}},
 #'   \code{\link[exactextractr]{exact_extract}}.

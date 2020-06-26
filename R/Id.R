@@ -11,7 +11,7 @@ NULL
 #'
 #' @details Identifiers are made using the \code{\link[uuid]{UUIDgenerate}}.
 #'
-#' @return \code{Id} object.
+#' @return `Id` object.
 #'
 #' @seealso \code{\link[uuid]{UUIDgenerate}}.
 #'

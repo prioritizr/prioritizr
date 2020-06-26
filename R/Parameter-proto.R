@@ -7,40 +7,40 @@ NULL
 #' Parameter class
 #'
 #' This class is used to represent a parameter that has multiple values. Each
-#' value has a different label to differentiate values. \strong{Only experts
-#' should interact directly with this class.}
+#' value has a different label to differentiate values. **Only experts
+#' should interact directly with this class.**
 #'
 #' @section Fields:
 #' \describe{
 #'
 #' \item{$id}{\code{\link{Id}} identifier for parameter.}
 #'
-#' \item{$name}{\code{character} name of parameter.}
+#' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{\code{numeric} \code{vector} of values.}
+#' \item{$value}{`numeric` `vector` of values.}
 #'
-#' \item{$default}{\code{numeric} \code{vector} of default values.}
+#' \item{$default}{`numeric` `vector` of default values.}
 #'
-#' \item{$class}{\code{character} name of the class that the values inherit
-#'   from (e.g. \code{"integer"}.}
+#' \item{$class}{`character` name of the class that the values inherit
+#'   from (e.g. `"integer"`.}
 #'
-#' \item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
-#'   permitted value for each element in \code{$value}.}
+#' \item{$lower_limit}{`numeric` `vector` specifying the minimum
+#'   permitted value for each element in `$value`.}
 #'
-#' \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
-#'   permitted value for each element in \code{$value}.}
+#' \item{$upper_limit}{`numeric` `vector` specifying the maximum
+#'   permitted value for each element in `$value`.}
 #'
-#' \item{$widget}{\code{function} used to construct a
+#' \item{$widget}{`function` used to construct a
 #'                \code{\link[shiny]{shiny}} interface for modifying values.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$reset()}
+#' `x$reset()`
 #'
 #' @section Details:
 #' \describe{

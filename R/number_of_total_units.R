@@ -8,7 +8,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} or
 #'   \code{\link{OptimizationProblem-class}} object.
 #'
-#' @return \code{integer} number of total units.
+#' @return `integer` number of total units.
 #'
 #' @name number_of_total_units
 #'

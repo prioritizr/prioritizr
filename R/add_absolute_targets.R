@@ -28,22 +28,22 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{\code{numeric}}{\code{vector} of target values for each feature.
+#'   \item{`numeric`}{`vector` of target values for each feature.
 #'     Additionally, for convenience, this type of argument can be a single
 #'     value to assign the same target to each feature. Note that this type of
 #'     argument cannot be used to specify targets for problems with multiple
 #'     zones.}
 #'
-#'   \item{\code{matrix}}{containing a target for each feature in each zone.
+#'   \item{`matrix`}{containing a target for each feature in each zone.
 #'     Here, each row corresponds to a different feature in argument to
-#'     \code{x}, each column corresponds to a different zone in argument to
-#'     \code{x}, and each cell contains the target value for a given feature
+#'     `x`, each column corresponds to a different zone in argument to
+#'     `x`, and each cell contains the target value for a given feature
 #'     that the solution needs to secure in a given zone.}
 #'
-#'   \item{\code{character}}{containing the names of fields (columns) in the
-#'     feature data associated with the argument to \code{x} that contain
+#'   \item{`character`}{containing the names of fields (columns) in the
+#'     feature data associated with the argument to `x` that contain
 #'     targets. This type of argument can only be used when the
-#'     feature data associated with \code{x} is a \code{data.frame}.
+#'     feature data associated with `x` is a `data.frame`.
 #'     This argument must contain a field (column) name for each zone.}
 #'
 #'   }

@@ -3,20 +3,20 @@ NULL
 
 #' Add a SYMPHONY solver with \pkg{lpsymphony}
 #'
-#' Specify that the \emph{SYMPHONY} software should be used to solve a
+#' Specify that the *SYMPHONY* software should be used to solve a
 #' conservation planning problem using the \pkg{lpsymphony} package. This
 #' function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{lpsymphony} package.
 #'
 #' @inheritParams add_rsymphony_solver
 #'
-#' @details \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+#' @details [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
 #'   open-source integer programming solver that is part of the Computational
 #'   Infrastructure for Operations Research (COIN-OR) project, an initiative
 #'   to promote development of open-source tools for operations research (a
 #'   field that includes linear programming). The \pkg{lpsymphony} package is
 #'   distributed through
-#'   \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+#'   [Bioconductor](https://doi.org/doi:10.18129/B9.bioc.lpsymphony).
 #'   This functionality is provided because the \pkg{lpsymphony} package may
 #'   be easier to install to install on Windows and Mac OSX systems than the
 #'   \pkg{Rsymphony} package.

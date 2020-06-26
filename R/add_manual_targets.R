@@ -12,11 +12,11 @@ NULL
 #' relative targets for different features and zones, (ii) set targets that
 #' pertain to the allocations of planning units in multiple zones, and (iii)
 #' set targets that require different senses (e.g. targets which specify the
-#' solution should not exceed a certain quantity using \code{"<="} values).
+#' solution should not exceed a certain quantity using `"<="` values).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param targets \code{data.frame} or \code{\link[tibble]{tibble}} object. See
+#' @param targets `data.frame` or \code{\link[tibble]{tibble}} object. See
 #'   the Details section for more information.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
@@ -27,28 +27,28 @@ NULL
 #'   problems with objectives that require targets without specifying targets
 #'   will throw an error.
 #'
-#'   The \code{targets} argument should contain the following fields (columns):
+#'   The `targets` argument should contain the following fields (columns):
 #'
 #'   \describe{
 #'
-#'   \item{\code{"feature"}}{\code{character} name of features in argument
-#'     to \code{x}.}
+#'   \item{`"feature"`}{`character` name of features in argument
+#'     to `x`.}
 #'
-#'   \item{\code{"zone"}}{\code{character} name of zones in argument to
-#'     \code{x}. This field (column) is optional for arguments to \code{x}
+#'   \item{`"zone"`}{`character` name of zones in argument to
+#'     `x`. This field (column) is optional for arguments to `x`
 #'     that do not contain multiple zones.}
 #'
-#'   \item{\code{"type"}}{\code{character} describing the type of target.
-#'     Acceptable values include \code{"absolute"} and \code{"relative"}.
+#'   \item{`"type"`}{`character` describing the type of target.
+#'     Acceptable values include `"absolute"` and `"relative"`.
 #'     These values correspond to \code{\link{add_absolute_targets}},
 #'     and \code{\link{add_relative_targets}} respectively.}
 #'
-#'   \item{\code{"sense"}}{\code{character} sense of the target. Acceptable
-#'     values include: \code{">="}, \code{"<="}, and \code{"="}. This field
+#'   \item{`"sense"`}{`character` sense of the target. Acceptable
+#'     values include: `">="`, `"<="`, and `"="`. This field
 #'     (column) is optional and if it is missing then target senses will
-#'     default to \code{">="} values.}
+#'     default to `">="` values.}
 #'
-#'   \item{\code{"target"}}{\code{numeric} target threshold.}
+#'   \item{`"target"`}{`numeric` target threshold.}
 #'
 #'   }
 #'

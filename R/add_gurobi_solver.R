@@ -1,60 +1,60 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a \emph{Gurobi} solver
+#' Add a *Gurobi* solver
 #'
-#' Specify that the \emph{Gurobi} software should be used to solve a
+#' Specify that the *Gurobi* software should be used to solve a
 #' conservation planning problem. This function can also be used to
 #' customize the behavior of the solver. It requires the \pkg{gurobi} package.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param gap \code{numeric} gap to optimality. This gap is relative when
+#' @param gap `numeric` gap to optimality. This gap is relative when
 #'   solving problems using \pkg{gurobi}, and will cause the optimizer to
 #'   terminate when the difference between the upper and lower objective
 #'   function bounds is less than the gap times the upper bound. For example, a
 #'   value of 0.01 will result in the optimizer stopping when the difference
 #'   between the bounds is 1 percent of the upper bound.
 #'
-#' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
+#' @param time_limit `numeric` time limit in seconds to run the optimizer.
 #'   The solver will return the current best solution when this time limit is
 #'   exceeded.
 #'
-#' @param presolve \code{integer} number indicating how intensively the
+#' @param presolve `integer` number indicating how intensively the
 #'   solver should try to simplify the problem before solving it. Available
 #'   options are: (-1) automatically determine the intensity of
 #'   pre-solving, (0) disable pre-solving, (1) conservative
 #'   level of pre-solving, and (2) very aggressive level of pre-solving .
 #'   The default value is 2.
 #'
-#' @param threads \code{integer} number of threads to use for the
+#' @param threads `integer` number of threads to use for the
 #'   optimization algorithm. The default value of 1 will result in only
 #'   one thread being used.
 #'
-#' @param first_feasible \code{logical} should the first feasible solution be
-#'   be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
+#' @param first_feasible `logical` should the first feasible solution be
+#'   be returned? If `first_feasible` is set to `TRUE`, the solver
 #'   will return the first solution it encounters that meets all the
 #'   constraints, regardless of solution quality. Note that the first feasible
 #'   solution is not an arbitrary solution, rather it is derived from the
 #'   relaxed solution, and is therefore often reasonably close to optimality.
-#'   Defaults to \code{FALSE}.
+#'   Defaults to `FALSE`.
 #'
-#' @param numeric_focus \code{logical} should extra attention be paid
+#' @param numeric_focus `logical` should extra attention be paid
 #'   to verifying the accuracy of numerical calculations? This may be
 #'   useful when dealing problems that may suffer from numerical instability
 #'   issues. Beware that it will likely substantially increase run time
-#'   (sets the \emph{Gurobi} \code{NumericFocus} parameter
-#'   to 3). Defaults to \code{FALSE}.
+#'   (sets the *Gurobi* `NumericFocus` parameter
+#'   to 3). Defaults to `FALSE`.
 #'
-#' @param verbose \code{logical} should information be printed while solving
+#' @param verbose `logical` should information be printed while solving
 #'  optimization problems?
 #'
-#' @details \href{http://gurobi.com}{\emph{Gurobi}} is a
+#' @details [*Gurobi*](http://gurobi.com) is a
 #'   state-of-the-art commercial optimization software with an R package
 #'   interface. It is by far the fastest of the solvers available in this
 #'   package, however, it is also the only solver that is not freely
 #'   available. That said, licenses are available to academics at no cost. The
-#'   \pkg{gurobi} package is distributed with the \emph{Gurobi} software suite.
+#'   \pkg{gurobi} package is distributed with the *Gurobi* software suite.
 #'   This solver uses the \pkg{gurobi} package to solve problems.
 #'
 #' @return \code{\link{ConservationProblem-class}} object with the solver added

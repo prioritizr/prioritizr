@@ -189,6 +189,7 @@ specific value are assigned a \code{NA} value.}
 \item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
 using the \code{\link[sf]{sf}} package. The attribute tables follows
 the same conventions as for \code{sim_pu_zone_polygons}.}
+
 \item{\code{sim_features}}{The simulated distribution of ten species.
 Pixel values indicate habitat suitability.}
 

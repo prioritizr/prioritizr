@@ -3,19 +3,19 @@ NULL
 
 #' Category vector
 #'
-#' Convert an object containing binary (\code{integer}) fields (columns) into a
-#' \code{integer} \code{vector} indicating the column index where each row is
-#' \code{1}.
+#' Convert an object containing binary (`integer`) fields (columns) into a
+#' `integer` `vector` indicating the column index where each row is
+#' `1`.
 #'
-#' @param x \code{matrix}, \code{data.frame}, \code{\link[sp]{Spatial-class}},
+#' @param x `matrix`, `data.frame`, \code{\link[sp]{Spatial-class}},
 #'   or \code{\link[sf]{sf}} object.
 #'
 #' @details This function is conceptually similar to \code{\link[base]{max.col}}
-#'   except that rows with no values equal to \code{1} values are assigned a
-#'   value of zero. Also, note that in the argument to \code{x}, each row must
-#'   contain only a single value equal to \code{1}.
+#'   except that rows with no values equal to `1` values are assigned a
+#'   value of zero. Also, note that in the argument to `x`, each row must
+#'   contain only a single value equal to `1`.
 #'
-#' @return \code{integer} \code{vector}
+#' @return `integer` `vector`
 #'
 #' @seealso \code{\link[base]{max.col}}
 #'

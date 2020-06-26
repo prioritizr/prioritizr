@@ -6,19 +6,19 @@ NULL
 #' Generate a portfolio of solutions for a conservation planning
 #' \code{\link{problem}} by randomly reordering the data prior to
 #' solving the problem. This is recommended as a replacement for
-#' \code{\link{add_top_portfolio}} when the \emph{Gurobi} software is not
+#' \code{\link{add_top_portfolio}} when the *Gurobi* software is not
 #' available.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param number_solutions \code{integer} number of attempts to generate
+#' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.
 #'
-#' @param threads \code{integer} number of threads to use for the generating
+#' @param threads `integer` number of threads to use for the generating
 #'   the solution portfolio. Defaults to 1.
 #'
-#' @param remove_duplicates \code{logical} should duplicate solutions
-#'   be removed? Defaults to \code{TRUE}.
+#' @param remove_duplicates `logical` should duplicate solutions
+#'   be removed? Defaults to `TRUE`.
 #'
 #' @details This strategy for generating a portfolio of solutions often
 #'   results in different solutions, depending on optimality gap, but may

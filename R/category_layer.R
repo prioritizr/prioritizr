@@ -10,7 +10,7 @@ NULL
 #' identifiers.
 #'
 #' @param x \code{\link[raster]{Raster-class}} object containing a multiple
-#'   layers. Note that pixels must be 0, 1 or \code{NA} values.
+#'   layers. Note that pixels must be 0, 1 or `NA` values.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful

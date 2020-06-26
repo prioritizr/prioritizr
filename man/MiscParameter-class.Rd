@@ -51,7 +51,7 @@ construct a \emph{shiny} interface for modifying values.}
 
 \item{x}{object used to set a new parameter value.}
 
-\item{...}{arguments passed to \code{$widget}.}
+\item{...}{arguments passed to \verb{$widget}.}
 
 }
 }

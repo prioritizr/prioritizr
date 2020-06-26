@@ -8,25 +8,25 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
+#' @param solution `numeric`, `matrix`, `data.frame`,
 #'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
 #'   or \code{\link[sf]{sf}} object. See the Details section for more
 #'   information.
 #'
-#' @param rescale \code{logical} flag indicating if replacement cost
-#'  values---excepting infinite (\code{Inf}) and zero values---should be
-#'  rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.
+#' @param rescale `logical` flag indicating if replacement cost
+#'  values---excepting infinite (`Inf`) and zero values---should be
+#'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
-#' @param run_checks \code{logical} flag indicating whether presolve checks
+#' @param run_checks `logical` flag indicating whether presolve checks
 #'   should be run prior solving the problem. These checks are performed using
-#'   the \code{\link{presolve_check}} function. Defaults to \code{TRUE}.
+#'   the \code{\link{presolve_check}} function. Defaults to `TRUE`.
 #'   Skipping these checks may reduce run time for large problems.
 #'
-#' @param force \code{logical} flag indicating if an attempt to should be
+#' @param force `logical` flag indicating if an attempt to should be
 #'   made to solve the problem even if potential issues were detected during
-#'   the presolve checks. Defaults to \code{FALSE}.
+#'   the presolve checks. Defaults to `FALSE`.
 #'
-#' @param threads \code{integer} number of threads to use for the
+#' @param threads `integer` number of threads to use for the
 #'   optimization algorithm. The default value of 1 will result in only
 #'   one thread being used.
 #'
@@ -60,41 +60,41 @@ NULL
 #'   using proportion-type decisions when calculating the scores (see below for
 #'   an example).
 #'
-#'   The argument to \code{solution} must correspond
-#'   to the planning unit data in the argument to \code{x} in terms
+#'   The argument to `solution` must correspond
+#'   to the planning unit data in the argument to `x` in terms
 #'   of data representation, dimensionality, and spatial attributes (if
-#'   applicable). This means that if the planning unit data in \code{x}
-#'   is a \code{numeric} vector then the argument to \code{solution} must be a
-#'   \code{numeric} vector with the same number of elements; if the planning
-#'   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-#'   argument to \code{solution} must also be a
+#'   applicable). This means that if the planning unit data in `x`
+#'   is a `numeric` vector then the argument to `solution` must be a
+#'   `numeric` vector with the same number of elements; if the planning
+#'   unit data in `x` is a \code{\link[raster]{RasterLayer-class}} then the
+#'   argument to `solution` must also be a
 #'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system;
-#'   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-#'   object then the argument to \code{solution} must also be a
+#'   if the planning unit data in `x` is a \code{\link[sp]{Spatial-class}}
+#'   object then the argument to `solution` must also be a
 #'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
-#'   if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
-#'   object then the argument to \code{solution} must also be a
+#'   if the planning unit data in `x` is a \code{\link[sf]{sf}}
+#'   object then the argument to `solution` must also be a
 #'   \code{\link[sf]{sf}} object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
-#'   if the planning units in \code{x} are a \code{data.frame} then the
-#'   argument to \code{solution} must also be a \code{data.frame} with each
+#'   if the planning units in `x` are a `data.frame` then the
+#'   argument to `solution` must also be a `data.frame` with each
 #'   column correspond to a different zone and each row correspond to
 #'   a different planning unit, and values correspond to the allocations
 #'   (e.g. values of zero or one).
 #'
-#'   Solutions must have planning unit statuses set to missing (\code{NA})
-#'   values for planning units that have missing (\code{NA}) cost data. For
+#'   Solutions must have planning unit statuses set to missing (`NA`)
+#'   values for planning units that have missing (`NA`) cost data. For
 #'   problems with multiple zones, this means that planning units must have
-#'   missing (\code{NA}) allocation values in zones where they have missing
-#'   (\code{NA}) cost data. In other words, planning units that have missing
-#'   (\code{NA}) cost values in \code{x} should always have a missing
-#'   (\code{NA}) value the argument to \code{solution}. If an argument is
+#'   missing (`NA`) allocation values in zones where they have missing
+#'   (`NA`) cost data. In other words, planning units that have missing
+#'   (`NA`) cost values in `x` should always have a missing
+#'   (`NA`) value the argument to `solution`. If an argument is
 #'   supplied to
-#'   \code{solution} where this is not the case, then an error will be thrown.
+#'   `solution` where this is not the case, then an error will be thrown.
 #'
-#' @return A \code{numeric}, \code{matrix},
+#' @return A `numeric`, `matrix`,
 #'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
 #'   or \code{\link[sf]{sf}} object containing the replacement costs for each
 #'   planning unit in the solution.
@@ -189,7 +189,7 @@ NULL
 #'
 #' @references
 #' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
-#' value for cost-effective reserve planning. \emph{Biological Conservation},
+#' value for cost-effective reserve planning. *Biological Conservation*,
 #' 132:  336--342.
 #'
 #' @seealso \code{\link{irreplaceability}}.

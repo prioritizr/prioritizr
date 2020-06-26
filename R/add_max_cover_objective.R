@@ -7,17 +7,17 @@ NULL
 #' represent at least one instance of as many features as possible within a
 #' given budget. This type of objective does not use targets, and feature
 #' weights should be used instead to increase the representation of different
-#' features in solutions. \strong{Note that the mathematical formulation
-#' underpinning this function is different from versions prior to 3.0.0.0}.
+#' features in solutions. **Note that the mathematical formulation
+#' underpinning this function is different from versions prior to 3.0.0.0**.
 #' See the Details section for more information on the changes since this
 #' version.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param budget \code{numeric} value specifying the maximum expenditure of
+#' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
-#'   to \code{budget} can be a single \code{numeric} value to specify a budget
-#'   for the entire solution or a \code{numeric} \code{vector} to specify
+#'   to `budget` can be a single `numeric` value to specify a budget
+#'   for the entire solution or a `numeric` `vector` to specify
 #'   a budget for each each management zone.
 #'
 #' @details A problem objective is used to specify the overall goal of the
@@ -41,7 +41,7 @@ NULL
 #'   targets.
 #'
 #'   This formulation is based on the historical maximum coverage reserve
-#'   selection formulation (Church & Velle 1974; Church \emph{et al.} 1996).
+#'   selection formulation (Church & Velle 1974; Church *et al.* 1996).
 #'   The maximum coverage objective for the reserve design problem can be
 #'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 #'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
@@ -77,10 +77,10 @@ NULL
 #'
 #' @references
 #' Church RL and Velle CR (1974) The maximum covering location problem.
-#' \emph{Regional Science}, 32: 101--118.
+#' *Regional Science*, 32: 101--118.
 #'
 #' Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
-#' covering location problem. \emph{Biological Conservation}, 76: 105--112.
+#' covering location problem. *Biological Conservation*, 76: 105--112.
 #'
 #' @inherit add_max_features_objective seealso return
 #'

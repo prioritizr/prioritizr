@@ -10,35 +10,35 @@ NULL
 #' @param x \code{\link[raster]{Raster-class}},
 #'   \code{\link[sp]{SpatialLines-class}},
 #'   \code{\link[sp]{SpatialPolygons-class}},
-#'   \code{\link[sf]{sf}} object representing planning units. If \code{x} is a
+#'   \code{\link[sf]{sf}} object representing planning units. If `x` is a
 #'   \code{\link[raster]{Raster-class}} object then it must have only one
 #'   layer.
 #'
-#' @param str_tree \code{logical} should a
-#'   \href{https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html}{GEOS STRtree} be used to
-#'   to pre-process data? If \code{TRUE}, then the experimental
+#' @param str_tree `logical` should a
+#'   [GEOS STRtree](https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html) be used to
+#'   to pre-process data? If `TRUE`, then the experimental
 #'   \code{\link[rgeos]{gUnarySTRtreeQuery}} function
 #'   will be used to pre-compute which planning units are adjacent to
 #'   each other and potentially reduce the processing time required to
 #'   generate the boundary matrices. This argument is only used when
 #'   the planning unit data are vector-based polygons (i.e.
-#'   \code{\link[sp]{SpatialPolygonsDataFrame}} objects). \strong{Note that
-#'   using \code{TRUE} may crash Mac OSX systems.} The default argument
-#'   is \code{FALSE}.
+#'   \code{\link[sp]{SpatialPolygonsDataFrame}} objects). **Note that
+#'   using `TRUE` may crash Mac OSX systems.** The default argument
+#'   is `FALSE`.
 #'
 #' @details This function returns a \code{\link[Matrix]{dsCMatrix-class}}
 #'   symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 #'   the shared boundary between two different planning units. Cells on the
 #'   diagonal indicate length of a given planning unit's edges that have no
 #'   neighbors (e.g. for edges of planning units found along the
-#'   coastline). \strong{This function assumes the data are in a coordinate
+#'   coastline). **This function assumes the data are in a coordinate
 #'   system where Euclidean distances accurately describe the proximity
-#'   between two points on the earth}. Thus spatial data in a longitude/latitude
-#'   coordinate system (aka
-#'   \href{http://spatialreference.org/ref/epsg/wgs-84/}{WGS84})
+#'   between two points on the earth**. Thus spatial data in a longitude/latitude
+#'   coordinate system (i.e.
+#'   [WGS84](http://spatialreference.org/ref/epsg/wgs-84/))
 #'   should be reprojected to another coordinate system before using this
 #'   function. Note that for \code{\link[raster]{Raster-class}} objects
-#'   boundaries are missing for cells that have \code{NA} values in all cells.
+#'   boundaries are missing for cells that have `NA` values in all cells.
 #'
 #' @return \code{\link{Matrix}{dsCMatrix-class}} object.
 #'

@@ -16,14 +16,14 @@ NULL
 #' Organize biodiversity data into the expected amount of different features
 #' under different management zones.
 #'
-#' @param ... \code{\link[raster]{raster}} or \code{character} objects that
+#' @param ... \code{\link[raster]{raster}} or `character` objects that
 #'   pertain to the biodiversity data. See Details for more information.
 #'
-#' @param zone_names \code{character} names of the management zones. Defaults
-#'   to \code{NULL} which results in sequential integers.
+#' @param zone_names `character` names of the management zones. Defaults
+#'   to `NULL` which results in sequential integers.
 #'
-#' @param feature_names \code{character} names of the features zones. Defaults
-#'   to \code{NULL} which results in sequential integers.
+#' @param feature_names `character` names of the features zones. Defaults
+#'   to `NULL` which results in sequential integers.
 #'
 #' @details This function is used to store and organize data for use in a
 #'   conservation planning \code{\link{problem}} that has multiple management
@@ -38,24 +38,24 @@ NULL
 #'     management zone. Data for each zone are specified in separate
 #'     arguments, and the data for each feature in a given zone are specified
 #'     in separate layers in a \code{\link[raster]{stack}} object. Note that
-#'     all layers for a given zone must have \code{NA} values in exactly the
+#'     all layers for a given zone must have `NA` values in exactly the
 #'     same cells.}
-#'   \item{\code{\link{Spatial}}, \code{data.frame}}{\code{character} vector
+#'   \item{\code{\link{Spatial}}, `data.frame`}{`character` vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit for each zone. Note that
-#'     these columns must not contain any \code{NA} values.}
-#'   \item{\code{\link{Spatial}}, \code{data.frame} or
-#'     \code{matrix}}{\code{data.frame} denoting the amount of each feature
-#'     in each zone. Following conventions used in \emph{Marxan},
-#'     \code{data.frame} objects should be supplied with the columns:
+#'     these columns must not contain any `NA` values.}
+#'   \item{\code{\link{Spatial}}, `data.frame` or
+#'     `matrix`}{`data.frame` denoting the amount of each feature
+#'     in each zone. Following conventions used in *Marxan*,
+#'     `data.frame` objects should be supplied with the columns:
 #'     \describe{
-#'     \item{\code{"pu"}}{\code{integer} planning unit identifier.}
-#'     \item{\code{"species"}}{\code{integer} feature identifier.}
-#'     \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+#'     \item{`"pu"`}{`integer` planning unit identifier.}
+#'     \item{`"species"`}{`integer` feature identifier.}
+#'     \item{`"amount"`}{`numeric` amount of the feature in the
 #'       planning unit for a given zone.}
 #'     }
 #'     Note that data for each zone are specified in a separate argument, and
-#'     the data contained in a single \code{data.frame} object correspond to
+#'     the data contained in a single `data.frame` object correspond to
 #'     a single zone. Also, note that data are not required for all
 #'     combinations of planning units, features, and zones. The amounts of
 #'     features in planning units assuming different management zones that are

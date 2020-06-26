@@ -14,25 +14,25 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param data \code{data.frame} or \code{\link[tibble]{tibble}} object. See
+#' @param data `data.frame` or \code{\link[tibble]{tibble}} object. See
 #'   the Details section for more information.
 #'
-#' @details The argument to \code{data} must contain the following fields
+#' @details The argument to `data` must contain the following fields
 #'   (columns):
 #'
 #'   \describe{
 #'
-#'   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'   \item{`"pu"`}{`integer` planning unit identifier.}
 #'
-#'   \item{\code{"zone"}}{\code{character} names of zones. Note that this
-#'     argument is optional for arguments to \code{x} that contain a single
+#'   \item{`"zone"`}{`character` names of zones. Note that this
+#'     argument is optional for arguments to `x` that contain a single
 #'     zone.}
 #'
-#'   \item{\code{"lower"}}{\code{numeric} values indicating the minimum
+#'   \item{`"lower"`}{`numeric` values indicating the minimum
 #'     value that each planning unit can be allocated to in each zone
 #'     in the solution.}
 #'
-#'   \item{\code{"upper"}}{\code{numeric} values indicating the maximum
+#'   \item{`"upper"`}{`numeric` values indicating the maximum
 #'     value that each planning unit can be allocated to in each zone
 #'     in the solution.}
 #'

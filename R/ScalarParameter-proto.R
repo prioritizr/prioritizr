@@ -8,47 +8,47 @@ NULL
 #' Scalar parameter prototype
 #'
 #' This prototype is used to represent a parameter has a single value.
-#' \strong{Only experts should interact directly with this prototype.}
+#' **Only experts should interact directly with this prototype.**
 #'
 #' @section Fields:
 #' \describe{
 #'
-#' \item{$id}{\code{character} identifier for parameter.}
+#' \item{$id}{`character` identifier for parameter.}
 #'
-#' \item{$name}{\code{character} name of parameter.}
+#' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{\code{numeric} scalar value.}
+#' \item{$value}{`numeric` scalar value.}
 #'
-#' \item{$default}{\code{numeric} scalar default value.}
+#' \item{$default}{`numeric` scalar default value.}
 #'
-#' \item{$class}{\code{character} name of the class that \code{$value} should
-#'   inherit from (e.g. \code{integer}).}
+#' \item{$class}{`character` name of the class that `$value` should
+#'   inherit from (e.g. `integer`).}
 #'
-#' \item{$lower_limit}{\code{numeric} scalar value that is the minimum value
-#'   that \code{$value} is permitted to be.}
+#' \item{$lower_limit}{`numeric` scalar value that is the minimum value
+#'   that `$value` is permitted to be.}
 #'
-#' \item{$upper_limit}{\code{numeric} scalar value that is the maximum value
-#'   that \code{$value} is permitted to be.}
+#' \item{$upper_limit}{`numeric` scalar value that is the maximum value
+#'   that `$value` is permitted to be.}
 #'
-#' \item{$widget}{\code{function} used to construct a
+#' \item{$widget}{`function` used to construct a
 #'                \code{\link[shiny]{shiny}} interface for modifying values.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$validate(x)}
+#' `x$validate(x)`
 #'
-#' \code{x$get()}
+#' `x$get()`
 #'
-#' \code{x$set(x)}
+#' `x$set(x)`
 #'
-#' \code{x$reset()}
+#' `x$reset()`
 #'
-#' \code{x$render(...)}
+#' `x$render(...)`
 #'
 #' @section Arguments:
 #'
@@ -56,7 +56,7 @@ NULL
 #'
 #' \item{x}{object used to set a new parameter value.}
 #'
-#' \item{...}{arguments passed to \code{$widget}.}
+#' \item{...}{arguments passed to `$widget`.}
 #'
 #'  }
 #'

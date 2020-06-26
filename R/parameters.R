@@ -9,17 +9,17 @@ NULL
 #' modifying them. If values are supplied to a parameter that are unacceptable
 #' then an error is thrown.
 #'
-#' @param name \code{character} name of parameter.
+#' @param name `character` name of parameter.
 #'
-#' @param value \code{integer} or \code{double} value depending on the
+#' @param value `integer` or `double` value depending on the
 #'    parameter.
 #'
-#' @param lower_limit \code{integer} or \code{double} value representing
-#'   the smallest acceptable value for \code{value}. Defaults to
+#' @param lower_limit `integer` or `double` value representing
+#'   the smallest acceptable value for `value`. Defaults to
 #'   the smallest possible number on the system.
 #'
-#' @param upper_limit \code{integer} or \code{double} value representing
-#'   the largest acceptable value for \code{value}. Defaults to
+#' @param upper_limit `integer` or `double` value representing
+#'   the largest acceptable value for `value`. Defaults to
 #'   the largest possible number on the system.
 #'
 #' @details Below is a list of parameter generating functions and a brief
@@ -27,14 +27,14 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{proportion_parameter}{A parameter that is a \code{double} and bounded
+#'   \item{proportion_parameter}{A parameter that is a `double` and bounded
 #'     between zero and one.}
 #'
-#'   \item{integer_parameter}{A parameter that is a \code{integer}.}
+#'   \item{integer_parameter}{A parameter that is a `integer`.}
 #'
-#'   \item{numeric_parameter}{A parameter that is a \code{double}.}
+#'   \item{numeric_parameter}{A parameter that is a `double`.}
 #'
-#'   \item{binary_parameter}{A parameter that is restricted to \code{integer}
+#'   \item{binary_parameter}{A parameter that is restricted to `integer`
 #'     values of zero or one.}
 #'
 #'   }
@@ -148,18 +148,18 @@ numeric_parameter <- function(name, value,
 #' Create parameters that consist of multiple numbers. If an attempt is made
 #' to create a parameter with conflicting settings then an error will be thrown.
 #'
-#' @param name \code{character} name of parameter.
+#' @param name `character` name of parameter.
 #'
-#' @param value \code{vector} of values.
+#' @param value `vector` of values.
 #'
-#' @param label \code{character} \code{vector} of labels for each value.
+#' @param label `character` `vector` of labels for each value.
 #'
-#' @param lower_limit \code{vector} of values denoting the minimum acceptable
-#'   value for each element in \code{value}. Defaults to the
+#' @param lower_limit `vector` of values denoting the minimum acceptable
+#'   value for each element in `value`. Defaults to the
 #'   smallest possible number on the system.
 #'
-#' @param upper_limit \code{vector} of values denoting the maximum acceptable
-#'   value for each element in \code{value}. Defaults to the
+#' @param upper_limit `vector` of values denoting the maximum acceptable
+#'   value for each element in `value`. Defaults to the
 #'   largest  possible number on the system.
 #'
 #' @details Below is a list of parameter generating functions and a brief
@@ -167,16 +167,16 @@ numeric_parameter <- function(name, value,
 #' \describe{
 #'
 #'   \item{proportion_parameter_array}{a parameter that consists of multiple
-#'    \code{numeric} values that are between zero and one.}
+#'    `numeric` values that are between zero and one.}
 #'
 #'   \item{binary_parameter_array}{a parameter that consists of multiple
-#'     \code{integer} values that are either zero or one.}
+#'     `integer` values that are either zero or one.}
 #'
 #'   \item{integer_parameter_array}{a parameter that consists of multiple
-#'     \code{integer} values.}
+#'     `integer` values.}
 #'
 #'   \item{numeric_parameter_array}{a parameter that consists of multiple
-#'     \code{numeric} values.}
+#'     `numeric` values.}
 #'
 #' }
 #'
@@ -323,18 +323,18 @@ numeric_parameter_array <- function(name, value, label,
 #'
 #' Create a parameter that consists of a miscellaneous object.
 #'
-#' @param name \code{character} name of parameter.
+#' @param name `character` name of parameter.
 #'
 #' @param value object.
 #'
-#' @param validator \code{function} to validate changes to the parameter. This
-#'   function must have a single argument and return either \code{TRUE} or
-#'   \code{FALSE} depending on if the argument is valid candidate for the
+#' @param validator `function` to validate changes to the parameter. This
+#'   function must have a single argument and return either `TRUE` or
+#'   `FALSE` depending on if the argument is valid candidate for the
 #'   parameter.
 #'
-#' @param widget \code{function} to render a \code{shiny} widget. This function
+#' @param widget `function` to render a `shiny` widget. This function
 #'   should must have a single argument that accepts a valid object and return
-#'   a \code{shiny.tag} or \code{shiny.tag.list} object.
+#'   a `shiny.tag` or `shiny.tag.list` object.
 #'
 #' @return \code{\link{MiscParameter-class}} object.
 #'
@@ -384,20 +384,20 @@ misc_parameter <- function(name, value, validator, widget) {
 #'
 #' Create a parameter that represents a matrix object.
 #'
-#' @param name \code{character} name of parameter.
+#' @param name `character` name of parameter.
 #'
-#' @param value \code{matrix} object.
+#' @param value `matrix` object.
 #'
-#' @param lower_limit \code{numeric} values denoting the minimum acceptable
+#' @param lower_limit `numeric` values denoting the minimum acceptable
 #'   value in the matrix. Defaults to the smallest possible number on the
 #'   system.
 #'
-#' @param upper_limit \code{numeric} values denoting the maximum acceptable
+#' @param upper_limit `numeric` values denoting the maximum acceptable
 #'   value in the matrix. Defaults to the smallest possible number on the
 #'   system.
 #'
-#' @param symmetric \code{logical} must the must be matrix be symmetric?
-#'   Defaults to \code{FALSE}.
+#' @param symmetric `logical` must the must be matrix be symmetric?
+#'   Defaults to `FALSE`.
 #'
 #' @return \code{\link{MiscParameter-class}} object.
 #'
@@ -467,7 +467,7 @@ binary_matrix_parameter <- function(name, value, symmetric = FALSE) {
 
 #' Parameters
 #'
-#' Create a new collection of \code{Parameter} objects.
+#' Create a new collection of `Parameter` objects.
 #'
 #' @param ... \code{\link{Parameter-class}} objects.
 #'

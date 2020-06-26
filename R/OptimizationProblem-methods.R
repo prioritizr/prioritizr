@@ -12,45 +12,45 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{nrow}{\code{integer} number of rows (constraints).}
+#' \item{nrow}{`integer` number of rows (constraints).}
 #'
-#' \item{ncol}{\code{integer} number of columns (decision variables).}
+#' \item{ncol}{`integer` number of columns (decision variables).}
 #'
-#' \item{ncell}{\code{integer} number of cells.}
+#' \item{ncell}{`integer` number of cells.}
 #'
-#' \item{modelsense}{\code{character} describing if the problem is to be
-#'   maximized (\code{"max"}) or minimized (\code{"min"}).}
+#' \item{modelsense}{`character` describing if the problem is to be
+#'   maximized (`"max"`) or minimized (`"min"`).}
 #'
-#' \item{vtype}{\code{character} describing the type of each decision variable:
-#'   binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
-#'   (\code{"C"})}
+#' \item{vtype}{`character` describing the type of each decision variable:
+#'   binary (`"B"`), semi-continuous (`"S"`), or continuous
+#'   (`"C"`)}
 #'
-#' \item{obj}{\code{numeric} vector specifying the objective function.}
+#' \item{obj}{`numeric` vector specifying the objective function.}
 #'
 #' \item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
 #'   problem matrix.}
 #'
-#' \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}
+#' \item{rhs}{`numeric` vector with right-hand-side linear constraints}
 #'
-#' \item{sense}{\code{character} vector with the senses of the linear
-#'   constraints (\code{"<="}, \code{">="}, \code{"="}).}
+#' \item{sense}{`character` vector with the senses of the linear
+#'   constraints (`"<="`, `">="`, `"="`).}
 #'
-#' \item{lb}{\code{numeric} lower bound for each decision variable. Missing data
-#'   values (\code{NA}) indicate no lower bound for a given variable.}
+#' \item{lb}{`numeric` lower bound for each decision variable. Missing data
+#'   values (`NA`) indicate no lower bound for a given variable.}
 #'
-#' \item{ub}{\code{numeric} upper bounds for each decision variable. Missing
-#'   data values (\code{NA}) indicate no upper bound for a given variable.}
+#' \item{ub}{`numeric` upper bounds for each decision variable. Missing
+#'   data values (`NA`) indicate no upper bound for a given variable.}
 #'
-#' \item{number_of_planning_units}{\code{integer} number of planning units in
+#' \item{number_of_planning_units}{`integer` number of planning units in
 #'   the problem.}
 #'
-#' \item{number_of_features}{\code{integer} number of features
+#' \item{number_of_features}{`integer` number of features
 #'   the problem.}
 #'
 #' }
 #'
-#' @return \code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
-#'   \code{numeric} vector, or scalar \code{integer} depending on the method
+#' @return \code{\link[Matrix]{dgCMatrix-class}}, `numeric` vector,
+#'   `numeric` vector, or scalar `integer` depending on the method
 #'   used.
 #'
 #' @name OptimizationProblem-methods
@@ -293,7 +293,7 @@ methods::setGeneric("compressed_formulation",
 methods::setMethod("compressed_formulation", "OptimizationProblem",
                    function(x) x$compressed_formulation())
 
-#' Convert \code{OptimizationProblem} to list
+#' Convert `OptimizationProblem` to list
 #'
 #' @param x \code{\link{OptimizationProblem-class}} object.
 #'

@@ -119,7 +119,7 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 }
 \references{
 Cabeza M and Moilanen A (2001) Design of reserve networks and the
-persistence of biodiversity. \emph{Trends in Ecology \& Evolution},
+persistence of biodiversity. \emph{Trends in Ecology & Evolution},
 16: 242--248.
 }
 \seealso{

@@ -17,7 +17,7 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param upper_limit \code{numeric} value specifying the maximum proportion
+#' @param upper_limit `numeric` value specifying the maximum proportion
 #'   of a planning unit that can be reserved (e.g. set to 0.8 for 80%).
 #'
 #' @inherit add_binary_decisions details return seealso

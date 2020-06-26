@@ -25,10 +25,10 @@ should interact directly with this class.}
 from (e.g. \code{"integer"}.}
 
 \item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
-permitted value for each element in \code{$value}.}
+permitted value for each element in \verb{$value}.}
 
 \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
-permitted value for each element in \code{$value}.}
+permitted value for each element in \verb{$value}.}
 
 \item{$widget}{\code{function} used to construct a
 \code{\link[shiny]{shiny}} interface for modifying values.}

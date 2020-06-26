@@ -13,26 +13,26 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param data \code{data.frame} or \code{\link[tibble]{tibble}} object. See
+#' @param data `data.frame` or \code{\link[tibble]{tibble}} object. See
 #'   the Details section for more information.
 #'
-#' @details The argument to \code{data} must contain the following fields
+#' @details The argument to `data` must contain the following fields
 #'   (columns):
 #'
 #'   \describe{
 #'
-#'   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'   \item{`"pu"`}{`integer` planning unit identifier.}
 #'
-#'   \item{\code{"zone"}}{\code{character} names of zones. Note that this
-#'     argument is optional for arguments to \code{x} that contain a single
+#'   \item{`"zone"`}{`character` names of zones. Note that this
+#'     argument is optional for arguments to `x` that contain a single
 #'     zone.}
 #'
-#'   \item{\code{"status"}}{\code{numeric} values indicating how much
+#'   \item{`"status"`}{`numeric` values indicating how much
 #'     of each planning unit should be allocated to each zone in the solution.
-#'     For example, the \code{numeric} values could be binary values (i.e. zero
+#'     For example, the `numeric` values could be binary values (i.e. zero
 #'     or one) for problems containing binary-type decision variables
 #'     (using the \code{\link{add_binary_decisions}} function). Alternatively,
-#'     the \code{numeric} values could be proportions (e.g. 0.5) for problems
+#'     the `numeric` values could be proportions (e.g. 0.5) for problems
 #'     containing proportion-type decision variables (using the
 #'     \code{\link{add_proportion_decisions}}).}
 #'

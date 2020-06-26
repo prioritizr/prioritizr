@@ -13,7 +13,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
 #' @details This strategy for generating a portfolio requires problems to
-#'   be solved using the \emph{Gurobi} software suite (i.e. using
+#'   be solved using the *Gurobi* software suite (i.e. using
 #'   \code{\link{add_gurobi_solver}}. Specifically, version 8.0.0 (or greater)
 #'   of the \pkg{gurobi} package must be installed.
 #'

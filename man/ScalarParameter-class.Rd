@@ -20,14 +20,14 @@ This prototype is used to represent a parameter has a single value.
 
 \item{$default}{\code{numeric} scalar default value.}
 
-\item{$class}{\code{character} name of the class that \code{$value} should
+\item{$class}{\code{character} name of the class that \verb{$value} should
 inherit from (e.g. \code{integer}).}
 
 \item{$lower_limit}{\code{numeric} scalar value that is the minimum value
-that \code{$value} is permitted to be.}
+that \verb{$value} is permitted to be.}
 
 \item{$upper_limit}{\code{numeric} scalar value that is the maximum value
-that \code{$value} is permitted to be.}
+that \verb{$value} is permitted to be.}
 
 \item{$widget}{\code{function} used to construct a
 \code{\link[shiny]{shiny}} interface for modifying values.}
@@ -59,7 +59,7 @@ that \code{$value} is permitted to be.}
 
 \item{x}{object used to set a new parameter value.}
 
-\item{...}{arguments passed to \code{$widget}.}
+\item{...}{arguments passed to \verb{$widget}.}
 
 }
 }

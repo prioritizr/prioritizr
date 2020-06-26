@@ -13,7 +13,7 @@ NULL
 #'   or \code{\link[sf]{sf}} object
 #'   representing planning units.
 #'
-#' @param directions \code{integer} If \code{x} is a
+#' @param directions `integer` If `x` is a
 #'   \code{\link[raster]{Raster-class}} object, the number of directions
 #'   in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 #'   case), 16 (knight and one-cell queen moves), or "bishop" to for cells
@@ -27,7 +27,7 @@ NULL
 #'   and \code{\link[raster]{adjacent}} for \code{\link[raster]{Raster-class}}
 #'   objects.
 #'   Prior to version 5.0.0,  this function was named
-#'   \code{connected_matrix}. It has been renamed to be consistent
+#'   `connected_matrix`. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
 #' @return \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
@@ -35,8 +35,8 @@ NULL
 #'   Cells values indicate if different planning units are
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to \code{x} is a
-#'   \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+#'   set to zero. Furthermore, if the argument to `x` is a
+#'   \code{\link[raster]{Raster-class}} object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name adjacency_matrix

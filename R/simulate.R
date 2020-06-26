@@ -8,12 +8,12 @@ NULL
 #' @param x \code{\link[raster]{RasterLayer-class}} object to use as
 #'    a template.
 #'
-#' @param n \code{integer} number of species to simulate.
+#' @param n `integer` number of species to simulate.
 #'
 #' @param model \code{\link[RandomFields]{RP}} model object
 #'   to use for simulating data.
 #'
-#' @param transform \code{function} to transform values output
+#' @param transform `function` to transform values output
 #'   from the random fields simulation.
 #'
 #' @param ... additional arguments passed to

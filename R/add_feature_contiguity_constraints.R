@@ -15,36 +15,36 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param zones \code{matrix}, \code{Matrix} or \code{list} object describing
-#'   the connection scheme for different zones. For \code{matrix} or
-#'   and \code{Matrix} arguments, each row and column corresponds
-#'   to a different zone in the argument to \code{x}, and cell values must
-#'   contain binary \code{numeric} values (i.e. one or zero) that indicate
+#' @param zones `matrix`, `Matrix` or `list` object describing
+#'   the connection scheme for different zones. For `matrix` or
+#'   and `Matrix` arguments, each row and column corresponds
+#'   to a different zone in the argument to `x`, and cell values must
+#'   contain binary `numeric` values (i.e. one or zero) that indicate
 #'   if connected planning units (as specified in the argument to
-#'   \code{data}) should be still considered connected if they are allocated to
+#'   `data`) should be still considered connected if they are allocated to
 #'   different zones. The cell values along the diagonal
 #'   of the matrix indicate if planning units should be subject to
 #'   contiguity constraints when they are allocated to a given zone. Note
-#'   arguments to \code{zones} must be symmetric, and that a row or column has
+#'   arguments to `zones` must be symmetric, and that a row or column has
 #'   a value of one then the diagonal element for that row or column must also
 #'   have a value of one. If the connection scheme between different zones
-#'   should differ among the features, then the argument to \code{zones} should
-#'   be a \code{list} of \code{matrix} or \code{Matrix} objects that shows the
+#'   should differ among the features, then the argument to `zones` should
+#'   be a `list` of `matrix` or `Matrix` objects that shows the
 #'   specific scheme for each feature using the conventions described above.
-#'   The default argument to \code{zones} is an identity
+#'   The default argument to `zones` is an identity
 #'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that planning units are only considered connected if they
 #'   are both allocated to the same zone.
 #'
-#' @param data \code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}
-#'   or \code{list} of \code{matrix}, \code{Matrix}, or \code{data.frame}
+#' @param data `NULL`, `matrix`, `Matrix`, `data.frame`
+#'   or `list` of `matrix`, `Matrix`, or `data.frame`
 #'   objects. The argument to data shows which planning units should be treated
 #'   as being connected when implementing constraints to ensure that features
 #'   are represented in contiguous units. If different features have
 #'   different dispersal capabilities, then it may be desirable to specify
 #'   which sets of planning units should be treated as being connected
-#'   for which features using a \code{list} of objects. The default argument
-#'   is \code{NULL} which means that the connection data is calculated
+#'   for which features using a `list` of objects. The default argument
+#'   is `NULL` which means that the connection data is calculated
 #'   automatically using the \code{\link{adjacency_matrix}} function and so
 #'   all adjacent planning units are treated as being connected for all
 #'   features. See the Details section for more information.
@@ -52,44 +52,44 @@ NULL
 #' @details This function uses connection data to identify solutions that
 #'   represent features in contiguous units of dispersible habitat. In earlier
 #'   versions of the \pkg{prioritizr} package, it was known as the
-#'   \code{add_corridor_constraints} function but has since been renamed for
+#'   `add_corridor_constraints` function but has since been renamed for
 #'   clarity. It was inspired by the mathematical formulations detailed in
-#'   Onal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
+#'   Onal and Briers (2006) and Cardeira *et al.* 2010. For an
 #'   example that has used these constraints, see Hanson, Fuller,
 #'   and Rhodes (2018). Please note
 #'   that these constraints require the expanded formulation and therefore
 #'   cannot be used with feature data that have negative vales.
-#'   \strong{Please note that adding these constraints to a problem will
-#'   drastically increase the amount of time required to solve it.}
+#'   **Please note that adding these constraints to a problem will
+#'   drastically increase the amount of time required to solve it.**
 #'
-#'   The argument to \code{data} can be specified in several ways:
+#'   The argument to `data` can be specified in several ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{NULL}}{connection data should be calculated automatically
+#'   \item{`NULL`}{connection data should be calculated automatically
 #'     using the \code{\link{adjacency_matrix}} function. This is the default
 #'     argument and means that all adjacent planning units are treated
 #'     as potentially dispersible for all features.
 #'     Note that the connection data must be manually defined
 #'     using one of the other formats below when the planning unit data
-#'     in the argument to \code{x} is not spatially referenced (e.g.
-#'     in \code{data.frame} or \code{numeric} format).}
+#'     in the argument to `x` is not spatially referenced (e.g.
+#'     in `data.frame` or `numeric` format).}
 
-#'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+#'   \item{`matrix`, `Matrix`}{where rows and columns represent
 #'     different planning units and the value of each cell indicates if the
 #'     two planning units are connected or not. Cell values should be binary
-#'     \code{numeric} values (i.e. one or zero). Cells that occur along the
+#'     `numeric` values (i.e. one or zero). Cells that occur along the
 #'     matrix diagonal have no effect on the solution at all because each
 #'     planning unit cannot be a connected with itself. Note that pairs
 #'     of connected planning units are treated as being potentially dispersible
 #'     for all features.}
 #'
-#'   \item{\code{data.frame}}{containing the fields (columns)
-#'     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+#'   \item{`data.frame`}{containing the fields (columns)
+#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'     denotes the connectivity between two planning units following the
-#'     \emph{Marxan} format. The field \code{boundary} should contain
-#'     binary \code{numeric} values that indicate if the two planning units
-#'     specified in the fields \code{"id1"} and \code{"id2"} are connected
+#'     *Marxan* format. The field `boundary` should contain
+#'     binary `numeric` values that indicate if the two planning units
+#'     specified in the fields `"id1"` and `"id2"` are connected
 #'     or not. This data can be used to describe symmetric or
 #'     asymmetric relationships between planning units. By default,
 #'     input data is assumed to be symmetric unless asymmetric data is
@@ -99,12 +99,12 @@ NULL
 #'     Note that pairs of connected planning units are treated as being
 #'     potentially dispersible for all features.}
 #'
-#'  \item{\code{list}}{containing \code{matrix}, \code{Matrix}, or
-#'     \code{data.frame} objects showing which planning units
+#'  \item{`list`}{containing `matrix`, `Matrix`, or
+#'     `data.frame` objects showing which planning units
 #'     should be treated as connected for each feature. Each element in the
-#'     \code{list} should correspond to a different feature (specifically,
-#'     a different target in the problem), and should contain a \code{matrix},
-#'     \code{Matrix}, or \code{data.frame} object that follows the conventions
+#'     `list` should correspond to a different feature (specifically,
+#'     a different target in the problem), and should contain a `matrix`,
+#'     `Matrix`, or `data.frame` object that follows the conventions
 #'     detailed above.}
 #'
 #'   }
@@ -115,16 +115,16 @@ NULL
 #'
 #' @references
 #' Onal H and Briers RA (2006) Optimal selection of a connected
-#' reserve network. \emph{Operations Research}, 54: 379--388.
+#' reserve network. *Operations Research*, 54: 379--388.
 #'
 #' Cardeira JO, Pinto LS, Cabeza M and Gaston KJ (2010) Species specific
 #' connectivity in reserve-network design using graphs.
-#' \emph{Biological Conservation}, 2: 408--415.
+#' *Biological Conservation*, 2: 408--415.
 #'
 #' Hanson JO, Fuller RA, & Rhodes JR (2018) Conventional methods for enhancing
 #' connectivity in conservation planning do not always maintain gene flow.
-#' \emph{Journal of Applied Ecology}, In press:
-#' \url{https://doi.org/10.1111/1365-2664.13315}.
+#' *Journal of Applied Ecology*, In press:
+#' <https://doi.org/10.1111/1365-2664.13315>.
 #' @examples
 #' # load data
 #' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)

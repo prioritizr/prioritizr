@@ -10,8 +10,8 @@ NULL
 #' require a solution that maximizes the number of conserved species while
 #' ensuring that the cost of the reserve network does not exceed the budget.
 #'
-#' \strong{Please note that failing to specify an objective before attempting
-#' to solve a problem will return an error.}
+#' **Please note that failing to specify an objective before attempting
+#' to solve a problem will return an error.**
 #'
 #' @details The following objectives can be added to a conservation planning
 #'   \code{\link{problem}}:
@@ -20,7 +20,7 @@ NULL
 #'
 #'   \item{\code{\link{add_min_set_objective}}}{Minimize the cost of the
 #'     solution whilst ensuring that all targets are met. This objective is
-#'     similar to that used in \emph{Marxan}.}
+#'     similar to that used in *Marxan*.}
 #'
 #'   \item{\code{\link{add_max_cover_objective}}}{Represent at least one
 #'     instance of as many features as possible within a given budget.}

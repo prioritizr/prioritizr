@@ -8,7 +8,7 @@
 \item{lhs, rhs}{An object and a function.}
 }
 \description{
-This package uses the "tee" operator (\code{\%T>\%}) to modify objects.
+This package uses the "tee" operator (\verb{\\\%T>\\\%}) to modify objects.
 }
 \examples{
 # the tee operator returns the left-hand side of the result and can be

@@ -14,25 +14,25 @@ NULL
 #'   \code{\link[sp]{SpatialLinesDataFrame-class}},
 #'   or \code{\link[sf]{sf}} object
 #'   representing planning units.
-#'   If \code{x} is a \code{\link[raster]{Raster-class}} object then it must
+#'   If `x` is a \code{\link[raster]{Raster-class}} object then it must
 #'   contain a single layer.
 #'
 #' @param y \code{\link[raster]{Raster-class}} object showing the conductance
-#'   of different areas across the study area, or a \code{character} object
-#'   denoting a column name in the attribute table of \code{x} that contains
-#'   the conductance values. Note that argument to \code{y} can only be a
-#'   \code{character} object if the argument to \code{x} is a
+#'   of different areas across the study area, or a `character` object
+#'   denoting a column name in the attribute table of `x` that contains
+#'   the conductance values. Note that argument to `y` can only be a
+#'   `character` object if the argument to `x` is a
 #'   \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
-#'   Also, note that if the argument to \code{x} is a
+#'   Also, note that if the argument to `x` is a
 #'   \code{\link{Raster-class}} object then
-#'   argument to \code{y} must have the same spatial properties as it
+#'   argument to `y` must have the same spatial properties as it
 #'   (i.e. coordinate system, extent, resolution).
 #'
 #' @param ... additional arguments passed to \code{\link{fast_extract}} for
 #'   extracting and calculating the conductance values for each planning unit.
-#'   These arguments are only used if argument to \code{x} is a
+#'   These arguments are only used if argument to `x` is a
 #'   \code{link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object and argument
-#'   to \code{y} is a \code{\link{Raster-class}} object.
+#'   to `y` is a \code{\link{Raster-class}} object.
 #'
 #' @details Shared boundary calculations are performed using
 #'   \code{\link{boundary_matrix}}.
@@ -42,8 +42,8 @@ NULL
 #'   Cells values indicate the connectivity between different pairs of planning
 #'   units.
 #'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to \code{x} is a
-#'   \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+#'   set to zero. Furthermore, if the argument to `x` is a
+#'   \code{\link[raster]{Raster-class}} object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name connectivity_matrix

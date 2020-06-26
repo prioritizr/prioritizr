@@ -9,26 +9,26 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param k \code{integer} minimum number of neighbors for selected
+#' @param k `integer` minimum number of neighbors for selected
 #'   planning units in the solution. For problems with multiple zones,
-#'   the argument to \code{k} must have an element for each zone.
+#'   the argument to `k` must have an element for each zone.
 #'
-#' @param zones \code{matrix} or \code{Matrix} object describing the
+#' @param zones `matrix` or `Matrix` object describing the
 #'   neighborhood scheme for different zones. Each row and column corresponds
-#'   to a different zone in the argument to \code{x}, and cell values must
-#'   contain binary \code{numeric} values (i.e. one or zero) that indicate
+#'   to a different zone in the argument to `x`, and cell values must
+#'   contain binary `numeric` values (i.e. one or zero) that indicate
 #'   if neighboring planning units (as specified in the argument to
-#'   \code{data}) should be considered neighbors if they are allocated to
+#'   `data`) should be considered neighbors if they are allocated to
 #'   different zones. The cell values along the diagonal
 #'   of the matrix indicate if planning units that are allocated to the same
 #'   zone should be considered neighbors or not. The default argument to
-#'   \code{zones} is an identity matrix (i.e. a matrix with ones along the
+#'   `zones` is an identity matrix (i.e. a matrix with ones along the
 #'   matrix diagonal and zeros elsewhere), so that planning units are
 #'   only considered neighbors if they are both allocated to the same zone.
 #'
-#' @param data \code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}, or
-#'   \code{array} object showing which planning units are neighbors with each
-#'   other. The argument defaults to \code{NULL} which means that the
+#' @param data `NULL`, `matrix`, `Matrix`, `data.frame`, or
+#'   `array` object showing which planning units are neighbors with each
+#'   other. The argument defaults to `NULL` which means that the
 #'   neighborhood data is calculated automatically using the
 #'   \code{\link{adjacency_matrix}} function. See the Details section for more
 #'   information.
@@ -36,53 +36,53 @@ NULL
 #' @details This function uses neighborhood data identify solutions that
 #'   surround planning units with a minimum number of neighbors. It
 #'   was inspired by the mathematical formulations detailed in
-#'   Billionnet (2013) and Beyer \emph{et al.} (2016).
+#'   Billionnet (2013) and Beyer *et al.* (2016).
 #'
-#'   The argument to \code{data} can be specified in several ways:
+#'   The argument to `data` can be specified in several ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{NULL}}{neighborhood data should be calculated automatically
+#'   \item{`NULL`}{neighborhood data should be calculated automatically
 #'     using the \code{\link{adjacency_matrix}} function. This is the default
 #'     argument. Note that the neighborhood data must be manually defined
 #'     using one of the other formats below when the planning unit data
-#'     in the argument to \code{x} is not spatially referenced (e.g.
-#'     in \code{data.frame} or \code{numeric} format).}
+#'     in the argument to `x` is not spatially referenced (e.g.
+#'     in `data.frame` or `numeric` format).}
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+#'   \item{`matrix`, `Matrix`}{where rows and columns represent
 #'     different planning units and the value of each cell indicates if the
 #'     two planning units are neighbors or not. Cell values should be binary
-#'     \code{numeric} values (i.e. one or zero). Cells that occur along the
+#'     `numeric` values (i.e. one or zero). Cells that occur along the
 #'     matrix diagonal have no effect on the solution at all because each
 #'     planning unit cannot be a neighbor with itself.}
 #'
-#'   \item{\code{data.frame}}{containing the fields (columns)
-#'     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+#'   \item{`data.frame`}{containing the fields (columns)
+#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'     denotes the connectivity between two planning units following the
-#'     \emph{Marxan} format. The field \code{boundary} should contain
-#'     binary \code{numeric} values that indicate if the two planning units
-#'     specified in the fields \code{"id1"} and \code{"id2"} are neighbors
+#'     *Marxan* format. The field `boundary` should contain
+#'     binary `numeric` values that indicate if the two planning units
+#'     specified in the fields `"id1"` and `"id2"` are neighbors
 #'     or not. This data can be used to describe symmetric or
 #'     asymmetric relationships between planning units. By default,
 #'     input data is assumed to be symmetric unless asymmetric data is
 #'     also included (e.g. if data is present for planning units 2 and 3, then
 #'     the same amount of connectivity is expected for planning units 3 and 2,
 #'     unless connectivity data is also provided for planning units 3 and 2).
-#'     If the argument to \code{x} contains multiple zones, then the columns
-#'     \code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+#'     If the argument to `x` contains multiple zones, then the columns
+#'     `"zone1"` and `"zone2"` can optionally be provided to manually
 #'     specify if the neighborhood data pertain to specific zones. The fields
-#'     \code{"zone1"} and \code{"zone2"} should contain the \code{character}
-#'     names of the zones. If the columns \code{"zone1"} and \code{"zone2"}
-#'     are present, then the argument to \code{zones} must be \code{NULL}.}
+#'     `"zone1"` and `"zone2"` should contain the `character`
+#'     names of the zones. If the columns `"zone1"` and `"zone2"`
+#'     are present, then the argument to `zones` must be `NULL`.}
 #'
-#'   \item{\code{array}}{containing four-dimensions where binary
-#'     \code{numeric} values indicate if planning unit should be treated
+#'   \item{`array`}{containing four-dimensions where binary
+#'     `numeric` values indicate if planning unit should be treated
 #'     as being neighbors with every other planning unit when they
 #'     are allocated to every combination of management zone. The first two
 #'     dimensions (i.e. rows and columns) correspond to the planning units,
 #'     and second two dimensions correspond to the management zones. For
-#'     example, if the argument to \code{data} had a value of 1 at the index
-#'     \code{data[1, 2, 3, 4]} this would indicate that planning unit 1 and
+#'     example, if the argument to `data` had a value of 1 at the index
+#'     `data[1, 2, 3, 4]` this would indicate that planning unit 1 and
 #'     planning unit 2 should be treated as neighbors when they are
 #'     allocated to zones 3 and 4 respectively.}
 #'
@@ -96,10 +96,10 @@ NULL
 #' @references
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
 #' conservation planning problems with integer linear programming.
-#' \emph{Ecological Modelling}, 228: 14--22.
+#' *Ecological Modelling*, 228: 14--22.
 #'
 #' Billionnet A (2013) Mathematical optimization ideas for biodiversity
-#' conservation. \emph{European Journal of Operational Research}, 231:
+#' conservation. *European Journal of Operational Research*, 231:
 #' 514--534.
 #'
 #' @examples

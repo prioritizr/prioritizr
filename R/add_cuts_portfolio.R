@@ -5,13 +5,13 @@ NULL
 #'
 #' Generate a portfolio of solutions for a conservation planning
 #' \code{\link{problem}} using Bender's cuts (discussed in Rodrigues
-#' \emph{et al.} 2000). This is recommended as a replacement for
-#'  \code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
+#' *et al.* 2000). This is recommended as a replacement for
+#'  \code{\link{add_gap_portfolio}} when the *Gurobi* software is not
 #'  available.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param number_solutions \code{integer} number of attempts to generate
+#' @param number_solutions `integer` number of attempts to generate
 #'   different solutions. Defaults to 10.
 #'
 #' @details This strategy for generating a portfolio of solutions involves
@@ -20,7 +20,7 @@ NULL
 #'   useful when problems take a long time to solve and benefit from
 #'   having multiple threads allocated for solving an individual problem.
 #
-#'   \strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
+#'   \strong{Please note that version 4.0.1 attempted to use the *Gurobi*
 #'   solution pool to speed up the process of obtaining multiple solutions.
 #'   However, it would sometimes return solutions that were not within the
 #'   specified optimality gap. To address this, we have added alternative
@@ -35,7 +35,7 @@ NULL
 #' @references
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 #' efficiency, and accountability: adapting reserve selection algorithms to
-#' more complex conservation problems. \emph{Ecography}, 23: 565--574.
+#' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
 #' @examples
 #' # set seed for reproducibility

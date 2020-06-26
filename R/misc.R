@@ -36,7 +36,7 @@ as.list.Zones <- function(x, ...) {
 #'
 #' @param x Object.
 #'
-#' @return \code{logical} indicating if it inherits from the class.
+#' @return `logical` indicating if it inherits from the class.
 #'
 #' @name is
 NULL

@@ -248,17 +248,17 @@ the following equation.
   \mathbf{Ax}\geq= or\leq \mathbf{b}}{Minimize (c^T)*x subject to Ax \ge, =,
   or \le b}
 
-Here, \emph{x} is a vector of decision variables, \emph{c} and \emph{b} are
-vectors of known coefficients, and \emph{A} is the constraint
+Here, \eqn{x} is a vector of decision variables, \eqn{c} and \eqn{b} are
+vectors of known coefficients, and \eqn{A} is the constraint
 matrix. The final term specifies a series of structural
 constraints where relational operators for the constraint can be either
 \eqn{\ge}, \eqn{=}, or \eqn{\le} the coefficients. For example, in the
 minimum set
-cover problem, \emph{c} would be a vector of costs for each planning unit,
-\emph{b} a vector of targets for each conservation feature, the relational
-operator would be \eqn{\ge} for all features, and \emph{A} would be the
+cover problem, \eqn{c} would be a vector of costs for each planning unit,
+\eqn{b} a vector of targets for each conservation feature, the relational
+operator would be \eqn{\ge} for all features, and \eqn{A} would be the
 representation matrix with \eqn{A_{ij}=r_{ij}}{Aij = rij}, the
-representation level of feature \emph{i} in planning unit \emph{j}.
+representation level of feature \eqn{i} in planning unit \eqn{j}.
 
 Please note that this function internally computes the amount of each
 feature in each planning unit when this data is not supplied (using the

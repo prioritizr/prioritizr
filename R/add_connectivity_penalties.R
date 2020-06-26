@@ -8,33 +8,34 @@ NULL
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
-#' @param penalty \code{numeric} penalty that is used to scale the importance
+#' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units with strong connectivity between them compared
 #'   to the main problem objective (e.g. solution cost when the argument to
-#'   \code{x} has a minimum set objective set using
-#'   \code{\link{add_min_set_objective}}). Higher \code{penalty} values
+#'   `x` has a minimum set objective set using
+#'   \code{\link{add_min_set_objective}}). Higher `penalty` values
 #'   can be used to obtain solutions with a high degree of connectivity,
-#'   and smaller \code{penalty} values can be used to obtain solutions with a #'   small degree of connectivity. Note that negative \code{penalty} values can
+#'   and smaller `penalty` values can be used to obtain solutions with a
+#'   small degree of connectivity. Note that negative `penalty` values can
 #'   be used to obtain solutions that have very little connectivity.
 #'
-#' @param zones \code{matrix} or \code{Matrix} object describing the
+#' @param zones `matrix` or `Matrix` object describing the
 #'   level of connectivity between different zones. Each row and column
-#'   corresponds to a different zone in the argument to \code{x}, and cell
+#'   corresponds to a different zone in the argument to `x`, and cell
 #'   values indicate the level of connectivity between each combination
 #'   of zones. Cell values along the diagonal of the matrix represent
 #'   the level of connectivity between planning units allocated to the
 #'   same zone. Cell values must lay between 1 and -1, where negative
 #'   values favor solutions with weak connectivity. The default argument to
-#'   \code{zones} is an identity matrix (i.e. a matrix with ones along the
+#'   `zones` is an identity matrix (i.e. a matrix with ones along the
 #'   matrix diagonal and zeros elsewhere), so that planning units are
 #'   only considered to be connected when they are allocated to the same zone.
-#'   This argument is required when the argument to \code{data} is a
-#'   \code{matrix} or \code{Matrix} object. If the argument to \code{data} is
-#'   an \code{array} or \code{data.frame} with zone data, this argument
-#'   must explicitly be set to \code{NULL} otherwise an error will be thrown.
+#'   This argument is required when the argument to `data` is a
+#'   `matrix` or `Matrix` object. If the argument to `data` is
+#'   an `array` or `data.frame` with zone data, this argument
+#'   must explicitly be set to `NULL` otherwise an error will be thrown.
 #'
-#' @param data \code{matrix}, \code{Matrix}, \code{data.frame}, or
-#'   \code{array} object containing connectivity data. The connectivity values
+#' @param data `matrix`, `Matrix`, `data.frame`, or
+#'   `array` object containing connectivity data. The connectivity values
 #'   correspond to the strength of connectivity between
 #'   different planning units. Thus connections between planning units
 #'   that are associated with higher values are more favorable in the solution.
@@ -42,49 +43,49 @@ NULL
 #'
 #' @details This function uses connectivity data to penalize solutions
 #'   that have low connectivity. It can accommodate symmetric and asymmetric
-#'   relationships between planning units. Although \emph{Marxan}
-#'   \strong{penalizes} connections between planning units with high
+#'   relationships between planning units. Although *Marxan*
+#'   **penalizes** connections between planning units with high
 #'   connectivity values, it is important to note that this function
-#'   \strong{favors} connections between planning units with high connectivity
-#'   values. This function was inspired by Beger \emph{et al.} (2010).
+#'   **favors** connections between planning units with high connectivity
+#'   values. This function was inspired by Beger *et al.* (2010).
 #'
-#'   The argument to \code{data} can be specified in several different ways:
+#'   The argument to `data` can be specified in several different ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+#'   \item{`matrix`, `Matrix`}{where rows and columns represent
 #'     different planning units and the value of each cell represents the
 #'     strength of connectivity between two different planning units. Cells
 #'     that occur along the matrix diagonal are treated as weights which
 #'     indicate that planning units are more desirable in the solution.
-#'     The argument to \code{zones} can be used to control
+#'     The argument to `zones` can be used to control
 #'     the strength of connectivity between planning units in different zones.
-#'     The default argument for \code{zones} is to treat planning units
+#'     The default argument for `zones` is to treat planning units
 #'     allocated to different zones as having zero connectivity.}
 #'
-#'   \item{\code{data.frame}}{containing the fields (columns)
-#'     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+#'   \item{`data.frame`}{containing the fields (columns)
+#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'     denotes the connectivity between two planning units following the
-#'     \emph{Marxan} format. The data can be used to denote symmetric or
+#'     *Marxan* format. The data can be used to denote symmetric or
 #'     asymmetric relationships between planning units. By default,
 #'     input data is assumed to be symmetric unless asymmetric data is
 #'     also included (e.g. if data is present for planning units 2 and 3, then
 #'     the same amount of connectivity is expected for planning units 3 and 2,
 #'     unless connectivity data is also provided for planning units 3 and 2).
-#'     If the argument to \code{x} contains multiple zones, then the columns
-#'     \code{"zone1"} and \code{"zone2"} can optionally be provided to manually
+#'     If the argument to `x` contains multiple zones, then the columns
+#'     `"zone1"` and `"zone2"` can optionally be provided to manually
 #'     specify the connectivity values between planning units when they are
-#'     allocated to specific zones. If the columns \code{"zone1"} and
-#'     \code{"zone2"} are present, then the argument to \code{zones} must be
-#'     \code{NULL}.}
+#'     allocated to specific zones. If the columns `"zone1"` and
+#'     `"zone2"` are present, then the argument to `zones` must be
+#'     `NULL`.}
 #'
-#'   \item{\code{array}}{containing four-dimensions where cell values
+#'   \item{`array`}{containing four-dimensions where cell values
 #'     indicate the strength of connectivity between planning units
 #'     when they are assigned to specific management zones. The first two
 #'     dimensions (i.e. rows and columns) indicate the strength of
 #'     connectivity between different planning units and the second two
 #'     dimensions indicate the different management zones. Thus
-#'     the \code{data[1, 2, 3, 4]} indicates the strength of
+#'     the `data[1, 2, 3, 4]` indicates the strength of
 #'     connectivity between planning unit 1 and planning unit 2 when planning
 #'     unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 #'
@@ -97,12 +98,12 @@ NULL
 #'  represent the decision variable for planning unit \eqn{i} for in zone
 #'  \eqn{z} (e.g. with binary
 #'  values one indicating if planning unit is allocated or not). Also, let
-#'  \eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
-#'  argument to \code{data}, and \eqn{W} represent the argument
-#'  to \code{zones}.
+#'  \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
+#'  argument to `data`, and \eqn{W} represent the argument
+#'  to `zones`.
 #'
-#'  If the argument to \code{data} is supplied as a \code{matrix} or
-#'  \code{Matrix} object, then the penalties are calculated as:
+#'  If the argument to `data` is supplied as a `matrix` or
+#'  `Matrix` object, then the penalties are calculated as:
 #'
 #'  \deqn{
 #'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
@@ -110,8 +111,8 @@ NULL
 #'  sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
 #'  }
 #'
-#'  Otherwise, if the argument to \code{data} is supplied as a
-#'  \code{data.frame} or \code{array} object, then the penalties are
+#'  Otherwise, if the argument to `data` is supplied as a
+#'  `data.frame` or `array` object, then the penalties are
 #'  calculated as:
 #'
 #'  \deqn{
@@ -129,7 +130,7 @@ NULL
 #' @references
 #' Beger M, Linke S, Watts M, Game E, Treml E, Ball I, and Possingham, HP (2010)
 #' Incorporating asymmetric connectivity into spatial decision making for
-#' conservation, \emph{Conservation Letters}, 3: 359--368.
+#' conservation, *Conservation Letters*, 3: 359--368.
 #'
 #' @examples
 #' # set seed for reproducibility

@@ -8,7 +8,7 @@ NULL
 #' @param x \code{\link{ConservationProblem-class}} or \code{\link{Zones}}
 #    object.
 #'
-#' @return \code{character} zone names.
+#' @return `character` zone names.
 #'
 #' @name zone_names
 #'

@@ -75,11 +75,11 @@ pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
 # create problem
 p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost")
 
-# calculate feature abundances; including planning units with \code{NA} costs
+# calculate feature abundances; including planning units with NA costs
 a1 <- feature_abundances(p1, na.rm = FALSE) # (default)
 print(a1)
 
-# calculate feature abundances; excluding planning units with \code{NA} costs
+# calculate feature abundances; excluding planning units with NA costs
 a2 <- feature_abundances(p1, na.rm = TRUE)
 print(a2)
 
@@ -103,7 +103,7 @@ all.equal(a2$relative_abundance,
 # initialize conservation problem with raster data
 p3 <- problem(sim_pu_raster, sim_features)
 
-# calculate feature abundances; including planning units with \code{NA} costs
+# calculate feature abundances; including planning units with NA costs
 a3 <- feature_abundances(p3, na.rm = FALSE) # (default)
 print(a3)
 
@@ -120,7 +120,7 @@ p4 <- p3 \%>\%
 \donttest{
 s4 <- try(solve(p4))
 }
-# calculate feature abundances; excluding planning units with \code{NA} costs
+# calculate feature abundances; excluding planning units with NA costs
 a5 <- feature_abundances(p3, na.rm = TRUE)
 print(a5)
 

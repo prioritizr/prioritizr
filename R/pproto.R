@@ -1,19 +1,19 @@
 #' @include internal.R
 NULL
 
-#' Create a new \code{pproto} object
+#' Create a new `pproto` object
 #'
-#' Construct a new object with \code{pproto}. This object system is inspired
-#' from the \code{ggproto} system used in the \code{ggplot2} package.
+#' Construct a new object with `pproto`. This object system is inspired
+#' from the `ggproto` system used in the `ggplot2` package.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
-#'   attribute of the object. This is optional: if \code{NULL} (the default),
+#'   attribute of the object. This is optional: if `NULL` (the default),
 #'   no class name will be added to the object.
 #'
-#' @param _inherit \code{pproto} object to inherit from. If \code{NULL}, don"t
+#' @param _inherit `pproto` object to inherit from. If `NULL`, don"t
 #'   inherit from any object.
 #'
-#' @param ... A list of members to add to the new \code{pproto} object.
+#' @param ... A list of members to add to the new `pproto` object.
 #'
 #' @examples
 #' Adder <- pproto("Adder",

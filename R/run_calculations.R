@@ -14,9 +14,9 @@ NULL
 #' @details This function is used for the effect of modifying the input
 #'   \code{\link{ConservationProblem-class}} object. As such, it does not return
 #'   anything. To use this function with \code{\link{pipe}} operators, use the
-#'   \code{%T>%} operator and not the \code{%>%} operator.
+#'   `%T>%` operator and not the `%>%` operator.
 #'
-#' @return Invisible \code{TRUE} indicating success.
+#' @return Invisible `TRUE` indicating success.
 #'
 #' @examples
 #' \donttest{

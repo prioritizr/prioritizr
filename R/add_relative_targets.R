@@ -6,7 +6,7 @@ NULL
 #' Set targets as a proportion (between 0 and 1) of the maximum level of
 #' representation of features in the study area. Please note that proportions
 #' are scaled according to the features' total abundances in the study area
-#' (including any locked out planning units, or planning units with \code{NA}
+#' (including any locked out planning units, or planning units with `NA`
 #' cost data) using the \code{\link{feature_abundances}} function.
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.

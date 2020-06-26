@@ -1,101 +1,101 @@
 #' @include internal.R
 NULL
 
-#' \emph{Marxan} conservation problem
+#' *Marxan* conservation problem
 #'
 #' Create a conservation planning \code{\link{problem}} following the
-#' mathematical formulations used in \emph{Marxan} (detailed in Beyer
-#' \emph{et al.} 2016).
+#' mathematical formulations used in *Marxan* (detailed in Beyer
+#' *et al.* 2016).
 #'
-#' @param x \code{character} file path for a \emph{Marxan} input file (typically
-#'   called \code{"input.dat"}), or \code{data.frame} containing planning unit
-#'   data (typically called \code{"pu.dat"}). If the argument to \code{x} is a
-#'   \code{data.frame}, then each row corresponds to a different planning unit,
+#' @param x `character` file path for a *Marxan* input file (typically
+#'   called `"input.dat"`), or `data.frame` containing planning unit
+#'   data (typically called `"pu.dat"`). If the argument to `x` is a
+#'   `data.frame`, then each row corresponds to a different planning unit,
 #'   and it must have the following columns:
 #'
 #'   \describe{
 #'
-#'   \item{\code{"id"}}{\code{integer} unique identifier for each planning unit.
-#'     These identifiers are used in the argument to \code{puvspr}.}
+#'   \item{`"id"`}{`integer` unique identifier for each planning unit.
+#'     These identifiers are used in the argument to `puvspr`.}
 #'
-#'   \item{\code{"cost"}}{\code{numeric} cost of each planning unit.}
+#'   \item{`"cost"`}{`numeric` cost of each planning unit.}
 #'
-#'   \item{\code{"status"}}{\code{integer} indicating if each planning unit
+#'   \item{`"status"`}{`integer` indicating if each planning unit
 #'     should not be locked in the solution (0) or if it should be locked in
-#'     (2) or locked out (3) of the solution. Although \emph{Marxan} allows
+#'     (2) or locked out (3) of the solution. Although *Marxan* allows
 #'     planning units to be selected in the initial solution (using values of
 #'     1), these values have no effect here. This column is optional.}
 #'
 #'   }
 #'
-#' @param spec \code{data.frame} containing information on the features.
-#'   The argument to \code{spec} must follow the conventions used by
-#'   \emph{Marxan} for the species data file (conventionally called
-#'   \code{"spec.dat"}). Each row corresponds to a different feature and
+#' @param spec `data.frame` containing information on the features.
+#'   The argument to `spec` must follow the conventions used by
+#'   *Marxan* for the species data file (conventionally called
+#'   `"spec.dat"`). Each row corresponds to a different feature and
 #'   each column corresponds to different information about the features. It
 #'   must contain the columns listed below. Note that the argument to
-#'   \code{spec} must contain at least one column named \code{"prop"} or
-#'   \code{"amount"}---\strong{but not both columns with both of these
-#'   names}---to specify the target for each feature.
+#'   `spec` must contain at least one column named `"prop"` or
+#'   `"amount"`---**but not both columns with both of these
+#'   names**---to specify the target for each feature.
 #'
 #'   \describe{
 #'
-#'   \item{\code{"id"}}{\code{integer} unique identifier for each feature
-#'     These identifiers are used in the argument to \code{puvspr}.}
+#'   \item{`"id"`}{`integer` unique identifier for each feature
+#'     These identifiers are used in the argument to `puvspr`.}
 #'
-#'   \item{\code{"name"}}{\code{character} name for each feature.}
+#'   \item{`"name"`}{`character` name for each feature.}
 #'
-#'   \item{\code{"prop"}}{\code{numeric} relative target for each feature
+#'   \item{`"prop"`}{`numeric` relative target for each feature
 #'     (optional).}'
 #'
-#'   \item{\code{"amount"}}{\code{numeric} absolute target for each
+#'   \item{`"amount"`}{`numeric` absolute target for each
 #'     feature (optional).}
 #'
 #'   }
 #'
-#' @param puvspr \code{data.frame} containing information on the amount of
+#' @param puvspr `data.frame` containing information on the amount of
 #'   each feature in each planning unit. The argument to
-#'   \code{puvspr} must follow the conventions used in the \emph{Marxan} input
-#'   data file (conventionally called \code{"puvspr.dat"}). It must contain the
+#'   `puvspr` must follow the conventions used in the *Marxan* input
+#'   data file (conventionally called `"puvspr.dat"`). It must contain the
 #'   following columns:
 #'
 #'   \describe{
 #'
-#'   \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+#'   \item{`"pu"`}{`integer` planning unit identifier.}
 #'
-#'   \item{\code{"species"}}{\code{integer} feature identifier.}
+#'   \item{`"species"`}{`integer` feature identifier.}
 #'
-#'   \item{\code{"amount"}}{\code{numeric} amount of the feature in the
+#'   \item{`"amount"`}{`numeric` amount of the feature in the
 #'        planning unit.}
 #'
 #'   }
 #'
-#' @param bound \code{NULL} object indicating that no boundary data
-#'   is required for the conservation planning problem, or a \code{data.frame}
+#' @param bound `NULL` object indicating that no boundary data
+#'   is required for the conservation planning problem, or a `data.frame`
 #'   containing information on the planning units' boundaries. The argument to
-#'   \code{bound} must follow the conventions used in the \emph{Marxan} input
-#'   data file (conventionally called \code{"bound.dat"}). It must contain the
+#'   `bound` must follow the conventions used in the *Marxan* input
+#'   data file (conventionally called `"bound.dat"`). It must contain the
 #'   following columns:
 #'
 #'   \describe{
 #'
-#'   \item{\code{"id1"}}{\code{integer} planning unit identifier.}
+#'   \item{`"id1"`}{`integer` planning unit identifier.}
 #'
-#'   \item{\code{"id2"}}{\code{integer} planning unit identifier.}
+#'   \item{`"id2"`}{`integer` planning unit identifier.}
 #'
-#'   \item{\code{"boundary"}}{\code{numeric} length of shared boundary
+#'   \item{`"boundary"`}{`numeric` length of shared boundary
 #'     between the planning units identified in the previous two columns.}
 #'
 #'   }
 #'
-#' @param blm \code{numeric} boundary length modifier. This argument only
-#'   has an effect when argument to \code{x} is a \code{data.frame}. The
+#' @param blm `numeric` boundary length modifier. This argument only
+#'   has an effect when argument to `x` is a `data.frame`. The
 #'   default argument is zero.
 #'
 #' @param ... not used.
 #'
 #' @details This function is provided as a convenient wrapper for solving
-#'   \emph{Marxan} problems using \pkg{prioritizr}. Although this function
+#'   *Marxan* problems using \pkg{prioritizr}. Although this function
 #'   could accommodate asymmetric connectivity in earlier versions of the
 #'   \pkg{prioritizr} package, this functionality is no longer available.
 #'   Please see the \code{\link{add_connectivity_penalties}} function for
@@ -103,21 +103,21 @@ NULL
 #'   problem.
 #'
 #' @seealso For more information on the correct format for
-#'   for \emph{Marxan} input data, see the
-#'   \href{https://marxansolutions.org}{official \emph{Marxan} website} and Ball
-#'   \emph{et al.} (2009).
+#'   for *Marxan* input data, see the
+#'   [official *Marxan* website](https://marxansolutions.org) and Ball
+#'   *et al.* (2009).
 #'
 #' @return \code{\link{ConservationProblem-class}} object.
 #'
 #' @references
-#' Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
-#' Software for spatial conservation prioritisation} in Spatial conservation
+#' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
+#' Software for spatial conservation prioritisation* in Spatial conservation
 #' prioritisation: Quantitative methods and computational tools. Eds Moilanen
 #' A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 #'
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
 #' conservation planning problems with integer linear programming.
-#' \emph{Ecological Modelling}, 228: 14--22.
+#' *Ecological Modelling*, 228: 14--22.
 #'
 #' @examples
 #' # create Marxan problem using Marxan input file

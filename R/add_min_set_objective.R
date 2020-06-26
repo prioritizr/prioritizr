@@ -6,7 +6,7 @@ NULL
 #' Set the objective of a conservation planning \code{\link{problem}} to
 #' minimize the cost of the solution whilst ensuring that all targets are met.
 #' This objective is similar to that used in
-#' \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
+#' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
 #' @param x \code{\link{ConservationProblem-class}} object.
 #'
@@ -20,7 +20,7 @@ NULL
 #'   seeks to find the set of planning units that minimizes the overall cost of
 #'   a reserve network, while meeting a set of representation targets for the
 #'   conservation features. This objective is equivalent to a simplified
-#'   \emph{Marxan} reserve design problem with the Boundary Length Modifier
+#'   *Marxan* reserve design problem with the Boundary Length Modifier
 #'   (BLM) set to zero.
 #'
 #'   The minimum set objective for the reserve design problem can be expressed
@@ -45,7 +45,7 @@ NULL
 #' @references
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 #' efficiency, and accountability: adapting reserve selection algorithms to
-#' more complex conservation problems. \emph{Ecography}, 23: 565--574.
+#' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
 #' @seealso \code{\link{objectives}}, \code{\link{targets}}.
 #'
