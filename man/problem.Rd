@@ -52,11 +52,11 @@ problem(x, features, ...)
 \S4method{problem}{sf,ZonesCharacter}(x, features, cost_column, ...)
 }
 \arguments{
-\item{x}{\link[raster:Raster-classes]{raster::Raster},
-\code{\link[sf:sf]{sf::sf()}},
-\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame},
-\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame},
-\link[sp:SpatialPointsDataFrame-class]{sp::SpatialPointsDataFrame},
+\item{x}{\code{\linkS4class{Raster}},
+\code{\link[sf:sf]{sf::st_sf()}},
+\code{\linkS4class{SpatialPolygonsDataFrame}},
+\code{\linkS4class{SpatialLinesDataFrame}},
+\code{\linkS4class{SpatialPointsDataFrame}},
 \code{\link[=data.frame]{data.frame()}} object,
 \code{\link[=numeric]{numeric()}} vector, or
 \code{\link[=matrix]{matrix()}} specifying the planning units to use in the reserve
@@ -70,29 +70,29 @@ The specific formats that can be used depend on the cost data format (i.e.
 argument to \code{x}) and whether the problem should have a single zone or
 multiple zones. If the problem should have a single zone, then the feature
 data can be specified following:
-
 \itemize{
-\item \verb{x = [RasterLayer-class][raster::RasterLayer-class]}, or
-\verb{x = [Spatial-class][sp::Spatial-class]},
-or \verb{x = [sf][sf::sf]}:
-\verb{y = [Raster-class][raster::Raster-class]}
+\item \code{\link[raster:Raster-classes]{x = RasterLayer-class}}, or
+\code{\link[sp:Spatial-class]{x = Spatial-class}}, or
+\code{\link[sf:sf]{x = sf::st_sf()}}:
+\code{\link[raster:Raster-classes]{y = Raster-class}}
 object showing the distribution of conservation features. Missing
 values (i.e. \code{NA} values) can be used to indicate the absence of
 a feature in a particular cell instead of explicitly setting these
 cells to zero. Note that this argument type for \code{features} can
 only be used to specify data for problems involving a single zone.
-\item \verb{x = [Spatial-class][sp::Spatial-class]},
-\verb{x = [sf][sf::sf]},
-or \code{x = data.frame}:
+\item \code{\link[sp:Spatial-class]{x = Spatial-class}}, or
+\code{\link[sf:sf]{x = sf::st_sf()}}, or
+\code{x = data.frame}:
 \code{y = character} vector
 with column names that correspond to the abundance or occurrence of
 different features in each planning unit. Note that this argument
 type can only be used to create problems involving a single zone.
-\item \verb{x = [Spatial-class]},
-\verb{x = [sf][sf::sf]},
-\code{x = data.frame},
+\item \code{\link[sp:Spatial-class]{x = Spatial-class}}, or
+\code{\link[sf:sf]{x = sf::st_sf()}}, or
+\code{x = data.frame}, or
 \code{x = numeric} vector, or
-\verb{x = [matrix]}: \code{y = data.frame} object
+\code{x = matrix}:
+\code{y = data.frame} object
 containing the names of the features. Note that if this
 type of argument is supplied to \code{features} then the argument
 \code{rij} or \code{rij_matrix} must also be supplied. This type of
@@ -112,19 +112,13 @@ feature (optional).}
 
 If the problem should have multiple zones, then the feature
 data can be specified following:
-
 \itemize{
-\item \verb{x = [RasterStack-class][raster::RasterStack-class]},
-\verb{x = [RasterBrick-class][raster::RasterBrick-class]},
-\verb{x = [Spatial-class][sp::Spatial-class]},
-or \verb{x = [sf][sf::sf]}: \verb{y = [ZonesRaster]}
-object showing the distribution of conservation features in multiple
-zones. As above, missing values (i.e. \code{NA} values) can be used to
+\item \code{\link[raster:Raster-classes]{x = RasterStack-class}}, or
+\code{\link[raster:Raster-classes]{x = RasterBrick-class}}, or
+[\verb{x = }Spatial-class\verb{][sp::Spatial-class], or [}x = sf::st_sf()\verb{][sf::st_sf()]: [}y = ZonesRaster\verb{][zones()]: object showing the distribution of conservation features in multiple zones. As above, missing values (i.e. }NA` values) can be used to
 indicate the absence of a feature in a particular cell instead of
 explicitly setting these cells to zero.
-\item \verb{x = [Spatial-class][sp::Spatial-class]},
-\verb{x = [sf][sf::sf]},
-or \code{x = data.frame}: \verb{y = [ZonesCharacter]}
+\item \href{zones()}{\verb{x = }Spatial-class\verb{][sp::Spatial-class], or [}x = sf::st_sf()\verb{][sf::st_sf()], or or }x = data.frame\verb{: [}y = ZonesCharacter`}
 object with column names that correspond to the abundance or
 occurrence of different features in each planning unit in different
 zones.
@@ -140,7 +134,7 @@ is suggested to try setting \code{run_checks} to \code{FALSE}.}
 
 \item{cost_column}{\code{character} name or \code{integer} indicating the
 column(s) with the cost data. This argument must be supplied when the
-argument to \code{x} is a \link[sp:Spatial-class]{sp::Spatial} or
+argument to \code{x} is a \code{\linkS4class{Spatial}} or
 \code{data.frame} object. This argument should contain the name of each
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
@@ -153,19 +147,13 @@ objects must follow the conventions used by \emph{Marxan}. Note that the
 \code{"zone"} column is not needed for problems involving a single
 management zone. Specifically, the argument should contain the following
 columns:
-
 \describe{
-
 \item{\code{"pu"}}{\code{integer} planning unit identifier.}
-
 \item{\code{"species"}}{\code{integer} feature identifier.}
-
 \item{\code{"zone"}}{\code{integer} zone identifier (optional for
 problems involving a single zone).}
-
 \item{\code{"amount"}}{\code{numeric} amount of the feature in the
 planning unit.}
-
 }}
 
 \item{zones}{\code{data.frame} containing information on the zones. This
@@ -174,28 +162,24 @@ both \code{data.frame} objects and the problem being built contains
 multiple zones. Following conventions used in \code{MarZone}, this
 argument should contain the following columns:
 columns:
-
 \describe{
-
 \item{\code{"id"}}{\code{integer} zone identifier.}
-
 \item{\code{"name"}}{\code{character} zone name.}
-
 }}
 
 \item{rij_matrix}{\code{list} of \code{matrix} or
-\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix}
+\code{\linkS4class{dgCMatrix}}
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The \code{list} elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 \code{rij_matrix} can be a single \code{matrix} or
-\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix} when specifying a problem with a
+\code{\linkS4class{dgCMatrix}} when specifying a problem with a
 single management zone. This argument is only used when the argument
 to \code{x} is a \code{numeric} or \code{matrix} object.}
 }
 \value{
-A \linkS4class{ConservationProblem} object containing the
+A \code{\linkS4class{ConservationProblem}} object containing the
 basic data used to build a prioritization problem.
 }
 \description{

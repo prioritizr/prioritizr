@@ -6,9 +6,9 @@
 \title{Conservation problem modifier prototype}
 \description{
 This super-prototype is used to represent prototypes that in turn are used to
-modify a \linkS4class{ConservationProblem} object. Specifically, the
-\linkS4class{Constraint}, \linkS4class{Decision},
-\linkS4class{Objective}, and \linkS4class{Target} prototypes
+modify a \code{\linkS4class{ConservationProblem}} object. Specifically, the
+\code{\linkS4class{Constraint}}, \code{\linkS4class{Decision}},
+\code{\linkS4class{Objective}}, and \code{\linkS4class{Target}} prototypes
 inherit from this class. \strong{Only experts should interact with
 this class directly because changes to these class will have profound and
 far reaching effects.}
@@ -71,9 +71,9 @@ to \code{TRUE}.}
 
 \item{id}{\code{id} or \code{name} of parameter}
 
-\item{cp}{\linkS4class{ConservationProblem} object}
+\item{cp}{\code{\linkS4class{ConservationProblem}} object}
 
-\item{op}{\linkS4class{OptimizationProblem} object}
+\item{op}{\code{\linkS4class{OptimizationProblem}} object}
 
 }
 }
@@ -103,12 +103,12 @@ in the \code{data} slot of the input \code{ConservationModifier} or
 \code{ConservationProblem} objects.}
 
 \item{output}{\code{function} used to generate an output from the object.
-This method is only used for \linkS4class{Target} objects.}
+This method is only used for \code{\linkS4class{Target}} objects.}
 
 \item{apply}{\code{function} used to apply the modifier to an
-\linkS4class{OptimizationProblem} object.
-This is used by \linkS4class{Constraint},
-\linkS4class{Decision}, and \linkS4class{Objective} objects.}
+\code{\linkS4class{OptimizationProblem}} object.
+This is used by \code{\linkS4class{Constraint}},
+\code{\linkS4class{Decision}}, and \code{\linkS4class{Objective}} objects.}
 
 \item{get_parameter}{retrieve the value of a parameter.}
 

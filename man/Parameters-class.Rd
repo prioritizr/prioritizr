@@ -5,7 +5,7 @@
 \alias{Parameters}
 \title{Parameters class}
 \description{
-This class represents a collection of \linkS4class{Parameter} objects.
+This class represents a collection of \code{\linkS4class{Parameter}} objects.
 It provides methods for accessing, updating, and rendering the parameters
 stored inside it.
 }
@@ -14,7 +14,7 @@ stored inside it.
 \describe{
 
 \item{$parameters}{\code{list} object containing
-\linkS4class{Parameter} objects.}
+\code{\linkS4class{Parameter}} objects.}
 
 }
 }
@@ -48,9 +48,9 @@ stored inside it.
 \section{Arguments}{
 
 \describe{
-\item{id}{\code{\link[=Id]{Id()}} object.}
+\item{id}{\code{\link{Id}} object.}
 
-\item{p}{\linkS4class{Parameter} object.}
+\item{p}{\code{\linkS4class{Parameter}} object.}
 
 \item{value}{any object.}
 

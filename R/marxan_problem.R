@@ -107,7 +107,7 @@ NULL
 #'   [official *Marxan* website](https://marxansolutions.org) and Ball
 #'   *et al.* (2009).
 #'
-#' @return [ConservationProblem-class] object.
+#' @return [`ConservationProblem-class`] object.
 #'
 #' @references
 #' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:

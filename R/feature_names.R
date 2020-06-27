@@ -5,7 +5,7 @@ NULL
 #'
 #' Extract the names of the features in an object.
 #'
-#' @param x [ConservationProblem-class] or [Zones()]
+#' @param x [`ConservationProblem-class`] or [Zones()]
 #    object.
 #'
 #' @return `character` feature names.

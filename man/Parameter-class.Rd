@@ -13,7 +13,7 @@ should interact directly with this class.}
 
 \describe{
 
-\item{$id}{\code{\link[=Id]{Id()}} identifier for parameter.}
+\item{$id}{\code{\link{Id}} identifier for parameter.}
 
 \item{$name}{\code{character} name of parameter.}
 
@@ -55,5 +55,5 @@ permitted value for each element in \verb{$value}.}
 }
 
 \seealso{
-\linkS4class{ScalarParameter}.
+\code{\linkS4class{ScalarParameter}}.
 }

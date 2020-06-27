@@ -37,9 +37,9 @@ NULL
 #' @section Arguments:
 #' \describe{
 #'
-#' \item{x}{[Solver-class] object.}
+#' \item{x}{[`Solver-class`] object.}
 #'
-#' \item{op}{[OptimizationProblem-class] object.}
+#' \item{op}{[`OptimizationProblem-class`] object.}
 #'
 #' }
 #'
@@ -52,8 +52,8 @@ NULL
 #'
 #' \item{repr}{`character` representation of object.}
 #'
-#' \item{run}{solve an [OptimizationProblem-class] object using this
-#'   object and a [Solver-class] object.}
+#' \item{run}{solve an [`OptimizationProblem-class`] object using this
+#'   object and a [`Solver-class`] object.}
 #'
 #' }
 #'

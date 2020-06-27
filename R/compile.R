@@ -6,7 +6,7 @@ NULL
 #' Compile a conservation planning [problem()] into an
 #' (potentially mixed) integer linear programming problem.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param compressed_formulation `logical` should the conservation problem
 #'   compiled into a compressed version of a planning problem?
@@ -31,7 +31,7 @@ NULL
 #'   an error, a misspecified problem, or unnecessarily long
 #'   solve times.
 #'
-#' @return [OptimizationProblem-class] object.
+#' @return [`OptimizationProblem-class`] object.
 #'
 #' @examples
 #' # build minimal conservation problem

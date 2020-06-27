@@ -10,7 +10,7 @@ compile(x, ...)
 \method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{...}{not used.}
 
@@ -23,7 +23,7 @@ of the constraints requires the expanded formulation. This argument
 defaults to \code{NA}.}
 }
 \value{
-\linkS4class{OptimizationProblem} object.
+\code{\linkS4class{OptimizationProblem}} object.
 }
 \description{
 Compile a conservation planning \code{\link[=problem]{problem()}} into an

@@ -20,32 +20,32 @@
 \format{
 \describe{
 
-\item{sim_pu_polygons}{\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame}
+\item{sim_pu_polygons}{\code{\linkS4class{SpatialPolygonsDataFrame}}
 object.}
 
 \item{sim_pu_zones_polygons}{
-\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame} object.}
+\code{\linkS4class{SpatialPolygonsDataFrame}} object.}
 
 \item{sim_pu_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
 \item{sim_pu_zones_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
-\item{sim_pu_lines}{\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame} object.}
+\item{sim_pu_lines}{\code{\linkS4class{SpatialLinesDataFrame}} object.}
 
-\item{sim_pu_points}{\link[sp:SpatialPointsDataFrame-class]{sp::SpatialPointsDataFrame}
+\item{sim_pu_points}{\code{\linkS4class{SpatialPointsDataFrame}}
 object.}
 
-\item{sim_pu_raster}{\link[raster:Raster-classes]{raster::RasterLayer} object.}
+\item{sim_pu_raster}{\code{\linkS4class{RasterLayer}} object.}
 
-\item{sim_pu_zones_stack}{\link[raster:Raster-classes]{raster::RasterStack} object.}
+\item{sim_pu_zones_stack}{\code{\linkS4class{RasterStack}} object.}
 
-\item{sim_locked_in_raster}{\link[raster:Raster-classes]{raster::RasterLayer}
+\item{sim_locked_in_raster}{\code{\linkS4class{RasterLayer}}
 object.}
 
-\item{sim_locked_out_raster}{\link[raster:Raster-classes]{raster::RasterLayer}
+\item{sim_locked_out_raster}{\code{\linkS4class{RasterLayer}}
 object.}
 
-\item{sim_features}{\link[raster:Raster-classes]{raster::RasterStack} object.}
+\item{sim_features}{\code{\linkS4class{RasterStack}} object.}
 
 \item{sim_features_zones}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
 

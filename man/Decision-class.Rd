@@ -10,8 +10,8 @@ when prioritizing planning units. \strong{This prototype represents
 a recipe to make a decision, to actually specify
 the type of decision in a planning problem, see the help page on
 \link{decisions}. Only experts should use this class directly.}
-This class inherits from the \linkS4class{ConservationModifier}.
+This class inherits from the \code{\linkS4class{ConservationModifier}}.
 }
 \seealso{
-\linkS4class{ConservationModifier}.
+\code{\linkS4class{ConservationModifier}}.
 }

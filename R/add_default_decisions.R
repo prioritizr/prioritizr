@@ -7,7 +7,7 @@ NULL
 #' [problem()]. The default types are binary and are added using
 #' the [add_binary_decisions()] function.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @seealso [decisions].
 #'

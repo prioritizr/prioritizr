@@ -41,7 +41,7 @@ matrix_to_triplet_dataframe <- function(x) {
 #'   numbers, the second column contains the column numbers, and the
 #'   third column contains the cell values.
 #
-#' @return [Matrix::dgCMatrix-class] object.
+#' @return [`dgCMatrix-class`] object.
 #'
 #' @noRd
 triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
@@ -197,15 +197,15 @@ verify_that <- function(..., env = parent.frame()) {
 
 #' Are rasters comparable?
 #'
-#' This function checks if two [raster::Raster-class] objects
+#' This function checks if two [`Raster-class`] objects
 #' are comparable.
 #'
-#' @param x [raster::Raster-class] object.
+#' @param x [`Raster-class`] object.
 #'
-#' @param y [raster::Raster-class] object.
+#' @param y [`Raster-class`] object.
 #'
 #' @return `logical` indicating if the two
-#'   [raster::Raster-class] objects have the same
+#'   [`Raster-class`] objects have the same
 #'   resolution, extent, dimensionality, and coordinate system.
 #'
 #' @noRd
@@ -249,10 +249,10 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #'
 #' Verify if the extents of two spatial objects intersect or not.
 #'
-#' @param x [raster::Raster-class], [sp::Spatial-class],
+#' @param x [`Raster-class`], [`Spatial-class`],
 #'   or [sf::sf()] object.
 #'
-#' @param y [raster::Raster-class], [sp::Spatial-class],
+#' @param y [`Raster-class`], [`Spatial-class`],
 #'   or [sf::sf()] object.
 #'
 #' @return `logical`.

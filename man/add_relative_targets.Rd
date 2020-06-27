@@ -18,13 +18,13 @@ add_relative_targets(x, targets)
 \S4method{add_relative_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{targets}{Object that specifies the targets for each feature. See the
 Details section for more information.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the targets added
+\code{\linkS4class{ConservationProblem}} object with the targets added
 to it.
 }
 \description{

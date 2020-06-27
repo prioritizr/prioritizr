@@ -10,7 +10,7 @@ NULL
 #' but does not provide any guarantees on the number of solutions, or
 #' the quality of solutions.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @details This strategy for generating a portfolio requires problems to
 #'   be solved using the *Gurobi* software suite (i.e. using

@@ -23,7 +23,7 @@
 \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
 importance not selecting planning units with high \code{data} values.
@@ -38,7 +38,7 @@ penalties to problems with multiple zones, the argument to \code{penalty}
 must have a value for each zone.}
 
 \item{data}{\code{character}, \code{numeric},
-\link[raster:Raster-classes]{raster::Raster}, \code{matrix}, or \code{Matrix} object
+\code{\linkS4class{Raster}}, \code{matrix}, or \code{Matrix} object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Details section for more information.}
@@ -61,7 +61,7 @@ several different ways:
 \item{\code{character}}{field (column) name(s) that contain the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to \code{x} are a
-\link[sp:Spatial-class]{sp::Spatial}, \code{\link[sf:sf]{sf::sf()}}, or
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
 \code{data.frame} object. The fields (columns) must have \code{numeric}
 values, and must not contain any missing (\code{NA}) values.
 For problems involving multiple zones, the argument to \code{data} must
@@ -72,18 +72,18 @@ each planning unit. These values must not contain any missing
 (\code{NA}) values. Note that this type of argument is only available
 for planning units that contain a single zone.}
 
-\item{\link[raster:Raster-classes]{raster::Raster}}{containing the data for
+\item{\code{\linkS4class{Raster}}}{containing the data for
 penalizing planning units. This type of argument is only
 compatible if the planning units in the argument to \code{x} are
-\link[sp:Spatial-class]{sp::Spatial}, \code{\link[sf:sf]{sf::sf()}}, or
-or \link[raster:Raster-classes]{raster::Raster} (i.e. they are in a spatially
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
+or \code{\linkS4class{Raster}} (i.e. they are in a spatially
 referenced format).
-If the planning unit data are a \link[sp:Spatial-class]{sp::Spatial} or
+If the planning unit data are a \code{\linkS4class{Spatial}} or
 \code{\link[sf:sf]{sf::sf()}} object, then the
 penalty \code{data} are calculated by overlaying the planning units with
 the argument to \code{data} and calculating the sum of the values.
 If the planning unit data are in the
-\link[raster:Raster-classes]{raster::Raster} then the penalty \code{data} are
+\code{\linkS4class{Raster}} then the penalty \code{data} are
 calculated by extracting the cell values (note that the
 planning unit data and the argument to code{data} must have exactly
 the same dimensionality, extent, and missingness).

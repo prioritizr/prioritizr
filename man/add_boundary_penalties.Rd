@@ -13,7 +13,7 @@ add_boundary_penalties(
 )
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
@@ -60,7 +60,7 @@ between different planning units. See the Details section for more
 information.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the penalties
+\code{\linkS4class{ConservationProblem}} object with the penalties
 added to it.
 }
 \description{

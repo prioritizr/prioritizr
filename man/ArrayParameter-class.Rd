@@ -96,5 +96,5 @@ parameter values.}
 }
 
 \seealso{
-\linkS4class{ScalarParameter}, \linkS4class{Parameter}.
+\code{\linkS4class{ScalarParameter}}, \code{\linkS4class{Parameter}}.
 }

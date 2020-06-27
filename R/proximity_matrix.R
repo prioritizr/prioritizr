@@ -6,8 +6,8 @@ NULL
 #' Create a matrix showing which planning units are within a certain
 #' spatial proximity to each other.
 #'
-#' @param x [raster::Raster-class],
-#'   [sp::Spatial-class], or [sf::sf()] object
+#' @param x [`Raster-class`],
+#'   [`Spatial-class`], or [sf::sf()] object
 #'   representing planning units.
 #'
 #' @param distance `numeric` distance threshold. Planning units
@@ -17,14 +17,14 @@ NULL
 #' @details Proximity calculations are performed using
 #'   [sf::st_is_within_distance()].
 #'
-#' @return [Matrix::dsCMatrix-class] sparse symmetric matrix.
+#' @return [`dsCMatrix-class`] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate
 #'   if the pair-wise distances between different planning units are within
 #'   the distance threshold or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [raster::Raster-class] object, then cells with `NA`
+#'   [`Raster-class`] object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name proximity_matrix

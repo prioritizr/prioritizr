@@ -7,7 +7,7 @@ NULL
 #' [problem()] by finding a pre-specified number of solutions that
 #' are closest to optimality (i.e the top solutions).
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param number_solutions `integer` number of solutions required.
 #'

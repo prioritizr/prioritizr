@@ -7,7 +7,7 @@
 add_default_solver(x, ...)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{...}{arguments passed to the solver.}
 }

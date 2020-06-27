@@ -102,32 +102,32 @@ NULL
 #' @format
 #' \describe{
 #'
-#' \item{sim_pu_polygons}{[sp::SpatialPolygonsDataFrame-class]
+#' \item{sim_pu_polygons}{[`SpatialPolygonsDataFrame-class`]
 #'   object.}
 #'
 #' \item{sim_pu_zones_polygons}{
-#'   [sp::SpatialPolygonsDataFrame-class] object.}
+#'   [`SpatialPolygonsDataFrame-class`] object.}
 #'
 #' \item{sim_pu_sf}{[sf::sf()] object.}
 #'
 #' \item{sim_pu_zones_sf}{[sf::sf()] object.}
 #'
-#' \item{sim_pu_lines}{[sp::SpatialLinesDataFrame-class] object.}
+#' \item{sim_pu_lines}{[`SpatialLinesDataFrame-class`] object.}
 #'
-#' \item{sim_pu_points}{[sp::SpatialPointsDataFrame-class]
+#' \item{sim_pu_points}{[`SpatialPointsDataFrame-class`]
 #'   object.}
 #'
-#' \item{sim_pu_raster}{[raster::RasterLayer-class] object.}
+#' \item{sim_pu_raster}{[`RasterLayer-class`] object.}
 #'
-#' \item{sim_pu_zones_stack}{[raster::RasterStack-class] object.}
+#' \item{sim_pu_zones_stack}{[`RasterStack-class`] object.}
 #'
-#' \item{sim_locked_in_raster}{[raster::RasterLayer-class]
+#' \item{sim_locked_in_raster}{[`RasterLayer-class`]
 #'   object.}
 #'
-#' \item{sim_locked_out_raster}{[raster::RasterLayer-class]
+#' \item{sim_locked_out_raster}{[`RasterLayer-class`]
 #'   object.}
 #'
-#' \item{sim_features}{[raster::RasterStack-class] object.}
+#' \item{sim_features}{[`RasterStack-class`] object.}
 #'
 #' \item{sim_features_zones}{[ZonesRaster()] object.}
 #'

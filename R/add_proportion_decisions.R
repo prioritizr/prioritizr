@@ -11,7 +11,7 @@ NULL
 #' decisions will solve much faster than problems that use binary-type
 #' decisions
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @inherit add_binary_decisions details return seealso
 #'

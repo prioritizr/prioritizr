@@ -7,7 +7,7 @@ NULL
 
 #' Parameters class
 #'
-#' This class represents a collection of [Parameter-class] objects.
+#' This class represents a collection of [`Parameter-class`] objects.
 #' It provides methods for accessing, updating, and rendering the parameters
 #' stored inside it.
 #'
@@ -15,7 +15,7 @@ NULL
 #' \describe{
 #'
 #' \item{$parameters}{`list` object containing
-#'   [Parameter-class] objects.}
+#'   [`Parameter-class`] objects.}
 #'
 #' }
 #'
@@ -45,9 +45,9 @@ NULL
 #'
 #' @section Arguments:
 #' \describe{
-#' \item{id}{[Id()] object.}
+#' \item{id}{[`Id`] object.}
 #'
-#' \item{p}{[Parameter-class] object.}
+#' \item{p}{[`Parameter-class`] object.}
 #'
 #' \item{value}{any object.}
 #'

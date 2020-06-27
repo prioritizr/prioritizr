@@ -12,9 +12,9 @@ NULL
 #' **This prototype represents a recipe, to actually
 #' add penalties to a planning problem, see the help page on
 #' [penalties]. Only experts should use this class directly.** This
-#' prototype inherits from the [ConservationModifier-class].
+#' prototype inherits from the [`ConservationModifier-class`].
 #'
-#' @seealso [ConservationModifier-class].
+#' @seealso [`ConservationModifier-class`].
 #'
 #' @name Penalty-class
 #'

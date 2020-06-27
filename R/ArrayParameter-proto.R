@@ -89,7 +89,7 @@ NULL
 #'
 #' }
 #'
-#' @seealso [ScalarParameter-class], [Parameter-class].
+#' @seealso [`ScalarParameter-class`], [`Parameter-class`].
 #'
 #' @name ArrayParameter-class
 #'

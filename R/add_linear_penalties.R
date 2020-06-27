@@ -10,7 +10,7 @@ NULL
 #' objective of the conservation planning [problem()] (e.g.
 #' solution cost for minimum set problems; [add_min_set_objective()].
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param penalty `numeric` penalty value that is used to scale the
 #'   importance not selecting planning units with high `data` values.
@@ -25,7 +25,7 @@ NULL
 #'   must have a value for each zone.
 
 #' @param data `character`, `numeric`,
-#'   [raster::Raster-class], `matrix`, or `Matrix` object
+#'   [`Raster-class`], `matrix`, or `Matrix` object
 #'   containing the data used to penalize solutions. Planning units that are
 #'   associated with higher data values are penalized more strongly
 #'   in the solution. See the Details section for more information.
@@ -39,7 +39,7 @@ NULL
 #'   \item{`character`}{field (column) name(s) that contain the data for
 #'     penalizing planning units. This type of argument is only
 #'     compatible if the planning units in the argument to `x` are a
-#'     [sp::Spatial-class], [sf::sf()], or
+#'     [`Spatial-class`], [sf::sf()], or
 #'     `data.frame` object. The fields (columns) must have `numeric`
 #'     values, and must not contain any missing (`NA`) values.
 #'     For problems involving multiple zones, the argument to `data` must
@@ -50,18 +50,18 @@ NULL
 #'     (`NA`) values. Note that this type of argument is only available
 #'     for planning units that contain a single zone.}
 #'
-#'   \item{[raster::Raster-class]}{containing the data for
+#'   \item{[`Raster-class`]}{containing the data for
 #'     penalizing planning units. This type of argument is only
 #'     compatible if the planning units in the argument to `x` are
-#'     [sp::Spatial-class], [sf::sf()], or
-#'     or [raster::Raster-class] (i.e. they are in a spatially
+#'     [`Spatial-class`], [sf::sf()], or
+#'     or [`Raster-class`] (i.e. they are in a spatially
 #'     referenced format).
-#'     If the planning unit data are a [sp::Spatial-class] or
+#'     If the planning unit data are a [`Spatial-class`] or
 #'     [sf::sf()] object, then the
 #'     penalty `data` are calculated by overlaying the planning units with
 #'     the argument to `data` and calculating the sum of the values.
 #'     If the planning unit data are in the
-#'     [raster::Raster-class] then the penalty `data` are
+#'     [`Raster-class`] then the penalty `data` are
 #'     calculated by extracting the cell values (note that the
 #'     planning unit data and the argument to code{data} must have exactly
 #'     the same dimensionality, extent, and missingness).

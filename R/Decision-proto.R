@@ -12,9 +12,9 @@ NULL
 #' a recipe to make a decision, to actually specify
 #' the type of decision in a planning problem, see the help page on
 #' [decisions]. Only experts should use this class directly.**
-#' This class inherits from the [ConservationModifier-class].
+#' This class inherits from the [`ConservationModifier-class`].
 #'
-#' @seealso [ConservationModifier-class].
+#' @seealso [`ConservationModifier-class`].
 #'
 #' @name Decision-class
 #'

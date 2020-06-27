@@ -13,7 +13,7 @@ simulate_species(
 )
 }
 \arguments{
-\item{x}{\link[raster:Raster-classes]{raster::RasterLayer} object to use as
+\item{x}{\code{\linkS4class{RasterLayer}} object to use as
 a template.}
 
 \item{n}{\code{integer} number of species to simulate.}
@@ -28,7 +28,7 @@ from the random fields simulation.}
 \code{\link[RandomFields:RFsimulate]{RandomFields::RFsimulate()}}.}
 }
 \value{
-\link[raster:Raster-classes]{raster::RasterStack} object.
+\code{\linkS4class{RasterStack}} object.
 }
 \description{
 Generates a random set of species using random field models. By default,

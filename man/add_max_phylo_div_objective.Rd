@@ -8,7 +8,7 @@
 add_max_phylo_div_objective(x, budget, tree)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -20,7 +20,7 @@ a budget for each each management zone.}
 for the conservation features.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the objective
+\code{\linkS4class{ConservationProblem}} object with the objective
 added to it.
 }
 \description{

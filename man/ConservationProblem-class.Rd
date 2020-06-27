@@ -26,25 +26,25 @@ class directly.}
 
 \item{$data}{\code{list} object containing data.}
 
-\item{$objective}{\linkS4class{Objective} object used to represent how
+\item{$objective}{\code{\linkS4class{Objective}} object used to represent how
 the targets relate to the solution.}
 
-\item{$decisions}{\linkS4class{Decision} object used to represent the
+\item{$decisions}{\code{\linkS4class{Decision}} object used to represent the
 type of decision made on planning units.}
 
-\item{$targets}{\linkS4class{Target} object used to represent
+\item{$targets}{\code{\linkS4class{Target}} object used to represent
 representation targets for features.}
 
-\item{$penalties}{\linkS4class{Collection} object used to represent
+\item{$penalties}{\code{\linkS4class{Collection}} object used to represent
 additional \link{penalties} that the problem is subject to.}
 
-\item{$constraints}{\linkS4class{Collection} object used to represent
+\item{$constraints}{\code{\linkS4class{Collection}} object used to represent
 additional \link{constraints} that the problem is subject to.}
 
-\item{$portfolio}{\linkS4class{Portfolio} object used to represent
+\item{$portfolio}{\code{\linkS4class{Portfolio}} object used to represent
 the method for generating a portfolio of solutions.}
 
-\item{$solver}{\linkS4class{Solver} object used to solve the problem.}
+\item{$solver}{\code{\linkS4class{Solver}} object used to solve the problem.}
 
 }
 }
@@ -148,24 +148,24 @@ the method for generating a portfolio of solutions.}
 
 \item{value}{an object.}
 
-\item{obj}{\linkS4class{Objective} object.}
+\item{obj}{\code{\linkS4class{Objective}} object.}
 
-\item{dec}{\linkS4class{Decision} object.}
+\item{dec}{\code{\linkS4class{Decision}} object.}
 
-\item{con}{\linkS4class{Constraint} object.}
+\item{con}{\code{\linkS4class{Constraint}} object.}
 
-\item{pol}{\linkS4class{Portfolio} object.}
+\item{pol}{\code{\linkS4class{Portfolio}} object.}
 
-\item{sol}{\linkS4class{Solver} object.}
+\item{sol}{\code{\linkS4class{Solver}} object.}
 
-\item{targ}{\linkS4class{Target} object.}
+\item{targ}{\code{\linkS4class{Target}} object.}
 
-\item{cost}{\link[raster:Raster-classes]{raster::RasterLayer},
-\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame}, or
-\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame} object showing spatial
+\item{cost}{\code{\linkS4class{RasterLayer}},
+\code{\linkS4class{SpatialPolygonsDataFrame}}, or
+\code{\linkS4class{SpatialLinesDataFrame}} object showing spatial
 representation of the planning units and their cost.}
 
-\item{features}{\linkS4class{Zones} or \code{data.frame} object
+\item{features}{\code{\linkS4class{Zones}} or \code{data.frame} object
 containing feature data.}
 
 \item{id}{\code{Id} object that refers to a specific parameter.}
@@ -226,19 +226,19 @@ different zone and each row corresponds to a different feature.}
 
 \item{zone_names}{\code{character} names of zones in problem.}
 
-\item{add_objective}{return a new  \linkS4class{ConservationProblem}
+\item{add_objective}{return a new  \code{\linkS4class{ConservationProblem}}
 with the objective added to it.}
 
-\item{add_decisions}{return a new \linkS4class{ConservationProblem}
+\item{add_decisions}{return a new \code{\linkS4class{ConservationProblem}}
 object with the decision added to it.}
 
-\item{add_portfolio}{return a new \linkS4class{ConservationProblem}
+\item{add_portfolio}{return a new \code{\linkS4class{ConservationProblem}}
 object with the portfolio method added to it.}
 
-\item{add_solver}{return a new \linkS4class{ConservationProblem} object
+\item{add_solver}{return a new \code{\linkS4class{ConservationProblem}} object
 with the solver added to it.}
 
-\item{add_constraint}{return a new \linkS4class{ConservationProblem}
+\item{add_constraint}{return a new \code{\linkS4class{ConservationProblem}}
 object with the constraint added to it.}
 
 \item{add_targets}{return a copy with the targets added to the problem.}

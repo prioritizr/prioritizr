@@ -21,7 +21,7 @@ to \code{NULL} which results in sequential integers.}
 to \code{NULL} which results in sequential integers.}
 }
 \value{
-\linkS4class{Zones} object.
+\code{\linkS4class{Zones}} object.
 }
 \description{
 Organize biodiversity data into the expected amount of different features
@@ -35,8 +35,8 @@ argument. The correct arguments depends on the type of planning unit data
 used when building the conservation planning \code{\link[=problem]{problem()}}.
 
 \describe{
-\item{\link[raster:Raster-classes]{raster::Raster},
-\link[sp:Spatial-class]{sp::Spatial}}{\link[raster:Raster-classes]{raster::Raster}
+\item{\code{\linkS4class{Raster}},
+\code{\linkS4class{Spatial}}}{\code{\linkS4class{Raster}}
 data denoting the amount of each feature present assuming each
 management zone. Data for each zone are specified in separate
 arguments, and the data for each feature in a given zone are specified

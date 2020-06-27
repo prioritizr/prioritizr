@@ -88,7 +88,7 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 \item{obj}{\code{numeric} vector of objective function.}
 
-\item{A}{\link[Matrix:dgCMatrix-class]{Matrix::dgCMatrix} model matrix }
+\item{A}{\code{\linkS4class{dgCMatrix}} model matrix }
 
 \item{rhs}{\code{numeric} vector of right-hand-side constraints.}
 

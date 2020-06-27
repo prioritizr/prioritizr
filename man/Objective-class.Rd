@@ -6,7 +6,7 @@
 \title{Objective prototype}
 \description{
 This prototype is used to represent an objective that can be added to a
-\linkS4class{ConservationProblem} object. \strong{This prototype
+\code{\linkS4class{ConservationProblem}} object. \strong{This prototype
 represents a recipe to make an objective, to actually add an objective to a
 planning  problem: see \link{objectives}. Only experts should use this
 class directly.}

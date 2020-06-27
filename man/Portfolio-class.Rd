@@ -41,9 +41,9 @@ the the portfolio.}
 
 \describe{
 
-\item{x}{\linkS4class{Solver} object.}
+\item{x}{\code{\linkS4class{Solver}} object.}
 
-\item{op}{\linkS4class{OptimizationProblem} object.}
+\item{op}{\code{\linkS4class{OptimizationProblem}} object.}
 
 }
 }
@@ -58,8 +58,8 @@ the the portfolio.}
 
 \item{repr}{\code{character} representation of object.}
 
-\item{run}{solve an \linkS4class{OptimizationProblem} object using this
-object and a \linkS4class{Solver} object.}
+\item{run}{solve an \code{\linkS4class{OptimizationProblem}} object using this
+object and a \code{\linkS4class{Solver}} object.}
 
 }
 }

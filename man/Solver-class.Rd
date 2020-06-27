@@ -24,7 +24,7 @@ help page on \link{solvers}}.
 the the solver.}
 
 \item{$solve}{\code{function} used to solve a
-\linkS4class{OptimizationProblem} object.}
+\code{\linkS4class{OptimizationProblem}} object.}
 }
 }
 
@@ -56,9 +56,9 @@ the the solver.}
 
 \describe{
 
-\item{x}{\linkS4class{Solver} object.}
+\item{x}{\code{\linkS4class{Solver}} object.}
 
-\item{op}{\linkS4class{OptimizationProblem} object.}
+\item{op}{\code{\linkS4class{OptimizationProblem}} object.}
 
 }
 }
@@ -87,11 +87,11 @@ a pre-calculated optimization problem stored in the solver.}
 \item{set_variable_lb}{set the lower bounds on decision variables in
 a pre-calculated optimization problem stored in the solver.}
 \item{calculate}{ingest a general purpose
-\linkS4class{OptimizationProblem} object and convert it to the
+\code{\linkS4class{OptimizationProblem}} object and convert it to the
 correct format for the solver.}
 \item{run}{run the solver and output a solution}
 
-\item{solve}{solve an \linkS4class{OptimizationProblem} using this
+\item{solve}{solve an \code{\linkS4class{OptimizationProblem}} using this
 object.}
 
 }

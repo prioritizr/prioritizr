@@ -7,10 +7,10 @@
 add_proportion_decisions(x)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the decisions
+\code{\linkS4class{ConservationProblem}} object with the decisions
 added to it.
 }
 \description{

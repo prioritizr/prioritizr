@@ -7,14 +7,14 @@
 binary_stack(x)
 }
 \arguments{
-\item{x}{\link[raster:Raster-classes]{raster::Raster} object containing a single layer.}
+\item{x}{\code{\linkS4class{Raster}} object containing a single layer.}
 }
 \value{
-\link[raster:Raster-classes]{raster::RasterStack} object.
+\code{\linkS4class{RasterStack}} object.
 }
 \description{
-Convert a \link[raster:Raster-classes]{raster::RasterLayer} object containing
-categorical identifiers into a \link[raster:Raster-classes]{raster::RasterStack}
+Convert a \code{\linkS4class{RasterLayer}} object containing
+categorical identifiers into a \code{\linkS4class{RasterStack}}
 object where each layer corresponds to a different identifier and values
 indicate the presence/absence of that category in the input object.
 }
@@ -23,7 +23,7 @@ This function is provided to help manage data that encompass
 multiple management zones. For instance, this function may be helpful
 for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} and
 \code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} since they require binary
-\link[raster:Raster-classes]{raster::RasterStack} objects as input arguments.
+\code{\linkS4class{RasterStack}} objects as input arguments.
 }
 \examples{
 # create raster with categorical identifers

@@ -13,7 +13,7 @@ NULL
 #' feature to ensure that all features can disperse through out the areas
 #' designated for their conservation.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param zones `matrix`, `Matrix` or `list` object describing
 #'   the connection scheme for different zones. For `matrix` or

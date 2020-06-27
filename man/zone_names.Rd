@@ -17,7 +17,7 @@ zone_names(x)
 \S4method{zone_names}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} or \code{\link[=Zones]{Zones()}}}
+\item{x}{\code{\linkS4class{ConservationProblem}} or \code{\link[=Zones]{Zones()}}}
 }
 \value{
 \code{character} zone names.

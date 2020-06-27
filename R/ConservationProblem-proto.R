@@ -27,25 +27,25 @@ NULL
 #'
 #' \item{$data}{`list` object containing data.}
 #'
-#' \item{$objective}{[Objective-class] object used to represent how
+#' \item{$objective}{[`Objective-class`] object used to represent how
 #'   the targets relate to the solution.}
 #'
-#' \item{$decisions}{[Decision-class] object used to represent the
+#' \item{$decisions}{[`Decision-class`] object used to represent the
 #'   type of decision made on planning units.}
 #'
-#' \item{$targets}{[Target-class] object used to represent
+#' \item{$targets}{[`Target-class`] object used to represent
 #'   representation targets for features.}
 #'
-#' \item{$penalties}{[Collection-class] object used to represent
+#' \item{$penalties}{[`Collection-class`] object used to represent
 #'   additional [penalties] that the problem is subject to.}
 #'
-#' \item{$constraints}{[Collection-class] object used to represent
+#' \item{$constraints}{[`Collection-class`] object used to represent
 #'   additional [constraints] that the problem is subject to.}
 #'
-#' \item{$portfolio}{[Portfolio-class] object used to represent
+#' \item{$portfolio}{[`Portfolio-class`] object used to represent
 #'   the method for generating a portfolio of solutions.}
 #'
-#' \item{$solver}{[Solver-class] object used to solve the problem.}
+#' \item{$solver}{[`Solver-class`] object used to solve the problem.}
 #'
 #' }
 #'
@@ -145,24 +145,24 @@ NULL
 #'
 #' \item{value}{an object.}
 #'
-#' \item{obj}{[Objective-class] object.}
+#' \item{obj}{[`Objective-class`] object.}
 #'
-#' \item{dec}{[Decision-class] object.}
+#' \item{dec}{[`Decision-class`] object.}
 #'
-#' \item{con}{[Constraint-class] object.}
+#' \item{con}{[`Constraint-class`] object.}
 #'
-#' \item{pol}{[Portfolio-class] object.}
+#' \item{pol}{[`Portfolio-class`] object.}
 #'
-#' \item{sol}{[Solver-class] object.}
+#' \item{sol}{[`Solver-class`] object.}
 #'
-#' \item{targ}{[Target-class] object.}
+#' \item{targ}{[`Target-class`] object.}
 #'
-#' \item{cost}{[raster::RasterLayer-class],
-#'   [sp::SpatialPolygonsDataFrame-class], or
-#'   [sp::SpatialLinesDataFrame-class] object showing spatial
+#' \item{cost}{[`RasterLayer-class`],
+#'   [`SpatialPolygonsDataFrame-class`], or
+#'   [`SpatialLinesDataFrame-class`] object showing spatial
 #'   representation of the planning units and their cost.}
 #'
-#' \item{features}{[Zones-class] or `data.frame` object
+#' \item{features}{[`Zones-class`] or `data.frame` object
 #'   containing feature data.}
 #'
 #' \item{id}{`Id` object that refers to a specific parameter.}
@@ -221,19 +221,19 @@ NULL
 #'
 #' \item{zone_names}{`character` names of zones in problem.}
 #'
-#' \item{add_objective}{return a new  [ConservationProblem-class]
+#' \item{add_objective}{return a new  [`ConservationProblem-class`]
 #'   with the objective added to it.}
 #'
-#' \item{add_decisions}{return a new [ConservationProblem-class]
+#' \item{add_decisions}{return a new [`ConservationProblem-class`]
 #'   object with the decision added to it.}
 #'
-#' \item{add_portfolio}{return a new [ConservationProblem-class]
+#' \item{add_portfolio}{return a new [`ConservationProblem-class`]
 #'   object with the portfolio method added to it.}
 #'
-#' \item{add_solver}{return a new [ConservationProblem-class] object
+#' \item{add_solver}{return a new [`ConservationProblem-class`] object
 #'   with the solver added to it.}
 #'
-#' \item{add_constraint}{return a new [ConservationProblem-class]
+#' \item{add_constraint}{return a new [`ConservationProblem-class`]
 #'   object with the constraint added to it.}
 #'
 #' \item{add_targets}{return a copy with the targets added to the problem.}

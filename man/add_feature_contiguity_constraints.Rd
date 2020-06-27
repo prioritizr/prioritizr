@@ -17,7 +17,7 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
@@ -54,7 +54,7 @@ all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the constraints
+\code{\linkS4class{ConservationProblem}} object with the constraints
 added to it.
 }
 \description{

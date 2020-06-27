@@ -9,22 +9,22 @@ NULL
 #' planning units that each have higher a conductance and share a greater
 #' boundary are associated with greater connectivity.
 #'
-#' @param x [raster::Raster-class],
-#'   [sp::SpatialPolygonsDataFrame-class],
-#'   [sp::SpatialLinesDataFrame-class],
+#' @param x [`Raster-class`],
+#'   [`SpatialPolygonsDataFrame-class`],
+#'   [`SpatialLinesDataFrame-class`],
 #'   or [sf::sf()] object
 #'   representing planning units.
-#'   If `x` is a [raster::Raster-class] object then it must
+#'   If `x` is a [`Raster-class`] object then it must
 #'   contain a single layer.
 #'
-#' @param y [raster::Raster-class] object showing the conductance
+#' @param y [`Raster-class`] object showing the conductance
 #'   of different areas across the study area, or a `character` object
 #'   denoting a column name in the attribute table of `x` that contains
 #'   the conductance values. Note that argument to `y` can only be a
 #'   `character` object if the argument to `x` is a
-#'   [sp::Spatial-class] or [sf::sf()] object.
+#'   [`Spatial-class`] or [sf::sf()] object.
 #'   Also, note that if the argument to `x` is a
-#'   [Raster-class] object then
+#'   [`Raster-class`] object then
 #'   argument to `y` must have the same spatial properties as it
 #'   (i.e. coordinate system, extent, resolution).
 #'
@@ -32,18 +32,18 @@ NULL
 #'   extracting and calculating the conductance values for each planning unit.
 #'   These arguments are only used if argument to `x` is a
 #'   \code{link[sp]{Spatial-class}} or [sf::sf()] object and argument
-#'   to `y` is a [Raster-class] object.
+#'   to `y` is a [`Raster-class`] object.
 #'
 #' @details Shared boundary calculations are performed using
 #'   [boundary_matrix()].
 #'
-#' @return [Matrix::dsCMatrix-class] sparse symmetric matrix.
+#' @return [`dsCMatrix-class`] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate the connectivity between different pairs of planning
 #'   units.
 #'   To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
-#'   [raster::Raster-class] object, then cells with `NA`
+#'   [`Raster-class`] object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name connectivity_matrix

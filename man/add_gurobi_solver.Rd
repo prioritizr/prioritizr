@@ -16,7 +16,7 @@ add_gurobi_solver(
 )
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative when
 solving problems using \pkg{gurobi}, and will cause the optimizer to
@@ -59,7 +59,7 @@ to 3). Defaults to \code{FALSE}.}
 optimization problems?}
 }
 \value{
-\linkS4class{ConservationProblem} object with the solver added
+\code{\linkS4class{ConservationProblem}} object with the solver added
 to it.
 }
 \description{

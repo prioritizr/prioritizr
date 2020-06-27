@@ -11,7 +11,7 @@ NULL
 #' in solutions (Butchart *et al.* 2015). **Note that the behavior
 #' of this function has changed substantially from versions prior to 5.0.0**.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param lower_bound_amount `numeric` threshold.
 #'
@@ -61,7 +61,7 @@ NULL
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
 #'
 #'   This function can only be applied to
-#'   [ConservationProblem-class] objects that are associated with a
+#'   [`ConservationProblem-class`] objects that are associated with a
 #'   single zone.
 #'
 #' @inherit add_relative_targets return

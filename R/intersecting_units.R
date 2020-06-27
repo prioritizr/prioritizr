@@ -6,9 +6,9 @@ NULL
 #' Find which of the units in a spatial data object intersect
 #' with the units in another spatial data object.
 #'
-#' @param x [Spatial-class] or [Raster-class] object.
+#' @param x [`Spatial-class`] or [`Raster-class`] object.
 #'
-#' @param y [Spatial-class] or [Raster-class] object.
+#' @param y [`Spatial-class`] or [`Raster-class`] object.
 #'
 #' @return `integer` indices of the units in `x` that intersect with
 #'   `y`.

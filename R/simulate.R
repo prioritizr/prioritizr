@@ -5,7 +5,7 @@ NULL
 #'
 #' Simulate spatially auto-correlated data.
 #'
-#' @param x [raster::RasterLayer-class] object to use as
+#' @param x [`RasterLayer-class`] object to use as
 #'    a template.
 #'
 #' @param n `integer` number of species to simulate.
@@ -19,7 +19,7 @@ NULL
 #' @param ... additional arguments passed to
 #'   [RandomFields::RFsimulate()].
 #'
-#' @return [raster::RasterStack-class] object with a
+#' @return [`RasterStack-class`] object with a
 #'   layer for each species.
 #'
 #' @seealso [RandomFields::RFsimulate()],
@@ -73,7 +73,7 @@ simulate_data <- function(x, n, model, transform = identity, ...) {
 #'
 #' @inheritParams simulate_data
 #'
-#' @return [raster::RasterStack-class] object.
+#' @return [`RasterStack-class`] object.
 #'
 #' @seealso [simulate_data()].
 #'
@@ -103,7 +103,7 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #'
 #' @inheritParams simulate_data
 #'
-#' @return [raster::RasterStack-class] object.
+#' @return [`RasterStack-class`] object.
 #'
 #' @seealso [simulate_data()].
 #'

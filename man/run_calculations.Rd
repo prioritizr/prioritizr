@@ -7,7 +7,7 @@
 run_calculations(x)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object}
+\item{x}{\code{\linkS4class{ConservationProblem}} object}
 }
 \value{
 Invisible \code{TRUE} indicating success.
@@ -21,7 +21,7 @@ means that the same calculations will not be run multiple times.
 }
 \details{
 This function is used for the effect of modifying the input
-\linkS4class{ConservationProblem} object. As such, it does not return
+\code{\linkS4class{ConservationProblem}} object. As such, it does not return
 anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use the
 \verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }

@@ -22,22 +22,22 @@ connectivity_matrix(x, y, ...)
 \S4method{connectivity_matrix}{Raster,Raster}(x, y, ...)
 }
 \arguments{
-\item{x}{\link[raster:Raster-classes]{raster::Raster},
-\link[sp:SpatialPolygonsDataFrame-class]{sp::SpatialPolygonsDataFrame},
-\link[sp:SpatialLinesDataFrame-class]{sp::SpatialLinesDataFrame},
+\item{x}{\code{\linkS4class{Raster}},
+\code{\linkS4class{SpatialPolygonsDataFrame}},
+\code{\linkS4class{SpatialLinesDataFrame}},
 or \code{\link[sf:sf]{sf::sf()}} object
 representing planning units.
-If \code{x} is a \link[raster:Raster-classes]{raster::Raster} object then it must
+If \code{x} is a \code{\linkS4class{Raster}} object then it must
 contain a single layer.}
 
-\item{y}{\link[raster:Raster-classes]{raster::Raster} object showing the conductance
+\item{y}{\code{\linkS4class{Raster}} object showing the conductance
 of different areas across the study area, or a \code{character} object
 denoting a column name in the attribute table of \code{x} that contains
 the conductance values. Note that argument to \code{y} can only be a
 \code{character} object if the argument to \code{x} is a
-\link[sp:Spatial-class]{sp::Spatial} or \code{\link[sf:sf]{sf::sf()}} object.
+\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object.
 Also, note that if the argument to \code{x} is a
-\linkS4class{Raster} object then
+\code{\linkS4class{Raster}} object then
 argument to \code{y} must have the same spatial properties as it
 (i.e. coordinate system, extent, resolution).}
 
@@ -45,16 +45,16 @@ argument to \code{y} must have the same spatial properties as it
 extracting and calculating the conductance values for each planning unit.
 These arguments are only used if argument to \code{x} is a
 \code{link[sp]{Spatial-class}} or \code{\link[sf:sf]{sf::sf()}} object and argument
-to \code{y} is a \linkS4class{Raster} object.}
+to \code{y} is a \code{\linkS4class{Raster}} object.}
 }
 \value{
-\link[Matrix:dsCMatrix-class]{Matrix::dsCMatrix} sparse symmetric matrix.
+\code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
 To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
-\link[raster:Raster-classes]{raster::Raster} object, then cells with \code{NA}
+\code{\linkS4class{Raster}} object, then cells with \code{NA}
 values are set to zero too.
 }
 \description{

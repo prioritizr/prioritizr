@@ -15,7 +15,7 @@ NULL
 #'
 #' @usage add_locked_out_constraints(x, locked_out)
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param locked_out Object that determines which planning units that should be
 #'   locked out. See the Details section for more information.

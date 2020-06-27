@@ -11,13 +11,13 @@
 \S4method{add_feature_weights}{ConservationProblem,matrix}(x, weights)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{weights}{\code{numeric} or \code{matrix} of weights. See the
 Details section for more information.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the weights
+\code{\linkS4class{ConservationProblem}} object with the weights
 added to it.
 }
 \description{

@@ -21,7 +21,7 @@ should must have a single argument that accepts a valid object and return
 a \code{shiny.tag} or \code{shiny.tag.list} object.}
 }
 \value{
-\linkS4class{MiscParameter} object.
+\code{\linkS4class{MiscParameter}} object.
 }
 \description{
 Create a parameter that consists of a miscellaneous object.

@@ -13,11 +13,11 @@ NULL
 #' [penalties]. After building the problem, the
 #'  [solve()] function can be used to identify solutions.
 #'
-#' @param x [raster::Raster-class],
-#'   [sf::sf()],
-#'   [sp::SpatialPolygonsDataFrame-class],
-#'   [sp::SpatialLinesDataFrame-class],
-#'   [sp::SpatialPointsDataFrame-class],
+#' @param x [`Raster-class`],
+#'   [sf::st_sf()],
+#'   [`SpatialPolygonsDataFrame-class`],
+#'   [`SpatialLinesDataFrame-class`],
+#'   [`SpatialPointsDataFrame-class`],
 #'   [data.frame()] object,
 #'   [numeric()] vector, or
 #'   [matrix()] specifying the planning units to use in the reserve
@@ -31,29 +31,28 @@ NULL
 #'   argument to `x`) and whether the problem should have a single zone or
 #'   multiple zones. If the problem should have a single zone, then the feature
 #'   data can be specified following:
-#'
-#'   \itemize{
-#'   \item `x = [RasterLayer-class][raster::RasterLayer-class]`, or
-#'     `x = [Spatial-class][sp::Spatial-class]`,
-#'     or `x = [sf][sf::sf]`:
-#'     `y = [Raster-class][raster::Raster-class]`
+#'   * [`x = RasterLayer-class`][raster::RasterLayer-class], or
+#'     [`x = Spatial-class`][sp::Spatial-class], or
+#'     [`x = sf::st_sf()`][sf::st_sf()]:
+#'     [`y = Raster-class`][raster::Raster-class]
 #'     object showing the distribution of conservation features. Missing
 #'     values (i.e. `NA` values) can be used to indicate the absence of
 #'     a feature in a particular cell instead of explicitly setting these
 #'     cells to zero. Note that this argument type for `features` can
 #'     only be used to specify data for problems involving a single zone.
-#'   \item `x = [Spatial-class][sp::Spatial-class]`,
-#'     `x = [sf][sf::sf]`,
-#'     or `x = data.frame`:
+#'   * [`x = Spatial-class`][sp::Spatial-class], or
+#'     [`x = sf::st_sf()`][sf::st_sf()], or
+#'     `x = data.frame`:
 #'     `y = character` vector
 #'     with column names that correspond to the abundance or occurrence of
 #'     different features in each planning unit. Note that this argument
 #'     type can only be used to create problems involving a single zone.
-#'   \item `x = [Spatial-class]`,
-#'     `x = [sf][sf::sf]`,
-#'     `x = data.frame`,
+#'   * [`x = Spatial-class`][sp::Spatial-class], or
+#'     [`x = sf::st_sf()`][sf::st_sf()], or
+#'     `x = data.frame`, or
 #'     `x = numeric` vector, or
-#'     `x = [matrix]`: `y = data.frame` object
+#'     `x = matrix`:
+#'     `y = data.frame` object
 #'     containing the names of the features. Note that if this
 #'     type of argument is supplied to `features` then the argument
 #'     `rij` or `rij_matrix` must also be supplied. This type of
@@ -69,31 +68,29 @@ NULL
 #'     \item{`"amount"`}{`numeric` absolute target for each
 #'       feature (optional).}
 #'     }
-#'   }
 #'
 #'   If the problem should have multiple zones, then the feature
 #'   data can be specified following:
-#'
-#'   \itemize{
-#'   \item `x = [RasterStack-class][raster::RasterStack-class]`,
-#'     `x = [RasterBrick-class][raster::RasterBrick-class]`,
-#'     `x = [Spatial-class][sp::Spatial-class]`,
-#'     or `x = [sf][sf::sf]`: `y = [ZonesRaster]`
+#'   * [`x = RasterStack-class`][raster::RasterStack-class], or
+#'     [`x = RasterBrick-class`][raster::RasterBrick-class], or
+#'     [`x = `Spatial-class`][sp::Spatial-class], or
+#'     [`x = sf::st_sf()`][sf::st_sf()]:
+#'     [`y = ZonesRaster`][zones()]:
 #'     object showing the distribution of conservation features in multiple
 #'     zones. As above, missing values (i.e. `NA` values) can be used to
 #'     indicate the absence of a feature in a particular cell instead of
 #'     explicitly setting these cells to zero.
-#'   \item `x = [Spatial-class][sp::Spatial-class]`,
-#'     `x = [sf][sf::sf]`,
-#'     or `x = data.frame`: `y = [ZonesCharacter]`
+#'   * [`x = `Spatial-class`][sp::Spatial-class], or
+#'     [`x = sf::st_sf()`][sf::st_sf()], or
+#'     or `x = data.frame`:
+#'     [`y = ZonesCharacter`](zones())
 #'     object with column names that correspond to the abundance or
 #'     occurrence of different features in each planning unit in different
 #'     zones.
-#'  }
 #'
 #' @param cost_column `character` name or `integer` indicating the
 #'   column(s) with the cost data. This argument must be supplied when the
-#'   argument to `x` is a [sp::Spatial-class] or
+#'   argument to `x` is a [`Spatial-class`] or
 #'   `data.frame` object. This argument should contain the name of each
 #'   column containing cost data for each management zone when creating
 #'   problems with multiple zones. To create a problem with a single zone, then
@@ -106,29 +103,23 @@ NULL
 #'    `"zone"` column is not needed for problems involving a single
 #'    management zone. Specifically, the argument should contain the following
 #'    columns:
-#'
 #'    \describe{
-#'
 #'    \item{`"pu"`}{`integer` planning unit identifier.}
-#'
 #'    \item{`"species"`}{`integer` feature identifier.}
-#'
 #'    \item{`"zone"`}{`integer` zone identifier (optional for
 #'      problems involving a single zone).}
-#'
 #'    \item{`"amount"`}{`numeric` amount of the feature in the
 #'      planning unit.}
-#'
 #'    }
 #'
 #' @param rij_matrix `list` of `matrix` or
-#'    [Matrix::dgCMatrix-class]
+#'    [`dgCMatrix-class`]
 #'    objects specifying the amount of each feature (rows) within each planning
 #'    unit (columns) for each zone. The `list` elements denote
 #'    different zones, matrix rows denote features, and matrix columns denote
 #'    planning units. For convenience, the argument to
 #'    `rij_matrix` can be a single `matrix` or
-#'    [Matrix::dgCMatrix-class] when specifying a problem with a
+#'    [`dgCMatrix-class`] when specifying a problem with a
 #'    single management zone. This argument is only used when the argument
 #'    to `x` is a `numeric` or `matrix` object.
 #'
@@ -138,13 +129,9 @@ NULL
 #'   multiple zones. Following conventions used in `MarZone`, this
 #'   argument should contain the following columns:
 #'   columns:
-#'
 #'   \describe{
-#'
 #'   \item{`"id"`}{`integer` zone identifier.}
-#'
 #'   \item{`"name"`}{`character` zone name.}
-#'
 #'   }
 #'
 #' @param run_checks `logical` flag indicating whether checks should be
@@ -211,7 +198,7 @@ NULL
 #'   initialize large-scale conservation planning problems that involve
 #'   millions of planning units.
 #'
-#' @return A [ConservationProblem-class] object containing the
+#' @return A [`ConservationProblem-class`] object containing the
 #'   basic data used to build a prioritization problem.
 #'
 #' @seealso [constraints], [decisions],

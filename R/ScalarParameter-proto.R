@@ -82,7 +82,7 @@ NULL
 #'
 #' @name ScalarParameter-class
 #'
-#' @seealso [Parameter-class], [ArrayParameter-class].
+#' @seealso [`Parameter-class`], [`ArrayParameter-class`].
 #'
 #' @aliases ScalarParameter
 NULL

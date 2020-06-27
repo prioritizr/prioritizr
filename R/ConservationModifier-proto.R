@@ -8,9 +8,9 @@ NULL
 #' Conservation problem modifier prototype
 #'
 #' This super-prototype is used to represent prototypes that in turn are used to
-#' modify a [ConservationProblem-class] object. Specifically, the
-#' [Constraint-class], [Decision-class],
-#' [Objective-class], and [Target-class] prototypes
+#' modify a [`ConservationProblem-class`] object. Specifically, the
+#' [`Constraint-class`], [`Decision-class`],
+#' [`Objective-class`], and [`Target-class`] prototypes
 #' inherit from this class. **Only experts should interact with
 #' this class directly because changes to these class will have profound and
 #' far reaching effects.**
@@ -68,9 +68,9 @@ NULL
 #'
 #' \item{id}{`id` or `name` of parameter}
 #'
-#' \item{cp}{[ConservationProblem-class] object}
+#' \item{cp}{[`ConservationProblem-class`] object}
 #'
-#' \item{op}{[OptimizationProblem-class] object}
+#' \item{op}{[`OptimizationProblem-class`] object}
 #'
 #' }
 #'
@@ -98,12 +98,12 @@ NULL
 #'   `ConservationProblem` objects.}
 #'
 #' \item{output}{`function` used to generate an output from the object.
-#'   This method is only used for [Target-class] objects.}
+#'   This method is only used for [`Target-class`] objects.}
 #'
 #' \item{apply}{`function` used to apply the modifier to an
-#'   [OptimizationProblem-class] object.
-#'   This is used by [Constraint-class],
-#'   [Decision-class], and [Objective-class] objects.}
+#'   [`OptimizationProblem-class`] object.
+#'   This is used by [`Constraint-class`],
+#'   [`Decision-class`], and [`Objective-class`] objects.}
 #'
 #' \item{get_parameter}{retrieve the value of a parameter.}
 #'

@@ -25,10 +25,10 @@ feature_representation(x, solution)
 \S4method{feature_representation}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\link[raster:Raster-classes]{raster::Raster}, \link[sp:Spatial-class]{sp::Spatial},
+\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
 or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
 information.}
 }
@@ -69,12 +69,12 @@ representation, dimensionality, and spatial attributes (if applicable).
 This means that if the planning unit data in \code{x} is a \code{numeric}
 vector then the argument to \code{solution} must be a \code{numeric} vector
 with the same number of elements, if the planning unit data in \code{x} is
-a \link[raster:Raster-classes]{raster::RasterLayer} then the argument to
-\code{solution} must also be a \link[raster:Raster-classes]{raster::RasterLayer} with
+a \code{\linkS4class{RasterLayer}} then the argument to
+\code{solution} must also be a \code{\linkS4class{RasterLayer}} with
 the same number of rows and columns and the same resolution, extent, and
 coordinate reference system, if the planning unit data in \code{x} is a
-\link[sp:Spatial-class]{sp::Spatial} or \code{\link[sf:sf]{sf::sf()}} object then the
-argument to \code{solution} must also be a \link[sp:Spatial-class]{sp::Spatial}
+\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object then the
+argument to \code{solution} must also be a \code{\linkS4class{Spatial}}
 or \code{\link[sf:sf]{sf::sf()}} object, respectively, and have the same number of
 spatial features (e.g. polygons) and have the same coordinate reference
 system, if the planning units in \code{x} are a \code{data.frame} then the

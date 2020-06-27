@@ -13,7 +13,7 @@ add_rsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\linkS4class{ConservationProblem} object.}
+\item{x}{\code{\linkS4class{ConservationProblem}} object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is absolute and
 expresses the acceptable deviance from the optimal objective. For example,
@@ -36,7 +36,7 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-\linkS4class{ConservationProblem} object with the solver added
+\code{\linkS4class{ConservationProblem}} object with the solver added
 to it.
 }
 \description{

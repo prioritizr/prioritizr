@@ -12,7 +12,7 @@ NULL
 #' See the Details section for more information on the changes since this
 #' version.
 #'
-#' @param x [ConservationProblem-class] object.
+#' @param x [`ConservationProblem-class`] object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
