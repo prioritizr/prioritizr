@@ -8,7 +8,7 @@ NULL
 #' @useDynLib prioritizr, .registration = TRUE
 NULL
 
-#' \pkg{prioritizr}
+#' prioritizr: Systematic Conservation Prioritization in R
 #'
 #' The \pkg{prioritizr R} package uses integer linear programming (ILP)
 #' techniques to provide a flexible interface for building and solving

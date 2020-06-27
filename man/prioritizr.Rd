@@ -3,7 +3,7 @@
 \docType{package}
 \name{prioritizr}
 \alias{prioritizr}
-\title{\pkg{prioritizr}}
+\title{prioritizr: Systematic Conservation Prioritization in R}
 \description{
 The \pkg{prioritizr R} package uses integer linear programming (ILP)
 techniques to provide a flexible interface for building and solving
