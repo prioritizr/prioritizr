@@ -97,7 +97,7 @@ NULL
 #'   `"runtime"` denoting the number of seconds that elapsed while solving
 #'   the problem, and `"status"` describing the status of the solution
 #'   (e.g. `"OPTIMAL"` indicates that the optimal solution was found).
-#'   In most cases, the first solution (e.g. `"solution_001"`))
+#'   In most cases, the first solution (e.g. `"solution_001"`)
 #'   will contain the best solution found by the solver (note that this
 #'   may not be an optimal solution depending on the gap used to solve
 #'   the problem and noting that the default gap is 0.1).
