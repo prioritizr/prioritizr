@@ -115,10 +115,17 @@ data can be specified following:
 \itemize{
 \item \code{\link[raster:Raster-classes]{x = RasterStack-class}}, or
 \code{\link[raster:Raster-classes]{x = RasterBrick-class}}, or
-[\verb{x = }Spatial-class\verb{][sp::Spatial-class], or [}x = sf::st_sf()\verb{][sf::st_sf()]: [}y = ZonesRaster\verb{][zones()]: object showing the distribution of conservation features in multiple zones. As above, missing values (i.e. }NA` values) can be used to
+\code{\link[sp:Spatial-class]{x = Spatial-class}}, or
+\code{\link[sf:sf]{x = sf::st_sf()}}:
+\code{\link[=zones]{y = ZonesRaster}}:
+object showing the distribution of conservation features in multiple
+zones. As above, missing values (i.e. \code{NA} values) can be used to
 indicate the absence of a feature in a particular cell instead of
 explicitly setting these cells to zero.
-\item \href{zones()}{\verb{x = }Spatial-class\verb{][sp::Spatial-class], or [}x = sf::st_sf()\verb{][sf::st_sf()], or or }x = data.frame\verb{: [}y = ZonesCharacter`}
+\item \code{\link[sp:Spatial-class]{x = Spatial-class}}, or
+\code{\link[sf:sf]{x = sf::st_sf()}}, or
+or \code{x = data.frame}:
+\code{\link[=zones]{y = ZonesCharacter}}
 object with column names that correspond to the abundance or
 occurrence of different features in each planning unit in different
 zones.

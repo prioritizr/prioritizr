@@ -73,17 +73,17 @@ NULL
 #'   data can be specified following:
 #'   * [`x = RasterStack-class`][raster::RasterStack-class], or
 #'     [`x = RasterBrick-class`][raster::RasterBrick-class], or
-#'     [`x = `Spatial-class`][sp::Spatial-class], or
+#'     [`x = Spatial-class`][sp::Spatial-class], or
 #'     [`x = sf::st_sf()`][sf::st_sf()]:
 #'     [`y = ZonesRaster`][zones()]:
 #'     object showing the distribution of conservation features in multiple
 #'     zones. As above, missing values (i.e. `NA` values) can be used to
 #'     indicate the absence of a feature in a particular cell instead of
 #'     explicitly setting these cells to zero.
-#'   * [`x = `Spatial-class`][sp::Spatial-class], or
+#'   * [`x = Spatial-class`][sp::Spatial-class], or
 #'     [`x = sf::st_sf()`][sf::st_sf()], or
 #'     or `x = data.frame`:
-#'     [`y = ZonesCharacter`](zones())
+#'     [`y = ZonesCharacter`][zones()]
 #'     object with column names that correspond to the abundance or
 #'     occurrence of different features in each planning unit in different
 #'     zones.

@@ -104,7 +104,7 @@ has an effect when argument to \code{x} is a \code{data.frame}. The
 default argument is zero.}
 }
 \value{
-\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.
+A \code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.
 }
 \description{
 Create a conservation planning \code{\link[=problem]{problem()}} following the
