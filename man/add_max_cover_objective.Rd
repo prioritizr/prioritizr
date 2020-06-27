@@ -78,9 +78,9 @@ features within the budget.
 \section{Notes}{
 
 In early versions (< 3.0.0.0), the mathematical formulation
-underpinning this function was very different. Specifically, as described
-above, the function now follows the formulations outlined in Church \emph{et al.}
-1996. The old formulation is now provided by the
+underpinning this function was very different. Specifically,
+as described above, the function now follows the formulations outlined in
+Church \emph{et al.} (1996). The old formulation is now provided by the
 \code{\link[=add_max_utility_objective]{add_max_utility_objective()}} function.
 }
 

@@ -74,14 +74,12 @@ to species with a range size larger than that third threshold, and finally
 \code{abundances} specifies the range size for each feature
 that should be used when calculating the targets.
 
-\strong{Note that the target calculations do not account for the
-size of each planning unit.} Therefore, the feature data should account
-for
+The target calculations do not account for the
+size of each planning unit. Therefore, the feature data should account for
 the size of each planning unit if this is important (e.g. pixel values in
 the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
-
-This function can only be applied to
+Additionally, the function can only be applied to
 \code{\linkS4class{ConservationProblem}} objects that are associated with a
 single zone.
 }

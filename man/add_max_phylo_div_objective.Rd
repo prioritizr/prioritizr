@@ -101,7 +101,8 @@ represent the same amount of all features within the budget.
 }
 \section{Notes}{
 
-In early versions, this function was named \code{add_max_phylo_div_objective}.
+In early versions, this function was named as the
+\code{add_max_phylo_div_objective} function.
 }
 
 \examples{
