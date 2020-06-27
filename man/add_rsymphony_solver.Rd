@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_rsymphony_solver.R
 \name{add_rsymphony_solver}
 \alias{add_rsymphony_solver}
-\title{Add a SYMPHONY solver with \pkg{Rsymphony}}
+\title{Add a SYMPHONY solver with \emph{Rsymphony}}
 \usage{
 add_rsymphony_solver(
   x,

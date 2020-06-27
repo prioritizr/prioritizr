@@ -3,7 +3,7 @@
 \name{add_lsymphony_solver}
 \alias{add_lsymphony_solver}
 \alias{add_lpsymphony_solver}
-\title{Add a SYMPHONY solver with \pkg{lpsymphony}}
+\title{Add a SYMPHONY solver with \emph{lpsymphony}}
 \usage{
 add_lpsymphony_solver(
   x,

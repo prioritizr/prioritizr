@@ -1,7 +1,7 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with \pkg{lpsymphony}
+#' Add a SYMPHONY solver with *lpsymphony*
 #'
 #' Specify that the *SYMPHONY* software should be used to solve a
 #' conservation planning problem using the \pkg{lpsymphony} package. This
