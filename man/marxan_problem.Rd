@@ -109,7 +109,8 @@ default argument is zero.}
 \description{
 Create a conservation planning \code{\link[=problem]{problem()}} following the
 mathematical formulations used in \emph{Marxan} (detailed in Beyer
-\emph{et al.} 2016).
+\emph{et al.} 2016). Note that these problems are solved using
+exact algorithms and not simulated annealing (i.e. the \emph{Marxan} software).
 }
 \details{
 This function is provided as a convenient wrapper for solving
