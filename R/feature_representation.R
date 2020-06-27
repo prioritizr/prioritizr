@@ -41,10 +41,6 @@ NULL
 #'   (`NA`) value the argument to `solution`. If an argument is
 #'   supplied to
 #'   `solution` where this is not the case, then an error will be thrown.
-#'   Please note that earlier versions of the \pkg{prioritizr}
-#'   (prior to 4.0.4.1) required that such planning units always have zero
-#'   values, but this has been changed to make the handling of missing values
-#'   more consistent throughout the package.
 #'
 #'   Additionally, note that when calculating the proportion of each feature
 #'   represented in the solution, the denominator is calculated using all
