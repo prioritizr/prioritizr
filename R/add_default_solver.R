@@ -7,8 +7,8 @@ NULL
 #' it should be used to solve a conservation planning [problem()].
 #' Ranked from best to worst, the available solvers that can be used are:
 #' \pkg{gurobi}
-#' ([add_gurobi_solver()]),
-#' \pkg{Rsymphony} ([add_rsymphony_solver()]), then \pkg{lpsymphony}
+#' ([add_gurobi_solver()]), then
+#' \pkg{Rsymphony} ([add_rsymphony_solver()]), and finally \pkg{lpsymphony}
 #' ([add_lpsymphony_solver()]).
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.

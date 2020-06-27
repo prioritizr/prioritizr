@@ -16,8 +16,8 @@ NULL
 #'   planning unit into a protected area). If no decision is explicitly added to
 #'   a problem, then the binary decision class will be used by default. Only a
 #'   single decision should be added to a `ConservationProblem` object.
-#'   **If multiple decisions are added to a problem object, then the last
-#'   one to be added will be used.**
+#'   Note that if multiple decisions are added to a problem object, then the
+#'   last one to be added will be used.
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the decisions added
 #'   to it.
