@@ -63,8 +63,7 @@ planning unit when the planning units are assigned to a (i) not restored,
 (ii) partially restored, or (iii) completely restored management zone.
 Here each target corresponds to a single feature and can be met through
 the total amount of habitat in planning units present to the three
-zones. In earlier versions of the \pkg{prioritizr} package, this
-function was named \code{add_max_phylo_end_objective}.
+zones.
 
 The maximum phylogenetic endemism objective for the reserve design
 problem can be expressed mathematically for a set of planning units
