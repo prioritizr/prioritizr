@@ -19,8 +19,8 @@ NULL
 #'   **If multiple decisions are added to a problem object, then the last
 #'   one to be added will be used.**
 #'
-#' @return [`ConservationProblem-class`] object with the decisions
-#'   added to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the decisions added
+#'   to it.
 #'
 #' @seealso [decisions].
 #'

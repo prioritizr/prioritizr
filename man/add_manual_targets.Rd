@@ -21,7 +21,7 @@ add_manual_targets(x, targets)
 the Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the targets added
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
 to it.
 }
 \description{

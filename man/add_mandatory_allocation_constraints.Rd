@@ -11,7 +11,7 @@
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraints
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{

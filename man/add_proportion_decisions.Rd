@@ -10,8 +10,8 @@ add_proportion_decisions(x)
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the decisions
-added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the decisions added
+to it.
 }
 \description{
 Add a proportion decision to a conservation planning \code{\link[=problem]{problem()}}.

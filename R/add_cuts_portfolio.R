@@ -29,8 +29,8 @@ NULL
 #'
 #' @seealso [portfolios].
 #'
-#' @return [`ConservationProblem-class`] object with the portfolio
-#'   added to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the portfolio
+#'  added to it.
 #'
 #' @references
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,

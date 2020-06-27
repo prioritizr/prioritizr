@@ -34,7 +34,7 @@ add_locked_in_constraints(x, locked_in)
 locked in. See the Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraints
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{

@@ -52,7 +52,7 @@ NULL
 #'
 #'   }
 #'
-#' @return [`ConservationProblem-class`] object with the targets added
+#' @return Object (i.e. [`ConservationProblem-class`]) with the targets added
 #'   to it.
 #'
 #' @seealso [targets].

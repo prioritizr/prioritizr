@@ -13,8 +13,8 @@ add_semicontinuous_decisions(x, upper_limit)
 of a planning unit that can be reserved (e.g. set to 0.8 for 80\%).}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the decisions
-added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the decisions added
+to it.
 }
 \description{
 Add a semi-continuous decision to a conservation planning

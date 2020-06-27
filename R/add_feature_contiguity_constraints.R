@@ -112,8 +112,6 @@ NULL
 #' @inherit add_contiguity_constraints return seealso
 #'
 #' @references
-#'
-#' @references
 #' Onal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.
 #'

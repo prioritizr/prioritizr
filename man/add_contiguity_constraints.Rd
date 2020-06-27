@@ -40,7 +40,7 @@ connection data is calculated automatically using the
 information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraints
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{

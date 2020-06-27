@@ -42,7 +42,7 @@ Defaults to \code{NULL} so that targets are not capped.}
 use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the targets added
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
 to it.
 }
 \description{

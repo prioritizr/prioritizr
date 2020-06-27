@@ -59,8 +59,8 @@ to 3). Defaults to \code{FALSE}.}
 optimization problems?}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the solver added
-to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
 }
 \description{
 Specify that the \emph{Gurobi} software should be used to solve a

@@ -10,7 +10,7 @@ add_extra_portfolio(x)
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the portfolio
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{

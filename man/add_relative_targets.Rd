@@ -24,7 +24,7 @@ add_relative_targets(x, targets)
 Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the targets added
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
 to it.
 }
 \description{

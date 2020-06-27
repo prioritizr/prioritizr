@@ -23,10 +23,7 @@ NULL
 #'   problem with multiple zones must be allocated to a management zone (i.e.
 #'   zone allocation is mandatory).
 #'
-#' @return [`ConservationProblem-class`] object with the constraints
-#'   added to it.
-#'
-#' @seealso [constraints].
+#' @inherit add_contiguity_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility

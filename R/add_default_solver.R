@@ -15,7 +15,7 @@ NULL
 #'
 #' @param ... arguments passed to the solver.
 #'
-#' @seealso [solvers].
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @export
 add_default_solver <- function(x, ...) {

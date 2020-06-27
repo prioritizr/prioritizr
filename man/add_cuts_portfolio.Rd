@@ -13,7 +13,7 @@ add_cuts_portfolio(x, number_solutions = 10L)
 different solutions. Defaults to 10.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the portfolio
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{

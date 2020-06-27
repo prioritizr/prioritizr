@@ -57,8 +57,8 @@ NULL
 #'   \pkg{gurobi} package is distributed with the *Gurobi* software suite.
 #'   This solver uses the \pkg{gurobi} package to solve problems.
 #'
-#' @return [`ConservationProblem-class`] object with the solver added
-#'   to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the solver
+#'  added to it.
 #'
 #' @seealso [solvers].
 #'

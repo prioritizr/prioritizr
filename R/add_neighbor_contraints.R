@@ -88,10 +88,7 @@ NULL
 #'
 #'   }
 #'
-#' @return [`ConservationProblem-class`] object with the constraint
-#'   added to it.
-#'
-#' @seealso [constraints], [penalties].
+#' @inherit add_contiguity_constraints return seealso
 #'
 #' @references
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving

@@ -54,7 +54,7 @@ all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraints
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -211,8 +211,6 @@ plot(s2, main = c("p5", "p6", "p7", "p8"), axes = FALSE, box = FALSE)
 }
 }
 \references{
-
-
 Onal H and Briers RA (2006) Optimal selection of a connected
 reserve network. \emph{Operations Research}, 54: 379--388.
 

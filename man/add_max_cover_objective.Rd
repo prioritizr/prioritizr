@@ -16,7 +16,7 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the objective
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the objective
 added to it.
 }
 \description{

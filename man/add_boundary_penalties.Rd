@@ -60,7 +60,7 @@ between different planning units. See the Details section for more
 information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the penalties
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{

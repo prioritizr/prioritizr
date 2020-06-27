@@ -20,7 +20,7 @@ Note that the gap specified in the solver (i.e.
 specified to generate the portfolio. Defaults to 0.1.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the portfolio
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{

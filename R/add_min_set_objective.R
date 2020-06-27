@@ -49,7 +49,7 @@ NULL
 #'
 #' @seealso [objectives], [targets].
 #'
-#' @return [`ConservationProblem-class`] object with the objective
+#' @return Object (i.e. [`ConservationProblem-class`]) with the objective
 #'   added to it.
 #'
 #' @examples

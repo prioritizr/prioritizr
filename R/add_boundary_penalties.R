@@ -121,7 +121,7 @@ NULL
 #'  benefit and not minimize some measure of cost, the term \eqn{p} is
 #'  replaced with \eqn{-p}.
 #'
-#' @return [`ConservationProblem-class`] object with the penalties
+#' @return Object (i.e. [`ConservationProblem-class`]) with the penalties
 #'  added to it.
 #'
 #' @seealso [penalties].

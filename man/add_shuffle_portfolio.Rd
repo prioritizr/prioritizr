@@ -24,7 +24,7 @@ the solution portfolio. Defaults to 1.}
 be removed? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the portfolio
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{

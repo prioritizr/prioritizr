@@ -11,6 +11,10 @@ add_default_solver(x, ...)
 
 \item{...}{arguments passed to the solver.}
 }
+\value{
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
+}
 \description{
 Identify the best solver currently installed on the system and specify that
 it should be used to solve a conservation planning \code{\link[=problem]{problem()}}.

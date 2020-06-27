@@ -36,8 +36,8 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the solver added
-to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a

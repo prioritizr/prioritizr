@@ -19,7 +19,7 @@ add_manual_locked_constraints(x, data)
 the Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraints
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{

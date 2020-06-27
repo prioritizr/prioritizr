@@ -56,7 +56,7 @@ that are associated with higher values are more favorable in the solution.
 See the Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the penalties
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{

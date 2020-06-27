@@ -12,7 +12,7 @@ add_top_portfolio(x, number_solutions)
 \item{number_solutions}{\code{integer} number of solutions required.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the portfolio
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
 added to it.
 }
 \description{

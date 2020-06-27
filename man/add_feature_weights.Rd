@@ -17,7 +17,7 @@
 Details section for more information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the weights
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the weights
 added to it.
 }
 \description{

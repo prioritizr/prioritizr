@@ -71,8 +71,8 @@ NULL
 #'
 #'   }
 #'
-#' @return [`ConservationProblem-class`] object with the constraints
-#'   added to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the constraints
+#'  added to it.
 #'
 #' @seealso [constraints].
 #'

@@ -44,7 +44,7 @@ neighborhood data is calculated automatically using the
 information.}
 }
 \value{
-\code{\linkS4class{ConservationProblem}} object with the constraint
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
 added to it.
 }
 \description{
@@ -188,5 +188,5 @@ conservation. \emph{European Journal of Operational Research}, 231:
 514--534.
 }
 \seealso{
-\link{constraints}, \link{penalties}.
+\link{constraints}.
 }

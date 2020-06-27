@@ -48,8 +48,8 @@ NULL
 #'
 #'   }
 #'
-#' @return [`ConservationProblem-class`] object with the weights
-#'   added to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the weights
+#'  added to it.
 #'
 #' @seealso [objectives].
 #'
