@@ -7,7 +7,7 @@
 add_top_portfolio(x, number_solutions)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 }

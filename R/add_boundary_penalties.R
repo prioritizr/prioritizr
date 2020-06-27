@@ -6,7 +6,7 @@ NULL
 #' Add penalties to a conservation planning [problem()] to favour
 #' solutions that have planning units clumped together into contiguous areas.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared

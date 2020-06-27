@@ -14,7 +14,7 @@ NULL
 #' a minimum set objective and a single zone.
 #' It will throw an error for other types of problems.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'   [`Raster-class`], or [`Spatial-class`]

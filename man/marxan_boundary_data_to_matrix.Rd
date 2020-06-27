@@ -7,8 +7,8 @@
 marxan_boundary_data_to_matrix(x, data)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object that contains
-planning unit and zone data to ensure that the argument to
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object that
+contains planning unit and zone data to ensure that the argument to
 \code{data} is converted correctly. This argument can be set to
 \code{NULL} if checks are not required (not recommended).}
 

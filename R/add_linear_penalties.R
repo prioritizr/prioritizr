@@ -10,7 +10,7 @@ NULL
 #' objective of the conservation planning [problem()] (e.g.
 #' solution cost for minimum set problems; [add_min_set_objective()].
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param penalty `numeric` penalty value that is used to scale the
 #'   importance not selecting planning units with high `data` values.

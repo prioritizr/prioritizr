@@ -7,7 +7,7 @@ NULL
 #' fulfill as many targets as possible while ensuring that the cost of the
 #' solution does not exceed a budget.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument

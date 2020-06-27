@@ -16,7 +16,7 @@ NULL
 #'
 #' @usage add_locked_in_constraints(x, locked_in)
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param locked_in Object that determines which planning units that should be
 #'   locked in. See the Details section for more information.

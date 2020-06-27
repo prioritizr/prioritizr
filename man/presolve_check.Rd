@@ -13,7 +13,7 @@ presolve_check(x)
 \method{presolve_check}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} or an
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) or
 \code{\linkS4class{OptimizationProblem}} object.}
 }
 \value{

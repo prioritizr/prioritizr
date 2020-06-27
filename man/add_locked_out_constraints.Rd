@@ -28,7 +28,7 @@ add_locked_out_constraints(x, locked_out)
 \S4method{add_locked_out_constraints}{ConservationProblem,Raster}(x, locked_out)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{locked_out}{Object that determines which planning units that should be
 locked out. See the Details section for more information.}

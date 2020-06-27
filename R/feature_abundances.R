@@ -6,7 +6,7 @@ NULL
 #' Calculate the total abundance of each feature found in the planning units
 #' of a conservation planning problem.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param na.rm `logical` should planning units with `NA` cost
 #'   data be excluded from the abundance calculations? The default argument

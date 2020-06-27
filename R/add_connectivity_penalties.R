@@ -6,7 +6,7 @@ NULL
 #' Add penalties to a conservation planning [problem()] to favor
 #' solutions that select planning units with high connectivity between them.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units with strong connectivity between them compared

@@ -14,7 +14,7 @@
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds

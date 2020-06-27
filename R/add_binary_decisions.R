@@ -9,7 +9,7 @@ NULL
 #' the planning unit to include in a protected area network. If no decision is
 #' added to a problem then this decision class will be used by default.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details Conservation planning problems involve making decisions on planning
 #'   units. These decisions are then associated with actions (e.g. turning a

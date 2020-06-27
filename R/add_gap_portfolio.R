@@ -10,7 +10,7 @@ NULL
 #' frequencies for moderate and large-sized problems (similar to
 #' *Marxan*).
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param number_solutions `integer` number of solutions required.
 #'

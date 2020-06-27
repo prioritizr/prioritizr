@@ -14,7 +14,7 @@ NULL
 #' set targets that require different senses (e.g. targets which specify the
 #' solution should not exceed a certain quantity using `"<="` values).
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param targets `data.frame` or [tibble::tibble()] object. See
 #'   the Details section for more information.

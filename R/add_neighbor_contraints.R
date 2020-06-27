@@ -7,7 +7,7 @@ NULL
 #' that all selected planning units in the solution have at least a certain
 #' number of neighbors that are also selected in the solution.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param k `integer` minimum number of neighbors for selected
 #'   planning units in the solution. For problems with multiple zones,

@@ -13,7 +13,7 @@ add_manual_locked_constraints(x, data)
 \S4method{add_manual_locked_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
 the Details section for more information.}

@@ -10,7 +10,7 @@ feature_abundances(x, na.rm)
 \method{feature_abundances}{ConservationProblem}(x, na.rm = FALSE)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{na.rm}{\code{logical} should planning units with \code{NA} cost
 data be excluded from the abundance calculations? The default argument

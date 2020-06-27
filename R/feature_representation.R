@@ -5,7 +5,7 @@ NULL
 #'
 #' Calculate how well features are represented in a solution.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'   [`Raster-class`], [`Spatial-class`],

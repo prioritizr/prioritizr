@@ -12,7 +12,7 @@ NULL
 #' This function was inspired by Faith (1992) and Rodrigues *et al.*
 #' (2002).
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument

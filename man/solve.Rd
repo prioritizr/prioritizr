@@ -11,7 +11,7 @@
 \S4method{solve}{ConservationProblem,missing}(a, b, ..., run_checks = TRUE, force = FALSE)
 }
 \arguments{
-\item{a}{\code{\linkS4class{ConservationProblem}} or an
+\item{a}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) or
 \code{\linkS4class{OptimizationProblem}} object.}
 
 \item{b}{\code{\linkS4class{Solver}} object. Not used if \code{a} is an

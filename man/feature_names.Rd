@@ -16,7 +16,8 @@ feature_names(x)
 \S4method{feature_names}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} or \code{\link[=Zones]{Zones()}}}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) or \code{\link[=Zones]{Zones()}}
+object.}
 }
 \value{
 \code{character} feature names.

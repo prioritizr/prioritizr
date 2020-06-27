@@ -19,8 +19,8 @@ number_of_features(x)
 \S4method{number_of_features}{ZonesCharacter}(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}},
-\code{\linkS4class{OptimizationProblem}} or \code{\link[=Zones]{Zones()}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}),
+\code{\linkS4class{OptimizationProblem}}, or \code{\link[=Zones]{Zones()}} object.}
 }
 \value{
 \code{integer} number of features.

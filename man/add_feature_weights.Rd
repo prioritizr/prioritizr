@@ -11,7 +11,7 @@
 \S4method{add_feature_weights}{ConservationProblem,matrix}(x, weights)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{weights}{\code{numeric} or \code{matrix} of weights. See the
 Details section for more information.}

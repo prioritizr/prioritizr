@@ -6,7 +6,7 @@ NULL
 #' Calculate irreplaceability scores for planning units selected in a solution
 #' based on the replacement cost method (Cabeza and Moilanen 2006).
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'   [`Raster-class`], [`Spatial-class`],

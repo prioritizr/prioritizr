@@ -7,7 +7,7 @@ NULL
 #' management zone in the solution. **This function can only be used with
 #' problems that contain multiple zones.**
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that

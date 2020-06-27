@@ -17,7 +17,7 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or

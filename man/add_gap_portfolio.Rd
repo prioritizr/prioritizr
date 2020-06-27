@@ -7,7 +7,7 @@
 add_gap_portfolio(x, number_solutions, pool_gap = 0.1)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of solutions required.}
 

@@ -12,7 +12,7 @@ NULL
 #' false positives. Please note that these checks will not be able to
 #' verify if  a problem has a feasible solution or not.
 #'
-#' @param x [`ConservationProblem-class`] or an
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) or
 #'   [`OptimizationProblem-class`] object.
 #'
 #' @details This function checks for issues that are likely to result in

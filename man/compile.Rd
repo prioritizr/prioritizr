@@ -10,7 +10,7 @@ compile(x, ...)
 \method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{...}{not used.}
 

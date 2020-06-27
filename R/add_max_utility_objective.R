@@ -11,7 +11,7 @@ NULL
 #' possible and so often results in solutions that are heavily biased towards
 #' specific features.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument

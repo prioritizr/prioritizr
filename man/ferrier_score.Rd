@@ -22,7 +22,7 @@ ferrier_score(x, solution)
 \S4method{ferrier_score}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, or \code{\linkS4class{Spatial}}

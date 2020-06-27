@@ -8,7 +8,7 @@ NULL
 #' This objective is similar to that used in
 #' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details A problem objective is used to specify the overall goal of the
 #'   conservation planning problem. Please note that all conservation

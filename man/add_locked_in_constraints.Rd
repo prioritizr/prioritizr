@@ -28,7 +28,7 @@ add_locked_in_constraints(x, locked_in)
 \S4method{add_locked_in_constraints}{ConservationProblem,Raster}(x, locked_in)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{locked_in}{Object that determines which planning units that should be
 locked in. See the Details section for more information.}

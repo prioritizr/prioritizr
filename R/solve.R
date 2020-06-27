@@ -5,7 +5,7 @@ NULL
 #'
 #' Solve a conservation planning [problem()].
 #'
-#' @param a [`ConservationProblem-class`] or an
+#' @param a [problem()] (i.e. [`ConservationProblem-class`]) or
 #'   [`OptimizationProblem-class`] object.
 #'
 #' @param b [`Solver-class`] object. Not used if `a` is an

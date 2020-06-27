@@ -25,7 +25,7 @@ feature_representation(x, solution)
 \S4method{feature_representation}{ConservationProblem,Raster}(x, solution)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},

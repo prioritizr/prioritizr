@@ -15,7 +15,7 @@ add_manual_targets(x, targets)
 \S4method{add_manual_targets}{ConservationProblem,tbl_df}(x, targets)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
 the Details section for more information.}

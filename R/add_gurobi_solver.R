@@ -7,7 +7,7 @@ NULL
 #' conservation planning problem. This function can also be used to
 #' customize the behavior of the solver. It requires the \pkg{gurobi} package.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param gap `numeric` gap to optimality. This gap is relative when
 #'   solving problems using \pkg{gurobi}, and will cause the optimizer to

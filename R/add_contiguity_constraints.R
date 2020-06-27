@@ -7,7 +7,7 @@ NULL
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param zones `matrix` or `Matrix` object describing the
 #'   connection scheme for different zones. Each row and column corresponds

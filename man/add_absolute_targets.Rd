@@ -17,7 +17,7 @@ add_absolute_targets(x, targets)
 \S4method{add_absolute_targets}{ConservationProblem,character}(x, targets)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{targets}{Object that specifies the targets for each feature. See the
 Details section for more information.}

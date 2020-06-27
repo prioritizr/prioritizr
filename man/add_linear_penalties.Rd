@@ -23,7 +23,7 @@
 \S4method{add_linear_penalties}{ConservationProblem,ANY,dgCMatrix}(x, penalty, data)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{penalty}{\code{numeric} penalty value that is used to scale the
 importance not selecting planning units with high \code{data} values.

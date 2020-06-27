@@ -12,7 +12,7 @@ NULL
 #' representation of some features over other features when making decisions
 #' about how the budget should be allocated.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param weights `numeric` or `matrix` of weights. See the
 #'   Details section for more information.

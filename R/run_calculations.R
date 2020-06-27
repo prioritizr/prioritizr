@@ -9,7 +9,7 @@ NULL
 #' the same pre-processing steps (e.g. calculating boundary data), because
 #' means that the same calculations will not be run multiple times.
 #'
-#' @param x [`ConservationProblem-class`] object
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details This function is used for the effect of modifying the input
 #'   [`ConservationProblem-class`] object. As such, it does not return

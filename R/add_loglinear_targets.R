@@ -11,7 +11,7 @@ NULL
 #' in solutions (Butchart *et al.* 2015). **Note that the behavior
 #' of this function has changed substantially from versions prior to 5.0.0**.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param lower_bound_amount `numeric` threshold.
 #'

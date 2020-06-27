@@ -7,7 +7,7 @@
 add_min_set_objective(x)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
 \code{\linkS4class{ConservationProblem}} object with the objective

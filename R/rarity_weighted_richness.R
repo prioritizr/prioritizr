@@ -14,7 +14,7 @@ NULL
 #' zones, and (iii) identify truly irreplaceable planning units---unlike the
 #' replacement cost metric which does not suffer any of these limitations.
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param solution `numeric`, `matrix`, `data.frame`,
 #'   [`Raster-class`], [`Spatial-class`],

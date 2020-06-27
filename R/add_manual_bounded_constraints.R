@@ -12,7 +12,7 @@ NULL
 #'
 #' @usage add_manual_bounded_constraints(x, data)
 #'
-#' @param x [`ConservationProblem-class`] object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param data `data.frame` or [tibble::tibble()] object. See
 #'   the Details section for more information.

@@ -25,7 +25,7 @@ replacement_cost(x, solution, ...)
 \S4method{replacement_cost}{ConservationProblem,Raster}(x, solution, rescale, run_checks, force, threads, ...)
 }
 \arguments{
-\item{x}{\code{\linkS4class{ConservationProblem}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
