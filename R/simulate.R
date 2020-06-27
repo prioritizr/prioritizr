@@ -99,7 +99,7 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #' Simulate cost data
 #'
 #' This function generates cost layers using random field models. By default,
-#' it returns spatially autocorrelated integer values.
+#' it returns spatially auto-correlated integer values.
 #'
 #' @inheritParams simulate_data
 #'

@@ -33,7 +33,7 @@ from the random fields simulation.}
 }
 \description{
 This function generates cost layers using random field models. By default,
-it returns spatially autocorrelated integer values.
+it returns spatially auto-correlated integer values.
 }
 \examples{
 \donttest{
