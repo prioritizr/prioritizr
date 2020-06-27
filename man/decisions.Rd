@@ -13,8 +13,8 @@ unit to a specific management zone. If no decision is explicitly added to a
 }
 \details{
 Only a single type of decision can be added to a conservation
-planning \code{\link[=problem]{problem()}}.\strong{If multiple decisions are added
-to problem, then the last one to be added will be used.}
+planning \code{\link[=problem]{problem()}}. Note that if multiple decisions are added
+to a problem, then the last one added will be used.
 
 The following decisions can be added to a conservation planning
 \code{\link[=problem]{problem()}}:

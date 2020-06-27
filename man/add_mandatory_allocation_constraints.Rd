@@ -16,8 +16,8 @@ added to it.
 }
 \description{
 Add constraints to ensure that every planning unit is allocated to a
-management zone in the solution. \strong{This function can only be used with
-problems that contain multiple zones.}
+management zone in the solution. Note that this function can only be used
+with problems that contain multiple zones.
 }
 \details{
 For a conservation planning \code{\link[=problem]{problem()}} with multiple

@@ -11,8 +11,8 @@ NULL
 #' [problem()], then binary decisions will be used by default.
 #'
 #' @details Only a single type of decision can be added to a conservation
-#'   planning [problem()].**If multiple decisions are added
-#'   to problem, then the last one to be added will be used.**
+#'   planning [problem()]. Note that if multiple decisions are added
+#'   to a problem, then the last one added will be used.
 #'
 #'   The following decisions can be added to a conservation planning
 #'   [problem()]:
