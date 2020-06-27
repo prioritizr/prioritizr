@@ -463,6 +463,7 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
 #&gt; <span class='message'>  solver:         default</span></div><div class='input'>
+<span class='co'># \donttest{</span>
 <span class='co'># solve problem</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
@@ -497,7 +498,7 @@ replaced with \(-P_z\).</p>
 #&gt; Best objective 1.172053501993e+04, best bound 1.139631827720e+04, gap 2.7662%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"multi-zone solution"</span>,
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_linear_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'>
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_linear_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

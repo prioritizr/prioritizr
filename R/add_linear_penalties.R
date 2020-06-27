@@ -180,13 +180,14 @@ NULL
 #' # print problem
 #' print(p3)
 #'
+#' \donttest{
 #' # solve problem
 #' s3 <- solve(p3)
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "multi-zone solution",
 #'      axes = FALSE, box = FALSE)
-#'
+#' }
 #' @name add_linear_penalties
 #'
 #' @exportMethod add_linear_penalties
