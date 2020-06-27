@@ -53,10 +53,10 @@
 
 
 <meta property="og:title" content="Add maximum phylogenetic diversity objective — add_max_phylo_div_objective" />
-<meta property="og:description" content="Set the objective of a conservation planning problem to
+<meta property="og:description" content="Set the objective of a conservation planning problem() to
 maximize the phylogenetic diversity of the features represented in the
 solution subject to a budget. This objective is similar to
-add_max_features_objective except
+add_max_features_objective() except
 that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues et al.
@@ -103,7 +103,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -181,10 +181,10 @@ This function was inspired by Faith (1992) and Rodrigues et al.
     </div>
 
     <div class="ref-description">
-    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem</a></code> to
+    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
 maximize the phylogenetic diversity of the features represented in the
 solution subject to a budget. This objective is similar to
-<code><a href='add_max_features_objective.html'>add_max_features_objective</a></code> except
+<code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code> except
 that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues <em>et al.</em>
@@ -198,7 +198,7 @@ This function was inspired by Faith (1992) and Rodrigues <em>et al.</em>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>budget</th>
@@ -210,75 +210,75 @@ a budget for each each management zone.</p></td>
     </tr>
     <tr>
       <th>tree</th>
-      <td><p><code>phylo</code> object specifying a phylogenetic tree
+      <td><p><code>phylo()</code> object specifying a phylogenetic tree
 for the conservation features.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the objective
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the objective
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.</p>
+conservation planning problem. Please note that all conservation
+planning problems formulated in the <span class="pkg">prioritizr</span> package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.</p>
 <p>The maximum phylogenetic diversity objective finds the set of
-  planning units that meets representation targets for a phylogenetic tree
-  while staying within a fixed budget. If multiple solutions can meet all
-  targets while staying within budget, the cheapest solution is chosen.
-  Note that this objective is similar to the maximum
-  features objective (<code><a href='add_max_features_objective.html'>add_max_features_objective</a></code>) in that it
-  allows for both a budget and targets to be set for each feature. However,
-  unlike the maximum feature objective, the aim of this objective is to
-  maximize the total phylogenetic diversity of the targets met in the
-  solution, so if multiple targets are provided for a single feature, the
-  problem will only need to meet a single target for that feature
-  for the phylogenetic benefit for that feature to be counted when
-  calculating the phylogenetic diversity of the solution. In other words,
-  for multi-zone problems, this objective does not aim to maximize the
-  phylogenetic diversity in each zone, but rather this objective
-  aims to maximize the phylogenetic diversity of targets that can be met
-  through allocating planning units to any of the different zones in a
-  problem. This can be useful for problems where targets pertain to the total
-  amount held for each feature across multiple zones. For example,
-  each feature might have a non-zero amount of suitable habitat in each
-  planning unit when the planning units are assigned to a (i) not restored,
-  (ii) partially restored, or (iii) completely restored management zone.
-  Here each target corresponds to a single feature and can be met through
-  the total amount of habitat in planning units present to the three
-  zones. In earlier versions of the <span class="pkg">prioritizr</span> package, this
-  function was named <code>add_max_phylo_div_objective</code>.</p>
+planning units that meets representation targets for a phylogenetic tree
+while staying within a fixed budget. If multiple solutions can meet all
+targets while staying within budget, the cheapest solution is chosen.
+Note that this objective is similar to the maximum
+features objective (<code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code>) in that it
+allows for both a budget and targets to be set for each feature. However,
+unlike the maximum feature objective, the aim of this objective is to
+maximize the total phylogenetic diversity of the targets met in the
+solution, so if multiple targets are provided for a single feature, the
+problem will only need to meet a single target for that feature
+for the phylogenetic benefit for that feature to be counted when
+calculating the phylogenetic diversity of the solution. In other words,
+for multi-zone problems, this objective does not aim to maximize the
+phylogenetic diversity in each zone, but rather this objective
+aims to maximize the phylogenetic diversity of targets that can be met
+through allocating planning units to any of the different zones in a
+problem. This can be useful for problems where targets pertain to the total
+amount held for each feature across multiple zones. For example,
+each feature might have a non-zero amount of suitable habitat in each
+planning unit when the planning units are assigned to a (i) not restored,
+(ii) partially restored, or (iii) completely restored management zone.
+Here each target corresponds to a single feature and can be met through
+the total amount of habitat in planning units present to the three
+zones. In earlier versions of the <span class="pkg">prioritizr</span> package, this
+function was named <code>add_max_phylo_div_objective</code>.</p>
 <p>The maximum phylogenetic diversity objective for the reserve design
-  problem can be expressed mathematically for a set of planning units
-  (\(I\) indexed by \(i\)) and a set of features (\(J\)
-  indexed by \(j\)) as:</p>
+problem can be expressed mathematically for a set of planning units
+(\(I\) indexed by \(i\)) and a set of features (\(J\)
+indexed by \(j\)) as:</p>
 <p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} m_b l_b \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
   m_b \leq y_j \forall j \in T(b) \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
-<p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
-  specifying whether planning unit \(i\) has been selected (1) or not
-  (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
-  unit \(i\), \(t_j\) is the representation target for feature
-  \(j\), \(y_j\) indicates if the solution has meet
-  the target \(t_j\) for feature \(j\). Additionally,
-  \(T\) represents a phylogenetic tree containing features \(j\)
-  and has the branches \(b\) associated within lengths \(l_b\).
-  The binary variable \(m_b\) denotes if
-  at least one feature associated with the branch \(b\) has met its
-  representation as indicated by \(y_j\). For brevity, we denote
-  the features \(j\) associated with branch \(b\) using
-  \(T(b)\). Finally, \(B\) is the budget allocated for the
-  solution, \(c_i\) is the cost of planning unit \(i\), and
-  \(s\) is a scaling factor used to shrink the costs so that the problem
-  will return a cheapest solution when there are multiple solutions that
-  represent the same amount of all features within the budget.</p>
+<p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
+specifying whether planning unit \(i\) has been selected (1) or not
+(0)), \(r_{ij}\) is the amount of feature \(j\) in planning
+unit \(i\), \(t_j\) is the representation target for feature
+\(j\), \(y_j\) indicates if the solution has meet
+the target \(t_j\) for feature \(j\). Additionally,
+\(T\) represents a phylogenetic tree containing features \(j\)
+and has the branches \(b\) associated within lengths \(l_b\).
+The binary variable \(m_b\) denotes if
+at least one feature associated with the branch \(b\) has met its
+representation as indicated by \(y_j\). For brevity, we denote
+the features \(j\) associated with branch \(b\) using
+\(T(b)\). Finally, \(B\) is the budget allocated for the
+solution, \(c_i\) is the cost of planning unit \(i\), and
+\(s\) is a scaling factor used to shrink the costs so that the problem
+will return a cheapest solution when there are multiple solutions that
+represent the same amount of all features within the budget.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Faith DP (1992) Conservation evaluation and phylogenetic diversity.
@@ -288,7 +288,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 105: 103--111.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='objectives.html'>objectives</a></code>, <code><a href='branch_matrix.html'>branch_matrix</a></code>.</p></div>
+    <div class='dont-index'><p><a href='objectives.html'>objectives</a>, <code><a href='branch_matrix.html'>branch_matrix()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
@@ -467,7 +467,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros

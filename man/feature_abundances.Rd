@@ -17,7 +17,7 @@ data be excluded from the abundance calculations? The default argument
 is \code{FALSE}.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} containing the total amount
+\code{\link[tibble:tibble]{tibble::tibble()}} object containing the total amount
 (\code{"absolute_abundance"}) and proportion (\code{"relative_abundance"})
 of the distribution of each feature in the planning units. Here, each
 row contains data that pertain to a specific feature in a specific

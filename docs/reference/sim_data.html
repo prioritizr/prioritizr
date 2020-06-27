@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -201,33 +201,7 @@
 
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_features_zones</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_phylogeny</span>)
-
-<span class='no'>sim_features</span>
-
-<span class='no'>sim_features_zones</span>
-
-<span class='no'>sim_pu_polygons</span>
-
-<span class='no'>sim_pu_zones_polygons</span>
-
-<span class='no'>sim_pu_sf</span>
-
-<span class='no'>sim_pu_zones_sf</span>
-
-<span class='no'>sim_pu_lines</span>
-
-<span class='no'>sim_pu_points</span>
-
-<span class='no'>sim_pu_raster</span>
-
-<span class='no'>sim_pu_zones_stack</span>
-
-<span class='no'>sim_phylogeny</span>
-
-<span class='no'>sim_locked_in_raster</span>
-
-<span class='no'>sim_locked_out_raster</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_phylogeny</span>)</pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -235,115 +209,103 @@
     
 <dl'>
 
-<dt>sim_pu_polygons</dt><dd><p><code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygonsDataFrame-class.html'>SpatialPolygonsDataFrame-class</a></code>
-  object.</p></dd>
+<dt>sim_pu_polygons</dt><dd><p><code>SpatialPolygonsDataFrame</code>
+object.</p></dd>
 
-<dt>sim_pu_zones_polygons</dt><dd><p><code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygonsDataFrame-class.html'>SpatialPolygonsDataFrame-class</a></code> object.</p></dd>
+<dt>sim_pu_zones_polygons</dt><dd><p><code>SpatialPolygonsDataFrame</code> object.</p></dd>
 
-<dt>sim_pu_sf</dt><dd><p><code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> object.</p></dd>
+<dt>sim_pu_sf</dt><dd><p><code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object.</p></dd>
 
-<dt>sim_pu_zones_sf</dt><dd><p><code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> object.</p></dd>
+<dt>sim_pu_zones_sf</dt><dd><p><code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object.</p></dd>
 
-<dt>sim_pu_lines</dt><dd><p><code><a href='https://rdrr.io/pkg/sp/man/SpatialLinesDataFrame-class.html'>SpatialLinesDataFrame-class</a></code> object.</p></dd>
+<dt>sim_pu_lines</dt><dd><p><code>SpatialLinesDataFrame</code> object.</p></dd>
 
-<dt>sim_pu_points</dt><dd><p><code><a href='https://rdrr.io/pkg/sp/man/SpatialPointsDataFrame-class.html'>SpatialPointsDataFrame-class</a></code>
-  object.</p></dd>
+<dt>sim_pu_points</dt><dd><p><code>SpatialPointsDataFrame</code>
+object.</p></dd>
 
-<dt>sim_pu_raster</dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterLayer-class</a></code> object.</p></dd>
+<dt>sim_pu_raster</dt><dd><p><code>RasterLayer</code> object.</p></dd>
 
-<dt>sim_pu_zones_stack</dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterStack-class</a></code> object.</p></dd>
+<dt>sim_pu_zones_stack</dt><dd><p><code>RasterStack</code> object.</p></dd>
 
-<dt>sim_locked_in_raster</dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterLayer-class</a></code>
-  object.</p></dd>
+<dt>sim_locked_in_raster</dt><dd><p><code>RasterLayer</code>
+object.</p></dd>
 
-<dt>sim_locked_out_raster</dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterLayer-class</a></code>
-  object.</p></dd>
+<dt>sim_locked_out_raster</dt><dd><p><code>RasterLayer</code>
+object.</p></dd>
 
-<dt>sim_features</dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterStack-class</a></code> object.</p></dd>
+<dt>sim_features</dt><dd><p><code>RasterStack</code> object.</p></dd>
 
-<dt>sim_features_zones</dt><dd><p><code><a href='zones.html'>ZonesRaster</a></code> object.</p></dd>
+<dt>sim_features_zones</dt><dd><p><code><a href='zones.html'>ZonesRaster()</a></code> object.</p></dd>
 
-<dt>sim_phylogeny</dt><dd><p><code><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>phylo</a></code> object.</p></dd>
+<dt>sim_phylogeny</dt><dd><p><code><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>ape::phylo()</a></code> object.</p></dd>
 
 
 </dl>
 
-<p>An object of class <code>RasterStack</code> of dimension 10 x 10 x 5.</p>
-<p>An object of class <code>ZonesRaster</code> (inherits from <code>Zones</code>) of length 3.</p>
-<p>An object of class <code>SpatialPolygonsDataFrame</code> with 90 rows and 3 columns.</p>
-<p>An object of class <code>SpatialPolygonsDataFrame</code> with 90 rows and 6 columns.</p>
-<p>An object of class <code>sf</code> (inherits from <code>data.frame</code>) with 90 rows and 4 columns.</p>
-<p>An object of class <code>sf</code> (inherits from <code>data.frame</code>) with 90 rows and 7 columns.</p>
-<p>An object of class <code>SpatialLinesDataFrame</code> with 90 rows and 3 columns.</p>
-<p>An object of class <code>SpatialPointsDataFrame</code> with 90 rows and 3 columns.</p>
-<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
-<p>An object of class <code>RasterStack</code> of dimension 10 x 10 x 3.</p>
-<p>An object of class <code>phylo</code> of length 4.</p>
-<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
-<p>An object of class <code>RasterLayer</code> of dimension 10 x 10 x 1.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     
 <dl'>
 
 <dt><code>sim_pu_raster</code></dt><dd><p>Planning units are represented as raster data.
-  Pixel values indicate planning unit cost and <code>NA</code> values indicate
-  that a pixel is not a planning unit.</p></dd>
+Pixel values indicate planning unit cost and <code>NA</code> values indicate
+that a pixel is not a planning unit.</p></dd>
 
 <dt><code>sim_pu_zones_stack</code></dt><dd><p>Planning units are represented as raster
-  stack data. Each layer indicates the cost for a different management
-  zone. Pixels with <code>NA</code> values in a given zone indicate that a
-  planning unit cannot be allocated to that zone in a solution.
-  Additionally, pixels with <code>NA</code> values in all layers are not a
-  planning unit.</p></dd>
+stack data. Each layer indicates the cost for a different management
+zone. Pixels with <code>NA</code> values in a given zone indicate that a
+planning unit cannot be allocated to that zone in a solution.
+Additionally, pixels with <code>NA</code> values in all layers are not a
+planning unit.</p></dd>
 
 <dt><code>sim_locked_in_raster</code></dt><dd><p>Planning units are represented as raster
-  data. Pixel values are binary and indicate if planning units should be
-  locked in to the solution.</p></dd>
+data. Pixel values are binary and indicate if planning units should be
+locked in to the solution.</p></dd>
 
 <dt><code>sim_locked_out_raster</code></dt><dd><p>Planning units are represented as
-  raster data. Pixel values are binary and indicate if planning units
-  should be locked out from the solution.</p></dd>
+raster data. Pixel values are binary and indicate if planning units
+should be locked out from the solution.</p></dd>
 
 <dt><code>sim_pu_polygons</code></dt><dd><p>Planning units represented as polygon data.
-  The attribute table contains fields (columns) indicating the expenditure
-  required for prioritizing each planning unit ("cost" field), if the
-  planning units should be selected in the solution ("locked_in" field),
-  and if the planning units should never be selected in the solution
-  ("locked_out" field).</p></dd>
+The attribute table contains fields (columns) indicating the expenditure
+required for prioritizing each planning unit ("cost" field), if the
+planning units should be selected in the solution ("locked_in" field),
+and if the planning units should never be selected in the solution
+("locked_out" field).</p></dd>
 
 <dt><code>sim_pu_points</code></dt><dd><p>Planning units represented as point data.
-  The attribute table follows the same conventions as for
-  <code>sim_pu_polygons</code>.</p></dd>
+The attribute table follows the same conventions as for
+<code>sim_pu_polygons</code>.</p></dd>
 
 <dt><code>sim_pu_lines</code></dt><dd><p>Planning units represented as line data.
-  The attribute table follows the same conventions as for
-  <code>sim_pu_polygons</code>.</p></dd>
+The attribute table follows the same conventions as for
+<code>sim_pu_polygons</code>.</p></dd>
 
 <dt><code>sim_pu_sf</code></dt><dd><p>Planning units represented as polygon data
-  using the <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> package.
-  The attribute table follows the same conventions as for
-  <code>sim_pu_polygons</code>.</p></dd>
+using the <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> package.
+The attribute table follows the same conventions as for
+<code>sim_pu_polygons</code>.</p></dd>
 
 <dt><code>sim_pu_zones_polygons</code></dt><dd><p>Planning units represented as polygon
-  data. The attribute table contains fields (columns) indicating the
-  expenditure required for prioritizing each planning unit under different
-  management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
-  of fields indicating the value that each planning unit that should be
-  assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
-  In these locked fields, planning units that should not be locked to a
-  specific value are assigned a <code>NA</code> value.</p></dd>
+data. The attribute table contains fields (columns) indicating the
+expenditure required for prioritizing each planning unit under different
+management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
+of fields indicating the value that each planning unit that should be
+assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
+In these locked fields, planning units that should not be locked to a
+specific value are assigned a <code>NA</code> value.</p></dd>
 
 <dt><code>sim_pu_zones_sf</code></dt><dd><p>Planning units represented as polygon data
-  using the <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> package. The attribute tables follows
-  the same conventions as for <code>sim_pu_zone_polygons</code>.</p></dd>
+using the <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> package. The attribute tables follows
+the same conventions as for <code>sim_pu_zone_polygons</code>.</p></dd>
+
 <dt><code>sim_features</code></dt><dd><p>The simulated distribution of ten species.
-  Pixel values indicate habitat suitability.</p></dd>
+Pixel values indicate habitat suitability.</p></dd>
 
 <dt><code>sim_features_zones</code></dt><dd><p>The simulated distribution for five
-  species under three different management zones.</p></dd>
+species under three different management zones.</p></dd>
 
- <dt><code>sim_phylogeny</code></dt><dd><p>The phylogenetic tree for the ten species.</p></dd>
+<dt><code>sim_phylogeny</code></dt><dd><p>The phylogenetic tree for the ten species.</p></dd>
 
 
 </dl>

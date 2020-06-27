@@ -34,12 +34,13 @@ that are further apart from each other than this threshold are
 not treated as being within proximity of each other.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
+
+
+\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
-Cells values indicate
-if the pair-wise distances between different planning units are within
-the distance threshold or not (using ones and zeros).
-To reduce computational burden, cells among the matrix diagonal are
+Cells values indicate if the pair-wise distances between different
+planning units are within the distance threshold or not (using ones and
+zeros). To reduce computational burden, cells among the matrix diagonal are
 set to zero. Furthermore, if the argument to \code{x} is a
 \code{\linkS4class{Raster}} object, then cells with \code{NA}
 values are set to zero too.

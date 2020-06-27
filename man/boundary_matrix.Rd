@@ -45,7 +45,10 @@ using \code{TRUE} may crash Mac OSX systems.} The default argument
 is \code{FALSE}.}
 }
 \value{
-\code{[Matrix]{dsCMatrix-class}} object.
+\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
+Each row and column represents a planning unit.
+Cells values indicate the shared boundary length between different pairs
+of planning units.
 }
 \description{
 Generate a matrix describing the amount of shared boundary length

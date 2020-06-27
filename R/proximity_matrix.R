@@ -17,12 +17,12 @@ NULL
 #' @details Proximity calculations are performed using
 #'   [sf::st_is_within_distance()].
 #'
-#' @return [`dsCMatrix-class`] sparse symmetric matrix.
+#' @return
+#' @return [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
-#'   Cells values indicate
-#'   if the pair-wise distances between different planning units are within
-#'   the distance threshold or not (using ones and zeros).
-#'   To reduce computational burden, cells among the matrix diagonal are
+#'   Cells values indicate if the pair-wise distances between different
+#'   planning units are within the distance threshold or not (using ones and
+#'   zeros). To reduce computational burden, cells among the matrix diagonal are
 #'   set to zero. Furthermore, if the argument to `x` is a
 #'   [`Raster-class`] object, then cells with `NA`
 #'   values are set to zero too.

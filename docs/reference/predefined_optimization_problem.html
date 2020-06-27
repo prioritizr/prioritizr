@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Predefined optimization problem — predefined_optimization_problem" />
-<meta property="og:description" content="Create a new OptimizationProblem-class object." />
+<meta property="og:description" content="Create a new OptimizationProblem object." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Create a new <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p>
+    <p>Create a new <code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object.</p>
     </div>
 
     <pre class="usage"><span class='fu'>predefined_optimization_problem</span>(<span class='no'>x</span>)</pre>
@@ -191,42 +191,42 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The argument to <code>x</code> must be a list that contains the following
-  elements:</p>
-<p></p><dl'>
+elements:</p>
+<dl'>
 
-  <dt>modelsense</dt><dd><p><code>character</code> model sense.</p></dd>
+<dt>modelsense</dt><dd><p><code>character</code> model sense.</p></dd>
 
-  <dt>number_of_features</dt><dd><p><code>integer</code> number of features in problem.</p></dd>
+<dt>number_of_features</dt><dd><p><code>integer</code> number of features in problem.</p></dd>
 
-  <dt>number_of_planning_units</dt><dd><p><code>integer</code> number of planning units.</p></dd>
+<dt>number_of_planning_units</dt><dd><p><code>integer</code> number of planning units.</p></dd>
 
-  <dt>A_i</dt><dd><p><code>integer</code> row indices for problem matrix.</p></dd>
+<dt>A_i</dt><dd><p><code>integer</code> row indices for problem matrix.</p></dd>
 
-  <dt>A_j</dt><dd><p><code>integer</code> column indices for problem matrix.</p></dd>
+<dt>A_j</dt><dd><p><code>integer</code> column indices for problem matrix.</p></dd>
 
-  <dt>A_x</dt><dd><p><code>numeric</code> values for problem matrix.</p></dd>
+<dt>A_x</dt><dd><p><code>numeric</code> values for problem matrix.</p></dd>
 
-  <dt>obj</dt><dd><p><code>numeric</code> objective function values.</p></dd>
+<dt>obj</dt><dd><p><code>numeric</code> objective function values.</p></dd>
 
-  <dt>lb</dt><dd><p><code>numeric</code> lower bound for decision values.</p></dd>
+<dt>lb</dt><dd><p><code>numeric</code> lower bound for decision values.</p></dd>
 
-  <dt>ub</dt><dd><p><code>numeric</code> upper bound for decision values.</p></dd>
+<dt>ub</dt><dd><p><code>numeric</code> upper bound for decision values.</p></dd>
 
-  <dt>rhs</dt><dd><p><code>numeric</code> right-hand side values.</p></dd>
+<dt>rhs</dt><dd><p><code>numeric</code> right-hand side values.</p></dd>
 
-  <dt>sense</dt><dd><p><code>numeric</code> constraint senses.</p></dd>
+<dt>sense</dt><dd><p><code>numeric</code> constraint senses.</p></dd>
 
-  <dt>vtype</dt><dd><p><code>character</code> variable types. These are used to specify
-    that the decision variables are binary (<code>"B"</code>) or continuous
-    (<code>"C"</code>).</p></dd>
+<dt>vtype</dt><dd><p><code>character</code> variable types. These are used to specify
+that the decision variables are binary (<code>"B"</code>) or continuous
+(<code>"C"</code>).</p></dd>
 
-  <dt>row_ids</dt><dd><p><code>character</code> identifiers for the rows in the problem
-    matrix.</p></dd>
+<dt>row_ids</dt><dd><p><code>character</code> identifiers for the rows in the problem
+matrix.</p></dd>
 
-  <dt>col_ids</dt><dd><p><code>character</code> identifiers for the columns in the problem
-    matrix.</p></dd>
+<dt>col_ids</dt><dd><p><code>character</code> identifiers for the columns in the problem
+matrix.</p></dd>
 
-  
+
 </dl>
 
 

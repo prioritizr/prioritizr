@@ -100,7 +100,7 @@ near-optimal solutions can be a useful." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -190,53 +190,53 @@ near-optimal solutions can be a useful.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>All methods for generating portfolios will return solutions that
-  are within the specified optimality gap.</p>
+are within the specified optimality gap.</p>
 <p>The following portfolios can be added to a conservation planning
-  <code><a href='problem.html'>problem</a></code>:</p>
-<p></p><dl'>
+<code><a href='problem.html'>problem()</a></code>:</p>
+<dl'>
 
-  <dt><code>add_default_portfolio</code></dt><dd><p>Generate a single solution.</p></dd>
+<dt><code>add_default_portfolio</code></dt><dd><p>Generate a single solution.</p></dd>
 
-  <dt><code><a href='add_extra_portfolio.html'>add_extra_portfolio</a></code></dt><dd><p>Generate a portfolio of solutions
-    by storing feasible solutions found during the optimization
-    process. This method is useful for quickly obtaining multiple solutions,
-    but does not provide any guarantees on the number of solutions, or
-    the quality of solutions.
-    Note that it requires the <em>Gurobi</em> solver.</p></dd>
+<dt><code><a href='add_extra_portfolio.html'>add_extra_portfolio()</a></code></dt><dd><p>Generate a portfolio of solutions
+by storing feasible solutions found during the optimization
+process. This method is useful for quickly obtaining multiple solutions,
+but does not provide any guarantees on the number of solutions, or
+the quality of solutions.
+Note that it requires the <em>Gurobi</em> solver.</p></dd>
 
-  <dt><code><a href='add_top_portfolio.html'>add_top_portfolio</a></code></dt><dd><p>Generate a portfolio of
-    solutions by finding a pre-specified number of solutions that
-    are closest to optimality (i.e the top solutions). This is useful
-    for examining differences among near-optimal solutions.
-    It can also be used to generate multiple solutions and, in turn,
-    to calculate selection frequencies for small problems.
-    Note that it requires the <em>Gurobi</em> solver.</p></dd>
+<dt><code><a href='add_top_portfolio.html'>add_top_portfolio()</a></code></dt><dd><p>Generate a portfolio of
+solutions by finding a pre-specified number of solutions that
+are closest to optimality (i.e the top solutions). This is useful
+for examining differences among near-optimal solutions.
+It can also be used to generate multiple solutions and, in turn,
+to calculate selection frequencies for small problems.
+Note that it requires the <em>Gurobi</em> solver.</p></dd>
 
-  <dt><code><a href='add_gap_portfolio.html'>add_gap_portfolio</a></code></dt><dd><p>Generate a portfolio of solutions
-    by finding a certain number of solutions that are all within a pre-
-    specified optimality gap. This method is useful for generating
-    multiple solutions that can be used to calculate selection frequencies
-    for moderate and large-sized problems (similar to <em>Marxan</em>).
-    Note that it requires the <em>Gurobi</em> solver.</p></dd>
+<dt><code><a href='add_gap_portfolio.html'>add_gap_portfolio()</a></code></dt><dd><p>Generate a portfolio of solutions
+by finding a certain number of solutions that are all within a pre-
+specified optimality gap. This method is useful for generating
+multiple solutions that can be used to calculate selection frequencies
+for moderate and large-sized problems (similar to <em>Marxan</em>).
+Note that it requires the <em>Gurobi</em> solver.</p></dd>
 
-  <dt><code><a href='add_cuts_portfolio.html'>add_cuts_portfolio</a></code></dt><dd><p>Generate a portfolio of distinct
-    solutions within a pre-specified optimality gap using Bender's cuts.
-    This is recommended as a replacement for <code><a href='add_top_portfolio.html'>add_top_portfolio</a></code>
-    when the <em>Gurobi</em> software is not available.</p></dd>
-  <dt><code><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio</a></code></dt><dd><p>Generate a portfolio of
-    solutions by randomly reordering the data prior to attempting to solve
-    the problem.
-    This is recommended as a replacement for <code><a href='add_gap_portfolio.html'>add_gap_portfolio</a></code>
-    when the <em>Gurobi</em> software is not available.</p></dd>
+<dt><code><a href='add_cuts_portfolio.html'>add_cuts_portfolio()</a></code></dt><dd><p>Generate a portfolio of distinct
+solutions within a pre-specified optimality gap using Bender's cuts.
+This is recommended as a replacement for <code><a href='add_top_portfolio.html'>add_top_portfolio()</a></code>
+when the <em>Gurobi</em> software is not available.</p></dd>
+<dt><code><a href='add_shuffle_portfolio.html'>add_shuffle_portfolio()</a></code></dt><dd><p>Generate a portfolio of
+solutions by randomly reordering the data prior to attempting to solve
+the problem.
+This is recommended as a replacement for <code><a href='add_gap_portfolio.html'>add_gap_portfolio()</a></code>
+when the <em>Gurobi</em> software is not available.</p></dd>
 
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>,  <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>,  <a href='decisions.html'>decisions</a>,
+<a href='objectives.html'>objectives</a> <a href='penalties.html'>penalties</a>, <code><a href='problem.html'>problem()</a></code>,
+<a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>

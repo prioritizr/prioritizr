@@ -10,6 +10,8 @@ NULL
 #'
 #' @seealso [magrittr::%>%()], [tee()].
 #'
+#' @return An object.
+#'
 #' @examples
 #' # set seed for reproducibility
 #' set.seed(500)
@@ -42,6 +44,8 @@ NULL
 #' @param lhs,rhs An object and a function.
 #'
 #' @seealso [magrittr::%T>%()], [pipe()].
+#'
+#' @return An object.
 #'
 #' @examples
 #' # the tee operator returns the left-hand side of the result and can be

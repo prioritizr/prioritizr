@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Compile a problem — compile" />
-<meta property="og:description" content="Compile a conservation planning problem into an
+<meta property="og:description" content="Compile a conservation planning problem() into an
 (potentially mixed) integer linear programming problem." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -97,7 +97,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Compile a conservation planning <code><a href='problem.html'>problem</a></code> into an
+    <p>Compile a conservation planning <code><a href='problem.html'>problem()</a></code> into an
 (potentially mixed) integer linear programming problem.</p>
     </div>
 
@@ -189,7 +189,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -209,20 +209,20 @@ defaults to <code>NA</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p>
+    <p><code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function might be useful for those interested in understanding
-  how their conservation planning <code><a href='problem.html'>problem</a></code> is expressed
-  as a mathematical problem. However, if the problem just needs to
-  be solved, then the <code><a href='solve.html'>solve</a></code> function should just be used.</p>
+how their conservation planning <code><a href='problem.html'>problem()</a></code> is expressed
+as a mathematical problem. However, if the problem just needs to
+be solved, then the <code><a href='solve.html'>solve()</a></code> function should just be used.</p>
 <p><strong>Please note that in nearly all cases, the default argument to
-  <code>formulation</code> should be used</strong>. The only situation where manually
-  setting the argument to <code>formulation</code> is desirable is during testing.
-  Manually setting the argument to <code>formulation</code> will at best
-  have no effect on the problem. At worst, it may result in
-  an error, a misspecified problem, or unnecessarily long
-  solve times.</p>
+<code>formulation</code> should be used</strong>. The only situation where manually
+setting the argument to <code>formulation</code> is desirable is during testing.
+Manually setting the argument to <code>formulation</code> will at best
+have no effect on the problem. At worst, it may result in
+an error, a misspecified problem, or unnecessarily long
+solve times.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># build minimal conservation problem</span>

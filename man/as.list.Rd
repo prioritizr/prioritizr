@@ -12,7 +12,7 @@
 \item{...}{not used.}
 }
 \value{
-\code{\link[=list]{list()}} object.
+\code{list()} object.
 }
 \description{
 Convert \code{OptimizationProblem} to list

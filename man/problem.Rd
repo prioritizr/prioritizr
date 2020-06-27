@@ -186,8 +186,8 @@ single management zone. This argument is only used when the argument
 to \code{x} is a \code{numeric} or \code{matrix} object.}
 }
 \value{
-A \code{\linkS4class{ConservationProblem}} object containing the
-basic data used to build a prioritization problem.
+\code{\linkS4class{ConservationProblem}} object containing
+data for building a prioritization problem.
 }
 \description{
 Create a systematic conservation planning problem. This function is used to

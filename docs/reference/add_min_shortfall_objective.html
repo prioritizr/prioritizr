@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Add minimum shortfall objective — add_min_shortfall_objective" />
-<meta property="og:description" content="Set the objective of a conservation planning problem to
+<meta property="og:description" content="Set the objective of a conservation planning problem() to
 minimize the shortfall for as many targets as possible while ensuring that
 the cost of the solution does not exceed a budget." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
@@ -98,7 +98,7 @@ the cost of the solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ the cost of the solution does not exceed a budget." />
     </div>
 
     <div class="ref-description">
-    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem</a></code> to
+    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
 minimize the shortfall for as many targets as possible while ensuring that
 the cost of the solution does not exceed a budget.</p>
     </div>
@@ -188,7 +188,7 @@ the cost of the solution does not exceed a budget.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>budget</th>
@@ -202,42 +202,42 @@ a budget for each each management zone.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the objective
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the objective
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.</p>
+conservation planning problem. Please note that all conservation
+planning problems formulated in the <span class="pkg">prioritizr</span> package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.</p>
 <p>The minimum shortfall representation objective aims to
-  find the set of planning units that minimize the shortfall for the
-  representation targets---that is, the fraction of each target that
-  remains unmet---for as many features as possible while staying within a
-  fixed budget (inspired by Table 1, equation IV, Arponen <em>et al.</em>
-  2005). Additionally, weights can be used
-   to favor the representation of certain features over other features (see
-  <code><a href='add_feature_weights.html'>add_feature_weights</a></code>.</p>
+find the set of planning units that minimize the shortfall for the
+representation targets---that is, the fraction of each target that
+remains unmet---for as many features as possible while staying within a
+fixed budget (inspired by Table 1, equation IV, Arponen <em>et al.</em>
+2005). Additionally, weights can be used
+to favor the representation of certain features over other features (see
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code>.</p>
 <p>The minimum shortfall objective for the reserve design problem can be
-  expressed mathematically for a set of planning units (\(I\) indexed by
-  \(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
+expressed mathematically for a set of planning units (\(I\) indexed by
+\(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
 <p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
-<p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
-  specifying whether planning unit \(i\) has been selected (1) or not
-  (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
-  unit \(i\), \(t_j\) is the representation target for feature
-  \(j\), \(y_j\) denotes the representation shortfall for
-  the target \(t_j\) for feature \(j\), and \(w_j\) is the
-  weight for feature \(j\) (defaults to 1 for all features; see
-  <code><a href='add_feature_weights.html'>add_feature_weights</a></code> to specify weights). Additionally,
-  \(B\) is the budget allocated for the solution, \(c_i\) is the
-  cost of planning unit \(i\). Note that \(y_j\) is a continuous
-  variable bounded between zero and infinity, and denotes the shortfall
-  for target \(j\).</p>
+<p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
+specifying whether planning unit \(i\) has been selected (1) or not
+(0)), \(r_{ij}\) is the amount of feature \(j\) in planning
+unit \(i\), \(t_j\) is the representation target for feature
+\(j\), \(y_j\) denotes the representation shortfall for
+the target \(t_j\) for feature \(j\), and \(w_j\) is the
+weight for feature \(j\) (defaults to 1 for all features; see
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights). Additionally,
+\(B\) is the budget allocated for the solution, \(c_i\) is the
+cost of planning unit \(i\). Note that \(y_j\) is a continuous
+variable bounded between zero and infinity, and denotes the shortfall
+for target \(j\).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of
@@ -245,7 +245,7 @@ biodiversity in reserve selection: representation, species weighting, and
 benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights</a></code>, <code><a href='objectives.html'>objectives</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -316,13 +316,13 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective 15.0000001
 #&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 7.061289e+00, 191 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 7.061289e+00, 191 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -332,7 +332,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt; 
 #&gt; Cleanup yields a better solution
 #&gt; 
-#&gt; Explored 1 nodes (191 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (191 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 7.81411 15 
@@ -361,7 +361,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective 15.0000001
 #&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
@@ -374,7 +374,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt; 
 #&gt; *    0     0               0       0.0000000    0.00000  0.00%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (37 simplex iterations) in 0.00 seconds
+#&gt; Explored 0 nodes (37 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 0 15 

@@ -100,7 +100,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@ than 10.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>targets</th>
@@ -212,58 +212,58 @@ Details section for more information.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the targets added
-  to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the targets added
+to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Targets are used to specify the minimum amount or proportion of a
-  feature's distribution that needs to be protected. Most conservation
-  planning problems require targets with the exception of the maximum cover
-  (see <code><a href='add_max_cover_objective.html'>add_max_cover_objective</a></code>) and maximum utility
-  (see <code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code>) problems. Attempting to solve
-  problems with objectives that require targets without specifying targets
-  will throw an error.</p>
+feature's distribution that needs to be protected. Most conservation
+planning problems require targets with the exception of the maximum cover
+(see <code><a href='add_max_cover_objective.html'>add_max_cover_objective()</a></code>) and maximum utility
+(see <code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code>) problems. Attempting to solve
+problems with objectives that require targets without specifying targets
+will throw an error.</p>
 <p>The targets for a problem can be specified in several different ways:</p>
-<p></p><dl'>
+<dl'>
 
-  <dt><code>numeric</code></dt><dd><p><code>vector</code> of target values for each feature.
-    Additionally, for convenience, this type of argument can be a single
-    value to assign the same target to each feature. Note that this type of
-    argument cannot be used to specify targets for problems with multiple
-    zones.</p></dd>
+<dt><code>numeric</code></dt><dd><p><code>vector</code> of target values for each feature.
+Additionally, for convenience, this type of argument can be a single
+value to assign the same target to each feature. Note that this type of
+argument cannot be used to specify targets for problems with multiple
+zones.</p></dd>
 
-  <dt><code>matrix</code></dt><dd><p>containing a target for each feature in each zone.
-    Here, each row corresponds to a different feature in argument to
-    <code>x</code>, each column corresponds to a different zone in argument to
-    <code>x</code>, and each cell contains the target value for a given feature
-    that the solution needs to secure in a given zone.</p></dd>
+<dt><code>matrix</code></dt><dd><p>containing a target for each feature in each zone.
+Here, each row corresponds to a different feature in argument to
+<code>x</code>, each column corresponds to a different zone in argument to
+<code>x</code>, and each cell contains the target value for a given feature
+that the solution needs to secure in a given zone.</p></dd>
 
-  <dt><code>character</code></dt><dd><p>containing the names of fields (columns) in the
-    feature data associated with the argument to <code>x</code> that contain
-    targets. This type of argument can only be used when the
-    feature data associated with <code>x</code> is a <code>data.frame</code>.
-    This argument must contain a field (column) name for each zone.</p></dd>
+<dt><code>character</code></dt><dd><p>containing the names of fields (columns) in the
+feature data associated with the argument to <code>x</code> that contain
+targets. This type of argument can only be used when the
+feature data associated with <code>x</code> is a <code>data.frame</code>.
+This argument must contain a field (column) name for each zone.</p></dd>
 
-  
+
 </dl>
 
 <p>For problems associated with multiple management zones, this function can
-  be used to set targets that each pertain to a single feature and a single
-  zone. To set targets which can be met through allocating different
-  planning units to multiple zones, see the <code><a href='add_manual_targets.html'>add_manual_targets</a></code>
-  function. An example of a target that could be met through allocations
-  to multiple zones might be where each management zone is expected to
-  result in a different amount of a feature and the target requires that
-  the total amount of the feature in all zones must exceed a certain
-  threshold. In other words, the target does not require that any single
-  zone secure a specific amount of the feature, but the total amount held
-  in all zones must secure a specific amount. Thus the target could,
-  potentially, be met through allocating all planning units to any specific
-  management zone, or through allocating the planning units to different
-  combinations of management zones.</p>
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the <code><a href='add_manual_targets.html'>add_manual_targets()</a></code>
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='targets.html'>targets</a></code>.</p></div>
+    <div class='dont-index'><p><a href='targets.html'>targets</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -407,7 +407,7 @@ Details section for more information.</p></td>
 #&gt;   Cover: 2
 #&gt;   MIR: 2
 #&gt; 
-#&gt; Explored 551 nodes (908 simplex iterations) in 0.19 seconds
+#&gt; Explored 551 nodes (908 simplex iterations) in 0.21 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 1187.63 1199 1203.17 ... 1364.2

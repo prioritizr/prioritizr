@@ -98,7 +98,7 @@ planning unit exhibits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -206,11 +206,11 @@ planning unit exhibits.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialLines-class.html'>SpatialLines-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygons-class.html'>SpatialPolygons-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> object representing planning units. If <code>x</code> is a
-<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> object then it must have only one
+      <td><p><code>Raster</code>,
+<code>SpatialLines</code>,
+<code>SpatialPolygons</code>,
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object representing planning units. If <code>x</code> is a
+<code>Raster</code> object then it must have only one
 layer.</p></td>
     </tr>
     <tr>
@@ -218,12 +218,12 @@ layer.</p></td>
       <td><p><code>logical</code> should a
 <a href='https://geos.osgeo.org/doxygen/classgeos_1_1index_1_1strtree_1_1STRtree.html'>GEOS STRtree</a> be used to
 to pre-process data? If <code>TRUE</code>, then the experimental
-<code><a href='https://rdrr.io/pkg/rgeos/man/experimental-functions.html'>gUnarySTRtreeQuery</a></code> function
+<code><a href='https://rdrr.io/pkg/rgeos/man/experimental-functions.html'>rgeos::gUnarySTRtreeQuery()</a></code> function
 will be used to pre-compute which planning units are adjacent to
 each other and potentially reduce the processing time required to
 generate the boundary matrices. This argument is only used when
 the planning unit data are vector-based polygons (i.e.
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygons.html'>SpatialPolygonsDataFrame</a></code> objects). <strong>Note that
+<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygons.html'>sp::SpatialPolygonsDataFrame()</a></code> objects). <strong>Note that
 using <code>TRUE</code> may crash Mac OSX systems.</strong> The default argument
 is <code>FALSE</code>.</p></td>
     </tr>
@@ -231,22 +231,25 @@ is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>Matrix{dsCMatrix-class}</code> object.</p>
+    <p><code>dsCMatrix</code> symmetric sparse matrix object.
+Each row and column represents a planning unit.
+Cells values indicate the shared boundary length between different pairs
+of planning units.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a <code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix-class</a></code>
-  symmetric sparse matrix. Cells on the off-diagonal indicate the length of
-  the shared boundary between two different planning units. Cells on the
-  diagonal indicate length of a given planning unit's edges that have no
-  neighbors (e.g. for edges of planning units found along the
-  coastline). <strong>This function assumes the data are in a coordinate
-  system where Euclidean distances accurately describe the proximity
-  between two points on the earth</strong>. Thus spatial data in a longitude/latitude
-  coordinate system (aka
-  <a href='http://spatialreference.org/ref/epsg/wgs-84/'>WGS84</a>)
-  should be reprojected to another coordinate system before using this
-  function. Note that for <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> objects
-  boundaries are missing for cells that have <code>NA</code> values in all cells.</p>
+    <p>This function returns a <code>dsCMatrix</code>
+symmetric sparse matrix. Cells on the off-diagonal indicate the length of
+the shared boundary between two different planning units. Cells on the
+diagonal indicate length of a given planning unit's edges that have no
+neighbors (e.g. for edges of planning units found along the
+coastline). <strong>This function assumes the data are in a coordinate
+system where Euclidean distances accurately describe the proximity
+between two points on the earth</strong>. Thus spatial data in a longitude/latitude
+coordinate system (i.e.
+<a href='http://spatialreference.org/ref/epsg/wgs-84/'>WGS84</a>)
+should be reprojected to another coordinate system before using this
+function. Note that for <code>Raster</code> objects
+boundaries are missing for cells that have <code>NA</code> values in all cells.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>

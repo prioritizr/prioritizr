@@ -15,7 +15,7 @@ NULL
 #' valid setting. The use of a "waiver" object was inspired by the
 #' `ggplot2` package.
 #'
-#' @return `object` of class `Waiver`.
+#' @return Object of class `Waiver`.
 #'
 #' @examples
 #' # create new waiver object

@@ -61,7 +61,7 @@ constructing this ConservationProblem-class object, it can be
 customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
- solve function can be used to identify solutions." />
+solve() function can be used to identify solutions." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -104,7 +104,7 @@ penalties. After building the problem, the
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -187,10 +187,10 @@ specify the basic data used in a spatial prioritization problem: the
 spatial distribution of the planning units and their costs, as well as
 the features (e.g. species, ecosystems) that need to be conserved. After
 constructing this <code>ConservationProblem-class</code> object, it can be
-customized to meet specific goals using <code><a href='objectives.html'>objectives</a></code>,
-<code><a href='targets.html'>targets</a></code>, <code><a href='constraints.html'>constraints</a></code>, and
-<code><a href='penalties.html'>penalties</a></code>. After building the problem, the
- <code><a href='solve.html'>solve</a></code> function can be used to identify solutions.</p>
+customized to meet specific goals using <a href='objectives.html'>objectives</a>,
+<a href='targets.html'>targets</a>, <a href='constraints.html'>constraints</a>, and
+<a href='penalties.html'>penalties</a>. After building the problem, the
+<code><a href='solve.html'>solve()</a></code> function can be used to identify solutions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>problem</span>(<span class='no'>x</span>, <span class='no'>features</span>, <span class='no'>...</span>)
@@ -245,14 +245,14 @@ customized to meet specific goals using <code><a href='objectives.html'>objectiv
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>,
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialPolygonsDataFrame-class.html'>SpatialPolygonsDataFrame-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialLinesDataFrame-class.html'>SpatialLinesDataFrame-class</a></code>,
-<code><a href='https://rdrr.io/pkg/sp/man/SpatialPointsDataFrame-class.html'>SpatialPointsDataFrame-class</a></code>,
-<code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> object,
-<code><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></code> vector, or
-<code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> specifying the planning units to use in the reserve
+      <td><p><code>Raster</code>,
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::st_sf()</a></code>,
+<code>SpatialPolygonsDataFrame</code>,
+<code>SpatialLinesDataFrame</code>,
+<code>SpatialPointsDataFrame</code>,
+<code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame()</a></code> object,
+<code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> vector, or
+<code><a href='https://rdrr.io/r/base/matrix.html'>matrix()</a></code> specifying the planning units to use in the reserve
 design exercise and their corresponding cost. It may be desirable to
 exclude some planning units from the analysis, for example those outside
 the study area. To exclude planning units, set the cost for those raster
@@ -261,68 +261,67 @@ cells to <code>NA</code>, or use the <code>add_locked_out_constraint</code> func
     <tr>
       <th>features</th>
       <td><p>The feature data can be specified in a variety of ways.
-  The specific formats that can be used depend on the cost data format (i.e.
-  argument to <code>x</code>) and whether the problem should have a single zone or
-  multiple zones. If the problem should have a single zone, then the feature
-  data can be specified following:</p>
-<p></p><ul>
-<li><p><code>x = <a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterLayer-class</a></code>, or
-    <code>x = <a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>,
-    or <code>x = <a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>:
-    <code>y = <a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>
-    object showing the distribution of conservation features. Missing
-    values (i.e. <code>NA</code> values) can be used to indicate the absence of
-    a feature in a particular cell instead of explicitly setting these
-    cells to zero. Note that this argument type for <code>features</code> can
-    only be used to specify data for problems involving a single zone.</p></li>
-<li><p><code>x = <a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>,
-    <code>x = <a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>,
-    or <code>x = data.frame</code>:
-    <code>y = character</code> vector
-    with column names that correspond to the abundance or occurrence of
-    different features in each planning unit. Note that this argument
-    type can only be used to create problems involving a single zone.</p></li>
-<li><p><code>x = Spatial-class</code>,
-    <code>x = <a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>,
-    <code>x = data.frame</code>,
-    <code>x = numeric</code> vector, or
-    <code>x = <a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code>: <code>y = data.frame</code> object
-    containing the names of the features. Note that if this
-    type of argument is supplied to <code>features</code> then the argument
-    <code>rij</code> or <code>rij_matrix</code> must also be supplied. This type of
-    argument should follow the conventions used by <em>Marxan</em>, wherein
-    each row corresponds to a different feature. It must also contain the
-    following columns:</p>
-<p></p><dl'>
+The specific formats that can be used depend on the cost data format (i.e.
+argument to <code>x</code>) and whether the problem should have a single zone or
+multiple zones. If the problem should have a single zone, then the feature
+data can be specified following:</p><ul>
+<li><p><code>x = RasterLayer-class</code>, or
+<code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>x = sf::st_sf()</a></code>:
+<code>y = Raster-class</code>
+object showing the distribution of conservation features. Missing
+values (i.e. <code>NA</code> values) can be used to indicate the absence of
+a feature in a particular cell instead of explicitly setting these
+cells to zero. Note that this argument type for <code>features</code> can
+only be used to specify data for problems involving a single zone.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>x = sf::st_sf()</a></code>, or
+<code>x = data.frame</code>:
+<code>y = character</code> vector
+with column names that correspond to the abundance or occurrence of
+different features in each planning unit. Note that this argument
+type can only be used to create problems involving a single zone.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>x = sf::st_sf()</a></code>, or
+<code>x = data.frame</code>, or
+<code>x = numeric</code> vector, or
+<code>x = matrix</code>:
+<code>y = data.frame</code> object
+containing the names of the features. Note that if this
+type of argument is supplied to <code>features</code> then the argument
+<code>rij</code> or <code>rij_matrix</code> must also be supplied. This type of
+argument should follow the conventions used by <em>Marxan</em>, wherein
+each row corresponds to a different feature. It must also contain the
+following columns:</p><dl'>
+<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
+These identifiers are used in the argument to <code>rij</code>.</p></dd>
+<dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
+<dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
+(optional).</p></dd>
+<dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
+feature (optional).</p></dd>
 
-    <dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
-      These identifiers are used in the argument to <code>rij</code>.</p></dd>
-    <dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
-    <dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
-      (optional).</p></dd>
-    <dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
-      feature (optional).</p></dd>
-    
 </dl></li>
 </ul>
 
 <p>If the problem should have multiple zones, then the feature
-  data can be specified following:</p>
-<p></p><ul>
-<li><p><code>x = <a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterStack-class</a></code>,
-    <code>x = <a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterBrick-class</a></code>,
-    <code>x = <a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>,
-    or <code>x = <a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>: <code>y = <a href='zones.html'>ZonesRaster</a></code>
-    object showing the distribution of conservation features in multiple
-    zones. As above, missing values (i.e. <code>NA</code> values) can be used to
-    indicate the absence of a feature in a particular cell instead of
-    explicitly setting these cells to zero.</p></li>
-<li><p><code>x = <a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>,
-    <code>x = <a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>,
-    or <code>x = data.frame</code>: <code>y = <a href='zones.html'>ZonesCharacter</a></code>
-    object with column names that correspond to the abundance or
-    occurrence of different features in each planning unit in different
-    zones.</p></li>
+data can be specified following:</p><ul>
+<li><p><code>x = RasterStack-class</code>, or
+<code>x = RasterBrick-class</code>, or
+<code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>x = sf::st_sf()</a></code>:
+<code><a href='zones.html'>y = ZonesRaster</a></code>:
+object showing the distribution of conservation features in multiple
+zones. As above, missing values (i.e. <code>NA</code> values) can be used to
+indicate the absence of a feature in a particular cell instead of
+explicitly setting these cells to zero.</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>x = Spatial-class</a></code>, or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>x = sf::st_sf()</a></code>, or
+or <code>x = data.frame</code>:
+<code><a href='zones.html'>y = ZonesCharacter</a></code>
+object with column names that correspond to the abundance or
+occurrence of different features in each planning unit in different
+zones.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -341,7 +340,7 @@ is suggested to try setting <code>run_checks</code> to <code>FALSE</code>.</p></
       <th>cost_column</th>
       <td><p><code>character</code> name or <code>integer</code> indicating the
 column(s) with the cost data. This argument must be supplied when the
-argument to <code>x</code> is a <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code> or
+argument to <code>x</code> is a <code>Spatial</code> or
 <code>data.frame</code> object. This argument should contain the name of each
 column containing cost data for each management zone when creating
 problems with multiple zones. To create a problem with a single zone, then
@@ -350,54 +349,44 @@ set the argument to <code>cost_column</code> as a single column name.</p></td>
     <tr>
       <th>rij</th>
       <td><p><code>data.frame</code> containing information on the amount of
-   each feature in each planning unit assuming each management zone. Similar
-   to <code>data.frame</code> arguments for <code>features</code>, the <code>data.frame</code>
-   objects must follow the conventions used by <em>Marxan</em>. Note that the
-   <code>"zone"</code> column is not needed for problems involving a single
-   management zone. Specifically, the argument should contain the following
-   columns:</p>
-<p></p><dl'>
+each feature in each planning unit assuming each management zone. Similar
+to <code>data.frame</code> arguments for <code>features</code>, the <code>data.frame</code>
+objects must follow the conventions used by <em>Marxan</em>. Note that the
+<code>"zone"</code> column is not needed for problems involving a single
+management zone. Specifically, the argument should contain the following
+columns:</p><dl'>
+<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
+<dt><code>"zone"</code></dt><dd><p><code>integer</code> zone identifier (optional for
+problems involving a single zone).</p></dd>
+<dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+planning unit.</p></dd>
 
-   <dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
-
-   <dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
-
-   <dt><code>"zone"</code></dt><dd><p><code>integer</code> zone identifier (optional for
-     problems involving a single zone).</p></dd>
-
-   <dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
-     planning unit.</p></dd>
-
-   
 </dl></td>
     </tr>
     <tr>
       <th>zones</th>
       <td><p><code>data.frame</code> containing information on the zones. This
-  argument is only used when argument to <code>x</code> and <code>y</code> are
-  both <code>data.frame</code> objects and the problem being built contains
-  multiple zones. Following conventions used in <code>MarZone</code>, this
-  argument should contain the following columns:
-  columns:</p>
-<p></p><dl'>
+argument is only used when argument to <code>x</code> and <code>y</code> are
+both <code>data.frame</code> objects and the problem being built contains
+multiple zones. Following conventions used in <code>MarZone</code>, this
+argument should contain the following columns:
+columns:</p><dl'>
+<dt><code>"id"</code></dt><dd><p><code>integer</code> zone identifier.</p></dd>
+<dt><code>"name"</code></dt><dd><p><code>character</code> zone name.</p></dd>
 
-  <dt><code>"id"</code></dt><dd><p><code>integer</code> zone identifier.</p></dd>
-
-  <dt><code>"name"</code></dt><dd><p><code>character</code> zone name.</p></dd>
-
-  
 </dl></td>
     </tr>
     <tr>
       <th>rij_matrix</th>
       <td><p><code>list</code> of <code>matrix</code> or
-<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix-class</a></code>
+<code>dgCMatrix</code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 <code>rij_matrix</code> can be a single <code>matrix</code> or
-<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix-class</a></code> when specifying a problem with a
+<code>dgCMatrix</code> when specifying a problem with a
 single management zone. This argument is only used when the argument
 to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></td>
     </tr>
@@ -405,65 +394,65 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object containing the
-  basic data used to build a prioritization problem.</p>
+    <p><code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object containing
+data for building a prioritization problem.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A reserve design exercise starts by dividing the study region
-  into planning units (typically square or hexagonal cells) and, for
-  each planning unit, assigning values that quantify socioeconomic
-  cost and conservation benefit for a set of conservation features. The
-  cost can be the acquisition cost of the land, the cost of management,
-  the opportunity cost of foregone commercial activities (e.g. from logging
-  or agriculture), or simply the area. The conservation features are
-  typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
-  cloud forest). The benefit that each feature derives from a planning unit
-  can take a variety of forms, but is typically either occupancy (i.e.
-  presence or absence) or area of occurrence within each planning unit.
-  Finally, in some types of reserve design models, representation targets
-  must be set for each conservation feature, such as 20 <!-- % of the current -->
-  extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
-  (see <code><a href='targets.html'>targets</a></code>).</p>
+into planning units (typically square or hexagonal cells) and, for
+each planning unit, assigning values that quantify socioeconomic
+cost and conservation benefit for a set of conservation features. The
+cost can be the acquisition cost of the land, the cost of management,
+the opportunity cost of foregone commercial activities (e.g. from logging
+or agriculture), or simply the area. The conservation features are
+typically species (e.g. Clouded Leopard) or habitats (e.g. mangroves or
+cloud forest). The benefit that each feature derives from a planning unit
+can take a variety of forms, but is typically either occupancy (i.e.
+presence or absence) or area of occurrence within each planning unit.
+Finally, in some types of reserve design models, representation targets
+must be set for each conservation feature, such as 20 % of the current
+extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
+(see <a href='targets.html'>targets</a>).</p>
 <p>The goal of the reserve design exercise is then to optimize the trade-off
-  between conservation benefit and socioeconomic cost, i.e. to get the most
-  benefit for your limited conservation funds. In general, the goal of an
-  optimization problem is to minimize an objective function over a set of
-  decision variables, subject to a series of constraints. The decision
-  variables are what we control, usually there is one binary variable for
-  each planning unit specifying whether or not to protect that unit (but
-  other approaches are available, see <code><a href='decisions.html'>decisions</a></code>). The
-  constraints can be thought of as rules that need to be followed, for
-  example, that the reserve must stay within a certain budget or meet the
-  representation targets.</p>
+between conservation benefit and socioeconomic cost, i.e. to get the most
+benefit for your limited conservation funds. In general, the goal of an
+optimization problem is to minimize an objective function over a set of
+decision variables, subject to a series of constraints. The decision
+variables are what we control, usually there is one binary variable for
+each planning unit specifying whether or not to protect that unit (but
+other approaches are available, see <a href='decisions.html'>decisions</a>). The
+constraints can be thought of as rules that need to be followed, for
+example, that the reserve must stay within a certain budget or meet the
+representation targets.</p>
 <p>Integer linear programming (ILP) is the subset of optimization algorithms
-  used in this package to solve reserve design problems. The general form of
-  an integer programming problem can be expressed in matrix notation using
-  the following equation.</p>
+used in this package to solve reserve design problems. The general form of
+an integer programming problem can be expressed in matrix notation using
+the following equation.</p>
 <p>$$\mathit{Minimize} \space \mathbf{c}^{\mathbf{T}}\mathbf{x} \space
   \mathit{subject \space to} \space
   \mathbf{Ax}\geq= or\leq \mathbf{b}$$</p>
-<p>Here, <em>x</em> is a vector of decision variables, <em>c</em> and <em>b</em> are
-  vectors of known coefficients, and <em>A</em> is the constraint
-  matrix. The final term specifies a series of structural
-  constraints where relational operators for the constraint can be either
-  \(\ge\), \(=\), or \(\le\) the coefficients. For example, in the
-  minimum set
-  cover problem, <em>c</em> would be a vector of costs for each planning unit,
-  <em>b</em> a vector of targets for each conservation feature, the relational
-  operator would be \(\ge\) for all features, and <em>A</em> would be the
-  representation matrix with \(A_{ij}=r_{ij}\), the
-  representation level of feature <em>i</em> in planning unit <em>j</em>.</p>
+<p>Here, \(x\) is a vector of decision variables, \(c\) and \(b\) are
+vectors of known coefficients, and \(A\) is the constraint
+matrix. The final term specifies a series of structural
+constraints where relational operators for the constraint can be either
+\(\ge\), \(=\), or \(\le\) the coefficients. For example, in the
+minimum set
+cover problem, \(c\) would be a vector of costs for each planning unit,
+\(b\) a vector of targets for each conservation feature, the relational
+operator would be \(\ge\) for all features, and \(A\) would be the
+representation matrix with \(A_{ij}=r_{ij}\), the
+representation level of feature \(i\) in planning unit \(j\).</p>
 <p>Please note that this function internally computes the amount of each
-  feature in each planning unit when this data is not supplied (using the
-  <code>rij_matrix</code> parameter). As a consequence, it can take a while to
-  initialize large-scale conservation planning problems that involve
-  millions of planning units.</p>
+feature in each planning unit when this data is not supplied (using the
+<code>rij_matrix</code> parameter). As a consequence, it can take a while to
+initialize large-scale conservation planning problems that involve
+millions of planning units.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>,
- <code><a href='feature_representation.html'>feature_representation</a></code>, <code><a href='irreplaceability.html'>irreplaceability</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>, <a href='decisions.html'>decisions</a>,
+<a href='objectives.html'>objectives</a> <a href='penalties.html'>penalties</a>,
+<a href='portfolios.html'>portfolios</a>, <a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>,
+<code><a href='feature_representation.html'>feature_representation()</a></code>, <a href='irreplaceability.html'>irreplaceability</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -677,8 +666,8 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
-#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
-#&gt; Model fingerprint: 0x315ee794
+#&gt; Optimize a model with 3 rows, 90 columns and 253 nonzeros
+#&gt; Model fingerprint: 0xf67fc692
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 2e+01]
@@ -687,26 +676,26 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 #&gt;   RHS range        [4e+01, 1e+02]
 #&gt; Found heuristic solution: objective 3735.0477670
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
+#&gt; Presolved: 3 rows, 90 columns, 253 nonzeros
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
+#&gt; Presolved: 3 rows, 90 columns, 253 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.635757e+03, 6 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.656163e+03, 10 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2635.75660    0    3 3735.04777 2635.75660  29.4%     -    0s
-#&gt; H    0     0                    2814.6987646 2635.75660  6.36%     -    0s
+#&gt;      0     0 2656.16303    0    3 3735.04777 2656.16303  28.9%     -    0s
+#&gt; H    0     0                    2818.1271062 2656.16303  5.75%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (10 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2814.7 3735.05 
+#&gt; Solution count 2: 2818.13 3735.05 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.814698764626e+03, best bound 2.635756597764e+03, gap 6.3574%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 2.818127106227e+03, best bound 2.656163030380e+03, gap 5.7472%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x8a299781
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -760,7 +749,7 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00201
+#&gt;  - attr(*, "runtime")= Named num 0.00246
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'><span class='co'># }</span>
 <span class='co'># create some problems with multiple zones</span>
 
@@ -777,11 +766,11 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 
 <span class='co'># print targets</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
-#&gt; feature_1      2      0      2
-#&gt; feature_2      1      2      0
-#&gt; feature_3      0      1      0
-#&gt; feature_4      0      0      2
-#&gt; feature_5      1      4      3</div><div class='input'>
+#&gt; feature_1      1      3      1
+#&gt; feature_2      2      0      2
+#&gt; feature_3      0      2      0
+#&gt; feature_4      1      2      3
+#&gt; feature_5      1      1      0</div><div class='input'>
 <span class='co'># create a multi-zone problem with raster data</span>
 <span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='fu'>problem</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
@@ -791,36 +780,36 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 <span class='co'># solve problem</span>
 <span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xfdcb2e28
+#&gt; Model fingerprint: 0x64f0c6a0
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 4e+00]
-#&gt; Found heuristic solution: objective 3541.8192145
+#&gt;   RHS range        [1e+00, 3e+00]
+#&gt; Found heuristic solution: objective 4136.2139703
 #&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.788200e+03, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.980015e+03, 19 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2788.19959    0    6 3541.81921 2788.19959  21.3%     -    0s
-#&gt; H    0     0                    2986.8059710 2788.19959  6.65%     -    0s
+#&gt;      0     0 2980.01490    0    6 4136.21397 2980.01490  28.0%     -    0s
+#&gt; H    0     0                    3137.1589724 2980.01490  5.01%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (19 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2986.81 3541.82 
+#&gt; Solution count 2: 3137.16 4136.21 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.986805971038e+03, best bound 2.788199587287e+03, gap 6.6495%</div><div class='input'>
+#&gt; Best objective 3.137158972367e+03, best bound 2.980014898172e+03, gap 5.0091%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='co'># here, each layer/panel corresponds to a different zone and pixel values</span>
 <span class='co'># indicate if a given planning unit has been allocated to a given zone</span>
@@ -840,36 +829,36 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 <span class='co'># solve problem</span>
 <span class='no'>s9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x4a3070f6
+#&gt; Model fingerprint: 0x67da2a3c
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 1e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 4e+00]
-#&gt; Found heuristic solution: objective 3541.8192145
+#&gt;   RHS range        [1e+00, 3e+00]
+#&gt; Found heuristic solution: objective 4136.2139703
 #&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.788200e+03, 13 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 2.980015e+03, 19 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 #&gt; 
-#&gt;      0     0 2788.19959    0    6 3541.81921 2788.19959  21.3%     -    0s
-#&gt; H    0     0                    2986.8059710 2788.19959  6.65%     -    0s
+#&gt;      0     0 2980.01490    0    6 4136.21397 2980.01490  28.0%     -    0s
+#&gt; H    0     0                    3137.1589724 2980.01490  5.01%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (19 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
-#&gt; Solution count 2: 2986.81 3541.82 
+#&gt; Solution count 2: 3137.16 4136.21 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.986805971038e+03, best bound 2.788199587287e+03, gap 6.6495%</div><div class='input'>
+#&gt; Best objective 3.137158972367e+03, best bound 2.980014898172e+03, gap 5.0091%</div><div class='input'>
 <span class='co'># create column containing the zone id for which each planning unit was</span>
 <span class='co'># allocated to in the solution</span>
 <span class='no'>s9</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s9</span>@<span class='kw'>data</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"solution_1_zone_1"</span>,
@@ -910,23 +899,23 @@ to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></
 
 <span class='co'># solve problem</span>
 <span class='no'>s10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p10</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
-#&gt; Optimize a model with 96 rows, 180 columns and 518 nonzeros
-#&gt; Model fingerprint: 0x6a12431b
+#&gt; Optimize a model with 96 rows, 180 columns and 511 nonzeros
+#&gt; Model fingerprint: 0xeb5740b9
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [1e+00, 5e+00]
 #&gt;   Objective range  [2e+02, 2e+02]
 #&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+00]
-#&gt; Presolve removed 29 rows and 31 columns
+#&gt;   RHS range        [1e+00, 3e+00]
+#&gt; Presolve removed 27 rows and 27 columns
 #&gt; Presolve time: 0.00s
-#&gt; Presolved: 67 rows, 149 columns, 353 nonzeros
+#&gt; Presolved: 69 rows, 153 columns, 343 nonzeros
 #&gt; 
 #&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   1.250000e+00   0.000000e+00      0s
-#&gt;        4    2.3728802e+02   0.000000e+00   0.000000e+00      0s
+#&gt;        0    0.0000000e+00   1.750000e+00   0.000000e+00      0s
+#&gt;        4    3.3846946e+02   0.000000e+00   0.000000e+00      0s
 #&gt; 
 #&gt; Solved in 4 iterations and 0.00 seconds
-#&gt; Optimal objective  2.372880229e+02</div><div class='input'>
+#&gt; Optimal objective  3.384694595e+02</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span>(<span class='no'>s10</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"solution_1_z1"</span>, <span class='st'>"solution_1_z2"</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>,
        <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='problem-7.png' alt='' width='700' height='433' /></div><div class='input'># }

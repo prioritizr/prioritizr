@@ -98,7 +98,7 @@ Only experts should interact with this class directly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -249,7 +249,7 @@ problem. Data are stored in memory and accessed using an external pointer.
 
 <dt>obj</dt><dd><p><code>numeric</code> vector of objective function.</p></dd>
 
-<dt>A</dt><dd><p><code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix-class</a></code> model matrix</p></dd>
+<dt>A</dt><dd><p><code>dgCMatrix</code> model matrix</p></dd>
 
 <dt>rhs</dt><dd><p><code>numeric</code> vector of right-hand-side constraints.</p></dd>
 
@@ -262,23 +262,23 @@ problem. Data are stored in memory and accessed using an external pointer.
 <dt>number_of_features</dt><dd><p><code>integer</code> number of features in the problem.</p></dd>
 
 <dt>number_of_planning_units</dt><dd><p><code>integer</code> number of planning units in
-  the problem.</p></dd>
+the problem.</p></dd>
 
 <dt>number_of_zones</dt><dd><p><code>integer</code> number of zones in the
-  problem.</p></dd>
+problem.</p></dd>
 
 <dt>col_ids</dt><dd><p><code>character</code> names describing each decision variable
-  (column) in the model matrix.</p></dd>
+(column) in the model matrix.</p></dd>
 
 <dt>row_ids</dt><dd><p><code>character</code> names describing each constraint (row) in
-  in the model matrix.</p></dd>
+in the model matrix.</p></dd>
 
 <dt>compressed_formulation</dt><dd><p>is the optimization problem formulated
-  using a compressed version of the rij matrix?</p></dd>
+using a compressed version of the rij matrix?</p></dd>
 
 <dt>shuffle_columns</dt><dd><p>randomly shuffle the columns in the problem. This
-  should almost never be called manually and only should only be called
- after the optimization problem has been fully constructed.</p></dd>
+should almost never be called manually and only should only be called
+after the optimization problem has been fully constructed.</p></dd>
 
 
 </dl>

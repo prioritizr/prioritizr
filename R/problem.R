@@ -198,8 +198,8 @@ NULL
 #'   initialize large-scale conservation planning problems that involve
 #'   millions of planning units.
 #'
-#' @return A [`ConservationProblem-class`] object containing the
-#'   basic data used to build a prioritization problem.
+#' @return [`ConservationProblem-class`] object containing
+#'   data for building a prioritization problem.
 #'
 #' @seealso [constraints], [decisions],
 #'  [objectives] [penalties],

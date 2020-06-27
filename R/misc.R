@@ -9,7 +9,7 @@ NULL
 #'
 #' @param ... unused arguments.
 #'
-#' @return An Object.
+#' @return An object.
 #'
 #' @name as
 NULL

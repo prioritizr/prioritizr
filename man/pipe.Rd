@@ -7,6 +7,9 @@
 \arguments{
 \item{lhs, rhs}{An object and a function.}
 }
+\value{
+An object.
+}
 \description{
 This package uses the pipe operator (\verb{\\\%>\\\%}) to express nested code
 as a series of imperative procedures.

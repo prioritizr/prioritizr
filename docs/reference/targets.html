@@ -97,7 +97,7 @@ distribution that needs to be protected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -186,30 +186,30 @@ distribution that needs to be protected in the solution.</p>
     <p><strong>Please note that most objectives require targets, and attempting
 to solve a problem that requires targets will throw an error.</strong></p>
 <p>The following functions can be used to specify targets for a
-  conservation planning <code><a href='problem.html'>problem</a></code>:</p>
-<p></p><dl'>
+conservation planning <code><a href='problem.html'>problem()</a></code>:</p>
+<dl'>
 
-  <dt><code><a href='add_relative_targets.html'>add_relative_targets</a></code></dt><dd><p>Set targets as a proportion
-    (between 0 and 1) of the total amount of each feature in the
-    the study area.</p></dd>
+<dt><code><a href='add_relative_targets.html'>add_relative_targets()</a></code></dt><dd><p>Set targets as a proportion
+(between 0 and 1) of the total amount of each feature in the
+the study area.</p></dd>
 
-  <dt><code><a href='add_absolute_targets.html'>add_absolute_targets</a></code></dt><dd><p>Set targets that denote the
-    minimum amount of each feature required in the prioritization.</p></dd>
+<dt><code><a href='add_absolute_targets.html'>add_absolute_targets()</a></code></dt><dd><p>Set targets that denote the
+minimum amount of each feature required in the prioritization.</p></dd>
 
-  <dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets</a></code></dt><dd><p>Set targets as a proportion
-    (between 0 and 1) that are calculated using log-linear interpolation.</p></dd>
+<dt><code><a href='add_loglinear_targets.html'>add_loglinear_targets()</a></code></dt><dd><p>Set targets as a proportion
+(between 0 and 1) that are calculated using log-linear interpolation.</p></dd>
 
-  <dt><code><a href='add_manual_targets.html'>add_manual_targets</a></code></dt><dd><p>Set targets manually.</p></dd>
+<dt><code><a href='add_manual_targets.html'>add_manual_targets()</a></code></dt><dd><p>Set targets manually.</p></dd>
 
-  
+
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>, <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='solvers.html'>solvers</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>, <a href='decisions.html'>decisions</a>,
+<a href='objectives.html'>objectives</a> <a href='penalties.html'>penalties</a>,
+<a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem()</a></code>,
+<a href='solvers.html'>solvers</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>

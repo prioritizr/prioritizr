@@ -37,7 +37,7 @@ NULL
 #' @details Shared boundary calculations are performed using
 #'   [boundary_matrix()].
 #'
-#' @return [`dsCMatrix-class`] sparse symmetric matrix.
+#' @return [`dsCMatrix-class`] symmetric sparse matrix object.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate the connectivity between different pairs of planning
 #'   units.

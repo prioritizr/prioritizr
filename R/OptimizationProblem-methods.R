@@ -299,7 +299,7 @@ methods::setMethod("compressed_formulation", "OptimizationProblem",
 #'
 #' @param ... not used.
 #'
-#' @return [list()] object.
+#' @return `list()` object.
 #'
 #' @method as.list OptimizationProblem
 #'

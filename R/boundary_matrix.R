@@ -40,7 +40,10 @@ NULL
 #'   function. Note that for [`Raster-class`] objects
 #'   boundaries are missing for cells that have `NA` values in all cells.
 #'
-#' @return \code{[Matrix]{dsCMatrix-class}} object.
+#' @return [`dsCMatrix-class`] symmetric sparse matrix object.
+#'   Each row and column represents a planning unit.
+#'   Cells values indicate the shared boundary length between different pairs
+#'   of planning units.
 #'
 #' @name boundary_matrix
 #'

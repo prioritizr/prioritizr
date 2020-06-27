@@ -53,9 +53,10 @@
 
 
 <meta property="og:title" content="<em>Marxan</em> conservation problem — marxan_problem" />
-<meta property="og:description" content="Create a conservation planning problem following the
+<meta property="og:description" content="Create a conservation planning problem() following the
 mathematical formulations used in Marxan (detailed in Beyer
-et al. 2016)." />
+et al. 2016). Note that these problems are solved using
+exact algorithms and not simulated annealing (i.e. the Marxan software)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -98,7 +99,7 @@ et al. 2016)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -176,9 +177,10 @@ et al. 2016)." />
     </div>
 
     <div class="ref-description">
-    <p>Create a conservation planning <code><a href='problem.html'>problem</a></code> following the
+    <p>Create a conservation planning <code><a href='problem.html'>problem()</a></code> following the
 mathematical formulations used in <em>Marxan</em> (detailed in Beyer
-<em>et al.</em> 2016).</p>
+<em>et al.</em> 2016). Note that these problems are solved using
+exact algorithms and not simulated annealing (i.e. the <em>Marxan</em> software).</p>
     </div>
 
     <pre class="usage"><span class='fu'>marxan_problem</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -198,24 +200,24 @@ mathematical formulations used in <em>Marxan</em> (detailed in Beyer
     <tr>
       <th>x</th>
       <td><p><code>character</code> file path for a <em>Marxan</em> input file (typically
-  called <code>"input.dat"</code>), or <code>data.frame</code> containing planning unit
-  data (typically called <code>"pu.dat"</code>). If the argument to <code>x</code> is a
-  <code>data.frame</code>, then each row corresponds to a different planning unit,
-  and it must have the following columns:</p>
-<p></p><dl'>
+called <code>"input.dat"</code>), or <code>data.frame</code> containing planning unit
+data (typically called <code>"pu.dat"</code>). If the argument to <code>x</code> is a
+<code>data.frame</code>, then each row corresponds to a different planning unit,
+and it must have the following columns:</p>
+<dl'>
 
-  <dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each planning unit.
-    These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
+<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each planning unit.
+These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
 
-  <dt><code>"cost"</code></dt><dd><p><code>numeric</code> cost of each planning unit.</p></dd>
+<dt><code>"cost"</code></dt><dd><p><code>numeric</code> cost of each planning unit.</p></dd>
 
-  <dt><code>"status"</code></dt><dd><p><code>integer</code> indicating if each planning unit
-    should not be locked in the solution (0) or if it should be locked in
-    (2) or locked out (3) of the solution. Although <em>Marxan</em> allows
-    planning units to be selected in the initial solution (using values of
-    1), these values have no effect here. This column is optional.</p></dd>
+<dt><code>"status"</code></dt><dd><p><code>integer</code> indicating if each planning unit
+should not be locked in the solution (0) or if it should be locked in
+(2) or locked out (3) of the solution. Although <em>Marxan</em> allows
+planning units to be selected in the initial solution (using values of
+1), these values have no effect here. This column is optional.</p></dd>
 
-  
+
 </dl></td>
     </tr>
     <tr>
@@ -225,67 +227,67 @@ mathematical formulations used in <em>Marxan</em> (detailed in Beyer
     <tr>
       <th>spec</th>
       <td><p><code>data.frame</code> containing information on the features.
-  The argument to <code>spec</code> must follow the conventions used by
-  <em>Marxan</em> for the species data file (conventionally called
-  <code>"spec.dat"</code>). Each row corresponds to a different feature and
-  each column corresponds to different information about the features. It
-  must contain the columns listed below. Note that the argument to
-  <code>spec</code> must contain at least one column named <code>"prop"</code> or
-  <code>"amount"</code>---<strong>but not both columns with both of these
-  names</strong>---to specify the target for each feature.</p>
-<p></p><dl'>
+The argument to <code>spec</code> must follow the conventions used by
+<em>Marxan</em> for the species data file (conventionally called
+<code>"spec.dat"</code>). Each row corresponds to a different feature and
+each column corresponds to different information about the features. It
+must contain the columns listed below. Note that the argument to
+<code>spec</code> must contain at least one column named <code>"prop"</code> or
+<code>"amount"</code>---<strong>but not both columns with both of these
+names</strong>---to specify the target for each feature.</p>
+<dl'>
 
-  <dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
-    These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
+<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
+These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
 
-  <dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
+<dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
 
-  <dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
-    (optional).</p></dd>'
+<dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
+(optional).</p></dd>'
 
-  <dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
-    feature (optional).</p></dd>
+<dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
+feature (optional).</p></dd>
 
-  
+
 </dl></td>
     </tr>
     <tr>
       <th>puvspr</th>
       <td><p><code>data.frame</code> containing information on the amount of
-  each feature in each planning unit. The argument to
-  <code>puvspr</code> must follow the conventions used in the <em>Marxan</em> input
-  data file (conventionally called <code>"puvspr.dat"</code>). It must contain the
-  following columns:</p>
-<p></p><dl'>
+each feature in each planning unit. The argument to
+<code>puvspr</code> must follow the conventions used in the <em>Marxan</em> input
+data file (conventionally called <code>"puvspr.dat"</code>). It must contain the
+following columns:</p>
+<dl'>
 
-  <dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-  <dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
+<dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
 
-  <dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
-       planning unit.</p></dd>
+<dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+planning unit.</p></dd>
 
-  
+
 </dl></td>
     </tr>
     <tr>
       <th>bound</th>
       <td><p><code>NULL</code> object indicating that no boundary data
-  is required for the conservation planning problem, or a <code>data.frame</code>
-  containing information on the planning units' boundaries. The argument to
-  <code>bound</code> must follow the conventions used in the <em>Marxan</em> input
-  data file (conventionally called <code>"bound.dat"</code>). It must contain the
-  following columns:</p>
-<p></p><dl'>
+is required for the conservation planning problem, or a <code>data.frame</code>
+containing information on the planning units' boundaries. The argument to
+<code>bound</code> must follow the conventions used in the <em>Marxan</em> input
+data file (conventionally called <code>"bound.dat"</code>). It must contain the
+following columns:</p>
+<dl'>
 
-  <dt><code>"id1"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"id1"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-  <dt><code>"id2"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"id2"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-  <dt><code>"boundary"</code></dt><dd><p><code>numeric</code> length of shared boundary
-    between the planning units identified in the previous two columns.</p></dd>
+<dt><code>"boundary"</code></dt><dd><p><code>numeric</code> length of shared boundary
+between the planning units identified in the previous two columns.</p></dd>
 
-  
+
 </dl></td>
     </tr>
     <tr>
@@ -298,16 +300,16 @@ default argument is zero.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p>
+    <p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is provided as a convenient wrapper for solving
-  <em>Marxan</em> problems using <span class="pkg">prioritizr</span>. Although this function
-  could accommodate asymmetric connectivity in earlier versions of the
-  <span class="pkg">prioritizr</span> package, this functionality is no longer available.
-  Please see the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function for
-  adding asymmetric connectivity penalties to a conservation planning
-  problem.</p>
+<em>Marxan</em> problems using <span class="pkg">prioritizr</span>. Although this function
+could accommodate asymmetric connectivity in earlier versions of the
+<span class="pkg">prioritizr</span> package, this functionality is no longer available.
+Please see the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code> function for
+adding asymmetric connectivity penalties to a conservation planning
+problem.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -320,9 +322,9 @@ conservation planning problems with integer linear programming.
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>For more information on the correct format for
-  for <em>Marxan</em> input data, see the
-  <a href='https://marxansolutions.org'>official <em>Marxan</em> website</a> and Ball
-  <em>et al.</em> (2009).</p></div>
+for <em>Marxan</em> input data, see the
+<a href='https://marxansolutions.org'>official <em>Marxan</em> website</a> and Ball
+<em>et al.</em> (2009).</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create Marxan problem using Marxan input file</span>
@@ -344,13 +346,13 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.221531e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 496 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 9.568885e+09, 496 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -358,7 +360,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.600192e+09 9.5689e+09  0.33%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (496 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (496 simplex iterations) in 0.11 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.60019e+09 1.22153e+10 
@@ -482,7 +484,7 @@ conservation planning problems with integer linear programming.
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.222917e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
@@ -496,7 +498,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
 #&gt; H    0     0                    9.617312e+09 9.5861e+09  0.32%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (535 simplex iterations) in 0.09 seconds
+#&gt; Explored 1 nodes (535 simplex iterations) in 0.11 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.61731e+09 1.22292e+10 

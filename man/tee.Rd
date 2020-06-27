@@ -7,6 +7,9 @@
 \arguments{
 \item{lhs, rhs}{An object and a function.}
 }
+\value{
+An object.
+}
 \description{
 This package uses the "tee" operator (\verb{\\\%T>\\\%}) to modify objects.
 }

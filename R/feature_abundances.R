@@ -25,7 +25,7 @@ NULL
 #'   each feature---then the `na.rm` argument should be set to
 #'   `TRUE`.
 #'
-#' @return [tibble::tibble()] containing the total amount
+#' @return [tibble::tibble()] object containing the total amount
 #'   (`"absolute_abundance"`) and proportion (`"relative_abundance"`)
 #'   of the distribution of each feature in the planning units. Here, each
 #'   row contains data that pertain to a specific feature in a specific

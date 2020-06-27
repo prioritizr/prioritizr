@@ -54,9 +54,9 @@
 
 <meta property="og:title" content="Conservation problem modifier prototype — ConservationModifier-class" />
 <meta property="og:description" content="This super-prototype is used to represent prototypes that in turn are used to
-modify a ConservationProblem-class object. Specifically, the
-Constraint-class, Decision-class,
-Objective-class, and Target-class prototypes
+modify a ConservationProblem object. Specifically, the
+Constraint, Decision,
+Objective, and Target prototypes
 inherit from this class. Only experts should interact with
 this class directly because changes to these class will have profound and
 far reaching effects." />
@@ -102,7 +102,7 @@ far reaching effects." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -181,9 +181,9 @@ far reaching effects." />
 
     <div class="ref-description">
     <p>This super-prototype is used to represent prototypes that in turn are used to
-modify a <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object. Specifically, the
-<code><a href='Constraint-class.html'>Constraint-class</a></code>, <code><a href='Decision-class.html'>Decision-class</a></code>,
-<code><a href='Objective-class.html'>Objective-class</a></code>, and <code><a href='Target-class.html'>Target-class</a></code> prototypes
+modify a <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object. Specifically, the
+<code><a href='Constraint-class.html'>Constraint</a></code>, <code><a href='Decision-class.html'>Decision</a></code>,
+<code><a href='Objective-class.html'>Objective</a></code>, and <code><a href='Target-class.html'>Target</a></code> prototypes
 inherit from this class. <strong>Only experts should interact with
 this class directly because changes to these class will have profound and
 far reaching effects.</strong></p>
@@ -205,8 +205,8 @@ far reaching effects.</strong></p>
 <dt>$data</dt><dd><p><code>list</code> object with data.</p></dd>
 
 <dt>$compressed_formulation</dt><dd><p><code>logical</code> can this constraint be applied
-   to the compressed version of the conservation planning problem?. Defaults
-   to <code>TRUE</code>.</p></dd>
+to the compressed version of the conservation planning problem?. Defaults
+to <code>TRUE</code>.</p></dd>
 
 
 </dl>
@@ -241,9 +241,9 @@ far reaching effects.</strong></p>
 
 <dt>id</dt><dd><p><code>id</code> or <code>name</code> of parameter</p></dd>
 
-<dt>cp</dt><dd><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object</p></dd>
+<dt>cp</dt><dd><p><code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object</p></dd>
 
-<dt>op</dt><dd><p><code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object</p></dd>
+<dt>op</dt><dd><p><code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object</p></dd>
 
 
 </dl>
@@ -261,39 +261,39 @@ far reaching effects.</strong></p>
 <dt>repr</dt><dd><p>return <code>character</code> representation of the object.</p></dd>
 
 <dt>get_data</dt><dd><p>return an object stored in the <code>data</code> field with
-  the corresponding <code>name</code>. If the object is not present in the
-  <code>data</code> field, a <code>waiver</code> object is returned.</p></dd>
+the corresponding <code>name</code>. If the object is not present in the
+<code>data</code> field, a <code>waiver</code> object is returned.</p></dd>
 
 <dt>set_data</dt><dd><p>store an object stored in the <code>data</code> field with
-  the corresponding name. If an object with that name already
-  exists then the object is overwritten.</p></dd>
+the corresponding name. If an object with that name already
+exists then the object is overwritten.</p></dd>
 
 <dt>calculate</dt><dd><p><code>function</code> used to perform preliminary calculations
-  and store the data so that they can be reused later without
-  performing the same calculations multiple times. Data can be stored
-  in the <code>data</code> slot of the input <code>ConservationModifier</code> or
-  <code>ConservationProblem</code> objects.</p></dd>
+and store the data so that they can be reused later without
+performing the same calculations multiple times. Data can be stored
+in the <code>data</code> slot of the input <code>ConservationModifier</code> or
+<code>ConservationProblem</code> objects.</p></dd>
 
 <dt>output</dt><dd><p><code>function</code> used to generate an output from the object.
-  This method is only used for <code><a href='Target-class.html'>Target-class</a></code> objects.</p></dd>
+This method is only used for <code><a href='Target-class.html'>Target</a></code> objects.</p></dd>
 
 <dt>apply</dt><dd><p><code>function</code> used to apply the modifier to an
-  <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.
-  This is used by <code><a href='Constraint-class.html'>Constraint-class</a></code>,
-  <code><a href='Decision-class.html'>Decision-class</a></code>, and <code><a href='Objective-class.html'>Objective-class</a></code> objects.</p></dd>
+<code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object.
+This is used by <code><a href='Constraint-class.html'>Constraint</a></code>,
+<code><a href='Decision-class.html'>Decision</a></code>, and <code><a href='Objective-class.html'>Objective</a></code> objects.</p></dd>
 
 <dt>get_parameter</dt><dd><p>retrieve the value of a parameter.</p></dd>
 
 <dt>get_all_parameters</dt><dd><p>generate <code>list</code> containing all the
-  parameters.</p></dd>
+parameters.</p></dd>
 
 <dt>set_parameter</dt><dd><p>change the value of a parameter to new value.</p></dd>
 
 <dt>render_parameter</dt><dd><p>generate a <em>shiny</em> widget to modify the
-  the value of a parameter (specified by argument <code>id</code>).</p></dd>
+the value of a parameter (specified by argument <code>id</code>).</p></dd>
 
-<dt>render_all_parameters</dt><dd><p>generate a <code><a href='https://rdrr.io/pkg/shiny/man/reexports.html'>div</a></code>
-  containing all the parameters" widgets.</p></dd>
+<dt>render_all_parameters</dt><dd><p>generate a <code><a href='https://rdrr.io/pkg/shiny/man/reexports.html'>shiny::div()</a></code>
+containing all the parameters" widgets.</p></dd>
 
 
 </dl>

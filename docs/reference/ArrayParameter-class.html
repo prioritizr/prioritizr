@@ -98,7 +98,7 @@ interact directly with this prototype." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -205,13 +205,13 @@ interact directly with this prototype.</strong></p>
 <dt>$class</dt><dd><p><code>character</code> class of values.</p></dd>
 
 <dt>$lower_limit</dt><dd><p><code>numeric</code> <code>vector</code> specifying the minimum
-  permitted values.</p></dd>
+permitted values.</p></dd>
 
 <dt>$upper_limit</dt><dd><p><code>numeric</code> <code>vector</code> specifying the maximum
-  permitted values.</p></dd>
+permitted values.</p></dd>
 
 <dt>$widget</dt><dd><p><code>function</code> used to construct a
-  <code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny</a></code> interface for modifying values.</p></dd>
+<code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny::shiny()</a></code> interface for modifying values.</p></dd>
 
 </dl>
 
@@ -233,9 +233,9 @@ interact directly with this prototype.</strong></p>
     
 
 <dl'>
-<dt>tbl</dt><dd><p><code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> containing new parameter values with
-           row names indicating the labels and a column called "values"
-           containing the new parameter values.</p></dd>
+<dt>tbl</dt><dd><p><code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame()</a></code> containing new parameter values with
+row names indicating the labels and a column called "values"
+containing the new parameter values.</p></dd>
 <dt>...</dt><dd><p>arguments passed to function in <code>widget</code> field.</p></dd>
 
 </dl>
@@ -254,23 +254,23 @@ interact directly with this prototype.</strong></p>
 
 <dt>validate</dt><dd><p>check if a proposed new set of parameters are valid.</p></dd>
 
-<dt>get</dt><dd><p>return a <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code> containing the
-  parameter values.</p></dd>
+<dt>get</dt><dd><p>return a <code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code> containing the
+parameter values.</p></dd>
 
 <dt>set</dt><dd><p>update the parameter values using a
-  <code><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></code>.</p></dd>
+<code><a href='https://rdrr.io/r/base/data.frame.html'>base::data.frame()</a></code>.</p></dd>
 
 <dt>reset</dt><dd><p>update the parameter values to be the default values.</p></dd>
 
-<dt>render</dt><dd><p>create a <code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny</a></code> widget to modify
-  parameter values.</p></dd>
+<dt>render</dt><dd><p>create a <code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny::shiny()</a></code> widget to modify
+parameter values.</p></dd>
 
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='ScalarParameter-class.html'>ScalarParameter-class</a></code>, <code><a href='Parameter-class.html'>Parameter-class</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='ScalarParameter-class.html'>ScalarParameter</a></code>, <code><a href='Parameter-class.html'>Parameter</a></code>.</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

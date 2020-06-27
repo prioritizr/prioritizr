@@ -17,7 +17,7 @@ contains planning unit and zone data to ensure that the argument to
 \code{"zone2"} can also be provided to indicate zone data.}
 }
 \value{
-\code{array} or sparse matrix (\code{\linkS4class{dgCMatrix}}) object.
+\code{array} or \code{\linkS4class{dgCMatrix}} sparse matrix object.
 }
 \description{
 Convert a \code{data.frame} object that follows the \emph{Marxan} format

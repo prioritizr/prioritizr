@@ -48,7 +48,7 @@ These arguments are only used if argument to \code{x} is a
 to \code{y} is a \code{\linkS4class{Raster}} object.}
 }
 \value{
-\code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
+\code{\linkS4class{dsCMatrix}} symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.

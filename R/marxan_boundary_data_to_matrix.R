@@ -20,7 +20,7 @@ NULL
 #'   `"id2"`, and `"boundary"`. The columns `"zone1"` and
 #'   `"zone2"` can also be provided to indicate zone data.
 #'
-#' @return `array` or sparse matrix ([`dgCMatrix-class`]) object.
+#' @return `array` or [`dgCMatrix-class`] sparse matrix object.
 #'
 #' @examples
 #' # create marxan boundary with four planning units and one zone

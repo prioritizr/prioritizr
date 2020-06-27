@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Add an extra portfolio — add_extra_portfolio" />
 <meta property="og:description" content="Generate a portfolio of solutions for a conservation planning
-problem by storing feasible solutions
+problem() by storing feasible solutions
 discovered during the optimization process.
 This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or
@@ -101,7 +101,7 @@ the quality of solutions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -180,7 +180,7 @@ the quality of solutions." />
 
     <div class="ref-description">
     <p>Generate a portfolio of solutions for a conservation planning
-<code><a href='problem.html'>problem</a></code> by storing feasible solutions
+<code><a href='problem.html'>problem()</a></code> by storing feasible solutions
 discovered during the optimization process.
 This method is useful for quickly obtaining multiple solutions,
 but does not provide any guarantees on the number of solutions, or
@@ -194,23 +194,23 @@ the quality of solutions.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the portfolio
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the portfolio
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This strategy for generating a portfolio requires problems to
-  be solved using the <em>Gurobi</em> software suite (i.e. using
-  <code><a href='add_gurobi_solver.html'>add_gurobi_solver</a></code>. Specifically, version 8.0.0 (or greater)
-  of the <span class="pkg">gurobi</span> package must be installed.</p>
+be solved using the <em>Gurobi</em> software suite (i.e. using
+<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>. Specifically, version 8.0.0 (or greater)
+of the <span class="pkg">gurobi</span> package must be installed.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='portfolios.html'>portfolios</a></code>.</p></div>
+    <div class='dont-index'><p><a href='portfolios.html'>portfolios</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Add a top portfolio — add_top_portfolio" />
 <meta property="og:description" content="Generate a portfolio of solutions for a conservation planning
-problem by finding a pre-specified number of solutions that
+problem() by finding a pre-specified number of solutions that
 are closest to optimality (i.e the top solutions)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -98,7 +98,7 @@ are closest to optimality (i.e the top solutions)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -177,7 +177,7 @@ are closest to optimality (i.e the top solutions)." />
 
     <div class="ref-description">
     <p>Generate a portfolio of solutions for a conservation planning
-<code><a href='problem.html'>problem</a></code> by finding a pre-specified number of solutions that
+<code><a href='problem.html'>problem()</a></code> by finding a pre-specified number of solutions that
 are closest to optimality (i.e the top solutions).</p>
     </div>
 
@@ -188,7 +188,7 @@ are closest to optimality (i.e the top solutions).</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>number_solutions</th>
@@ -198,20 +198,20 @@ are closest to optimality (i.e the top solutions).</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the portfolio
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the portfolio
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This strategy for generating a portfolio requires problems to
-  be solved using the <em>Gurobi</em> software suite (i.e. using
-  <code><a href='add_gurobi_solver.html'>add_gurobi_solver</a></code>. Specifically, version 9.0.0 (or greater)
-  of the <span class="pkg">gurobi</span> package must be installed.
-  Note that the number of solutions returned may be less than the argument to
-  <code>number_solutions</code>, if the total number of feasible solutions
-  is less than the number of solutions requested.</p>
+be solved using the <em>Gurobi</em> software suite (i.e. using
+<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>. Specifically, version 9.0.0 (or greater)
+of the <span class="pkg">gurobi</span> package must be installed.
+Note that the number of solutions returned may be less than the argument to
+<code>number_solutions</code>, if the total number of feasible solutions
+is less than the number of solutions requested.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='portfolios.html'>portfolios</a></code>.</p></div>
+    <div class='dont-index'><p><a href='portfolios.html'>portfolios</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
