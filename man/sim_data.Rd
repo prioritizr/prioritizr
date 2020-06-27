@@ -52,32 +52,6 @@ object.}
 \item{sim_phylogeny}{\code{\link[ape:read.tree]{ape::phylo()}} object.}
 
 }
-
-An object of class \code{RasterStack} of dimension 10 x 10 x 5.
-
-An object of class \code{ZonesRaster} (inherits from \code{Zones}) of length 3.
-
-An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 6 columns.
-
-An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 4 columns.
-
-An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 7 columns.
-
-An object of class \code{SpatialLinesDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{SpatialPointsDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
-
-An object of class \code{RasterStack} of dimension 10 x 10 x 3.
-
-An object of class \code{phylo} of length 4.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
 }
 \usage{
 data(sim_pu_polygons)
@@ -105,32 +79,6 @@ data(sim_features)
 data(sim_features_zones)
 
 data(sim_phylogeny)
-
-sim_features
-
-sim_features_zones
-
-sim_pu_polygons
-
-sim_pu_zones_polygons
-
-sim_pu_sf
-
-sim_pu_zones_sf
-
-sim_pu_lines
-
-sim_pu_points
-
-sim_pu_raster
-
-sim_pu_zones_stack
-
-sim_phylogeny
-
-sim_locked_in_raster
-
-sim_locked_out_raster
 }
 \description{
 Simulated data for making spatial prioritizations.
