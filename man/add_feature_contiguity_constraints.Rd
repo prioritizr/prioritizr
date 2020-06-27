@@ -74,9 +74,9 @@ represent features in contiguous units of dispersible habitat. In earlier
 versions of the \pkg{prioritizr} package, it was known as the
 \code{add_corridor_constraints} function but has since been renamed for
 clarity. It was inspired by the mathematical formulations detailed in
-Onal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
+Önal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
 example that has used these constraints, see Hanson, Fuller,
-and Rhodes (2018). Please note
+and Rhodes (2019). Please note
 that these constraints require the expanded formulation and therefore
 cannot be used with feature data that have negative vales.
 \strong{Please note that adding these constraints to a problem will
@@ -211,17 +211,16 @@ plot(s2, main = c("p5", "p6", "p7", "p8"), axes = FALSE, box = FALSE)
 }
 }
 \references{
-Onal H and Briers RA (2006) Optimal selection of a connected
+Önal H and Briers RA (2006) Optimal selection of a connected
 reserve network. \emph{Operations Research}, 54: 379--388.
 
 Cardeira JO, Pinto LS, Cabeza M and Gaston KJ (2010) Species specific
 connectivity in reserve-network design using graphs.
 \emph{Biological Conservation}, 2: 408--415.
 
-Hanson JO, Fuller RA, & Rhodes JR (2018) Conventional methods for enhancing
+Hanson JO, Fuller RA, & Rhodes JR (2019) Conventional methods for enhancing
 connectivity in conservation planning do not always maintain gene flow.
-\emph{Journal of Applied Ecology}, In press:
-\url{https://doi.org/10.1111/1365-2664.13315}.
+\emph{Journal of Applied Ecology}, 56: 913--922.
 }
 \seealso{
 \link{constraints}.

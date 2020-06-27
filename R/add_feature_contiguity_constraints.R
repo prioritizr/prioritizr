@@ -54,9 +54,9 @@ NULL
 #'   versions of the \pkg{prioritizr} package, it was known as the
 #'   `add_corridor_constraints` function but has since been renamed for
 #'   clarity. It was inspired by the mathematical formulations detailed in
-#'   Onal and Briers (2006) and Cardeira *et al.* 2010. For an
+#'   Önal and Briers (2006) and Cardeira *et al.* 2010. For an
 #'   example that has used these constraints, see Hanson, Fuller,
-#'   and Rhodes (2018). Please note
+#'   and Rhodes (2019). Please note
 #'   that these constraints require the expanded formulation and therefore
 #'   cannot be used with feature data that have negative vales.
 #'   **Please note that adding these constraints to a problem will
@@ -112,17 +112,17 @@ NULL
 #' @inherit add_contiguity_constraints return seealso
 #'
 #' @references
-#' Onal H and Briers RA (2006) Optimal selection of a connected
+#' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.
 #'
 #' Cardeira JO, Pinto LS, Cabeza M and Gaston KJ (2010) Species specific
 #' connectivity in reserve-network design using graphs.
 #' *Biological Conservation*, 2: 408--415.
 #'
-#' Hanson JO, Fuller RA, & Rhodes JR (2018) Conventional methods for enhancing
+#' Hanson JO, Fuller RA, & Rhodes JR (2019) Conventional methods for enhancing
 #' connectivity in conservation planning do not always maintain gene flow.
-#' *Journal of Applied Ecology*, In press:
-#' <https://doi.org/10.1111/1365-2664.13315>.
+#' *Journal of Applied Ecology*, 56: 913--922.
+#'
 #' @examples
 #' # load data
 #' data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)

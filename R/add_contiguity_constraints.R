@@ -36,7 +36,7 @@ NULL
 #'   form a single contiguous unit. In earlier versions of the
 #'   \pkg{prioritizr} package, it was known as the
 #'   `add_connected_constraints` function. It was inspired by the
-#'   mathematical formulations detailed in {\"O}nal and Briers (2006).
+#'   mathematical formulations detailed in Önal and Briers (2006).
 #'
 #'   The argument to `data` can be specified in several ways:
 #'
@@ -77,7 +77,7 @@ NULL
 #' @seealso [constraints].
 #'
 #' @references
-#' {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected
+#' Önal H and Briers RA (2006) Optimal selection of a connected
 #' reserve network. *Operations Research*, 54: 379--388.
 #'
 #' @examples
