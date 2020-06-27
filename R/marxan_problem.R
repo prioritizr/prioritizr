@@ -96,12 +96,12 @@ NULL
 #' @param ... not used.
 #'
 #' @details This function is provided as a convenient wrapper for solving
-#'   *Marxan* problems using \pkg{prioritizr}. Although this function
-#'   could accommodate asymmetric connectivity in earlier versions of the
-#'   \pkg{prioritizr} package, this functionality is no longer available.
-#'   Please see the [add_connectivity_penalties()] function for
-#'   adding asymmetric connectivity penalties to a conservation planning
-#'   problem.
+#'   *Marxan* problems using \pkg{prioritizr}.
+#'
+#' @section Notes:
+#' In early versions, this function could accommodate asymmetric connectivity
+#' data. This functionality is no longer supported. To specify asymmetric
+#' connectivity, please see the [add_connectivity_penalties()] function.
 #'
 #' @seealso For more information on the correct format for
 #'   for *Marxan* input data, see the

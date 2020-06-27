@@ -33,9 +33,7 @@ NULL
 #'   information.
 #'
 #' @details This function uses connection data to identify solutions that
-#'   form a single contiguous unit. In earlier versions of the
-#'   \pkg{prioritizr} package, it was known as the
-#'   `add_connected_constraints` function. It was inspired by the
+#'   form a single contiguous unit. It was inspired by the
 #'   mathematical formulations detailed in Önal and Briers (2006).
 #'
 #'   The argument to `data` can be specified in several ways:
@@ -70,6 +68,10 @@ NULL
 #'     unless connectivity data is also provided for planning units 3 and 2).}
 #'
 #'   }
+#'
+#' @section Notes:
+#' In early versions, this function was named as the
+#' `add_connected_constraints()` function.
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the constraints
 #'  added to it.

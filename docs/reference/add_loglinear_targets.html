@@ -58,8 +58,7 @@ interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues et al. 2004). Additionally,
 caps can be applied to targets to prevent features with massive
 distributions from being over-represented
-in solutions (Butchart et al. 2015). Note that the behavior
-of this function has changed substantially from versions prior to 5.0.0." />
+in solutions (Butchart et al. 2015)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -185,8 +184,7 @@ interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues <em>et al.</em> 2004). Additionally,
 caps can be applied to targets to prevent features with massive
 distributions from being over-represented
-in solutions (Butchart <em>et al.</em> 2015). <strong>Note that the behavior
-of this function has changed substantially from versions prior to 5.0.0</strong>.</p>
+in solutions (Butchart <em>et al.</em> 2015).</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_loglinear_targets</span>(
@@ -241,7 +239,8 @@ Defaults to <code>NULL</code> so that targets are not capped.</p></td>
     <tr>
       <th>abundances</th>
       <td><p><code>numeric</code> total amount of each feature to
-use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the <code><a href='feature_abundances.html'>feature_abundances()</a></code> function.</p></td>
+use when calculating the targets. Defaults to the feature abundances in the
+study area (calculated using the <code><a href='feature_abundances.html'>feature_abundances()</a></code> function.</p></td>
     </tr>
     </table>
 
@@ -269,13 +268,20 @@ to species with a range size larger than that third threshold, and finally
 <code>abundances</code> specifies the range size for each feature
 that should be used when calculating the targets.</p>
 <p><strong>Note that the target calculations do not account for the
-size of each planning unit.</strong> Therefore, the feature data should account for
+size of each planning unit.</strong> Therefore, the feature data should account
+for
 the size of each planning unit if this is important (e.g. pixel values in
 the argument to <code>features</code> in the function <code><a href='problem.html'>problem()</a></code> could
 correspond to amount of land occupied by the feature in \(km^2\) units).</p>
 <p>This function can only be applied to
 <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> objects that are associated with a
 single zone.</p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>Early versions (&lt; 5.0.0) used different equations for calculating
+targets.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

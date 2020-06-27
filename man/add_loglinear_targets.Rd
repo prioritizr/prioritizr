@@ -39,7 +39,8 @@ which have a total amount greater than argument to \code{cap_amount}.
 Defaults to \code{NULL} so that targets are not capped.}
 
 \item{abundances}{\code{numeric} total amount of each feature to
-use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
+use when calculating the targets. Defaults to the feature abundances in the
+study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
@@ -51,8 +52,7 @@ interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
 caps can be applied to targets to prevent features with massive
 distributions from being over-represented
-in solutions (Butchart \emph{et al.} 2015). \strong{Note that the behavior
-of this function has changed substantially from versions prior to 5.0.0}.
+in solutions (Butchart \emph{et al.} 2015).
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
@@ -75,7 +75,8 @@ to species with a range size larger than that third threshold, and finally
 that should be used when calculating the targets.
 
 \strong{Note that the target calculations do not account for the
-size of each planning unit.} Therefore, the feature data should account for
+size of each planning unit.} Therefore, the feature data should account
+for
 the size of each planning unit if this is important (e.g. pixel values in
 the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
 correspond to amount of land occupied by the feature in \eqn{km^2} units).
@@ -84,6 +85,12 @@ This function can only be applied to
 \code{\linkS4class{ConservationProblem}} objects that are associated with a
 single zone.
 }
+\section{Notes}{
+
+Early versions (< 5.0.0) used different equations for calculating
+targets.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_features)

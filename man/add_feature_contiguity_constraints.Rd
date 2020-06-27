@@ -70,13 +70,11 @@ designated for their conservation.
 }
 \details{
 This function uses connection data to identify solutions that
-represent features in contiguous units of dispersible habitat. In earlier
-versions of the \pkg{prioritizr} package, it was known as the
-\code{add_corridor_constraints} function but has since been renamed for
-clarity. It was inspired by the mathematical formulations detailed in
+represent features in contiguous units of dispersible habitat.
+It was inspired by the mathematical formulations detailed in
 Önal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
-example that has used these constraints, see Hanson, Fuller,
-and Rhodes (2019). Please note
+example that has used these constraints, see Hanson \emph{et al.} (2019).
+Please note
 that these constraints require the expanded formulation and therefore
 cannot be used with feature data that have negative vales.
 \strong{Please note that adding these constraints to a problem will
@@ -128,6 +126,11 @@ detailed above.}
 
 }
 }
+\section{Notes}{
+
+In early versions, it was named as the \code{add_corridor_constraints} function.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)

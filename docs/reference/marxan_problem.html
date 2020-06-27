@@ -304,12 +304,14 @@ default argument is zero.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is provided as a convenient wrapper for solving
-<em>Marxan</em> problems using <span class="pkg">prioritizr</span>. Although this function
-could accommodate asymmetric connectivity in earlier versions of the
-<span class="pkg">prioritizr</span> package, this functionality is no longer available.
-Please see the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code> function for
-adding asymmetric connectivity penalties to a conservation planning
-problem.</p>
+<em>Marxan</em> problems using <span class="pkg">prioritizr</span>.</p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In early versions, this function could accommodate asymmetric connectivity
+data. This functionality is no longer supported. To specify asymmetric
+connectivity, please see the <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code> function.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -346,7 +348,7 @@ for <em>Marxan</em> input data, see the
 #&gt;          to avoid numerical issues.
 #&gt; Found heuristic solution: objective 1.221531e+10
 #&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
 #&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
 #&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
@@ -360,7 +362,7 @@ for <em>Marxan</em> input data, see the
 #&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
 #&gt; H    0     0                    9.600192e+09 9.5689e+09  0.33%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (496 simplex iterations) in 0.11 seconds
+#&gt; Explored 1 nodes (496 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.60019e+09 1.22153e+10 
@@ -450,7 +452,7 @@ for <em>Marxan</em> input data, see the
 #&gt;      0     0 9.5646e+09    0    9 1.2198e+10 9.5646e+09  21.6%     -    0s
 #&gt; H    0     0                    9.662765e+09 9.5646e+09  1.02%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (23 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9.66277e+09 1.2198e+10 

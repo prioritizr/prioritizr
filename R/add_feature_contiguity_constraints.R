@@ -50,13 +50,11 @@ NULL
 #'   features. See the Details section for more information.
 #'
 #' @details This function uses connection data to identify solutions that
-#'   represent features in contiguous units of dispersible habitat. In earlier
-#'   versions of the \pkg{prioritizr} package, it was known as the
-#'   `add_corridor_constraints` function but has since been renamed for
-#'   clarity. It was inspired by the mathematical formulations detailed in
+#'   represent features in contiguous units of dispersible habitat.
+#'   It was inspired by the mathematical formulations detailed in
 #'   Önal and Briers (2006) and Cardeira *et al.* 2010. For an
-#'   example that has used these constraints, see Hanson, Fuller,
-#'   and Rhodes (2019). Please note
+#'   example that has used these constraints, see Hanson *et al.* (2019).
+#'   Please note
 #'   that these constraints require the expanded formulation and therefore
 #'   cannot be used with feature data that have negative vales.
 #'   **Please note that adding these constraints to a problem will
@@ -110,6 +108,9 @@ NULL
 #'   }
 #'
 #' @inherit add_contiguity_constraints return seealso
+#'
+#' @section Notes:
+#' In early versions, it was named as the `add_corridor_constraints` function.
 #'
 #' @references
 #' Önal H and Briers RA (2006) Optimal selection of a connected

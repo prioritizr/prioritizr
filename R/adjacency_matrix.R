@@ -26,8 +26,10 @@ NULL
 #'   [sf::sf()] objects,
 #'   and [raster::adjacent()] for [`Raster-class`]
 #'   objects.
-#'   Prior to version 5.0.0,  this function was named
-#'   `connected_matrix`. It has been renamed to be consistent
+#'
+#' @section Notes:
+#'   In earlier versions (< 5.0.0), this function was named as the
+#'   `connected_matrix` function. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
 #' @return [`dsCMatrix-class`] sparse symmetric matrix.

@@ -63,13 +63,14 @@ the solution, \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i}, and
 \eqn{s}{s} is a scaling factor used to shrink the costs so that the problem
 will return a cheapest solution when there are multiple solutions that
 represent the same amount of all features within the budget.
-
-Please note that in versions prior to 3.0.0.0, this objective function was
-implemented in the
-\code{\link[=add_max_cover_objective]{add_max_cover_objective()}} but has since been renamed as
-\code{\link[=add_max_utility_objective]{add_max_utility_objective()}} to avoid confusion with historical
-formulations of the maximum coverage problem.
 }
+\section{Notes}{
+
+In early versions (< 3.0.0.0), this function was named as
+the \code{add_max_cover_objective} function. It was renamed to avoid
+confusion with existing terminology.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)

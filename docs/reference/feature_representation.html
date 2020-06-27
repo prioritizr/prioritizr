@@ -270,11 +270,7 @@ missing (<code>NA</code>) allocation values in zones where they have missing
 (<code>NA</code>) cost values in <code>x</code> should always have a missing
 (<code>NA</code>) value the argument to <code>solution</code>. If an argument is
 supplied to
-<code>solution</code> where this is not the case, then an error will be thrown.
-Please note that earlier versions of the <span class="pkg">prioritizr</span>
-(prior to 4.0.4.1) required that such planning units always have zero
-values, but this has been changed to make the handling of missing values
-more consistent throughout the package.</p>
+<code>solution</code> where this is not the case, then an error will be thrown.</p>
 <p>Additionally, note that when calculating the proportion of each feature
 represented in the solution, the denominator is calculated using all
 planning units---<strong>including any planning units with <code>NA</code> cost
@@ -521,7 +517,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;      0     0 10331.6670    0    4 12200.0431 10331.6670  15.3%     -    0s
 #&gt; H    0     0                    10667.271164 10331.6670  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (39 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (39 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 10667.3 12200 
@@ -595,7 +591,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;      0     0 8973.34608    0    9 10551.2520 8973.34608  15.0%     -    0s
 #&gt; H    0     0                    9201.5595283 8973.34608  2.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9201.56 10551.3 

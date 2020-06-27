@@ -114,13 +114,15 @@ exact algorithms and not simulated annealing (i.e. the \emph{Marxan} software).
 }
 \details{
 This function is provided as a convenient wrapper for solving
-\emph{Marxan} problems using \pkg{prioritizr}. Although this function
-could accommodate asymmetric connectivity in earlier versions of the
-\pkg{prioritizr} package, this functionality is no longer available.
-Please see the \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function for
-adding asymmetric connectivity penalties to a conservation planning
-problem.
+\emph{Marxan} problems using \pkg{prioritizr}.
 }
+\section{Notes}{
+
+In early versions, this function could accommodate asymmetric connectivity
+data. This functionality is no longer supported. To specify asymmetric
+connectivity, please see the \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function.
+}
+
 \examples{
 # create Marxan problem using Marxan input file
 input_file <- system.file("extdata/input.dat", package = "prioritizr")

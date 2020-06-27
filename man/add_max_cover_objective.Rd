@@ -24,10 +24,7 @@ Set the objective of a conservation planning \code{\link[=problem]{problem()}} t
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
-features in solutions. \strong{Note that the mathematical formulation
-underpinning this function is different from versions prior to 3.0.0.0}.
-See the Details section for more information on the changes since this
-version.
+features in solutions.
 }
 \details{
 A problem objective is used to specify the overall goal of the
@@ -77,13 +74,16 @@ cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
 to shrink the costs so that the problem will return a cheapest solution
 when there are multiple solutions that represent the same amount of all
 features within the budget.
-
-Note that this formulation is functionally equivalent to the
-\code{\link[=add_max_features_objective]{add_max_features_objective()}} function with absolute targets
-set to 1. Please note that in versions prior to 3.0.0.0, this objective
-function implemented a different mathematical formulation. To
-the \code{\link[=add_max_utility_objective]{add_max_utility_objective()}} function.
 }
+\section{Notes}{
+
+In early versions (< 3.0.0.0), the mathematical formulation
+underpinning this function was very different. Specifically, as described
+above, the function now follows the formulations outlined in Church \emph{et al.}
+1996. The old formulation is now provided by the
+\code{\link[=add_max_utility_objective]{add_max_utility_objective()}} function.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)

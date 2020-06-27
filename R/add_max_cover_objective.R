@@ -7,10 +7,7 @@ NULL
 #' represent at least one instance of as many features as possible within a
 #' given budget. This type of objective does not use targets, and feature
 #' weights should be used instead to increase the representation of different
-#' features in solutions. **Note that the mathematical formulation
-#' underpinning this function is different from versions prior to 3.0.0.0**.
-#' See the Details section for more information on the changes since this
-#' version.
+#' features in solutions.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -68,12 +65,12 @@ NULL
 #'   when there are multiple solutions that represent the same amount of all
 #'   features within the budget.
 #'
-#'   Note that this formulation is functionally equivalent to the
-#'   [add_max_features_objective()] function with absolute targets
-#'   set to 1. Please note that in versions prior to 3.0.0.0, this objective
-#'   function implemented a different mathematical formulation. To
-#    use the formulation implemented in versions prior to 3.0.0.0, please see
-#'   the [add_max_utility_objective()] function.
+#' @section Notes:
+#' In early versions (< 3.0.0.0), the mathematical formulation
+#' underpinning this function was very different. Specifically,
+#' as described above, the function now follows the formulations outlined in
+#' Church *et al.* (1996). The old formulation is now provided by the
+#' [add_max_utility_objective()] function.
 #'
 #' @references
 #' Church RL and Velle CR (1974) The maximum covering location problem.

@@ -60,10 +60,14 @@ Spatial processing is completed using
 \code{\link[sf:sf]{sf::sf()}} objects,
 and \code{\link[raster:adjacent]{raster::adjacent()}} for \code{\linkS4class{Raster}}
 objects.
-Prior to version 5.0.0,  this function was named
-\code{connected_matrix}. It has been renamed to be consistent
+}
+\section{Notes}{
+
+In earlier versions (< 5.0.0), this function was named as the
+\code{connected_matrix} function. It has been renamed to be consistent
 with other spatial association matrix functions.
 }
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_sf, sim_pu_lines)

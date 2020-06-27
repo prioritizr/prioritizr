@@ -57,10 +57,7 @@
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
-features in solutions. Note that the mathematical formulation
-underpinning this function is different from versions prior to 3.0.0.0.
-See the Details section for more information on the changes since this
-version." />
+features in solutions." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -185,10 +182,7 @@ version." />
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
-features in solutions. <strong>Note that the mathematical formulation
-underpinning this function is different from versions prior to 3.0.0.0</strong>.
-See the Details section for more information on the changes since this
-version.</p>
+features in solutions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_max_cover_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>)</pre>
@@ -256,11 +250,15 @@ cost of planning unit \(i\), and \(s\) is a scaling factor used
 to shrink the costs so that the problem will return a cheapest solution
 when there are multiple solutions that represent the same amount of all
 features within the budget.</p>
-<p>Note that this formulation is functionally equivalent to the
-<code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code> function with absolute targets
-set to 1. Please note that in versions prior to 3.0.0.0, this objective
-function implemented a different mathematical formulation. To
-the <code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code> function.</p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In early versions (&lt; 3.0.0.0), the mathematical formulation
+underpinning this function was very different. Specifically, as described
+above, the function now follows the formulations outlined in Church <em>et al.</em>
+1996. The old formulation is now provided by the
+<code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code> function.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Church RL and Velle CR (1974) The maximum covering location problem.

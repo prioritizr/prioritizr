@@ -20,14 +20,13 @@ NULL
 #'   useful when problems take a long time to solve and benefit from
 #'   having multiple threads allocated for solving an individual problem.
 #
-#'   **Please note that version 4.0.1 attempted to use the *Gurobi*
-#'   solution pool to speed up the process of obtaining multiple solutions.
-#'   However, it would sometimes return solutions that were not within the
-#'   specified optimality gap. To address this, we have added alternative
-#'   methods for generating solution portfolios, please refer to the
-#'   [portfolios] documentation for more information.**
-#'
 #' @seealso [portfolios].
+#'
+#' @section Notes:
+#' In early versions (< 4.0.1), this function was only compatible with
+#' *Gurobi* (i.e. [add_gurobi_solver()]). To provide functionality with
+#' exact algorithm solvers, this function now adds constraints to the
+#' problem formulation to generate multiple solutions.
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the portfolio
 #'  added to it.

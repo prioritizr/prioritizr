@@ -54,11 +54,10 @@ NULL
 #'   will return a cheapest solution when there are multiple solutions that
 #'   represent the same amount of all features within the budget.
 #'
-#'   Please note that in versions prior to 3.0.0.0, this objective function was
-#'   implemented in the
-#'   [add_max_cover_objective()] but has since been renamed as
-#'   [add_max_utility_objective()] to avoid confusion with historical
-#'   formulations of the maximum coverage problem.
+#' @section Notes:
+#' In early versions (< 3.0.0.0), this function was named as
+#' the `add_max_cover_objective` function. It was renamed to avoid
+#' confusion with existing terminology.
 #'
 #' @inherit add_max_features_objective seealso return
 #'

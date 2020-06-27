@@ -8,8 +8,7 @@ NULL
 #' each feature in the study area (Rodrigues *et al.* 2004). Additionally,
 #' caps can be applied to targets to prevent features with massive
 #' distributions from being over-represented
-#' in solutions (Butchart *et al.* 2015). **Note that the behavior
-#' of this function has changed substantially from versions prior to 5.0.0**.
+#' in solutions (Butchart *et al.* 2015).
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -33,7 +32,8 @@ NULL
 #'   Defaults to `NULL` so that targets are not capped.
 #'
 #' @param abundances `numeric` total amount of each feature to
-#'  use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the [feature_abundances()] function.
+#'  use when calculating the targets. Defaults to the feature abundances in the
+#'  study area (calculated using the [feature_abundances()] function.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation
@@ -54,15 +54,18 @@ NULL
 #'   `abundances` specifies the range size for each feature
 #'   that should be used when calculating the targets.
 #'
-#'   **Note that the target calculations do not account for the
-#'   size of each planning unit.** Therefore, the feature data should account for
+#'   The target calculations do not account for the
+#'   size of each planning unit. Therefore, the feature data should account for
 #'   the size of each planning unit if this is important (e.g. pixel values in
 #'   the argument to `features` in the function [problem()] could
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
-#'
-#'   This function can only be applied to
+#'   Additionally, the function can only be applied to
 #'   [`ConservationProblem-class`] objects that are associated with a
 #'   single zone.
+#'
+#' @section Notes:
+#' Early versions (< 5.0.0) used different equations for calculating
+#' targets.
 #'
 #' @inherit add_relative_targets return
 #'

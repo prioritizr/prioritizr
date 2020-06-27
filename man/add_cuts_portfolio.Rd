@@ -29,13 +29,15 @@ solving the problem multiple times and adding additional constraints
 to forbid previously obtained solutions. In general, this strategy is most
 useful when problems take a long time to solve and benefit from
 having multiple threads allocated for solving an individual problem.
-\strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
-solution pool to speed up the process of obtaining multiple solutions.
-However, it would sometimes return solutions that were not within the
-specified optimality gap. To address this, we have added alternative
-methods for generating solution portfolios, please refer to the
-\link{portfolios} documentation for more information.}
 }
+\section{Notes}{
+
+In early versions (< 4.0.1), this function was only compatible with
+\emph{Gurobi} (i.e. \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}). To provide functionality with
+exact algorithm solvers, this function now adds constraints to the
+problem formulation to generate multiple solutions.
+}
+
 \examples{
 # set seed for reproducibility
 set.seed(500)

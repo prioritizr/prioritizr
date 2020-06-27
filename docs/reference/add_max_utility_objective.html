@@ -243,11 +243,13 @@ the solution, \(c_i\) is the cost of planning unit \(i\), and
 \(s\) is a scaling factor used to shrink the costs so that the problem
 will return a cheapest solution when there are multiple solutions that
 represent the same amount of all features within the budget.</p>
-<p>Please note that in versions prior to 3.0.0.0, this objective function was
-implemented in the
-<code><a href='add_max_cover_objective.html'>add_max_cover_objective()</a></code> but has since been renamed as
-<code>add_max_utility_objective()</code> to avoid confusion with historical
-formulations of the maximum coverage problem.</p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In early versions (&lt; 3.0.0.0), this function was named as
+the <code>add_max_cover_objective</code> function. It was renamed to avoid
+confusion with existing terminology.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
