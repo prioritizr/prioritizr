@@ -100,13 +100,13 @@ methods::setMethod(
       }
     } else {
       # othewise, process each feature separately
-        m <- lapply(seq_len(raster::nlayers(y)), .parallel = FALSE,
-          function(i) {
+        m <- lapply(seq_len(raster::nlayers(y)), function(i) {
             m <- matrix(y[[i]][][included], nrow = 1)
             m[is.na(m)] <- 0
             m <- methods::as(m, "dgCMatrix")
           })
       m <- Reduce(rbind, m[-1], m[[1]])
+      rownames(m) <- names(y)
     }
     # return result
     return(m)

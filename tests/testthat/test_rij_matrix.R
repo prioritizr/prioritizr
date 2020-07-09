@@ -28,6 +28,25 @@ test_that("x=RasterLayer, y=RasterStack", {
   })
 })
 
+test_that("x=RasterLayer, y=RasterStack (data size > raster maxmemory)", {
+  # create data
+  raster::rasterOptions(todisk = TRUE)
+  data(sim_pu_raster, sim_features)
+  m <- rij_matrix(sim_pu_raster, sim_features)
+  # run tests
+  expect_true(inherits(m, "dgCMatrix"))
+  expect_false(raster::canProcessInMemory(sim_features))
+  expect_equal(m, {
+    included <- raster::Which(!is.na(sim_pu_raster), cells = TRUE)
+    m <- sim_features[included]
+    m[is.na(m)] <- 0
+    m <- Matrix::t(as(m, "dgCMatrix"))
+    m
+  })
+  raster::rasterOptions(default = TRUE)
+})
+
+
 test_that("x=RasterStack, y=RasterStack", {
   # create data
   costs <- raster::stack(
