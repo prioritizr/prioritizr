@@ -3,12 +3,12 @@ NULL
 
 #' Add minimum set objective
 #'
-#' Set the objective of a conservation planning \code{\link{problem}} to
+#' Set the objective of a conservation planning [problem()] to
 #' minimize the cost of the solution whilst ensuring that all targets are met.
 #' This objective is similar to that used in
-#' \emph{Marxan} and is detailed in Rodrigues \emph{et al.} (2000).
+#' *Marxan* and is detailed in Rodrigues *et al.* (2000).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details A problem objective is used to specify the overall goal of the
 #'   conservation planning problem. Please note that all conservation
@@ -20,7 +20,7 @@ NULL
 #'   seeks to find the set of planning units that minimizes the overall cost of
 #'   a reserve network, while meeting a set of representation targets for the
 #'   conservation features. This objective is equivalent to a simplified
-#'   \emph{Marxan} reserve design problem with the Boundary Length Modifier
+#'   *Marxan* reserve design problem with the Boundary Length Modifier
 #'   (BLM) set to zero.
 #'
 #'   The minimum set objective for the reserve design problem can be expressed
@@ -33,7 +33,7 @@ NULL
 #'   Minimize sum_i^I (xi * ci) subject to sum_i^I (xi * rij) >= Tj for all
 #'   j in J}
 #'
-#'   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{c_i}{ci} is the cost of planning unit \eqn{i}{i},
 #'   \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning unit
@@ -45,11 +45,11 @@ NULL
 #' @references
 #' Rodrigues AS, Cerdeira OJ, and Gaston KJ (2000) Flexibility,
 #' efficiency, and accountability: adapting reserve selection algorithms to
-#' more complex conservation problems. \emph{Ecography}, 23: 565--574.
+#' more complex conservation problems. *Ecography*, 23: 565--574.
 #'
-#' @seealso \code{\link{objectives}}, \code{\link{targets}}.
+#' @seealso [objectives], [targets].
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the objective
+#' @return Object (i.e. [`ConservationProblem-class`]) with the objective
 #'   added to it.
 #'
 #' @examples

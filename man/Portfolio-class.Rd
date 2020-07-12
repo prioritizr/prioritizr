@@ -9,7 +9,7 @@ This prototype is used to represent methods for generating portfolios of
 optimization problems. \strong{This class represents a recipe to
 create portfolio generating method and is only recommended for use by expert
 users. To customize the method used to generate portfolios, please see the
-help page on \code{\link{portfolios}}}.
+help page on \link{portfolios}}.
 }
 \section{Fields}{
 
@@ -19,7 +19,7 @@ help page on \code{\link{portfolios}}}.
 \item{$name}{\code{character} name of portfolio method.}
 
 \item{$parameters}{\code{Parameters} object with parameters used to customize
-  the the portfolio.}
+the the portfolio.}
 
 \item{$run}{\code{function} used to generate a portfolio.}
 }
@@ -41,9 +41,9 @@ help page on \code{\link{portfolios}}}.
 
 \describe{
 
-\item{x}{\code{\link{Solver-class}} object.}
+\item{x}{\code{\linkS4class{Solver}} object.}
 
-\item{op}{\code{\link{OptimizationProblem-class}} object.}
+\item{op}{\code{\linkS4class{OptimizationProblem}} object.}
 
 }
 }
@@ -58,8 +58,8 @@ help page on \code{\link{portfolios}}}.
 
 \item{repr}{\code{character} representation of object.}
 
-\item{run}{solve an \code{\link{OptimizationProblem-class}} object using this
-  object and a \code{\link{Solver-class}} object.}
+\item{run}{solve an \code{\linkS4class{OptimizationProblem}} object using this
+object and a \code{\linkS4class{Solver}} object.}
 
 }
 }

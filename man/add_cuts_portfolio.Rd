@@ -7,35 +7,37 @@
 add_cuts_portfolio(x, number_solutions = 10L)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link{problem}} using Bender's cuts (discussed in Rodrigues
+\code{\link[=problem]{problem()}} using Bender's cuts (discussed in Rodrigues
 \emph{et al.} 2000). This is recommended as a replacement for
- \code{\link{add_gap_portfolio}} when the \emph{Gurobi} software is not
- available.
+\code{\link[=add_gap_portfolio]{add_gap_portfolio()}} when the \emph{Gurobi} software is not
+available.
 }
 \details{
 This strategy for generating a portfolio of solutions involves
-  solving the problem multiple times and adding additional constraints
-  to forbid previously obtained solutions. In general, this strategy is most
-  useful when problems take a long time to solve and benefit from
-  having multiple threads allocated for solving an individual problem.
-  \strong{Please note that version 4.0.1 attempted to use the \emph{Gurobi}
-  solution pool to speed up the process of obtaining multiple solutions.
-  However, it would sometimes return solutions that were not within the
-  specified optimality gap. To address this, we have added alternative
-  methods for generating solution portfolios, please refer to the
-  \code{\link{portfolios}} documentation for more information.}
+solving the problem multiple times and adding additional constraints
+to forbid previously obtained solutions. In general, this strategy is most
+useful when problems take a long time to solve and benefit from
+having multiple threads allocated for solving an individual problem.
 }
+\section{Notes}{
+
+In early versions (< 4.0.1), this function was only compatible with
+\emph{Gurobi} (i.e. \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}). To provide functionality with
+exact algorithm solvers, this function now adds constraints to the
+problem formulation to generate multiple solutions.
+}
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -84,5 +86,5 @@ efficiency, and accountability: adapting reserve selection algorithms to
 more complex conservation problems. \emph{Ecography}, 23: 565--574.
 }
 \seealso{
-\code{\link{portfolios}}.
+\link{portfolios}.
 }

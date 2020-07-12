@@ -4,12 +4,12 @@ NULL
 #' Add mandatory allocation constraints
 #'
 #' Add constraints to ensure that every planning unit is allocated to a
-#' management zone in the solution. \strong{This function can only be used with
-#' problems that contain multiple zones.}
+#' management zone in the solution. Note that this function can only be used
+#' with problems that contain multiple zones.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @details For a conservation planning \code{\link{problem}} with multiple
+#' @details For a conservation planning [problem()] with multiple
 #'   management zones, it may sometimes be desirable to obtain a solution that
 #'   assigns each and every single planning unit to a zone. For example, when
 #'   developing land-use plans, some decision makers may require that each and
@@ -23,10 +23,7 @@ NULL
 #'   problem with multiple zones must be allocated to a management zone (i.e.
 #'   zone allocation is mandatory).
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraints
-#'   added to it.
-#'
-#' @seealso \code{\link{constraints}}.
+#' @inherit add_contiguity_constraints return seealso
 #'
 #' @examples
 #' # set seed for reproducibility

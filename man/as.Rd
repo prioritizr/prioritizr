@@ -22,7 +22,7 @@ as.Id(x, ...)
 \item{...}{unused arguments.}
 }
 \value{
-An Object.
+An object.
 }
 \description{
 Coerce an object.

@@ -8,54 +8,54 @@ NULL
 #' Solver prototype
 #'
 #' This prototype is used to generate objects that represent methods for solving
-#' optimization problems. \strong{This class represents a recipe to
+#' optimization problems. **This class represents a recipe to
 #' create solver and and is only recommended for use by expert users. To
 #' customize the method used to solve optimization problems, please see the
-#' help page on \code{\link{solvers}}}.
+#' help page on [solvers]**.
 #'
 #' @section Fields:
 #'
 #' \describe{
 #'
-#' \item{$name}{\code{character} name of solver.}
+#' \item{$name}{`character` name of solver.}
 #'
-#' \item{$data}{\code{list} object optimization problem data.}
+#' \item{$data}{`list` object optimization problem data.}
 #'
-#' \item{$parameters}{\code{Parameters} object with parameters used to customize
+#' \item{$parameters}{`Parameters` object with parameters used to customize
 #'   the the solver.}
 #'
-#' \item{$solve}{\code{function} used to solve a
-#'   \code{\link{OptimizationProblem-class}} object.}
+#' \item{$solve}{`function` used to solve a
+#'   [`OptimizationProblem-class`] object.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$get_data(name)}
+#' `x$get_data(name)`
 #'
-#' \code{x$set_data(name, value)}
+#' `x$set_data(name, value)`
 #'
-#' \code{x$set_variable_ub(index, value)}
+#' `x$set_variable_ub(index, value)`
 #'
-#' \code{x$set_variable_lb(index, value)}
+#' `x$set_variable_lb(index, value)`
 #'
-#' \code{x$calculate(op)}
+#' `x$calculate(op)`
 #'
-#' \code{x$run()}
+#' `x$run()`
 #'
-#' \code{x$solve(op)}
+#' `x$solve(op)`
 #'
 #' @section Arguments:
 #' \describe{
 #'
-#' \item{x}{\code{\link{Solver-class}} object.}
+#' \item{x}{[`Solver-class`] object.}
 #'
-#' \item{op}{\code{\link{OptimizationProblem-class}} object.}
+#' \item{op}{[`OptimizationProblem-class`] object.}
 #'
 #' }
 #'
@@ -66,13 +66,13 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{\code{character} representation of object.}
+#' \item{repr}{`character` representation of object.}
 #'
-#' \item{get_data}{return an object stored in the \code{data} field with
-#'   the corresponding \code{name}. If the object is not present in the
-#'   \code{data} field, a \code{waiver} object is returned.}
+#' \item{get_data}{return an object stored in the `data` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `data` field, a `waiver` object is returned.}
 #'
-#' \item{set_data}{store an object stored in the \code{data} field with
+#' \item{set_data}{store an object stored in the `data` field with
 #'   the corresponding name. If an object with that name already
 #'   exists then the object is overwritten.}
 #'
@@ -83,12 +83,12 @@ NULL
 #'   a pre-calculated optimization problem stored in the solver.}
 #
 #' \item{calculate}{ingest a general purpose
-#'   \code{\link{OptimizationProblem-class}} object and convert it to the
+#'   [`OptimizationProblem-class`] object and convert it to the
 #'   correct format for the solver.}
 
 #' \item{run}{run the solver and output a solution}
 #'
-#' \item{solve}{solve an \code{\link{OptimizationProblem-class}} using this
+#' \item{solve}{solve an [`OptimizationProblem-class`] using this
 #'   object.}
 #'
 #' }

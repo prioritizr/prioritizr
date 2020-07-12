@@ -7,12 +7,12 @@
 \method{as.list}{OptimizationProblem}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link{OptimizationProblem-class}} object.}
+\item{x}{\code{\linkS4class{OptimizationProblem}} object.}
 
 \item{...}{not used.}
 }
 \value{
-\code{\link{list}} object.
+\code{list()} object.
 }
 \description{
 Convert \code{OptimizationProblem} to list

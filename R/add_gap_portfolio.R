@@ -4,30 +4,30 @@ NULL
 #' Add a gap portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' \code{\link{problem}} by finding a certain number of solutions that
+#' [problem()] by finding a certain number of solutions that
 #' are all within a pre-specified optimality gap. This method is useful for
 #' generating multiple solutions that can be used to calculate selection
 #' frequencies for moderate and large-sized problems (similar to
-#' \emph{Marxan}).
+#' *Marxan*).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param number_solutions \code{integer} number of solutions required.
+#' @param number_solutions `integer` number of solutions required.
 #'
-#' @param pool_gap \code{numeric} gap to optimality for solutions in the portfolio.
+#' @param pool_gap `numeric` gap to optimality for solutions in the portfolio.
 #'  This relative gap specifies a threshold worst-case performance for
 #'  solutions in the portfolio. For example, value of 0.1 will result in the
-#'  portfolio returning solutions that are within 10\% of an optimal solution.
+#'  portfolio returning solutions that are within 10% of an optimal solution.
 #'  Note that the gap specified in the solver (i.e.
-#'  \code{\link{add_gurobi_solver}} must be less than or equal to the gap
+#'  [add_gurobi_solver()] must be less than or equal to the gap
 #'  specified to generate the portfolio. Defaults to 0.1.
 #'
 #' @details This strategy for generating a portfolio requires problems to
-#'   be solved using the \emph{Gurobi} software suite (i.e. using
-#'   \code{\link{add_gurobi_solver}}. Specifically, version 9.0.0 (or greater)
+#'   be solved using the *Gurobi* software suite (i.e. using
+#'   [add_gurobi_solver()]. Specifically, version 9.0.0 (or greater)
 #'   of the \pkg{gurobi} package must be installed.
 #'   Note that the number of solutions returned may be less than the argument to
-#'   \code{number_solutions}, if the total number of solutions that
+#'   `number_solutions`, if the total number of solutions that
 #'   meet the optimality gap is less than the number of solutions requested.
 #'
 #' @inherit add_gap_portfolio details

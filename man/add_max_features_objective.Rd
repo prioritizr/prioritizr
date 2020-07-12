@@ -7,7 +7,7 @@
 add_max_features_objective(x, budget)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{budget}{\code{numeric} value specifying the maximum expenditure of
 the prioritization. For problems with multiple zones, the argument
@@ -16,38 +16,38 @@ for the entire solution or a \code{numeric} \code{vector} to specify
 a budget for each each management zone.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the objective
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the objective
+added to it.
 }
 \description{
-Set the objective of a conservation planning \code{\link{problem}} to
+Set the objective of a conservation planning \code{\link[=problem]{problem()}} to
 fulfill as many targets as possible while ensuring that the cost of the
 solution does not exceed a budget.
 }
 \details{
 A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the \pkg{prioritizr} package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.
+conservation planning problem. Please note that all conservation
+planning problems formulated in the \pkg{prioritizr} package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.
 
-  The maximum feature representation objective is an enhanced version of the
-  maximum coverage objective \code{\link{add_max_cover_objective}} because
-  targets can be used to ensure that a certain amount of each feature is
-  required in order for them to be adequately represented (similar to the
-  minimum set objective (see \code{\link{add_min_set_objective}}). This
-  objective finds the set of planning units that meets representation targets
-  for as many features as possible while staying within a fixed budget
-  (inspired by Cabeza and Moilanen 2001). Additionally, weights can be used
-  \code{\link{add_feature_weights}}). If multiple solutions can meet the same
-  number of weighted targets while staying within budget, the cheapest
-  solution is returned.
+The maximum feature representation objective is an enhanced version of the
+maximum coverage objective \code{\link[=add_max_cover_objective]{add_max_cover_objective()}} because
+targets can be used to ensure that a certain amount of each feature is
+required in order for them to be adequately represented (similar to the
+minimum set objective (see \code{\link[=add_min_set_objective]{add_min_set_objective()}}). This
+objective finds the set of planning units that meets representation targets
+for as many features as possible while staying within a fixed budget
+(inspired by Cabeza and Moilanen 2001). Additionally, weights can be used
+\code{\link[=add_feature_weights]{add_feature_weights()}}). If multiple solutions can meet the same
+number of weighted targets while staying within budget, the cheapest
+solution is returned.
 
-  The maximum feature objective for the reserve design problem can be
-  expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
-  \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
+The maximum feature objective for the reserve design problem can be
+expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
+\eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
 
-  \deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
+\deqn{\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} y_j w_j \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j t_j \forall j \in J \\
@@ -56,19 +56,19 @@ A problem objective is used to specify the overall goal of the
   sum_i^I (xi * rij) >= (yj tj) for all j in J &
   sum_i^I (xi * ci) <= B}
 
-  Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
-  specifying whether planning unit \eqn{i}{i} has been selected (1) or not
-  (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
-  unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
-  \eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
-  the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
-  weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-  \code{\link{add_feature_weights}} to specify weights). Additionally,
-  \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
-  cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
-  to shrink the costs so that the problem will return a cheapest solution
-  when there are multiple solutions that represent the same amount of all
-  features within the budget.
+Here, \eqn{x_i}{xi} is the \link{decisions} variable (e.g.
+specifying whether planning unit \eqn{i}{i} has been selected (1) or not
+(0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
+unit \eqn{i}{i}, \eqn{t_j}{tj} is the representation target for feature
+\eqn{j}{j}, \eqn{y_j}{yj} indicates if the solution has meet
+the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
+weight for feature \eqn{j}{j} (defaults to 1 for all features; see
+\code{\link[=add_feature_weights]{add_feature_weights()}} to specify weights). Additionally,
+\eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
+cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
+to shrink the costs so that the problem will return a cheapest solution
+when there are multiple solutions that represent the same amount of all
+features within the budget.
 }
 \examples{
 # load data
@@ -119,9 +119,9 @@ plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 }
 \references{
 Cabeza M and Moilanen A (2001) Design of reserve networks and the
-persistence of biodiversity. \emph{Trends in Ecology \& Evolution},
+persistence of biodiversity. \emph{Trends in Ecology & Evolution},
 16: 242--248.
 }
 \seealso{
-\code{\link{add_feature_weights}}, \code{\link{objectives}}.
+\code{\link[=add_feature_weights]{add_feature_weights()}}, \link{objectives}.
 }

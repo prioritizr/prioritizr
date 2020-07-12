@@ -53,14 +53,11 @@
 
 
 <meta property="og:title" content="Add maximum coverage objective — add_max_cover_objective" />
-<meta property="og:description" content="Set the objective of a conservation planning problem to
+<meta property="og:description" content="Set the objective of a conservation planning problem() to
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
-features in solutions. Note that the mathematical formulation
-underpinning this function is different from versions prior to 3.0.0.0.
-See the Details section for more information on the changes since this
-version." />
+features in solutions." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -103,7 +100,7 @@ version." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -181,14 +178,11 @@ version." />
     </div>
 
     <div class="ref-description">
-    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem</a></code> to
+    <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
 represent at least one instance of as many features as possible within a
 given budget. This type of objective does not use targets, and feature
 weights should be used instead to increase the representation of different
-features in solutions. <strong>Note that the mathematical formulation
-underpinning this function is different from versions prior to 3.0.0.0</strong>.
-See the Details section for more information on the changes since this
-version.</p>
+features in solutions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_max_cover_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>)</pre>
@@ -198,7 +192,7 @@ version.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>budget</th>
@@ -212,55 +206,59 @@ a budget for each each management zone.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the objective
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the objective
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A problem objective is used to specify the overall goal of the
-  conservation planning problem. Please note that all conservation
-  planning problems formulated in the <span class="pkg">prioritizr</span> package require the
-  addition of objectives---failing to do so will return an error
-  message when attempting to solve problem.</p>
+conservation planning problem. Please note that all conservation
+planning problems formulated in the <span class="pkg">prioritizr</span> package require the
+addition of objectives---failing to do so will return an error
+message when attempting to solve problem.</p>
 <p>The maximum coverage objective seeks to find the set of planning units that
-  maximizes the number of represented features, while keeping cost within a
-  fixed budget. Here, features are treated as being represented if
-  the reserve system contains at least a single instance of a feature
-  (i.e. an amount greater than 1). This formulation has often been
-  used in conservation planning problems dealing with binary biodiversity
-  data that indicate the presence/absence of suitable habitat
-  (e.g. Church &amp; Velle 1974). Additionally, weights can be used to favor the
-  representation of certain features over other features (see
-  <code><a href='add_feature_weights.html'>add_feature_weights</a></code>). Check out the
-  <code><a href='add_max_features_objective.html'>add_max_features_objective</a></code> for a more
-  generalized formulation which can accommodate user-specified representation
-  targets.</p>
+maximizes the number of represented features, while keeping cost within a
+fixed budget. Here, features are treated as being represented if
+the reserve system contains at least a single instance of a feature
+(i.e. an amount greater than 1). This formulation has often been
+used in conservation planning problems dealing with binary biodiversity
+data that indicate the presence/absence of suitable habitat
+(e.g. Church &amp; Velle 1974). Additionally, weights can be used to favor the
+representation of certain features over other features (see
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code>). Check out the
+<code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code> for a more
+generalized formulation which can accommodate user-specified representation
+targets.</p>
 <p>This formulation is based on the historical maximum coverage reserve
-  selection formulation (Church &amp; Velle 1974; Church <em>et al.</em> 1996).
-  The maximum coverage objective for the reserve design problem can be
-  expressed mathematically for a set of planning units (\(I\) indexed by
-  \(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
+selection formulation (Church &amp; Velle 1974; Church <em>et al.</em> 1996).
+The maximum coverage objective for the reserve design problem can be
+expressed mathematically for a set of planning units (\(I\) indexed by
+\(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
 <p>$$\mathit{Maximize} \space \sum_{i = 1}^{I} -s \space c_i \space x_i +
   \sum_{j = 1}^{J} y_j w_j \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} \geq y_j \times 1 \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
-<p>Here, \(x_i\) is the <code><a href='decisions.html'>decisions</a></code> variable (e.g.
-  specifying whether planning unit \(i\) has been selected (1) or not
-  (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
-  unit \(i\), \(y_j\) indicates if the solution has meet
-  the target \(t_j\) for feature \(j\), and \(w_j\) is the
-  weight for feature \(j\) (defaults to 1 for all features; see
-  <code><a href='add_feature_weights.html'>add_feature_weights</a></code> to specify weights). Additionally,
-  \(B\) is the budget allocated for the solution, \(c_i\) is the
-  cost of planning unit \(i\), and \(s\) is a scaling factor used
-  to shrink the costs so that the problem will return a cheapest solution
-  when there are multiple solutions that represent the same amount of all
-  features within the budget.</p>
-<p>Note that this formulation is functionally equivalent to the
-  <code><a href='add_max_features_objective.html'>add_max_features_objective</a></code> function with absolute targets
-  set to 1. Please note that in versions prior to 3.0.0.0, this objective
-  function implemented a different mathematical formulation. To
-  the <code><a href='add_max_utility_objective.html'>add_max_utility_objective</a></code> function.</p>
+<p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
+specifying whether planning unit \(i\) has been selected (1) or not
+(0)), \(r_{ij}\) is the amount of feature \(j\) in planning
+unit \(i\), \(y_j\) indicates if the solution has meet
+the target \(t_j\) for feature \(j\), and \(w_j\) is the
+weight for feature \(j\) (defaults to 1 for all features; see
+<code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights). Additionally,
+\(B\) is the budget allocated for the solution, \(c_i\) is the
+cost of planning unit \(i\), and \(s\) is a scaling factor used
+to shrink the costs so that the problem will return a cheapest solution
+when there are multiple solutions that represent the same amount of all
+features within the budget.</p>
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In early versions (&lt; 3.0.0.0), the mathematical formulation
+underpinning this function was very different. Specifically,
+as described above, the function now follows the formulations outlined in
+Church <em>et al.</em> (1996). The old formulation is now provided by the
+<code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code> function.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Church RL and Velle CR (1974) The maximum covering location problem.
@@ -269,7 +267,7 @@ a budget for each each management zone.</p></td>
 covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights</a></code>, <code><a href='objectives.html'>objectives</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -342,7 +340,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 8e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 0 rows and 67 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
 #&gt; Variable types: 0 continuous, 218 integer (218 binary)
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
@@ -385,7 +383,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Cover: 2
 #&gt;   MIR: 11
 #&gt; 
-#&gt; Explored 1 nodes (244 simplex iterations) in 0.09 seconds
+#&gt; Explored 1 nodes (244 simplex iterations) in 0.11 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 7.99986 6.99986 6.99986 ... -0

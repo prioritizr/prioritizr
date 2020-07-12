@@ -7,19 +7,23 @@
 add_default_solver(x, ...)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{...}{arguments passed to the solver.}
 }
+\value{
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
+}
 \description{
 Identify the best solver currently installed on the system and specify that
-it should be used to solve a conservation planning \code{\link{problem}}.
+it should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
 Ranked from best to worst, the available solvers that can be used are:
 \pkg{gurobi}
-(\code{\link{add_gurobi_solver}}),
-\pkg{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \pkg{lpsymphony}
-(\code{\link{add_lpsymphony_solver}}).
+(\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}), then
+\pkg{Rsymphony} (\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}), and finally \pkg{lpsymphony}
+(\code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}).
 }
 \seealso{
-\code{\link{solvers}}.
+\link{solvers}.
 }

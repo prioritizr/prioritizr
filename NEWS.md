@@ -1,3 +1,9 @@
+# prioritizr 5.0.1.5
+
+- Fix typo causing `rij_matrix` to throw an error for large raster data (#151).
+- Fix "Non-file package-anchored link(s) in documentation object" warnings in
+  R-devel checks.
+
 # prioritizr 5.0.1.4
 
 - New `add_linear_penalties` to add penalties that penalize planning units

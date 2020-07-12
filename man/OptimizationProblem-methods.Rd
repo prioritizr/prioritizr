@@ -89,16 +89,16 @@ compressed_formulation(x)
 \S4method{compressed_formulation}{OptimizationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link{OptimizationProblem-class}} object.}
+\item{x}{\code{\linkS4class{OptimizationProblem}} object.}
 }
 \value{
-\code{\link[Matrix]{dgCMatrix-class}}, \code{numeric} vector,
-  \code{numeric} vector, or scalar \code{integer} depending on the method
-  used.
+\code{\linkS4class{dgCMatrix}}, \code{numeric} vector,
+\code{numeric} vector, or scalar \code{integer} depending on the method
+used.
 }
 \description{
 These functions are used to access data from an
-\code{\link{OptimizationProblem-class}} object.
+\code{\linkS4class{OptimizationProblem}} object.
 }
 \details{
 The functions return the following data:
@@ -112,33 +112,33 @@ The functions return the following data:
 \item{ncell}{\code{integer} number of cells.}
 
 \item{modelsense}{\code{character} describing if the problem is to be
-  maximized (\code{"max"}) or minimized (\code{"min"}).}
+maximized (\code{"max"}) or minimized (\code{"min"}).}
 
 \item{vtype}{\code{character} describing the type of each decision variable:
-  binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
-  (\code{"C"})}
+binary (\code{"B"}), semi-continuous (\code{"S"}), or continuous
+(\code{"C"})}
 
 \item{obj}{\code{numeric} vector specifying the objective function.}
 
-\item{A}{\code{\link[Matrix]{dgCMatrix-class}} matrix object defining the
-  problem matrix.}
+\item{A}{\code{\linkS4class{dgCMatrix}} matrix object defining the
+problem matrix.}
 
 \item{rhs}{\code{numeric} vector with right-hand-side linear constraints}
 
 \item{sense}{\code{character} vector with the senses of the linear
-  constraints (\code{"<="}, \code{">="}, \code{"="}).}
+constraints (\code{"<="}, \code{">="}, \code{"="}).}
 
 \item{lb}{\code{numeric} lower bound for each decision variable. Missing data
-  values (\code{NA}) indicate no lower bound for a given variable.}
+values (\code{NA}) indicate no lower bound for a given variable.}
 
 \item{ub}{\code{numeric} upper bounds for each decision variable. Missing
-  data values (\code{NA}) indicate no upper bound for a given variable.}
+data values (\code{NA}) indicate no upper bound for a given variable.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units in
-  the problem.}
+the problem.}
 
 \item{number_of_features}{\code{integer} number of features
-  the problem.}
+the problem.}
 
 }
 }

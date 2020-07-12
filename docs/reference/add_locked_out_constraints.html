@@ -53,14 +53,14 @@
 
 
 <meta property="og:title" content="Add locked out constraints — add_locked_out_constraints" />
-<meta property="og:description" content="Add constraints to a conservation planning problem to ensure
+<meta property="og:description" content="Add constraints to a conservation planning problem() to ensure
 that specific planning units are not selected
 (or allocated to a specific zone) in the solution. For example, it may be
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
-in to the solution, use add_locked_out_constraints. For
+in to the solution, use add_locked_out_constraints(). For
 problems with non-binary planning unit allocations (e.g. proportions), the
-add_manual_locked_constraints function can be used to lock
+add_manual_locked_constraints() function can be used to lock
 planning unit allocations to a specific value." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -104,7 +104,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -182,14 +182,14 @@ planning unit allocations to a specific value." />
     </div>
 
     <div class="ref-description">
-    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
+    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem()</a></code> to ensure
 that specific planning units are not selected
 (or allocated to a specific zone) in the solution. For example, it may be
 useful to lock out planning units that have been degraded and are not
 suitable for conserving species. If specific planning units should be locked
-in to the solution, use <code>add_locked_out_constraints</code>. For
+in to the solution, use <code>add_locked_out_constraints()</code>. For
 problems with non-binary planning unit allocations (e.g. proportions), the
-<code><a href='add_manual_locked_constraints.html'>add_manual_locked_constraints</a></code> function can be used to lock
+<code><a href='add_manual_locked_constraints.html'>add_manual_locked_constraints()</a></code> function can be used to lock
 planning unit allocations to a specific value.</p>
     </div>
 
@@ -221,7 +221,7 @@ planning unit allocations to a specific value.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>locked_out</th>
@@ -232,69 +232,69 @@ locked out. See the Details section for more information.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraints
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the constraints
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The locked planning units can be specified in several different
-  ways. Generally, the locked data should correspond to the planning units
-  in the argument to <code>x.</code> To help make working with
-  <code>Raster-class</code> planning unit data easier,
-  the locked data should correspond to cell indices in the
-  <code>Raster-class</code> data. For example, <code>integer</code> arguments
-  should correspond to cell indices and <code>logical</code> arguments should have
-  a value for each cell---regardless of which planning unit cells contain
-  <code>NA</code> values.</p>
-<p></p><dl'>
+ways. Generally, the locked data should correspond to the planning units
+in the argument to <code>x.</code> To help make working with
+<code>Raster</code> planning unit data easier,
+the locked data should correspond to cell indices in the
+<code>Raster</code> data. For example, <code>integer</code> arguments
+should correspond to cell indices and <code>logical</code> arguments should have
+a value for each cell---regardless of which planning unit cells contain
+<code>NA</code> values.</p>
+<dl'>
 
-  <dt><code>integer</code></dt><dd><p><code>vector</code> of indices pertaining to which
-    planning units should be locked for the solution. This argument is only
-    compatible with problems that contain a single zone.</p></dd>
+<dt><code>integer</code></dt><dd><p><code>vector</code> of indices pertaining to which
+planning units should be locked for the solution. This argument is only
+compatible with problems that contain a single zone.</p></dd>
 
-  <dt><code>logical</code></dt><dd><p><code>vector</code> containing <code>TRUE</code> and/or
-    <code>FALSE</code> values that indicate which planning units should be locked
-    in the solution. This argument is only compatible with problems that
-    contain a single zone.</p></dd>
+<dt><code>logical</code></dt><dd><p><code>vector</code> containing <code>TRUE</code> and/or
+<code>FALSE</code> values that indicate which planning units should be locked
+in the solution. This argument is only compatible with problems that
+contain a single zone.</p></dd>
 
-  <dt><code>matrix</code></dt><dd><p>containing <code>logical</code> <code>TRUE</code> and/or
-    <code>FALSE</code> values which indicate if certain planning units are
-    should be locked to a specific zone in the solution. Each row
-    corresponds to a planning unit, each column corresponds to a zone, and
-    each cell indicates if the planning unit should be locked to a given
-    zone. Thus each row should only contain at most a single <code>TRUE</code>
-    value.</p></dd>
+<dt><code>matrix</code></dt><dd><p>containing <code>logical</code> <code>TRUE</code> and/or
+<code>FALSE</code> values which indicate if certain planning units are
+should be locked to a specific zone in the solution. Each row
+corresponds to a planning unit, each column corresponds to a zone, and
+each cell indicates if the planning unit should be locked to a given
+zone. Thus each row should only contain at most a single <code>TRUE</code>
+value.</p></dd>
 
-  <dt><code>character</code></dt><dd><p>field (column) name(s) that indicate if planning
-    units should be locked for the solution. This type of argument is only
-    compatible if the planning units in the argument to <code>x</code> are a
-    <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>, or
-    <code>data.frame</code> object. The fields
-    (columns) must have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
-    values indicating if the planning unit is to be locked for the solution.
-    For problems containing multiple zones, this argument should contain
-    a field (column) name for each management zone.</p></dd>
+<dt><code>character</code></dt><dd><p>field (column) name(s) that indicate if planning
+units should be locked for the solution. This type of argument is only
+compatible if the planning units in the argument to <code>x</code> are a
+<code>Spatial</code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>, or
+<code>data.frame</code> object. The fields
+(columns) must have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
+values indicating if the planning unit is to be locked for the solution.
+For problems containing multiple zones, this argument should contain
+a field (column) name for each management zone.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
-    argument to <code>y</code> (according to <code><a href='intersecting_units.html'>intersecting_units</a></code>
-    are locked for to the solution. Note that this option is only available
-    for problems that contain a single management zone.</p></dd>
+<dt><code>Spatial</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
+argument to <code>y</code> (according to <code><a href='intersecting_units.html'>intersecting_units()</a></code>
+are locked for to the solution. Note that this option is only available
+for problems that contain a single management zone.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code></dt><dd><p>planning units in <code>x</code>
-    that intersect with non-zero and non-<code>NA</code> raster cells are locked
-    for the solution. For problems that contain multiple zones, the
-    <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> object must contain a layer
-    for each zone. Note that for multi-band arguments, each pixel must
-    only contain a non-zero value in a single band. Additionally, if the
-    cost data in <code>x</code> is a <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> object, we
-    recommend standardizing <code>NA</code> values in this dataset with the cost
-    data. In other words, the pixels in <code>x</code> that have <code>NA</code> values
-    should also have <code>NA</code> values in the locked data.</p></dd>
-  
+<dt><code>Raster</code></dt><dd><p>planning units in <code>x</code>
+that intersect with non-zero and non-<code>NA</code> raster cells are locked
+for the solution. For problems that contain multiple zones, the
+<code>Raster</code> object must contain a layer
+for each zone. Note that for multi-band arguments, each pixel must
+only contain a non-zero value in a single band. Additionally, if the
+cost data in <code>x</code> is a <code>Raster</code> object, we
+recommend standardizing <code>NA</code> values in this dataset with the cost
+data. In other words, the pixels in <code>x</code> that have <code>NA</code> values
+should also have <code>NA</code> values in the locked data.</p></dd>
+
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>

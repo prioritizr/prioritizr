@@ -6,16 +6,16 @@ NULL
 #' Find which of the units in a spatial data object intersect
 #' with the units in another spatial data object.
 #'
-#' @param x \code{\link{Spatial-class}} or \code{\link{Raster-class}} object.
+#' @param x [`Spatial-class`] or [`Raster-class`] object.
 #'
-#' @param y \code{\link{Spatial-class}} or \code{\link{Raster-class}} object.
+#' @param y [`Spatial-class`] or [`Raster-class`] object.
 #'
-#' @return \code{integer} indices of the units in \code{x} that intersect with
-#'   \code{y}.
+#' @return `integer` indices of the units in `x` that intersect with
+#'   `y`.
 #'
 #' @name intersecting_units
 #'
-#' @seealso \code{\link{fast_extract}}.
+#' @seealso [fast_extract()].
 #'
 #' @exportMethod intersecting_units
 #'

@@ -8,12 +8,12 @@ NULL
 #' Constraint prototype
 #'
 #' This prototype is used to represent the constraints used when making a
-#' prioritization. \strong{This prototype represents a recipe, to actually
+#' prioritization. **This prototype represents a recipe, to actually
 #' add constraints to a planning problem, see the help page on
-#' \code{\link{constraints}}. Only experts should use this class directly.} This
-#' prototype inherits from the \code{\link{ConservationModifier-class}}.
+#' [constraints]. Only experts should use this class directly.** This
+#' prototype inherits from the [`ConservationModifier-class`].
 #'
-#' @seealso \code{\link{ConservationModifier-class}}.
+#' @seealso [`ConservationModifier-class`].
 #'
 #' @name Constraint-class
 #'

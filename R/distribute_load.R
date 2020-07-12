@@ -6,15 +6,15 @@ NULL
 #' Utility function for distributing computations among a pool of workers
 #' for parallel processing.
 #'
-#' @param x \code{integer} number of item to process.
+#' @param x `integer` number of item to process.
 #'
-#' @param n \code{integer} number of threads.
+#' @param n `integer` number of threads.
 #'
-#' @details This function returns a \code{list} containing an element for
-#'   each worker. Each element contains a \code{integer} \code{vector}
+#' @details This function returns a `list` containing an element for
+#'   each worker. Each element contains a `integer` `vector`
 #'   specifying the indices that the worker should process.
 #'
-#' @return \code{list} object.
+#' @return `list` object.
 #'
 #' @examples
 #' \donttest{

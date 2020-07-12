@@ -6,34 +6,34 @@
 \description{
 Irreplaceability scores can be used to assess the relative importance
 of planning units in a solution to a conservation planning
-\code{\link{problem}}.
+\code{\link[=problem]{problem()}}.
 }
 \details{
 The following methods are available for calculating irreplaceability scores:
 
 \describe{
 
-\item{\code{\link{replacement_cost}}}{
-  The replacement cost scores (based
-  on Cabeza and Moilanen 2006) quantify the change in the objective
-  function (e.g. additional costs required to meet feature targets) of the
-  optimal solution if a given planning unit in a solution cannot be acquired.
-  They can (i) account for the cost of different planning units, (ii) account
-  for multiple management zones, (iii) apply to any objective function, and
-  (iv) identify truly irreplaceable planning units (denoted with infinite
-  values).}
+\item{\code{\link[=replacement_cost]{replacement_cost()}}}{
+The replacement cost scores (based
+on Cabeza and Moilanen 2006) quantify the change in the objective
+function (e.g. additional costs required to meet feature targets) of the
+optimal solution if a given planning unit in a solution cannot be acquired.
+They can (i) account for the cost of different planning units, (ii) account
+for multiple management zones, (iii) apply to any objective function, and
+(iv) identify truly irreplaceable planning units (denoted with infinite
+values).}
 
-\item{\code{\link{ferrier_score}}}{
- The Ferrier scores (Ferrier \emph{et al.} 2000) quantify the importance of
- planning units for meeting feature targets. They can only be applied to
- conservation problems with a minimum set objective and a single zone (i.e.
- the classic \emph{Marxan}-type problem). Furthermore---unlike the
- replacement cost scores---the Ferrier irreplaceability scores provide a
- score for each feature within each planning unit, providing insight into
- why certain planning units are more important than other planning units.}
+\item{\code{\link[=ferrier_score]{ferrier_score()}}}{
+The Ferrier scores (Ferrier \emph{et al.} 2000) quantify the importance of
+planning units for meeting feature targets. They can only be applied to
+conservation problems with a minimum set objective and a single zone (i.e.
+the classic \emph{Marxan}-type problem). Furthermore---unlike the
+replacement cost scores---the Ferrier irreplaceability scores provide a
+score for each feature within each planning unit, providing insight into
+why certain planning units are more important than other planning units.}
 
-\item{\code{\link{rarity_weighted_richness}}}{
- The rarity weighted richness scores (based on Williams \emph{et al.}
+\item{\code{\link[=rarity_weighted_richness]{rarity_weighted_richness()}}}{
+The rarity weighted richness scores (based on Williams \emph{et al.}
 1996) are simply a measure of biological diversity. They do not account for
 planning costs, multiple management zones, objective functions, or feature
 targets (or weightings). They merely describe the spatial patterns of
@@ -110,5 +110,5 @@ areas for conserving diversity using British birds.
 \emph{Conservation Biology}, 10: 155--174.
 }
 \seealso{
-\code{\link{problem}}.
+\code{\link[=problem]{problem()}}.
 }

@@ -53,12 +53,12 @@
 
 
 <meta property="og:title" content="Add linear penalties — add_linear_penalties" />
-<meta property="og:description" content="Add penalties to a conservation planning problem to penalize
+<meta property="og:description" content="Add penalties to a conservation planning problem() to penalize
 solutions that select planning units with higher values from a specific
 data source (e.g. anthropogenic impact). These penalties assume
 a linear trade-off between the penalty values and the primary
-objective of the conservation planning problem (e.g.
-solution cost for minimum set problems; add_min_set_objective." />
+objective of the conservation planning problem() (e.g.
+solution cost for minimum set problems; add_min_set_objective()." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -101,7 +101,7 @@ solution cost for minimum set problems; add_min_set_objective." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -179,12 +179,12 @@ solution cost for minimum set problems; add_min_set_objective." />
     </div>
 
     <div class="ref-description">
-    <p>Add penalties to a conservation planning <code><a href='problem.html'>problem</a></code> to penalize
+    <p>Add penalties to a conservation planning <code><a href='problem.html'>problem()</a></code> to penalize
 solutions that select planning units with higher values from a specific
 data source (e.g. anthropogenic impact). These penalties assume
 a linear trade-off between the penalty values and the primary
-objective of the conservation planning <code><a href='problem.html'>problem</a></code> (e.g.
-solution cost for minimum set problems; <code><a href='add_min_set_objective.html'>add_min_set_objective</a></code>.</p>
+objective of the conservation planning <code><a href='problem.html'>problem()</a></code> (e.g.
+solution cost for minimum set problems; <code><a href='add_min_set_objective.html'>add_min_set_objective()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,character</span>
@@ -210,7 +210,7 @@ solution cost for minimum set problems; <code><a href='add_min_set_objective.htm
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
@@ -229,7 +229,7 @@ must have a value for each zone.</p></td>
     <tr>
       <th>data</th>
       <td><p><code>character</code>, <code>numeric</code>,
-<code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>, <code>matrix</code>, or <code>Matrix</code> object
+<code>Raster</code>, <code>matrix</code>, or <code>Matrix</code> object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
 in the solution. See the Details section for more information.</p></td>
@@ -239,68 +239,68 @@ in the solution. See the Details section for more information.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function penalizes solutions that have higher values according
-  to a specific metric. The argument to <code>data</code> can be specified in
-  several different ways:</p>
-<p></p><dl'>
+to a specific metric. The argument to <code>data</code> can be specified in
+several different ways:</p>
+<dl'>
 
-  <dt><code>character</code></dt><dd><p>field (column) name(s) that contain the data for
-    penalizing planning units. This type of argument is only
-    compatible if the planning units in the argument to <code>x</code> are a
-    <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>, or
-    <code>data.frame</code> object. The fields (columns) must have <code>numeric</code>
-    values, and must not contain any missing (<code>NA</code>) values.
-    For problems involving multiple zones, the argument to <code>data</code> must
-    contain a field name for each zone.</p></dd>
+<dt><code>character</code></dt><dd><p>field (column) name(s) that contain the data for
+penalizing planning units. This type of argument is only
+compatible if the planning units in the argument to <code>x</code> are a
+<code>Spatial</code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>, or
+<code>data.frame</code> object. The fields (columns) must have <code>numeric</code>
+values, and must not contain any missing (<code>NA</code>) values.
+For problems involving multiple zones, the argument to <code>data</code> must
+contain a field name for each zone.</p></dd>
 
-  <dt><code>numeric</code></dt><dd><p><code>vector</code> containing the data for penalizing
-    each planning unit. These values must not contain any missing
-    (<code>NA</code>) values. Note that this type of argument is only available
-    for planning units that contain a single zone.</p></dd>
+<dt><code>numeric</code></dt><dd><p><code>vector</code> containing the data for penalizing
+each planning unit. These values must not contain any missing
+(<code>NA</code>) values. Note that this type of argument is only available
+for planning units that contain a single zone.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code></dt><dd><p>containing the data for
-    penalizing planning units. This type of argument is only
-    compatible if the planning units in the argument to <code>x</code> are
-    <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>, or
-    or <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> (i.e. they are in a spatially
-    referenced format).
-    If the planning unit data are a <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code> or
-    <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> object, then the
-    penalty <code>data</code> are calculated by overlaying the planning units with
-    the argument to <code>data</code> and calculating the sum of the values.
-    If the planning unit data are in the
-    <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code> then the penalty <code>data</code> are
-    calculated by extracting the cell values (note that the
-    planning unit data and the argument to codedata must have exactly
-    the same dimensionality, extent, and missingness).
-    For problems involving multiple zones, the argument to <code>data</code> must
-    contain a layer for each zone.</p></dd>
+<dt><code>Raster</code></dt><dd><p>containing the data for
+penalizing planning units. This type of argument is only
+compatible if the planning units in the argument to <code>x</code> are
+<code>Spatial</code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>, or
+or <code>Raster</code> (i.e. they are in a spatially
+referenced format).
+If the planning unit data are a <code>Spatial</code> or
+<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object, then the
+penalty <code>data</code> are calculated by overlaying the planning units with
+the argument to <code>data</code> and calculating the sum of the values.
+If the planning unit data are in the
+<code>Raster</code> then the penalty <code>data</code> are
+calculated by extracting the cell values (note that the
+planning unit data and the argument to codedata must have exactly
+the same dimensionality, extent, and missingness).
+For problems involving multiple zones, the argument to <code>data</code> must
+contain a layer for each zone.</p></dd>
 
-  <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>containing <code>numeric</code> values
-    that specify data for penalizing each planning unit.
-    Each row corresponds to a planning unit, each column corresponds to a
-    zone, and each cell indicates the data for penalizing a planning unit
-    when it is allocated to a given zone.</p></dd>
+<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>containing <code>numeric</code> values
+that specify data for penalizing each planning unit.
+Each row corresponds to a planning unit, each column corresponds to a
+zone, and each cell indicates the data for penalizing a planning unit
+when it is allocated to a given zone.</p></dd>
 
-  
+
 </dl>
 
 <p>The linear penalties are calculated using the following equations.
- Let \(I\) denote the set of planning units
- (indexed by \(i\)), \(Z\) the set of management zones (indexed by
- \(z\)), and \(X_{iz}\) the decision variable for allocating
- planning unit \(i\) to zone \(z\) (e.g. with binary
- values one indicating if planning unit is allocated or not). Also, let
- \(P_z\) represent the penalty scaling value for zones
- \(z \in Z\) (argument to <code>penalty</code>), and
- \(D_{iz}\) the penalty data for allocating planning unit
- \(i \in I\) to zones \(z \in Z\) (argument to
- <code>data</code> if supplied as a <code>matrix</code> object).</p>
+Let \(I\) denote the set of planning units
+(indexed by \(i\)), \(Z\) the set of management zones (indexed by
+\(z\)), and \(X_{iz}\) the decision variable for allocating
+planning unit \(i\) to zone \(z\) (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\(P_z\) represent the penalty scaling value for zones
+\(z \in Z\) (argument to <code>penalty</code>), and
+\(D_{iz}\) the penalty data for allocating planning unit
+\(i \in I\) to zones \(z \in Z\) (argument to
+<code>data</code> if supplied as a <code>matrix</code> object).</p>
 <p>$$
  \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
  $$</p>
 <p>Note that when the problem objective is to maximize some measure of
- benefit and not minimize some measure of cost, the term \(P_z\) is
- replaced with \(-P_z\).</p>
+benefit and not minimize some measure of cost, the term \(P_z\) is
+replaced with \(-P_z\).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -463,6 +463,7 @@ in the solution. See the Details section for more information.</p></td>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
 #&gt; <span class='message'>  solver:         default</span></div><div class='input'>
+<span class='co'># \donttest{</span>
 <span class='co'># solve problem</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
@@ -497,7 +498,7 @@ in the solution. See the Details section for more information.</p></td>
 #&gt; Best objective 1.172053501993e+04, best bound 1.139631827720e+04, gap 2.7662%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"multi-zone solution"</span>,
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_linear_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'>
+     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_linear_penalties-5.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -17,7 +17,7 @@ objectives (e.g. certain areas are locked into the solution). Finally,
 a conservation planning problem---unlike an optimization problem---also
 requires a method to solve the problem. \strong{This class represents a
 planning problem, to actually build and then solve a planning problem,
-use the \code{\link{problem}} function. Only experts should use this
+use the \code{\link[=problem]{problem()}} function. Only experts should use this
 class directly.}
 }
 \section{Fields}{
@@ -26,25 +26,25 @@ class directly.}
 
 \item{$data}{\code{list} object containing data.}
 
-\item{$objective}{\code{\link{Objective-class}} object used to represent how
-  the targets relate to the solution.}
+\item{$objective}{\code{\linkS4class{Objective}} object used to represent how
+the targets relate to the solution.}
 
-\item{$decisions}{\code{\link{Decision-class}} object used to represent the
-  type of decision made on planning units.}
+\item{$decisions}{\code{\linkS4class{Decision}} object used to represent the
+type of decision made on planning units.}
 
-\item{$targets}{\code{\link{Target-class}} object used to represent
-  representation targets for features.}
+\item{$targets}{\code{\linkS4class{Target}} object used to represent
+representation targets for features.}
 
-\item{$penalties}{\code{\link{Collection-class}} object used to represent
-  additional \code{\link{penalties}} that the problem is subject to.}
+\item{$penalties}{\code{\linkS4class{Collection}} object used to represent
+additional \link{penalties} that the problem is subject to.}
 
-\item{$constraints}{\code{\link{Collection-class}} object used to represent
-  additional \code{\link{constraints}} that the problem is subject to.}
+\item{$constraints}{\code{\linkS4class{Collection}} object used to represent
+additional \link{constraints} that the problem is subject to.}
 
-\item{$portfolio}{\code{\link{Portfolio-class}} object used to represent
-  the method for generating a portfolio of solutions.}
+\item{$portfolio}{\code{\linkS4class{Portfolio}} object used to represent
+the method for generating a portfolio of solutions.}
 
-\item{$solver}{\code{\link{Solver-class}} object used to solve the problem.}
+\item{$solver}{\code{\linkS4class{Solver}} object used to solve the problem.}
 
 }
 }
@@ -148,25 +148,25 @@ class directly.}
 
 \item{value}{an object.}
 
-\item{obj}{\code{\link{Objective-class}} object.}
+\item{obj}{\code{\linkS4class{Objective}} object.}
 
-\item{dec}{\code{\link{Decision-class}} object.}
+\item{dec}{\code{\linkS4class{Decision}} object.}
 
-\item{con}{\code{\link{Constraint-class}} object.}
+\item{con}{\code{\linkS4class{Constraint}} object.}
 
-\item{pol}{\code{\link{Portfolio-class}} object.}
+\item{pol}{\code{\linkS4class{Portfolio}} object.}
 
-\item{sol}{\code{\link{Solver-class}} object.}
+\item{sol}{\code{\linkS4class{Solver}} object.}
 
-\item{targ}{\code{\link{Target-class}} object.}
+\item{targ}{\code{\linkS4class{Target}} object.}
 
-\item{cost}{\code{\link[raster]{RasterLayer-class}},
-  \code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
-  \code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
-  representation of the planning units and their cost.}
+\item{cost}{\code{\linkS4class{RasterLayer}},
+\code{\linkS4class{SpatialPolygonsDataFrame}}, or
+\code{\linkS4class{SpatialLinesDataFrame}} object showing spatial
+representation of the planning units and their cost.}
 
-\item{features}{\code{\link{Zones-class}} or \code{data.frame} object
-  containing feature data.}
+\item{features}{\code{\linkS4class{Zones}} or \code{data.frame} object
+containing feature data.}
 
 \item{id}{\code{Id} object that refers to a specific parameter.}
 
@@ -185,112 +185,112 @@ class directly.}
 \item{repr}{return \code{character} representation of the object.}
 
 \item{get_data}{return an object stored in the \code{data} field with
-  the corresponding \code{name}. If the object is not present in the
-  \code{data} field, a \code{waiver} object is returned.}
+the corresponding \code{name}. If the object is not present in the
+\code{data} field, a \code{waiver} object is returned.}
 
 \item{set_data}{store an object stored in the \code{data} field with
-  the corresponding name. If an object with that name already
-  exists then the object is overwritten.}
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
 
 \item{number_of_planning_units}{\code{integer} number of planning units.}
 
 \item{planning_unit_indices}{\code{integer} indices of the planning units in
-  the planning unit data.}
+the planning unit data.}
 
 \item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
-  indices of planning units in each zone that have finite cost data.}
+indices of planning units in each zone that have finite cost data.}
 
 \item{number_of_total_units}{\code{integer} number of units in the cost
-  data including units that have \code{N} cost data.}
+data including units that have \code{N} cost data.}
 
 \item{planning_unit_costs}{\code{matrix} cost of allocating each planning
-  unit to each zone. Each column corresponds to a different zone and
-  each row corresponds to a different planning unit.}
+unit to each zone. Each column corresponds to a different zone and
+each row corresponds to a different planning unit.}
 
 \item{number_of_features}{\code{integer} number of features.}
 
 \item{feature_names}{\code{character} names of features in problem.}
 
 \item{feature_abundances_in_planning_units}{\code{matrix} total
-  abundance of each feature in planning units available in each zone. Each
-  column corresponds to a different zone and each row corresponds to a
-  different feature.}
+abundance of each feature in planning units available in each zone. Each
+column corresponds to a different zone and each row corresponds to a
+different feature.}
 
 \item{feature_abundances_in_total_units}{\code{matrix} total
-  abundance of each feature in each zone. Each column corresponds to a
-  different zone and each row corresponds to a different feature.}
+abundance of each feature in each zone. Each column corresponds to a
+different zone and each row corresponds to a different feature.}
 
-\item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
+\item{feature_targets}{\code{\link[tibble:tibble]{tibble::tibble()}} with feature targets.}
 
 \item{number_of_zones}{\code{integer} number of zones.}
 
 \item{zone_names}{\code{character} names of zones in problem.}
 
-\item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
-  with the objective added to it.}
+\item{add_objective}{return a new  \code{\linkS4class{ConservationProblem}}
+with the objective added to it.}
 
-\item{add_decisions}{return a new \code{\link{ConservationProblem-class}}
-  object with the decision added to it.}
+\item{add_decisions}{return a new \code{\linkS4class{ConservationProblem}}
+object with the decision added to it.}
 
-\item{add_portfolio}{return a new \code{\link{ConservationProblem-class}}
-  object with the portfolio method added to it.}
+\item{add_portfolio}{return a new \code{\linkS4class{ConservationProblem}}
+object with the portfolio method added to it.}
 
-\item{add_solver}{return a new \code{\link{ConservationProblem-class}} object
-  with the solver added to it.}
+\item{add_solver}{return a new \code{\linkS4class{ConservationProblem}} object
+with the solver added to it.}
 
-\item{add_constraint}{return a new \code{\link{ConservationProblem-class}}
-  object with the constraint added to it.}
+\item{add_constraint}{return a new \code{\linkS4class{ConservationProblem}}
+object with the constraint added to it.}
 
 \item{add_targets}{return a copy with the targets added to the problem.}
 
 \item{get_constraint_parameter}{get the value of a parameter (specified by
-  argument \code{id}) used in one of the constraints in the object.}
+argument \code{id}) used in one of the constraints in the object.}
 
 \item{set_constraint_parameter}{set the value of a parameter (specified by
-  argument \code{id}) used in one of the constraints in the object to
-  \code{value}.}
+argument \code{id}) used in one of the constraints in the object to
+\code{value}.}
 
 \item{render_constraint_parameter}{generate a \emph{shiny} widget to modify
- the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_constraint_parameters}{generate a \emph{shiny} \code{div}
-  containing all the parameters' widgets.}
+containing all the parameters' widgets.}
 
 \item{get_objective_parameter}{get the value of a parameter (specified by
-  argument \code{id}) used in the object's objective.}
+argument \code{id}) used in the object's objective.}
 
 \item{set_objective_parameter}{set the value of a parameter (specified by
-  argument \code{id}) used in the object's objective to \code{value}.}
+argument \code{id}) used in the object's objective to \code{value}.}
 
 \item{render_objective_parameter}{generate a \emph{shiny} widget to modify
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_objective_parameters}{generate a \emph{shiny} \code{div}
-  containing all the parameters' widgets.}
+containing all the parameters' widgets.}
 
 \item{get_solver_parameter}{get the value of a parameter (specified by
-  argument \code{id}) used in the object's solver.}
+argument \code{id}) used in the object's solver.}
 
 \item{set_solver_parameter}{set the value of a parameter (specified by
-  argument \code{id}) used in the object's solver to \code{value}.}
+argument \code{id}) used in the object's solver to \code{value}.}
 
 \item{render_solver_parameter}{generate a \emph{shiny} widget to modify
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_solver_parameters}{generate a \emph{shiny} \code{div}
-  containing all the parameters' widgets.}
+containing all the parameters' widgets.}
 
 \item{get_portfolio_parameter}{get the value of a parameter (specified by
-  argument \code{id}) used in the object's portfolio.}
+argument \code{id}) used in the object's portfolio.}
 
 \item{set_portfolio_parameter}{set the value of a parameter (specified by
-  argument \code{id}) used in objects' solver to \code{value}.}
+argument \code{id}) used in objects' solver to \code{value}.}
 
 \item{render_portfolio_parameter}{generate a \emph{shiny} widget to modify
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
 \item{render_all_portfolio_parameters}{generate a \emph{shiny} \code{div}
-  containing all the parameters' widgets.}
+containing all the parameters' widgets.}
 
 }
 }

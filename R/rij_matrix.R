@@ -4,30 +4,30 @@ NULL
 #' Feature by planning unit matrix
 #'
 #' Generate a matrix showing the amount of each feature in each planning
-#' unit (also known as an \emph{rij} matrix).
+#' unit (also known as an *rij* matrix).
 #'
-#' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+#' @param x [`Raster-class`],
+#'   [`Spatial-class`], or [sf::sf()] object
 #'   representing the planning units.
 #'
-#' @param y \code{\link[raster]{Raster-class}} object representing the
+#' @param y [`Raster-class`] object representing the
 #'   features.
 #'
-#' @param fun \code{character} for summarizing values inside each planning unit.
-#'   This parameter is only used when the argument to \code{x} is a
-#'   \code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
-#'   Defaults to \code{"sum"}.
+#' @param fun `character` for summarizing values inside each planning unit.
+#'   This parameter is only used when the argument to `x` is a
+#'   [`Spatial-class`] or [sf::sf()] object.
+#'   Defaults to `"sum"`.
 #'
 #' @param ... not used.
 #'
 #' @details
-#'   Generally, processing vector (i.e. \code{\link[sp]{Spatial-class}} or
-#'   \code{\link[sf]{sf}}) data takes much
-#'   longer to process then \code{\link[raster]{Raster-class}} data,
-#'   so it is recommended to use \code{\link[raster]{Raster-class}} data
+#'   Generally, processing vector (i.e. [`Spatial-class`] or
+#'   [sf::sf()]) data takes much
+#'   longer to process then [`Raster-class`] data,
+#'   so it is recommended to use [`Raster-class`] data
 #'   for planning units where possible.
 #'
-#' @return \code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
+#' @return [`dgCMatrix-class`] sparse matrix object.
 #'   The sparse matrix represents the spatial intersection between the
 #'   planning units and the features. Rows correspond to planning units,
 #'   and columns correspond to features. Values correspond to the amount
@@ -100,13 +100,13 @@ methods::setMethod(
       }
     } else {
       # othewise, process each feature separately
-        m <- lapply(seq_len(raster::nlayers(y)), .parallel = FALSE,
-          function(i) {
+        m <- lapply(seq_len(raster::nlayers(y)), function(i) {
             m <- matrix(y[[i]][][included], nrow = 1)
             m[is.na(m)] <- 0
             m <- methods::as(m, "dgCMatrix")
           })
       m <- Reduce(rbind, m[-1], m[[1]])
+      rownames(m) <- names(y)
     }
     # return result
     return(m)

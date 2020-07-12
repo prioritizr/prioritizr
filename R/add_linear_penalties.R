@@ -3,72 +3,72 @@ NULL
 
 #' Add linear penalties
 #'
-#' Add penalties to a conservation planning \code{\link{problem}} to penalize
+#' Add penalties to a conservation planning [problem()] to penalize
 #' solutions that select planning units with higher values from a specific
 #' data source (e.g. anthropogenic impact). These penalties assume
 #' a linear trade-off between the penalty values and the primary
-#' objective of the conservation planning \code{\link{problem}} (e.g.
-#' solution cost for minimum set problems; \code{\link{add_min_set_objective}}.
+#' objective of the conservation planning [problem()] (e.g.
+#' solution cost for minimum set problems; [add_min_set_objective()].
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param penalty \code{numeric} penalty value that is used to scale the
-#'   importance not selecting planning units with high \code{data} values.
-#'   Higher \code{penalty} values can be used to obtain solutions that
-#'   are strongly averse to selecting places with high \code{data}
-#'   values, and smaller \code{penalty} values can be used to obtain solutions
-#'   that only avoid places with especially high \code{data} values.
+#' @param penalty `numeric` penalty value that is used to scale the
+#'   importance not selecting planning units with high `data` values.
+#'   Higher `penalty` values can be used to obtain solutions that
+#'   are strongly averse to selecting places with high `data`
+#'   values, and smaller `penalty` values can be used to obtain solutions
+#'   that only avoid places with especially high `data` values.
 #'   Note that negative
-#'   \code{penalty} values can be used to obtain solutions that prefer places
-#'   with high \code{data} values. Additionally, when adding these
-#'   penalties to problems with multiple zones, the argument to \code{penalty}
+#'   `penalty` values can be used to obtain solutions that prefer places
+#'   with high `data` values. Additionally, when adding these
+#'   penalties to problems with multiple zones, the argument to `penalty`
 #'   must have a value for each zone.
 
-#' @param data \code{character}, \code{numeric},
-#'   \code{\link[raster]{Raster-class}}, \code{matrix}, or \code{Matrix} object
+#' @param data `character`, `numeric`,
+#'   [`Raster-class`], `matrix`, or `Matrix` object
 #'   containing the data used to penalize solutions. Planning units that are
 #'   associated with higher data values are penalized more strongly
 #'   in the solution. See the Details section for more information.
 #'
 #' @details This function penalizes solutions that have higher values according
-#'   to a specific metric. The argument to \code{data} can be specified in
+#'   to a specific metric. The argument to `data` can be specified in
 #'   several different ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{character}}{field (column) name(s) that contain the data for
+#'   \item{`character`}{field (column) name(s) that contain the data for
 #'     penalizing planning units. This type of argument is only
-#'     compatible if the planning units in the argument to \code{x} are a
-#'     \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
-#'     \code{data.frame} object. The fields (columns) must have \code{numeric}
-#'     values, and must not contain any missing (\code{NA}) values.
-#'     For problems involving multiple zones, the argument to \code{data} must
+#'     compatible if the planning units in the argument to `x` are a
+#'     [`Spatial-class`], [sf::sf()], or
+#'     `data.frame` object. The fields (columns) must have `numeric`
+#'     values, and must not contain any missing (`NA`) values.
+#'     For problems involving multiple zones, the argument to `data` must
 #'     contain a field name for each zone.}
 #'
-#'   \item{\code{numeric}}{\code{vector} containing the data for penalizing
+#'   \item{`numeric`}{`vector` containing the data for penalizing
 #'     each planning unit. These values must not contain any missing
-#'     (\code{NA}) values. Note that this type of argument is only available
+#'     (`NA`) values. Note that this type of argument is only available
 #'     for planning units that contain a single zone.}
 #'
-#'   \item{\code{\link[raster]{Raster-class}}}{containing the data for
+#'   \item{[`Raster-class`]}{containing the data for
 #'     penalizing planning units. This type of argument is only
-#'     compatible if the planning units in the argument to \code{x} are
-#'     \code{\link[sp]{Spatial-class}}, \code{\link[sf]{sf}}, or
-#'     or \code{\link[raster]{Raster-class}} (i.e. they are in a spatially
+#'     compatible if the planning units in the argument to `x` are
+#'     [`Spatial-class`], [sf::sf()], or
+#'     or [`Raster-class`] (i.e. they are in a spatially
 #'     referenced format).
-#'     If the planning unit data are a \code{\link[sp]{Spatial-class}} or
-#'     \code{\link[sf]{sf}} object, then the
-#'     penalty \code{data} are calculated by overlaying the planning units with
-#'     the argument to \code{data} and calculating the sum of the values.
+#'     If the planning unit data are a [`Spatial-class`] or
+#'     [sf::sf()] object, then the
+#'     penalty `data` are calculated by overlaying the planning units with
+#'     the argument to `data` and calculating the sum of the values.
 #'     If the planning unit data are in the
-#'     \code{\link[raster]{Raster-class}} then the penalty \code{data} are
+#'     [`Raster-class`] then the penalty `data` are
 #'     calculated by extracting the cell values (note that the
 #'     planning unit data and the argument to code{data} must have exactly
 #'     the same dimensionality, extent, and missingness).
-#'     For problems involving multiple zones, the argument to \code{data} must
+#'     For problems involving multiple zones, the argument to `data` must
 #'     contain a layer for each zone.}
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{containing \code{numeric} values
+#'   \item{`matrix`, `Matrix`}{containing `numeric` values
 #'     that specify data for penalizing each planning unit.
 #'     Each row corresponds to a planning unit, each column corresponds to a
 #'     zone, and each cell indicates the data for penalizing a planning unit
@@ -83,10 +83,10 @@ NULL
 #'  planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
 #'  values one indicating if planning unit is allocated or not). Also, let
 #'  \eqn{P_z} represent the penalty scaling value for zones
-#'  \eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
+#'  \eqn{z \in Z}{z in Z} (argument to `penalty`), and
 #'  \eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
 #'  \eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-#'  \code{data} if supplied as a \code{matrix} object).
+#'  `data` if supplied as a `matrix` object).
 #'
 #'  \deqn{
 #'  \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
@@ -180,13 +180,14 @@ NULL
 #' # print problem
 #' print(p3)
 #'
+#' \donttest{
 #' # solve problem
 #' s3 <- solve(p3)
 #'
 #' # plot solution
 #' plot(category_layer(s3), main = "multi-zone solution",
 #'      axes = FALSE, box = FALSE)
-#'
+#' }
 #' @name add_linear_penalties
 #'
 #' @exportMethod add_linear_penalties

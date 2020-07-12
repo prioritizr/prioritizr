@@ -5,10 +5,10 @@ NULL
 #'
 #' Extract the number of features in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}},
-#'   \code{\link{OptimizationProblem-class}} or \code{\link{Zones}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]),
+#'   [`OptimizationProblem-class`], or [Zones()] object.
 #'
-#' @return \code{integer} number of features.
+#' @return `integer` number of features.
 #'
 #' @name number_of_features
 #'

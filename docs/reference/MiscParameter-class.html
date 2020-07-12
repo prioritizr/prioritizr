@@ -97,7 +97,7 @@ Only experts should interact directly with this prototype." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -191,13 +191,13 @@ Only experts should interact directly with this prototype." />
 
 <dt>$name</dt><dd><p><code>character</code> name of parameter.</p></dd>
 
-<dt>$value</dt><dd><p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> object.</p></dd>
+<dt>$value</dt><dd><p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object.</p></dd>
 
 <dt>$validator</dt><dd><p><code>list</code> object containing a <code>function</code> that
-  is used to validate changes to the parameter.</p></dd>
+is used to validate changes to the parameter.</p></dd>
 
 <dt>$widget</dt><dd><p><code>list</code> object containing a <code>function</code> used to
-  construct a <em>shiny</em> interface for modifying values.</p></dd>
+construct a <em>shiny</em> interface for modifying values.</p></dd>
 
 </dl>
 
@@ -224,7 +224,7 @@ Only experts should interact directly with this prototype." />
 
 <dt>...</dt><dd><p>arguments passed to <code>$widget</code>.</p></dd>
 
- 
+
 </dl>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -245,15 +245,15 @@ Only experts should interact directly with this prototype." />
 
 <dt>reset</dt><dd><p>update the parameter value to be the default value.</p></dd>
 
-<dt>render</dt><dd><p>create a <code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny</a></code> widget to modify
-              parameter values.</p></dd>
+<dt>render</dt><dd><p>create a <code><a href='https://rdrr.io/pkg/shiny/man/shiny-package.html'>shiny::shiny()</a></code> widget to modify
+parameter values.</p></dd>
 
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='Parameter-class.html'>Parameter-class</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='Parameter-class.html'>Parameter</a></code>.</p></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

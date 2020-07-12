@@ -10,47 +10,47 @@ predefined_optimization_problem(x)
 \item{x}{\code{list} object containing data to construct the problem.}
 }
 \description{
-Create a new \code{\link{OptimizationProblem-class}} object.
+Create a new \code{\linkS4class{OptimizationProblem}} object.
 }
 \details{
 The argument to \code{x} must be a list that contains the following
-  elements:
+elements:
 
-  \describe{
+\describe{
 
-  \item{modelsense}{\code{character} model sense.}
+\item{modelsense}{\code{character} model sense.}
 
-  \item{number_of_features}{\code{integer} number of features in problem.}
+\item{number_of_features}{\code{integer} number of features in problem.}
 
-  \item{number_of_planning_units}{\code{integer} number of planning units.}
+\item{number_of_planning_units}{\code{integer} number of planning units.}
 
-  \item{A_i}{\code{integer} row indices for problem matrix.}
+\item{A_i}{\code{integer} row indices for problem matrix.}
 
-  \item{A_j}{\code{integer} column indices for problem matrix.}
+\item{A_j}{\code{integer} column indices for problem matrix.}
 
-  \item{A_x}{\code{numeric} values for problem matrix.}
+\item{A_x}{\code{numeric} values for problem matrix.}
 
-  \item{obj}{\code{numeric} objective function values.}
+\item{obj}{\code{numeric} objective function values.}
 
-  \item{lb}{\code{numeric} lower bound for decision values.}
+\item{lb}{\code{numeric} lower bound for decision values.}
 
-  \item{ub}{\code{numeric} upper bound for decision values.}
+\item{ub}{\code{numeric} upper bound for decision values.}
 
-  \item{rhs}{\code{numeric} right-hand side values.}
+\item{rhs}{\code{numeric} right-hand side values.}
 
-  \item{sense}{\code{numeric} constraint senses.}
+\item{sense}{\code{numeric} constraint senses.}
 
-  \item{vtype}{\code{character} variable types. These are used to specify
-    that the decision variables are binary (\code{"B"}) or continuous
-    (\code{"C"}).}
+\item{vtype}{\code{character} variable types. These are used to specify
+that the decision variables are binary (\code{"B"}) or continuous
+(\code{"C"}).}
 
-  \item{row_ids}{\code{character} identifiers for the rows in the problem
-    matrix.}
+\item{row_ids}{\code{character} identifiers for the rows in the problem
+matrix.}
 
-  \item{col_ids}{\code{character} identifiers for the columns in the problem
-    matrix.}
+\item{col_ids}{\code{character} identifiers for the columns in the problem
+matrix.}
 
-  }
+}
 }
 \examples{
 # create list with problem data

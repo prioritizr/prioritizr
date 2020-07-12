@@ -3,21 +3,18 @@ NULL
 
 #' Add maximum coverage objective
 #'
-#' Set the objective of a conservation planning \code{\link{problem}} to
+#' Set the objective of a conservation planning [problem()] to
 #' represent at least one instance of as many features as possible within a
 #' given budget. This type of objective does not use targets, and feature
 #' weights should be used instead to increase the representation of different
-#' features in solutions. \strong{Note that the mathematical formulation
-#' underpinning this function is different from versions prior to 3.0.0.0}.
-#' See the Details section for more information on the changes since this
-#' version.
+#' features in solutions.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param budget \code{numeric} value specifying the maximum expenditure of
+#' @param budget `numeric` value specifying the maximum expenditure of
 #'   the prioritization. For problems with multiple zones, the argument
-#'   to \code{budget} can be a single \code{numeric} value to specify a budget
-#'   for the entire solution or a \code{numeric} \code{vector} to specify
+#'   to `budget` can be a single `numeric` value to specify a budget
+#'   for the entire solution or a `numeric` `vector` to specify
 #'   a budget for each each management zone.
 #'
 #' @details A problem objective is used to specify the overall goal of the
@@ -35,13 +32,13 @@ NULL
 #'   data that indicate the presence/absence of suitable habitat
 #'   (e.g. Church & Velle 1974). Additionally, weights can be used to favor the
 #'   representation of certain features over other features (see
-#'   \code{\link{add_feature_weights}}). Check out the
-#'   \code{\link{add_max_features_objective}} for a more
+#'   [add_feature_weights()]). Check out the
+#'   [add_max_features_objective()] for a more
 #'   generalized formulation which can accommodate user-specified representation
 #'   targets.
 #'
 #'   This formulation is based on the historical maximum coverage reserve
-#'   selection formulation (Church & Velle 1974; Church \emph{et al.} 1996).
+#'   selection formulation (Church & Velle 1974; Church *et al.* 1996).
 #'   The maximum coverage objective for the reserve design problem can be
 #'   expressed mathematically for a set of planning units (\eqn{I}{I} indexed by
 #'   \eqn{i}{i}) and a set of features (\eqn{J}{J} indexed by \eqn{j}{j}) as:
@@ -55,32 +52,32 @@ NULL
 #'   sum_i^I (xi * rij) >= (yj * 1) for all j in J &
 #'   sum_i^I (xi * ci) <= B}
 #'
-#'   Here, \eqn{x_i}{xi} is the \code{\link{decisions}} variable (e.g.
+#'   Here, \eqn{x_i}{xi} is the [decisions] variable (e.g.
 #'   specifying whether planning unit \eqn{i}{i} has been selected (1) or not
 #'   (0)), \eqn{r_{ij}}{rij} is the amount of feature \eqn{j}{j} in planning
 #'   unit \eqn{i}{i}, \eqn{y_j}{yj} indicates if the solution has meet
 #'   the target \eqn{t_j}{tj} for feature \eqn{j}{j}, and \eqn{w_j}{wj} is the
 #'   weight for feature \eqn{j}{j} (defaults to 1 for all features; see
-#'   \code{\link{add_feature_weights}} to specify weights). Additionally,
+#'   [add_feature_weights()] to specify weights). Additionally,
 #'   \eqn{B}{B} is the budget allocated for the solution, \eqn{c_i}{ci} is the
 #'   cost of planning unit \eqn{i}{i}, and \eqn{s}{s} is a scaling factor used
 #'   to shrink the costs so that the problem will return a cheapest solution
 #'   when there are multiple solutions that represent the same amount of all
 #'   features within the budget.
 #'
-#'   Note that this formulation is functionally equivalent to the
-#'   \code{\link{add_max_features_objective}} function with absolute targets
-#'   set to 1. Please note that in versions prior to 3.0.0.0, this objective
-#'   function implemented a different mathematical formulation. To
-#    use the formulation implemented in versions prior to 3.0.0.0, please see
-#'   the \code{\link{add_max_utility_objective}} function.
+#' @section Notes:
+#' In early versions (< 3.0.0.0), the mathematical formulation
+#' underpinning this function was very different. Specifically,
+#' as described above, the function now follows the formulations outlined in
+#' Church *et al.* (1996). The old formulation is now provided by the
+#' [add_max_utility_objective()] function.
 #'
 #' @references
 #' Church RL and Velle CR (1974) The maximum covering location problem.
-#' \emph{Regional Science}, 32: 101--118.
+#' *Regional Science*, 32: 101--118.
 #'
 #' Church RL, Stoms DM, and Davis FW (1996) Reserve selection as a maximum
-#' covering location problem. \emph{Biological Conservation}, 76: 105--112.
+#' covering location problem. *Biological Conservation*, 76: 105--112.
 #'
 #' @inherit add_max_features_objective seealso return
 #'

@@ -7,8 +7,11 @@
 \arguments{
 \item{lhs, rhs}{An object and a function.}
 }
+\value{
+An object.
+}
 \description{
-This package uses the "tee" operator (\code{\%T>\%}) to modify objects.
+This package uses the "tee" operator (\verb{\\\%T>\\\%}) to modify objects.
 }
 \examples{
 # the tee operator returns the left-hand side of the result and can be
@@ -33,5 +36,5 @@ print(e3)
 
 }
 \seealso{
-\code{\link[magrittr]{\%T>\%}}, \code{\link{pipe}}.
+\code{\link[magrittr:tee]{magrittr::\%T>\%()}}, \code{\link[=pipe]{pipe()}}.
 }

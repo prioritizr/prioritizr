@@ -3,65 +3,63 @@ NULL
 
 #' Add contiguity constraints
 #'
-#' Add constraints to a conservation planning \code{\link{problem}} to ensure
+#' Add constraints to a conservation planning [problem()] to ensure
 #' that all selected planning units are spatially connected with each other
 #' and form a single contiguous unit.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param zones \code{matrix} or \code{Matrix} object describing the
+#' @param zones `matrix` or `Matrix` object describing the
 #'   connection scheme for different zones. Each row and column corresponds
-#'   to a different zone in the argument to \code{x}, and cell values must
-#'   contain binary \code{numeric} values (i.e. one or zero) that indicate
+#'   to a different zone in the argument to `x`, and cell values must
+#'   contain binary `numeric` values (i.e. one or zero) that indicate
 #'   if connected planning units (as specified in the argument to
-#'   \code{data}) should be still considered connected if they are allocated to
+#'   `data`) should be still considered connected if they are allocated to
 #'   different zones. The cell values along the diagonal
 #'   of the matrix indicate if planning units should be subject to
 #'   contiguity constraints when they are allocated to a given zone. Note
-#'   arguments to \code{zones} must be symmetric, and that a row or column has
+#'   arguments to `zones` must be symmetric, and that a row or column has
 #'   a value of one then the diagonal element for that row or column must also
-#'   have a value of one. The default argument to \code{zones} is an identity
+#'   have a value of one. The default argument to `zones` is an identity
 #'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that planning units are only considered connected if they
 #'   are both allocated to the same zone.
 #'
-#' @param data \code{NULL}, \code{matrix}, \code{Matrix}, \code{data.frame}
+#' @param data `NULL`, `matrix`, `Matrix`, `data.frame`
 #'   object showing which planning units are connected with each
-#'   other. The argument defaults to \code{NULL} which means that the
+#'   other. The argument defaults to `NULL` which means that the
 #'   connection data is calculated automatically using the
-#'   \code{\link{adjacency_matrix}} function. See the Details section for more
+#'   [adjacency_matrix()] function. See the Details section for more
 #'   information.
 #'
 #' @details This function uses connection data to identify solutions that
-#'   form a single contiguous unit. In earlier versions of the
-#'   \pkg{prioritizr} package, it was known as the
-#'   \code{add_connected_constraints} function. It was inspired by the
-#'   mathematical formulations detailed in {\"O}nal and Briers (2006).
+#'   form a single contiguous unit. It was inspired by the
+#'   mathematical formulations detailed in Önal and Briers (2006).
 #'
-#'   The argument to \code{data} can be specified in several ways:
+#'   The argument to `data` can be specified in several ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{NULL}}{connection data should be calculated automatically
-#'     using the \code{\link{adjacency_matrix}} function. This is the default
+#'   \item{`NULL`}{connection data should be calculated automatically
+#'     using the [adjacency_matrix()] function. This is the default
 #'     argument. Note that the connection data must be manually defined
 #'     using one of the other formats below when the planning unit data
-#'     in the argument to \code{x} is not spatially referenced (e.g.
-#'     in \code{data.frame} or \code{numeric} format).}
+#'     in the argument to `x` is not spatially referenced (e.g.
+#'     in `data.frame` or `numeric` format).}
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+#'   \item{`matrix`, `Matrix`}{where rows and columns represent
 #'     different planning units and the value of each cell indicates if the
 #'     two planning units are connected or not. Cell values should be binary
-#'     \code{numeric} values (i.e. one or zero). Cells that occur along the
+#'     `numeric` values (i.e. one or zero). Cells that occur along the
 #'     matrix diagonal have no effect on the solution at all because each
 #'     planning unit cannot be a connected with itself.}
 #'
-#'   \item{\code{data.frame}}{containing the fields (columns)
-#'     \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+#'   \item{`data.frame`}{containing the fields (columns)
+#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
 #'     denotes the connectivity between two planning units following the
-#'     \emph{Marxan} format. The field \code{boundary} should contain
-#'     binary \code{numeric} values that indicate if the two planning units
-#'     specified in the fields \code{"id1"} and \code{"id2"} are connected
+#'     *Marxan* format. The field `boundary` should contain
+#'     binary `numeric` values that indicate if the two planning units
+#'     specified in the fields `"id1"` and `"id2"` are connected
 #'     or not. This data can be used to describe symmetric or
 #'     asymmetric relationships between planning units. By default,
 #'     input data is assumed to be symmetric unless asymmetric data is
@@ -71,14 +69,18 @@ NULL
 #'
 #'   }
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the constraints
-#'   added to it.
+#' @section Notes:
+#' In early versions, this function was named as the
+#' `add_connected_constraints()` function.
 #'
-#' @seealso \code{\link{constraints}}.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the constraints
+#'  added to it.
+#'
+#' @seealso [constraints].
 #'
 #' @references
-#' {\"{O}}nal H and Briers RA (2006) Optimal selection of a connected
-#' reserve network. \emph{Operations Research}, 54: 379--388.
+#' Önal H and Briers RA (2006) Optimal selection of a connected
+#' reserve network. *Operations Research*, 54: 379--388.
 #'
 #' @examples
 #' # load data

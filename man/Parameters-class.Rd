@@ -5,7 +5,7 @@
 \alias{Parameters}
 \title{Parameters class}
 \description{
-This class represents a collection of \code{\link{Parameter-class}} objects.
+This class represents a collection of \code{\linkS4class{Parameter}} objects.
 It provides methods for accessing, updating, and rendering the parameters
 stored inside it.
 }
@@ -14,7 +14,7 @@ stored inside it.
 \describe{
 
 \item{$parameters}{\code{list} object containing
-  \code{\link{Parameter-class}} objects.}
+\code{\linkS4class{Parameter}} objects.}
 
 }
 }
@@ -50,7 +50,7 @@ stored inside it.
 \describe{
 \item{id}{\code{\link{Id}} object.}
 
-\item{p}{\code{\link{Parameter-class}} object.}
+\item{p}{\code{\linkS4class{Parameter}} object.}
 
 \item{value}{any object.}
 
@@ -74,16 +74,16 @@ stored inside it.
 
 \item{length}{return \code{integer} number of parameters in object.}
 \item{get}{retrieve the value of a parameter in the object
-   using an \code{Id} object.}
+using an \code{Id} object.}
 
 \item{set}{change the value of a parameter in the object
-   to a new object.}
+to a new object.}
 
 \item{render}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{Id}).}
+the value of a parameter (specified by argument \code{Id}).}
 
-\item{render_all}{generate a \code{\link[shiny]{div}}
-  containing all the parameters" widgets.}
+\item{render_all}{generate a \code{\link[shiny:reexports]{shiny::div()}}
+containing all the parameters" widgets.}
 
 }
 }

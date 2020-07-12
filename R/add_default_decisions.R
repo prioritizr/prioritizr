@@ -4,12 +4,12 @@ NULL
 #' Add default decisions
 #'
 #' This function adds the default decision types to a conservation planning
-#' \code{\link{problem}}. The default types are binary and are added using
-#' the \code{\link{add_binary_decisions}} function.
+#' [problem()]. The default types are binary and are added using
+#' the [add_binary_decisions()] function.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @seealso \code{\link{decisions}}.
+#' @seealso [decisions].
 #'
 #' @export
 add_default_decisions <- function(x) {

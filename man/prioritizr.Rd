@@ -3,7 +3,7 @@
 \docType{package}
 \name{prioritizr}
 \alias{prioritizr}
-\title{\pkg{prioritizr}}
+\title{prioritizr: Systematic Conservation Prioritization in R}
 \description{
 The \pkg{prioritizr R} package uses integer linear programming (ILP)
 techniques to provide a flexible interface for building and solving
@@ -28,35 +28,35 @@ for more information.
 }
 \details{
 This package contains several vignettes that are designed to
-  showcase its functionality. To view them, type of the command
-  \code{vignette("name", package = "prioritizr")} where \code{"name"} is the
-  name of the desired vignette (e.g. \code{"gurobi_installation"}.
+showcase its functionality. To view them, type of the command
+\code{vignette("name", package = "prioritizr")} where \code{"name"} is the
+name of the desired vignette (e.g. \code{"gurobi_installation"}.
 
-  \describe{
+\describe{
 
-  \item{prioritizr}{provides background
-    information on systematic conservation planning and a comprehensive
-    overview of the package and its usage.}
+\item{prioritizr}{provides background
+information on systematic conservation planning and a comprehensive
+overview of the package and its usage.}
 
-  \item{gurobi_installation}{contains
-    detailed instructions for installing and setting up the \emph{Gurobi}
-    software suite for use with the package.}
+\item{gurobi_installation}{contains
+detailed instructions for installing and setting up the \emph{Gurobi}
+software suite for use with the package.}
 
-  \item{publication_record}{lists of
-    scientific publications that have used the package for developing
-    prioritizations.}
+\item{publication_record}{lists of
+scientific publications that have used the package for developing
+prioritizations.}
 
-  \item{zones}{describes how problems can be constructed with multiple
-    management actions or zones.}
+\item{zones}{describes how problems can be constructed with multiple
+management actions or zones.}
 
-  \item{tasmania}{provides a tutorial using Tasmania, Australia
-    as a case-study. This tutorial uses vector-based planning unit data and
-    is written for individuals familiar with the \emph{Marxan} decision
-    support tool.}
+\item{tasmania}{provides a tutorial using Tasmania, Australia
+as a case-study. This tutorial uses vector-based planning unit data and
+is written for individuals familiar with the \emph{Marxan} decision
+support tool.}
 
-  \item{saltspring}{provides a tutorial using Salt Spring Island, Canada as a
-    case-study. This tutorial uses raster-based planning unit data.}
-  }
+\item{saltspring}{provides a tutorial using Salt Spring Island, Canada as a
+case-study. This tutorial uses raster-based planning unit data.}
+}
 }
 \references{
 Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:

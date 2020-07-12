@@ -3,81 +3,84 @@ NULL
 
 #' Add targets using log-linear scaling
 #'
-#' Add targets to a conservation planning \code{\link{problem}} by log-linearly
+#' Add targets to a conservation planning [problem()] by log-linearly
 #' interpolating the targets between thresholds based on the total amount of
-#' each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
+#' each feature in the study area (Rodrigues *et al.* 2004). Additionally,
 #' caps can be applied to targets to prevent features with massive
 #' distributions from being over-represented
-#' in solutions (Butchart \emph{et al.} 2015). \strong{Note that the behavior
-#' of this function has changed substantially from versions prior to 5.0.0}.
+#' in solutions (Butchart *et al.* 2015).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param lower_bound_amount \code{numeric} threshold.
+#' @param lower_bound_amount `numeric` threshold.
 #'
-#' @param lower_bound_target \code{numeric} relative target that should be
+#' @param lower_bound_target `numeric` relative target that should be
 #'   applied to features with a total amount that is less
-#'   than or equal to \code{lower_bound_amount}.
+#'   than or equal to `lower_bound_amount`.
 #'
-#' @param upper_bound_amount \code{numeric} threshold.
+#' @param upper_bound_amount `numeric` threshold.
 #'
-#' @param upper_bound_target \code{numeric} relative target that should be
+#' @param upper_bound_target `numeric` relative target that should be
 #'   applied to features with a total amount that is greater
-#'   than or equal to \code{upper_bound_amount}.
+#'   than or equal to `upper_bound_amount`.
 #'
-#' @param cap_amount \code{numeric} total amount at which targets should be
-#'   capped. Defaults to \code{NULL} so that targets are not capped.
+#' @param cap_amount `numeric` total amount at which targets should be
+#'   capped. Defaults to `NULL` so that targets are not capped.
 #'
-#' @param cap_target \code{numeric} amount-based target to apply to features
-#'   which have a total amount greater than argument to \code{cap_amount}.
-#'   Defaults to \code{NULL} so that targets are not capped.
+#' @param cap_target `numeric` amount-based target to apply to features
+#'   which have a total amount greater than argument to `cap_amount`.
+#'   Defaults to `NULL` so that targets are not capped.
 #'
-#' @param abundances \code{numeric} total amount of each feature to
-#'  use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link{feature_abundances}} function.
+#' @param abundances `numeric` total amount of each feature to
+#'  use when calculating the targets. Defaults to the feature abundances in the
+#'  study area (calculated using the [feature_abundances()] function.
 #'
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. All conservation
 #'   planning problems require adding targets with the exception of the maximum
-#'   cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
+#'   cover problem (see [add_max_cover_objective()]), which maximizes
 #'   all features in the solution and therefore does not require targets.
 #'
 #'   Seven parameters are used to calculate the targets:
-#'   \code{lower_bound_amount} specifies the first range size threshold,
-#'   \code{lower_bound_target} specifies the relative target required for
+#'   `lower_bound_amount` specifies the first range size threshold,
+#'   `lower_bound_target` specifies the relative target required for
 #'   species with a range size equal to or less than the first threshold,
-#'   \code{upper_bound_amount} specifies the second range size threshold,
-#'   \code{upper_bound_target} specifies the relative target required for
+#'   `upper_bound_amount` specifies the second range size threshold,
+#'   `upper_bound_target` specifies the relative target required for
 #'   species with a range size equal to or greater than the second threshold,
-#'   \code{cap_amount} specifies the third range size threshold,
-#'   \code{cap_target} specifies the absolute target that is uniformly applied
+#'   `cap_amount` specifies the third range size threshold,
+#'   `cap_target` specifies the absolute target that is uniformly applied
 #'   to species with a range size larger than that third threshold, and finally
-#'   \code{abundances} specifies the range size for each feature
+#'   `abundances` specifies the range size for each feature
 #'   that should be used when calculating the targets.
 #'
-#'   \strong{Note that the target calculations do not account for the
-#'   size of each planning unit.} Therefore, the feature data should account for
+#'   The target calculations do not account for the
+#'   size of each planning unit. Therefore, the feature data should account for
 #'   the size of each planning unit if this is important (e.g. pixel values in
-#'   the argument to \code{features} in the function \code{\link{problem}} could
+#'   the argument to `features` in the function [problem()] could
 #'   correspond to amount of land occupied by the feature in \eqn{km^2} units).
-#'
-#'   This function can only be applied to
-#'   \code{\link{ConservationProblem-class}} objects that are associated with a
+#'   Additionally, the function can only be applied to
+#'   [`ConservationProblem-class`] objects that are associated with a
 #'   single zone.
+#'
+#' @section Notes:
+#' Early versions (< 5.0.0) used different equations for calculating
+#' targets.
 #'
 #' @inherit add_relative_targets return
 #'
-#' @seealso \code{\link{targets}}, \code{\link{loglinear_interpolation}}.
+#' @seealso [targets], [loglinear_interpolation()].
 #'
 #' @references
 #' Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,
 #' Chanson JS, Fishpool LDC, da Fonseca GAB, Gaston KJ, and others (2004)
 #' Global gap analysis: priority regions for expanding the global
-#' protected-area network. \emph{BioScience}, 54: 1092--1100.
+#' protected-area network. *BioScience*, 54: 1092--1100.
 #'
 #' Butchart SHM, Clarke M, Smith RJ, Sykes RE, Scharlemann JPW, Harfoot M,
 #' Buchanan, GM, Angulo A, Balmford A, Bertzky B, and others (2015) Shortfalls
 #' and solutions for meeting national and global conservation area targets.
-#' \emph{Conservation Letters}, 8: 329--337.
+#' *Conservation Letters*, 8: 329--337.
 #'
 #' @examples
 #' # load data

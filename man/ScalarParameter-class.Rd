@@ -20,17 +20,17 @@ This prototype is used to represent a parameter has a single value.
 
 \item{$default}{\code{numeric} scalar default value.}
 
-\item{$class}{\code{character} name of the class that \code{$value} should
-  inherit from (e.g. \code{integer}).}
+\item{$class}{\code{character} name of the class that \verb{$value} should
+inherit from (e.g. \code{integer}).}
 
 \item{$lower_limit}{\code{numeric} scalar value that is the minimum value
-  that \code{$value} is permitted to be.}
+that \verb{$value} is permitted to be.}
 
 \item{$upper_limit}{\code{numeric} scalar value that is the maximum value
-  that \code{$value} is permitted to be.}
+that \verb{$value} is permitted to be.}
 
 \item{$widget}{\code{function} used to construct a
-               \code{\link[shiny]{shiny}} interface for modifying values.}
+\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -59,9 +59,9 @@ This prototype is used to represent a parameter has a single value.
 
 \item{x}{object used to set a new parameter value.}
 
-\item{...}{arguments passed to \code{$widget}.}
+\item{...}{arguments passed to \verb{$widget}.}
 
- }
+}
 }
 
 \section{Details}{
@@ -80,12 +80,12 @@ This prototype is used to represent a parameter has a single value.
 
 \item{reset}{update the parameter value to be the default value.}
 
-\item{render}{create a \code{\link[shiny]{shiny}} widget to modify
-              parameter values.}
+\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
+parameter values.}
 
 }
 }
 
 \seealso{
-\code{\link{Parameter-class}}, \code{\link{ArrayParameter-class}}.
+\code{\linkS4class{Parameter}}, \code{\linkS4class{ArrayParameter}}.
 }

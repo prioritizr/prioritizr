@@ -1,41 +1,41 @@
 #' @include Solver-proto.R
 NULL
 
-#' Add a SYMPHONY solver with \pkg{Rsymphony}
+#' Add a SYMPHONY solver with *Rsymphony*
 #'
-#' Specify that the \emph{SYMPHONY} software should be used to solve a
+#' Specify that the *SYMPHONY* software should be used to solve a
 #' conservation planning problem using the \pkg{Rsymphony} package. This
 #' function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{Rsymphony} package.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param gap \code{numeric} gap to optimality. This gap is absolute and
+#' @param gap `numeric` gap to optimality. This gap is absolute and
 #'   expresses the acceptable deviance from the optimal objective. For example,
 #'   solving a minimum set objective problem with a gap of 5 will cause the
 #'   solver to terminate when the cost of the solution is within 5 cost units
 #'   from the optimal solution.
 #'
-#' @param time_limit \code{numeric} time limit in seconds to run the optimizer.
+#' @param time_limit `numeric` time limit in seconds to run the optimizer.
 #'   The solver will return the current best solution when this time limit is
 #'   exceeded.
 #'
-#' @param first_feasible \code{logical} should the first feasible solution be
-#'   be returned? If \code{first_feasible} is set to \code{TRUE}, the solver
+#' @param first_feasible `logical` should the first feasible solution be
+#'   be returned? If `first_feasible` is set to `TRUE`, the solver
 #'   will return the first solution it encounters that meets all the
 #'   constraints, regardless of solution quality. Note that the first feasible
 #'   solution is not an arbitrary solution, rather it is derived from the
 #'   relaxed solution, and is therefore often reasonably close to optimality.
 #'
-#' @param verbose \code{logical} should information be printed while solving
-#'  optimization problems? Defaults to \code{TRUE}.
+#' @param verbose `logical` should information be printed while solving
+#'  optimization problems? Defaults to `TRUE`.
 #'
-#' @details \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
+#' @details [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
 #'   open-source integer programming solver that is part of the Computational
 #'   Infrastructure for Operations Research (COIN-OR) project, an initiative
 #'   to promote development of open-source tools for operations research (a
 #'   field that includes linear programming). The \pkg{Rsymphony} package
-#'   provides an interface to COIN-OR and is available on \emph{CRAN}.
+#'   provides an interface to COIN-OR and is available on *CRAN*.
 #'   This solver uses the \pkg{Rsymphony} package to solve problems.
 #'
 #' @inherit add_gurobi_solver seealso return

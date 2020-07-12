@@ -8,38 +8,38 @@ NULL
 #' Portfolio prototype
 #'
 #' This prototype is used to represent methods for generating portfolios of
-#' optimization problems. \strong{This class represents a recipe to
+#' optimization problems. **This class represents a recipe to
 #' create portfolio generating method and is only recommended for use by expert
 #' users. To customize the method used to generate portfolios, please see the
-#' help page on \code{\link{portfolios}}}.
+#' help page on [portfolios]**.
 #' @section Fields:
 #'
 #' \describe{
 #'
-#' \item{$name}{\code{character} name of portfolio method.}
+#' \item{$name}{`character` name of portfolio method.}
 #'
-#' \item{$parameters}{\code{Parameters} object with parameters used to customize
+#' \item{$parameters}{`Parameters` object with parameters used to customize
 #'   the the portfolio.}
 #'
-#' \item{$run}{\code{function} used to generate a portfolio.}
+#' \item{$run}{`function` used to generate a portfolio.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$run(op, sol)}
+#' `x$run(op, sol)`
 #'
 #' @section Arguments:
 #' \describe{
 #'
-#' \item{x}{\code{\link{Solver-class}} object.}
+#' \item{x}{[`Solver-class`] object.}
 #'
-#' \item{op}{\code{\link{OptimizationProblem-class}} object.}
+#' \item{op}{[`OptimizationProblem-class`] object.}
 #'
 #' }
 #'
@@ -50,10 +50,10 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{\code{character} representation of object.}
+#' \item{repr}{`character` representation of object.}
 #'
-#' \item{run}{solve an \code{\link{OptimizationProblem-class}} object using this
-#'   object and a \code{\link{Solver-class}} object.}
+#' \item{run}{solve an [`OptimizationProblem-class`] object using this
+#'   object and a [`Solver-class`] object.}
 #'
 #' }
 #'

@@ -1,15 +1,15 @@
 #' Check
 #'
-#' Check that the output from \code{\link[assert_that]{see_if}}
+#' Check that the output from [assertthat::see_if()]
 #' is valid.
 #'
-#' @param x \code{character} or \code{object}
+#' @param x `character` or `object`
 #'
-#' @details This object will return an error if the argument to \code{x}
-#'   is \code{FALSE}, and for the error message, will show the error
+#' @details This object will return an error if the argument to `x`
+#'   is `FALSE`, and for the error message, will show the error
 #'   message attached to the object.
 #'
-#' @return invisible \code{TRUE}.
+#' @return invisible `TRUE`.
 #'
 #' @noRd
 check_that <- function(x) {
@@ -20,9 +20,9 @@ check_that <- function(x) {
 
 #' Convert sparse matrix to triplet data.frame
 #'
-#' Convert a sparse matrix to a triplet \code{data.frame}.
+#' Convert a sparse matrix to a triplet `data.frame`.
 #'
-#' @param x \code{Matrix} object.
+#' @param x `Matrix` object.
 #'
 #' @noRd
 matrix_to_triplet_dataframe <- function(x) {
@@ -37,11 +37,11 @@ matrix_to_triplet_dataframe <- function(x) {
 #'
 #' Convert a triplet data.framr object to a sparse matrix.
 #'
-#' @param x \code{data.frame} object. The first column contains the row
+#' @param x `data.frame` object. The first column contains the row
 #'   numbers, the second column contains the column numbers, and the
 #'   third column contains the cell values.
 #
-#' @return \code{\link[Matrix]{dgCMatrix-class}} object.
+#' @return [`dgCMatrix-class`] object.
 #'
 #' @noRd
 triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
@@ -68,11 +68,11 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
 #'
 #' Format text by adding a certain number of spaces after new line characters.
 #'
-#' @param x \code{character} text.
+#' @param x `character` text.
 #'
-#' @param n \code{integer} number of spaces.
+#' @param n `integer` number of spaces.
 #'
-#' @return \code{character}.
+#' @return `character`.
 #'
 #' @examples
 #' # make some text
@@ -99,12 +99,12 @@ align_text <- function(x, n) {
 #' Default solver name
 #'
 #' This function returns the name of the default solver. If no sovlers are
-#' detected on the system, then a \code{NULL} object is retured.
+#' detected on the system, then a `NULL` object is retured.
 #'
 #' @details This function tests if any of the following packages are installed:
 #'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
 #'
-#' @return \code{character} indicating the name of the default solver.
+#' @return `character` indicating the name of the default solver.
 #'
 #' @noRd
 default_solver_name <- function() {
@@ -126,7 +126,7 @@ default_solver_name <- function() {
 #' @details This function tests if any of the following packages are installed:
 #'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}.
 #'
-#' @return \code{logical} value indicating if any solvers are installed.
+#' @return `logical` value indicating if any solvers are installed.
 #'
 #' @noRd
 any_solvers_installed <- function() {
@@ -138,9 +138,9 @@ any_solvers_installed <- function() {
 #' Return a pretty character representation of an object with elements and
 #  names.
 #'
-#' @param x \code{object}.
+#' @param x `object`.
 #'
-#' @return \code{character} object.
+#' @return `character` object.
 #'
 #' @examples
 #' repr_atomic(letters)
@@ -161,11 +161,11 @@ repr_atomic <- function(x, description = "") {
 #' No extra arguments
 #'
 #' Check that no additional unused arguments have been supplied to a function
-#' through the \code{...}.
+#' through the `...`.
 #'
 #' @param ... arguments that are not used.
 #'
-#' @return \code{logical} indicating success.
+#' @return `logical` indicating success.
 #'
 #' @noRd
 no_extra_arguments <- function(...) {
@@ -178,13 +178,13 @@ assertthat::on_failure(no_extra_arguments) <- function(call, env) {
 
 #' Verify if assertion is met
 #'
-#' Verify if an assertion is met and throw a \code{\link[base]{warning}} if it
-#' is not. This function is equivalent to \code{\link[assertthat]{assert_that}}
+#' Verify if an assertion is met and throw a [base::warning()] if it
+#' is not. This function is equivalent to [assertthat::assert_that()]
 #' except that it throws warnings and not errors.
 #'
-#' @param x \code{logical} condition.
+#' @param x `logical` condition.
 #'
-#' @return \code{logical} if assertion is met and a \code{warning} if it is not.
+#' @return `logical` if assertion is met and a `warning` if it is not.
 #'
 #' @noRd
 verify_that <- function(..., env = parent.frame()) {
@@ -197,15 +197,15 @@ verify_that <- function(..., env = parent.frame()) {
 
 #' Are rasters comparable?
 #'
-#' This function checks if two \code{\link[raster]{Raster-class}} objects
+#' This function checks if two [`Raster-class`] objects
 #' are comparable.
 #'
-#' @param x \code{\link[raster]{Raster-class}} object.
+#' @param x [`Raster-class`] object.
 #'
-#' @param y \code{\link[raster]{Raster-class}} object.
+#' @param y [`Raster-class`] object.
 #'
-#' @return \code{logical} indicating if the two
-#'   \code{\link[raster]{Raster-class}} objects have the same
+#' @return `logical` indicating if the two
+#'   [`Raster-class`] objects have the same
 #'   resolution, extent, dimensionality, and coordinate system.
 #'
 #' @noRd
@@ -226,17 +226,17 @@ assertthat::on_failure(is_comparable_raster) <- function(call, env) {
 #'
 #' Linearly rescale values in a vector to range between two thresholds.
 #'
-#' @param x \code{numeric} vector.
+#' @param x `numeric` vector.
 #'
-#' @param from \code{numeric} vector indicating the original range of the
+#' @param from `numeric` vector indicating the original range of the
 #'  the data.
 #'
-#' @param to \code{numeric} new data range. Defaults to zero and one.
+#' @param to `numeric` new data range. Defaults to zero and one.
 #'
-#' @details This function is based on the \code{rescale} function in the
+#' @details This function is based on the `rescale` function in the
 #'   \pkg{scales} package.
 #'
-#' @return \code{numeric} vector.
+#' @return `numeric` vector.
 #'
 #' @noRd
 rescale <- function(x, from = range(x), to = c(0, 1)) {
@@ -249,13 +249,13 @@ rescale <- function(x, from = range(x), to = c(0, 1)) {
 #'
 #' Verify if the extents of two spatial objects intersect or not.
 #'
-#' @param x \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object.
+#' @param x [`Raster-class`], [`Spatial-class`],
+#'   or [sf::sf()] object.
 #'
-#' @param y \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object.
+#' @param y [`Raster-class`], [`Spatial-class`],
+#'   or [sf::sf()] object.
 #'
-#' @return \code{logical}.
+#' @return `logical`.
 #'
 #' @noRd
 intersecting_extents <- function(x, y) {
@@ -270,11 +270,11 @@ intersecting_extents <- function(x, y) {
 
 #' Geometry classes
 #'
-#' Extract geometry class names from a \code{\link[sf]{sf}} object.
+#' Extract geometry class names from a [sf::sf()] object.
 #'
-#' @param x  \code{\link[sf]{sf}} object.
+#' @param x  [sf::sf()] object.
 #'
-#' @return \code{character} object.
+#' @return `character` object.
 #'
 #' @noRd
 geometry_classes <- function(x) {

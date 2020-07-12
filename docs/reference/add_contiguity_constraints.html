@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Add contiguity constraints — add_contiguity_constraints" />
-<meta property="og:description" content="Add constraints to a conservation planning problem to ensure
+<meta property="og:description" content="Add constraints to a conservation planning problem() to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
@@ -98,7 +98,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ and form a single contiguous unit." />
     </div>
 
     <div class="ref-description">
-    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
+    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem()</a></code> to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.</p>
     </div>
@@ -195,7 +195,7 @@ and form a single contiguous unit.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>zones</th>
@@ -221,62 +221,66 @@ are both allocated to the same zone.</p></td>
 object showing which planning units are connected with each
 other. The argument defaults to <code>NULL</code> which means that the
 connection data is calculated automatically using the
-<code><a href='adjacency_matrix.html'>adjacency_matrix</a></code> function. See the Details section for more
+<code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. See the Details section for more
 information.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraints
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the constraints
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function uses connection data to identify solutions that
-  form a single contiguous unit. In earlier versions of the
-  <span class="pkg">prioritizr</span> package, it was known as the
-  <code>add_connected_constraints</code> function. It was inspired by the
-  mathematical formulations detailed in \"Onal and Briers (2006).</p>
+form a single contiguous unit. It was inspired by the
+mathematical formulations detailed in Önal and Briers (2006).</p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
-<p></p><dl'>
+<dl'>
 
-  <dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
-    using the <code><a href='adjacency_matrix.html'>adjacency_matrix</a></code> function. This is the default
-    argument. Note that the connection data must be manually defined
-    using one of the other formats below when the planning unit data
-    in the argument to <code>x</code> is not spatially referenced (e.g.
-    in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
+<dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
+using the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. This is the default
+argument. Note that the connection data must be manually defined
+using one of the other formats below when the planning unit data
+in the argument to <code>x</code> is not spatially referenced (e.g.
+in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
 
-  <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
-    different planning units and the value of each cell indicates if the
-    two planning units are connected or not. Cell values should be binary
-    <code>numeric</code> values (i.e. one or zero). Cells that occur along the
-    matrix diagonal have no effect on the solution at all because each
-    planning unit cannot be a connected with itself.</p></dd>
+<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+different planning units and the value of each cell indicates if the
+two planning units are connected or not. Cell values should be binary
+<code>numeric</code> values (i.e. one or zero). Cells that occur along the
+matrix diagonal have no effect on the solution at all because each
+planning unit cannot be a connected with itself.</p></dd>
 
-  <dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
-    <code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
-    denotes the connectivity between two planning units following the
-    <em>Marxan</em> format. The field <code>boundary</code> should contain
-    binary <code>numeric</code> values that indicate if the two planning units
-    specified in the fields <code>"id1"</code> and <code>"id2"</code> are connected
-    or not. This data can be used to describe symmetric or
-    asymmetric relationships between planning units. By default,
-    input data is assumed to be symmetric unless asymmetric data is
-    also included (e.g. if data is present for planning units 2 and 3, then
-    the same amount of connectivity is expected for planning units 3 and 2,
-    unless connectivity data is also provided for planning units 3 and 2).</p></dd>
+<dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
+<code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
+denotes the connectivity between two planning units following the
+<em>Marxan</em> format. The field <code>boundary</code> should contain
+binary <code>numeric</code> values that indicate if the two planning units
+specified in the fields <code>"id1"</code> and <code>"id2"</code> are connected
+or not. This data can be used to describe symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).</p></dd>
 
-  
+
 </dl>
 
+    <h2 class="hasAnchor" id="notes"><a class="anchor" href="#notes"></a>Notes</h2>
+
+    
+
+<p>In early versions, this function was named as the
+<code><a href='prioritizr-deprecated.html'>add_connected_constraints()</a></code> function.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>\"Onal H and Briers RA (2006) Optimal selection of a connected
+    <p>Önal H and Briers RA (2006) Optimal selection of a connected
 reserve network. <em>Operations Research</em>, 54: 379--388.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -361,7 +365,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -449,7 +453,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.03s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
@@ -479,26 +483,25 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12092.8197    0  280          - 12092.8197      -     -    0s
 #&gt;      0     2 12092.8774    0  279          - 12092.8774      -     -    0s
 #&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
-#&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    1s
-#&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    1s
-#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    3s
-#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    4s
-#&gt;    746   337 12310.0176   42  232 14086.8118 12109.8197  14.0%  80.0    5s
-#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    5s
-#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    6s
-#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    7s
-#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5    7s
-#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4    7s
-#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0    7s
-#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6    7s
-#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6    7s
-#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5    7s
-#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7    8s
-#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2    8s
-#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1    8s
-#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8    8s
-#&gt;   1945   691 12123.2645   23  268 13501.4182 12119.5487  10.2%  73.1   10s
-#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   10s
+#&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    2s
+#&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    2s
+#&gt;    543   313 12154.3810   23  242 14248.7319 12109.8197  15.0%  71.9    5s
+#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    5s
+#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    6s
+#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    7s
+#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    9s
+#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0   10s
+#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5   10s
+#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4   11s
+#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0   11s
+#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6   11s
+#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6   11s
+#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5   11s
+#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7   11s
+#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2   11s
+#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   11s
+#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   12s
+#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   13s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 7
@@ -506,7 +509,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 10
 #&gt;   Zero half: 22
 #&gt; 
-#&gt; Explored 1979 nodes (146817 simplex iterations) in 10.12 seconds
+#&gt; Explored 1979 nodes (146817 simplex iterations) in 13.93 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
@@ -552,7 +555,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 3
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 86 nodes (3062 simplex iterations) in 0.36 seconds
+#&gt; Explored 86 nodes (3062 simplex iterations) in 0.35 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 13139.1 14094.9 14104.6 
@@ -604,7 +607,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 142 nodes (12037 simplex iterations) in 1.27 seconds
+#&gt; Explored 142 nodes (12037 simplex iterations) in 1.19 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
@@ -685,14 +688,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.08s
+#&gt; Presolve time: 0.13s
 #&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
 #&gt; Variable types: 0 continuous, 575 integer (575 binary)
 #&gt; Presolve removed 128 rows and 0 columns
 #&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -700,7 +703,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
 #&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.10 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.18 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4021.31 

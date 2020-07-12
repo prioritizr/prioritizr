@@ -3,22 +3,22 @@ NULL
 
 #' Binary stack
 #'
-#' Convert a \code{\link[raster]{RasterLayer-class}} object containing
-#' categorical identifiers into a \code{\link[raster]{RasterStack-class}}
+#' Convert a [`RasterLayer-class`] object containing
+#' categorical identifiers into a [`RasterStack-class`]
 #' object where each layer corresponds to a different identifier and values
 #' indicate the presence/absence of that category in the input object.
 #'
-#' @param x \code{\link[raster]{Raster-class}} object containing a single layer.
+#' @param x [`Raster-class`] object containing a single layer.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful
-#'   for preparing raster data for \code{\link{add_locked_in_constraints}} and
-#'   \code{\link{add_locked_out_constraints}} since they require binary
-#'   \code{\link[raster]{RasterStack-class}} objects as input arguments.
+#'   for preparing raster data for [add_locked_in_constraints()] and
+#'   [add_locked_out_constraints()] since they require binary
+#'   [`RasterStack-class`] objects as input arguments.
 #'
-#' @return \code{\link[raster]{RasterStack-class}} object.
+#' @return [`RasterStack-class`] object.
 #'
-#' @seealso \code{\link{category_layer}}.
+#' @seealso [category_layer()].
 #'
 #' @examples
 #' # create raster with categorical identifers

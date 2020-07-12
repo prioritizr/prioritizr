@@ -7,47 +7,47 @@ NULL
 
 #' Parameters class
 #'
-#' This class represents a collection of \code{\link{Parameter-class}} objects.
+#' This class represents a collection of [`Parameter-class`] objects.
 #' It provides methods for accessing, updating, and rendering the parameters
 #' stored inside it.
 #'
 #' @section Fields:
 #' \describe{
 #'
-#' \item{$parameters}{\code{list} object containing
-#'   \code{\link{Parameter-class}} objects.}
+#' \item{$parameters}{`list` object containing
+#'   [`Parameter-class`] objects.}
 #'
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$names()}
+#' `x$names()`
 #'
-#' \code{x$ids()}
+#' `x$ids()`
 #'
-#' \code{x$length()}
+#' `x$length()`
 #'
-#' \code{x$get(id)}
+#' `x$get(id)`
 #'
-#' \code{x$set(id, value)}
+#' `x$set(id, value)`
 #'
-#' \code{x$add(p)}
+#' `x$add(p)`
 #'
-#' \code{x$render(id)}
+#' `x$render(id)`
 #'
-#' \code{x$render_all()}
+#' `x$render_all()`
 #'
 #' @section Arguments:
 #' \describe{
-#' \item{id}{\code{\link{Id}} object.}
+#' \item{id}{[`Id`] object.}
 #'
-#' \item{p}{\code{\link{Parameter-class}} object.}
+#' \item{p}{[`Parameter-class`] object.}
 #'
 #' \item{value}{any object.}
 #'
@@ -61,24 +61,24 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{\code{character} representation of object.}
+#' \item{repr}{`character` representation of object.}
 #'
-#' \item{names}{return \code{character} names of parameters.}
+#' \item{names}{return `character` names of parameters.}
 #'
-#' \item{ids}{return \code{character} parameter unique identifiers.}
+#' \item{ids}{return `character` parameter unique identifiers.}
 #'
-#' \item{length}{return \code{integer} number of parameters in object.}
+#' \item{length}{return `integer` number of parameters in object.}
 #
 #' \item{get}{retrieve the value of a parameter in the object
-#'    using an \code{Id} object.}
+#'    using an `Id` object.}
 #'
 #' \item{set}{change the value of a parameter in the object
 #'    to a new object.}
 #'
-#' \item{render}{generate a \emph{shiny} widget to modify the
-#'   the value of a parameter (specified by argument \code{Id}).}
+#' \item{render}{generate a *shiny* widget to modify the
+#'   the value of a parameter (specified by argument `Id`).}
 #'
-#' \item{render_all}{generate a \code{\link[shiny]{div}}
+#' \item{render_all}{generate a [shiny::div()]
 #'   containing all the parameters" widgets.}
 #'
 #' }

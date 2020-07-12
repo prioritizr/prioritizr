@@ -3,77 +3,77 @@ NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation planning \code{\link{problem}} to favour
+#' Add penalties to a conservation planning [problem()] to favour
 #' solutions that have planning units clumped together into contiguous areas.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param penalty \code{numeric} penalty that is used to scale the importance
+#' @param penalty `numeric` penalty that is used to scale the importance
 #'   of selecting planning units that are spatially clumped together compared
 #'   to the main problem objective (e.g. solution cost when the argument to
-#'   \code{x} has a minimum set objective set using
-#'   \code{\link{add_min_set_objective}}). Higher \code{penalty} values
+#'   `x` has a minimum set objective set using
+#'   [add_min_set_objective()]). Higher `penalty` values
 #'   will return solutions with a higher degree of spatial clumping,
-#'   and smaller \code{penalty} values will return solutions with a smaller
-#'   degree of clumping. Note that negative \code{penalty} values will
+#'   and smaller `penalty` values will return solutions with a smaller
+#'   degree of clumping. Note that negative `penalty` values will
 #'   return solutions that are more spread out. This parameter is equivalent to
 #'   the boundary length modifier (BLM)
-#'   parameter in \href{https://marxansolutions.org/}{\emph{Marxan}}.
+#'   parameter in [*Marxan*](https://marxansolutions.org/).
 #'
-#' @param edge_factor \code{numeric} proportion to scale
+#' @param edge_factor `numeric` proportion to scale
 #'   planning unit edges (or borders) that do not have any neighboring planning
-#'   units. For example, an edge factor of \code{0.5} is commonly used for
+#'   units. For example, an edge factor of `0.5` is commonly used for
 #'   planning units along the coast line. Note that this argument must have an
-#'   element for each zone in the argument to \code{x}.
+#'   element for each zone in the argument to `x`.
 #'
-#' @param zones \code{matrix} or \code{Matrix} object describing the
+#' @param zones `matrix` or `Matrix` object describing the
 #'   clumping scheme for different zones. Each row and column corresponds to a
-#'   different zone in the argument to \code{x}, and cell values indicate the
+#'   different zone in the argument to `x`, and cell values indicate the
 #'   relative importance of clumping planning units that are allocated to
 #'   a pair of zones. Cell values along the diagonal of the matrix represent
 #'   the relative importance of clumping planning units that are allocated
 #'   to the same zone. Cell values must lay between 1 and -1, where negative
 #'   values favor solutions that spread out planning units. The default
-#'   argument to \code{zones} is an identity
+#'   argument to `zones` is an identity
 #'   matrix (i.e. a matrix with ones along the matrix diagonal and zeros
 #'   elsewhere), so that penalties are incurred when neighboring planning units
-#'   are not assigned to the same zone. \strong{Note that if the cells along
+#'   are not assigned to the same zone. **Note that if the cells along
 #'   the matrix diagonal contain markedly lower values than cells found
 #'   elsewhere in the matrix, then the optimal solution may surround
-#'   planning units with planning units that are allocated to different zones.}
+#'   planning units with planning units that are allocated to different zones.**
 #'
-#' @param data \code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
+#' @param data `NULL`, `data.frame`, `matrix`, or `Matrix`
 #'   object containing the boundary data. The boundary values
 #'   correspond to the shared boundary length between different planning units
 #'   and the amount of exposed boundary length that each planning unit has
 #'   which is not shared with any other planning unit. Given a certain
-#'   \code{penalty} value, it is more desirable to select combinations of
+#'   `penalty` value, it is more desirable to select combinations of
 #'   planning units which do not expose larger boundaries that are shared
 #'   between different planning units. See the Details section for more
 #'   information.
 #'
 #' @details This function adds penalties to a conservation planning problem
-#'   to penalize fragmented solutions. It was is inspired by Ball \emph{et al.}
-#'   (2009) and Beyer \emph{et al.} (2016). The \code{penalty} argument is
-#'   equivalent to the boundary length modifier (\code{BLM}) used in
-#'   \href{https://marxansolutions.org}{\emph{Marxan}}.
+#'   to penalize fragmented solutions. It was is inspired by Ball *et al.*
+#'   (2009) and Beyer *et al.* (2016). The `penalty` argument is
+#'   equivalent to the boundary length modifier (`BLM`) used in
+#'   [*Marxan*](https://marxansolutions.org).
 #'   Note that this function can only
 #'   be used to represent symmetric relationships between planning units. If
 #'   asymmetric relationships are required, use the
-#'   \code{\link{add_connectivity_penalties}} function.
+#'   [add_connectivity_penalties()] function.
 #'
-#'   The argument to \code{data} can be specified in several different ways:
+#'   The argument to `data` can be specified in several different ways:
 #'
 #'   \describe{
 #'
-#'   \item{\code{NULL}}{the boundary data are automatically calculated
-#'     using the \code{\link{boundary_matrix}} function. This argument is the
+#'   \item{`NULL`}{the boundary data are automatically calculated
+#'     using the [boundary_matrix()] function. This argument is the
 #'     default. Note that the boundary data must be manually defined
 #'     using one of the other formats below when the planning unit data
-#'     in the argument to \code{x} is not spatially referenced (e.g.
-#'     in \code{data.frame} or \code{numeric} format).}
+#'     in the argument to `x` is not spatially referenced (e.g.
+#'     in `data.frame` or `numeric` format).}
 #'
-#'   \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+#'   \item{`matrix`, `Matrix`}{where rows and columns represent
 #'     different planning units and the value of each cell represents the
 #'     amount of shared boundary length between two different planning units.
 #'     Cells that occur along the matrix diagonal represent the amount of
@@ -81,16 +81,16 @@ NULL
 #'     no neighbor (e.g. these value might pertain the length of coastline
 #'     in a planning unit).}
 #'
-#'   \item{\code{data.frame}}{containing the columns \code{"id1"},
-#'     \code{"id2"}, and \code{"boundary"}. The values in the column
-#'     \code{"boundary"} show the total amount of shared boundary between the
-#'     two planning units indicated the columns \code{"id1"} and \code{"id2"}.
-#'     This format follows the the standard \emph{Marxan} input format. Note
+#'   \item{`data.frame`}{containing the columns `"id1"`,
+#'     `"id2"`, and `"boundary"`. The values in the column
+#'     `"boundary"` show the total amount of shared boundary between the
+#'     two planning units indicated the columns `"id1"` and `"id2"`.
+#'     This format follows the the standard *Marxan* input format. Note
 #'     that this function requires symmetric boundary data, and so the
-#'     argument to \code{data} cannot have the columns \code{"zone1"} and
+#'     argument to `data` cannot have the columns `"zone1"` and
 #'     code{"zone2"} to specify different amounts of shared boundary lengths
 #'     for different zones. Instead, when dealing with problems with multiple
-#'     zones, the argument to \code{zones} should be used to control the
+#'     zones, the argument to `zones` should be used to control the
 #'     relative importance of spatially clumping planning units together when
 #'     they are allocated to different zones.}
 #'
@@ -103,10 +103,10 @@ NULL
 #'   \eqn{X_{iz}}{Xiz} represent the decision
 #'   variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
 #'   values one indicating if planning unit is allocated or not). Also, let
-#'   \eqn{p} represent the argument to \code{penalty}, \eqn{E} represent the
-#'   argument to \code{edge_factor}, \eqn{B} represent the matrix argument to
-#'   \code{data} (e.g. generated using \code{\link{boundary_matrix}}), and
-#'   \eqn{W} represent the matrix argument to \code{zones}.
+#'   \eqn{p} represent the argument to `penalty`, \eqn{E} represent the
+#'   argument to `edge_factor`, \eqn{B} represent the matrix argument to
+#'   `data` (e.g. generated using [boundary_matrix()]), and
+#'   \eqn{W} represent the matrix argument to `zones`.
 #'
 #'   \deqn{
 #'   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
@@ -121,20 +121,20 @@ NULL
 #'  benefit and not minimize some measure of cost, the term \eqn{p} is
 #'  replaced with \eqn{-p}.
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the penalties
+#' @return Object (i.e. [`ConservationProblem-class`]) with the penalties
 #'  added to it.
 #'
-#' @seealso \code{\link{penalties}}.
+#' @seealso [penalties].
 #'
 #' @references
-#' Ball IR, Possingham HP, and Watts M (2009) \emph{Marxan and relatives:
-#' Software for spatial conservation prioritisation} in Spatial conservation
+#' Ball IR, Possingham HP, and Watts M (2009) *Marxan and relatives:
+#' Software for spatial conservation prioritisation* in Spatial conservation
 #' prioritisation: Quantitative methods and computational tools. Eds Moilanen
 #' A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.
 #'
 #' Beyer HL, Dujardin Y, Watts ME, and Possingham HP (2016) Solving
 #' conservation planning problems with integer linear programming.
-#' \emph{Ecological Modelling}, 228: 14--22.
+#' *Ecological Modelling*, 228: 14--22.
 #'
 #' @examples
 #' # set seed for reproducibility

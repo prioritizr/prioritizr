@@ -8,39 +8,39 @@ NULL
 #' Miscellaneous parameter prototype
 #'
 #' This prototype is used to represent a parameter that can be any object.
-#' \strong{Only experts should interact directly with this prototype.}
+#' **Only experts should interact directly with this prototype.**
 #'
 #' @section Fields:
 #' \describe{
 #'
-#' \item{$id}{\code{character} identifier for parameter.}
+#' \item{$id}{`character` identifier for parameter.}
 #'
-#' \item{$name}{\code{character} name of parameter.}
+#' \item{$name}{`character` name of parameter.}
 #'
-#' \item{$value}{\code{\link[tibble]{tibble}} object.}
+#' \item{$value}{[tibble::tibble()] object.}
 #'
-#' \item{$validator}{\code{list} object containing a \code{function} that
+#' \item{$validator}{`list` object containing a `function` that
 #'   is used to validate changes to the parameter.}
 #'
-#' \item{$widget}{\code{list} object containing a \code{function} used to
-#'   construct a \emph{shiny} interface for modifying values.}
+#' \item{$widget}{`list` object containing a `function` used to
+#'   construct a *shiny* interface for modifying values.}
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$validate(x)}
+#' `x$validate(x)`
 #'
-#' \code{x$get()}
+#' `x$get()`
 #'
-#' \code{x$set(x)}
+#' `x$set(x)`
 #'
-#' \code{x$reset()}
+#' `x$reset()`
 #'
-#' \code{x$render(...)}
+#' `x$render(...)`
 #'
 #' @section Arguments:
 #'
@@ -48,7 +48,7 @@ NULL
 #'
 #' \item{x}{object used to set a new parameter value.}
 #'
-#' \item{...}{arguments passed to \code{$widget}.}
+#' \item{...}{arguments passed to `$widget`.}
 #'
 #'  }
 #'
@@ -67,14 +67,14 @@ NULL
 #'
 #' \item{reset}{update the parameter value to be the default value.}
 #'
-#' \item{render}{create a \code{\link[shiny]{shiny}} widget to modify
+#' \item{render}{create a [shiny::shiny()] widget to modify
 #'               parameter values.}
 #'
 #' }
 #'
 #' @name MiscParameter-class
 #'
-#' @seealso \code{\link{Parameter-class}}.
+#' @seealso [`Parameter-class`].
 #'
 #' @aliases MiscParameter
 NULL

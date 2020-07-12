@@ -14,7 +14,7 @@
 \S4method{add_contiguity_constraints}{ConservationProblem,ANY,matrix}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 connection scheme for different zones. Each row and column corresponds
@@ -36,58 +36,62 @@ are both allocated to the same zone.}
 object showing which planning units are connected with each
 other. The argument defaults to \code{NULL} which means that the
 connection data is calculated automatically using the
-\code{\link{adjacency_matrix}} function. See the Details section for more
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function. See the Details section for more
 information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link{problem}} to ensure
+Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
 that all selected planning units are spatially connected with each other
 and form a single contiguous unit.
 }
 \details{
 This function uses connection data to identify solutions that
-  form a single contiguous unit. In earlier versions of the
-  \pkg{prioritizr} package, it was known as the
-  \code{add_connected_constraints} function. It was inspired by the
-  mathematical formulations detailed in {\"O}nal and Briers (2006).
+form a single contiguous unit. It was inspired by the
+mathematical formulations detailed in Önal and Briers (2006).
 
-  The argument to \code{data} can be specified in several ways:
+The argument to \code{data} can be specified in several ways:
 
-  \describe{
+\describe{
 
-  \item{\code{NULL}}{connection data should be calculated automatically
-    using the \code{\link{adjacency_matrix}} function. This is the default
-    argument. Note that the connection data must be manually defined
-    using one of the other formats below when the planning unit data
-    in the argument to \code{x} is not spatially referenced (e.g.
-    in \code{data.frame} or \code{numeric} format).}
+\item{\code{NULL}}{connection data should be calculated automatically
+using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
+argument. Note that the connection data must be manually defined
+using one of the other formats below when the planning unit data
+in the argument to \code{x} is not spatially referenced (e.g.
+in \code{data.frame} or \code{numeric} format).}
 
-  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-    different planning units and the value of each cell indicates if the
-    two planning units are connected or not. Cell values should be binary
-    \code{numeric} values (i.e. one or zero). Cells that occur along the
-    matrix diagonal have no effect on the solution at all because each
-    planning unit cannot be a connected with itself.}
+\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+different planning units and the value of each cell indicates if the
+two planning units are connected or not. Cell values should be binary
+\code{numeric} values (i.e. one or zero). Cells that occur along the
+matrix diagonal have no effect on the solution at all because each
+planning unit cannot be a connected with itself.}
 
-  \item{\code{data.frame}}{containing the fields (columns)
-    \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-    denotes the connectivity between two planning units following the
-    \emph{Marxan} format. The field \code{boundary} should contain
-    binary \code{numeric} values that indicate if the two planning units
-    specified in the fields \code{"id1"} and \code{"id2"} are connected
-    or not. This data can be used to describe symmetric or
-    asymmetric relationships between planning units. By default,
-    input data is assumed to be symmetric unless asymmetric data is
-    also included (e.g. if data is present for planning units 2 and 3, then
-    the same amount of connectivity is expected for planning units 3 and 2,
-    unless connectivity data is also provided for planning units 3 and 2).}
+\item{\code{data.frame}}{containing the fields (columns)
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+denotes the connectivity between two planning units following the
+\emph{Marxan} format. The field \code{boundary} should contain
+binary \code{numeric} values that indicate if the two planning units
+specified in the fields \code{"id1"} and \code{"id2"} are connected
+or not. This data can be used to describe symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).}
 
-  }
 }
+}
+\section{Notes}{
+
+In early versions, this function was named as the
+\code{add_connected_constraints()} function.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
@@ -198,9 +202,9 @@ plot(s7, "solution", axes = FALSE, box = FALSE)
 }
 }
 \references{
-{\"{O}}nal H and Briers RA (2006) Optimal selection of a connected
+Önal H and Briers RA (2006) Optimal selection of a connected
 reserve network. \emph{Operations Research}, 54: 379--388.
 }
 \seealso{
-\code{\link{constraints}}.
+\link{constraints}.
 }

@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Conservation problem constraints — constraints" />
-<meta property="og:description" content="A constraint can be added to a conservation planning problem
+<meta property="og:description" content="A constraint can be added to a conservation planning problem()
 to ensure that solutions exhibit a specific characteristic." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -97,7 +97,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@ to ensure that solutions exhibit a specific characteristic." />
     </div>
 
     <div class="ref-description">
-    <p>A constraint can be added to a conservation planning <code><a href='problem.html'>problem</a></code>
+    <p>A constraint can be added to a conservation planning <code><a href='problem.html'>problem()</a></code>
 to ensure that solutions exhibit a specific characteristic.</p>
     </div>
 
@@ -184,54 +184,54 @@ to ensure that solutions exhibit a specific characteristic.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Constraints can be used to ensure that solutions exhibit
-  a range of different characteristics. For instance, they can be
-  used to lock in or lock out certain planning units from the solution, such
-  as protected areas or degraded land (respectively).
-  Additionally, similar to the <code><a href='penalties.html'>penalties</a></code> functions,
-  some of the constraint functions can be used to increase connectivity in a
-  solution. The key difference between a penalty and a constraint, however,
-  is that constraints work by invalidating solutions that do not exhibit
-  a specific characteristic, whereas penalty functions work by than
-  penalizing solutions which do not meet a specific characteristic. Thus
-  constraints do not affect the objective function. The following constraints
-  are available.</p>
+a range of different characteristics. For instance, they can be
+used to lock in or lock out certain planning units from the solution, such
+as protected areas or degraded land (respectively).
+Additionally, similar to the <a href='penalties.html'>penalties</a> functions,
+some of the constraint functions can be used to increase connectivity in a
+solution. The key difference between a penalty and a constraint, however,
+is that constraints work by invalidating solutions that do not exhibit
+a specific characteristic, whereas penalty functions work by than
+penalizing solutions which do not meet a specific characteristic. Thus
+constraints do not affect the objective function. The following constraints
+are available.</p>
 <p>The following constraints can be added to a conservation planning
-  <code><a href='problem.html'>problem</a></code>:</p>
-<p></p><dl'>
+<code><a href='problem.html'>problem()</a></code>:</p>
+<dl'>
 
-  <dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code></dt><dd><p>Add constraints to ensure
-    that certain planning units are selected in the solution.</p></dd>
+<dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints()</a></code></dt><dd><p>Add constraints to ensure
+that certain planning units are selected in the solution.</p></dd>
 
-  <dt><code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code></dt><dd><p>Add constraints to ensure
-    that certain planning units are not selected in the solution.</p></dd>
+<dt><code><a href='add_locked_out_constraints.html'>add_locked_out_constraints()</a></code></dt><dd><p>Add constraints to ensure
+that certain planning units are not selected in the solution.</p></dd>
 
-  <dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></code></dt><dd><p>Add constraints to
-    ensure that all selected planning units have at least a certain number
-    of neighbors.</p></dd>
+<dt><code><a href='add_neighbor_constraints.html'>add_neighbor_constraints()</a></code></dt><dd><p>Add constraints to
+ensure that all selected planning units have at least a certain number
+of neighbors.</p></dd>
 
-  <dt><code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></code></dt><dd><p>Add constraints to a
-    ensure that all selected planning units are spatially connected to each
-    other and form a single contiguous unit.</p></dd>
+<dt><code><a href='add_contiguity_constraints.html'>add_contiguity_constraints()</a></code></dt><dd><p>Add constraints to a
+ensure that all selected planning units are spatially connected to each
+other and form a single contiguous unit.</p></dd>
 
-  <dt><code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></code></dt><dd><p>Add constraints to #'     ensure that each feature is represented in a contiguous unit of
-    dispersible habitat. These constraints are a more advanced version of
-    those implemented in the <code><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></code>
-    function, because they ensure that each feature is represented in a
-    contiguous unit and not that the entire solution should form a
-    contiguous unit.</p></dd>
+<dt><code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints()</a></code></dt><dd><p>Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+dispersible habitat. These constraints are a more advanced version of
+those implemented in the <code><a href='add_contiguity_constraints.html'>add_contiguity_constraints()</a></code>
+function, because they ensure that each feature is represented in a
+contiguous unit and not that the entire solution should form a
+contiguous unit.</p></dd>
 
-  <dt><code><a href='add_mandatory_allocation_constraints.html'>add_mandatory_allocation_constraints</a></code></dt><dd><p>Add constraints to ensure that every planning unit is allocated to a
-    management zone in the solution. <strong>This function can only be used
-    with problems that contain multiple zones.</strong></p></dd>
+<dt><code><a href='add_mandatory_allocation_constraints.html'>add_mandatory_allocation_constraints()</a></code></dt><dd><p>Add constraints to ensure that every planning unit is allocated to a
+management zone in the solution. <strong>This function can only be used
+with problems that contain multiple zones.</strong></p></dd>
 
- 
+
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='decisions.html'>decisions</a></code>, <code><a href='objectives.html'>objectives</a></code>,
- <code><a href='penalties.html'>penalties</a></code>, <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='solvers.html'>solvers</a></code>, <code><a href='targets.html'>targets</a></code>.</p></div>
+    <div class='dont-index'><p><a href='decisions.html'>decisions</a>, <a href='objectives.html'>objectives</a>,
+<a href='penalties.html'>penalties</a>, <a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem()</a></code>,
+<a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -424,7 +424,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -441,7 +441,7 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 138 rows and 139 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
@@ -464,16 +464,16 @@ to ensure that solutions exhibit a specific characteristic.</p>
 #&gt;      0     0 3966.13666    0  595          - 3966.13666      -     -    0s
 #&gt;      0     0 3966.20628    0  599          - 3966.20628      -     -    0s
 #&gt;      0     0 3966.20628    0  596          - 3966.20628      -     -    0s
-#&gt; H    0     0                    16261.364549 3966.20628  75.6%     -    0s
-#&gt; H    0     0                    12303.647295 3966.20628  67.8%     -    0s
-#&gt;      0     2 3966.21298    0  596 12303.6473 3966.21298  67.8%     -    0s
+#&gt; H    0     0                    16261.364549 3966.20628  75.6%     -    1s
+#&gt; H    0     0                    12303.647295 3966.20628  67.8%     -    1s
+#&gt;      0     2 3966.21298    0  596 12303.6473 3966.21298  67.8%     -    1s
 #&gt; H   60    59                    4256.7194199 3966.68807  6.81%  78.9    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 61 nodes (7758 simplex iterations) in 1.06 seconds
+#&gt; Explored 61 nodes (7758 simplex iterations) in 1.45 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4256.72 12303.6 16261.4 

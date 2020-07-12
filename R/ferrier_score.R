@@ -4,7 +4,7 @@ NULL
 #' Ferrier irreplaceability score
 #'
 #' Calculate irreplaceability scores for planning units selected in
-#' a solution using the method outlined in Ferrier \emph{et al.} (2000).
+#' a solution using the method outlined in Ferrier *et al.* (2000).
 #' Specifically, the scores are implemented following the CLUZ decision support
 #' tool (Smith 2019).
 #' Here, scores are calculated separately for each feature within
@@ -14,50 +14,50 @@ NULL
 #' a minimum set objective and a single zone.
 #' It will throw an error for other types of problems.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
-#'   \code{\link[raster]{Raster-class}}, or \code{\link[sp]{Spatial-class}}
+#' @param solution `numeric`, `matrix`, `data.frame`,
+#'   [`Raster-class`], or [`Spatial-class`]
 #'   object. See the Details section for more information.
 #'
 #' @details
-#'   The argument to \code{solution} must correspond
-#'   to the planning unit data in the argument to \code{x} in terms
+#'   The argument to `solution` must correspond
+#'   to the planning unit data in the argument to `x` in terms
 #'   of data representation, dimensionality, and spatial attributes (if
-#'   applicable). This means that if the planning unit data in \code{x}
-#'   is a \code{numeric} vector then the argument to \code{solution} must be a
-#'   \code{numeric} vector with the same number of elements, if the planning
-#'   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-#'   argument to \code{solution} must also be a
-#'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
+#'   applicable). This means that if the planning unit data in `x`
+#'   is a `numeric` vector then the argument to `solution` must be a
+#'   `numeric` vector with the same number of elements, if the planning
+#'   unit data in `x` is a [`RasterLayer-class`] then the
+#'   argument to `solution` must also be a
+#'   [`RasterLayer-class`] with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system,
-#'   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-#'   object then the argument to \code{solution} must also be a
-#'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
+#'   if the planning unit data in `x` is a [`Spatial-class`]
+#'   object then the argument to `solution` must also be a
+#'   [`Spatial-class`] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system,
-#'   if the planning units in \code{x} are a \code{data.frame} then the
-#'   argument to \code{solution} must also be a \code{data.frame} with each
+#'   if the planning units in `x` are a `data.frame` then the
+#'   argument to `solution` must also be a `data.frame` with each
 #'   column correspond to a different zone and each row correspond to
 #'   a different planning unit, and values correspond to the allocations
 #'   (e.g. values of zero or one). Furthermore, solutions must have planning
-#'   unit statuses set to missing (\code{NA})
-#'   values for planning units that have missing (\code{NA}) cost data.
+#'   unit statuses set to missing (`NA`)
+#'   values for planning units that have missing (`NA`) cost data.
 #'   If an argument is supplied to
-#'   \code{solution} where this is not the case, then an error will be thrown.
+#'   `solution` where this is not the case, then an error will be thrown.
 #'
-#' @return A \code{matrix}, \code{\link[tibble]{tibble}},
-#'   \code{\link[raster]{RasterLayer-class}}, or
-#'   \code{\link[sp]{Spatial-class}} object containing the scores for each
+#' @return A `matrix`, [tibble::tibble()],
+#'   [`RasterLayer-class`], or
+#'   [`Spatial-class`] object containing the scores for each
 #'   planning unit selected in the solution.
 #'
 #' @references
 #' Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
 #' irreplaceability of areas for achieving a conservation goal, its application
 #' to real-world planning, and a research agenda for further refinement.
-#' \emph{Biological Conservation}, 93: 303--325.
+#' *Biological Conservation*, 93: 303--325.
 #'
 #' Smith RJ (2019). The CLUZ plugin for QGIS: designing conservation area
-#' systems and other ecological networks. \emph{Research Ideas and Outcomes}
+#' systems and other ecological networks. *Research Ideas and Outcomes*
 #' 5: e33510.
 #'
 #' @examples
@@ -96,7 +96,7 @@ NULL
 #' plot(fs1, axes = FALSE, box = FALSE)
 #' }
 #'
-#' @seealso \code{\link{irreplaceability}}.
+#' @seealso [irreplaceability].
 #'
 #' @aliases ferrier_score,ConservationProblem,numeric-method ferrier_score,ConservationProblem,matrix-method ferrier_score,ConservationProblem,data.frame-method ferrier_score,ConservationProblem,Spatial-method ferrier_score,ConservationProblem,Raster-method
 #'

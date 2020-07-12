@@ -17,7 +17,7 @@ add_loglinear_targets(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{lower_bound_amount}{\code{numeric} threshold.}
 
@@ -39,51 +39,56 @@ which have a total amount greater than argument to \code{cap_amount}.
 Defaults to \code{NULL} so that targets are not capped.}
 
 \item{abundances}{\code{numeric} total amount of each feature to
-use when calculating the targets. Defaults to the feature abundances in the #'  study area (calculated using the \code{\link{feature_abundances}} function.}
+use when calculating the targets. Defaults to the feature abundances in the
+study area (calculated using the \code{\link[=feature_abundances]{feature_abundances()}} function.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the targets added
-  to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
+to it.
 }
 \description{
-Add targets to a conservation planning \code{\link{problem}} by log-linearly
+Add targets to a conservation planning \code{\link[=problem]{problem()}} by log-linearly
 interpolating the targets between thresholds based on the total amount of
 each feature in the study area (Rodrigues \emph{et al.} 2004). Additionally,
 caps can be applied to targets to prevent features with massive
 distributions from being over-represented
-in solutions (Butchart \emph{et al.} 2015). \strong{Note that the behavior
-of this function has changed substantially from versions prior to 5.0.0}.
+in solutions (Butchart \emph{et al.} 2015).
 }
 \details{
 Targets are used to specify the minimum amount or proportion of a
-  feature's distribution that needs to be protected. All conservation
-  planning problems require adding targets with the exception of the maximum
-  cover problem (see \code{\link{add_max_cover_objective}}), which maximizes
-  all features in the solution and therefore does not require targets.
+feature's distribution that needs to be protected. All conservation
+planning problems require adding targets with the exception of the maximum
+cover problem (see \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}), which maximizes
+all features in the solution and therefore does not require targets.
 
-  Seven parameters are used to calculate the targets:
-  \code{lower_bound_amount} specifies the first range size threshold,
-  \code{lower_bound_target} specifies the relative target required for
-  species with a range size equal to or less than the first threshold,
-  \code{upper_bound_amount} specifies the second range size threshold,
-  \code{upper_bound_target} specifies the relative target required for
-  species with a range size equal to or greater than the second threshold,
-  \code{cap_amount} specifies the third range size threshold,
-  \code{cap_target} specifies the absolute target that is uniformly applied
-  to species with a range size larger than that third threshold, and finally
-  \code{abundances} specifies the range size for each feature
-  that should be used when calculating the targets.
+Seven parameters are used to calculate the targets:
+\code{lower_bound_amount} specifies the first range size threshold,
+\code{lower_bound_target} specifies the relative target required for
+species with a range size equal to or less than the first threshold,
+\code{upper_bound_amount} specifies the second range size threshold,
+\code{upper_bound_target} specifies the relative target required for
+species with a range size equal to or greater than the second threshold,
+\code{cap_amount} specifies the third range size threshold,
+\code{cap_target} specifies the absolute target that is uniformly applied
+to species with a range size larger than that third threshold, and finally
+\code{abundances} specifies the range size for each feature
+that should be used when calculating the targets.
 
-  \strong{Note that the target calculations do not account for the
-  size of each planning unit.} Therefore, the feature data should account for
-  the size of each planning unit if this is important (e.g. pixel values in
-  the argument to \code{features} in the function \code{\link{problem}} could
-  correspond to amount of land occupied by the feature in \eqn{km^2} units).
-
-  This function can only be applied to
-  \code{\link{ConservationProblem-class}} objects that are associated with a
-  single zone.
+The target calculations do not account for the
+size of each planning unit. Therefore, the feature data should account for
+the size of each planning unit if this is important (e.g. pixel values in
+the argument to \code{features} in the function \code{\link[=problem]{problem()}} could
+correspond to amount of land occupied by the feature in \eqn{km^2} units).
+Additionally, the function can only be applied to
+\code{\linkS4class{ConservationProblem}} objects that are associated with a
+single zone.
 }
+\section{Notes}{
+
+Early versions (< 5.0.0) used different equations for calculating
+targets.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_features)
@@ -113,5 +118,5 @@ and solutions for meeting national and global conservation area targets.
 \emph{Conservation Letters}, 8: 329--337.
 }
 \seealso{
-\code{\link{targets}}, \code{\link{loglinear_interpolation}}.
+\link{targets}, \code{\link[=loglinear_interpolation]{loglinear_interpolation()}}.
 }

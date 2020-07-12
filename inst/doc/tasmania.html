@@ -224,7 +224,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30256.853351
 ## Found heuristic solution: objective 12699.649052
 ## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.03s
+## Presolve time: 0.04s
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## Found heuristic solution: objective 11645.738446
 ## Variable types: 0 continuous, 3132 integer (3132 binary)
@@ -238,7 +238,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.08 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
@@ -276,7 +276,7 @@ r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 veg8            10.6          0.236
 ##  9 veg9            75.0          0.195
 ## 10 veg10            4.00         0.274
-NA</code></pre>
+## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw">as</span>(tas_pu, <span class="st">&quot;SpatialPolygons&quot;</span>), <span class="dt">data =</span> s1)
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -322,21 +322,21 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30256.853351
 ## Found heuristic solution: objective 12699.649052
 ## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.03s
+## Presolve time: 0.05s
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## Found heuristic solution: objective 11645.738446
 ## Variable types: 0 continuous, 3132 integer (3132 binary)
 ## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.03 seconds
+## Root relaxation: objective 1.066994e+04, 731 iterations, 0.11 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.07 seconds
+## Explored 0 nodes (731 simplex iterations) in 0.21 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11645.7 12699.6 30256.9 
@@ -359,7 +359,7 @@ r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 layer.8          10.6          0.236
 ##  9 layer.9          75.0          0.195
 ## 10 layer.10          4.00         0.274
-NA</code></pre>
+## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">spplot</span>(s2, <span class="st">&quot;solution_1&quot;</span>, <span class="dt">col.regions =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),

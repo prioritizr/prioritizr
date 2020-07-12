@@ -13,44 +13,44 @@ add_manual_bounded_constraints(x, data)
 \S4method{add_manual_bounded_constraints}{ConservationProblem,tbl_df}(x, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{data}{\code{data.frame} or \code{\link[tibble]{tibble}} object. See
+\item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
 the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+added to it.
 }
 \description{
-Add constraints to a conservation planning \code{\link{problem}} to ensure
+Add constraints to a conservation planning \code{\link[=problem]{problem()}} to ensure
 that the planning unit values (e.g. proportion, binary) in a solution
 range between specific lower and upper bounds. This function offers more
-fine-grained control than the \code{\link{add_manual_locked_constraints}}
+fine-grained control than the \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}}
 function and is is most useful for problems involving proportion-type
 or semi-continuous decisions.
 }
 \details{
 The argument to \code{data} must contain the following fields
-  (columns):
+(columns):
 
-  \describe{
+\describe{
 
-  \item{\code{"pu"}}{\code{integer} planning unit identifier.}
+\item{\code{"pu"}}{\code{integer} planning unit identifier.}
 
-  \item{\code{"zone"}}{\code{character} names of zones. Note that this
-    argument is optional for arguments to \code{x} that contain a single
-    zone.}
+\item{\code{"zone"}}{\code{character} names of zones. Note that this
+argument is optional for arguments to \code{x} that contain a single
+zone.}
 
-  \item{\code{"lower"}}{\code{numeric} values indicating the minimum
-    value that each planning unit can be allocated to in each zone
-    in the solution.}
+\item{\code{"lower"}}{\code{numeric} values indicating the minimum
+value that each planning unit can be allocated to in each zone
+in the solution.}
 
-  \item{\code{"upper"}}{\code{numeric} values indicating the maximum
-    value that each planning unit can be allocated to in each zone
-    in the solution.}
+\item{\code{"upper"}}{\code{numeric} values indicating the maximum
+value that each planning unit can be allocated to in each zone
+in the solution.}
 
-  }
+}
 }
 \examples{
 # set seed for reproducibility
@@ -137,5 +137,5 @@ spplot(s4, zcol = c("solution", "solution_bounded"), axes = FALSE,
 }
 }
 \seealso{
-\code{\link{constraints}}.
+\link{constraints}.
 }

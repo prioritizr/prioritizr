@@ -7,10 +7,10 @@
 new_optimization_problem()
 }
 \value{
-\code{\link{OptimizationProblem-class}} object.
+\code{\linkS4class{OptimizationProblem}} object.
 }
 \description{
-Generate a new empty \code{\link{OptimizationProblem-class}} object.
+Generate a new empty \code{\linkS4class{OptimizationProblem}} object.
 }
 \examples{
 # create empty OptimizationProblem object
@@ -20,5 +20,5 @@ x <- new_optimization_problem()
 print(x)
 }
 \seealso{
-\code{\link{OptimizationProblem-methods}}
+\link{OptimizationProblem-methods}
 }

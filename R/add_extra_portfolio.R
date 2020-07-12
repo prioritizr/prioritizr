@@ -4,17 +4,17 @@ NULL
 #' Add an extra portfolio
 #'
 #' Generate a portfolio of solutions for a conservation planning
-#' \code{\link{problem}} by storing feasible solutions
+#' [problem()] by storing feasible solutions
 #' discovered during the optimization process.
 #' This method is useful for quickly obtaining multiple solutions,
 #' but does not provide any guarantees on the number of solutions, or
 #' the quality of solutions.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details This strategy for generating a portfolio requires problems to
-#'   be solved using the \emph{Gurobi} software suite (i.e. using
-#'   \code{\link{add_gurobi_solver}}. Specifically, version 8.0.0 (or greater)
+#'   be solved using the *Gurobi* software suite (i.e. using
+#'   [add_gurobi_solver()]. Specifically, version 8.0.0 (or greater)
 #'   of the \pkg{gurobi} package must be installed.
 #'
 #' @inherit add_cuts_portfolio seealso return

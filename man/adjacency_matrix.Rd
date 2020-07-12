@@ -25,29 +25,29 @@ adjacency_matrix(x, ...)
 \method{adjacency_matrix}{default}(x, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{SpatialPolygons-class}},
-\code{\link[sp]{SpatialLines-class}},
-or \code{\link[sf]{sf}} object
+\item{x}{\code{\linkS4class{Raster}},
+\code{\linkS4class{SpatialPolygons}},
+\code{\linkS4class{SpatialLines}},
+or \code{\link[sf:sf]{sf::sf()}} object
 representing planning units.}
 
 \item{...}{not used.}
 
 \item{directions}{\code{integer} If \code{x} is a
-\code{\link[raster]{Raster-class}} object, the number of directions
+\code{\linkS4class{Raster}} object, the number of directions
 in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 with one-cell diagonal moves.}
 }
 \value{
-\code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
-  Each row and column represents a planning unit.
-  Cells values indicate if different planning units are
-  adjacent to each other or not (using ones and zeros).
-  To reduce computational burden, cells among the matrix diagonal are
-  set to zero. Furthermore, if the argument to \code{x} is a
-  \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
-  values are set to zero too.
+\code{\linkS4class{dsCMatrix}} sparse symmetric matrix.
+Each row and column represents a planning unit.
+Cells values indicate if different planning units are
+adjacent to each other or not (using ones and zeros).
+To reduce computational burden, cells among the matrix diagonal are
+set to zero. Furthermore, if the argument to \code{x} is a
+\code{\linkS4class{Raster}} object, then cells with \code{NA}
+values are set to zero too.
 }
 \description{
 Create a matrix showing which planning units are spatially adjacent to
@@ -56,14 +56,18 @@ with each other too.
 }
 \details{
 Spatial processing is completed using
-  \code{\link[sf]{st_intersects}} for \code{\link[sp]{Spatial-class}} and
-  \code{\link[sf]{sf}} objects,
-  and \code{\link[raster]{adjacent}} for \code{\link[raster]{Raster-class}}
-  objects.
-  Prior to version 5.0.0,  this function was named
-  \code{connected_matrix}. It has been renamed to be consistent
-  with other spatial association matrix functions.
+\code{\link[sf:geos_binary_pred]{sf::st_intersects()}} for \code{\linkS4class{Spatial}} and
+\code{\link[sf:sf]{sf::sf()}} objects,
+and \code{\link[raster:adjacent]{raster::adjacent()}} for \code{\linkS4class{Raster}}
+objects.
 }
+\section{Notes}{
+
+In earlier versions (< 5.0.0), this function was named as the
+\code{connected_matrix} function. It has been renamed to be consistent
+with other spatial association matrix functions.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_sf, sim_pu_lines)

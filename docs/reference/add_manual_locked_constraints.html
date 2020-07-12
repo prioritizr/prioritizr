@@ -53,11 +53,11 @@
 
 
 <meta property="og:title" content="Add manually specified locked constraints — add_manual_locked_constraints" />
-<meta property="og:description" content="Add constraints to a conservation planning problem to ensure
+<meta property="og:description" content="Add constraints to a conservation planning problem() to ensure
 that solutions allocate (or do not allocate) specific planning units to
 specific management zones. This function offers more fine-grained control
-than the add_locked_in_constraints and
-add_locked_out_constraints functions." />
+than the add_locked_in_constraints() and
+add_locked_out_constraints() functions." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -100,7 +100,7 @@ add_locked_out_constraints functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -178,11 +178,11 @@ add_locked_out_constraints functions." />
     </div>
 
     <div class="ref-description">
-    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem</a></code> to ensure
+    <p>Add constraints to a conservation planning <code><a href='problem.html'>problem()</a></code> to ensure
 that solutions allocate (or do not allocate) specific planning units to
 specific management zones. This function offers more fine-grained control
-than the <code><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></code> and
-<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></code> functions.</p>
+than the <code><a href='add_locked_in_constraints.html'>add_locked_in_constraints()</a></code> and
+<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints()</a></code> functions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_manual_locked_constraints</span>(<span class='no'>x</span>, <span class='no'>data</span>)
@@ -198,46 +198,46 @@ than the <code><a href='add_locked_in_constraints.html'>add_locked_in_constraint
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p><code>data.frame</code> or <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code> object. See
+      <td><p><code>data.frame</code> or <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object. See
 the Details section for more information.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the constraints
-  added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the constraints
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The argument to <code>data</code> must contain the following fields
-  (columns):</p>
-<p></p><dl'>
+(columns):</p>
+<dl'>
 
-  <dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-  <dt><code>"zone"</code></dt><dd><p><code>character</code> names of zones. Note that this
-    argument is optional for arguments to <code>x</code> that contain a single
-    zone.</p></dd>
+<dt><code>"zone"</code></dt><dd><p><code>character</code> names of zones. Note that this
+argument is optional for arguments to <code>x</code> that contain a single
+zone.</p></dd>
 
-  <dt><code>"status"</code></dt><dd><p><code>numeric</code> values indicating how much
-    of each planning unit should be allocated to each zone in the solution.
-    For example, the <code>numeric</code> values could be binary values (i.e. zero
-    or one) for problems containing binary-type decision variables
-    (using the <code><a href='add_binary_decisions.html'>add_binary_decisions</a></code> function). Alternatively,
-    the <code>numeric</code> values could be proportions (e.g. 0.5) for problems
-    containing proportion-type decision variables (using the
-    <code><a href='add_proportion_decisions.html'>add_proportion_decisions</a></code>).</p></dd>
+<dt><code>"status"</code></dt><dd><p><code>numeric</code> values indicating how much
+of each planning unit should be allocated to each zone in the solution.
+For example, the <code>numeric</code> values could be binary values (i.e. zero
+or one) for problems containing binary-type decision variables
+(using the <code><a href='add_binary_decisions.html'>add_binary_decisions()</a></code> function). Alternatively,
+the <code>numeric</code> values could be proportions (e.g. 0.5) for problems
+containing proportion-type decision variables (using the
+<code><a href='add_proportion_decisions.html'>add_proportion_decisions()</a></code>).</p></dd>
 
-  
+
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -406,7 +406,7 @@ the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 11123.160980
 #&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
@@ -437,7 +437,7 @@ the Details section for more information.</p></td>
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10775.471081
 #&gt; Presolve removed 9 rows and 17 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 96 rows, 253 columns, 1182 nonzeros
 #&gt; Variable types: 0 continuous, 253 integer (253 binary)
 #&gt; Presolved: 96 rows, 253 columns, 1182 nonzeros

@@ -3,12 +3,14 @@ NULL
 
 #' Pipe operator
 #'
-#' This package uses the pipe operator (\code{\%>\%}) to express nested code
+#' This package uses the pipe operator (`\%>\%`) to express nested code
 #' as a series of imperative procedures.
 #'
 #' @param lhs,rhs An object and a function.
 #'
-#' @seealso \code{\link[magrittr]{\%>\%}}, \code{\link{tee}}.
+#' @seealso [magrittr::%>%()], [tee()].
+#'
+#' @return An object.
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -37,11 +39,13 @@ NULL
 
 #' Tee operator
 #'
-#' This package uses the "tee" operator (\code{\%T>\%}) to modify objects.
+#' This package uses the "tee" operator (`\%T>\%`) to modify objects.
 #'
 #' @param lhs,rhs An object and a function.
 #'
-#' @seealso \code{\link[magrittr]{\%T>\%}}, \code{\link{pipe}}.
+#' @seealso [magrittr::%T>%()], [pipe()].
+#'
+#' @return An object.
 #'
 #' @examples
 #' # the tee operator returns the left-hand side of the result and can be

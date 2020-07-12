@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_rsymphony_solver.R
 \name{add_rsymphony_solver}
 \alias{add_rsymphony_solver}
-\title{Add a SYMPHONY solver with \pkg{Rsymphony}}
+\title{Add a SYMPHONY solver with \emph{Rsymphony}}
 \usage{
 add_rsymphony_solver(
   x,
@@ -13,7 +13,7 @@ add_rsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is absolute and
 expresses the acceptable deviance from the optimal objective. For example,
@@ -36,8 +36,8 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the solver added
-  to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a
@@ -47,12 +47,12 @@ It requires the \pkg{Rsymphony} package.
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-  open-source integer programming solver that is part of the Computational
-  Infrastructure for Operations Research (COIN-OR) project, an initiative
-  to promote development of open-source tools for operations research (a
-  field that includes linear programming). The \pkg{Rsymphony} package
-  provides an interface to COIN-OR and is available on \emph{CRAN}.
-  This solver uses the \pkg{Rsymphony} package to solve problems.
+open-source integer programming solver that is part of the Computational
+Infrastructure for Operations Research (COIN-OR) project, an initiative
+to promote development of open-source tools for operations research (a
+field that includes linear programming). The \pkg{Rsymphony} package
+provides an interface to COIN-OR and is available on \emph{CRAN}.
+This solver uses the \pkg{Rsymphony} package to solve problems.
 }
 \examples{
 # load data
@@ -78,5 +78,5 @@ if (require("Rsymphony")) {
 
 }
 \seealso{
-\code{\link{solvers}}.
+\link{solvers}.
 }

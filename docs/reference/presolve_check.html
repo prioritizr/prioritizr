@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Presolve check — presolve_check" />
-<meta property="og:description" content="Check a conservation planning problem for potential issues
+<meta property="og:description" content="Check a conservation planning problem() for potential issues
 before trying to solve it. Specifically, problems are checked for (i) values
 that are likely to result in &quot;strange&quot; solutions and (ii) values that are
 likely to cause numerical instability issues and lead to unreasonably long
@@ -103,7 +103,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -181,7 +181,7 @@ verify if  a problem has a feasible solution or not." />
     </div>
 
     <div class="ref-description">
-    <p>Check a conservation planning <code><a href='problem.html'>problem</a></code> for potential issues
+    <p>Check a conservation planning <code><a href='problem.html'>problem()</a></code> for potential issues
 before trying to solve it. Specifically, problems are checked for (i) values
 that are likely to result in "strange" solutions and (ii) values that are
 likely to cause numerical instability issues and lead to unreasonably long
@@ -204,102 +204,102 @@ verify if  a problem has a feasible solution or not.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> or an
-<code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) or
+<code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>logical</code> value indicating if all checks are passed
-  successfully.</p>
+successfully.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function checks for issues that are likely to result in
-  "strange" solutions. Specifically, it checks if (i) all planning units are
-  locked in, (ii) all planning units are locked out, and (iii) all
-  planning units have negative cost values (after applying penalties if any
-  were specified). Although such conservation planning problems
-  are mathematically valid, they are generally the result of a coding mistake
-  when building the problem (e.g. using an absurdly high
-  penalty value or using the wrong dataset to lock in planning units).
-  Thus such issues, if they are indeed issues and not false positives, can
-  be fixed by carefully checking the code, data, and parameters used to build
-  the conservation planning problem.</p>
+"strange" solutions. Specifically, it checks if (i) all planning units are
+locked in, (ii) all planning units are locked out, and (iii) all
+planning units have negative cost values (after applying penalties if any
+were specified). Although such conservation planning problems
+are mathematically valid, they are generally the result of a coding mistake
+when building the problem (e.g. using an absurdly high
+penalty value or using the wrong dataset to lock in planning units).
+Thus such issues, if they are indeed issues and not false positives, can
+be fixed by carefully checking the code, data, and parameters used to build
+the conservation planning problem.</p>
 <p>This function then checks for values that may lead to numerical instability
-  issues when solving the problem. Specifically, it checks if the range of
-  values in certain components of the optimization problem are over a
-  certain threshold (i.e. \(1 \times 10 ^9\)) or if the values
-  themselves exceed a certain threshold
-  (i.e. \(1 \times 10^{10}\)).
-  In most cases, such issues will simply cause an exact
-  algorithm solver to take a very long time to generate a solution. In rare
-  cases, such issues can cause incorrect calculations which can lead
-  to exact algorithm solvers returning infeasible solutions
-  (e.g. a solution to the minimum set problem where not all targets are met)
-  or solutions that exceed the specified optimality gap (e.g. a suboptimal
-  solution when a zero optimality gap is specified).</p>
+issues when solving the problem. Specifically, it checks if the range of
+values in certain components of the optimization problem are over a
+certain threshold (i.e. \(1 \times 10 ^9\)) or if the values
+themselves exceed a certain threshold
+(i.e. \(1 \times 10^{10}\)).
+In most cases, such issues will simply cause an exact
+algorithm solver to take a very long time to generate a solution. In rare
+cases, such issues can cause incorrect calculations which can lead
+to exact algorithm solvers returning infeasible solutions
+(e.g. a solution to the minimum set problem where not all targets are met)
+or solutions that exceed the specified optimality gap (e.g. a suboptimal
+solution when a zero optimality gap is specified).</p>
 <p>What can you do if a conservation planning problem fails to pass these
-  checks? Well, this function will have thrown some warning messages
-  describing the source of these issues, so read them carefully. For
-  instance, a common issue is when a relatively large penalty value is
-  specified for boundary (<code><a href='add_boundary_penalties.html'>add_boundary_penalties</a></code>) or
-  connectivity penalties (<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code>). This
-  can be fixed by trying a smaller penalty value. In such cases, the
-  original penalty value supplied was so high that the optimal solution
-  would just have selected every single planning unit in the solution---and
-  this may not be especially helpful anyway (see below for example). Another
-  common issue is that the
-  planning unit cost values are too large. For example, if you express the
-  costs of the planning units in terms of USD then you might have
-  some planning units that cost over one billion dollars in large-scale
-  planning exercises. This can be fixed by rescaling the values so that they
-  are smaller (e.g. multiplying the values by a number smaller than one, or
-  expressing them as a fraction of the maximum cost). Let's consider another
-  common issue, let's pretend that you used habitat suitability models to
-  predict the amount of suitable habitat
-  in each planning unit for each feature. If you calculated the amount of
-  suitable habitat in each planning unit in square meters then this
-  could lead to very large numbers. You could fix this by converting
-  the units from square meters to square kilometers or thousands of square
-  kilometers. Alternatively, you could calculate the percentage of each
-  planning unit that is occupied by suitable habitat, which will yield
-  values between zero and one hundred.</p>
+checks? Well, this function will have thrown some warning messages
+describing the source of these issues, so read them carefully. For
+instance, a common issue is when a relatively large penalty value is
+specified for boundary (<code><a href='add_boundary_penalties.html'>add_boundary_penalties()</a></code>) or
+connectivity penalties (<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code>). This
+can be fixed by trying a smaller penalty value. In such cases, the
+original penalty value supplied was so high that the optimal solution
+would just have selected every single planning unit in the solution---and
+this may not be especially helpful anyway (see below for example). Another
+common issue is that the
+planning unit cost values are too large. For example, if you express the
+costs of the planning units in terms of USD then you might have
+some planning units that cost over one billion dollars in large-scale
+planning exercises. This can be fixed by rescaling the values so that they
+are smaller (e.g. multiplying the values by a number smaller than one, or
+expressing them as a fraction of the maximum cost). Let's consider another
+common issue, let's pretend that you used habitat suitability models to
+predict the amount of suitable habitat
+in each planning unit for each feature. If you calculated the amount of
+suitable habitat in each planning unit in square meters then this
+could lead to very large numbers. You could fix this by converting
+the units from square meters to square kilometers or thousands of square
+kilometers. Alternatively, you could calculate the percentage of each
+planning unit that is occupied by suitable habitat, which will yield
+values between zero and one hundred.</p>
 <p>But what can you do if you can't fix these issues by simply changing
-  the penalty values or rescaling data? You will need to apply some creative
-  thinking. Let's run through a couple of scenarios.
-  Let's pretend that you have a few planning units that
-  cost a billion times more than any other planning
-  unit so you can't fix this by rescaling the cost values. In this case, it's
-  extremely unlikely that these planning units will
-  be selected in the optimal solution so just set the costs to zero and lock
-  them out. If this procedure yields a problem with no feasible solution,
-  because one (or several) of the planning units that you manually locked out
-  contains critical habitat for a feature, then find out which planning
-  unit(s) is causing this infeasibility and set its cost to zero. After
-  solving the problem, you will need to manually recalculate the cost
-  of the solutions but at least now you can be confident that you have the
-  optimal solution. Now let's pretend that you are using the maximum features
-  objective (i.e. <code><a href='add_max_features_objective.html'>add_max_features_objective</a></code>) and assigned some
-  really high weights to the targets for some features to ensure that their
-  targets were met in the optimal solution. If you set the weights for
-  these features to one billion then you will probably run into numerical
-  instability issues. Instead, you can calculate minimum weight needed to
-  guarantee that these features will be represented in the optimal solution
-  and use this value instead of one billion. This minimum weight value
-  can be calculated as the sum of the weight values for the other features
-  and adding a small number to it (e.g. 1). Finally, if you're running out
-  of ideas for addressing numerical stability issues you have one remaining
-  option: you can use the <code>numeric_focus</code> argument in the
-  <code><a href='add_gurobi_solver.html'>add_gurobi_solver</a></code> function to tell the solver to pay extra
-  attention to numerical instability issues. This is not a free lunch,
-  however, because telling the solver to pay extra attention to numerical
-  issues can substantially increase run time. So, if you have problems that
-  are already taking an unreasonable time to solve, then this will not help
-  at all.</p>
+the penalty values or rescaling data? You will need to apply some creative
+thinking. Let's run through a couple of scenarios.
+Let's pretend that you have a few planning units that
+cost a billion times more than any other planning
+unit so you can't fix this by rescaling the cost values. In this case, it's
+extremely unlikely that these planning units will
+be selected in the optimal solution so just set the costs to zero and lock
+them out. If this procedure yields a problem with no feasible solution,
+because one (or several) of the planning units that you manually locked out
+contains critical habitat for a feature, then find out which planning
+unit(s) is causing this infeasibility and set its cost to zero. After
+solving the problem, you will need to manually recalculate the cost
+of the solutions but at least now you can be confident that you have the
+optimal solution. Now let's pretend that you are using the maximum features
+objective (i.e. <code><a href='add_max_features_objective.html'>add_max_features_objective()</a></code>) and assigned some
+really high weights to the targets for some features to ensure that their
+targets were met in the optimal solution. If you set the weights for
+these features to one billion then you will probably run into numerical
+instability issues. Instead, you can calculate minimum weight needed to
+guarantee that these features will be represented in the optimal solution
+and use this value instead of one billion. This minimum weight value
+can be calculated as the sum of the weight values for the other features
+and adding a small number to it (e.g. 1). Finally, if you're running out
+of ideas for addressing numerical stability issues you have one remaining
+option: you can use the <code>numeric_focus</code> argument in the
+<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code> function to tell the solver to pay extra
+attention to numerical instability issues. This is not a free lunch,
+however, because telling the solver to pay extra attention to numerical
+issues can substantially increase run time. So, if you have problems that
+are already taking an unreasonable time to solve, then this will not help
+at all.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>, <code><a href='solve.html'>solve</a></code>, <a href='http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html'>http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html</a>, <a href='http://files.gurobi.com/Numerics.pdf'>http://files.gurobi.com/Numerics.pdf</a>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <code><a href='solve.html'>solve()</a></code>, <a href='http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html'>http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html</a>, <a href='http://files.gurobi.com/Numerics.pdf'>http://files.gurobi.com/Numerics.pdf</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>

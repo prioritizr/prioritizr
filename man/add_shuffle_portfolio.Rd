@@ -12,7 +12,7 @@ add_shuffle_portfolio(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{number_solutions}{\code{integer} number of attempts to generate
 different solutions. Defaults to 10.}
@@ -24,22 +24,22 @@ the solution portfolio. Defaults to 1.}
 be removed? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the portfolio
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the portfolio
+added to it.
 }
 \description{
 Generate a portfolio of solutions for a conservation planning
-\code{\link{problem}} by randomly reordering the data prior to
+\code{\link[=problem]{problem()}} by randomly reordering the data prior to
 solving the problem. This is recommended as a replacement for
-\code{\link{add_top_portfolio}} when the \emph{Gurobi} software is not
+\code{\link[=add_top_portfolio]{add_top_portfolio()}} when the \emph{Gurobi} software is not
 available.
 }
 \details{
 This strategy for generating a portfolio of solutions often
-  results in different solutions, depending on optimality gap, but may
-  return duplicate solutions. In general, this strategy is most effective
-  when problems are quick to solve and multiple threads are available for
-  solving each problem separately.
+results in different solutions, depending on optimality gap, but may
+return duplicate solutions. In general, this strategy is most effective
+when problems are quick to solve and multiple threads are available for
+solving each problem separately.
 }
 \examples{
 # set seed for reproducibility
@@ -84,5 +84,5 @@ plot(stack(lapply(s2, category_layer)), main = "solution", axes = FALSE,
 }
 }
 \seealso{
-\code{\link{portfolios}}.
+\link{portfolios}.
 }

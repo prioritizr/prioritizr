@@ -13,50 +13,50 @@ NULL
 #'   are within the specified optimality gap.
 #'
 #'   The following portfolios can be added to a conservation planning
-#'   \code{\link{problem}}:
+#'   [problem()]:
 #'
 #'   \describe{
 #'
-#'   \item{\code{add_default_portfolio}}{Generate a single solution.}
+#'   \item{`add_default_portfolio`}{Generate a single solution.}
 #'
-#'   \item{\code{\link{add_extra_portfolio}}}{Generate a portfolio of solutions
+#'   \item{[add_extra_portfolio()]}{Generate a portfolio of solutions
 #'     by storing feasible solutions found during the optimization
 #'     process. This method is useful for quickly obtaining multiple solutions,
 #'     but does not provide any guarantees on the number of solutions, or
 #'     the quality of solutions.
-#'     Note that it requires the \emph{Gurobi} solver.}
+#'     Note that it requires the *Gurobi* solver.}
 #'
-#'   \item{\code{\link{add_top_portfolio}}}{Generate a portfolio of
+#'   \item{[add_top_portfolio()]}{Generate a portfolio of
 #'     solutions by finding a pre-specified number of solutions that
 #'     are closest to optimality (i.e the top solutions). This is useful
 #'     for examining differences among near-optimal solutions.
 #'     It can also be used to generate multiple solutions and, in turn,
 #'     to calculate selection frequencies for small problems.
-#'     Note that it requires the \emph{Gurobi} solver.}
+#'     Note that it requires the *Gurobi* solver.}
 #'
-#'   \item{\code{\link{add_gap_portfolio}}}{Generate a portfolio of solutions
+#'   \item{[add_gap_portfolio()]}{Generate a portfolio of solutions
 #'     by finding a certain number of solutions that are all within a pre-
 #'     specified optimality gap. This method is useful for generating
 #'     multiple solutions that can be used to calculate selection frequencies
-#'     for moderate and large-sized problems (similar to \emph{Marxan}).
-#'     Note that it requires the \emph{Gurobi} solver.}
+#'     for moderate and large-sized problems (similar to *Marxan*).
+#'     Note that it requires the *Gurobi* solver.}
 #'
-#'   \item{\code{\link{add_cuts_portfolio}}}{Generate a portfolio of distinct
+#'   \item{[add_cuts_portfolio()]}{Generate a portfolio of distinct
 #'     solutions within a pre-specified optimality gap using Bender's cuts.
-#'     This is recommended as a replacement for \code{\link{add_top_portfolio}}
-#'     when the \emph{Gurobi} software is not available.}
+#'     This is recommended as a replacement for [add_top_portfolio()]
+#'     when the *Gurobi* software is not available.}
 #
-#'   \item{\code{\link{add_shuffle_portfolio}}}{Generate a portfolio of
+#'   \item{[add_shuffle_portfolio()]}{Generate a portfolio of
 #'     solutions by randomly reordering the data prior to attempting to solve
 #'     the problem.
-#'     This is recommended as a replacement for \code{\link{add_gap_portfolio}}
-#'     when the \emph{Gurobi} software is not available.}
+#'     This is recommended as a replacement for [add_gap_portfolio()]
+#'     when the *Gurobi* software is not available.}
 #'
 #' }
 #'
-#' @seealso \code{\link{constraints}},  \code{\link{decisions}},
-#'  \code{\link{objectives}} \code{\link{penalties}}, \code{\link{problem}},
-#'  \code{\link{solvers}}, \code{\link{targets}}.
+#' @seealso [constraints],  [decisions],
+#'  [objectives] [penalties], [problem()],
+#'  [solvers], [targets].
 #'
 #' @examples
 #' # load data

@@ -17,155 +17,155 @@ NULL
 #' constraints used to ensure that the solution meets additional
 #' objectives (e.g. certain areas are locked into the solution). Finally,
 #' a conservation planning problem---unlike an optimization problem---also
-#' requires a method to solve the problem. \strong{This class represents a
+#' requires a method to solve the problem. **This class represents a
 #' planning problem, to actually build and then solve a planning problem,
-#' use the \code{\link{problem}} function. Only experts should use this
-#' class directly.}
+#' use the [problem()] function. Only experts should use this
+#' class directly.**
 #'
 #' @section Fields:
 #' \describe{
 #'
-#' \item{$data}{\code{list} object containing data.}
+#' \item{$data}{`list` object containing data.}
 #'
-#' \item{$objective}{\code{\link{Objective-class}} object used to represent how
+#' \item{$objective}{[`Objective-class`] object used to represent how
 #'   the targets relate to the solution.}
 #'
-#' \item{$decisions}{\code{\link{Decision-class}} object used to represent the
+#' \item{$decisions}{[`Decision-class`] object used to represent the
 #'   type of decision made on planning units.}
 #'
-#' \item{$targets}{\code{\link{Target-class}} object used to represent
+#' \item{$targets}{[`Target-class`] object used to represent
 #'   representation targets for features.}
 #'
-#' \item{$penalties}{\code{\link{Collection-class}} object used to represent
-#'   additional \code{\link{penalties}} that the problem is subject to.}
+#' \item{$penalties}{[`Collection-class`] object used to represent
+#'   additional [penalties] that the problem is subject to.}
 #'
-#' \item{$constraints}{\code{\link{Collection-class}} object used to represent
-#'   additional \code{\link{constraints}} that the problem is subject to.}
+#' \item{$constraints}{[`Collection-class`] object used to represent
+#'   additional [constraints] that the problem is subject to.}
 #'
-#' \item{$portfolio}{\code{\link{Portfolio-class}} object used to represent
+#' \item{$portfolio}{[`Portfolio-class`] object used to represent
 #'   the method for generating a portfolio of solutions.}
 #'
-#' \item{$solver}{\code{\link{Solver-class}} object used to solve the problem.}
+#' \item{$solver}{[`Solver-class`] object used to solve the problem.}
 #'
 #' }
 #'
 #' @section Usage:
 #'
-#' \code{x$print()}
+#' `x$print()`
 #'
-#' \code{x$show()}
+#' `x$show()`
 #'
-#' \code{x$repr()}
+#' `x$repr()`
 #'
-#' \code{x$get_data(name)}
+#' `x$get_data(name)`
 #'
-#' \code{x$set_data(name, value)}
+#' `x$set_data(name, value)`
 #'
-#' \code{x$number_of_total_units()}
+#' `x$number_of_total_units()`
 #'
-#' \code{x$number_of_planning_units()}
+#' `x$number_of_planning_units()`
 #'
-#' \code{x$planning_unit_indices()}
+#' `x$planning_unit_indices()`
 #'
-#' \code{x$planning_unit_indices_with_finite_costs()}
+#' `x$planning_unit_indices_with_finite_costs()`
 #'
-#' \code{x$planning_unit_costs()}
+#' `x$planning_unit_costs()`
 #'
-#' \code{x$number_of_features()}
+#' `x$number_of_features()`
 #'
-#' \code{x$feature_names()}
+#' `x$feature_names()`
 #'
-#' \code{x$feature_abundances_in_planning_units()}
+#' `x$feature_abundances_in_planning_units()`
 #'
-#' \code{x$feature_abundances_in_total_units()}
+#' `x$feature_abundances_in_total_units()`
 #'
-#' \code{x$feature_targets()}
+#' `x$feature_targets()`
 #'
-#' \code{x$number_of_zones()}
+#' `x$number_of_zones()`
 #'
-#' \code{x$zone_names()}
+#' `x$zone_names()`
 #'
-#' \code{x$add_objective(obj)}
+#' `x$add_objective(obj)`
 #'
-#' \code{x$add_decisions(dec)}
+#' `x$add_decisions(dec)`
 #'
-#' \code{x$add_portfolio(pol)}
+#' `x$add_portfolio(pol)`
 #'
-#' \code{x$add_solver(sol)}
+#' `x$add_solver(sol)`
 #'
-#' \code{x$add_constraint(con)}
+#' `x$add_constraint(con)`
 #'
-#' \code{x$add_targets(targ)}
+#' `x$add_targets(targ)`
 #'
-#' \code{x$get_constraint_parameter(id)}
+#' `x$get_constraint_parameter(id)`
 #'
-#' \code{x$set_constraint_parameter(id, value)}
+#' `x$set_constraint_parameter(id, value)`
 #'
-#' \code{x$render_constraint_parameter(id)}
+#' `x$render_constraint_parameter(id)`
 #'
-#' \code{x$render_all_constraint_parameters()}
+#' `x$render_all_constraint_parameters()`
 #'
-#' \code{x$get_objective_parameter(id)}
+#' `x$get_objective_parameter(id)`
 #'
-#' \code{x$set_objective_parameter(id, value)}
+#' `x$set_objective_parameter(id, value)`
 #'
-#' \code{x$render_objective_parameter(id)}
+#' `x$render_objective_parameter(id)`
 #'
-#' \code{x$render_all_objective_parameters()}
+#' `x$render_all_objective_parameters()`
 #'
-#' \code{x$get_solver_parameter(id)}
+#' `x$get_solver_parameter(id)`
 #'
-#' \code{x$set_solver_parameter(id, value)}
+#' `x$set_solver_parameter(id, value)`
 #'
-#' \code{x$render_solver_parameter(id)}
+#' `x$render_solver_parameter(id)`
 #'
-#' \code{x$render_all_solver_parameters()}
+#' `x$render_all_solver_parameters()`
 #'
-#' \code{x$get_portfolio_parameter(id)}
+#' `x$get_portfolio_parameter(id)`
 #'
-#' \code{x$set_portfolio_parameter(id, value)}
+#' `x$set_portfolio_parameter(id, value)`
 #'
-#' \code{x$render_portfolio_parameter(id)}
+#' `x$render_portfolio_parameter(id)`
 #'
-#' \code{x$render_all_portfolio_parameters()}
+#' `x$render_all_portfolio_parameters()`
 #'
-#' \code{x$get_penalty_parameter(id)}
+#' `x$get_penalty_parameter(id)`
 #'
-#' \code{x$set_penalty_parameter(id, value)}
+#' `x$set_penalty_parameter(id, value)`
 #'
-#' \code{x$render_penalty_parameter(id)}
+#' `x$render_penalty_parameter(id)`
 #'
-#' \code{x$render_all_penalty_parameters()}
+#' `x$render_all_penalty_parameters()`
 #'
 #' @section Arguments:
 #'
 #' \describe{
 #'
-#' \item{name}{\code{character} name for object.}
+#' \item{name}{`character` name for object.}
 #'
 #' \item{value}{an object.}
 #'
-#' \item{obj}{\code{\link{Objective-class}} object.}
+#' \item{obj}{[`Objective-class`] object.}
 #'
-#' \item{dec}{\code{\link{Decision-class}} object.}
+#' \item{dec}{[`Decision-class`] object.}
 #'
-#' \item{con}{\code{\link{Constraint-class}} object.}
+#' \item{con}{[`Constraint-class`] object.}
 #'
-#' \item{pol}{\code{\link{Portfolio-class}} object.}
+#' \item{pol}{[`Portfolio-class`] object.}
 #'
-#' \item{sol}{\code{\link{Solver-class}} object.}
+#' \item{sol}{[`Solver-class`] object.}
 #'
-#' \item{targ}{\code{\link{Target-class}} object.}
+#' \item{targ}{[`Target-class`] object.}
 #'
-#' \item{cost}{\code{\link[raster]{RasterLayer-class}},
-#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}}, or
-#'   \code{\link[sp]{SpatialLinesDataFrame-class}} object showing spatial
+#' \item{cost}{[`RasterLayer-class`],
+#'   [`SpatialPolygonsDataFrame-class`], or
+#'   [`SpatialLinesDataFrame-class`] object showing spatial
 #'   representation of the planning units and their cost.}
 #'
-#' \item{features}{\code{\link{Zones-class}} or \code{data.frame} object
+#' \item{features}{[`Zones-class`] or `data.frame` object
 #'   containing feature data.}
 #'
-#' \item{id}{\code{Id} object that refers to a specific parameter.}
+#' \item{id}{`Id` object that refers to a specific parameter.}
 #'
 #' \item{value}{object that the parameter value should become.}
 #'
@@ -177,114 +177,114 @@ NULL
 #'
 #' \item{show}{show the object.}
 #'
-#' \item{repr}{return \code{character} representation of the object.}
+#' \item{repr}{return `character` representation of the object.}
 #'
-#' \item{get_data}{return an object stored in the \code{data} field with
-#'   the corresponding \code{name}. If the object is not present in the
-#'   \code{data} field, a \code{waiver} object is returned.}
+#' \item{get_data}{return an object stored in the `data` field with
+#'   the corresponding `name`. If the object is not present in the
+#'   `data` field, a `waiver` object is returned.}
 #'
-#' \item{set_data}{store an object stored in the \code{data} field with
+#' \item{set_data}{store an object stored in the `data` field with
 #'   the corresponding name. If an object with that name already
 #'   exists then the object is overwritten.}
 #'
-#' \item{number_of_planning_units}{\code{integer} number of planning units.}
+#' \item{number_of_planning_units}{`integer` number of planning units.}
 #'
-#' \item{planning_unit_indices}{\code{integer} indices of the planning units in
+#' \item{planning_unit_indices}{`integer` indices of the planning units in
 #'   the planning unit data.}
 #'
-#' \item{planning_unit_indices_with_finite_costs}{\code{list} of \code{integer}
+#' \item{planning_unit_indices_with_finite_costs}{`list` of `integer`
 #'   indices of planning units in each zone that have finite cost data.}
 #'
-#' \item{number_of_total_units}{\code{integer} number of units in the cost
-#'   data including units that have \code{N} cost data.}
+#' \item{number_of_total_units}{`integer` number of units in the cost
+#'   data including units that have `N` cost data.}
 #'
-#' \item{planning_unit_costs}{\code{matrix} cost of allocating each planning
+#' \item{planning_unit_costs}{`matrix` cost of allocating each planning
 #'   unit to each zone. Each column corresponds to a different zone and
 #'   each row corresponds to a different planning unit.}
 #'
-#' \item{number_of_features}{\code{integer} number of features.}
+#' \item{number_of_features}{`integer` number of features.}
 #'
-#' \item{feature_names}{\code{character} names of features in problem.}
+#' \item{feature_names}{`character` names of features in problem.}
 #'
-#' \item{feature_abundances_in_planning_units}{\code{matrix} total
+#' \item{feature_abundances_in_planning_units}{`matrix` total
 #'   abundance of each feature in planning units available in each zone. Each
 #'   column corresponds to a different zone and each row corresponds to a
 #'   different feature.}
 #'
-#' \item{feature_abundances_in_total_units}{\code{matrix} total
+#' \item{feature_abundances_in_total_units}{`matrix` total
 #'   abundance of each feature in each zone. Each column corresponds to a
 #'   different zone and each row corresponds to a different feature.}
 #'
-#' \item{feature_targets}{\code{\link[tibble]{tibble}} with feature targets.}
+#' \item{feature_targets}{[tibble::tibble()] with feature targets.}
 #'
-#' \item{number_of_zones}{\code{integer} number of zones.}
+#' \item{number_of_zones}{`integer` number of zones.}
 #'
-#' \item{zone_names}{\code{character} names of zones in problem.}
+#' \item{zone_names}{`character` names of zones in problem.}
 #'
-#' \item{add_objective}{return a new  \code{\link{ConservationProblem-class}}
+#' \item{add_objective}{return a new  [`ConservationProblem-class`]
 #'   with the objective added to it.}
 #'
-#' \item{add_decisions}{return a new \code{\link{ConservationProblem-class}}
+#' \item{add_decisions}{return a new [`ConservationProblem-class`]
 #'   object with the decision added to it.}
 #'
-#' \item{add_portfolio}{return a new \code{\link{ConservationProblem-class}}
+#' \item{add_portfolio}{return a new [`ConservationProblem-class`]
 #'   object with the portfolio method added to it.}
 #'
-#' \item{add_solver}{return a new \code{\link{ConservationProblem-class}} object
+#' \item{add_solver}{return a new [`ConservationProblem-class`] object
 #'   with the solver added to it.}
 #'
-#' \item{add_constraint}{return a new \code{\link{ConservationProblem-class}}
+#' \item{add_constraint}{return a new [`ConservationProblem-class`]
 #'   object with the constraint added to it.}
 #'
 #' \item{add_targets}{return a copy with the targets added to the problem.}
 #'
 #' \item{get_constraint_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in one of the constraints in the object.}
+#'   argument `id`) used in one of the constraints in the object.}
 #'
 #' \item{set_constraint_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in one of the constraints in the object to
-#'   \code{value}.}
+#'   argument `id`) used in one of the constraints in the object to
+#'   `value`.}
 #'
-#' \item{render_constraint_parameter}{generate a \emph{shiny} widget to modify
-#'  the value of a parameter (specified by argument \code{id}).}
+#' \item{render_constraint_parameter}{generate a *shiny* widget to modify
+#'  the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_constraint_parameters}{generate a \emph{shiny} \code{div}
+#' \item{render_all_constraint_parameters}{generate a *shiny* `div`
 #'   containing all the parameters' widgets.}
 #'
 #' \item{get_objective_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in the object's objective.}
+#'   argument `id`) used in the object's objective.}
 #'
 #' \item{set_objective_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in the object's objective to \code{value}.}
+#'   argument `id`) used in the object's objective to `value`.}
 #'
-#' \item{render_objective_parameter}{generate a \emph{shiny} widget to modify
-#'   the value of a parameter (specified by argument \code{id}).}
+#' \item{render_objective_parameter}{generate a *shiny* widget to modify
+#'   the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_objective_parameters}{generate a \emph{shiny} \code{div}
+#' \item{render_all_objective_parameters}{generate a *shiny* `div`
 #'   containing all the parameters' widgets.}
 #'
 #' \item{get_solver_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in the object's solver.}
+#'   argument `id`) used in the object's solver.}
 #'
 #' \item{set_solver_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in the object's solver to \code{value}.}
+#'   argument `id`) used in the object's solver to `value`.}
 #'
-#' \item{render_solver_parameter}{generate a \emph{shiny} widget to modify
-#'   the value of a parameter (specified by argument \code{id}).}
+#' \item{render_solver_parameter}{generate a *shiny* widget to modify
+#'   the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_solver_parameters}{generate a \emph{shiny} \code{div}
+#' \item{render_all_solver_parameters}{generate a *shiny* `div`
 #'   containing all the parameters' widgets.}
 #'
 #' \item{get_portfolio_parameter}{get the value of a parameter (specified by
-#'   argument \code{id}) used in the object's portfolio.}
+#'   argument `id`) used in the object's portfolio.}
 #'
 #' \item{set_portfolio_parameter}{set the value of a parameter (specified by
-#'   argument \code{id}) used in objects' solver to \code{value}.}
+#'   argument `id`) used in objects' solver to `value`.}
 #'
-#' \item{render_portfolio_parameter}{generate a \emph{shiny} widget to modify
-#'   the value of a parameter (specified by argument \code{id}).}
+#' \item{render_portfolio_parameter}{generate a *shiny* widget to modify
+#'   the value of a parameter (specified by argument `id`).}
 #'
-#' \item{render_all_portfolio_parameters}{generate a \emph{shiny} \code{div}
+#' \item{render_all_portfolio_parameters}{generate a *shiny* `div`
 #'   containing all the parameters' widgets.}
 #'
 #' }

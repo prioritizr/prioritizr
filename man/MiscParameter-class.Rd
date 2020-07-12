@@ -16,13 +16,13 @@ This prototype is used to represent a parameter that can be any object.
 
 \item{$name}{\code{character} name of parameter.}
 
-\item{$value}{\code{\link[tibble]{tibble}} object.}
+\item{$value}{\code{\link[tibble:tibble]{tibble::tibble()}} object.}
 
 \item{$validator}{\code{list} object containing a \code{function} that
-  is used to validate changes to the parameter.}
+is used to validate changes to the parameter.}
 
 \item{$widget}{\code{list} object containing a \code{function} used to
-  construct a \emph{shiny} interface for modifying values.}
+construct a \emph{shiny} interface for modifying values.}
 }
 }
 
@@ -51,9 +51,9 @@ This prototype is used to represent a parameter that can be any object.
 
 \item{x}{object used to set a new parameter value.}
 
-\item{...}{arguments passed to \code{$widget}.}
+\item{...}{arguments passed to \verb{$widget}.}
 
- }
+}
 }
 
 \section{Details}{
@@ -72,12 +72,12 @@ This prototype is used to represent a parameter that can be any object.
 
 \item{reset}{update the parameter value to be the default value.}
 
-\item{render}{create a \code{\link[shiny]{shiny}} widget to modify
-              parameter values.}
+\item{render}{create a \code{\link[shiny:shiny-package]{shiny::shiny()}} widget to modify
+parameter values.}
 
 }
 }
 
 \seealso{
-\code{\link{Parameter-class}}.
+\code{\linkS4class{Parameter}}.
 }

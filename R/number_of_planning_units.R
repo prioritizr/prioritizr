@@ -5,10 +5,10 @@ NULL
 #'
 #' Extract the number of planning units in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or
-#'   \code{\link{OptimizationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]),
+#'   [`OptimizationProblem-class`], or [Zones()] object.
 #'
-#' @return \code{integer} number of planning units.
+#' @return `integer` number of planning units.
 #'
 #' @name number_of_planning_units
 #'

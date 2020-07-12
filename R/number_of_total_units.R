@@ -5,10 +5,10 @@ NULL
 #'
 #' Extract the number of total units in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or
-#'   \code{\link{OptimizationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]),
+#'   [`OptimizationProblem-class`], or [Zones()] object.
 #'
-#' @return \code{integer} number of total units.
+#' @return `integer` number of total units.
 #'
 #' @name number_of_total_units
 #'

@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Add boundary penalties — add_boundary_penalties" />
-<meta property="og:description" content="Add penalties to a conservation planning problem to favour
+<meta property="og:description" content="Add penalties to a conservation planning problem() to favour
 solutions that have planning units clumped together into contiguous areas." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -97,7 +97,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -175,7 +175,7 @@ solutions that have planning units clumped together into contiguous areas." />
     </div>
 
     <div class="ref-description">
-    <p>Add penalties to a conservation planning <code><a href='problem.html'>problem</a></code> to favour
+    <p>Add penalties to a conservation planning <code><a href='problem.html'>problem()</a></code> to favour
 solutions that have planning units clumped together into contiguous areas.</p>
     </div>
 
@@ -192,7 +192,7 @@ solutions that have planning units clumped together into contiguous areas.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
     </tr>
     <tr>
       <th>penalty</th>
@@ -200,7 +200,7 @@ solutions that have planning units clumped together into contiguous areas.</p>
 of selecting planning units that are spatially clumped together compared
 to the main problem objective (e.g. solution cost when the argument to
 <code>x</code> has a minimum set objective set using
-<code><a href='add_min_set_objective.html'>add_min_set_objective</a></code>). Higher <code>penalty</code> values
+<code><a href='add_min_set_objective.html'>add_min_set_objective()</a></code>). Higher <code>penalty</code> values
 will return solutions with a higher degree of spatial clumping,
 and smaller <code>penalty</code> values will return solutions with a smaller
 degree of clumping. Note that negative <code>penalty</code> values will
@@ -250,72 +250,72 @@ information.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object with the penalties
- added to it.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the penalties
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function adds penalties to a conservation planning problem
-  to penalize fragmented solutions. It was is inspired by Ball <em>et al.</em>
-  (2009) and Beyer <em>et al.</em> (2016). The <code>penalty</code> argument is
-  equivalent to the boundary length modifier (<code>BLM</code>) used in
-  <a href='https://marxansolutions.org'><em>Marxan</em></a>.
-  Note that this function can only
-  be used to represent symmetric relationships between planning units. If
-  asymmetric relationships are required, use the
-  <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></code> function.</p>
+to penalize fragmented solutions. It was is inspired by Ball <em>et al.</em>
+(2009) and Beyer <em>et al.</em> (2016). The <code>penalty</code> argument is
+equivalent to the boundary length modifier (<code>BLM</code>) used in
+<a href='https://marxansolutions.org'><em>Marxan</em></a>.
+Note that this function can only
+be used to represent symmetric relationships between planning units. If
+asymmetric relationships are required, use the
+<code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code> function.</p>
 <p>The argument to <code>data</code> can be specified in several different ways:</p>
-<p></p><dl'>
+<dl'>
 
-  <dt><code>NULL</code></dt><dd><p>the boundary data are automatically calculated
-    using the <code><a href='boundary_matrix.html'>boundary_matrix</a></code> function. This argument is the
-    default. Note that the boundary data must be manually defined
-    using one of the other formats below when the planning unit data
-    in the argument to <code>x</code> is not spatially referenced (e.g.
-    in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
+<dt><code>NULL</code></dt><dd><p>the boundary data are automatically calculated
+using the <code><a href='boundary_matrix.html'>boundary_matrix()</a></code> function. This argument is the
+default. Note that the boundary data must be manually defined
+using one of the other formats below when the planning unit data
+in the argument to <code>x</code> is not spatially referenced (e.g.
+in <code>data.frame</code> or <code>numeric</code> format).</p></dd>
 
-  <dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
-    different planning units and the value of each cell represents the
-    amount of shared boundary length between two different planning units.
-    Cells that occur along the matrix diagonal represent the amount of
-    exposed boundary associated with each planning unit that has
-    no neighbor (e.g. these value might pertain the length of coastline
-    in a planning unit).</p></dd>
+<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+different planning units and the value of each cell represents the
+amount of shared boundary length between two different planning units.
+Cells that occur along the matrix diagonal represent the amount of
+exposed boundary associated with each planning unit that has
+no neighbor (e.g. these value might pertain the length of coastline
+in a planning unit).</p></dd>
 
-  <dt><code>data.frame</code></dt><dd><p>containing the columns <code>"id1"</code>,
-    <code>"id2"</code>, and <code>"boundary"</code>. The values in the column
-    <code>"boundary"</code> show the total amount of shared boundary between the
-    two planning units indicated the columns <code>"id1"</code> and <code>"id2"</code>.
-    This format follows the the standard <em>Marxan</em> input format. Note
-    that this function requires symmetric boundary data, and so the
-    argument to <code>data</code> cannot have the columns <code>"zone1"</code> and
-    code"zone2" to specify different amounts of shared boundary lengths
-    for different zones. Instead, when dealing with problems with multiple
-    zones, the argument to <code>zones</code> should be used to control the
-    relative importance of spatially clumping planning units together when
-    they are allocated to different zones.</p></dd>
+<dt><code>data.frame</code></dt><dd><p>containing the columns <code>"id1"</code>,
+<code>"id2"</code>, and <code>"boundary"</code>. The values in the column
+<code>"boundary"</code> show the total amount of shared boundary between the
+two planning units indicated the columns <code>"id1"</code> and <code>"id2"</code>.
+This format follows the the standard <em>Marxan</em> input format. Note
+that this function requires symmetric boundary data, and so the
+argument to <code>data</code> cannot have the columns <code>"zone1"</code> and
+code"zone2" to specify different amounts of shared boundary lengths
+for different zones. Instead, when dealing with problems with multiple
+zones, the argument to <code>zones</code> should be used to control the
+relative importance of spatially clumping planning units together when
+they are allocated to different zones.</p></dd>
 
-  
+
 </dl>
 
 <p>The boundary penalties are calculated using the following equations. Let
-  \(I\) represent the set of planning units
-  (indexed by \(i\) or \(j\)), \(Z\) represent
-  the set of management zones (indexed by \(z\) or \(y\)), and
-  \(X_{iz}\) represent the decision
-  variable for planning unit \(i\) for in zone \(z\) (e.g. with binary
-  values one indicating if planning unit is allocated or not). Also, let
-  \(p\) represent the argument to <code>penalty</code>, \(E\) represent the
-  argument to <code>edge_factor</code>, \(B\) represent the matrix argument to
-  <code>data</code> (e.g. generated using <code><a href='boundary_matrix.html'>boundary_matrix</a></code>), and
-  \(W\) represent the matrix argument to <code>zones</code>.</p>
+\(I\) represent the set of planning units
+(indexed by \(i\) or \(j\)), \(Z\) represent
+the set of management zones (indexed by \(z\) or \(y\)), and
+\(X_{iz}\) represent the decision
+variable for planning unit \(i\) for in zone \(z\) (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\(p\) represent the argument to <code>penalty</code>, \(E\) represent the
+argument to <code>edge_factor</code>, \(B\) represent the matrix argument to
+<code>data</code> (e.g. generated using <code><a href='boundary_matrix.html'>boundary_matrix()</a></code>), and
+\(W\) represent the matrix argument to <code>zones</code>.</p>
 <p>$$
   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
   \times p \times W_{zz} B_{ij}) + \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z}
   \sum_{y}^{Z} (-2 \times p \times X_{iz} \times X_{jy} \times W_{zy} \times
   B_{ij})$$</p>
 <p>Note that when the problem objective is to maximize some measure of
- benefit and not minimize some measure of cost, the term \(p\) is
- replaced with \(-p\).</p>
+benefit and not minimize some measure of cost, the term \(p\) is
+replaced with \(-p\).</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -327,7 +327,7 @@ conservation planning problems with integer linear programming.
 <em>Ecological Modelling</em>, 228: 14--22.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='penalties.html'>penalties</a></code>.</p></div>
+    <div class='dont-index'><p><a href='penalties.html'>penalties</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -398,13 +398,13 @@ conservation planning problems with integer linear programming.
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18847.196992
 #&gt; Found heuristic solution: objective 4724.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -412,7 +412,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 4064.31993    0   52 4724.48505 4064.31993  14.0%     -    0s
 #&gt; H    0     0                    4196.4791919 4064.31993  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (186 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (186 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4196.48 4724.49 18847.2 
@@ -430,7 +430,7 @@ conservation planning problems with integer linear programming.
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 20287.196992
 #&gt; Found heuristic solution: objective 5594.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -456,7 +456,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 1 nodes (470 simplex iterations) in 0.15 seconds
+#&gt; Explored 1 nodes (470 simplex iterations) in 0.37 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 5175.18 5330.73 5594.49 20287.2 
@@ -474,13 +474,13 @@ conservation planning problems with integer linear programming.
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18847.196992
 #&gt; Found heuristic solution: objective 4724.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 4.064320e+03, 186 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -488,7 +488,7 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 4064.31993    0   52 4724.48505 4064.31993  14.0%     -    0s
 #&gt; H    0     0                    4196.4791919 4064.31993  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (186 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (186 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4196.48 4724.49 18847.2 
@@ -600,13 +600,13 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 14008.242827
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.04s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.228259e+04, 575 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.228259e+04, 575 iterations, 0.07 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -616,7 +616,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    13659.707836 12282.5861  10.1%     -    0s
 #&gt; H    0     0                    13451.469667 12282.5861  8.69%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (575 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (575 simplex iterations) in 0.16 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13451.5 13659.7 13778.7 14008.2 
@@ -633,13 +633,13 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 22153.242827
-#&gt; Presolve time: 0.03s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; Variable types: 0 continuous, 705 integer (705 binary)
 #&gt; Presolved: 975 rows, 705 columns, 3360 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 655 iterations, 0.04 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 655 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -656,12 +656,12 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    16204.385441 13911.8533  14.1%     -    0s
 #&gt; H    0     0                    15678.285614 13911.8533  11.3%     -    0s
 #&gt;      0     2 13912.0561    0  611 15678.2856 13912.0561  11.3%     -    0s
-#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    0s
+#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 8
 #&gt; 
-#&gt; Explored 136 nodes (5394 simplex iterations) in 0.82 seconds
+#&gt; Explored 136 nodes (5394 simplex iterations) in 1.20 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15521.9 15678.3 16204.4 ... 22153.2
@@ -678,14 +678,14 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 8303.2428266
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.03s
 #&gt; Presolved: 1845 rows, 1140 columns, 6840 nonzeros
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.07 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -694,7 +694,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    2881.3718971 2576.99025  10.6%     -    0s
 #&gt; H    0     0                    2794.5621583 2576.99025  7.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1800 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (1800 simplex iterations) in 0.18 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2794.56 2881.37 8303.24 
@@ -718,7 +718,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 975 rows, 995 columns, 3940 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 1.362015e+04, 729 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -734,14 +734,14 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     2 13864.0559    0  594 16814.5225 13864.0559  17.5%     -    0s
-#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    0s
-#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    0s
+#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    1s
+#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    1s
 #&gt; H  116    75                    15585.976112 13876.1302  11.0%  36.8    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 9
 #&gt; 
-#&gt; Explored 290 nodes (11724 simplex iterations) in 1.54 seconds
+#&gt; Explored 290 nodes (11724 simplex iterations) in 2.34 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15586 15730 15944.4 ... 21613.2
@@ -787,13 +787,13 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 9481.28491    0  494 12536.9828 9481.28491  24.4%     -    0s
 #&gt; H    0     0                    10821.329400 9481.28491  12.4%     -    0s
 #&gt;      0     2 9481.69481    0  494 10821.3294 9481.69481  12.4%     -    0s
-#&gt; H   54    42                    10555.622013 9510.15787  9.90%  52.0    0s
+#&gt; H   54    42                    10555.622013 9510.15787  9.90%  52.0    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt;   Zero half: 29
 #&gt; 
-#&gt; Explored 55 nodes (3884 simplex iterations) in 0.75 seconds
+#&gt; Explored 55 nodes (3884 simplex iterations) in 1.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 8: 10555.6 10821.3 12537 ... 15601.5

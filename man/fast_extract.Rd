@@ -22,10 +22,10 @@ fast_extract(x, y, ...)
 \S4method{fast_extract}{Raster,sf}(x, y, fun = "mean", ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}} object.}
+\item{x}{\code{\linkS4class{Raster}} object.}
 
-\item{y}{\code{\link[sp]{Spatial-class}} or
-\code{\link[sf]{sf}} object.}
+\item{y}{\code{\linkS4class{Spatial}} or
+\code{\link[sf:sf]{sf::sf()}} object.}
 
 \item{...}{not used.}
 
@@ -35,22 +35,22 @@ Defaults to \code{"mean"}.}
 }
 \value{
 \code{matrix} containing the summary amount of each feature
-   within each planning unit. Rows correspond to different spatial features
-  in the argument to \code{y} and columns correspond to different raster
-  layers in the argument to \code{x}.
+within each planning unit. Rows correspond to different spatial features
+in the argument to \code{y} and columns correspond to different raster
+layers in the argument to \code{x}.
 }
 \description{
-Extract data from a \code{\link[raster]{Raster-class}} object.
+Extract data from a \code{\linkS4class{Raster}} object.
 }
 \details{
 This function is simply a wrapper that uses
-  \code{\link[raster]{extract}} to extract data for
-  \code{\link[sp]{SpatialPoints-class}} and
-  \code{\link[sp]{SpatialLines-class}} and
-  non-polygonal \code{\link[sf]{sf}} data, and
-  \code{\link[exactextractr]{exact_extract}} for
-  \code{\link[sp]{SpatialPolygons-class}} and
-  polygonal \code{\link[sf]{sf}} data.
+\code{\link[raster:extract]{raster::extract()}} to extract data for
+\code{\linkS4class{SpatialPoints}} and
+\code{\linkS4class{SpatialLines}} and
+non-polygonal \code{\link[sf:sf]{sf::sf()}} data, and
+\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}} for
+\code{\linkS4class{SpatialPolygons}} and
+polygonal \code{\link[sf:sf]{sf::sf()}} data.
 }
 \examples{
 # load data
@@ -64,6 +64,6 @@ print(head(result))
 
 }
 \seealso{
-\code{\link[raster]{extract}},
-  \code{\link[exactextractr]{exact_extract}}.
+\code{\link[raster:extract]{raster::extract()}},
+\code{\link[exactextractr:exact_extract]{exactextractr::exact_extract()}}.
 }

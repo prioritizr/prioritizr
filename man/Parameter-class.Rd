@@ -22,16 +22,16 @@ should interact directly with this class.}
 \item{$default}{\code{numeric} \code{vector} of default values.}
 
 \item{$class}{\code{character} name of the class that the values inherit
-  from (e.g. \code{"integer"}.}
+from (e.g. \code{"integer"}.}
 
 \item{$lower_limit}{\code{numeric} \code{vector} specifying the minimum
-  permitted value for each element in \code{$value}.}
+permitted value for each element in \verb{$value}.}
 
 \item{$upper_limit}{\code{numeric} \code{vector} specifying the maximum
-  permitted value for each element in \code{$value}.}
+permitted value for each element in \verb{$value}.}
 
 \item{$widget}{\code{function} used to construct a
-               \code{\link[shiny]{shiny}} interface for modifying values.}
+\code{\link[shiny:shiny-package]{shiny::shiny()}} interface for modifying values.}
 }
 }
 
@@ -55,5 +55,5 @@ should interact directly with this class.}
 }
 
 \seealso{
-\code{\link{ScalarParameter-class}}.
+\code{\linkS4class{ScalarParameter}}.
 }

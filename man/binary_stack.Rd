@@ -7,23 +7,23 @@
 binary_stack(x)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}} object containing a single layer.}
+\item{x}{\code{\linkS4class{Raster}} object containing a single layer.}
 }
 \value{
-\code{\link[raster]{RasterStack-class}} object.
+\code{\linkS4class{RasterStack}} object.
 }
 \description{
-Convert a \code{\link[raster]{RasterLayer-class}} object containing
-categorical identifiers into a \code{\link[raster]{RasterStack-class}}
+Convert a \code{\linkS4class{RasterLayer}} object containing
+categorical identifiers into a \code{\linkS4class{RasterStack}}
 object where each layer corresponds to a different identifier and values
 indicate the presence/absence of that category in the input object.
 }
 \details{
 This function is provided to help manage data that encompass
-  multiple management zones. For instance, this function may be helpful
-  for preparing raster data for \code{\link{add_locked_in_constraints}} and
-  \code{\link{add_locked_out_constraints}} since they require binary
-  \code{\link[raster]{RasterStack-class}} objects as input arguments.
+multiple management zones. For instance, this function may be helpful
+for preparing raster data for \code{\link[=add_locked_in_constraints]{add_locked_in_constraints()}} and
+\code{\link[=add_locked_out_constraints]{add_locked_out_constraints()}} since they require binary
+\code{\linkS4class{RasterStack}} objects as input arguments.
 }
 \examples{
 # create raster with categorical identifers
@@ -38,5 +38,5 @@ plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"), nr = 1)
 }
 }
 \seealso{
-\code{\link{category_layer}}.
+\code{\link[=category_layer]{category_layer()}}.
 }

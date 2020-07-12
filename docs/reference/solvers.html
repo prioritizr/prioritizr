@@ -54,7 +54,7 @@
 
 <meta property="og:title" content="Problem solvers — solvers" />
 <meta property="og:description" content="Specify the software and configuration used to solve a conservation planning
-problem. By default, the best available
+problem(). By default, the best available
 software currently installed on the system will be used." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -98,7 +98,7 @@ software currently installed on the system will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -177,7 +177,7 @@ software currently installed on the system will be used." />
 
     <div class="ref-description">
     <p>Specify the software and configuration used to solve a conservation planning
-<code><a href='problem.html'>problem</a></code>. By default, the best available
+<code><a href='problem.html'>problem()</a></code>. By default, the best available
 software currently installed on the system will be used.</p>
     </div>
 
@@ -186,45 +186,45 @@ software currently installed on the system will be used.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following solvers can be used to find solutions for a
-  conservation planning <code><a href='problem.html'>problem</a></code>:</p>
-<p></p><dl'>
+conservation planning <code><a href='problem.html'>problem()</a></code>:</p>
+<dl'>
 
-  <dt><code>add_default_solver</code></dt><dd><p>This solver uses the best software
-    currently installed on the system.</p></dd>
+<dt><code>add_default_solver</code></dt><dd><p>This solver uses the best software
+currently installed on the system.</p></dd>
 
-  <dt><code><a href='add_gurobi_solver.html'>add_gurobi_solver</a></code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
-    is a state-of-the-art commercial optimization software with an R package
-    interface. It is by far the fastest of the solvers available in this
-    package, however, it is also the only solver that is not freely
-    available. That said, licenses are available to academics at no cost. The
-    <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software
-    suite. This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p></dd>
+<dt><code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
+is a state-of-the-art commercial optimization software with an R package
+interface. It is by far the fastest of the solvers available in this
+package, however, it is also the only solver that is not freely
+available. That said, licenses are available to academics at no cost. The
+<span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software
+suite. This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p></dd>
 
-  <dt><code><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
-    open-source integer programming solver that is part of the Computational
-    Infrastructure for Operations Research (COIN-OR) project, an initiative
-    to promote development of open-source tools for operations research (a
-    field that includes linear programming). The <span class="pkg">Rsymphony</span> package
-    provides an interface to COIN-OR and is available on CRAN. This solver
-    uses the <span class="pkg">Rsymphony</span> package to solve problems.</p></dd>
+<dt><code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
+open-source integer programming solver that is part of the Computational
+Infrastructure for Operations Research (COIN-OR) project, an initiative
+to promote development of open-source tools for operations research (a
+field that includes linear programming). The <span class="pkg">Rsymphony</span> package
+provides an interface to COIN-OR and is available on CRAN. This solver
+uses the <span class="pkg">Rsymphony</span> package to solve problems.</p></dd>
 
-  <dt><code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></code></dt><dd><p>The <span class="pkg">lpsymphony</span> package
-    provides a different interface to the COIN-OR software suite. Unlike the
-    <span class="pkg">Rsymhpony</span> package, the <span class="pkg">lpsymphony</span> package is distributed
-    through
-    <a href='https://doi.org/doi:10.18129/B9.bioc.lpsymphony'>Bioconductor</a>.
-    The <span class="pkg">lpsymphony</span> package may be easier to install on Windows or
-    Max OSX systems than the <span class="pkg">Rsymphony</span> package.</p></dd>
+<dt><code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver()</a></code></dt><dd><p>The <span class="pkg">lpsymphony</span> package
+provides a different interface to the COIN-OR software suite. Unlike the
+<span class="pkg">Rsymhpony</span> package, the <span class="pkg">lpsymphony</span> package is distributed
+through
+<a href='https://doi.org/doi:10.18129/B9.bioc.lpsymphony'>Bioconductor</a>.
+The <span class="pkg">lpsymphony</span> package may be easier to install on Windows or
+Max OSX systems than the <span class="pkg">Rsymphony</span> package.</p></dd>
 
 
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='constraints.html'>constraints</a></code>,  <code><a href='decisions.html'>decisions</a></code>,
- <code><a href='objectives.html'>objectives</a></code> <code><a href='penalties.html'>penalties</a></code>,
- <code><a href='portfolios.html'>portfolios</a></code>, <code><a href='problem.html'>problem</a></code>,
- <code><a href='targets.html'>targets</a></code>.</p></div>
+    <div class='dont-index'><p><a href='constraints.html'>constraints</a>,  <a href='decisions.html'>decisions</a>,
+<a href='objectives.html'>objectives</a>, <a href='penalties.html'>penalties</a>,
+<a href='portfolios.html'>portfolios</a>, <code><a href='problem.html'>problem()</a></code>,
+<a href='targets.html'>targets</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

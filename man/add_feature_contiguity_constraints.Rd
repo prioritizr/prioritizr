@@ -17,7 +17,7 @@
 \S4method{add_feature_contiguity_constraints}{ConservationProblem,ANY,ANY}(x, zones, data)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{zones}{\code{matrix}, \code{Matrix} or \code{list} object describing
 the connection scheme for different zones. For \code{matrix} or
@@ -49,19 +49,19 @@ different dispersal capabilities, then it may be desirable to specify
 which sets of planning units should be treated as being connected
 for which features using a \code{list} of objects. The default argument
 is \code{NULL} which means that the connection data is calculated
-automatically using the \code{\link{adjacency_matrix}} function and so
+automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function and so
 all adjacent planning units are treated as being connected for all
 features. See the Details section for more information.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+added to it.
 }
 \description{
-Add constraints to a \code{\link{problem}} to ensure that each feature is
+Add constraints to a \code{\link[=problem]{problem()}} to ensure that each feature is
 represented in a contiguous unit of dispersible habitat. These constraints
 are a more advanced version of those implemented in the
-\code{\link{add_contiguity_constraints}} function, because they ensure that
+\code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function, because they ensure that
 each feature is represented in a contiguous unit and not that the entire
 solution should form a contiguous unit. Additionally, this function
 can use data showing the distribution of dispersible habitat for each
@@ -70,64 +70,67 @@ designated for their conservation.
 }
 \details{
 This function uses connection data to identify solutions that
-  represent features in contiguous units of dispersible habitat. In earlier
-  versions of the \pkg{prioritizr} package, it was known as the
-  \code{add_corridor_constraints} function but has since been renamed for
-  clarity. It was inspired by the mathematical formulations detailed in
-  Onal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
-  example that has used these constraints, see Hanson, Fuller,
-  and Rhodes (2018). Please note
-  that these constraints require the expanded formulation and therefore
-  cannot be used with feature data that have negative vales.
-  \strong{Please note that adding these constraints to a problem will
-  drastically increase the amount of time required to solve it.}
+represent features in contiguous units of dispersible habitat.
+It was inspired by the mathematical formulations detailed in
+Önal and Briers (2006) and Cardeira \emph{et al.} 2010. For an
+example that has used these constraints, see Hanson \emph{et al.} (2019).
+Please note
+that these constraints require the expanded formulation and therefore
+cannot be used with feature data that have negative vales.
+\strong{Please note that adding these constraints to a problem will
+drastically increase the amount of time required to solve it.}
 
-  The argument to \code{data} can be specified in several ways:
+The argument to \code{data} can be specified in several ways:
 
-  \describe{
+\describe{
 
-  \item{\code{NULL}}{connection data should be calculated automatically
-    using the \code{\link{adjacency_matrix}} function. This is the default
-    argument and means that all adjacent planning units are treated
-    as potentially dispersible for all features.
-    Note that the connection data must be manually defined
-    using one of the other formats below when the planning unit data
-    in the argument to \code{x} is not spatially referenced (e.g.
-    in \code{data.frame} or \code{numeric} format).}
-  \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-    different planning units and the value of each cell indicates if the
-    two planning units are connected or not. Cell values should be binary
-    \code{numeric} values (i.e. one or zero). Cells that occur along the
-    matrix diagonal have no effect on the solution at all because each
-    planning unit cannot be a connected with itself. Note that pairs
-    of connected planning units are treated as being potentially dispersible
-    for all features.}
+\item{\code{NULL}}{connection data should be calculated automatically
+using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function. This is the default
+argument and means that all adjacent planning units are treated
+as potentially dispersible for all features.
+Note that the connection data must be manually defined
+using one of the other formats below when the planning unit data
+in the argument to \code{x} is not spatially referenced (e.g.
+in \code{data.frame} or \code{numeric} format).}
+\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+different planning units and the value of each cell indicates if the
+two planning units are connected or not. Cell values should be binary
+\code{numeric} values (i.e. one or zero). Cells that occur along the
+matrix diagonal have no effect on the solution at all because each
+planning unit cannot be a connected with itself. Note that pairs
+of connected planning units are treated as being potentially dispersible
+for all features.}
 
-  \item{\code{data.frame}}{containing the fields (columns)
-    \code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
-    denotes the connectivity between two planning units following the
-    \emph{Marxan} format. The field \code{boundary} should contain
-    binary \code{numeric} values that indicate if the two planning units
-    specified in the fields \code{"id1"} and \code{"id2"} are connected
-    or not. This data can be used to describe symmetric or
-    asymmetric relationships between planning units. By default,
-    input data is assumed to be symmetric unless asymmetric data is
-    also included (e.g. if data is present for planning units 2 and 3, then
-    the same amount of connectivity is expected for planning units 3 and 2,
-    unless connectivity data is also provided for planning units 3 and 2).
-    Note that pairs of connected planning units are treated as being
-    potentially dispersible for all features.}
+\item{\code{data.frame}}{containing the fields (columns)
+\code{"id1"}, \code{"id2"}, and \code{"boundary"}. Here, each row
+denotes the connectivity between two planning units following the
+\emph{Marxan} format. The field \code{boundary} should contain
+binary \code{numeric} values that indicate if the two planning units
+specified in the fields \code{"id1"} and \code{"id2"} are connected
+or not. This data can be used to describe symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).
+Note that pairs of connected planning units are treated as being
+potentially dispersible for all features.}
 
- \item{\code{list}}{containing \code{matrix}, \code{Matrix}, or
-    \code{data.frame} objects showing which planning units
-    should be treated as connected for each feature. Each element in the
-    \code{list} should correspond to a different feature (specifically,
-    a different target in the problem), and should contain a \code{matrix},
-    \code{Matrix}, or \code{data.frame} object that follows the conventions
-    detailed above.}
+\item{\code{list}}{containing \code{matrix}, \code{Matrix}, or
+\code{data.frame} objects showing which planning units
+should be treated as connected for each feature. Each element in the
+\code{list} should correspond to a different feature (specifically,
+a different target in the problem), and should contain a \code{matrix},
+\code{Matrix}, or \code{data.frame} object that follows the conventions
+detailed above.}
 
-  }
 }
+}
+\section{Notes}{
+
+In early versions, it was named as the \code{add_corridor_constraints} function.
+}
+
 \examples{
 # load data
 data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
@@ -211,20 +214,17 @@ plot(s2, main = c("p5", "p6", "p7", "p8"), axes = FALSE, box = FALSE)
 }
 }
 \references{
-
-
-Onal H and Briers RA (2006) Optimal selection of a connected
+Önal H and Briers RA (2006) Optimal selection of a connected
 reserve network. \emph{Operations Research}, 54: 379--388.
 
 Cardeira JO, Pinto LS, Cabeza M and Gaston KJ (2010) Species specific
 connectivity in reserve-network design using graphs.
 \emph{Biological Conservation}, 2: 408--415.
 
-Hanson JO, Fuller RA, & Rhodes JR (2018) Conventional methods for enhancing
+Hanson JO, Fuller RA, & Rhodes JR (2019) Conventional methods for enhancing
 connectivity in conservation planning do not always maintain gene flow.
-\emph{Journal of Applied Ecology}, In press:
-\url{https://doi.org/10.1111/1365-2664.13315}.
+\emph{Journal of Applied Ecology}, 56: 913--922.
 }
 \seealso{
-\code{\link{constraints}}.
+\link{constraints}.
 }

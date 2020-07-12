@@ -4,26 +4,26 @@ NULL
 #' Rarity weighted richness
 #'
 #' Calculate irreplaceability scores for planning units selected in a solution
-#' using rarity weighted richness (based on Williams \emph{et al.} 1996). Please
+#' using rarity weighted richness (based on Williams *et al.* 1996). Please
 #' note that this method is only recommended for large-scaled conservation
 #' planning exercises (i.e. more than 100,000 planning units) where
 #' irreplaceability scores cannot be calculated using the replacement cost
-#' method (\code{\link{replacement_cost}}) in a feasible period of
+#' method ([replacement_cost()]) in a feasible period of
 #' time. This is because rarity weighted richness scores cannot (i) account for
 #' the cost of different planning units, (ii) account for multiple management
 #' zones, and (iii) identify truly irreplaceable planning units---unlike the
 #' replacement cost metric which does not suffer any of these limitations.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param solution \code{numeric}, \code{matrix}, \code{data.frame},
-#'   \code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object. See the Details section for more
+#' @param solution `numeric`, `matrix`, `data.frame`,
+#'   [`Raster-class`], [`Spatial-class`],
+#'   or [sf::sf()] object. See the Details section for more
 #'   information.
 #'
-#' @param rescale \code{logical} flag indicating if replacement cost
-#'  values---excepting infinite (\code{Inf}) and zero values---should be
-#'  rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.
+#' @param rescale `logical` flag indicating if replacement cost
+#'  values---excepting infinite (`Inf`) and zero values---should be
+#'  rescaled to range between 0.01 and 1. Defaults to `TRUE`.
 #'
 #' @param ... not used.
 #'
@@ -33,7 +33,7 @@ NULL
 #'   \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
 #'   associated with planning unit \eqn{i}, and let \eqn{M_j} denote the
 #'   maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
-#'   \eqn{i \in I}. To calculate the rarity weighted richness (\emph{RWR}) for
+#'   \eqn{i \in I}. To calculate the rarity weighted richness (*RWR*) for
 #'   planning unit \eqn{k}:
 #'
 #'   \deqn{
@@ -43,43 +43,43 @@ NULL
 #'   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
 #'   }
 #'
-#'   The argument to \code{solution} must correspond
-#'   to the planning unit data in the argument to \code{x} in terms
+#'   The argument to `solution` must correspond
+#'   to the planning unit data in the argument to `x` in terms
 #'   of data representation, dimensionality, and spatial attributes (if
-#'   applicable). This means that if the planning unit data in \code{x}
-#'   is a \code{numeric} vector then the argument to \code{solution} must be a
-#'   \code{numeric} vector with the same number of elements; if the planning
-#'   unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-#'   argument to \code{solution} must also be a
-#'   \code{\link[raster]{RasterLayer-class}} with the same number of rows and
+#'   applicable). This means that if the planning unit data in `x`
+#'   is a `numeric` vector then the argument to `solution` must be a
+#'   `numeric` vector with the same number of elements; if the planning
+#'   unit data in `x` is a [`RasterLayer-class`] then the
+#'   argument to `solution` must also be a
+#'   [`RasterLayer-class`] with the same number of rows and
 #'   columns and the same resolution, extent, and coordinate reference system;
-#'   if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-#'   object then the argument to \code{solution} must also be a
-#'   \code{\link[sp]{Spatial-class}} object and have the same number of spatial
+#'   if the planning unit data in `x` is a [`Spatial-class`]
+#'   object then the argument to `solution` must also be a
+#'   [`Spatial-class`] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
-#'   if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
-#'   object then the argument to \code{solution} must also be a
-#'   \code{\link[sf]{sf}} object and have the same number of spatial
+#'   if the planning unit data in `x` is a [sf::sf()]
+#'   object then the argument to `solution` must also be a
+#'   [sf::sf()] object and have the same number of spatial
 #'   features (e.g. polygons) and have the same coordinate reference system;
-#'   if the planning units in \code{x} are a \code{data.frame} then the
-#'   argument to \code{solution} must also be a \code{data.frame} with each
+#'   if the planning units in `x` are a `data.frame` then the
+#'   argument to `solution` must also be a `data.frame` with each
 #'   column correspond to a different zone and each row correspond to
 #'   a different planning unit, and values correspond to the allocations
 #'   (e.g. values of zero or one).
 #'
-#'   Solutions must have planning unit statuses set to missing (\code{NA})
-#'   values for planning units that have missing (\code{NA}) cost data. For
+#'   Solutions must have planning unit statuses set to missing (`NA`)
+#'   values for planning units that have missing (`NA`) cost data. For
 #'   problems with multiple zones, this means that planning units must have
-#'   missing (\code{NA}) allocation values in zones where they have missing
-#'   (\code{NA}) cost data. In other words, planning units that have missing
-#'   (\code{NA}) cost values in \code{x} should always have a missing
-#'   (\code{NA}) value the argument to \code{solution}. If an argument is
+#'   missing (`NA`) allocation values in zones where they have missing
+#'   (`NA`) cost data. In other words, planning units that have missing
+#'   (`NA`) cost values in `x` should always have a missing
+#'   (`NA`) value the argument to `solution`. If an argument is
 #'   supplied to
-#'   \code{solution} where this is not the case, then an error will be thrown.
+#'   `solution` where this is not the case, then an error will be thrown.
 #'
-#' @return A \code{numeric}, \code{matrix},
-#'   \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-#'   or \code{\link[sf]{sf}} object containing the rarity weighted richness
+#' @return A `numeric`, `matrix`,
+#'   [`RasterLayer-class`], [`Spatial-class`],
+#'   or [sf::sf()] object containing the rarity weighted richness
 #'   scores for each planning unit in the solution.
 #'
 #' @examples
@@ -119,9 +119,9 @@ NULL
 #' Williams P, Gibbons D, Margules C, Rebelo A, Humphries C, and Pressey RL
 #' (1996) A comparison of richness hotspots, rarity hotspots and complementary
 #' areas for conserving diversity using British birds.
-#' \emph{Conservation Biology}, 10: 155--174.
+#' *Conservation Biology*, 10: 155--174.
 #'
-#' @seealso \code{\link{irreplaceability}}.
+#' @seealso [irreplaceability].
 #'
 #' @aliases rarity_weighted_richness,ConservationProblem,numeric-method rarity_weighted_richness,ConservationProblem,matrix-method rarity_weighted_richness,ConservationProblem,data.frame-method rarity_weighted_richness,ConservationProblem,Spatial-method rarity_weighted_richness,ConservationProblem,sf-method rarity_weighted_richness,ConservationProblem,Raster-method
 #'

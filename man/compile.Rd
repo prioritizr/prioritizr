@@ -10,7 +10,7 @@ compile(x, ...)
 \method{compile}{ConservationProblem}(x, compressed_formulation = NA, ...)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{...}{not used.}
 
@@ -23,25 +23,25 @@ of the constraints requires the expanded formulation. This argument
 defaults to \code{NA}.}
 }
 \value{
-\code{\link{OptimizationProblem-class}} object.
+\code{\linkS4class{OptimizationProblem}} object.
 }
 \description{
-Compile a conservation planning \code{\link{problem}} into an
+Compile a conservation planning \code{\link[=problem]{problem()}} into an
 (potentially mixed) integer linear programming problem.
 }
 \details{
 This function might be useful for those interested in understanding
-  how their conservation planning \code{\link{problem}} is expressed
-  as a mathematical problem. However, if the problem just needs to
-  be solved, then the \code{\link{solve}} function should just be used.
+how their conservation planning \code{\link[=problem]{problem()}} is expressed
+as a mathematical problem. However, if the problem just needs to
+be solved, then the \code{\link[=solve]{solve()}} function should just be used.
 
-  \strong{Please note that in nearly all cases, the default argument to
-  \code{formulation} should be used}. The only situation where manually
-  setting the argument to \code{formulation} is desirable is during testing.
-  Manually setting the argument to \code{formulation} will at best
-  have no effect on the problem. At worst, it may result in
-  an error, a misspecified problem, or unnecessarily long
-  solve times.
+\strong{Please note that in nearly all cases, the default argument to
+\code{formulation} should be used}. The only situation where manually
+setting the argument to \code{formulation} is desirable is during testing.
+Manually setting the argument to \code{formulation} will at best
+have no effect on the problem. At worst, it may result in
+an error, a misspecified problem, or unnecessarily long
+solve times.
 }
 \examples{
 # build minimal conservation problem

@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Solve — solve" />
-<meta property="og:description" content="Solve a conservation planning problem." />
+<meta property="og:description" content="Solve a conservation planning problem()." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -174,7 +174,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Solve a conservation planning <code><a href='problem.html'>problem</a></code>.</p>
+    <p>Solve a conservation planning <code><a href='problem.html'>problem()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for OptimizationProblem,Solver</span>
@@ -188,23 +188,23 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>a</th>
-      <td><p><code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> or an
-<code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) or
+<code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object.</p></td>
     </tr>
     <tr>
       <th>b</th>
-      <td><p><code><a href='Solver-class.html'>Solver-class</a></code> object. Not used if <code>a</code> is an
-<code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object.</p></td>
+      <td><p><code><a href='Solver-class.html'>Solver</a></code> object. Not used if <code>a</code> is an
+<code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>arguments passed to <code><a href='compile.html'>compile</a></code>.</p></td>
+      <td><p>arguments passed to <code><a href='compile.html'>compile()</a></code>.</p></td>
     </tr>
     <tr>
       <th>run_checks</th>
       <td><p><code>logical</code> flag indicating whether presolve checks
 should be run prior solving the problem. These checks are performed using
-the <code><a href='presolve_check.html'>presolve_check</a></code> function. Defaults to <code>TRUE</code>.
+the <code><a href='presolve_check.html'>presolve_check()</a></code> function. Defaults to <code>TRUE</code>.
 Skipping these checks may reduce run time for large problems.</p></td>
     </tr>
     <tr>
@@ -218,87 +218,87 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>numeric</code>, <code>matrix</code>,
-  <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterLayer-class</a></code>, <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>,
-  or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code> object containing the solution to the problem.
-  Additionally, the returned object will have the following additional
-  attributes: <code>"objective"</code> containing the solution's objective,
-  <code>"runtime"</code> denoting the number of seconds that elapsed while solving
-  the problem, and <code>"status"</code> describing the status of the solution
-  (e.g. <code>"OPTIMAL"</code> indicates that the optimal solution was found).
-  In most cases, the first solution (e.g. <code>"solution_001"</code>))
-  will contain the best solution found by the solver (note that this
-  may not be an optimal solution depending on the gap used to solve
-  the problem and noting that the default gap is 0.1).</p>
+<code>RasterLayer</code>, <code>Spatial</code>,
+or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object containing the solution to the problem.
+Additionally, the returned object will have the following additional
+attributes: <code>"objective"</code> containing the solution's objective,
+<code>"runtime"</code> denoting the number of seconds that elapsed while solving
+the problem, and <code>"status"</code> describing the status of the solution
+(e.g. <code>"OPTIMAL"</code> indicates that the optimal solution was found).
+In most cases, the first solution (e.g. <code>"solution_001"</code>)
+will contain the best solution found by the solver (note that this
+may not be an optimal solution depending on the gap used to solve
+the problem and noting that the default gap is 0.1).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>After formulating a conservation planning <code><a href='problem.html'>problem</a></code>,
-  it can be solved using an exact algorithm solver (see <code><a href='solvers.html'>solvers</a></code>
-  for available solvers). If no solver has been explicitly specified,
-  then the best available exact algorithm solver will be used by default
-  (see <code><a href='add_default_solver.html'>add_default_solver</a></code>. Although these exact algorithm
-  solvers will often display a lot of information that isn't really that
-  helpful (e.g. nodes, cutting planes), they do display information
-  about the progress they are making on solving the problem (e.g. the
-  performance of the best solution found at a given point in time). If
-  potential issues were detected during the
-  presolve checks (see <code><a href='presolve_check.html'>presolve_check</a></code>)
-  and the problem is being forcibly solved (i.e. with <code>force = TRUE</code>),
-  then it is also worth checking for any warnings displayed by the solver
-  to see if these potential issues are actually causing issues
-  (e.g. <em>Gurobi</em> can display warnings that include
-  <code>"Warning: Model contains large matrix coefficient range"</code> and
-  <code>"Warning: Model contains large rhs"</code>).</p>
+    <p>After formulating a conservation planning <code><a href='problem.html'>problem()</a></code>,
+it can be solved using an exact algorithm solver (see <a href='solvers.html'>solvers</a>
+for available solvers). If no solver has been explicitly specified,
+then the best available exact algorithm solver will be used by default
+(see <code><a href='add_default_solver.html'>add_default_solver()</a></code>. Although these exact algorithm
+solvers will often display a lot of information that isn't really that
+helpful (e.g. nodes, cutting planes), they do display information
+about the progress they are making on solving the problem (e.g. the
+performance of the best solution found at a given point in time). If
+potential issues were detected during the
+presolve checks (see <code><a href='presolve_check.html'>presolve_check()</a></code>)
+and the problem is being forcibly solved (i.e. with <code>force = TRUE</code>),
+then it is also worth checking for any warnings displayed by the solver
+to see if these potential issues are actually causing issues
+(e.g. <em>Gurobi</em> can display warnings that include
+<code>"Warning: Model contains large matrix coefficient range"</code> and
+<code>"Warning: Model contains large rhs"</code>).</p>
 <p>The object returned from this function depends on the argument to
-  <code>a</code>. If the argument to <code>a</code> is an
-  <code><a href='OptimizationProblem-class.html'>OptimizationProblem-class</a></code> object, then the
-  solution is returned as a <code>logical</code> <code>vector</code> showing the status
-  of each planning unit in each zone. However, in most cases, the argument
-  to <code>a</code> is an <code><a href='ConservationProblem-class.html'>ConservationProblem-class</a></code> object, and so
-  the type of object returned depends on the number of solutions
-  generated and the type data used to represent the planning units:</p>
-<p></p><dl'>
+<code>a</code>. If the argument to <code>a</code> is an
+<code><a href='OptimizationProblem-class.html'>OptimizationProblem</a></code> object, then the
+solution is returned as a <code>logical</code> <code>vector</code> showing the status
+of each planning unit in each zone. However, in most cases, the argument
+to <code>a</code> is an <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code> object, and so
+the type of object returned depends on the number of solutions
+generated and the type data used to represent the planning units:</p>
+<dl'>
 
-  <dt><code>numeric</code></dt><dd><p><code>vector</code> containing the solution. Here,
-    Each element corresponds to a different planning unit. If
-    multiple solutions are generated, then the solution is returned as
-    a <code>list</code> of <code>numeric</code> <code>vectors</code>.</p></dd>
+<dt><code>numeric</code></dt><dd><p><code>vector</code> containing the solution. Here,
+Each element corresponds to a different planning unit. If
+multiple solutions are generated, then the solution is returned as
+a <code>list</code> of <code>numeric</code> <code>vectors</code>.</p></dd>
 
-  <dt><code>matrix</code></dt><dd><p>containing <code>numeric</code> values for the solution.
-    Here, rows correspond to different planning units,
-    and fields (columns) correspond to different  management zones. If
-    multiple solutions are generated, then the solution is returned as
-    a <code>list</code> of <code>matrix</code> objects.</p></dd>
+<dt><code>matrix</code></dt><dd><p>containing <code>numeric</code> values for the solution.
+Here, rows correspond to different planning units,
+and fields (columns) correspond to different  management zones. If
+multiple solutions are generated, then the solution is returned as
+a <code>list</code> of <code>matrix</code> objects.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code></dt><dd><p>object containing the solution
-    in pixel values. If the argument to <code>x</code> contains a single
-    management zone, then a <code>RasterLayer</code> object will be returned.
-    Otherwise, if the argument to <code>x</code> contains multiple zones, then a
-    <code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>RasterStack-class</a></code> object
-    will be returned containing a different layer for each management zone.
-    If multiple solutions are generated, then the solution is returned as
-    a <code>list</code> of <code>Raster</code> objects.</p></dd>
+<dt><code>Raster</code></dt><dd><p>object containing the solution
+in pixel values. If the argument to <code>x</code> contains a single
+management zone, then a <code>RasterLayer</code> object will be returned.
+Otherwise, if the argument to <code>x</code> contains multiple zones, then a
+<code>RasterStack</code> object
+will be returned containing a different layer for each management zone.
+If multiple solutions are generated, then the solution is returned as
+a <code>list</code> of <code>Raster</code> objects.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf</a></code>, or
-    <code>data.frame</code></dt><dd><p>containing the solution in fields (columns). Here, each row
-    corresponds to a different planning unit. If the argument to <code>x</code>
-    contains a single zone, the fields containing solutions are named
-    <code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to the solution
-    number. If the argument to <code>x</code> contains multiple zones, the fields
-    containing solutions are named <code>"solution_XXX_YYY"</code> where
-    <code>"XXX"</code> corresponds to the solution and <code>"YYY"</code> is the name
-    of the management zone.</p></dd>
+<dt><code>Spatial</code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>, or
+<code>data.frame</code></dt><dd><p>containing the solution in fields (columns). Here, each row
+corresponds to a different planning unit. If the argument to <code>x</code>
+contains a single zone, the fields containing solutions are named
+<code>"solution_XXX"</code> where <code>"XXX"</code> corresponds to the solution
+number. If the argument to <code>x</code> contains multiple zones, the fields
+containing solutions are named <code>"solution_XXX_YYY"</code> where
+<code>"XXX"</code> corresponds to the solution and <code>"YYY"</code> is the name
+of the management zone.</p></dd>
 
-  
+
 </dl>
 
 <p>After solving problems that contain multiple zones,
-  it may be useful to use the <code><a href='category_layer.html'>category_layer</a></code> or
-  <code><a href='category_vector.html'>category_vector</a></code> function to reformat the output.</p>
+it may be useful to use the <code><a href='category_layer.html'>category_layer()</a></code> or
+<code><a href='category_vector.html'>category_vector()</a></code> function to reformat the output.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='feature_representation.html'>feature_representation</a></code>, <code><a href='problem.html'>problem</a></code>,
-  <code><a href='solvers.html'>solvers</a></code>, <code><a href='category_layer.html'>category_layer</a></code>,
-  <code><a href='presolve_check.html'>presolve_check</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='feature_representation.html'>feature_representation()</a></code>, <code><a href='problem.html'>problem()</a></code>,
+<a href='solvers.html'>solvers</a>, <code><a href='category_layer.html'>category_layer()</a></code>,
+<code><a href='presolve_check.html'>presolve_check()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -359,7 +359,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1987.399 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001878977 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.002280951 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
@@ -602,7 +602,7 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
 #&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
 #&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9015.02 10229.6 

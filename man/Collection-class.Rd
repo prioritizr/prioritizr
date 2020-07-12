@@ -6,13 +6,13 @@
 \title{Collection prototype}
 \description{
 This prototype represents a collection of
-\code{\link{ConservationModifier-class}} objects.
+\code{\linkS4class{ConservationModifier}} objects.
 }
 \section{Fields}{
 
 \describe{
-  \item{$...}{\code{\link{ConservationModifier-class}} objects stored
-     in the collection.}
+\item{$...}{\code{\linkS4class{ConservationModifier}} objects stored
+in the collection.}
 }
 }
 
@@ -68,30 +68,30 @@ This prototype represents a collection of
 \item{length}{\code{integer} number of objects inside collection.}
 
 \item{find}{\code{character} id for object inside collection which
-  contains the input id.}
+contains the input id.}
 
 \item{find_parameter}{\code{character} id for object inside collection which
-  contains the input \code{character} object as a parameter.}
+contains the input \code{character} object as a parameter.}
 
-\item{add}{add \code{\link{ConservationModifier-class}} object.}
+\item{add}{add \code{\linkS4class{ConservationModifier}} object.}
 
 \item{remove}{remove an item from the collection.}
 
 \item{get_parameter}{retrieve the value of a parameter in the object
-  using an \code{id} object.}
+using an \code{id} object.}
 
 \item{set_parameter}{change the value of a parameter in the object
-  to a new object.}
+to a new object.}
 
 \item{render_parameter}{generate a \emph{shiny} widget to modify the
-  the value of a parameter (specified by argument \code{id}).}
+the value of a parameter (specified by argument \code{id}).}
 
-\item{render_all_parameters}{generate a \code{\link[shiny]{div}}
-  containing all the parameters" widgets.}
+\item{render_all_parameters}{generate a \code{\link[shiny:reexports]{shiny::div()}}
+containing all the parameters" widgets.}
 
 }
 }
 
 \seealso{
-\code{\link{Constraint-class}}, \code{\link{Penalty-class}}.
+\code{\linkS4class{Constraint}}, \code{\linkS4class{Penalty}}.
 }

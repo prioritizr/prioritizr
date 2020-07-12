@@ -9,7 +9,7 @@ NULL
 #' planning units for which their summed feature values are equal to or greater
 #' than 10.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param targets Object that specifies the targets for each feature. See the
 #'   Details section for more information.
@@ -19,8 +19,8 @@ NULL
 #' @details Targets are used to specify the minimum amount or proportion of a
 #'   feature's distribution that needs to be protected. Most conservation
 #'   planning problems require targets with the exception of the maximum cover
-#'   (see \code{\link{add_max_cover_objective}}) and maximum utility
-#'   (see \code{\link{add_max_utility_objective}}) problems. Attempting to solve
+#'   (see [add_max_cover_objective()]) and maximum utility
+#'   (see [add_max_utility_objective()]) problems. Attempting to solve
 #'   problems with objectives that require targets without specifying targets
 #'   will throw an error.
 #'
@@ -28,22 +28,22 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{\code{numeric}}{\code{vector} of target values for each feature.
+#'   \item{`numeric`}{`vector` of target values for each feature.
 #'     Additionally, for convenience, this type of argument can be a single
 #'     value to assign the same target to each feature. Note that this type of
 #'     argument cannot be used to specify targets for problems with multiple
 #'     zones.}
 #'
-#'   \item{\code{matrix}}{containing a target for each feature in each zone.
+#'   \item{`matrix`}{containing a target for each feature in each zone.
 #'     Here, each row corresponds to a different feature in argument to
-#'     \code{x}, each column corresponds to a different zone in argument to
-#'     \code{x}, and each cell contains the target value for a given feature
+#'     `x`, each column corresponds to a different zone in argument to
+#'     `x`, and each cell contains the target value for a given feature
 #'     that the solution needs to secure in a given zone.}
 #'
-#'   \item{\code{character}}{containing the names of fields (columns) in the
-#'     feature data associated with the argument to \code{x} that contain
+#'   \item{`character`}{containing the names of fields (columns) in the
+#'     feature data associated with the argument to `x` that contain
 #'     targets. This type of argument can only be used when the
-#'     feature data associated with \code{x} is a \code{data.frame}.
+#'     feature data associated with `x` is a `data.frame`.
 #'     This argument must contain a field (column) name for each zone.}
 #'
 #'   }
@@ -51,7 +51,7 @@ NULL
 #'   For problems associated with multiple management zones, this function can
 #'   be used to set targets that each pertain to a single feature and a single
 #'   zone. To set targets which can be met through allocating different
-#'   planning units to multiple zones, see the \code{\link{add_manual_targets}}
+#'   planning units to multiple zones, see the [add_manual_targets()]
 #'   function. An example of a target that could be met through allocations
 #'   to multiple zones might be where each management zone is expected to
 #'   result in a different amount of a feature and the target requires that

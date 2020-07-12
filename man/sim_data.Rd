@@ -20,64 +20,38 @@
 \format{
 \describe{
 
-\item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
-  object.}
+\item{sim_pu_polygons}{\code{\linkS4class{SpatialPolygonsDataFrame}}
+object.}
 
 \item{sim_pu_zones_polygons}{
-  \code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+\code{\linkS4class{SpatialPolygonsDataFrame}} object.}
 
-\item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+\item{sim_pu_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
-\item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
+\item{sim_pu_zones_sf}{\code{\link[sf:sf]{sf::sf()}} object.}
 
-\item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
+\item{sim_pu_lines}{\code{\linkS4class{SpatialLinesDataFrame}} object.}
 
-\item{sim_pu_points}{\code{\link[sp]{SpatialPointsDataFrame-class}}
-  object.}
+\item{sim_pu_points}{\code{\linkS4class{SpatialPointsDataFrame}}
+object.}
 
-\item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
+\item{sim_pu_raster}{\code{\linkS4class{RasterLayer}} object.}
 
-\item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
+\item{sim_pu_zones_stack}{\code{\linkS4class{RasterStack}} object.}
 
-\item{sim_locked_in_raster}{\code{\link[raster]{RasterLayer-class}}
-  object.}
+\item{sim_locked_in_raster}{\code{\linkS4class{RasterLayer}}
+object.}
 
-\item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
-  object.}
+\item{sim_locked_out_raster}{\code{\linkS4class{RasterLayer}}
+object.}
 
-\item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
+\item{sim_features}{\code{\linkS4class{RasterStack}} object.}
 
-\item{sim_features_zones}{\code{\link{ZonesRaster}} object.}
+\item{sim_features_zones}{\code{\link[=ZonesRaster]{ZonesRaster()}} object.}
 
-\item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
+\item{sim_phylogeny}{\code{\link[ape:read.tree]{ape::phylo()}} object.}
 
 }
-
-An object of class \code{RasterStack} of dimension 10 x 10 x 5.
-
-An object of class \code{ZonesRaster} (inherits from \code{Zones}) of length 3.
-
-An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{SpatialPolygonsDataFrame} with 90 rows and 6 columns.
-
-An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 4 columns.
-
-An object of class \code{sf} (inherits from \code{data.frame}) with 90 rows and 7 columns.
-
-An object of class \code{SpatialLinesDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{SpatialPointsDataFrame} with 90 rows and 3 columns.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
-
-An object of class \code{RasterStack} of dimension 10 x 10 x 3.
-
-An object of class \code{phylo} of length 4.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
-
-An object of class \code{RasterLayer} of dimension 10 x 10 x 1.
 }
 \usage{
 data(sim_pu_polygons)
@@ -105,32 +79,6 @@ data(sim_features)
 data(sim_features_zones)
 
 data(sim_phylogeny)
-
-sim_features
-
-sim_features_zones
-
-sim_pu_polygons
-
-sim_pu_zones_polygons
-
-sim_pu_sf
-
-sim_pu_zones_sf
-
-sim_pu_lines
-
-sim_pu_points
-
-sim_pu_raster
-
-sim_pu_zones_stack
-
-sim_phylogeny
-
-sim_locked_in_raster
-
-sim_locked_out_raster
 }
 \description{
 Simulated data for making spatial prioritizations.
@@ -139,63 +87,64 @@ Simulated data for making spatial prioritizations.
 \describe{
 
 \item{\code{sim_pu_raster}}{Planning units are represented as raster data.
-  Pixel values indicate planning unit cost and \code{NA} values indicate
-  that a pixel is not a planning unit.}
+Pixel values indicate planning unit cost and \code{NA} values indicate
+that a pixel is not a planning unit.}
 
 \item{\code{sim_pu_zones_stack}}{Planning units are represented as raster
-  stack data. Each layer indicates the cost for a different management
-  zone. Pixels with \code{NA} values in a given zone indicate that a
-  planning unit cannot be allocated to that zone in a solution.
-  Additionally, pixels with \code{NA} values in all layers are not a
-  planning unit.}
+stack data. Each layer indicates the cost for a different management
+zone. Pixels with \code{NA} values in a given zone indicate that a
+planning unit cannot be allocated to that zone in a solution.
+Additionally, pixels with \code{NA} values in all layers are not a
+planning unit.}
 
 \item{\code{sim_locked_in_raster}}{Planning units are represented as raster
-  data. Pixel values are binary and indicate if planning units should be
-  locked in to the solution.}
+data. Pixel values are binary and indicate if planning units should be
+locked in to the solution.}
 
 \item{\code{sim_locked_out_raster}}{Planning units are represented as
-  raster data. Pixel values are binary and indicate if planning units
-  should be locked out from the solution.}
+raster data. Pixel values are binary and indicate if planning units
+should be locked out from the solution.}
 
 \item{\code{sim_pu_polygons}}{Planning units represented as polygon data.
-  The attribute table contains fields (columns) indicating the expenditure
-  required for prioritizing each planning unit ("cost" field), if the
-  planning units should be selected in the solution ("locked_in" field),
-  and if the planning units should never be selected in the solution
-  ("locked_out" field).}
+The attribute table contains fields (columns) indicating the expenditure
+required for prioritizing each planning unit ("cost" field), if the
+planning units should be selected in the solution ("locked_in" field),
+and if the planning units should never be selected in the solution
+("locked_out" field).}
 
 \item{\code{sim_pu_points}}{Planning units represented as point data.
-  The attribute table follows the same conventions as for
-  \code{sim_pu_polygons}.}
+The attribute table follows the same conventions as for
+\code{sim_pu_polygons}.}
 
 \item{\code{sim_pu_lines}}{Planning units represented as line data.
-  The attribute table follows the same conventions as for
-  \code{sim_pu_polygons}.}
+The attribute table follows the same conventions as for
+\code{sim_pu_polygons}.}
 
 \item{\code{sim_pu_sf}}{Planning units represented as polygon data
-  using the \code{\link[sf]{sf}} package.
-  The attribute table follows the same conventions as for
-  \code{sim_pu_polygons}.}
+using the \code{\link[sf:sf]{sf::sf()}} package.
+The attribute table follows the same conventions as for
+\code{sim_pu_polygons}.}
 
 \item{\code{sim_pu_zones_polygons}}{Planning units represented as polygon
-  data. The attribute table contains fields (columns) indicating the
-  expenditure required for prioritizing each planning unit under different
-  management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
-  of fields indicating the value that each planning unit that should be
-  assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
-  In these locked fields, planning units that should not be locked to a
-  specific value are assigned a \code{NA} value.}
+data. The attribute table contains fields (columns) indicating the
+expenditure required for prioritizing each planning unit under different
+management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
+of fields indicating the value that each planning unit that should be
+assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
+In these locked fields, planning units that should not be locked to a
+specific value are assigned a \code{NA} value.}
 
 \item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
-  using the \code{\link[sf]{sf}} package. The attribute tables follows
-  the same conventions as for \code{sim_pu_zone_polygons}.}
+using the \code{\link[sf:sf]{sf::sf()}} package. The attribute tables follows
+the same conventions as for \code{sim_pu_zone_polygons}.}
+
 \item{\code{sim_features}}{The simulated distribution of ten species.
-  Pixel values indicate habitat suitability.}
+Pixel values indicate habitat suitability.}
 
 \item{\code{sim_features_zones}}{The simulated distribution for five
-  species under three different management zones.}
+species under three different management zones.}
 
- \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
+\item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
 
 }
 }

@@ -55,7 +55,7 @@
 <meta property="og:title" content="Irreplaceability — irreplaceability" />
 <meta property="og:description" content="Irreplaceability scores can be used to assess the relative importance
 of planning units in a solution to a conservation planning
-problem." />
+problem()." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -98,7 +98,7 @@ problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -178,7 +178,7 @@ problem." />
     <div class="ref-description">
     <p>Irreplaceability scores can be used to assess the relative importance
 of planning units in a solution to a conservation planning
-<code><a href='problem.html'>problem</a></code>.</p>
+<code><a href='problem.html'>problem()</a></code>.</p>
     </div>
 
 
@@ -188,24 +188,24 @@ of planning units in a solution to a conservation planning
     <p>The following methods are available for calculating irreplaceability scores:</p>
 <dl'>
 
-<dt><code><a href='replacement_cost.html'>replacement_cost</a></code></dt><dd><p>The replacement cost scores (based
-  on Cabeza and Moilanen 2006) quantify the change in the objective
-  function (e.g. additional costs required to meet feature targets) of the
-  optimal solution if a given planning unit in a solution cannot be acquired.
-  They can (i) account for the cost of different planning units, (ii) account
-  for multiple management zones, (iii) apply to any objective function, and
-  (iv) identify truly irreplaceable planning units (denoted with infinite
-  values).</p></dd>
+<dt><code><a href='replacement_cost.html'>replacement_cost()</a></code></dt><dd><p>The replacement cost scores (based
+on Cabeza and Moilanen 2006) quantify the change in the objective
+function (e.g. additional costs required to meet feature targets) of the
+optimal solution if a given planning unit in a solution cannot be acquired.
+They can (i) account for the cost of different planning units, (ii) account
+for multiple management zones, (iii) apply to any objective function, and
+(iv) identify truly irreplaceable planning units (denoted with infinite
+values).</p></dd>
 
-<dt><code><a href='ferrier_score.html'>ferrier_score</a></code></dt><dd><p>The Ferrier scores (Ferrier <em>et al.</em> 2000) quantify the importance of
- planning units for meeting feature targets. They can only be applied to
- conservation problems with a minimum set objective and a single zone (i.e.
- the classic <em>Marxan</em>-type problem). Furthermore---unlike the
- replacement cost scores---the Ferrier irreplaceability scores provide a
- score for each feature within each planning unit, providing insight into
- why certain planning units are more important than other planning units.</p></dd>
+<dt><code><a href='ferrier_score.html'>ferrier_score()</a></code></dt><dd><p>The Ferrier scores (Ferrier <em>et al.</em> 2000) quantify the importance of
+planning units for meeting feature targets. They can only be applied to
+conservation problems with a minimum set objective and a single zone (i.e.
+the classic <em>Marxan</em>-type problem). Furthermore---unlike the
+replacement cost scores---the Ferrier irreplaceability scores provide a
+score for each feature within each planning unit, providing insight into
+why certain planning units are more important than other planning units.</p></dd>
 
-<dt><code><a href='rarity_weighted_richness.html'>rarity_weighted_richness</a></code></dt><dd><p>The rarity weighted richness scores (based on Williams <em>et al.</em>
+<dt><code><a href='rarity_weighted_richness.html'>rarity_weighted_richness()</a></code></dt><dd><p>The rarity weighted richness scores (based on Williams <em>et al.</em>
 1996) are simply a measure of biological diversity. They do not account for
 planning costs, multiple management zones, objective functions, or feature
 targets (or weightings). They merely describe the spatial patterns of
@@ -246,7 +246,7 @@ areas for conserving diversity using British birds.
 <em>Conservation Biology</em>, 10: 155--174.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

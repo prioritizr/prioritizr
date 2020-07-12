@@ -7,10 +7,10 @@
 parameters(...)
 }
 \arguments{
-\item{...}{\code{\link{Parameter-class}} objects.}
+\item{...}{\code{\linkS4class{Parameter}} objects.}
 }
 \value{
-\code{\link{Parameters-class}} object.
+\code{\linkS4class{Parameters}} object.
 }
 \description{
 Create a new collection of \code{Parameter} objects.
@@ -29,5 +29,5 @@ print(p)
 
 }
 \seealso{
-\code{\link{array_parameters}}, \code{\link{scalar_parameters}}.
+\code{\link[=array_parameters]{array_parameters()}}, \code{\link[=scalar_parameters]{scalar_parameters()}}.
 }

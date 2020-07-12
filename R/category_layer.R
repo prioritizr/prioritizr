@@ -3,23 +3,23 @@ NULL
 
 #' Category layer
 #'
-#' Convert a \code{\link[raster]{RasterStack-class}}
+#' Convert a [`RasterStack-class`]
 #' object where each layer corresponds to a different identifier and values
 #' indicate the presence/absence of that category into a
-#' \code{\link[raster]{RasterLayer-class}} object containing categorical
+#' [`RasterLayer-class`] object containing categorical
 #' identifiers.
 #'
-#' @param x \code{\link[raster]{Raster-class}} object containing a multiple
-#'   layers. Note that pixels must be 0, 1 or \code{NA} values.
+#' @param x [`Raster-class`] object containing a multiple
+#'   layers. Note that pixels must be 0, 1 or `NA` values.
 #'
 #' @details This function is provided to help manage data that encompass
 #'   multiple management zones. For instance, this function may be helpful
 #'   for interpreting solutions for problems associated with multiple zones that
 #'   have binary decisions.
 #'
-#' @return \code{\link[raster]{RasterLayer-class}} object.
+#' @return [`RasterLayer-class`] object.
 #'
-#' @seealso \code{\link{binary_stack}}.
+#' @seealso [binary_stack()].
 #'
 #' @examples
 #' # create a binary raster stack

@@ -3,7 +3,7 @@
 \name{add_lsymphony_solver}
 \alias{add_lsymphony_solver}
 \alias{add_lpsymphony_solver}
-\title{Add a SYMPHONY solver with \pkg{lpsymphony}}
+\title{Add a SYMPHONY solver with \emph{lpsymphony}}
 \usage{
 add_lpsymphony_solver(
   x,
@@ -14,7 +14,7 @@ add_lpsymphony_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is absolute and
 expresses the acceptable deviance from the optimal objective. For example,
@@ -37,8 +37,8 @@ relaxed solution, and is therefore often reasonably close to optimality.}
 optimization problems? Defaults to \code{TRUE}.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the solver added
-  to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
 }
 \description{
 Specify that the \emph{SYMPHONY} software should be used to solve a
@@ -48,15 +48,15 @@ It requires the \pkg{lpsymphony} package.
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
-  open-source integer programming solver that is part of the Computational
-  Infrastructure for Operations Research (COIN-OR) project, an initiative
-  to promote development of open-source tools for operations research (a
-  field that includes linear programming). The \pkg{lpsymphony} package is
-  distributed through
-  \href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
-  This functionality is provided because the \pkg{lpsymphony} package may
-  be easier to install to install on Windows and Mac OSX systems than the
-  \pkg{Rsymphony} package.
+open-source integer programming solver that is part of the Computational
+Infrastructure for Operations Research (COIN-OR) project, an initiative
+to promote development of open-source tools for operations research (a
+field that includes linear programming). The \pkg{lpsymphony} package is
+distributed through
+\href{https://doi.org/doi:10.18129/B9.bioc.lpsymphony}{Bioconductor}.
+This functionality is provided because the \pkg{lpsymphony} package may
+be easier to install to install on Windows and Mac OSX systems than the
+\pkg{Rsymphony} package.
 }
 \examples{
 # load data
@@ -84,5 +84,5 @@ if (require(lpsymphony) &
 
 }
 \seealso{
-\code{\link{solvers}}.
+\link{solvers}.
 }

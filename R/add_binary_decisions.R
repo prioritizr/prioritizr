@@ -3,26 +3,26 @@ NULL
 
 #' Add binary decisions
 #'
-#' Add a binary decision to a conservation planning \code{\link{problem}}.
+#' Add a binary decision to a conservation planning [problem()].
 #' This is the classic decision of either prioritizing or not prioritizing a
 #' planning unit. Typically, this decision has the assumed action of buying
 #' the planning unit to include in a protected area network. If no decision is
 #' added to a problem then this decision class will be used by default.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details Conservation planning problems involve making decisions on planning
 #'   units. These decisions are then associated with actions (e.g. turning a
 #'   planning unit into a protected area). If no decision is explicitly added to
 #'   a problem, then the binary decision class will be used by default. Only a
-#'   single decision should be added to a \code{ConservationProblem} object.
-#'   \strong{If multiple decisions are added to a problem object, then the last
-#'   one to be added will be used.}
+#'   single decision should be added to a `ConservationProblem` object.
+#'   Note that if multiple decisions are added to a problem object, then the
+#'   last one to be added will be used.
 #'
-#' @return \code{\link{ConservationProblem-class}} object with the decisions
-#'   added to it.
+#' @return Object (i.e. [`ConservationProblem-class`]) with the decisions added
+#'   to it.
 #'
-#' @seealso \code{\link{decisions}}.
+#' @seealso [decisions].
 #'
 #' @examples
 #' # set seed for reproducibility

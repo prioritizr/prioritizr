@@ -7,65 +7,65 @@ NULL
 #'
 #' \describe{
 #'
-#' \item{\code{sim_pu_raster}}{Planning units are represented as raster data.
-#'   Pixel values indicate planning unit cost and \code{NA} values indicate
+#' \item{`sim_pu_raster`}{Planning units are represented as raster data.
+#'   Pixel values indicate planning unit cost and `NA` values indicate
 #'   that a pixel is not a planning unit.}
 #'
-#' \item{\code{sim_pu_zones_stack}}{Planning units are represented as raster
+#' \item{`sim_pu_zones_stack`}{Planning units are represented as raster
 #'   stack data. Each layer indicates the cost for a different management
-#'   zone. Pixels with \code{NA} values in a given zone indicate that a
+#'   zone. Pixels with `NA` values in a given zone indicate that a
 #'   planning unit cannot be allocated to that zone in a solution.
-#'   Additionally, pixels with \code{NA} values in all layers are not a
+#'   Additionally, pixels with `NA` values in all layers are not a
 #'   planning unit.}
 #'
-#' \item{\code{sim_locked_in_raster}}{Planning units are represented as raster
+#' \item{`sim_locked_in_raster`}{Planning units are represented as raster
 #'   data. Pixel values are binary and indicate if planning units should be
 #'   locked in to the solution.}
 #'
-#' \item{\code{sim_locked_out_raster}}{Planning units are represented as
+#' \item{`sim_locked_out_raster`}{Planning units are represented as
 #'   raster data. Pixel values are binary and indicate if planning units
 #'   should be locked out from the solution.}
 #'
-#' \item{\code{sim_pu_polygons}}{Planning units represented as polygon data.
+#' \item{`sim_pu_polygons`}{Planning units represented as polygon data.
 #'   The attribute table contains fields (columns) indicating the expenditure
 #'   required for prioritizing each planning unit ("cost" field), if the
 #'   planning units should be selected in the solution ("locked_in" field),
 #'   and if the planning units should never be selected in the solution
 #'   ("locked_out" field).}
 #'
-#' \item{\code{sim_pu_points}}{Planning units represented as point data.
+#' \item{`sim_pu_points`}{Planning units represented as point data.
 #'   The attribute table follows the same conventions as for
-#'   \code{sim_pu_polygons}.}
+#'   `sim_pu_polygons`.}
 #'
-#' \item{\code{sim_pu_lines}}{Planning units represented as line data.
+#' \item{`sim_pu_lines`}{Planning units represented as line data.
 #'   The attribute table follows the same conventions as for
-#'   \code{sim_pu_polygons}.}
+#'   `sim_pu_polygons`.}
 #'
-#' \item{\code{sim_pu_sf}}{Planning units represented as polygon data
-#'   using the \code{\link[sf]{sf}} package.
+#' \item{`sim_pu_sf`}{Planning units represented as polygon data
+#'   using the [sf::sf()] package.
 #'   The attribute table follows the same conventions as for
-#'   \code{sim_pu_polygons}.}
+#'   `sim_pu_polygons`.}
 #'
-#' \item{\code{sim_pu_zones_polygons}}{Planning units represented as polygon
+#' \item{`sim_pu_zones_polygons`}{Planning units represented as polygon
 #'   data. The attribute table contains fields (columns) indicating the
 #'   expenditure required for prioritizing each planning unit under different
 #'   management zones ("cost_1", "cost_2", and "cost_3" fields), and a series
 #'   of fields indicating the value that each planning unit that should be
 #'   assigned in the solution ("locked_1", "locked_2", "locked_3" fields).
 #'   In these locked fields, planning units that should not be locked to a
-#'   specific value are assigned a \code{NA} value.}
+#'   specific value are assigned a `NA` value.}
 #'
-#' \item{\code{sim_pu_zones_sf}}{Planning units represented as polygon data
-#'   using the \code{\link[sf]{sf}} package. The attribute tables follows
-#'   the same conventions as for \code{sim_pu_zone_polygons}.}
-
-#' \item{\code{sim_features}}{The simulated distribution of ten species.
+#' \item{`sim_pu_zones_sf`}{Planning units represented as polygon data
+#'   using the [sf::sf()] package. The attribute tables follows
+#'   the same conventions as for `sim_pu_zone_polygons`.}
+#'
+#' \item{`sim_features`}{The simulated distribution of ten species.
 #'   Pixel values indicate habitat suitability.}
 #'
-#' \item{\code{sim_features_zones}}{The simulated distribution for five
+#' \item{`sim_features_zones`}{The simulated distribution for five
 #'   species under three different management zones.}
 #'
-#'  \item{\code{sim_phylogeny}}{The phylogenetic tree for the ten species.}
+#'  \item{`sim_phylogeny`}{The phylogenetic tree for the ten species.}
 #'
 #' }
 #'
@@ -102,36 +102,36 @@ NULL
 #' @format
 #' \describe{
 #'
-#' \item{sim_pu_polygons}{\code{\link[sp]{SpatialPolygonsDataFrame-class}}
+#' \item{sim_pu_polygons}{[`SpatialPolygonsDataFrame-class`]
 #'   object.}
 #'
 #' \item{sim_pu_zones_polygons}{
-#'   \code{\link[sp]{SpatialPolygonsDataFrame-class}} object.}
+#'   [`SpatialPolygonsDataFrame-class`] object.}
 #'
-#' \item{sim_pu_sf}{\code{\link[sf]{sf}} object.}
+#' \item{sim_pu_sf}{[sf::sf()] object.}
 #'
-#' \item{sim_pu_zones_sf}{\code{\link[sf]{sf}} object.}
+#' \item{sim_pu_zones_sf}{[sf::sf()] object.}
 #'
-#' \item{sim_pu_lines}{\code{\link[sp]{SpatialLinesDataFrame-class}} object.}
+#' \item{sim_pu_lines}{[`SpatialLinesDataFrame-class`] object.}
 #'
-#' \item{sim_pu_points}{\code{\link[sp]{SpatialPointsDataFrame-class}}
+#' \item{sim_pu_points}{[`SpatialPointsDataFrame-class`]
 #'   object.}
 #'
-#' \item{sim_pu_raster}{\code{\link[raster]{RasterLayer-class}} object.}
+#' \item{sim_pu_raster}{[`RasterLayer-class`] object.}
 #'
-#' \item{sim_pu_zones_stack}{\code{\link[raster]{RasterStack-class}} object.}
+#' \item{sim_pu_zones_stack}{[`RasterStack-class`] object.}
 #'
-#' \item{sim_locked_in_raster}{\code{\link[raster]{RasterLayer-class}}
+#' \item{sim_locked_in_raster}{[`RasterLayer-class`]
 #'   object.}
 #'
-#' \item{sim_locked_out_raster}{\code{\link[raster]{RasterLayer-class}}
+#' \item{sim_locked_out_raster}{[`RasterLayer-class`]
 #'   object.}
 #'
-#' \item{sim_features}{\code{\link[raster]{RasterStack-class}} object.}
+#' \item{sim_features}{[`RasterStack-class`] object.}
 #'
-#' \item{sim_features_zones}{\code{\link{ZonesRaster}} object.}
+#' \item{sim_features_zones}{[ZonesRaster()] object.}
 #'
-#' \item{sim_phylogeny}{\code{\link[ape]{phylo}} object.}
+#' \item{sim_phylogeny}{[ape::phylo()] object.}
 #'
 #' }
 #'
@@ -180,42 +180,3 @@ NULL
 #' }
 #' @name sim_data
 NULL
-
-#' @rdname sim_data
-"sim_features"
-
-#' @rdname sim_data
-"sim_features_zones"
-
-#' @rdname sim_data
-"sim_pu_polygons"
-
-#' @rdname sim_data
-"sim_pu_zones_polygons"
-
-#' @rdname sim_data
-"sim_pu_sf"
-
-#' @rdname sim_data
-"sim_pu_zones_sf"
-
-#' @rdname sim_data
-"sim_pu_lines"
-
-#' @rdname sim_data
-"sim_pu_points"
-
-#' @rdname sim_data
-"sim_pu_raster"
-
-#' @rdname sim_data
-"sim_pu_zones_stack"
-
-#' @rdname sim_data
-"sim_phylogeny"
-
-#' @rdname sim_data
-"sim_locked_in_raster"
-
-#' @rdname sim_data
-"sim_locked_out_raster"

@@ -8,31 +8,31 @@
 \S4method{add_mandatory_allocation_constraints}{ConservationProblem}(x)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the constraints
-  added to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
+added to it.
 }
 \description{
 Add constraints to ensure that every planning unit is allocated to a
-management zone in the solution. \strong{This function can only be used with
-problems that contain multiple zones.}
+management zone in the solution. Note that this function can only be used
+with problems that contain multiple zones.
 }
 \details{
-For a conservation planning \code{\link{problem}} with multiple
-  management zones, it may sometimes be desirable to obtain a solution that
-  assigns each and every single planning unit to a zone. For example, when
-  developing land-use plans, some decision makers may require that each and
-  every single parcel of land has been allocated a specific land-use type.
-  In other words are no "left over" areas. Although it might seem tempting
-  to simply solve the problem and manually assign "left over" planning units
-  to a default zone afterwards (e.g. an "other", "urban", or "grazing"
-  land-use), this could result in highly sub-optimal solutions if there
-  penalties for siting the default land-use adjacent to other zones.
-  Instead, this function can be used to specify that all planning units in a
-  problem with multiple zones must be allocated to a management zone (i.e.
-  zone allocation is mandatory).
+For a conservation planning \code{\link[=problem]{problem()}} with multiple
+management zones, it may sometimes be desirable to obtain a solution that
+assigns each and every single planning unit to a zone. For example, when
+developing land-use plans, some decision makers may require that each and
+every single parcel of land has been allocated a specific land-use type.
+In other words are no "left over" areas. Although it might seem tempting
+to simply solve the problem and manually assign "left over" planning units
+to a default zone afterwards (e.g. an "other", "urban", or "grazing"
+land-use), this could result in highly sub-optimal solutions if there
+penalties for siting the default land-use adjacent to other zones.
+Instead, this function can be used to specify that all planning units in a
+problem with multiple zones must be allocated to a management zone (i.e.
+zone allocation is mandatory).
 }
 \examples{
 # set seed for reproducibility
@@ -70,5 +70,5 @@ plot(stack(c1, c2), main = c("default", "mandatory allocation"),
 }
 }
 \seealso{
-\code{\link{constraints}}.
+\link{constraints}.
 }

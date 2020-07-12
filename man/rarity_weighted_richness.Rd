@@ -25,11 +25,11 @@ rarity_weighted_richness(x, solution, ...)
 \S4method{rarity_weighted_richness}{ConservationProblem,Raster}(x, solution, rescale, ...)
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
-\code{\link[raster]{Raster-class}}, \code{\link[sp]{Spatial-class}},
-or \code{\link[sf]{sf}} object. See the Details section for more
+\code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
+or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
 information.}
 
 \item{...}{not used.}
@@ -40,9 +40,9 @@ rescaled to range between 0.01 and 1. Defaults to \code{TRUE}.}
 }
 \value{
 A \code{numeric}, \code{matrix},
-  \code{\link[raster]{RasterLayer-class}}, \code{\link[sp]{Spatial-class}},
-  or \code{\link[sf]{sf}} object containing the rarity weighted richness
-  scores for each planning unit in the solution.
+\code{\linkS4class{RasterLayer}}, \code{\linkS4class{Spatial}},
+or \code{\link[sf:sf]{sf::sf()}} object containing the rarity weighted richness
+scores for each planning unit in the solution.
 }
 \description{
 Calculate irreplaceability scores for planning units selected in a solution
@@ -50,7 +50,7 @@ using rarity weighted richness (based on Williams \emph{et al.} 1996). Please
 note that this method is only recommended for large-scaled conservation
 planning exercises (i.e. more than 100,000 planning units) where
 irreplaceability scores cannot be calculated using the replacement cost
-method (\code{\link{replacement_cost}}) in a feasible period of
+method (\code{\link[=replacement_cost]{replacement_cost()}}) in a feasible period of
 time. This is because rarity weighted richness scores cannot (i) account for
 the cost of different planning units, (ii) account for multiple management
 zones, and (iii) identify truly irreplaceable planning units---unlike the
@@ -58,54 +58,54 @@ replacement cost metric which does not suffer any of these limitations.
 }
 \details{
 Rarity weighted richness scores are calculated using the following
-  terms . Let \eqn{I} denote the set of planning units (indexed by
-  \eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
-  \eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
-  associated with planning unit \eqn{i}, and let \eqn{M_j} denote the
-  maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
-  \eqn{i \in I}. To calculate the rarity weighted richness (\emph{RWR}) for
-  planning unit \eqn{k}:
+terms . Let \eqn{I} denote the set of planning units (indexed by
+\eqn{i}), let \eqn{J} denote the set of conservation features (indexed by
+\eqn{j}), let \eqn{r_{ij}} denote the amount of feature \eqn{j}
+associated with planning unit \eqn{i}, and let \eqn{M_j} denote the
+maximum value of feature \eqn{j} in \eqn{r_{ij}} in all planning units
+\eqn{i \in I}. To calculate the rarity weighted richness (\emph{RWR}) for
+planning unit \eqn{k}:
 
-  \deqn{
+\deqn{
   \mathit{RWR}_{k} = \sum_{j}^{J} \frac{ \frac{r_{kj}}{M_j} }{
                                           \sum_{i}^{I} r_{ij}}
   }{
   RWRk = sum_j^J ( (rkj / Mj) / sum_i^I rij)
   }
 
-  The argument to \code{solution} must correspond
-  to the planning unit data in the argument to \code{x} in terms
-  of data representation, dimensionality, and spatial attributes (if
-  applicable). This means that if the planning unit data in \code{x}
-  is a \code{numeric} vector then the argument to \code{solution} must be a
-  \code{numeric} vector with the same number of elements; if the planning
-  unit data in \code{x} is a \code{\link[raster]{RasterLayer-class}} then the
-  argument to \code{solution} must also be a
-  \code{\link[raster]{RasterLayer-class}} with the same number of rows and
-  columns and the same resolution, extent, and coordinate reference system;
-  if the planning unit data in \code{x} is a \code{\link[sp]{Spatial-class}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sp]{Spatial-class}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system;
-  if the planning unit data in \code{x} is a \code{\link[sf]{sf}}
-  object then the argument to \code{solution} must also be a
-  \code{\link[sf]{sf}} object and have the same number of spatial
-  features (e.g. polygons) and have the same coordinate reference system;
-  if the planning units in \code{x} are a \code{data.frame} then the
-  argument to \code{solution} must also be a \code{data.frame} with each
-  column correspond to a different zone and each row correspond to
-  a different planning unit, and values correspond to the allocations
-  (e.g. values of zero or one).
+The argument to \code{solution} must correspond
+to the planning unit data in the argument to \code{x} in terms
+of data representation, dimensionality, and spatial attributes (if
+applicable). This means that if the planning unit data in \code{x}
+is a \code{numeric} vector then the argument to \code{solution} must be a
+\code{numeric} vector with the same number of elements; if the planning
+unit data in \code{x} is a \code{\linkS4class{RasterLayer}} then the
+argument to \code{solution} must also be a
+\code{\linkS4class{RasterLayer}} with the same number of rows and
+columns and the same resolution, extent, and coordinate reference system;
+if the planning unit data in \code{x} is a \code{\linkS4class{Spatial}}
+object then the argument to \code{solution} must also be a
+\code{\linkS4class{Spatial}} object and have the same number of spatial
+features (e.g. polygons) and have the same coordinate reference system;
+if the planning unit data in \code{x} is a \code{\link[sf:sf]{sf::sf()}}
+object then the argument to \code{solution} must also be a
+\code{\link[sf:sf]{sf::sf()}} object and have the same number of spatial
+features (e.g. polygons) and have the same coordinate reference system;
+if the planning units in \code{x} are a \code{data.frame} then the
+argument to \code{solution} must also be a \code{data.frame} with each
+column correspond to a different zone and each row correspond to
+a different planning unit, and values correspond to the allocations
+(e.g. values of zero or one).
 
-  Solutions must have planning unit statuses set to missing (\code{NA})
-  values for planning units that have missing (\code{NA}) cost data. For
-  problems with multiple zones, this means that planning units must have
-  missing (\code{NA}) allocation values in zones where they have missing
-  (\code{NA}) cost data. In other words, planning units that have missing
-  (\code{NA}) cost values in \code{x} should always have a missing
-  (\code{NA}) value the argument to \code{solution}. If an argument is
-  supplied to
-  \code{solution} where this is not the case, then an error will be thrown.
+Solutions must have planning unit statuses set to missing (\code{NA})
+values for planning units that have missing (\code{NA}) cost data. For
+problems with multiple zones, this means that planning units must have
+missing (\code{NA}) allocation values in zones where they have missing
+(\code{NA}) cost data. In other words, planning units that have missing
+(\code{NA}) cost values in \code{x} should always have a missing
+(\code{NA}) value the argument to \code{solution}. If an argument is
+supplied to
+\code{solution} where this is not the case, then an error will be thrown.
 }
 \examples{
 # seed seed for reproducibility
@@ -148,5 +148,5 @@ areas for conserving diversity using British birds.
 \emph{Conservation Biology}, 10: 155--174.
 }
 \seealso{
-\code{\link{irreplaceability}}.
+\link{irreplaceability}.
 }

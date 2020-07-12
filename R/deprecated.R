@@ -15,8 +15,8 @@ NULL
 NULL
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{add_connected_constraints}: this function has been renamed
-#'   to the \code{\link{add_contiguity_constraints}} function.
+#' @section  `add_connected_constraints`: this function has been renamed
+#'   to the [add_contiguity_constraints()] function.
 #' @export
 add_connected_constraints <- function(...) {
   .Deprecated("add_contiguity_constraints")
@@ -25,8 +25,8 @@ add_connected_constraints <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{add_corridor_constraints}: this function has been
-#'   reimagined as the \code{\link{add_feature_contiguity_constraints}}
+#' @section  `add_corridor_constraints`: this function has been
+#'   reimagined as the [add_feature_contiguity_constraints()]
 #'   function.
 #' @export
 add_corridor_constraints <- function(...) {
@@ -36,7 +36,7 @@ add_corridor_constraints <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{set_number_of_threads}: this function is no longer needed now that superior data extraction methods are implemented.
+#' @section  `set_number_of_threads`: this function is no longer needed now that superior data extraction methods are implemented.
 #'   function.
 #' @export
 set_number_of_threads <- function(...) {
@@ -44,7 +44,7 @@ set_number_of_threads <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{get_number_of_threads}: this function is no longer needed now that superior data extraction methods are implemented.
+#' @section  `get_number_of_threads`: this function is no longer needed now that superior data extraction methods are implemented.
 #'   function.
 #' @export
 get_number_of_threads <- function(...) {
@@ -52,7 +52,7 @@ get_number_of_threads <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{is.parallel}: this function is no longer needed now that superior data extraction methods are implemented.
+#' @section  `is.parallel`: this function is no longer needed now that superior data extraction methods are implemented.
 #'   function.
 #' @export
 is.parallel <- function(...) {
@@ -60,7 +60,7 @@ is.parallel <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{add_pool_portfolio}: this function is replaced by \code{\link{add_extra_portfolio}} and \code{\link{add_top_portfolio}}.
+#' @section  `add_pool_portfolio`: this function is replaced by [add_extra_portfolio()] and [add_top_portfolio()].
 #'   function.
 #' @export
 add_pool_portfolio <- function(...) {
@@ -68,8 +68,8 @@ add_pool_portfolio <- function(...) {
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  \code{connected_matrix}: this function has been renamed as
-#' the \code{\link{adjacency_matrix}} function.
+#' @section  `connected_matrix`: this function has been renamed as
+#' the [adjacency_matrix()] function.
 #' @export
 connected_matrix <- function(...) {
   .Deprecated("adjacency_matrix")

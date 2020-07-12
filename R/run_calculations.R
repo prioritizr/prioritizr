@@ -9,14 +9,14 @@ NULL
 #' the same pre-processing steps (e.g. calculating boundary data), because
 #' means that the same calculations will not be run multiple times.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @details This function is used for the effect of modifying the input
-#'   \code{\link{ConservationProblem-class}} object. As such, it does not return
-#'   anything. To use this function with \code{\link{pipe}} operators, use the
-#'   \code{\%T>\%} operator and not the \code{\%>\%} operator.
+#'   [`ConservationProblem-class`] object. As such, it does not return
+#'   anything. To use this function with [pipe()] operators, use the
+#'   `%T>%` operator and not the `%>%` operator.
 #'
-#' @return Invisible \code{TRUE} indicating success.
+#' @return Invisible `TRUE` indicating success.
 #'
 #' @examples
 #' \donttest{
@@ -44,7 +44,7 @@ NULL
 #' # problem
 #'
 #' # recreate a conservation problem with no targets and tell R run the
-#' # preliminary calculations. Note how we use the \%T>\% operator here.
+#' # preliminary calculations. Note how we use the %T>% operator here.
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
 #'   add_boundary_penalties(10, 0.5) %T>%

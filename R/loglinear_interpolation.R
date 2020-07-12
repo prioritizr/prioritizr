@@ -5,23 +5,23 @@ NULL
 #'
 #' Log-linearly interpolate values between two thresholds.
 #'
-#' @param x \code{numeric} \emph{x} values for which interpolate \emph{y}
+#' @param x `numeric` *x* values for which interpolate *y*
 #'   values.
 #'
-#' @param coordinate_one_x \code{numeric} value for lower \emph{x}-coordinate.
+#' @param coordinate_one_x `numeric` value for lower *x*-coordinate.
 #'
-#' @param coordinate_one_y \code{numeric} value for lower \emph{y}-coordinate.
+#' @param coordinate_one_y `numeric` value for lower *y*-coordinate.
 #'
-#' @param coordinate_two_x \code{numeric} value for upper \emph{x}-coordinate.
+#' @param coordinate_two_x `numeric` value for upper *x*-coordinate.
 #'
-#' @param coordinate_two_y \code{numeric} value for upper \emph{y}-coordinate.
+#' @param coordinate_two_y `numeric` value for upper *y*-coordinate.
 #'
-#' @details Values are log-linearly interpolated at the \emph{x}-coordinates
-#'   specified in \code{x} using the lower and upper coordinate arguments to
+#' @details Values are log-linearly interpolated at the *x*-coordinates
+#'   specified in `x` using the lower and upper coordinate arguments to
 #'   define the line. Values lesser or greater than these numbers are assigned
-#'   the minimum and maximum \emph{y} coordinates.
+#'   the minimum and maximum *y* coordinates.
 #'
-#' @return \code{numeric} values.
+#' @return `numeric` values.
 #'
 #' @examples
 #' # create series of x-values

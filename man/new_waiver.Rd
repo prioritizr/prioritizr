@@ -7,7 +7,7 @@
 new_waiver()
 }
 \value{
-\code{object} of class \code{Waiver}.
+Object of class \code{Waiver}.
 }
 \description{
 Create a \code{waiver} object.

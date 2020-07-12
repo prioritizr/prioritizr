@@ -16,7 +16,7 @@ add_gurobi_solver(
 )
 }
 \arguments{
-\item{x}{\code{\link{ConservationProblem-class}} object.}
+\item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{gap}{\code{numeric} gap to optimality. This gap is relative when
 solving problems using \pkg{gurobi}, and will cause the optimizer to
@@ -59,8 +59,8 @@ to 3). Defaults to \code{FALSE}.}
 optimization problems?}
 }
 \value{
-\code{\link{ConservationProblem-class}} object with the solver added
-  to it.
+Object (i.e. \code{\linkS4class{ConservationProblem}}) with the solver
+added to it.
 }
 \description{
 Specify that the \emph{Gurobi} software should be used to solve a
@@ -69,12 +69,12 @@ customize the behavior of the solver. It requires the \pkg{gurobi} package.
 }
 \details{
 \href{http://gurobi.com}{\emph{Gurobi}} is a
-  state-of-the-art commercial optimization software with an R package
-  interface. It is by far the fastest of the solvers available in this
-  package, however, it is also the only solver that is not freely
-  available. That said, licenses are available to academics at no cost. The
-  \pkg{gurobi} package is distributed with the \emph{Gurobi} software suite.
-  This solver uses the \pkg{gurobi} package to solve problems.
+state-of-the-art commercial optimization software with an R package
+interface. It is by far the fastest of the solvers available in this
+package, however, it is also the only solver that is not freely
+available. That said, licenses are available to academics at no cost. The
+\pkg{gurobi} package is distributed with the \emph{Gurobi} software suite.
+This solver uses the \pkg{gurobi} package to solve problems.
 }
 \examples{
 # load data
@@ -99,5 +99,5 @@ if (require("gurobi")) {
 }
 }
 \seealso{
-\code{\link{solvers}}.
+\link{solvers}.
 }

@@ -7,14 +7,14 @@ NULL
 #' each other. Note that this also include planning units that overlap
 #' with each other too.
 #'
-#' @param x \code{\link[raster]{Raster-class}},
-#'   \code{\link[sp]{SpatialPolygons-class}},
-#'   \code{\link[sp]{SpatialLines-class}},
-#'   or \code{\link[sf]{sf}} object
+#' @param x [`Raster-class`],
+#'   [`SpatialPolygons-class`],
+#'   [`SpatialLines-class`],
+#'   or [sf::sf()] object
 #'   representing planning units.
 #'
-#' @param directions \code{integer} If \code{x} is a
-#'   \code{\link[raster]{Raster-class}} object, the number of directions
+#' @param directions `integer` If `x` is a
+#'   [`Raster-class`] object, the number of directions
 #'   in which cells should be considered adjacent: 4 (rook's case), 8 (queen's
 #'   case), 16 (knight and one-cell queen moves), or "bishop" to for cells
 #'   with one-cell diagonal moves.
@@ -22,21 +22,23 @@ NULL
 #' @param ... not used.
 #'
 #' @details Spatial processing is completed using
-#'   \code{\link[sf]{st_intersects}} for \code{\link[sp]{Spatial-class}} and
-#'   \code{\link[sf]{sf}} objects,
-#'   and \code{\link[raster]{adjacent}} for \code{\link[raster]{Raster-class}}
+#'   [sf::st_intersects()] for [`Spatial-class`] and
+#'   [sf::sf()] objects,
+#'   and [raster::adjacent()] for [`Raster-class`]
 #'   objects.
-#'   Prior to version 5.0.0,  this function was named
-#'   \code{connected_matrix}. It has been renamed to be consistent
+#'
+#' @section Notes:
+#'   In earlier versions (< 5.0.0), this function was named as the
+#'   `connected_matrix` function. It has been renamed to be consistent
 #'   with other spatial association matrix functions.
 #'
-#' @return \code{\link[Matrix]{dsCMatrix-class}} sparse symmetric matrix.
+#' @return [`dsCMatrix-class`] sparse symmetric matrix.
 #'   Each row and column represents a planning unit.
 #'   Cells values indicate if different planning units are
 #'   adjacent to each other or not (using ones and zeros).
 #'   To reduce computational burden, cells among the matrix diagonal are
-#'   set to zero. Furthermore, if the argument to \code{x} is a
-#'   \code{\link[raster]{Raster-class}} object, then cells with \code{NA}
+#'   set to zero. Furthermore, if the argument to `x` is a
+#'   [`Raster-class`] object, then cells with `NA`
 #'   values are set to zero too.
 #'
 #' @name adjacency_matrix

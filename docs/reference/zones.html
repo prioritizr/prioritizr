@@ -97,7 +97,7 @@ under different management zones." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -186,7 +186,7 @@ under different management zones.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p><code><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster</a></code> or <code>character</code> objects that
+      <td><p><code><a href='https://rdrr.io/pkg/raster/man/raster.html'>raster::raster()</a></code> or <code>character</code> objects that
 pertain to the biodiversity data. See Details for more information.</p></td>
     </tr>
     <tr>
@@ -203,47 +203,48 @@ to <code>NULL</code> which results in sequential integers.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>Zones-class</code> object.</p>
+    <p><code>Zones</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function is used to store and organize data for use in a
-  conservation planning <code><a href='problem.html'>problem</a></code> that has multiple management
-  zones. In all cases, the data for each zone is input as a separate
-  argument. The correct arguments depends on the type of planning unit data
-  used when building the conservation planning <code><a href='problem.html'>problem</a></code>.</p>
-<p></p><dl'>
+conservation planning <code><a href='problem.html'>problem()</a></code> that has multiple management
+zones. In all cases, the data for each zone is input as a separate
+argument. The correct arguments depends on the type of planning unit data
+used when building the conservation planning <code><a href='problem.html'>problem()</a></code>.</p>
+<dl'>
+<dt><code>Raster</code>,
+<code>Spatial</code></dt><dd><p><code>Raster</code>
+data denoting the amount of each feature present assuming each
+management zone. Data for each zone are specified in separate
+arguments, and the data for each feature in a given zone are specified
+in separate layers in a <code><a href='https://rdrr.io/pkg/raster/man/stack.html'>raster::stack()</a></code> object. Note that
+all layers for a given zone must have <code>NA</code> values in exactly the
+same cells.</p></dd>
+<dt><code>Spatial()</code>, <code>data.frame</code></dt><dd><p><code>character</code> vector
+with column names that correspond to the abundance or occurrence of
+different features in each planning unit for each zone. Note that
+these columns must not contain any <code>NA</code> values.</p></dd>
+<dt><code>Spatial()</code>, <code>data.frame</code> or
+<code>matrix</code></dt><dd><p><code>data.frame</code> denoting the amount of each feature
+in each zone. Following conventions used in <em>Marxan</em>,
+<code>data.frame</code> objects should be supplied with the columns:
+<dl'>
+<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
+<dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+planning unit for a given zone.</p></dd></dl>
+Note that data for each zone are specified in a separate argument, and
+the data contained in a single <code>data.frame</code> object correspond to
+a single zone. Also, note that data are not required for all
+combinations of planning units, features, and zones. The amounts of
+features in planning units assuming different management zones that are
+missing from the table are treated as zero.</p></dd>
 
-  <dt><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>,
-    <code><a href='https://rdrr.io/pkg/sp/man/Spatial-class.html'>Spatial-class</a></code></dt><dd><p><code><a href='https://rdrr.io/pkg/raster/man/Raster-classes.html'>Raster-class</a></code>
-    data denoting the amount of each feature present assuming each
-    management zone. Data for each zone are specified in separate
-    arguments, and the data for each feature in a given zone are specified
-    in separate layers in a <code><a href='https://rdrr.io/pkg/raster/man/stack.html'>stack</a></code> object. Note that
-    all layers for a given zone must have <code>NA</code> values in exactly the
-    same cells.</p></dd>
-
-  <dt><code>Spatial</code>, <code>data.frame</code></dt><dd><p><code>character</code> vector
-    with column names that correspond to the abundance or occurrence of
-    different features in each planning unit for each zone. Note that
-    these columns must not contain any <code>NA</code> values.</p></dd>
-
-  <dt><code>Spatial</code>, <code>data.frame</code> or
-    <code>matrix</code></dt><dd><p><code>data.frame</code> denoting the amount of each feature
-    in each zone. Following conventions used in <em>Marxan</em>,
-    <code>data.frame</code> objects should be supplied with the columns:    <dl'>    <dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>    <dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>    <dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
-      planning unit for a given zone.</p></dd></dl>    Note that data for each zone are specified in a separate argument, and
-    the data contained in a single <code>data.frame</code> object correspond to
-    a single zone. Also, note that data are not required for all
-    combinations of planning units, features, and zones. The amounts of
-    features in planning units assuming different management zones that are
-    missing from the table are treated as zero.</p></dd>
-
-  
 </dl>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='problem.html'>problem</a></code>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load planning unit data</span>

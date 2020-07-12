@@ -5,10 +5,10 @@ NULL
 #'
 #' Extract the names of the features in an object.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or \code{\link{Zones}}
-#    object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) or [Zones()]
+#'   object.
 #'
-#' @return \code{character} feature names.
+#' @return `character` feature names.
 #'
 #' @name feature_names
 #'

@@ -16,39 +16,39 @@ rij_matrix(x, y, ...)
 \S4method{rij_matrix}{sf,Raster}(x, y, fun, ...)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}},
-\code{\link[sp]{Spatial-class}}, or \code{\link[sf]{sf}} object
+\item{x}{\code{\linkS4class{Raster}},
+\code{\linkS4class{Spatial}}, or \code{\link[sf:sf]{sf::sf()}} object
 representing the planning units.}
 
-\item{y}{\code{\link[raster]{Raster-class}} object representing the
+\item{y}{\code{\linkS4class{Raster}} object representing the
 features.}
 
 \item{...}{not used.}
 
 \item{fun}{\code{character} for summarizing values inside each planning unit.
 This parameter is only used when the argument to \code{x} is a
-\code{\link[sp]{Spatial-class}} or \code{\link[sf]{sf}} object.
+\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object.
 Defaults to \code{"sum"}.}
 }
 \value{
-\code{\link[Matrix]{dgCMatrix-class}} sparse matrix object.
-  The sparse matrix represents the spatial intersection between the
-  planning units and the features. Rows correspond to planning units,
-  and columns correspond to features. Values correspond to the amount
-  of the feature in the planning unit. For example, the amount of the
-  third species in the second planning unit would be stored in the
-  third column and second row.
+\code{\linkS4class{dgCMatrix}} sparse matrix object.
+The sparse matrix represents the spatial intersection between the
+planning units and the features. Rows correspond to planning units,
+and columns correspond to features. Values correspond to the amount
+of the feature in the planning unit. For example, the amount of the
+third species in the second planning unit would be stored in the
+third column and second row.
 }
 \description{
 Generate a matrix showing the amount of each feature in each planning
 unit (also known as an \emph{rij} matrix).
 }
 \details{
-Generally, processing vector (i.e. \code{\link[sp]{Spatial-class}} or
-  \code{\link[sf]{sf}}) data takes much
-  longer to process then \code{\link[raster]{Raster-class}} data,
-  so it is recommended to use \code{\link[raster]{Raster-class}} data
-  for planning units where possible.
+Generally, processing vector (i.e. \code{\linkS4class{Spatial}} or
+\code{\link[sf:sf]{sf::sf()}}) data takes much
+longer to process then \code{\linkS4class{Raster}} data,
+so it is recommended to use \code{\linkS4class{Raster}} data
+for planning units where possible.
 }
 \examples{
 # load data

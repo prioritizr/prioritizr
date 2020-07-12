@@ -4,18 +4,18 @@ NULL
 #' Default solver
 #'
 #' Identify the best solver currently installed on the system and specify that
-#' it should be used to solve a conservation planning \code{\link{problem}}.
+#' it should be used to solve a conservation planning [problem()].
 #' Ranked from best to worst, the available solvers that can be used are:
 #' \pkg{gurobi}
-#' (\code{\link{add_gurobi_solver}}),
-#' \pkg{Rsymphony} (\code{\link{add_rsymphony_solver}}), then \pkg{lpsymphony}
-#' (\code{\link{add_lpsymphony_solver}}).
+#' ([add_gurobi_solver()]), then
+#' \pkg{Rsymphony} ([add_rsymphony_solver()]), and finally \pkg{lpsymphony}
+#' ([add_lpsymphony_solver()]).
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param ... arguments passed to the solver.
 #'
-#' @seealso \code{\link{solvers}}.
+#' @inherit add_gurobi_solver return seealso
 #'
 #' @export
 add_default_solver <- function(x, ...) {

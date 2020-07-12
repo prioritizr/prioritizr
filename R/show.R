@@ -9,7 +9,7 @@ NULL
 #'
 #' @return None.
 #'
-#' @seealso \code{\link[methods]{show}}.
+#' @seealso [methods::show()].
 #'
 #' @name show
 #'

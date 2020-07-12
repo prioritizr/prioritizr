@@ -53,7 +53,7 @@
 
 
 <meta property="og:title" content="Parameters class — Parameters-class" />
-<meta property="og:description" content="This class represents a collection of Parameter-class objects.
+<meta property="og:description" content="This class represents a collection of Parameter objects.
 It provides methods for accessing, updating, and rendering the parameters
 stored inside it." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
@@ -98,7 +98,7 @@ stored inside it." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
       </span>
     </div>
 
@@ -176,7 +176,7 @@ stored inside it." />
     </div>
 
     <div class="ref-description">
-    <p>This class represents a collection of <code><a href='Parameter-class.html'>Parameter-class</a></code> objects.
+    <p>This class represents a collection of <code><a href='Parameter-class.html'>Parameter</a></code> objects.
 It provides methods for accessing, updating, and rendering the parameters
 stored inside it.</p>
     </div>
@@ -190,7 +190,7 @@ stored inside it.</p>
 <dl'>
 
 <dt>$parameters</dt><dd><p><code>list</code> object containing
-  <code><a href='Parameter-class.html'>Parameter-class</a></code> objects.</p></dd>
+<code><a href='Parameter-class.html'>Parameter</a></code> objects.</p></dd>
 
 
 </dl>
@@ -218,7 +218,7 @@ stored inside it.</p>
 <dl'>
 <dt>id</dt><dd><p><code><a href='new_id.html'>Id</a></code> object.</p></dd>
 
-<dt>p</dt><dd><p><code><a href='Parameter-class.html'>Parameter-class</a></code> object.</p></dd>
+<dt>p</dt><dd><p><code><a href='Parameter-class.html'>Parameter</a></code> object.</p></dd>
 
 <dt>value</dt><dd><p>any object.</p></dd>
 
@@ -244,16 +244,16 @@ stored inside it.</p>
 
 <dt>length</dt><dd><p>return <code>integer</code> number of parameters in object.</p></dd>
 <dt>get</dt><dd><p>retrieve the value of a parameter in the object
-   using an <code>Id</code> object.</p></dd>
+using an <code>Id</code> object.</p></dd>
 
 <dt>set</dt><dd><p>change the value of a parameter in the object
-   to a new object.</p></dd>
+to a new object.</p></dd>
 
 <dt>render</dt><dd><p>generate a <em>shiny</em> widget to modify the
-  the value of a parameter (specified by argument <code>Id</code>).</p></dd>
+the value of a parameter (specified by argument <code>Id</code>).</p></dd>
 
-<dt>render_all</dt><dd><p>generate a <code><a href='https://rdrr.io/pkg/shiny/man/reexports.html'>div</a></code>
-  containing all the parameters" widgets.</p></dd>
+<dt>render_all</dt><dd><p>generate a <code><a href='https://rdrr.io/pkg/shiny/man/reexports.html'>shiny::div()</a></code>
+containing all the parameters" widgets.</p></dd>
 
 
 </dl>

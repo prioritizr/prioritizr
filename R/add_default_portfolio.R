@@ -3,12 +3,12 @@ NULL
 
 #' Default portfolio
 #'
-#' Generate a portfolio for a conservation planning \code{\link{problem}}
+#' Generate a portfolio for a conservation planning [problem()]
 #' that contains a single solution.
 #'
-#' @param x \code{\link{ConservationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @seealso \code{\link{portfolios}}.
+#' @seealso [portfolios].
 #'
 #' @noRd
 add_default_portfolio <- function(x) {

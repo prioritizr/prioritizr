@@ -3,7 +3,7 @@ NULL
 
 #' Presolve check
 #'
-#' Check a conservation planning \code{\link{problem}} for potential issues
+#' Check a conservation planning [problem()] for potential issues
 #' before trying to solve it. Specifically, problems are checked for (i) values
 #' that are likely to result in "strange" solutions and (ii) values that are
 #' likely to cause numerical instability issues and lead to unreasonably long
@@ -12,8 +12,8 @@ NULL
 #' false positives. Please note that these checks will not be able to
 #' verify if  a problem has a feasible solution or not.
 #'
-#' @param x \code{\link{ConservationProblem-class}} or an
-#'   \code{\link{OptimizationProblem-class}} object.
+#' @param x [problem()] (i.e. [`ConservationProblem-class`]) or
+#'   [`OptimizationProblem-class`] object.
 #'
 #' @details This function checks for issues that are likely to result in
 #'   "strange" solutions. Specifically, it checks if (i) all planning units are
@@ -45,8 +45,8 @@ NULL
 #'   checks? Well, this function will have thrown some warning messages
 #'   describing the source of these issues, so read them carefully. For
 #'   instance, a common issue is when a relatively large penalty value is
-#'   specified for boundary (\code{\link{add_boundary_penalties}}) or
-#'   connectivity penalties (\code{\link{add_connectivity_penalties}}). This
+#'   specified for boundary ([add_boundary_penalties()]) or
+#'   connectivity penalties ([add_connectivity_penalties()]). This
 #'   can be fixed by trying a smaller penalty value. In such cases, the
 #'   original penalty value supplied was so high that the optimal solution
 #'   would just have selected every single planning unit in the solution---and
@@ -83,7 +83,7 @@ NULL
 #'   solving the problem, you will need to manually recalculate the cost
 #'   of the solutions but at least now you can be confident that you have the
 #'   optimal solution. Now let's pretend that you are using the maximum features
-#'   objective (i.e. \code{\link{add_max_features_objective}}) and assigned some
+#'   objective (i.e. [add_max_features_objective()]) and assigned some
 #'   really high weights to the targets for some features to ensure that their
 #'   targets were met in the optimal solution. If you set the weights for
 #'   these features to one billion then you will probably run into numerical
@@ -93,18 +93,18 @@ NULL
 #'   can be calculated as the sum of the weight values for the other features
 #'   and adding a small number to it (e.g. 1). Finally, if you're running out
 #'   of ideas for addressing numerical stability issues you have one remaining
-#'   option: you can use the \code{numeric_focus} argument in the
-#'   \code{\link{add_gurobi_solver}} function to tell the solver to pay extra
+#'   option: you can use the `numeric_focus` argument in the
+#'   [add_gurobi_solver()] function to tell the solver to pay extra
 #'   attention to numerical instability issues. This is not a free lunch,
 #'   however, because telling the solver to pay extra attention to numerical
 #'   issues can substantially increase run time. So, if you have problems that
 #'   are already taking an unreasonable time to solve, then this will not help
 #'   at all.
 #'
-#' @return \code{logical} value indicating if all checks are passed
+#' @return `logical` value indicating if all checks are passed
 #'   successfully.
 #'
-#' @seealso \code{\link{problem}}, \code{\link{solve}}, \url{http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html}, \url{http://files.gurobi.com/Numerics.pdf}.
+#' @seealso [problem()], [solve()], <http://www.gurobi.com/documentation/8.1/refman/numerics_gurobi_guidelines.html>, <http://files.gurobi.com/Numerics.pdf>.
 #'
 #' @examples
 #' # set seed for reproducibility

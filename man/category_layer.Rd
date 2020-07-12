@@ -7,24 +7,24 @@
 category_layer(x)
 }
 \arguments{
-\item{x}{\code{\link[raster]{Raster-class}} object containing a multiple
+\item{x}{\code{\linkS4class{Raster}} object containing a multiple
 layers. Note that pixels must be 0, 1 or \code{NA} values.}
 }
 \value{
-\code{\link[raster]{RasterLayer-class}} object.
+\code{\linkS4class{RasterLayer}} object.
 }
 \description{
-Convert a \code{\link[raster]{RasterStack-class}}
+Convert a \code{\linkS4class{RasterStack}}
 object where each layer corresponds to a different identifier and values
 indicate the presence/absence of that category into a
-\code{\link[raster]{RasterLayer-class}} object containing categorical
+\code{\linkS4class{RasterLayer}} object containing categorical
 identifiers.
 }
 \details{
 This function is provided to help manage data that encompass
-  multiple management zones. For instance, this function may be helpful
-  for interpreting solutions for problems associated with multiple zones that
-  have binary decisions.
+multiple management zones. For instance, this function may be helpful
+for interpreting solutions for problems associated with multiple zones that
+have binary decisions.
 }
 \examples{
 # create a binary raster stack
@@ -41,5 +41,5 @@ plot(stack(x, y), main = c("x[[1]]", "x[[2]]", "x[[3]]", "y"), nr = 1)
 }
 }
 \seealso{
-\code{\link{binary_stack}}.
+\code{\link[=binary_stack]{binary_stack()}}.
 }

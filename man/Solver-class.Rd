@@ -9,7 +9,7 @@ This prototype is used to generate objects that represent methods for solving
 optimization problems. \strong{This class represents a recipe to
 create solver and and is only recommended for use by expert users. To
 customize the method used to solve optimization problems, please see the
-help page on \code{\link{solvers}}}.
+help page on \link{solvers}}.
 }
 \section{Fields}{
 
@@ -21,10 +21,10 @@ help page on \code{\link{solvers}}}.
 \item{$data}{\code{list} object optimization problem data.}
 
 \item{$parameters}{\code{Parameters} object with parameters used to customize
-  the the solver.}
+the the solver.}
 
 \item{$solve}{\code{function} used to solve a
-  \code{\link{OptimizationProblem-class}} object.}
+\code{\linkS4class{OptimizationProblem}} object.}
 }
 }
 
@@ -56,9 +56,9 @@ help page on \code{\link{solvers}}}.
 
 \describe{
 
-\item{x}{\code{\link{Solver-class}} object.}
+\item{x}{\code{\linkS4class{Solver}} object.}
 
-\item{op}{\code{\link{OptimizationProblem-class}} object.}
+\item{op}{\code{\linkS4class{OptimizationProblem}} object.}
 
 }
 }
@@ -74,25 +74,25 @@ help page on \code{\link{solvers}}}.
 \item{repr}{\code{character} representation of object.}
 
 \item{get_data}{return an object stored in the \code{data} field with
-  the corresponding \code{name}. If the object is not present in the
-  \code{data} field, a \code{waiver} object is returned.}
+the corresponding \code{name}. If the object is not present in the
+\code{data} field, a \code{waiver} object is returned.}
 
 \item{set_data}{store an object stored in the \code{data} field with
-  the corresponding name. If an object with that name already
-  exists then the object is overwritten.}
+the corresponding name. If an object with that name already
+exists then the object is overwritten.}
 
 \item{set_variable_ub}{set the upper bounds on decision variables in
-  a pre-calculated optimization problem stored in the solver.}
+a pre-calculated optimization problem stored in the solver.}
 
 \item{set_variable_lb}{set the lower bounds on decision variables in
-  a pre-calculated optimization problem stored in the solver.}
+a pre-calculated optimization problem stored in the solver.}
 \item{calculate}{ingest a general purpose
-  \code{\link{OptimizationProblem-class}} object and convert it to the
-  correct format for the solver.}
+\code{\linkS4class{OptimizationProblem}} object and convert it to the
+correct format for the solver.}
 \item{run}{run the solver and output a solution}
 
-\item{solve}{solve an \code{\link{OptimizationProblem-class}} using this
-  object.}
+\item{solve}{solve an \code{\linkS4class{OptimizationProblem}} using this
+object.}
 
 }
 }

@@ -9,7 +9,7 @@ NULL
 #'
 #' @param ... unused arguments.
 #'
-#' @return An Object.
+#' @return An object.
 #'
 #' @name as
 NULL
@@ -36,7 +36,7 @@ as.list.Zones <- function(x, ...) {
 #'
 #' @param x Object.
 #'
-#' @return \code{logical} indicating if it inherits from the class.
+#' @return `logical` indicating if it inherits from the class.
 #'
 #' @name is
 NULL
