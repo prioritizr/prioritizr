@@ -105,7 +105,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.6</span>
       </span>
     </div>
 
@@ -212,7 +212,7 @@ solution should not exceed a certain quantity using <code>"&lt;="</code> values)
     </tr>
     <tr>
       <th>targets</th>
-      <td><p><code>data.frame</code> or <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object. See
+      <td><p><code>data.frame</code> or <code><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble::tibble()</a></code> object. See
 the Details section for more information.</p></td>
     </tr>
     </table>
@@ -540,7 +540,7 @@ default to <code>"&gt;="</code> values.</p></dd>
 <span class='no'>costs</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>:<span class='fl'>2</span>]]
 
 <span class='co'># create targets</span>
-<span class='no'>targets_dataframe2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+<span class='no'>targets_dataframe2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span>(
   <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>spp_zone1</span>), <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>)),
   <span class='kw'>sense</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"&gt;="</span>, <span class='st'>"&gt;="</span>), <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"absolute"</span>, <span class='st'>"absolute"</span>),
   <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>20</span>))

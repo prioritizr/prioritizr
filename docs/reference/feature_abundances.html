@@ -97,7 +97,7 @@ of a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.6</span>
       </span>
     </div>
 
@@ -201,7 +201,7 @@ is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object containing the total amount
+    <p><code><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble::tibble()</a></code> object containing the total amount
 (<code>"absolute_abundance"</code>) and proportion (<code>"relative_abundance"</code>)
 of the distribution of each feature in the planning units. Here, each
 row contains data that pertain to a specific feature in a specific
@@ -264,15 +264,15 @@ each feature---then the <code>na.rm</code> argument should be set to
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>a1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 3</span><span>
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> spp1                  3.97                  1
-#&gt; </span><span style='color: #555555;'>2</span><span> spp2                 41                     1</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> spp1                  6.50                  1
+#&gt; </span><span style='color: #555555;'>2</span><span> spp2                 36                     1</div><div class='input'>
 <span class='co'># calculate feature abundances; excluding planning units with NA costs</span>
 <span class='no'>a2</span> <span class='kw'>&lt;-</span> <span class='fu'>feature_abundances</span>(<span class='no'>p1</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>a2</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 3</span><span>
 #&gt;   feature absolute_abundance relative_abundance
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> spp1                  3.20              0.806
-#&gt; </span><span style='color: #555555;'>2</span><span> spp2                 33                 0.805</div><div class='input'>
+#&gt; </span><span style='color: #555555;'>1</span><span> spp1                  5.85              0.899
+#&gt; </span><span style='color: #555555;'>2</span><span> spp2                 33                 0.917</div><div class='input'>
 <span class='co'># verify correctness of feature abundance calculations</span>
 <span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>a1</span>$<span class='no'>absolute_abundance</span>,
           <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span>), <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>

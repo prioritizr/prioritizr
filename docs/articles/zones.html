@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.6</span>
       </span>
     </div>
 
@@ -314,7 +314,7 @@
 ##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
 ## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3174.67 3568.49 
@@ -445,7 +445,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">pu4</span>, <span class="kw">nr</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-6-1.png" width="432" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># create targets</span>
-<span class="no">t4</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">feature</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>),
+<span class="no">t4</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/tibble/man/tibble.html">tibble</a></span>(<span class="kw">feature</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>),
                      <span class="kw">zone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">pu4</span>))[<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">5</span>)],
                      <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">8</span>, <span class="fl">5</span>),
                      <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"absolute"</span>, <span class="fl">5</span>))
@@ -718,7 +718,7 @@
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.07 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
@@ -803,7 +803,7 @@
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 262 iterations, 0.00 seconds
+## Root relaxation: objective 1.323093e+04, 262 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -811,7 +811,7 @@
 ##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (403 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
