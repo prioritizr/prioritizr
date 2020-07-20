@@ -317,15 +317,15 @@ methods::setMethod("feature_representation",
     assertthat::assert_that(
       inherits(solution, "sf"),
       inherits(x$data$cost, "sf"))
-    solution <- sf::st_drop_geometry(solution)
     assertthat::assert_that(
       sf::st_crs(x$data$cost) == sf::st_crs(solution),
-      number_of_zones(x) == ncol(solution),
+      number_of_zones(x) == ncol(sf::st_drop_geometry(solution)),
       number_of_total_units(x) == nrow(solution),
-      is.numeric(unlist(solution)),
-      min(unlist(solution), na.rm = TRUE) >= 0,
-      max(unlist(solution), na.rm = TRUE) <= 1)
+      is.numeric(unlist(sf::st_drop_geometry(solution))),
+      min(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) >= 0,
+      max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1)
     # perform calculations
+    solution <- sf::st_drop_geometry(solution)
     internal_feature_representation(x, as.matrix(solution))
 })
 

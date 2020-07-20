@@ -1,3 +1,8 @@
+# prioritizr 5.0.1.6
+
+- Fix `feature_representation` bug incorrectly throwing error with vector 
+  planning unit data (e.g. sf-class data).
+
 # prioritizr 5.0.1.5
 
 - Fix typo causing `rij_matrix` to throw an error for large raster data (#151).
