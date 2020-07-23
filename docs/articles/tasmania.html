@@ -154,8 +154,8 @@
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">tas_pu</span>)</pre></body></html></div>
 <pre><code>## class       : SpatialPolygonsDataFrame 
 ## features    : 1130 
-## extent      : 1080623, 1399989, -4840595, -4497092  (xmin, xmax, ymin, ymax)
-## crs         : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
+## extent      : 298809.6, 613818.8, 5167775, 5502544  (xmin, xmax, ymin, ymax)
+## crs         : +init=epsg:32755 +proj=utm +zone=55 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
 ## variables   : 5
 ## names       :   id,              cost, status, locked_in, locked_out 
 ## min values  :    1, 0.192488262910798,      0,         0,          0 
@@ -168,13 +168,13 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">tas_features</span>)</pre></body></html></div>
 <pre><code>## class      : RasterStack 
-## dimensions : 343, 320, 109760, 62  (nrow, ncol, ncell, nlayers)
-## resolution : 1000, 1000  (x, y)
-## extent     : 1080496, 1400496, -4841217, -4498217  (xmin, xmax, ymin, ymax)
-## crs        : +proj=aea +lat_1=-18 +lat_2=-36 +lat_0=0 +lon_0=132 +x_0=0 +y_0=0 +ellps=GRS80 +units=m +no_defs 
-## names      : layer.1, layer.2, layer.3, layer.4, layer.5, layer.6, layer.7, layer.8, layer.9, layer.10, layer.11, layer.12, layer.13, layer.14, layer.15, ... 
-## min values :       0,       0,       0,       0,       0,       0,       0,       0,       0,        0,        0,        0,        0,        0,        0, ... 
-## max values :       1,       1,       1,       1,       1,       1,       1,       1,       1,        1,        1,        1,        1,        1,        1, ...</code></pre>
+## dimensions : 391, 371, 145061, 62  (nrow, ncol, ncell, nlayers)
+## resolution : 967, 1020  (x, y)
+## extent     : 288966.7, 647723.7, 5142256, 5541076  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:32755 +proj=utm +zone=55 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## names      : tas_features.1, tas_features.2, tas_features.3, tas_features.4, tas_features.5, tas_features.6, tas_features.7, tas_features.8, tas_features.9, tas_features.10, tas_features.11, tas_features.12, tas_features.13, tas_features.14, tas_features.15, ... 
+## min values :              0,              0,              0,              0,              0,              0,              0,              0,              0,               0,               0,               0,               0,               0,               0, ... 
+## max values :              1,              1,              1,              1,              1,              1,              1,              1,              1,               1,               1,               1,               1,               1,               1, ...</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># plot map of the first four vegetation classes</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">tas_features</span><span class="kw">[[</span><span class="fl">1</span>:<span class="fl">4</span>]], <span class="kw">main</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span>(<span class="st">"Feature"</span>, <span class="fl">1</span>:<span class="fl">4</span>))</pre></body></html></div>
 <p><img src="tasmania_files/figure-html/unnamed-chunk-4-1.png" width="432" style="display: block; margin: auto;"></p>
@@ -193,12 +193,12 @@
 <span class="co"># print first six rows</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">pu_data</span>)</pre></body></html></div>
 <pre><code>##   id     cost status locked_in locked_out
-## 2  1 60.24638      0     FALSE      FALSE
-## 3  2 19.86301      0     FALSE      FALSE
-## 4  3 59.68051      0     FALSE      FALSE
-## 5  4 32.41614      0     FALSE      FALSE
-## 6  5 26.17706      0     FALSE      FALSE
-## 7  6 51.26218      0     FALSE      FALSE</code></pre>
+## 0  1 60.24638      0     FALSE      FALSE
+## 1  2 19.86301      0     FALSE      FALSE
+## 2  3 59.68051      0     FALSE      FALSE
+## 3  4 32.41614      0     FALSE      FALSE
+## 4  5 26.17706      0     FALSE      FALSE
+## 5  6 51.26218      0     FALSE      FALSE</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># create table with the feature identifiers, names, and targets</span>
 <span class="no">spec_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">id</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu">nlayers</span>(<span class="no">tas_features</span>)),
                         <span class="kw">name</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"veg"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu">nlayers</span>(<span class="no">tas_features</span>))),
@@ -221,13 +221,13 @@
 
 <span class="co"># print first six rows</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">puvspr_data</span>)</pre></body></html></div>
-<pre><code>##   pu species      amount
-## 1  1      59  0.05791271
-## 2  2      30  0.05362251
-## 3  2      59  0.25362776
-## 4  3      54  1.00000000
-## 5  3      59 11.45609002
-## 6  3      60  0.01451710</code></pre>
+<pre><code>##   pu species       amount
+## 1  1      59 8.243547e-04
+## 2  2      30 1.648252e-01
+## 3  2      59 9.603360e-02
+## 4  3      54 1.000000e+00
+## 5  3      59 1.108263e+01
+## 6  3      60 2.333732e-01</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># create table with the boundary data</span>
 <span class="no">bound_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span>(<span class="no">tas_pu</span>)
 <span class="no">bound_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.html">as</a></span>(<span class="no">bound_data</span>, <span class="st">"dgTMatrix"</span>)
@@ -235,13 +235,13 @@
                          <span class="kw">boundary</span> <span class="kw">=</span> <span class="no">bound_data</span>@<span class="kw">x</span>)
 <span class="co"># print first six rows</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">bound_data</span>)</pre></body></html></div>
-<pre><code>##   id1 id2  boundary
-## 1   1   1  6271.170
-## 2   3   1  3899.140
-## 3   6   1   153.133
-## 4   2   2 23878.508
-## 5   4   2  3212.811
-## 6   7   2  4725.951</code></pre>
+<pre><code>##   id1 id2   boundary
+## 1   1   1  6314.6621
+## 2   3   1  3922.9264
+## 3   6   1   150.3778
+## 4   2   2 23958.6982
+## 5   4   2  3233.3056
+## 6   7   2  4639.9220</code></pre>
 <p>Now that we have converted the data to tabular format, we can use the <code>marxan_problem</code> function to create a conservation planning problem.</p>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># create problem</span>
 <span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/marxan_problem.html">marxan_problem</a></span>(<span class="no">pu_data</span>, <span class="no">spec_data</span>, <span class="no">puvspr_data</span>, <span class="no">bound_data</span>,
@@ -264,69 +264,70 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p1</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
-## Optimize a model with 6358 rows, 4278 columns and 14708 nonzeros
-## Model fingerprint: 0xe970a584
+## Optimize a model with 6358 rows, 4278 columns and 14682 nonzeros
+## Model fingerprint: 0x95f4f526
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e-05, 4e+01]
+##   Matrix range     [3e-06, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [1e-02, 2e+02]
-## Found heuristic solution: objective 30256.853351
-## Found heuristic solution: objective 12699.649052
-## Presolve removed 1765 rows and 1146 columns
+##   RHS range        [4e-03, 2e+02]
+## Found heuristic solution: objective 30263.129158
+## Found heuristic solution: objective 12690.690361
+## Presolve removed 1776 rows and 1151 columns
 ## Presolve time: 0.03s
-## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
-## Found heuristic solution: objective 11645.738446
-## Variable types: 0 continuous, 3132 integer (3132 binary)
-## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
+## Presolved: 4582 rows, 3127 columns, 10286 nonzeros
+## Found heuristic solution: objective 12018.186737
+## Variable types: 0 continuous, 3127 integer (3127 binary)
+## Presolved: 4582 rows, 3127 columns, 10286 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.05 seconds
+## Root relaxation: objective 1.061221e+04, 786 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
+##      0     0 10612.2087    0   96 12018.1867 10612.2087  11.7%     -    0s
+## H    0     0                    11014.780692 10612.2087  3.65%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.10 seconds
+## Explored 1 nodes (786 simplex iterations) in 0.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 11645.7 12699.6 30256.9 
+## Solution count 4: 11014.8 12018.2 12690.7 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.164573844582e+04, best bound 1.066993657412e+04, gap 8.3790%</code></pre>
+## Best objective 1.101478069188e+04, best bound 1.061220874742e+04, gap 3.6548%</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print first six rows of solution object</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">s1</span>)</pre></body></html></div>
 <pre><code>##   id     cost status locked_in locked_out solution_1
-## 2  1 60.24638      0     FALSE      FALSE          0
-## 3  2 19.86301      0     FALSE      FALSE          0
-## 4  3 59.68051      0     FALSE      FALSE          0
-## 5  4 32.41614      0     FALSE      FALSE          0
-## 6  5 26.17706      0     FALSE      FALSE          1
-## 7  6 51.26218      0     FALSE      FALSE          0</code></pre>
+## 0  1 60.24638      0     FALSE      FALSE          0
+## 1  2 19.86301      0     FALSE      FALSE          0
+## 2  3 59.68051      0     FALSE      FALSE          0
+## 3  4 32.41614      0     FALSE      FALSE          0
+## 4  5 26.17706      0     FALSE      FALSE          0
+## 5  6 51.26218      0     FALSE      FALSE          0</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># count number of planning units in solution</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">s1</span>$<span class="no">solution_1</span>)</pre></body></html></div>
-<pre><code>## [1] 323</code></pre>
+<pre><code>## [1] 306</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># proportion of planning units in solution</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">s1</span>$<span class="no">solution_1</span>)</pre></body></html></div>
-<pre><code>## [1] 0.2858407</code></pre>
+<pre><code>## [1] 0.2707965</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
 <span class="no">r1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p1</span>, <span class="no">s1</span>[, <span class="st">"solution_1"</span>, <span class="kw">drop</span> <span class="kw">=</span> <span class="fl">FALSE</span>])
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r1</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
 ##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-##  1 veg1             7.60         0.230
-##  2 veg2            41.6          0.240
-##  3 veg3             6.23         0.255
-##  4 veg4             8.22         0.246
-##  5 veg5             5.99         0.248
-##  6 veg6             5.14         0.226
-##  7 veg7             2.94         0.183
-##  8 veg8            10.6          0.236
-##  9 veg9            75.0          0.195
-## 10 veg10            4.00         0.274
+##  1 veg1             8.13         0.251
+##  2 veg2            41.3          0.230
+##  3 veg3             4.90         0.210
+##  4 veg4             6.67         0.192
+##  5 veg5             6.44         0.246
+##  6 veg6             7.00         0.303
+##  7 veg7             3.80         0.197
+##  8 veg8            14.4          0.307
+##  9 veg9            71.1          0.185
+## 10 veg10            3.48         0.235
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">SpatialPolygonsDataFrame</span>(<span class="fu"><a href="../reference/as.html">as</a></span>(<span class="no">tas_pu</span>, <span class="st">"SpatialPolygons"</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">s1</span>)
@@ -352,7 +353,7 @@
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (1130 units)
 ##   cost:           min: 0.19249, max: 61.92727
-##   features:       layer.1, layer.2, layer.3, ... (62 features)
+##   features:       tas_features.1, tas_features.2, tas_features.3, ... (62 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
 ##   decisions:      Binary decision 
@@ -363,54 +364,55 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p2</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
-## Optimize a model with 6358 rows, 4278 columns and 14708 nonzeros
-## Model fingerprint: 0xe970a584
+## Optimize a model with 6358 rows, 4278 columns and 14682 nonzeros
+## Model fingerprint: 0x95f4f526
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [1e-05, 4e+01]
+##   Matrix range     [3e-06, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [1e-02, 2e+02]
-## Found heuristic solution: objective 30256.853351
-## Found heuristic solution: objective 12699.649052
-## Presolve removed 1765 rows and 1146 columns
-## Presolve time: 0.03s
-## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
-## Found heuristic solution: objective 11645.738446
-## Variable types: 0 continuous, 3132 integer (3132 binary)
-## Presolved: 4593 rows, 3132 columns, 10316 nonzeros
+##   RHS range        [4e-03, 2e+02]
+## Found heuristic solution: objective 30263.129158
+## Found heuristic solution: objective 12690.690361
+## Presolve removed 1776 rows and 1151 columns
+## Presolve time: 0.04s
+## Presolved: 4582 rows, 3127 columns, 10286 nonzeros
+## Found heuristic solution: objective 12018.186737
+## Variable types: 0 continuous, 3127 integer (3127 binary)
+## Presolved: 4582 rows, 3127 columns, 10286 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.066994e+04, 731 iterations, 0.04 seconds
+## Root relaxation: objective 1.061221e+04, 786 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10669.9366    0  148 11645.7384 10669.9366  8.38%     -    0s
+##      0     0 10612.2087    0   96 12018.1867 10612.2087  11.7%     -    0s
+## H    0     0                    11014.780692 10612.2087  3.65%     -    0s
 ## 
-## Explored 0 nodes (731 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (786 simplex iterations) in 0.11 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 11645.7 12699.6 30256.9 
+## Solution count 4: 11014.8 12018.2 12690.7 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.164573844582e+04, best bound 1.066993657412e+04, gap 8.3790%</code></pre>
+## Best objective 1.101478069188e+04, best bound 1.061220874742e+04, gap 3.6548%</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
 <span class="no">r2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p2</span>, <span class="no">s2</span>[, <span class="st">"solution_1"</span>])
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r2</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 62 x 3
-##    feature  absolute_held relative_held
-##    &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1           7.60         0.230
-##  2 layer.2          41.6          0.240
-##  3 layer.3           6.23         0.255
-##  4 layer.4           8.22         0.246
-##  5 layer.5           5.99         0.248
-##  6 layer.6           5.14         0.226
-##  7 layer.7           2.94         0.183
-##  8 layer.8          10.6          0.236
-##  9 layer.9          75.0          0.195
-## 10 layer.10          4.00         0.274
+##    feature         absolute_held relative_held
+##    &lt;chr&gt;                   &lt;dbl&gt;         &lt;dbl&gt;
+##  1 tas_features.1           8.13         0.251
+##  2 tas_features.2          41.3          0.230
+##  3 tas_features.3           4.90         0.210
+##  4 tas_features.4           6.67         0.192
+##  5 tas_features.5           6.44         0.246
+##  6 tas_features.6           7.00         0.303
+##  7 tas_features.7           3.80         0.197
+##  8 tas_features.8          14.4          0.307
+##  9 tas_features.9          71.1          0.185
+## 10 tas_features.10          3.48         0.235
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># visualize solution</span>
 <span class="no">s2</span>$<span class="no">solution_1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">s2</span>$<span class="no">solution_1</span>)
@@ -431,7 +433,7 @@
 <pre><code>## Conservation Problem
 ##   planning units: SpatialPolygonsDataFrame (1130 units)
 ##   cost:           min: 0.19249, max: 61.92727
-##   features:       layer.1, layer.2, layer.3, ... (62 features)
+##   features:       tas_features.1, tas_features.2, tas_features.3, ... (62 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
 ##   decisions:      Binary decision 

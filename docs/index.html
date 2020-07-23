@@ -133,7 +133,7 @@
 <div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"prioritizr"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="st">"https://cran.rstudio.com/"</span>)</pre></div>
 <p>Alternatively, the latest development version can be installed from <a href="https://github.com/prioritizr/prioritizr">GitHub</a> using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.</p>
 <div class="sourceCode"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">remotes</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</pre></div>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</pre></div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -292,7 +292,7 @@
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 3.32 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 4.10 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -306,7 +306,7 @@
 <div class="sourceCode"><pre class="r"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"runtime"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##     3.3152</code></pre></div>
+##   4.100334</code></pre></div>
 <div class="sourceCode"><pre class="r"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"status"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
@@ -389,7 +389,7 @@
 ##   MIR: 7
 ##   StrongCG: 3
 ## 
-## Explored 1 nodes (95 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (95 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 2838.26 2839.12 3027.7 
@@ -420,7 +420,7 @@
 ## Found heuristic solution: objective 19567.196992
 ## Found heuristic solution: objective 4347.6970854
 ## Presolve removed 72 rows and 46 columns
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
 ## Variable types: 0 continuous, 188 integer (188 binary)
 ## Presolved: 221 rows, 188 columns, 832 nonzeros
@@ -447,7 +447,7 @@
 ## Cutting planes:
 ##   GUB cover: 2
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.07 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -476,7 +476,7 @@
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 1e+01]
 ## Presolve removed 340 rows and 252 columns
-## Presolve time: 0.01s
+## Presolve time: 0.10s
 ## Presolved: 314 rows, 254 columns, 702 nonzeros
 ## Variable types: 0 continuous, 254 integer (254 binary)
 ## Found heuristic solution: objective 7270.1195351
@@ -502,7 +502,7 @@
 ##   Zero half: 8
 ##   RLT: 6
 ## 
-## Explored 1 nodes (241 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (241 simplex iterations) in 0.19 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

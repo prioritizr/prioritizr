@@ -365,7 +365,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.50 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.24 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -453,13 +453,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; Variable types: 0 continuous, 642 integer (642 binary)
 #&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 691 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 1.207868e+04, 691 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -481,27 +481,29 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12092.8058    0  279          - 12092.8058      -     -    0s
 #&gt;      0     0 12092.8197    0  282          - 12092.8197      -     -    0s
 #&gt;      0     0 12092.8197    0  280          - 12092.8197      -     -    0s
-#&gt;      0     2 12092.8774    0  279          - 12092.8774      -     -    0s
-#&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
+#&gt;      0     2 12092.8774    0  279          - 12092.8774      -     -    1s
+#&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    2s
 #&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    2s
 #&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    2s
-#&gt;    550   318 12638.7983   26  183 14248.7319 12109.8197  15.0%  73.1    5s
-#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    5s
-#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    5s
-#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    6s
-#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    9s
-#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0   10s
-#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5   10s
-#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4   11s
-#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0   11s
-#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6   11s
-#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6   11s
-#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5   11s
-#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7   11s
-#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2   11s
-#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   12s
-#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   12s
-#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   14s
+#&gt;    528   301 13793.5213   11  300 14248.7319 12109.8197  15.0%  64.5    5s
+#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    6s
+#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    7s
+#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    8s
+#&gt;    911   363 13655.3951   49  129 14084.9863 12109.8197  14.0%  77.4   10s
+#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1   12s
+#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0   12s
+#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5   13s
+#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4   14s
+#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0   14s
+#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6   14s
+#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6   14s
+#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5   14s
+#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7   14s
+#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2   14s
+#&gt;   1411   472 12119.1189   21  272 13733.5504 12113.3468  11.8%  73.8   15s
+#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   15s
+#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   15s
+#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   19s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 7
@@ -509,7 +511,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 10
 #&gt;   Zero half: 22
 #&gt; 
-#&gt; Explored 1979 nodes (146817 simplex iterations) in 14.44 seconds
+#&gt; Explored 1979 nodes (146817 simplex iterations) in 19.18 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
@@ -555,7 +557,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 3
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 86 nodes (3062 simplex iterations) in 0.39 seconds
+#&gt; Explored 86 nodes (3062 simplex iterations) in 0.44 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 13139.1 14094.9 14104.6 
@@ -572,7 +574,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.09s
+#&gt; Presolve time: 0.14s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
@@ -595,9 +597,9 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 12087.0048    0  267          - 12087.0048      -     -    0s
 #&gt;      0     0 12087.0326    0  250          - 12087.0326      -     -    0s
 #&gt;      0     0 12087.0326    0  242          - 12087.0326      -     -    0s
-#&gt;      0     2 12087.0595    0  242          - 12087.0595      -     -    0s
-#&gt; H   60    47                    13531.146254 12087.0595  10.7%  29.3    0s
-#&gt; H   60    47                    13514.979731 12087.0595  10.6%  29.3    0s
+#&gt;      0     2 12087.0595    0  242          - 12087.0595      -     -    1s
+#&gt; H   60    47                    13531.146254 12087.0595  10.7%  29.3    1s
+#&gt; H   60    47                    13514.979731 12087.0595  10.6%  29.3    1s
 #&gt; H   87    65                    13512.830309 12087.2931  10.5%  42.3    1s
 #&gt; H  141    76                    13295.350187 12088.0827  9.08%  72.9    1s
 #&gt; 
@@ -607,7 +609,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 142 nodes (12037 simplex iterations) in 1.48 seconds
+#&gt; Explored 142 nodes (12037 simplex iterations) in 1.80 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
@@ -653,7 +655,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; <span class='message'>  features: layer.1, layer.2, layer.3, ... (5 features)</span>
 #&gt; <span class='message'>  data type: RasterStack</span></div><div class='input'>
 <span class='co'># create targets</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>),
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sim_features</span>),
                           <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>fts</span>))[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>, <span class='fl'>5</span>)],
                           <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'>cellStats</span>(<span class='no'>sim_features</span>, <span class='st'>"sum"</span>) * <span class='fl'>0.2</span>,
                           <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fl'>5</span>))
@@ -688,7 +690,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.10s
+#&gt; Presolve time: 0.15s
 #&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
 #&gt; Variable types: 0 continuous, 575 integer (575 binary)
 #&gt; Presolve removed 128 rows and 0 columns
@@ -703,7 +705,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
 #&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.13 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4021.31 

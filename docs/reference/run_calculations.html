@@ -234,13 +234,13 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 2352.9617505
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.00 seconds
+#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.01 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -248,7 +248,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
 #&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2006.35 2352.96 18523.2 
@@ -266,7 +266,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 4565.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -298,7 +298,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [9e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 6599.7631720
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -350,7 +350,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 2352.9617505
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -382,7 +382,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 4565.4850483
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -414,7 +414,7 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt;   RHS range        [9e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 6599.7631720
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -437,8 +437,8 @@ anything. To use this function with <code><a href='pipe.html'>pipe()</a></code> 
 #&gt; Best objective 6.096911578554e+03, best bound 5.932505717873e+03, gap 2.6965%</div><div class='input'>
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s1</span>) <span class='co'># time spent without running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.904   0.403   1.318 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.723   0.441   1.148 </div><div class='input'>
+#&gt;   2.868   0.904   4.442 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='no'>s2</span>) <span class='co'># time spent after running preliminary calculations</span></div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   1.492   0.706   2.303 </div><div class='input'>
 # As we can see, we can save a lot of time by running the preliminary
 # calculations before making copies of the problem with slightly
 # different constraints.

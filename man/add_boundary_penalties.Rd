@@ -64,7 +64,7 @@ Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favour
+Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor
 solutions that have planning units clumped together into contiguous areas.
 }
 \details{

@@ -19,7 +19,6 @@ gp.log
 spell.log
 README.Rmd
 inst/WORDLIST
-inst/extdata/dictionary.txt
 ^_pkgdown\.yml$
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$

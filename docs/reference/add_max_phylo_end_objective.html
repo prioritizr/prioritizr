@@ -329,7 +329,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   RHS range        [2e+03, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
 #&gt; Variable types: 0 continuous, 98 integer (98 binary)
 #&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
@@ -362,7 +362,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   StrongCG: 1
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 6 nodes (115 simplex iterations) in 0.04 seconds
+#&gt; Explored 6 nodes (115 simplex iterations) in 0.23 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 136.238 -0 
@@ -395,7 +395,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 <span class='co'># create targets for a multi-zone problem. Here, each feature needs a total</span>
 <span class='co'># of 10 units of habitat to be conserved among the three zones to be</span>
 <span class='co'># considered adequately conserved</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span>(
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
   <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
   <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>))[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,
           <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>))],
@@ -436,7 +436,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt; H    0     0                     108.4704962  177.60604  63.7%     -    0s
 #&gt; H    0     0                     177.6060344  177.60604  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (8 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (8 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 177.606 108.47 -0 
@@ -501,7 +501,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   StrongCG: 1
 #&gt;   RLT: 3
 #&gt; 
-#&gt; Explored 1 nodes (113 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (113 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 177.606 177.606 -0 
