@@ -1,11 +1,15 @@
-# prioritizr 5.0.1.6
+# prioritizr 5.0.1.7
 
-- Fix `feature_representation` bug incorrectly throwing error with vector
-  planning unit data (e.g. sf-class data).
+- Fix tests for updated datasets in the prioritizrdata R package.
 - Fix small typos in documentation.
 - Update citation for Scriven et al. (2020) in the Publication Record vignette.
 - Update Salt Spring Island vignette with Ferrier method for calculating
   irreplaceability scores and adjust for changes in cost data.
+
+# prioritizr 5.0.1.6
+
+- Fix `feature_representation` bug incorrectly throwing error with vector
+  planning unit data (e.g. sf-class data).
 
 # prioritizr 5.0.1.5
 
