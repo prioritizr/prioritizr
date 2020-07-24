@@ -50,7 +50,7 @@ site:
 	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::clean_site()"
 	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
-	rm docs/CNAME
+	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
 	cp /tmp/favicon.ico docs

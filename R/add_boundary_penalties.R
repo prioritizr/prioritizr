@@ -3,7 +3,7 @@ NULL
 
 #' Add boundary penalties
 #'
-#' Add penalties to a conservation planning [problem()] to favour
+#' Add penalties to a conservation planning [problem()] to favor
 #' solutions that have planning units clumped together into contiguous areas.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.

@@ -168,7 +168,7 @@ test_that("x=sf, y=RasterStack (complex example, mean)", {
   m3 <- sapply(m3, function(x) {
     v <- x[, seq_len(ncol(x) - 1), drop = FALSE]
     p <- x[, ncol(x), drop = TRUE]
-    colSums(sweep(v, 1, p, "*")) / sum(p)
+    colSums(sweep(v, 1, p, "*"), na.rm = TRUE) / sum(p)
   })
   m3 <- as(as.matrix(m3), "dgCMatrix")
   # run tests
@@ -204,7 +204,7 @@ test_that("x=sf, y=RasterStack (complex example, sum)", {
   m3 <- sapply(m3, function(x) {
     v <- x[, seq_len(ncol(x) - 1), drop = FALSE]
     p <- x[, ncol(x), drop = TRUE]
-    colSums(sweep(v, 1, p, "*"))
+    colSums(sweep(v, 1, p, "*"), na.rm = TRUE)
   })
   m3 <- as(as.matrix(m3), "dgCMatrix")
   # run tests

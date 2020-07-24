@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@
 <div class="sourceCode"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"prioritizr"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="st">"https://cran.rstudio.com/"</span>)</pre></div>
 <p>Alternatively, the latest development version can be installed from <a href="https://github.com/prioritizr/prioritizr">GitHub</a> using the following code. Please note that while developmental versions may contain additional features not present in the official version, they may also contain coding errors.</p>
 <div class="sourceCode"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">remotes</span>)) <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</pre></div>
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"prioritizr/prioritizr"</span>)</pre></div>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -144,7 +144,7 @@
 </blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1.6. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1.7. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 </blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -283,7 +283,8 @@
 ##      0     0 2614.32230    0   13 2747.37746 2614.32230  4.84%     -    0s
 ##      0     0 2614.32331    0   13 2747.37746 2614.32331  4.84%     -    0s
 ##      0     2 2614.33358    0   13 2747.37746 2614.33358  4.84%     -    0s
-## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    0s
+## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    1s
+##  28216  1360 2625.60281   52    4 2627.63893 2624.29514  0.13%   2.7    5s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
@@ -292,7 +293,7 @@
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 3.32 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 5.35 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -306,7 +307,7 @@
 <div class="sourceCode"><pre class="r"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"runtime"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##     3.3152</code></pre></div>
+##   5.352613</code></pre></div>
 <div class="sourceCode"><pre class="r"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"status"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
@@ -502,7 +503,7 @@
 ##   Zero half: 8
 ##   RLT: 6
 ## 
-## Explored 1 nodes (241 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (241 simplex iterations) in 0.04 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

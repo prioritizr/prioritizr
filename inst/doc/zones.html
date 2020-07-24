@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
-<meta charset="utf-8" />
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
 
@@ -17,7 +17,7 @@
 
 
 <style type="text/css">code{white-space: pre;}</style>
-<style type="text/css" data-origin="pandoc">
+<style type="text/css">
 div.sourceCode { overflow-x: auto; }
 table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
   margin: 0; padding: 0; vertical-align: baseline; border: none; }
@@ -53,36 +53,11 @@ code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
 code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
 code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-
 </style>
-<script>
-// apply pandoc div.sourceCode style to pre.sourceCode instead
-(function() {
-  var sheets = document.styleSheets;
-  for (var i = 0; i < sheets.length; i++) {
-    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
-    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
-      var rule = rules[j];
-      // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
-      var style = rule.style.cssText;
-      // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
-      // replace div.sourceCode by a pre.sourceCode rule
-      sheets[i].deleteRule(j);
-      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
-    }
-  }
-})();
-</script>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
-
-
-
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -113,14 +88,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity <span class="citation">(Margules &amp; Pressey 2000)</span>. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not <span class="citation">(e.g. Klein <em>et al.</em> 2009; Stigner <em>et al.</em> 2016)</span>. Instead, many real-world problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g. baiting or trapping at various intensities) for controlling invasive pests in a set of different areas <span class="citation">(e.g. Cattarino <em>et al.</em> 2018)</span>. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities <span class="citation">(e.g. Wilson <em>et al.</em> 2010; Klein <em>et al.</em> 2013)</span>. Popularized by <em>Marxan with Zones</em> <span class="citation">(Watts <em>et al.</em> 2009)</span>, this concept has become known as &quot;zones&quot; and is becoming increasingly important in conservation planning.</p>
-<p>The aim of this vignette is to showcase the zones functionality of the <em>prioritizr R</em> package. It will assume a certain level of familiarity with conservation planning terminology and the <em>prioritizr R</em> package. We recommend reading the <a href="prioritizr.html"><em>prioritizr</em> vignette</a> first if you don't have much experience in either of these topics.</p>
+<p>One of the main aims in conservation planning is to identify the most cost-effective set of areas to manage biodiversity <span class="citation">(Margules &amp; Pressey 2000)</span>. To achieve this, prioritizations are generally created to identify areas for expanding protected area systems. However, many real-world conservation problems do not simply involve deciding if an area should be protected or not <span class="citation">(e.g. Klein <em>et al.</em> 2009; Stigner <em>et al.</em> 2016)</span>. Instead, many real-world problems involve a range of different management categories and the goal is to determine which areas should be allocated to which management category. For example, a manager might have a range of different methods (e.g. baiting or trapping at various intensities) for controlling invasive pests in a set of different areas <span class="citation">(e.g. Cattarino <em>et al.</em> 2018)</span>. They would need a prioritization that shows which control methods should be implemented in which areas. In this particular case, a binary prioritization showing which areas contain the most biodiversity is simply not helpful. Furthermore, many real-world problems require decisions that meet multiple, and sometimes conflicting, objectives from different stakeholders. For example, a manager might need to implement a set of no-take and partial-take areas to prevent overfishing, but also ensure that there still remain plenty of areas for fishing activities <span class="citation">(e.g. Wilson <em>et al.</em> 2010; Klein <em>et al.</em> 2013)</span>. Popularized by <em>Marxan with Zones</em> <span class="citation">(Watts <em>et al.</em> 2009)</span>, this concept has become known as “zones” and is becoming increasingly important in conservation planning.</p>
+<p>The aim of this vignette is to showcase the zones functionality of the <em>prioritizr R</em> package. It will assume a certain level of familiarity with conservation planning terminology and the <em>prioritizr R</em> package. We recommend reading the <a href="prioritizr.html"><em>prioritizr</em> vignette</a> first if you don’t have much experience in either of these topics.</p>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <div id="simple-minimum-set-problem" class="section level3">
 <h3>Simple minimum set problem</h3>
-<p>In the <em>prioritizr R</em> package, all conservation planning problems---including those which contain multiple management zones or actions---are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems using the <em>prioritizr R</em> package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
+<p>In the <em>prioritizr R</em> package, all conservation planning problems—including those which contain multiple management zones or actions—are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems using the <em>prioritizr R</em> package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load prioritizr package</span>
 <span class="kw">library</span>(prioritizr)
 
@@ -199,7 +174,7 @@ r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="adding-management-zones" class="section level3">
 <h3>Adding management zones</h3>
-<p>Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.</p>
+<p>Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create a matrix with the targets</span>
 <span class="co"># here each column corresponds to a different zone,</span>
 <span class="co"># each row corresponds to a different feature, and</span>
@@ -289,7 +264,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
 ## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (73 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3174.67 3568.49 
@@ -324,7 +299,7 @@ r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="multiple-zones-with-varying-costs" class="section level3">
 <h3>Multiple zones with varying costs</h3>
-<p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
+<p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create new planning unit and cost data</span>
 <span class="kw">data</span>(sim_pu_zones_stack)
 pu3 &lt;-<span class="st"> </span>sim_pu_zones_stack[[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>]]
@@ -364,7 +339,7 @@ s3 &lt;-<span class="st"> </span><span class="kw">solve</span>(p3)</code></pre><
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [8e-01, 8e+00]
 ## Found heuristic solution: objective 3667.7708672
-## Presolve time: 0.00s
+## Presolve time: 0.01s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
@@ -378,7 +353,7 @@ s3 &lt;-<span class="st"> </span><span class="kw">solve</span>(p3)</code></pre><
 ##      0     0 2884.87200    0    8 3667.77087 2884.87200  21.3%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (38 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 2958.12 3667.77 
@@ -407,7 +382,7 @@ r3 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="multiple-zones-with-complex-targets" class="section level3">
 <h3>Multiple zones with complex targets</h3>
-<p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren't meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It's important to note that unlike the previous examples, here we don't have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don't really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
+<p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren’t meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It’s important to note that unlike the previous examples, here we don’t have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don’t really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create planning unit data with costs</span>
 pu4 &lt;-<span class="st"> </span><span class="kw">stack</span>(<span class="kw">Which</span>(<span class="op">!</span><span class="kw">is.na</span>(sim_pu_raster)) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>,
              <span class="kw">Which</span>(<span class="op">!</span><span class="kw">is.na</span>(sim_pu_raster)) <span class="op">*</span><span class="st"> </span><span class="dv">300</span>,
@@ -484,7 +459,7 @@ s4 &lt;-<span class="st"> </span><span class="kw">solve</span>(p4)</code></pre><
 ##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 3800 4800 9400 
@@ -518,7 +493,7 @@ r4 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="multiple-zones-with-extra-constraints" class="section level3">
 <h3>Multiple zones with extra constraints</h3>
-<p>So it looks like baiting is the way to go! Except that we might recall that we can't use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
+<p>So it looks like baiting is the way to go! Except that we might recall that we can’t use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create data.frame to specify that we cannot bait in the first 40 units</span>
 l5 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">pu =</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="dv">80</span>),
                  <span class="dt">zone =</span> <span class="st">&quot;baiting&quot;</span>,
@@ -586,7 +561,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 ## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s
 ##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 7000 9600 13600 
@@ -689,7 +664,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.11 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
@@ -724,7 +699,7 @@ r6 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="multiple-zones-with-fragmentation-penalties-and-mandatory-allocations" class="section level3">
 <h3>Multiple zones with fragmentation penalties and mandatory allocations</h3>
-<p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let's see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
+<p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let’s see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create matrix that describe boundary penalties between planning units</span>
 <span class="co"># allocated to different zones</span>
 p7 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span class="kw">zones</span>(<span class="st">&quot;few.traps&quot;</span> =<span class="st"> </span>sim_features <span class="op">*</span><span class="st"> </span><span class="fl">0.1</span>,
@@ -816,7 +791,7 @@ r7 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 </div>
 <div id="conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones using the <em>prioritizr R</em> package. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It's worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the Examples sections of the help pages to get a feel for what different functions do when they are applied to problems with multiple zones.</p>
+<p>Hopefully, this vignette has provided an informative introduction to building and solving problems with multiple zones using the <em>prioritizr R</em> package. Although we have examined only a few different functions here, almost every single function for modifying conservation planning problems is compatible with problems that contain zones. It’s worth noting that working with multiple zones is a lot trickier than working with a single zone, so we would recommend playing around with the code in the Examples sections of the help pages to get a feel for what different functions do when they are applied to problems with multiple zones.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>
@@ -847,15 +822,12 @@ r7 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 
 
 
-<!-- code folding -->
-
-
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

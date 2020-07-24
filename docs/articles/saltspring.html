@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
       </span>
     </div>
 
@@ -146,14 +146,10 @@
 <p>This data set contains two items. First, a single-band raster planning unit layer where each one hectare pixel represents a planning unit and contains its corresponding cost <span class="citation">(BC Assessment 2015)</span>. Second, a raster stack containing ecological community feature data. Field and remote sensed data were used to calculate the probability of occurrence of five key ecological communities found on Salt Spring island. Each layer in the stack represents a different community type. In order these are; Old Forest, Savannah, Wetland, Shrub, and a layer representing the inverse probability of occurrence of human commensal species. For a given layer, the cell value indicates the composite probability of encountering the suite of bird species most commonly associated with that community type.</p>
 <p>First, load the required packages and the data.</p>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># load packages</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizrdata</span>)</pre></body></html></div>
-<pre><code>## Loading required package: raster</code></pre>
-<pre><code>## Loading required package: sp</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizr</span>)</pre></body></html></div>
-<pre><code>## Loading required package: sf</code></pre>
-<pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.2, PROJ 4.9.2</code></pre>
-<pre><code>## Loading required package: proto</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># load planning unit data</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizrdata</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizr</span>)
+
+<span class="co"># load planning unit data</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">salt_pu</span>)
 
 <span class="co"># load conservation feature data</span>
@@ -162,13 +158,13 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">salt_pu</span>)</pre></body></html></div>
 <pre><code>## class      : RasterLayer 
-## dimensions : 270, 190, 51300  (nrow, ncol, ncell)
+## dimensions : 280, 200, 56000  (nrow, ncol, ncell)
 ## resolution : 100, 100  (x, y)
-## extent     : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
-## crs        : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## extent     : 454589.9, 474589.9, 5394614, 5422614  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:32610 +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
 ## source     : memory
-## names      : SSI_cost7 
-## values     : 2552, 1000000000  (min, max)</code></pre>
+## names      : salt_pu 
+## values     : 0.02552, 10000  (min, max)</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># plot histogram of the planning unit costs</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span>(<span class="fu">values</span>(<span class="no">salt_pu</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"Distribution of costs"</span>,
      <span class="kw">xlab</span> <span class="kw">=</span> <span class="st">"Planning unit costs"</span>)</pre></body></html></div>
@@ -180,13 +176,13 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print features</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">salt_features</span>)</pre></body></html></div>
 <pre><code>## class      : RasterStack 
-## dimensions : 270, 190, 51300, 5  (nrow, ncol, ncell, nlayers)
+## dimensions : 280, 200, 56000, 5  (nrow, ncol, ncell, nlayers)
 ## resolution : 100, 100  (x, y)
-## extent     : 455089.9, 474089.9, 5395114, 5422114  (xmin, xmax, ymin, ymax)
-## crs        : +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
-## names      : Old_Forest,  Savannah,   Wetland,     Shrub, Human_negative 
-## min values :  0.3595050, 0.2979212, 0.1132785, 0.4013101,      0.3703639 
-## max values :  0.9312289, 0.6608167, 0.6434712, 0.8249719,      0.9032656</code></pre>
+## extent     : 454589.9, 474589.9, 5394614, 5422614  (xmin, xmax, ymin, ymax)
+## crs        : +init=epsg:32610 +proj=utm +zone=10 +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
+## names      : salt_features.1, salt_features.2, salt_features.3, salt_features.4, salt_features.5 
+## min values :       0.3595050,       0.2979212,       0.1132785,       0.4013101,       0.3703639 
+## max values :       0.9312289,       0.6608167,       0.6434712,       0.8249719,       0.9032656</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># plot map showing the distribution of the features</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">salt_features</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">salt_features</span>))</pre></body></html></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-5-1.png" width="432" style="display: block; margin: auto;"></p>
@@ -201,21 +197,21 @@
       <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
       <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="kw">%&gt;%</span>
       <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>)
+      <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span>()
 
 <span class="co"># print problem</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p1</span>)</pre></body></html></div>
 <pre><code>## Conservation Problem
-##   planning units: RasterLayer (19263 units)
-##   cost:           min: 2552, max: 1e+09
-##   features:       Old_Forest, Savannah, Wetland, ... (5 features)
+##   planning units: RasterLayer (19794 units)
+##   cost:           min: 0.02552, max: 10000
+##   features:       salt_features.1, salt_features.2, salt_features.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
 ##   decisions:      Binary decision 
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <p>Note that the <code><a href="../reference/pipe.html">%&gt;%</a></code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don’t have to explicitly specify the decision-type, but we specify it here for clarity.</p>
 </div>
 <div id="solving-the-problem" class="section level2">
@@ -233,25 +229,25 @@
 <span class="co"># create new problem object with added solver</span>
 <span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"Rsymphony"</span>)) {
   <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"Rsymphony (5s)"</span>)
-  <span class="no">p2</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">5</span>)
+  <span class="no">p2</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">5</span>)
   <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p2</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"Rsymphony"</span>)) {
   <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"Rsymphony (10s)"</span>)
-  <span class="no">p3</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
+  <span class="no">p3</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_rsymphony_solver.html">add_rsymphony_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
   <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p3</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"gurobi"</span>)) {
   <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"Gurobi (5s)"</span>)
-  <span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">5</span>)
+  <span class="no">p4</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_gurobi_solver.html">add_gurobi_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">5</span>)
   <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p4</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"lpsymphony"</span>)) {
   <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"lpsymphony (10s)"</span>)
-  <span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
+  <span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
   <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p5</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
@@ -269,21 +265,21 @@
       <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
       <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="kw">%&gt;%</span>
       <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>)
+      <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span>()
 
 <span class="co"># print problem</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p6</span>)</pre></body></html></div>
 <pre><code>## Conservation Problem
-##   planning units: RasterLayer (19263 units)
-##   cost:           min: 2552, max: 1e+09
-##   features:       Old_Forest, Savannah, Wetland, ... (5 features)
+##   planning units: RasterLayer (19794 units)
+##   cost:           min: 0.02552, max: 10000
+##   features:       salt_features.1, salt_features.2, salt_features.3, ... (5 features)
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
 ##   decisions:      Binary decision 
 ##   constraints:    &lt;none&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
+##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="no">titles2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>() <span class="co"># create vector to store plot titles</span>
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span>()  <span class="co"># create empty stack to store solutions</span>
 
@@ -298,12 +294,12 @@
 
 <span class="co"># impose small penalty for fragmented solutions</span>
 <span class="no">titles2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles2</span>, <span class="st">"Boundary penalty (low)"</span>)
-<span class="no">p8</span> <span class="kw">&lt;-</span> <span class="no">p6</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="fl">50</span>, <span class="fl">0.5</span>)
+<span class="no">p8</span> <span class="kw">&lt;-</span> <span class="no">p6</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="fl">0.0005</span>, <span class="fl">0.5</span>)
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s2</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p8</span>))
 
 <span class="co"># impose high penalty for fragmented solutions</span>
 <span class="no">titles2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles2</span>, <span class="st">"Boundary penalty (high)"</span>)
-<span class="no">p9</span> <span class="kw">&lt;-</span> <span class="no">p6</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="fl">500</span>, <span class="fl">0.5</span>)
+<span class="no">p9</span> <span class="kw">&lt;-</span> <span class="no">p6</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="fl">0.05</span>, <span class="fl">0.5</span>)
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s2</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p9</span>))</pre></body></html></div>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solutions</span>
 <span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">s2</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="no">titles2</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span>),  <span class="kw">col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"grey70"</span>, <span class="st">"darkgreen"</span>))</pre></body></html></div>
@@ -314,35 +310,30 @@
 <h2 class="hasAnchor">
 <a href="#irreplaceability" class="anchor"></a>Irreplaceability</h2>
 <p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the “importance” or “priority” of each planning unit selected in a solution.</p>
-<p>Let’s assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://rdrr.io/r/base/formatc.html">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let’s calculate irreplacability scores for each of the planning units selected in that solution using the replacement cost method <span class="citation">(Cabeza &amp; Moilanen 2006)</span>. Under this method, planning units with higher scores are more irreplaceable. Planning units with infinite (<code>Inf</code>) scores are truly irreplaceable (i.e. they contain biodiversity features which cannot be met by protecting any other set of planning units), and those with zero scores are completely replaceable (i.e. they can be swapped for another set of planning units with no loss of performance).</p>
-<p>Unfortunately, this method can take a long time to run for moderate sized problems (i.e. planning units with between 1,000–30,000 planning units). So, instead of using the same problem to generate the replacement costs, we will use a simplified problem that does not contain boundary penalties and uses proportion-type decisions to reduce run times.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create new problem for irreplacability calculations</span>
-<span class="no">p10</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">salt_pu</span>, <span class="no">salt_features</span>) <span class="kw">%&gt;%</span>
-       <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-       <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="fl">0.17</span>) <span class="kw">%&gt;%</span>
-       <span class="fu"><a href="../reference/add_proportion_decisions.html">add_proportion_decisions</a></span>() <span class="kw">%&gt;%</span>
-       <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span>(<span class="kw">gap</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">verbose</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<p>Let’s assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://rdrr.io/r/base/formatc.html">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let’s calculate irreplaceability scores for each of the planning units selected in that solution using the Ferrier method <span class="citation">(Ferrier <em>et al.</em> 2000)</span>. This method provides overall irreplaceability scores for each planning to indicate the overall importance of each planning unit. It also provides irreplaceability scores for each planning unit and each feature, so we can see which planning units in the solution are important for meeting the targets for different features.</p>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate irreplaceability scores</span>
+<span class="no">irrep</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ferrier_score.html">ferrier_score</a></span>(<span class="no">p9</span>, <span class="no">s2</span><span class="kw">[[</span><span class="fl">3</span>]])
 
-<span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p10</span>)</pre></body></html></div>
-<pre><code>## Conservation Problem
-##   planning units: RasterLayer (19263 units)
-##   cost:           min: 2552, max: 1e+09
-##   features:       Old_Forest, Savannah, Wetland, ... (5 features)
-##   objective:      Minimum set objective 
-##   targets:        Relative targets [targets (min: 0.17, max: 0.17)]
-##   decisions:      Proportion decision 
-##   constraints:    &lt;none&gt;
-##   penalties:      &lt;none&gt;
-##   portfolio:      default
-##   solver:         Gurobi [first_feasible (0), gap (0), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate irreplacability scores (note this will take a few minutes)</span>
-<span class="no">rc10</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/replacement_cost.html">replacement_cost</a></span>(<span class="no">p10</span>, <span class="no">s2</span><span class="kw">[[</span><span class="fl">3</span>]])
+<span class="co"># plot overall irreplaceability scores</span>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">irrep</span><span class="kw">[[</span><span class="st">"total"</span>]], <span class="kw">main</span> <span class="kw">=</span> <span class="st">"overall irreplaceability"</span>)</pre></body></html></div>
+<p><img src="saltspring_files/figure-html/unnamed-chunk-13-1.png" width="432" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># we can see that the colors are mostly green because the raster has 0 values</span>
+<span class="co"># for planning units that were not selected in the solution. This causes</span>
+<span class="co"># all the non-zero values to essentially "look the same". To address this, we</span>
+<span class="co"># will set values in the irreplaceability data to NA for planning units not</span>
+<span class="co"># selected in the solution</span>
+<span class="no">irrep2</span> <span class="kw">&lt;-</span> <span class="no">irrep</span>
+<span class="kw">for</span> (<span class="no">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span>(<span class="fu">nlayers</span>(<span class="no">irrep</span>))) {
+  <span class="no">irrep2</span>[<span class="fu">Which</span>(<span class="no">s2</span><span class="kw">[[</span><span class="fl">3</span>]] <span class="kw">&lt;</span> <span class="fl">0.5</span>)] <span class="kw">&lt;-</span> <span class="fl">NA_real_</span>
+}
 
-<span class="co"># plot irreplacability scores</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">rc10</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"replacement cost"</span>)</pre></body></html></div>
-<p><img src="saltspring_files/figure-html/unnamed-chunk-13-1.png" width="700" style="display: block; margin: auto;"></p>
-<p>We can see that the prioritized planning units located on the far eastern side of the study area have the highest irreplacability scores (i.e. greater than 0.95). This result suggests that protecting these places may be critical to the overall success of the prioritization. Since none of the planning have infinite irreplacability scores, we can be confident that additional planning units could be protected to address shortfalls in the event that any one of the prioritized planning units could not be protected.</p>
+<span class="co"># plot overall irreplaceability scores with only selected planning units</span>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">irrep2</span><span class="kw">[[</span><span class="st">"total"</span>]], <span class="kw">main</span> <span class="kw">=</span> <span class="st">"overall irreplaceability"</span>)</pre></body></html></div>
+<p><img src="saltspring_files/figure-html/unnamed-chunk-13-2.png" width="432" style="display: block; margin: auto;"></p>
+<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot irreplaceability scores for each feature</span>
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">irrep2</span><span class="kw">[[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">salt_features</span>)]])</pre></body></html></div>
+<p><img src="saltspring_files/figure-html/unnamed-chunk-14-1.png" width="432" style="display: block; margin: auto;"></p>
+<p>We can see that the prioritized planning units located on the southwestern side of the study area have the highest irreplaceability scores. This result suggests that protecting these places may be critical to the overall success of the prioritization.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
@@ -351,8 +342,8 @@
 <div id="ref-r28">
 <p>BC Assessment. (2015). <em>Property Information Services</em>. URL <a href="https://www.bcassessment.ca/" class="uri">https://www.bcassessment.ca/</a> [accessed 13 June 2016].</p>
 </div>
-<div id="ref-r31">
-<p>Cabeza, M. &amp; Moilanen, A. (2006). Replacement cost: A practical measure of site value for cost-effective reserve planning. <em>Biological Conservation</em>, <em>132</em>, 336–342.</p>
+<div id="ref-r34">
+<p>Ferrier, S., Pressey, R.L. &amp; Barrett, T.W. (2000). A new predictor of the irreplaceability of areas for achieving a conservation goal, its application to real-world planning, and a research agenda for further refinement. <em>Biological Conservation</em>, <em>93</em>, 303–325.</p>
 </div>
 <div id="ref-r29">
 <p>Morrell, N., Schuster, R., Crombie, M. &amp; Arcese, P. (2017). <em>A Prioritization Tool for the Conservation of Coastal Douglas-fir Forest and Savannah Habitats of the Georgia Basin</em>. The Nature Trust of British Colombia, Coastal Douglas Fir Conservation Partnership, and the Department of Forest and Conservation Sciences, University of British Colombia, URL <a href="http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf" class="uri">http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf</a> [accessed 9 October 2017].</p>
