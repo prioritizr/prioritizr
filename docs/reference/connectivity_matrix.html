@@ -100,7 +100,7 @@ boundary are associated with greater connectivity." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -270,7 +270,7 @@ values are set to zero too.</p>
 <span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>r</span>, <span class='no'>cd</span><span class='kw'>[[</span><span class='fl'>2</span>]])
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cd</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
@@ -286,7 +286,7 @@ values are set to zero too.</p>
 <span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>ply</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>2</span>]])
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>st_geometry</span>(<span class='no'>ply</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (sf)"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_ply</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
@@ -305,7 +305,7 @@ values are set to zero too.</p>
 <span class='no'>cm_sum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_sum</span>) <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_sum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
@@ -325,7 +325,7 @@ values are set to zero too.</p>
 <span class='no'>cm_wsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_wsum</span>) <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_wsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
@@ -342,7 +342,7 @@ values are set to zero too.</p>
 <span class='co'>## note that we wouldn't want to rescale them between 0 and 1 since</span>
 <span class='co'>## a value of zero means that there is no connectivity at all (and</span>
 <span class='co'>## and not a relatively small amount of connectivity)</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'>### define helper function</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>scales</span>) <span class='co'># load scales library for rescale</span>
 <span class='no'>rescale_matrix</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/rescale.html'>rescale</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.01</span>, <span class='fl'>1</span>)); <span class='no'>x</span>}
@@ -357,7 +357,7 @@ values are set to zero too.</p>
 <span class='co'># }</span>
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_lwsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
@@ -384,7 +384,7 @@ values are set to zero too.</p>
 <span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_zwsum</span>) <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_zwsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),

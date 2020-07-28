@@ -161,7 +161,7 @@ NULL
 #' bmat <- boundary_matrix(sim_pu_raster)
 #' p4 <- p1 %>% add_boundary_penalties(50, 1, data = bmat)
 #'
-#' \donttest{
+#' \dontrun{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 #'
@@ -219,7 +219,7 @@ NULL
 #' # create problem with the zone matrix
 #' p10 <- p5 %>% add_boundary_penalties(500, zone = zm10)
 #'
-#' \donttest{
+#' \dontrun{
 #' # solve problems
 #' s2 <- stack(category_layer(solve(p5)), category_layer(solve(p6)),
 #'             category_layer(solve(p7)), category_layer(solve(p8)),

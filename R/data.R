@@ -144,7 +144,7 @@ NULL
 #'      sim_features, sim_pu_sf)
 #'
 #' # plot example Spatial-class planning unit data
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(2, 3))
 #' plot(sim_pu_raster, main = "planning units (raster)")
 #' plot(sim_locked_in_raster, main = "locked in units (raster)")

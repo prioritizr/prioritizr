@@ -130,7 +130,7 @@ p3 <- p1 \%>\% add_neighbor_constraints(2)
 p4 <- p1 \%>\% add_neighbor_constraints(3,
                data = adjacency_matrix(sim_pu_raster, directions = 8))
 
-\donttest{
+\dontrun{
 # solve problems
 s1 <- stack(list(solve(p1), solve(p2), solve(p3), solve(p4)))
 
@@ -166,7 +166,7 @@ z8[1, 2] <- 1
 z8[2, 1] <- 1
 print(z8)
 p8 <- p5 \%>\% add_neighbor_constraints(c(0, 1, 2), z8)
-\donttest{
+\dontrun{
 # solve problems
 s2 <- list(p5, p6, p7, p8)
 s2 <- lapply(s2, solve)

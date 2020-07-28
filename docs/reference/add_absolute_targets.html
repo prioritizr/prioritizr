@@ -100,7 +100,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -283,9 +283,9 @@ combinations of management zones.</p>
 <span class='co'># create problem with varying targets for each feature</span>
 <span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x5f206fcc
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -317,7 +317,7 @@ combinations of management zones.</p>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xc7d35387
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -407,7 +407,7 @@ combinations of management zones.</p>
 #&gt;   Cover: 2
 #&gt;   MIR: 2
 #&gt; 
-#&gt; Explored 551 nodes (908 simplex iterations) in 0.34 seconds
+#&gt; Explored 551 nodes (908 simplex iterations) in 0.17 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 1187.63 1199 1203.17 ... 1364.2
@@ -438,9 +438,9 @@ combinations of management zones.</p>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 
 <span class='co'># solve problem</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -465,7 +465,7 @@ combinations of management zones.</p>
 #&gt;      0     0 3352.71666    0    4 4138.76715 3352.71666  19.0%     -    0s
 #&gt; H    0     0                    3663.0326268 3352.71666  8.47%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (28 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (28 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3663.03 4138.77 
@@ -489,9 +489,9 @@ combinations of management zones.</p>
 #&gt; feature_5      2      1      1</div><div class='input'>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
 <span class='co'># solve problem</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -502,7 +502,7 @@ combinations of management zones.</p>
 #&gt;   RHS range        [1e+00, 2e+00]
 #&gt; Found heuristic solution: objective 4138.7671528
 #&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
@@ -516,7 +516,7 @@ combinations of management zones.</p>
 #&gt;      0     0 3352.71666    0    4 4138.76715 3352.71666  19.0%     -    0s
 #&gt; H    0     0                    3663.0326268 3352.71666  8.47%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (28 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (28 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 3663.03 4138.77 

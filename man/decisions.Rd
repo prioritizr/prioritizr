@@ -65,7 +65,7 @@ p3 <- p1 \%>\% add_proportion_decisions()
 # create problem with semicontinuous decisions
 p4 <- p1 \%>\% add_semicontinuous_decisions(upper_limit = 0.5)
 
-\donttest{
+\dontrun{
 # solve problem
 s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 

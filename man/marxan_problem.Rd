@@ -127,7 +127,7 @@ connectivity, please see the \code{\link[=add_connectivity_penalties]{add_connec
 # create Marxan problem using Marxan input file
 input_file <- system.file("extdata/input.dat", package = "prioritizr")
 p1 <- marxan_problem(input_file)
-\donttest{
+\dontrun{
 # solve problem
 s1 <- solve(p1)
 
@@ -158,7 +158,7 @@ head(bound_dat)
 
 # create problem without the boundary data
 p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat)
-\donttest{
+\dontrun{
 # solve problem
 s2 <- solve(p2)
 
@@ -168,7 +168,7 @@ head(s2)
 # create problem with the boundary data and a boundary length modifier
 # set to 5
 p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5)
-\donttest{
+\dontrun{
 # solve problem
 s3 <- solve(p3)
 

@@ -36,7 +36,7 @@ This function generates cost layers using random field models. By default,
 it returns spatially auto-correlated integer values.
 }
 \examples{
-\donttest{
+\dontrun{
 # create raster
 r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 values(r) <- 1

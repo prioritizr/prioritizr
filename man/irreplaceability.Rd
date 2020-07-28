@@ -57,7 +57,7 @@ static measures of biodiversity lead to poor conservation plans
 (Kirkpatrick 1983).
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_pu_polygons, sim_features)
 

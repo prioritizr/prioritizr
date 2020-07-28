@@ -80,7 +80,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_max_utility_objective(5000) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(gap = 0)
-\donttest{
+\dontrun{
 # solve problem
 s1 <- solve(p1)
 
@@ -94,7 +94,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_utility_objective(5000) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(gap = 0)
-\donttest{
+\dontrun{
 # solve problem
 s2 <- solve(p2)
 
@@ -108,7 +108,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_utility_objective(c(1000, 2000, 3000)) \%>\%
       add_binary_decisions() \%>\%
       add_default_solver(gap = 0)
-\donttest{
+\dontrun{
 # solve problem
 s3 <- solve(p3)
 

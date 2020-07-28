@@ -91,7 +91,7 @@ p2 <- p1 \%>\% add_feature_weights(w2)
 # denote higher extinction risk)
 w3 <- c(0, 0, 0, 100, 200)
 p3 <- p1 \%>\% add_feature_weights(w3)
-\donttest{
+\dontrun{
 # solve problems
 s1 <- stack(solve(p1), solve(p2), solve(p3))
 
@@ -101,7 +101,7 @@ plot(s1, main = c("equal weights", "rarity weights", "manual weights"),
 }
 
 # plot the example phylogeny
-\donttest{
+\dontrun{
 par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "simulated phylogeny")
 }
@@ -112,7 +112,7 @@ p4 <- problem(sim_pu_raster, sim_features) \%>\%
       add_max_phylo_div_objective(1900, sim_phylogeny) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s4 <- solve(p4)
 
@@ -143,7 +143,7 @@ w5 <- c(0, 0, 1000, 0, 0)
 # the branch lengths in the phylogeny so solutions that represent this
 # feature be much closer to optimality
 print(sim_phylogeny$edge.length)
-\donttest{
+\dontrun{
 # create problem with high weighting for the third feature and solve it
 s5 <- p4 \%>\% add_feature_weights(w5) \%>\% solve()
 
@@ -182,7 +182,7 @@ w7[3, 1] <- 100
 
 # create problem with weights
 p7 <- p6 \%>\% add_feature_weights(w7)
-\donttest{
+\dontrun{
 # solve problems
 s6 <- solve(p6)
 s7 <- solve(p7)
@@ -200,7 +200,7 @@ p8 <- problem(sim_pu_raster, sim_features) \%>\%
                                     target = 0.1)) \%>\%
       add_feature_weights(matrix(c(1, 200), ncol = 1)) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s8 <- solve(p8)
 

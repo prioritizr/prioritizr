@@ -98,7 +98,7 @@ solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -261,9 +261,9 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fl'>1800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x8ad86d1c
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -345,7 +345,7 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
 #&gt;   MIR: 11
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 25 nodes (669 simplex iterations) in 0.21 seconds
+#&gt; Explored 25 nodes (669 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 1.99909 1.99904 -0 
@@ -363,9 +363,9 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0xe9518199
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -375,7 +375,7 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
@@ -415,7 +415,7 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
 #&gt;   GUB cover: 1
 #&gt;   RLT: 6
 #&gt; 
-#&gt; Explored 124 nodes (1709 simplex iterations) in 0.33 seconds
+#&gt; Explored 124 nodes (1709 simplex iterations) in 0.16 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
@@ -431,9 +431,9 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
       <span class='fu'>add_max_features_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0x0e0fbd30
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -443,7 +443,7 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
@@ -458,7 +458,7 @@ persistence of biodiversity. <em>Trends in Ecology &amp; Evolution</em>,
 #&gt; H    0     0                       4.9995792   14.99889   200%     -    0s
 #&gt; H    0     0                      14.9989002   14.99890  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (44 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (44 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 14.9989 4.99958 -0 

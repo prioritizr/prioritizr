@@ -223,7 +223,7 @@ NULL
 #'       add_relative_targets(0.2) %>%
 #'       add_binary_decisions()
 #'
-#' \donttest{
+#' \dontrun{
 #' # create problem using polygon (Spatial) planning unit data
 #' p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
@@ -324,7 +324,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s8 <- solve(p8)
 #'

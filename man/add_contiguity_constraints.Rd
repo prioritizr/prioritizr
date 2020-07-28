@@ -104,7 +104,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
 
 # create problem with added connected constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
-\donttest{
+\dontrun{
 # solve problems
 s <- stack(solve(p1), solve(p2))
 
@@ -142,7 +142,7 @@ z6[1, 2] <- 1
 z6[2, 1] <- 1
 print(z6)
 p6 <- p3 \%>\% add_contiguity_constraints(z6)
-\donttest{
+\dontrun{
 # solve problems
 s2 <- lapply(list(p3, p4, p5, p6), solve)
 s2 <- lapply(s2, category_layer)
@@ -193,7 +193,7 @@ p7 <- problem(pus, fts) \%>\%
       add_manual_targets(targets) \%>\%
       add_contiguity_constraints(z7) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problems
 s7 <- category_layer(solve(p7))
 

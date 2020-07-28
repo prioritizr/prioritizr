@@ -102,7 +102,7 @@ specific features." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -263,9 +263,9 @@ confusion with existing terminology.</p>
       <span class='fu'>add_max_utility_objective</span>(<span class='fl'>5000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x75ade7c1
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
@@ -306,7 +306,7 @@ confusion with existing terminology.</p>
 #&gt;   MIR: 2
 #&gt;   StrongCG: 1
 #&gt; 
-#&gt; Explored 21 nodes (55 simplex iterations) in 0.02 seconds
+#&gt; Explored 21 nodes (55 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 74.2715 74.2352 -0 
@@ -322,9 +322,9 @@ confusion with existing terminology.</p>
       <span class='fu'>add_max_utility_objective</span>(<span class='fl'>5000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0x1b273c19
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
@@ -371,7 +371,7 @@ confusion with existing terminology.</p>
 #&gt;   MIR: 2
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 4 nodes (37 simplex iterations) in 0.02 seconds
+#&gt; Explored 4 nodes (37 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 76.8664 74.5659 -0 
@@ -387,9 +387,9 @@ confusion with existing terminology.</p>
       <span class='fu'>add_max_utility_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1000</span>, <span class='fl'>2000</span>, <span class='fl'>3000</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0x0d15a0b2
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
@@ -441,7 +441,7 @@ confusion with existing terminology.</p>
 #&gt;   StrongCG: 2
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 1 nodes (150 simplex iterations) in 0.04 seconds
+#&gt; Explored 1 nodes (150 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 86.4735 86.4735 86.4669 ... -0

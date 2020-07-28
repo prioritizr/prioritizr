@@ -85,7 +85,7 @@ cd <- crop(sim_features, r)
 cm_raster <- connectivity_matrix(r, cd[[2]])
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1,3))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(cd[[2]], main = "conductivity", axes = FALSE, box = FALSE)
@@ -102,7 +102,7 @@ ply <- sim_pu_sf[c(1:2, 10:12, 20:22), ]
 cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(st_geometry(ply), main = "planning units (sf)")
 plot(clamp(raster(as.matrix(cm_ply)), lower = 1e-5, useValues = FALSE),
@@ -122,7 +122,7 @@ cm_sum <- lapply(as.list(cd), connectivity_matrix, x = r) # make matrices
 cm_sum <- Reduce("+", cm_sum) # sum matrices together
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_sum)), lower = 1e-5, useValues = FALSE),
@@ -143,7 +143,7 @@ cm_wsum <- Map("*", cm_wsum, weights) # multiply by weights
 cm_wsum <- Reduce("+", cm_wsum) # sum matrices together
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
@@ -161,7 +161,7 @@ plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
 ## note that we wouldn't want to rescale them between 0 and 1 since
 ## a value of zero means that there is no connectivity at all (and
 ## and not a relatively small amount of connectivity)
-\donttest{
+\dontrun{
 ### define helper function
 library(scales) # load scales library for rescale
 rescale_matrix <- function(x) {x@x <- rescale(x@x, c(0.01, 1)); x}
@@ -176,7 +176,7 @@ cm_lwsum <- Reduce("+", cm_lwsum) # sum matrices together
 }
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_lwsum)), lower = 1e-5, useValues = FALSE),
@@ -204,7 +204,7 @@ cm_zwsum <- Map("*", cm_zwsum, weights) # multiply by weights
 cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 
 ## plot data and matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 plot(clamp(raster(as.matrix(cm_zwsum)), lower = 1e-5, useValues = FALSE),

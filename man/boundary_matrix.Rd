@@ -93,14 +93,14 @@ bm_ply2 <- boundary_matrix(ply2)
 bm_ply3 <- boundary_matrix(ply, TRUE)
 
 # plot raster and boundary matrix
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "raster", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_raster)), main = "boundary matrix",
      axes = FALSE, box = FALSE)
 }
 # plot polygons and boundary matrices
-\donttest{
+\dontrun{
 par(mfrow = c(1, 3))
 plot(r, main = "polygons (Spatial)", axes = FALSE, box = FALSE)
 plot(raster(as.matrix(bm_ply1)), main = "boundary matrix", axes = FALSE,

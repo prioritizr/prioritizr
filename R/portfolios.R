@@ -74,7 +74,7 @@ NULL
 #'
 #' # create problem with shuffle portfolio with 4 solutions
 #' p2 <- p %>% add_shuffle_portfolio(4)
-#' \donttest{
+#' \dontrun{
 #' # create problem with extra portfolio
 #' p3 <- p %>% add_extra_portfolio()
 #'

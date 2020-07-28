@@ -32,7 +32,7 @@ NULL
 #' m1 <- marxan_boundary_data_to_matrix(NULL, bldf1)
 #'
 #' # visualize matrix
-#' \donttest{
+#' \dontrun{
 #' image(m1)
 #' }
 #' # create marxan boundary with three planning units and two zones

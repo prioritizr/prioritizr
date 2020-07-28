@@ -28,7 +28,7 @@ NULL
 #' y <- binary_stack(x)
 #'
 #' # plot categorical raster and binary stack representation
-#' \donttest{
+#' \dontrun{
 #' plot(stack(x, y), main = c("x", "y[[1]]", "y[[2]]", "y[[3]]"), nr = 1)
 #' }
 #' @export

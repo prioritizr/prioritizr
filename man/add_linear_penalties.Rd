@@ -152,7 +152,7 @@ p2 <- p1 \%>\% add_linear_penalties(100, data = "penalty_data")
 # print problem
 print(p2)
 
-\donttest{
+\dontrun{
 # solve the two problems
 s1 <- solve(p1)
 s2 <- solve(p2)
@@ -200,7 +200,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 # print problem
 print(p3)
 
-\donttest{
+\dontrun{
 # solve problem
 s3 <- solve(p3)
 

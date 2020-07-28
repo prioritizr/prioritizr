@@ -101,7 +101,7 @@ solution cost for minimum set problems; add_min_set_objective()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -351,9 +351,9 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (100)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
 #&gt; <span class='message'>  solver:         default</span></div><div class='input'>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve the two problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xa41351c6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -383,7 +383,7 @@ replaced with \(-P_z\).</p>
 #&gt; Solution count 2: 1792.53 2145.27 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792534520218e+03, best bound 1.732563961206e+03, gap 3.3456%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 1.792534520218e+03, best bound 1.732563961206e+03, gap 3.3456%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x87e27a7e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -463,9 +463,9 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
 #&gt; <span class='message'>  solver:         default</span></div><div class='input'>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x3583ba52
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -475,7 +475,7 @@ replaced with \(-P_z\).</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Found heuristic solution: objective 13509.195716
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros

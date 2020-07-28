@@ -103,7 +103,7 @@ This function was inspired by Faith (1992) and Rodrigues et al.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -304,7 +304,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
      <span class='no'>sim_features_zones</span>)
 
 <span class='co'># plot the simulated phylogeny</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_div_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
@@ -314,9 +314,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
@@ -355,7 +355,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.04 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -401,9 +401,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 104 rows, 283 columns and 1915 nonzeros
 #&gt; Model fingerprint: 0x20546489
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
@@ -429,7 +429,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt; H    0     0                       3.8834554    5.05558  30.2%     -    0s
 #&gt; H    0     0                       5.0555775    5.05558  0.00%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 5.05558 3.88346 -0 
@@ -459,9 +459,9 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
       <span class='fu'>add_max_phylo_div_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2500</span>, <span class='fl'>500</span>, <span class='fl'>2000</span>), <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 283 columns and 1915 nonzeros
 #&gt; Model fingerprint: 0xa9bb83d0
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
@@ -472,7 +472,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros

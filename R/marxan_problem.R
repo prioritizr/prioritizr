@@ -124,7 +124,7 @@ NULL
 #' # create Marxan problem using Marxan input file
 #' input_file <- system.file("extdata/input.dat", package = "prioritizr")
 #' p1 <- marxan_problem(input_file)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -155,7 +155,7 @@ NULL
 #'
 #' # create problem without the boundary data
 #' p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
 #'
@@ -165,7 +165,7 @@ NULL
 #' # create problem with the boundary data and a boundary length modifier
 #' # set to 5
 #' p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
 #'

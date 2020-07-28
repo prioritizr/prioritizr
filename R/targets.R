@@ -55,7 +55,7 @@ NULL
 #' p4 <- p %>% add_manual_targets(data.frame(feature = names(sim_features),
 #'                                           target = 0.1,
 #'                                           type = "relative"))
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 #'

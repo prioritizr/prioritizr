@@ -67,7 +67,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1) \%>\%
   add_binary_decisions()
-\donttest{
+\dontrun{
 # if the package is installed then add solver and generate solution
 # note that this solver is skipped on Linux systems due to the fact
 # that the lpsymphony package randomly crashes on these systems

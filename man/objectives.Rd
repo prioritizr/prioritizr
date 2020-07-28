@@ -78,7 +78,7 @@ p6 <- p \%>\% add_max_phylo_end_objective(1900, sim_phylogeny)
 # note that this objective does not use targets
 p7 <- p \%>\% add_max_utility_objective(1900)
 
-\donttest{
+\dontrun{
 # solve problems
 s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6),
            solve(p7))

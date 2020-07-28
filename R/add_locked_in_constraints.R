@@ -105,7 +105,7 @@ NULL
 #' # create problem with added locked in constraints using spatial polygon data
 #' locked_in <- sim_pu_polygons[sim_pu_polygons$locked_in == 1, ]
 #' p5 <- p1 %>% add_locked_in_constraints(locked_in)
-#' \donttest{
+#' \dontrun{
 #' # solve problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -146,7 +146,7 @@ NULL
 #' locked_matrix <- as.matrix(locked_matrix)
 #'
 #' p7 <- p6 %>% add_locked_in_constraints(locked_matrix)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s6 <- solve(p6)
 #'
@@ -162,7 +162,7 @@ NULL
 #' }
 #' # create multi-zone problem with locked in constraints using field names
 #' p8 <- p6 %>% add_locked_in_constraints(c("locked_1", "locked_2", "locked_3"))
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s8 <- solve(p8)
 #'
@@ -192,13 +192,13 @@ NULL
 #' locked_in_stack[[3]][3] <- 1
 #'
 #' # plot locked in stack
-#' \donttest{
+#' \dontrun{
 #' plot(locked_in_stack)
 #' }
 #' # add locked in raster units to problem
 #' p9 <- p9 %>% add_locked_in_constraints(locked_in_stack)
 #'
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s9 <- solve(p9)
 #'

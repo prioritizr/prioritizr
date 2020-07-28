@@ -24,7 +24,7 @@ each worker. Each element contains a \code{integer} \code{vector}
 specifying the indices that the worker should process.
 }
 \examples{
-\donttest{
+\dontrun{
 
 # imagine that we have 10 jobs that need processing. For simplicity,
 # our jobs will involve adding 1 to each element in 1:10.

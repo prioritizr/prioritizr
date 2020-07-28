@@ -98,7 +98,7 @@ the cost of the solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -256,9 +256,9 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
       <span class='fu'>add_min_shortfall_objective</span>(<span class='fl'>1800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x3fc302bb
 #&gt; Variable types: 5 continuous, 90 integer (90 binary)
@@ -285,7 +285,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt; H    0     0                       0.3322746    0.29800  10.3%     -    0s
 #&gt; H    0     0                       0.3256728    0.29800  8.50%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (19 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (19 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 0.325673 0.332275 0.335527 5 
@@ -303,9 +303,9 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
       <span class='fu'>add_min_shortfall_objective</span>(<span class='fl'>3000</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0x0e43d966
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
@@ -316,7 +316,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective 15.0000001
 #&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
@@ -348,9 +348,9 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
       <span class='fu'>add_min_shortfall_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0xebe5ba12
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
@@ -361,7 +361,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective 15.0000001
 #&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
 #&gt; Variable types: 15 continuous, 270 integer (270 binary)
 #&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
@@ -374,7 +374,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 #&gt; 
 #&gt; *    0     0               0       0.0000000    0.00000  0.00%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (37 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (37 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 0 15 

@@ -94,7 +94,7 @@ lns <- sim_pu_lines[c(1:2, 10:12, 20:22), ]
 am_lns <- adjacency_matrix(lns)
 
 # plot data and the adjacency matrices
-\donttest{
+\dontrun{
 par(mfrow = c(4,2))
 
 ## plot raster and adjacency matrix

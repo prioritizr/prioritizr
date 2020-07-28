@@ -109,7 +109,7 @@ NULL
 #' # attempt to solve the problem, but we will see that this problem is
 #' # infeasible because the targets cannot be met using only the planning units
 #' # with finite cost data
-#' \donttest{
+#' \dontrun{
 #' s4 <- try(solve(p4))
 #' }
 #' # calculate feature abundances; excluding planning units with NA costs
@@ -122,7 +122,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(a5$relative_abundance) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve the problem
 #' s5 <- solve(p5)
 #'

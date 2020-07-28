@@ -1,3 +1,7 @@
+# prioritizr 5.0.2 (released)
+
+- Release candidate for CRAN.
+
 # prioritizr 5.0.1.7
 
 - Fix tests for updated datasets in the prioritizrdata R package.
@@ -5,6 +9,7 @@
 - Update citation for Scriven et al. (2020) in the Publication Record vignette.
 - Update Salt Spring Island vignette with Ferrier method for calculating
   irreplaceability scores and adjust for changes in cost data.
+- Update examples to run with CRAN checks (i.e. `--run-donttest`).
 
 # prioritizr 5.0.1.6
 

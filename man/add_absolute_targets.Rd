@@ -99,7 +99,7 @@ p1 <- p \%>\% add_absolute_targets(3)
 # create problem with varying targets for each feature
 targets <- c(1, 2, 3, 2, 1)
 p2 <- p \%>\% add_absolute_targets(targets)
-\donttest{
+\dontrun{
 # solve problem
 s <- stack(solve(p1), solve(p2))
 
@@ -124,7 +124,7 @@ print(p4_targets)
 p4 <- p3 \%>\% add_absolute_targets(p4_targets)
 
 # solve problem
-\donttest{
+\dontrun{
 # solve problem
 s4 <- solve(p4)
 
@@ -142,7 +142,7 @@ print(p5_targets)
 
 p5 <- p3 \%>\% add_absolute_targets(p4_targets)
 # solve problem
-\donttest{
+\dontrun{
 # solve problem
 s5 <- solve(p5)
 

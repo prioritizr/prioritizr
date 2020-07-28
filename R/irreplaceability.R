@@ -77,7 +77,7 @@ NULL
 #' @seealso [problem()].
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_features)
 #'

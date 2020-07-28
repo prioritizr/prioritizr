@@ -34,7 +34,7 @@ NULL
 #' # create problem with varying targets for each feature
 #' targets <- c(0.1, 0.2, 0.3, 0.4, 0.5)
 #' p2 <- p %>% add_relative_targets(targets)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s <- stack(solve(p1), solve(p2))
 #'
@@ -57,7 +57,7 @@ NULL
 #' p4 <- p3 %>% add_relative_targets(p4_targets)
 #'
 #' # solve problem
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s4 <- solve(p4)
 #'
@@ -73,7 +73,7 @@ NULL
 #'
 #' p5 <- p3 %>% add_relative_targets(p4_targets)
 #' # solve problem
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s5 <- solve(p5)
 #'

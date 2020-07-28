@@ -32,7 +32,7 @@ NULL
 #' y <- loglinear_interpolation(x, 200, 100, 900, 15)
 #'
 #' # plot the interpolated values
-#' \donttest{
+#' \dontrun{
 #' plot(y ~ x)
 #'
 #' # add the reference points to the plot (shown in red)

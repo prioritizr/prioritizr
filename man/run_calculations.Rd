@@ -26,7 +26,7 @@ anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use t
 \verb{\%T>\%} operator and not the \verb{\%>\%} operator.
 }
 \examples{
-\donttest{
+\dontrun{
 # Let us imagine a scenario where we wanted to understand the effect of
 # setting different targets on our solution.
 

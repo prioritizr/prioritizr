@@ -111,7 +111,7 @@ data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
      sim_features_zones)
 
 # plot the simulated phylogeny
-\donttest{
+\dontrun{
 par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "phylogeny")
 }
@@ -122,7 +122,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_max_phylo_end_objective(1900, sim_phylogeny) \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s1 <- solve(p1)
 
@@ -161,7 +161,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_phylo_end_objective(5000, sim_phylogeny) \%>\%
       add_manual_targets(targets) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s2 <- solve(p2)
 
@@ -190,7 +190,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_phylo_end_objective(c(2500, 500, 2000), sim_phylogeny) \%>\%
       add_manual_targets(targets) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s3 <- solve(p3)
 

@@ -64,7 +64,7 @@ NULL
 #'      add_min_set_objective() %>%
 #'      add_relative_targets(0.1) %>%
 #'      add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -79,7 +79,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets_matrix) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
 #'

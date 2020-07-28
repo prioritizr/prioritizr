@@ -12,7 +12,7 @@
 
 <meta name="author" content="Richard Schuster" />
 
-<meta name="date" content="2020-07-23" />
+<meta name="date" content="2020-07-28" />
 
 <title>Gurobi Installation Guide</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Gurobi Installation Guide</h1>
 <h4 class="author"><em>Richard Schuster</em></h4>
-<h4 class="date"><em>2020-07-23</em></h4>
+<h4 class="date"><em>2020-07-28</em></h4>
 
 
 <div id="TOC">
@@ -186,7 +186,7 @@ model<span class="op">$</span>A          &lt;-<span class="st"> </span><span cla
 
 <span class="co"># solve the optimization problem using Gurobi</span>
 result &lt;-<span class="st"> </span><span class="kw">gurobi</span>(model, <span class="kw">list</span>())</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 2 rows, 3 columns and 5 nonzeros
 ## Model fingerprint: 0x15e5f516
 ## Variable types: 0 continuous, 3 integer (3 binary)
@@ -228,7 +228,7 @@ p &lt;-<span class="st"> </span><span class="kw">problem</span>(sim_pu_raster, s
 
 <span class="co"># solve the problem</span>
 s &lt;-<span class="st"> </span><span class="kw">solve</span>(p)</code></pre></div>
-<pre><code>## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
 ## Variable types: 0 continuous, 90 integer (90 binary)

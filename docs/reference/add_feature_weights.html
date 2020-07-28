@@ -103,7 +103,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -283,9 +283,9 @@ fulfilling each target.</p></dd>
 <span class='co'># denote higher extinction risk)</span>
 <span class='no'>w3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>100</span>, <span class='fl'>200</span>)
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w3</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x15e6d43f
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -325,14 +325,14 @@ fulfilling each target.</p></dd>
 #&gt;   StrongCG: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 8 nodes (231 simplex iterations) in 0.07 seconds
+#&gt; Explored 8 nodes (231 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2.99797 1.99799 -0 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.997965888532e+00, best bound 2.997988029529e+00, gap 0.0007%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0xcde35cb0
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -380,14 +380,14 @@ fulfilling each target.</p></dd>
 #&gt;   StrongCG: 1
 #&gt;   RLT: 2
 #&gt; 
-#&gt; Explored 1 nodes (157 simplex iterations) in 0.08 seconds
+#&gt; Explored 1 nodes (157 simplex iterations) in 0.04 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 715.287 606.63 153.708 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 7.152870430944e+02, best bound 7.745604502585e+02, gap 8.2867%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
 #&gt; Model fingerprint: 0x34972506
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -426,7 +426,7 @@ fulfilling each target.</p></dd>
      <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_weights-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># plot the example phylogeny</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"simulated phylogeny"</span>)</div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
@@ -436,9 +436,9 @@ fulfilling each target.</p></dd>
       <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
@@ -477,7 +477,7 @@ fulfilling each target.</p></dd>
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.04 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -509,9 +509,9 @@ fulfilling each target.</p></dd>
 <span class='co'># the branch lengths in the phylogeny so solutions that represent this</span>
 <span class='co'># feature be much closer to optimality</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='no'>sim_phylogeny</span>$<span class='no'>edge.length</span>)</div><div class='output co'>#&gt; [1] 1.42105185 0.34712544 0.04100098 0.30612447 0.30612447 0.59604770 1.17212960
-#&gt; [8] 1.17212960</div><div class='input'><span class='co'># \donttest{</span>
+#&gt; [8] 1.17212960</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># create problem with high weighting for the third feature and solve it</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w5</span>) <span class='kw'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span>()</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x19bea6ab
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
@@ -550,7 +550,7 @@ fulfilling each target.</p></dd>
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.04 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -590,9 +590,9 @@ fulfilling each target.</p></dd>
 
 <span class='co'># create problem with weights</span>
 <span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_weights</span>(<span class='no'>w7</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0xe9518199
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -642,13 +642,13 @@ fulfilling each target.</p></dd>
 #&gt;   GUB cover: 1
 #&gt;   RLT: 6
 #&gt; 
-#&gt; Explored 124 nodes (1709 simplex iterations) in 0.33 seconds
+#&gt; Explored 124 nodes (1709 simplex iterations) in 0.16 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999648781179e+00, best bound 5.312475879683e+00, gap 6.2570%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 4.999648781179e+00, best bound 5.312475879683e+00, gap 6.2570%</div><div class='input'><span class='no'>s7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
 #&gt; Model fingerprint: 0xbdbcef08
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -659,7 +659,7 @@ fulfilling each target.</p></dd>
 #&gt;   RHS range        [1e+00, 3e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
 #&gt; Variable types: 0 continuous, 284 integer (284 binary)
 #&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
@@ -673,7 +673,7 @@ fulfilling each target.</p></dd>
 #&gt;      0     0  105.87844    0   10   -0.00000  105.87844      -     -    0s
 #&gt; H    0     0                     102.9996465  105.87844  2.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 103 -0 
@@ -692,9 +692,9 @@ fulfilling each target.</p></dd>
                                     <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_feature_weights</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>200</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
 #&gt; Model fingerprint: 0x2bbe4267
 #&gt; Variable types: 0 continuous, 92 integer (92 binary)

@@ -28,7 +28,7 @@ be solved using the \emph{Gurobi} software suite (i.e. using
 of the \pkg{gurobi} package must be installed.
 }
 \examples{
-\donttest{
+\dontrun{
 # set seed for reproducibility
 set.seed(600)
 

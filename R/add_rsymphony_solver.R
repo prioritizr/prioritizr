@@ -49,7 +49,7 @@ NULL
 #'   add_min_set_objective() %>%
 #'   add_relative_targets(0.1) %>%
 #'   add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # if the package is installed then add solver and generate solution
 #' if (require("Rsymphony")) {
 #'   # specify solver and generate solution

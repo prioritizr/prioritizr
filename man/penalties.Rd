@@ -73,7 +73,7 @@ plot(sim_penalty_raster, main = "penalty data", axes = FALSE, box = FALSE)
 # create problem with linear penalties, with a penalty scaling factor of 100
 p4 <- p1 \%>\% add_linear_penalties(100, data = sim_penalty_raster)
 
-\donttest{
+\dontrun{
 # solve problems
 s <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 

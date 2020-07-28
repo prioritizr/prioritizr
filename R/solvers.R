@@ -50,7 +50,7 @@ NULL
 #'  [targets].
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'

@@ -97,7 +97,7 @@ with the units in another spatial data object." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -241,25 +241,25 @@ with the units in another spatial data object.</p>
 <span class='no'>ply_with_holes</span> <span class='kw'>&lt;-</span> <span class='fu'>st_as_sf</span>(<span class='fu'>rasterToPolygons</span>(<span class='no'>r_with_holes</span>))
 
 <span class='co'># intersect raster with raster</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Raster"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'># intersect raster with polygons (sf)</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Raster"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=sf"</span>, <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='intersecting_units-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>r</span>, <span class='no'>ply_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 6 7 8</div><div class='input'>
 <span class='co'># intersect polygons (Spatial) with raster</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=Raster"</span>)</div><div class='img'><img src='intersecting_units-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>intersecting_units</span>(<span class='no'>ply</span>, <span class='no'>r_with_holes</span>))</div><div class='output co'>#&gt; [1] 2 3 4 5 6 7 8</div><div class='input'>
 <span class='co'># intersect polygons (Spatial) with polygons (sf)</span>
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ply</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"x=Spatial"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>ply_with_holes</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"y=sf"</span>, <span class='kw'>key.pos</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>reset</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='intersecting_units-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

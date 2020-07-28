@@ -41,7 +41,7 @@ Note that the number of solutions returned may be less than the argument to
 meet the optimality gap is less than the number of solutions requested.
 }
 \examples{
-\donttest{
+\dontrun{
 # set seed for reproducibility
 set.seed(600)
 

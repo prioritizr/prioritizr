@@ -112,7 +112,7 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -144,7 +144,7 @@ NULL
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # calculate irreplaceability scores using proportion type decisions
-#' \donttest{
+#' \dontrun{
 #' rc2 <- replacement_cost(p2, s1)
 #'
 #' # print irreplaceability scores based on proportion type decisions
@@ -164,7 +164,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \donttest{
+#' \dontrun{
 #' # solve the problem
 #' s3 <- solve(p3)
 #'

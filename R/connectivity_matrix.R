@@ -67,7 +67,7 @@ NULL
 #' cm_raster <- connectivity_matrix(r, cd[[2]])
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1,3))
 #' plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 #' plot(cd[[2]], main = "conductivity", axes = FALSE, box = FALSE)
@@ -84,7 +84,7 @@ NULL
 #' cm_ply <- connectivity_matrix(ply, sim_features[[2]])
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1, 2))
 #' plot(st_geometry(ply), main = "planning units (sf)")
 #' plot(clamp(raster(as.matrix(cm_ply)), lower = 1e-5, useValues = FALSE),
@@ -104,7 +104,7 @@ NULL
 #' cm_sum <- Reduce("+", cm_sum) # sum matrices together
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 #' plot(clamp(raster(as.matrix(cm_sum)), lower = 1e-5, useValues = FALSE),
@@ -125,7 +125,7 @@ NULL
 #' cm_wsum <- Reduce("+", cm_wsum) # sum matrices together
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 #' plot(clamp(raster(as.matrix(cm_wsum)), lower = 1e-5, useValues = FALSE),
@@ -143,7 +143,7 @@ NULL
 #' ## note that we wouldn't want to rescale them between 0 and 1 since
 #' ## a value of zero means that there is no connectivity at all (and
 #' ## and not a relatively small amount of connectivity)
-#' \donttest{
+#' \dontrun{
 #' ### define helper function
 #' library(scales) # load scales library for rescale
 #' rescale_matrix <- function(x) {x@x <- rescale(x@x, c(0.01, 1)); x}
@@ -158,7 +158,7 @@ NULL
 #' }
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 #' plot(clamp(raster(as.matrix(cm_lwsum)), lower = 1e-5, useValues = FALSE),
@@ -186,7 +186,7 @@ NULL
 #' cm_zwsum <- Reduce("+", cm_zwsum) # sum matrices together
 #'
 #' ## plot data and matrix
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1, 2))
 #' plot(r, main = "planning units (raster)", axes = FALSE, box = FALSE)
 #' plot(clamp(raster(as.matrix(cm_zwsum)), lower = 1e-5, useValues = FALSE),

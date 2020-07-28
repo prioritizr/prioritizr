@@ -58,7 +58,7 @@ ply <- rasterToPolygons(r)
 ply_with_holes <- st_as_sf(rasterToPolygons(r_with_holes))
 
 # intersect raster with raster
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
 plot(r_with_holes, main = "y=Raster")
@@ -66,7 +66,7 @@ plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(r, r_with_holes))
 
 # intersect raster with polygons (sf)
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(r, main = "x=Raster")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
@@ -74,7 +74,7 @@ plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)
 print(intersecting_units(r, ply_with_holes))
 
 # intersect polygons (Spatial) with raster
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(ply, main = "x=Spatial")
 plot(r_with_holes, main = "y=Raster")
@@ -82,7 +82,7 @@ plot(r_with_holes, main = "y=Raster")
 print(intersecting_units(ply, r_with_holes))
 
 # intersect polygons (Spatial) with polygons (sf)
-\donttest{
+\dontrun{
 par(mfrow = c(1, 2))
 plot(ply, main = "x=Spatial")
 plot(ply_with_holes, main = "y=sf", key.pos = NULL, reset = FALSE)

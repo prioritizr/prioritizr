@@ -29,7 +29,7 @@ NULL
 #' m <- branch_matrix(sim_phylogeny)
 #'
 #' # plot data
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(1,2))
 #' plot(sim_phylogeny, main = "phylogeny")
 #' plot(raster(as.matrix(m)), main = "branch matrix", axes = FALSE,

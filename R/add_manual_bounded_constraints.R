@@ -62,7 +62,7 @@ NULL
 #'                           lower = 1, upper = 1)
 #'
 #' p3 <- p1 %>% add_manual_bounded_constraints(bounds_data)
-#' \donttest{
+#' \dontrun{
 #' # solve problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -102,7 +102,7 @@ NULL
 #'
 #' # create problem with added constraints
 #' p5 <- p4 %>% add_manual_bounded_constraints(bounds_data2)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s4 <- solve(p4)
 #' s5 <- solve(p5)

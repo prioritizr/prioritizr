@@ -97,7 +97,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -258,9 +258,9 @@ with problems that contain multiple zones.</strong></p></dd>
 
 <span class='co'># create problem with feature contiguity constraints</span>
 <span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -291,7 +291,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x09f3d4df
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -322,7 +322,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.406721137419e+03, best bound 4.008576513407e+03, gap 9.0349%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x9735ede9
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -354,7 +354,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.002947585629e+03, best bound 3.905364830968e+03, gap 2.4378%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
 #&gt; Model fingerprint: 0x9d8ce8b6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -365,7 +365,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   RHS range        [6e+00, 2e+01]
 #&gt; Found heuristic solution: objective 5019.7804112
 #&gt; Presolve removed 2 rows and 4 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
 #&gt; Variable types: 0 continuous, 86 integer (86 binary)
 #&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
@@ -379,14 +379,14 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;      0     0 3909.12764    0   13 5019.78041 3909.12764  22.1%     -    0s
 #&gt; H    0     0                    4231.2130368 3909.12764  7.61%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4231.21 5019.78 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.231213036789e+03, best bound 3.909127637600e+03, gap 7.6121%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
 #&gt; Model fingerprint: 0x6b9fa975
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
@@ -396,7 +396,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.02s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
 #&gt; Variable types: 0 continuous, 221 integer (221 binary)
 #&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
@@ -424,14 +424,14 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.26 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.285217694549e+03, best bound 3.985133414355e+03, gap 7.0028%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 1610 rows, 1260 columns and 5110 nonzeros
 #&gt; Model fingerprint: 0xd8b45813
 #&gt; Variable types: 0 continuous, 1260 integer (1260 binary)
@@ -441,13 +441,13 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 138 rows and 139 columns
-#&gt; Presolve time: 0.10s
+#&gt; Presolve time: 0.05s
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; Variable types: 0 continuous, 1121 integer (1121 binary)
 #&gt; Presolved: 1472 rows, 1121 columns, 4310 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 1355 iterations, 0.05 seconds
+#&gt; Root relaxation: objective 3.947815e+03, 1355 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -460,20 +460,20 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;      0     0 3965.97649    0  565          - 3965.97649      -     -    0s
 #&gt;      0     0 3965.97649    0  567          - 3965.97649      -     -    0s
 #&gt;      0     0 3965.97649    0  569          - 3965.97649      -     -    0s
-#&gt;      0     0 3966.11290    0  569          - 3966.11290      -     -    1s
-#&gt;      0     0 3966.13666    0  595          - 3966.13666      -     -    1s
-#&gt;      0     0 3966.20628    0  599          - 3966.20628      -     -    1s
-#&gt;      0     0 3966.20628    0  596          - 3966.20628      -     -    1s
-#&gt; H    0     0                    16261.364549 3966.20628  75.6%     -    1s
-#&gt; H    0     0                    12303.647295 3966.20628  67.8%     -    1s
-#&gt;      0     2 3966.21298    0  596 12303.6473 3966.21298  67.8%     -    1s
-#&gt; H   60    59                    4256.7194199 3966.68807  6.81%  78.9    2s
+#&gt;      0     0 3966.11290    0  569          - 3966.11290      -     -    0s
+#&gt;      0     0 3966.13666    0  595          - 3966.13666      -     -    0s
+#&gt;      0     0 3966.20628    0  599          - 3966.20628      -     -    0s
+#&gt;      0     0 3966.20628    0  596          - 3966.20628      -     -    0s
+#&gt; H    0     0                    16261.364549 3966.20628  75.6%     -    0s
+#&gt; H    0     0                    12303.647295 3966.20628  67.8%     -    0s
+#&gt;      0     2 3966.21298    0  596 12303.6473 3966.21298  67.8%     -    0s
+#&gt; H   60    59                    4256.7194199 3966.68807  6.81%  78.9    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 3
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 61 nodes (7758 simplex iterations) in 2.15 seconds
+#&gt; Explored 61 nodes (7758 simplex iterations) in 1.05 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4256.72 12303.6 16261.4 

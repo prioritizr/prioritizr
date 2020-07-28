@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -326,9 +326,9 @@ used when calculating relative targets for problems (e.g.
                               <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='no'>r1</span>$<span class='no'>relative_held</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
                               <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp1</span>),
                               <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span> * <span class='no'>s1</span><span class='kw'>[[</span><span class='fl'>1</span>]], <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) /
-                              <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># \donttest{</span>
+                              <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>pu</span>$<span class='no'>spp2</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># solve the problem using an exact algorithm solver</span>
-<span class='no'>s1_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1_2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 2 rows, 9 columns and 17 nonzeros
 #&gt; Model fingerprint: 0xd4d755ee
 #&gt; Variable types: 0 continuous, 9 integer (9 binary)
@@ -373,7 +373,7 @@ used when calculating relative targets for problems (e.g.
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 
 <span class='co'># solve the problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -431,9 +431,9 @@ used when calculating relative targets for problems (e.g.
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xa41351c6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -490,9 +490,9 @@ used when calculating relative targets for problems (e.g.
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>,
                                   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x68605ba0
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -503,7 +503,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 12200.043064
 #&gt; Presolve removed 8 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
@@ -517,7 +517,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;      0     0 10331.6670    0    4 12200.0431 10331.6670  15.3%     -    0s
 #&gt; H    0     0                    10667.271164 10331.6670  3.15%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (39 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (39 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 10667.3 12200 
@@ -564,9 +564,9 @@ used when calculating relative targets for problems (e.g.
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>,
                                   <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xf5ca8602
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -577,7 +577,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10551.252008
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -591,7 +591,7 @@ used when calculating relative targets for problems (e.g.
 #&gt;      0     0 8973.34608    0    9 10551.2520 8973.34608  15.0%     -    0s
 #&gt; H    0     0                    9201.5595283 8973.34608  2.48%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9201.56 10551.3 

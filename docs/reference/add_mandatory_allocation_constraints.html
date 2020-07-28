@@ -98,7 +98,7 @@ with problems that contain multiple zones." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -236,9 +236,9 @@ zone allocation is mandatory).</p>
 <span class='co'># to mandate that every planning unit in the solution is assigned to</span>
 <span class='co'># zone</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_mandatory_allocation_constraints</span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xa65df5d2
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -249,7 +249,7 @@ zone allocation is mandatory).</p>
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 3524.7950998
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -263,13 +263,13 @@ zone allocation is mandatory).</p>
 #&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
 #&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 2875.81 3524.8 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xc24a756b
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -280,7 +280,7 @@ zone allocation is mandatory).</p>
 #&gt;   RHS range        [1e+00, 3e+00]
 #&gt; Found heuristic solution: objective 18608.854280
 #&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
@@ -293,7 +293,7 @@ zone allocation is mandatory).</p>
 #&gt; 
 #&gt;      0     0 17787.6294    0    2 18608.8543 17787.6294  4.41%     -    0s
 #&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.01 seconds
+#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 18608.9 

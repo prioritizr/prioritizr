@@ -132,7 +132,7 @@ NULL
 #' # print problem
 #' print(p2)
 #'
-#' \donttest{
+#' \dontrun{
 #' # solve the two problems
 #' s1 <- solve(p1)
 #' s2 <- solve(p2)
@@ -180,7 +180,7 @@ NULL
 #' # print problem
 #' print(p3)
 #'
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
 #'

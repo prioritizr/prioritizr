@@ -82,7 +82,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s1 <- solve(p1)
 
@@ -96,7 +96,7 @@ p2 <- problem(sim_pu_raster, sim_features) \%>\%
                                     type = "relative", sense = ">=",
                                     target = 0.1)) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s2 <- solve(p2)
 
@@ -110,7 +110,7 @@ p3 <- problem(sim_pu_raster, sim_features) \%>\%
         feature = names(sim_features)[1:3], type = "relative",
         sense = ">=", target = 0.1)) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s3 <- solve(p3)
 
@@ -127,7 +127,7 @@ p4 <- problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
         feature = names(sim_features)[1:2], type = "relative",
         sense = c(">=", "<="), target = c(0.1, 0.2))) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s4 <- solve(p4)
 
@@ -142,7 +142,7 @@ p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_absolute_targets(targets_matrix) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s5 <- solve(p5)
 
@@ -159,7 +159,7 @@ p6 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_manual_targets(targets_dataframe) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s6 <- solve(p6)
 
@@ -192,7 +192,7 @@ p7 <- problem(costs, zones(spp_zone1, spp_zone2,
       add_min_set_objective() \%>\%
       add_manual_targets(targets_dataframe2) \%>\%
       add_binary_decisions()
-\donttest{
+\dontrun{
 # solve problem
 s7 <- solve(p7)
 

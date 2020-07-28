@@ -100,7 +100,7 @@ features in solutions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -285,9 +285,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_binary_features</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fl'>500</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 6 rows, 95 columns and 120 nonzeros
 #&gt; Model fingerprint: 0xd891ef4e
 #&gt; Variable types: 0 continuous, 95 integer (95 binary)
@@ -327,9 +327,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_binary_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fl'>800</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 285 columns and 1478 nonzeros
 #&gt; Model fingerprint: 0x68301a72
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -340,7 +340,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   RHS range        [1e+00, 8e+02]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 0 rows and 67 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
 #&gt; Variable types: 0 continuous, 218 integer (218 binary)
 #&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
@@ -383,7 +383,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   Cover: 2
 #&gt;   MIR: 11
 #&gt; 
-#&gt; Explored 1 nodes (244 simplex iterations) in 0.17 seconds
+#&gt; Explored 1 nodes (244 simplex iterations) in 0.09 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 6: 7.99986 6.99986 6.99986 ... -0
@@ -398,9 +398,9 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_binary_features_zones</span>) <span class='kw'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>400</span>, <span class='fl'>400</span>, <span class='fl'>400</span>)) <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 108 rows, 285 columns and 1478 nonzeros
 #&gt; Model fingerprint: 0xbd8c0c6e
 #&gt; Variable types: 0 continuous, 285 integer (285 binary)
@@ -436,7 +436,7 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 #&gt;   MIR: 2
 #&gt;   StrongCG: 2
 #&gt; 
-#&gt; Explored 1 nodes (36 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (36 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 7.99983 6.99983 0.999963 -0 

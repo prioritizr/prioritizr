@@ -20,7 +20,7 @@ NULL
 #' @inherit add_cuts_portfolio seealso return
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # set seed for reproducibility
 #' set.seed(600)
 #'

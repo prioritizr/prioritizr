@@ -67,7 +67,7 @@ NULL
 #'       add_min_shortfall_objective(1800) %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -83,7 +83,7 @@ NULL
 #'       add_min_shortfall_objective(3000) %>%
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
 #'
@@ -97,7 +97,7 @@ NULL
 #'       add_min_shortfall_objective(c(3000, 3000, 3000)) %>%
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
 #'

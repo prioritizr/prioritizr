@@ -54,7 +54,7 @@ p1 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 # to mandate that every planning unit in the solution is assigned to
 # zone
 p2 <- p1 \%>\% add_mandatory_allocation_constraints()
-\donttest{
+\dontrun{
 # solve problems
 s1 <- solve(p1)
 s2 <- solve(p2)

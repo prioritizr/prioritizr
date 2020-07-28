@@ -19,7 +19,7 @@ NULL
 #' @return Invisible `TRUE` indicating success.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Let us imagine a scenario where we wanted to understand the effect of
 #' # setting different targets on our solution.
 #'

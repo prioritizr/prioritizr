@@ -95,7 +95,7 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'

@@ -26,7 +26,7 @@ NULL
 #'   [simulate_cost()], [simulate_species()].
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1
@@ -78,7 +78,7 @@ simulate_data <- function(x, n, model, transform = identity, ...) {
 #' @seealso [simulate_data()].
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1
@@ -108,7 +108,7 @@ simulate_species <- function(x, n=1, model=RandomFields::RMgauss(),
 #' @seealso [simulate_data()].
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # create raster
 #' r <- raster(ncol=10, nrow=10, xmn=0, xmx=1, ymn=0, ymx=1)
 #' values(r) <- 1

@@ -103,7 +103,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -346,12 +346,12 @@ at all.</p>
 <span class='co'># run presolve checks</span>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some numerical instability issues when trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># let's forcibly solve the problem using Gurobi and tell it to</span>
 <span class='co'># be extra careful about numerical instability problems</span>
 <span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
       <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>numeric_focus</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
 #&gt; Model fingerprint: 0xaaf590f0
 #&gt; Variable types: 0 continuous, 378 integer (378 binary)

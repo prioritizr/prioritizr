@@ -17,6 +17,7 @@ check.log
 test.log
 gp.log
 spell.log
+examples.log
 README.Rmd
 inst/WORDLIST
 ^_pkgdown\.yml$

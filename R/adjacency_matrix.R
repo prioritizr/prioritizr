@@ -71,7 +71,7 @@ NULL
 #' am_lns <- adjacency_matrix(lns)
 #'
 #' # plot data and the adjacency matrices
-#' \donttest{
+#' \dontrun{
 #' par(mfrow = c(4,2))
 #'
 #' ## plot raster and adjacency matrix

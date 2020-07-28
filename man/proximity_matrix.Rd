@@ -86,7 +86,7 @@ pts <- sim_pu_points[c(1:2, 10:12, 20:22), ]
 cm_pts <- proximity_matrix(pts, distance = 2)
 
 # plot data and the proximity matrices
-\donttest{
+\dontrun{
 par(mfrow = c(4,2))
 
 ## plot raster and proximity matrix

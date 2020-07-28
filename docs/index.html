@@ -49,7 +49,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -140,11 +140,11 @@
 <a href="#citation" class="anchor"></a>Citation</h2>
 <p>Please cite the <em>prioritizr R</em> package when using it in publications. To cite the latest official version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="uri">https://CRAN.R-project.org/package=prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.2. Available at <a href="https://CRAN.R-project.org/package=prioritizr" class="uri">https://CRAN.R-project.org/package=prioritizr</a>.</p>
 </blockquote>
 <p>Alternatively, to cite the latest development version, please use:</p>
 <blockquote>
-<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.1.7. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
+<p>Hanson JO, Schuster R, Morrell N, Strimas-Mackey M, Watts ME, Arcese P, Bennett J, Possingham HP (2020). prioritizr: Systematic Conservation Prioritization in R. R package version 5.0.2. Available at <a href="https://github.com/prioritizr/prioritizr" class="uri">https://github.com/prioritizr/prioritizr</a>.</p>
 </blockquote>
 <p>Additionally, we keep a <a href="https://prioritizr.net/articles/publication_record.html">record of publications</a> that use the <em>prioritizr R</em> package. If you use this package in any reports or publications, please <a href="https://github.com/prioritizr/prioritizr/issues/new">file an issue on GitHub</a> so we can add it to the record.</p>
 </div>
@@ -196,7 +196,7 @@
 <p>After we have built a <a href="https://prioritizr.net/reference/problem.html"><code>problem</code></a>, we can solve it to obtain a solution. Since we have not specified the method used to solve the problem, <em>prioritizr</em> will automatically use the best solver currently installed. <strong>It is strongly encouraged to install the <a href="http://gurobi.com">Gurobi software suite and the <em>gurobi</em> <em>R</em> package to solve problems quickly</a>, for more information on this please refer to the <a href="https://prioritizr.net/articles/gurobi_installation.html">Gurobi Installation Guide</a></strong></p>
 <div class="sourceCode"><pre class="r"><span class="co"># solve the problem</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span>(<span class="no">p1</span>)</pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x8f50132f
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -283,8 +283,7 @@
 ##      0     0 2614.32230    0   13 2747.37746 2614.32230  4.84%     -    0s
 ##      0     0 2614.32331    0   13 2747.37746 2614.32331  4.84%     -    0s
 ##      0     2 2614.33358    0   13 2747.37746 2614.33358  4.84%     -    0s
-## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    1s
-##  28216  1360 2625.60281   52    4 2627.63893 2624.29514  0.13%   2.7    5s
+## H 7050   989                    2627.6389306 2618.95150  0.33%   1.8    0s
 ## 
 ## Cutting planes:
 ##   Gomory: 5
@@ -293,7 +292,7 @@
 ##   StrongCG: 25
 ##   Flow cover: 2
 ## 
-## Explored 31196 nodes (83170 simplex iterations) in 5.35 seconds
+## Explored 31196 nodes (83170 simplex iterations) in 2.60 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -307,7 +306,7 @@
 <div class="sourceCode"><pre class="r"><span class="co"># extract time spent solving the problem</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"runtime"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
-##   5.352613</code></pre></div>
+##   2.596609</code></pre></div>
 <div class="sourceCode"><pre class="r"><span class="co"># extract state message from the solver</span>
 <span class="fu"><a href="reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span>(<span class="no">s1</span>, <span class="st">"status"</span>))</pre></div>
 <div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## solution_1 
@@ -324,7 +323,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span>(<span class="no">p2</span>)</pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0xb2af8965
 ## Variable types: 0 continuous, 90 integer (90 binary)
@@ -409,7 +408,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="no">s3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span>(<span class="no">p3</span>)</pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 ## Model fingerprint: 0x517c913c
 ## Variable types: 0 continuous, 234 integer (234 binary)
@@ -448,7 +447,7 @@
 ## Cutting planes:
 ##   GUB cover: 2
 ## 
-## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -467,7 +466,7 @@
 
 <span class="co"># solve the problem</span>
 <span class="no">s4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/solve.html">solve</a></span>(<span class="no">p4</span>)</pre></div>
-<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<div class="sourceCode"><pre class="sourceCode R"><code class="sourceCode r">## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 654 rows, 506 columns and 2292 nonzeros
 ## Model fingerprint: 0x1ced3129
 ## Variable types: 0 continuous, 506 integer (506 binary)
@@ -503,7 +502,7 @@
 ##   Zero half: 8
 ##   RLT: 6
 ## 
-## Explored 1 nodes (241 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (241 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 4: 5858.42 5859.85 6070.21 7270.12 

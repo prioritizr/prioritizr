@@ -100,7 +100,7 @@ add_locked_out_constraints() functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -261,9 +261,9 @@ containing proportion-type decision variables (using the
                           <span class='kw'>status</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_manual_locked_constraints</span>(<span class='no'>locked_data</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x8a299781
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -293,7 +293,7 @@ containing proportion-type decision variables (using the
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -324,7 +324,7 @@ containing proportion-type decision variables (using the
 #&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -393,9 +393,9 @@ containing proportion-type decision variables (using the
 #&gt; 7  9 zone_3      0</div><div class='input'>
 <span class='co'># create problem with added constraints</span>
 <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p4</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_manual_locked_constraints</span>(<span class='no'>locked_data2</span>)
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xf54fe7c9
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -406,7 +406,7 @@ containing proportion-type decision variables (using the
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 11123.160980
 #&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
@@ -426,7 +426,7 @@ containing proportion-type decision variables (using the
 #&gt; Solution count 2: 10160.2 11123.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x0cf976a6
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -437,7 +437,7 @@ containing proportion-type decision variables (using the
 #&gt;   RHS range        [1e+00, 1e+01]
 #&gt; Found heuristic solution: objective 10775.471081
 #&gt; Presolve removed 9 rows and 17 columns
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 96 rows, 253 columns, 1182 nonzeros
 #&gt; Variable types: 0 continuous, 253 integer (253 binary)
 #&gt; Presolved: 96 rows, 253 columns, 1182 nonzeros

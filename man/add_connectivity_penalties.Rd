@@ -177,7 +177,7 @@ b_matrix <- boundary_matrix(sim_pu_polygons)
 b_matrix[] <- rescale(b_matrix[])
 
 # visualize connectivity matrix
-\donttest{
+\dontrun{
 image(b_matrix)
 }
 # create a symmetric connectivity matrix where the connectivity between
@@ -194,7 +194,7 @@ d_matrix[] <- rescale(d_matrix[])
 d_matrix[d_matrix < 0.7] <- 0
 
 # visualize connectivity matrix
-\donttest{
+\dontrun{
 image(d_matrix)
 }
 # create a symmetric connectivity matrix where the connectivity
@@ -210,7 +210,7 @@ c_matrix <- connectivity_matrix(sim_pu_polygons, "cost")
 c_matrix[] <- rescale(c_matrix[])
 
 # visualize connectivity matrix
-\donttest{
+\dontrun{
 image(c_matrix)
 }
 # create an asymmetric connectivity matrix. Here, connectivity occurs between
@@ -243,7 +243,7 @@ for (i in seq_len(length(sim_pu_polygons))) {
 ac_matrix[] <- rescale(ac_matrix[])
 
 # visualize asymmetric connectivity matrix
-\donttest{
+\dontrun{
 image(ac_matrix)
 }
 # create penalties
@@ -266,7 +266,7 @@ names(p2) <- c("basic problem",
                paste0("d_matrix (", penalties,")"),
                paste0("c_matrix (", penalties,")"),
                paste0("ac_matrix (", penalties,")"))
-\donttest{
+\dontrun{
 # solve problems
 s2 <- lapply(p2, solve)
 
@@ -290,7 +290,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
 a_matrix <- adjacency_matrix(sim_pu_zones_stack)
 
 # visualize matrix
-\donttest{
+\dontrun{
 image(a_matrix)
 }
 # create a zone matrix where connectivities are only present between
@@ -367,7 +367,7 @@ p4 <- list(
 names(p4) <- c("basic problem",
                paste0("zm", rep(seq_len(5), each = 2), " (",
                       rep(penalties2, 2), ")"))
-\donttest{
+\dontrun{
 # solve problems
 s4 <- lapply(p4, solve)
 s4 <- lapply(s4, category_layer)
@@ -397,7 +397,7 @@ p5 <- list(p3,
 
 # assign names to the problems
 names(p5) <- c("basic problem", "connectivity array")
-\donttest{
+\dontrun{
 # solve problems
 s5 <- lapply(p5, solve)
 s5 <- lapply(s5, category_layer)

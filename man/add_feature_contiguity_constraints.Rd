@@ -163,7 +163,7 @@ cm4 <- lapply(seq_len(nlayers(sim_features)), function(i) {
   m
 })
 p4 <- p1 \%>\% add_feature_contiguity_constraints(data = cm4)
-\donttest{
+\dontrun{
 # solve problems
 s1 <- stack(solve(p1), solve(p2), solve(p3), solve(p4))
 
@@ -204,7 +204,7 @@ zm8 <- lapply(seq_len(number_of_features(sim_features_zones)), function(i)
   matrix(ifelse(i == 1, 1, 0), ncol = 3, nrow = 3))
 print(zm8)
 p8 <- p5 \%>\% add_feature_contiguity_constraints(zm8)
-\donttest{
+\dontrun{
 # solve problems
 s2 <- lapply(list(p5, p6, p7, p8), solve)
 s2 <- stack(lapply(s2, category_layer))

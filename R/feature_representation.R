@@ -116,7 +116,7 @@ NULL
 #'                               sum(pu$spp1),
 #'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
 #'                               sum(pu$spp2, na.rm = TRUE)))
-#' \donttest{
+#' \dontrun{
 #' # solve the problem using an exact algorithm solver
 #' s1_2 <- solve(p1)
 #' print(s1_2)
@@ -149,7 +149,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve the problem
 #' s3 <- solve(p3)
 #'
@@ -169,7 +169,7 @@ NULL
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve the problem
 #' s4 <- solve(p4)
 #'
@@ -191,7 +191,7 @@ NULL
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve the problem
 #' s5 <- solve(p5)
 #'

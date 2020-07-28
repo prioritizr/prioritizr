@@ -100,7 +100,7 @@ add_min_set_objective())." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
       </span>
     </div>
 
@@ -255,9 +255,9 @@ planning units based on a certain variable
 <span class='co'># create problem with linear penalties, with a penalty scaling factor of 100</span>
 <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_linear_penalties.html'>add_linear_penalties</a></span>(<span class='fl'>100</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sim_penalty_raster</span>)
 
-<span class='co'># \donttest{</span>
+<span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -288,7 +288,7 @@ planning units based on a certain variable
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 293 rows, 234 columns and 1026 nonzeros
 #&gt; Model fingerprint: 0x0a271d91
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
@@ -313,14 +313,14 @@ planning units based on a certain variable
 #&gt;      0     0 3919.30612    0   11 4562.48505 3919.30612  14.1%     -    0s
 #&gt; H    0     0                    4032.6556974 3919.30612  2.81%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (95 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (95 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4032.66 4562.49 18523.2 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.032655697444e+03, best bound 3.919306123567e+03, gap 2.8108%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 25 rows, 100 columns and 490 nonzeros
 #&gt; Model fingerprint: 0xa96ed2fb
 #&gt; Variable types: 0 continuous, 100 integer (100 binary)
@@ -350,7 +350,7 @@ planning units based on a certain variable
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.646629272370e+03, best bound 3.295277619827e+03, gap 9.6350%
-#&gt; Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (linux64)
+#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xfe6b9aff
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)

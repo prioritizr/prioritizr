@@ -91,7 +91,7 @@ NULL
 #'      add_min_set_objective() %>%
 #'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
 #'      add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s <- solve(p)
 #'

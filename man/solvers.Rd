@@ -45,7 +45,7 @@ Max OSX systems than the \pkg{Rsymphony} package.}
 }
 }
 \examples{
-\donttest{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features)
 

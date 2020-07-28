@@ -69,7 +69,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -83,7 +83,7 @@ NULL
 #'                                     type = "relative", sense = ">=",
 #'                                     target = 0.1)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
 #'
@@ -97,7 +97,7 @@ NULL
 #'         feature = names(sim_features)[1:3], type = "relative",
 #'         sense = ">=", target = 0.1)) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
 #'
@@ -114,7 +114,7 @@ NULL
 #'         feature = names(sim_features)[1:2], type = "relative",
 #'         sense = c(">=", "<="), target = c(0.1, 0.2))) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s4 <- solve(p4)
 #'
@@ -129,7 +129,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets_matrix) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s5 <- solve(p5)
 #'
@@ -146,7 +146,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_manual_targets(targets_dataframe) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s6 <- solve(p6)
 #'
@@ -179,7 +179,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_manual_targets(targets_dataframe2) %>%
 #'       add_binary_decisions()
-#' \donttest{
+#' \dontrun{
 #' # solve problem
 #' s7 <- solve(p7)
 #'

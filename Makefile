@@ -49,7 +49,7 @@ site:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::clean_site()"
-	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
+	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
 	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
@@ -94,4 +94,8 @@ build:
 install:
 	R --slave -e "devtools::install_local('../prioritizr')"
 
-.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck
+examples:
+	R --slave -e "devtools::run_examples(test = TRUE, run = TRUE);warnings()"  >> examples.log
+	rm -f Rplots.pdf
+
+.PHONY: initc clean data docs readme contrib site test check checkwb build install man spellcheck examples

@@ -55,7 +55,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
       add_default_solver(gap = 0.2, verbose = FALSE)
 
-\donttest{
+\dontrun{
 # solve problem and generate 10 solutions within 20 \% of optimality
 s1 <- solve(p1)
 
@@ -71,7 +71,7 @@ p2 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_shuffle_portfolio(10, remove_duplicates = FALSE) \%>\%
       add_default_solver(gap = 0.2, verbose = FALSE)
 
-\donttest{
+\dontrun{
 # solve the problem
 s2 <- solve(p2)
 
