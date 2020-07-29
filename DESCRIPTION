@@ -58,6 +58,7 @@ Suggests:
     maptools,
     PBSmapping,
     gurobi,
+    utf8,
     lpsymphony,
     Rsymphony,
     rmarkdown,
