@@ -168,9 +168,9 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">tas_features</span>)</pre></body></html></div>
 <pre><code>## class      : RasterStack 
-## dimensions : 391, 371, 145061, 62  (nrow, ncol, ncell, nlayers)
-## resolution : 967, 1020  (x, y)
-## extent     : 288966.7, 647723.7, 5142256, 5541076  (xmin, xmax, ymin, ymax)
+## dimensions : 398, 359, 142882, 62  (nrow, ncol, ncell, nlayers)
+## resolution : 1000, 1000  (x, y)
+## extent     : 288801.7, 647801.7, 5142976, 5540976  (xmin, xmax, ymin, ymax)
 ## crs        : +proj=utm +zone=55 +south +datum=WGS84 +units=m +no_defs +ellps=WGS84 +towgs84=0,0,0 
 ## names      : tas_features.1, tas_features.2, tas_features.3, tas_features.4, tas_features.5, tas_features.6, tas_features.7, tas_features.8, tas_features.9, tas_features.10, tas_features.11, tas_features.12, tas_features.13, tas_features.14, tas_features.15, ... 
 ## min values :              0,              0,              0,              0,              0,              0,              0,              0,              0,               0,               0,               0,               0,               0,               0, ... 
@@ -221,13 +221,13 @@
 
 <span class="co"># print first six rows</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">puvspr_data</span>)</pre></body></html></div>
-<pre><code>##   pu species     amount
-## 1  3      54  1.0000000
-## 2  3      59 10.7008477
-## 3  5      30  1.0000000
-## 4  6      27  1.0000000
-## 5  6      35  1.0000000
-## 6  7      12  0.6817854</code></pre>
+<pre><code>##   pu species       amount
+## 1  3      54 1.000000e+00
+## 2  3      59 1.165971e+01
+## 3  5      30 1.000000e+00
+## 4  6      27 1.000000e+00
+## 5  6      35 1.000000e+00
+## 6  6      59 3.635182e-05</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># create table with the boundary data</span>
 <span class="no">bound_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/boundary_matrix.html">boundary_matrix</a></span>(<span class="no">tas_pu</span>)
 <span class="no">bound_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/as.html">as</a></span>(<span class="no">bound_data</span>, <span class="st">"dgTMatrix"</span>)
@@ -264,38 +264,38 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p1</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-## Optimize a model with 6358 rows, 4278 columns and 14512 nonzeros
-## Model fingerprint: 0xbe066741
+## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
+## Model fingerprint: 0x2dc24aac
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [3e-06, 4e+01]
+##   Matrix range     [2e-06, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e-01, 2e+02]
+##   RHS range        [1e-01, 1e+02]
 ## Found heuristic solution: objective 30263.129158
-## Found heuristic solution: objective 12395.200245
-## Presolve removed 1774 rows and 1155 columns
+## Found heuristic solution: objective 12512.071934
+## Presolve removed 1793 rows and 1168 columns
 ## Presolve time: 0.03s
-## Presolved: 4584 rows, 3123 columns, 10228 nonzeros
-## Found heuristic solution: objective 11532.714626
-## Variable types: 0 continuous, 3123 integer (3123 binary)
-## Presolved: 4584 rows, 3123 columns, 10228 nonzeros
+## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
+## Found heuristic solution: objective 11803.383927
+## Variable types: 0 continuous, 3110 integer (3110 binary)
+## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.062748e+04, 854 iterations, 0.05 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10627.4845    0  153 11532.7146 10627.4845  7.85%     -    0s
+##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (854 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 11532.7 12395.2 30263.1 
+## Solution count 3: 11803.4 12512.1 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.153271462580e+04, best bound 1.062748454777e+04, gap 7.8492%</code></pre>
+## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># print first six rows of solution object</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">s1</span>)</pre></body></html></div>
 <pre><code>##   id     cost status locked_in locked_out solution_1
@@ -307,26 +307,26 @@
 ## 5  6 51.26218      0     FALSE      FALSE          0</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># count number of planning units in solution</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span>(<span class="no">s1</span>$<span class="no">solution_1</span>)</pre></body></html></div>
-<pre><code>## [1] 322</code></pre>
+<pre><code>## [1] 326</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># proportion of planning units in solution</span>
 <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span>(<span class="no">s1</span>$<span class="no">solution_1</span>)</pre></body></html></div>
-<pre><code>## [1] 0.2849558</code></pre>
+<pre><code>## [1] 0.2884956</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
 <span class="no">r1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p1</span>, <span class="no">s1</span>[, <span class="st">"solution_1"</span>, <span class="kw">drop</span> <span class="kw">=</span> <span class="fl">FALSE</span>])
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r1</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
 ##    &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-##  1 veg1             8.24         0.261
-##  2 veg2            42.0          0.235
-##  3 veg3             5.90         0.252
-##  4 veg4            10.1          0.318
-##  5 veg5             4.54         0.189
-##  6 veg6             7            0.305
-##  7 veg7             3.76         0.202
-##  8 veg8             9.29         0.198
-##  9 veg9            94.5          0.246
-## 10 veg10            5.00         0.357
+##  1 veg1             5.97         0.176
+##  2 veg2            40.7          0.239
+##  3 veg3             6.00         0.250
+##  4 veg4            10.4          0.317
+##  5 veg5             4.51         0.182
+##  6 veg6             4.00         0.182
+##  7 veg7             3.06         0.187
+##  8 veg8             9.12         0.212
+##  9 veg9            95.3          0.245
+## 10 veg10            5.91         0.407
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">SpatialPolygonsDataFrame</span>(<span class="fu"><a href="../reference/as.html">as</a></span>(<span class="no">tas_pu</span>, <span class="st">"SpatialPolygons"</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">s1</span>)
@@ -363,54 +363,54 @@
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
 <span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p2</span>)</pre></body></html></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-## Optimize a model with 6358 rows, 4278 columns and 14512 nonzeros
-## Model fingerprint: 0xbe066741
+## Optimize a model with 6358 rows, 4278 columns and 14496 nonzeros
+## Model fingerprint: 0x2dc24aac
 ## Variable types: 0 continuous, 4278 integer (4278 binary)
 ## Coefficient statistics:
-##   Matrix range     [3e-06, 4e+01]
+##   Matrix range     [2e-06, 4e+01]
 ##   Objective range  [5e-02, 2e+02]
 ##   Bounds range     [1e+00, 1e+00]
-##   RHS range        [3e-01, 2e+02]
+##   RHS range        [1e-01, 1e+02]
 ## Found heuristic solution: objective 30263.129158
-## Found heuristic solution: objective 12395.200245
-## Presolve removed 1774 rows and 1155 columns
+## Found heuristic solution: objective 12512.071934
+## Presolve removed 1793 rows and 1168 columns
 ## Presolve time: 0.03s
-## Presolved: 4584 rows, 3123 columns, 10228 nonzeros
-## Found heuristic solution: objective 11532.714626
-## Variable types: 0 continuous, 3123 integer (3123 binary)
-## Presolved: 4584 rows, 3123 columns, 10228 nonzeros
+## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
+## Found heuristic solution: objective 11803.383927
+## Variable types: 0 continuous, 3110 integer (3110 binary)
+## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.062748e+04, 854 iterations, 0.04 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.05 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
-##      0     0 10627.4845    0  153 11532.7146 10627.4845  7.85%     -    0s
+##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (854 simplex iterations) in 0.08 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
-## Solution count 3: 11532.7 12395.2 30263.1 
+## Solution count 3: 11803.4 12512.1 30263.1 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
-## Best objective 1.153271462580e+04, best bound 1.062748454777e+04, gap 7.8492%</code></pre>
+## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
 <span class="no">r2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p2</span>, <span class="no">s2</span>[, <span class="st">"solution_1"</span>])
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r2</span>)</pre></body></html></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature         absolute_held relative_held
 ##    &lt;chr&gt;                   &lt;dbl&gt;         &lt;dbl&gt;
-##  1 tas_features.1           8.24         0.261
-##  2 tas_features.2          42.0          0.235
-##  3 tas_features.3           5.90         0.252
-##  4 tas_features.4          10.1          0.318
-##  5 tas_features.5           4.54         0.189
-##  6 tas_features.6           7            0.305
-##  7 tas_features.7           3.76         0.202
-##  8 tas_features.8           9.29         0.198
-##  9 tas_features.9          94.5          0.246
-## 10 tas_features.10          5.00         0.357
+##  1 tas_features.1           5.97         0.176
+##  2 tas_features.2          40.7          0.239
+##  3 tas_features.3           6.00         0.250
+##  4 tas_features.4          10.4          0.317
+##  5 tas_features.5           4.51         0.182
+##  6 tas_features.6           4.00         0.182
+##  7 tas_features.7           3.06         0.187
+##  8 tas_features.8           9.12         0.212
+##  9 tas_features.9          95.3          0.245
+## 10 tas_features.10          5.91         0.407
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="co"># visualize solution</span>
 <span class="no">s2</span>$<span class="no">solution_1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">s2</span>$<span class="no">solution_1</span>)

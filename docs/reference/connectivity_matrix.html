@@ -345,7 +345,7 @@ values are set to zero too.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'>### define helper function</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>scales</span>) <span class='co'># load scales library for rescale</span>
-<span class='no'>rescale_matrix</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/rescale.html'>rescale</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.01</span>, <span class='fl'>1</span>)); <span class='no'>x</span>}
+<span class='no'>rescale_matrix</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/scales/man/rescale.html'>rescale</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.01</span>, <span class='fl'>1</span>)); <span class='no'>x</span>}
 
 <span class='co'>### calculate functional connectivity matrix using the weighted sum of</span>
 <span class='co'>### connectivity values that have been normalized by linearly re-scaling</span>

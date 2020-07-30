@@ -73,6 +73,9 @@ check:
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
+purl_vigns:
+	R --slave -e "lapply(dir('vignettes', '^.*\\\\.Rmd$$'), function(x) knitr::purl(file.path('vignettes', x), gsub('.Rmd', '.R', x, fixed = TRUE)))"
+
 wbcheck:
 	R --slave -e "devtools::check_win_devel()"
 	cp -R doc inst/
