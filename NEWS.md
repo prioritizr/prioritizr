@@ -1,3 +1,10 @@
+# prioritizr 5.0.2.1
+
+- Update documentation for `ferrier_score` function. It no longer incorrectly
+  states that these scores can be calculated using CLUZ and now states
+  that this functionality is experimental until the formulation can be double
+  checked.
+
 # prioritizr 5.0.2 (released)
 
 - Release candidate for CRAN.

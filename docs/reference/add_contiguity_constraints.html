@@ -98,7 +98,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.1</span>
       </span>
     </div>
 
@@ -365,7 +365,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.15 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -485,24 +485,24 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
 #&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    1s
 #&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    1s
-#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    3s
-#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    4s
-#&gt;    740   333 12862.8703   39  230 14086.8118 12109.8197  14.0%  79.8    5s
-#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    5s
-#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    8s
-#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    8s
+#&gt;    553   320 13792.2651   28  163 14248.7319 12109.8197  15.0%  73.7    5s
+#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    5s
+#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    5s
+#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    6s
+#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    9s
+#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    9s
 #&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5    9s
-#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4    9s
-#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0    9s
-#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6    9s
-#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6    9s
-#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5    9s
-#&gt;   1350   451 12584.9367   25  209 13943.7972 12112.9795  13.1%  74.9   10s
+#&gt;   1295   430 12196.8548   26  256 14071.9094 12112.8311  13.9%  75.6   10s
+#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4   10s
+#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0   10s
+#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6   10s
+#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6   10s
+#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5   10s
 #&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7   10s
 #&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2   10s
-#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   10s
-#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   11s
-#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   13s
+#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1   11s
+#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8   12s
+#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5   14s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 7
@@ -510,7 +510,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 10
 #&gt;   Zero half: 22
 #&gt; 
-#&gt; Explored 1979 nodes (146817 simplex iterations) in 13.76 seconds
+#&gt; Explored 1979 nodes (146817 simplex iterations) in 14.72 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
@@ -527,13 +527,13 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.04s
+#&gt; Presolve time: 0.07s
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; Variable types: 0 continuous, 518 integer (518 binary)
 #&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 467 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.204897e+04, 467 iterations, 0.02 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -556,7 +556,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Clique: 3
 #&gt;   Zero half: 7
 #&gt; 
-#&gt; Explored 86 nodes (3062 simplex iterations) in 0.58 seconds
+#&gt; Explored 86 nodes (3062 simplex iterations) in 0.50 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 13139.1 14094.9 14104.6 
@@ -573,7 +573,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.07s
+#&gt; Presolve time: 0.08s
 #&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
 #&gt; Variable types: 0 continuous, 777 integer (777 binary)
 #&gt; Presolve removed 122 rows and 0 columns
@@ -608,7 +608,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Inf proof: 2
 #&gt;   Zero half: 5
 #&gt; 
-#&gt; Explored 142 nodes (12037 simplex iterations) in 1.08 seconds
+#&gt; Explored 142 nodes (12037 simplex iterations) in 1.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
@@ -689,14 +689,14 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.18s
+#&gt; Presolve time: 0.09s
 #&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
 #&gt; Variable types: 0 continuous, 575 integer (575 binary)
 #&gt; Presolve removed 128 rows and 0 columns
 #&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -704,7 +704,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 #&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
 #&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.20 seconds
+#&gt; Explored 1 nodes (302 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 4021.31 

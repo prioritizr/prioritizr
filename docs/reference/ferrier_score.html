@@ -55,14 +55,15 @@
 <meta property="og:title" content="Ferrier irreplaceability score — ferrier_score" />
 <meta property="og:description" content="Calculate irreplaceability scores for planning units selected in
 a solution using the method outlined in Ferrier et al. (2000).
-Specifically, the scores are implemented following the CLUZ decision support
-tool (Smith 2019).
 Here, scores are calculated separately for each feature within
 each planning unit. Additionally, a total irreplaceability score is also
 calculated as the sum of the irreplaceability scores for each planning unit.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
-It will throw an error for other types of problems." />
+It will throw an error for other types of problems. Please note that
+the mathematical formulation for computing these scores needs to be double
+checked by an expert, and so this functionality should be considered
+experimental at this point in time." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -105,7 +106,7 @@ It will throw an error for other types of problems." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.1</span>
       </span>
     </div>
 
@@ -185,14 +186,15 @@ It will throw an error for other types of problems." />
     <div class="ref-description">
     <p>Calculate irreplaceability scores for planning units selected in
 a solution using the method outlined in Ferrier <em>et al.</em> (2000).
-Specifically, the scores are implemented following the CLUZ decision support
-tool (Smith 2019).
 Here, scores are calculated separately for each feature within
 each planning unit. Additionally, a total irreplaceability score is also
 calculated as the sum of the irreplaceability scores for each planning unit.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
-It will throw an error for other types of problems.</p>
+It will throw an error for other types of problems. <strong>Please note that
+the mathematical formulation for computing these scores needs to be double
+checked by an expert, and so this functionality should be considered
+experimental at this point in time.</strong></p>
     </div>
 
     <pre class="usage"><span class='fu'>ferrier_score</span>(<span class='no'>x</span>, <span class='no'>solution</span>)
@@ -264,9 +266,6 @@ If an argument is supplied to
 irreplaceability of areas for achieving a conservation goal, its application
 to real-world planning, and a research agenda for further refinement.
 <em>Biological Conservation</em>, 93: 303--325.</p>
-<p>Smith RJ (2019). The CLUZ plugin for QGIS: designing conservation area
-systems and other ecological networks. <em>Research Ideas and Outcomes</em>
-5: e33510.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='irreplaceability.html'>irreplaceability</a>.</p></div>

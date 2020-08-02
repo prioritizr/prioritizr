@@ -37,14 +37,15 @@ planning unit selected in the solution.
 \description{
 Calculate irreplaceability scores for planning units selected in
 a solution using the method outlined in Ferrier \emph{et al.} (2000).
-Specifically, the scores are implemented following the CLUZ decision support
-tool (Smith 2019).
 Here, scores are calculated separately for each feature within
 each planning unit. Additionally, a total irreplaceability score is also
 calculated as the sum of the irreplaceability scores for each planning unit.
 Note that this function only works for problems with
 a minimum set objective and a single zone.
-It will throw an error for other types of problems.
+It will throw an error for other types of problems. \strong{Please note that
+the mathematical formulation for computing these scores needs to be double
+checked by an expert, and so this functionality should be considered
+experimental at this point in time.}
 }
 \details{
 The argument to \code{solution} must correspond
@@ -113,10 +114,6 @@ Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
 irreplaceability of areas for achieving a conservation goal, its application
 to real-world planning, and a research agenda for further refinement.
 \emph{Biological Conservation}, 93: 303--325.
-
-Smith RJ (2019). The CLUZ plugin for QGIS: designing conservation area
-systems and other ecological networks. \emph{Research Ideas and Outcomes}
-5: e33510.
 }
 \seealso{
 \link{irreplaceability}.
