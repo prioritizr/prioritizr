@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.1</span>
       </span>
     </div>
 
@@ -359,7 +359,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <span class='co'># print attributes describing the optimization process and the solution</span>
 <span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"objective"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;   1987.399 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"runtime"</span>))</div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001804113 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
+#&gt; 0.001911163 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>s1</span>, <span class='st'>"status"</span>))</div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
@@ -463,7 +463,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
 #&gt; H    0     0                    1792.5345202 1732.56396  3.35%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (12 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 1792.53 2145.27 
@@ -515,7 +515,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 12614.662551
 #&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
 #&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
@@ -602,7 +602,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
 #&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9015.02 10229.6 
