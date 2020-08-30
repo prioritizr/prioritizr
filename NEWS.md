@@ -1,3 +1,7 @@
+# prioritizr 5.0.2.2
+
+- Update publication record vignette.
+
 # prioritizr 5.0.2.1
 
 - Update documentation for `ferrier_score` function. It no longer incorrectly
