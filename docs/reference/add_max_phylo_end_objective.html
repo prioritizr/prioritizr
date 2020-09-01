@@ -103,7 +103,7 @@ Rodrigues et al. (2002), and Rosauer et al. (2009)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.3</span>
       </span>
     </div>
 
@@ -362,7 +362,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   StrongCG: 1
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 6 nodes (115 simplex iterations) in 0.03 seconds
+#&gt; Explored 6 nodes (115 simplex iterations) in 0.02 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 136.238 -0 
@@ -395,7 +395,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 <span class='co'># create targets for a multi-zone problem. Here, each feature needs a total</span>
 <span class='co'># of 10 units of habitat to be conserved among the three zones to be</span>
 <span class='co'># considered adequately conserved</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
+<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tibble/man/tibble.html'>tibble</a></span>(
   <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
   <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>))[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,
           <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>))],

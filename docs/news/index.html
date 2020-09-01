@@ -95,7 +95,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.3</span>
       </span>
     </div>
 
@@ -171,6 +171,14 @@
       <small>Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="prioritizr-5-0-2-3" class="section level1">
+<h1 class="page-header" data-toc-text="5.0.2.3">
+<a href="#prioritizr-5-0-2-3" class="anchor"></a>prioritizr 5.0.2.3<small> Unreleased </small>
+</h1>
+<ul>
+<li>Update publication record vignette.</li>
+</ul>
+</div>
     <div id="prioritizr-5-0-2-2" class="section level1">
 <h1 class="page-header" data-toc-text="5.0.2.2">
 <a href="#prioritizr-5-0-2-2" class="anchor"></a>prioritizr 5.0.2.2<small> Unreleased </small>
@@ -545,7 +553,7 @@
 <li>New <code>presolve_check</code> function to investigate potential sources of numerical instability before trying to solve a problem. The manual entry for this function discusses common sources of numerical instability and approaches for fixing them.</li>
 <li>The <code>solve</code> function will now use the <code>presolve_check</code> function to verify that problems do not have obvious sources of numerical instability before trying to solve them. If a problem is likely to have numerical instability issues then this function will now throw an error (unless the <code><a href="../reference/solve.html">solve(x, force = TRUE)</a></code>).</li>
 <li>The <code>add_rsymphony_solver</code> function now uses sparse matrix formats so that attempts can be made to solve large problems with SYMPHONY—though it is unlikely that <em>SYMPHONY</em> will be able to solve such problems in a feasible period of time.</li>
-<li>Fix warnings thrown by the <em>tibble R</em> package when calling <code><a href="https://tibble.tidyverse.org/reference/deprecated.html">tibble::as.tibble</a></code> instead of <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">tibble::as_tibble</a></code>.</li>
+<li>Fix warnings thrown by the <em>tibble R</em> package when calling <code><a href="https://rdrr.io/pkg/tibble/man/deprecated.html">tibble::as.tibble</a></code> instead of <code><a href="https://rdrr.io/pkg/tibble/man/as_tibble.html">tibble::as_tibble</a></code>.</li>
 <li>Add example for calculating feature representation a solution in tabular format output by <code>solve</code> (<a href='https://github.com/prioritizr/prioritizr/issues/110'>#110</a>).</li>
 <li>Fix several typos in documentation.</li>
 <li>Thrown warnings are now immediately visible.</li>
