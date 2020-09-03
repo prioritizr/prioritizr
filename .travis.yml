@@ -54,12 +54,12 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install gcc-snapshot; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev curl qpdf coinor-libcgl-dev coinor-libclp-dev coinor-libcoinutils-dev coinor-libosi-dev coinor-libsymphony-dev coinor-libsymphony3 build-essential g++-8 gcc-8 gfortran-8; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "install.packages(c('sp', 'devtools'))"; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install udunits; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install basictex; fi;
-  - travis_wait 120 if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr update --self; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install titling framed inconsolata; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install udunits || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install basictex || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then travis_wait 120 sudo tlmgr update --self || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install titling framed inconsolata || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
 
 install:
