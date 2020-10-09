@@ -59,7 +59,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install udunits || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew cask install basictex || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then travis_wait 120 sudo tlmgr update --self || echo "fail"; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo tlmgr install titling framed inconsolata || echo "fail"; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then travis_wait 120 sudo tlmgr install titling framed inconsolata || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then Rscript -e "setRepositories(ind=1:2);install.packages(c('rgdal','rgeos','RandomFieldsUtils','RandomFields'))"; fi;
 
 install:
