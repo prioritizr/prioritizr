@@ -101,7 +101,7 @@ Marxan)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
       </span>
     </div>
 
@@ -224,7 +224,9 @@ be solved using the <em>Gurobi</em> software suite (i.e. using
 of the <span class="pkg">gurobi</span> package must be installed.
 Note that the number of solutions returned may be less than the argument to
 <code>number_solutions</code>, if the total number of solutions that
-meet the optimality gap is less than the number of solutions requested.</p>
+meet the optimality gap is less than the number of solutions requested.
+Also, note that this portfolio function only works with problems
+that have binary decisions (i.e. specified using <code><a href='add_binary_decisions.html'>add_binary_decisions()</a></code>).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='portfolios.html'>portfolios</a>.</p></div>

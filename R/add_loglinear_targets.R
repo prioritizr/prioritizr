@@ -64,7 +64,7 @@ NULL
 #'   single zone.
 #'
 #' @section Notes:
-#' Early versions (< 5.0.0) used different equations for calculating
+#' Early versions (< 5.0.2.4) used different equations for calculating
 #' targets.
 #'
 #' @inherit add_relative_targets return
@@ -98,6 +98,7 @@ NULL
 #' # plot solution
 #' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
+#'
 #' @name add_loglinear_targets
 #'
 #' @docType methods

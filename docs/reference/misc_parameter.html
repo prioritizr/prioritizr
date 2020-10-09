@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
       </span>
     </div>
 
@@ -217,7 +217,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>misc_parameter</span>(<span class='st'>"tbl"</span>, <span class='no'>iris</span>,
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>TRUE</span>,
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x1e5fbad8&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x7cc1b320&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -370,7 +370,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: b792bffc-1790-4491-a374-00b0d99b1119</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 18ecbab7-9585-4283-8b2f-149421198d08</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>mtcars</span>) <span class='co'># set parameter to mtcars</span>
 <span class='no'>p1</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
 <span class='co'># create table parameter with validation function that requires</span>
 <span class='co'># all values in the first column to be less then 200 and that the</span>
@@ -379,7 +379,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
                      <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>x</span>) <span class='kw'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>iris</span>)) <span class='kw'>&amp;&amp;</span>
                                  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span>(<span class='no'>x</span><span class='kw'>[[</span><span class='fl'>1</span>]] <span class='kw'>&lt;</span> <span class='fl'>200</span>),
                      <span class='kw'>function</span>(<span class='no'>id</span>, <span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='no'>id</span>, <span class='kw'>.Class</span> <span class='kw'>=</span> <span class='st'>"shiny.tag"</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x102755b8&gt;
+<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; &lt;environment: 0x7d4610a0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
@@ -532,7 +532,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 147          6.3         2.5          5.0         1.9  virginica
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
-#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: be82fe58-ec1c-4f8f-8b44-6a27a83bdb4b</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
+#&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 244c90de-587d-4ed0-814a-fc444121d1ec</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>mtcars</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris2</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>iris2</span>) <span class='co'># check if parameter can be updated</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='no'>iris3</span> <span class='kw'>&lt;-</span> <span class='no'>iris</span>; <span class='no'>iris2</span>[<span class='fl'>1</span>,<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris data set</span>
 <span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>iris3</span>) <span class='co'># set parameter to iris3</span>
 <span class='no'>p2</span>$<span class='fu'><a href='print.html'>print</a></span>() <span class='co'># print it again</span></div><div class='output co'>#&gt; [1] "tbl2"</div><div class='input'>

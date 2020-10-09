@@ -1,3 +1,12 @@
+# prioritizr 5.0.2.4
+
+- Update publication record vignette.
+- Update `add_gap_portfolio` documentation to note that it only works for
+  problems with binary decisions (#159).
+- Fix target calculations in `add_loglinear_targets` and
+  `loglinear_interpolation` functions. Previously they used a natural logarithm for log-linear interpolation. To follow target setting approaches outlined by
+  Rodrigues et al. (2004), they now use the decadic logarithm (i.e. `log10`).
+
 # prioritizr 5.0.2.3
 
 - Update publication record vignette.

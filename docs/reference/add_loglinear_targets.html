@@ -101,7 +101,7 @@ in solutions (Butchart et al. 2015)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
       </span>
     </div>
 
@@ -279,7 +279,7 @@ single zone.</p>
 
     
 
-<p>Early versions (&lt; 5.0.0) used different equations for calculating
+<p>Early versions (&lt; 5.0.2.4) used different equations for calculating
 targets.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -308,7 +308,7 @@ and solutions for meeting national and global conservation area targets.
 <span class='co'># solve problem</span>
 <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x72c51dbb
+#&gt; Model fingerprint: 0xc9d8ab8b
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
 #&gt; Coefficient statistics:
 #&gt;   Matrix range     [2e-01, 9e-01]
@@ -340,6 +340,7 @@ and solutions for meeting national and global conservation area targets.
 #&gt; Best objective 1.053171006771e+04, best bound 1.047147921397e+04, gap 0.5719%</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_loglinear_targets-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

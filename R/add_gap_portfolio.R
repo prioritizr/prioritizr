@@ -29,6 +29,8 @@ NULL
 #'   Note that the number of solutions returned may be less than the argument to
 #'   `number_solutions`, if the total number of solutions that
 #'   meet the optimality gap is less than the number of solutions requested.
+#'   Also, note that this portfolio function only works with problems
+#'   that have binary decisions (i.e. specified using [add_binary_decisions()]).
 #'
 #' @inherit add_gap_portfolio details
 #'

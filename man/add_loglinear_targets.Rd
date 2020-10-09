@@ -85,7 +85,7 @@ single zone.
 }
 \section{Notes}{
 
-Early versions (< 5.0.0) used different equations for calculating
+Early versions (< 5.0.2.4) used different equations for calculating
 targets.
 }
 
@@ -105,6 +105,7 @@ s <- solve(p)
 # plot solution
 plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
+
 }
 \references{
 Rodrigues ASL, Akcakaya HR, Andelman SJ, Bakarr MI, Boitani L, Brooks TM,

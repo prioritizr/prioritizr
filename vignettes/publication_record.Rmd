@@ -43,6 +43,10 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 
 ## Review articles
 
+### 2020
+* [Pollock LJ, O'Connor LM, Mokany K, Rosauer DF, Talluto MV, and Thuiller W (2020) Protecting Biodiversity (in all its complexity): New models and methods. _Trends in Ecology & Evolution_, **In press**: https://doi.org/10.1016/j.tree.2020.08.015.](https://doi.org/10.1016/j.tree.2020.08.015)
+
+### 2019
 * [Balbar AC, and Metaxas A (2019) The current application of ecological connectivity in the design of marine protected areas. _Global Ecology and Conservation_, **17**: e00569.](https://doi.org/10.1016/j.gecco.2019.e00569)
 
 ## Book chapters
