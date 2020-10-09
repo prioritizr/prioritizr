@@ -12,28 +12,33 @@ branches:
   only:
   - master
 
-r:
-  - release
-  - devel
-
 r_build_args: --no-build-vignettes
-
-os:
-  - linux
-  - osx
 
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=FALSE
-  matrix:
-    - UBUNTUGIS=stable
-    - UBUNTUGIS=unstable
 
-matrix:
-  exclude:
+jobs:
+  include:
     - os: osx
+      r: release
+      latex: false
+      env: UBUNTUGIS=stable
+    - os: linux
+      r: release
+      latex: true
+      env: UBUNTUGIS=stable
+    - os: linux
       r: devel
-    - os: osx
+      latex: true
+      env: UBUNTUGIS=stable
+    - os: linux
+      r: release
+      latex: true
+      env: UBUNTUGIS=unstable
+    - os: linux
+      r: devel
+      latex: true
       env: UBUNTUGIS=unstable
 
 before_install:
@@ -54,8 +59,7 @@ before_install:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install gcc-snapshot; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev curl qpdf coinor-libcgl-dev coinor-libclp-dev coinor-libcoinutils-dev coinor-libosi-dev coinor-libsymphony-dev coinor-libsymphony3 build-essential g++-8 gcc-8 gfortran-8; fi;
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then Rscript -e "install.packages(c('sp', 'devtools'))"; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then travis_wait 120 sudo tlmgr update --self; fi;
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then travis_wait 120 sudo tlmgr install titling framed inconsolata; fi;
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then sudo Rscript -e "install.packages('tinytex');tinytex::install_tinytex()"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install Caskroom/cask/xquartz || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install ghostscript || echo "fail"; fi;
   - if [ "$TRAVIS_OS_NAME" == "osx" ]; then brew install udunits || echo "fail"; fi;
