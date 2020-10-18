@@ -17,11 +17,19 @@ NULL
 #'
 #'   \item{[add_gurobi_solver()]}{[*Gurobi*](http://gurobi.com)
 #'     is a state-of-the-art commercial optimization software with an R package
-#'     interface. It is by far the fastest of the solvers available in this
-#'     package, however, it is also the only solver that is not freely
-#'     available. That said, licenses are available to academics at no cost. The
+#'     interface. It is by far the fastest of the solvers available for
+#'     generating prioritizations, however, it is not freely available. That
+#'    said, licenses are available to academics at no cost. The
 #'     \pkg{gurobi} package is distributed with the *Gurobi* software
 #'     suite. This solver uses the \pkg{gurobi} package to solve problems.}
+#'
+#'   \item{[add_cplex_solver()]}{[*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer)
+#'     is a commercial optimization software. It is faster than the open
+#'     source solvers available for generating prioritizations, however, it
+#'     is not freely available. Similar to the [*Gurobi*](http://gurobi.com)
+#'     software, licenses are available to academics at no cost.
+#'     This solver uses the \pkg{Rcplex} package to solve problems using
+#'     *IBM CPLEX*.}
 #'
 #'   \item{[add_rsymphony_solver()]}{
 #'     [*SYMPHONY*](https://projects.coin-or.org/SYMPHONY) is an
@@ -89,14 +97,21 @@ NULL
 #'   s <- addLayer(s, solve(p3))
 #' }
 #'
+#' # if the Rcplex is installed: create problem with added cplex solver
+#' if (require("Rcplex")) {
+#'   titles <- c(titles, "Rcplex (5s)")
+#'   p4 <- p %>% add_cplex_solver(gap = 0.1, time_limit = 5)
+#'   s <- addLayer(s, solve(p4))
+#' }
+#'
 #' # if the lpsymphony is installed: create problem with added lpsymphony solver
 #' # note that this solver is skipped on Linux systems due to instability
 #' # issues
 #' if (require("lpsymphony") &
 #'     isTRUE(Sys.info()[["sysname"]] != "Linux")) {
 #'   titles <- c(titles, "lpsymphony")
-#'   p4 <- p %>% add_lpsymphony_solver(gap = 0.1, time_limit = 10)
-#'   s <- addLayer(s, solve(p4))
+#'   p5 <- p %>% add_lpsymphony_solver(gap = 0.1, time_limit = 10)
+#'   s <- addLayer(s, solve(p5))
 #' }
 #'
 #' # plot solutions

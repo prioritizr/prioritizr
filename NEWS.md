@@ -1,3 +1,9 @@
+# prioritizr 5.0.2.5
+
+- New `add_cplex_solver` function to generate solutions using
+  [IBM CPLEX](https://www.ibm.com/products/ilog-cplex-optimization-studio)
+  (via the Rcplex package).
+
 # prioritizr 5.0.2.4
 
 - Update publication record vignette.
