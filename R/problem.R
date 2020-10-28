@@ -808,7 +808,7 @@ methods::setMethod(
       is.character(features$name) || is.factor(features$name),
       # rij_matrix
       all(vapply(rij_matrix, inherits, logical(1), c("matrix", "dgCMatrix"))),
-      all(vapply(rij_matrix, function(x) sum(is.finite(x)), numeric(1)) > 0),
+      all(vapply(rij_matrix, function(x) sum(is.finite(x@x)), numeric(1)) > 0),
       # multiple arguments
       ncol(x) == length(rij_matrix),
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
