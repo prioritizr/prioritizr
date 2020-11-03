@@ -818,7 +818,7 @@ methods::setMethod(
     verify_that(all(x > 0, na.rm = TRUE))
     assertthat::assert_that(
       all(vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
-        all(is.finite(c(min(x, na.rm = FALSE), max(x, na.rm = FALSE))))
+        all(is.finite(c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))))
       })),
       msg = "argument to x contains missing (NA) or non-finite (Inf) values")
     # add names to rij_matrix if missing
