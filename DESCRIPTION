@@ -58,7 +58,7 @@ Suggests:
     maptools,
     PBSmapping,
     gurobi,
-    Rcplex (>= 0.3-3),
+    cplexAPI (>= 1.4.0),
     lpsymphony,
     Rsymphony,
     rmarkdown,

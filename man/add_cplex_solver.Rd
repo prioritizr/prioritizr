@@ -9,6 +9,7 @@ add_cplex_solver(
   gap = 0.1,
   time_limit = .Machine$integer.max,
   presolve = TRUE,
+  threads = 1,
   verbose = TRUE
 )
 }
@@ -29,6 +30,10 @@ exceeded.}
 \item{presolve}{\code{logical} should the presolver be used to simplify the
 problem before solving it? The default value is \code{TRUE}.}
 
+\item{threads}{\code{integer} number of threads to use for the
+optimization algorithm. The default value of 1 will result in only
+one thread being used.}
+
 \item{verbose}{\code{logical} should information be printed while solving
 optimization problems?}
 }
@@ -39,7 +44,7 @@ added to it.
 \description{
 Specify that the \emph{IBM CPLEX} software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the \pkg{Rcplex} package.
+customize the behavior of the solver. It requires the \pkg{cplexAPI} package.
 }
 \details{
 \href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}} is a
@@ -50,7 +55,7 @@ the available open source solvers (i.e \code{\link[=add_lpsymphony_solver]{add_l
 Licenses are available for the \emph{IBM CPLEX} software to academics at no cost
 (see \url{https://www.ibm.com/products/ilog-cplex-optimization-studio}).
 
-The pkg{Rcplex} package is used to interface with \emph{IBM CPLEX}. To install
+The pkg{cplexAPI} package is used to interface with \emph{IBM CPLEX}. To install
 this package, the \code{CPLEX_BIN} variable must be set (similar to
 the \code{GUROBI_HOME} variable for the \emph{Gurobi} software) to specify
 the file path for the \emph{CPLEX} software. For example, on a Linux system,
@@ -58,8 +63,8 @@ this variable can be specified by adding
 \verb{export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"}
 to the \verb{~/.bashrc} file. Note that you may need to change the version
 number in the file parth (i.e. \code{"CPLEX_Studio128"}). For more information
-on installing the pkg{Rcplex} package, please see the
-\href{https://CRAN.R-project.org/package=Rcplex/INSTALL}{official installation instructions for the package}.
+on installing the pkg{cplexAPI} package, please see the
+\href{https://CRAN.R-project.org/package=cplexAPI/INSTALL}{official installation instructions for the package}.
 }
 \examples{
 # load data
@@ -72,7 +77,7 @@ p <- problem(sim_pu_raster, sim_features) \%>\%
   add_binary_decisions()
 \dontrun{
 # if the package is installed then add solver and generate solution
-if (require("Rcplex")) {
+if (require("cplexAPI")) {
   # specify solver and generate solution
   s <- p \%>\% add_cplex_solver(gap = 0.1, time_limit = 5) \%>\%
              solve()

@@ -2,7 +2,7 @@
 
 - New `add_cplex_solver` function to generate solutions using
   [IBM CPLEX](https://www.ibm.com/products/ilog-cplex-optimization-studio)
-  (via the Rcplex package).
+  (via the cplexAPI package).
 
 # prioritizr 5.0.2.4
 

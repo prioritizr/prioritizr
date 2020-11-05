@@ -28,7 +28,7 @@ NULL
 #'     source solvers available for generating prioritizations, however, it
 #'     is not freely available. Similar to the [*Gurobi*](http://gurobi.com)
 #'     software, licenses are available to academics at no cost.
-#'     This solver uses the \pkg{Rcplex} package to solve problems using
+#'     This solver uses the \pkg{cplexAPI} package to solve problems using
 #'     *IBM CPLEX*.}
 #'
 #'   \item{[add_rsymphony_solver()]}{
@@ -97,9 +97,9 @@ NULL
 #'   s <- addLayer(s, solve(p3))
 #' }
 #'
-#' # if the Rcplex is installed: create problem with added cplex solver
-#' if (require("Rcplex")) {
-#'   titles <- c(titles, "Rcplex (5s)")
+#' # if the cplexAPI is installed: create problem with added cplex solver
+#' if (require("cplexAPI")) {
+#'   titles <- c(titles, "cplexAPI (5s)")
 #'   p4 <- p %>% add_cplex_solver(gap = 0.1, time_limit = 5)
 #'   s <- addLayer(s, solve(p4))
 #' }

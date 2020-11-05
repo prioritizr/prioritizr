@@ -30,7 +30,7 @@ is a commercial optimization software. It is faster than the open
 source solvers available for generating prioritizations, however, it
 is not freely available. Similar to the \href{http://gurobi.com}{\emph{Gurobi}}
 software, licenses are available to academics at no cost.
-This solver uses the \pkg{Rcplex} package to solve problems using
+This solver uses the \pkg{cplexAPI} package to solve problems using
 \emph{IBM CPLEX}.}
 
 \item{\code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}}}{
@@ -92,9 +92,9 @@ if (require("gurobi")) {
   s <- addLayer(s, solve(p3))
 }
 
-# if the Rcplex is installed: create problem with added cplex solver
-if (require("Rcplex")) {
-  titles <- c(titles, "Rcplex (5s)")
+# if the cplexAPI is installed: create problem with added cplex solver
+if (require("cplexAPI")) {
+  titles <- c(titles, "cplexAPI (5s)")
   p4 <- p \%>\% add_cplex_solver(gap = 0.1, time_limit = 5)
   s <- addLayer(s, solve(p4))
 }

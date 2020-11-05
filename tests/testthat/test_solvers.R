@@ -472,7 +472,7 @@ test_that("add_cplex_solver (binary decisions)", {
   skip_on_travis()
   skip_on_appveyor()
   skip_if_not(any_solvers_installed())
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   # make data
   data(sim_pu_raster, sim_features)
   p1 <- problem(sim_pu_raster, sim_features) %>%
@@ -501,7 +501,7 @@ test_that("add_cplex_solver (proportion decisions)", {
   skip_on_travis()
   skip_on_appveyor()
   skip_if_not(any_solvers_installed())
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -526,7 +526,7 @@ test_that("add_cplex_solver (proportion decisions, floating point)", {
   skip_on_travis()
   skip_on_appveyor()
   skip_if_not(any_solvers_installed())
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   skip_if_not_installed("prioritizrdata")
   # make data
   data(tas_pu, tas_features, package = "prioritizrdata")
@@ -547,7 +547,7 @@ test_that("add_cplex_solver (proportion decisions, floating point)", {
 })
 
 test_that("add_cplex_solver (variable bounds methods)", {
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   # make data
   data(sim_pu_raster, sim_features)
   p <- problem(sim_pu_raster, sim_features) %>%
@@ -569,7 +569,7 @@ test_that("add_cplex_solver (mix of binary and continuous variables)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
   data(sim_pu_raster, sim_features)
@@ -590,7 +590,7 @@ test_that("add_cplex_solver (correct solution)", {
   skip_on_cran()
   skip_on_travis()
   skip_on_appveyor()
-  skip_if_not_installed("Rcplex")
+  skip_if_not_installed("cplexAPI")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
   locked_in <- 2

@@ -55,7 +55,7 @@
 <meta property="og:title" content="Add a <em>CPLEX</em> solver — add_cplex_solver" />
 <meta property="og:description" content="Specify that the IBM CPLEX software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the Rcplex package." />
+customize the behavior of the solver. It requires the cplexAPI package." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -178,7 +178,7 @@ customize the behavior of the solver. It requires the Rcplex package." />
     <div class="ref-description">
     <p>Specify that the <em>IBM CPLEX</em> software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the <span class="pkg">Rcplex</span> package.</p>
+customize the behavior of the solver. It requires the <span class="pkg">cplexAPI</span> package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_cplex_solver</span>(
@@ -186,6 +186,7 @@ customize the behavior of the solver. It requires the <span class="pkg">Rcplex</
   <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
   <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
   <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
@@ -217,6 +218,12 @@ exceeded.</p></td>
 problem before solving it? The default value is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
+      <th>threads</th>
+      <td><p><code>integer</code> number of threads to use for the
+optimization algorithm. The default value of 1 will result in only
+one thread being used.</p></td>
+    </tr>
+    <tr>
       <th>verbose</th>
       <td><p><code>logical</code> should information be printed while solving
 optimization problems?</p></td>
@@ -236,7 +243,7 @@ the available open source solvers (i.e <code><a href='add_lsymphony_solver.html'
 (<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>).
 Licenses are available for the <em>IBM CPLEX</em> software to academics at no cost
 (see <a href='https://www.ibm.com/products/ilog-cplex-optimization-studio'>https://www.ibm.com/products/ilog-cplex-optimization-studio</a>).</p>
-<p>The pkgRcplex package is used to interface with <em>IBM CPLEX</em>. To install
+<p>The pkgcplexAPI package is used to interface with <em>IBM CPLEX</em>. To install
 this package, the <code>CPLEX_BIN</code> variable must be set (similar to
 the <code>GUROBI_HOME</code> variable for the <em>Gurobi</em> software) to specify
 the file path for the <em>CPLEX</em> software. For example, on a Linux system,
@@ -244,8 +251,8 @@ this variable can be specified by adding
 <code>export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"</code>
 to the <code>~/.bashrc</code> file. Note that you may need to change the version
 number in the file parth (i.e. <code>"CPLEX_Studio128"</code>). For more information
-on installing the pkgRcplex package, please see the
-<a href='https://CRAN.R-project.org/package=Rcplex/INSTALL'>official installation instructions for the package</a>.</p>
+on installing the pkgcplexAPI package, please see the
+<a href='https://CRAN.R-project.org/package=cplexAPI/INSTALL'>official installation instructions for the package</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='solvers.html'>solvers</a>.</p></div>
@@ -261,7 +268,7 @@ on installing the pkgRcplex package, please see the
   <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 <span class='co'># \dontrun{</span>
 <span class='co'># if the package is installed then add solver and generate solution</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"Rcplex"</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"cplexAPI"</span>)) {
   <span class='co'># specify solver and generate solution</span>
   <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_cplex_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
              <span class='fu'><a href='solve.html'>solve</a></span>()
@@ -269,7 +276,7 @@ on installing the pkgRcplex package, please see the
   <span class='co'># plot solutions</span>
   <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>),
        <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rcplex</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='output co'>#&gt; Rcplex: num variables=90 num constraints=5</div><div class='img'><img src='add_cplex_solver-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: cplexAPI</span></div><div class='img'><img src='add_cplex_solver-1.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

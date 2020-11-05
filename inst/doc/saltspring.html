@@ -167,10 +167,10 @@ p1 &lt;-<span class="st"> </span><span class="kw">problem</span>(salt_pu, salt_f
 </div>
 <div id="solving-the-problem" class="section level2">
 <h2>Solving the problem</h2>
-<p>The <em>prioritizr R</em> package supports four different integer linear programming solver packages: <em>gurobi</em>, <em>Rcplex</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
-<p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a> and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package. Additionally, the <em>Rcpex</em> package cannot be installed unless the <a href="https://www.ibm.com/analytics/cplex-optimizer">IBM CPLEX software</a> is <a href="https://CRAN.R-project.org/package=Rcplex/INSTALL">already installed</a>.</p>
+<p>The <em>prioritizr R</em> package supports four different integer linear programming solver packages: <em>gurobi</em>, <em>cplexAPI</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
+<p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a> and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package. Additionally, the <em>Rcpex</em> package cannot be installed unless the <a href="https://www.ibm.com/analytics/cplex-optimizer">IBM CPLEX software</a> is <a href="https://CRAN.R-project.org/package=cplexAPI/INSTALL">already installed</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">require</span>(gurobi))
-<span class="kw">print</span>(<span class="kw">require</span>(Rcplex))
+<span class="kw">print</span>(<span class="kw">require</span>(cplexAPI))
 <span class="kw">print</span>(<span class="kw">require</span>(Rsymphony))
 <span class="kw">print</span>(<span class="kw">require</span>(lpsymphony))</code></pre></div>
 <p>Now we will try solving the problem using the different solvers (see <a href="https://prioritizr.net/reference/solve.html"><code>?solve</code></a> for more information). We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
@@ -196,7 +196,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">stack</span>()  <span class="c
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p4))
 }</code></pre></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">require</span>(<span class="st">&quot;Rcplex&quot;</span>)) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="kw">require</span>(<span class="st">&quot;cplexAPI&quot;</span>)) {
   titles &lt;-<span class="st"> </span><span class="kw">c</span>(titles, <span class="st">&quot;IBM CPLEX (5s)&quot;</span>)
   p5 &lt;-<span class="st"> </span>p1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">add_cplex_solver</span>(<span class="dt">time_limit =</span> <span class="dv">5</span>)
   s1 &lt;-<span class="st"> </span><span class="kw">addLayer</span>(s1, <span class="kw">solve</span>(p5))
