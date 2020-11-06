@@ -808,7 +808,6 @@ methods::setMethod(
       is.character(features$name) || is.factor(features$name),
       # rij_matrix
       all(vapply(rij_matrix, inherits, logical(1), c("matrix", "dgCMatrix"))),
-      all(vapply(rij_matrix, function(x) sum(is.finite(x)), numeric(1)) > 0),
       # multiple arguments
       ncol(x) == length(rij_matrix),
       all(vapply(rij_matrix, ncol, numeric(1)) == nrow(x)),
@@ -817,6 +816,11 @@ methods::setMethod(
     verify_that(all(vapply(rij_matrix, min, numeric(1), na.rm = TRUE) >= 0),
                 msg = "argument to rij_matrix has negative feature data")
     verify_that(all(x > 0, na.rm = TRUE))
+    assertthat::assert_that(
+      all(vapply(rij_matrix, FUN.VALUE = logical(1), function(x) {
+        all(is.finite(c(min(x, na.rm = TRUE), max(x, na.rm = TRUE))))
+      })),
+      msg = "argument to x contains missing (NA) or non-finite (Inf) values")
     # add names to rij_matrix if missing
     if (is.null(names(rij_matrix)))
       names(rij_matrix) <- as.character(seq_along(rij_matrix))
