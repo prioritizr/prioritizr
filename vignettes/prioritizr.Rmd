@@ -569,31 +569,44 @@ p28 <- problem(sim_pu_raster, sim_features) %>%
 # print problem
 print(p28)
 ```
+* __*IBM CPLEX* solver__: [_IBM CPLEX_](https://www.ibm.com/analytics/cplex-optimizer) is a commercial optimization software. It is faster than the open source solvers available for generating prioritizations (see below), however, it is not freely available. Similar to the _Gurobi_ software, special licenses are available to academics at no cost.
+```{r}
+# create a problem and specify that IBM CPLEX should be used to solve the
+# problem and specify an optimality gap of zero to obtain the optimal solution
+p29 <- problem(sim_pu_raster, sim_features) %>%
+       add_min_set_objective() %>%
+       add_relative_targets(0.1) %>%
+       add_binary_decisions() %>%
+       add_cplex_solver(gap = 0)
+
+# print problem
+print(p29)
+```
 * __*Rsymphony* solver__: [_SYMPHONY_](https://projects.coin-or.org/SYMPHONY) is an open-source integer programming solver that is part of the Computational Infrastructure for Operations Research (COIN-OR) project, an initiative to promote development of open-source tools for operations research. The _Rsymphony R_ package provides an interface to COIN-OR and is available on The Comprehensive R Archive Network (CRAN).
 ```{r}
 # create a problem and specify that Rsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p29 <- problem(sim_pu_raster, sim_features) %>%
+p30 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_rsymphony_solver(gap = 0)
 
 # print problem
-print(p29)
+print(p30)
 ```
 * __*lpsymphony* solver__: The _lpsymphony R_ package provides a different interface to the COIN-OR software suite. This package may be easier to install on Windows and Mac OSX operating systems than the _Rsymphony R_ package. Unlike the _Rsymphony R_ package, the _lpsymphony R_ package is distributed through [Bioconductor](http://bioconductor.org/packages/release/bioc/html/lpsymphony.html).
 ```{r}
 # create a problem and specify that lpsymphony should be used to solve the
 # problem and specify an optimality gap of zero to obtain the optimal solution
-p30 <- problem(sim_pu_raster, sim_features) %>%
+p31 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_lpsymphony_solver(gap = 0)
 
 # print problem
-print(p30)
+print(p31)
 ```
 
 ### Add a portfolio
@@ -607,66 +620,66 @@ The following methods are available for generating a portfolio of solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # extra solutions found while solving the problem
-p31 <- problem(sim_pu_raster, sim_features) %>%
+p32 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_extra_portfolio()
 
 # print problem
-print(p31)
+print(p32)
 ```
 * __Top portfolio__: Generate a portfolio of solutions by finding a pre-specified number of solutions that are closest to optimality (i.e the top solutions). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created using
 # the top five solutions
-p32 <- problem(sim_pu_raster, sim_features) %>%
+p33 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_top_portfolio(number_solutions = 5)
 
 # print problem
-print(p32)
+print(p33)
 ```
 * __Gap portfolio__: Generate a portfolio of solutions by finding a certain number of solutions that are all within a pre-specified optimality gap. This method is especially useful for generating multiple solutions that can used be to calculate selection frequencies (similar to _Marxan_). Note that this method requires that the _Gurobi_ optimization software is used to generate solutions.
 ```{r}
 # create a problem and specify that a portfolio should be created by
 # finding five solutions within 10% of optimality
-p33 <- problem(sim_pu_raster, sim_features) %>%
+p34 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_gap_portfolio(number_solutions = 5, pool_gap = 0.2)
 
 # print problem
-print(p33)
+print(p34)
 ```
 * __Cuts portfolio__: Generate a portfolio of distinct solutions within a pre-specified optimality gap. This method is only recommended if the _Gurobi_ optimization solver is not available.
 ```{r}
 # create a problem and specify that a portfolio containing 10 solutions
 # should be created using using Bender's cuts
-p34 <- problem(sim_pu_raster, sim_features) %>%
+p35 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_cuts_portfolio(number_solutions = 10)
 
 # print problem
-print(p34)
+print(p35)
 ```
 * __Shuffle portfolio__: Generate a portfolio of solutions by randomly reordering the data prior to attempting to solve the problem. If the _Gurobi_ optimization solver is not available, this method is the fastest method for generating a set number of solutions within a specified distance from optimality.
 ```{r}
 # create a problem and specify a portfolio should be created that contains
 # 10 solutions and that any duplicate solutions should not be removed
-p35 <- problem(sim_pu_raster, sim_features) %>%
+p36 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions() %>%
        add_shuffle_portfolio(number_solutions = 10, remove_duplicates = FALSE)
 
 # print problem
-print(p35)
+print(p36)
 ```
 
 ### Solve the problem
@@ -675,17 +688,17 @@ Finally, after formulating our conservation planning problem and specifying how 
 
 ```{r, fig.height = h, fig.width = w}
 # formulate the problem
-p36 <- problem(sim_pu_raster, sim_features) %>%
+p37 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_boundary_penalties(penalty = 500, edge_factor = 0.5) %>%
        add_binary_decisions()
 
 # solve the problem (using the default solver)
-s36 <- solve(p36)
+s37 <- solve(p37)
 
 # plot solution
-plot(s36, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s37, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 ```
 
@@ -695,14 +708,14 @@ We can also extract attributes from the solution that describe the quality of th
 
 ```{r}
 # extract the objective (numerical value being minimized or maximized)
-print(attr(p36, "objective"))
+print(attr(p37, "objective"))
 
 # extract time spent solving solution
-print(attr(p36, "runtime"))
+print(attr(p37, "runtime"))
 
 # extract state message from the solver that describes why this specific
 # solution was returned
-print(attr(p36, "status"))
+print(attr(p37, "status"))
 ```
 
 ### _Marxan_ problems
@@ -757,27 +770,27 @@ After obtaining the solution to a conservation planning problem, it can be usefu
 
 ```{r}
 # formulate the problem
-p37 <- problem(sim_pu_raster, sim_features) %>%
+p38 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
        add_relative_targets(0.1) %>%
        add_binary_decisions()
 
 # solve the problem
-s37 <- solve(p37)
+s38 <- solve(p38)
 
 # plot solution
-plot(s37, col = c("grey90", "darkgreen"), main = "Solution",
+plot(s38, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 
 # calculate the number of selected planning units
-cellStats(s37, "sum")
+cellStats(s38, "sum")
 
 # calculate the cost of the solution
-cellStats(sim_pu_raster * s37, "sum")
+cellStats(sim_pu_raster * s38, "sum")
 
 # calculate how well features are represented in the solution
-r37 <- feature_representation(p37, s37)
-print(r37)
+r38 <- feature_representation(p38, s38)
+print(r38)
 ```
 
 ### Irreplaceability
@@ -786,34 +799,34 @@ Conservation plans can take a long time to implement. Since funding availability
 
 The _prioritizr R_ package offers three methods for calculating irreplaceability scores: replacement cost [`replacement_cost`; @r31], Ferrier scores [`ferrier_score`; @r34], and rarity weighted richness scores [`rarity_weighted_richness`; @r33]. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier irreplaceability scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic _Marxan_-type problem). Furthermore---unlike the replacement cost scores---the Ferrier irreplaceability scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.
 
-We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units), we recommend using the Ferrier irreplaceability scores if possible. As mentioned earlier, the Ferrier irreplaceability scores can only be used for a specific type of conservation problem. For large sized problems (e.g. more than 100,000 planning units), we recommend using the rarity weighted richness scores simply because there is no other choice available. It has been known for decades that such static measures of biodiversity lead to poor conservation plans [@r17].
+We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units),  we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans [@r17]. There is also an experimental function for calculating irreplaceability using the Ferrier method. We do not recommend using this method until it has been verified by a statistical expert.
 
 Below we will use these three approaches to calculate irreplaceability scores.
 
 ```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
-rc37 <- p37 %>%
+rc38 <- p38 %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%
-        replacement_cost(s36)
+        replacement_cost(s38)
 
 # plot replacement cost scores
-plot(rc37, main = "replacement cost")
+plot(rc38, main = "replacement cost")
 ```
 
 ```{r, fig.height = h, fig.width = w}
 # calculate Ferrier irreplaceability scores and extract total score
-fs37 <- ferrier_score(p37, s37)[["total"]]
+fs38 <- ferrier_score(p38, s38)[["total"]]
 
 # plot Ferrier scores
-plot(fs37, main = "Ferrier scores")
+plot(fs38, main = "Ferrier scores")
 ```
 
 ```{r, fig.height = h, fig.width = w}
 # calculate rarity weighted richness scores
-rwr37 <- rarity_weighted_richness(p37, s37)
+rwr38 <- rarity_weighted_richness(p38, s38)
 
 # plot replacement cost scores
-plot(rwr37, main = "rarity weighted richness")
+plot(rwr38, main = "rarity weighted richness")
 ```
 
 Although rarity weighted richness scores can approximate scores derived from the other two methods in certain conservation planning exercises, we can see that the rarity weighted richness scores provide completely different results in this case.

@@ -6,10 +6,8 @@ NULL
 #' Identify the best solver currently installed on the system and specify that
 #' it should be used to solve a conservation planning [problem()].
 #' Ranked from best to worst, the available solvers that can be used are:
-#' \pkg{gurobi}
-#' ([add_gurobi_solver()]), then
-#' \pkg{Rsymphony} ([add_rsymphony_solver()]), and finally \pkg{lpsymphony}
-#' ([add_lpsymphony_solver()]).
+#' [add_gurobi_solver()], [add_cplex_solver()], [add_rsymphony_solver()],
+#' and finally [add_lpsymphony_solver()].
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -22,6 +20,8 @@ add_default_solver <- function(x, ...) {
   ds <- default_solver_name()
   if (identical(ds, "gurobi")) {
     return(add_gurobi_solver(x, ...))
+  } else if (identical(ds, "cplexAPI")) {
+    return(add_cplex_solver(x, ...))
   } else if (identical(ds, "Rsymphony")) {
     return(add_rsymphony_solver(x, ...))
   } else if (identical(ds, "lpsymphony")) {
@@ -35,5 +35,30 @@ add_default_solver <- function(x, ...) {
       solve = function(self, x) {
         stop("no optimization problem solvers found on system")
       })))
+  }
+}
+
+#' Default solver name
+#'
+#' This function returns the name of the default solver. If no solvers are
+#' detected on the system, then a `NULL` object is returned.
+#'
+#' @details This function tests if any of the following packages are installed:
+#'   \pkg{Rsymphony}, \pkg{lpsymphony}, \pkg{gurobi}, \pkg{cplexAPI}.
+#'
+#' @return `character` indicating the name of the default solver.
+#'
+#' @noRd
+default_solver_name <- function() {
+  if (requireNamespace("gurobi", quietly = TRUE)) {
+    return("gurobi")
+  } else if (requireNamespace("cplexAPI", quietly = TRUE)) {
+    return("cplexAPI")
+  } else if (requireNamespace("Rsymphony", quietly = TRUE)) {
+    return("Rsymphony")
+  } else if (requireNamespace("lpsymphony", quietly = TRUE)) {
+    return("lpsymphony")
+  } else {
+    return(NULL)
   }
 }

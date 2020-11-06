@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 5.0.2.4
+Version: 5.0.2.5
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -58,6 +58,7 @@ Suggests:
     maptools,
     PBSmapping,
     gurobi,
+    cplexAPI (>= 1.4.0),
     lpsymphony,
     Rsymphony,
     rmarkdown,
@@ -113,6 +114,7 @@ Collate:
     'add_boundary_penalties.R'
     'add_connectivity_penalties.R'
     'add_contiguity_constraints.R'
+    'add_cplex_solver.R'
     'add_cuts_portfolio.R'
     'add_default_decisions.R'
     'add_default_objective.R'

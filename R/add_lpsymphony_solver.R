@@ -120,6 +120,9 @@ add_lpsymphony_solver <- function(x, gap = 0.1, time_limit = -1,
       start_time <- Sys.time()
       x <- do.call(lpsymphony::lpsymphony_solve_LP, append(model, p))
       end_time <- Sys.time()
+      if (is.null(x$solution) ||
+          names(x$status) %in% c("TM_NO_SOLUTION", "PREP_NO_SOLUTION"))
+        return(NULL)
       # fix floating point issues with binary variables
       b <- which(model$types == "B")
       if (any(x$solution[b] > 1)) {

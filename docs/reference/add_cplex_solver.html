@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Binary stack — binary_stack • prioritizr</title>
+<title>Add a <em>CPLEX</em> solver — add_cplex_solver • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,11 +52,10 @@
 
 
 
-<meta property="og:title" content="Binary stack — binary_stack" />
-<meta property="og:description" content="Convert a RasterLayer object containing
-categorical identifiers into a RasterStack
-object where each layer corresponds to a different identifier and values
-indicate the presence/absence of that category in the input object." />
+<meta property="og:title" content="Add a <em>CPLEX</em> solver — add_cplex_solver" />
+<meta property="og:description" content="Specify that the IBM CPLEX software should be used to solve a
+conservation planning problem. This function can also be used to
+customize the behavior of the solver. It requires the cplexAPI package." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -171,53 +170,113 @@ indicate the presence/absence of that category in the input object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Binary stack</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/binary_stack.R'><code>R/binary_stack.R</code></a></small>
-    <div class="hidden name"><code>binary_stack.Rd</code></div>
+    <h1>Add a <em>CPLEX</em> solver</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_cplex_solver.R'><code>R/add_cplex_solver.R</code></a></small>
+    <div class="hidden name"><code>add_cplex_solver.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert a <code>RasterLayer</code> object containing
-categorical identifiers into a <code>RasterStack</code>
-object where each layer corresponds to a different identifier and values
-indicate the presence/absence of that category in the input object.</p>
+    <p>Specify that the <em>IBM CPLEX</em> software should be used to solve a
+conservation planning problem. This function can also be used to
+customize the behavior of the solver. It requires the <span class="pkg">cplexAPI</span> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>binary_stack</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>add_cplex_solver</span>(
+  <span class='no'>x</span>,
+  <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
+  <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>integer.max</span>,
+  <span class='kw'>presolve</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>threads</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p><code>Raster</code> object containing a single layer.</p></td>
+      <td><p><code><a href='problem.html'>problem()</a></code> (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) object.</p></td>
+    </tr>
+    <tr>
+      <th>gap</th>
+      <td><p><code>numeric</code> gap to optimality. This gap is relative when
+solving problems using <em>Gurobi</em> or <em>CPLEX</em>, and will cause the optimizer to
+terminate when the difference between the upper and lower objective
+function bounds is less than the gap times the upper bound. For example, a
+value of 0.01 will result in the optimizer stopping when the difference
+between the bounds is 1 percent of the upper bound.</p></td>
+    </tr>
+    <tr>
+      <th>time_limit</th>
+      <td><p><code>numeric</code> time limit in seconds to run the optimizer.
+The solver will return the current best solution when this time limit is
+exceeded.</p></td>
+    </tr>
+    <tr>
+      <th>presolve</th>
+      <td><p><code>logical</code> should the presolver be used to simplify the
+problem before solving it? The default value is <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>threads</th>
+      <td><p><code>integer</code> number of threads to use for the
+optimization algorithm. The default value of 1 will result in only
+one thread being used.</p></td>
+    </tr>
+    <tr>
+      <th>verbose</th>
+      <td><p><code>logical</code> should information be printed while solving
+optimization problems?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>RasterStack</code> object.</p>
+    <p>Object (i.e. <code><a href='ConservationProblem-class.html'>ConservationProblem</a></code>) with the solver
+added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is provided to help manage data that encompass
-multiple management zones. For instance, this function may be helpful
-for preparing raster data for <code><a href='add_locked_in_constraints.html'>add_locked_in_constraints()</a></code> and
-<code><a href='add_locked_out_constraints.html'>add_locked_out_constraints()</a></code> since they require binary
-<code>RasterStack</code> objects as input arguments.</p>
+    <p><a href='https://www.ibm.com/analytics/cplex-optimizer'><em>IBM CPLEX</em></a> is a
+commercial optimization software. Although this software is faster than
+the available open source solvers (i.e <code><a href='add_lsymphony_solver.html'>add_lpsymphony_solver()</a></code> and
+<code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code>, it is slower than the <em>Gurobi</em> solver
+(<code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code>).
+Licenses are available for the <em>IBM CPLEX</em> software to academics at no cost
+(see <a href='https://www.ibm.com/products/ilog-cplex-optimization-studio'>https://www.ibm.com/products/ilog-cplex-optimization-studio</a>).</p>
+<p>The pkgcplexAPI package is used to interface with <em>IBM CPLEX</em>. To install
+this package, the <code>CPLEX_BIN</code> variable must be set (similar to
+the <code>GUROBI_HOME</code> variable for the <em>Gurobi</em> software) to specify
+the file path for the <em>CPLEX</em> software. For example, on a Linux system,
+this variable can be specified by adding
+<code>export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"</code>
+to the <code>~/.bashrc</code> file. Note that you may need to change the version
+number in the file parth (i.e. <code>"CPLEX_Studio128"</code>). For more information
+on installing the pkgcplexAPI package, please see the
+<a href='https://CRAN.R-project.org/package=cplexAPI/INSTALL'>official installation instructions for the package</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='category_layer.html'>category_layer()</a></code>.</p></div>
+    <div class='dont-index'><p><a href='solvers.html'>solvers</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># create raster with categorical identifers</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>1</span>, <span class='fl'>NA</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>))
+    <pre class="examples"><div class='input'><span class='co'># load data</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
 
-<span class='co'># convert to binary stack</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_stack</span>(<span class='no'>x</span>)
-
-<span class='co'># plot categorical raster and binary stack representation</span>
+<span class='co'># create problem</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>x</span>, <span class='no'>y</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y[[1]]"</span>, <span class='st'>"y[[2]]"</span>, <span class='st'>"y[[3]]"</span>), <span class='kw'>nr</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='binary_stack-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='co'># if the package is installed then add solver and generate solution</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"cplexAPI"</span>)) {
+  <span class='co'># specify solver and generate solution</span>
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_cplex_solver</span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>) <span class='kw'>%&gt;%</span>
+             <span class='fu'><a href='solve.html'>solve</a></span>()
+
+  <span class='co'># plot solutions</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>),
+       <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+}</div><div class='output co'>#&gt; <span class='message'>Loading required package: cplexAPI</span></div><div class='img'><img src='add_cplex_solver-1.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

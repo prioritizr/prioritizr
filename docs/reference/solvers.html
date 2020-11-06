@@ -98,7 +98,7 @@ software currently installed on the system will be used." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
       </span>
     </div>
 
@@ -194,11 +194,19 @@ currently installed on the system.</p></dd>
 
 <dt><code><a href='add_gurobi_solver.html'>add_gurobi_solver()</a></code></dt><dd><p><a href='http://gurobi.com'><em>Gurobi</em></a>
 is a state-of-the-art commercial optimization software with an R package
-interface. It is by far the fastest of the solvers available in this
-package, however, it is also the only solver that is not freely
-available. That said, licenses are available to academics at no cost. The
+interface. It is by far the fastest of the solvers available for
+generating prioritizations, however, it is not freely available. That
+said, licenses are available to academics at no cost. The
 <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software
 suite. This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p></dd>
+
+<dt><code><a href='add_cplex_solver.html'>add_cplex_solver()</a></code></dt><dd><p><a href='https://www.ibm.com/analytics/cplex-optimizer'><em>IBM CPLEX</em></a>
+is a commercial optimization software. It is faster than the open
+source solvers available for generating prioritizations, however, it
+is not freely available. Similar to the <a href='http://gurobi.com'><em>Gurobi</em></a>
+software, licenses are available to academics at no cost.
+This solver uses the <span class="pkg">cplexAPI</span> package to solve problems using
+<em>IBM CPLEX</em>.</p></dd>
 
 <dt><code><a href='add_rsymphony_solver.html'>add_rsymphony_solver()</a></code></dt><dd><p><a href='https://projects.coin-or.org/SYMPHONY'><em>SYMPHONY</em></a> is an
 open-source integer programming solver that is part of the Computational
@@ -295,14 +303,21 @@ Max OSX systems than the <span class="pkg">Rsymphony</span> package.</p></dd>
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+<span class='co'># if the cplexAPI is installed: create problem with added cplex solver</span>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"cplexAPI"</span>)) {
+  <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>titles</span>, <span class='st'>"cplexAPI (5s)"</span>)
+  <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_cplex_solver.html'>add_cplex_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>5</span>)
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))
+}
+
 <span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
 <span class='co'># note that this solver is skipped on Linux systems due to instability</span>
 <span class='co'># issues</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"lpsymphony"</span>) <span class='kw'>&amp;</span>
     <span class='fu'><a href='https://rdrr.io/r/base/Logic.html'>isTRUE</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Sys.info.html'>Sys.info</a></span>()<span class='kw'>[[</span><span class='st'>"sysname"</span>]] <span class='kw'>!=</span> <span class='st'>"Linux"</span>)) {
   <span class='no'>titles</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>titles</span>, <span class='st'>"lpsymphony"</span>)
-  <span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))
+  <span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span>(<span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>, <span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'>addLayer</span>(<span class='no'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>))
 }
 
 <span class='co'># plot solutions</span>

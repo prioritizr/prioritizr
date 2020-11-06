@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
       </span>
     </div>
 
@@ -217,9 +217,10 @@
 <div id="solving-the-problem" class="section level2">
 <h2 class="hasAnchor">
 <a href="#solving-the-problem" class="anchor"></a>Solving the problem</h2>
-<p>The <em>prioritizr R</em> package supports three different integer linear programming solver packages: <em>gurobi</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
-<p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a>, and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package.</p>
+<p>The <em>prioritizr R</em> package supports four different integer linear programming solver packages: <em>gurobi</em>, <em>cplexAPI</em>, <em>Rsymphony</em>, and <em>lpsymphony</em>. There are costs and benefits associated with each of these solvers, but the solver itself should have little impact on the actual solution returned (though certain solvers may take longer to return solutions than others).</p>
+<p>First, remember that the solvers must be installed. You can check if these packages are installed by running the code below. Note that the <em>gurobi</em> package is distributed with the <a href="http://gurobi.com"><em>Gurobi</em> commercial software suite</a> and is not available on the Comprehensive R Archive Network (CRAN). Please refer to the <a href="gurobi_installation.html"><em>Gurobi Installation Guide</em></a> for more information on installing the <em>gurobi R</em> package. Additionally, the <em>Rcpex</em> package cannot be installed unless the <a href="https://www.ibm.com/analytics/cplex-optimizer">IBM CPLEX software</a> is <a href="https://CRAN.R-project.org/package=cplexAPI/INSTALL">already installed</a>.</p>
 <div class="sourceCode"><html><body><pre class="r"><span class="fu"><a href="../reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">gurobi</span>))
+<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">cplexAPI</span>))
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">Rsymphony</span>))
 <span class="fu"><a href="../reference/print.html">print</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">lpsymphony</span>))</pre></body></html></div>
 <p>Now we will try solving the problem using the different solvers (see <a href="https://prioritizr.net/reference/solve.html"><code><a href="../reference/solve.html">?solve</a></code></a> for more information). We will also experiment with limiting the maximum amount of time that can be spent looking for each solution when solving the problem (using the <code>time_limit</code> parameter), and see how this alters the solutions.</p>
@@ -245,10 +246,16 @@
   <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p4</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
+<div class="sourceCode"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"cplexAPI"</span>)) {
+  <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"IBM CPLEX (5s)"</span>)
+  <span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_cplex_solver.html">add_cplex_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">5</span>)
+  <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p5</span>))
+}</pre></body></html></div>
+<pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <div class="sourceCode"><html><body><pre class="r"><span class="kw">if</span> (<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"lpsymphony"</span>)) {
   <span class="no">titles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">titles</span>, <span class="st">"lpsymphony (10s)"</span>)
-  <span class="no">p5</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
-  <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p5</span>))
+  <span class="no">p6</span> <span class="kw">&lt;-</span> <span class="no">p1</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/add_lsymphony_solver.html">add_lpsymphony_solver</a></span>(<span class="kw">time_limit</span> <span class="kw">=</span> <span class="fl">10</span>)
+  <span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu">addLayer</span>(<span class="no">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p6</span>))
 }</pre></body></html></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
 <p>Now let’s visualize the solutions.</p>

@@ -98,7 +98,7 @@ customize the behavior of the solver. It requires the gurobi package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
       </span>
     </div>
 
@@ -202,7 +202,7 @@ customize the behavior of the solver. It requires the <span class="pkg">gurobi</
     <tr>
       <th>gap</th>
       <td><p><code>numeric</code> gap to optimality. This gap is relative when
-solving problems using <span class="pkg">gurobi</span>, and will cause the optimizer to
+solving problems using <em>Gurobi</em> or <em>CPLEX</em>, and will cause the optimizer to
 terminate when the difference between the upper and lower objective
 function bounds is less than the gap times the upper bound. For example, a
 value of 0.01 will result in the optimizer stopping when the difference
@@ -263,8 +263,8 @@ added to it.</p>
 
     <p><a href='http://gurobi.com'><em>Gurobi</em></a> is a
 state-of-the-art commercial optimization software with an R package
-interface. It is by far the fastest of the solvers available in this
-package, however, it is also the only solver that is not freely
+interface. It is by far the fastest of the solvers available for
+generating prioritizations, however, it is not freely
 available. That said, licenses are available to academics at no cost. The
 <span class="pkg">gurobi</span> package is distributed with the <em>Gurobi</em> software suite.
 This solver uses the <span class="pkg">gurobi</span> package to solve problems.</p>
