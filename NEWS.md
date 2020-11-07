@@ -1,9 +1,10 @@
 # prioritizr 5.0.2.6
 
-- Implement GitHub Actions continuous integration (i.e. update tests
-  and README).
+- Implement GitHub Actions continuous integration (i.e. update tests and
+  README).
 - Update `problem` function to reduce memory consumption for sparse
   matrix arguments (#164).
+- Update Tasmania vignette to remove superfluous warnings (#168).
 
 # prioritizr 5.0.2.5
 
@@ -17,7 +18,8 @@
 - Update `add_gap_portfolio` documentation to note that it only works for
   problems with binary decisions (#159).
 - Fix target calculations in `add_loglinear_targets` and
-  `loglinear_interpolation` functions. Previously they used a natural logarithm for log-linear interpolation. To follow target setting approaches outlined by
+  `loglinear_interpolation` functions. Previously they used a natural logarithm
+  for log-linear interpolation. To follow target setting approaches outlined by
   Rodrigues et al. (2004), they now use the decadic logarithm (i.e. `log10`).
 
 # prioritizr 5.0.2.3

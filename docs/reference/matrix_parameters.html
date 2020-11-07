@@ -230,7 +230,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># create a numeric matrix parameter</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x656723f0&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x8309c388&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -238,7 +238,7 @@ Defaults to <code>FALSE</code>.</p></td>
 #&gt; a 0.1313267 0.3594235 0.4398096
 #&gt; b 0.6087037 0.7405901 0.6129639
 #&gt; c 0.5785847 0.4181095 0.4926529</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: 47b3d003-eb8a-4977-887a-3cd1c823b531</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: dad0e9d0-cced-4dbf-bd19-03221c066055</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>m</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># set parameter to new values</span>
@@ -252,7 +252,7 @@ Defaults to <code>FALSE</code>.</p></td>
 <span class='co'># create a binary matrix parameter</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>binary_matrix_parameter</span><span class='op'>(</span><span class='st'>"m"</span>, <span class='va'>m</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x13ab80d8&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x123827f0&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -260,7 +260,7 @@ Defaults to <code>FALSE</code>.</p></td>
 #&gt; a 0 0 1
 #&gt; b 1 1 1
 #&gt; c 1 0 1</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: 7bb97ba7-c54d-4d48-bfc4-519326e829b8</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: e38d718f-26e5-4355-a3e3-ad68297e8d0c</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>m</span><span class='op'>[</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE
 #&gt; attr(,"msg")
 #&gt; [1] "ncol(m) not equal to ncol(value)"</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>m</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span> <span class='co'># set parameter to new values</span>

@@ -55,8 +55,7 @@ Now, let's have a look at the planning unit data.
 print(tas_pu)
 
 # plot map of planning unit costs
-spplot(tas_pu, zcol = "cost", names.attr = "Cost",
-       main = "Planning unit costs")
+plot(st_as_sf(tas_pu[, "cost"]), main = "Planning unit costs")
 ```
 
 Next, let examine the feature data. Here we will only plot the first four features as an example. The pixel values denote the presence or absence of each feature within the extent of the study area.
@@ -147,8 +146,8 @@ print(r1)
 # visualize the solution by converting the solution to a spatial object
 s1 <- SpatialPolygonsDataFrame(as(tas_pu, "SpatialPolygons"), data = s1)
 s1$solution_1 <- factor(s1$solution_1)
-spplot(s1, "solution_1", col.regions = c("grey90", "darkgreen"),
-       main = "marxan_problem solution")
+plot(st_as_sf(s1[, "solution_1"]), pal = c("grey90", "darkgreen"),
+    main = "marxan_problem solution")
 ```
 
 ## General problem formulation
@@ -176,8 +175,8 @@ print(r2)
 
 # visualize solution
 s2$solution_1 <- factor(s2$solution_1)
-spplot(s2, "solution_1", col.regions = c("grey90", "darkgreen"),
-       main = "problem solution")
+plot(st_as_sf(s2[, "solution_1"]), pal = c("grey90", "darkgreen"),
+    main = "problem solution")
 ```
 
 ## Selection frequencies
@@ -210,8 +209,8 @@ s3$solution_1 <- factor(s3$solution_1)
 s3$solution_2 <- factor(s3$solution_2)
 s3$solution_3 <- factor(s3$solution_3)
 s3$solution_4 <- factor(s3$solution_4)
-spplot(s3, zcol = c("solution_1", "solution_2", "solution_3", "solution_4"),
-       col.regions = c("grey90", "darkgreen"))
+plot(st_as_sf(s3[, c("solution_1", "solution_2", "solution_3", "solution_4")]),
+  pal = c("grey90", "darkgreen"))
 ```
 
 ```{r, fig.width = w, fig.height = h}
@@ -220,7 +219,7 @@ hist(s3$selection_frequencies, main = "Selection frequencies",
      xlab = "Number of times units were selected")
 
 # plot spatial distribution of the selection frequencies
-spplot(s3, "selection_frequencies", main = "Selection frequencies")
+plot(st_as_sf(s3[, "selection_frequencies"]), main = "Selection frequencies")
 ```
 
 ## References
