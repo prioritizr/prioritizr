@@ -223,7 +223,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
@@ -237,7 +237,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.10 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -275,7 +275,7 @@ r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 veg8             9.12         0.212
 ##  9 veg9            95.3          0.245
 ## 10 veg10            5.91         0.407
-## # … with 52 more rows</code></pre>
+## # ... with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
 s1 &lt;-<span class="st"> </span><span class="kw">SpatialPolygonsDataFrame</span>(<span class="kw">as</span>(tas_pu, <span class="st">&quot;SpatialPolygons&quot;</span>), <span class="dt">data =</span> s1)
 s1<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)
@@ -358,7 +358,7 @@ r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(
 ##  8 tas_features.8           9.12         0.212
 ##  9 tas_features.9          95.3          0.245
 ## 10 tas_features.10          5.91         0.407
-## # … with 52 more rows</code></pre>
+## # ... with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># visualize solution</span>
 s2<span class="op">$</span>solution_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">factor</span>(s2<span class="op">$</span>solution_<span class="dv">1</span>)
 <span class="kw">plot</span>(<span class="kw">st_as_sf</span>(s2[, <span class="st">&quot;solution_1&quot;</span>]), <span class="dt">pal =</span> <span class="kw">c</span>(<span class="st">&quot;grey90&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>),

@@ -5,6 +5,7 @@
 - Update `problem` function to reduce memory consumption for sparse
   matrix arguments (#164).
 - Update Tasmania vignette to remove superfluous warnings (#168).
+- Update publication record vignette.
 
 # prioritizr 5.0.2.5
 
