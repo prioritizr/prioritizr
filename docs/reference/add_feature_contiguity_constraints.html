@@ -104,7 +104,7 @@ designated for their conservation." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -194,16 +194,16 @@ designated for their conservation.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,Matrix</span>
-<span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>x</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,data.frame</span>
-<span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>x</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,matrix</span>
-<span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>x</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,ANY</span>
-<span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>x</span>, <span class='no'>zones</span>, <span class='no'>data</span>)</pre>
+<span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -269,7 +269,7 @@ cannot be used with feature data that have negative vales.
 <strong>Please note that adding these constraints to a problem will
 drastically increase the amount of time required to solve it.</strong></p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
-<dl'>
+<dl>
 
 <dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
 using the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. This is the default
@@ -335,39 +335,40 @@ connectivity in conservation planning do not always maintain gene flow.
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.3</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>)</span>
 
 <span class='co'># create problem with contiguity constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></span>()
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints to represent features in contiguous</span>
 <span class='co'># units</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>()
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints to represent features in contiguous</span>
 <span class='co'># units that contain highly suitable habitat values</span>
 <span class='co'># (specifically in the top 1.5th percentile)</span>
-<span class='no'>cm4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)), <span class='kw'>function</span>(<span class='no'>i</span>) {
+<span class='va'>cm4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># create connectivity matrix using the i'th feature's habitat data</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='no'>i</span>]])
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
   <span class='co'># convert matrix to TRUE/FALSE values in top 20th percentile</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='no'>m</span> <span class='kw'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span>(<span class='no'>m</span>), <span class='fl'>1</span> - <span class='fl'>0.015</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='va'>m</span> <span class='op'>&gt;</span> <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>, <span class='fl'>1</span> <span class='op'>-</span> <span class='fl'>0.015</span>, names <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='co'># convert matrix from TRUE/FALSE to sparse matrix with 0/1s</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as.html'>as</a></span>(<span class='no'>m</span>, <span class='st'>"dgCMatrix"</span>)
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='as.Id.html'>as</a></span><span class='op'>(</span><span class='va'>m</span>, <span class='st'>"dgCMatrix"</span><span class='op'>)</span>
   <span class='co'># remove 0s from the sparse matrix</span>
-  <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>Matrix</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/drop0.html'>drop0</a></span>(<span class='no'>m</span>)
+  <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'>Matrix</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/Matrix/man/drop0.html'>drop0</a></span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span>
   <span class='co'># return matrix</span>
-  <span class='no'>m</span>
-})
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cm4</span>)
+  <span class='va'>m</span>
+<span class='op'>}</span><span class='op'>)</span>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>cm4</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xfdd45583
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -438,7 +439,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Mod-K: 1
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 1 nodes (317 simplex iterations) in 0.11 seconds
+#&gt; Explored 1 nodes (317 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6519.31 
@@ -455,13 +456,13 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Presolve removed 194 rows and 195 columns
-#&gt; Presolve time: 0.05s
+#&gt; Presolve time: 0.06s
 #&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
 #&gt; Variable types: 0 continuous, 1065 integer (1065 binary)
 #&gt; Presolved: 1416 rows, 1065 columns, 4023 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.974619e+03, 1132 iterations, 0.02 seconds
+#&gt; Root relaxation: objective 5.974619e+03, 1132 iterations, 0.03 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -485,14 +486,14 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5985.67508    0  557          - 5985.67508      -     -    0s
 #&gt; H    0     0                    13027.013855 5985.67508  54.1%     -    0s
 #&gt;      0     2 5985.70508    0  555 13027.0139 5985.70508  54.1%     -    0s
-#&gt; H   55    51                    6310.2257954 5985.87997  5.14%  58.2    0s
+#&gt; H   55    51                    6310.2257954 5985.87997  5.14%  58.2    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
 #&gt;   Zero half: 13
 #&gt;   Mod-K: 2
 #&gt; 
-#&gt; Explored 56 nodes (6215 simplex iterations) in 0.85 seconds
+#&gt; Explored 56 nodes (6215 simplex iterations) in 1.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 6310.23 13027 
@@ -539,42 +540,45 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.231813141427e+04, best bound 1.197831562104e+04, gap 2.7587%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>,  <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"contiguity constraints"</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>,  axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic solution"</span>, <span class='st'>"contiguity constraints"</span>,
               <span class='st'>"feature contiguity constraints"</span>,
-              <span class='st'>"feature contiguity constraints with data"</span>))</div><div class='img'><img src='add_feature_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+              <span class='st'>"feature contiguity constraints with data"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_feature_contiguity_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create minimal problem with multiple zones, and limit the solver to</span>
 <span class='co'># 30 seconds to obtain solutions in a feasible period of time</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>30</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with contiguity constraints that specify that the</span>
 <span class='co'># planning units used to conserve each feature in different management</span>
 <span class='co'># zones must form separate contiguous units</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>))
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># create problem with contiguity constraints that specify that the</span>
 <span class='co'># planning units used to conserve each feature must form a single</span>
 <span class='co'># contiguous unit if the planning units are allocated to zones 1 and 2</span>
 <span class='co'># and do not need to form a single contiguous unit if they are allocated</span>
 <span class='co'># to zone 3</span>
-<span class='no'>zm7</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='no'>zm7</span>[<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>2</span>), <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>2</span>)] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm7</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='va'>zm7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>zm7</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
-#&gt; [3,]    0    0    0</div><div class='input'><span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>zm7</span>)
+#&gt; [3,]    0    0    0</div><div class='input'><span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>zm7</span><span class='op'>)</span>
 
 <span class='co'># create problem with contiguity constraints that specify that all of</span>
 <span class='co'># the planning units in all three of the zones must conserve first feature</span>
 <span class='co'># in a single contiguous unit but the planning units used to conserve the</span>
 <span class='co'># remaining features do not need to be contiguous in any way</span>
-<span class='no'>zm8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)), <span class='kw'>function</span>(<span class='no'>i</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span>(<span class='no'>i</span> <span class='kw'>==</span> <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>zm8</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='va'>zm8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>i</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>zm8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    1
 #&gt; [2,]    1    1    1
@@ -603,10 +607,11 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt; [1,]    0    0    0
 #&gt; [2,]    0    0    0
 #&gt; [3,]    0    0    0
-#&gt; </div><div class='input'><span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span>(<span class='no'>zm8</span>)
+#&gt; </div><div class='input'><span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_contiguity_constraints</span><span class='op'>(</span><span class='va'>zm8</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p5</span>, <span class='no'>p6</span>, <span class='no'>p7</span>, <span class='no'>p8</span>), <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>p6</span>, <span class='va'>p7</span>, <span class='va'>p8</span><span class='op'>)</span>, <span class='va'>solve</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x60594edc
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -647,13 +652,13 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 369 rows and 369 columns
-#&gt; Presolve time: 0.44s
+#&gt; Presolve time: 0.51s
 #&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
 #&gt; Variable types: 0 continuous, 3426 integer (3426 binary)
 #&gt; Presolved: 4566 rows, 3426 columns, 14223 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.964223e+03, 5400 iterations, 0.21 seconds
+#&gt; Root relaxation: objective 5.964223e+03, 5400 iterations, 0.26 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -665,13 +670,13 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5981.51562    0  944          - 5981.51562      -     -    1s
 #&gt;      0     0 5981.71072    0  903          - 5981.71072      -     -    1s
 #&gt;      0     0 5982.20813    0  980          - 5982.20813      -     -    1s
-#&gt;      0     0 5986.49153    0 1020          - 5986.49153      -     -    1s
-#&gt;      0     0 5988.83589    0  992          - 5988.83589      -     -    1s
-#&gt;      0     0 5989.11883    0 1031          - 5989.11883      -     -    1s
-#&gt;      0     0 5989.22588    0 1040          - 5989.22588      -     -    1s
-#&gt;      0     0 5991.41823    0 1007          - 5991.41823      -     -    1s
-#&gt;      0     0 5991.44488    0 1057          - 5991.44488      -     -    1s
-#&gt;      0     0 5991.51723    0 1103          - 5991.51723      -     -    1s
+#&gt;      0     0 5986.49153    0 1020          - 5986.49153      -     -    2s
+#&gt;      0     0 5988.83589    0  992          - 5988.83589      -     -    2s
+#&gt;      0     0 5989.11883    0 1031          - 5989.11883      -     -    2s
+#&gt;      0     0 5989.22588    0 1040          - 5989.22588      -     -    2s
+#&gt;      0     0 5991.41823    0 1007          - 5991.41823      -     -    2s
+#&gt;      0     0 5991.44488    0 1057          - 5991.44488      -     -    2s
+#&gt;      0     0 5991.51723    0 1103          - 5991.51723      -     -    2s
 #&gt;      0     0 5991.73678    0 1108          - 5991.73678      -     -    2s
 #&gt;      0     0 5991.79107    0 1083          - 5991.79107      -     -    2s
 #&gt;      0     0 5992.41026    0 1105          - 5992.41026      -     -    2s
@@ -681,28 +686,28 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5992.66429    0 1132          - 5992.66429      -     -    2s
 #&gt;      0     0 5992.66429    0 1132          - 5992.66429      -     -    2s
 #&gt;      0     0 5992.70700    0 1129          - 5992.70700      -     -    2s
-#&gt;      0     0 5992.70700    0 1117          - 5992.70700      -     -    2s
-#&gt;      0     2 5992.71282    0 1117          - 5992.71282      -     -    3s
-#&gt;     88    88 7595.14924   60  128          - 5992.71653      -   236    5s
-#&gt; H  127    86                    7284.1244049 5992.71653  17.7%   169    5s
-#&gt; H  211   142                    7073.5736394 5993.98639  15.3%   226    7s
-#&gt; H  238   156                    7069.6762183 5994.68399  15.2%   224    8s
-#&gt; H  265   183                    7069.2680024 5994.68399  15.2%   241    9s
-#&gt; H  292   197                    6896.8412161 5994.68399  13.1%   247    9s
-#&gt;    304   211 6636.23827   39  356 6896.84122 5994.68399  13.1%   241   10s
-#&gt; H  319   206                    6705.7409310 5994.68399  10.6%   241   10s
-#&gt; H  346   216                    6700.3463340 5995.00361  10.5%   245   11s
-#&gt; H  373   242                    6679.7692544 5995.00361  10.3%   253   12s
-#&gt; H  400   254                    6672.4119443 5995.07848  10.2%   258   13s
-#&gt;    465   304 6068.30854    8 1201 6672.41194 5997.61428  10.1%   270   15s
-#&gt; H  481   317                    6646.7933579 5997.61428  9.77%   271   16s
+#&gt;      0     0 5992.70700    0 1117          - 5992.70700      -     -    3s
+#&gt;      0     2 5992.71282    0 1117          - 5992.71282      -     -    4s
+#&gt;     18    20 6048.33705   13  934          - 5992.71653      -   440    5s
+#&gt; H  127    86                    7284.1244049 5992.71653  17.7%   169    6s
+#&gt; H  211   142                    7073.5736394 5993.98639  15.3%   226    9s
+#&gt; H  238   156                    7069.6762183 5994.68399  15.2%   224    9s
+#&gt;    243   163 6037.32557   10 1065 7069.67622 5994.68399  15.2%   226   10s
+#&gt; H  265   183                    7069.2680024 5994.68399  15.2%   241   11s
+#&gt; H  292   197                    6896.8412161 5994.68399  13.1%   247   11s
+#&gt; H  319   206                    6705.7409310 5994.68399  10.6%   241   12s
+#&gt; H  346   216                    6700.3463340 5995.00361  10.5%   245   13s
+#&gt; H  373   242                    6679.7692544 5995.00361  10.3%   253   14s
+#&gt;    392   251 6002.38951    6 1119 6679.76925 5995.07848  10.3%   254   15s
+#&gt; H  400   254                    6672.4119443 5995.07848  10.2%   258   15s
+#&gt; H  481   317                    6646.7933579 5997.61428  9.77%   271   18s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 9
 #&gt;   MIR: 23
 #&gt;   Zero half: 23
 #&gt; 
-#&gt; Explored 482 nodes (143259 simplex iterations) in 16.14 seconds
+#&gt; Explored 482 nodes (143259 simplex iterations) in 18.99 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 10: 6646.79 6672.41 6679.77 ... 7284.12
@@ -719,14 +724,14 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 8e+00]
 #&gt; Presolve removed 652 rows and 656 columns
-#&gt; Presolve time: 0.34s
+#&gt; Presolve time: 0.37s
 #&gt; Presolved: 3843 rows, 3139 columns, 12612 nonzeros
 #&gt; Variable types: 0 continuous, 3139 integer (3139 binary)
 #&gt; Presolve removed 749 rows and 81 columns
 #&gt; Presolved: 3094 rows, 3058 columns, 10608 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956540e+03, 3186 iterations, 0.12 seconds
+#&gt; Root relaxation: objective 5.956540e+03, 3186 iterations, 0.14 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -748,10 +753,10 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5985.35917    0  905          - 5985.35917      -     -    1s
 #&gt;      0     0 5985.40811    0  926          - 5985.40811      -     -    1s
 #&gt;      0     0 5985.42783    0  909          - 5985.42783      -     -    1s
-#&gt;      0     0 5986.53736    0  912          - 5986.53736      -     -    1s
-#&gt;      0     0 5986.89959    0  974          - 5986.89959      -     -    1s
-#&gt;      0     0 5986.94807    0  942          - 5986.94807      -     -    1s
-#&gt;      0     0 5986.98084    0 1011          - 5986.98084      -     -    1s
+#&gt;      0     0 5986.53736    0  912          - 5986.53736      -     -    2s
+#&gt;      0     0 5986.89959    0  974          - 5986.89959      -     -    2s
+#&gt;      0     0 5986.94807    0  942          - 5986.94807      -     -    2s
+#&gt;      0     0 5986.98084    0 1011          - 5986.98084      -     -    2s
 #&gt;      0     0 5987.00363    0  954          - 5987.00363      -     -    2s
 #&gt;      0     0 5987.00756    0 1011          - 5987.00756      -     -    2s
 #&gt;      0     0 5988.12526    0  955          - 5988.12526      -     -    2s
@@ -771,11 +776,11 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5989.63033    0  887          - 5989.63033      -     -    2s
 #&gt;      0     0 5989.63233    0  882          - 5989.63233      -     -    2s
 #&gt;      0     0 5989.64262    0  881          - 5989.64262      -     -    2s
-#&gt;      0     0 5989.64262    0  871          - 5989.64262      -     -    2s
+#&gt;      0     0 5989.64262    0  871          - 5989.64262      -     -    3s
 #&gt; H    0     0                    14289.899792 5989.64262  58.1%     -    3s
-#&gt; H    0     0                    9061.4456454 5989.64824  33.9%     -    4s
+#&gt; H    0     0                    9061.4456454 5989.64824  33.9%     -    5s
 #&gt;      0     2 5989.66390    0  871 9061.44565 5989.66390  33.9%     -    5s
-#&gt; H   45    45                    6332.0418375 5989.66390  5.41%   204    5s
+#&gt; H   45    45                    6332.0418375 5989.66390  5.41%   204    6s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 1
@@ -784,7 +789,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   Zero half: 11
 #&gt;   Mod-K: 2
 #&gt; 
-#&gt; Explored 46 nodes (22573 simplex iterations) in 5.79 seconds
+#&gt; Explored 46 nodes (22573 simplex iterations) in 6.48 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 6332.04 9061.45 14289.9 
@@ -808,7 +813,7 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt; Presolved: 1214 rows, 1410 columns, 6009 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 5.956523e+03, 1708 iterations, 0.03 seconds
+#&gt; Root relaxation: objective 5.956523e+03, 1708 iterations, 0.04 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -843,19 +848,19 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;      0     0 5991.78879    0  362          - 5991.78879      -     -    0s
 #&gt;      0     0 5991.81726    0  366          - 5991.81726      -     -    0s
 #&gt;      0     0 5991.84106    0  363          - 5991.84106      -     -    0s
-#&gt;      0     0 5992.02796    0  355          - 5992.02796      -     -    0s
-#&gt;      0     0 5992.13505    0  362          - 5992.13505      -     -    0s
-#&gt;      0     0 5992.17456    0  372          - 5992.17456      -     -    0s
-#&gt;      0     0 5992.21553    0  371          - 5992.21553      -     -    0s
-#&gt;      0     0 5992.22019    0  375          - 5992.22019      -     -    0s
-#&gt;      0     0 5992.56953    0  367          - 5992.56953      -     -    0s
-#&gt;      0     0 5992.69062    0  368          - 5992.69062      -     -    0s
-#&gt;      0     0 5992.73052    0  373          - 5992.73052      -     -    0s
-#&gt;      0     0 5992.74229    0  381          - 5992.74229      -     -    0s
+#&gt;      0     0 5992.02796    0  355          - 5992.02796      -     -    1s
+#&gt;      0     0 5992.13505    0  362          - 5992.13505      -     -    1s
+#&gt;      0     0 5992.17456    0  372          - 5992.17456      -     -    1s
+#&gt;      0     0 5992.21553    0  371          - 5992.21553      -     -    1s
+#&gt;      0     0 5992.22019    0  375          - 5992.22019      -     -    1s
+#&gt;      0     0 5992.56953    0  367          - 5992.56953      -     -    1s
+#&gt;      0     0 5992.69062    0  368          - 5992.69062      -     -    1s
+#&gt;      0     0 5992.73052    0  373          - 5992.73052      -     -    1s
+#&gt;      0     0 5992.74229    0  381          - 5992.74229      -     -    1s
 #&gt;      0     0 5992.74891    0  381          - 5992.74891      -     -    1s
 #&gt;      0     0 5992.74891    0  374          - 5992.74891      -     -    1s
 #&gt;      0     2 5992.76645    0  374          - 5992.76645      -     -    1s
-#&gt; H   70    65                    6578.0783960 5992.80971  8.90%  87.8    1s
+#&gt; H   70    65                    6578.0783960 5992.80971  8.90%  87.8    2s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Cover: 3
@@ -863,16 +868,17 @@ connectivity in conservation planning do not always maintain gene flow.
 #&gt;   StrongCG: 3
 #&gt;   Zero half: 18
 #&gt; 
-#&gt; Explored 71 nodes (11352 simplex iterations) in 1.72 seconds
+#&gt; Explored 71 nodes (11352 simplex iterations) in 2.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 1: 6578.08 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.578078395996e+03, best bound 5.992809714820e+03, gap 8.8973%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>))
+#&gt; Best objective 6.578078395996e+03, best bound 5.992809714820e+03, gap 8.8973%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"p5"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_feature_contiguity_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"p5"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_feature_contiguity_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -889,7 +895,7 @@ connectivity in conservation planning do not always maintain gene flow.
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

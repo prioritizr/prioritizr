@@ -1,3 +1,10 @@
+# prioritizr 5.0.2.6
+
+- Implement GitHub Actions continuous integration (i.e. update tests
+  and README).
+- Update `problem` function to reduce memory consumption for sparse
+  matrix arguments (#164).
+
 # prioritizr 5.0.2.5
 
 - New `add_cplex_solver` function to generate solutions using
@@ -550,7 +557,7 @@
 
 - Added functionality to build and solve problems with multiple management
   zones (#14).
-- New built-in data sets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
+- New built-in datasets `sim_pu_zones_stack`, `sim_pu_zones_polygons`,
   and `sim_features_zones` for exploring conservation problems with
   multiple management zones.
 - New `zones` function and `Zones` class to organize data with multiple

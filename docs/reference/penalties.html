@@ -100,7 +100,7 @@ add_min_set_objective())." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -196,7 +196,7 @@ On the other hand, penalties work by specifying trade-offs against the
 main problem objective and are mediated by a penalty factor.</p>
 <p>The following penalties can be added to a conservation planning
 <code><a href='problem.html'>problem()</a></code>:</p>
-<dl'>
+<dl>
 
 <dt><code><a href='add_boundary_penalties.html'>add_boundary_penalties()</a></code></dt><dd><p>Add penalties to a
 conservation problem to favor solutions that have
@@ -222,42 +222,44 @@ planning units based on a certain variable
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
 <span class='co'># create basic problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with boundary penalties</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span>(<span class='fl'>5</span>, <span class='fl'>1</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_boundary_penalties.html'>add_boundary_penalties</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># create connectivity matrix based on spatial proximity</span>
- <span class='no'>scm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>xy</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
- <span class='no'>scm</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span> / (<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span>(<span class='no'>scm</span>)) + <span class='fl'>1</span>)
+ <span class='va'>scm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, xy <span class='op'>=</span> <span class='cn'>TRUE</span>, na.rm <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+ <span class='va'>scm</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>/</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>scm</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># remove weak and moderate connections between planning units to reduce</span>
 <span class='co'># run time</span>
-<span class='no'>scm</span>[<span class='no'>scm</span> <span class='kw'>&lt;</span> <span class='fl'>0.85</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>scm</span><span class='op'>[</span><span class='va'>scm</span> <span class='op'>&lt;</span> <span class='fl'>0.85</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 
 <span class='co'># create problem with connectivity penalties</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span>(<span class='fl'>25</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>scm</span>)
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span><span class='op'>(</span><span class='fl'>25</span>, data <span class='op'>=</span> <span class='va'>scm</span><span class='op'>)</span>
 
 <span class='co'># create problem with linear penalties,</span>
 <span class='co'># here the penalties will be based on random numbers to keep it simple</span>
 
 <span class='co'># simulate penalty data</span>
-<span class='no'>sim_penalty_raster</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='simulate_cost.html'>simulate_cost</a></span>(<span class='no'>sim_pu_raster</span>)
+<span class='va'>sim_penalty_raster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='simulate_cost.html'>simulate_cost</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span><span class='op'>)</span>
 
 <span class='co'># plot penalty data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_penalty_raster</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"penalty data"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='penalties-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_penalty_raster</span>, main <span class='op'>=</span> <span class='st'>"penalty data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='penalties-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># create problem with linear penalties, with a penalty scaling factor of 100</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_linear_penalties.html'>add_linear_penalties</a></span>(<span class='fl'>100</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>sim_penalty_raster</span>)
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_linear_penalties.html'>add_linear_penalties</a></span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='va'>sim_penalty_raster</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -382,9 +384,10 @@ planning units based on a certain variable
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.955364458117e+05, best bound 3.861098723845e+05, gap 2.3832%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"boundary penalties"</span>,
-              <span class='st'>"connectivity penalties"</span>, <span class='st'>"linear penalties"</span>))</div><div class='img'><img src='penalties-2.png' alt='' width='700' height='433' /></div><div class='input'> # }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic solution"</span>, <span class='st'>"boundary penalties"</span>,
+              <span class='st'>"connectivity penalties"</span>, <span class='st'>"linear penalties"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='penalties-2.png' alt='' width='700' height='433' /></div><div class='input'> <span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -401,7 +404,7 @@ planning units based on a certain variable
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

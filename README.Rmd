@@ -9,8 +9,9 @@ output:
 # Systematic Conservation Prioritization in R <img src="man/figures/logo.png" align="right" width=10% />
 
 [![lifecycle](https://img.shields.io/badge/Lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
-[![Travis Build Status](https://img.shields.io/travis/prioritizr/prioritizr/master.svg?label=Linux%20%26%20Mac%20OSX)](https://travis-ci.org/prioritizr/prioritizr)
-[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/jeffreyhanson/prioritizr/master.svg?label=Windows)](https://ci.appveyor.com/project/jeffreyhanson/prioritizr)
+[![R-CMD-check-Ubuntu](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Ubuntu/master.svg?label=Ubuntu)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-Windows](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Windows/master.svg?label=Windows)](https://github.com/prioritizr/prioritizr/actions)
+[![R-CMD-check-Mac-OSX](https://img.shields.io/github/workflow/status/prioritizr/prioritizr/Mac%20OSX/master.svg?label=Mac%20OSX)](https://github.com/prioritizr/prioritizr/actions)
 [![Coverage Status](https://codecov.io/github/prioritizr/prioritizr/coverage.svg?branch=master)](https://codecov.io/github/prioritizr/prioritizr?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/prioritizr)](https://CRAN.R-project.org/package=prioritizr)
 
@@ -68,14 +69,14 @@ Additionally, we keep a [record of publications](https://prioritizr.net/articles
 
 ## Usage
 
-Here we will provide a short example showing how the _prioritizr R_ package can be used to build and solve conservation problems. For brevity, we will use one of the built-in simulated data sets that is distributed with the package. First, we will load the _prioritizr R_ package.
+Here we will provide a short example showing how the _prioritizr R_ package can be used to build and solve conservation problems. For brevity, we will use one of the built-in simulated datasets that is distributed with the package. First, we will load the _prioritizr R_ package.
 
 ```{r, eval = FALSE}
 # load package
 library(prioritizr)
 ```
 
-We will use the `sim_pu_polygons` object to represent our planning units. Although the _prioritizr R_ can support many different types of planning unit data, here our planning units are represented as polygons in a spatial vector format (i.e. `SpatialPolygonsDataFrame`). Each polygon represents a different planning unit and we have `r length(sim_pu_polygons)` planning units in total. The attribute table associated with this data set contains information describing the acquisition cost of each planning ("cost" column), and a value indicating if the unit is already located in protected area ("locked_in" column). Let's explore the planning unit data.
+We will use the `sim_pu_polygons` object to represent our planning units. Although the _prioritizr R_ can support many different types of planning unit data, here our planning units are represented as polygons in a spatial vector format (i.e. `SpatialPolygonsDataFrame`). Each polygon represents a different planning unit and we have `r length(sim_pu_polygons)` planning units in total. The attribute table associated with this dataset contains information describing the acquisition cost of each planning ("cost" column), and a value indicating if the unit is already located in protected area ("locked_in" column). Let's explore the planning unit data.
 
 ```{r, fig.height = h, fig.width = w, out.width=ow}
 # load planning unit data

@@ -97,8 +97,7 @@ test_that("minimum set objective (compile, single zone)", {
 
 test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # check that solution is feasible
   data(sim_pu_raster, sim_features)
@@ -335,8 +334,7 @@ test_that("minimum set objective (compile, multiple zones)", {
 
 test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)

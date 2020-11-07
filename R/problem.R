@@ -136,7 +136,7 @@ NULL
 #'
 #' @param run_checks `logical` flag indicating whether checks should be
 #'   run to ensure the integrity of the input data. These checks are run by
-#'   default; however, for large data sets they may increase run time. If it is
+#'   default; however, for large datasets they may increase run time. If it is
 #'   taking a prohibitively long time to create the prioritization problem, it
 #'   is suggested to try setting `run_checks` to `FALSE`.
 #'
@@ -255,7 +255,7 @@ NULL
 #' sim_pu_polygons$spp_3 <- rpois(length(sim_pu_polygons), 2)
 #'
 #' # create problem using pre-processed data when feature abundances are
-#' # stored in the columns of an attribute table for a spatial vector data set
+#' # stored in the columns of an attribute table for a spatial vector dataset
 #' p6 <- problem(sim_pu_polygons, features = c("spp_1", "spp_2", "spp_3"),
 #'               "cost") %>%
 #'       add_min_set_objective() %>%

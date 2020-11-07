@@ -97,7 +97,7 @@ to create a parameter with conflicting settings then an error will be thrown." /
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -179,25 +179,25 @@ to create a parameter with conflicting settings then an error will be thrown." /
 to create a parameter with conflicting settings then an error will be thrown.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proportion_parameter_array</span>(<span class='no'>name</span>, <span class='no'>value</span>, <span class='no'>label</span>)
+    <pre class="usage"><span class='fu'>proportion_parameter_array</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>value</span>, <span class='va'>label</span><span class='op'>)</span>
 
-<span class='fu'>binary_parameter_array</span>(<span class='no'>name</span>, <span class='no'>value</span>, <span class='no'>label</span>)
+<span class='fu'>binary_parameter_array</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>value</span>, <span class='va'>label</span><span class='op'>)</span>
 
-<span class='fu'>integer_parameter_array</span>(
-  <span class='no'>name</span>,
-  <span class='no'>value</span>,
-  <span class='no'>label</span>,
-  <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(-<span class='no'>.Machine</span>$<span class='no'>integer.max</span>), <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>value</span>)),
-  <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>.Machine</span>$<span class='no'>integer.max</span>), <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>value</span>))
-)
+<span class='fu'>integer_parameter_array</span><span class='op'>(</span>
+  <span class='va'>name</span>,
+  <span class='va'>value</span>,
+  <span class='va'>label</span>,
+  lower_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>,
+  upper_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>numeric_parameter_array</span>(
-  <span class='no'>name</span>,
-  <span class='no'>value</span>,
-  <span class='no'>label</span>,
-  <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>.Machine</span>$<span class='no'>double.xmin</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>value</span>)),
-  <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='no'>.Machine</span>$<span class='no'>double.xmax</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>value</span>))
-)</pre>
+<span class='fu'>numeric_parameter_array</span><span class='op'>(</span>
+  <span class='va'>name</span>,
+  <span class='va'>value</span>,
+  <span class='va'>label</span>,
+  lower_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.xmin</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>,
+  upper_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.xmax</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,7 +234,7 @@ largest  possible number on the system.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Below is a list of parameter generating functions and a brief
-description of each.</p><dl'>
+description of each.</p><dl>
 
 <dt>proportion_parameter_array</dt><dd><p>a parameter that consists of multiple
 <code>numeric</code> values that are between zero and one.</p></dd>
@@ -254,62 +254,82 @@ description of each.</p><dl'>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># proportion parameter array</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>proportion_parameter_array</span>(<span class='st'>'prop_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span>),
-                                 <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop_array (min: 0.1, max: 0.3)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>proportion_parameter_array</span><span class='op'>(</span><span class='st'>'prop_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.2</span>, <span class='fl'>0.3</span><span class='op'>)</span>,
+                                 <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>prop_array (min: 0.1, max: 0.3)</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   0.2
-#&gt; c   0.3</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 62729600-8f06-4047-8f50-35028a1b0766</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
-<span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
-<span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.4</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
-<span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
-<span class='no'>p1</span>$<span class='fu'>set</span>(<span class='no'>valid</span>) <span class='co'># change value to valid input</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; <span class='message'>prop_array (min: 0.4, max: 0.6)</span></div><div class='input'>
+#&gt; c   0.3</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 9f20f6ae-c00f-4b29-bb6d-6cb09ded5493</span></div><div class='input'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid values</span>
+<span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span>
+<span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.4</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span>
+<span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># check valid input is valid</span>
+<span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># change value to valid input</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>prop_array (min: 0.4, max: 0.6)</span></div><div class='input'>
 <span class='co'># binary parameter array</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_parameter_array</span>(<span class='st'>'bin_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>0L</span>), <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin_array (min: 0, max: 1)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>binary_parameter_array</span><span class='op'>(</span><span class='st'>'bin_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>1L</span>, <span class='fl'>0L</span><span class='op'>)</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>bin_array (min: 0, max: 1)</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt;   value
 #&gt; a     0
 #&gt; b     1
-#&gt; c     0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: cd2553c1-a268-41c4-a23f-a7bee7cc66ef</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid values</span>
-<span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
-<span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0L</span>, <span class='fl'>0L</span>, <span class='fl'>0L</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
-<span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
-<span class='no'>p2</span>$<span class='fu'>set</span>(<span class='no'>valid</span>) <span class='co'># change value to valid input</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; <span class='message'>bin_array (min: 0, max: 0)</span></div><div class='input'>
+#&gt; c     0</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: ed0bebee-cf5e-47ee-8f7a-5dac2c469290</span></div><div class='input'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid values</span>
+<span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span>
+<span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0L</span>, <span class='fl'>0L</span>, <span class='fl'>0L</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span>
+<span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># check valid input is valid</span>
+<span class='va'>p2</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># change value to valid input</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>bin_array (min: 0, max: 0)</span></div><div class='input'>
 <span class='co'># integer parameter array</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>integer_parameter_array</span>(<span class='st'>'int_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>), <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int_array (min: 1, max: 3)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>integer_parameter_array</span><span class='op'>(</span><span class='st'>'int_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>int_array (min: 1, max: 3)</span></div><div class='input'><span class='va'>p3</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt;   value
 #&gt; a     1
 #&gt; b     2
-#&gt; c     3</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: ae5b6074-2cfc-4f0a-ac84-b4b0e8ee8adc</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>3</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
-<span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
-<span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fl'>5</span>:<span class='fl'>7</span>, <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
-<span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
-<span class='no'>p3</span>$<span class='fu'>set</span>(<span class='no'>valid</span>) <span class='co'># change value to valid input</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; <span class='message'>int_array (min: 5, max: 7)</span></div><div class='input'>
+#&gt; c     3</div><div class='input'><span class='va'>p3</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: b284669b-2921-4dfa-9315-67335df36f07</span></div><div class='input'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span>
+<span class='va'>p3</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span>
+<span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span>
+<span class='va'>p3</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># check valid input is valid</span>
+<span class='va'>p3</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># change value to valid input</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>int_array (min: 5, max: 7)</span></div><div class='input'>
 <span class='co'># numeric parameter array</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter_array</span>(<span class='st'>'dbl_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>4</span>, -<span class='fl'>5</span>), <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>])
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_parameter_array</span><span class='op'>(</span><span class='st'>'dbl_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>4</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='va'>p4</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   4.0
-#&gt; c  -5.0</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: d09ee274-1d5c-4423-a3e0-9088125b8806</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
-<span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
-<span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
-<span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
-<span class='no'>p4</span>$<span class='fu'>set</span>(<span class='no'>valid</span>) <span class='co'># change value to valid input</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; <span class='message'>dbl_array (min: 1, max: 3)</span></div><div class='input'>
+#&gt; c  -5.0</div><div class='input'><span class='va'>p4</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: da7bed89-9168-4fe8-9bb0-940aa443c641</span></div><div class='input'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='cn'>NA</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span>
+<span class='va'>p4</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span>
+<span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span>
+<span class='va'>p4</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># check valid input is valid</span>
+<span class='va'>p4</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># change value to valid input</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>dbl_array (min: 1, max: 3)</span></div><div class='input'>
 <span class='co'># numeric parameter array with lower bounds</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter_array</span>(<span class='st'>'b_dbl_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>4</span>, -<span class='fl'>5</span>), <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>],
-                              <span class='kw'>lower_limit</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>b_dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt;   value
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_parameter_array</span><span class='op'>(</span><span class='st'>'b_dbl_array'</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>4</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>, <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>,
+                              lower_limit<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>b_dbl_array (min: -5, max: 4)</span></div><div class='input'><span class='va'>p5</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt;   value
 #&gt; a   0.1
 #&gt; b   4.0
-#&gt; c  -5.0</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span><span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: f53eb163-4033-46c7-b1c8-bd59c627ddb6</span></div><div class='input'><span class='no'>invalid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>5</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># invalid</span>
-<span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='no'>invalid</span>) <span class='co'># check invalid input is invalid</span>
-<span class='no'>valid</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='kw'>row.names</span><span class='kw'>=</span><span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]) <span class='co'># valid</span>
-<span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='no'>valid</span>) <span class='co'># check valid input is valid</span>
-<span class='no'>p5</span>$<span class='fu'>set</span>(<span class='no'>valid</span>) <span class='co'># change value to valid input</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; <span class='message'>b_dbl_array (min: 0, max: 2)</span></div><div class='input'>
+#&gt; c  -5.0</div><div class='input'><span class='va'>p5</span><span class='op'>$</span><span class='va'>id</span><span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: a9cfe1e6-7307-4807-a623-94290f177b4a</span></div><div class='input'><span class='va'>invalid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># invalid</span>
+<span class='va'>p5</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>invalid</span><span class='op'>)</span> <span class='co'># check invalid input is invalid</span>
+<span class='va'>valid</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>value <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, row.names<span class='op'>=</span><span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span> <span class='co'># valid</span>
+<span class='va'>p5</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># check valid input is valid</span>
+<span class='va'>p5</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>valid</span><span class='op'>)</span> <span class='co'># change value to valid input</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>b_dbl_array (min: 0, max: 2)</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -326,7 +346,7 @@ description of each.</p><dl'>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

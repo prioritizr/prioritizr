@@ -2,8 +2,7 @@ context("solve")
 
 test_that("x=RasterLayer, y=RasterStack (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
@@ -25,8 +24,7 @@ test_that("x=RasterLayer, y=RasterStack (single zone)", {
 
 test_that("x=RasterStack, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   costs <- raster::stack(
@@ -52,8 +50,7 @@ test_that("x=RasterStack, y=ZonesRaster (multiple zones)", {
 
 test_that("x=SpatialPolygonsDataFrame, y=RasterStack (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
@@ -77,8 +74,7 @@ test_that("x=SpatialPolygonsDataFrame, y=RasterStack (single zone)", {
 
 test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
@@ -106,8 +102,7 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesRaster (multiple zones)", {
 
 test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
@@ -129,8 +124,7 @@ test_that("x=SpatialPolygonsDataFrame, y=character (single zone)", {
 
 test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
@@ -157,8 +151,7 @@ test_that("x=SpatialPolygonsDataFrame, y=ZonesCharacter (multiple zones)", {
 
 test_that("x=sf, y=RasterStack (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:4, byrow = TRUE, ncol = 2)) %>%
@@ -183,8 +176,7 @@ test_that("x=sf, y=RasterStack (single zone)", {
 
 test_that("x=sf, y=ZonesRaster (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
@@ -213,8 +205,7 @@ test_that("x=sf, y=ZonesRaster (multiple zones)", {
 
 test_that("x=sf, y=character (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:4, byrow = 2, ncol = 2)) %>%
@@ -237,8 +228,7 @@ test_that("x=sf, y=character (single zone)", {
 
 test_that("x=sf, y=ZonesCharacter (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   costs <- raster::raster(matrix(1:7, ncol = 7)) %>%
@@ -266,8 +256,7 @@ test_that("x=sf, y=ZonesCharacter (multiple zones)", {
 
 test_that("x=data.frame, y=data.frame (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   pu <- data.frame(id = seq_len(4), cost = c(1, 2, NA, 3))
@@ -288,8 +277,7 @@ test_that("x=data.frame, y=data.frame (single zone)", {
 
 test_that("x=data.frame, y=data.frame (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   costs <- data.frame(id = seq_len(7),
@@ -320,8 +308,7 @@ test_that("x=data.frame, y=data.frame (multiple zones)", {
 
 test_that("x=numeric, y=data.frame (single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   pu <- data.frame(id = seq_len(4), cost = c(1, NA, 1000, 3))
@@ -341,8 +328,7 @@ test_that("x=numeric, y=data.frame (single zone)", {
 
 test_that("x=matrix, y=data.frame (multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # simulate data
   costs <- data.frame(id = seq_len(7),
@@ -371,8 +357,7 @@ test_that("x=matrix, y=data.frame (multiple zones)", {
 
 test_that("silent output when verbose=FALSE", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # simulate data
   costs <- raster::raster(matrix(c(1, 2, NA, 3), ncol = 4))
@@ -401,8 +386,7 @@ test_that("numerical instability (error when force = FALSE)", {
 
 test_that("numerical instability (solution when force = TRUE)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_polygons, sim_features)

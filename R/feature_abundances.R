@@ -59,7 +59,7 @@ NULL
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
-#' # create a simple conservation planning data set so we can see exactly
+#' # create a simple conservation planning dataset so we can see exactly
 #' # how the feature abundances are calculated
 #' pu <- data.frame(id = seq_len(10), cost = c(0.2, NA, runif(8)),
 #'                  spp1 = runif(10), spp2 = c(rpois(9, 4), NA))

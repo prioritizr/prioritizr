@@ -24,8 +24,7 @@ test_that("compile (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -50,8 +49,7 @@ test_that("solve (compressed formulation, single zone)", {
 
 test_that("solve (compressed formulation, single zone, negative values)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, 0, 0, NA), nrow = 1))
@@ -117,8 +115,7 @@ test_that("compile (expanded formulation, single zone)", {
 
 test_that("solve (expanded formulation, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -182,8 +179,7 @@ test_that("compile (compressed formulation, multiple zones)", {
 
 test_that("solve (compressed formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   costs <- raster::stack(
@@ -286,8 +282,7 @@ test_that("compile (expanded formulation, multiple zones)", {
 
 test_that("solve (expanded formulation, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   costs <- raster::stack(

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a SYMPHONY solver with <em>Rsymphony</em> — add_rsymphony_solver • prioritizr</title>
+<title>Add a SYMPHONY solver with Rsymphony — add_rsymphony_solver • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Add a SYMPHONY solver with <em>Rsymphony</em> — add_rsymphony_solver" />
+<meta property="og:title" content="Add a SYMPHONY solver with Rsymphony — add_rsymphony_solver" />
 <meta property="og:description" content="Specify that the SYMPHONY software should be used to solve a
 conservation planning problem using the Rsymphony package. This
 function can also be used to customize the behavior of the solver.
@@ -99,7 +99,7 @@ It requires the Rsymphony package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -183,13 +183,13 @@ function can also be used to customize the behavior of the solver.
 It requires the <span class="pkg">Rsymphony</span> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_rsymphony_solver</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>gap</span> <span class='kw'>=</span> <span class='fl'>0.1</span>,
-  <span class='kw'>time_limit</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
-  <span class='kw'>first_feasible</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>add_rsymphony_solver</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  gap <span class='op'>=</span> <span class='fl'>0.1</span>,
+  time_limit <span class='op'>=</span> <span class='op'>-</span><span class='fl'>1</span>,
+  first_feasible <span class='op'>=</span> <span class='fl'>0</span>,
+  verbose <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,24 +247,25 @@ This solver uses the <span class="pkg">Rsymphony</span> package to solve problem
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
 <span class='co'># create problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># if the package is installed then add solver and generate solution</span>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"Rsymphony"</span>)) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://R-Forge.R-project.org/projects/rsymphony'>"Rsymphony"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='co'># specify solver and generate solution</span>
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span>(<span class='kw'>time_limit</span> <span class='kw'>=</span> <span class='fl'>10</span>) <span class='kw'>%&gt;%</span>
-             <span class='fu'><a href='solve.html'>solve</a></span>()
+  <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>add_rsymphony_solver</span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+             <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='op'>)</span>
 
   <span class='co'># plot solutions</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>s</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"planning units"</span>, <span class='st'>"solution"</span>),
-       <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-}</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='img'><img src='add_rsymphony_solver-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>s</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"planning units"</span>, <span class='st'>"solution"</span><span class='op'>)</span>,
+       axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='img'><img src='add_rsymphony_solver-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -282,7 +283,7 @@ This solver uses the <span class="pkg">Rsymphony</span> package to solve problem
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

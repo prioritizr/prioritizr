@@ -97,7 +97,7 @@ unit (also known as an rij matrix)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -179,16 +179,16 @@ unit (also known as an rij matrix)." />
 unit (also known as an <em>rij</em> matrix).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rij_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Raster,Raster</span>
-<span class='fu'>rij_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Spatial,Raster</span>
-<span class='fu'>rij_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>fun</span>, <span class='no'>...</span>)
+<span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>fun</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sf,Raster</span>
-<span class='fu'>rij_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>fun</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>fun</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,7 +196,7 @@ unit (also known as an <em>rij</em> matrix).</p>
     <tr>
       <th>x</th>
       <td><p><code>Raster</code>,
-<code>Spatial</code>, or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object
+<code>Spatial</code>, or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object
 representing the planning units.</p></td>
     </tr>
     <tr>
@@ -212,14 +212,14 @@ features.</p></td>
       <th>fun</th>
       <td><p><code>character</code> for summarizing values inside each planning unit.
 This parameter is only used when the argument to <code>x</code> is a
-<code>Spatial</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object.
+<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object.
 Defaults to <code>"sum"</code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dgCMatrix</code> sparse matrix object.
+    <p><code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code> sparse matrix object.
 The sparse matrix represents the spatial intersection between the
 planning units and the features. Rows correspond to planning units,
 and columns correspond to features. Values correspond to the amount
@@ -229,18 +229,19 @@ third column and second row.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Generally, processing vector (i.e. <code>Spatial</code> or
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>) data takes much
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>) data takes much
 longer to process then <code>Raster</code> data,
 so it is recommended to use <code>Raster</code> data
 for planning units where possible.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_polygons</span>, <span class='no'>sim_pu_sf</span>, <span class='no'>sim_pu_zones_stack</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span>, <span class='va'>sim_pu_sf</span>, <span class='va'>sim_pu_zones_stack</span><span class='op'>)</span>
 
 <span class='co'># create rij matrix using raster layer planning units</span>
-<span class='no'>rij_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='va'>rij_raster</span> <span class='op'>&lt;-</span> <span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rij_raster</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4084749
@@ -320,8 +321,9 @@ for planning units where possible.</p>
 #&gt; layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285
 #&gt; layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</div><div class='input'>
 <span class='co'># create rij matrix using polygon (Spatial) planning units</span>
-<span class='no'>rij_polygons</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_polygons</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='va'>rij_polygons</span> <span class='op'>&lt;-</span> <span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rij_polygons</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4084749
@@ -401,8 +403,9 @@ for planning units where possible.</p>
 #&gt; layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285
 #&gt; layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</div><div class='input'>
 <span class='co'># create rij matrix using polygon (sf) planning units</span>
-<span class='no'>rij_sf</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_sf</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_sf</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='va'>rij_sf</span> <span class='op'>&lt;-</span> <span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rij_sf</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7017231
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4084749
@@ -482,8 +485,9 @@ for planning units where possible.</p>
 #&gt; layer.4 0.3753241 0.3774461 0.3785580 0.3729116 0.3601426 0.3391285
 #&gt; layer.5 0.6002171 0.6002851 0.6166497 0.6288149 0.6410043 0.6515710</div><div class='input'>
 <span class='co'># create rij matrix using raster stack planning units</span>
-<span class='no'>rij_zones_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>rij_matrix</span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>rij_zones_raster</span>)</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
+<span class='va'>rij_zones_raster</span> <span class='op'>&lt;-</span> <span class='fu'>rij_matrix</span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rij_zones_raster</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 5 x 90 sparse Matrix of class "dgCMatrix"
 #&gt;                                                                              
 #&gt; layer.1 0.7150548 0.6990429 0.6859317 0.6783193 0.6782107 0.6863252 0.7219284
 #&gt; layer.2 0.2900901 0.3052216 0.3266036 0.3510977 0.3750470 0.3950113 0.4142271
@@ -577,7 +581,7 @@ for planning units where possible.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

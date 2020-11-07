@@ -98,7 +98,7 @@ planning unit exhibits." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -181,25 +181,25 @@ between different planning units, and the amount of exposed edge length each
 planning unit exhibits.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='no'>str_tree</span>)
+    <pre class="usage"><span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>str_tree</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Raster</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SpatialPolygons</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SpatialLines</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for SpatialPoints</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sf</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>boundary_matrix</span>(<span class='no'>x</span>, <span class='kw'>str_tree</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>x</span>, str_tree <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,7 +209,7 @@ planning unit exhibits.</p>
       <td><p><code>Raster</code>,
 <code>SpatialLines</code>,
 <code>SpatialPolygons</code>,
-<code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object representing planning units. If <code>x</code> is a
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object representing planning units. If <code>x</code> is a
 <code>Raster</code> object then it must have only one
 layer.</p></td>
     </tr>
@@ -231,13 +231,13 @@ is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dsCMatrix</code> symmetric sparse matrix object.
+    <p><code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix</a></code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the shared boundary length between different pairs
 of planning units.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a <code>dsCMatrix</code>
+    <p>This function returns a <code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix</a></code>
 symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 the shared boundary between two different planning units. Cells on the
 diagonal indicate length of a given planning unit's edges that have no
@@ -253,43 +253,46 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_polygons</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_polygons</span><span class='op'>)</span>
 
 <span class='co'># subset data to reduce processing time</span>
-<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>))
-<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
-<span class='no'>ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>st_as_sf</span>(<span class='no'>ply</span>)
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>crop</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>ply</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span>, <span class='op'>]</span>
+<span class='va'>ply2</span> <span class='op'>&lt;-</span> <span class='fu'>st_as_sf</span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span>
 
 <span class='co'># create boundary matrix using raster data</span>
-<span class='no'>bm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>r</span>)
+<span class='va'>bm_raster</span> <span class='op'>&lt;-</span> <span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 
 <span class='co'># create boundary matrix using polygon (Spatial) data</span>
-<span class='no'>bm_ply1</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>)
+<span class='va'>bm_ply1</span> <span class='op'>&lt;-</span> <span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span>
 
 <span class='co'># create boundary matrix using polygon (sf) data</span>
-<span class='no'>bm_ply2</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply2</span>)
+<span class='va'>bm_ply2</span> <span class='op'>&lt;-</span> <span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>ply2</span><span class='op'>)</span>
 
 <span class='co'># create boundary matrix with polygon (Spatial) data and GEOS STR query trees</span>
 <span class='co'># to speed up processing</span>
-<span class='no'>bm_ply3</span> <span class='kw'>&lt;-</span> <span class='fu'>boundary_matrix</span>(<span class='no'>ply</span>, <span class='fl'>TRUE</span>)
+<span class='va'>bm_ply3</span> <span class='op'>&lt;-</span> <span class='fu'>boundary_matrix</span><span class='op'>(</span><span class='va'>ply</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># plot raster and boundary matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"raster"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>bm_raster</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>,
-     <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"raster"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_raster</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>,
+     axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='boundary_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># plot polygons and boundary matrices</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons (Spatial)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>bm_ply1</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"polygons (sf)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>bm_ply2</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>bm_ply3</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"boundary matrix (Spatial, STR)"</span>,
-            <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='co'># }</span></div><div class='img'><img src='boundary_matrix-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (Spatial)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply1</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"polygons (sf)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='boundary_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply2</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>bm_ply3</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"boundary matrix (Spatial, STR)"</span>,
+            axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div><div class='img'><img src='boundary_matrix-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -305,7 +308,7 @@ boundaries are missing for cells that have <code>NA</code> values in all cells.<
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

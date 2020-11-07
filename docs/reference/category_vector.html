@@ -98,7 +98,7 @@ integer vector indicating the column index where each row is
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -181,19 +181,19 @@ integer vector indicating the column index where each row is
 <code>1</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>category_vector</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>category_vector</span>(<span class='no'>x</span>)
+<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for sf</span>
-<span class='fu'>category_vector</span>(<span class='no'>x</span>)
+<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for Spatial</span>
-<span class='fu'>category_vector</span>(<span class='no'>x</span>)
+<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for matrix</span>
-<span class='fu'>category_vector</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +201,7 @@ integer vector indicating the column index where each row is
     <tr>
       <th>x</th>
       <td><p><code>matrix</code>, <code>data.frame</code>, <code>Spatial</code>,
-or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object.</p></td>
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object.</p></td>
     </tr>
     </table>
 
@@ -220,19 +220,21 @@ contain only a single value equal to <code>1</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create matrix with logical fields</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>NA</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>NA</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>NA</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='cn'>NA</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='cn'>NA</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'># print matrix</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
 #&gt; [3,]    0    0    0
 #&gt; [4,]   NA   NA   NA</div><div class='input'>
 <span class='co'># convert to category vector</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>category_vector</span>(<span class='no'>x</span>)
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>category_vector</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># print category vector</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>y</span>)</div><div class='output co'>#&gt; [1]  1  2  0 NA</div></pre>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  1  2  0 NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -248,7 +250,7 @@ contain only a single value equal to <code>1</code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

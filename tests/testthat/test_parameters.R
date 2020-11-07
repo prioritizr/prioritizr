@@ -323,7 +323,7 @@ test_that("misc_parameter", {
   expect_is(x$id, "Id")
   expect_equal(x$get(), iris)
   expect_false(x$validate(mtcars))
-  # create updated iris data set
+  # create updated iris dataset
   iris2 <- iris
   iris2[1, 1] <- 300
   expect_false(x$validate(iris2))

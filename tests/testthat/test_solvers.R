@@ -2,8 +2,7 @@ context("solvers")
 
 test_that("add_default_solver (raster cost data)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_raster, sim_features)
@@ -22,8 +21,7 @@ test_that("add_default_solver (raster cost data)", {
 
 test_that("add_default_solver (spatial cost data)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make data
   data(sim_pu_polygons, sim_features)
@@ -43,8 +41,7 @@ test_that("add_default_solver (spatial cost data)", {
 
 test_that("add_rsymphony_solver (binary decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("Rsymphony")
   # make data
@@ -65,8 +62,7 @@ test_that("add_rsymphony_solver (binary decisions)", {
 
 test_that("add_rsymphony_solver (proportion decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("Rsymphony")
   # make data
@@ -90,8 +86,7 @@ test_that("add_rsymphony_solver (proportion decisions)", {
 
 test_that("add_rsymphony_solver (proportion decisions, floating point)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("Rsymphony")
   skip_if_not_installed("prioritizrdata")
@@ -134,8 +129,7 @@ test_that("add_rsymphony_solver (variable bounds methods)", {
 
 test_that("add_rsymphony_solver (mix of binary and continuous variables)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
@@ -155,8 +149,7 @@ test_that("add_rsymphony_solver (mix of binary and continuous variables)", {
 
 test_that("add_rsymphony_solver (correct solution)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -181,8 +174,7 @@ test_that("add_rsymphony_solver (correct solution)", {
 
 test_that("add_lpsymphony_solver (binary decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
@@ -204,8 +196,7 @@ test_that("add_lpsymphony_solver (binary decisions)", {
 
 test_that("add_lpsymphony_solver (proportion decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
@@ -230,8 +221,7 @@ test_that("add_lpsymphony_solver (proportion decisions)", {
 
 test_that("add_lpsymphony_solver (proportion decisions, floating point)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("lpsymphony")
   skip_if_not_installed("prioritizrdata")
@@ -275,8 +265,7 @@ test_that("add_lpsymphony_solver (variable bounds methods)", {
 
 test_that("add_lpsymphony_solver (mix of binary and continuous variables)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # make data
@@ -297,8 +286,7 @@ test_that("add_lpsymphony_solver (mix of binary and continuous variables)", {
 
 test_that("add_lpsymphony_solver (correct solution)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("lpsymphony")
   skip_on_os("linux") # lpsymphony package crashes unpredictably on Ubuntu 16.04
   # create data
@@ -324,8 +312,7 @@ test_that("add_lpsymphony_solver (correct solution)", {
 
 test_that("add_gurobi_solver (binary decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("gurobi")
   # make data
@@ -353,8 +340,7 @@ test_that("add_gurobi_solver (binary decisions)", {
 
 test_that("add_gurobi_solver (proportion decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("gurobi")
   # make data
@@ -378,8 +364,7 @@ test_that("add_gurobi_solver (proportion decisions)", {
 
 test_that("add_gurobi_solver (proportion decisions, floating point)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("gurobi")
   skip_if_not_installed("prioritizrdata")
@@ -422,8 +407,7 @@ test_that("add_gurobi_solver (variable bounds methods)", {
 
 test_that("add_gurobi_solver (mix of binary and continuous variables)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("gurobi")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
@@ -443,8 +427,7 @@ test_that("add_gurobi_solver (mix of binary and continuous variables)", {
 
 test_that("add_gurobi_solver (correct solution)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("gurobi")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -469,8 +452,7 @@ test_that("add_gurobi_solver (correct solution)", {
 
 test_that("add_cplex_solver (binary decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("cplexAPI")
   # make data
@@ -498,8 +480,7 @@ test_that("add_cplex_solver (binary decisions)", {
 
 test_that("add_cplex_solver (proportion decisions)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("cplexAPI")
   # make data
@@ -523,8 +504,7 @@ test_that("add_cplex_solver (proportion decisions)", {
 
 test_that("add_cplex_solver (proportion decisions, floating point)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   skip_if_not_installed("cplexAPI")
   skip_if_not_installed("prioritizrdata")
@@ -567,8 +547,7 @@ test_that("add_cplex_solver (variable bounds methods)", {
 
 test_that("add_cplex_solver (mix of binary and continuous variables)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # make data
   b <- raster::cellStats(sim_pu_raster, "sum") * 0.2
@@ -588,8 +567,7 @@ test_that("add_cplex_solver (mix of binary and continuous variables)", {
 
 test_that("add_cplex_solver (correct solution)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("cplexAPI")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))

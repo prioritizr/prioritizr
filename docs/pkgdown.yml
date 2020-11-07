@@ -1,5 +1,5 @@
 pandoc: 1.19.2.1
-pkgdown: 1.5.1
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   gurobi_installation: gurobi_installation.html
@@ -8,7 +8,7 @@ articles:
   saltspring: saltspring.html
   tasmania: tasmania.html
   zones: zones.html
-last_built: 2020-11-05T05:49Z
+last_built: 2020-11-07T03:30Z
 urls:
   reference: https://prioritizr.net/reference
   article: https://prioritizr.net/articles

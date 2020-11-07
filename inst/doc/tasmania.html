@@ -82,13 +82,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the <em>prioritizr R</em> package. It is also written for conservation planners that have used the <em>Marxan</em> decision support tool <span class="citation">(Ball <em>et al.</em> 2009)</span> and are interested in applying the <em>prioritizr R</em> package to their own work. The data set used in this tutorial was obtained from the <em>Introduction to Marxan</em> course. This data was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources <span class="citation">(Klein <em>et al.</em> 2007)</span>.</p>
+<p>The aim of this tutorial is to provide a worked example of how vector-based data can be used to develop conservation prioritizations using the <em>prioritizr R</em> package. It is also written for conservation planners that have used the <em>Marxan</em> decision support tool <span class="citation">(Ball <em>et al.</em> 2009)</span> and are interested in applying the <em>prioritizr R</em> package to their own work. The dataset used in this tutorial was obtained from the <em>Introduction to Marxan</em> course. This data was originally a subset of a larger spatial prioritization project performed under contract to Australia’s Department of Environment and Water Resources <span class="citation">(Klein <em>et al.</em> 2007)</span>.</p>
 <p>Please note that this tutorial uses data from the <em>prioritizrdata R</em>, so ensure that it is installed before trying out the code yourself.</p>
 </div>
 <div id="exploring-the-data" class="section level2">
 <h2>Exploring the data</h2>
-<p>This data set contains two items. First, a spatial planning unit layer that has an attribute table which contains three columns: integer unique identifiers (“id”), unimproved land values (“cost”), and their existing level of protection (“status”). Units with 50 % or more of their area contained in protected areas are associated with a status of 2, otherwise they are associated with a value of 0. If you are familiar with the <em>Marxan</em> decision support tool, then you will notice that these columns are formatted in a similar manner to the input data for <em>Marxan</em>. For <em>Marxan</em> input data, planning units must be described in a table containing one row for each planning unit with a unique identifier and the corresponding cost.</p>
-<p>The second item in this data set is the raster-based feature data. Specifically, the feature data is expressed as a stack of rasters (termed a <code>RasterStack</code> object). Here each layer in the stack represents the distribution of a different vegetation class in Tasmania, Australia. There are 62 vegetation classes in total. For a given layer, pixel values indicate the presence (value of 1) or absence (value of 0) of the vegetation class in an area.</p>
+<p>This dataset contains two items. First, a spatial planning unit layer that has an attribute table which contains three columns: integer unique identifiers (“id”), unimproved land values (“cost”), and their existing level of protection (“status”). Units with 50 % or more of their area contained in protected areas are associated with a status of 2, otherwise they are associated with a value of 0. If you are familiar with the <em>Marxan</em> decision support tool, then you will notice that these columns are formatted in a similar manner to the input data for <em>Marxan</em>. For <em>Marxan</em> input data, planning units must be described in a table containing one row for each planning unit with a unique identifier and the corresponding cost.</p>
+<p>The second item in this dataset is the raster-based feature data. Specifically, the feature data is expressed as a stack of rasters (termed a <code>RasterStack</code> object). Here each layer in the stack represents the distribution of a different vegetation class in Tasmania, Australia. There are 62 vegetation classes in total. For a given layer, pixel values indicate the presence (value of 1) or absence (value of 0) of the vegetation class in an area.</p>
 <p>First, load the required packages and the data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># load packages</span>
 <span class="kw">library</span>(prioritizrdata)
@@ -3522,7 +3522,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="marxan-problem-formulation" class="section level2">
 <h2><em>Marxan</em> problem formulation</h2>
 <p>Here, we will provide an example of using the <code>marxan_problem</code> function to build and solve a typical <em>Marxan</em> conservation planning problem. Then we will show how this same problem can be built and solved using the fully customizable <code>problem</code> function as a comparison.</p>
-<p>The data set used in this example follows many of the conventions used by the <em>Marxan</em> decision support tool. As a consequence, it is not too difficult to format the data for use with the <code>marxan_problem</code> function. The <code>marxan_problem</code> function is essentially a wrapper to the <code>problem</code> function. This means that when we solve problems created using the <code>marxan_problem</code> function, we will solve them using exact algorithms and not the simulated annealing algorithm used by <em>Marxan</em>.</p>
+<p>The dataset used in this example follows many of the conventions used by the <em>Marxan</em> decision support tool. As a consequence, it is not too difficult to format the data for use with the <code>marxan_problem</code> function. The <code>marxan_problem</code> function is essentially a wrapper to the <code>problem</code> function. This means that when we solve problems created using the <code>marxan_problem</code> function, we will solve them using exact algorithms and not the simulated annealing algorithm used by <em>Marxan</em>.</p>
 <p>All problem objects formulated with <code>marxan_problem</code> use the minimum set objective. Targets can be either relative or absolute, and planning units can be specified for masking in or out using the <code>locked_in</code> and <code>locked_out</code> arguments. To favor clumped solutions, use the <code>penalty</code> argument to impose a penalty on solutions with high boundary lengths (equivalent to the Boundary Length Modifier (BLM) used in <em>Marxan</em>), and the <code>edge_factor</code> argument to scale the penalty for edges that do not have neighboring planning units, such as the coastline. For simplicity we set all of the targets at the same level, 17 %, to reflect the <a href="https://www.cbd.int/sp/targets/">Aichi</a> biodiversity target to “safeguard” at least 17% of terrestrial ecosystems by 2020. For example, to prioritize planning units in Tasmania that meet the 17 % representation target at the least cost.</p>
 <p>First, we will convert the vector-based planning unit data and raster-based feature data into the tabular formats required by the <code>marxan_problem</code> function. These formats are very similar to the formats used by <em>Marxan</em>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># create table with planning unit data</span>
@@ -3613,21 +3613,21 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.05 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.11 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.09 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -7100,7 +7100,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.03s
+## Presolve time: 0.05s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
@@ -7114,7 +7114,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.08 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.11 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 

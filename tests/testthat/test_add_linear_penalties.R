@@ -169,8 +169,7 @@ test_that("minimum set objective (character/data.frame, compile, single zone)",
 
 test_that("minimum set objective (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   cost <- raster::raster(matrix(c(3, 2, 2, NA), ncol = 4))
@@ -372,8 +371,7 @@ test_that(paste("minimum set objective (character/data.frame, compile,",
 
 test_that("minimum set objective (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create data
   costs <- raster::stack(

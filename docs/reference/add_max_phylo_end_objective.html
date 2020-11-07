@@ -103,7 +103,7 @@ Rodrigues et al. (2002), and Rosauer et al. (2009)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -191,7 +191,7 @@ history as possible. This function was inspired by Faith (1992),
 Rodrigues <em>et al.</em> (2002), and Rosauer <em>et al.</em> (2009).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_max_phylo_end_objective</span>(<span class='no'>x</span>, <span class='no'>budget</span>, <span class='no'>tree</span>)</pre>
+    <pre class="usage"><span class='fu'>add_max_phylo_end_objective</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>budget</span>, <span class='va'>tree</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +210,7 @@ a budget for each each management zone.</p></td>
     </tr>
     <tr>
       <th>tree</th>
-      <td><p><code>phylo()</code> object specifying a phylogenetic tree
+      <td><p><code><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>phylo()</a></code> object specifying a phylogenetic tree
 for the conservation features.</p></td>
     </tr>
     </table>
@@ -299,26 +299,28 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>ape</span>)
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://ape-package.ird.fr/'>ape</a></span><span class='op'>)</span>
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>, <span class='no'>sim_pu_zones_stack</span>,
-     <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span>, <span class='va'>sim_pu_zones_stack</span>,
+     <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
 <span class='co'># plot the simulated phylogeny</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"phylogeny"</span>)</div><div class='img'><img src='add_max_phylo_end_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"phylogeny"</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create problem with a maximum phylogenetic endemism objective,</span>
 <span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_phylo_end_objective</span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_max_phylo_end_objective</span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
 #&gt; Model fingerprint: 0x3612cd77
 #&gt; Variable types: 0 continuous, 103 integer (103 binary)
@@ -362,7 +364,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   StrongCG: 1
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 6 nodes (115 simplex iterations) in 0.02 seconds
+#&gt; Explored 6 nodes (115 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 136.238 -0 
@@ -370,11 +372,13 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.362380564988e+02, best bound 1.362383942298e+02, gap 0.0002%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_end_objective-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
-<span class='no'>r1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span>(<span class='no'>p1</span>, <span class='no'>s1</span>)
-<span class='no'>r1</span>$<span class='no'>target_met</span> <span class='kw'>&lt;-</span> <span class='no'>r1</span>$<span class='no'>relative_held</span> <span class='kw'>&gt;</span> <span class='fl'>0.1</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>r1</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 4</span><span>
+<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+<span class='va'>r1</span><span class='op'>$</span><span class='va'>target_met</span> <span class='op'>&lt;-</span> <span class='va'>r1</span><span class='op'>$</span><span class='va'>relative_held</span> <span class='op'>&gt;</span> <span class='fl'>0.1</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 4</span><span>
 #&gt;   feature absolute_held relative_held target_met
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>     
 #&gt; </span><span style='color: #555555;'>1</span><span> layer.1          7.71        0.092</span><span style='text-decoration: underline;'>6</span><span> FALSE     
@@ -383,34 +387,36 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt; </span><span style='color: #555555;'>4</span><span> layer.4          4.28        0.100  TRUE      
 #&gt; </span><span style='color: #555555;'>5</span><span> layer.5          5.77        0.102  TRUE      </div><div class='input'>
 <span class='co'># plot the phylogeny and color the adequately represented features in red</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adequately represented features"</span>,
-     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span>(
-       <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-       <span class='no'>sim_phylogeny</span>$<span class='no'>tip.label</span> <span class='kw'>%in%</span> <span class='no'>r1</span>$<span class='no'>feature</span>[<span class='no'>r1</span>$<span class='no'>target_met</span>],
-       <span class='st'>"red"</span>))</div><div class='img'><img src='add_max_phylo_end_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"adequately represented features"</span>,
+     tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span>
+       <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
+       <span class='va'>sim_phylogeny</span><span class='op'>$</span><span class='va'>tip.label</span> <span class='op'>%in%</span> <span class='va'>r1</span><span class='op'>$</span><span class='va'>feature</span><span class='op'>[</span><span class='va'>r1</span><span class='op'>$</span><span class='va'>target_met</span><span class='op'>]</span>,
+       <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># rename the features in the example phylogeny for use with the</span>
 <span class='co'># multi-zone data</span>
-<span class='no'>sim_phylogeny</span>$<span class='no'>tip.label</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>)
+<span class='va'>sim_phylogeny</span><span class='op'>$</span><span class='va'>tip.label</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>
 
 <span class='co'># create targets for a multi-zone problem. Here, each feature needs a total</span>
 <span class='co'># of 10 units of habitat to be conserved among the three zones to be</span>
 <span class='co'># considered adequately conserved</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(
-  <span class='kw'>feature</span> <span class='kw'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
-  <span class='kw'>zone</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>))[<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>,
-          <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>))],
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"absolute"</span>, <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)),
-  <span class='kw'>target</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>10</span>, <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>)))
+<span class='va'>targets</span> <span class='op'>&lt;-</span> <span class='fu'>tibble</span><span class='fu'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>
+  feature <span class='op'>=</span> <span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+  zone <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='zone_names.html'>zone_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,
+          <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"absolute"</span>, <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span>,
+  target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># create a multi-zone problem with a maximum phylogenetic endemism</span>
 <span class='co'># objective, where the total expenditure in all zones is 5000.</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_phylo_end_objective</span>(<span class='fl'>5000</span>, <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_max_phylo_end_objective</span><span class='op'>(</span><span class='fl'>5000</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 104 rows, 283 columns and 1915 nonzeros
 #&gt; Model fingerprint: 0xd2a9fafa
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
@@ -444,31 +450,35 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.776060343541e+02, best bound 1.776060411374e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s2</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_end_objective-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>
 <span class='co'># all three management zones</span>
-<span class='no'>amount_held2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span>(<span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>))
-<span class='kw'>for</span> (<span class='no'>z</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>)))
-  <span class='no'>amount_held2</span> <span class='kw'>&lt;-</span> <span class='no'>amount_held2</span> +
-                  <span class='fu'>cellStats</span>(<span class='no'>sim_features_zones</span><span class='kw'>[[</span><span class='no'>z</span>]] * <span class='no'>s2</span><span class='kw'>[[</span><span class='no'>z</span>]], <span class='st'>"sum"</span>)
+<span class='va'>amount_held2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span><span class='op'>(</span><span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>z</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>amount_held2</span> <span class='op'>&lt;-</span> <span class='va'>amount_held2</span> <span class='op'>+</span>
+                  <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>[[</span><span class='va'>z</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>s2</span><span class='op'>[[</span><span class='va'>z</span><span class='op'>]</span><span class='op'>]</span>, <span class='st'>"sum"</span><span class='op'>)</span>
 
 <span class='co'># find which features have their targets met</span>
-<span class='no'>targets_met2</span> <span class='kw'>&lt;-</span> <span class='no'>amount_held2</span> <span class='kw'>&gt;=</span> <span class='no'>targets</span>$<span class='no'>target</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets_met2</span>)</div><div class='output co'>#&gt; layer.1 layer.2 layer.3 layer.4 layer.5 
+<span class='va'>targets_met2</span> <span class='op'>&lt;-</span> <span class='va'>amount_held2</span> <span class='op'>&gt;=</span> <span class='va'>targets</span><span class='op'>$</span><span class='va'>target</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets_met2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; layer.1 layer.2 layer.3 layer.4 layer.5 
 #&gt;    TRUE   FALSE    TRUE    TRUE    TRUE </div><div class='input'>
 <span class='co'># plot the phylogeny and color the adequately represented features in red</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adequately represented features"</span>,
-     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>targets_met2</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_max_phylo_end_objective-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"adequately represented features"</span>,
+     tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>targets_met2</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a multi-zone problem with a maximum phylogenetic endemism</span>
 <span class='co'># objective, where each zone has a separate budget.</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'>add_max_phylo_end_objective</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2500</span>, <span class='fl'>500</span>, <span class='fl'>2000</span>), <span class='no'>sim_phylogeny</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span>(<span class='no'>targets</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_max_phylo_end_objective</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2500</span>, <span class='fl'>500</span>, <span class='fl'>2000</span><span class='op'>)</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 106 rows, 283 columns and 1915 nonzeros
 #&gt; Model fingerprint: 0xf8af6716
 #&gt; Variable types: 0 continuous, 283 integer (283 binary)
@@ -479,7 +489,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt;   RHS range        [1e+00, 2e+03]
 #&gt; Found heuristic solution: objective -0.0000000
 #&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
+#&gt; Presolve time: 0.01s
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
 #&gt; Variable types: 0 continuous, 278 integer (278 binary)
 #&gt; Presolved: 101 rows, 278 columns, 1905 nonzeros
@@ -509,22 +519,25 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.776061122406e+02, best bound 1.776061122406e+02, gap 0.0000%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s3</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_max_phylo_end_objective-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># calculate total amount of habitat conserved for each feature among</span>
 <span class='co'># all three management zones</span>
-<span class='no'>amount_held3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span>(<span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>))
-<span class='kw'>for</span> (<span class='no'>z</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>)))
-  <span class='no'>amount_held3</span> <span class='kw'>&lt;-</span> <span class='no'>amount_held3</span> +
-                  <span class='fu'>cellStats</span>(<span class='no'>sim_features_zones</span><span class='kw'>[[</span><span class='no'>z</span>]] * <span class='no'>s3</span><span class='kw'>[[</span><span class='no'>z</span>]], <span class='st'>"sum"</span>)
+<span class='va'>amount_held3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>numeric</a></span><span class='op'>(</span><span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>z</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='va'>amount_held3</span> <span class='op'>&lt;-</span> <span class='va'>amount_held3</span> <span class='op'>+</span>
+                  <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>[[</span><span class='va'>z</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>s3</span><span class='op'>[[</span><span class='va'>z</span><span class='op'>]</span><span class='op'>]</span>, <span class='st'>"sum"</span><span class='op'>)</span>
 
 <span class='co'># find which features have their targets met</span>
-<span class='no'>targets_met3</span> <span class='kw'>&lt;-</span> <span class='no'>amount_held3</span> <span class='kw'>&gt;=</span> <span class='no'>targets</span>$<span class='no'>target</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>targets_met3</span>)</div><div class='output co'>#&gt; layer.1 layer.2 layer.3 layer.4 layer.5 
+<span class='va'>targets_met3</span> <span class='op'>&lt;-</span> <span class='va'>amount_held3</span> <span class='op'>&gt;=</span> <span class='va'>targets</span><span class='op'>$</span><span class='va'>target</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets_met3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; layer.1 layer.2 layer.3 layer.4 layer.5 
 #&gt;    TRUE   FALSE    TRUE    TRUE    TRUE </div><div class='input'>
 <span class='co'># plot the phylogeny and color the adequately represented features in red</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>sim_phylogeny</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"adequately represented features"</span>,
-     <span class='kw'>tip.color</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='st'>"black"</span>, <span class='fu'>nlayers</span>(<span class='no'>sim_features</span>)),
-                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>targets_met3</span>), <span class='st'>"red"</span>))</div><div class='img'><img src='add_max_phylo_end_objective-7.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"adequately represented features"</span>,
+     tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>targets_met3</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_max_phylo_end_objective-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -541,7 +554,7 @@ concentrations of evolutionary history. <em>Molecular Ecology</em>, 18:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -98,7 +98,7 @@ number of neighbors that are also selected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -182,16 +182,16 @@ number of neighbors that are also selected in the solution.</p>
     </div>
 
     <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,ANY,ANY</span>
-<span class='fu'>add_neighbor_constraints</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>k</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,ANY,data.frame</span>
-<span class='fu'>add_neighbor_constraints</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>k</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,ANY,matrix</span>
-<span class='fu'>add_neighbor_constraints</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>zones</span>, <span class='no'>data</span>)
+<span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>k</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,ANY,ANY,array</span>
-<span class='fu'>add_neighbor_constraints</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>zones</span>, <span class='no'>data</span>)</pre>
+<span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>k</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,7 +243,7 @@ surround planning units with a minimum number of neighbors. It
 was inspired by the mathematical formulations detailed in
 Billionnet (2013) and Beyer <em>et al.</em> (2016).</p>
 <p>The argument to <code>data</code> can be specified in several ways:</p>
-<dl'>
+<dl>
 
 <dt><code>NULL</code></dt><dd><p>neighborhood data should be calculated automatically
 using the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. This is the default
@@ -306,29 +306,30 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='co'># and neighbors are defined using a rook-style neighborhood</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>1</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints that require 2 neighbor</span>
 <span class='co'># and neighbors are defined using a rook-style neighborhood</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>2</span>)
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints that require 3 neighbor</span>
 <span class='co'># and neighbors are defined using a queen-style neighborhood</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fl'>3</span>,
-               <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='adjacency_matrix.html'>adjacency_matrix</a></span>(<span class='no'>sim_pu_raster</span>, <span class='kw'>directions</span> <span class='kw'>=</span> <span class='fl'>8</span>))
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fl'>3</span>,
+               data <span class='op'>=</span> <span class='fu'><a href='adjacency_matrix.html'>adjacency_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, directions <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -469,44 +470,48 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.012073770352e+03, best bound 1.938733436295e+03, gap 3.6450%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span>))</div><div class='img'><img src='add_neighbor_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_neighbor_constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create minimal problem with multiple zones</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>0.1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>))
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># create problem where selected planning units require at least 2 neighbors</span>
 <span class='co'># for each zone and planning units are only considered neighbors if they</span>
 <span class='co'># are allocated to the same zone</span>
-<span class='no'>z6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z6</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='va'>z6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>z6</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    0    0
 #&gt; [2,]    0    1    0
-#&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), <span class='no'>z6</span>)
+#&gt; [3,]    0    0    1</div><div class='input'><span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='va'>z6</span><span class='op'>)</span>
 
 <span class='co'># create problem where the planning units in zone 1 don't explicitly require</span>
 <span class='co'># any neighbors, planning units in zone 2 require at least 1 neighbors, and</span>
 <span class='co'># planning units in zone 3 require at least 2 neighbors. As before, planning</span>
 <span class='co'># units are still only considered neighbors if they are allocated to the</span>
 <span class='co'># same zone</span>
-<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='no'>z6</span>)
+<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='va'>z6</span><span class='op'>)</span>
 
 <span class='co'># create problem given the same constraints as outlined above, except</span>
 <span class='co'># that when determining which selected planning units are neighbors,</span>
 <span class='co'># planning units that are allocated to zone 1 and zone 2 can also treated</span>
 <span class='co'># as being neighbors with each other</span>
-<span class='no'>z8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span>(<span class='fl'>3</span>)
-<span class='no'>z8</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>z8</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>z8</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+<span class='va'>z8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/diag.html'>diag</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>z8</span><span class='op'>[</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>z8</span><span class='op'>[</span><span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>z8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3]
 #&gt; [1,]    1    1    0
 #&gt; [2,]    1    1    0
-#&gt; [3,]    0    0    1</div><div class='input'><span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p5</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span>), <span class='no'>z8</span>)
+#&gt; [3,]    0    0    1</div><div class='input'><span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p5</span> <span class='op'>%&gt;%</span> <span class='fu'>add_neighbor_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='va'>z8</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p5</span>, <span class='no'>p6</span>, <span class='no'>p7</span>, <span class='no'>p8</span>)
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>solve</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>p6</span>, <span class='va'>p7</span>, <span class='va'>p8</span><span class='op'>)</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>solve</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x60594edc
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -635,12 +640,13 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 #&gt; Solution count 3: 6327.33 6740.46 7926.68 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.327331321838e+03, best bound 5.941652389062e+03, gap 6.0954%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>s2</span>, <span class='no'>category_layer</span>)
-<span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='no'>s2</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>s2</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"basic problem"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span>)
+#&gt; Best objective 6.327331321838e+03, best bound 5.941652389062e+03, gap 6.0954%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span><span class='op'>)</span>
 
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>s2</span>), <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_neighbor_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_neighbor_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -657,7 +663,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

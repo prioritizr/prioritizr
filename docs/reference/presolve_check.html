@@ -103,7 +103,7 @@ verify if  a problem has a feasible solution or not." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -191,13 +191,13 @@ false positives. Please note that these checks will not be able to
 verify if  a problem has a feasible solution or not.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>presolve_check</span>(<span class='no'>x</span>)
+    <pre class="usage"><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for ConservationProblem</span>
-<span class='fu'>presolve_check</span>(<span class='no'>x</span>)
+<span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for OptimizationProblem</span>
-<span class='fu'>presolve_check</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -303,55 +303,59 @@ at all.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>500</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem with no issues</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
 <span class='co'># note that no warning is thrown which suggests that we should not</span>
 <span class='co'># encounter any numerical stability issues when trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p1</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 <span class='co'># create a minimal problem, containing cost values that are really</span>
 <span class='co'># high so that they could cause numerical instability issues when trying</span>
 <span class='co'># to solve it</span>
-<span class='no'>sim_pu_raster2</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_raster</span>
-<span class='no'>sim_pu_raster2</span>[<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1e+15</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster2</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>sim_pu_raster2</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_raster</span>
+<span class='va'>sim_pu_raster2</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1e+15</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster2</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some issues, such as long solve time or suboptimal solutions, when</span>
 <span class='co'># trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: planning units with very high (&gt; 1e+6) or very low (&lt; 1e-6) non-zero cost values note this may be a false positive</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 <span class='co'># create a minimal problem with connectivity penalties values that have</span>
 <span class='co'># a really high penalty value that is likely to cause numerical instability</span>
 <span class='co'># issues when trying to solve the it</span>
-<span class='no'>cm</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='adjacency_matrix.html'>adjacency_matrix</a></span>(<span class='no'>sim_pu_raster</span>)
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span>(<span class='fl'>1e+15</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>cm</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>cm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='adjacency_matrix.html'>adjacency_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span><span class='op'>)</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_connectivity_penalties.html'>add_connectivity_penalties</a></span><span class='op'>(</span><span class='fl'>1e+15</span>, data <span class='op'>=</span> <span class='va'>cm</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># run presolve checks</span>
 <span class='co'># note that a warning is thrown which suggests that we might encounter</span>
 <span class='co'># some numerical instability issues when trying to solve the problem</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='fu'>presolve_check</span>(<span class='no'>p3</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \dontrun{</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'>presolve_check</span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># let's forcibly solve the problem using Gurobi and tell it to</span>
 <span class='co'># be extra careful about numerical instability problems</span>
-<span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span>(<span class='kw'>numeric_focus</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='solve.html'>solve</a></span>(<span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span><span class='op'>(</span>numeric_focus <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span>force <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: penalty multiplied connectivity values are very high</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 581 rows, 378 columns and 1602 nonzeros
 #&gt; Model fingerprint: 0xaaf590f0
 #&gt; Variable types: 0 continuous, 378 integer (378 binary)
@@ -375,7 +379,8 @@ at all.</p>
 <span class='co'># we can see that all planning units were selected because the connectivity</span>
 <span class='co'># penalty is so high that cost becomes irrelevant, so we should try using</span>
 <span class='co'># a much lower penalty value</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s3</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='presolve_check-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='presolve_check-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -392,7 +397,7 @@ at all.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

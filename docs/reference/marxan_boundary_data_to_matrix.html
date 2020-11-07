@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert <em>Marxan</em> boundary data to a matrix format — marxan_boundary_data_to_matrix • prioritizr</title>
+<title>Convert Marxan boundary data to a matrix format — marxan_boundary_data_to_matrix • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Convert <em>Marxan</em> boundary data to a matrix format — marxan_boundary_data_to_matrix" />
+<meta property="og:title" content="Convert Marxan boundary data to a matrix format — marxan_boundary_data_to_matrix" />
 <meta property="og:description" content="Convert a data.frame object that follows the Marxan format
 to a matrix format. This function is useful for converting
 data.frame objects to matrix or array objects that
@@ -102,7 +102,7 @@ data contains data for multiple zones, then an array is returned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -189,7 +189,7 @@ a single zone, then a matrix object is returned. Otherwise if the boundary
 data contains data for multiple zones, then an array is returned.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>marxan_boundary_data_to_matrix</span>(<span class='no'>x</span>, <span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>marxan_boundary_data_to_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,33 +211,35 @@ contains planning unit and zone data to ensure that the argument to
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>array</code> or <code>dgCMatrix</code> sparse matrix object.</p>
+    <p><code>array</code> or <code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code> sparse matrix object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create marxan boundary with four planning units and one zone</span>
-<span class='no'>bldf1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>id1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>4</span>), <span class='kw'>id2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>4</span>))
-<span class='no'>bldf1</span>$<span class='no'>boundary</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>bldf1</span>$<span class='no'>boundary</span>[<span class='no'>bldf1</span>$<span class='no'>id1</span> <span class='kw'>==</span> <span class='no'>bldf1</span>$<span class='no'>id2</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='va'>bldf1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>id1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>, id2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>bldf1</span><span class='op'>$</span><span class='va'>boundary</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>bldf1</span><span class='op'>$</span><span class='va'>boundary</span><span class='op'>[</span><span class='va'>bldf1</span><span class='op'>$</span><span class='va'>id1</span> <span class='op'>==</span> <span class='va'>bldf1</span><span class='op'>$</span><span class='va'>id2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
 
 <span class='co'># convert to matrix</span>
-<span class='no'>m1</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_boundary_data_to_matrix</span>(<span class='kw'>NULL</span>, <span class='no'>bldf1</span>)
+<span class='va'>m1</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_boundary_data_to_matrix</span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='va'>bldf1</span><span class='op'>)</span>
 
 <span class='co'># visualize matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span>(<span class='no'>m1</span>)</div><div class='img'><img src='marxan_boundary_data_to_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/image.html'>image</a></span><span class='op'>(</span><span class='va'>m1</span><span class='op'>)</span>
+</div><div class='img'><img src='marxan_boundary_data_to_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create marxan boundary with three planning units and two zones</span>
-<span class='no'>bldf2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span>(<span class='kw'>id1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>3</span>), <span class='kw'>id2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fl'>3</span>),
-                     <span class='kw'>zone1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>),
-                     <span class='kw'>zone2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"z1"</span>, <span class='st'>"z2"</span>))
-<span class='no'>bldf2</span>$<span class='no'>boundary</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>bldf2</span>$<span class='no'>boundary</span>[<span class='no'>bldf2</span>$<span class='no'>id1</span> <span class='kw'>==</span> <span class='no'>bldf2</span>$<span class='no'>id2</span> <span class='kw'>&amp;</span> <span class='no'>bldf2</span>$<span class='no'>zone1</span> <span class='kw'>==</span> <span class='no'>bldf2</span>$<span class='no'>zone2</span>] <span class='kw'>&lt;-</span> <span class='fl'>0.5</span>
-<span class='no'>bldf2</span>$<span class='no'>boundary</span>[<span class='no'>bldf2</span>$<span class='no'>id1</span> <span class='kw'>==</span> <span class='no'>bldf2</span>$<span class='no'>id2</span> <span class='kw'>&amp;</span> <span class='no'>bldf2</span>$<span class='no'>zone1</span> <span class='kw'>!=</span> <span class='no'>bldf2</span>$<span class='no'>zone2</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>bldf2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/expand.grid.html'>expand.grid</a></span><span class='op'>(</span>id1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>, id2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>,
+                     zone1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"z1"</span>, <span class='st'>"z2"</span><span class='op'>)</span>,
+                     zone2 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"z1"</span>, <span class='st'>"z2"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>bldf2</span><span class='op'>$</span><span class='va'>boundary</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>bldf2</span><span class='op'>$</span><span class='va'>boundary</span><span class='op'>[</span><span class='va'>bldf2</span><span class='op'>$</span><span class='va'>id1</span> <span class='op'>==</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>id2</span> <span class='op'>&amp;</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>zone1</span> <span class='op'>==</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>zone2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0.5</span>
+<span class='va'>bldf2</span><span class='op'>$</span><span class='va'>boundary</span><span class='op'>[</span><span class='va'>bldf2</span><span class='op'>$</span><span class='va'>id1</span> <span class='op'>==</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>id2</span> <span class='op'>&amp;</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>zone1</span> <span class='op'>!=</span> <span class='va'>bldf2</span><span class='op'>$</span><span class='va'>zone2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
 
 <span class='co'># convert to array</span>
-<span class='no'>m2</span> <span class='kw'>&lt;-</span> <span class='fu'>marxan_boundary_data_to_matrix</span>(<span class='kw'>NULL</span>, <span class='no'>bldf2</span>)
+<span class='va'>m2</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_boundary_data_to_matrix</span><span class='op'>(</span><span class='cn'>NULL</span>, <span class='va'>bldf2</span><span class='op'>)</span>
 
 <span class='co'># print array</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>m2</span>)</div><div class='output co'>#&gt; , , 1, 1
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>m2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; , , 1, 1
 #&gt; 
 #&gt;      [,1] [,2] [,3]
 #&gt; [1,]  0.5  1.0  1.0
@@ -280,7 +282,7 @@ contains planning unit and zone data to ensure that the argument to
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

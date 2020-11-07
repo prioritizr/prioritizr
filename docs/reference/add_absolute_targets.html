@@ -100,7 +100,7 @@ than 10." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -185,16 +185,16 @@ planning units for which their summed feature values are equal to or greater
 than 10.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
+    <pre class="usage"><span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>targets</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
+<span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>targets</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)
+<span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>targets</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,character</span>
-<span class='fu'>add_absolute_targets</span>(<span class='no'>x</span>, <span class='no'>targets</span>)</pre>
+<span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>targets</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,7 +224,7 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.</p>
 <p>The targets for a problem can be specified in several different ways:</p>
-<dl'>
+<dl>
 
 <dt><code>numeric</code></dt><dd><p><code>vector</code> of target values for each feature.
 Additionally, for convenience, this type of argument can be a single
@@ -267,25 +267,26 @@ combinations of management zones.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>500</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
 <span class='co'># create simple problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with targets to secure 3 amounts for each feature</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='fl'>3</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span>
 
 <span class='co'># create problem with varying targets for each feature</span>
-<span class='no'>targets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>targets</span>)
+<span class='va'>targets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x5f206fcc
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -407,7 +408,7 @@ combinations of management zones.</p>
 #&gt;   Cover: 2
 #&gt;   MIR: 2
 #&gt; 
-#&gt; Explored 551 nodes (908 simplex iterations) in 0.17 seconds
+#&gt; Explored 551 nodes (908 simplex iterations) in 0.20 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 5: 1187.63 1199 1203.17 ... 1364.2
@@ -415,32 +416,35 @@ combinations of management zones.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 1.187631893954e+03, best bound 1.078443876208e+03, gap 9.1938%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal targets"</span>, <span class='st'>"varying targets"</span>), <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='add_absolute_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"equal targets"</span>, <span class='st'>"varying targets"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='add_absolute_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># create a problem with multiple management zones</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create a problem with targets that specify an equal amount of each feature</span>
 <span class='co'># to be represented in each zone</span>
-<span class='no'>p4_targets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>2</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
-                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='va'>p4_targets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>2</span>, nrow <span class='op'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                     ncol <span class='op'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                     dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p4_targets</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      2      2
 #&gt; feature_2      2      2      2
 #&gt; feature_3      2      2      2
 #&gt; feature_4      2      2      2
 #&gt; feature_5      2      2      2</div><div class='input'>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>p4_targets</span><span class='op'>)</span>
 
 <span class='co'># solve problem</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -473,25 +477,28 @@ combinations of management zones.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.663032626820e+03, best bound 3.352716664713e+03, gap 8.4716%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s4</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"equal targets"</span>))</div><div class='img'><img src='add_absolute_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"equal targets"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_absolute_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a problem with targets that require a varying amount of each</span>
 <span class='co'># feature to be represented in each zone</span>
-<span class='no'>p5_targets</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>15</span>, <span class='fl'>1</span>),
-                     <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span>(<span class='no'>sim_features_zones</span>),
-                     <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='feature_names.html'>feature_names</a></span>(<span class='no'>sim_features_zones</span>),
-                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span>(<span class='no'>sim_features_zones</span>)))
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5_targets</span>)</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
+<span class='va'>p5_targets</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>1</span><span class='op'>)</span>,
+                     nrow <span class='op'>=</span> <span class='fu'><a href='number_of_features.html'>number_of_features</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                     ncol <span class='op'>=</span> <span class='fu'><a href='number_of_zones.html'>number_of_zones</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                     dimnames <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='feature_names.html'>feature_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span>,
+                                     <span class='fu'><a href='zone_names.html'>zone_names</a></span><span class='op'>(</span><span class='va'>sim_features_zones</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p5_targets</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
 #&gt; feature_1      2      0      0
 #&gt; feature_2      1      1      2
 #&gt; feature_3      3      3      2
 #&gt; feature_4      1      2      0
 #&gt; feature_5      2      1      1</div><div class='input'>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p3</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_absolute_targets</span>(<span class='no'>p4_targets</span>)
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p3</span> <span class='op'>%&gt;%</span> <span class='fu'>add_absolute_targets</span><span class='op'>(</span><span class='va'>p4_targets</span><span class='op'>)</span>
 <span class='co'># solve problem</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0xd434fbb3
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -524,7 +531,8 @@ combinations of management zones.</p>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.663032626820e+03, best bound 3.352716664713e+03, gap 8.4716%</div><div class='input'>
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s5</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"varying targets"</span>))</div><div class='img'><img src='add_absolute_targets-3.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"varying targets"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='add_absolute_targets-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -542,7 +550,7 @@ combinations of management zones.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

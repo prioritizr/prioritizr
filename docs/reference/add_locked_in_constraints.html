@@ -105,7 +105,7 @@ planning unit allocations to a specific value." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -195,28 +195,28 @@ planning unit allocations (e.g. proportions), the
 planning unit allocations to a specific value.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+    <pre class="usage"><span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,logical</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,character</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,sf</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>add_locked_in_constraints</span>(<span class='no'>x</span>, <span class='no'>locked_in</span>)</pre>
+<span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>locked_in</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -247,7 +247,7 @@ the locked data should correspond to cell indices in the
 should correspond to cell indices and <code>logical</code> arguments should have
 a value for each cell---regardless of which planning unit cells contain
 <code>NA</code> values.</p>
-<dl'>
+<dl>
 
 <dt><code>integer</code></dt><dd><p><code>vector</code> of indices pertaining to which
 planning units should be locked for the solution. This argument is only
@@ -269,14 +269,14 @@ value.</p></dd>
 <dt><code>character</code></dt><dd><p>field (column) name(s) that indicate if planning
 units should be locked for the solution. This type of argument is only
 compatible if the planning units in the argument to <code>x</code> are a
-<code>Spatial</code>, <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code>, or
+<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or
 <code>data.frame</code> object. The fields
 (columns) must have <code>logical</code>  (i.e. <code>TRUE</code> or <code>FALSE</code>)
 values indicating if the planning unit is to be locked for the solution.
 For problems containing multiple zones, this argument should contain
 a field (column) name for each management zone.</p></dd>
 
-<dt><code>Spatial</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
+<dt><code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code></dt><dd><p>planning units in <code>x</code> that spatially intersect with the
 argument to <code>y</code> (according to <code><a href='intersecting_units.html'>intersecting_units()</a></code>
 are locked for to the solution. Note that this option is only available
 for problems that contain a single management zone.</p></dd>
@@ -300,32 +300,33 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>500</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
 <span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='no'>sim_locked_in_raster</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='va'>sim_locked_in_raster</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_polygons</span>, <span class='no'>sim_features</span>, <span class='st'>"cost"</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with added locked in constraints using integers</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='no'>sim_pu_polygons</span>$<span class='no'>locked_in</span>))
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>locked_in</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># create problem with added locked in constraints using a field name</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='st'>"locked_in"</span>)
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='st'>"locked_in"</span><span class='op'>)</span>
 
 <span class='co'># create problem with added locked in constraints using raster data</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>sim_locked_in_raster</span>)
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>sim_locked_in_raster</span><span class='op'>)</span>
 
 <span class='co'># create problem with added locked in constraints using spatial polygon data</span>
-<span class='no'>locked_in</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_polygons</span>[<span class='no'>sim_pu_polygons</span>$<span class='no'>locked_in</span> <span class='kw'>==</span> <span class='fl'>1</span>, ]
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_in</span>)
+<span class='va'>locked_in</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>[</span><span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>locked_in</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>locked_in</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x8a299781
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -355,7 +356,8 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Solution count 2: 3585.96 3934.62 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='no'>s2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -386,7 +388,8 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -417,7 +420,8 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s4</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -448,7 +452,8 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Solution count 2: 3655.06 4017.64 
 #&gt; 
 #&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='no'>s5</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+#&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'><span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x532eb6d6
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -481,41 +486,42 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 3.655063234840e+03, best bound 3.610717428789e+03, gap 1.2133%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>2</span>), <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"none locked in"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s1</span>[<span class='no'>s1</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>2</span><span class='op'>)</span>, mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"none locked in"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>[</span><span class='va'>s1</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (integer input)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s2</span>[<span class='no'>s2</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"locked in (integer input)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span><span class='va'>s2</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s3</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (character input)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s3</span>[<span class='no'>s3</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"locked in (character input)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span><span class='va'>s3</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s4</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (raster input)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s4</span>[<span class='no'>s4</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='st'>"locked in (raster input)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>[</span><span class='va'>s4</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s5</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"locked in (polygon input)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s5</span>[<span class='no'>s5</span>$<span class='no'>solution_1</span> <span class='kw'>==</span> <span class='fl'>1</span>, ], <span class='kw'>col</span> <span class='kw'>=</span> <span class='st'>"darkgreen"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span>, main <span class='op'>=</span> <span class='st'>"locked in (polygon input)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span><span class='va'>s5</span><span class='op'>$</span><span class='va'>solution_1</span> <span class='op'>==</span> <span class='fl'>1</span>, <span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"darkgreen"</span>, add <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
 <span class='co'># }</span>
 
 <span class='co'># create minimal multi-zone problem with spatial data</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_polygons</span>, <span class='no'>sim_features_zones</span>,
-              <span class='kw'>cost_column</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>15</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-                                  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_polygons</span>, <span class='va'>sim_features_zones</span>,
+              cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>,
+                                  ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create multi-zone problem with locked in constraints using matrix data</span>
-<span class='no'>locked_matrix</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_polygons</span>@<span class='kw'>data</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"locked_1"</span>, <span class='st'>"locked_2"</span>,
-                                                <span class='st'>"locked_3"</span>)]
-<span class='no'>locked_matrix</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>locked_matrix</span>)
+<span class='va'>locked_matrix</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_zones_polygons</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"locked_1"</span>, <span class='st'>"locked_2"</span>,
+                                                <span class='st'>"locked_3"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>locked_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>locked_matrix</span><span class='op'>)</span>
 
-<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_matrix</span>)
+<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p6</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>locked_matrix</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s6</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x1bde86be
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -549,19 +555,20 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
-<span class='no'>s6</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s6</span>@<span class='kw'>data</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"solution_1_zone_1"</span>,
+<span class='va'>s6</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
                                            <span class='st'>"solution_1_zone_2"</span>,
-                                           <span class='st'>"solution_1_zone_3"</span>)])
-<span class='no'>s6</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>s6</span>$<span class='no'>solution</span>)
+                                           <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>s6</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># plot solution</span>
-<span class='fu'>spplot</span>(<span class='no'>s6</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s6</span>, zcol <span class='op'>=</span> <span class='st'>"solution"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># }</span>
 <span class='co'># create multi-zone problem with locked in constraints using field names</span>
-<span class='no'>p8</span> <span class='kw'>&lt;-</span> <span class='no'>p6</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"locked_1"</span>, <span class='st'>"locked_2"</span>, <span class='st'>"locked_3"</span>))
+<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p6</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"locked_1"</span>, <span class='st'>"locked_2"</span>, <span class='st'>"locked_3"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s8</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p8</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x617a8fe5
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -594,38 +601,40 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Best objective 3.324542391321e+03, best bound 3.324542391321e+03, gap 0.0000%</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
-<span class='no'>s8</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span>(<span class='no'>s8</span>@<span class='kw'>data</span>[, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"solution_1_zone_1"</span>,
+<span class='va'>s8</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s8</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
                                            <span class='st'>"solution_1_zone_2"</span>,
-                                           <span class='st'>"solution_1_zone_3"</span>)])
-<span class='no'>s8</span>$<span class='no'>solution</span>[<span class='no'>s8</span>$<span class='no'>solution</span> <span class='kw'>==</span> <span class='fl'>1</span> <span class='kw'>&amp;</span> <span class='no'>s8</span>$<span class='no'>solution_1_zone_1</span> <span class='kw'>==</span> <span class='fl'>0</span>] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-<span class='no'>s8</span>$<span class='no'>solution</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='no'>s8</span>$<span class='no'>solution</span>)
+                                           <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>s8</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>[</span><span class='va'>s8</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>s8</span><span class='op'>$</span><span class='va'>solution_1_zone_1</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>s8</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s8</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># plot solution</span>
-<span class='fu'>spplot</span>(<span class='no'>s8</span>, <span class='kw'>zcol</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s8</span>, zcol <span class='op'>=</span> <span class='st'>"solution"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># }</span>
 <span class='co'># create multi-zone problem with raster planning units</span>
-<span class='no'>p9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_zones_stack</span>, <span class='no'>sim_features_zones</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span>(<span class='fl'>15</span>, <span class='fl'>1</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Poisson.html'>rpois</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>1</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>, ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create raster stack with locked in units</span>
-<span class='no'>locked_in_stack</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_zones_stack</span><span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>locked_in_stack</span>[!<span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span>(<span class='no'>locked_in_stack</span>)] <span class='kw'>&lt;-</span> <span class='fl'>0</span>
-<span class='no'>locked_in_stack</span> <span class='kw'>&lt;-</span> <span class='no'>locked_in_stack</span><span class='kw'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)]]
-<span class='no'>locked_in_stack</span><span class='kw'>[[</span><span class='fl'>1</span>]][<span class='fl'>1</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>locked_in_stack</span><span class='kw'>[[</span><span class='fl'>2</span>]][<span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-<span class='no'>locked_in_stack</span><span class='kw'>[[</span><span class='fl'>3</span>]][<span class='fl'>3</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>locked_in_stack</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_zones_stack</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>locked_in_stack</span><span class='op'>[</span><span class='op'>!</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>locked_in_stack</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>0</span>
+<span class='va'>locked_in_stack</span> <span class='op'>&lt;-</span> <span class='va'>locked_in_stack</span><span class='op'>[[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>]</span><span class='op'>]</span>
+<span class='va'>locked_in_stack</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>locked_in_stack</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
+<span class='va'>locked_in_stack</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>1</span>
 
 <span class='co'># plot locked in stack</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>locked_in_stack</span>)</div><div class='img'><img src='add_locked_in_constraints-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='add_locked_in_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>locked_in_stack</span><span class='op'>)</span>
+</div><div class='img'><img src='add_locked_in_constraints-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='add_locked_in_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># add locked in raster units to problem</span>
-<span class='no'>p9</span> <span class='kw'>&lt;-</span> <span class='no'>p9</span> <span class='kw'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span>(<span class='no'>locked_in_stack</span>)
+<span class='va'>p9</span> <span class='op'>&lt;-</span> <span class='va'>p9</span> <span class='op'>%&gt;%</span> <span class='fu'>add_locked_in_constraints</span><span class='op'>(</span><span class='va'>locked_in_stack</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
-<span class='no'>s9</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p9</span>)</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p9</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
 #&gt; Model fingerprint: 0x56303b56
 #&gt; Variable types: 0 continuous, 270 integer (270 binary)
@@ -659,8 +668,9 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.463568714567e+03, best bound 2.289261594758e+03, gap 7.0754%</div><div class='input'>
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'><a href='category_layer.html'>category_layer</a></span>(<span class='no'>s9</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"solution"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='co'># }</span></div><div class='img'><img src='add_locked_in_constraints-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='co'># }</span>
+</div><div class='img'><img src='add_locked_in_constraints-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -676,7 +686,7 @@ should also have <code>NA</code> values in the locked data.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

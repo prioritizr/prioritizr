@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -141,27 +141,29 @@
 <h3 class="hasAnchor">
 <a href="#simple-minimum-set-problem" class="anchor"></a>Simple minimum set problem</h3>
 <p>In the <em>prioritizr R</em> package, all conservation planning problems—including those which contain multiple management zones or actions—are initialized using the <code>problem</code> function. To refresh our memory on how we can construct problems using the <em>prioritizr R</em> package, let us quickly construct a simple conservation planning problem. This problem will use the simulated built-in planning unit and feature data distributed with the package. It will have a minimum set objective, targets which require that solution secure to 10 % of the habitat in the study area for each feature, and binary decision variables indicating that planning units are selected or not selected for protection.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># load prioritizr package</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">prioritizr</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># load prioritizr package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://prioritizr.net">prioritizr</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## Loading required package: raster</code></pre>
 <pre><code>## Loading required package: sp</code></pre>
 <pre><code>## Loading required package: sf</code></pre>
 <pre><code>## Linking to GEOS 3.5.1, GDAL 2.2.2, PROJ 4.9.2</code></pre>
 <pre><code>## Loading required package: proto</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># load data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">sim_pu_raster</span>, <span class="no">sim_features</span>)
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># load data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span>
 
 <span class="co"># create targets for each of the five features</span>
-<span class="no">t1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">0.1</span>, <span class="fl">5</span>)
+<span class="va">t1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0.1</span>, <span class="fl">5</span><span class="op">)</span>
 
 <span class="co"># build single-zone problem</span>
-<span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">sim_pu_raster</span>, <span class="no">sim_features</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="no">t1</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p1</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   planning units: RasterLayer (90 units)
 ##   cost:           min: 190.13276, max: 215.86384
@@ -173,8 +175,9 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p1</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 5 rows, 90 columns and 450 nonzeros
 ## Model fingerprint: 0x6442bf6e
@@ -206,9 +209,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p1</span>, <span class="no">s1</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r1</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
 ##   feature absolute_held relative_held
 ##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
@@ -217,49 +221,53 @@
 ## 3 layer.3          7.34         0.102
 ## 4 layer.4          4.35         0.102
 ## 5 layer.5          6.01         0.106</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">s1</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-2-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="adding-management-zones" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-management-zones" class="anchor"></a>Adding management zones</h3>
 <p>Now let us imagine that instead of having a single management zone (e.g. protected area), we have two management zones. Similar to the example above, we require a solution that secures 10 % of the habitat in the study area for each feature in the first management zone. But we also require a solution that secures 5 % of the habitat in the study area for each feature in the second management zone. Each planning unit must be allocated to either zone or not selected for management at all. In this example, each planning unit costs the same when it is allocated to either of the two zones. We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create a matrix with the targets</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a matrix with the targets</span>
 <span class="co"># here each column corresponds to a different zone,</span>
 <span class="co"># each row corresponds to a different feature, and</span>
 <span class="co"># each cell value corresponds to the target</span>
-<span class="no">t2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fl">NA</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">5</span>)
-<span class="no">t2</span>[, <span class="fl">1</span>] <span class="kw">&lt;-</span> <span class="fl">0.1</span>
-<span class="no">t2</span>[, <span class="fl">2</span>] <span class="kw">&lt;-</span> <span class="fl">0.05</span>
+<span class="va">t2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="cn">NA</span>, ncol <span class="op">=</span> <span class="fl">2</span>, nrow <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="va">t2</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.1</span>
+<span class="va">t2</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">0.05</span>
 
 <span class="co"># print targets</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">t2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span></code></pre></div>
 <pre><code>##      [,1] [,2]
 ## [1,]  0.1 0.05
 ## [2,]  0.1 0.05
 ## [3,]  0.1 0.05
 ## [4,]  0.1 0.05
 ## [5,]  0.1 0.05</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create a zones object that contains the amount of each feature</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a zones object that contains the amount of each feature</span>
 <span class="co"># in each planning unit when it is allocated to each zone</span>
 <span class="co"># since our zones pertain to the same habitat data, we will</span>
 <span class="co"># to specify the same habitat data for each zone</span>
-<span class="no">z2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="st">"zone 1"</span> <span class="kw">=</span> <span class="no">sim_features</span>, <span class="st">"zone 2"</span> <span class="kw">=</span> <span class="no">sim_features</span>)
+<span class="va">z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"zone 1"</span> <span class="op">=</span> <span class="va">sim_features</span>, <span class="st">"zone 2"</span> <span class="op">=</span> <span class="va">sim_features</span><span class="op">)</span>
 
 <span class="co"># print zones</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">z2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z2</span><span class="op">)</span></code></pre></div>
 <pre><code>## Zones
 ##   zones: zone 1, zone 2 (2 zones)
 ##   features: 1, 2, 3, ... (5 features)
 ##   data type: RasterStack</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create a raster stack with the planning unit data</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a raster stack with the planning unit data</span>
 <span class="co"># since our planning unit costs are the same for each zone,</span>
 <span class="co"># we will create a stack with two replicates of the cost data</span>
-<span class="no">pu2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span>(<span class="no">sim_pu_raster</span>, <span class="no">sim_pu_raster</span>)
+<span class="va">pu2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_pu_raster</span><span class="op">)</span>
 
 <span class="co"># print stack</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">pu2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">pu2</span><span class="op">)</span></code></pre></div>
 <pre><code>## class      : RasterStack 
 ## dimensions : 10, 10, 100, 2  (nrow, ncol, ncell, nlayers)
 ## resolution : 0.1, 0.1  (x, y)
@@ -268,14 +276,15 @@
 ## names      :  layer.1,  layer.2 
 ## min values : 190.1328, 190.1328 
 ## max values : 215.8638, 215.8638</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># build two-zone problem</span>
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu2</span>, <span class="no">z2</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="no">t2</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># build two-zone problem</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu2</span>, <span class="va">z2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p2</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          zone 1, zone 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -288,8 +297,9 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p2</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p2</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0xbdab1647
@@ -321,9 +331,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.174668195776e+03, best bound 2.911333350606e+03, gap 8.2949%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p2</span>, <span class="no">s2</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r2</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    feature zone   absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
@@ -337,35 +348,38 @@
 ##  8 3       zone 2          4.08        0.0567
 ##  9 4       zone 2          2.52        0.0590
 ## 10 5       zone 2          3.67        0.0648</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="co"># here we use the category layer function to generate raster showing the zone</span>
 <span class="co"># that each planning unit was allocated. Specifically, pixels with the</span>
 <span class="co"># value 1 are allocated to "zone 1" and pixels with the value 2 are allocated</span>
 <span class="co"># to "zone 2". Thus units depicted in gray are not allocated</span>
 <span class="co"># to any zone, units depicted in yellow are allocated to zone 1, and units</span>
 <span class="co"># depicted in green are allocated to zone 2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s2</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s2</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-3-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="multiple-zones-with-varying-costs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-zones-with-varying-costs" class="anchor"></a>Multiple zones with varying costs</h3>
 <p>Real-world problems often have different costs for managing planning units under different zones. These problems also tend to have different expected amounts of each feature when planning units are managed differently. So let us consider a slightly more complex example. Similar to before we will have two management zones. But this time, the cost of managing each planning unit is different depending on which management zone it is assigned to in the solution. Furthermore, when we assign a planning unit to the second zone, we only expect to end up with half of the habitat we would get if we managed the unit in the first zone (e.g. because the second zone is a partial-take zone and the first zone is a no-take zone). We will use the same target data as in the previous example.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create new planning unit and cost data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">sim_pu_zones_stack</span>)
-<span class="no">pu3</span> <span class="kw">&lt;-</span> <span class="no">sim_pu_zones_stack</span><span class="kw">[[</span><span class="fl">1</span>:<span class="fl">2</span>]]
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create new planning unit and cost data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sim_pu_zones_stack</span><span class="op">)</span>
+<span class="va">pu3</span> <span class="op">&lt;-</span> <span class="va">sim_pu_zones_stack</span><span class="op">[[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co"># plot cost data</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">pu3</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"zone 1"</span>, <span class="st">"zone 2"</span>), <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pu3</span>, main <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"zone 1"</span>, <span class="st">"zone 2"</span><span class="op">)</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-4-1.png" width="384" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create problem</span>
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="no">sim_features</span>, <span class="no">sim_features</span> * <span class="fl">0.5</span>)) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span>(<span class="no">t2</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create problem</span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu3</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="va">sim_features</span>, <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_relative_targets.html">add_relative_targets</a></span><span class="op">(</span><span class="va">t2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p3</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          1, 2 (2 zones)
 ##   planning units: RasterStack (90 units)
@@ -378,8 +392,9 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p3</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p3</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 100 rows, 180 columns and 1080 nonzeros
 ## Model fingerprint: 0x07455a48
@@ -411,9 +426,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p3</span>, <span class="no">s3</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r3</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 10 x 4
 ##    feature zone  absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;
@@ -427,31 +443,34 @@
 ##  8 3       2             1.87         0.0519
 ##  9 4       2             1.08         0.0505
 ## 10 5       2             1.44         0.0509</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s3</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-5-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="multiple-zones-with-complex-targets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-zones-with-complex-targets" class="anchor"></a>Multiple zones with complex targets</h3>
 <p>So far, we have dealt with problems where each feature has a target that pertains to a single zone. But sometimes we have targets that pertain to multiple zones. For example, what if we were in charge of managing pest control in a set of areas and we had three different pest control methods we could implement in any given planning unit. We could (1) set up a few traps in a given planning unit and make 10 % of the habitat in the unit pest-free, (2) set up a lot of traps and make 50 % of the habitat in the unit pest-free, or (3) drop baits over a given planning unit and make 80 % of the planning unit pest-free. Each of these different actions has a different cost, with a few low intensity trapping costing $100 per planning unit, a high intensity trapping costing $300, and baiting costing $200 (please note these costs aren’t meant to be realistic). After defining our management actions and costs, we require a solution that will yield 8 units of pest free habitat per feature. It’s important to note that unlike the previous examples, here we don’t have targets for each feature in each zone, but rather our targets are for each feature and across multiple zones. In other words, we don’t really care which management actions we implement, we just want the set of actions that will meet our targets for minimum expenditure. We can formulate and solve this problem using the following code.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create planning unit data with costs</span>
-<span class="no">pu4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span>(<span class="fu">Which</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">sim_pu_raster</span>)) * <span class="fl">100</span>,
-             <span class="fu">Which</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">sim_pu_raster</span>)) * <span class="fl">300</span>,
-             <span class="fu">Which</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">sim_pu_raster</span>)) * <span class="fl">200</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">pu4</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span>)
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create planning unit data with costs</span>
+<span class="va">pu4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span><span class="op">(</span><span class="fu">Which</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,
+             <span class="fu">Which</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">300</span>,
+             <span class="fu">Which</span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">sim_pu_raster</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">200</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span>
 
 <span class="co"># plot planning unit data</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">pu4</span>, <span class="kw">nr</span> <span class="kw">=</span> <span class="fl">1</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">pu4</span>, nr <span class="op">=</span> <span class="fl">1</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-6-1.png" width="432" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create targets</span>
-<span class="no">t4</span> <span class="kw">&lt;-</span> <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">feature</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>),
-                     <span class="kw">zone</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">pu4</span>))[<span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">1</span>, <span class="fl">5</span>)],
-                     <span class="kw">target</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">8</span>, <span class="fl">5</span>),
-                     <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">"absolute"</span>, <span class="fl">5</span>))
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create targets</span>
+<span class="va">t4</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>feature <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span>,
+                     zone <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">pu4</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">]</span>,
+                     target <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">5</span><span class="op">)</span>,
+                     type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"absolute"</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># print targets</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">t4</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 4
 ##   feature zone      target type    
 ##   &lt;chr&gt;   &lt;list&gt;     &lt;dbl&gt; &lt;chr&gt;   
@@ -460,17 +479,18 @@
 ## 3 layer.3 &lt;chr [3]&gt;      8 absolute
 ## 4 layer.4 &lt;chr [3]&gt;      8 absolute
 ## 5 layer.5 &lt;chr [3]&gt;      8 absolute</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create problem</span>
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="kw">few.traps</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.1</span>,
-                         <span class="kw">many.traps</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.5</span>,
-                         <span class="kw">baiting</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.8</span>,
-                         <span class="kw">feature_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>))) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(<span class="no">t4</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create problem</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
+                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
+                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
+                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p4</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -483,8 +503,9 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p4</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p4</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0xd67e7fdc
@@ -518,9 +539,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p4</span>, <span class="no">s4</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r4</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -539,21 +561,23 @@
 ## 13 layer.3 baiting            15.2          0.264
 ## 14 layer.4 baiting            11.6          0.340
 ## 15 layer.5 baiting            12.7          0.281</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s4</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-7-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="multiple-zones-with-extra-constraints" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-zones-with-extra-constraints" class="anchor"></a>Multiple zones with extra constraints</h3>
 <p>So it looks like baiting is the way to go! Except that we might recall that we can’t use baits in most of the planning units because they contain native species that are susceptible to baits. So now we need to specify that which of our planning units cannot be assigned to the third zone (baiting) to obtain a more useful solution.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create data.frame to specify that we cannot bait in the first 40 units</span>
-<span class="no">l5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">pu</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">1</span>, <span class="fl">80</span>),
-                 <span class="kw">zone</span> <span class="kw">=</span> <span class="st">"baiting"</span>,
-                 <span class="kw">status</span> <span class="kw">=</span> <span class="fl">0</span>)
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create data.frame to specify that we cannot bait in the first 40 units</span>
+<span class="va">l5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">80</span><span class="op">)</span>,
+                 zone <span class="op">=</span> <span class="st">"baiting"</span>,
+                 status <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
 
 <span class="co"># preview locked data</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">l5</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span></code></pre></div>
 <pre><code>##   pu    zone status
 ## 1  1 baiting      0
 ## 2  2 baiting      0
@@ -561,18 +585,19 @@
 ## 4  4 baiting      0
 ## 5  5 baiting      0
 ## 6  6 baiting      0</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create problem</span>
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="kw">few.traps</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.1</span>,
-                         <span class="kw">many.traps</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.5</span>,
-                         <span class="kw">baiting</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.8</span>,
-                         <span class="kw">feature_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>))) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(<span class="no">t4</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(<span class="no">l5</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create problem</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span>few.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
+                         many.traps <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
+                         baiting <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
+                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p5</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -585,8 +610,9 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p5</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p5</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 105 rows, 300 columns and 1800 nonzeros
 ## Model fingerprint: 0x4ad99e4b
@@ -621,9 +647,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p5</span>, <span class="no">s5</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r5</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -642,41 +669,44 @@
 ## 13 layer.3 baiting            11.7          0.203
 ## 14 layer.4 baiting             6.05         0.177
 ## 15 layer.5 baiting             9.98         0.220</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s5</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-8-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 <div id="multiple-zones-with-fragmentation-penalties" class="section level3">
 <h3 class="hasAnchor">
 <a href="#multiple-zones-with-fragmentation-penalties" class="anchor"></a>Multiple zones with fragmentation penalties</h3>
 <p>So now the best strategy seems to be a combination of high intensity trapping and baiting. But we can also see that this solution is fairly fragmented, so we can add penalties to cluster managed planning units together. Here we will add penalties that will cluster the planning units allocated to the two trapping zones together, and penalties that will cluster the planning units allocated to the baiting zone together. We will also set an overall penalty factor to 640 to strongly penalize fragmented solutions.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create matrix that describe boundary penalties between planning units</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create matrix that describe boundary penalties between planning units</span>
 <span class="co"># allocated to different zones</span>
-<span class="no">z6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span>(<span class="fl">3</span>)
-<span class="no">z6</span>[<span class="fl">1</span>, <span class="fl">2</span>] <span class="kw">&lt;-</span> <span class="fl">1</span>
-<span class="no">z6</span>[<span class="fl">2</span>, <span class="fl">1</span>] <span class="kw">&lt;-</span> <span class="fl">1</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">z6</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">z6</span>) <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">z6</span>)
+<span class="va">z6</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>
+<span class="va">z6</span><span class="op">[</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">z6</span><span class="op">[</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"few.traps"</span>, <span class="st">"many.traps"</span>, <span class="st">"baiting"</span><span class="op">)</span>
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span>
 
 <span class="co"># print matrix</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">z6</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">z6</span><span class="op">)</span></code></pre></div>
 <pre><code>##            few.traps many.traps baiting
 ## few.traps          1          1       0
 ## many.traps         1          1       0
 ## baiting            0          0       1</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create problem</span>
-<span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="st">"few.traps"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.1</span>,
-                         <span class="st">"many.traps"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.5</span>,
-                         <span class="st">"baiting"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.8</span>,
-                         <span class="kw">feature_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>))) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(<span class="no">t4</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(<span class="no">l5</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="kw">penalty</span> <span class="kw">=</span> <span class="fl">640</span>, <span class="kw">zones</span> <span class="kw">=</span> <span class="no">z6</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create problem</span>
+<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
+                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
+                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
+                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p6</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -689,8 +719,9 @@
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p6</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0xb44cc86f
@@ -702,7 +733,7 @@
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 308 rows and 232 columns
-## Presolve time: 0.01s
+## Presolve time: 0.02s
 ## Presolved: 1597 rows, 968 columns, 4872 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Presolve removed 720 rows and 0 columns
@@ -718,16 +749,17 @@
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.05 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.026400000000e+04, best bound 1.005600000000e+04, gap 2.0265%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p6</span>, <span class="no">s6</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r6</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -746,8 +778,9 @@
 ## 13 layer.3 baiting            11.7          0.203
 ## 14 layer.4 baiting             6.05         0.177
 ## 15 layer.5 baiting             9.98         0.220</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s6</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-9-1.png" width="700" style="display: block; margin: auto;"></p>
 <p>Finally, it appears we might have a viable solution for this made-up conservation problem.</p>
 </div>
@@ -755,21 +788,22 @@
 <h3 class="hasAnchor">
 <a href="#multiple-zones-with-fragmentation-penalties-and-mandatory-allocations" class="anchor"></a>Multiple zones with fragmentation penalties and mandatory allocations</h3>
 <p>Finally, we might be interested in conservation planning scenarios where every single planning unit must be allocated to a management zone. This is often the case when developing land-use plans where every single planning unit needs to be allocated to a specific management zone. Though it makes less sense here, let’s see what happens to the solution if we needed to do at least one form of control in every single planning unit.</p>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># create matrix that describe boundary penalties between planning units</span>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create matrix that describe boundary penalties between planning units</span>
 <span class="co"># allocated to different zones</span>
-<span class="no">p7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span>(<span class="no">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span>(<span class="st">"few.traps"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.1</span>,
-                         <span class="st">"many.traps"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.5</span>,
-                         <span class="st">"baiting"</span> <span class="kw">=</span> <span class="no">sim_features</span> * <span class="fl">0.8</span>,
-                         <span class="kw">feature_names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">sim_features</span>))) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span>(<span class="no">t4</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_mandatory_allocation_constraints.html">add_mandatory_allocation_constraints</a></span>() <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span>(<span class="no">l5</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span>(<span class="kw">penalty</span> <span class="kw">=</span> <span class="fl">640</span>, <span class="kw">zones</span> <span class="kw">=</span> <span class="no">z6</span>) <span class="kw">%&gt;%</span>
-      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span>()
+<span class="va">p7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">pu4</span>, <span class="fu"><a href="../reference/zones.html">zones</a></span><span class="op">(</span><span class="st">"few.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.1</span>,
+                         <span class="st">"many.traps"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.5</span>,
+                         <span class="st">"baiting"</span> <span class="op">=</span> <span class="va">sim_features</span> <span class="op">*</span> <span class="fl">0.8</span>,
+                         feature_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">sim_features</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_min_set_objective.html">add_min_set_objective</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_targets.html">add_manual_targets</a></span><span class="op">(</span><span class="va">t4</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_mandatory_allocation_constraints.html">add_mandatory_allocation_constraints</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_manual_locked_constraints.html">add_manual_locked_constraints</a></span><span class="op">(</span><span class="va">l5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_boundary_penalties.html">add_boundary_penalties</a></span><span class="op">(</span>penalty <span class="op">=</span> <span class="fl">640</span>, zones <span class="op">=</span> <span class="va">z6</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu"><a href="../reference/add_binary_decisions.html">add_binary_decisions</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># print problem</span>
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">p7</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></code></pre></div>
 <pre><code>## Conservation Problem
 ##   zones:          few.traps, many.traps, baiting (3 zones)
 ##   planning units: RasterStack (100 units)
@@ -778,13 +812,14 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># solve problem</span>
-<span class="no">s7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span>(<span class="no">p7</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># solve problem</span>
+<span class="va">s7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p7</span><span class="op">)</span></code></pre></div>
 <pre><code>## Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 ## Optimize a model with 1905 rows, 1200 columns and 5400 nonzeros
 ## Model fingerprint: 0x89a9dafb
@@ -818,9 +853,10 @@
 ## 
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># calculate feature representation</span>
-<span class="no">r7</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span>(<span class="no">p7</span>, <span class="no">s7</span>)
-<span class="fu"><a href="../reference/print.html">print</a></span>(<span class="no">r7</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># calculate feature representation</span>
+<span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/feature_representation.html">feature_representation</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span>
+<span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 4
 ##    feature zone       absolute_held relative_held
 ##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
@@ -839,8 +875,9 @@
 ## 13 layer.3 baiting            11.7         0.203 
 ## 14 layer.4 baiting             6.05        0.177 
 ## 15 layer.5 baiting             9.98        0.220</code></pre>
-<div class="sourceCode"><html><body><pre class="r"><span class="co"># plot solution</span>
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="fu"><a href="../reference/category_layer.html">category_layer</a></span>(<span class="no">s7</span>), <span class="kw">main</span> <span class="kw">=</span> <span class="st">"solution"</span>, <span class="kw">axes</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">box</span> <span class="kw">=</span> <span class="fl">FALSE</span>)</pre></body></html></div>
+<div class="sourceCode"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># plot solution</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <p><img src="zones_files/figure-html/unnamed-chunk-10-1.png" width="700" style="display: block; margin: auto;"></p>
 </div>
 </div>
@@ -893,7 +930,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -21,8 +21,7 @@ test_that("compile", {
 
 test_that("solve (number_solutions within limit, single zone, Rsymphony)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -47,8 +46,7 @@ test_that("solve (number_solutions within limit, single zone, Rsymphony)", {
 
 test_that("solve (number_solutions within limit, single zone, gurobi)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("gurobi")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -72,8 +70,7 @@ test_that("solve (number_solutions within limit, single zone, gurobi)", {
 
 test_that("solve (number_solutions within limit, multiple zones, Rsymphony)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
@@ -106,8 +103,7 @@ test_that("solve (number_solutions within limit, multiple zones, Rsymphony)", {
 
 test_that("solve (number_solutions within limit, multiple zones, gurobi)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # create problem
   data(sim_pu_zones_stack, sim_features_zones)
@@ -140,8 +136,7 @@ test_that("solve (number_solutions within limit, multiple zones, gurobi)", {
 
 test_that("solve (number_solutions outside limit, Rsymphony)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("Rsymphony")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))
@@ -174,8 +169,7 @@ test_that("solve (number_solutions outside limit, Rsymphony)", {
 
 test_that("solve (number_solutions outside limit, gurobi)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not_installed("gurobi")
   # create data
   cost <- raster::raster(matrix(c(1, 2, 2, NA), ncol = 4))

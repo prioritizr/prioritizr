@@ -100,7 +100,7 @@ boundary are associated with greater connectivity." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -185,22 +185,22 @@ planning units that each have higher a conductance and share a greater
 boundary are associated with greater connectivity.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Spatial,Raster</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Spatial,character</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sf,character</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sf,Raster</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
+<span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for Raster,Raster</span>
-<span class='fu'>connectivity_matrix</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,7 +210,7 @@ boundary are associated with greater connectivity.</p>
       <td><p><code>Raster</code>,
 <code>SpatialPolygonsDataFrame</code>,
 <code>SpatialLinesDataFrame</code>,
-or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object
 representing planning units.
 If <code>x</code> is a <code>Raster</code> object then it must
 contain a single layer.</p></td>
@@ -222,7 +222,7 @@ of different areas across the study area, or a <code>character</code> object
 denoting a column name in the attribute table of <code>x</code> that contains
 the conductance values. Note that argument to <code>y</code> can only be a
 <code>character</code> object if the argument to <code>x</code> is a
-<code>Spatial</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object.
+<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object.
 Also, note that if the argument to <code>x</code> is a
 <code>Raster</code> object then
 argument to <code>y</code> must have the same spatial properties as it
@@ -233,14 +233,14 @@ argument to <code>y</code> must have the same spatial properties as it
       <td><p>additional arguments passed to <code><a href='fast_extract.html'>fast_extract()</a></code> for
 extracting and calculating the conductance values for each planning unit.
 These arguments are only used if argument to <code>x</code> is a
-<code>link[sp]{Spatial-class}</code> or <code><a href='https://rdrr.io/pkg/sf/man/sf.html'>sf::sf()</a></code> object and argument
+<code>link[sp]{Spatial-class}</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object and argument
 to <code>y</code> is a <code>Raster</code> object.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dsCMatrix</code> symmetric sparse matrix object.
+    <p><code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix</a></code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the connectivity between different pairs of planning
 units.
@@ -255,42 +255,44 @@ values are set to zero too.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_pu_sf</span>, <span class='no'>sim_features</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span><span class='op'>)</span>
 
 <span class='co'># create connectivity matrix using raster planning unit data using</span>
 <span class='co'># the raster cost values to represent conductance</span>
 <span class='co'>## extract 9 planning units</span>
-<span class='no'>r</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>))
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>crop</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## extract conductance data for the 9 planning units</span>
-<span class='no'>cd</span> <span class='kw'>&lt;-</span> <span class='fu'>crop</span>(<span class='no'>sim_features</span>, <span class='no'>r</span>)
+<span class='va'>cd</span> <span class='op'>&lt;-</span> <span class='fu'>crop</span><span class='op'>(</span><span class='va'>sim_features</span>, <span class='va'>r</span><span class='op'>)</span>
 
 <span class='co'>## make connectivity matrix using the habitat suitability data for the</span>
 <span class='co'>## second feature to represent the planning unit conductance data</span>
-<span class='no'>cm_raster</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>r</span>, <span class='no'>cd</span><span class='kw'>[[</span><span class='fl'>2</span>]])
+<span class='va'>cm_raster</span> <span class='op'>&lt;-</span> <span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>r</span>, <span class='va'>cd</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>cd</span><span class='kw'>[[</span><span class='fl'>2</span>]], <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"conductivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_raster</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"planning units (raster)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cd</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span>, main <span class='op'>=</span> <span class='st'>"conductivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_raster</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create connectivity matrix using polygon planning unit data using</span>
 <span class='co'># the habitat suitability data for the second feature to represent</span>
 <span class='co'># planning unit conductances</span>
 <span class='co'>## subset data to 9 polygons</span>
-<span class='no'>ply</span> <span class='kw'>&lt;-</span> <span class='no'>sim_pu_sf</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='fl'>10</span>:<span class='fl'>12</span>, <span class='fl'>20</span>:<span class='fl'>22</span>), ]
+<span class='va'>ply</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_sf</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>:</span><span class='fl'>12</span>, <span class='fl'>20</span><span class='op'>:</span><span class='fl'>22</span><span class='op'>)</span>, <span class='op'>]</span>
 
 <span class='co'>## make connectivity matrix</span>
-<span class='no'>cm_ply</span> <span class='kw'>&lt;-</span> <span class='fu'>connectivity_matrix</span>(<span class='no'>ply</span>, <span class='no'>sim_features</span><span class='kw'>[[</span><span class='fl'>2</span>]])
+<span class='va'>cm_ply</span> <span class='op'>&lt;-</span> <span class='fu'>connectivity_matrix</span><span class='op'>(</span><span class='va'>ply</span>, <span class='va'>sim_features</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>st_geometry</span>(<span class='no'>ply</span>), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (sf)"</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_ply</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>st_geometry</span><span class='op'>(</span><span class='va'>ply</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"planning units (sf)"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_ply</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># create connectivity matrix using habitat suitability data for each feature,</span>
 <span class='co'># this could be useful if prioritisations should spatially clump</span>
@@ -301,15 +303,16 @@ values are set to zero too.</p>
 <span class='co'>## connectivity matrix that we would use in the prioritization by</span>
 <span class='co'>## (1) generating a connectivity matrix for each feature separately, and</span>
 <span class='co'>## and then (2) then summing the values together</span>
-<span class='no'>cm_sum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>cd</span>), <span class='no'>connectivity_matrix</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>r</span>) <span class='co'># make matrices</span>
-<span class='no'>cm_sum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_sum</span>) <span class='co'># sum matrices together</span>
+<span class='va'>cm_sum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>cd</span><span class='op'>)</span>, <span class='va'>connectivity_matrix</span>, x <span class='op'>=</span> <span class='va'>r</span><span class='op'>)</span> <span class='co'># make matrices</span>
+<span class='va'>cm_sum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span><span class='op'>(</span><span class='st'>"+"</span>, <span class='va'>cm_sum</span><span class='op'>)</span> <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_sum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"planning units (raster)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_sum</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'>## we could take this example one step further, and use weights to indicate</span>
 <span class='co'>## relative importance of maintaining functional connectivity</span>
@@ -317,19 +320,20 @@ values are set to zero too.</p>
 
 <span class='co'>## let's pretend that the first feature is 20 times more important</span>
 <span class='co'>## than all the other species</span>
-<span class='no'>weights</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>)
+<span class='va'>weights</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>
 
 <span class='co'>## calculate connectivity matrix using weighted sum</span>
-<span class='no'>cm_wsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>cd</span>), <span class='no'>connectivity_matrix</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>r</span>) <span class='co'># make matrices</span>
-<span class='no'>cm_wsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span>(<span class='st'>"*"</span>, <span class='no'>cm_wsum</span>, <span class='no'>weights</span>) <span class='co'># multiply by weights</span>
-<span class='no'>cm_wsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_wsum</span>) <span class='co'># sum matrices together</span>
+<span class='va'>cm_wsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>cd</span><span class='op'>)</span>, <span class='va'>connectivity_matrix</span>, x <span class='op'>=</span> <span class='va'>r</span><span class='op'>)</span> <span class='co'># make matrices</span>
+<span class='va'>cm_wsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='st'>"*"</span>, <span class='va'>cm_wsum</span>, <span class='va'>weights</span><span class='op'>)</span> <span class='co'># multiply by weights</span>
+<span class='va'>cm_wsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span><span class='op'>(</span><span class='st'>"+"</span>, <span class='va'>cm_wsum</span><span class='op'>)</span> <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_wsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"planning units (raster)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_wsum</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'>## since the statistical distribution of the connectivity values</span>
 <span class='co'>## for each feature (e.g. the mean and standard deviation of the</span>
@@ -344,51 +348,53 @@ values are set to zero too.</p>
 <span class='co'>## and not a relatively small amount of connectivity)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'>### define helper function</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>scales</span>) <span class='co'># load scales library for rescale</span>
-<span class='no'>rescale_matrix</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/rescale.html'>rescale</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.01</span>, <span class='fl'>1</span>)); <span class='no'>x</span>}
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://scales.r-lib.org'>scales</a></span><span class='op'>)</span> <span class='co'># load scales library for rescale</span>
+<span class='va'>rescale_matrix</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://scales.r-lib.org//reference/rescale.html'>rescale</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.01</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>; <span class='va'>x</span><span class='op'>}</span>
 
 <span class='co'>### calculate functional connectivity matrix using the weighted sum of</span>
 <span class='co'>### connectivity values that have been normalized by linearly re-scaling</span>
 <span class='co'>### values</span>
-<span class='no'>cm_lwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>cd</span>), <span class='no'>connectivity_matrix</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>r</span>) <span class='co'># make matrices</span>
-<span class='no'>cm_lwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>cm_lwsum</span>, <span class='no'>rescale_matrix</span>) <span class='co'># rescale matrices to [0.01, 1]</span>
-<span class='no'>cm_lwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span>(<span class='st'>"*"</span>, <span class='no'>cm_lwsum</span>, <span class='no'>weights</span>) <span class='co'># multiply by weights</span>
-<span class='no'>cm_lwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_lwsum</span>) <span class='co'># sum matrices together</span>
+<span class='va'>cm_lwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>cd</span><span class='op'>)</span>, <span class='va'>connectivity_matrix</span>, x <span class='op'>=</span> <span class='va'>r</span><span class='op'>)</span> <span class='co'># make matrices</span>
+<span class='va'>cm_lwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>cm_lwsum</span>, <span class='va'>rescale_matrix</span><span class='op'>)</span> <span class='co'># rescale matrices to [0.01, 1]</span>
+<span class='va'>cm_lwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='st'>"*"</span>, <span class='va'>cm_lwsum</span>, <span class='va'>weights</span><span class='op'>)</span> <span class='co'># multiply by weights</span>
+<span class='va'>cm_lwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span><span class='op'>(</span><span class='st'>"+"</span>, <span class='va'>cm_lwsum</span><span class='op'>)</span> <span class='co'># sum matrices together</span>
 <span class='co'># }</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_lwsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"planning units (raster)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_lwsum</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'>## another approach for normalizing the data could be using z-scores</span>
 <span class='co'>## note that after normalizing the data we would need to add a constant</span>
 <span class='co'>## value so that none of the connectivity values are negative</span>
 
 <span class='co'>### define helper functions</span>
-<span class='no'>zscore</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> (<span class='no'>x</span>@<span class='kw'>x</span> - <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>)) / <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>); <span class='no'>x</span>}
-<span class='no'>min_non_zero_value</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>@<span class='kw'>x</span>)
-<span class='no'>add_non_zero_value</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>, <span class='no'>y</span>) {<span class='no'>x</span>@<span class='kw'>x</span> <span class='kw'>&lt;-</span> <span class='no'>x</span>@<span class='kw'>x</span> + <span class='no'>y</span>; <span class='no'>x</span>}
+<span class='va'>zscore</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span> <span class='op'>-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span><span class='op'>)</span>; <span class='va'>x</span><span class='op'>}</span>
+<span class='va'>min_non_zero_value</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>add_non_zero_value</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span> <span class='op'>{</span><span class='va'>x</span><span class='op'>@</span><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>@</span><span class='va'>x</span> <span class='op'>+</span> <span class='va'>y</span>; <span class='va'>x</span><span class='op'>}</span>
 
 <span class='co'>### calculate functional connectivity matrix using the weighted sum of</span>
 <span class='co'>### connectivity values that have been normalized using z-scores,</span>
 <span class='co'>### and transformed to account for negative values</span>
-<span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span>(<span class='no'>cd</span>), <span class='no'>connectivity_matrix</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>r</span>) <span class='co'># make matrices</span>
-<span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>cm_zwsum</span>, <span class='no'>zscore</span>) <span class='co'># normalize using z-scores</span>
-<span class='no'>min_value</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span>(<span class='no'>cm_zwsum</span>, <span class='no'>min_non_zero_value</span>)) <span class='co'># find min value</span>
-<span class='no'>min_value</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='no'>min_value</span>) + <span class='fl'>0.01</span> <span class='co'># prepare constant for adding to matrices</span>
-<span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>cm_zwsum</span>, <span class='no'>add_non_zero_value</span>, <span class='no'>min_value</span>) <span class='co'># add constant</span>
-<span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span>(<span class='st'>"*"</span>, <span class='no'>cm_zwsum</span>, <span class='no'>weights</span>) <span class='co'># multiply by weights</span>
-<span class='no'>cm_zwsum</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span>(<span class='st'>"+"</span>, <span class='no'>cm_zwsum</span>) <span class='co'># sum matrices together</span>
+<span class='va'>cm_zwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>cd</span><span class='op'>)</span>, <span class='va'>connectivity_matrix</span>, x <span class='op'>=</span> <span class='va'>r</span><span class='op'>)</span> <span class='co'># make matrices</span>
+<span class='va'>cm_zwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>cm_zwsum</span>, <span class='va'>zscore</span><span class='op'>)</span> <span class='co'># normalize using z-scores</span>
+<span class='va'>min_value</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>sapply</a></span><span class='op'>(</span><span class='va'>cm_zwsum</span>, <span class='va'>min_non_zero_value</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># find min value</span>
+<span class='va'>min_value</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='va'>min_value</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0.01</span> <span class='co'># prepare constant for adding to matrices</span>
+<span class='va'>cm_zwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>cm_zwsum</span>, <span class='va'>add_non_zero_value</span>, <span class='va'>min_value</span><span class='op'>)</span> <span class='co'># add constant</span>
+<span class='va'>cm_zwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Map</a></span><span class='op'>(</span><span class='st'>"*"</span>, <span class='va'>cm_zwsum</span>, <span class='va'>weights</span><span class='op'>)</span> <span class='co'># multiply by weights</span>
+<span class='va'>cm_zwsum</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/funprog.html'>Reduce</a></span><span class='op'>(</span><span class='st'>"+"</span>, <span class='va'>cm_zwsum</span><span class='op'>)</span> <span class='co'># sum matrices together</span>
 
 <span class='co'>## plot data and matrix</span>
 <span class='co'># \dontrun{</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>))
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>r</span>, <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"planning units (raster)"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='fu'>clamp</span>(<span class='fu'>raster</span>(<span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>cm_zwsum</span>)), <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fl'>1e-5</span>, <span class='kw'>useValues</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>),
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"connectivity"</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='connectivity_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>r</span>, main <span class='op'>=</span> <span class='st'>"planning units (raster)"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>clamp</span><span class='op'>(</span><span class='fu'>raster</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>cm_zwsum</span><span class='op'>)</span><span class='op'>)</span>, lower <span class='op'>=</span> <span class='fl'>1e-5</span>, useValues <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>,
+     main <span class='op'>=</span> <span class='st'>"connectivity"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+</div><div class='img'><img src='connectivity_matrix-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -406,7 +412,7 @@ values are set to zero too.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -17,8 +17,7 @@ test_that("add_binary_decisions (compile, single zone)", {
 
 test_that("add_binary_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
@@ -54,8 +53,7 @@ test_that("add_binary_decisions (compile, multiple zones)", {
 
 test_that("add_binary_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
@@ -88,8 +86,7 @@ test_that("add_proportion_decisions (compile, single zone)", {
 
 test_that("add_proportion_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
@@ -126,8 +123,7 @@ test_that("add_proportion_decisions (compile, multiple zones)", {
 
 test_that("add_proportion_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
@@ -166,8 +162,7 @@ test_that("add_semicontinuous_decisions (compile, single zone)", {
 
 test_that("add_semicontinuous_decisions (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)
@@ -204,8 +199,7 @@ test_that("add_semicontinuous_decisions (compile, multiple zones)", {
 
 test_that("add_semicontinuous_decisions (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # generate solution
   data(sim_pu_raster, sim_features)

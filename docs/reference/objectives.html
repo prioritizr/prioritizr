@@ -101,7 +101,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -195,7 +195,7 @@ ensuring that the cost of the reserve network does not exceed the budget.</p>
 to solve a problem will return an error.</strong></p>
 <p>The following objectives can be added to a conservation planning
 <code><a href='problem.html'>problem()</a></code>:</p>
-<dl'>
+<dl>
 
 <dt><code><a href='add_min_set_objective.html'>add_min_set_objective()</a></code></dt><dd><p>Minimize the cost of the
 solution whilst ensuring that all targets are met. This objective is
@@ -234,38 +234,39 @@ features as possible without exceeding a budget.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_phylogeny</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create base problem</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.1</span>)
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
 
  <span class='co'># create problem with added minimum set objective</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum coverage objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span>(<span class='fl'>500</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_cover_objective.html'>add_max_cover_objective</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum feature representation objective</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span>(<span class='fl'>1900</span>)
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 <span class='co'># create problem with added minimum shortfall objective</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span>(<span class='fl'>1900</span>)
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span>(<span class='fl'>1900</span>, <span class='no'>sim_phylogeny</span>)
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum utility objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='no'>p7</span> <span class='kw'>&lt;-</span> <span class='no'>p</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span>(<span class='fl'>1900</span>)
+<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p1</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p2</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p3</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p4</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p5</span>), <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p6</span>),
-           <span class='fu'><a href='solve.html'>solve</a></span>(<span class='no'>p7</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
+           <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0x6442bf6e
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -460,7 +461,7 @@ features as possible without exceeding a budget.</p></dd>
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -550,10 +551,11 @@ features as possible without exceeding a budget.</p></dd>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 2.702191654378e+01, best bound 2.867309283818e+01, gap 6.1105%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum features"</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum features"</span>,
               <span class='st'>"minimum shortfall"</span>, <span class='st'>"maximum phylogenetic diversity"</span>,
-              <span class='st'>"maximum phylogenetic endemism"</span>, <span class='st'>"maximum utility"</span>))</div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+              <span class='st'>"maximum phylogenetic endemism"</span>, <span class='st'>"maximum utility"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -570,7 +572,7 @@ features as possible without exceeding a budget.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

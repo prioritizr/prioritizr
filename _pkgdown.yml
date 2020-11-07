@@ -33,7 +33,7 @@ reference:
       - prioritizr
 
   - title: Data
-    desc: Simulated data sets distributed with the package
+    desc: Simulated datasets distributed with the package
     contents:
       - sim_data
 
@@ -96,12 +96,12 @@ reference:
     - rarity_weighted_richness
 
   - title: Data simulation
-    desc: Functions for simulating new data sets
+    desc: Functions for simulating new datasets
     contents:
     - starts_with("simulate_")
 
   - title: Geoprocessing
-    desc: Functions for manipulating spatial data sets
+    desc: Functions for manipulating spatial datasets
     contents:
       - fast_extract
       - intersecting_units

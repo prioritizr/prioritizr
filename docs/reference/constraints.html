@@ -97,7 +97,7 @@ to ensure that solutions exhibit a specific characteristic." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -197,7 +197,7 @@ constraints do not affect the objective function. The following constraints
 are available.</p>
 <p>The following constraints can be added to a conservation planning
 <code><a href='problem.html'>problem()</a></code>:</p>
-<dl'>
+<dl>
 
 <dt><code><a href='add_locked_in_constraints.html'>add_locked_in_constraints()</a></code></dt><dd><p>Add constraints to ensure
 that certain planning units are selected in the solution.</p></dd>
@@ -235,32 +235,33 @@ with problems that contain multiple zones.</strong></p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>, <span class='no'>sim_locked_in_raster</span>,
-     <span class='no'>sim_locked_out_raster</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_locked_in_raster</span>,
+     <span class='va'>sim_locked_out_raster</span><span class='op'>)</span>
 
 <span class='co'># create minimal problem with only targets and no additional constraints</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span>(<span class='no'>sim_pu_raster</span>, <span class='no'>sim_features</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span>() <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span>(<span class='fl'>0.2</span>) <span class='kw'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span>()
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with locked in constraints</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></span>(<span class='no'>sim_locked_in_raster</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_locked_in_constraints.html'>add_locked_in_constraints</a></span><span class='op'>(</span><span class='va'>sim_locked_in_raster</span><span class='op'>)</span>
 
 <span class='co'># create problem with locked in constraints</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></span>(<span class='no'>sim_locked_out_raster</span>)
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_locked_out_constraints.html'>add_locked_out_constraints</a></span><span class='op'>(</span><span class='va'>sim_locked_out_raster</span><span class='op'>)</span>
 
 <span class='co'># create problem with neighbor constraints</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></span>(<span class='fl'>2</span>)
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_neighbor_constraints.html'>add_neighbor_constraints</a></span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'># create problem with contiguity constraints</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></span>()
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_contiguity_constraints.html'>add_contiguity_constraints</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># create problem with feature contiguity constraints</span>
-<span class='no'>p6</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> <span class='kw'>%&gt;%</span> <span class='fu'><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></span>()
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
-<span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>p1</span>, <span class='no'>p2</span>, <span class='no'>p3</span>, <span class='no'>p4</span>, <span class='no'>p5</span>, <span class='no'>p6</span>), <span class='no'>solve</span>))</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>p2</span>, <span class='va'>p3</span>, <span class='va'>p4</span>, <span class='va'>p5</span>, <span class='va'>p6</span><span class='op'>)</span>, <span class='va'>solve</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
 #&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
 #&gt; Model fingerprint: 0xac25e0fe
 #&gt; Variable types: 0 continuous, 90 integer (90 binary)
@@ -379,7 +380,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;      0     0 3909.12764    0   13 5019.78041 3909.12764  22.1%     -    0s
 #&gt; H    0     0                    4231.2130368 3909.12764  7.61%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4231.21 5019.78 
@@ -424,7 +425,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   Clique: 1
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
+#&gt; Explored 28 nodes (834 simplex iterations) in 0.15 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 4285.22 4608.41 
@@ -473,7 +474,7 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt;   Gomory: 3
 #&gt;   Zero half: 4
 #&gt; 
-#&gt; Explored 61 nodes (7758 simplex iterations) in 1.05 seconds
+#&gt; Explored 61 nodes (7758 simplex iterations) in 1.22 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 4256.72 12303.6 16261.4 
@@ -481,9 +482,10 @@ with problems that contain multiple zones.</strong></p></dd>
 #&gt; Optimal solution found (tolerance 1.00e-01)
 #&gt; Best objective 4.256719419865e+03, best bound 3.966688065920e+03, gap 6.8135%</div><div class='input'>
 <span class='co'># plot solutions</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>s</span>, <span class='kw'>box</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>axes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nr</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-     <span class='kw'>main</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"minimal problem"</span>, <span class='st'>"locked in"</span>, <span class='st'>"locked out"</span>,
-              <span class='st'>"neighbor"</span>, <span class='st'>"contiguity"</span>, <span class='st'>"feature contiguity"</span>))</div><div class='img'><img src='constraints-1.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, nr <span class='op'>=</span> <span class='fl'>2</span>,
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minimal problem"</span>, <span class='st'>"locked in"</span>, <span class='st'>"locked out"</span>,
+              <span class='st'>"neighbor"</span>, <span class='st'>"contiguity"</span>, <span class='st'>"feature contiguity"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='constraints-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -500,7 +502,7 @@ with problems that contain multiple zones.</strong></p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

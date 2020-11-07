@@ -100,7 +100,7 @@ then an error is thrown." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -185,23 +185,23 @@ modifying them. If values are supplied to a parameter that are unacceptable
 then an error is thrown.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>proportion_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>)
+    <pre class="usage"><span class='fu'>proportion_parameter</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>binary_parameter</span>(<span class='no'>name</span>, <span class='no'>value</span>)
+<span class='fu'>binary_parameter</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>value</span><span class='op'>)</span>
 
-<span class='fu'>integer_parameter</span>(
-  <span class='no'>name</span>,
-  <span class='no'>value</span>,
-  <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(-<span class='no'>.Machine</span>$<span class='no'>integer.max</span>),
-  <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='no'>.Machine</span>$<span class='no'>integer.max</span>)
-)
+<span class='fu'>integer_parameter</span><span class='op'>(</span>
+  <span class='va'>name</span>,
+  <span class='va'>value</span>,
+  lower_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span><span class='op'>)</span>,
+  upper_limit <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='va'>.Machine</span><span class='op'>$</span><span class='va'>integer.max</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>numeric_parameter</span>(
-  <span class='no'>name</span>,
-  <span class='no'>value</span>,
-  <span class='kw'>lower_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmin</span>,
-  <span class='kw'>upper_limit</span> <span class='kw'>=</span> <span class='no'>.Machine</span>$<span class='no'>double.xmax</span>
-)</pre>
+<span class='fu'>numeric_parameter</span><span class='op'>(</span>
+  <span class='va'>name</span>,
+  <span class='va'>value</span>,
+  lower_limit <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.xmin</span>,
+  upper_limit <span class='op'>=</span> <span class='va'>.Machine</span><span class='op'>$</span><span class='va'>double.xmax</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,7 +236,7 @@ the largest possible number on the system.</p></td>
 
     <p>Below is a list of parameter generating functions and a brief
 description of each.</p>
-<dl'>
+<dl>
 
 <dt>proportion_parameter</dt><dd><p>A parameter that is a <code>double</code> and bounded
 between zero and one.</p></dd>
@@ -254,35 +254,55 @@ values of zero or one.</p></dd>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># proportion parameter</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'>proportion_parameter</span>(<span class='st'>'prop'</span>, <span class='fl'>0.5</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='no'>p1</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 73d7fe82-95a0-4780-8af1-065e03af9aac</span></div><div class='input'><span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
-<span class='no'>p1</span>$<span class='fu'>validate</span>(<span class='fl'>0.1</span>) <span class='co'># check if 0.1 is a validate input</span>
-<span class='no'>p1</span>$<span class='fu'>set</span>(<span class='fl'>0.1</span>) <span class='co'># change value to 0.1</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>)</div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>proportion_parameter</span><span class='op'>(</span><span class='st'>'prop'</span>, <span class='fl'>0.5</span><span class='op'>)</span> <span class='co'># create new object</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>prop (0.5)</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt; [1] 0.5</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 4bbd0bf5-af30-4721-88dc-7c180f3c67be</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='co'># check if 5 is a validate input</span>
+<span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='co'># check if 0.1 is a validate input</span>
+<span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='co'># change value to 0.1</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># binary parameter</span>
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'>binary_parameter</span>(<span class='st'>'bin'</span>, <span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p2</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='no'>p2</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: a33ad54a-f376-496f-b06e-b7d3344d7f34</span></div><div class='input'><span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>5</span>) <span class='co'># check if 5 is a validate input</span>
-<span class='no'>p2</span>$<span class='fu'>validate</span>(<span class='fl'>1L</span>) <span class='co'># check if 1L is a validate input</span>
-<span class='no'>p2</span>$<span class='fu'>set</span>(<span class='fl'>1L</span>) <span class='co'># change value to 1L</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p1</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>binary_parameter</span><span class='op'>(</span><span class='st'>'bin'</span>, <span class='fl'>0</span><span class='op'>)</span> <span class='co'># create new object</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>bin (0)</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt; [1] 0</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 36b9953e-95bc-4042-bd96-8faf24f20734</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span> <span class='co'># check if 5 is a validate input</span>
+<span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>1L</span><span class='op'>)</span> <span class='co'># check if 1L is a validate input</span>
+<span class='va'>p2</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='fl'>1L</span><span class='op'>)</span> <span class='co'># change value to 1L</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it again</span>
+</div><div class='output co'>#&gt; <span class='message'>prop (0.1)</span></div><div class='input'>
 <span class='co'># integer parameter</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'>integer_parameter</span>(<span class='st'>'int'</span>, <span class='fl'>5L</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='no'>p3</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 0613ae5f-f129-4b9b-9883-4d10fc824f40</span></div><div class='input'><span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>5.6</span>) <span class='co'># check if 5.6 is a validate input</span>
-<span class='no'>p3</span>$<span class='fu'>validate</span>(<span class='fl'>2L</span>) <span class='co'># check if 2L is a validate input</span>
-<span class='no'>p3</span>$<span class='fu'>set</span>(<span class='fl'>2L</span>) <span class='co'># change value to 2L</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p3</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>int (2)</span></div><div class='input'>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>integer_parameter</span><span class='op'>(</span><span class='st'>'int'</span>, <span class='fl'>5L</span><span class='op'>)</span> <span class='co'># create new object</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>int (5)</span></div><div class='input'><span class='va'>p3</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt; [1] 5</div><div class='input'><span class='va'>p3</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 32325c60-2fb4-4ebc-9e02-63efca37b95d</span></div><div class='input'><span class='va'>p3</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>5.6</span><span class='op'>)</span> <span class='co'># check if 5.6 is a validate input</span>
+<span class='va'>p3</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>2L</span><span class='op'>)</span> <span class='co'># check if 2L is a validate input</span>
+<span class='va'>p3</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='fl'>2L</span><span class='op'>)</span> <span class='co'># change value to 2L</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span> <span class='co'># print it again</span>
+</div><div class='output co'>#&gt; <span class='message'>int (2)</span></div><div class='input'>
 <span class='co'># numeric parameter</span>
-<span class='no'>p4</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'dbl'</span>, -<span class='fl'>7.6</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='no'>p4</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: 518c1b06-35c0-4212-be26-a83ff889ece0</span></div><div class='input'><span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>NA</span>) <span class='co'># check if NA is a validate input</span>
-<span class='no'>p4</span>$<span class='fu'>validate</span>(<span class='fl'>8.9</span>) <span class='co'># check if 8.9 is a validate input</span>
-<span class='no'>p4</span>$<span class='fu'>set</span>(<span class='fl'>8.9</span>) <span class='co'># change value to 8.9</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p4</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>dbl (8.9)</span></div><div class='input'>
+<span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_parameter</span><span class='op'>(</span><span class='st'>'dbl'</span>, <span class='op'>-</span><span class='fl'>7.6</span><span class='op'>)</span> <span class='co'># create new object</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>dbl (-7.6)</span></div><div class='input'><span class='va'>p4</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt; [1] -7.6</div><div class='input'><span class='va'>p4</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: af324ac7-3fb9-481a-b4d8-76409aed10e6</span></div><div class='input'><span class='va'>p4</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='cn'>NA</span><span class='op'>)</span> <span class='co'># check if NA is a validate input</span>
+<span class='va'>p4</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>8.9</span><span class='op'>)</span> <span class='co'># check if 8.9 is a validate input</span>
+<span class='va'>p4</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='fl'>8.9</span><span class='op'>)</span> <span class='co'># change value to 8.9</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span> <span class='co'># print it again</span>
+</div><div class='output co'>#&gt; <span class='message'>dbl (8.9)</span></div><div class='input'>
 <span class='co'># numeric parameter with lower bounds</span>
-<span class='no'>p5</span> <span class='kw'>&lt;-</span> <span class='fu'>numeric_parameter</span>(<span class='st'>'bdbl'</span>, <span class='fl'>6</span>, <span class='kw'>lower_limit</span><span class='kw'>=</span><span class='fl'>0</span>) <span class='co'># create new object</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it</span></div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>() <span class='co'># get value</span></div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='no'>p5</span>$<span class='no'>id</span> <span class='co'># get id</span></div><div class='output co'>#&gt; <span class='message'>id: e1f6dda2-50a8-43f5-aa9e-7155ec64fab8</span></div><div class='input'><span class='no'>p5</span>$<span class='fu'>validate</span>(-<span class='fl'>10</span>) <span class='co'># check if -10 is a validate input</span>
-<span class='no'>p5</span>$<span class='fu'>validate</span>(<span class='fl'>90</span>) <span class='co'># check if 90 is a validate input</span>
-<span class='no'>p5</span>$<span class='fu'>set</span>(<span class='fl'>90</span>) <span class='co'># change value to 8.9</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>p5</span>) <span class='co'># print it again</span></div><div class='output co'>#&gt; <span class='message'>bdbl (90)</span></div><div class='input'>
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'>numeric_parameter</span><span class='op'>(</span><span class='st'>'bdbl'</span>, <span class='fl'>6</span>, lower_limit<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span> <span class='co'># create new object</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span> <span class='co'># print it</span>
+</div><div class='output co'>#&gt; <span class='message'>bdbl (6)</span></div><div class='input'><span class='va'>p5</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
+</div><div class='output co'>#&gt; [1] 6</div><div class='input'><span class='va'>p5</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
+</div><div class='output co'>#&gt; <span class='message'>id: aed17e2c-a71c-4067-b54e-2d4cb01ee153</span></div><div class='input'><span class='va'>p5</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='op'>-</span><span class='fl'>10</span><span class='op'>)</span> <span class='co'># check if -10 is a validate input</span>
+<span class='va'>p5</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span> <span class='co'># check if 90 is a validate input</span>
+<span class='va'>p5</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='fl'>90</span><span class='op'>)</span> <span class='co'># change value to 8.9</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span> <span class='co'># print it again</span>
+</div><div class='output co'>#&gt; <span class='message'>bdbl (90)</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -299,7 +319,7 @@ values of zero or one.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

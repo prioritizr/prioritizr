@@ -97,7 +97,7 @@ for parallel processing." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
       </span>
     </div>
 
@@ -179,7 +179,7 @@ for parallel processing." />
 for parallel processing.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>distribute_load</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>distribute_load</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -208,15 +208,17 @@ specifying the indices that the worker should process.</p>
 
 <span class='co'># imagine that we have 10 jobs that need processing. For simplicity,</span>
 <span class='co'># our jobs will involve adding 1 to each element in 1:10.</span>
-<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
+<span class='va'>values</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
 
 <span class='co'># we could complete this processing using the following vectorized code</span>
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span> + <span class='fl'>1</span>:<span class='fl'>10</span>
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 11</div><div class='input'>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fl'>1</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1]  2  3  4  5  6  7  8  9 10 11</div><div class='input'>
 <span class='co'># however, if our jobs were complex then we would be better off using</span>
 <span class='co'># functionals</span>
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -248,8 +250,9 @@ specifying the indices that the worker should process.</p>
 #&gt; </div><div class='input'>
 <span class='co'># we could do one better, and use the "plyr" package to handle the</span>
 <span class='co'># processing</span>
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -282,10 +285,12 @@ specifying the indices that the worker should process.</p>
 <span class='co'># we could also use the parallel processing options available through "plyr"</span>
 <span class='co'># to use more computation resources to complete the jobs (note that since</span>
 <span class='co'># these jobs are very quick to process this is actually slower).</span>
-<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
-<span class='kw pkg'>doParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span>(<span class='no'>cl</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='no'>x</span> + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span>(<span class='no'>cl</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span>
+<span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2
 #&gt; 
 #&gt; [[2]]
@@ -318,18 +323,20 @@ specifying the indices that the worker should process.</p>
 <span class='co'># however this approach iterates over each element individually, we could</span>
 <span class='co'># use the distribute_load function to split the N jobs up into K super</span>
 <span class='co'># jobs, and evaluate each super job using vectorized code.</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
-<span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span>(<span class='fl'>2</span>, <span class='st'>"PSOCK"</span>)
-<span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/clusterApply.html'>clusterExport</a></span>(<span class='no'>cl</span>, <span class='st'>'x'</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span>())
-<span class='kw pkg'>doParallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span>(<span class='no'>cl</span>)
-<span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'>distribute_load</span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span>(<span class='no'>l</span>, <span class='kw'>function</span>(<span class='no'>i</span>) <span class='no'>x</span>[<span class='no'>i</span>] + <span class='fl'>1</span>, <span class='kw'>.parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: &lt;anonymous&gt;: ... may be used in an incorrect context: '.fun(piece, ...)'</span></div><div class='input'><span class='no'>cl</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>parallel</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span>(<span class='no'>cl</span>)
-<span class='fu'><a href='print.html'>print</a></span>(<span class='no'>result</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>
+<span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>makeCluster</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='st'>"PSOCK"</span><span class='op'>)</span>
+<span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/clusterApply.html'>clusterExport</a></span><span class='op'>(</span><span class='va'>cl</span>, <span class='st'>'x'</span>, envir <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/environment.html'>environment</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>doParallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/doParallel/man/registerDoParallel.html'>registerDoParallel</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>distribute_load</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, n <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>result</span> <span class='op'>&lt;-</span> <span class='fu'>plyr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/plyr/man/llply.html'>llply</a></span><span class='op'>(</span><span class='va'>l</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>[</span><span class='va'>i</span><span class='op'>]</span> <span class='op'>+</span> <span class='fl'>1</span>, .parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='output co'>#&gt; <span class='warning'>NA</span></div><div class='input'><span class='va'>cl</span> <span class='op'>&lt;-</span> <span class='fu'>parallel</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/r/parallel/makeCluster.html'>stopCluster</a></span><span class='op'>(</span><span class='va'>cl</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>result</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2 3 4 5 6
 #&gt; 
 #&gt; [[2]]
 #&gt; [1]  7  8  9 10 11
-#&gt; </div><div class='input'># }
+#&gt; </div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>
@@ -347,7 +354,7 @@ specifying the indices that the worker should process.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

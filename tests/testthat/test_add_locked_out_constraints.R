@@ -30,8 +30,7 @@ test_that("logical (compile, single zone)", {
 
 test_that("logical (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_features)
@@ -81,8 +80,7 @@ test_that("integer (compile, single zone)", {
 
 test_that("integer (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_features)
@@ -136,8 +134,7 @@ test_that("integer (compile, multiple zones)", {
 
 test_that("integer (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_stack, sim_features_zones)
@@ -205,8 +202,7 @@ test_that("character (compile, single zone)", {
 
 test_that("character (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
@@ -223,8 +219,7 @@ test_that("character (solve, single zone)", {
 
 test_that("character (solve, proportion decisions, single zone", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
@@ -280,8 +275,7 @@ test_that("character (compile, multiple zones)", {
 
 test_that("character (solve, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
@@ -307,8 +301,7 @@ test_that("character (solve, multiple zones)", {
 
 test_that("character (solve, proportion decisions, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create and solve problem
   data(sim_pu_zones_polygons, sim_features_zones)
@@ -390,8 +383,7 @@ test_that("raster (compile, single zone)", {
 
 test_that("raster (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_raster, sim_locked_out_raster, sim_features)
@@ -452,8 +444,7 @@ test_that("raster (compile, multiple zones)", {
 test_that("raster (solve, multiple zones)", {
   # create problem
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # make and solve problem
   data(sim_pu_zones_stack, sim_features_zones)
@@ -523,8 +514,7 @@ test_that("spatial (compile, single zone)", {
 
 test_that("spatial (solve, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)

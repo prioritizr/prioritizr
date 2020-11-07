@@ -13,5 +13,4 @@ test_that("disribute_load", {
   expect_error(distribute_load(5.3, 5L))
   expect_error(distribute_load(0, 2L))
   expect_error(distribute_load(-1L, 2L))
-
 })

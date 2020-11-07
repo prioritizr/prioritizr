@@ -24,3 +24,4 @@ inst/WORDLIST
 ^CONTRIBUTING\.md$
 ^CONTRIBUTING\.Rmd$
 pkgdown
+^\.github$

@@ -61,8 +61,7 @@ test_that("compile (manually data specified, single zone)", {
 
 test_that("solve (Spatial, single zone)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # create problem
   data(sim_pu_polygons, sim_features)
@@ -188,8 +187,7 @@ test_that("compile (manually specified data, multiple zones)", {
 
 test_that("solve (Spatial, multiple zones)", {
   skip_on_cran()
-  skip_on_travis()
-  skip_on_appveyor()
+  skip_on_ci()
   skip_if_not(any_solvers_installed())
   # load data
   data(sim_pu_zones_polygons, sim_features_zones)
