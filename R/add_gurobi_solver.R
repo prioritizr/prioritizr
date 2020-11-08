@@ -170,7 +170,8 @@ add_gurobi_solver <- function(x, gap = 0.1, time_limit = .Machine$integer.max,
       model <- self$get_data("model")
       p <- self$get_data("parameters")
       # solve problem
-      x <- gurobi::gurobi(model = model, params = p)
+      x <- withr::with_locale(c(LC_CTYPE = "C"),
+                              gurobi::gurobi(model = model, params = p))
       # fix potential floating point arithmetic issues
       b <- model$vtype == "B"
       if (is.numeric(x$x)) {

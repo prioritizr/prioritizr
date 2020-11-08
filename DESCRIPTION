@@ -45,7 +45,8 @@ Imports:
     magrittr,
     exactextractr (>= 0.2.0),
     fasterize (>= 1.0.2),
-    tibble (>= 2.0.0)
+    tibble (>= 2.0.0),
+    withr (>= 2.3.0)
 Suggests:
     testthat,
     knitr,

@@ -6,6 +6,8 @@
   matrix arguments (#164).
 - Update Tasmania vignette to remove superfluous warnings (#168).
 - Update publication record vignette.
+- Fix compatibility issues between the testthat R package and the gurobi R
+  package in package tests.
 
 # prioritizr 5.0.2.5
 
