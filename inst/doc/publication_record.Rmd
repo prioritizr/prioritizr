@@ -19,9 +19,10 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 ### 2020
 * [Bryant BP, Kelsey TR, Vogl AL, Wolny SA, MacEwan DJ, Selmants PC, Biswas T, and Butterfield HS (2020) Shaping land use change and ecosystem restoration in a water-stressed agricultural landscape to achieve multiple benefits. _Frontiers in Sustainable Food Systems_, **4**: 138.](https://doi.org/10.3389/fsufs.2020.00138)
 * [Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, **2**: e158.](https://doi.org/10.1111/csp2.158)
-* [Hanson JO, Marques A, Ver&#237;ssimo A, Camacho-Sanchez M, Velo-Ant&#243;n G, Mart&#237;nez-Solano &#205;, and Carvalho SB (2020) Conservation planning for adaptive and neutral evolutionary processes. _Journal of Applied Ecology_, **In press**: https://doi.org/10.1111/1365-2664.13718.](https://doi.org/10.1111/1365-2664.13718)
+* [Hanson JO, Marques A, Ver&#237;ssimo A, Camacho-Sanchez M, Velo-Ant&#243;n G, Mart&#237;nez-Solano &#205;, and Carvalho SB (2020) Conservation planning for adaptive and neutral evolutionary processes. _Journal of Applied Ecology_, **57**: 2159--2169.](https://doi.org/10.1111/1365-2664.13718)
 * [Hanson JO, Rhodes JR, Butchart SHM, Buchanan GM, Rondinini C, Ficetola GF, and Fuller RA (2020). Global conservation of species' niches. _Nature_, **580**: 232--234.](https://doi.org/10.1038/s41586-020-2138-7)
 * [Lin H-Y, Robinson KF, and Walter L (2020) Trade-offs among road-stream crossing upgrade prioritizations based on connectivity restoration and erosion risk control. _River Research and Applications_, **36**: 371--382.](https://doi.org/10.1002/rra.3593)
+* [Lin H-Y, Schuster R, Wilson S, Cooke SJ, Rodewald AD, and Bennett JR (2020) Integrating season-specific needs of migratory and resident birds in conservation planning. _Biological Conservation_, **252**, 108826.](https://doi.org/10.1016/j.biocon.2020.108826)
 * [Magris RA, Costa MD, Ferreira CE, Vilar CC, Joyeux JC, Creed JC, Copertino MS, Horta PA, Sumida PYG, Francini-Filho RB, and Floeter SR (2020). A blueprint for securing Brazil's marine biodiversity and supporting the achievement of global conservation goals. _Diversity and Distributions_. **In press**: https://doi.org/10.1111/ddi.13183.](https://doi.org/10.1111/ddi.13183)
 * [Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020) Exact integer linear programming solvers outperform simulated annealing for solving conservation planning problems. _PeerJ_, **8**: e9258.](https://doi.org/10.7717/peerj.9258)
 * [Scriven SA, Williams SH, Ghani MA, Agama AL, Benedick S, Brodie JF, Hamer KC, McClean CJ, Reynolds G, and Hill JK (2020) Assessing the effectiveness of protected areas for conserving range-restricted rain forest butterflies in Sabah, Borneo. _Biotropica_, **52**: 380--391.](https://doi.org/10.1111/btp.12708)
@@ -45,7 +46,8 @@ This vignette contains a list of publications that have cited the _prioritizr R_
 ## Review articles
 
 ### 2020
-* [Pollock LJ, O'Connor LM, Mokany K, Rosauer DF, Talluto MV, and Thuiller W (2020) Protecting Biodiversity (in all its complexity): New models and methods. _Trends in Ecology & Evolution_, **In press**: https://doi.org/10.1016/j.tree.2020.08.015.](https://doi.org/10.1016/j.tree.2020.08.015)
+* [Pollock LJ, O'Connor LM, Mokany K, Rosauer DF, Talluto MV, and Thuiller W (2020) Protecting Biodiversity (in all its complexity): New models and methods. _Trends in Ecology & Evolution_, **35**: 1119--1128.](https://doi.org/10.1016/j.tree.2020.08.015)
+* [Velazco SJE, Ribeiro BR, Laureto LMO, and J&uacute;nior PDM (2020) Overprediction of species distribution models in conservation planning: A still neglected issue with strong effects. _Biological Conservation_, **252**, 108822.](https://doi.org/10.1016/j.biocon.2020.108822)
 
 ### 2019
 * [Balbar AC, and Metaxas A (2019) The current application of ecological connectivity in the design of marine protected areas. _Global Ecology and Conservation_, **17**: e00569.](https://doi.org/10.1016/j.gecco.2019.e00569)

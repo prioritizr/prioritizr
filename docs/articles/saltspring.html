@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.2.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3</span>
       </span>
     </div>
 
@@ -115,7 +115,8 @@
 
       
 
-      </header><div class="row">
+      </header><link href="saltspring_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="saltspring_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Salt Spring Island Tutorial</h1>
@@ -153,7 +154,7 @@
 
 <span class="co"># load conservation feature data</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">salt_features</span><span class="op">)</span></code></pre></div>
-<p>Let’s have a look at the planning unit data. Note that we log-transformed the raster to better visualize the variation in planning unit cost.</p>
+<p>Let's have a look at the planning unit data. Note that we log-transformed the raster to better visualize the variation in planning unit cost.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print planning unit data</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span></code></pre></div>
@@ -174,7 +175,7 @@
 <code class="sourceCode R"><span class="co"># plot map showing the planning units costs on a log-scale</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">salt_pu</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"Planning unit costs (log)"</span><span class="op">)</span></code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-4-1.png" width="336" style="display: block; margin: auto;"></p>
-<p>Next, let’s look at the feature data.</p>
+<p>Next, let's look at the feature data.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># print features</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">salt_features</span><span class="op">)</span></code></pre></div>
@@ -194,7 +195,7 @@
 <div id="formulating-the-problem" class="section level2">
 <h2 class="hasAnchor">
 <a href="#formulating-the-problem" class="anchor"></a>Formulating the Problem</h2>
-<p>In this tutorial, we will only cover a few of the different ways that conservation planning problems can be formulated. The examples used here are provided to highlight how different parameters can substantially—or only slightly—alter solutions. Here, we use the minimum set objective to fulfill all targets and constraints for the smallest cost. This objective is similar to that used in the <em>Marxan</em> decision support tool. To keep this simple, we will set biodiversity targets at 17 % to reflect the <a href="https://www.cbd.int/sp/targets/">Aichi Biodiversity Target 11</a>. Because properties on Salt Spring Island can either be acquired in their entirety or not at all, we leave the decision framework as the default; binary decision making. This means that planning units are either selected in the solution or not selected in the solution—planning units cannot be partially acquired.</p>
+<p>In this tutorial, we will only cover a few of the different ways that conservation planning problems can be formulated. The examples used here are provided to highlight how different parameters can substantially---or only slightly---alter solutions. Here, we use the minimum set objective to fulfill all targets and constraints for the smallest cost. This objective is similar to that used in the <em>Marxan</em> decision support tool. To keep this simple, we will set biodiversity targets at 17 % to reflect the <a href="https://www.cbd.int/sp/targets/">Aichi Biodiversity Target 11</a>. Because properties on Salt Spring Island can either be acquired in their entirety or not at all, we leave the decision framework as the default; binary decision making. This means that planning units are either selected in the solution or not selected in the solution---planning units cannot be partially acquired.</p>
 <p>Now we will formulate the conservation planning problem.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create problem</span>
@@ -217,7 +218,7 @@
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (1)]</code></pre>
-<p>Note that the <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don’t have to explicitly specify the decision-type, but we specify it here for clarity.</p>
+<p>Note that the <code><a href="../reference/%&gt;%.html">%&gt;%</a></code> notation is used to attach the objectives, targets, and decisions to the problem. Since binary-type decisions are the default decision-type, we don't have to explicitly specify the decision-type, but we specify it here for clarity.</p>
 </div>
 <div id="solving-the-problem" class="section level2">
 <h2 class="hasAnchor">
@@ -269,16 +270,16 @@
   <span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu">addLayer</span><span class="op">(</span><span class="va">s1</span>, <span class="fu"><a href="../reference/solve.html">solve</a></span><span class="op">(</span><span class="va">p6</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <pre><code>## Warning in res(x, ...): overwriting previously defined solver</code></pre>
-<p>Now let’s visualize the solutions.</p>
+<p>Now let's visualize the solutions.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="va">titles</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.5</span>, <span class="fl">1</span><span class="op">)</span>,  col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"grey70"</span>, <span class="st">"darkgreen"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="saltspring_files/figure-html/unnamed-chunk-9-1.png" width="480" style="display: block; margin: auto;"></p>
-<p>We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from <em>Gurobi</em> to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (5 seconds vs. 10 seconds), but a more rigorous analysis is needed to investigate this.</p>
+<p>We can see that all of the solutions are very similar. Therefore it would appear that for this particular problem, the solution is not highly sensitive to solver choice. For larger and more complex problems, however, we would expect the solution from <em>Gurobi</em> to be far superior when setting time limits. At a glance, it also appears that the time limit settings did not largely impact the solutions (5 seconds vs. 10 seconds), but a more rigorous analysis is needed to investigate this.</p>
 </div>
 <div id="adding-connectivity" class="section level2">
 <h2 class="hasAnchor">
 <a href="#adding-connectivity" class="anchor"></a>Adding connectivity</h2>
-<p>Isolated and fragmented populations are often more vulnerable to extinction. As a consequence, landscape connectivity is a key focus of many conservation planning exercises. There are a number of methods that can be used to increase connectivity in prioritizations. These methods typically involve adding constraints to a problem to ensure that solutions exhibit a specific property (e.g. selected planning units that form a contiguous reserve), or adding penalties to a problem to penalize solutions that exhibit specific properties (e.g. high levels of fragmentation). Here we will explore a couple different strategies for increasing connectivity in solutions. For brevity, we will use default solver which is automatically added to a problem if a solver is not manually specified.</p>
+<p>Isolated and fragmented populations are often more vulnerable to extinction. As a consequence, landscape connectivity is a key focus of many conservation planning exercises. There are a number of methods that can be used to increase connectivity in prioritizations. These methods typically involve adding constraints to a problem to ensure that solutions exhibit a specific property (e.g. selected planning units that form a contiguous reserve), or adding penalties to a problem to penalize solutions that exhibit specific properties (e.g. high levels of fragmentation). Here we will explore a couple different strategies for increasing connectivity in solutions. For brevity, we will use default solver which is automatically added to a problem if a solver is not manually specified.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># basic problem formulation</span>
 <span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">salt_pu</span>, <span class="va">salt_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -331,8 +332,8 @@
 <div id="irreplaceability" class="section level2">
 <h2 class="hasAnchor">
 <a href="#irreplaceability" class="anchor"></a>Irreplaceability</h2>
-<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the “importance” or “priority” of each planning unit selected in a solution.</p>
-<p>Let’s assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://rdrr.io/r/base/formatc.html">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let’s calculate irreplaceability scores for each of the planning units selected in that solution using the Ferrier method <span class="citation">(Ferrier <em>et al.</em> 2000)</span>. This method provides overall irreplaceability scores for each planning to indicate the overall importance of each planning unit. It also provides irreplaceability scores for each planning unit and each feature, so we can see which planning units in the solution are important for meeting the targets for different features.</p>
+<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the "importance" or "priority" of each planning unit selected in a solution.</p>
+<p>Let's assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://rdrr.io/r/base/formatc.html">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let's calculate irreplaceability scores for each of the planning units selected in that solution using the Ferrier method <span class="citation">(Ferrier <em>et al.</em> 2000)</span>. This method provides overall irreplaceability scores for each planning to indicate the overall importance of each planning unit. It also provides irreplaceability scores for each planning unit and each feature, so we can see which planning units in the solution are important for meeting the targets for different features.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate irreplaceability scores</span>
 <span class="va">irrep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ferrier_score.html">ferrier_score</a></span><span class="op">(</span><span class="va">p9</span>, <span class="va">s2</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>

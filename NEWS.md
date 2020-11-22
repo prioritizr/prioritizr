@@ -1,3 +1,11 @@
+# prioritizr 5.0.3  (released)
+
+- Release candidate for CRAN.
+
+# prioritizr 5.0.2.7
+
+- Update publication record vignette.
+
 # prioritizr 5.0.2.6
 
 - Implement GitHub Actions continuous integration (i.e. update tests and
