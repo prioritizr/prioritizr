@@ -5,6 +5,7 @@
 # prioritizr 5.0.2.7
 
 - Update publication record vignette.
+- Fix URLs for CRAN checks.
 
 # prioritizr 5.0.2.6
 

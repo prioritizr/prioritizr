@@ -49,7 +49,7 @@ NULL
 #' @param verbose `logical` should information be printed while solving
 #'  optimization problems?
 #'
-#' @details [*Gurobi*](http://gurobi.com) is a
+#' @details [*Gurobi*](https://www.gurobi.com/) is a
 #'   state-of-the-art commercial optimization software with an R package
 #'   interface. It is by far the fastest of the solvers available for
 #'   generating prioritizations, however, it is not freely

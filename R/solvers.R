@@ -15,7 +15,7 @@ NULL
 #'   \item{`add_default_solver`}{This solver uses the best software
 #'     currently installed on the system.}
 #'
-#'   \item{[add_gurobi_solver()]}{[*Gurobi*](http://gurobi.com)
+#'   \item{[add_gurobi_solver()]}{[*Gurobi*](https://www.gurobi.com/)
 #'     is a state-of-the-art commercial optimization software with an R package
 #'     interface. It is by far the fastest of the solvers available for
 #'     generating prioritizations, however, it is not freely available. That
@@ -26,7 +26,8 @@ NULL
 #'   \item{[add_cplex_solver()]}{[*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer)
 #'     is a commercial optimization software. It is faster than the open
 #'     source solvers available for generating prioritizations, however, it
-#'     is not freely available. Similar to the [*Gurobi*](http://gurobi.com)
+#'     is not freely available.
+#'     Similar to the [*Gurobi*](https://www.gurobi.com/)
 #'     software, licenses are available to academics at no cost.
 #'     This solver uses the \pkg{cplexAPI} package to solve problems using
 #'     *IBM CPLEX*.}

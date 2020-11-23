@@ -552,11 +552,11 @@ print(p27)
 
 ### Add a solver
 
-Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](http://gurobi.com) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__.
+Next, after specifying the mathematical formulation that underpins your conservation planning problem, you can specify how the problem should be solved. If you do not specify this information, the _prioritizr R_ package will automatically use the best solver currently installed on your system with some reasonable defaults. __We strongly recommend installing the [Gurobi software suite and the _gurobi_ _R_ package](https://www.gurobi.com/) to solve problems, and for more information on this topic please refer to the [Gurobi Installation Guide](gurobi_installation.html)__.
 
 Currently, the _prioritizr R_ package only supports three different solvers.
 
-* __*Gurobi* solver__: [_Gurobi_](http://gurobi.com) is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.
+* __*Gurobi* solver__: [_Gurobi_](https://www.gurobi.com/) is a state of the art commercial optimization software. It is by far the fastest of the solvers that can be used to solve conservation problems. However, it is not freely available. That said, special licenses are available to academics at no cost.
 ```{r}
 # create a problem and specify that Gurobi should be used to solve the problem
 # and specify an optimality gap of zero to obtain the optimal solution
@@ -766,7 +766,7 @@ print(mp2)
 
 ### Interpreting the solutions
 
-After obtaining the solution to a conservation planning problem, it can be useful to calculate various summary statistics to describe its performance (such as solution cost). These statistics could be calculated using external software platforms such as [ArcGIS](https://www.arcgis.com/features/index.html) or [QGIS](http://www.qgis.org/en/site/), but it is also possible to calculate these statistics within _R_. If you are dealing with raster planning unit data, and so your solutions are in raster format, the `cellStats`, `layerStats`, `extract`, and `zonal` functions from the _raster R_ package can be useful for calculating summary statistics. Below we will create and solve a problem, and then calculate some statistics showcasing these functions.
+After obtaining the solution to a conservation planning problem, it can be useful to calculate various summary statistics to describe its performance (such as solution cost). These statistics could be calculated using external software platforms such as [ArcGIS](https://www.arcgis.com/features/index.html) or [QGIS](https://www.qgis.org/en/site/), but it is also possible to calculate these statistics within _R_. If you are dealing with raster planning unit data, and so your solutions are in raster format, the `cellStats`, `layerStats`, `extract`, and `zonal` functions from the _raster R_ package can be useful for calculating summary statistics. Below we will create and solve a problem, and then calculate some statistics showcasing these functions.
 
 ```{r}
 # formulate the problem

@@ -68,7 +68,7 @@ conservation planning problem. This function can also be used to
 customize the behavior of the solver. It requires the \pkg{gurobi} package.
 }
 \details{
-\href{http://gurobi.com}{\emph{Gurobi}} is a
+\href{https://www.gurobi.com/}{\emph{Gurobi}} is a
 state-of-the-art commercial optimization software with an R package
 interface. It is by far the fastest of the solvers available for
 generating prioritizations, however, it is not freely

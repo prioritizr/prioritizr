@@ -5,7 +5,7 @@ Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
     should install the 'gurobi' optimizer
-    (available from <http://www.gurobi.com/>).
+    (available from <https://www.gurobi.com/>).
 Authors@R:
     c(person(c('Jeffrey', 'O'), 'Hanson',
         email='jeffrey.hanson@uqconnect.edu.au', role = c('aut'),

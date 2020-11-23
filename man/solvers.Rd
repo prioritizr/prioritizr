@@ -17,7 +17,7 @@ conservation planning \code{\link[=problem]{problem()}}:
 \item{\code{add_default_solver}}{This solver uses the best software
 currently installed on the system.}
 
-\item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{\href{http://gurobi.com}{\emph{Gurobi}}
+\item{\code{\link[=add_gurobi_solver]{add_gurobi_solver()}}}{\href{https://www.gurobi.com/}{\emph{Gurobi}}
 is a state-of-the-art commercial optimization software with an R package
 interface. It is by far the fastest of the solvers available for
 generating prioritizations, however, it is not freely available. That
@@ -28,7 +28,8 @@ suite. This solver uses the \pkg{gurobi} package to solve problems.}
 \item{\code{\link[=add_cplex_solver]{add_cplex_solver()}}}{\href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}}
 is a commercial optimization software. It is faster than the open
 source solvers available for generating prioritizations, however, it
-is not freely available. Similar to the \href{http://gurobi.com}{\emph{Gurobi}}
+is not freely available.
+Similar to the \href{https://www.gurobi.com/}{\emph{Gurobi}}
 software, licenses are available to academics at no cost.
 This solver uses the \pkg{cplexAPI} package to solve problems using
 \emph{IBM CPLEX}.}
