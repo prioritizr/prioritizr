@@ -210,7 +210,7 @@ methods::setMethod("add_locked_out_constraints",
       x$number_of_zones() == ncol(locked_out),
       x$number_of_total_units() == nrow(locked_out),
       isTRUE(all(is.finite(locked_out))),
-      all(rowSums(locked_out) <= 1))
+      all(rowSums(locked_out) < ncol(locked_out)))
     # create data.frame with statuses
     ind <- which(locked_out, arr.ind = TRUE)
     y <- data.frame(pu = ind[, 1], zone = x$zone_names()[ind[, 2]], status = 0,
