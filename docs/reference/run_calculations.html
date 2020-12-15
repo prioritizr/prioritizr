@@ -100,7 +100,7 @@ means that the same calculations will not be run multiple times." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
       </span>
     </div>
 
@@ -235,7 +235,7 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 2352.9617505
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -249,7 +249,7 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
 #&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2006.35 2352.96 18523.2 
@@ -352,13 +352,13 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;   RHS range        [3e+00, 8e+00]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 2352.9617505
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 1.945078e+03, 97 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -366,7 +366,7 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;      0     0 1945.07827    0   12 2352.96175 1945.07827  17.3%     -    0s
 #&gt; H    0     0                    2006.3478307 1945.07827  3.05%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (97 simplex iterations) in 0.02 seconds
+#&gt; Explored 1 nodes (97 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2006.35 2352.96 18523.2 
@@ -416,7 +416,7 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;   RHS range        [9e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 6599.7631720
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -440,9 +440,9 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.830   0.600   3.768 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
+#&gt;   0.817   0.464   1.283 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   1.290   0.554   2.751 </div><div class='input'>
+#&gt;   0.619   0.472   1.079 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span>

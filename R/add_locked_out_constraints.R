@@ -275,13 +275,11 @@ methods::setMethod("add_locked_out_constraints",
 methods::setMethod("add_locked_out_constraints",
   methods::signature("ConservationProblem", "Raster"),
   function(x, locked_out) {
-    assertthat::assert_that(inherits(x, "ConservationProblem"),
+    assertthat::assert_that(
+      inherits(x, "ConservationProblem"),
       inherits(locked_out, "Raster"),
       x$number_of_zones() == raster::nlayers(locked_out),
       all(max(raster::cellStats(locked_out, "sum")) > 0))
-    if (raster::nlayers(locked_out) > 1)
-      assertthat::assert_that(raster::cellStats(sum(locked_out, na.rm = TRUE),
-                                                "max") <= 1)
     # create matrix with statuses
     if (inherits(x$data$cost, "Raster") && x$number_of_zones() > 1) {
       status <- vapply(seq_len(x$number_of_zones()),

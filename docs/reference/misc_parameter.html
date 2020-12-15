@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
       </span>
     </div>
 
@@ -218,7 +218,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
                      <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='cn'>TRUE</span>,
                      <span class='kw'>function</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='va'>id</span>, .Class <span class='op'>=</span> <span class='st'>"shiny.tag"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x2393e710&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x14426c60&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -373,7 +373,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: ae7f0985-7de3-4157-875a-8a878e687c66</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: 308d062c-750b-4516-b441-48bbec3180ec</span></div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='va'>p1</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># set parameter to mtcars</span>
 <span class='va'>p1</span><span class='op'>$</span><span class='fu'>print</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># print it again</span>
 </div><div class='output co'>#&gt; [1] "tbl"</div><div class='input'>
@@ -385,7 +385,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
                                  <span class='fu'><a href='https://rdrr.io/r/base/all.html'>all</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='fl'>200</span><span class='op'>)</span>,
                      <span class='kw'>function</span><span class='op'>(</span><span class='va'>id</span>, <span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span><span class='op'>(</span><span class='va'>id</span>, .Class <span class='op'>=</span> <span class='st'>"shiny.tag"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span> <span class='co'># print it</span>
-</div><div class='output co'>#&gt; &lt;environment: 0x1006fb98&gt;
+</div><div class='output co'>#&gt; &lt;environment: 0x12a63630&gt;
 #&gt; attr(,"class")
 #&gt; [1] "MiscParameter" "MiscParameter" "Parameter"     "pproto"       
 #&gt; [5] "proto"         "environment"  </div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='op'>)</span> <span class='co'># get value</span>
@@ -540,7 +540,7 @@ a <code>shiny.tag</code> or <code>shiny.tag.list</code> object.</p></td>
 #&gt; 148          6.5         3.0          5.2         2.0  virginica
 #&gt; 149          6.2         3.4          5.4         2.3  virginica
 #&gt; 150          5.9         3.0          5.1         1.8  virginica</div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='va'>id</span> <span class='co'># get id</span>
-</div><div class='output co'>#&gt; <span class='message'>id: 225acc3f-6d1d-4201-91db-fa852b2b882c</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
+</div><div class='output co'>#&gt; <span class='message'>id: edbb89e8-ad19-4b87-b85d-3026163df105</span></div><div class='input'><span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris2</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>300</span> <span class='co'># create updated iris dataset</span>
 <span class='va'>p2</span><span class='op'>$</span><span class='fu'>validate</span><span class='op'>(</span><span class='va'>iris2</span><span class='op'>)</span> <span class='co'># check if parameter can be updated</span>
 </div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='va'>iris3</span> <span class='op'>&lt;-</span> <span class='va'>iris</span>; <span class='va'>iris2</span><span class='op'>[</span><span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fl'>100</span> <span class='co'># create updated iris dataset</span>

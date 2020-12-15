@@ -105,7 +105,7 @@ replacement cost metric which does not suffer any of these limitations." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
       </span>
     </div>
 
@@ -226,7 +226,7 @@ replacement cost metric which does not suffer any of these limitations.</p>
       <th>solution</th>
       <td><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code>Raster</code>, <code>Spatial</code>,
-or <code>sf::sf()</code> object. See the Details section for more
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object. See the Details section for more
 information.</p></td>
     </tr>
     <tr>
@@ -245,7 +245,7 @@ rescaled to range between 0.01 and 1. Defaults to <code>TRUE</code>.</p></td>
 
     <p>A <code>numeric</code>, <code>matrix</code>,
 <code>RasterLayer</code>, <code>Spatial</code>,
-or <code>sf::sf()</code> object containing the rarity weighted richness
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the rarity weighted richness
 scores for each planning unit in the solution.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -275,9 +275,9 @@ if the planning unit data in <code>x</code> is a <code>Spatial</code>
 object then the argument to <code>solution</code> must also be a
 <code>Spatial</code> object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system;
-if the planning unit data in <code>x</code> is a <code>sf::sf()</code>
+if the planning unit data in <code>x</code> is a <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>
 object then the argument to <code>solution</code> must also be a
-<code>sf::sf()</code> object and have the same number of spatial
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object and have the same number of spatial
 features (e.g. polygons) and have the same coordinate reference system;
 if the planning units in <code>x</code> are a <code>data.frame</code> then the
 argument to <code>solution</code> must also be a <code>data.frame</code> with each

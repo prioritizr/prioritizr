@@ -1,4 +1,10 @@
-# prioritizr 5.0.3  (released)
+# prioritizr 5.0.3.1
+
+- Fix `add_locked_out_constraints` function to enable a single planning unit
+  from being locked out of multiple zones (when data are specified in raster
+  format).
+
+# prioritizr 5.0.3 (released)
 
 - Release candidate for CRAN.
 
