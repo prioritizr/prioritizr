@@ -423,22 +423,6 @@ test_that("raster (compile, multiple zones)", {
   other_ind <- seq(21, p$number_of_planning_units() * p$number_of_zones())
   expect_true(isTRUE(all(o$ub()[locked_ind] == 0)))
   expect_true(isTRUE(all(o$ub()[other_ind] == 1)))
-  # invalid inputs
-  expect_error({
-    data(sim_pu_zones_stack, sim_features_zones)
-    status <- sim_pu_zones_stack
-    status[[1]][raster::Which(!is.na(status[[1]]))] <- 0
-    status[[1]][raster::Which(!is.na(status[[1]]), cells = TRUE)[1:20]] <- 1
-    status[[2]][raster::Which(!is.na(status[[2]]))] <- 0
-    status[[2]][raster::Which(!is.na(status[[2]]), cells = TRUE)[1]] <- 1
-    status[[2]][1] <- 1
-    status[[3]][raster::Which(!is.na(status[[3]]))] <- 0
-    problem(sim_pu_zones_stack, sim_features_zones) %>%
-    add_min_set_objective() %>%
-    add_absolute_targets(targets) %>%
-    add_binary_decisions() %>%
-    add_locked_out_constraints(status)
-  })
 })
 
 test_that("raster (solve, multiple zones)", {
