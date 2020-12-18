@@ -97,7 +97,7 @@ solutions that have planning units clumped together into contiguous areas." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
       </span>
     </div>
 
@@ -437,7 +437,7 @@ conservation planning problems with integer linear programming.
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.01 seconds
+#&gt; Root relaxation: objective 4.531725e+03, 219 iterations, 0.00 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -457,7 +457,7 @@ conservation planning problems with integer linear programming.
 #&gt; Cutting planes:
 #&gt;   Gomory: 5
 #&gt; 
-#&gt; Explored 1 nodes (470 simplex iterations) in 0.17 seconds
+#&gt; Explored 1 nodes (470 simplex iterations) in 0.10 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 4: 5175.18 5330.73 5594.49 20287.2 
@@ -663,12 +663,12 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    16204.385441 13911.8533  14.1%     -    0s
 #&gt; H    0     0                    15678.285614 13911.8533  11.3%     -    0s
 #&gt;      0     2 13912.0561    0  611 15678.2856 13912.0561  11.3%     -    0s
-#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    1s
+#&gt; H  135   104                    15521.904375 14011.2044  9.73%  32.6    0s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 8
 #&gt; 
-#&gt; Explored 136 nodes (5394 simplex iterations) in 1.19 seconds
+#&gt; Explored 136 nodes (5394 simplex iterations) in 0.76 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15521.9 15678.3 16204.4 ... 22153.2
@@ -685,14 +685,14 @@ conservation planning problems with integer linear programming.
 #&gt;   Bounds range     [1e+00, 1e+00]
 #&gt;   RHS range        [1e+00, 2e+01]
 #&gt; Found heuristic solution: objective 8303.2428266
-#&gt; Presolve time: 0.06s
+#&gt; Presolve time: 0.02s
 #&gt; Presolved: 1845 rows, 1140 columns, 6840 nonzeros
 #&gt; Variable types: 0 continuous, 1140 integer (1140 binary)
 #&gt; Presolve removed 870 rows and 0 columns
 #&gt; Presolved: 975 rows, 1140 columns, 4230 nonzeros
 #&gt; 
 #&gt; 
-#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.14 seconds
+#&gt; Root relaxation: objective 2.576990e+03, 1715 iterations, 0.05 seconds
 #&gt; 
 #&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
 #&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -701,7 +701,7 @@ conservation planning problems with integer linear programming.
 #&gt; H    0     0                    2881.3718971 2576.99025  10.6%     -    0s
 #&gt; H    0     0                    2794.5621583 2576.99025  7.79%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (1800 simplex iterations) in 0.45 seconds
+#&gt; Explored 1 nodes (1800 simplex iterations) in 0.13 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 2794.56 2881.37 8303.24 
@@ -741,14 +741,14 @@ conservation planning problems with integer linear programming.
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     0 13863.6022    0  594 16814.5225 13863.6022  17.5%     -    0s
 #&gt;      0     2 13864.0559    0  594 16814.5225 13864.0559  17.5%     -    0s
-#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    1s
-#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    1s
+#&gt; H   27    27                    15944.410066 13866.0795  13.0%  53.9    0s
+#&gt; H   54    54                    15730.031779 13866.0795  11.8%  41.9    0s
 #&gt; H  116    75                    15585.976112 13876.1302  11.0%  36.8    1s
 #&gt; 
 #&gt; Cutting planes:
 #&gt;   Gomory: 9
 #&gt; 
-#&gt; Explored 290 nodes (11724 simplex iterations) in 2.17 seconds
+#&gt; Explored 290 nodes (11724 simplex iterations) in 1.57 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 7: 15586 15730 15944.4 ... 21613.2
@@ -800,7 +800,7 @@ conservation planning problems with integer linear programming.
 #&gt;   Gomory: 3
 #&gt;   Zero half: 29
 #&gt; 
-#&gt; Explored 55 nodes (3884 simplex iterations) in 0.99 seconds
+#&gt; Explored 55 nodes (3884 simplex iterations) in 0.76 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 8: 10555.6 10821.3 12537 ... 15601.5

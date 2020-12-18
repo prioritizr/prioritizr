@@ -1,3 +1,8 @@
+# prioritizr 5.0.3.2
+
+- Add Schuster et al. 2020 to documentation to provide information on
+  solver benchmarks (#170).
+
 # prioritizr 5.0.3.1
 
 - Fix `add_locked_out_constraints` function to enable a single planning unit

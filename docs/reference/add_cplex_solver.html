@@ -55,7 +55,11 @@
 <meta property="og:title" content="Add a CPLEX solver — add_cplex_solver" />
 <meta property="og:description" content="Specify that the IBM CPLEX software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the cplexAPI package." />
+customize the behavior of the solver. It requires the cplexAPI package.
+Although formal benchmarks examining the performance of this solver have
+have yet to be completed, preliminary analyses suggest that this
+solver performs slightly worse than the Gurobi software. This solver
+is recommended when the Gurobi solver is not available." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -98,7 +102,7 @@ customize the behavior of the solver. It requires the cplexAPI package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
       </span>
     </div>
 
@@ -178,7 +182,11 @@ customize the behavior of the solver. It requires the cplexAPI package." />
     <div class="ref-description">
     <p>Specify that the <em>IBM CPLEX</em> software should be used to solve a
 conservation planning problem. This function can also be used to
-customize the behavior of the solver. It requires the <span class="pkg">cplexAPI</span> package.</p>
+customize the behavior of the solver. It requires the <span class="pkg">cplexAPI</span> package.
+Although formal benchmarks examining the performance of this solver have
+have yet to be completed, preliminary analyses suggest that this
+solver performs slightly worse than the <em>Gurobi</em> software. This solver
+is recommended when the <em>Gurobi</em> solver is not available.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_cplex_solver</span><span class='op'>(</span>

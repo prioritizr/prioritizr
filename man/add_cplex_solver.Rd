@@ -45,6 +45,10 @@ added to it.
 Specify that the \emph{IBM CPLEX} software should be used to solve a
 conservation planning problem. This function can also be used to
 customize the behavior of the solver. It requires the \pkg{cplexAPI} package.
+Although formal benchmarks examining the performance of this solver have
+have yet to be completed, preliminary analyses suggest that this
+solver performs slightly worse than the \emph{Gurobi} software. This solver
+is recommended when the \emph{Gurobi} solver is not available.
 }
 \details{
 \href{https://www.ibm.com/analytics/cplex-optimizer}{\emph{IBM CPLEX}} is a

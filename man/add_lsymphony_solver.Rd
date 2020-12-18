@@ -45,6 +45,10 @@ Specify that the \emph{SYMPHONY} software should be used to solve a
 conservation planning problem using the \pkg{lpsymphony} package. This
 function can also be used to customize the behavior of the solver.
 It requires the \pkg{lpsymphony} package.
+For information on the performance of different solvers,
+please see Schuster \emph{et al.} (2020) for benchmarks comparing the
+run time and solution quality of different solvers when applied to
+different sized datasets.
 }
 \details{
 \href{https://projects.coin-or.org/SYMPHONY}{\emph{SYMPHONY}} is an
@@ -82,6 +86,11 @@ if (require(lpsymphony) &
 }
 }
 
+}
+\references{
+Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+integer linear programming solvers outperform simulated annealing for
+solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
 \link{solvers}.

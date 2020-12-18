@@ -7,6 +7,10 @@ NULL
 #' conservation planning problem using the \pkg{lpsymphony} package. This
 #' function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{lpsymphony} package.
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
 #'
 #' @inheritParams add_rsymphony_solver
 #'
@@ -21,7 +25,7 @@ NULL
 #'   be easier to install to install on Windows and Mac OSX systems than the
 #'   \pkg{Rsymphony} package.
 #'
-#' @inherit add_rsymphony_solver seealso return
+#' @inherit add_rsymphony_solver seealso return references
 #'
 #' @seealso [solvers].
 #'

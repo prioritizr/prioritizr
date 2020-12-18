@@ -5,15 +5,21 @@ NULL
 #'
 #' Identify the best solver currently installed on the system and specify that
 #' it should be used to solve a conservation planning [problem()].
-#' Ranked from best to worst, the available solvers that can be used are:
-#' [add_gurobi_solver()], [add_cplex_solver()], [add_rsymphony_solver()],
-#' and finally [add_lpsymphony_solver()].
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param ... arguments passed to the solver.
 #'
-#' @inherit add_gurobi_solver return seealso
+#' @details
+#' Ranked from best to worst, the available solvers that can be used are:
+#' [add_gurobi_solver()], [add_cplex_solver()], [add_rsymphony_solver()],
+#' and finally [add_lpsymphony_solver()].
+#'
+#' @inherit add_gurobi_solver return seealso references
 #'
 #' @export
 add_default_solver <- function(x, ...) {

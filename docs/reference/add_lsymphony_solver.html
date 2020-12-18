@@ -56,7 +56,11 @@
 <meta property="og:description" content="Specify that the SYMPHONY software should be used to solve a
 conservation planning problem using the lpsymphony package. This
 function can also be used to customize the behavior of the solver.
-It requires the lpsymphony package." />
+It requires the lpsymphony package.
+For information on the performance of different solvers,
+please see Schuster et al. (2020) for benchmarks comparing the
+run time and solution quality of different solvers when applied to
+different sized datasets." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -99,7 +103,7 @@ It requires the lpsymphony package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
       </span>
     </div>
 
@@ -180,7 +184,11 @@ It requires the lpsymphony package." />
     <p>Specify that the <em>SYMPHONY</em> software should be used to solve a
 conservation planning problem using the <span class="pkg">lpsymphony</span> package. This
 function can also be used to customize the behavior of the solver.
-It requires the <span class="pkg">lpsymphony</span> package.</p>
+It requires the <span class="pkg">lpsymphony</span> package.
+For information on the performance of different solvers,
+please see Schuster <em>et al.</em> (2020) for benchmarks comparing the
+run time and solution quality of different solvers when applied to
+different sized datasets.</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_lpsymphony_solver</span><span class='op'>(</span>
@@ -244,6 +252,11 @@ distributed through
 This functionality is provided because the <span class="pkg">lpsymphony</span> package may
 be easier to install to install on Windows and Mac OSX systems than the
 <span class="pkg">Rsymphony</span> package.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+integer linear programming solvers outperform simulated annealing for
+solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='solvers.html'>solvers</a>.</p></div>

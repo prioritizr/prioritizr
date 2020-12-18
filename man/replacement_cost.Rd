@@ -216,7 +216,7 @@ plot(rc3, main = paste0("zone ", seq_len(nlayers(s3))), axes = FALSE,
 \references{
 Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
 value for cost-effective reserve planning. \emph{Biological Conservation},
-132:  336--342.
+132: 336--342.
 }
 \seealso{
 \link{irreplaceability}.

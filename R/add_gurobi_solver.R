@@ -6,6 +6,10 @@ NULL
 #' Specify that the *Gurobi* software should be used to solve a
 #' conservation planning problem. This function can also be used to
 #' customize the behavior of the solver. It requires the \pkg{gurobi} package.
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -61,6 +65,11 @@ NULL
 #'  added to it.
 #'
 #' @seealso [solvers].
+#'
+#' @references
+#' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+#' integer linear programming solvers outperform simulated annealing for
+#' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
 #' @examples
 #' # load data

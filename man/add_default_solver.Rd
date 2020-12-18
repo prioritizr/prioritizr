@@ -18,9 +18,20 @@ added to it.
 \description{
 Identify the best solver currently installed on the system and specify that
 it should be used to solve a conservation planning \code{\link[=problem]{problem()}}.
+For information on the performance of different solvers,
+please see Schuster \emph{et al.} (2020) for benchmarks comparing the
+run time and solution quality of different solvers when applied to
+different sized datasets.
+}
+\details{
 Ranked from best to worst, the available solvers that can be used are:
 \code{\link[=add_gurobi_solver]{add_gurobi_solver()}}, \code{\link[=add_cplex_solver]{add_cplex_solver()}}, \code{\link[=add_rsymphony_solver]{add_rsymphony_solver()}},
 and finally \code{\link[=add_lpsymphony_solver]{add_lpsymphony_solver()}}.
+}
+\references{
+Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+integer linear programming solvers outperform simulated annealing for
+solving conservation planning problems. \emph{PeerJ}, 8: e9258.
 }
 \seealso{
 \link{solvers}.

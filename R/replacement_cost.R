@@ -190,7 +190,7 @@ NULL
 #' @references
 #' Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
 #' value for cost-effective reserve planning. *Biological Conservation*,
-#' 132:  336--342.
+#' 132: 336--342.
 #'
 #' @seealso [irreplaceability].
 #'

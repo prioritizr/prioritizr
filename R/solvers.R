@@ -6,6 +6,10 @@ NULL
 #' Specify the software and configuration used to solve a conservation planning
 #' [problem()]. By default, the best available
 #' software currently installed on the system will be used.
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
 #'
 #' @details The following solvers can be used to find solutions for a
 #'   conservation planning [problem()]:
@@ -57,6 +61,11 @@ NULL
 #'  [objectives], [penalties],
 #'  [portfolios], [problem()],
 #'  [targets].
+#'
+#' @references
+#' Schuster R, Hanson JO, Strimas-Mackey M, and Bennett JR (2020). Exact
+#' integer linear programming solvers outperform simulated annealing for
+#' solving conservation planning problems. *PeerJ*, 8: e9258.
 #'
 #' @examples
 #' \dontrun{

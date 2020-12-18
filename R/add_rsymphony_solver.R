@@ -7,6 +7,10 @@ NULL
 #' conservation planning problem using the \pkg{Rsymphony} package. This
 #' function can also be used to customize the behavior of the solver.
 #' It requires the \pkg{Rsymphony} package.
+#' For information on the performance of different solvers,
+#' please see Schuster _et al._ (2020) for benchmarks comparing the
+#' run time and solution quality of different solvers when applied to
+#' different sized datasets.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -38,7 +42,7 @@ NULL
 #'   provides an interface to COIN-OR and is available on *CRAN*.
 #'   This solver uses the \pkg{Rsymphony} package to solve problems.
 #'
-#' @inherit add_gurobi_solver seealso return
+#' @inherit add_gurobi_solver seealso return references
 #'
 #' @examples
 #' # load data
