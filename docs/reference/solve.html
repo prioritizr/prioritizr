@@ -96,7 +96,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -296,7 +296,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 <code><a href='category_vector.html'>category_vector()</a></code> function to reformat the output.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='feature_representation.html'>feature_representation()</a></code>, <code><a href='problem.html'>problem()</a></code>,
+    <div class='dont-index'><p><code><a href='eval_feature_representation.html'>eval_feature_representation()</a></code>, <code><a href='problem.html'>problem()</a></code>,
 <a href='solvers.html'>solvers</a>, <code><a href='category_layer.html'>category_layer()</a></code>,
 <code><a href='presolve_check.html'>presolve_check()</a></code>.</p></div>
 
@@ -363,11 +363,11 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 </div><div class='output co'>#&gt; solution_1 
 #&gt;   1987.399 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>s1</span>, <span class='st'>"runtime"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  solution_1 
-#&gt; 0.001793861 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>s1</span>, <span class='st'>"status"</span><span class='op'>)</span><span class='op'>)</span>
+#&gt; 0.001801968 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>s1</span>, <span class='st'>"status"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; solution_1 
 #&gt;  "OPTIMAL" </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_held relative_held
@@ -429,7 +429,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt; 5 214.0419     FALSE      FALSE          0
 #&gt; 6 213.7636     FALSE      FALSE          0</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_held relative_held
@@ -497,7 +497,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt; 5 214.0419     FALSE      FALSE          0 POLYGON ((0.4 1, 0.5 1, 0.5...
 #&gt; 6 213.7636     FALSE      FALSE          0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 3</span><span>
 #&gt;   feature absolute_held relative_held
@@ -564,7 +564,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt; max values :         1,         1,         1 
 #&gt; </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
+<span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 15 x 4</span><span>
 #&gt;    feature   zone   absolute_held relative_held
@@ -622,7 +622,7 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt;      0     0 8838.39193    0    8 10229.6216 8838.39193  13.6%     -    0s
 #&gt; H    0     0                    9015.0191263 8838.39193  1.96%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (43 simplex iterations) in 0.00 seconds
+#&gt; Explored 1 nodes (43 simplex iterations) in 0.01 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9015.02 10229.6 
@@ -651,9 +651,9 @@ it may be useful to use the <code><a href='category_layer.html'>category_layer()
 #&gt; 5                 1                 0 POLYGON ((0.4 1, 0.5 1, 0.5...
 #&gt; 6                 1                 0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='feature_representation.html'>feature_representation</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                                        <span class='st'>"solution_1_zone_2"</span>,
-                                        <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
+                                             <span class='st'>"solution_1_zone_2"</span>,
+                                             <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 15 x 4</span><span>
 #&gt;    feature   zone   absolute_held relative_held

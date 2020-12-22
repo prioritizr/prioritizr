@@ -140,7 +140,7 @@ sum(s1$solution_1)
 mean(s1$solution_1)
 
 # calculate feature representation
-r1 <- feature_representation(p1, s1[, "solution_1", drop = FALSE])
+r1 <- eval_feature_representation(p1, s1[, "solution_1", drop = FALSE])
 print(r1)
 
 # visualize the solution by converting the solution to a spatial object
@@ -170,7 +170,7 @@ print(p2)
 s2 <- solve(p2)
 
 # calculate feature representation
-r2 <- feature_representation(p2, s2[, "solution_1"])
+r2 <- eval_feature_representation(p2, s2[, "solution_1"])
 print(r2)
 
 # visualize solution

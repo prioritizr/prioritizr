@@ -138,7 +138,7 @@ print(attr(s1, "runtime"))
 print(attr(s1, "status"))
 
 # calculate feature representation in the solution
-r1 <- feature_representation(p1, s1)
+r1 <- eval_feature_representation(p1, s1)
 print(r1)
 
 # plot solution
@@ -157,7 +157,7 @@ s2 <- solve(p2)
 print(head(s2))
 
 # calculate feature representation in the solution
-r2 <- feature_representation(p2, s2[, "solution_1"])
+r2 <- eval_feature_representation(p2, s2[, "solution_1"])
 print(r2)
 
 # plot solution
@@ -177,7 +177,7 @@ s3 <- solve(p3)
 print(head(s3))
 
 # calculate feature representation in the solution
-r3 <- feature_representation(p3, s3[, "solution_1"])
+r3 <- eval_feature_representation(p3, s3[, "solution_1"])
 print(r3)
 
 # plot solution
@@ -198,7 +198,7 @@ s4 <- solve(p4)
 print(s4)
 
 # calculate feature representation in the solution
-r4 <- feature_representation(p4, s4)
+r4 <- eval_feature_representation(p4, s4)
 print(r4)
 
 # plot solution
@@ -219,9 +219,9 @@ s5 <- solve(p5)
 print(head(s5))
 
 # calculate feature representation in the solution
-r5 <- feature_representation(p5, s5[, c("solution_1_zone_1",
-                                        "solution_1_zone_2",
-                                        "solution_1_zone_3")])
+r5 <- eval_feature_representation(p5, s5[, c("solution_1_zone_1",
+                                             "solution_1_zone_2",
+                                             "solution_1_zone_3")])
 print(r5)
 
 # create new column representing the zone id that each planning unit
@@ -236,7 +236,7 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link[=feature_representation]{feature_representation()}}, \code{\link[=problem]{problem()}},
+\code{\link[=eval_feature_representation]{eval_feature_representation()}}, \code{\link[=problem]{problem()}},
 \link{solvers}, \code{\link[=category_layer]{category_layer()}},
 \code{\link[=presolve_check]{presolve_check()}}.
 }

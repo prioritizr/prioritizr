@@ -1,4 +1,4 @@
-context("feature_representation")
+context("eval_feature_representation")
 
 test_that("numeric", {
   # simulate data
@@ -12,7 +12,7 @@ test_that("numeric", {
   y[is.na(pu$cost)] <- NA_real_
   attr(y, "runtime") <- 5
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   r2 <- tibble::tibble(feature = c("spp1", "spp2"),
                        absolute_held = c(sum(c(pu$spp1 * y)[!is.na(pu$cost)],
@@ -39,7 +39,7 @@ test_that("matrix (single zone)", {
   y <- matrix(rep(c(0, 1), 5), ncol = 1)
   y[is.na(pu$cost)] <- NA_real_
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   r2 <- tibble::tibble(feature = c("spp1", "spp2"),
                        absolute_held = c(sum(c(pu$spp1 * y)[!is.na(pu$cost)],
@@ -68,7 +68,7 @@ test_that("matrix (multiple zones)", {
   y <- matrix(c(rep(c(0, 0.5), 5), rep(c(0.5, 0), 5)), ncol = 2)
   y[is.na(as.matrix(pu[, c("cost_1", "cost_2")]))] <- NA_real_
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   r2 <- tibble::tibble(
@@ -97,7 +97,7 @@ test_that("data.frame (single zone)", {
   y <- data.frame(solution = rep(c(0, 1), 5))
   y[[1]][is.na(pu$cost)] <- NA_real_
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   r2 <- tibble::tibble(
     feature = c("spp1", "spp2"),
@@ -124,7 +124,7 @@ test_that("data.frame (multiple zone)", {
   y[[1]][is.na(pu$cost_1)] <- NA_real_
   y[[2]][is.na(pu$cost_2)] <- NA_real_
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   r2 <- tibble::tibble(
@@ -158,7 +158,7 @@ test_that("Spatial (single zone)", {
   # create a solution
   y <- pu[, "solution"]
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   r2 <- tibble::tibble(
     feature = c("spp1", "spp2"),
@@ -195,7 +195,7 @@ test_that("Spatial (multiple zone)", {
   # create a solution
   y <- pu[, c("s1", "s2")]
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   r2 <- tibble::tibble(
@@ -229,7 +229,7 @@ test_that("sf (single zone)", {
   # create a solution
   y <- pu[, "solution"]
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   r2 <- tibble::tibble(
     feature = c("spp1", "spp2"),
@@ -266,7 +266,7 @@ test_that("sf (multiple zone)", {
   # create a solution
   y <- sf::st_drop_geometry(pu[, c("s1", "s2")])
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   pos <- which(!is.na(pu$cost_1) | !is.na(pu$cost_2))
   r2 <- tibble::tibble(
@@ -297,7 +297,7 @@ test_that("Raster (single zone)", {
                          rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
   y[is.na(sim_pu_raster)] <- NA_real_
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   rij <- as.matrix(rij_matrix(sim_pu_raster, sim_features))
   s <- y[raster::Which(!is.na(sim_pu_raster), cells = TRUE)]
@@ -334,7 +334,7 @@ test_that("Raster (multiple zone)", {
   y[[3]][is.na(sim_pu_zones_stack[[3]])] <- NA_real_
   raster::crs(y) <- sp::CRS("+init=epsg:32756")
   # calculate representation
-  r <- feature_representation(x, y)
+  r <- eval_feature_representation(x, y)
   # create correct result
   rij <- list(as.matrix(rij_matrix(sim_pu_zones_stack,
                                    sim_features_zones[[1]])),
@@ -385,7 +385,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- rep(c(0, 1), 5)
     # calculate representation
-    r <- feature_representation(x, y)
+    r <- eval_feature_representation(x, y)
   })
   expect_error({
     # simulate data
@@ -398,7 +398,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- matrix(rep(c(0, 1), 5), ncol = 1)
     # calculate representation
-    r <- feature_representation(x, y)
+    r <- eval_feature_representation(x, y)
   })
   expect_error({
     # simulate data
@@ -409,7 +409,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- data.frame(solution = rep(c(0, 1), 5))
     # calculate representation
-    r <- feature_representation(x, y)
+    r <- eval_feature_representation(x, y)
   })
   expect_error({
     # load data
@@ -424,7 +424,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- pu[, "solution"]
     # calculate representation
-    r <- feature_representation(x, y)
+    r <- eval_feature_representation(x, y)
   })
   expect_error({
     # load data
@@ -435,6 +435,6 @@ test_that("invalid inputs", {
     y <- raster::setValues(sim_pu_raster,
                            rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
     # calculate representation
-    r <- feature_representation(x, y)
+    r <- eval_feature_representation(x, y)
   })
 })

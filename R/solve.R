@@ -102,7 +102,7 @@ NULL
 #'   may not be an optimal solution depending on the gap used to solve
 #'   the problem and noting that the default gap is 0.1).
 #'
-#' @seealso [feature_representation()], [problem()],
+#' @seealso [eval_feature_representation()], [problem()],
 #'   [solvers], [category_layer()],
 #'   [presolve_check()].
 #'
@@ -132,7 +132,7 @@ NULL
 #' print(attr(s1, "status"))
 #'
 #' # calculate feature representation in the solution
-#' r1 <- feature_representation(p1, s1)
+#' r1 <- eval_feature_representation(p1, s1)
 #' print(r1)
 #'
 #' # plot solution
@@ -151,7 +151,7 @@ NULL
 #' print(head(s2))
 #'
 #' # calculate feature representation in the solution
-#' r2 <- feature_representation(p2, s2[, "solution_1"])
+#' r2 <- eval_feature_representation(p2, s2[, "solution_1"])
 #' print(r2)
 #'
 #' # plot solution
@@ -171,7 +171,7 @@ NULL
 #' print(head(s3))
 #'
 #' # calculate feature representation in the solution
-#' r3 <- feature_representation(p3, s3[, "solution_1"])
+#' r3 <- eval_feature_representation(p3, s3[, "solution_1"])
 #' print(r3)
 #'
 #' # plot solution
@@ -192,7 +192,7 @@ NULL
 #' print(s4)
 #'
 #' # calculate feature representation in the solution
-#' r4 <- feature_representation(p4, s4)
+#' r4 <- eval_feature_representation(p4, s4)
 #' print(r4)
 #'
 #' # plot solution
@@ -213,9 +213,9 @@ NULL
 #' print(head(s5))
 #'
 #' # calculate feature representation in the solution
-#' r5 <- feature_representation(p5, s5[, c("solution_1_zone_1",
-#'                                         "solution_1_zone_2",
-#'                                         "solution_1_zone_3")])
+#' r5 <- eval_feature_representation(p5, s5[, c("solution_1_zone_1",
+#'                                              "solution_1_zone_2",
+#'                                              "solution_1_zone_3")])
 #' print(r5)
 #'
 #' # create new column representing the zone id that each planning unit

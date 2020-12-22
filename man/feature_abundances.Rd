@@ -141,5 +141,5 @@ plot(s5)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=feature_representation]{feature_representation()}}.
+\code{\link[=problem]{problem()}}, \code{\link[=eval_feature_representation]{eval_feature_representation()}}.
 }

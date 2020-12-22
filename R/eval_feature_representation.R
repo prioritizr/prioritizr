@@ -1,9 +1,9 @@
 #' @include internal.R ConservationProblem-proto.R
 NULL
 
-#' Feature representation
+#' Evaluate feature representation
 #'
-#' Calculate how well features are represented in a solution.
+#' Calculate how well features are represented by a solution.
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
@@ -75,9 +75,9 @@ NULL
 #'
 #'   }
 #'
-#' @name feature_representation
+#' @name eval_feature_representation
 #'
-#' @aliases feature_representation,ConservationProblem,numeric-method feature_representation,ConservationProblem,matrix-method feature_representation,ConservationProblem,data.frame-method feature_representation,ConservationProblem,Spatial-method feature_representation,ConservationProblem,sf-method feature_representation,ConservationProblem,Raster-method
+#' @aliases eval_feature_representation,ConservationProblem,numeric-method eval_feature_representation,ConservationProblem,matrix-method eval_feature_representation,ConservationProblem,data.frame-method eval_feature_representation,ConservationProblem,Spatial-method eval_feature_representation,ConservationProblem,sf-method eval_feature_representation,ConservationProblem,Raster-method
 #'
 #' @seealso [problem()], [feature_abundances()].
 #'
@@ -88,7 +88,6 @@ NULL
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
 #'     sim_pu_zones_stack, sim_features_zones)
-#'
 #'
 #' # create a simple conservation planning dataset so we can see exactly
 #' # how feature representation is calculated
@@ -106,7 +105,7 @@ NULL
 #' print(s1)
 #'
 #' # calculate feature representation
-#' r1 <- feature_representation(p1, s1)
+#' r1 <- eval_feature_representation(p1, s1)
 #' print(r1)
 #'
 #' # verify that feature representation calculations are correct
@@ -122,7 +121,7 @@ NULL
 #' print(s1_2)
 #'
 #' # calculate feature representation in this solution
-#' r1_2 <- feature_representation(p1, s1_2[, "solution_1", drop = FALSE])
+#' r1_2 <- eval_feature_representation(p1, s1_2[, "solution_1", drop = FALSE])
 #' print(r1_2)
 #'
 #' # build minimal conservation problem with raster data
@@ -138,7 +137,7 @@ NULL
 #' print(s2)
 #'
 #' # calculate feature representation in the solution
-#' r2 <- feature_representation(p2, s2)
+#' r2 <- eval_feature_representation(p2, s2)
 #' print(r2)
 #'
 #' # plot solution
@@ -157,7 +156,7 @@ NULL
 #' print(head(s3))
 #'
 #' # calculate feature representation in the solution
-#' r3 <- feature_representation(p3, s3[, "solution_1"])
+#' r3 <- eval_feature_representation(p3, s3[, "solution_1"])
 #' print(r3)
 #'
 #' # plot solution
@@ -177,7 +176,7 @@ NULL
 #' print(s4)
 #'
 #' # calculate feature representation in the solution
-#' r4 <- feature_representation(p4, s4)
+#' r4 <- eval_feature_representation(p4, s4)
 #' print(r4)
 #'
 #' # plot solution
@@ -199,7 +198,7 @@ NULL
 #' print(head(s5))
 #'
 #' # calculate feature representation in the solution
-#' r5 <- feature_representation(p5, s5[, c("solution_1_zone_1",
+#' r5 <- eval_feature_representation(p5, s5[, c("solution_1_zone_1",
 #'                                         "solution_1_zone_2",
 #'                                         "solution_1_zone_3")])
 #' print(r5)
@@ -216,21 +215,21 @@ NULL
 #' }
 NULL
 
-#' @name feature_representation
+#' @name eval_feature_representation
 #'
-#' @rdname feature_representation
+#' @rdname eval_feature_representation
 #'
-#' @exportMethod feature_representation
+#' @exportMethod eval_feature_representation
 #'
-methods::setGeneric("feature_representation",
+methods::setGeneric("eval_feature_representation",
   function(x, solution) {
-  standardGeneric("feature_representation")
+  standardGeneric("eval_feature_representation")
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,numeric}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,numeric}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution) {
     # assert valid arguments
@@ -243,13 +242,13 @@ methods::setMethod("feature_representation",
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1)
     # perform calculations
-    internal_feature_representation(x, matrix(solution, ncol = 1))
+    internal_eval_feature_representation(x, matrix(solution, ncol = 1))
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,matrix}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,matrix}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution) {
     # assert valid arguments
@@ -262,13 +261,13 @@ methods::setMethod("feature_representation",
       min(solution, na.rm = TRUE) >= 0,
       max(solution, na.rm = TRUE) <= 1)
     # perform calculations
-    internal_feature_representation(x, solution)
+    internal_eval_feature_representation(x, solution)
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,data.frame}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,data.frame}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution) {
     # assert valid arguments
@@ -282,13 +281,13 @@ methods::setMethod("feature_representation",
       min(unlist(solution), na.rm = TRUE) >= 0,
       max(unlist(solution), na.rm = TRUE) <= 1)
     # perform calculations
-    internal_feature_representation(x, as.matrix(solution))
+    internal_eval_feature_representation(x, as.matrix(solution))
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,Spatial}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,Spatial}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution) {
     # assert valid arguments
@@ -304,13 +303,13 @@ methods::setMethod("feature_representation",
       min(unlist(solution@data), na.rm = TRUE) >= 0,
       max(unlist(solution@data), na.rm = TRUE) <= 1)
     # perform calculations
-    internal_feature_representation(x, as.matrix(solution@data))
+    internal_eval_feature_representation(x, as.matrix(solution@data))
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,sf}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,sf}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "sf"),
   function(x, solution) {
     # assert valid arguments
@@ -326,13 +325,13 @@ methods::setMethod("feature_representation",
       max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1)
     # perform calculations
     solution <- sf::st_drop_geometry(solution)
-    internal_feature_representation(x, as.matrix(solution))
+    internal_eval_feature_representation(x, as.matrix(solution))
 })
 
-#' @name feature_representation
-#' @usage \S4method{feature_representation}{ConservationProblem,Raster}(x, solution)
-#' @rdname feature_representation
-methods::setMethod("feature_representation",
+#' @name eval_feature_representation
+#' @usage \S4method{eval_feature_representation}{ConservationProblem,Raster}(x, solution)
+#' @rdname eval_feature_representation
+methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution) {
     # assert valid arguments
@@ -362,10 +361,10 @@ methods::setMethod("feature_representation",
      stop("planning units with NA cost data must have NA allocations in the",
           " solution")
     # run calculations
-    internal_feature_representation(x, solution, subset_units = FALSE)
+    internal_eval_feature_representation(x, solution, subset_units = FALSE)
 })
 
-internal_feature_representation <- function(x, solution, subset_units = TRUE) {
+internal_eval_feature_representation <- function(x, solution, subset_units = TRUE) {
   # assert arguments are valid
   assertthat::assert_that(inherits(x, "ConservationProblem"),
     is.matrix(solution))

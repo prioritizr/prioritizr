@@ -208,6 +208,9 @@
     <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/eval_feature_representation.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/fast_extract.html</loc>
   </url>
   <url>
@@ -215,9 +218,6 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/feature_names.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/feature_representation.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/ferrier_score.html</loc>

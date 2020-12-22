@@ -223,21 +223,21 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.03s
+## Presolve time: 0.05s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.04 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.08 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.15 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -260,7 +260,7 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 <span class="kw">mean</span>(s1<span class="op">$</span>solution_<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] 0.2884956</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r1 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p1, s1[, <span class="st">&quot;solution_1&quot;</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
+r1 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p1, s1[, <span class="st">&quot;solution_1&quot;</span>, <span class="dt">drop =</span> <span class="ot">FALSE</span>])
 <span class="kw">print</span>(r1)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature absolute_held relative_held
@@ -321,21 +321,21 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.03s
+## Presolve time: 0.04s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.04 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.08 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.09 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.16 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -343,7 +343,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ## Optimal solution found (tolerance 1.00e-01)
 ## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
-r2 &lt;-<span class="st"> </span><span class="kw">feature_representation</span>(p2, s2[, <span class="st">&quot;solution_1&quot;</span>])
+r2 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p2, s2[, <span class="st">&quot;solution_1&quot;</span>])
 <span class="kw">print</span>(r2)</code></pre></div>
 <pre><code>## # A tibble: 62 x 3
 ##    feature         absolute_held relative_held

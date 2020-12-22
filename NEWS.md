@@ -1,3 +1,8 @@
+# prioritizr 6.0.0.0
+
+- Rename `feature_representation` function to `eval_feature_representation`
+  to be consistent with other functions for evaluating solutions.
+
 # prioritizr 5.0.3.2
 
 - Add Schuster et al. 2020 to documentation to provide information on

@@ -87,6 +87,11 @@ reference:
       - portfolios
       - ends_with("_portfolio")
 
+  - title: Evaluation
+    desc: Functions for evaluating solutions
+    contents:
+      - starts_with("eval_")
+
   - title: Irreplaceability
     desc: Functions for calculating irreplaceability scores for a solution
     contents:
@@ -128,6 +133,7 @@ reference:
       - number_of_total_units
       - number_of_zones
       - feature_names
+      - feature_abundances
       - zone_names
 
   - title: Miscellaneous functions
@@ -143,8 +149,6 @@ reference:
       - presolve_check
       - loglinear_interpolation
       - run_calculations
-      - feature_representation
-      - feature_abundances
       - distribute_load
 
   - title: Class definitions and methods

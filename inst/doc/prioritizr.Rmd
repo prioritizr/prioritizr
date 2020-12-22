@@ -789,7 +789,7 @@ cellStats(s38, "sum")
 cellStats(sim_pu_raster * s38, "sum")
 
 # calculate how well features are represented in the solution
-r38 <- feature_representation(p38, s38)
+r38 <- eval_feature_representation(p38, s38)
 print(r38)
 ```
 

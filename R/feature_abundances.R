@@ -53,7 +53,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [problem()], [feature_representation()].
+#' @seealso [problem()], [eval_feature_representation()].
 #'
 #' @examples
 #' # load data

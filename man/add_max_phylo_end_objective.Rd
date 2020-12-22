@@ -130,7 +130,7 @@ s1 <- solve(p1)
 plot(s1, main = "solution", axes = FALSE, box = FALSE)
 
 # find which features have their targets met
-r1 <- feature_representation(p1, s1)
+r1 <- eval_feature_representation(p1, s1)
 r1$target_met <- r1$relative_held > 0.1
 print(r1)
 

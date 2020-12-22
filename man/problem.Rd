@@ -446,5 +446,5 @@ spplot(s10, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 \link{constraints}, \link{decisions},
 \link{objectives} \link{penalties},
 \link{portfolios}, \link{solvers}, \link{targets},
-\code{\link[=feature_representation]{feature_representation()}}, \link{irreplaceability}.
+\code{\link[=eval_feature_representation]{eval_feature_representation()}}, \link{irreplaceability}.
 }
