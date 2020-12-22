@@ -75,3 +75,13 @@ connected_matrix <- function(...) {
   .Deprecated("adjacency_matrix")
   paste0("this function has been renamed as the adjacency_matrix function.")
 }
+
+#' @rdname prioritizr-deprecated
+#' @section  `feature_representation`: this function has been renamed
+#'   to the [eval_feature_representation()] function for consistency.
+#' @export
+add_connected_constraints <- function(...) {
+  .Deprecated("feature_representation")
+  paste0("this function has been renamed as the eval_feature_representation",
+    "function")
+}
