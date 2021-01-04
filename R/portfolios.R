@@ -3,21 +3,23 @@ NULL
 
 #' Solution portfolios
 #'
-#' Conservation planners often desire a portfolio of solutions
-#' to present to decision makers. This is because conservation planners
-#' often do not have access to "perfect" information, such as cost data that
-#' accurately reflects stakeholder preferences, and so having multiple
-#' near-optimal solutions can be a useful.
+#' Conservation planning exercises rarely have access to all the
+#' data needed to identify the *truly* perfect solution. This is because
+#' available data may lack important details
+#' (e.g. land acquisition costs may be unavailable), contain errors
+#' (e.g. species presence/absence data may have false positives),
+#' or key objectives may not be formally incorporated into the
+#' prioritization process (e.g. future land use requirements).
+#' As such, conservation planners can help decision makers by providing
+#' them with a portfolio of solutions to inform their decision.
 #'
-#' @details All methods for generating portfolios will return solutions that
+#' @details
+#'   The following portfolios can be added to a conservation planning
+#'   [problem()].
+#'   Note that all methods for generating portfolios return solutions that
 #'   are within the specified optimality gap.
 #'
-#'   The following portfolios can be added to a conservation planning
-#'   [problem()]:
-#'
 #'   \describe{
-#'
-#'   \item{`add_default_portfolio`}{Generate a single solution.}
 #'
 #'   \item{[add_extra_portfolio()]}{Generate a portfolio of solutions
 #'     by storing feasible solutions found during the optimization

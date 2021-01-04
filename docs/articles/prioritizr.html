@@ -798,8 +798,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.1, max: 0.1)]
 ##   decisions:      default
-##   constraints:    &lt;Locked out planning units [10 locked units]
-##                    Locked in planning units [10 locked units]&gt;
+##   constraints:    &lt;Locked in planning units [10 locked units]
+##                    Locked out planning units [10 locked units]&gt;
 ##   penalties:      &lt;none&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1304,7 +1304,7 @@
 ## Presolved: 293 rows, 234 columns, 1026 nonzeros
 ## 
 ## 
-## Root relaxation: objective 2.265862e+03, 220 iterations, 0.01 seconds
+## Root relaxation: objective 2.265862e+03, 220 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -1474,14 +1474,14 @@
 <code class="sourceCode R"><span class="co"># calculate how well features are represented in the solution</span>
 <span class="va">r38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r38</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 3
-##   feature absolute_held relative_held
-##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 layer.1          8.91         0.107
-## 2 layer.2          3.13         0.100
-## 3 layer.3          7.34         0.102
-## 4 layer.4          4.35         0.102
-## 5 layer.5          6.01         0.106</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   statistic feature total_amount absolute_held relative_held
+##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall   layer.1         83.3          8.91         0.107
+## 2 overall   layer.2         31.2          3.13         0.100
+## 3 overall   layer.3         72.0          7.34         0.102
+## 4 overall   layer.4         42.7          4.35         0.102
+## 5 overall   layer.5         56.7          6.01         0.106</code></pre>
 </div>
 <div id="irreplaceability" class="section level3">
 <h3 class="hasAnchor">

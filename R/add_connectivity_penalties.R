@@ -41,13 +41,13 @@ NULL
 #'   that are associated with higher values are more favorable in the solution.
 #'   See the Details section for more information.
 #'
-#' @details This function uses connectivity data to penalize solutions
-#'   that have low connectivity. It can accommodate symmetric and asymmetric
-#'   relationships between planning units. Although *Marxan*
-#'   **penalizes** connections between planning units with high
-#'   connectivity values, it is important to note that this function
-#'   **favors** connections between planning units with high connectivity
-#'   values. This function was inspired by Beger *et al.* (2010).
+#' @details
+#'   This function uses connectivity data to penalize solutions
+#'   that have low connectivity.
+#'   Specifically, it **favors** pair-wise connections between planning units
+#'   that have high connectivity values.
+#'   It was inspired by Beger *et al.* (2010) and can symmetric and asymmetric
+#'   connectivity relationships between planning units.
 #'
 #'   The argument to `data` can be specified in several different ways:
 #'
@@ -409,7 +409,8 @@ methods::setGeneric("add_connectivity_penalties",
 methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "matrix"),
   function(x, penalty, zones, data) {
-     add_connectivity_penalties(x, penalty, zones, methods::as(data, "dgCMatrix"))
+     add_connectivity_penalties(x, penalty, zones,
+       methods::as(data, "dgCMatrix"))
 })
 
 #' @name add_connectivity_penalties
@@ -418,7 +419,23 @@ methods::setMethod("add_connectivity_penalties",
 methods::setMethod("add_connectivity_penalties",
   methods::signature("ConservationProblem", "ANY", "ANY", "Matrix"),
   function(x, penalty, zones, data) {
-     add_connectivity_penalties(x, penalty, zones, methods::as(data, "dgCMatrix"))
+     add_connectivity_penalties(x, penalty, zones,
+       methods::as(data, "dgCMatrix"))
+})
+
+#' @name add_connectivity_penalties
+#' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
+#' @rdname add_connectivity_penalties
+methods::setMethod("add_connectivity_penalties",
+  methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
+  function(x, penalty, zones, data) {
+    # assert valid arguments
+    assertthat::assert_that(
+      inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
+      is.finite(penalty), is.data.frame(data))
+  # add penalties to problem
+  add_connectivity_penalties(x, penalty, zones,
+                             marxan_boundary_data_to_matrix(x, data))
 })
 
 #' @name add_connectivity_penalties
@@ -440,59 +457,18 @@ methods::setMethod("add_connectivity_penalties",
       all(is.finite(data@x)))
     # coerce zones to matrix
     zones <- as.matrix(zones)
-    # add row names and column names to zones matrix
-    rownames(zones) <- x$zone_names()
-    colnames(zones) <- rownames(zones)
+    indices <- x$planning_unit_indices()
+    data <- data[indices, indices, drop = FALSE]
+    # convert zones & dgCMatrix data to list of sparse matrices
+    m <- list()
+    for (z1 in seq_len(ncol(zones))) {
+      m[[z1]] <- list()
+      for (z2 in seq_len(nrow(zones))) {
+        m[[z1]][[z2]] <- data * zones[z1, z2]
+      }
+    }
     # add penalties
-    x$add_penalty(pproto(
-      "ConnectivityPenalty",
-      Penalty,
-      name = "Connectivity penalties",
-      data = list(data = data),
-      parameters = parameters(numeric_parameter("penalty", penalty),
-                              numeric_matrix_parameter("zones", zones,
-                                                      lower_limit = -1,
-                                                      upper_limit = 1,
-                                                      symmetric = FALSE)),
-      apply = function(self, x, y) {
-        assertthat::assert_that(inherits(x, "OptimizationProblem"),
-                                inherits(y, "ConservationProblem"))
-        # exctract parameters
-        p <- self$parameters$get("penalty")
-        if (abs(p) > 1e-50) {
-          # extract data and zone parameters
-          z <- self$parameters$get("zones")
-          indices <- y$planning_unit_indices()
-          d <- self$get_data("data")[indices, indices]
-          # convert two matrices to list of list of sparseMatrix objects
-          # to represent a sparse 4-dimensional array
-          m <- list()
-          for (z1 in seq_len(ncol(z))) {
-            m[[z1]] <- list()
-            for (z2 in seq_len(nrow(z))) {
-              m[[z1]][[z2]] <- d * z[z1, z2]
-            }
-          }
-          # apply penalties
-          rcpp_apply_connectivity_penalties(x$ptr, p, m)
-        }
-        invisible(TRUE)
-    }))
-})
-
-#' @name add_connectivity_penalties
-#' @usage \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
-#' @rdname add_connectivity_penalties
-methods::setMethod("add_connectivity_penalties",
-  methods::signature("ConservationProblem", "ANY", "ANY", "data.frame"),
-  function(x, penalty, zones, data) {
-    # assert valid arguments
-    assertthat::assert_that(
-      inherits(x, "ConservationProblem"), assertthat::is.scalar(penalty),
-      is.finite(penalty), is.data.frame(data))
-  # add penalties to problem
-  add_connectivity_penalties(x, penalty, zones,
-                             marxan_boundary_data_to_matrix(x, data))
+    internal_add_connectivity_penalties (x, penalty, m)
 })
 
 #' @name add_connectivity_penalties
@@ -517,24 +493,32 @@ methods::setMethod("add_connectivity_penalties",
     for (z1 in seq_len(dim(data)[3])) {
       m[[z1]] <- list()
       for (z2 in seq_len(dim(data)[4])) {
-        m[[z1]][[z2]] <- methods::as(data[indices, indices, z1, z2],
-                                     "dgCMatrix")
+        m[[z1]][[z2]] <-
+          methods::as(data[indices, indices, z1, z2], "dgCMatrix")
       }
     }
+    # add penalties
+    internal_add_connectivity_penalties (x, penalty, m)
+})
+
+internal_add_connectivity_penalties <- function(x, penalty, data) {
+  # assert valid arguments
+  assertthat::assert_that(
+    inherits(x, "ConservationProblem"),
+    assertthat::is.scalar(penalty), is.finite(penalty),
+    is.list(data))
     # create new penalty object
     x$add_penalty(pproto(
       "ConnectivityPenalty",
       Penalty,
       name = "Connectivity penalties",
-      data = list(data = m),
+      data = list(data = data),
       parameters = parameters(numeric_parameter("penalty", penalty)),
       apply = function(self, x, y) {
         assertthat::assert_that(inherits(x, "OptimizationProblem"),
                                 inherits(y, "ConservationProblem"))
-        p <- self$parameters$get("penalty")
-        if (abs(p) > 1e-50) {
-          rcpp_apply_connectivity_penalties(x$ptr, p, self$get_data("data"))
-        }
+        rcpp_apply_connectivity_penalties(
+          x$ptr, self$parameters$get("penalty"), self$get_data("data"))
         invisible(TRUE)
     }))
-})
+}

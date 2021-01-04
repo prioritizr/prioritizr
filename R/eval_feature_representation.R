@@ -3,75 +3,50 @@ NULL
 
 #' Evaluate feature representation
 #'
-#' Calculate how well features are represented by a solution.
+#' Calculate how well features are represented by a solution
+#' to a conservation planning [problem()].
+#' This function reports information for each and every feature,
+#' and each and every zone, within a conservation planning problem.
 #'
-#' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
+#' @inheritParams eval_cost
 #'
-#' @param solution `numeric`, `matrix`, `data.frame`,
-#'   [`Raster-class`], [`Spatial-class`],
-#'   or [sf::sf()] object. See the Details section for more
-#'   information.
+#' @inheritSection eval_cost Solution format
 #'
-#' @details Note that all arguments to `solution` must correspond to the
-#'   planning unit data in the argument to `x` in terms of data
-#'   representation, dimensionality, and spatial attributes (if applicable).
-#'   This means that if the planning unit data in `x` is a `numeric`
-#'   vector then the argument to `solution` must be a `numeric` vector
-#'   with the same number of elements, if the planning unit data in `x` is
-#'   a [`RasterLayer-class`] then the argument to
-#'   `solution` must also be a [`RasterLayer-class`] with
-#'   the same number of rows and columns and the same resolution, extent, and
-#'   coordinate reference system, if the planning unit data in `x` is a
-#'   [`Spatial-class`] or [sf::sf()] object then the
-#'   argument to `solution` must also be a [`Spatial-class`]
-#'   or [sf::sf()] object, respectively, and have the same number of
-#'   spatial features (e.g. polygons) and have the same coordinate reference
-#'   system, if the planning units in `x` are a `data.frame` then the
-#'   argument to `solution` must also be a `data.frame` with each
-#'   column correspond to a different zone and each row correspond to a
-#'   different planning unit, and values correspond to the allocations (e.g.
-#'   values of zero or one).
-#'
-#'   Solutions must have planning unit statuses set to missing (`NA`)
-#'   values for planning units that have missing (`NA`) cost data. For
-#'   problems with multiple zones, this means that planning units must have
-#'   missing (`NA`) allocation values in zones where they have missing
-#'   (`NA`) cost data. In other words, planning units that have missing
-#'   (`NA`) cost values in `x` should always have a missing
-#'   (`NA`) value the argument to `solution`. If an argument is
-#'   supplied to
-#'   `solution` where this is not the case, then an error will be thrown.
-#'
-#'   Additionally, note that when calculating the proportion of each feature
-#'   represented in the solution, the denominator is calculated using all
-#'   planning units---**including any planning units with `NA` cost
-#'   values in the argument to `x`**. This is exactly the same equation
-#'   used when calculating relative targets for problems (e.g.
-#'   `add_relative_targets`).
-#'
-#' @return [tibble::tibble()] object containing the amount
-#'   (`"absolute_held"`) and proportion (`"relative_held"`)
-#'   of the distribution of each feature held in the solution. Here, each
-#'   row contains data that pertain to a specific feature in a specific
-#'   management zone (if multiple zones are present). This object
-#'   contains the following columns:
+#' @return [tibble::tibble()] object describing feature representation.
+#'   Here, each row describes a specific statistic (e.g. different management
+#'   zone) for a specific feature.
+#'   It contains the following columns:
 #'
 #'   \describe{
 #'
+#'   \item{statistic}{`character` description of the representation statistic.
+#'     The representation statistics associated with the `"overall"` value
+#'     in this column are calculated using entire solution
+#'     (including all management zones if there are multiple zones).
+#'     If multiple management zones are present, then representation statistics
+#'     are also provided for each zone separately. In such cases,
+#'     these statistics are associated with values, in this column,
+#'     that correspond to the zone names.}
+#'
 #'   \item{feature}{`character` name of the feature.}
 #'
-#'   \item{zone}{`character` name of the zone (not included when the
-#'     argument to `x` contains only one management zone).}
+#'   \item{total_amount}{`numeric` total amount of each feature available
+#'     in the entire conservation planning problem
+#'     (not just planning units selected within the solution).
+#'     It is calculated as the sum of the feature data,
+#'     supplied when creating a [problem()] object
+#'     (e.g. presence/absence values).}
 #'
-#'   \item{absolute_held}{`numeric` total amount of each feature secured in
-#'     the solution. If the problem contains multiple zones, then this
-#'     column shows how well each feature is represented in a each
-#'     zone.}
+#'   \item{absolute_held}{`numeric` total amount of each feature secured within
+#'     the solution. It is calculated as the sum of the feature data,
+#'     supplied when creating a [problem()] object
+#'     (e.g. presence/absence values), weighted by the status of each
+#'     planning unit in the solution (e.g. selected or not for prioritization).}
 #'
-#'   \item{relative_held}{`numeric` proportion of the feature's
-#'     distribution held in the solution. If the problem contains
-#'     multiple zones, then this column shows how well each feature is
-#'     represented in each zone.}
+#'   \item{relative_held}{`numeric` proportion of
+#'     each feature secured within the solution. It is calculated
+#'     by dividing values in the `"absolute_held"` column by those in the
+#'     `"total_amount"` column.}
 #'
 #'   }
 #'
@@ -79,7 +54,7 @@ NULL
 #'
 #' @aliases eval_feature_representation,ConservationProblem,numeric-method eval_feature_representation,ConservationProblem,matrix-method eval_feature_representation,ConservationProblem,data.frame-method eval_feature_representation,ConservationProblem,Spatial-method eval_feature_representation,ConservationProblem,sf-method eval_feature_representation,ConservationProblem,Raster-method
 #'
-#' @seealso [problem()], [feature_abundances()].
+#' @inherit eval_cost seealso
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -87,7 +62,7 @@ NULL
 #'
 #' # load data
 #' data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
-#'     sim_pu_zones_stack, sim_features_zones)
+#'      sim_pu_zones_stack, sim_features_zones)
 #'
 #' # create a simple conservation planning dataset so we can see exactly
 #' # how feature representation is calculated
@@ -101,20 +76,35 @@ NULL
 #'       add_binary_decisions()
 #'
 #' # create a solution
-#' s1 <- data.frame(solution = c(1, NA, rep(c(1, 0), 4)))
+#' # specifically, a data.frame with a single column that contains
+#' # binary values indicating if each planning units was selected or not
+#' s1 <- data.frame(s = c(1, NA, rep(c(1, 0), 4)))
 #' print(s1)
 #'
 #' # calculate feature representation
 #' r1 <- eval_feature_representation(p1, s1)
 #' print(r1)
 #'
-#' # verify that feature representation calculations are correct
-#' all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE),
-#'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE)))
-#' all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE) /
-#'                               sum(pu$spp1),
-#'                               sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
-#'                               sum(pu$spp2, na.rm = TRUE)))
+#' # let's verify that feature representation calculations are correct
+#' # by manually performing the calculations and compare the results with r1
+#' ## calculate total amount for each feature
+#' print(setNames(
+#'   c(sum(pu$spp1, na.rm = TRUE),
+#'     sum(pu$spp2, na.rm = TRUE)),
+#'   c("spp1", "spp2")))
+#'
+#' ## calculate absolute amount held for each feature
+#' print(setNames(
+#'   c(sum(pu$spp1 * s1$s, na.rm = TRUE),
+#'     sum(pu$spp2 * s1$s, na.rm = TRUE)),
+#'   c("spp1", "spp2")))
+#'
+#' ## calculate relative amount held for each feature
+#' print(setNames(
+#'   c(sum(pu$spp1 * s1$s, na.rm = TRUE) / sum(pu$spp1, na.rm = TRUE),
+#'     sum(pu$spp2 * s1$s, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)),
+#'   c("spp1", "spp2")))
+#'
 #' \dontrun{
 #' # solve the problem using an exact algorithm solver
 #' s1_2 <- solve(p1)
@@ -232,17 +222,8 @@ methods::setGeneric("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      is.numeric(solution),
-      is.numeric(x$data$cost), is.matrix(x$data$cost))
-    assertthat::assert_that(
-      number_of_total_units(x) == length(solution),
-      number_of_zones(x) == 1,
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1)
-    # perform calculations
-    internal_eval_feature_representation(x, matrix(solution, ncol = 1))
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
 #' @name eval_feature_representation
@@ -251,17 +232,8 @@ methods::setMethod("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      is.matrix(solution), is.numeric(solution),
-      is.matrix(x$data$cost), is.numeric(x$data$cost))
-    assertthat::assert_that(
-      number_of_total_units(x) == nrow(solution),
-      number_of_zones(x) == ncol(solution),
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1)
-    # perform calculations
-    internal_eval_feature_representation(x, solution)
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
 #' @name eval_feature_representation
@@ -270,18 +242,8 @@ methods::setMethod("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      is.data.frame(solution),
-      is.data.frame(x$data$cost))
-    assertthat::assert_that(
-      number_of_zones(x) == ncol(solution),
-      number_of_total_units(x) == nrow(solution),
-      is.numeric(unlist(solution)),
-      min(unlist(solution), na.rm = TRUE) >= 0,
-      max(unlist(solution), na.rm = TRUE) <= 1)
-    # perform calculations
-    internal_eval_feature_representation(x, as.matrix(solution))
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
 #' @name eval_feature_representation
@@ -290,20 +252,8 @@ methods::setMethod("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
-                           "SpatialPolygonsDataFrame")),
-      class(x$data$cost)[1] == class(solution)[1])
-    assertthat::assert_that(
-      number_of_zones(x) == ncol(solution@data),
-      sf::st_crs(x$data$cost@proj4string) == sf::st_crs(solution@proj4string),
-      number_of_total_units(x) == nrow(solution@data),
-      is.numeric(unlist(solution@data)),
-      min(unlist(solution@data), na.rm = TRUE) >= 0,
-      max(unlist(solution@data), na.rm = TRUE) <= 1)
-    # perform calculations
-    internal_eval_feature_representation(x, as.matrix(solution@data))
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
 #' @name eval_feature_representation
@@ -312,20 +262,8 @@ methods::setMethod("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "sf"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, "sf"),
-      inherits(x$data$cost, "sf"))
-    assertthat::assert_that(
-      sf::st_crs(x$data$cost) == sf::st_crs(solution),
-      number_of_zones(x) == ncol(sf::st_drop_geometry(solution)),
-      number_of_total_units(x) == nrow(solution),
-      is.numeric(unlist(sf::st_drop_geometry(solution))),
-      min(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) >= 0,
-      max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1)
-    # perform calculations
-    solution <- sf::st_drop_geometry(solution)
-    internal_eval_feature_representation(x, as.matrix(solution))
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
 #' @name eval_feature_representation
@@ -334,69 +272,46 @@ methods::setMethod("eval_feature_representation",
 methods::setMethod("eval_feature_representation",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution) {
-    # assert valid arguments
-    assertthat::assert_that(
-      inherits(solution, "Raster"),
-      inherits(x$data$cost, "Raster"))
-    assertthat::assert_that(
-      number_of_zones(x) == raster::nlayers(solution),
-      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs),
-      is_comparable_raster(x$data$cost, solution[[1]]),
-      min(raster::cellStats(solution, "min")) >= 0,
-      max(raster::cellStats(solution, "max")) <= 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    if (raster::nlayers(solution) > 1) {
-      pos2 <- raster::Which(max(!is.na(solution)) == 1, cells = TRUE)
-    } else {
-      pos2 <- raster::Which(!is.na(solution), cells = TRUE)
-    }
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos2]
-    if (!is.matrix(solution))
-      solution <- matrix(solution, ncol = 1)
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-     stop("planning units with NA cost data must have NA allocations in the",
-          " solution")
-    # run calculations
-    internal_eval_feature_representation(x, solution, subset_units = FALSE)
+    internal_eval_feature_representation(
+      x, planning_unit_solution_status(x, solution))
 })
 
-internal_eval_feature_representation <- function(x, solution, subset_units = TRUE) {
+internal_eval_feature_representation <- function(x, solution) {
   # assert arguments are valid
-  assertthat::assert_that(inherits(x, "ConservationProblem"),
+  assertthat::assert_that(
+    inherits(x, "ConservationProblem"),
     is.matrix(solution))
-  # subset planning units with finite cost values
-  if (subset_units) {
-    pos <- x$planning_unit_indices()
-    pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-    solution <- solution[pos, , drop = FALSE]
-    if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-      stop("planning units with NA cost data must have NA allocations in the",
-           " solution")
-  }
   # calculate amount of each feature in each planning unit
   total <- x$feature_abundances_in_total_units()
-  held <- vapply(seq_len(x$number_of_zones()),
-                 FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
-                 function(i) {
-    rowSums(x$data$rij_matrix[[i]] *
+  held <-
+    vapply(
+      seq_len(x$number_of_zones()),
+      FUN.VALUE = numeric(nrow(x$data$rij_matrix[[1]])),
+      function(i) {
+        rowSums(
+          x$data$rij_matrix[[i]] *
             matrix(solution[, i], ncol = nrow(solution),
-                   nrow = nrow(x$data$rij_matrix[[1]]),
-                   byrow = TRUE),
-            na.rm = TRUE)
-  })
-  out <- tibble::tibble(feature = rep(x$feature_names(), x$number_of_zones()),
-                        absolute_held = unname(c(held)),
-                        relative_held = unname(c(held / total)))
-  if (x$number_of_zones() > 1) {
-    out$zone <- rep(x$zone_names(), each = x$number_of_features())
-    out <- out[, c(1, 4, 2, 3), drop = FALSE]
+                   nrow = nrow(x$data$rij_matrix[[1]]), byrow = TRUE),
+          na.rm = TRUE)
+    })
+  # prepare output
+  if (x$number_of_zones() == 1) {
+    out <- tibble::tibble(
+      statistic = "overall",
+      feature = x$feature_names(),
+      total_amount = unname(c(total)),
+      absolute_held = unname(c(held)),
+      relative_held = unname(c(held / total)))
+  } else {
+    total <- c(rowSums(total), c(total))
+    held <- c(rowSums(held), c(held))
+    out <- tibble::tibble(
+      statistic =
+        rep(c("overall", x$zone_names()), each = x$number_of_features()),
+      feature = rep(x$feature_names(), x$number_of_zones() + 1),
+      total_amount = unname(total),
+      absolute_held = unname(held),
+      relative_held = unname(c(held / total)))
   }
   out
 }

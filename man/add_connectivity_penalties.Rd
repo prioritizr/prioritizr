@@ -13,9 +13,9 @@
 
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
-
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
+
+\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
 
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
@@ -65,12 +65,11 @@ solutions that select planning units with high connectivity between them.
 }
 \details{
 This function uses connectivity data to penalize solutions
-that have low connectivity. It can accommodate symmetric and asymmetric
-relationships between planning units. Although \emph{Marxan}
-\strong{penalizes} connections between planning units with high
-connectivity values, it is important to note that this function
-\strong{favors} connections between planning units with high connectivity
-values. This function was inspired by Beger \emph{et al.} (2010).
+that have low connectivity.
+Specifically, it \strong{favors} pair-wise connections between planning units
+that have high connectivity values.
+It was inspired by Beger \emph{et al.} (2010) and can symmetric and asymmetric
+connectivity relationships between planning units.
 
 The argument to \code{data} can be specified in several different ways:
 

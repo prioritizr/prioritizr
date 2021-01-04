@@ -160,14 +160,14 @@ s1 &lt;-<span class="st"> </span><span class="kw">solve</span>(p1)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r1 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p1, s1)
 <span class="kw">print</span>(r1)</code></pre></div>
-<pre><code>## # A tibble: 5 x 3
-##   feature absolute_held relative_held
-##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 layer.1          8.91         0.107
-## 2 layer.2          3.13         0.100
-## 3 layer.3          7.34         0.102
-## 4 layer.4          4.35         0.102
-## 5 layer.5          6.01         0.106</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   statistic feature total_amount absolute_held relative_held
+##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall   layer.1         83.3          8.91         0.107
+## 2 overall   layer.2         31.2          3.13         0.100
+## 3 overall   layer.3         72.0          7.34         0.102
+## 4 overall   layer.4         42.7          4.35         0.102
+## 5 overall   layer.5         56.7          6.01         0.106</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(s1, <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
@@ -250,7 +250,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##   Bounds range     [1e+00, 1e+00]
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 3568.4931394
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
 ## Variable types: 0 continuous, 180 integer (180 binary)
 ## Presolved: 100 rows, 180 columns, 1080 nonzeros
@@ -264,7 +264,7 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 ##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
 ## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3174.67 3568.49 
@@ -274,19 +274,24 @@ s2 &lt;-<span class="st"> </span><span class="kw">solve</span>(p2)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r2 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p2, s2)
 <span class="kw">print</span>(r2)</code></pre></div>
-<pre><code>## # A tibble: 10 x 4
-##    feature zone   absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
-##  1 1       zone 1          8.93        0.107 
-##  2 2       zone 1          3.13        0.100 
-##  3 3       zone 1          7.44        0.103 
-##  4 4       zone 1          4.27        0.100 
-##  5 5       zone 1          5.97        0.105 
-##  6 1       zone 2          5.15        0.0618
-##  7 2       zone 2          1.84        0.0590
-##  8 3       zone 2          4.08        0.0567
-##  9 4       zone 2          2.52        0.0590
-## 10 5       zone 2          3.67        0.0648</code></pre>
+<pre><code>## # A tibble: 15 x 5
+##    statistic feature total_amount absolute_held relative_held
+##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall   1              167.          14.1         0.0845
+##  2 overall   2               62.4          4.97        0.0797
+##  3 overall   3              144.          11.5         0.0801
+##  4 overall   4               85.3          6.78        0.0795
+##  5 overall   5              113.           9.64        0.0850
+##  6 zone 1    1               83.3          8.93        0.107 
+##  7 zone 1    2               31.2          3.13        0.100 
+##  8 zone 1    3               72.0          7.44        0.103 
+##  9 zone 1    4               42.7          4.27        0.100 
+## 10 zone 1    5               56.7          5.97        0.105 
+## 11 zone 2    1               83.3          5.15        0.0618
+## 12 zone 2    2               31.2          1.84        0.0590
+## 13 zone 2    3               72.0          4.08        0.0567
+## 14 zone 2    4               42.7          2.52        0.0590
+## 15 zone 2    5               56.7          3.67        0.0648</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="co"># here we use the category layer function to generate raster showing the zone</span>
 <span class="co"># that each planning unit was allocated. Specifically, pixels with the</span>
@@ -363,19 +368,24 @@ s3 &lt;-<span class="st"> </span><span class="kw">solve</span>(p3)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r3 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p3, s3)
 <span class="kw">print</span>(r3)</code></pre></div>
-<pre><code>## # A tibble: 10 x 4
-##    feature zone  absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 1       1             8.94         0.107 
-##  2 2       1             3.13         0.100 
-##  3 3       1             7.42         0.103 
-##  4 4       1             4.29         0.101 
-##  5 5       1             6.01         0.106 
-##  6 1       2             2.19         0.0527
-##  7 2       2             0.794        0.0509
-##  8 3       2             1.87         0.0519
-##  9 4       2             1.08         0.0505
-## 10 5       2             1.44         0.0509</code></pre>
+<pre><code>## # A tibble: 15 x 5
+##    statistic feature total_amount absolute_held relative_held
+##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall   1              125.         11.1          0.0891
+##  2 overall   2               46.8         3.92         0.0838
+##  3 overall   3              108.          9.28         0.0860
+##  4 overall   4               64.0         5.37         0.0839
+##  5 overall   5               85.1         7.46         0.0877
+##  6 1         1               83.3         8.94         0.107 
+##  7 1         2               31.2         3.13         0.100 
+##  8 1         3               72.0         7.42         0.103 
+##  9 1         4               42.7         4.29         0.101 
+## 10 1         5               56.7         6.01         0.106 
+## 11 2         1               41.6         2.19         0.0527
+## 12 2         2               15.6         0.794        0.0509
+## 13 2         3               36.0         1.87         0.0519
+## 14 2         4               21.3         1.08         0.0505
+## 15 2         5               28.4         1.44         0.0509</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(<span class="kw">category_layer</span>(s3), <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
@@ -459,7 +469,7 @@ s4 &lt;-<span class="st"> </span><span class="kw">solve</span>(p4)</code></pre><
 ##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 3800 4800 9400 
@@ -469,24 +479,29 @@ s4 &lt;-<span class="st"> </span><span class="kw">solve</span>(p4)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r4 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p4, s4)
 <span class="kw">print</span>(r4)</code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          0            0    
-##  7 layer.2 many.traps          0            0    
-##  8 layer.3 many.traps          0            0    
-##  9 layer.4 many.traps          0            0    
-## 10 layer.5 many.traps          0            0    
-## 11 layer.1 baiting            18.3          0.275
-## 12 layer.2 baiting             8.19         0.328
-## 13 layer.3 baiting            15.2          0.264
-## 14 layer.4 baiting            11.6          0.340
-## 15 layer.5 baiting            12.7          0.281</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           18.3          0.157
+##  2 overall    layer.2        43.7           8.19         0.187
+##  3 overall    layer.3       101.           15.2          0.151
+##  4 overall    layer.4        59.7          11.6          0.194
+##  5 overall    layer.5        79.4          12.7          0.161
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           0            0    
+## 12 many.traps layer.2        15.6           0            0    
+## 13 many.traps layer.3        36.0           0            0    
+## 14 many.traps layer.4        21.3           0            0    
+## 15 many.traps layer.5        28.4           0            0    
+## 16 baiting    layer.1        66.6          18.3          0.275
+## 17 baiting    layer.2        25.0           8.19         0.328
+## 18 baiting    layer.3        57.6          15.2          0.264
+## 19 baiting    layer.4        34.1          11.6          0.340
+## 20 baiting    layer.5        45.4          12.7          0.281</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(<span class="kw">category_layer</span>(s4), <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAIAAACb4TnXAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAQfUlEQVR4nO3df0xW5f/H8evccN/8FoRQiVuxr78NbA0XZGmkmAo6h/pFJX9tMQs1c5NWupk5Z7qEbMum1V1pWVqZtQmxVKYxbFlsbn7mzB+t1GlqKippID/O54/z2T3kPtwhN+9zw83zsbMm51z3dS7veHmdc51znaPpuq4AyLD5uwFAICNggCACBggiYIAgAgYIImCAIAIGCCJggCACBggiYIAgAgYIImCAIAIGCCJggCACBggiYIAgAgYIImCAIAIGCCJggCACBggiYIAgAgYIImCAIAIGCCJggCACBggiYIAgAgYIImCAIAIGCCJgIiZOnKhpWmhoqC+VzJgxQ9M0TdMaGho6qmGwWLC/G4D/qaqqKikpUUrNmTNn4MCB/m4OOgYB6yyqqqrWrFmjlEpPTzcC1r9//0ceecTf7YJPCFjnVVRU5O8mwFecg5n4/vvvMzMzExISIiMjU1JSVqxYce3ateYFamtrX3/99VGjRkVHRyclJWVlZe3bt89LhU6nU9O0kSNHuteUlJQY51cul0splZmZWVBQYGyaNGlSenq6MjuR+9f9jhw5UtM0p9NZXV29YMGCpKSk+Pj4adOm/fHHH75+KWgfHff69NNPPb+lYcOG3bp1yyhw9erVYcOGeZZZuXKlu5IJEyYopUJCQowfExMTlVKpqanuAnv37jU+9cEHH+i6Pnfu3AceeMBY06dPn+nTp3tW0pb9pqamKqViY2ONP7gNHjy4rq5O+JuDCQLWUlJSklIqJiZm+/btJSUl+fn5xu9oUVGRUcDd1Tz99NM7d+7ctGlTTEyMUkrTtKNHjxpl7jdguq5v2bLFWFNWVmZaSVv2685V7969V69e/cYbb/Tq1ctYs3fvXuFvDiY4B7vH7du3z549q5QaMmTI1KlTo6Ojs7KybDZbXV1dVFSUUurOnTvvvfeeUWDfvn3BwcFKqeTk5PHjx+u6vnnzZuOQr8Pd737379+fkpKilHI6nfPmzVNKnTp1SqJh8I6A3SMsLCw+Pv6vv/46cuRInz59xo0bl52dvXLlSqNbU0qdOXOmqalJKZWXl2f8liulxo0b17t378uXL588eVKoYfe13/j4eCNdSqkhQ4YYf7hz545Q2+AFgxz3sNlsX375pTFKXltbW1paumjRov79+2dmZp4/f14pZfxXKfXggw+6P6VpmnEQKDeWcF/7dTgc7j/bbPwv9ie+/ZYyMjJOnjz5ww8/vPTSS+6Oq7y8fMGCBUqpvn37GmsuXrzo/oiu68aPTqfTS81GF2Soq6u7r1b5sl/4EQG7x08//bRkyZKlS5fGxsa+/fbbv//+++HDh41e4siRI0qpgQMHGn3Czp073XcwHThw4NKlS0op01E+pVR4eLhS6uzZs+5cHTx4sLU26LruubJ9+4XfcQ52D4fD8e677yqlfv7552XLliUmJp4+fdo4ezGOG8PDwxcuXLh169Zff/11woQJCxcu/PPPP407MGw225IlS0yrHTRo0OnTp69fv56TkzNx4sSqqirPiwHuM6ujR4+OHz/e/aOhffuF//l1DLPTaWpqmj17tukXtWPHDqPM1atXhw4d6lngtddec9fTYoT9u+++a1HYPZ7uHqavqKhwb01LS/OspC37NapNTEx0r/nll1+MYmvXrpX85mCOQ8R7aJq2bds2l8v1xBNPJCQk2O12p9M5ceLEsrKyZ5991igTFxd39OjRVatWpaWlRUVF9e3bNysr68CBA0Z/YmrSpEk7d+4cMWJEREREamrqpk2bVq9e3aLMk08++eqrr7ovN3tqx37hd5pudsQPoEPQgwGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggiIABgggYIIiAAYIIGCCIgAGCCBggKNjfDbBUTU2NRLU9SnpIVGu9HGfOntF7/N2KgEIPBggiYIAgAgYIImCAIAIGCCJggCACBggiYIAgAgYI6l53cgi5NfmWl60Bc58H2oEeDBBEwABBBAwQRMAAQQQMXVtNTc2yZcseeuihiIiIRx99dNeuXa2V3L17d3p6ekxMzLhx46qqqqxpHgFD11ZQULBt27aCgoIPP/xwwIABs2fPLisr8yxWWlo6c+bMAQMGFBUV1dfXZ2ZmnjlzxoLmabquW7CbTkJowqV3XWiYvstNuLxx40bPnj23bNnywgsvKKUaGxuHDh2alpa2Y8eOFiXHjh2radqBAwc0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" style="display: block; margin: auto;" /></p>
@@ -561,7 +576,7 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 ## H    0     0                    7000.0000000 6938.06818  0.88%     -    0s
 ##      0     0 6938.06818    0    1 7000.00000 6938.06818  0.88%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 7000 9600 13600 
@@ -571,24 +586,29 @@ s5 &lt;-<span class="st"> </span><span class="kw">solve</span>(p5)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r5 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p5, s5)
 <span class="kw">print</span>(r5)</code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          7.40         0.178
-##  7 layer.2 many.traps          3.42         0.219
-##  8 layer.3 many.traps          6.00         0.167
-##  9 layer.4 many.traps          4.84         0.227
-## 10 layer.5 many.traps          5.26         0.186
-## 11 layer.1 baiting            14.4          0.217
-## 12 layer.2 baiting             4.62         0.185
-## 13 layer.3 baiting            11.7          0.203
-## 14 layer.4 baiting             6.05         0.177
-## 15 layer.5 baiting             9.98         0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           21.8          0.187
+##  2 overall    layer.2        43.7           8.04         0.184
+##  3 overall    layer.3       101.           17.7          0.176
+##  4 overall    layer.4        59.7          10.9          0.182
+##  5 overall    layer.5        79.4          15.2          0.192
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           7.40         0.178
+## 12 many.traps layer.2        15.6           3.42         0.219
+## 13 many.traps layer.3        36.0           6.00         0.167
+## 14 many.traps layer.4        21.3           4.84         0.227
+## 15 many.traps layer.5        28.4           5.26         0.186
+## 16 baiting    layer.1        66.6          14.4          0.217
+## 17 baiting    layer.2        25.0           4.62         0.185
+## 18 baiting    layer.3        57.6          11.7          0.203
+## 19 baiting    layer.4        34.1           6.05         0.177
+## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(<span class="kw">category_layer</span>(s5), <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
@@ -655,7 +675,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ## Presolved: 877 rows, 968 columns, 2712 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.005410e+04, 546 iterations, 0.02 seconds
+## Root relaxation: objective 1.005410e+04, 546 iterations, 0.01 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -664,7 +684,7 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.11 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
@@ -674,24 +694,29 @@ s6 &lt;-<span class="st"> </span><span class="kw">solve</span>(p6)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r6 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p6, s6)
 <span class="kw">print</span>(r6)</code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          7.51         0.180
-##  7 layer.2 many.traps          3.38         0.217
-##  8 layer.3 many.traps          5.75         0.160
-##  9 layer.4 many.traps          4.99         0.234
-## 10 layer.5 many.traps          5.46         0.192
-## 11 layer.1 baiting            14.4          0.217
-## 12 layer.2 baiting             4.62         0.185
-## 13 layer.3 baiting            11.7          0.203
-## 14 layer.4 baiting             6.05         0.177
-## 15 layer.5 baiting             9.98         0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           22.0          0.188
+##  2 overall    layer.2        43.7           8.00         0.183
+##  3 overall    layer.3       101.           17.5          0.173
+##  4 overall    layer.4        59.7          11.0          0.185
+##  5 overall    layer.5        79.4          15.4          0.194
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           7.51         0.180
+## 12 many.traps layer.2        15.6           3.38         0.217
+## 13 many.traps layer.3        36.0           5.75         0.160
+## 14 many.traps layer.4        21.3           4.99         0.234
+## 15 many.traps layer.5        28.4           5.46         0.192
+## 16 baiting    layer.1        66.6          14.4          0.217
+## 17 baiting    layer.2        25.0           4.62         0.185
+## 18 baiting    layer.3        57.6          11.7          0.203
+## 19 baiting    layer.4        34.1           6.05         0.177
+## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(<span class="kw">category_layer</span>(s6), <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAIAAACb4TnXAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAQcElEQVR4nO3de2wUdbvA8We2u9s7La0FagvFwx1bjCmRioIVilwqhxQ4XCq3RA5abpJQo5AgEoIQacVEDKirgqKgIppAbQQasClGtAkJJwS5GAUCAgIFqtjSy5w/5s2mtNNau312e/l+MnlDZ2dnxr58mdnZ+e0apmkKAB2OQO8A0JERGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERgKsaNG2cYRkhIiC8rmTp1qmEYhmFUV1e31o7Bz5yB3gH8R2lp6b59+0Rk1qxZffv2DfTuoHUQWFtRWlq6Zs0aEUlLS7MC692790MPPRTo/YJPCKztysvLC/QuwFe8BrPx7bffZmRkxMfHR0REpKSkrFix4vr163UXqKioePXVV4cPHx4VFZWUlDRhwoT9+/c3scLExETDMIYOHeqds2/fPuv1lcfjEZGMjIycnBzrofHjx6elpYndC7l/3O7QoUMNw0hMTCwrK5s3b15SUlJcXNzkyZN/++03X38paBkT9/r4448b/pYGDRp0+/Zta4Fr164NGjSo4TIrV670rmTs2LEiEhwcbP2YkJAgIqmpqd4F9u7daz3rvffeM01z9uzZ9913nzWnR48eU6ZMabiS5mw3NTVVRGJiYqw/ePXv37+yslL5NwcbBFZfUlKSiERHR2/fvn3fvn3z58+3/o7m5eVZC3gPNU8++eTOnTs3bdoUHR0tIoZhHDt2zFrm3wZmmuaWLVusOYWFhbYrac52vV1179599erVr732Wrdu3aw5e/fuVf7NwQavwe7x119/nTt3TkQGDBgwadKkqKioCRMmOByOysrKyMhIEblz584777xjLbB//36n0ykiycnJY8aMMU1z8+bN1ilfq/u32z1w4EBKSoqIJCYmzpkzR0ROnz6tsWNoGoHdIzQ0NC4u7o8//jh69GiPHj1Gjx6dmZm5cuVK67AmImfPnq2trRWR7Oxs62+5iIwePbp79+5Xrlw5deqU0o79q+3GxcVZdYnIgAEDrD/cuXNHad/QBC5y3MPhcHz++efWVfKKioqCgoKFCxf27t07IyPjwoULImL9r4jcf//93mcZhmGdBOpdS/hX23W73d4/Oxz8XxxI/PbrS09PP3Xq1HfffffCCy94D1xFRUXz5s0TkZ49e1pzLl265H2KaZrWj4mJiU2s2ToEWSorK//VXvmyXQQQgd3jhx9+WLx48dKlS2NiYt58881ff/31yJEj1lHi6NGjItK3b1/rmLBz507vHUwHDx68fPmyiNhe5RORsLAwETl37py3q0OHDjW2D6ZpNpzZsu0i4HgNdg+32/3222+LyI8//rhs2bKEhIQzZ85Yr16s88awsLAFCxZs3br1559/Hjt27IIFC37//XfrDgyHw7F48WLb1fbr1+/MmTM3btzIysoaN25caWlpwzcDvK+sjh07NmbMGO+PlpZtF4EX0GuYbU5tbe3MmTNtf1E7duywlrl27drAgQMbLvDKK69411PvCvs333xTb2Hv9XTvZfri4mLvo8OGDWu4kuZs11ptQkKCd85PP/1kLbZ27VrN3xzscYp4D8Mwtm3b5vF4Hnvssfj4eJfLlZiYOG7cuMLCwmeeecZaJjY29tixY6tWrRo2bFhkZGTPnj0nTJhw8OBB63hia/z48Tt37hwyZEh4eHhqauqmTZtWr15db5nHH3/85Zdf9r7d3FALtouAM0y7M34ArYIjGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUOQM9A74VXl5eaB34R7v/dol0Ltwj75RWf+dtCfQe9GhcAQDFBEYoIjAAEUEBigiMEARgQGKCAxQRGCAIgIDFBEYoIjAAEUEBigiMEARgQGKCAztW3l5+bJlyx544IHw8PCHH354165djS25e/futLS06Ojo0aNHl5aW+mf3CAztW05OzrZt23Jyct5///0+ffrMnDmzsLCw4WIFBQXTp0/v06dPXl5eVVVVRkbG2bNn/bB7hmmafthMG8GAy6a1uwGXN2/e7Nq165YtW55//nkRqampGThw4LBhw3bs2FFvyVGjRhmGcfDgQcMwysvLBwwYMGfOnA0bNmjvIUcw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M4cqM6IZHVqQW9xhNpNvmjlUmRHN6OAMp9NwhzScfFxtM4cqM6IZHZ3TLSGhNpMPmjlUmS9BR8dnuFxGSFjDyZd1NvPbzfkSdHR8p387d+iHozYPmGZJSUlcXJzts/r165eUlNTYOps5VJkRzejgHnnkkY8++uitBl/kJSLhEREej8fhsD+ZysrKWrhwYdMrb+ZQZUY0q+uyr4X/XC0/ofvvXOtq8d5mJWbtGbGndXfGMnv27NmzZ7f6aps5VJkRzUBLNHOoMiOagZZo5lBlRjQDLdTEUGVGNAO+amKoclsY0dy5vgTd2Kl+zt2u6V3k6LQ4ggGKCAxQRGCAIgIDFBEYoIjAAEUEBigiMEARgQGKCAxQRGCAIgIDFBEYoKhzfWRAz7CO+QHorSUuxP6TZ9BinWu4CuBnnCICiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBAEYEBiggMUERggCICAxQRGKCIwABFBAYoIjBA0f8DoU0TSkxo4q4AAAAASUVORK5CYII=" style="display: block; margin: auto;" /></p>
@@ -723,8 +748,8 @@ p7 &lt;-<span class="st"> </span><span class="kw">problem</span>(pu4, <span clas
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Manually locked planning units [80 locked units]
-##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
+##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
+##                    Manually locked planning units [80 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -741,14 +766,14 @@ s7 &lt;-<span class="st"> </span><span class="kw">solve</span>(p7)</code></pre><
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 392 rows and 316 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 1513 rows, 884 columns, 4608 nonzeros
 ## Variable types: 0 continuous, 884 integer (884 binary)
 ## Presolve removed 728 rows and 8 columns
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 262 iterations, 0.01 seconds
+## Root relaxation: objective 1.323093e+04, 262 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -756,7 +781,7 @@ s7 &lt;-<span class="st"> </span><span class="kw">solve</span>(p7)</code></pre><
 ##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.04 seconds
+## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
@@ -766,24 +791,29 @@ s7 &lt;-<span class="st"> </span><span class="kw">solve</span>(p7)</code></pre><
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calculate feature representation</span>
 r7 &lt;-<span class="st"> </span><span class="kw">eval_feature_representation</span>(p7, s7)
 <span class="kw">print</span>(r7)</code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           5.92        0.711 
-##  2 layer.2 few.traps           2.33        0.745 
-##  3 layer.3 few.traps           5.25        0.730 
-##  4 layer.4 few.traps           3.18        0.745 
-##  5 layer.5 few.traps           4.00        0.706 
-##  6 layer.1 many.traps          3.02        0.0725
-##  7 layer.2 many.traps          1.09        0.0700
-##  8 layer.3 many.traps          2.41        0.0670
-##  9 layer.4 many.traps          1.66        0.0779
-## 10 layer.5 many.traps          2.11        0.0743
-## 11 layer.1 baiting            14.4         0.217 
-## 12 layer.2 baiting             4.62        0.185 
-## 13 layer.3 baiting            11.7         0.203 
-## 14 layer.4 baiting             6.05        0.177 
-## 15 layer.5 baiting             9.98        0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           23.4         0.201 
+##  2 overall    layer.2        43.7           8.04        0.184 
+##  3 overall    layer.3       101.           19.4         0.192 
+##  4 overall    layer.4        59.7          10.9         0.182 
+##  5 overall    layer.5        79.4          16.1         0.203 
+##  6 few.traps  layer.1         8.33          5.92        0.711 
+##  7 few.traps  layer.2         3.12          2.33        0.745 
+##  8 few.traps  layer.3         7.20          5.25        0.730 
+##  9 few.traps  layer.4         4.27          3.18        0.745 
+## 10 few.traps  layer.5         5.67          4.00        0.706 
+## 11 many.traps layer.1        41.6           3.02        0.0725
+## 12 many.traps layer.2        15.6           1.09        0.0700
+## 13 many.traps layer.3        36.0           2.41        0.0670
+## 14 many.traps layer.4        21.3           1.66        0.0779
+## 15 many.traps layer.5        28.4           2.11        0.0743
+## 16 baiting    layer.1        66.6          14.4         0.217 
+## 17 baiting    layer.2        25.0           4.62        0.185 
+## 18 baiting    layer.3        57.6          11.7         0.203 
+## 19 baiting    layer.4        34.1           6.05        0.177 
+## 20 baiting    layer.5        45.4           9.98        0.220</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># plot solution</span>
 <span class="kw">plot</span>(<span class="kw">category_layer</span>(s7), <span class="dt">main =</span> <span class="st">&quot;solution&quot;</span>, <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">box =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAIAAACb4TnXAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAPsUlEQVR4nO3df0xV9f/A8ff7cu+Vn4oQKnERG/gzrDVckqWRYip+nV/UpZK/9olZqJmbtNRl5pzVErItm1a30rJhZdYmN5bKNIYti82t5swfrdRpaiooZSA/zueP8939KhyQuLzORXg+dtfk3DfnHMkn58e9vNGGYSgAMhzB3gGgKyMwQBCBAYIIDBBEYIAgAgMEERggiMAAQQQGCCIwQBCBAYIIDBBEYIAgAgMEERggiMAAQQQGCCIwQBCBAYIIDBBEYIAgAgMEERggiMAAQQQGCCIwQBCBAYIIDBBEYIAgAgMEERggiMBETJw4UWsdGhoayEpmzJihtdZa19fXd9SOwWbOYO8A/k9FRUVxcbFSas6cOSkpKcHeHXQMAussKioq1q5dq5RKT083AxswYMD9998f7P1CQAis8yooKAj2LiBQXINZ+OabbzIzM+Pj4yMjI4cPH75y5crLly/fPKCmpubll18eNWpUr169kpKSsrKy9uzZ08oKPR6P1nrEiBH+JcXFxeb1ldfrVUplZmbm5eWZT02aNCk9PV1ZXcjddrsjRozQWns8nsrKygULFiQlJcXFxU2bNu33338P9IuC9jFwq48//rj5V2no0KHXrl0zB1y6dGno0KHNx6xatcq/kgkTJiilevToYX6YkJCglEpLS/MP2L17t/lZ7733nmEYc+fOveuuu8wl/fr1mz59evOVtGW7aWlpSqmYmBjzD36DBg2qra0V/srBAoE1lZSUpJSKjo7etm1bcXFxbm6u+W+0oKDAHOA/1Dz22GNFRUUbN26Mjo5WSmmtDx8+bI75t4EZhrF582ZzSUlJieVK2rJdf1d9+/Zds2bNK6+80qdPH3PJ7t27hb9ysMA12C3+/vvvU6dOKaUGDx48derUXr16ZWVlORyO2traqKgopdT169ffeecdc8CePXucTqdSKjU1dfz48YZhbNq0yTzl63D/drt79+4dPny4Usrj8cybN08pdfz4cYkdQ+sI7BZhYWFxcXF//vnnoUOH+vXrN27cuMmTJ69atco8rCmlTp482djYqJTKyckx/5UrpcaNG9e3b98LFy4cO3ZMaMf+1Xbj4uLMupRSgwcPNv9w/fp1oX1DK7jJcQuHw/HZZ5+Zd8lramp8Pt+iRYsGDBiQmZl55swZpZT5X6XU3Xff7f8srbV5Eih3L+Ffbdftdvv/7HDwvziY+Oo3lZGRcezYsW+//fa5557zH7hKS0sXLFiglEpMTDSXnDt3zv8phmGYH3o8nlbWbB6CTLW1tf9qrwLZLoKIwG7x/fffL1myZOnSpTExMW+++eZvv/128OBB8yhx6NAhpVRKSop5TCgqKvK/g2nfvn3nz59XSlne5VNKhYeHK6VOnTrl72r//v0t7YNhGM0Xtm+7CDquwW7hdrvffvttpdQPP/ywbNmyhISEEydOmFcv5nljeHj4woULt2zZ8ssvv0yYMGHhwoV//PGH+Q4Mh8OxZMkSy9UOHDjwxIkTV65cyc7OnjhxYkVFRfMXA/xXVocPHx4/frz/Q1P7tovgC+o9zE6nsbFx9uzZll+o7du3m2MuXbo0ZMiQ5gNeeukl/3qa3GH/+uuvmwz230/336YvKyvzPzty5MjmK2nLds3VJiQk+Jf8+OOP5rB169ZJfuVgjVPEW2itt27d6vV6H3744fj4eJfL5fF4Jk6cWFJS8uSTT5pjYmNjDx8+vHr16pEjR0ZFRSUmJmZlZe3bt888nliaNGlSUVHRfffdFxERkZaWtnHjxjVr1jQZ88gjj6xYscL/cnNz7dgugk4bVmf8ADoERzBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCDIGewdsFV1dXWwd6FTczqdYWFhwd6LLoUjGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCoe72TA0qpv65Ft/RUaNj/hoV9YefOdHkcwQBBBAYIIjBAEIEBgggMd7bq6uply5bdc889ERERDzzwwI4dO1oauXPnzvT09Ojo6HHjxlVUVNizewSGO1teXt7WrVvz8vLef//95OTk2bNnl5SUNB/m8/lmzpyZnJxcUFBQV1eXmZl58uRJG3ZPG4Zhw2Y6CX7gUt3uNn3vmDvpNn1VVVXv3r03b978zDPPKKUaGhqGDBkycuTI7du3Nxk5duxYrfW+ffu01tXV1YMHD543b95rr70mvYccwXAHu3jx4qOPPpqRkWF+GBIS0r9//5qamibDLl++vH///lmzZmmtlVJRUVFTpkz54gs7vpXwQnO3E9mzqqWnnM477N/DoEGDDhw4oJSqr6+vrKwsLS397rvvPvzwwybDzp49q5S69957/UuGDRu2bds2wzDM5OTcYV9Q3KHWr19fWFho+VRVVVXPnj0dDuuTqcWLF69bt+626y8oKFi5cqU5fubMmU2evXDhglKqd+/e/iUxMTG1tbXV1dU9e/Zs41+hfQgMdjh//vy1rErHWIunjFxVXl6ekJBg+YmRkZFtWf/8+fNHjRp18ODBtWvXRkZGWl5c3XywMm891NXVtWXlgSAw2CSkh3JFWSyvU6pXr143H17aIT4+Pj4+fsyYMVevXt24ceO6detcLpf/2T59+iilKisr/UuqqqrcbndMTEwgG20LbnLAJk6tejgsHoHYsWNHampqQ0ODf0lKSsqNGzdqa2tvHubxeJRSx44d8y85fvy4x+ORvgBTBAbbOB2qR4jFIxD9+/c/cuRIWVmZf8mBAwcGDBjQ5MQyNjY2IyPDf9uwtrbW5/NNnz49oG23DaeIsIlTK3dHfz9PT09/6KGHcnJyXnjhhX79+u3du/eTTz7x30UsLCwsKSn56quvIiMj8/Pzp0yZsnz58rFjx3q93srKyqeffrqD98YKRzDYROIU0eFwfPnllxMmTCgoKMjNzf3pp58+/fTT+fPnm88ePXq0tLS0vr5eKTV58uQdO3aUlZXl5ORcvXq1tLQ0OTk58L/UbfFODvw/uamzn3322V31m2KnWDz18/+o06dOJyYmSmw36DhFhE1cDhUa2BXXnYjAYJMQgWuwzo/AYJOWjmDid8qDisBgE5dWYRzBACHmXcTuhsBgE5dDhXW/mxzd71sKgqSl18EMQ/Xv31+34MUXXwz2jgeEIxhs0tI1mNbqFK+DAQHqnqeIBAabuLQK7X5XJAQGm7i1Cicw2KmVCZ5Uq5NnBGW1AXJyBAPkuB0qnGswQEj3vAbrfn9jBInboSKsHgFqaGh44403hg0bFhERMXz48E2bNt08g8DNmDobXZlbq/AQi0eANmzYkJ+fP378eK/XO3r06KVLl65fv775MKbOtkNn+4HLznaTQ/QHLh2xm7LnWTw1NqX9LzQbhhEbGztjxox3333XXLJ06VKv13vt2rUmk6gydTa6OIlTxHPnzlVWVk6ePNm/ZMyYMf/888+ZM2duHhbEqbMJDDZxaxXmsHgEIjY29ujRo48//rh/ycGDB91ud9++fW8eZjl19pkzZ2w4feMuImzSQ6vIFq64Tp8+3dIku/Hx8a2ctYaGhg4ZMsT/4datW996660lS5aEh4ffPIyps7spodd8g/VScuucSvew+vFlw2jMyclp6fdOLFiwYPXq1bdd+dmzZ5ctW7Zz586cnJzXX3/dcgxTZ6NLq3epGlfzxVr/XV5eHsi76T///POFCxfGxMTs2rUrOzu7+QCmzkY3UOfWNWHNHwGudefOnU888cS0adOOHDliWZdi6mx0Cw1OVdfD4hGAGzduLF68+KmnnvJ6vaGhoS0NY+psdAMNLnWjg19kKy8vv3jxotvtbvLLx/Ly8iIiIjrD1NkEBpvoRqeuD+h41dyvv/6qlNq8eXOT5XPmzImIiGg+dfaGDRu8Xm9aWhpTZ4vobO/k6GxE38lxd8ju/2T3af5U/GM/MmUAELAGl66zrLcrTz1KYLCL4VSNHXyK2PkRGGyiG926Ifz247oWAhPXynvbO+dbLqRwBAMEGS7dKHIHpTMjMNjFcCqjxdeCuyoCg020cmtlfQT7+eefL168aPlUcnJydHRrPz/ayREYbONSyuImh2EYK1ascLvdlp8za9as/Px84R0TRGCwi3YqbXGTQ2vt8/l4oRkIiFZurblNDwjRLuXgJgcgxOHSIdymB4Q4XCqEI1h3JfcLE4SmN5TYoijtcGknRzBASIhLubrdTQ6mDIBdQlzaFdr80VGrf/7551t/xYy56dGlhbiVO9zi0RFOnjz5wQcftDIgWHPTExhsop1O7Q5t/ghwtWVlZaNHjx46dOiVK1daGVZYWJiRkbF9+/bc3FyfzxceHu71egPcdFsQGOzidKvQMItHYGJiYqZOnfrqq6+2MslhEOem5yYHbKJdLh3a8Tc5UlNTU1NTlVJbtmxpaYzl3PTbtm0zDEN6akQCg02O/35q//eHLJ4wjPLy8ri4OMvPGjhwYFJSUoCbZm56dHEPPvjgRx999Faz+dWUUhGRkV6v1+GwvlrJzs5etGhRh+wDc9OL61nc7m9Xst/nOlo79zbbk71r9K6O3RXT3Llz586dK7HmtmBuekAQc9MDgoI4Nz2BocsqLCzMzMz866+/lFL5+fk+n2/58uU+n2/WrFm2zU1PYOiyms9NX1ZWlpOTc/XqVeamF6GLuvIszYGTu8nRbXEEAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAUPeaMiAxvGv+lreOEhdqPfMM2q17/bgKYDNOEQFBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCCIwABBBAYIIjBAEIEBgggMEERggCACAwQRGCDovwyB/TsWDoXWAAAAAElFTkSuQmCC" style="display: block; margin: auto;" /></p>

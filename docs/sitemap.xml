@@ -208,7 +208,25 @@
     <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
+    <loc>https://prioritizr.net/reference/eval_boundary.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_connectivity.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_cost.html</loc>
+  </url>
+  <url>
     <loc>https://prioritizr.net/reference/eval_feature_representation.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_n.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_target_coverage.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/evaluation.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/fast_extract.html</loc>

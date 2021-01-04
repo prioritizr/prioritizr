@@ -176,7 +176,12 @@
 <a href="#prioritizr-6-0-0-0" class="anchor"></a>prioritizr 6.0.0.0<small> Unreleased </small>
 </h1>
 <ul>
-<li>Rename <code>feature_representation</code> function to <code>eval_feature_representation</code> to be consistent with other functions for evaluating solutions.</li>
+<li>New <code>eval_cost</code> function to calculate the cost of a solution.</li>
+<li>New <code>eval_boundary</code> function to calculate the exposed boundary length associated with a solution.</li>
+<li>New <code>eval_connectivity</code> function to calculate the connectivity associated with a solution.</li>
+<li>Deprecated <code>feature_representation</code> function. It is now superseded by the <code>eval_feature_representation</code> function.</li>
+<li>New <code>eval_feature_representation</code> function to assess how well each feature is represented by a solution. This function is similar to the deprecated <code>eval_feature_representation</code> function, except that it follows conventions for other evaluation functions (e.g. <code>eval_cost</code>).</li>
+<li>New <code>eval_target_representation</code> function to assess how well each target is met by a solution. This function is similar to the <code>eval_feature_representation</code>, except that it corresponds to the targets in a conservation planning problem.</li>
 </ul>
 </div>
     <div id="prioritizr-5-0-3-2" class="section level1">

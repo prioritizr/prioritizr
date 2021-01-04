@@ -90,6 +90,7 @@ reference:
   - title: Evaluation
     desc: Functions for evaluating solutions
     contents:
+      - evaluation
       - starts_with("eval_")
 
   - title: Irreplaceability

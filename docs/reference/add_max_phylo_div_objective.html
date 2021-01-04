@@ -357,7 +357,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 #&gt;   MIR: 3
 #&gt;   RLT: 1
 #&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
+#&gt; Explored 9 nodes (111 simplex iterations) in 0.03 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 3: 3.53632 2.94027 -0 
@@ -371,14 +371,14 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
 <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_feature_representation.html'>eval_feature_representation</a></span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 <span class='va'>r1</span><span class='op'>$</span><span class='va'>target_met</span> <span class='op'>&lt;-</span> <span class='va'>r1</span><span class='op'>$</span><span class='va'>relative_held</span> <span class='op'>&gt;</span> <span class='fl'>0.1</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 4</span><span>
-#&gt;   feature absolute_held relative_held target_met
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>     
-#&gt; </span><span style='color: #555555;'>1</span><span> layer.1          5.87        0.070</span><span style='text-decoration: underline;'>5</span><span> FALSE     
-#&gt; </span><span style='color: #555555;'>2</span><span> layer.2          3.18        0.102  TRUE      
-#&gt; </span><span style='color: #555555;'>3</span><span> layer.3          4.39        0.061</span><span style='text-decoration: underline;'>1</span><span> FALSE     
-#&gt; </span><span style='color: #555555;'>4</span><span> layer.4          4.37        0.102  TRUE      
-#&gt; </span><span style='color: #555555;'>5</span><span> layer.5          4.43        0.078</span><span style='text-decoration: underline;'>1</span><span> FALSE     </div><div class='input'>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 6</span><span>
+#&gt;   statistic feature total_amount absolute_held relative_held target_met
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>     
+#&gt; </span><span style='color: #555555;'>1</span><span> overall   layer.1         83.3          5.87        0.070</span><span style='text-decoration: underline;'>5</span><span> FALSE     
+#&gt; </span><span style='color: #555555;'>2</span><span> overall   layer.2         31.2          3.18        0.102  TRUE      
+#&gt; </span><span style='color: #555555;'>3</span><span> overall   layer.3         72.0          4.39        0.061</span><span style='text-decoration: underline;'>1</span><span> FALSE     
+#&gt; </span><span style='color: #555555;'>4</span><span> overall   layer.4         42.7          4.37        0.102  TRUE      
+#&gt; </span><span style='color: #555555;'>5</span><span> overall   layer.5         56.7          4.43        0.078</span><span style='text-decoration: underline;'>1</span><span> FALSE     </div><div class='input'>
 <span class='co'># plot the phylogeny and color the adequately represented features in red</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"adequately represented features"</span>,
      tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span>

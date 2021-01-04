@@ -70,7 +70,10 @@ Depends:
     sp,
     sf (>= 0.8-0),
     proto
-LinkingTo: Rcpp, RcppArmadillo, BH
+LinkingTo:
+    Rcpp,
+    RcppArmadillo (>= 0.10.1.0.0),
+    BH
 License: GPL-3
 Language: en-US
 Encoding: UTF-8
@@ -163,7 +166,13 @@ Collate:
     'decisions.R'
     'deprecated.R'
     'distribute_load.R'
+    'eval_boundary.R'
+    'eval_connectivity.R'
+    'eval_cost.R'
     'eval_feature_representation.R'
+    'eval_n.R'
+    'eval_target_coverage.R'
+    'evaluation.R'
     'fast_extract.R'
     'feature_abundances.R'
     'feature_names.R'
@@ -180,6 +189,7 @@ Collate:
     'objectives.R'
     'package.R'
     'penalties.R'
+    'planning_unit_solution_status.R'
     'portfolios.R'
     'predefined_optimization_problem.R'
     'presolve_check.R'

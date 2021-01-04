@@ -239,6 +239,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_absolute_amount_held_by_solution
+Rcpp::NumericVector rcpp_absolute_amount_held_by_solution(Rcpp::List rij_list, Rcpp::List targets_list, Rcpp::NumericMatrix solution);
+RcppExport SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP solutionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type rij_list(rij_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_absolute_amount_held_by_solution(rij_list, targets_list, solution));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_add_rij_data
 bool rcpp_add_rij_data(SEXP x, Rcpp::List rij_list, Rcpp::List targets_list, bool compressed_formulation);
 RcppExport SEXP _prioritizr_rcpp_add_rij_data(SEXP xSEXP, SEXP rij_listSEXP, SEXP targets_listSEXP, SEXP compressed_formulationSEXP) {
@@ -484,6 +497,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_boundary
+double rcpp_boundary(Rcpp::NumericVector edge_factor, Rcpp::NumericMatrix zones_matrix, arma::sp_mat boundary_matrix, Rcpp::NumericMatrix solution);
+RcppExport SEXP _prioritizr_rcpp_boundary(SEXP edge_factorSEXP, SEXP zones_matrixSEXP, SEXP boundary_matrixSEXP, SEXP solutionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type edge_factor(edge_factorSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type zones_matrix(zones_matrixSEXP);
+    Rcpp::traits::input_parameter< arma::sp_mat >::type boundary_matrix(boundary_matrixSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_boundary(edge_factor, zones_matrix, boundary_matrix, solution));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_boundary_data
 Rcpp::List rcpp_boundary_data(Rcpp::DataFrame data, arma::sp_mat strm, bool str_tree, double tolerance);
 RcppExport SEXP _prioritizr_rcpp_boundary_data(SEXP dataSEXP, SEXP strmSEXP, SEXP str_treeSEXP, SEXP toleranceSEXP) {
@@ -506,6 +533,18 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::List >::type x(xSEXP);
     rcpp_result_gen = Rcpp::wrap(rcpp_branch_matrix(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_connectivity
+double rcpp_connectivity(Rcpp::List data, Rcpp::NumericMatrix solution);
+RcppExport SEXP _prioritizr_rcpp_connectivity(SEXP dataSEXP, SEXP solutionSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::List >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type solution(solutionSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_connectivity(data, solution));
     return rcpp_result_gen;
 END_RCPP
 }

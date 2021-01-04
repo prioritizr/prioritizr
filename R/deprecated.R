@@ -20,7 +20,7 @@ NULL
 #' @export
 add_connected_constraints <- function(...) {
   .Deprecated("add_contiguity_constraints")
-  paste0("this function has been renamed as the add_contiguity_constraints",
+  paste("this function has been renamed to the add_contiguity_constraints()",
     "function")
 }
 
@@ -31,8 +31,8 @@ add_connected_constraints <- function(...) {
 #' @export
 add_corridor_constraints <- function(...) {
   .Deprecated("add_feature_contiguity_constraints")
-  paste0("this function has been renamed as the",
-    "add_feature_contiguity_constraints function")
+  paste0("this function has been renamed to the",
+    "add_feature_contiguity_constraints() function")
 }
 
 #' @rdname prioritizr-deprecated
@@ -64,7 +64,8 @@ is.parallel <- function(...) {
 #'   function.
 #' @export
 add_pool_portfolio <- function(...) {
-  .Deprecated(msg = "this function is deprecated and replaced by add_extra_portfolio and add_top_portfolio")
+  .Deprecated(msg = paste("this function is deprecated and replaced by the",
+    "add_extra_portfolio() and add_top_portfolio() functions"))
 }
 
 #' @rdname prioritizr-deprecated
@@ -73,15 +74,19 @@ add_pool_portfolio <- function(...) {
 #' @export
 connected_matrix <- function(...) {
   .Deprecated("adjacency_matrix")
-  paste0("this function has been renamed as the adjacency_matrix function.")
+  paste0("this function has been renamed to the adjacency_matrix() function.")
 }
 
 #' @rdname prioritizr-deprecated
-#' @section  `feature_representation`: this function has been renamed
-#'   to the [eval_feature_representation()] function for consistency.
+#' @section  `feature_representation`: this function has been replaced by
+#'  the [eval_feature_representation()] function for consistency with
+#'  other functions for evaluating solutions. Note that the
+#'  [eval_feature_representation()] function has a slightly different
+#   output format to the now deprecated `feature_representation` function.
 #' @export
 add_connected_constraints <- function(...) {
   .Deprecated("feature_representation")
-  paste0("this function has been renamed as the eval_feature_representation",
-    "function")
+  paste0("this function has been replaced by the eval_feature_representation()",
+    "function. Note that the eval_feature_representation() outputs feature",
+    "representation data in a slightly different format.")
 }

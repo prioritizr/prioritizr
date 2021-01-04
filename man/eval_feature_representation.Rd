@@ -29,84 +29,106 @@ eval_feature_representation(x, solution)
 
 \item{solution}{\code{numeric}, \code{matrix}, \code{data.frame},
 \code{\linkS4class{Raster}}, \code{\linkS4class{Spatial}},
-or \code{\link[sf:sf]{sf::sf()}} object. See the Details section for more
-information.}
+or \code{\link[sf:sf]{sf::sf()}} object.
+The argument should be in the same format as the planning unit cost
+data in the argument to \code{x}.
+See the Solution format section for more information.}
 }
 \value{
-\code{\link[tibble:tibble]{tibble::tibble()}} object containing the amount
-(\code{"absolute_held"}) and proportion (\code{"relative_held"})
-of the distribution of each feature held in the solution. Here, each
-row contains data that pertain to a specific feature in a specific
-management zone (if multiple zones are present). This object
-contains the following columns:
+\code{\link[tibble:tibble]{tibble::tibble()}} object describing feature representation.
+Here, each row describes a specific statistic (e.g. different management
+zone) for a specific feature.
+It contains the following columns:
 
 \describe{
 
+\item{statistic}{\code{character} description of the representation statistic.
+The representation statistics associated with the \code{"overall"} value
+in this column are calculated using entire solution
+(including all management zones if there are multiple zones).
+If multiple management zones are present, then representation statistics
+are also provided for each zone separately. In such cases,
+these statistics are associated with values, in this column,
+that correspond to the zone names.}
+
 \item{feature}{\code{character} name of the feature.}
 
-\item{zone}{\code{character} name of the zone (not included when the
-argument to \code{x} contains only one management zone).}
+\item{total_amount}{\code{numeric} total amount of each feature available
+in the entire conservation planning problem
+(not just planning units selected within the solution).
+It is calculated as the sum of the feature data,
+supplied when creating a \code{\link[=problem]{problem()}} object
+(e.g. presence/absence values).}
 
-\item{absolute_held}{\code{numeric} total amount of each feature secured in
-the solution. If the problem contains multiple zones, then this
-column shows how well each feature is represented in a each
-zone.}
+\item{absolute_held}{\code{numeric} total amount of each feature secured within
+the solution. It is calculated as the sum of the feature data,
+supplied when creating a \code{\link[=problem]{problem()}} object
+(e.g. presence/absence values), weighted by the status of each
+planning unit in the solution (e.g. selected or not for prioritization).}
 
-\item{relative_held}{\code{numeric} proportion of the feature's
-distribution held in the solution. If the problem contains
-multiple zones, then this column shows how well each feature is
-represented in each zone.}
+\item{relative_held}{\code{numeric} proportion of
+each feature secured within the solution. It is calculated
+by dividing values in the \code{"absolute_held"} column by those in the
+\code{"total_amount"} column.}
 
 }
 }
 \description{
-Calculate how well features are represented by a solution.
+Calculate how well features are represented by a solution
+to a conservation planning \code{\link[=problem]{problem()}}.
+This function reports information for each and every feature,
+and each and every zone, within a conservation planning problem.
 }
-\details{
-Note that all arguments to \code{solution} must correspond to the
-planning unit data in the argument to \code{x} in terms of data
-representation, dimensionality, and spatial attributes (if applicable).
-This means that if the planning unit data in \code{x} is a \code{numeric}
-vector then the argument to \code{solution} must be a \code{numeric} vector
-with the same number of elements, if the planning unit data in \code{x} is
-a \code{\linkS4class{RasterLayer}} then the argument to
-\code{solution} must also be a \code{\linkS4class{RasterLayer}} with
-the same number of rows and columns and the same resolution, extent, and
-coordinate reference system, if the planning unit data in \code{x} is a
+\section{Solution format}{
+
+The argument to \code{solution} must be in the same format as
+the planning unit data in the argument to \code{x}
+(e.g. in terms of data representation, dimensionality, and spatial
+attributes).
+For example, if the planning unit data in \code{x} is a \code{numeric}
+vector, then the argument to \code{solution} must be a \code{numeric} vector
+with the same number of elements.
+Similarly, if the planning units in \code{x} are a \code{data.frame}, then the
+argument to \code{solution} must also be a \code{data.frame} with each
+column corresponding to a different zone, each row corresponding to a
+different planning unit, and cell values corresponding to the solution value.
+Additionally, if the planning unit data in \code{x} is
+a \code{\linkS4class{Raster}} object, then the argument to
+\code{solution} must also be a \code{\linkS4class{Raster}} object with
+the same dimensionality (rows and columns), resolution, extent, and
+coordinate reference system.
+Furthermore, if the planning unit data in \code{x} is a
 \code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}} object then the
 argument to \code{solution} must also be a \code{\linkS4class{Spatial}}
-or \code{\link[sf:sf]{sf::sf()}} object, respectively, and have the same number of
-spatial features (e.g. polygons) and have the same coordinate reference
-system, if the planning units in \code{x} are a \code{data.frame} then the
-argument to \code{solution} must also be a \code{data.frame} with each
-column correspond to a different zone and each row correspond to a
-different planning unit, and values correspond to the allocations (e.g.
-values of zero or one).
+or \code{\link[sf:sf]{sf::sf()}} object (respectively) with the same spatial information
+(e.g. polygons and coordinate reference system), and contain columns
+corresponding to different zones, and cell values corresponding to the
+solution values.
 
-Solutions must have planning unit statuses set to missing (\code{NA})
-values for planning units that have missing (\code{NA}) cost data. For
-problems with multiple zones, this means that planning units must have
-missing (\code{NA}) allocation values in zones where they have missing
-(\code{NA}) cost data. In other words, planning units that have missing
-(\code{NA}) cost values in \code{x} should always have a missing
-(\code{NA}) value the argument to \code{solution}. If an argument is
-supplied to
-\code{solution} where this is not the case, then an error will be thrown.
-
-Additionally, note that when calculating the proportion of each feature
-represented in the solution, the denominator is calculated using all
-planning units---\strong{including any planning units with \code{NA} cost
-values in the argument to \code{x}}. This is exactly the same equation
-used when calculating relative targets for problems (e.g.
-\code{add_relative_targets}).
+The argument to \code{solution} must also have missing (\code{NA}) values for planning
+units that have missing (\code{NA}) cost values.
+In other words, the solution must have missing (\code{NA}) values in the
+same elements, cells, or pixels (depending on the cost data format) as the
+planning unit cost data.
+For example, if the planning unit data are a \code{\linkS4class{Raster}} object,
+then the argument to \code{solution} must have missing (\code{NA}) values in
+the same pixels as the planning unit cost data.
+Similarly, if the planning unit data are a
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or \code{data.frame} object, then
+the solution must have missing (\code{NA}) values in the same cells
+as the planning unit cost data columns.
+If an argument is supplied to \code{solution} where
+the missing (\code{NA}) values in the argument to solution do not match
+those in the planning unit cost data, then an error will be thrown.
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
 
 # load data
 data(sim_pu_raster, sim_pu_polygons, sim_pu_zones_sf, sim_features,
-    sim_pu_zones_stack, sim_features_zones)
+     sim_pu_zones_stack, sim_features_zones)
 
 # create a simple conservation planning dataset so we can see exactly
 # how feature representation is calculated
@@ -120,20 +142,35 @@ p1 <- problem(pu, c("spp1", "spp2"), cost_column = "cost") \%>\%
       add_binary_decisions()
 
 # create a solution
-s1 <- data.frame(solution = c(1, NA, rep(c(1, 0), 4)))
+# specifically, a data.frame with a single column that contains
+# binary values indicating if each planning units was selected or not
+s1 <- data.frame(s = c(1, NA, rep(c(1, 0), 4)))
 print(s1)
 
 # calculate feature representation
 r1 <- eval_feature_representation(p1, s1)
 print(r1)
 
-# verify that feature representation calculations are correct
-all.equal(r1$absolute_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE),
-                              sum(pu$spp2 * s1[[1]], na.rm = TRUE)))
-all.equal(r1$relative_held, c(sum(pu$spp1 * s1[[1]], na.rm = TRUE) /
-                              sum(pu$spp1),
-                              sum(pu$spp2 * s1[[1]], na.rm = TRUE) /
-                              sum(pu$spp2, na.rm = TRUE)))
+# let's verify that feature representation calculations are correct
+# by manually performing the calculations and compare the results with r1
+## calculate total amount for each feature
+print(setNames(
+  c(sum(pu$spp1, na.rm = TRUE),
+    sum(pu$spp2, na.rm = TRUE)),
+  c("spp1", "spp2")))
+
+## calculate absolute amount held for each feature
+print(setNames(
+  c(sum(pu$spp1 * s1$s, na.rm = TRUE),
+    sum(pu$spp2 * s1$s, na.rm = TRUE)),
+  c("spp1", "spp2")))
+
+## calculate relative amount held for each feature
+print(setNames(
+  c(sum(pu$spp1 * s1$s, na.rm = TRUE) / sum(pu$spp1, na.rm = TRUE),
+    sum(pu$spp2 * s1$s, na.rm = TRUE) / sum(pu$spp2, na.rm = TRUE)),
+  c("spp1", "spp2")))
+
 \dontrun{
 # solve the problem using an exact algorithm solver
 s1_2 <- solve(p1)
@@ -234,5 +271,5 @@ plot(s5[, "solution"])
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=feature_abundances]{feature_abundances()}}.
+\code{\link[=problem]{problem()}}, \link{evaluation}.
 }

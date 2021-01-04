@@ -213,14 +213,14 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 3
-##   feature absolute_held relative_held
-##   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;
-## 1 layer.1          8.91         0.107
-## 2 layer.2          3.13         0.100
-## 3 layer.3          7.34         0.102
-## 4 layer.4          4.35         0.102
-## 5 layer.5          6.01         0.106</code></pre>
+<pre><code>## # A tibble: 5 x 5
+##   statistic feature total_amount absolute_held relative_held
+##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall   layer.1         83.3          8.91         0.107
+## 2 overall   layer.2         31.2          3.13         0.100
+## 3 overall   layer.3         72.0          7.34         0.102
+## 4 overall   layer.4         42.7          4.35         0.102
+## 5 overall   layer.5         56.7          6.01         0.106</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -324,7 +324,7 @@
 ##      0     0 2911.33335    0    9 3568.49314 2911.33335  18.4%     -    0s
 ## H    0     0                    3174.6681958 2911.33335  8.29%     -    0s
 ## 
-## Explored 1 nodes (73 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (73 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 3174.67 3568.49 
@@ -335,19 +335,24 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 10 x 4
-##    feature zone   absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;
-##  1 1       zone 1          8.93        0.107 
-##  2 2       zone 1          3.13        0.100 
-##  3 3       zone 1          7.44        0.103 
-##  4 4       zone 1          4.27        0.100 
-##  5 5       zone 1          5.97        0.105 
-##  6 1       zone 2          5.15        0.0618
-##  7 2       zone 2          1.84        0.0590
-##  8 3       zone 2          4.08        0.0567
-##  9 4       zone 2          2.52        0.0590
-## 10 5       zone 2          3.67        0.0648</code></pre>
+<pre><code>## # A tibble: 15 x 5
+##    statistic feature total_amount absolute_held relative_held
+##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall   1              167.          14.1         0.0845
+##  2 overall   2               62.4          4.97        0.0797
+##  3 overall   3              144.          11.5         0.0801
+##  4 overall   4               85.3          6.78        0.0795
+##  5 overall   5              113.           9.64        0.0850
+##  6 zone 1    1               83.3          8.93        0.107 
+##  7 zone 1    2               31.2          3.13        0.100 
+##  8 zone 1    3               72.0          7.44        0.103 
+##  9 zone 1    4               42.7          4.27        0.100 
+## 10 zone 1    5               56.7          5.97        0.105 
+## 11 zone 2    1               83.3          5.15        0.0618
+## 12 zone 2    2               31.2          1.84        0.0590
+## 13 zone 2    3               72.0          4.08        0.0567
+## 14 zone 2    4               42.7          2.52        0.0590
+## 15 zone 2    5               56.7          3.67        0.0648</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="co"># here we use the category layer function to generate raster showing the zone</span>
@@ -419,7 +424,7 @@
 ##      0     0 2884.87200    0    8 3667.77087 2884.87200  21.3%     -    0s
 ## H    0     0                    2958.1201508 2884.87200  2.48%     -    0s
 ## 
-## Explored 1 nodes (38 simplex iterations) in 0.01 seconds
+## Explored 1 nodes (38 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 2958.12 3667.77 
@@ -430,19 +435,24 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 10 x 4
-##    feature zone  absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 1       1             8.94         0.107 
-##  2 2       1             3.13         0.100 
-##  3 3       1             7.42         0.103 
-##  4 4       1             4.29         0.101 
-##  5 5       1             6.01         0.106 
-##  6 1       2             2.19         0.0527
-##  7 2       2             0.794        0.0509
-##  8 3       2             1.87         0.0519
-##  9 4       2             1.08         0.0505
-## 10 5       2             1.44         0.0509</code></pre>
+<pre><code>## # A tibble: 15 x 5
+##    statistic feature total_amount absolute_held relative_held
+##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall   1              125.         11.1          0.0891
+##  2 overall   2               46.8         3.92         0.0838
+##  3 overall   3              108.          9.28         0.0860
+##  4 overall   4               64.0         5.37         0.0839
+##  5 overall   5               85.1         7.46         0.0877
+##  6 1         1               83.3         8.94         0.107 
+##  7 1         2               31.2         3.13         0.100 
+##  8 1         3               72.0         7.42         0.103 
+##  9 1         4               42.7         4.29         0.101 
+## 10 1         5               56.7         6.01         0.106 
+## 11 2         1               41.6         2.19         0.0527
+## 12 2         2               15.6         0.794        0.0509
+## 13 2         3               36.0         1.87         0.0519
+## 14 2         4               21.3         1.08         0.0505
+## 15 2         5               28.4         1.44         0.0509</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -517,7 +527,7 @@
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 9400.0000000
 ## Presolve removed 14 rows and 120 columns
-## Presolve time: 0.01s
+## Presolve time: 0.00s
 ## Presolved: 91 rows, 180 columns, 360 nonzeros
 ## Found heuristic solution: objective 4800.0000000
 ## Variable types: 0 continuous, 180 integer (180 binary)
@@ -532,7 +542,7 @@
 ##      0     0 3663.23657    0    1 4800.00000 3663.23657  23.7%     -    0s
 ## H    0     0                    3800.0000000 3663.23657  3.60%     -    0s
 ## 
-## Explored 1 nodes (1 simplex iterations) in 0.02 seconds
+## Explored 1 nodes (1 simplex iterations) in 0.00 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 3800 4800 9400 
@@ -543,24 +553,29 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          0            0    
-##  7 layer.2 many.traps          0            0    
-##  8 layer.3 many.traps          0            0    
-##  9 layer.4 many.traps          0            0    
-## 10 layer.5 many.traps          0            0    
-## 11 layer.1 baiting            18.3          0.275
-## 12 layer.2 baiting             8.19         0.328
-## 13 layer.3 baiting            15.2          0.264
-## 14 layer.4 baiting            11.6          0.340
-## 15 layer.5 baiting            12.7          0.281</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           18.3          0.157
+##  2 overall    layer.2        43.7           8.19         0.187
+##  3 overall    layer.3       101.           15.2          0.151
+##  4 overall    layer.4        59.7          11.6          0.194
+##  5 overall    layer.5        79.4          12.7          0.161
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           0            0    
+## 12 many.traps layer.2        15.6           0            0    
+## 13 many.traps layer.3        36.0           0            0    
+## 14 many.traps layer.4        21.3           0            0    
+## 15 many.traps layer.5        28.4           0            0    
+## 16 baiting    layer.1        66.6          18.3          0.275
+## 17 baiting    layer.2        25.0           8.19         0.328
+## 18 baiting    layer.3        57.6          15.2          0.264
+## 19 baiting    layer.4        34.1          11.6          0.340
+## 20 baiting    layer.5        45.4          12.7          0.281</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s4</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -651,24 +666,29 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          7.40         0.178
-##  7 layer.2 many.traps          3.42         0.219
-##  8 layer.3 many.traps          6.00         0.167
-##  9 layer.4 many.traps          4.84         0.227
-## 10 layer.5 many.traps          5.26         0.186
-## 11 layer.1 baiting            14.4          0.217
-## 12 layer.2 baiting             4.62         0.185
-## 13 layer.3 baiting            11.7          0.203
-## 14 layer.4 baiting             6.05         0.177
-## 15 layer.5 baiting             9.98         0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           21.8          0.187
+##  2 overall    layer.2        43.7           8.04         0.184
+##  3 overall    layer.3       101.           17.7          0.176
+##  4 overall    layer.4        59.7          10.9          0.182
+##  5 overall    layer.5        79.4          15.2          0.192
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           7.40         0.178
+## 12 many.traps layer.2        15.6           3.42         0.219
+## 13 many.traps layer.3        36.0           6.00         0.167
+## 14 many.traps layer.4        21.3           4.84         0.227
+## 15 many.traps layer.5        28.4           5.26         0.186
+## 16 baiting    layer.1        66.6          14.4          0.217
+## 17 baiting    layer.2        25.0           4.62         0.185
+## 18 baiting    layer.3        57.6          11.7          0.203
+## 19 baiting    layer.4        34.1           6.05         0.177
+## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s5</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -733,7 +753,7 @@
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 20096.000000
 ## Presolve removed 308 rows and 232 columns
-## Presolve time: 0.02s
+## Presolve time: 0.01s
 ## Presolved: 1597 rows, 968 columns, 4872 nonzeros
 ## Variable types: 0 continuous, 968 integer (968 binary)
 ## Presolve removed 720 rows and 0 columns
@@ -749,7 +769,7 @@
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.09 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.05 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
@@ -760,24 +780,29 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           0            0    
-##  2 layer.2 few.traps           0            0    
-##  3 layer.3 few.traps           0            0    
-##  4 layer.4 few.traps           0            0    
-##  5 layer.5 few.traps           0            0    
-##  6 layer.1 many.traps          7.51         0.180
-##  7 layer.2 many.traps          3.38         0.217
-##  8 layer.3 many.traps          5.75         0.160
-##  9 layer.4 many.traps          4.99         0.234
-## 10 layer.5 many.traps          5.46         0.192
-## 11 layer.1 baiting            14.4          0.217
-## 12 layer.2 baiting             4.62         0.185
-## 13 layer.3 baiting            11.7          0.203
-## 14 layer.4 baiting             6.05         0.177
-## 15 layer.5 baiting             9.98         0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           22.0          0.188
+##  2 overall    layer.2        43.7           8.00         0.183
+##  3 overall    layer.3       101.           17.5          0.173
+##  4 overall    layer.4        59.7          11.0          0.185
+##  5 overall    layer.5        79.4          15.4          0.194
+##  6 few.traps  layer.1         8.33          0            0    
+##  7 few.traps  layer.2         3.12          0            0    
+##  8 few.traps  layer.3         7.20          0            0    
+##  9 few.traps  layer.4         4.27          0            0    
+## 10 few.traps  layer.5         5.67          0            0    
+## 11 many.traps layer.1        41.6           7.51         0.180
+## 12 many.traps layer.2        15.6           3.38         0.217
+## 13 many.traps layer.3        36.0           5.75         0.160
+## 14 many.traps layer.4        21.3           4.99         0.234
+## 15 many.traps layer.5        28.4           5.46         0.192
+## 16 baiting    layer.1        66.6          14.4          0.217
+## 17 baiting    layer.2        25.0           4.62         0.185
+## 18 baiting    layer.3        57.6          11.7          0.203
+## 19 baiting    layer.4        34.1           6.05         0.177
+## 20 baiting    layer.5        45.4           9.98         0.220</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s6</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -812,8 +837,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Absolute targets [targets (min: 8, max: 8)]
 ##   decisions:      Binary decision 
-##   constraints:    &lt;Mandatory allocation constraints [apply constraints? (1)]
-##                    Manually locked planning units [80 locked units]&gt;
+##   constraints:    &lt;Manually locked planning units [80 locked units]
+##                    Mandatory allocation constraints [apply constraints? (1)]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 0.5, max: 0.5), penalty (640), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -831,14 +856,14 @@
 ##   RHS range        [1e+00, 8e+00]
 ## Found heuristic solution: objective 19600.000000
 ## Presolve removed 392 rows and 316 columns
-## Presolve time: 0.03s
+## Presolve time: 0.01s
 ## Presolved: 1513 rows, 884 columns, 4608 nonzeros
 ## Variable types: 0 continuous, 884 integer (884 binary)
 ## Presolve removed 728 rows and 8 columns
 ## Presolved: 785 rows, 876 columns, 2448 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.323093e+04, 262 iterations, 0.01 seconds
+## Root relaxation: objective 1.323093e+04, 262 iterations, 0.00 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
@@ -846,7 +871,7 @@
 ##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.06 seconds
+## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
@@ -857,24 +882,29 @@
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
 <span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></code></pre></div>
-<pre><code>## # A tibble: 15 x 4
-##    feature zone       absolute_held relative_held
-##    &lt;chr&gt;   &lt;chr&gt;              &lt;dbl&gt;         &lt;dbl&gt;
-##  1 layer.1 few.traps           5.92        0.711 
-##  2 layer.2 few.traps           2.33        0.745 
-##  3 layer.3 few.traps           5.25        0.730 
-##  4 layer.4 few.traps           3.18        0.745 
-##  5 layer.5 few.traps           4.00        0.706 
-##  6 layer.1 many.traps          3.02        0.0725
-##  7 layer.2 many.traps          1.09        0.0700
-##  8 layer.3 many.traps          2.41        0.0670
-##  9 layer.4 many.traps          1.66        0.0779
-## 10 layer.5 many.traps          2.11        0.0743
-## 11 layer.1 baiting            14.4         0.217 
-## 12 layer.2 baiting             4.62        0.185 
-## 13 layer.3 baiting            11.7         0.203 
-## 14 layer.4 baiting             6.05        0.177 
-## 15 layer.5 baiting             9.98        0.220</code></pre>
+<pre><code>## # A tibble: 20 x 5
+##    statistic  feature total_amount absolute_held relative_held
+##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall    layer.1       117.           23.4         0.201 
+##  2 overall    layer.2        43.7           8.04        0.184 
+##  3 overall    layer.3       101.           19.4         0.192 
+##  4 overall    layer.4        59.7          10.9         0.182 
+##  5 overall    layer.5        79.4          16.1         0.203 
+##  6 few.traps  layer.1         8.33          5.92        0.711 
+##  7 few.traps  layer.2         3.12          2.33        0.745 
+##  8 few.traps  layer.3         7.20          5.25        0.730 
+##  9 few.traps  layer.4         4.27          3.18        0.745 
+## 10 few.traps  layer.5         5.67          4.00        0.706 
+## 11 many.traps layer.1        41.6           3.02        0.0725
+## 12 many.traps layer.2        15.6           1.09        0.0700
+## 13 many.traps layer.3        36.0           2.41        0.0670
+## 14 many.traps layer.4        21.3           1.66        0.0779
+## 15 many.traps layer.5        28.4           2.11        0.0743
+## 16 baiting    layer.1        66.6          14.4         0.217 
+## 17 baiting    layer.2        25.0           4.62        0.185 
+## 18 baiting    layer.3        57.6          11.7         0.203 
+## 19 baiting    layer.4        34.1           6.05        0.177 
+## 20 baiting    layer.5        45.4           9.98        0.220</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s7</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>

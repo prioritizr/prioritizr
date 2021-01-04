@@ -1,7 +1,20 @@
 # prioritizr 6.0.0.0
 
-- Rename `feature_representation` function to `eval_feature_representation`
-  to be consistent with other functions for evaluating solutions.
+- New `eval_cost` function to calculate the cost of a solution.
+- New `eval_boundary` function to calculate the exposed boundary length
+  associated with a solution.
+- New `eval_connectivity` function to calculate the connectivity associated
+  with a solution.
+- Deprecated `feature_representation` function. It is now superseded by the
+  `eval_feature_representation` function.
+- New `eval_feature_representation` function to assess how well each
+  feature is represented by a solution. This function is similar to the
+  deprecated `eval_feature_representation` function, except that it
+  follows conventions for other evaluation functions (e.g. `eval_cost`).
+- New `eval_target_representation` function to assess how well each
+  target is met by a solution. This function is similar to the
+  `eval_feature_representation`, except that it corresponds to the targets
+  in a conservation planning problem.
 
 # prioritizr 5.0.3.2
 

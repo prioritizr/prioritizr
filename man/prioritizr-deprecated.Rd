@@ -24,6 +24,8 @@ is.parallel(...)
 add_pool_portfolio(...)
 
 connected_matrix(...)
+
+add_connected_constraints(...)
 }
 \arguments{
 \item{...}{not used.}
@@ -67,6 +69,13 @@ function.
 \section{\code{connected_matrix}}{
  this function has been renamed as
 the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+}
+
+\section{\code{feature_representation}}{
+ this function has been replaced by
+the \code{\link[=eval_feature_representation]{eval_feature_representation()}} function for consistency with
+other functions for evaluating solutions. Note that the
+\code{\link[=eval_feature_representation]{eval_feature_representation()}} function has a slightly different
 }
 
 \keyword{internal}

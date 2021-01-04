@@ -299,7 +299,7 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 #&gt;   RHS range        [9e+00, 2e+01]
 #&gt; Found heuristic solution: objective 18523.196992
 #&gt; Found heuristic solution: objective 6599.7631720
-#&gt; Presolve time: 0.01s
+#&gt; Presolve time: 0.00s
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
 #&gt; Variable types: 0 continuous, 234 integer (234 binary)
 #&gt; Presolved: 293 rows, 234 columns, 1026 nonzeros
@@ -440,9 +440,9 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.994   0.448   1.471 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
+#&gt;   1.059   4.211   5.281 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.876   0.484   1.396 </div><div class='input'>
+#&gt;   0.669   3.309   4.019 </div><div class='input'>
 <span class='co'># As we can see, we can save a lot of time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints.</span>

@@ -18,54 +18,53 @@ add_boundary_penalties(
 \item{penalty}{\code{numeric} penalty that is used to scale the importance
 of selecting planning units that are spatially clumped together compared
 to the main problem objective (e.g. solution cost when the argument to
-\code{x} has a minimum set objective set using
-\code{\link[=add_min_set_objective]{add_min_set_objective()}}). Higher \code{penalty} values
-will return solutions with a higher degree of spatial clumping,
-and smaller \code{penalty} values will return solutions with a smaller
-degree of clumping. Note that negative \code{penalty} values will
-return solutions that are more spread out. This parameter is equivalent to
+\code{x} has a minimum set objective per \code{\link[=add_min_set_objective]{add_min_set_objective()}}).
+Higher \code{penalty} values prefer solutions with a higher degree of spatial
+clumping, and smaller \code{penalty} values prefer solutions with a smaller
+degree of clumping. Note that negative \code{penalty} values prefer
+solutions that are more spread out. This parameter is equivalent to
 the boundary length modifier (BLM)
 parameter in \href{https://marxansolutions.org/}{\emph{Marxan}}.}
 
 \item{edge_factor}{\code{numeric} proportion to scale
-planning unit edges (or borders) that do not have any neighboring planning
-units. For example, an edge factor of \code{0.5} is commonly used for
-planning units along the coast line. Note that this argument must have an
-element for each zone in the argument to \code{x}.}
+planning unit edges (borders) that do not have any neighboring planning
+units. For example, an edge factor of \code{0.5} is commonly used to
+avoid overly penalizing planning units along a coastline.
+Note that this argument must have an element for each zone in the argument
+to \code{x}.}
 
 \item{zones}{\code{matrix} or \code{Matrix} object describing the
 clumping scheme for different zones. Each row and column corresponds to a
 different zone in the argument to \code{x}, and cell values indicate the
 relative importance of clumping planning units that are allocated to
-a pair of zones. Cell values along the diagonal of the matrix represent
-the relative importance of clumping planning units that are allocated
-to the same zone. Cell values must lay between 1 and -1, where negative
-values favor solutions that spread out planning units. The default
+a combination of zones. Cell values along the diagonal of the matrix
+represent the relative importance of clumping planning units that are
+allocated to the same zone. Cell values must range between 1 and -1, where
+negative values favor solutions that spread out planning units. The default
 argument to \code{zones} is an identity
 matrix (i.e. a matrix with ones along the matrix diagonal and zeros
 elsewhere), so that penalties are incurred when neighboring planning units
-are not assigned to the same zone. \strong{Note that if the cells along
-the matrix diagonal contain markedly lower values than cells found
-elsewhere in the matrix, then the optimal solution may surround
-planning units with planning units that are allocated to different zones.}}
+are not assigned to the same zone. If the cells along
+the matrix diagonal contain markedly smaller values than those found
+elsewhere in the matrix, then solutions are preferred that surround
+planning units with those allocated to different zones
+(i.e. greater spatial fragmentation).}
 
 \item{data}{\code{NULL}, \code{data.frame}, \code{matrix}, or \code{Matrix}
-object containing the boundary data. The boundary values
-correspond to the shared boundary length between different planning units
-and the amount of exposed boundary length that each planning unit has
-which is not shared with any other planning unit. Given a certain
-\code{penalty} value, it is more desirable to select combinations of
-planning units which do not expose larger boundaries that are shared
-between different planning units. See the Details section for more
-information.}
+object containing the boundary data. These data describe the total
+amount of boundary (perimeter) length  for each planning unit,
+and the amount of boundary (perimeter) length shared between different
+planning units (i.e. planning units that are adjacent to each other).
+See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
 added to it.
 }
 \description{
-Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor
-solutions that have planning units clumped together into contiguous areas.
+Add penalties to a conservation planning \code{\link[=problem]{problem()}} to favor solutions
+that spatially clump planning units together based on the overall
+boundary length (perimeter).
 }
 \details{
 This function adds penalties to a conservation planning problem
@@ -78,40 +77,6 @@ be used to represent symmetric relationships between planning units. If
 asymmetric relationships are required, use the
 \code{\link[=add_connectivity_penalties]{add_connectivity_penalties()}} function.
 
-The argument to \code{data} can be specified in several different ways:
-
-\describe{
-
-\item{\code{NULL}}{the boundary data are automatically calculated
-using the \code{\link[=boundary_matrix]{boundary_matrix()}} function. This argument is the
-default. Note that the boundary data must be manually defined
-using one of the other formats below when the planning unit data
-in the argument to \code{x} is not spatially referenced (e.g.
-in \code{data.frame} or \code{numeric} format).}
-
-\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
-different planning units and the value of each cell represents the
-amount of shared boundary length between two different planning units.
-Cells that occur along the matrix diagonal represent the amount of
-exposed boundary associated with each planning unit that has
-no neighbor (e.g. these value might pertain the length of coastline
-in a planning unit).}
-
-\item{\code{data.frame}}{containing the columns \code{"id1"},
-\code{"id2"}, and \code{"boundary"}. The values in the column
-\code{"boundary"} show the total amount of shared boundary between the
-two planning units indicated the columns \code{"id1"} and \code{"id2"}.
-This format follows the the standard \emph{Marxan} input format. Note
-that this function requires symmetric boundary data, and so the
-argument to \code{data} cannot have the columns \code{"zone1"} and
-code{"zone2"} to specify different amounts of shared boundary lengths
-for different zones. Instead, when dealing with problems with multiple
-zones, the argument to \code{zones} should be used to control the
-relative importance of spatially clumping planning units together when
-they are allocated to different zones.}
-
-}
-
 The boundary penalties are calculated using the following equations. Let
 \eqn{I} represent the set of planning units
 (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent
@@ -119,10 +84,10 @@ the set of management zones (indexed by \eqn{z} or \eqn{y}), and
 \eqn{X_{iz}}{Xiz} represent the decision
 variable for planning unit \eqn{i} for in zone \eqn{z} (e.g. with binary
 values one indicating if planning unit is allocated or not). Also, let
-\eqn{p} represent the argument to \code{penalty}, \eqn{E} represent the
-argument to \code{edge_factor}, \eqn{B} represent the matrix argument to
-\code{data} (e.g. generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
-\eqn{W} represent the matrix argument to \code{zones}.
+\eqn{p} represent the argument to \code{penalty}, \eqn{E_z}{Ez} represent the
+argument to \code{edge_factor}, \eqn{B_{ij}}{Bij} represent the matrix argument
+to \code{data} (e.g. generated using \code{\link[=boundary_matrix]{boundary_matrix()}}), and
+\eqn{W_{zz}}{Wzz} represent the matrix argument to \code{zones}.
 
 \deqn{
   \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} (\mathit{ifelse}(i == j, E_z, 1)
@@ -137,6 +102,41 @@ Note that when the problem objective is to maximize some measure of
 benefit and not minimize some measure of cost, the term \eqn{p} is
 replaced with \eqn{-p}.
 }
+\section{Data format}{
+
+The argument to \code{data} can be specified using several different formats
+(see below).
+Note that boundary data must always describe symmetric relationships
+between planning units.
+
+\describe{
+
+\item{\code{NULL}}{boundary data are automatically calculated
+using the \code{\link[=boundary_matrix]{boundary_matrix()}} function. This argument is the
+default. Note that the boundary data must be supplied
+using one of the other formats below if the planning unit data
+in the argument to \code{x} do not explicitly contain spatial information
+(e.g. planning unit data are a \code{data.frame} or \code{numeric} class).}
+
+\item{\code{matrix}, \code{Matrix}}{where rows and columns represent
+different planning units and the value of each cell represents the
+amount of shared boundary length between two different planning units.
+Cells that occur along the matrix diagonal represent the amount of
+exposed boundary associated with each planning unit that has
+no neighbor (e.g. these value might pertain to boundaries along a
+coastline).}
+
+\item{\code{data.frame}}{with the columns \code{"id1"},
+\code{"id2"}, and \code{"boundary"}. The \code{"id1"} and \code{"id2"} columns contain
+identifiers (indices) for a pair of planning units, and the \code{"boundary"}
+column contains the amount of shared boundary length between these
+two planning units.
+This format follows the the standard \emph{Marxan} format for boundary
+data (i.e. per the "bound.dat" file).}
+
+}
+}
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
