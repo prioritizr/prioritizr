@@ -5,9 +5,9 @@ NULL
 #'
 #' Calculate how well feature representation [targets] are met by a solution to
 #' a conservation planning [problem()].
-#' It is useful for understanding if features are adequately are represented by
+#' It is useful for understanding if features are adequately represented by
 #' a solution.
-#' Note that it can only be used with problems that contain [targets].
+#' Note that this function can only be used with problems that contain [targets].
 #'
 #' @inheritParams eval_cost
 #'

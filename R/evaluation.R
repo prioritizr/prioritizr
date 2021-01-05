@@ -20,9 +20,7 @@ NULL
 #'  \item{[eval_cost()]}{Calculate the total cost of a solution.}
 #'
 #'  \item{[eval_feature_representation()]}{Calculate how well features are
-#'    represented by a solution. This function can be used for problems
-#'    that are built using [targets] and those that are not built
-#'    using [targets].}
+#'    represented by a solution. This function can be used for all problems.}
 #'
 #'  \item{[eval_target_coverage()]}{Calculate how well feature representation
 #'    [targets] are met by a solution. This function can only be used with

@@ -31,7 +31,7 @@ NULL
 #'
 #'   \item{statistic}{`character` description of the connectivity statistic.
 #'     The connectivity statistic associated with the `"overall"` value
-#'     in this column is calculated using entire solution
+#'     in this column is calculated using entire the solution
 #'     (including all management zones if there are multiple zones).
 #'     If multiple management zones are present, then connectivity statistics
 #'     are also provided for each zone separately. In such cases,

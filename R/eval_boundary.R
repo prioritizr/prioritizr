@@ -31,7 +31,7 @@ NULL
 #'
 #'   \item{statistic}{`character` description of the boundary length statistic.
 #'     The boundary length statistic associated with the `"overall"` value
-#'     in this column is calculated using entire solution
+#'     in this column is calculated using the entire solution
 #'     (including all management zones if there are multiple zones).
 #'     If multiple management zones are present, then boundary length statistics
 #'     are also provided for each zone separately. In such cases,
