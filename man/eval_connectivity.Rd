@@ -164,7 +164,7 @@ plot(s1, main = "solution", axes = FALSE, box = FALSE)
 # of adjacent planning units with higher cost values will have a
 # higher connectivity value
 # (but see ?connectivity_matrix for more information)
-cm1 <- connectivity_matrix(sim_pu_raster)
+cm1 <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 
 # calculate connectivity associated with the solution
 r1 <- eval_connectivity(p1, s1, data = cm1)

@@ -25,7 +25,7 @@ test_that("compile (compressed formulation, single zone)", {
     c(p$planning_unit_costs(), rep(0, n_f)))
   expect_true(all(o$A()[seq_len(n_f), n_pu + seq_len(n_f)] ==
     Matrix::sparseMatrix(i = seq_len(n_f), j = seq_len(n_f),
-      x = rep(-1, n_f), giveCsparse = FALSE)))
+      x = rep(-1, n_f), repr = "T")))
   expect_equal(o$lb(), rep(0, n_f + n_pu))
   expect_equal(o$ub(), rep(1, n_f + n_pu))
 })

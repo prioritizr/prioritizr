@@ -49,7 +49,7 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
     isTRUE(all(x[[1]] == round(x[[1]]))), isTRUE(all(x[[2]] == round(x[[2]]))))
   # create sparse amtrix
   m <- Matrix::sparseMatrix(i = x[[1]], j = x[[2]], x = x[[3]],
-                            giveCsparse = FALSE, ...)
+                            repr = "T", ...)
   if (forceSymmetric) {
     # force the matrix to be symmetric
     # we cannot gurantee that the cells that are filled in belong to either

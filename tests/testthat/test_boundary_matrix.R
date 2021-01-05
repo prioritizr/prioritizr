@@ -11,7 +11,7 @@ test_that("SpatialPolygons (squares)", {
     i = c(0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8) + 1,
     j = c(0, 1, 3, 1, 2, 4, 2, 5, 3, 4, 6, 5, 7, 5, 8, 6, 7, 7, 8, 8) + 1,
     x = c(2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2),
-    symmetric = TRUE, giveCsparse = FALSE)
+    symmetric = TRUE, repr = "T")
   # tests
   expect_true(all(b1 == s))
   # experimental functionality tests

@@ -15,6 +15,9 @@
   target is met by a solution. This function is similar to the
   `eval_feature_representation`, except that it corresponds to the targets
   in a conservation planning problem.
+- Fix comparability issues with Matrix R package (version 1.3-0) (#172).
+- Add NEWS to build process (#173).
+- Update publication vignette.
 
 # prioritizr 5.0.3.2
 

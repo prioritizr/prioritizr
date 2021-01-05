@@ -163,7 +163,7 @@ OptimizationProblem <- pproto(
   A = function(self) {
     x <- rcpp_get_optimization_problem_A(self$ptr)
     Matrix::sparseMatrix(i = x$i, j = x$j, x = x$x, index1 = FALSE,
-                         giveCsparse = TRUE,
+                         repr = "C",
                          dims = c(nrow(self), ncol(self)))
   },
   rhs = function(self) {

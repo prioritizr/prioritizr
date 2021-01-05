@@ -397,12 +397,15 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 <span class='co'># of adjacent planning units with higher cost values will have a</span>
 <span class='co'># higher connectivity value</span>
 <span class='co'># (but see ?connectivity_matrix for more information)</span>
-<span class='va'>cm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in (function (classes, fdef, mtable) {    methods &lt;- .findInheritedMethods(classes, fdef, mtable)    if (length(methods) == 1L)         return(methods[[1L]])    else if (length(methods) == 0L) {        cnames &lt;- paste0("\"", vapply(classes, as.character,             ""), "\"", collapse = ", ")        stop(gettextf("unable to find an inherited method for function %s for signature %s",             sQuote(fdef@generic), sQuote(cnames)), domain = NA)    }    else stop("Internal error in finding inherited methods; didn't return a unique method",         domain = NA)})(list(structure("RasterLayer", package = "raster"), structure("missing", package = "methods")),     new("standardGeneric", .Data = function (x, y, ...)     standardGeneric("connectivity_matrix"), generic = structure("connectivity_matrix", package = "prioritizr"),         package = "prioritizr", group = list(), valueClass = character(0),         signature = c("x", "y"), default = NULL, skeleton = (function (x,             y, ...)         stop("invalid call in method dispatch to 'connectivity_matrix' (no default method)",             domain = NA))(x, y, ...)), &lt;environment&gt;): unable to find an inherited method for function ‘connectivity_matrix’ for signature ‘"RasterLayer", "missing"’</span></div><div class='input'>
+<span class='va'>cm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_raster</span><span class='op'>)</span>
+
 <span class='co'># calculate connectivity associated with the solution</span>
 <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_connectivity</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span>, data <span class='op'>=</span> <span class='va'>cm1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in h(simpleError(msg, call)): error in evaluating the argument 'data' in selecting a method for function 'eval_connectivity': object 'cm1' not found</span></div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'print': object 'r1' not found</span></div><div class='input'>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt;   statistic connectivity
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall           198.</div><div class='input'>
 <span class='co'># build minimal conservation problem with polygon (sf) data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -467,7 +470,7 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 <span class='co'># calculate connectivity associated with the solution</span>
 <span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_connectivity</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>cm2</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 2</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
 #&gt;   statistic connectivity
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> overall           36.8</div><div class='input'>
@@ -506,7 +509,7 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 #&gt;      0     0 8894.74718    0    7 10394.1782 8894.74718  14.4%     -    0s
 #&gt; H    0     0                    9081.9977322 8894.74718  2.06%     -    0s
 #&gt; 
-#&gt; Explored 1 nodes (38 simplex iterations) in 0.01 seconds
+#&gt; Explored 1 nodes (38 simplex iterations) in 0.00 seconds
 #&gt; Thread count was 1 (of 4 available processors)
 #&gt; 
 #&gt; Solution count 2: 9082 10394.2 

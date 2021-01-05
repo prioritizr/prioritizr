@@ -26,7 +26,7 @@ test_that("minimum set objective (compile, single zone)", {
   b_data <- as(b_data, "dgTMatrix")
   b_data <- Matrix::sparseMatrix(i = b_data@i[b_data@x != 0],
     j = b_data@j[b_data@x != 0], x = b_data@x[b_data@x != 0],
-    giveCsparse = FALSE, index1 = FALSE)
+    repr = "T", index1 = FALSE)
   # objectives for boundary decision variables
   b_obj <- o$obj()[n_pu + seq_len(length(b_data@i))]
   # lower bound for boundary decision variables

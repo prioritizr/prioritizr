@@ -754,7 +754,7 @@ methods::setMethod(
     rij <- lapply(seq_along(zones$id), function(z) {
       r <- rij[rij$zone == z, ]
       Matrix::sparseMatrix(i = r$species, j = r$pu,
-                           x = r$amount, giveCsparse = TRUE,
+                           x = r$amount, repr = "C",
                            index1 = TRUE, use.last.ij = FALSE,
                            dims = c(nrow(features), length(pos)),
                            dimnames = list(features$name, NULL))

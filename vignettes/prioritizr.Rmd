@@ -25,17 +25,21 @@ knitr::opts_chunk$set(fig.align = "center", eval = !is_check,
 
 ## Summary
 
-The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management actions or zones, meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
+The _prioritizr R_ package uses integer linear programming (ILP) techniques to provide a flexible interface for building and solving conservation planning problems [@r11; @r16]. It supports a broad range of objectives, constraints, and penalties that can be used to custom-tailor conservation planning problems to the specific needs of a conservation planning exercise. Once built, conservation planning problems can be solved using a variety of commercial and open-source exact algorithm solvers. In contrast to the algorithms conventionally used to solve conservation problems, such as heuristics or simulated annealing [@r3], the exact algorithms used here are guaranteed to find optimal solutions. Furthermore, conservation problems can be constructed to optimize the spatial allocation of different management zone (or actions), meaning that conservation practitioners can identify solutions that benefit multiple stakeholders. Finally, this package has the functionality to read input data formatted for the _Marxan_ conservation planning program [@r3], and find much cheaper solutions in a much shorter period of time than _Marxan_ [@r1].
 
 ## Introduction
 
 Systematic conservation planning is a rigorous, repeatable, and structured approach to designing new protected areas that efficiently meet conservation objectives [@r4]. Historically, conservation decision-making has often evaluated parcels opportunistically as they became available for purchase, donation, or under threat. Although purchasing such areas may improve the _status quo_, such decisions may not substantially enhance the long-term persistence of target species or communities. Faced with this realization, conservation planners began using decision support tools to help simulate alternative reserve designs over a range of different biodiversity and management goals and, ultimately, guide protected area acquisitions and management actions. Due to the systematic, evidence-based nature of these tools, conservation prioritization can help contribute to a transparent, inclusive, and more defensible decision making process.
 
-A conservation planning exercise typically starts by defining a study area. This study area should encompass all the areas relevant to the decision maker or the hypothesis being tested. The extent of a study area could encompass a a few important localities [e.g. @r18], a single state [e.g. @r17], an entire country [@r19], or the entire planet [@r20]. Next, the study area is divided into a set of discrete areas termed _planning units_. Each planning unit represents a discrete locality in the study area that can be managed independently of other areas. The general idea is that some combination of the planning units can be selected for conservation purposes. Planning units are often created as square or hexagon cells that are sized according to the scale of the management and the resolution of the data that underpin the planning exercise [but see @r5]. Next, _cost data_ are obtained and overlaid with the planning units. The cost data indicate the relative expenditure associated with managing each planning unit. For example, if the goal of the conservation planning exercise is to identify priority areas for expanding a local protected area system then the cost data could represent the physical cost of purchasing the land. Alternatively, if such data is not available, then human density is often used as a surrogate. Other examples of cost data include pest management costs [@r22], and the opportunity cost of foregone commercial activities [e.g. from logging, agriculture, or fishing; @r21], or simply the size of the planning unit. Next, the _conservation features_ that are relevant to the conservation planning exercise are defined. These features could be species (e.g. _Neofelis nebulosa_, the Clouded Leopard), populations, or habitats (e.g. mangroves or cloud forest) of interest. Finally, spatially explicit data should be obtained for each conservation feature, so that we know which features occur in which planning units (or how much of each feature occurs in each planning unit). Note that this process is not sequential---meaning that often planning units will often be remade depending on data quality and computational resources, different cost data sets will often be investigated, and the prioritization process will often be rerun using different sets of conservation features. After assembling all the data, the next step is to define the conservation planning problem.
+A conservation planning exercise typically starts by defining a study area. This study area should encompass all the areas relevant to the decision maker or the hypothesis being tested. The extent of a study area could encompass a few important localities [e.g. @r18], a single state [e.g. @r17], an entire country [@r19], or the entire planet [@r20]. Next, the study area is divided into a set of discrete areas termed _planning units_. Each planning unit represents a discrete locality in the study area that can be managed independently of other areas. The general idea is that some combination of the planning units can be selected for conservation actions (e.g. protected area establishment, habitat restoration). Planning units are often created as square or hexagon cells that are sized according to the scale of the conservation actions, and the resolution of the data that underpin the planning exercise [but see @r5].
 
-The _prioritizr R_ package will not help you with assembling your planning unit data, cost data or feature data---but it will help you with defining and solving your planning problem. Formulating a conservation planning problem as a well-defined mathematical optimization problem is extremely useful because (i) it means that we can solve the exact problem you are dealing with and (ii) there is a rich body of knowledge we can draw on to deliver high quality solutions in a short period of time. In general, the goal of an optimization problem is to minimize (or maximize) an _objective function_ that is calculated using a set of _decision variables_, subject to a series of _constraints_ to ensure that solution exhibits specific properties. The objective function describe the quantity which we are trying to minimize (e.g. cost of the solution) or maximize (e.g. number of features conserved). The decision variables represent the entities that we can control, and indicate which planning units are selected for protection and which of those are not. The constraints can be thought of as rules that the need decision variables need to follow. For example, a commonly used constraint is specifying that the solution must not exceed a certain budget.
+Cost data (or a surrogate thereof) are needed to inform the prioritization process. Specifically, these cost data describe the relative expenditure associated with managing each planning unit for conservation. For example, if the goal of the conservation planning exercise is to identify priority areas for expanding a local protected area system, then the cost data could represent the physical cost of purchasing the land. Alternatively, if such data are not available, then surrogate data could are often used instead (e.g. human population density, opportunity cost of foregone commercial activities, or planning unit size).
 
-Fortunately, a wide variety of approaches have been developed for solving optimization problems. Reserve design problems are frequently solved using simulated annealing [@r6] or heuristics [@r8; @r7]. These methods are conceptually simple and can be applied to a wide variety of optimization problems. However, they do not scale well for large or complex problems [@r1]. Additionally, these methods cannot tell you how close any given solution is to the optimal solution. Honestly, why would you go to all the effort of obtaining planning unit, cost, and feature data if you don't know how good the solution is at the end of it? The _prioritizr R_ package uses exact algorithms to efficiently solve conservation planning problems to within a pre-specified a optimality gap. In other words, you can specify that you need the optimal solution (i.e. a gap of 0 %) and the algorithms will, given enough time, find the optimal solution. In the past, exact algorithms have been too slow to be useful for most conservation planning exercises [@r9], but improvements over the last decade mean that they are much faster and more effective than other commonly used methods [@r23; @r1].
+Conservation planning exercises also require data on the biodiversity elements that are of conservation interest (termed _conservation features_). These features could be species (e.g. _Neofelis nebulosa_, the Clouded Leopard), populations, or habitats (e.g. mangroves or cloud forest). After identifying the set of relevant conservation features for a conservation planning exercise, spatially explicit data need to be obtained for each and every feature to describe their spatial distribution (e.g. habitat suitability data, probability of occurrence data, presence/absence data). This is important to ensure that conservation features are adequately covered (represented) by prioritizations. After assembling all the data, the next step is to define the conservation planning problem.
+
+The _prioritizr R_ package is designed to help you build and solve conservation planning problems. Specifically, prioritizations are generated by using formulating a mathematical optimization problem and then solving it to generate a solution. These mathematical optimization problems are formulated using the planning unit data, cost data, and feature data, and with information related to the overarching aim of the prioritization process. In general, the goal of an optimization problem is to minimize (or maximize) an _objective function_ that is calculated using a set of _decision variables_, subject to a series of constraints to ensure that solution exhibits specific properties. The objective function describes the quantity which we are trying to minimize (e.g. cost of the solution) or maximize (e.g. number of features conserved). The decision variables describe the entities that we can control, and indicate which planning units are selected for conservation management and which of those are not. The constraints can be thought of as rules that the need decision variables need to follow. For example, a commonly used constraint is specifying that the solution must not exceed a certain budget.
+
+A wide variety of approaches have been developed for solving optimization problems. Reserve design problems are frequently solved using simulated annealing [@r6] or heuristics [@r8; @r7]. These methods are conceptually simple and can be applied to a wide variety of optimization problems. However, they do not scale well for large or complex problems [@r1]. Additionally, these methods cannot tell you how close any given solution is to the optimal solution. The _prioritizr R_ package uses exact algorithms to efficiently solve conservation planning problems to within a pre-specified a optimality gap. In other words, you can specify that you need the optimal solution (i.e. a gap of 0%) and the algorithms will, given enough time, find a solution that meets this criteria. In the past, exact algorithms have been too slow for conservation planning exercises [@r9]. However, improvements over the last decade mean that they are now much faster [@r23; @r1].
 
 In this package, optimization problems are expressed using _integer linear programming_ (ILP) so that they can be solved using (linear) exact algorithm solvers. The general form of an integer programming problem can be expressed in matrix notation using the following equation.
 
@@ -59,10 +63,11 @@ functions are used to:
 * add methods to generate a [portfolio](https://prioritizr.net/reference/portfolios.html) of solutions.
 * add one of the [solvers](https://prioritizr.net/reference/solvers.html) to  a conservation problem to specify which software should be used to solve it and customize the optimization process.
 * [solve](https://prioritizr.net/reference/solve.html) a conservation problem.
+* [evaluate](https://prioritizr.net/reference/evaluation.html) a solution to a conservation planning problem
 
 ## Package work flow
 
-The general work flow when using the _prioritizr R_ package starts with creating a new conservation planning `problem` object using data relevant to the conservation planning problem. Specifically, the `problem` object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new `problem` object, it can be customized---by adding objectives, penalties, constraints, and other information---to build a precise representation of the conservation planning problem required, and then solved to obtain a set of near-optimal solutions.
+The general work flow when using the _prioritizr R_ package starts with creating a new conservation planning `problem` object using data. Specifically, the `problem` object should be constructed using data that specify the planning units, biodiversity features, management zones (if applicable), and costs. After creating a new `problem` object, it can be customized---by adding objectives, penalties, constraints, and other information---to build a precise representation of the conservation planning problem required, and then solved to obtain a solutions.
 
 All conservation planning problems require an objective. An objective specifies the property which is used to compare different feasible solutions. Simply put, the objective is the property of the solution which should be maximized or minimized during the optimization process. For instance, with the minimum set objective (specified using `add_min_set_objective`), we are seeking to minimize the cost of the solution (similar to _Marxan_). On the other hand, with the maximum coverage objective (specified using `add_max_cover_objective`), we are seeking to maximize the number of different features represented in the solution.
 
@@ -74,18 +79,21 @@ After building a conservation problem, it can then be solved to obtain a solutio
 
 ## Usage
 
-Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. **Please note that we will not cover conservation planning with multiple zones in this vignette, for more information on developing plans that involve allocating planning units to multiple management zones please see the [zones vignette](zones.html).**
+Here we will provide an introduction to using the _prioritizr R_ package to build and solve a conservation planning problem. Please note that we will not discuss conservation planning with multiple zones in this vignette, for more information on working with multiple management zones please see the [zones vignette](zones.html).
 
 First, we will load the _prioritizr_ package.
 
-```{r}
-# load prioritizr package
+```{r, results = "hide", message = FALSE}
+# load package
 library(prioritizr)
+
+# set default options for printing tabular data
+options(tibble.width = Inf)
 ```
 
 ### Data
 
-Now we will load some built-in data sets that are distributed with the _prioritizr R_ package. This package contains several different planning unit data sets. To provide a comprehensive overview of the different ways that we can initialize a conservation planning problem we will load each of them.
+Now we will load some built-in data sets that are distributed with the _prioritizr R_ package. This package contains several different planning unit data sets. To provide a comprehensive overview of the different ways that we can initialize a conservation planning problem, we will load each of them.
 
 First, we will load the raster planning unit data (`sim_pu_raster`). Here, the planning units are represented as a raster (i.e. a `RasterLayer` object) and each pixel corresponds to the spatial extent of each panning unit. The pixel values correspond to the acquisition costs of each planning unit.
 
@@ -204,7 +212,7 @@ For more information on initializing problems, please see the help page for the 
 
 ### Add an objective
 
-The next step is to add an objective to the problem. A problem objective is used to specify the overall goal of the problem (i.e. the quantity that is to be maximized or minimized). All conservation planning problems involve minimizing or maximizing some kind of objective. For instance, we might require a solution that conserves enough habitat for each species while minimizing the overall cost of the reserve network. Alternatively, we might require a solution that maximizes the number of conserved species while ensuring that the cost of the reserve network does not exceed the budget. Please note that objectives are added in the same way regardless of the type of data used to initialize the problem.
+The next step is to add an objective to the problem. A problem objective is used to specify the primary goal of the problem (i.e. the quantity that is to be maximized or minimized). All conservation planning problems involve minimizing or maximizing some kind of objective. For instance, we might require a solution that conserves enough habitat for each species while minimizing the overall cost of the reserve network. Alternatively, we might require a solution that maximizes the number of conserved species while ensuring that the cost of the reserve network does not exceed the budget. Please note that objectives are added in the same way regardless of the type of data used to initialize the problem.
 
 The _prioritizr R_ package supports a variety of different objective functions.
 
@@ -764,11 +772,55 @@ mp2 <- marxan_problem(x = pu, spec = features, puvspr = rij, bound = bound,
 print(mp2)
 ```
 
-### Interpreting the solutions
+### Evaluating solutions
 
-After obtaining the solution to a conservation planning problem, it can be useful to calculate various summary statistics to describe its performance (such as solution cost). These statistics could be calculated using external software platforms such as [ArcGIS](https://www.arcgis.com/features/index.html) or [QGIS](https://www.qgis.org/en/site/), but it is also possible to calculate these statistics within _R_. If you are dealing with raster planning unit data, and so your solutions are in raster format, the `cellStats`, `layerStats`, `extract`, and `zonal` functions from the _raster R_ package can be useful for calculating summary statistics. Below we will create and solve a problem, and then calculate some statistics showcasing these functions.
+After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available for evaluating a solution:
 
+* Calculate the number of planning units selected within a solution.
 ```{r}
+# calculate statistic
+eval_n(p37, s37)
+```
+* Calculate the total cost of a solution.
+```{r}
+# calculate statistic
+eval_cost(p37, s37)
+```
+* Calculate how well features are represented by a solution. This function can be used for problems that are built using targets and those that are not built using targets.
+```{r}
+# calculate statistics
+eval_feature_representation(p37, s37)
+```
+* Calculate how well feature representation targets are met by a solution. This function can only be used with problems contain targets.
+```{r}
+# calculate statistics
+eval_target_coverage(p37, s37)
+```
+* Calculate the exposed boundary length (perimeter) associated with a solution.
+```{r}
+# calculate statistic
+eval_boundary(p37, s37)
+```
+* Calculate the connectivity held within a solution.
+```{r}
+# calculate statistic
+# here we use the raster data for the first feature as an example
+# to parametrize pair-wise connectivity between different planning units
+eval_connectivity(p37, s37, data = connectivity_matrix(sim_pu_raster,
+                                                       sim_features[[1]]))
+```
+
+### Irreplaceability
+
+Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the "importance" or "priority" of each planning unit selected in a solution.
+
+The _prioritizr R_ package offers three methods for calculating irreplaceability scores: replacement cost [`replacement_cost`; @r31], Ferrier scores [`ferrier_score`; @r34], and rarity weighted richness scores [`rarity_weighted_richness`; @r33]. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier irreplaceability scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic _Marxan_-type problem). Furthermore---unlike the replacement cost scores---the Ferrier irreplaceability scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.
+
+We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units),  we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans [@r17]. There is also an experimental function for calculating irreplaceability using the Ferrier method. We do not recommend using this method until it has been verified by a statistical expert.
+
+Below we will generate a solution, and then calculate irreplaceability scores for the planning units selected in the solution using the three different approaches.
+
+```{r, fig.height = h, fig.width = w}
 # formulate the problem
 p38 <- problem(sim_pu_raster, sim_features) %>%
        add_min_set_objective() %>%
@@ -782,28 +834,6 @@ s38 <- solve(p38)
 plot(s38, col = c("grey90", "darkgreen"), main = "Solution",
      xlim = c(-0.1, 1.1), ylim = c(-0.1, 1.1))
 
-# calculate the number of selected planning units
-cellStats(s38, "sum")
-
-# calculate the cost of the solution
-cellStats(sim_pu_raster * s38, "sum")
-
-# calculate how well features are represented in the solution
-r38 <- eval_feature_representation(p38, s38)
-print(r38)
-```
-
-### Irreplaceability
-
-Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the "importance" or "priority" of each planning unit selected in a solution.
-
-The _prioritizr R_ package offers three methods for calculating irreplaceability scores: replacement cost [`replacement_cost`; @r31], Ferrier scores [`ferrier_score`; @r34], and rarity weighted richness scores [`rarity_weighted_richness`; @r33]. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier irreplaceability scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic _Marxan_-type problem). Furthermore---unlike the replacement cost scores---the Ferrier irreplaceability scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.
-
-We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units),  we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans [@r17]. There is also an experimental function for calculating irreplaceability using the Ferrier method. We do not recommend using this method until it has been verified by a statistical expert.
-
-Below we will use these three approaches to calculate irreplaceability scores.
-
-```{r, fig.height = h, fig.width = w}
 # calculate replacement cost scores and make the solver quiet
 rc38 <- p38 %>%
         add_default_solver(gap = 0, verbose = FALSE) %>%

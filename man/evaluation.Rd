@@ -73,10 +73,10 @@ eval_boundary(p, s)
 
 # for brevity, we will do this using the cost data
 # cost valuers have high connectivity between them
-cm <- connectivity_matrix(sim_pu_raster)
+cm <- connectivity_matrix(sim_pu_raster, sim_pu_raster)
 
 # evaluate connectivity of solution
-eval_connectivity(p, s)
+eval_connectivity(p, s, data = cm)
 
 }
 }
