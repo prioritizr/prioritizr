@@ -71,6 +71,7 @@ jobs:
       - name: Install dependencies
         run: |
           options(repos = "https://cran.microsoft.com")
+          install.packages("Matrix")
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("covr")
