@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Replacement cost — replacement_cost • prioritizr</title>
+<title>Evaluate solution importance using replacement cost scores — eval_replacement_importance • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,8 +52,8 @@
 
 
 
-<meta property="og:title" content="Replacement cost — replacement_cost" />
-<meta property="og:description" content="Calculate irreplaceability scores for planning units selected in a solution
+<meta property="og:title" content="Evaluate solution importance using replacement cost scores — eval_replacement_importance" />
+<meta property="og:description" content="Calculate importance scores for planning units selected in a solution
 based on the replacement cost method (Cabeza and Moilanen 2006)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -169,35 +169,35 @@ based on the replacement cost method (Cabeza and Moilanen 2006)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Replacement cost</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/replacement_cost.R'><code>R/replacement_cost.R</code></a></small>
-    <div class="hidden name"><code>replacement_cost.Rd</code></div>
+    <h1>Evaluate solution importance using replacement cost scores</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_replacement_importance.R'><code>R/eval_replacement_importance.R</code></a></small>
+    <div class="hidden name"><code>eval_replacement_importance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate irreplaceability scores for planning units selected in a solution
+    <p>Calculate importance scores for planning units selected in a solution
 based on the replacement cost method (Cabeza and Moilanen 2006).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,data.frame</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,sf</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>rescale</span>, <span class='va'>run_checks</span>, <span class='va'>force</span>, <span class='va'>threads</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,8 +210,10 @@ based on the replacement cost method (Cabeza and Moilanen 2006).</p>
       <th>solution</th>
       <td><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
 <code>Raster</code>, <code>Spatial</code>,
-or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object. See the Details section for more
-information.</p></td>
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object.
+The argument should be in the same format as the planning unit cost
+data in the argument to <code>x</code>.
+See the Solution format section for more information.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -239,20 +241,23 @@ the presolve checks. Defaults to <code>FALSE</code>.</p></td>
     <tr>
       <th>threads</th>
       <td><p><code>integer</code> number of threads to use for the
-optimization algorithm. The default value of 1 will result in only
-one thread being used.</p></td>
+optimization algorithm. Defaults to 1 such that only a single
+thread is used.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>numeric</code>, <code>matrix</code>,
+    <p>A <code>numeric</code>, <code>matrix</code>, <code>data.frame</code>
 <code>RasterLayer</code>, <code>Spatial</code>,
-or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the replacement costs for each
-planning unit in the solution.</p>
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the importance scores for each planning
+unit in the solution. Specifically, the returned object is in the
+same format as the planning unit data in the argument to <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Using this method, the score for each planning unit is calculated
+    <p>This function implements a modified version of the
+replacement cost method (Cabeza and Moilanen 2006).
+Specifically, the score for each planning unit is calculated
 as the difference in the objective value of a solution when each planning
 unit is locked out and the optimization processes rerun with all other
 selected planning units locked in. In other words, the replacement cost
@@ -260,7 +265,8 @@ metric corresponds to change in solution quality incurred if a given
 planning unit cannot be acquired when implementing the solution and the
 next best planning unit (or set of planning units) will need to be
 considered instead. Thus planning units with a higher score are more
-irreplaceable. For example, when using the minimum set objective function
+important (and irreplaceable).
+For example, when using the minimum set objective function
 (<code><a href='add_min_set_objective.html'>add_min_set_objective()</a></code>), the replacement cost scores
 correspond to the additional costs needed to meet targets when each
 planning unit is locked out. When using the maximum utility
@@ -273,44 +279,58 @@ species that are not found in any other planning units or were locked in).
 Zeros values mean that planning units can swapped with other planning units
 and this will have no effect on the performance of the solution at all
 (e.g. because they were only selected due to spatial fragmentation
-penalties). Since these calculations can take a long time to complete, we
+penalties).</p>
+<p>These calculations can take a long time to complete for large
+or complex conservation planning problems. As such, we using this
+method for small or moderate-sized conservation planning problems
+(e.g. &lt; 30,000 planning units). To reduce run time, we
 recommend calculating these scores without additional penalties (e.g.
-<code><a href='add_boundary_penalties.html'>add_boundary_penalties()</a></code>) or constraints (e.g.
-<code>link{add_contiguity_constraints}</code>). They can be sped up further by
-using proportion-type decisions when calculating the scores (see below for
-an example).</p>
-<p>The argument to <code>solution</code> must correspond
-to the planning unit data in the argument to <code>x</code> in terms
-of data representation, dimensionality, and spatial attributes (if
-applicable). This means that if the planning unit data in <code>x</code>
-is a <code>numeric</code> vector then the argument to <code>solution</code> must be a
-<code>numeric</code> vector with the same number of elements; if the planning
-unit data in <code>x</code> is a <code>RasterLayer</code> then the
-argument to <code>solution</code> must also be a
-<code>RasterLayer</code> with the same number of rows and
-columns and the same resolution, extent, and coordinate reference system;
-if the planning unit data in <code>x</code> is a <code>Spatial</code>
-object then the argument to <code>solution</code> must also be a
-<code>Spatial</code> object and have the same number of spatial
-features (e.g. polygons) and have the same coordinate reference system;
-if the planning unit data in <code>x</code> is a <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>
-object then the argument to <code>solution</code> must also be a
-<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object and have the same number of spatial
-features (e.g. polygons) and have the same coordinate reference system;
-if the planning units in <code>x</code> are a <code>data.frame</code> then the
+add_boundary_penalties()]) or spatial constraints (e.g.
+<code>link{add_contiguity_constraints}</code>). To further reduce run time,
+we recommend using proportion-type decisions when calculating the scores
+(see below for an example).</p>
+    <h2 class="hasAnchor" id="solution-format"><a class="anchor" href="#solution-format"></a>Solution format</h2>
+
+    
+
+<p>The argument to <code>solution</code> must be in the same format as
+the planning unit data in the argument to <code>x</code>
+(e.g. in terms of data representation, dimensionality, and spatial
+attributes).
+For example, if the planning unit data in <code>x</code> is a <code>numeric</code>
+vector, then the argument to <code>solution</code> must be a <code>numeric</code> vector
+with the same number of elements.
+Similarly, if the planning units in <code>x</code> are a <code>data.frame</code>, then the
 argument to <code>solution</code> must also be a <code>data.frame</code> with each
-column correspond to a different zone and each row correspond to
-a different planning unit, and values correspond to the allocations
-(e.g. values of zero or one).</p>
-<p>Solutions must have planning unit statuses set to missing (<code>NA</code>)
-values for planning units that have missing (<code>NA</code>) cost data. For
-problems with multiple zones, this means that planning units must have
-missing (<code>NA</code>) allocation values in zones where they have missing
-(<code>NA</code>) cost data. In other words, planning units that have missing
-(<code>NA</code>) cost values in <code>x</code> should always have a missing
-(<code>NA</code>) value the argument to <code>solution</code>. If an argument is
-supplied to
-<code>solution</code> where this is not the case, then an error will be thrown.</p>
+column corresponding to a different zone, each row corresponding to a
+different planning unit, and cell values corresponding to the solution value.
+Additionally, if the planning unit data in <code>x</code> is
+a <code>Raster</code> object, then the argument to
+<code>solution</code> must also be a <code>Raster</code> object with
+the same dimensionality (rows and columns), resolution, extent, and
+coordinate reference system.
+Furthermore, if the planning unit data in <code>x</code> is a
+<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object then the
+argument to <code>solution</code> must also be a <code>Spatial</code>
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object (respectively) with the same spatial information
+(e.g. polygons and coordinate reference system), and contain columns
+corresponding to different zones, and cell values corresponding to the
+solution values.</p>
+<p>The argument to <code>solution</code> must also have missing (<code>NA</code>) values for planning
+units that have missing (<code>NA</code>) cost values.
+In other words, the solution must have missing (<code>NA</code>) values in the
+same elements, cells, or pixels (depending on the cost data format) as the
+planning unit cost data.
+For example, if the planning unit data are a <code>Raster</code> object,
+then the argument to <code>solution</code> must have missing (<code>NA</code>) values in
+the same pixels as the planning unit cost data.
+Similarly, if the planning unit data are a
+<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or <code>data.frame</code> object, then
+the solution must have missing (<code>NA</code>) values in the same cells
+as the planning unit cost data columns.
+If an argument is supplied to <code>solution</code> where
+the missing (<code>NA</code>) values in the argument to solution do not match
+those in the planning unit cost data, then an error will be thrown.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Cabeza M and Moilanen A (2006) Replacement cost: A practical measure of site
@@ -318,7 +338,7 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 132: 336--342.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='irreplaceability.html'>irreplaceability</a>.</p></div>
+    <div class='dont-index'><p><a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># seed seed for reproducibility</span>
@@ -350,11 +370,11 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 #&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='replacement_cost-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate irreplaceability scores</span>
-<span class='va'>rc1</span> <span class='op'>&lt;-</span> <span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_replacement_importance-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate importance scores</span>
+<span class='va'>rc1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 
-<span class='co'># print irreplaceability scores</span>
+<span class='co'># print importance scores</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rc1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
 #&gt; dimensions : 10, 10, 100  (nrow, ncol, ncell)
@@ -365,9 +385,9 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 #&gt; names      : layer 
 #&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
-<span class='co'># plot irreplaceability scores</span>
+<span class='co'># plot importance scores</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rc1</span>, main <span class='op'>=</span> <span class='st'>"replacement cost"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='replacement_cost-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_replacement_importance-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># since replacement cost scores can take a long time to calculate with</span>
 <span class='co'># binary decisions, we can calculate them using proportion-type</span>
@@ -380,11 +400,11 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='co'># calculate irreplaceability scores using proportion type decisions</span>
+<span class='co'># calculate importance scores using proportion type decisions</span>
 <span class='co'># \dontrun{</span>
-<span class='va'>rc2</span> <span class='op'>&lt;-</span> <span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s1</span><span class='op'>)</span>
+<span class='va'>rc2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s1</span><span class='op'>)</span>
 
-<span class='co'># print irreplaceability scores based on proportion type decisions</span>
+<span class='co'># print importance scores based on proportion type decisions</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>rc2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
 #&gt; dimensions : 10, 10, 100  (nrow, ncol, ncell)
@@ -395,12 +415,12 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 #&gt; names      : layer 
 #&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
-<span class='co'># plot irreplacability scores based on proportion type decisions</span>
-<span class='co'># we can see that the irreplaceability values in rc1 and rc2 are similar,</span>
+<span class='co'># plot importance scores based on proportion type decisions</span>
+<span class='co'># we can see that the importance values in rc1 and rc2 are similar,</span>
 <span class='co'># and this confirms that the proportion type decisions are a good</span>
 <span class='co'># approximation</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rc2</span>, main <span class='op'>=</span> <span class='st'>"replacement cost"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='replacement_cost-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_replacement_importance-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># build multi-zone conservation problem with binary decisions</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -429,16 +449,16 @@ value for cost-effective reserve planning. <em>Biological Conservation</em>,
 <span class='co'># status of each planning unit in a given zone</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"zone "</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='replacement_cost-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate irreplaceability scores</span>
-<span class='va'>rc3</span> <span class='op'>&lt;-</span> <span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_replacement_importance-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate importance scores</span>
+<span class='va'>rc3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_replacement_importance</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>)</span>
 
-<span class='co'># plot  irreplaceability</span>
+<span class='co'># plot importance</span>
 <span class='co'># each panel corresponds to a different zone, and data show the</span>
-<span class='co'># irreplaceability of each planning unit in a given zone</span>
+<span class='co'># importance of each planning unit in a given zone</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>rc3</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"zone "</span>, <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='replacement_cost-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_replacement_importance-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

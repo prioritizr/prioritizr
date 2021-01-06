@@ -205,8 +205,8 @@ cost data) using the <code><a href='feature_abundances.html'>feature_abundances(
     </tr>
     <tr>
       <th>targets</th>
-      <td><p>Object that specifies the targets for each feature. See the
-Details section for more information.</p></td>
+      <td><p>Object that specifies the targets for each feature.
+See the Targets data format section for more information.</p></td>
     </tr>
     </table>
 
@@ -223,7 +223,25 @@ planning problems require targets with the exception of the maximum cover
 (see <code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code>) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.</p>
-<p>The targets for a problem can be specified in several different ways:</p>
+<p>For problems associated with multiple management zones, this function can
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the <code><a href='add_manual_targets.html'>add_manual_targets()</a></code>
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.</p>
+    <h2 class="hasAnchor" id="targets-data-format"><a class="anchor" href="#targets-data-format"></a>Targets data format</h2>
+
+    
+
+<p>The targets for a problem can be specified using the following formats.</p>
 <dl>
 
 <dt><code>numeric</code></dt><dd><p><code>vector</code> of target values for each feature.
@@ -247,20 +265,6 @@ This argument must contain a field (column) name for each zone.</p></dd>
 
 </dl>
 
-<p>For problems associated with multiple management zones, this function can
-be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
-planning units to multiple zones, see the <code><a href='add_manual_targets.html'>add_manual_targets()</a></code>
-function. An example of a target that could be met through allocations
-to multiple zones might be where each management zone is expected to
-result in a different amount of a feature and the target requires that
-the total amount of the feature in all zones must exceed a certain
-threshold. In other words, the target does not require that any single
-zone secure a specific amount of the feature, but the total amount held
-in all zones must secure a specific amount. Thus the target could,
-potentially, be met through allocating all planning units to any specific
-management zone, or through allocating the planning units to different
-combinations of management zones.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='targets.html'>targets</a>.</p></div>
@@ -275,9 +279,10 @@ combinations of management zones.</p>
 <span class='co'># create base problem</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='co'># create problem with 10 % targets</span>
+<span class='co'># create problem with 10% targets</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'>add_relative_targets</span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
 
 <span class='co'># create problem with varying targets for each feature</span>
@@ -286,76 +291,16 @@ combinations of management zones.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x7b37a531
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 3e+01]
-#&gt; Found heuristic solution: objective 9439.1408525
-#&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.190939e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9190.93869    0    1 9439.14085 9190.93869  2.63%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: 9439.14 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.439140852480e+03, best bound 9.190938685954e+03, gap 2.6295%</div><div class='input'>
+
 <span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"10 % targets"</span>, <span class='st'>"varying targets"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"10% targets"</span>, <span class='st'>"varying targets"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_relative_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a problem with multiple management zones</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create a problem with targets that specify an equal amount of each feature</span>
 <span class='co'># to be represented in each zone</span>
@@ -375,37 +320,7 @@ combinations of management zones.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x60594edc
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 7019.1222763
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
-#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 6082.28 7019.12 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%</div><div class='input'>
+
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"equal targets"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='add_relative_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -426,37 +341,7 @@ combinations of management zones.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x60594edc
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 7019.1222763
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
-#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 6082.28 7019.12 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%</div><div class='input'>
+
 <span class='co'># plot solution (pixel values correspond to zone identifiers)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"varying targets"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='add_relative_targets-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

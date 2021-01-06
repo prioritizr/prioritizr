@@ -156,15 +156,15 @@
 <li>create a new conservation planning <a href="https://prioritizr.net/reference/problem.html">problem</a> by specifying the planning units, features, and management zones of conservation interest (e.g. species, ecosystems).</li>
 <li>add an <a href="https://prioritizr.net/reference/objectives.html">objective</a> to a conservation planning problem.</li>
 <li>add <a href="https://prioritizr.net/reference/targets.html">targets</a> to a problem to specify how much of each feature is desired or required to be conserved in the solutions.</li>
-<li>add. <a href="https://prioritizr.net/reference/constraints.html">constraints</a> to a conservation planning problem to ensure that solutions exhibit specific properties (e.g. select specific planning units for protection).</li>
+<li>add <a href="https://prioritizr.net/reference/constraints.html">constraints</a> to a conservation planning problem to ensure that solutions exhibit specific properties (e.g. select specific planning units for protection).</li>
 <li>add <a href="https://prioritizr.net/reference/penalties.html">penalties</a> to a problem to penalize solutions according to specific metric (e.g. connectivity).</li>
 <li>add <a href="https://prioritizr.net/reference/decisions.html">decisions</a> to a problem to specify the nature of the decisions in the problem.</li>
 <li>add methods to generate a <a href="https://prioritizr.net/reference/portfolios.html">portfolio</a> of solutions.</li>
-<li>add one of the <a href="https://prioritizr.net/reference/solvers.html">solvers</a> to a conservation problem to specify which software should be used to solve it and customize the optimization process.</li>
+<li>add a <a href="https://prioritizr.net/reference/solvers.html">solver</a> to a conservation problem to specify which software should be used to generate solutions and customize the optimization process.</li>
 <li>
 <a href="https://prioritizr.net/reference/solve.html">solve</a> a conservation problem.</li>
-<li>
-<a href="https://prioritizr.net/reference/evaluation.html">evaluate</a> a solution to a conservation planning problem</li>
+<li>evaluate a solution by computing <a href="https://prioritizr.net/reference/summaries.html">summary</a> statistics.</li>
+<li>evaluate the relative <a href="https://prioritizr.net/reference/importance.html">importance</a> (irreplaceability) of planning units selected in a solution.</li>
 </ul>
 </div>
 <div id="package-work-flow" class="section level2">
@@ -1371,8 +1371,8 @@
 ##   objective:      Minimum set objective 
 ##   targets:        Relative targets [targets (min: 0.3, max: 0.3)]
 ##   decisions:      default
-##   constraints:    &lt;Locked in planning units [317 locked units]
-##                    Locked out planning units [1 locked units]&gt;
+##   constraints:    &lt;Locked out planning units [1 locked units]
+##                    Locked in planning units [317 locked units]&gt;
 ##   penalties:      &lt;Boundary penalties [edge factor (min: 1, max: 1), penalty (1), zones]&gt;
 ##   portfolio:      default
 ##   solver:         default</code></pre>
@@ -1415,75 +1415,75 @@
 ##   portfolio:      default
 ##   solver:         default</code></pre>
 </div>
-<div id="evaluating-solutions" class="section level3">
+<div id="evaluate-the-performance-of-a-solution" class="section level3">
 <h3 class="hasAnchor">
-<a href="#evaluating-solutions" class="anchor"></a>Evaluating solutions</h3>
-<p>After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available for evaluating a solution:</p>
+<a href="#evaluate-the-performance-of-a-solution" class="anchor"></a>Evaluate the performance of a solution</h3>
+<p>After obtaining a solution to a conservation planning problem, it can be useful to calculate various summary statistics to understand its performance. The following functions are available to summarize a solution:</p>
 <ul>
 <li>Calculate the number of planning units selected within a solution.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_n.html">eval_n</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_n_summary.html">eval_n_summary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   statistic  cost
-##   &lt;chr&gt;     &lt;dbl&gt;
-## 1 overall      10</code></pre>
+##   summary  cost
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 overall    10</code></pre>
 <ul>
 <li>Calculate the total cost of a solution.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_cost.html">eval_cost</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_cost_summary.html">eval_cost_summary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   statistic  cost
-##   &lt;chr&gt;     &lt;dbl&gt;
-## 1 overall   2005.</code></pre>
+##   summary  cost
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 overall 2005.</code></pre>
 <ul>
 <li>Calculate how well features are represented by a solution. This function can be used for problems that are built using targets and those that are not built using targets.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate statistics</span>
-<span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
-##   statistic feature total_amount absolute_held relative_held
-##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 overall   layer.1         83.3          8.95         0.107
-## 2 overall   layer.2         31.2          3.22         0.103
-## 3 overall   layer.3         72.0          7.59         0.106
-## 4 overall   layer.4         42.7          4.34         0.102
-## 5 overall   layer.5         56.7          5.89         0.104</code></pre>
+##   summary feature total_amount absolute_held relative_held
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall layer.1         83.3          8.95         0.107
+## 2 overall layer.2         31.2          3.22         0.103
+## 3 overall layer.3         72.0          7.59         0.106
+## 4 overall layer.4         42.7          4.34         0.102
+## 5 overall layer.5         56.7          5.89         0.104</code></pre>
 <ul>
 <li>Calculate how well feature representation targets are met by a solution. This function can only be used with problems contain targets.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate statistics</span>
-<span class="fu"><a href="../reference/eval_target_coverage.html">eval_target_coverage</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_target_coverage_summary.html">eval_target_coverage_summary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 9
-##   feature total_amount absolute_target absolute_held absolute_shortfall
-##   &lt;chr&gt;          &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
-## 1 layer.1         83.3            8.33          8.95                  0
-## 2 layer.2         31.2            3.12          3.22                  0
-## 3 layer.3         72.0            7.20          7.59                  0
-## 4 layer.4         42.7            4.27          4.34                  0
-## 5 layer.5         56.7            5.67          5.89                  0
-##   relative_target relative_held relative_shortfall met  
-##             &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt; &lt;lgl&gt;
-## 1             0.1         0.107                  0 TRUE 
-## 2             0.1         0.103                  0 TRUE 
-## 3             0.1         0.106                  0 TRUE 
-## 4             0.1         0.102                  0 TRUE 
-## 5             0.1         0.104                  0 TRUE</code></pre>
+##   feature met   total_amount absolute_target absolute_held absolute_shortfall
+##   &lt;chr&gt;   &lt;lgl&gt;        &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
+## 1 layer.1 TRUE          83.3            8.33          8.95                  0
+## 2 layer.2 TRUE          31.2            3.12          3.22                  0
+## 3 layer.3 TRUE          72.0            7.20          7.59                  0
+## 4 layer.4 TRUE          42.7            4.27          4.34                  0
+## 5 layer.5 TRUE          56.7            5.67          5.89                  0
+##   relative_target relative_held relative_shortfall
+##             &lt;dbl&gt;         &lt;dbl&gt;              &lt;dbl&gt;
+## 1             0.1         0.107                  0
+## 2             0.1         0.103                  0
+## 3             0.1         0.106                  0
+## 4             0.1         0.102                  0
+## 5             0.1         0.104                  0</code></pre>
 <ul>
 <li>Calculate the exposed boundary length (perimeter) associated with a solution.</li>
 </ul>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate statistic</span>
-<span class="fu"><a href="../reference/eval_boundary.html">eval_boundary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_boundary_summary.html">eval_boundary_summary</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   statistic boundary
-##   &lt;chr&gt;        &lt;dbl&gt;
-## 1 overall       1.20</code></pre>
+##   summary boundary
+##   &lt;chr&gt;      &lt;dbl&gt;
+## 1 overall     1.20</code></pre>
 <ul>
 <li>Calculate the connectivity held within a solution.</li>
 </ul>
@@ -1491,20 +1491,20 @@
 <code class="sourceCode R"><span class="co"># calculate statistic</span>
 <span class="co"># here we use the raster data for the first feature as an example</span>
 <span class="co"># to parametrize pair-wise connectivity between different planning units</span>
-<span class="fu"><a href="../reference/eval_connectivity.html">eval_connectivity</a></span><span class="op">(</span><span class="va">p37</span>, <span class="va">s37</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>,
-                                                       <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/eval_connectivity_summary.html">eval_connectivity_summary</a></span><span class="op">(</span>
+  <span class="va">p37</span>, <span class="va">s37</span>, data <span class="op">=</span> <span class="fu"><a href="../reference/connectivity_matrix.html">connectivity_matrix</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 2
-##   statistic connectivity
-##   &lt;chr&gt;            &lt;dbl&gt;
-## 1 overall           1.97</code></pre>
+##   summary connectivity
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 overall         1.97</code></pre>
 </div>
-<div id="irreplaceability" class="section level3">
+<div id="importance-irreplaceability" class="section level3">
 <h3 class="hasAnchor">
-<a href="#irreplaceability" class="anchor"></a>Irreplaceability</h3>
-<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the “importance” or “priority” of each planning unit selected in a solution.</p>
-<p>The <em>prioritizr R</em> package offers three methods for calculating irreplaceability scores: replacement cost <span class="citation">(<code>replacement_cost</code>; Cabeza &amp; Moilanen 2006)</span>, Ferrier scores <span class="citation">(<code>ferrier_score</code>; Ferrier <em>et al.</em> 2000)</span>, and rarity weighted richness scores <span class="citation">(<code>rarity_weighted_richness</code>; Williams <em>et al.</em> 1996)</span>. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier irreplaceability scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic <em>Marxan</em>-type problem). Furthermore—unlike the replacement cost scores—the Ferrier irreplaceability scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.</p>
-<p>We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units), we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans <span class="citation">(Kirkpatrick 1983)</span>. There is also an experimental function for calculating irreplaceability using the Ferrier method. We do not recommend using this method until it has been verified by a statistical expert.</p>
-<p>Below we will generate a solution, and then calculate irreplaceability scores for the planning units selected in the solution using the three different approaches.</p>
+<a href="#importance-irreplaceability" class="anchor"></a>Importance (irreplaceability)</h3>
+<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use importance (irreplaceability) scores for each planning unit selected in a solution.</p>
+<p>The <em>prioritizr R</em> package offers multiple methods for assessing importance. These includes scores calculated based on replacement costs <span class="citation">(<code><a href="../reference/eval_replacement_importance.html">eval_replacement_importance()</a></code>; Cabeza &amp; Moilanen 2006)</span>, Ferrier <em>et al.</em> <span class="citation">(2000)</span> (<code><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance()</a></code>), and rarity weighted richness scores <span class="citation">(<code><a href="../reference/eval_rwr_importance.html">eval_rwr_importance()</a></code>; Williams <em>et al.</em> 1996)</span>. The replacement cost scores quantify the change in the objective function (e.g. additional costs required to meet feature targets) of the optimal solution if a given planning unit in a solution cannot be acquired. They can (i) account for the cost of different planning units, (ii) account for multiple management zones, (iii) apply to any objective function, and (iv) identify truly irreplaceable planning units (denoted with infinite values). The Ferrier scores quantify the importance of planning units for meeting feature targets. They can only be applied to conservation problems with a minimum set objective and a single zone (i.e. the classic <em>Marxan</em>-type problem). Furthermore—unlike the replacement cost scores—the Ferrier scores provide a score for each feature within each planning unit, providing insight into why certain planning units are more important than other planning units. The rarity weighted richness scores are simply a measure of biological diversity. They do not account for planning costs, multiple management zones, objective functions, or feature targets (or weightings). They merely describe the spatial patterns of biodiversity, and do not account for many of the factors needed to quantify the importance of a planning unit for achieving conservation goals.</p>
+<p>We recommend using replacement cost scores for small and moderate sized problems (e.g. less than 30,000 planning units) when it is feasible to do so. It can take a very long time to compute replacement cost scores, and so it is simply not feasible to compute these scores for particularly large problems. For moderate and large sized problems (e.g. more than 30,000 planning units), we recommend using the rarity weighted richness scores. Beware, it has been known for decades that such static measures of biodiversity lead to poor conservation plans <span class="citation">(Kirkpatrick 1983)</span>. Although the Ferrier method is also provided, we do not recommend using this method until it has been verified by a statistical expert.</p>
+<p>Below we will generate a solution, and then calculate importance scores for the planning units selected in the solution using the three different methods.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># formulate the problem</span>
 <span class="va">p38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/problem.html">problem</a></span><span class="op">(</span><span class="va">sim_pu_raster</span>, <span class="va">sim_features</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1554,21 +1554,21 @@
 <code class="sourceCode R"><span class="co"># calculate replacement cost scores and make the solver quiet</span>
 <span class="va">rc38</span> <span class="op">&lt;-</span> <span class="va">p38</span> <span class="op">%&gt;%</span>
         <span class="fu"><a href="../reference/add_default_solver.html">add_default_solver</a></span><span class="op">(</span>gap <span class="op">=</span> <span class="fl">0</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-        <span class="fu"><a href="../reference/replacement_cost.html">replacement_cost</a></span><span class="op">(</span><span class="va">s38</span><span class="op">)</span>
+        <span class="fu"><a href="../reference/eval_replacement_importance.html">eval_replacement_importance</a></span><span class="op">(</span><span class="va">s38</span><span class="op">)</span>
 
 <span class="co"># plot replacement cost scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rc38</span>, main <span class="op">=</span> <span class="st">"replacement cost"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-52-2.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate Ferrier irreplaceability scores and extract total score</span>
-<span class="va">fs38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ferrier_score.html">ferrier_score</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>
+<code class="sourceCode R"><span class="co"># calculate Ferrier scores and extract total score</span>
+<span class="va">fs38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_ferrier_importance.html">eval_ferrier_importance</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>
 
 <span class="co"># plot Ferrier scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">fs38</span>, main <span class="op">=</span> <span class="st">"Ferrier scores"</span><span class="op">)</span></code></pre></div>
 <p><img src="prioritizr_files/figure-html/unnamed-chunk-53-1.png" width="336" style="display: block; margin: auto;"></p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate rarity weighted richness scores</span>
-<span class="va">rwr38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rarity_weighted_richness.html">rarity_weighted_richness</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span>
+<span class="va">rwr38</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_rwr_importance.html">eval_rwr_importance</a></span><span class="op">(</span><span class="va">p38</span>, <span class="va">s38</span><span class="op">)</span>
 
 <span class="co"># plot replacement cost scores</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">rwr38</span>, main <span class="op">=</span> <span class="st">"rarity weighted richness"</span><span class="op">)</span></code></pre></div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate feature representation — eval_feature_representation • prioritizr</title>
+<title>Evaluate feature representation — eval_feature_representation_summary • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,10 @@
 
 
 
-<meta property="og:title" content="Evaluate feature representation — eval_feature_representation" />
+<meta property="og:title" content="Evaluate feature representation — eval_feature_representation_summary" />
 <meta property="og:description" content="Calculate how well features are represented by a solution
 to a conservation planning problem().
-This function reports information for each and every feature,
+These summary statistics are reported for each and every feature,
 and each and every zone, within a conservation planning problem." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
@@ -172,36 +172,36 @@ and each and every zone, within a conservation planning problem." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Evaluate feature representation</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_feature_representation.R'><code>R/eval_feature_representation.R</code></a></small>
-    <div class="hidden name"><code>eval_feature_representation.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_feature_representation_summary.R'><code>R/eval_feature_representation_summary.R</code></a></small>
+    <div class="hidden name"><code>eval_feature_representation_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Calculate how well features are represented by a solution
 to a conservation planning <code><a href='problem.html'>problem()</a></code>.
-This function reports information for each and every feature,
+These summary statistics are reported for each and every feature,
 and each and every zone, within a conservation planning problem.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,data.frame</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,sf</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span></pre>
+<span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,19 +224,18 @@ See the Solution format section for more information.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object describing feature representation.
-Here, each row describes a specific statistic (e.g. different management
-zone) for a specific feature.
+Here, each row describes a specific summary statistic
+(e.g. different management zone) for a specific feature.
 It contains the following columns:</p>
 <dl>
 
-<dt>statistic</dt><dd><p><code>character</code> description of the representation statistic.
-The representation statistics associated with the <code>"overall"</code> value
-in this column are calculated using entire solution
+<dt>summary</dt><dd><p><code>character</code> description of the summary statistic.
+The statistic associated with the <code>"overall"</code> value
+in this column is calculated using the entire solution
 (including all management zones if there are multiple zones).
-If multiple management zones are present, then representation statistics
-are also provided for each zone separately. In such cases,
-these statistics are associated with values, in this column,
-that correspond to the zone names.</p></dd>
+If multiple management zones are present, then summary statistics
+are also provided for each zone separately
+(indicated using zone names).</p></dd>
 
 <dt>feature</dt><dd><p><code>character</code> name of the feature.</p></dd>
 
@@ -305,7 +304,7 @@ the missing (<code>NA</code>) values in the argument to solution do not match
 those in the planning unit cost data, then an error will be thrown.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='evaluation.html'>evaluation</a>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='summaries.html'>summaries</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -324,7 +323,8 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>pu</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"spp1"</span>, <span class='st'>"spp2"</span><span class='op'>)</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create a solution</span>
 <span class='co'># specifically, a data.frame with a single column that contains</span>
@@ -343,13 +343,13 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; 9   1
 #&gt; 10  0</div><div class='input'>
 <span class='co'># calculate feature representation</span>
-<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 5</span><span>
-#&gt;   statistic feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   spp1            5.76          3.12         0.541
-#&gt; </span><span style='color: #555555;'>2</span><span> overall   spp2           33            14            0.424</div><div class='input'>
+#&gt;   summary feature total_amount absolute_held relative_held
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall spp1            5.76          3.12         0.541
+#&gt; </span><span style='color: #555555;'>2</span><span> overall spp2           33            14            0.424</div><div class='input'>
 <span class='co'># let's verify that feature representation calculations are correct</span>
 <span class='co'># by manually performing the calculations and compare the results with r1</span>
 <span class='co'>## calculate total amount for each feature</span>
@@ -376,27 +376,7 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem using an exact algorithm solver</span>
 <span class='va'>s1_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 2 rows, 9 columns and 17 nonzeros
-#&gt; Model fingerprint: 0xd4d755ee
-#&gt; Variable types: 0 continuous, 9 integer (9 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 6e+00]
-#&gt;   Objective range  [2e-01, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e-01, 3e+00]
-#&gt; Found heuristic solution: objective 1.4376479
-#&gt; Presolve removed 2 rows and 9 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolve: All rows and columns removed
-#&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 0.2 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.000000000000e-01, best bound 2.000000000000e-01, gap 0.0000%</div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1_2</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;    id      cost      spp1 spp2 solution_1
 #&gt; 1   1 0.2000000 0.8288314    4          1
 #&gt; 2   2        NA 0.7115770    3         NA
@@ -409,52 +389,24 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; 9   9 0.5121819 0.5083795    5          0
 #&gt; 10 10 0.9254660 0.6178138   NA          0</div><div class='input'>
 <span class='co'># calculate feature representation in this solution</span>
-<span class='va'>r1_2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1_2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r1_2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span>
+  <span class='va'>p1</span>, <span class='va'>s1_2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1_2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 5</span><span>
-#&gt;   statistic feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   spp1            5.76         0.829         0.144
-#&gt; </span><span style='color: #555555;'>2</span><span> overall   spp2           33            4             0.121</div><div class='input'>
+#&gt;   summary feature total_amount absolute_held relative_held
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall spp1            5.76         0.829         0.144
+#&gt; </span><span style='color: #555555;'>2</span><span> overall spp2           33            4             0.121</div><div class='input'>
 <span class='co'># build minimal conservation problem with raster data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve the problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
@@ -467,58 +419,29 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; values     : 0, 1  (min, max)
 #&gt; </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>)</span>
+<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 5</span><span>
-#&gt;   statistic feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   layer.1         83.3          8.91         0.107
-#&gt; </span><span style='color: #555555;'>2</span><span> overall   layer.2         31.2          3.13         0.100
-#&gt; </span><span style='color: #555555;'>3</span><span> overall   layer.3         72.0          7.34         0.102
-#&gt; </span><span style='color: #555555;'>4</span><span> overall   layer.4         42.7          4.35         0.102
-#&gt; </span><span style='color: #555555;'>5</span><span> overall   layer.5         56.7          6.01         0.106</div><div class='input'>
+#&gt;   summary feature total_amount absolute_held relative_held
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall layer.1         83.3          8.91         0.107
+#&gt; </span><span style='color: #555555;'>2</span><span> overall layer.2         31.2          3.13         0.100
+#&gt; </span><span style='color: #555555;'>3</span><span> overall layer.3         72.0          7.34         0.102
+#&gt; </span><span style='color: #555555;'>4</span><span> overall layer.4         42.7          4.35         0.102
+#&gt; </span><span style='color: #555555;'>5</span><span> overall layer.5         56.7          6.01         0.106</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_feature_representation-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_feature_representation_summary-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># build minimal conservation problem with polygon (Spatial) data</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xa41351c6
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.732564e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
-#&gt; H    0     0                    1792.5345202 1732.56396  3.35%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.53 2145.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792534520218e+03, best bound 1.732563961206e+03, gap 3.3456%</div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;       cost locked_in locked_out solution_1
@@ -529,60 +452,30 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; 5 214.0419     FALSE      FALSE          0
 #&gt; 6 213.7636     FALSE      FALSE          0</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 5</span><span>
-#&gt;   statistic feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   layer.1         74.5          8.05         0.108
-#&gt; </span><span style='color: #555555;'>2</span><span> overall   layer.2         28.1          2.83         0.101
-#&gt; </span><span style='color: #555555;'>3</span><span> overall   layer.3         64.9          6.65         0.103
-#&gt; </span><span style='color: #555555;'>4</span><span> overall   layer.4         38.2          3.87         0.101
-#&gt; </span><span style='color: #555555;'>5</span><span> overall   layer.5         50.7          5.41         0.107</div><div class='input'>
+#&gt;   summary feature total_amount absolute_held relative_held
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall layer.1         74.5          8.05         0.108
+#&gt; </span><span style='color: #555555;'>2</span><span> overall layer.2         28.1          2.83         0.101
+#&gt; </span><span style='color: #555555;'>3</span><span> overall layer.3         64.9          6.65         0.103
+#&gt; </span><span style='color: #555555;'>4</span><span> overall layer.4         38.2          3.87         0.101
+#&gt; </span><span style='color: #555555;'>5</span><span> overall layer.5         50.7          5.41         0.107</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s3</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_feature_representation-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_feature_representation_summary-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># build multi-zone conservation problem with raster data</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>,
                                   ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x68605ba0
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 12200.043064
-#&gt; Presolve removed 8 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 97 rows, 270 columns, 900 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.033167e+04, 39 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 10331.6670    0    4 12200.0431 10331.6670  15.3%     -    0s
-#&gt; H    0     0                    10667.271164 10331.6670  3.15%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (39 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 10667.3 12200 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.066727116441e+04, best bound 1.033166695246e+04, gap 3.1461%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterStack 
@@ -595,34 +488,34 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; max values :         1,         1,         1 
 #&gt; </div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
+<span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 5</span><span>
-#&gt;    statistic feature   total_amount absolute_held relative_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> overall   feature_1        250.          43.7          0.175
-#&gt; </span><span style='color: #555555;'> 2</span><span> overall   feature_2         93.6         16.2          0.173
-#&gt; </span><span style='color: #555555;'> 3</span><span> overall   feature_3        216.          36.1          0.167
-#&gt; </span><span style='color: #555555;'> 4</span><span> overall   feature_4        128.          23.4          0.183
-#&gt; </span><span style='color: #555555;'> 5</span><span> overall   feature_5        170.          30.4          0.179
-#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1    feature_1         83.3         16.0          0.192
-#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1    feature_2         31.2          5.13         0.164
-#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1    feature_3         72.0         13.0          0.181
-#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1    feature_4         42.7          7.06         0.166
-#&gt; </span><span style='color: #555555;'>10</span><span> zone_1    feature_5         56.7         11.2          0.197
-#&gt; </span><span style='color: #555555;'>11</span><span> zone_2    feature_1         83.3         14.7          0.177
-#&gt; </span><span style='color: #555555;'>12</span><span> zone_2    feature_2         31.2          5.03         0.161
-#&gt; </span><span style='color: #555555;'>13</span><span> zone_2    feature_3         72.0         11.7          0.163
-#&gt; </span><span style='color: #555555;'>14</span><span> zone_2    feature_4         42.7          8.02         0.188
-#&gt; </span><span style='color: #555555;'>15</span><span> zone_2    feature_5         56.7         10.4          0.183
-#&gt; </span><span style='color: #555555;'>16</span><span> zone_3    feature_1         83.3         13.0          0.156
-#&gt; </span><span style='color: #555555;'>17</span><span> zone_3    feature_2         31.2          6.08         0.195
-#&gt; </span><span style='color: #555555;'>18</span><span> zone_3    feature_3         72.0         11.4          0.158
-#&gt; </span><span style='color: #555555;'>19</span><span> zone_3    feature_4         42.7          8.33         0.195
-#&gt; </span><span style='color: #555555;'>20</span><span> zone_3    feature_5         56.7          8.87         0.156</div><div class='input'>
+#&gt;    summary feature   total_amount absolute_held relative_held
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> overall feature_1        250.          43.7          0.175
+#&gt; </span><span style='color: #555555;'> 2</span><span> overall feature_2         93.6         16.2          0.173
+#&gt; </span><span style='color: #555555;'> 3</span><span> overall feature_3        216.          36.1          0.167
+#&gt; </span><span style='color: #555555;'> 4</span><span> overall feature_4        128.          23.4          0.183
+#&gt; </span><span style='color: #555555;'> 5</span><span> overall feature_5        170.          30.4          0.179
+#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1  feature_1         83.3         16.0          0.192
+#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1  feature_2         31.2          5.13         0.164
+#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1  feature_3         72.0         13.0          0.181
+#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1  feature_4         42.7          7.06         0.166
+#&gt; </span><span style='color: #555555;'>10</span><span> zone_1  feature_5         56.7         11.2          0.197
+#&gt; </span><span style='color: #555555;'>11</span><span> zone_2  feature_1         83.3         14.7          0.177
+#&gt; </span><span style='color: #555555;'>12</span><span> zone_2  feature_2         31.2          5.03         0.161
+#&gt; </span><span style='color: #555555;'>13</span><span> zone_2  feature_3         72.0         11.7          0.163
+#&gt; </span><span style='color: #555555;'>14</span><span> zone_2  feature_4         42.7          8.02         0.188
+#&gt; </span><span style='color: #555555;'>15</span><span> zone_2  feature_5         56.7         10.4          0.183
+#&gt; </span><span style='color: #555555;'>16</span><span> zone_3  feature_1         83.3         13.0          0.156
+#&gt; </span><span style='color: #555555;'>17</span><span> zone_3  feature_2         31.2          6.08         0.195
+#&gt; </span><span style='color: #555555;'>18</span><span> zone_3  feature_3         72.0         11.4          0.158
+#&gt; </span><span style='color: #555555;'>19</span><span> zone_3  feature_4         42.7          8.33         0.195
+#&gt; </span><span style='color: #555555;'>20</span><span> zone_3  feature_5         56.7          8.87         0.156</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_feature_representation-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_feature_representation_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># build multi-zone conservation problem with polygon (sf) data</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_sf</span>, <span class='va'>sim_features_zones</span>,
@@ -630,42 +523,12 @@ those in the planning unit cost data, then an error will be thrown.</p>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>,
                                   ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xf5ca8602
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Found heuristic solution: objective 10551.252008
-#&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 8.973346e+03, 73 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 8973.34608    0    9 10551.2520 8973.34608  15.0%     -    0s
-#&gt; H    0     0                    9201.5595283 8973.34608  2.48%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (73 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 9201.56 10551.3 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.201559528348e+03, best bound 8.973346077498e+03, gap 2.4802%</div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 9 fields
@@ -688,43 +551,41 @@ those in the planning unit cost data, then an error will be thrown.</p>
 #&gt; 5                 0                 0 POLYGON ((0.4 1, 0.5 1, 0.5...
 #&gt; 6                 0                 0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
 <span class='co'># calculate feature representation in the solution</span>
-<span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation</span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                                        <span class='st'>"solution_1_zone_2"</span>,
-                                        <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span>
+  <span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 5</span><span>
-#&gt;    statistic feature   total_amount absolute_held relative_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> overall   feature_1        225.          40.4          0.179
-#&gt; </span><span style='color: #555555;'> 2</span><span> overall   feature_2         83.9         13.4          0.159
-#&gt; </span><span style='color: #555555;'> 3</span><span> overall   feature_3        195.          33.9          0.174
-#&gt; </span><span style='color: #555555;'> 4</span><span> overall   feature_4        114.          18.3          0.161
-#&gt; </span><span style='color: #555555;'> 5</span><span> overall   feature_5        154.          27.8          0.181
-#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1    feature_1         75.1         14.3          0.190
-#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1    feature_2         28.0          4.88         0.174
-#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1    feature_3         65.0         12.2          0.188
-#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1    feature_4         38.0          6.25         0.164
-#&gt; </span><span style='color: #555555;'>10</span><span> zone_1    feature_5         51.2          9.55         0.187
-#&gt; </span><span style='color: #555555;'>11</span><span> zone_2    feature_1         75.1         15.0          0.200
-#&gt; </span><span style='color: #555555;'>12</span><span> zone_2    feature_2         28.0          4.61         0.165
-#&gt; </span><span style='color: #555555;'>13</span><span> zone_2    feature_3         65.0         13.2          0.204
-#&gt; </span><span style='color: #555555;'>14</span><span> zone_2    feature_4         38.0          5.65         0.149
-#&gt; </span><span style='color: #555555;'>15</span><span> zone_2    feature_5         51.2         10.3          0.200
-#&gt; </span><span style='color: #555555;'>16</span><span> zone_3    feature_1         75.1         11.1          0.147
-#&gt; </span><span style='color: #555555;'>17</span><span> zone_3    feature_2         28.0          3.89         0.139
-#&gt; </span><span style='color: #555555;'>18</span><span> zone_3    feature_3         65.0          8.45         0.130
-#&gt; </span><span style='color: #555555;'>19</span><span> zone_3    feature_4         38.0          6.42         0.169
-#&gt; </span><span style='color: #555555;'>20</span><span> zone_3    feature_5         51.2          7.96         0.155</div><div class='input'>
+#&gt;    summary feature   total_amount absolute_held relative_held
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> overall feature_1        225.          40.4          0.179
+#&gt; </span><span style='color: #555555;'> 2</span><span> overall feature_2         83.9         13.4          0.159
+#&gt; </span><span style='color: #555555;'> 3</span><span> overall feature_3        195.          33.9          0.174
+#&gt; </span><span style='color: #555555;'> 4</span><span> overall feature_4        114.          18.3          0.161
+#&gt; </span><span style='color: #555555;'> 5</span><span> overall feature_5        154.          27.8          0.181
+#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1  feature_1         75.1         14.3          0.190
+#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1  feature_2         28.0          4.88         0.174
+#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1  feature_3         65.0         12.2          0.188
+#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1  feature_4         38.0          6.25         0.164
+#&gt; </span><span style='color: #555555;'>10</span><span> zone_1  feature_5         51.2          9.55         0.187
+#&gt; </span><span style='color: #555555;'>11</span><span> zone_2  feature_1         75.1         15.0          0.200
+#&gt; </span><span style='color: #555555;'>12</span><span> zone_2  feature_2         28.0          4.61         0.165
+#&gt; </span><span style='color: #555555;'>13</span><span> zone_2  feature_3         65.0         13.2          0.204
+#&gt; </span><span style='color: #555555;'>14</span><span> zone_2  feature_4         38.0          5.65         0.149
+#&gt; </span><span style='color: #555555;'>15</span><span> zone_2  feature_5         51.2         10.3          0.200
+#&gt; </span><span style='color: #555555;'>16</span><span> zone_3  feature_1         75.1         11.1          0.147
+#&gt; </span><span style='color: #555555;'>17</span><span> zone_3  feature_2         28.0          3.89         0.139
+#&gt; </span><span style='color: #555555;'>18</span><span> zone_3  feature_3         65.0          8.45         0.130
+#&gt; </span><span style='color: #555555;'>19</span><span> zone_3  feature_4         38.0          6.42         0.169
+#&gt; </span><span style='color: #555555;'>20</span><span> zone_3  feature_5         51.2          7.96         0.155</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
-<span class='va'>s5</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                                      <span class='st'>"solution_1_zone_2"</span>,
-                                      <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>s5</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span>
+  <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='va'>s5</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>[</span>, <span class='st'>"solution"</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_feature_representation-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_feature_representation_summary-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

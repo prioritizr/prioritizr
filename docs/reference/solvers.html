@@ -269,72 +269,42 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <span class='co'># searching for the optimal solution to 2 seconds</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://R-Forge.R-project.org/projects/rsymphony'>"Rsymphony"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>titles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>titles</span>, <span class='st'>"Rsymphony (2s)"</span><span class='op'>)</span>
-  <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>2</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>addLayer</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: Rsymphony</span></div><div class='input'>
 <span class='co'># create problem with added rsymphony solver and limit the time spent</span>
 <span class='co'># searching for the optimal solution to 5 seconds</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://R-Forge.R-project.org/projects/rsymphony'>"Rsymphony"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>titles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>titles</span>, <span class='st'>"Rsymphony (5s)"</span><span class='op'>)</span>
-  <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+  <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_rsymphony_solver.html'>add_rsymphony_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>5</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>addLayer</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 <span class='co'># if the gurobi is installed: create problem with added gurobi solver</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://www.gurobi.com'>"gurobi"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>titles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>titles</span>, <span class='st'>"gurobi (5s)"</span><span class='op'>)</span>
-  <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0.1</span>, presolve <span class='op'>=</span> <span class='fl'>2</span>, time_limit <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+  <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_gurobi_solver.html'>add_gurobi_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>5</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>addLayer</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: gurobi</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: slam</span></div><div class='input'>
 <span class='co'># if the cplexAPI is installed: create problem with added cplex solver</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'>"cplexAPI"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>titles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>titles</span>, <span class='st'>"cplexAPI (5s)"</span><span class='op'>)</span>
-  <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_cplex_solver.html'>add_cplex_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0.1</span>, time_limit <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>
+  <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_cplex_solver.html'>add_cplex_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>5</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>addLayer</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: cplexAPI</span></div><div class='input'>
 <span class='co'># if the lpsymphony is installed: create problem with added lpsymphony solver</span>
 <span class='co'># note that this solver is skipped on Linux systems due to instability</span>
 <span class='co'># issues</span>
 <span class='kw'>if</span> <span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='http://R-Forge.R-project.org/projects/rsymphony'>"lpsymphony"</a></span><span class='op'>)</span> <span class='op'>&amp;</span>
     <span class='fu'><a href='https://rdrr.io/r/base/Logic.html'>isTRUE</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Sys.info.html'>Sys.info</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>[[</span><span class='st'>"sysname"</span><span class='op'>]</span><span class='op'>]</span> <span class='op'>!=</span> <span class='st'>"Linux"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
   <span class='va'>titles</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>titles</span>, <span class='st'>"lpsymphony"</span><span class='op'>)</span>
-  <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0.1</span>, time_limit <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+  <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_lsymphony_solver.html'>add_lpsymphony_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>10</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
   <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>addLayer</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-
+</div><div class='output co'>#&gt; <span class='message'>Loading required package: lpsymphony</span></div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='va'>titles</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='solvers-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

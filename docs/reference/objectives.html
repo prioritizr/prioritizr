@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Problem objective — objectives • prioritizr</title>
+<title>Add an objective — objectives • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Problem objective — objectives" />
+<meta property="og:title" content="Add an objective — objectives" />
 <meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
 problem(). All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
@@ -173,7 +173,7 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Problem objective</h1>
+    <h1>Add an objective</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/objectives.R'><code>R/objectives.R</code></a></small>
     <div class="hidden name"><code>objectives.Rd</code></div>
     </div>
@@ -238,7 +238,9 @@ features as possible without exceeding a budget.</p></dd>
 
 <span class='co'># create base problem</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
+     <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
  <span class='co'># create problem with added minimum set objective</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -266,290 +268,7 @@ features as possible without exceeding a budget.</p></dd>
 <span class='co'># solve problems</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
            <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x13da37b0
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+02, 5e+02]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 94 columns, 454 nonzeros
-#&gt; Variable types: 0 continuous, 94 integer (94 binary)
-#&gt; Presolved: 5 rows, 94 columns, 454 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.999782e+00, 4 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    3.99978    0    2   -0.00000    3.99978      -     -    0s
-#&gt; H    0     0                       2.9997849    3.99978  33.3%     -    0s
-#&gt; H    0     0                       3.9997816    3.99978  0.00%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (4 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 3.99978 2.99978 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.999781560479e+00, best bound 3.999782101660e+00, gap 0.0000%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x90005173
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 4.942863e+00, 21 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    4.94286    0    5   -0.00000    4.94286      -     -    0s
-#&gt;      0     0    4.72292    0    6   -0.00000    4.72292      -     -    0s
-#&gt; H    0     0                       1.9990360    4.72292   136%     -    0s
-#&gt;      0     0    4.72179    0    8    1.99904    4.72179   136%     -    0s
-#&gt;      0     0    4.71233    0    7    1.99904    4.71233   136%     -    0s
-#&gt;      0     0    4.71121    0    8    1.99904    4.71121   136%     -    0s
-#&gt;      0     0    4.65989    0    8    1.99904    4.65989   133%     -    0s
-#&gt;      0     0    4.65922    0    8    1.99904    4.65922   133%     -    0s
-#&gt;      0     0    4.65845    0    9    1.99904    4.65845   133%     -    0s
-#&gt;      0     0    4.65831    0   10    1.99904    4.65831   133%     -    0s
-#&gt;      0     0    4.65830    0   11    1.99904    4.65830   133%     -    0s
-#&gt;      0     0    4.65756    0   13    1.99904    4.65756   133%     -    0s
-#&gt;      0     2    4.65687    0   13    1.99904    4.65687   133%     -    0s
-#&gt; H    6     4                       1.9990909    3.80905  90.5%   9.0    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 3
-#&gt;   StrongCG: 2
-#&gt;   RLT: 2
-#&gt; 
-#&gt; Explored 21 nodes (189 simplex iterations) in 0.05 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 1.99909 1.99904 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.999090896800e+00, best bound 1.999377040845e+00, gap 0.0143%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x06167115
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-01, 3e-01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 2e+03]
-#&gt; Found heuristic solution: objective 5.0000000
-#&gt; Found heuristic solution: objective 5.0000000
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.610918e-02, 19 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    0.05611    0    3    5.00000    0.05611  98.9%     -    0s
-#&gt; H    0     0                       0.3103042    0.05611  81.9%     -    0s
-#&gt; H    0     0                       0.3085453    0.05611  81.8%     -    0s
-#&gt; H    0     0                       0.3012559    0.05611  81.4%     -    0s
-#&gt;      0     0    0.05921    0    5    0.30126    0.05921  80.3%     -    0s
-#&gt; H    0     0                       0.3011751    0.05921  80.3%     -    0s
-#&gt; H    0     0                       0.2981442    0.05921  80.1%     -    0s
-#&gt; H    0     0                       0.2964803    0.05921  80.0%     -    0s
-#&gt;      0     0    0.06484    0    4    0.29648    0.06484  78.1%     -    0s
-#&gt;      0     0    0.27609    0    2    0.29648    0.27609  6.88%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   MIR: 4
-#&gt;   StrongCG: 3
-#&gt; 
-#&gt; Explored 1 nodes (45 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 7: 0.29648 0.298144 0.301175 ... 5
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.964803023750e-01, best bound 2.760925799731e-01, gap 6.8766%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
-#&gt; Model fingerprint: 0x19bea6ab
-#&gt; Variable types: 0 continuous, 103 integer (103 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [4e-06, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
-#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
-#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
-#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
-#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
-#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
-#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
-#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
-#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
-#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 3
-#&gt;   RLT: 1
-#&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 3.53632 2.94027 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
-#&gt; Model fingerprint: 0x3612cd77
-#&gt; Variable types: 0 continuous, 103 integer (103 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 7e+01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.016809e+02, 20 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0  201.68085    0    5   -0.00000  201.68085      -     -    0s
-#&gt; H    0     0                     136.2380565  201.68085  48.0%     -    0s
-#&gt;      0     0  197.58020    0    6  136.23806  197.58020  45.0%     -    0s
-#&gt;      0     0  197.51139    0    7  136.23806  197.51139  45.0%     -    0s
-#&gt;      0     0  197.48202    0    8  136.23806  197.48202  45.0%     -    0s
-#&gt;      0     0  197.47800    0    9  136.23806  197.47800  45.0%     -    0s
-#&gt;      0     0  197.47611    0    9  136.23806  197.47611  44.9%     -    0s
-#&gt;      0     0  197.45130    0    9  136.23806  197.45130  44.9%     -    0s
-#&gt;      0     0  197.44461    0   10  136.23806  197.44461  44.9%     -    0s
-#&gt;      0     0  197.43100    0   11  136.23806  197.43100  44.9%     -    0s
-#&gt;      0     0  197.42103    0   12  136.23806  197.42103  44.9%     -    0s
-#&gt;      0     0  197.42090    0   13  136.23806  197.42090  44.9%     -    0s
-#&gt;      0     0  197.41966    0   13  136.23806  197.41966  44.9%     -    0s
-#&gt;      0     0  187.93839    0   10  136.23806  187.93839  37.9%     -    0s
-#&gt;      0     2  187.59883    0   10  136.23806  187.59883  37.7%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 3
-#&gt;   StrongCG: 1
-#&gt;   RLT: 1
-#&gt; 
-#&gt; Explored 6 nodes (115 simplex iterations) in 0.03 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 136.238 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.362380564988e+02, best bound 1.362383942298e+02, gap 0.0002%</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x444be8ff
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 1e+00]
-#&gt;   Bounds range     [1e+00, 7e+01]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.867309e+01, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0   28.67309    0    1   -0.00000   28.67309      -     -    0s
-#&gt; H    0     0                      27.0219165   28.67309  6.11%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 27.0219 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.702191654378e+01, best bound 2.867309283818e+01, gap 6.1105%</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
      main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum features"</span>,

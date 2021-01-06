@@ -326,21 +326,21 @@
 <pre><code>## [1] 0.2884956</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>
+<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">[</span>, <span class="st">"solution_1"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 62 x 5
-##    statistic feature total_amount absolute_held relative_held
-##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall   veg1            33.9          5.97         0.176
-##  2 overall   veg2           170.          40.7          0.239
-##  3 overall   veg3            24.0          6.00         0.250
-##  4 overall   veg4            32.8         10.4          0.317
-##  5 overall   veg5            24.8          4.51         0.182
-##  6 overall   veg6            22.0          4.00         0.182
-##  7 overall   veg7            16.4          3.06         0.187
-##  8 overall   veg8            43.0          9.12         0.212
-##  9 overall   veg9           388.          95.3          0.245
-## 10 overall   veg10           14.5          5.91         0.407
+##    summary feature total_amount absolute_held relative_held
+##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall veg1            33.9          5.97         0.176
+##  2 overall veg2           170.          40.7          0.239
+##  3 overall veg3            24.0          6.00         0.250
+##  4 overall veg4            32.8         10.4          0.317
+##  5 overall veg5            24.8          4.51         0.182
+##  6 overall veg6            22.0          4.00         0.182
+##  7 overall veg7            16.4          3.06         0.187
+##  8 overall veg8            43.0          9.12         0.212
+##  9 overall veg9           388.          95.3          0.245
+## 10 overall veg10           14.5          5.91         0.407
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># visualize the solution by converting the solution to a spatial object</span>
@@ -391,21 +391,21 @@
 ## Found heuristic solution: objective 30263.129158
 ## Found heuristic solution: objective 12512.071934
 ## Presolve removed 1793 rows and 1168 columns
-## Presolve time: 0.04s
+## Presolve time: 0.03s
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## Found heuristic solution: objective 11803.383927
 ## Variable types: 0 continuous, 3110 integer (3110 binary)
 ## Presolved: 4565 rows, 3110 columns, 10169 nonzeros
 ## 
 ## 
-## Root relaxation: objective 1.076817e+04, 782 iterations, 0.06 seconds
+## Root relaxation: objective 1.076817e+04, 782 iterations, 0.04 seconds
 ## 
 ##     Nodes    |    Current Node    |     Objective Bounds      |     Work
 ##  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
 ## 
 ##      0     0 10768.1736    0  137 11803.3839 10768.1736  8.77%     -    0s
 ## 
-## Explored 0 nodes (782 simplex iterations) in 0.13 seconds
+## Explored 0 nodes (782 simplex iterations) in 0.08 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 11803.4 12512.1 30263.1 
@@ -414,21 +414,21 @@
 ## Best objective 1.180338392702e+04, best bound 1.076817364956e+04, gap 8.7705%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>
+<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">[</span>, <span class="st">"solution_1"</span><span class="op">]</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 62 x 5
-##    statistic feature         total_amount absolute_held relative_held
-##    &lt;chr&gt;     &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall   tas_features.1          33.9          5.97         0.176
-##  2 overall   tas_features.2         170.          40.7          0.239
-##  3 overall   tas_features.3          24.0          6.00         0.250
-##  4 overall   tas_features.4          32.8         10.4          0.317
-##  5 overall   tas_features.5          24.8          4.51         0.182
-##  6 overall   tas_features.6          22.0          4.00         0.182
-##  7 overall   tas_features.7          16.4          3.06         0.187
-##  8 overall   tas_features.8          43.0          9.12         0.212
-##  9 overall   tas_features.9         388.          95.3          0.245
-## 10 overall   tas_features.10         14.5          5.91         0.407
+##    summary feature         total_amount absolute_held relative_held
+##    &lt;chr&gt;   &lt;chr&gt;                  &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall tas_features.1          33.9          5.97         0.176
+##  2 overall tas_features.2         170.          40.7          0.239
+##  3 overall tas_features.3          24.0          6.00         0.250
+##  4 overall tas_features.4          32.8         10.4          0.317
+##  5 overall tas_features.5          24.8          4.51         0.182
+##  6 overall tas_features.6          22.0          4.00         0.182
+##  7 overall tas_features.7          16.4          3.06         0.187
+##  8 overall tas_features.8          43.0          9.12         0.212
+##  9 overall tas_features.9         388.          95.3          0.245
+## 10 overall tas_features.10         14.5          5.91         0.407
 ## # … with 52 more rows</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># visualize solution</span>

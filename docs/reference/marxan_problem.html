@@ -206,12 +206,12 @@ data (typically called <code>"pu.dat"</code>). If the argument to <code>x</code>
 and it must have the following columns:</p>
 <dl>
 
-<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each planning unit.
+<dt>id</dt><dd><p><code>integer</code> unique identifier for each planning unit.
 These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
 
-<dt><code>"cost"</code></dt><dd><p><code>numeric</code> cost of each planning unit.</p></dd>
+<dt>cost</dt><dd><p><code>numeric</code> cost of each planning unit.</p></dd>
 
-<dt><code>"status"</code></dt><dd><p><code>integer</code> indicating if each planning unit
+<dt>status</dt><dd><p><code>integer</code> indicating if each planning unit
 should not be locked in the solution (0) or if it should be locked in
 (2) or locked out (3) of the solution. Although <em>Marxan</em> allows
 planning units to be selected in the initial solution (using values of
@@ -237,15 +237,15 @@ must contain the columns listed below. Note that the argument to
 names</strong>---to specify the target for each feature.</p>
 <dl>
 
-<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
+<dt>id</dt><dd><p><code>integer</code> unique identifier for each feature
 These identifiers are used in the argument to <code>puvspr</code>.</p></dd>
 
-<dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
+<dt>name</dt><dd><p><code>character</code> name for each feature.</p></dd>
 
-<dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
+<dt>prop</dt><dd><p><code>numeric</code> relative target for each feature
 (optional).</p></dd>'
 
-<dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
+<dt>amount</dt><dd><p><code>numeric</code> absolute target for each
 feature (optional).</p></dd>
 
 
@@ -260,11 +260,11 @@ data file (conventionally called <code>"puvspr.dat"</code>). It must contain the
 following columns:</p>
 <dl>
 
-<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt>pu</dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-<dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
+<dt>species</dt><dd><p><code>integer</code> feature identifier.</p></dd>
 
-<dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+<dt>amount</dt><dd><p><code>numeric</code> amount of the feature in the
 planning unit.</p></dd>
 
 
@@ -280,11 +280,11 @@ data file (conventionally called <code>"bound.dat"</code>). It must contain the
 following columns:</p>
 <dl>
 
-<dt><code>"id1"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt>id1</dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-<dt><code>"id2"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt>id2</dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
 
-<dt><code>"boundary"</code></dt><dd><p><code>numeric</code> length of shared boundary
+<dt>boundary</dt><dd><p><code>numeric</code> length of shared boundary
 between the planning units identified in the previous two columns.</p></dd>
 
 
@@ -331,45 +331,12 @@ for <em>Marxan</em> input data, see the
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># create Marxan problem using Marxan input file</span>
 <span class='va'>input_file</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"extdata/input.dat"</span>, package <span class='op'>=</span> <span class='st'>"prioritizr"</span><span class='op'>)</span>
-<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>input_file</span><span class='op'>)</span>
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>input_file</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
-#&gt; Model fingerprint: 0x07b422d3
-#&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [5e-01, 4e+07]
-#&gt;   Objective range  [8e+03, 4e+07]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+07, 3e+09]
-#&gt; Warning: Model contains large rhs
-#&gt;          Consider reformulating model or setting NumericFocus parameter
-#&gt;          to avoid numerical issues.
-#&gt; Found heuristic solution: objective 1.221531e+10
-#&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.05s
-#&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
-#&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
-#&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.568885e+09, 496 iterations, 0.01 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9.5689e+09    0   20 1.2215e+10 9.5689e+09  21.7%     -    0s
-#&gt; H    0     0                    9.600192e+09 9.5689e+09  0.33%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (496 simplex iterations) in 0.09 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 9.60019e+09 1.22153e+10 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.600192354368e+09, best bound 9.568884517812e+09, gap 0.3261%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1
@@ -426,46 +393,12 @@ for <em>Marxan</em> input data, see the
 #&gt; 5  30  58     4000
 #&gt; 6  30  85     4000</div><div class='input'>
 <span class='co'># create problem without the boundary data</span>
-<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>pu_dat</span>, <span class='va'>spec_dat</span>, <span class='va'>puvspr_dat</span><span class='op'>)</span>
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>pu_dat</span>, <span class='va'>spec_dat</span>, <span class='va'>puvspr_dat</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 17 rows, 1751 columns and 4662 nonzeros
-#&gt; Model fingerprint: 0x0f760b30
-#&gt; Variable types: 0 continuous, 1751 integer (1751 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [5e-01, 4e+07]
-#&gt;   Objective range  [4e+02, 4e+07]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+07, 3e+09]
-#&gt; Warning: Model contains large rhs
-#&gt;          Consider reformulating model or setting NumericFocus parameter
-#&gt;          to avoid numerical issues.
-#&gt; Found heuristic solution: objective 1.219799e+10
-#&gt; Presolve removed 7 rows and 756 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 10 rows, 995 columns, 1984 nonzeros
-#&gt; Variable types: 0 continuous, 995 integer (992 binary)
-#&gt; Presolve removed 0 rows and 2 columns
-#&gt; Presolved: 10 rows, 993 columns, 1982 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.564575e+09, 23 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9.5646e+09    0    9 1.2198e+10 9.5646e+09  21.6%     -    0s
-#&gt; H    0     0                    9.662765e+09 9.5646e+09  1.02%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 9.66277e+09 1.2198e+10 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.662765473705e+09, best bound 9.564574962832e+09, gap 1.0162%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1
@@ -477,45 +410,12 @@ for <em>Marxan</em> input data, see the
 #&gt; 6 85 17890758.4      0 1110623 -4503872     FALSE      FALSE          0</div><div class='input'><span class='co'># }</span>
 <span class='co'># create problem with the boundary data and a boundary length modifier</span>
 <span class='co'># set to 5</span>
-<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>pu_dat</span>, <span class='va'>spec_dat</span>, <span class='va'>puvspr_dat</span>, <span class='va'>bound_dat</span>, <span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>marxan_problem</span><span class='op'>(</span><span class='va'>pu_dat</span>, <span class='va'>spec_dat</span>, <span class='va'>puvspr_dat</span>, <span class='va'>bound_dat</span>, <span class='fl'>5</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 10075 rows, 6780 columns and 24778 nonzeros
-#&gt; Model fingerprint: 0x968e6f70
-#&gt; Variable types: 0 continuous, 6780 integer (6780 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [5e-01, 4e+07]
-#&gt;   Objective range  [4e+04, 4e+07]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+07, 3e+09]
-#&gt; Warning: Model contains large rhs
-#&gt;          Consider reformulating model or setting NumericFocus parameter
-#&gt;          to avoid numerical issues.
-#&gt; Found heuristic solution: objective 1.222917e+10
-#&gt; Presolve removed 2499 rows and 1614 columns
-#&gt; Presolve time: 0.06s
-#&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
-#&gt; Variable types: 0 continuous, 5166 integer (5166 binary)
-#&gt; Presolved: 7576 rows, 5166 columns, 17226 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.586123e+09, 535 iterations, 0.02 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9.5861e+09    0   20 1.2229e+10 9.5861e+09  21.6%     -    0s
-#&gt; H    0     0                    9.617312e+09 9.5861e+09  0.32%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (535 simplex iterations) in 0.10 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 9.61731e+09 1.22292e+10 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 9.617312354368e+09, best bound 9.586122737736e+09, gap 0.3243%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;   id       cost status    xloc     yloc locked_in locked_out solution_1

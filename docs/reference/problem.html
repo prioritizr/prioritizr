@@ -293,12 +293,12 @@ type of argument is supplied to <code>features</code> then the argument
 argument should follow the conventions used by <em>Marxan</em>, wherein
 each row corresponds to a different feature. It must also contain the
 following columns:</p><dl>
-<dt><code>"id"</code></dt><dd><p><code>integer</code> unique identifier for each feature
+<dt>id</dt><dd><p><code>integer</code> unique identifier for each feature
 These identifiers are used in the argument to <code>rij</code>.</p></dd>
-<dt><code>"name"</code></dt><dd><p><code>character</code> name for each feature.</p></dd>
-<dt><code>"prop"</code></dt><dd><p><code>numeric</code> relative target for each feature
+<dt>name</dt><dd><p><code>character</code> name for each feature.</p></dd>
+<dt>prop</dt><dd><p><code>numeric</code> relative target for each feature
 (optional).</p></dd>
-<dt><code>"amount"</code></dt><dd><p><code>numeric</code> absolute target for each
+<dt>amount</dt><dd><p><code>numeric</code> absolute target for each
 feature (optional).</p></dd>
 
 </dl></li>
@@ -355,11 +355,11 @@ objects must follow the conventions used by <em>Marxan</em>. Note that the
 <code>"zone"</code> column is not needed for problems involving a single
 management zone. Specifically, the argument should contain the following
 columns:</p><dl>
-<dt><code>"pu"</code></dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
-<dt><code>"species"</code></dt><dd><p><code>integer</code> feature identifier.</p></dd>
-<dt><code>"zone"</code></dt><dd><p><code>integer</code> zone identifier (optional for
+<dt>pu</dt><dd><p><code>integer</code> planning unit identifier.</p></dd>
+<dt>species</dt><dd><p><code>integer</code> feature identifier.</p></dd>
+<dt>zone</dt><dd><p><code>integer</code> zone identifier (optional for
 problems involving a single zone).</p></dd>
-<dt><code>"amount"</code></dt><dd><p><code>numeric</code> amount of the feature in the
+<dt>amount</dt><dd><p><code>numeric</code> amount of the feature in the
 planning unit.</p></dd>
 
 </dl></td>
@@ -372,21 +372,21 @@ both <code>data.frame</code> objects and the problem being built contains
 multiple zones. Following conventions used in <code>MarZone</code>, this
 argument should contain the following columns:
 columns:</p><dl>
-<dt><code>"id"</code></dt><dd><p><code>integer</code> zone identifier.</p></dd>
-<dt><code>"name"</code></dt><dd><p><code>character</code> zone name.</p></dd>
+<dt>id</dt><dd><p><code>integer</code> zone identifier.</p></dd>
+<dt>name</dt><dd><p><code>character</code> zone name.</p></dd>
 
 </dl></td>
     </tr>
     <tr>
       <th>rij_matrix</th>
       <td><p><code>list</code> of <code>matrix</code> or
-<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code>
+<code>dgCMatrix</code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 <code>rij_matrix</code> can be a single <code>matrix</code> or
-<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code> when specifying a problem with a
+<code>dgCMatrix</code> when specifying a problem with a
 single management zone. This argument is only used when the argument
 to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></td>
     </tr>
@@ -410,7 +410,7 @@ cloud forest). The benefit that each feature derives from a planning unit
 can take a variety of forms, but is typically either occupancy (i.e.
 presence or absence) or area of occurrence within each planning unit.
 Finally, in some types of reserve design models, representation targets
-must be set for each conservation feature, such as 20 % of the current
+must be set for each conservation feature, such as 20% of the current
 extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
 (see <a href='targets.html'>targets</a>).</p>
 <p>The goal of the reserve design exercise is then to optimize the trade-off
@@ -452,7 +452,7 @@ millions of planning units.</p>
     <div class='dont-index'><p><a href='constraints.html'>constraints</a>, <a href='decisions.html'>decisions</a>,
 <a href='objectives.html'>objectives</a> <a href='penalties.html'>penalties</a>,
 <a href='portfolios.html'>portfolios</a>, <a href='solvers.html'>solvers</a>, <a href='targets.html'>targets</a>,
-<a href='evaluation.html'>evaluation</a>, <a href='irreplaceability.html'>irreplaceability</a>.</p></div>
+<a href='summaries.html'>summaries</a>, <a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
@@ -463,32 +463,37 @@ millions of planning units.</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># create problem using polygon (Spatial) planning unit data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem using line (Spatial) planning unit data</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_lines</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem using point (Spatial) planning unit data</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_points</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem using polygon (sf) planning unit data</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># add columns to polygon planning unit data representing the abundance</span>
 <span class='co'># of species inside them</span>
@@ -502,7 +507,8 @@ millions of planning units.</p>
               <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># alternatively one can supply pre-processed aspatial data</span>
 <span class='va'>costs</span> <span class='op'>&lt;-</span> <span class='va'>sim_pu_polygons</span><span class='op'>$</span><span class='va'>cost</span>
@@ -512,227 +518,18 @@ millions of planning units.</p>
 <span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>costs</span>, <span class='va'>features</span>, rij_matrix <span class='op'>=</span> <span class='va'>rij_mat</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xac25e0fe
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4544.4850483
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3988.81 4544.49 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x8a299781
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 3934.6218396
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
-#&gt; H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3585.96 3934.62 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xa1a8c941
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 4e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+01, 4e+01]
-#&gt; Found heuristic solution: objective 4956.5525338
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.632170e+03, 2 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2632.17034    0    2 4956.55253 2632.17034  46.9%     -    0s
-#&gt; H    0     0                    2656.9214044 2632.17034  0.93%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (2 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2656.92 4956.55 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.656921404445e+03, best bound 2.632170339948e+03, gap 0.9316%</div><div class='input'><span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xc281cda7
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 3934.6218396
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
-#&gt; H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3585.96 3934.62 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x8a299781
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 3934.6218396
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
-#&gt; H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3585.96 3934.62 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'><span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 3 rows, 90 columns and 259 nonzeros
-#&gt; Model fingerprint: 0x315ee794
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e+00, 2e+01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [4e+01, 1e+02]
-#&gt; Found heuristic solution: objective 3735.0477670
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 3 rows, 90 columns, 259 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.635757e+03, 6 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2635.75660    0    3 3735.04777 2635.75660  29.4%     -    0s
-#&gt; H    0     0                    2814.6987646 2635.75660  6.36%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (6 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2814.7 3735.05 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.814698764626e+03, best bound 2.635756597764e+03, gap 6.3574%</div><div class='input'><span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x8a299781
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 1e+01]
-#&gt; Found heuristic solution: objective 3934.6218396
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.496032e+03, 16 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3496.03193    0    4 3934.62184 3496.03193  11.1%     -    0s
-#&gt; H    0     0                    3585.9601335 3496.03193  2.51%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (16 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3585.96 3934.62 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.585960133519e+03, best bound 3.496031931890e+03, gap 2.5078%</div><div class='input'>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+<span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
+<span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
+<span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
+<span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
+<span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
+
 <span class='co'># plot solutions for problems associated with spatial data</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span>, mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>4.1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"raster data"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -759,7 +556,7 @@ millions of planning units.</p>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00201
+#&gt;  - attr(*, "runtime")= Named num 0.00169
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'><span class='co'># }</span>
 <span class='co'># create some problems with multiple zones</span>
 
@@ -777,51 +574,21 @@ millions of planning units.</p>
 <span class='co'># print targets</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
-#&gt; feature_1      2      0      2
-#&gt; feature_2      1      2      0
-#&gt; feature_3      0      1      0
-#&gt; feature_4      0      0      2
-#&gt; feature_5      1      4      3</div><div class='input'>
+#&gt; feature_1      1      1      1
+#&gt; feature_2      3      2      1
+#&gt; feature_3      0      0      0
+#&gt; feature_4      3      1      0
+#&gt; feature_5      1      2      3</div><div class='input'>
 <span class='co'># create a multi-zone problem with raster data</span>
 <span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xfdcb2e28
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 4e+00]
-#&gt; Found heuristic solution: objective 3541.8192145
-#&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.788200e+03, 13 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2788.19959    0    6 3541.81921 2788.19959  21.3%     -    0s
-#&gt; H    0     0                    2986.8059710 2788.19959  6.65%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2986.81 3541.82 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.986805971038e+03, best bound 2.788199587287e+03, gap 6.6495%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='co'># here, each layer/panel corresponds to a different zone and pixel values</span>
 <span class='co'># indicate if a given planning unit has been allocated to a given zone</span>
@@ -839,42 +606,12 @@ millions of planning units.</p>
               cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve problem</span>
 <span class='va'>s9</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p9</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x4a3070f6
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 4e+00]
-#&gt; Found heuristic solution: objective 3541.8192145
-#&gt; Presolve removed 9 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 96 rows, 270 columns, 810 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.788200e+03, 13 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2788.19959    0    6 3541.81921 2788.19959  21.3%     -    0s
-#&gt; H    0     0                    2986.8059710 2788.19959  6.65%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (13 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2986.81 3541.82 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.986805971038e+03, best bound 2.788199587287e+03, gap 6.6495%</div><div class='input'>
+
 <span class='co'># create column containing the zone id for which each planning unit was</span>
 <span class='co'># allocated to in the solution</span>
 <span class='va'>s9</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s9</span><span class='op'>@</span><span class='va'>data</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
@@ -912,28 +649,12 @@ millions of planning units.</p>
                cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
        <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
        <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+       <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve problem</span>
 <span class='va'>s10</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 96 rows, 180 columns and 518 nonzeros
-#&gt; Model fingerprint: 0x6a12431b
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e+00, 5e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+00]
-#&gt; Presolve removed 29 rows and 31 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 67 rows, 149 columns, 353 nonzeros
-#&gt; 
-#&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   1.250000e+00   0.000000e+00      0s
-#&gt;        4    2.3728802e+02   0.000000e+00   0.000000e+00      0s
-#&gt; 
-#&gt; Solved in 4 iterations and 0.00 seconds
-#&gt; Optimal objective  2.372880229e+02</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s10</span>, zcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_z1"</span>, <span class='st'>"solution_1_z2"</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>,
        axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>

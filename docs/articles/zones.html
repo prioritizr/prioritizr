@@ -211,16 +211,16 @@
 ## Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span>
+<span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">s1</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 5 x 5
-##   statistic feature total_amount absolute_held relative_held
-##   &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-## 1 overall   layer.1         83.3          8.91         0.107
-## 2 overall   layer.2         31.2          3.13         0.100
-## 3 overall   layer.3         72.0          7.34         0.102
-## 4 overall   layer.4         42.7          4.35         0.102
-## 5 overall   layer.5         56.7          6.01         0.106</code></pre>
+##   summary feature total_amount absolute_held relative_held
+##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+## 1 overall layer.1         83.3          8.91         0.107
+## 2 overall layer.2         31.2          3.13         0.100
+## 3 overall layer.3         72.0          7.34         0.102
+## 4 overall layer.4         42.7          4.35         0.102
+## 5 overall layer.5         56.7          6.01         0.106</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">s1</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -333,26 +333,26 @@
 ## Best objective 3.174668195776e+03, best bound 2.911333350606e+03, gap 8.2949%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
+<span class="va">r2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p2</span>, <span class="va">s2</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 5
-##    statistic feature total_amount absolute_held relative_held
-##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall   1              167.          14.1         0.0845
-##  2 overall   2               62.4          4.97        0.0797
-##  3 overall   3              144.          11.5         0.0801
-##  4 overall   4               85.3          6.78        0.0795
-##  5 overall   5              113.           9.64        0.0850
-##  6 zone 1    1               83.3          8.93        0.107 
-##  7 zone 1    2               31.2          3.13        0.100 
-##  8 zone 1    3               72.0          7.44        0.103 
-##  9 zone 1    4               42.7          4.27        0.100 
-## 10 zone 1    5               56.7          5.97        0.105 
-## 11 zone 2    1               83.3          5.15        0.0618
-## 12 zone 2    2               31.2          1.84        0.0590
-## 13 zone 2    3               72.0          4.08        0.0567
-## 14 zone 2    4               42.7          2.52        0.0590
-## 15 zone 2    5               56.7          3.67        0.0648</code></pre>
+##    summary feature total_amount absolute_held relative_held
+##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall 1              167.          14.1         0.0845
+##  2 overall 2               62.4          4.97        0.0797
+##  3 overall 3              144.          11.5         0.0801
+##  4 overall 4               85.3          6.78        0.0795
+##  5 overall 5              113.           9.64        0.0850
+##  6 zone 1  1               83.3          8.93        0.107 
+##  7 zone 1  2               31.2          3.13        0.100 
+##  8 zone 1  3               72.0          7.44        0.103 
+##  9 zone 1  4               42.7          4.27        0.100 
+## 10 zone 1  5               56.7          5.97        0.105 
+## 11 zone 2  1               83.3          5.15        0.0618
+## 12 zone 2  2               31.2          1.84        0.0590
+## 13 zone 2  3               72.0          4.08        0.0567
+## 14 zone 2  4               42.7          2.52        0.0590
+## 15 zone 2  5               56.7          3.67        0.0648</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="co"># here we use the category layer function to generate raster showing the zone</span>
@@ -433,26 +433,26 @@
 ## Best objective 2.958120150795e+03, best bound 2.884871999973e+03, gap 2.4762%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span>
+<span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p3</span>, <span class="va">s3</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 15 x 5
-##    statistic feature total_amount absolute_held relative_held
-##    &lt;chr&gt;     &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 overall   1              125.         11.1          0.0891
-##  2 overall   2               46.8         3.92         0.0838
-##  3 overall   3              108.          9.28         0.0860
-##  4 overall   4               64.0         5.37         0.0839
-##  5 overall   5               85.1         7.46         0.0877
-##  6 1         1               83.3         8.94         0.107 
-##  7 1         2               31.2         3.13         0.100 
-##  8 1         3               72.0         7.42         0.103 
-##  9 1         4               42.7         4.29         0.101 
-## 10 1         5               56.7         6.01         0.106 
-## 11 2         1               41.6         2.19         0.0527
-## 12 2         2               15.6         0.794        0.0509
-## 13 2         3               36.0         1.87         0.0519
-## 14 2         4               21.3         1.08         0.0505
-## 15 2         5               28.4         1.44         0.0509</code></pre>
+##    summary feature total_amount absolute_held relative_held
+##    &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 overall 1              125.         11.1          0.0891
+##  2 overall 2               46.8         3.92         0.0838
+##  3 overall 3              108.          9.28         0.0860
+##  4 overall 4               64.0         5.37         0.0839
+##  5 overall 5               85.1         7.46         0.0877
+##  6 1       1               83.3         8.94         0.107 
+##  7 1       2               31.2         3.13         0.100 
+##  8 1       3               72.0         7.42         0.103 
+##  9 1       4               42.7         4.29         0.101 
+## 10 1       5               56.7         6.01         0.106 
+## 11 2       1               41.6         2.19         0.0527
+## 12 2       2               15.6         0.794        0.0509
+## 13 2       3               36.0         1.87         0.0519
+## 14 2       4               21.3         1.08         0.0505
+## 15 2       5               28.4         1.44         0.0509</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># plot solution</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/category_layer.html">category_layer</a></span><span class="op">(</span><span class="va">s3</span><span class="op">)</span>, main <span class="op">=</span> <span class="st">"solution"</span>, axes <span class="op">=</span> <span class="cn">FALSE</span>, box <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
@@ -551,10 +551,10 @@
 ## Best objective 3.800000000000e+03, best bound 3.700000000000e+03, gap 2.6316%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span>
+<span class="va">r4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p4</span>, <span class="va">s4</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r4</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 5
-##    statistic  feature total_amount absolute_held relative_held
+##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           18.3          0.157
 ##  2 overall    layer.2        43.7           8.19         0.187
@@ -664,10 +664,10 @@
 ## Best objective 7.000000000000e+03, best bound 7.000000000000e+03, gap 0.0000%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span>
+<span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p5</span>, <span class="va">s5</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r5</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 5
-##    statistic  feature total_amount absolute_held relative_held
+##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           21.8          0.187
 ##  2 overall    layer.2        43.7           8.04         0.184
@@ -769,7 +769,7 @@
 ## H    0     0                    11300.000000 10054.0986  11.0%     -    0s
 ## H    0     0                    10264.000000 10054.0986  2.05%     -    0s
 ## 
-## Explored 1 nodes (825 simplex iterations) in 0.05 seconds
+## Explored 1 nodes (825 simplex iterations) in 0.06 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 3: 10264 11300 20096 
@@ -778,10 +778,10 @@
 ## Best objective 1.026400000000e+04, best bound 1.005600000000e+04, gap 2.0265%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
+<span class="va">r6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p6</span>, <span class="va">s6</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r6</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 5
-##    statistic  feature total_amount absolute_held relative_held
+##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           22.0          0.188
 ##  2 overall    layer.2        43.7           8.00         0.183
@@ -871,7 +871,7 @@
 ##      0     0 13230.9255    0  102 19600.0000 13230.9255  32.5%     -    0s
 ## H    0     0                    13260.000000 13230.9255  0.22%     -    0s
 ## 
-## Explored 1 nodes (403 simplex iterations) in 0.03 seconds
+## Explored 1 nodes (403 simplex iterations) in 0.02 seconds
 ## Thread count was 1 (of 4 available processors)
 ## 
 ## Solution count 2: 13260 19600 
@@ -880,10 +880,10 @@
 ## Best objective 1.326000000000e+04, best bound 1.323200000000e+04, gap 0.2112%</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate feature representation</span>
-<span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation.html">eval_feature_representation</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span>
+<span class="va">r7</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_feature_representation_summary.html">eval_feature_representation_summary</a></span><span class="op">(</span><span class="va">p7</span>, <span class="va">s7</span><span class="op">)</span>
 <span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">r7</span><span class="op">)</span></code></pre></div>
 <pre><code>## # A tibble: 20 x 5
-##    statistic  feature total_amount absolute_held relative_held
+##    summary    feature total_amount absolute_held relative_held
 ##    &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
 ##  1 overall    layer.1       117.           23.4         0.201 
 ##  2 overall    layer.2        43.7           8.04        0.184 

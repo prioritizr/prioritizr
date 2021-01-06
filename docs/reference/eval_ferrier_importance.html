@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ferrier irreplaceability score — ferrier_score • prioritizr</title>
+<title>Evaluate solution importance using Ferrier scores — eval_ferrier_importance • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,18 +52,13 @@
 
 
 
-<meta property="og:title" content="Ferrier irreplaceability score — ferrier_score" />
-<meta property="og:description" content="Calculate irreplaceability scores for planning units selected in
-a solution using the method outlined in Ferrier et al. (2000).
-Here, scores are calculated separately for each feature within
-each planning unit. Additionally, a total irreplaceability score is also
-calculated as the sum of the irreplaceability scores for each planning unit.
-Note that this function only works for problems with
-a minimum set objective and a single zone.
-It will throw an error for other types of problems. Please note that
-the mathematical formulation for computing these scores needs to be double
-checked by an expert, and so this functionality should be considered
-experimental at this point in time." />
+<meta property="og:title" content="Evaluate solution importance using Ferrier scores — eval_ferrier_importance" />
+<meta property="og:description" content="Calculate importance scores for planning units selected in
+a solution following Ferrier et al. (2000).
+Please note that
+the mathematical formulation for computing these scores needs verification,
+and so this functionality should be considered experimental at this point in
+time." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -178,41 +173,36 @@ experimental at this point in time." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Ferrier irreplaceability score</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/ferrier_score.R'><code>R/ferrier_score.R</code></a></small>
-    <div class="hidden name"><code>ferrier_score.Rd</code></div>
+    <h1>Evaluate solution importance using Ferrier scores</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_ferrier_importance.R'><code>R/eval_ferrier_importance.R</code></a></small>
+    <div class="hidden name"><code>eval_ferrier_importance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate irreplaceability scores for planning units selected in
-a solution using the method outlined in Ferrier <em>et al.</em> (2000).
-Here, scores are calculated separately for each feature within
-each planning unit. Additionally, a total irreplaceability score is also
-calculated as the sum of the irreplaceability scores for each planning unit.
-Note that this function only works for problems with
-a minimum set objective and a single zone.
-It will throw an error for other types of problems. <strong>Please note that
-the mathematical formulation for computing these scores needs to be double
-checked by an expert, and so this functionality should be considered
-experimental at this point in time.</strong></p>
+    <p>Calculate importance scores for planning units selected in
+a solution following Ferrier <em>et al.</em> (2000).
+<strong>Please note that
+the mathematical formulation for computing these scores needs verification,
+and so this functionality should be considered experimental at this point in
+time.</strong></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,numeric</span>
-<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,matrix</span>
-<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,data.frame</span>
-<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Spatial</span>
-<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># S4 method for ConservationProblem,Raster</span>
-<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span></pre>
+<span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,8 +214,11 @@ experimental at this point in time.</strong></p>
     <tr>
       <th>solution</th>
       <td><p><code>numeric</code>, <code>matrix</code>, <code>data.frame</code>,
-<code>Raster</code>, or <code>Spatial</code>
-object. See the Details section for more information.</p></td>
+<code>Raster</code>, <code>Spatial</code>,
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object.
+The argument should be in the same format as the planning unit cost
+data in the argument to <code>x</code>.
+See the Solution format section for more information.</p></td>
     </tr>
     </table>
 
@@ -234,32 +227,61 @@ object. See the Details section for more information.</p></td>
     <p>A <code>matrix</code>, <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code>,
 <code>RasterLayer</code>, or
 <code>Spatial</code> object containing the scores for each
-planning unit selected in the solution.</p>
+planning unit selected in the solution.
+Specifically, the returned object is in the
+same format (except if the planning units are a <code>numeric</code> vector) as the
+planning unit data in the argument to <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The argument to <code>solution</code> must correspond
-to the planning unit data in the argument to <code>x</code> in terms
-of data representation, dimensionality, and spatial attributes (if
-applicable). This means that if the planning unit data in <code>x</code>
-is a <code>numeric</code> vector then the argument to <code>solution</code> must be a
-<code>numeric</code> vector with the same number of elements, if the planning
-unit data in <code>x</code> is a <code>RasterLayer</code> then the
-argument to <code>solution</code> must also be a
-<code>RasterLayer</code> with the same number of rows and
-columns and the same resolution, extent, and coordinate reference system,
-if the planning unit data in <code>x</code> is a <code>Spatial</code>
-object then the argument to <code>solution</code> must also be a
-<code>Spatial</code> object and have the same number of spatial
-features (e.g. polygons) and have the same coordinate reference system,
-if the planning units in <code>x</code> are a <code>data.frame</code> then the
+    <p>Importance scores are reported separately for each feature within
+each planning unit. Additionally, a total importance score is also
+calculated as the sum of the scores for each feature.
+Note that this function only works for problems with
+a minimum set objective and a single zone.
+It will throw an error for other types of problems that do not meet
+this specification.</p>
+    <h2 class="hasAnchor" id="solution-format"><a class="anchor" href="#solution-format"></a>Solution format</h2>
+
+    
+
+<p>The argument to <code>solution</code> must be in the same format as
+the planning unit data in the argument to <code>x</code>
+(e.g. in terms of data representation, dimensionality, and spatial
+attributes).
+For example, if the planning unit data in <code>x</code> is a <code>numeric</code>
+vector, then the argument to <code>solution</code> must be a <code>numeric</code> vector
+with the same number of elements.
+Similarly, if the planning units in <code>x</code> are a <code>data.frame</code>, then the
 argument to <code>solution</code> must also be a <code>data.frame</code> with each
-column correspond to a different zone and each row correspond to
-a different planning unit, and values correspond to the allocations
-(e.g. values of zero or one). Furthermore, solutions must have planning
-unit statuses set to missing (<code>NA</code>)
-values for planning units that have missing (<code>NA</code>) cost data.
-If an argument is supplied to
-<code>solution</code> where this is not the case, then an error will be thrown.</p>
+column corresponding to a different zone, each row corresponding to a
+different planning unit, and cell values corresponding to the solution value.
+Additionally, if the planning unit data in <code>x</code> is
+a <code>Raster</code> object, then the argument to
+<code>solution</code> must also be a <code>Raster</code> object with
+the same dimensionality (rows and columns), resolution, extent, and
+coordinate reference system.
+Furthermore, if the planning unit data in <code>x</code> is a
+<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object then the
+argument to <code>solution</code> must also be a <code>Spatial</code>
+or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object (respectively) with the same spatial information
+(e.g. polygons and coordinate reference system), and contain columns
+corresponding to different zones, and cell values corresponding to the
+solution values.</p>
+<p>The argument to <code>solution</code> must also have missing (<code>NA</code>) values for planning
+units that have missing (<code>NA</code>) cost values.
+In other words, the solution must have missing (<code>NA</code>) values in the
+same elements, cells, or pixels (depending on the cost data format) as the
+planning unit cost data.
+For example, if the planning unit data are a <code>Raster</code> object,
+then the argument to <code>solution</code> must have missing (<code>NA</code>) values in
+the same pixels as the planning unit cost data.
+Similarly, if the planning unit data are a
+<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or <code>data.frame</code> object, then
+the solution must have missing (<code>NA</code>) values in the same cells
+as the planning unit cost data columns.
+If an argument is supplied to <code>solution</code> where
+the missing (<code>NA</code>) values in the argument to solution do not match
+those in the planning unit cost data, then an error will be thrown.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ferrier S, Pressey RL, and Barrett TW (2000) A new predictor of the
@@ -268,7 +290,7 @@ to real-world planning, and a research agenda for further refinement.
 <em>Biological Conservation</em>, 93: 303--325.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><a href='irreplaceability.html'>irreplaceability</a>.</p></div>
+    <div class='dont-index'><p><a href='importance.html'>importance</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># seed seed for reproducibility</span>
@@ -300,14 +322,14 @@ to real-world planning, and a research agenda for further refinement.
 #&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='ferrier_score-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate irreplaceability scores using Ferrier et al. 2000 method</span>
-<span class='va'>fs1</span> <span class='op'>&lt;-</span> <span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_ferrier_importance-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># calculate importance scores using Ferrier et al. 2000 method</span>
+<span class='va'>fs1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_ferrier_importance</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 
-<span class='co'># print irreplaceability scores,</span>
-<span class='co'># each planning unit has an irreplaceability score for each feature</span>
+<span class='co'># print importance scores,</span>
+<span class='co'># each planning unit has an importance score for each feature</span>
 <span class='co'># (as indicated by the column names) and each planning unit also</span>
-<span class='co'># has an overall total irreplaceability score (in the "total" column)</span>
+<span class='co'># has an overall total importance score (in the "total" column)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>fs1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterStack 
 #&gt; dimensions : 10, 10, 100, 6  (nrow, ncol, ncell, nlayers)
@@ -318,9 +340,9 @@ to real-world planning, and a research agenda for further refinement.
 #&gt; min values :          0,          0,          0,          0,          0,          0 
 #&gt; max values : 0.01579546, 0.01722246, 0.01575790, 0.01793544, 0.01585958, 0.06844167 
 #&gt; </div><div class='input'>
-<span class='co'># plot total irreplaceability scores</span>
+<span class='co'># plot total importance scores</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>fs1</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='ferrier_score-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='eval_ferrier_importance-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 </div></pre>
   </div>

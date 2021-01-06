@@ -264,7 +264,7 @@
         <td>
           <p><code><a href="objectives.html">objectives</a></code> </p>
         </td>
-        <td><p>Problem objective</p></td>
+        <td><p>Add an objective</p></td>
       </tr><tr>
         
         <td>
@@ -325,7 +325,7 @@
         <td>
           <p><code><a href="targets.html">targets</a></code> </p>
         </td>
-        <td><p>Targets</p></td>
+        <td><p>Add representation targets</p></td>
       </tr><tr>
         
         <td>
@@ -417,6 +417,12 @@
           <p><code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="add_neighbor_constraints.html">add_neighbor_constraints(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
         </td>
         <td><p>Add neighbor constraints</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> </p>
+        </td>
+        <td><p>Deprecation notice</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -435,7 +441,7 @@
         <td>
           <p><code><a href="penalties.html">penalties</a></code> </p>
         </td>
-        <td><p>Conservation problem penalties</p></td>
+        <td><p>Add a penalty</p></td>
       </tr><tr>
         
         <td>
@@ -478,7 +484,7 @@
         <td>
           <p><code><a href="decisions.html">decisions</a></code> </p>
         </td>
-        <td><p>Specify the type of decisions</p></td>
+        <td><p>Add decision types</p></td>
       </tr><tr>
         
         <td>
@@ -601,12 +607,18 @@
           <p><code><a href="add_top_portfolio.html">add_top_portfolio()</a></code> </p>
         </td>
         <td><p>Add a top portfolio</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> </p>
+        </td>
+        <td><p>Deprecation notice</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-evaluation" class="hasAnchor"><a href="#section-evaluation" class="anchor"></a>Evaluation</h2>
-          <p class="section-desc"><p>Functions for evaluating solutions</p></p>
+          <h2 id="section-summary-statistics" class="hasAnchor"><a href="#section-summary-statistics" class="anchor"></a>Summary statistics</h2>
+          <p class="section-desc"><p>Functions for summarizing the performance of solutions</p></p>
         </th>
       </tr>
       
@@ -617,51 +629,51 @@
       <tr>
         
         <td>
-          <p><code><a href="evaluation.html">evaluation</a></code> </p>
+          <p><code><a href="summaries.html">summaries</a></code> </p>
         </td>
-        <td><p>Evaluation</p></td>
+        <td><p>Evaluate solutions using summary statistics</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_boundary.html">eval_boundary()</a></code> </p>
+          <p><code><a href="eval_boundary_summary.html">eval_boundary_summary()</a></code> </p>
         </td>
-        <td><p>Evaluate boundary</p></td>
+        <td><p>Evaluate solution boundary length</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_connectivity.html">eval_connectivity(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="eval_connectivity.html">eval_connectivity(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="eval_connectivity.html">eval_connectivity(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="eval_connectivity.html">eval_connectivity(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;dgCMatrix&gt;</i>)</a></code> <code><a href="eval_connectivity.html">eval_connectivity(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
+          <p><code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;matrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;Matrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;data.frame&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;dgCMatrix&gt;</i>)</a></code> <code><a href="eval_connectivity_summary.html">eval_connectivity_summary(<i>&lt;ConservationProblem&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;array&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Evaluate connectivity</p></td>
+        <td><p>Evaluate solution connectivity</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_cost.html">eval_cost()</a></code> </p>
+          <p><code><a href="eval_cost_summary.html">eval_cost_summary()</a></code> </p>
         </td>
-        <td><p>Evaluate cost</p></td>
+        <td><p>Evaluate solution cost</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_feature_representation.html">eval_feature_representation()</a></code> </p>
+          <p><code><a href="eval_feature_representation_summary.html">eval_feature_representation_summary()</a></code> </p>
         </td>
         <td><p>Evaluate feature representation</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_n.html">eval_n()</a></code> </p>
+          <p><code><a href="eval_n_summary.html">eval_n_summary()</a></code> </p>
         </td>
         <td><p>Evaluate number of planning units selected.</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="eval_target_coverage.html">eval_target_coverage()</a></code> </p>
+          <p><code><a href="eval_target_coverage_summary.html">eval_target_coverage_summary()</a></code> </p>
         </td>
         <td><p>Evaluate target coverage</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-irreplaceability" class="hasAnchor"><a href="#section-irreplaceability" class="anchor"></a>Irreplaceability</h2>
-          <p class="section-desc"><p>Functions for calculating irreplaceability scores for a solution</p></p>
+          <h2 id="section-importance" class="hasAnchor"><a href="#section-importance" class="anchor"></a>Importance</h2>
+          <p class="section-desc"><p>Functions for calculating importance scores for a solution</p></p>
         </th>
       </tr>
       
@@ -672,27 +684,27 @@
       <tr>
         
         <td>
-          <p><code><a href="irreplaceability.html">irreplaceability</a></code> </p>
+          <p><code><a href="importance.html">importance</a></code> </p>
         </td>
-        <td><p>Irreplaceability</p></td>
+        <td><p>Evaluate solution importance</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="replacement_cost.html">replacement_cost()</a></code> </p>
+          <p><code><a href="eval_ferrier_importance.html">eval_ferrier_importance()</a></code> </p>
         </td>
-        <td><p>Replacement cost</p></td>
+        <td><p>Evaluate solution importance using Ferrier scores</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ferrier_score.html">ferrier_score()</a></code> </p>
+          <p><code><a href="eval_replacement_importance.html">eval_replacement_importance()</a></code> </p>
         </td>
-        <td><p>Ferrier irreplaceability score</p></td>
+        <td><p>Evaluate solution importance using replacement cost scores</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="rarity_weighted_richness.html">rarity_weighted_richness()</a></code> </p>
+          <p><code><a href="eval_rwr_importance.html">eval_rwr_importance()</a></code> </p>
         </td>
-        <td><p>Rarity weighted richness</p></td>
+        <td><p>Evaluate solution importance using rarity weighted richness scores</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -823,6 +835,12 @@
           <p><code><a href="marxan_boundary_data_to_matrix.html">marxan_boundary_data_to_matrix()</a></code> </p>
         </td>
         <td><p>Convert <em>Marxan</em> boundary data to a matrix format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> </p>
+        </td>
+        <td><p>Deprecation notice</p></td>
       </tr><tr>
         
         <td>
@@ -1175,6 +1193,25 @@
           <p><code><a href="parameters.html">parameters()</a></code> </p>
         </td>
         <td><p>Parameters</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-deprecated-functions" class="hasAnchor"><a href="#section-deprecated-functions" class="anchor"></a>Deprecated functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="prioritizr-deprecated.html">add_connected_constraints()</a></code> <code><a href="prioritizr-deprecated.html">add_corridor_constraints()</a></code> <code><a href="prioritizr-deprecated.html">set_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">get_number_of_threads()</a></code> <code><a href="prioritizr-deprecated.html">is.parallel()</a></code> <code><a href="prioritizr-deprecated.html">add_pool_portfolio()</a></code> <code><a href="prioritizr-deprecated.html">connected_matrix()</a></code> <code><a href="prioritizr-deprecated.html">feature_representation()</a></code> <code><a href="prioritizr-deprecated.html">replacement_cost()</a></code> <code><a href="prioritizr-deprecated.html">rarity_weighted_richness()</a></code> <code><a href="prioritizr-deprecated.html">ferrier_score()</a></code> </p>
+        </td>
+        <td><p>Deprecation notice</p></td>
       </tr>
     </tbody>
     </table>

@@ -328,47 +328,12 @@
 <p><img src="saltspring_files/figure-html/unnamed-chunk-12-1.png" width="480" style="display: block; margin: auto;"></p>
 <p>Here we can see that adding the constraints and penalties to the problem has a small, but noticeable effect on the solutions. We would expect to see larger difference between the solutions for problems that contain more than five conservation features. You may also wish to explore the <code>add_connectivity_penalties</code> and <code>add_feature_contiguity_constraints</code> functions. These functions use additional data on landscape resistance to provide a more accurate parametrization of connectivity and, in turn, deliver more effective solutions.</p>
 </div>
-<div id="irreplaceability" class="section level2">
-<h2 class="hasAnchor">
-<a href="#irreplaceability" class="anchor"></a>Irreplaceability</h2>
-<p>Conservation plans can take a long time to implement. Since funding availability and habitat quality can decline over time, it is critical that the most important places in a prioritization are scheduled for protection as early as possible. For instance, some planning units in a solution might contain many rare species which do not occur in any other planning units. Alternatively, some planning units might offer an especially high return on investment that reduces costs considerably. As a consequence, conservation planners often need information on which planning units selected in a prioritization are most important to the overall success of the prioritization. To achieve this, conservation planners can use irreplaceability scores to calculate the “importance” or “priority” of each planning unit selected in a solution.</p>
-<p>Let’s assume that the low boundary length solution (<code>s2[[3]]</code>) in the previous section was the best solution. If we wanted to actually implement this solution, it is important that we understand which of the <code><a href="https://rdrr.io/r/base/formatc.html">formatC(cellStats(s2[[3]], "sum"), big.mark = ",")</a></code> planning units are the most important. So, let’s calculate irreplaceability scores for each of the planning units selected in that solution using the Ferrier method <span class="citation">(Ferrier <em>et al.</em> 2000)</span>. This method provides overall irreplaceability scores for each planning to indicate the overall importance of each planning unit. It also provides irreplaceability scores for each planning unit and each feature, so we can see which planning units in the solution are important for meeting the targets for different features.</p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># calculate irreplaceability scores</span>
-<span class="va">irrep</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ferrier_score.html">ferrier_score</a></span><span class="op">(</span><span class="va">p9</span>, <span class="va">s2</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
-
-<span class="co"># plot overall irreplaceability scores</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">irrep</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"overall irreplaceability"</span><span class="op">)</span></code></pre></div>
-<p><img src="saltspring_files/figure-html/unnamed-chunk-13-1.png" width="432" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># we can see that the colors are mostly green because the raster has 0 values</span>
-<span class="co"># for planning units that were not selected in the solution. This causes</span>
-<span class="co"># all the non-zero values to essentially "look the same". To address this, we</span>
-<span class="co"># will set values in the irreplaceability data to NA for planning units not</span>
-<span class="co"># selected in the solution</span>
-<span class="va">irrep2</span> <span class="op">&lt;-</span> <span class="va">irrep</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="fu">nlayers</span><span class="op">(</span><span class="va">irrep</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">irrep2</span><span class="op">[</span><span class="fu">Which</span><span class="op">(</span><span class="va">s2</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA_real_</span>
-<span class="op">}</span>
-
-<span class="co"># plot overall irreplaceability scores with only selected planning units</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">irrep2</span><span class="op">[[</span><span class="st">"total"</span><span class="op">]</span><span class="op">]</span>, main <span class="op">=</span> <span class="st">"overall irreplaceability"</span><span class="op">)</span></code></pre></div>
-<p><img src="saltspring_files/figure-html/unnamed-chunk-13-2.png" width="432" style="display: block; margin: auto;"></p>
-<div class="sourceCode"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot irreplaceability scores for each feature</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">irrep2</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">salt_features</span><span class="op">)</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></code></pre></div>
-<p><img src="saltspring_files/figure-html/unnamed-chunk-14-1.png" width="432" style="display: block; margin: auto;"></p>
-<p>We can see that the prioritized planning units located on the southwestern side of the study area have the highest irreplaceability scores. This result suggests that protecting these places may be critical to the overall success of the prioritization.</p>
-</div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
 <div id="ref-r28">
 <p>BC Assessment. (2015). <em>Property Information Services</em>. URL <a href="https://www.bcassessment.ca/" class="uri">https://www.bcassessment.ca/</a> [accessed 13 June 2016].</p>
-</div>
-<div id="ref-r34">
-<p>Ferrier, S., Pressey, R.L. &amp; Barrett, T.W. (2000). A new predictor of the irreplaceability of areas for achieving a conservation goal, its application to real-world planning, and a research agenda for further refinement. <em>Biological Conservation</em>, <em>93</em>, 303–325.</p>
 </div>
 <div id="ref-r29">
 <p>Morrell, N., Schuster, R., Crombie, M. &amp; Arcese, P. (2017). <em>A Prioritization Tool for the Conservation of Coastal Douglas-fir Forest and Savannah Habitats of the Georgia Basin</em>. The Nature Trust of British Colombia, Coastal Douglas Fir Conservation Partnership, and the Department of Forest and Conservation Sciences, University of British Colombia, URL <a href="http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf" class="uri">http://peter-arcese-lab.sites.olt.ubc.ca/files/2016/09/CDFCP_tutorial_2017_05.pdf</a> [accessed 9 October 2017].</p>

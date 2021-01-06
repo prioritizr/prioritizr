@@ -284,31 +284,12 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='co'># create problem with maximum utility objective</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_binary_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 120 nonzeros
-#&gt; Model fingerprint: 0xd891ef4e
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e+00, 2e+02]
-#&gt;   Objective range  [1e-04, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [5e+02, 5e+02]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 6 rows and 95 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolve: All rows and columns removed
-#&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1.99979 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.999789559459e+00, best bound 1.999789559459e+00, gap 0.0000%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_max_cover_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -328,71 +309,12 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='co'># has a single budget for all zones</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_binary_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span><span class='op'>(</span><span class='fl'>800</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 106 rows, 285 columns and 1478 nonzeros
-#&gt; Model fingerprint: 0x68301a72
-#&gt; Variable types: 0 continuous, 285 integer (285 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [3e-05, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+02]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 0 rows and 67 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
-#&gt; Variable types: 0 continuous, 218 integer (218 binary)
-#&gt; Presolved: 106 rows, 218 columns, 1344 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.471221e+00, 29 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    9.47122    0   11   -0.00000    9.47122      -     -    0s
-#&gt; H    0     0                       5.9998641    9.47122  57.9%     -    0s
-#&gt; H    0     0                       6.9998616    9.47122  35.3%     -    0s
-#&gt;      0     0    9.42563    0   12    6.99986    9.42563  34.7%     -    0s
-#&gt;      0     0    9.41603    0   10    6.99986    9.41603  34.5%     -    0s
-#&gt;      0     0    9.41213    0   12    6.99986    9.41213  34.5%     -    0s
-#&gt; H    0     0                       6.9998619    9.41213  34.5%     -    0s
-#&gt;      0     0    9.39313    0   14    6.99986    9.39313  34.2%     -    0s
-#&gt;      0     0    9.35702    0   13    6.99986    9.35702  33.7%     -    0s
-#&gt; H    0     0                       6.9998622    9.35702  33.7%     -    0s
-#&gt;      0     0    9.35423    0   13    6.99986    9.35423  33.6%     -    0s
-#&gt;      0     0    9.00669    0    6    6.99986    9.00669  28.7%     -    0s
-#&gt;      0     0    8.99699    0   17    6.99986    8.99699  28.5%     -    0s
-#&gt;      0     0    8.97564    0   15    6.99986    8.97564  28.2%     -    0s
-#&gt;      0     0    8.83544    0   14    6.99986    8.83544  26.2%     -    0s
-#&gt;      0     0    8.83342    0   16    6.99986    8.83342  26.2%     -    0s
-#&gt;      0     0    8.83191    0   17    6.99986    8.83191  26.2%     -    0s
-#&gt;      0     0    8.82227    0   16    6.99986    8.82227  26.0%     -    0s
-#&gt;      0     0    8.63557    0   15    6.99986    8.63557  23.4%     -    0s
-#&gt;      0     0    8.62601    0   14    6.99986    8.62601  23.2%     -    0s
-#&gt;      0     0    8.62498    0   16    6.99986    8.62498  23.2%     -    0s
-#&gt;      0     0    8.62486    0   17    6.99986    8.62486  23.2%     -    0s
-#&gt;      0     0    8.29173    0   18    6.99986    8.29173  18.5%     -    0s
-#&gt;      0     0    8.00714    0   12    6.99986    8.00714  14.4%     -    0s
-#&gt;      0     0    8.00714    0   12    6.99986    8.00714  14.4%     -    0s
-#&gt;      0     0    8.00683    0   12    6.99986    8.00683  14.4%     -    0s
-#&gt; H    0     0                       7.9998572    8.00683  0.09%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 2
-#&gt;   MIR: 11
-#&gt; 
-#&gt; Explored 1 nodes (244 simplex iterations) in 0.09 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 6: 7.99986 6.99986 6.99986 ... -0
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.999857206152e+00, best bound 8.006834536852e+00, gap 0.0872%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_max_cover_objective-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -401,53 +323,12 @@ covering location problem. <em>Biological Conservation</em>, 76: 105--112.</p>
 <span class='co'># has separate budgets for each zone</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_binary_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_max_cover_objective</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>400</span>, <span class='fl'>400</span>, <span class='fl'>400</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 108 rows, 285 columns and 1478 nonzeros
-#&gt; Model fingerprint: 0xbd8c0c6e
-#&gt; Variable types: 0 continuous, 285 integer (285 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [3e-05, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 4e+02]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 2 rows and 69 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 106 rows, 216 columns, 1037 nonzeros
-#&gt; Variable types: 0 continuous, 216 integer (216 binary)
-#&gt; Presolve removed 19 rows and 31 columns
-#&gt; Presolved: 87 rows, 185 columns, 956 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 8.997455e+00, 14 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    8.99746    0    5   -0.00000    8.99746      -     -    0s
-#&gt; H    0     0                       0.9999630    8.99746   800%     -    0s
-#&gt; H    0     0                       6.9998278    8.99746  28.5%     -    0s
-#&gt; H    0     0                       7.9998255    8.99746  12.5%     -    0s
-#&gt;      0     0     cutoff    0         7.99983    7.99983  0.00%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Cover: 4
-#&gt;   Clique: 1
-#&gt;   MIR: 2
-#&gt;   StrongCG: 2
-#&gt; 
-#&gt; Explored 1 nodes (36 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 4: 7.99983 6.99983 0.999963 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.999825481935e+00, best bound 7.999825481935e+00, gap 0.0000%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_max_cover_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

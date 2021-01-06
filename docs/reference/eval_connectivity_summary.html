@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Evaluate cost — eval_cost • prioritizr</title>
+<title>Evaluate solution connectivity — eval_connectivity_summary • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,12 +52,11 @@
 
 
 
-<meta property="og:title" content="Evaluate cost — eval_cost" />
-<meta property="og:description" content="Calculate the total cost of a solution to a conservation planning
-problem().
-For example, if the planning unit cost data describe land acquisition costs
-(USD), then the total cost would be net cost (USD) needed to acquire
-all planning units selected within the solution." />
+<meta property="og:title" content="Evaluate solution connectivity — eval_connectivity_summary" />
+<meta property="og:description" content="Calculate the connectivity held within a solution to a conservation
+planning problem().
+This summary statistic evaluates the connectivity of a solution using
+pair-wise connectivity values between combinations of planning units." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -172,26 +171,32 @@ all planning units selected within the solution." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Evaluate cost</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_cost.R'><code>R/eval_cost.R</code></a></small>
-    <div class="hidden name"><code>eval_cost.Rd</code></div>
+    <h1>Evaluate solution connectivity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/eval_connectivity_summary.R'><code>R/eval_connectivity_summary.R</code></a></small>
+    <div class="hidden name"><code>eval_connectivity_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Calculate the total cost of a solution to a conservation planning
-<code><a href='problem.html'>problem()</a></code>.
-For example, if the planning unit cost data describe land acquisition costs
-(USD), then the total cost would be net cost (USD) needed to acquire
-all planning units selected within the solution.</p>
+    <p>Calculate the connectivity held within a solution to a conservation
+planning <code><a href='problem.html'>problem()</a></code>.
+This summary statistic evaluates the connectivity of a solution using
+pair-wise connectivity values between combinations of planning units.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+    <pre class="usage"><span class='co'># S4 method for ConservationProblem,ANY,ANY,matrix</span>
+<span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
-<span class='co'># S3 method for default</span>
-<span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span>
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,Matrix</span>
+<span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
 
-<span class='co'># S3 method for ConservationProblem</span>
-<span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,data.frame</span>
+<span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
+
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,dgCMatrix</span>
+<span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span>
+
+<span class='co'># S4 method for ConservationProblem,ANY,ANY,array</span>
+<span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>solution</span>, <span class='va'>zones</span>, <span class='va'>data</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -209,42 +214,63 @@ The argument should be in the same format as the planning unit cost
 data in the argument to <code>x</code>.
 See the Solution format section for more information.</p></td>
     </tr>
+    <tr>
+      <th>zones</th>
+      <td><p><code>matrix</code> or <code>Matrix</code> object describing the
+level of connectivity between different zones. Each row and column
+corresponds to a different zone in the argument to <code>x</code>, and cell
+values indicate the level of connectivity between each combination
+of zones. Cell values along the diagonal of the matrix represent
+the level of connectivity between planning units allocated to the
+same zone. Cell values must lay between 1 and -1, where negative
+values favor solutions with weak connectivity. The default argument to
+<code>zones</code> is an identity matrix (i.e. a matrix with ones along the
+matrix diagonal and zeros elsewhere), so that planning units are
+only considered to be connected when they are allocated to the same zone.
+This argument is required when the argument to <code>data</code> is a
+<code>matrix</code> or <code>Matrix</code> object. If the argument to <code>data</code> is
+an <code>array</code> or <code>data.frame</code> with zone data, this argument
+must explicitly be set to <code>NULL</code> otherwise an error will be thrown.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p><code>matrix</code>, <code>Matrix</code>, <code>data.frame</code>, or
+<code>array</code> object containing connectivity data. The connectivity values
+correspond to the strength of connectivity between
+different planning units. Thus connections between planning units
+that are associated with higher values are more favorable in the solution.
+See the Data format section for more information.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object containing the solution cost.
+    <p><code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object describing the connectivity of the
+solution.
 It contains the following columns:</p>
 <dl>
 
-<dt>statistic</dt><dd><p><code>character</code> description of the cost statistic.
-The cost statistic associated with the <code>"overall"</code> value
-in this column is calculated using entire solution
+<dt>summary</dt><dd><p><code>character</code> description of the summary statistic.
+The statistic associated with the <code>"overall"</code> value
+in this column is calculated using the entire solution
 (including all management zones if there are multiple zones).
-If multiple management zones are present, then cost statistics
-are also provided for each zone separately. In such cases,
-these cost statistics are associated with values, in this column,
-that correspond to the zone names.</p></dd>
+If multiple management zones are present, then summary statistics
+are also provided for each zone separately
+(indicated using zone names).</p></dd>
 
-<dt>cost</dt><dd><p><code>numeric</code> cost value.
-Greater values correspond to solutions that are more costly
-to implement.
+<dt>connectivity</dt><dd><p><code>numeric</code> connectivity value.
+Greater values correspond to solutions associated with greater
+connectivity.
 Thus conservation planning exercises typically prefer solutions
-with smaller values, because they are cheaper to implement
-(assuming all other relevant factors, such as feature representation,
-are equal).</p></dd>
+with greater values.</p></dd>
 
 
 </dl>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This metric is equivalent to the <code>Cost</code> metric reported by the
-<a href='https://marxansolutions.org'><em>Marxan</em> software</a> (Ball <em>et al.</em> 2009).
-Specifically, the cost of a solution is defined as the sum of the cost
-values, supplied when creating a <code><a href='problem.html'>problem()</a></code> object
-(e.g. using the <code>cost_column</code> argument),
-weighted by the status of each planning unit in the solution.</p>
+    <p><code>This summary statistic is comparable to the</code>Connectivity_In<code>metric reported by the [*Marxan* software](https://marxansolutions.org) (Ball *et al.* 2009). It is calculated using the same equations used to penalize solutions with connectivity data (i.e. [add_connectivity_penalties()]). Specifically, it is calculated as the sum of the pair-wise connectivity values in the argument to</code>data`, weighted by the value of the planning
+units in the solution.</p>
     <h2 class="hasAnchor" id="solution-format"><a class="anchor" href="#solution-format"></a>Solution format</h2>
 
     
@@ -287,6 +313,54 @@ as the planning unit cost data columns.
 If an argument is supplied to <code>solution</code> where
 the missing (<code>NA</code>) values in the argument to solution do not match
 those in the planning unit cost data, then an error will be thrown.</p>
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+<p>The argument to <code>data</code> can be specified using several different formats.
+These formats can be used to describe symmetric or
+asymmetric relationships between planning units.</p>
+<dl>
+
+<dt><code>matrix</code>, <code>Matrix</code></dt><dd><p>where rows and columns represent
+different planning units and the value of each cell represents the
+strength of connectivity between two different planning units. Cells
+that occur along the matrix diagonal are treated as weights which
+indicate that planning units are more desirable in the solution.
+The argument to <code>zones</code> can be used to control
+the strength of connectivity between planning units in different zones.
+The default argument for <code>zones</code> is to treat planning units
+allocated to different zones as having zero connectivity.</p></dd>
+
+<dt><code>data.frame</code></dt><dd><p>containing the fields (columns)
+<code>"id1"</code>, <code>"id2"</code>, and <code>"boundary"</code>. Here, each row
+denotes the connectivity between two planning units following the
+<em>Marxan</em> format. The data can be used to denote symmetric or
+asymmetric relationships between planning units. By default,
+input data is assumed to be symmetric unless asymmetric data is
+also included (e.g. if data is present for planning units 2 and 3, then
+the same amount of connectivity is expected for planning units 3 and 2,
+unless connectivity data is also provided for planning units 3 and 2).
+If the argument to <code>x</code> contains multiple zones, then the columns
+<code>"zone1"</code> and <code>"zone2"</code> can optionally be provided to manually
+specify the connectivity values between planning units when they are
+allocated to specific zones. If the columns <code>"zone1"</code> and
+<code>"zone2"</code> are present, then the argument to <code>zones</code> must be
+<code>NULL</code>.</p></dd>
+
+<dt><code>array</code></dt><dd><p>containing four-dimensions where cell values
+indicate the strength of connectivity between planning units
+when they are assigned to specific management zones. The first two
+dimensions (i.e. rows and columns) indicate the strength of
+connectivity between different planning units and the second two
+dimensions indicate the different management zones. Thus
+the <code>data[1, 2, 3, 4]</code> indicates the strength of
+connectivity between planning unit 1 and planning unit 2 when planning
+unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.</p></dd>
+
+
+</dl>
+
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Ball IR, Possingham HP, and Watts M (2009) <em>Marxan and relatives:
@@ -295,7 +369,7 @@ prioritisation: Quantitative methods and computational tools. Eds Moilanen
 A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='evaluation.html'>evaluation</a>.</p></div>
+    <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='summaries.html'>summaries</a>, <code><a href='add_connectivity_penalties.html'>add_connectivity_penalties()</a></code>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \dontrun{</span>
@@ -310,41 +384,12 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve the problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+
 <span class='co'># print solution</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; class      : RasterLayer 
@@ -358,56 +403,32 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 #&gt; </div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_cost-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate cost of the solution</span>
-<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_connectivity_summary-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># simulate a connectivity matrix to describe the relative strength</span>
+<span class='co'># of connectivity between different planning units</span>
+<span class='co'># for brevity, we will use cost data here so that pairs</span>
+<span class='co'># of adjacent planning units with higher cost values will have a</span>
+<span class='co'># higher connectivity value</span>
+<span class='co'># (but see ?connectivity_matrix for more information)</span>
+<span class='va'>cm1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_raster</span><span class='op'>)</span>
+
+<span class='co'># calculate connectivity associated with the solution</span>
+<span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span>, data <span class='op'>=</span> <span class='va'>cm1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 2</span><span>
-#&gt;   statistic  cost
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   </span><span style='text-decoration: underline;'>1</span><span>987.</div><div class='input'>
+#&gt;   summary connectivity
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall         198.</div><div class='input'>
 <span class='co'># build minimal conservation problem with polygon (sf) data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve the problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xa41351c6
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.732564e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
-#&gt; H    0     0                    1792.5345202 1732.56396  3.35%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.53 2145.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792534520218e+03, best bound 1.732563961206e+03, gap 3.3456%</div><div class='input'>
-<span class='co'># plot solution</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_cost-2.png' alt='' width='700' height='433' /></div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 4 fields
@@ -422,59 +443,33 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 #&gt; 4 208.9322     FALSE       TRUE          0 POLYGON ((0.3 1, 0.4 1, 0.4...
 #&gt; 5 214.0419     FALSE      FALSE          0 POLYGON ((0.4 1, 0.5 1, 0.5...
 #&gt; 6 213.7636     FALSE      FALSE          0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
-<span class='co'># calculate cost of the solution</span>
-<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='co'># plot solution</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_connectivity_summary-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># simulate connectivity matrix</span>
+<span class='co'># here, we will generate connectivity values randomly</span>
+<span class='co'># between all pairs of planning units</span>
+<span class='va'>cm2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span><span class='op'>)</span> <span class='op'>^</span> <span class='fl'>2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># calculate connectivity associated with the solution</span>
+<span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_connectivity_summary</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span>, data <span class='op'>=</span> <span class='va'>cm2</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 1 x 2</span><span>
-#&gt;   statistic  cost
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   </span><span style='text-decoration: underline;'>1</span><span>793.</div><div class='input'>
-<span class='co'># manually calculate cost of the solution</span>
-<span class='va'>r2_manual</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>*</span> <span class='va'>sim_pu_sf</span><span class='op'>$</span><span class='va'>cost</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2_manual</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 1792.535</div><div class='input'>
+#&gt;   summary connectivity
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall         36.8</div><div class='input'>
 <span class='co'># build multi-zone conservation problem with polygon (sf) data</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_sf</span>, <span class='va'>sim_features_zones</span>,
               cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>0.1</span>, <span class='fl'>0.2</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>5</span>,
                                   ncol <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># solve the problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xf54fe7c9
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 1e+01]
-#&gt; Found heuristic solution: objective 11123.160980
-#&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 102 rows, 270 columns, 1350 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 9.843159e+03, 91 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 9843.15923    0   14 11123.1610 9843.15923  11.5%     -    0s
-#&gt; H    0     0                    10160.156963 9843.15923  3.12%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (91 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 10160.2 11123.2 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.016015696337e+04, best bound 9.843159228876e+03, gap 3.1200%</div><div class='input'>
+
 <span class='co'># print first six rows of the attribute table</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; Simple feature collection with 6 features and 9 fields
@@ -486,38 +481,45 @@ A, Wilson KA, and Possingham HP. Oxford University Press, Oxford, UK.</p>
 #&gt; 1 215.8638 183.3344 205.4113    FALSE    FALSE    FALSE                 0
 #&gt; 2 212.7823 189.4978 209.6404    FALSE    FALSE    FALSE                 0
 #&gt; 3 207.4962 193.6007 215.4212     TRUE    FALSE    FALSE                 0
-#&gt; 4 208.9322 197.5897 218.5241    FALSE    FALSE    FALSE                 0
+#&gt; 4 208.9322 197.5897 218.5241    FALSE    FALSE    FALSE                 1
 #&gt; 5 214.0419 199.8033 220.7100    FALSE    FALSE    FALSE                 0
 #&gt; 6 213.7636 203.1867 224.6809    FALSE    FALSE    FALSE                 0
 #&gt;   solution_1_zone_2 solution_1_zone_3                       geometry
-#&gt; 1                 0                 1 POLYGON ((0 1, 0.1 1, 0.1 0...
+#&gt; 1                 0                 0 POLYGON ((0 1, 0.1 1, 0.1 0...
 #&gt; 2                 0                 0 POLYGON ((0.1 1, 0.2 1, 0.2...
 #&gt; 3                 0                 0 POLYGON ((0.2 1, 0.3 1, 0.3...
 #&gt; 4                 0                 0 POLYGON ((0.3 1, 0.4 1, 0.4...
-#&gt; 5                 0                 0 POLYGON ((0.4 1, 0.5 1, 0.5...
-#&gt; 6                 1                 0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
+#&gt; 5                 1                 0 POLYGON ((0.4 1, 0.5 1, 0.5...
+#&gt; 6                 0                 0 POLYGON ((0.5 1, 0.6 1, 0.6...</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
-<span class='va'>s3</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                                      <span class='st'>"solution_1_zone_2"</span>,
-                                      <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>s3</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span>
+  <span class='va'>s3</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='va'>s3</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>$</span><span class='va'>solution</span><span class='op'>)</span>
 
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution"</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='img'><img src='eval_cost-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># calculate cost of the solution</span>
-<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_cost</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>,
-                           <span class='st'>"solution_1_zone_2"</span>,
-                           <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='img'><img src='eval_connectivity_summary-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># simulate connectivity matrix</span>
+<span class='co'># here, we will add a new column to sim_pu_zones_sf with</span>
+<span class='co'># randomly simulated values and create a connectivity matrix</span>
+<span class='co'># based on the average simulated values of adjacent planning units</span>
+<span class='va'>sim_pu_zones_sf</span><span class='op'>$</span><span class='va'>con</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fu'><a href='OptimizationProblem-methods.html'>nrow</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_sf</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>cm3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='connectivity_matrix.html'>connectivity_matrix</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_sf</span>, <span class='st'>"con"</span><span class='op'>)</span>
+
+<span class='co'># calculate connectivity associated with the solution</span>
+<span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_connectivity_summary</span><span class='op'>(</span>
+  <span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span>,
+  data <span class='op'>=</span> <span class='va'>cm3</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 2</span><span>
-#&gt;   statistic   cost
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall   </span><span style='text-decoration: underline;'>10</span><span>160.
-#&gt; </span><span style='color: #555555;'>2</span><span> zone_1     </span><span style='text-decoration: underline;'>3</span><span>395.
-#&gt; </span><span style='color: #555555;'>3</span><span> zone_2     </span><span style='text-decoration: underline;'>3</span><span>322.
-#&gt; </span><span style='color: #555555;'>4</span><span> zone_3     </span><span style='text-decoration: underline;'>3</span><span>443.</div><div class='input'><span class='co'># }</span>
+#&gt;   summary connectivity
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> overall        3.12 
+#&gt; </span><span style='color: #555555;'>2</span><span> zone_1         1.26 
+#&gt; </span><span style='color: #555555;'>3</span><span> zone_2         0.851
+#&gt; </span><span style='color: #555555;'>4</span><span> zone_3         1.00 </div><div class='input'>
+<span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

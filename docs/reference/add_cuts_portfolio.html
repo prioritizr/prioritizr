@@ -244,7 +244,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>gap <span class='op'>=</span> <span class='fl'>0.2</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
-<span class='co'># solve problem and generate 10 solutions within 20 % of optimality</span>
+<span class='co'># solve problem and generate 10 solutions within 20% of optimality</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
 
 <span class='co'># plot solutions in portfolio</span>
@@ -280,7 +280,7 @@ more complex conservation problems. <em>Ecography</em>, 23: 565--574.</p>
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
 #&gt;  - attr(*, "status")= Named chr [1:10] "OPTIMAL" "OPTIMAL" "OPTIMAL" "OPTIMAL" ...
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...
-#&gt;  - attr(*, "runtime")= Named num [1:10] 0.0059 0.00544 0.00573 0.00581 0.00603 ...
+#&gt;  - attr(*, "runtime")= Named num [1:10] 0.0059 0.00542 0.00565 0.00583 0.00615 ...
 #&gt;   ..- attr(*, "names")= chr [1:10] "solution_1" "solution_2" "solution_3" "solution_4" ...</div><div class='input'>
 <span class='co'># plot solutions in portfolio</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
