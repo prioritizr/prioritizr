@@ -52,7 +52,7 @@ NULL
 #'  other functions for evaluating solutions.}
 #'
 #' \item{`rarity_weighted_richness()`}{renamed as
-#'  the [eval_rwr_importance()] function for consistency with
+#'  the [eval_rare_richness_importance()] function for consistency with
 #'  other functions for evaluating solutions.}
 #'
 #' \item{`ferrier_score()`}{renamed as

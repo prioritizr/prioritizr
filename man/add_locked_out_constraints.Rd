@@ -48,6 +48,67 @@ problems with non-binary planning unit allocations (e.g. proportions), the
 \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}} function can be used to lock
 planning unit allocations to a specific value.
 }
+\section{Data format}{
+
+
+The locked planning units can be specified using the following formats.
+Generally, the locked data should correspond to the planning units
+in the argument to \code{x.} To help make working with
+\code{\linkS4class{Raster}} planning unit data easier,
+the locked data should correspond to cell indices in the
+\code{\linkS4class{Raster}} data. For example, \code{integer} arguments
+should correspond to cell indices and \code{logical} arguments should have
+a value for each cell---regardless of which planning unit cells contain
+\code{NA} values.
+
+\describe{
+
+\item{\code{integer}}{\code{vector} of indices pertaining to which
+planning units should be locked for the solution. This argument is only
+compatible with problems that contain a single zone.}
+
+\item{\code{logical}}{\code{vector} containing \code{TRUE} and/or
+\code{FALSE} values that indicate which planning units should be locked
+in the solution. This argument is only compatible with problems that
+contain a single zone.}
+
+\item{\code{matrix}}{containing \code{logical} \code{TRUE} and/or
+\code{FALSE} values which indicate if certain planning units are
+should be locked to a specific zone in the solution. Each row
+corresponds to a planning unit, each column corresponds to a zone, and
+each cell indicates if the planning unit should be locked to a given
+zone. Thus each row should only contain at most a single \code{TRUE}
+value.}
+
+\item{\code{character}}{field (column) name(s) that indicate if planning
+units should be locked for the solution. This type of argument is only
+compatible if the planning units in the argument to \code{x} are a
+\code{\linkS4class{Spatial}}, \code{\link[sf:sf]{sf::sf()}}, or
+\code{data.frame} object. The fields
+(columns) must have \code{logical}  (i.e. \code{TRUE} or \code{FALSE})
+values indicating if the planning unit is to be locked for the solution.
+For problems containing multiple zones, this argument should contain
+a field (column) name for each management zone.}
+
+\item{\code{\linkS4class{Spatial}} or \code{\link[sf:sf]{sf::sf()}}}{
+planning units in \code{x} that spatially intersect with the
+argument to \code{y} (according to \code{\link[=intersecting_units]{intersecting_units()}}
+are locked for to the solution. Note that this option is only available
+for problems that contain a single management zone.}
+
+\item{\code{\linkS4class{Raster}}}{planning units in \code{x}
+that intersect with non-zero and non-\code{NA} raster cells are locked
+for the solution. For problems that contain multiple zones, the
+\code{\linkS4class{Raster}} object must contain a layer
+for each zone. Note that for multi-band arguments, each pixel must
+only contain a non-zero value in a single band. Additionally, if the
+cost data in \code{x} is a \code{\linkS4class{Raster}} object, we
+recommend standardizing \code{NA} values in this dataset with the cost
+data. In other words, the pixels in \code{x} that have \code{NA} values
+should also have \code{NA} values in the locked data.}
+}
+}
+
 \examples{
 # set seed for reproducibility
 set.seed(500)

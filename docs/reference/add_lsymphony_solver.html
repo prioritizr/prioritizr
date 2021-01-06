@@ -61,7 +61,6 @@ For information on the performance of different solvers,
 please see Schuster et al. (2020) for benchmarks comparing the
 run time and solution quality of different solvers when applied to
 different sized datasets." />
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -269,8 +268,8 @@ solving conservation planning problems. <em>PeerJ</em>, 8: e9258.</p>
 <span class='co'># create problem</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.05</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='add_proportion_decisions.html'>add_proportion_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_lpsymphony_solver</span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>5</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># generate solution</span>

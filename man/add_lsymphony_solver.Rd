@@ -70,8 +70,8 @@ data(sim_pu_raster, sim_features)
 # create problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions() \%>\%
+  add_relative_targets(0.05) \%>\%
+  add_proportion_decisions() \%>\%
   add_lpsymphony_solver(time_limit = 5, verbose = FALSE)
 
 # generate solution

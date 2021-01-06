@@ -22,6 +22,7 @@ NULL
 #'
 #' @inherit add_contiguity_constraints return seealso
 #' @inherit add_locked_in_constraints details
+#' @inheritSection add_locked_in_constraints Data format
 #'
 #' @examples
 #' # set seed for reproducibility

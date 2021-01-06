@@ -15,6 +15,12 @@
   target is met by a solution. This function is similar to the
   `eval_feature_representation`, except that it corresponds to the targets
   in a conservation planning problem.
+- Rename `ferrier_score` function as `eval_ferrier_importance` function for
+  consistency.
+- Rename `replacement_cost` function as `eval_replacement_importance` function
+  for consistency.
+- Rename `rarity_weighted_richness` function as `eval_rare_richness_importance`
+  function for consistency.
 - Fix comparability issues with Matrix R package (version 1.3-0) (#172).
 - Add NEWS to build process (#173).
 - Update publication vignette.

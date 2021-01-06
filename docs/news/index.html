@@ -53,7 +53,6 @@
 
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -182,6 +181,9 @@
 <li>Deprecated <code>feature_representation</code> function. It is now superseded by the <code>eval_feature_representation</code> function.</li>
 <li>New <code>eval_feature_representation</code> function to assess how well each feature is represented by a solution. This function is similar to the deprecated <code>eval_feature_representation</code> function, except that it follows conventions for other evaluation functions (e.g. <code>eval_cost</code>).</li>
 <li>New <code>eval_target_representation</code> function to assess how well each target is met by a solution. This function is similar to the <code>eval_feature_representation</code>, except that it corresponds to the targets in a conservation planning problem.</li>
+<li>Rename <code>ferrier_score</code> function as <code>eval_ferrier_importance</code> function for consistency.</li>
+<li>Rename <code>replacement_cost</code> function as <code>eval_replacement_importance</code> function for consistency.</li>
+<li>Rename <code>rarity_weighted_richness</code> function as <code>eval_rare_richness_importance</code> function for consistency.</li>
 <li>Fix comparability issues with Matrix R package (version 1.3-0) (<a href='https://github.com/prioritizr/prioritizr/issues/172'>#172</a>).</li>
 <li>Add NEWS to build process (<a href='https://github.com/prioritizr/prioritizr/issues/173'>#173</a>).</li>
 <li>Update publication vignette.</li>

@@ -15,7 +15,7 @@ NULL
 #'
 #' @inherit add_gurobi_solver return seealso
 #'
-#' @param presolve `logical` should the presolver be used to simplify the
+#' @param presolve `logical` attempt to simplify the
 #'   problem before solving it? The default value is \code{TRUE}.
 #'
 #' @details [*IBM CPLEX*](https://www.ibm.com/analytics/cplex-optimizer) is a
@@ -33,7 +33,7 @@ NULL
 #'   this variable can be specified by adding
 #'   `export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"`
 #'   to the `~/.bashrc` file. Note that you may need to change the version
-#'   number in the file parth (i.e. `"CPLEX_Studio128"`). For more information
+#'   number in the file path (i.e. `"CPLEX_Studio128"`). For more information
 #'   on installing the pkg{cplexAPI} package, please see the
 #'   [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
 #'

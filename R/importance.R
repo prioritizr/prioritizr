@@ -33,7 +33,7 @@ NULL
 #'  score for each feature within each planning unit, providing insight into
 #'  why certain planning units are more important than other planning units.}
 #'
-#' \item{[eval_rwr_importance()]}{
+#' \item{[eval_rare_richness_importance()]}{
 #'  Calculate importance scores using the rarity weighted richness metric
 #' (based on Williams *et al.* 1996).
 #' These score are simply a measure of biodiversity.
@@ -104,7 +104,7 @@ NULL
 #' ir2 <- eval_ferrier_importance(p1, s1)[["total"]]
 #'
 #' # calculate importance scores using rarity weighted richness scores
-#' ir3 <- eval_rwr_importance(p1, s1)
+#' ir3 <- eval_rare_richness_importance(p1, s1)
 #'
 #' # plot importance scores
 #' plot(stack(ir1, ir2, ir3), axes = FALSE, box = FALSE,

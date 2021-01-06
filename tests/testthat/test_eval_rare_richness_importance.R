@@ -1,4 +1,4 @@
-context("eval_rwr_importance")
+context("eval_rare_richness_importance")
 
 test_that("numeric", {
   # create data
@@ -17,7 +17,7 @@ test_that("numeric", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = FALSE)
+  r <- eval_rare_richness_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
   # run tests
@@ -43,7 +43,7 @@ test_that("numeric (feature with zero abundance in all planning units)", {
   # create a solution
   s <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = FALSE)
+  r <- eval_rare_richness_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
   # run tests
@@ -68,7 +68,7 @@ test_that("matrix (single zone)", {
   # create a solution
   s <- matrix(c(0, 1, NA, 1), ncol = 1)
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = FALSE)
+  r <- eval_rare_richness_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- matrix(c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1)), ncol = 1)
   colnames(r2) <- "rwr"
@@ -94,7 +94,7 @@ test_that("matrix (single zone, rescale = TRUE)", {
   # create a solution
   s <- matrix(c(0, 1, NA, 1), ncol = 1)
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = TRUE)
+  r <- eval_rare_richness_importance(p, s, rescale = TRUE)
   # create correct result
   r2 <- matrix(c(0, 0.01, NA, 1), ncol = 1)
   colnames(r2) <- "rwr"
@@ -118,7 +118,7 @@ test_that("data.frame (single zone)", {
   # create a solution
   s <- tibble::tibble(solution = c(0, 1, NA, 1))
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = FALSE)
+  r <- eval_rare_richness_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- tibble::tibble(rwr = c(0, ((5 / 10) / 31), NA,
                                ((6 / 10) / 31) + (1 / 1)))
@@ -144,7 +144,7 @@ test_that("Spatial (single zone)", {
   # create a solution
   pu$solution <- c(0, 1, NA, 1)
   # calculate replacement costs
-  r <- eval_rwr_importance(p, pu[, "solution"], rescale = FALSE)
+  r <- eval_rare_richness_importance(p, pu[, "solution"], rescale = FALSE)
   # create correct result
   pu$rwr <- c(0, ((5 / 10) / 31), NA, ((6 / 10) / 31) + (1 / 1))
   # run tests
@@ -166,7 +166,7 @@ test_that("Raster (single zone)", {
   # create a solution
   s <- raster::raster(matrix(c(0, 1, NA, 1), nrow = 1))
   # calculate replacement costs
-  r <- eval_rwr_importance(p, s, rescale = FALSE)
+  r <- eval_rare_richness_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- raster::raster(matrix(c(0, ((5 / 10) / 31), NA,
                                 ((6 / 10) / 31) + (1 / 1)), nrow = 1))
@@ -185,7 +185,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- rep(c(0, 1), 5)
     # calculate representation
-    r <- eval_rwr_importance(x, y)
+    r <- eval_rare_richness_importance(x, y)
   })
   expect_error({
     # simulate data
@@ -198,7 +198,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- matrix(rep(c(0, 1), 5), ncol = 1)
     # calculate representation
-    r <- eval_rwr_importance(x, y)
+    r <- eval_rare_richness_importance(x, y)
   })
   expect_error({
     # simulate data
@@ -209,7 +209,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- data.frame(solution = rep(c(0, 1), 5))
     # calculate representation
-    r <- eval_rwr_importance(x, y)
+    r <- eval_rare_richness_importance(x, y)
   })
   expect_error({
     # load data
@@ -224,7 +224,7 @@ test_that("invalid inputs", {
     # create a solution
     y <- pu[, "solution"]
     # calculate representation
-    r <- eval_rwr_importance(x, y)
+    r <- eval_rare_richness_importance(x, y)
   })
   expect_error({
     # load data
@@ -235,7 +235,7 @@ test_that("invalid inputs", {
     y <- raster::setValues(sim_pu_raster,
                            rep(c(0, 1), raster::ncell(sim_pu_raster) / 2))
     # calculate representation
-    r <- eval_rwr_importance(x, y)
+    r <- eval_rare_richness_importance(x, y)
   })
   expect_error({
     # create data
@@ -259,6 +259,6 @@ test_that("invalid inputs", {
     # create a solution
     s <- matrix(c(1, 0, NA, 1, 0, 0, NA, 0, 0, 0, 0, 0, 1, 0, NA, 0), ncol = 2)
     # calculate replacement costs
-    eval_rwr_importance(p, s, rescale = FALSE)
+    eval_rare_richness_importance(p, s, rescale = FALSE)
   })
 })

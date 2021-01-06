@@ -62,7 +62,6 @@ customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
 solve() function can be used to identify solutions." />
-<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -556,7 +555,7 @@ millions of planning units.</p>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00169
+#&gt;  - attr(*, "runtime")= Named num 0.00183
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'><span class='co'># }</span>
 <span class='co'># create some problems with multiple zones</span>
 
@@ -574,11 +573,11 @@ millions of planning units.</p>
 <span class='co'># print targets</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;           zone_1 zone_2 zone_3
-#&gt; feature_1      1      1      1
-#&gt; feature_2      3      2      1
-#&gt; feature_3      0      0      0
-#&gt; feature_4      3      1      0
-#&gt; feature_5      1      2      3</div><div class='input'>
+#&gt; feature_1      2      0      2
+#&gt; feature_2      1      2      0
+#&gt; feature_3      0      1      0
+#&gt; feature_4      0      0      2
+#&gt; feature_5      1      4      3</div><div class='input'>
 <span class='co'># create a multi-zone problem with raster data</span>
 <span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'>problem</span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>

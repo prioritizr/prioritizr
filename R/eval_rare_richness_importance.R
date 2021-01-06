@@ -60,7 +60,7 @@ NULL
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #'
 #' # calculate importance scores
-#' rwr1 <- eval_rwr_importance(p1, s1)
+#' rwr1 <- eval_rare_richness_importance(p1, s1)
 #'
 #' # print importance scores
 #' print(rwr1)
@@ -77,22 +77,22 @@ NULL
 #'
 #' @inherit eval_replacement_importance seealso
 #'
-#' @aliases eval_rwr_importance,ConservationProblem,numeric-method eval_rwr_importance,ConservationProblem,matrix-method eval_rwr_importance,ConservationProblem,data.frame-method eval_rwr_importance,ConservationProblem,Spatial-method eval_rwr_importance,ConservationProblem,sf-method eval_rwr_importance,ConservationProblem,Raster-method
+#' @aliases eval_rare_richness_importance,ConservationProblem,numeric-method eval_rare_richness_importance,ConservationProblem,matrix-method eval_rare_richness_importance,ConservationProblem,data.frame-method eval_rare_richness_importance,ConservationProblem,Spatial-method eval_rare_richness_importance,ConservationProblem,sf-method eval_rare_richness_importance,ConservationProblem,Raster-method
 #'
-#' @name eval_rwr_importance
+#' @name eval_rare_richness_importance
 #'
-#' @rdname eval_rwr_importance
+#' @rdname eval_rare_richness_importance
 #'
-#' @exportMethod eval_rwr_importance
-methods::setGeneric("eval_rwr_importance",
+#' @exportMethod eval_rare_richness_importance
+methods::setGeneric("eval_rare_richness_importance",
   function(x, solution, ...) {
-  standardGeneric("eval_rwr_importance")
+  standardGeneric("eval_rare_richness_importance")
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,numeric}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,numeric}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
@@ -112,7 +112,7 @@ methods::setMethod("eval_rwr_importance",
            " solution")
     # calculate replacement costs
     indices <- which(solution[pos] > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # return replacement costs
     out <- rep(NA_real_, x$number_of_total_units())
     out[pos] <- 0
@@ -120,10 +120,10 @@ methods::setMethod("eval_rwr_importance",
     out
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,matrix}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,matrix}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
@@ -148,7 +148,7 @@ methods::setMethod("eval_rwr_importance",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -162,10 +162,10 @@ methods::setMethod("eval_rwr_importance",
     out
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,data.frame}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,data.frame}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
@@ -192,7 +192,7 @@ methods::setMethod("eval_rwr_importance",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -208,10 +208,10 @@ methods::setMethod("eval_rwr_importance",
     tibble::as_tibble(out)
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,Spatial}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,Spatial}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
@@ -238,7 +238,7 @@ methods::setMethod("eval_rwr_importance",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -257,10 +257,10 @@ methods::setMethod("eval_rwr_importance",
     solution
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,sf}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,sf}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "sf"),
   function(x, solution, rescale = TRUE, ...) {
     # assert valid arguments
@@ -288,7 +288,7 @@ methods::setMethod("eval_rwr_importance",
           " solution")
     # calculate replacement costs
     indices <- which(solution_pu > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # return replacement costs
     out <- matrix(0, nrow = x$number_of_total_units(),
                   ncol = x$number_of_zones())
@@ -305,10 +305,10 @@ methods::setMethod("eval_rwr_importance",
     sf::st_as_sf(sf::st_geometry(x$data$cost), out)
 })
 
-#' @name eval_rwr_importance
-#' @usage \S4method{eval_rwr_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
-#' @rdname eval_rwr_importance
-methods::setMethod("eval_rwr_importance",
+#' @name eval_rare_richness_importance
+#' @usage \S4method{eval_rare_richness_importance}{ConservationProblem,Raster}(x, solution, rescale, ...)
+#' @rdname eval_rare_richness_importance
+methods::setMethod("eval_rare_richness_importance",
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution, rescale = TRUE, ...) {
     assertthat::assert_that(
@@ -338,7 +338,7 @@ methods::setMethod("eval_rwr_importance",
           " solution")
     # calculate replacement costs
     indices <- which(solution_matrix > 1e-10)
-    rc <- internal_eval_rwr_importance(x, indices, rescale)
+    rc <- internal_eval_rare_richness_importance(x, indices, rescale)
     # prepare output
     rc <- split(rc, which(solution_matrix > 1e-10, arr.ind = TRUE)[, 2])
     # return result
@@ -360,7 +360,7 @@ methods::setMethod("eval_rwr_importance",
     out
 })
 
-internal_eval_rwr_importance <- function(x, indices, rescale) {
+internal_eval_rare_richness_importance <- function(x, indices, rescale) {
   assertthat::assert_that(inherits(x, "ConservationProblem"),
                           x$number_of_zones() == 1,
                           is.integer(indices), length(indices) > 0,

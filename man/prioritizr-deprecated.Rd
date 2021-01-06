@@ -88,7 +88,7 @@ the \code{\link[=eval_replacement_importance]{eval_replacement_importance()}} fu
 other functions for evaluating solutions.}
 
 \item{\code{rarity_weighted_richness()}}{renamed as
-the \code{\link[=eval_rwr_importance]{eval_rwr_importance()}} function for consistency with
+the \code{\link[=eval_rare_richness_importance]{eval_rare_richness_importance()}} function for consistency with
 other functions for evaluating solutions.}
 
 \item{\code{ferrier_score()}}{renamed as

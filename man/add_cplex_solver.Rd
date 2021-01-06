@@ -27,7 +27,7 @@ between the bounds is 1 percent of the upper bound.}
 The solver will return the current best solution when this time limit is
 exceeded.}
 
-\item{presolve}{\code{logical} should the presolver be used to simplify the
+\item{presolve}{\code{logical} attempt to simplify the
 problem before solving it? The default value is \code{TRUE}.}
 
 \item{threads}{\code{integer} number of threads to use for the
@@ -66,7 +66,7 @@ the file path for the \emph{CPLEX} software. For example, on a Linux system,
 this variable can be specified by adding
 \verb{export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"}
 to the \verb{~/.bashrc} file. Note that you may need to change the version
-number in the file parth (i.e. \code{"CPLEX_Studio128"}). For more information
+number in the file path (i.e. \code{"CPLEX_Studio128"}). For more information
 on installing the pkg{cplexAPI} package, please see the
 \href{https://CRAN.R-project.org/package=cplexAPI/INSTALL}{official installation instructions for the package}.
 }
