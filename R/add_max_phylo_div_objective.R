@@ -120,12 +120,13 @@ NULL
 #' plot(sim_phylogeny, main = "phylogeny")
 #' }
 #' # create problem with a maximum phylogenetic diversity objective,
-#' # where each feature needs 10 % of its distribution to be secured for
+#' # where each feature needs 10% of its distribution to be secured for
 #' # it to be adequately conserved and a total budget of 1900
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_max_phylo_div_objective(1900, sim_phylogeny) %>%
 #'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -133,16 +134,15 @@ NULL
 #' # plot solution
 #' plot(s1, main = "solution", axes = FALSE, box = FALSE)
 #'
-#' # find which features have their targets met
-#' r1 <- eval_feature_representation(p1, s1)
-#' r1$target_met <- r1$relative_held > 0.1
-#' print(r1)
+#' # find out which features have their targets met
+#' r1 <- eval_target_coverage_summary(p1, s1)
+#' print(r1, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
 #' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(
 #'        rep("black", nlayers(sim_features)),
-#'        sim_phylogeny$tip.label %in% r1$feature[r1$target_met],
+#'        sim_phylogeny$tip.label %in% r1$feature[r1$met],
 #'        "red"))
 #' }
 #' # rename the features in the example phylogeny for use with the
@@ -164,7 +164,8 @@ NULL
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_phylo_div_objective(5000, sim_phylogeny) %>%
 #'       add_manual_targets(targets) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
@@ -172,28 +173,22 @@ NULL
 #' # plot solution
 #' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 #'
-#' # calculate total amount of habitat conserved for each feature among
-#' # all three management zones
-#' amount_held2 <- numeric(number_of_features(sim_features_zones))
-#' for (z in seq_len(number_of_zones(sim_features_zones)))
-#'   amount_held2 <- amount_held2 +
-#'                   cellStats(sim_features_zones[[z]] * s2[[z]], "sum")
-#'
-#' # find which features have their targets met
-#' targets_met2 <- amount_held2 >= targets$target
-#' print(targets_met2)
+#' # find out which features have their targets met
+#' r2 <- eval_target_coverage_summary(p2, s2)
+#' print(r2, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
 #' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
-#'                          which(targets_met2), "red"))
+#'                          which(r2$met), "red"))
 #' }
 #' # create a multi-zone problem with a maximum phylogenetic diversity
 #' # objective, where each zone has a separate budget.
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_max_phylo_div_objective(c(2500, 500, 2000), sim_phylogeny) %>%
 #'       add_manual_targets(targets) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
@@ -201,21 +196,14 @@ NULL
 #' # plot solution
 #' plot(category_layer(s3), main = "solution", axes = FALSE, box = FALSE)
 #'
-#' # calculate total amount of habitat conserved for each feature among
-#' # all three management zones
-#' amount_held3 <- numeric(number_of_features(sim_features_zones))
-#' for (z in seq_len(number_of_zones(sim_features_zones)))
-#'   amount_held3 <- amount_held3 +
-#'                   cellStats(sim_features_zones[[z]] * s3[[z]], "sum")
-#'
-#' # find which features have their targets met
-#' targets_met3 <- amount_held3 >= targets$target
-#' print(targets_met3)
+#' # find out which features have their targets met
+#' r3 <- eval_target_coverage_summary(p3, s3)
+#' print(r3, width = Inf)
 #'
 #' # plot the phylogeny and color the adequately represented features in red
 #' plot(sim_phylogeny, main = "adequately represented features",
 #'      tip.color = replace(rep("black", nlayers(sim_features)),
-#'                          which(targets_met3), "red"))
+#'                          which(r3$met), "red"))
 #' }
 #' @name add_max_phylo_div_objective
 NULL

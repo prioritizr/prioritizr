@@ -38,25 +38,22 @@ NULL
 #'   [official installation instructions for the package](https://CRAN.R-project.org/package=cplexAPI/INSTALL).
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
 #' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions()
-#' \dontrun{
-#' # if the package is installed then add solver and generate solution
-#' if (require("cplexAPI")) {
-#'   # specify solver and generate solution
-#'   s <- p %>% add_cplex_solver(gap = 0.1, time_limit = 5) %>%
-#'              solve()
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions() %>%
+#'      add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
 #'
-#'   # plot solutions
-#'   plot(stack(sim_pu_raster, s), main = c("planning units", "solution"),
-#'        axes = FALSE, box = FALSE)
-#' }
+#' # generate solution
+#' s <- solve(p)
+#'
+#' # plot solution
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
 #' }
 #' @name add_cplex_solver
 NULL

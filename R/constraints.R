@@ -38,7 +38,8 @@ NULL
 #'     ensure that all selected planning units are spatially connected to each
 #'     other and form a single contiguous unit.}
 #'
-#'   \item{[add_feature_contiguity_constraints()]}{Add constraints to #'     ensure that each feature is represented in a contiguous unit of
+#'   \item{[add_feature_contiguity_constraints()]}{Add constraints to
+#'     ensure that each feature is represented in a contiguous unit of
 #'     dispersible habitat. These constraints are a more advanced version of
 #'     those implemented in the [add_contiguity_constraints()]
 #'     function, because they ensure that each feature is represented in a
@@ -65,7 +66,8 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with locked in constraints
 #' p2 <- p1 %>% add_locked_in_constraints(sim_locked_in_raster)

@@ -13,8 +13,8 @@
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{weights}{\code{numeric} or \code{matrix} of weights. See the
-Details section for more information.}
+\item{weights}{\code{numeric} or \code{matrix} of weights.
+See the Weights format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the weights
@@ -32,7 +32,7 @@ about how the budget should be allocated.
 }
 \details{
 Weights can only be applied to problems that have an objective
-that is budget limited (e.g. \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}). #'
+that is budget limited (e.g. \code{\link[=add_max_cover_objective]{add_max_cover_objective()}}).
 They can be applied to problems that aim to maximize phylogenetic
 representation (\code{\link[=add_max_phylo_div_objective]{add_max_phylo_div_objective()}}) to favor the
 representation of specific features over the representation of
@@ -43,6 +43,11 @@ the cheapest solution among multiple optimal solutions. This means
 that the optimization process will favor cheaper solutions over solutions
 that meet feature targets (or occurrences) when feature weights are
 lower than 0.01.}
+}
+\section{Weights format}{
+
+
+The argument to \code{weights} can be specified using the following formats.
 
 \describe{
 
@@ -62,6 +67,7 @@ fulfilling each target.}
 
 }
 }
+
 \examples{
 # load ape package
 require(ape)
@@ -72,11 +78,12 @@ data(sim_pu_raster, sim_features, sim_phylogeny, sim_pu_zones_stack,
 
 # create minimal problem that aims to maximize the number of features
 # adequately conserved given a total budget of 3800. Here, each feature
-# needs 20 \% of its habitat for it to be considered adequately conserved
+# needs 20\% of its habitat for it to be considered adequately conserved
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_max_features_objective(budget = 3800) \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create weights that assign higher importance to features with less
 # suitable habitat in the study area
@@ -106,12 +113,13 @@ par(mfrow = c(1, 1))
 plot(sim_phylogeny, main = "simulated phylogeny")
 }
 # create problem with a maximum phylogenetic diversity objective,
-# where each feature needs 10 \% of its distribution to be secured for
+# where each feature needs 10\% of its distribution to be secured for
 # it to be adequately conserved and a total budget of 1900
 p4 <- problem(sim_pu_raster, sim_features) \%>\%
       add_max_phylo_div_objective(1900, sim_phylogeny) \%>\%
       add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s4 <- solve(p4)
@@ -119,14 +127,14 @@ s4 <- solve(p4)
 # plot solution
 plot(s4, main = "solution", axes = FALSE, box = FALSE)
 
-# find which features have their targets met
-targets_met4 <- cellStats(s4 * sim_features, "sum") >
-                (0.1 * cellStats(sim_features, "sum"))
+# find out which features have their targets met
+r4 <- eval_target_coverage_summary(p4, s4)
+print(r4, width = Inf)
 
 # plot the example phylogeny and color the represented features in red
 plot(sim_phylogeny, main = "represented features",
      tip.color = replace(rep("black", nlayers(sim_features)),
-                         which(targets_met4), "red"))
+                         which(r4$met), "red"))
 }
 # we can see here that the third feature ("layer.3", i.e.
 # sim_features[[3]]) is not represented in the solution. Let us pretend
@@ -151,8 +159,8 @@ s5 <- p4 \%>\% add_feature_weights(w5) \%>\% solve()
 plot(s5, main = "solution", axes = FALSE, box = FALSE)
 
 # find which features have their targets met
-targets_met5 <- cellStats(s5 * sim_features, "sum") >
-                (0.1 * cellStats(sim_features, "sum"))
+r5 <- eval_target_coverage_summary(p4, s5)
+print(r5, width = Inf)
 
 # plot the example phylogeny and color the represented features in red
 # here we can see that this solution only adequately conserves the
@@ -161,16 +169,17 @@ targets_met5 <- cellStats(s5 * sim_features, "sum") >
 # diverse set of three different features.
 plot(sim_phylogeny, main = "represented features",
      tip.color = replace(rep("black", nlayers(sim_features)),
-                         which(targets_met5), "red"))
+                         which(r5$met), "red"))
 }
 # create multi-zone problem with maximum features objective,
-# with 10 \% representation targets for each feature, and set
+# with 10\% representation targets for each feature, and set
 # a budget such that the total maximum expenditure in all zones
 # cannot exceed 3000
 p6 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_max_features_objective(3000) \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create weights that assign equal weighting for the representation
 # of each feature in each zone except that it does not matter if
@@ -194,12 +203,13 @@ plot(stack(category_layer(s6), category_layer(s7)),
 # create minimal problem to show the correct method for setting
 # weights for problems with manual targets
 p8 <- problem(sim_pu_raster, sim_features) \%>\%
-      add_max_features_objective(budget = 1500) \%>\%
+      add_max_features_objective(budget = 3000) \%>\%
       add_manual_targets(data.frame(feature = c("layer.1", "layer.4"),
                                     type = "relative",
                                     target = 0.1)) \%>\%
       add_feature_weights(matrix(c(1, 200), ncol = 1)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s8 <- solve(p8)

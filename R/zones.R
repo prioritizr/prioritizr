@@ -49,9 +49,9 @@ NULL
 #'     in each zone. Following conventions used in *Marxan*,
 #'     `data.frame` objects should be supplied with the columns:
 #'     \describe{
-#'     \item{`"pu"`}{`integer` planning unit identifier.}
-#'     \item{`"species"`}{`integer` feature identifier.}
-#'     \item{`"amount"`}{`numeric` amount of the feature in the
+#'     \item{pu}{`integer` planning unit identifier.}
+#'     \item{species}{`integer` feature identifier.}
+#'     \item{amount}{`numeric` amount of the feature in the
 #'       planning unit for a given zone.}
 #'     }
 #'     Note that data for each zone are specified in a separate argument, and

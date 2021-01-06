@@ -100,12 +100,12 @@ argument should follow the conventions used by \emph{Marxan}, wherein
 each row corresponds to a different feature. It must also contain the
 following columns:
 \describe{
-\item{\code{"id"}}{\code{integer} unique identifier for each feature
+\item{id}{\code{integer} unique identifier for each feature
 These identifiers are used in the argument to \code{rij}.}
-\item{\code{"name"}}{\code{character} name for each feature.}
-\item{\code{"prop"}}{\code{numeric} relative target for each feature
+\item{name}{\code{character} name for each feature.}
+\item{prop}{\code{numeric} relative target for each feature
 (optional).}
-\item{\code{"amount"}}{\code{numeric} absolute target for each
+\item{amount}{\code{numeric} absolute target for each
 feature (optional).}
 }
 }
@@ -155,11 +155,11 @@ objects must follow the conventions used by \emph{Marxan}. Note that the
 management zone. Specifically, the argument should contain the following
 columns:
 \describe{
-\item{\code{"pu"}}{\code{integer} planning unit identifier.}
-\item{\code{"species"}}{\code{integer} feature identifier.}
-\item{\code{"zone"}}{\code{integer} zone identifier (optional for
+\item{pu}{\code{integer} planning unit identifier.}
+\item{species}{\code{integer} feature identifier.}
+\item{zone}{\code{integer} zone identifier (optional for
 problems involving a single zone).}
-\item{\code{"amount"}}{\code{numeric} amount of the feature in the
+\item{amount}{\code{numeric} amount of the feature in the
 planning unit.}
 }}
 
@@ -170,8 +170,8 @@ multiple zones. Following conventions used in \code{MarZone}, this
 argument should contain the following columns:
 columns:
 \describe{
-\item{\code{"id"}}{\code{integer} zone identifier.}
-\item{\code{"name"}}{\code{character} zone name.}
+\item{id}{\code{integer} zone identifier.}
+\item{name}{\code{character} zone name.}
 }}
 
 \item{rij_matrix}{\code{list} of \code{matrix} or
@@ -213,7 +213,7 @@ cloud forest). The benefit that each feature derives from a planning unit
 can take a variety of forms, but is typically either occupancy (i.e.
 presence or absence) or area of occurrence within each planning unit.
 Finally, in some types of reserve design models, representation targets
-must be set for each conservation feature, such as 20 \% of the current
+must be set for each conservation feature, such as 20\% of the current
 extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
 (see \link{targets}).
 
@@ -266,32 +266,37 @@ data(sim_pu_raster, sim_pu_polygons, sim_pu_lines, sim_pu_points,
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 \dontrun{
 # create problem using polygon (Spatial) planning unit data
 p2 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem using line (Spatial) planning unit data
 p3 <- problem(sim_pu_lines, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem using point (Spatial) planning unit data
 p4 <- problem(sim_pu_points, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem using polygon (sf) planning unit data
 p5 <- problem(sim_pu_sf, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # add columns to polygon planning unit data representing the abundance
 # of species inside them
@@ -305,7 +310,8 @@ p6 <- problem(sim_pu_polygons, features = c("spp_1", "spp_2", "spp_3"),
               "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # alternatively one can supply pre-processed aspatial data
 costs <- sim_pu_polygons$cost
@@ -315,7 +321,8 @@ rij_mat <- rij_matrix(sim_pu_polygons, sim_features)
 p7 <- problem(costs, features, rij_matrix = rij_mat) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # solve problems
 s1 <- solve(p1)
@@ -368,7 +375,8 @@ print(targets)
 p8 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_absolute_targets(targets) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s8 <- solve(p8)
@@ -390,7 +398,8 @@ p9 <- problem(sim_pu_zones_polygons, sim_features_zones,
               cost_column = c("cost_1", "cost_2", "cost_3")) \%>\%
       add_min_set_objective() \%>\%
       add_absolute_targets(targets) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # solve problem
 s9 <- solve(p9)
@@ -432,7 +441,8 @@ p10 <- problem(sim_pu_zones_polygons,
                cost_column = c("cost_1", "cost_2")) \%>\%
        add_min_set_objective() \%>\%
        add_absolute_targets(targets[1:3, 1:2]) \%>\%
-       add_proportion_decisions()
+       add_proportion_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # solve problem
 s10 <- solve(p10)
@@ -446,5 +456,5 @@ spplot(s10, zcol = c("solution_1_z1", "solution_1_z2"), main = "solution",
 \link{constraints}, \link{decisions},
 \link{objectives} \link{penalties},
 \link{portfolios}, \link{solvers}, \link{targets},
-\link{evaluation}, \link{irreplaceability}.
+\link{summaries}, \link{importance}.
 }

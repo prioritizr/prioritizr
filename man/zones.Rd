@@ -52,9 +52,9 @@ these columns must not contain any \code{NA} values.}
 in each zone. Following conventions used in \emph{Marxan},
 \code{data.frame} objects should be supplied with the columns:
 \describe{
-\item{\code{"pu"}}{\code{integer} planning unit identifier.}
-\item{\code{"species"}}{\code{integer} feature identifier.}
-\item{\code{"amount"}}{\code{numeric} amount of the feature in the
+\item{pu}{\code{integer} planning unit identifier.}
+\item{species}{\code{integer} feature identifier.}
+\item{amount}{\code{numeric} amount of the feature in the
 planning unit for a given zone.}
 }
 Note that data for each zone are specified in a separate argument, and

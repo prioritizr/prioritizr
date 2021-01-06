@@ -41,7 +41,7 @@ must have a value for each zone.}
 \code{\linkS4class{Raster}}, \code{matrix}, or \code{Matrix} object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
-in the solution. See the Details section for more information.}
+in the solution. See the Data format section for more information.}
 }
 \description{
 Add penalties to a conservation planning \code{\link[=problem]{problem()}} to penalize
@@ -53,8 +53,36 @@ solution cost for minimum set problems; \code{\link[=add_min_set_objective]{add_
 }
 \details{
 This function penalizes solutions that have higher values according
-to a specific metric. The argument to \code{data} can be specified in
-several different ways:
+to the sum of the penalty values associated with each planning unit,
+weighted by status of each planning unit in the solution.
+
+Specifically, the linear penalties are calculated using the following
+equations.
+Let \eqn{I} denote the set of planning units
+(indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
+\eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
+planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\eqn{P_z} represent the penalty scaling value for zones
+\eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
+\eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
+\eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
+\code{data} if supplied as a \code{matrix} object).
+
+\deqn{
+\sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
+}{
+sum_i^I sum_z^Z (Pz * Diz * Xiz)
+}
+
+Note that when the problem objective is to maximize some measure of
+benefit and not minimize some measure of cost, the term \eqn{P_z} is
+replaced with \eqn{-P_z}.
+}
+\section{Data format}{
+
+
+The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
@@ -97,29 +125,8 @@ zone, and each cell indicates the data for penalizing a planning unit
 when it is allocated to a given zone.}
 
 }
-
-The linear penalties are calculated using the following equations.
-Let \eqn{I} denote the set of planning units
-(indexed by \eqn{i}), \eqn{Z} the set of management zones (indexed by
-\eqn{z}), and \eqn{X_{iz}}{Xiz} the decision variable for allocating
-planning unit \eqn{i} to zone \eqn{z} (e.g. with binary
-values one indicating if planning unit is allocated or not). Also, let
-\eqn{P_z} represent the penalty scaling value for zones
-\eqn{z \in Z}{z in Z} (argument to \code{penalty}), and
-\eqn{D_{iz}}{Diz} the penalty data for allocating planning unit
-\eqn{i \in I}{i in I} to zones \eqn{z \in Z}{z in Z} (argument to
-\code{data} if supplied as a \code{matrix} object).
-
-\deqn{
- \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
- }{
- sum_i^I sum_z^Z (Pz * Diz * Xiz)
- }
-
-Note that when the problem objective is to maximize some measure of
-benefit and not minimize some measure of cost, the term \eqn{P_z} is
-replaced with \eqn{-P_z}.
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(600)
@@ -140,7 +147,8 @@ spplot(sim_pu_polygons, zcol = "penalty_data", main = "penalty data",
 p1 <- problem(sim_pu_polygons, sim_features, cost_column = "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # print problem
 print(p1)
@@ -195,7 +203,8 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(targ) \%>\%
       add_linear_penalties(c(1, 1, 1), penalty_stack) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # print problem
 print(p3)

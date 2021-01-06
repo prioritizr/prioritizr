@@ -47,7 +47,7 @@ NULL
 #'   is `NULL` which means that the connection data is calculated
 #'   automatically using the [adjacency_matrix()] function and so
 #'   all adjacent planning units are treated as being connected for all
-#'   features. See the Details section for more information.
+#'   features. See the Data format section for more information.
 #'
 #' @details This function uses connection data to identify solutions that
 #'   represent features in contiguous units of dispersible habitat.
@@ -60,52 +60,54 @@ NULL
 #'   **Please note that adding these constraints to a problem will
 #'   drastically increase the amount of time required to solve it.**
 #'
-#'   The argument to `data` can be specified in several ways:
+#' @section Data format:
 #'
-#'   \describe{
+#' The argument to `data` can be specified using the following formats.
 #'
-#'   \item{`NULL`}{connection data should be calculated automatically
-#'     using the [adjacency_matrix()] function. This is the default
-#'     argument and means that all adjacent planning units are treated
-#'     as potentially dispersible for all features.
-#'     Note that the connection data must be manually defined
-#'     using one of the other formats below when the planning unit data
-#'     in the argument to `x` is not spatially referenced (e.g.
-#'     in `data.frame` or `numeric` format).}
-
-#'   \item{`matrix`, `Matrix`}{where rows and columns represent
-#'     different planning units and the value of each cell indicates if the
-#'     two planning units are connected or not. Cell values should be binary
-#'     `numeric` values (i.e. one or zero). Cells that occur along the
-#'     matrix diagonal have no effect on the solution at all because each
-#'     planning unit cannot be a connected with itself. Note that pairs
-#'     of connected planning units are treated as being potentially dispersible
-#'     for all features.}
+#' \describe{
 #'
-#'   \item{`data.frame`}{containing the fields (columns)
-#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
-#'     denotes the connectivity between two planning units following the
-#'     *Marxan* format. The field `boundary` should contain
-#'     binary `numeric` values that indicate if the two planning units
-#'     specified in the fields `"id1"` and `"id2"` are connected
-#'     or not. This data can be used to describe symmetric or
-#'     asymmetric relationships between planning units. By default,
-#'     input data is assumed to be symmetric unless asymmetric data is
-#'     also included (e.g. if data is present for planning units 2 and 3, then
-#'     the same amount of connectivity is expected for planning units 3 and 2,
-#'     unless connectivity data is also provided for planning units 3 and 2).
-#'     Note that pairs of connected planning units are treated as being
-#'     potentially dispersible for all features.}
+#' \item{`NULL`}{connection data should be calculated automatically
+#'   using the [adjacency_matrix()] function. This is the default
+#'   argument and means that all adjacent planning units are treated
+#'   as potentially dispersible for all features.
+#'   Note that the connection data must be manually defined
+#'   using one of the other formats below when the planning unit data
+#'   in the argument to `x` is not spatially referenced (e.g.
+#'   in `data.frame` or `numeric` format).}
 #'
-#'  \item{`list`}{containing `matrix`, `Matrix`, or
-#'     `data.frame` objects showing which planning units
-#'     should be treated as connected for each feature. Each element in the
-#'     `list` should correspond to a different feature (specifically,
-#'     a different target in the problem), and should contain a `matrix`,
-#'     `Matrix`, or `data.frame` object that follows the conventions
-#'     detailed above.}
+#' \item{`matrix`, `Matrix`}{where rows and columns represent
+#'   different planning units and the value of each cell indicates if the
+#'   two planning units are connected or not. Cell values should be binary
+#'   `numeric` values (i.e. one or zero). Cells that occur along the
+#'   matrix diagonal have no effect on the solution at all because each
+#'   planning unit cannot be a connected with itself. Note that pairs
+#'   of connected planning units are treated as being potentially dispersible
+#'   for all features.}
 #'
-#'   }
+#' \item{`data.frame`}{containing the fields (columns)
+#'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
+#'   denotes the connectivity between two planning units following the
+#'   *Marxan* format. The field `boundary` should contain
+#'   binary `numeric` values that indicate if the two planning units
+#'   specified in the fields `"id1"` and `"id2"` are connected
+#'   or not. This data can be used to describe symmetric or
+#'   asymmetric relationships between planning units. By default,
+#'   input data is assumed to be symmetric unless asymmetric data is
+#'   also included (e.g. if data is present for planning units 2 and 3, then
+#'   the same amount of connectivity is expected for planning units 3 and 2,
+#'   unless connectivity data is also provided for planning units 3 and 2).
+#'   Note that pairs of connected planning units are treated as being
+#'   potentially dispersible for all features.}
+#'
+#' \item{`list`}{containing `matrix`, `Matrix`, or
+#'   `data.frame` objects showing which planning units
+#'   should be treated as connected for each feature. Each element in the
+#'   `list` should correspond to a different feature (specifically,
+#'    a different target in the problem), and should contain a `matrix`,
+#'   `Matrix`, or `data.frame` object that follows the conventions
+#'    detailed above.}
+#'
+#' }
 #'
 #' @inherit add_contiguity_constraints return seealso
 #'
@@ -131,7 +133,9 @@ NULL
 #' # create minimal problem
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.3)
+#'       add_relative_targets(0.3) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with contiguity constraints
 #' p2 <- p1 %>% add_contiguity_constraints()
@@ -171,8 +175,8 @@ NULL
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_default_solver(time_limit = 30) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(time_limit = 30, verbose = FALSE)
 #'
 #' # create problem with contiguity constraints that specify that the
 #' # planning units used to conserve each feature in different management

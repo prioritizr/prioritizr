@@ -53,7 +53,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_default_solver(gap = 0.2, verbose = FALSE)
 
 \dontrun{
-# solve problem and generate 10 solutions within 20 \% of optimality
+# solve problem and generate 10 solutions within 20\% of optimality
 s1 <- solve(p1)
 
 # plot solutions in portfolio

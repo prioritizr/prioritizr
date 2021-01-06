@@ -208,25 +208,31 @@
     <loc>https://prioritizr.net/reference/distribute_load.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_boundary.html</loc>
+    <loc>https://prioritizr.net/reference/eval_boundary_summary.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_connectivity.html</loc>
+    <loc>https://prioritizr.net/reference/eval_connectivity_summary.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_cost.html</loc>
+    <loc>https://prioritizr.net/reference/eval_cost_summary.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_feature_representation.html</loc>
+    <loc>https://prioritizr.net/reference/eval_feature_representation_summary.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_n.html</loc>
+    <loc>https://prioritizr.net/reference/eval_ferrier_importance.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/eval_target_coverage.html</loc>
+    <loc>https://prioritizr.net/reference/eval_n_summary.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/evaluation.html</loc>
+    <loc>https://prioritizr.net/reference/eval_replacement_importance.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_rwr_importance.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/eval_target_coverage_summary.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/fast_extract.html</loc>
@@ -238,13 +244,10 @@
     <loc>https://prioritizr.net/reference/feature_names.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/ferrier_score.html</loc>
+    <loc>https://prioritizr.net/reference/importance.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/intersecting_units.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/irreplaceability.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/is.html</loc>
@@ -325,12 +328,6 @@
     <loc>https://prioritizr.net/reference/proximity_matrix.html</loc>
   </url>
   <url>
-    <loc>https://prioritizr.net/reference/rarity_weighted_richness.html</loc>
-  </url>
-  <url>
-    <loc>https://prioritizr.net/reference/replacement_cost.html</loc>
-  </url>
-  <url>
     <loc>https://prioritizr.net/reference/rij_matrix.html</loc>
   </url>
   <url>
@@ -359,6 +356,9 @@
   </url>
   <url>
     <loc>https://prioritizr.net/reference/solvers.html</loc>
+  </url>
+  <url>
+    <loc>https://prioritizr.net/reference/summaries.html</loc>
   </url>
   <url>
     <loc>https://prioritizr.net/reference/targets.html</loc>

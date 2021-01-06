@@ -1,7 +1,7 @@
 #' @include internal.R Collection-proto.R
 NULL
 
-#' Conservation problem penalties
+#' Add a penalty
 #'
 #' A penalty can be applied to a conservation planning [problem()] to
 #' penalize solutions according to a specific metric. Penalties---unlike
@@ -47,7 +47,7 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_default_solver()
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with boundary penalties
 #' p2 <- p1 %>% add_boundary_penalties(5, 1)

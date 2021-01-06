@@ -24,12 +24,12 @@ and it must have the following columns:
 
 \describe{
 
-\item{\code{"id"}}{\code{integer} unique identifier for each planning unit.
+\item{id}{\code{integer} unique identifier for each planning unit.
 These identifiers are used in the argument to \code{puvspr}.}
 
-\item{\code{"cost"}}{\code{numeric} cost of each planning unit.}
+\item{cost}{\code{numeric} cost of each planning unit.}
 
-\item{\code{"status"}}{\code{integer} indicating if each planning unit
+\item{status}{\code{integer} indicating if each planning unit
 should not be locked in the solution (0) or if it should be locked in
 (2) or locked out (3) of the solution. Although \emph{Marxan} allows
 planning units to be selected in the initial solution (using values of
@@ -51,15 +51,15 @@ names}---to specify the target for each feature.
 
 \describe{
 
-\item{\code{"id"}}{\code{integer} unique identifier for each feature
+\item{id}{\code{integer} unique identifier for each feature
 These identifiers are used in the argument to \code{puvspr}.}
 
-\item{\code{"name"}}{\code{character} name for each feature.}
+\item{name}{\code{character} name for each feature.}
 
-\item{\code{"prop"}}{\code{numeric} relative target for each feature
+\item{prop}{\code{numeric} relative target for each feature
 (optional).}'
 
-\item{\code{"amount"}}{\code{numeric} absolute target for each
+\item{amount}{\code{numeric} absolute target for each
 feature (optional).}
 
 }}
@@ -72,11 +72,11 @@ following columns:
 
 \describe{
 
-\item{\code{"pu"}}{\code{integer} planning unit identifier.}
+\item{pu}{\code{integer} planning unit identifier.}
 
-\item{\code{"species"}}{\code{integer} feature identifier.}
+\item{species}{\code{integer} feature identifier.}
 
-\item{\code{"amount"}}{\code{numeric} amount of the feature in the
+\item{amount}{\code{numeric} amount of the feature in the
 planning unit.}
 
 }}
@@ -90,11 +90,11 @@ following columns:
 
 \describe{
 
-\item{\code{"id1"}}{\code{integer} planning unit identifier.}
+\item{id1}{\code{integer} planning unit identifier.}
 
-\item{\code{"id2"}}{\code{integer} planning unit identifier.}
+\item{id2}{\code{integer} planning unit identifier.}
 
-\item{\code{"boundary"}}{\code{numeric} length of shared boundary
+\item{boundary}{\code{numeric} length of shared boundary
 between the planning units identified in the previous two columns.}
 
 }}
@@ -126,7 +126,8 @@ connectivity, please see the \code{\link[=add_connectivity_penalties]{add_connec
 \examples{
 # create Marxan problem using Marxan input file
 input_file <- system.file("extdata/input.dat", package = "prioritizr")
-p1 <- marxan_problem(input_file)
+p1 <- marxan_problem(input_file) \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s1 <- solve(p1)
@@ -157,7 +158,8 @@ bound_dat <- data.table::fread(bound_path, data.table = FALSE)
 head(bound_dat)
 
 # create problem without the boundary data
-p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat)
+p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s2 <- solve(p2)
@@ -167,7 +169,8 @@ head(s2)
 }
 # create problem with the boundary data and a boundary length modifier
 # set to 5
-p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5)
+p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s3 <- solve(p3)

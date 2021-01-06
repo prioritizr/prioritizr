@@ -53,7 +53,7 @@ NULL
 #'
 #'   }
 #'
-#' @seealso [problem()], [eval_feature_representation()].
+#' @seealso [problem()], [eval_feature_representation_summary()].
 #'
 #' @examples
 #' # load data
@@ -104,7 +104,8 @@ NULL
 #' p4 <- p3 %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(a3$relative_abundance) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # attempt to solve the problem, but we will see that this problem is
 #' # infeasible because the targets cannot be met using only the planning units
@@ -121,7 +122,8 @@ NULL
 #' p5 <- p3 %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(a5$relative_abundance) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve the problem
 #' s5 <- solve(p5)

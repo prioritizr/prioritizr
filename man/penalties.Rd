@@ -2,7 +2,7 @@
 % Please edit documentation in R/penalties.R
 \name{penalties}
 \alias{penalties}
-\title{Conservation problem penalties}
+\title{Add a penalty}
 \description{
 A penalty can be applied to a conservation planning \code{\link[=problem]{problem()}} to
 penalize solutions according to a specific metric. Penalties---unlike
@@ -45,7 +45,7 @@ data(sim_pu_raster, sim_features)
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_default_solver()
+      add_default_solver(verbose = FALSE)
 
 # create problem with boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(5, 1)

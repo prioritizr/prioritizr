@@ -39,91 +39,94 @@ NULL
 #'   correspond to the strength of connectivity between
 #'   different planning units. Thus connections between planning units
 #'   that are associated with higher values are more favorable in the solution.
-#'   See the Details section for more information.
+#'   See the Data format section for more information.
 #'
 #' @details
-#'   This function uses connectivity data to penalize solutions
-#'   that have low connectivity.
-#'   Specifically, it **favors** pair-wise connections between planning units
-#'   that have high connectivity values.
-#'   It was inspired by Beger *et al.* (2010) and can symmetric and asymmetric
-#'   connectivity relationships between planning units.
+#' This function adds penalties to conservation planning problem to penalize
+#' solutions that have low connectivity.
+#' Specifically, it **favors** pair-wise connections between planning units
+#' that have high connectivity values.
+#' It was inspired by Beger *et al.* (2010) and can symmetric and asymmetric
+#' connectivity relationships between planning units.
 #'
-#'   The argument to `data` can be specified in several different ways:
+#' The connectivity penalties are calculated using the following equations.
+#' Let \eqn{I} represent the set of planning units
+#' (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
+#' of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
+#' represent the decision variable for planning unit \eqn{i} for in zone
+#' \eqn{z} (e.g. with binary
+#' values one indicating if planning unit is allocated or not). Also, let
+#' \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
+#' argument to `data`, and \eqn{W} represent the argument
+#' to `zones`.
 #'
-#'   \describe{
+#' If the argument to `data` is supplied as a `matrix` or
+#' `Matrix` object, then the penalties are calculated as:
 #'
-#'   \item{`matrix`, `Matrix`}{where rows and columns represent
-#'     different planning units and the value of each cell represents the
-#'     strength of connectivity between two different planning units. Cells
-#'     that occur along the matrix diagonal are treated as weights which
-#'     indicate that planning units are more desirable in the solution.
-#'     The argument to `zones` can be used to control
-#'     the strength of connectivity between planning units in different zones.
-#'     The default argument for `zones` is to treat planning units
-#'     allocated to different zones as having zero connectivity.}
+#' \deqn{
+#' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+#' \times X_{jy} \times D_{ij} \times W_{zy})}{
+#' sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
+#' }
 #'
-#'   \item{`data.frame`}{containing the fields (columns)
-#'     `"id1"`, `"id2"`, and `"boundary"`. Here, each row
-#'     denotes the connectivity between two planning units following the
-#'     *Marxan* format. The data can be used to denote symmetric or
-#'     asymmetric relationships between planning units. By default,
-#'     input data is assumed to be symmetric unless asymmetric data is
-#'     also included (e.g. if data is present for planning units 2 and 3, then
-#'     the same amount of connectivity is expected for planning units 3 and 2,
-#'     unless connectivity data is also provided for planning units 3 and 2).
-#'     If the argument to `x` contains multiple zones, then the columns
-#'     `"zone1"` and `"zone2"` can optionally be provided to manually
-#'     specify the connectivity values between planning units when they are
-#'     allocated to specific zones. If the columns `"zone1"` and
-#'     `"zone2"` are present, then the argument to `zones` must be
-#'     `NULL`.}
+#' Otherwise, if the argument to `data` is supplied as a
+#' `data.frame` or `array` object, then the penalties are
+#' calculated as:
 #'
-#'   \item{`array`}{containing four-dimensions where cell values
-#'     indicate the strength of connectivity between planning units
-#'     when they are assigned to specific management zones. The first two
-#'     dimensions (i.e. rows and columns) indicate the strength of
-#'     connectivity between different planning units and the second two
-#'     dimensions indicate the different management zones. Thus
-#'     the `data[1, 2, 3, 4]` indicates the strength of
-#'     connectivity between planning unit 1 and planning unit 2 when planning
-#'     unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
+#' \deqn{
+#' \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+#' \times X_{jy} \times D_{ijzy})}{
+#' sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dijzy)
+#' }
 #'
-#'   }
+#' Note that when the problem objective is to maximize some measure of
+#' benefit and not minimize some measure of cost, the term \eqn{-p} is
+#' replaced with \eqn{p}.
 #'
-#'  The connectivity penalties are calculated using the following equations.
-#'  Let \eqn{I} represent the set of planning units
-#'  (indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
-#'  of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
-#'  represent the decision variable for planning unit \eqn{i} for in zone
-#'  \eqn{z} (e.g. with binary
-#'  values one indicating if planning unit is allocated or not). Also, let
-#'  \eqn{p} represent the argument to `penalty`, \eqn{D} represent the
-#'  argument to `data`, and \eqn{W} represent the argument
-#'  to `zones`.
+#' @section Data format:
+#' The argument to `data` can be specified using several different formats.
+#' These formats can be used to describe symmetric or
+#' asymmetric relationships between planning units.
 #'
-#'  If the argument to `data` is supplied as a `matrix` or
-#'  `Matrix` object, then the penalties are calculated as:
+#' \describe{
 #'
-#'  \deqn{
-#'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
-#'  \times X_{jy} \times D_{ij} \times W_{zy})}{
-#'  sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
-#'  }
+#' \item{`matrix`, `Matrix`}{where rows and columns represent
+#'   different planning units and the value of each cell represents the
+#'   strength of connectivity between two different planning units. Cells
+#'   that occur along the matrix diagonal are treated as weights which
+#'   indicate that planning units are more desirable in the solution.
+#'   The argument to `zones` can be used to control
+#'   the strength of connectivity between planning units in different zones.
+#'   The default argument for `zones` is to treat planning units
+#'   allocated to different zones as having zero connectivity.}
 #'
-#'  Otherwise, if the argument to `data` is supplied as a
-#'  `data.frame` or `array` object, then the penalties are
-#'  calculated as:
+#' \item{`data.frame`}{containing the fields (columns)
+#'   `"id1"`, `"id2"`, and `"boundary"`. Here, each row
+#'   denotes the connectivity between two planning units following the
+#'   *Marxan* format. The data can be used to denote symmetric or
+#'   asymmetric relationships between planning units. By default,
+#'   input data is assumed to be symmetric unless asymmetric data is
+#'   also included (e.g. if data is present for planning units 2 and 3, then
+#'   the same amount of connectivity is expected for planning units 3 and 2,
+#'   unless connectivity data is also provided for planning units 3 and 2).
+#'   If the argument to `x` contains multiple zones, then the columns
+#'   `"zone1"` and `"zone2"` can optionally be provided to manually
+#'   specify the connectivity values between planning units when they are
+#'   allocated to specific zones. If the columns `"zone1"` and
+#'   `"zone2"` are present, then the argument to `zones` must be
+#'   `NULL`.}
 #'
-#'  \deqn{
-#'  \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
-#'  \times X_{jy} \times D_{ijzy})}{
-#'  sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dijzy)
-#'  }
+#' \item{`array`}{containing four-dimensions where cell values
+#'   indicate the strength of connectivity between planning units
+#'   when they are assigned to specific management zones. The first two
+#'   dimensions (i.e. rows and columns) indicate the strength of
+#'   connectivity between different planning units and the second two
+#'   dimensions indicate the different management zones. Thus
+#'   the `data[1, 2, 3, 4]` indicates the strength of
+#'   connectivity between planning unit 1 and planning unit 2 when planning
+#'   unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 #'
-#'  Note that when the problem objective is to maximize some measure of
-#'  benefit and not minimize some measure of cost, the term \eqn{-p} is
-#'  replaced with \eqn{p}.
+#' }
 #'
 #' @inherit add_boundary_penalties return seealso
 #'
@@ -151,7 +154,8 @@ NULL
 #' # create basic problem
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.2)
+#'       add_relative_targets(0.2) %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create a symmetric connectivity matrix where the connectivity between
 #' # two planning units corresponds to their shared boundary length
@@ -268,7 +272,7 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) %>%
 #'       add_binary_decisions() %>%
-#'       add_default_solver(time_limit = 60)
+#'       add_default_solver(time_limit = 60, verbose = FALSE)
 #'
 #' # create matrix showing which planning units are adjacent to other units
 #' a_matrix <- adjacency_matrix(sim_pu_zones_stack)

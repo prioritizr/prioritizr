@@ -2,7 +2,7 @@
 % Please edit documentation in R/objectives.R
 \name{objectives}
 \alias{objectives}
-\title{Problem objective}
+\title{Add an objective}
 \description{
 An objective is used to specify the overall goal of a conservation planning
 \code{\link[=problem]{problem()}}. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
@@ -54,7 +54,9 @@ data(sim_pu_raster, sim_features, sim_phylogeny)
 
 # create base problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
-     add_relative_targets(0.1)
+     add_relative_targets(0.1) \%>\%
+     add_binary_decisions() \%>\%
+     add_default_solver(verbose = FALSE)
 
  # create problem with added minimum set objective
 p1 <- p \%>\% add_min_set_objective()

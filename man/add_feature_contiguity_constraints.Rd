@@ -51,7 +51,7 @@ for which features using a \code{list} of objects. The default argument
 is \code{NULL} which means that the connection data is calculated
 automatically using the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function and so
 all adjacent planning units are treated as being connected for all
-features. See the Details section for more information.}
+features. See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
@@ -79,8 +79,11 @@ that these constraints require the expanded formulation and therefore
 cannot be used with feature data that have negative vales.
 \strong{Please note that adding these constraints to a problem will
 drastically increase the amount of time required to solve it.}
+}
+\section{Data format}{
 
-The argument to \code{data} can be specified in several ways:
+
+The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
@@ -92,6 +95,7 @@ Note that the connection data must be manually defined
 using one of the other formats below when the planning unit data
 in the argument to \code{x} is not spatially referenced (e.g.
 in \code{data.frame} or \code{numeric} format).}
+
 \item{\code{matrix}, \code{Matrix}}{where rows and columns represent
 different planning units and the value of each cell indicates if the
 two planning units are connected or not. Cell values should be binary
@@ -126,6 +130,7 @@ detailed above.}
 
 }
 }
+
 \section{Notes}{
 
 In early versions, it was named as the \code{add_corridor_constraints} function.
@@ -138,7 +143,9 @@ data(sim_pu_raster, sim_pu_zones_stack, sim_features, sim_features_zones)
 # create minimal problem
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.3)
+      add_relative_targets(0.3) \%>\%
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem with contiguity constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
@@ -178,8 +185,8 @@ plot(s1,  axes = FALSE, box = FALSE,
 p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
-      add_default_solver(time_limit = 30) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(time_limit = 30, verbose = FALSE)
 
 # create problem with contiguity constraints that specify that the
 # planning units used to conserve each feature in different management

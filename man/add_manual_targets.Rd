@@ -17,8 +17,8 @@ add_manual_targets(x, targets)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
-the Details section for more information.}
+\item{targets}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
+See the Target data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
@@ -45,31 +45,50 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.
 
+For problems associated with multiple management zones, this function can
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.
+}
+\section{Target data format}{
+
+
 The \code{targets} argument should contain the following fields (columns):
 
 \describe{
 
-\item{\code{"feature"}}{\code{character} name of features in argument
+\item{feature}{\code{character} name of features in argument
 to \code{x}.}
 
-\item{\code{"zone"}}{\code{character} name of zones in argument to
+\item{zone}{\code{character} name of zones in argument to
 \code{x}. This field (column) is optional for arguments to \code{x}
 that do not contain multiple zones.}
 
-\item{\code{"type"}}{\code{character} describing the type of target.
+\item{type}{\code{character} describing the type of target.
 Acceptable values include \code{"absolute"} and \code{"relative"}.
 These values correspond to \code{\link[=add_absolute_targets]{add_absolute_targets()}},
 and \code{\link[=add_relative_targets]{add_relative_targets()}} respectively.}
 
-\item{\code{"sense"}}{\code{character} sense of the target. Acceptable
+\item{sense}{\code{character} sense of the target. Acceptable
 values include: \code{">="}, \code{"<="}, and \code{"="}. This field
 (column) is optional and if it is missing then target senses will
 default to \code{">="} values.}
 
-\item{\code{"target"}}{\code{numeric} target threshold.}
+\item{target}{\code{numeric} target threshold.}
 
 }
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -77,11 +96,12 @@ set.seed(500)
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 
-# create problem with 10 \% relative targets
+# create problem with 10\% relative targets
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.1) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s1 <- solve(p1)
@@ -95,7 +115,8 @@ p2 <- problem(sim_pu_raster, sim_features) \%>\%
       add_manual_targets(data.frame(feature = names(sim_features),
                                     type = "relative", sense = ">=",
                                     target = 0.1)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s2 <- solve(p2)
@@ -109,7 +130,8 @@ p3 <- problem(sim_pu_raster, sim_features) \%>\%
       add_manual_targets(data.frame(
         feature = names(sim_features)[1:3], type = "relative",
         sense = ">=", target = 0.1)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s3 <- solve(p3)
@@ -117,7 +139,7 @@ s3 <- solve(p3)
 # plot solution
 plot(s3, main = "solution", axes = FALSE, box = FALSE)
 }
-# create problem that aims to secure at least 10 \% of the habitat for one
+# create problem that aims to secure at least 10\% of the habitat for one
 # feature whilst ensuring that the solution does not capture more than
 # 20 units habitat for different feature
 # create problem with targets set for only a few features
@@ -126,7 +148,8 @@ p4 <- problem(sim_pu_raster, sim_features[[1:2]]) \%>\%
       add_manual_targets(data.frame(
         feature = names(sim_features)[1:2], type = "relative",
         sense = c(">=", "<="), target = c(0.1, 0.2))) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s4 <- solve(p4)
@@ -141,7 +164,8 @@ targets_matrix <- matrix(rpois(15, 1), nrow = 5, ncol = 3)
 p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_absolute_targets(targets_matrix) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s5 <- solve(p5)
@@ -158,7 +182,8 @@ targets_dataframe$target <- c(targets_matrix)
 p6 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_manual_targets(targets_dataframe) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s6 <- solve(p6)
@@ -191,7 +216,8 @@ p7 <- problem(costs, zones(spp_zone1, spp_zone2,
                            zone_names = c("z1", "z2"))) \%>\%
       add_min_set_objective() \%>\%
       add_manual_targets(targets_dataframe2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s7 <- solve(p7)

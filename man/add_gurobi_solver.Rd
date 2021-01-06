@@ -81,6 +81,7 @@ available. That said, licenses are available to academics at no cost. The
 This solver uses the \pkg{gurobi} package to solve problems.
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features)
 
@@ -88,18 +89,14 @@ data(sim_pu_raster, sim_features)
 p <- problem(sim_pu_raster, sim_features) \%>\%
   add_min_set_objective() \%>\%
   add_relative_targets(0.1) \%>\%
-  add_binary_decisions()
-\dontrun{
-# if the package is installed then add solver and generate solution
-if (require("gurobi")) {
-  # specify solver and generate solution
-  s <- p \%>\% add_gurobi_solver(gap = 0.1, presolve = 2, time_limit = 5) \%>\%
-             solve()
+  add_binary_decisions() \%>\%
+  add_gurobi_solver(gap = 0.1, verbose = FALSE)
 
-  # plot solutions
-  plot(stack(sim_pu_raster, s), main = c("planning units", "solution"),
-       axes = FALSE, box = FALSE)
-}
+# generate solution \%>\%
+s <- solve(p)
+
+# plot solution
+plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \references{

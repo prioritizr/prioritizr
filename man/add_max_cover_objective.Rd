@@ -99,7 +99,8 @@ for (i in seq_len(raster::nlayers(sim_features)))
 # create problem with maximum utility objective
 p1 <- problem(sim_pu_raster, sim_binary_features) \%>\%
       add_max_cover_objective(500) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s1 <- solve(p1)
@@ -123,7 +124,8 @@ for (z in number_of_zones(sim_features_zones)) {
 # has a single budget for all zones
 p2 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
       add_max_cover_objective(800) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s2 <- solve(p2)
@@ -136,7 +138,8 @@ plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 # has separate budgets for each zone
 p3 <- problem(sim_pu_zones_stack, sim_binary_features_zones) \%>\%
       add_max_cover_objective(c(400, 400, 400)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problem
 s3 <- solve(p3)

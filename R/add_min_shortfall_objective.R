@@ -66,7 +66,8 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_shortfall_objective(1800) %>%
 #'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -76,13 +77,14 @@ NULL
 #' }
 #'
 #' # create multi-zone problem with minimum shortfall objective,
-#' # with 10 % representation targets for each feature, and set
+#' # with 10% representation targets for each feature, and set
 #' # a budget such that the total maximum expenditure in all zones
 #' # cannot exceed 3000
 #' p2 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_shortfall_objective(3000) %>%
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
@@ -91,12 +93,13 @@ NULL
 #' plot(category_layer(s2), main = "solution", axes = FALSE, box = FALSE)
 #' }
 #' # create multi-zone problem with minimum shortfall objective,
-#' # with 10 % representation targets for each feature, and set
+#' # with 10% representation targets for each feature, and set
 #' # separate budgets for each management zone
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_shortfall_objective(c(3000, 3000, 3000)) %>%
 #'       add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'      add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)

@@ -36,8 +36,8 @@ are both allocated to the same zone.}
 object showing which planning units are connected with each
 other. The argument defaults to \code{NULL} which means that the
 connection data is calculated automatically using the
-\code{\link[=adjacency_matrix]{adjacency_matrix()}} function. See the Details section for more
-information.}
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
@@ -52,8 +52,11 @@ and form a single contiguous unit.
 This function uses connection data to identify solutions that
 form a single contiguous unit. It was inspired by the
 mathematical formulations detailed in Önal and Briers (2006).
+}
+\section{Data format}{
 
-The argument to \code{data} can be specified in several ways:
+
+The argument to \code{data} can be specified using the following formats.
 
 \describe{
 
@@ -86,6 +89,7 @@ unless connectivity data is also provided for planning units 3 and 2).}
 
 }
 }
+
 \section{Notes}{
 
 In early versions, this function was named as the
@@ -100,7 +104,8 @@ data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem with added connected constraints
 p2 <- p1 \%>\% add_contiguity_constraints()
@@ -117,8 +122,8 @@ plot(s, main = c("basic solution", "connected solution"), axes = FALSE,
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(0.2, ncol = 3, nrow = 5)) \%>\%
-      add_default_solver(time_limit = 30) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(time_limit = 30, verbose = FALSE)
 
 # create problem with added constraints to ensure that the planning units
 # allocated to each zone form a separate contiguous unit
@@ -154,12 +159,12 @@ plot(s2, axes = FALSE, box = FALSE,
 }
 # create a problem that has a main "reserve zone" and a secondary
 # "corridor zone" to connect up import areas. Here, each feature has a
-# target of 30 \% of its distribution. If a planning unit is allocated to the
-# "reserve zone", then the prioritization accrues 100 \% of the amount of
+# target of 30\% of its distribution. If a planning unit is allocated to the
+# "reserve zone", then the prioritization accrues 100\% of the amount of
 # each feature in the planning unit. If a planning unit is allocated to the
-# "corridor zone" then the prioritization accrues 40 \% of the amount of each
+# "corridor zone" then the prioritization accrues 40\% of the amount of each
 # feature in the planning unit. Also, the cost of managing a planning unit
-# in the "corridor zone" is 45 \% of that when it is managed as the
+# in the "corridor zone" is 45\% of that when it is managed as the
 # "reserve zone". Finally, the problem has constraints which
 # ensure that all of the selected planning units form a single contiguous
 # unit, so that the planning units allocated to the "corridor zone" can
@@ -192,7 +197,8 @@ p7 <- problem(pus, fts) \%>\%
       add_min_set_objective() \%>\%
       add_manual_targets(targets) \%>\%
       add_contiguity_constraints(z7) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve problems
 s7 <- category_layer(solve(p7))

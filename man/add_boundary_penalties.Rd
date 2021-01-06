@@ -104,8 +104,7 @@ replaced with \eqn{-p}.
 }
 \section{Data format}{
 
-The argument to \code{data} can be specified using several different formats
-(see below).
+The argument to \code{data} can be specified using the following formats.
 Note that boundary data must always describe symmetric relationships
 between planning units.
 
@@ -149,7 +148,7 @@ p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
       add_binary_decisions() \%>\%
-      add_default_solver()
+      add_default_solver(verbose = FALSE)
 
 # create problem with low boundary penalties
 p2 <- p1 \%>\% add_boundary_penalties(50, 1)
@@ -176,7 +175,7 @@ p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(0.2, nrow = 5, ncol = 3)) \%>\%
       add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 10)
+      add_default_solver(time_limit = 10, verbose = FALSE)
 
 # create zone matrix which favors clumping planning units that are
 # allocated to the same zone together - note that this is the default

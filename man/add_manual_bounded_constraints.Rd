@@ -15,8 +15,8 @@ add_manual_bounded_constraints(x, data)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object. See
-the Details section for more information.}
+\item{data}{\code{data.frame} or \code{\link[tibble:tibble]{tibble::tibble()}} object.
+See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
@@ -30,28 +30,29 @@ fine-grained control than the \code{\link[=add_manual_locked_constraints]{add_ma
 function and is is most useful for problems involving proportion-type
 or semi-continuous decisions.
 }
-\details{
-The argument to \code{data} must contain the following fields
-(columns):
+\section{Data format}{
+
+The argument to \code{data} must contain the following fields (columns):
 
 \describe{
 
-\item{\code{"pu"}}{\code{integer} planning unit identifier.}
+\item{pu}{\code{integer} planning unit identifier.}
 
-\item{\code{"zone"}}{\code{character} names of zones. Note that this
+\item{zone}{\code{character} names of zones. Note that this
 argument is optional for arguments to \code{x} that contain a single
 zone.}
 
-\item{\code{"lower"}}{\code{numeric} values indicating the minimum
+\item{lower}{\code{numeric} values indicating the minimum
 value that each planning unit can be allocated to in each zone
 in the solution.}
 
-\item{\code{"upper"}}{\code{numeric} values indicating the maximum
+\item{upper}{\code{numeric} values indicating the maximum
 value that each planning unit can be allocated to in each zone
 in the solution.}
 
 }
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -64,7 +65,8 @@ data(sim_pu_polygons, sim_features, sim_pu_zones_polygons,
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem with locked in constraints using add_locked_constraints
 p2 <- p1 \%>\% add_locked_in_constraints("locked_in")
@@ -97,7 +99,8 @@ p4 <- problem(sim_pu_zones_polygons, sim_features_zones,
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
                                   ncol = 3)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create data.frame with the following constraints:
 # planning units 1, 2, and 3 must be allocated to zone 1 in the solution

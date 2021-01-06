@@ -9,7 +9,11 @@
 \alias{is.parallel}
 \alias{add_pool_portfolio}
 \alias{connected_matrix}
-\title{Deprecated functions in the \pkg{prioritizr} package}
+\alias{feature_representation}
+\alias{replacement_cost}
+\alias{rarity_weighted_richness}
+\alias{ferrier_score}
+\title{Deprecation notice}
 \usage{
 add_connected_constraints(...)
 
@@ -25,57 +29,72 @@ add_pool_portfolio(...)
 
 connected_matrix(...)
 
-add_connected_constraints(...)
+feature_representation(...)
+
+replacement_cost(...)
+
+rarity_weighted_richness(...)
+
+ferrier_score(...)
 }
 \arguments{
 \item{...}{not used.}
 }
 \description{
-The functions listed below are deprecated and will be defunct in the
-near future. Where applicable, alternative functions with similar
-functionality are also listed below.
+The functions listed here are deprecated.
+This means that they once existed in earlier versions of the
+of the \pkg{prioritizr} package, but they have since been removed
+entirely, replaced by other functions, or renamed as other functions
+in newer versions.
+To help make it easier to transition to new versions of the \pkg{prioritizr}
+package, we have listed alternatives for deprecated the functions
+(where applicable).
+If a function is described as being renamed, then this means
+that only the name of the function has changed
+(i.e. the inputs, outputs, and underlying code remain the same).
 }
-\section{\code{add_connected_constraints}}{
- this function has been renamed
-to the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function.
-}
+\details{
+The following functions have been deprecated:
 
-\section{\code{add_corridor_constraints}}{
- this function has been
-reimagined as the \code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}}
-function.
-}
+\describe{
 
-\section{\code{set_number_of_threads}}{
- this function is no longer needed now that superior data extraction methods are implemented.
-function.
-}
+\item{\code{add_connected_constraints()}}{renamed
+as the \code{\link[=add_contiguity_constraints]{add_contiguity_constraints()}} function.}
 
-\section{\code{get_number_of_threads}}{
- this function is no longer needed now that superior data extraction methods are implemented.
-function.
-}
+\item{\code{add_corridor_constraints()}}{replaced by the
+\code{\link[=add_feature_contiguity_constraints]{add_feature_contiguity_constraints()}} function.}
 
-\section{\code{is.parallel}}{
- this function is no longer needed now that superior data extraction methods are implemented.
-function.
-}
+\item{\code{set_number_of_threads()}}{no longer needed used with the
+implementation of superior data extraction.}
 
-\section{\code{add_pool_portfolio}}{
- this function is replaced by \code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.
-function.
-}
+\item{\code{get_number_of_threads()}}{no longer needed used with the
+implementation of superior data extraction.}
 
-\section{\code{connected_matrix}}{
- this function has been renamed as
-the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
-}
+\item{\code{is.parallel()}}{no longer needed used with the
+implementation of superior data extraction}
 
-\section{\code{feature_representation}}{
- this function has been replaced by
-the \code{\link[=eval_feature_representation]{eval_feature_representation()}} function for consistency with
-other functions for evaluating solutions. Note that the
-\code{\link[=eval_feature_representation]{eval_feature_representation()}} function has a slightly different
-}
+\item{\code{add_pool_portfolio()}}{replaced by the
+\code{\link[=add_extra_portfolio]{add_extra_portfolio()}} and \code{\link[=add_top_portfolio]{add_top_portfolio()}}.}
 
-\keyword{internal}
+\item{\code{connected_matrix()}}{renamed as
+the \code{\link[=adjacency_matrix]{adjacency_matrix()}} function.}
+
+\item{\code{feature_representation()}}{replaced by
+the \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}} function for consistency with
+other functions.}
+
+\item{\code{replacement_cost()}}{renamed as
+the \code{\link[=eval_replacement_importance]{eval_replacement_importance()}} function for consistency with
+other functions for evaluating solutions.}
+
+\item{\code{rarity_weighted_richness()}}{renamed as
+the \code{\link[=eval_rwr_importance]{eval_rwr_importance()}} function for consistency with
+other functions for evaluating solutions.}
+
+\item{\code{ferrier_score()}}{renamed as
+the \code{\link[=eval_ferrier_importance]{eval_ferrier_importance()}} function for consistency with
+other functions for evaluating solutions.}
+
+}
+}
+\keyword{deprecated}

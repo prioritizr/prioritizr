@@ -45,27 +45,23 @@ NULL
 #' @inherit add_gurobi_solver seealso return references
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
 #' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
-#'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions()
-#' \dontrun{
-#' # if the package is installed then add solver and generate solution
-#' if (require("Rsymphony")) {
-#'   # specify solver and generate solution
-#'   s <- p %>% add_rsymphony_solver(time_limit = 10) %>%
-#'              solve()
+#'      add_min_set_objective() %>%
+#'      add_relative_targets(0.1) %>%
+#'      add_binary_decisions() %>%
+#'      add_rsymphony_solver(time_limit = 10, verbose = FALSE)
 #'
-#'   # plot solutions
-#'   plot(stack(sim_pu_raster, s), main = c("planning units", "solution"),
-#'        axes = FALSE, box = FALSE)
-#' }
-#' }
+#' # generate solution
+#' s <- solve(p)
 #'
+#' # plot solution
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' }
 #' @name add_rsymphony_solver
 NULL
 
