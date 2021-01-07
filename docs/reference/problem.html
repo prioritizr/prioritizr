@@ -62,6 +62,7 @@ customized to meet specific goals using objectives,
 targets, constraints, and
 penalties. After building the problem, the
 solve() function can be used to identify solutions." />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -379,13 +380,13 @@ columns:</p><dl>
     <tr>
       <th>rij_matrix</th>
       <td><p><code>list</code> of <code>matrix</code> or
-<code>dgCMatrix</code>
+<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code>
 objects specifying the amount of each feature (rows) within each planning
 unit (columns) for each zone. The <code>list</code> elements denote
 different zones, matrix rows denote features, and matrix columns denote
 planning units. For convenience, the argument to
 <code>rij_matrix</code> can be a single <code>matrix</code> or
-<code>dgCMatrix</code> when specifying a problem with a
+<code><a href='https://rdrr.io/pkg/Matrix/man/dgCMatrix-class.html'>dgCMatrix</a></code> when specifying a problem with a
 single management zone. This argument is only used when the argument
 to <code>x</code> is a <code>numeric</code> or <code>matrix</code> object.</p></td>
     </tr>
@@ -555,7 +556,7 @@ millions of planning units.</p>
 #&gt;   ..- attr(*, "names")= chr "solution_1"
 #&gt;  - attr(*, "status")= Named chr "OPTIMAL"
 #&gt;   ..- attr(*, "names")= chr "solution_1"
-#&gt;  - attr(*, "runtime")= Named num 0.00183
+#&gt;  - attr(*, "runtime")= Named num 0.00196
 #&gt;   ..- attr(*, "names")= chr "solution_1"</div><div class='input'><span class='co'># }</span>
 <span class='co'># create some problems with multiple zones</span>
 

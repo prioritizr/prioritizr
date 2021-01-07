@@ -61,6 +61,7 @@ that emphasis is placed on representing a phylogenetically diverse set of
 species, rather than as many features as possible (subject to weights).
 This function was inspired by Faith (1992) and Rodrigues et al.
 (2002)." />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -209,7 +210,7 @@ a budget for each each management zone.</p></td>
     </tr>
     <tr>
       <th>tree</th>
-      <td><p><code>phylo()</code> object specifying a phylogenetic tree
+      <td><p><code><a href='https://rdrr.io/pkg/ape/man/read.tree.html'>phylo()</a></code> object specifying a phylogenetic tree
 for the conservation features.</p></td>
     </tr>
     </table>
@@ -297,10 +298,7 @@ selection of networks of conservation areas. <em>Biological Conservation</em>,
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load ape package</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='http://ape-package.ird.fr/'>ape</a></span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Loading required package: ape</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘ape’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:raster’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    rotate, zoom</span></div><div class='input'>
+
 <span class='co'># load data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_phylogeny</span>, <span class='va'>sim_pu_zones_stack</span>,
      <span class='va'>sim_features_zones</span><span class='op'>)</span>

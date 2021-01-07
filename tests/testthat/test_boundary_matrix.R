@@ -7,11 +7,11 @@ test_that("SpatialPolygons (squares)", {
                                                xmn = 0, xmx = 3, ymn = 0,
                                                ymx = 3), n = 4)
   b1 <- boundary_matrix(x)
-  s <- Matrix::sparseMatrix(
+  s <- triplet_sparse_matrix(
     i = c(0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8) + 1,
     j = c(0, 1, 3, 1, 2, 4, 2, 5, 3, 4, 6, 5, 7, 5, 8, 6, 7, 7, 8, 8) + 1,
     x = c(2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2),
-    symmetric = TRUE, repr = "T")
+    symmetric = TRUE)
   # tests
   expect_true(all(b1 == s))
   # experimental functionality tests

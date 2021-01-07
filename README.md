@@ -211,7 +211,7 @@ s1 <- solve(p1)
     ##   StrongCG: 25
     ##   Flow cover: 2
     ## 
-    ## Explored 31196 nodes (83170 simplex iterations) in 2.60 seconds
+    ## Explored 31196 nodes (83170 simplex iterations) in 3.20 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 5: 2627.64 2747.38 2750.83 ... 3139.89
@@ -220,7 +220,7 @@ s1 <- solve(p1)
     ## Best objective 2.627638930618e+03, best bound 2.627638930618e+03, gap 0.0000%
 
 ``` r
-# extract the objective (cost of solution in this case)
+# extract the objective
 print(attr(s1, "objective"))
 ```
 
@@ -233,7 +233,7 @@ print(attr(s1, "runtime"))
 ```
 
     ## solution_1 
-    ##   2.601724
+    ##   3.204955
 
 ``` r
 # extract state message from the solver
@@ -251,6 +251,39 @@ spplot(s1, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
 ```
 
 <img src="man/figures/README-minimal_solution-1.png" width="400" style="display: block; margin: auto;" />
+
+To evaluate the performance of the solution, we can calculate summary statistics.
+
+``` r
+# calculate solution cost
+print(eval_cost_summary(p1, s1[, "solution_1"]), width = Inf)
+```
+
+    ## # A tibble: 1 x 2
+    ##   summary  cost
+    ##   <chr>   <dbl>
+    ## 1 overall 2628.
+
+``` r
+# calculate information describing how well the targets are met by the solution
+print(eval_target_coverage_summary(p1, s1[, "solution_1"]), width = Inf)
+```
+
+    ## # A tibble: 5 x 9
+    ##   feature met   total_amount absolute_target absolute_held absolute_shortfall
+    ##   <chr>   <lgl>        <dbl>           <dbl>         <dbl>              <dbl>
+    ## 1 layer.1 TRUE          74.5           11.2          11.5                   0
+    ## 2 layer.2 TRUE          28.1            4.21          4.22                  0
+    ## 3 layer.3 TRUE          64.9            9.73          9.75                  0
+    ## 4 layer.4 TRUE          38.2            5.73          5.76                  0
+    ## 5 layer.5 TRUE          50.7            7.60          7.60                  0
+    ##   relative_target relative_held relative_shortfall
+    ##             <dbl>         <dbl>              <dbl>
+    ## 1            0.15         0.155                  0
+    ## 2            0.15         0.150                  0
+    ## 3            0.15         0.150                  0
+    ## 4            0.15         0.151                  0
+    ## 5            0.15         0.150                  0
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
 
@@ -396,7 +429,7 @@ s3 <- solve(p3)
     ## Cutting planes:
     ##   GUB cover: 2
     ## 
-    ## Explored 1 nodes (217 simplex iterations) in 0.03 seconds
+    ## Explored 1 nodes (217 simplex iterations) in 0.04 seconds
     ## Thread count was 1 (of 4 available processors)
     ## 
     ## Solution count 6: 3939.6 3951.75 4058.75 ... 19567.2
@@ -477,13 +510,13 @@ spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
 
 <img src="man/figures/README-contiguity_constraints-1.png" width="400" style="display: block; margin: auto;" />
 
-Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate irreplaceability scores using the replacement cost method. Under this method, planning units with higher scores are more irreplaceable than those with lower scores. Furthermore, planning units with infinite scores are critical---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
+Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate importance (irreplaceability) scores using a version of the replacement cost method. Under this method, planning units with higher scores are more important for meeting the objective of our conservation planning problem than those with lower scores. Furthermore, planning units with infinite scores are irreplaceable---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
 
 ``` r
 # solve the problem
 rc <- p4 %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      replacement_cost(s4[, "solution_1"])
+      eval_replacement_importance(s4[, "solution_1"])
 ```
 
     ## Warning in res(x, ...): overwriting previously defined solver
@@ -492,9 +525,8 @@ rc <- p4 %>%
 # set infinite values as 1.09 so we can plot them
 rc$rc[rc$rc > 100] <- 1.09
 
-# plot the irreplaceability scores
-# planning units that are replaceable are shown in purple, blue, green, and
-# yellow, and planning units that are truly irreplaceable are shown in red
+# plot the importance scores
+# planning units that are truly irreplaceable are shown in red
 spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
        ylim = c(-0.1, 1.1), at = c(seq(0, 0.9, 0.1), 1.01, 1.1),
        col.regions = c("#440154", "#482878", "#3E4A89", "#31688E", "#26828E",
@@ -504,7 +536,7 @@ spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
 
 <img src="man/figures/README-replacement_cost-1.png" width="400" style="display: block; margin: auto;" />
 
-This short example demonstrates how the *prioritizr R* package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how irreplaceability scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the *prioritizr R* package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
+This short example demonstrates how the *prioritizr R* package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how importance scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the *prioritizr R* package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
 
 Getting help
 ------------

@@ -24,9 +24,11 @@ test_that("minimum set objective (compile, single zone)", {
   Matrix::diag(b_data) <- 0
   # i,j,x matrix for planning unit boundaries
   b_data <- as(b_data, "dgTMatrix")
-  b_data <- Matrix::sparseMatrix(i = b_data@i[b_data@x != 0],
-    j = b_data@j[b_data@x != 0], x = b_data@x[b_data@x != 0],
-    repr = "T", index1 = FALSE)
+  b_data <- triplet_sparse_matrix(
+    i = b_data@i[b_data@x != 0],
+    j = b_data@j[b_data@x != 0],
+    x = b_data@x[b_data@x != 0],
+    index1 = FALSE)
   # objectives for boundary decision variables
   b_obj <- o$obj()[n_pu + seq_len(length(b_data@i))]
   # lower bound for boundary decision variables

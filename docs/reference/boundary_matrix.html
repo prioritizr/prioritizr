@@ -56,6 +56,7 @@
 <meta property="og:description" content="Generate a matrix describing the amount of shared boundary length
 between different planning units, and the amount of exposed edge length each
 planning unit exhibits." />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -230,13 +231,13 @@ is <code>FALSE</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>dsCMatrix</code> symmetric sparse matrix object.
+    <p><code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix</a></code> symmetric sparse matrix object.
 Each row and column represents a planning unit.
 Cells values indicate the shared boundary length between different pairs
 of planning units.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a <code>dsCMatrix</code>
+    <p>This function returns a <code><a href='https://rdrr.io/pkg/Matrix/man/dsCMatrix-class.html'>dsCMatrix</a></code>
 symmetric sparse matrix. Cells on the off-diagonal indicate the length of
 the shared boundary between two different planning units. Cells on the
 diagonal indicate length of a given planning unit's edges that have no

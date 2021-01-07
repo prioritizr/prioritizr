@@ -58,6 +58,7 @@ results for later use. This function is useful when creating slightly
 different versions of the same conservation planning problem that involve
 the same pre-processing steps (e.g. calculating boundary data), because
 means that the same calculations will not be run multiple times." />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -253,9 +254,9 @@ anything. To use this function with <code><a href='%>%.html'>pipe()</a></code> o
 <span class='co'># now lets compare the times</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s1</span><span class='op'>)</span> <span class='co'># time spent without running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.838   2.706   3.542 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
+#&gt;   0.717   3.732   4.437 </div><div class='input'><span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='co'># time spent after running preliminary calculations</span>
 </div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.681   2.338   3.002 </div><div class='input'>
+#&gt;   0.627   2.963   3.571 </div><div class='input'>
 <span class='co'># As we can see, we can save time by running the preliminary</span>
 <span class='co'># calculations before making copies of the problem with slightly</span>
 <span class='co'># different constraints. Although the time saved in this example</span>

@@ -60,6 +60,7 @@ Although formal benchmarks examining the performance of this solver have
 have yet to be completed, preliminary analyses suggest that this
 solver performs slightly worse than the Gurobi software. This solver
 is recommended when the Gurobi solver is not available." />
+<meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
 
@@ -221,7 +222,7 @@ exceeded.</p></td>
     </tr>
     <tr>
       <th>presolve</th>
-      <td><p><code>logical</code> should the presolver be used to simplify the
+      <td><p><code>logical</code> attempt to simplify the
 problem before solving it? The default value is <code>TRUE</code>.</p></td>
     </tr>
     <tr>
@@ -257,7 +258,7 @@ the file path for the <em>CPLEX</em> software. For example, on a Linux system,
 this variable can be specified by adding
 <code>export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"</code>
 to the <code>~/.bashrc</code> file. Note that you may need to change the version
-number in the file parth (i.e. <code>"CPLEX_Studio128"</code>). For more information
+number in the file path (i.e. <code>"CPLEX_Studio128"</code>). For more information
 on installing the pkgcplexAPI package, please see the
 <a href='https://CRAN.R-project.org/package=cplexAPI/INSTALL'>official installation instructions for the package</a>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

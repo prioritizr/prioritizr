@@ -159,7 +159,7 @@ boundary_matrix.SpatialPolygons <- function(x, str_tree = FALSE) {
   if (length(y$warnings) > 0)
     vapply(y$warnings, warning, character(1))
   # return result
-  Matrix::sparseMatrix(i = y[[1]], j = y[[2]], x = y[[3]], repr = "C",
+  Matrix::sparseMatrix(i = y[[1]], j = y[[2]], x = y[[3]],
                        symmetric = TRUE, dims = rep(length(x), 2))
 }
 
