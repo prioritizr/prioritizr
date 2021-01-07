@@ -97,6 +97,8 @@ reported by the \href{https://marxansolutions.org}{\emph{Marxan} software}
 (Ball \emph{et al.} 2009).
 It is calculated using the same equations used to penalize solutions
 according to their total exposed boundary (i.e. \code{\link[=add_boundary_penalties]{add_boundary_penalties()}}).
+See the Examples section for examples on how differences \code{zone} arguments
+can be used to calculate boundaries for different combinations of zones.
 }
 \section{Data format}{
 
@@ -249,10 +251,30 @@ s3$solution <- factor(s3$solution)
 plot(s3[, "solution"])
 
 # calculate boundary associated with the solution
+# here we will use the default argument for zones which treats each
+# zone as completely separate, meaning that the "overall"
+# boundary is just the sum of the boundaries for each zone
 r3 <- eval_boundary_summary(
   p3, s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
 print(r3)
 
+# let's calculate the overall exposed boundary across the entire
+# solution, assuming that the shared boundaries between planning
+# units allocated to different zones "count" just as much
+# as those for planning units allocated to the same zone
+
+# in other words, let's calculate the overall exposed boundary
+# across the entire solution by "combining" all selected planning units
+# together (regardless of which zone they are allocated to in the solution)
+r3_combined <- eval_boundary_summary(
+  p3, zones = matrix(1, ncol = 3, nrow = 3),
+  s3[, c("solution_1_zone_1", "solution_1_zone_2", "solution_1_zone_3")])
+print(r3_combined)
+
+# we can see that the "overall" boundary is now less than the
+# sum of the individual zone boundaries, because it does not
+# consider the shared boundary between two planning units allocated to
+# different zones as "exposed" when performing the calculations
 }
 }
 \references{
