@@ -33,7 +33,9 @@ anything. To use this function with \code{\link[=pipe]{pipe()}} operators, use t
 # create a conservation problem with no targets
 p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
-     add_boundary_penalties(10, 0.5)
+     add_boundary_penalties(10, 0.5) \%>\%
+     add_binary_decisions() \%>\%
+     add_default_solver(verbose = FALSE)
 
 # create a copies of p and add targets
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -53,9 +55,11 @@ s1 <- system.time({solve(p1); solve(p2); solve(p3)})
 # recreate a conservation problem with no targets and tell R run the
 # preliminary calculations. Note how we use the \%T>\% operator here.
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_boundary_penalties(10, 0.5) \%T>\%
-  run_calculations()
+     add_min_set_objective() \%>\%
+     add_boundary_penalties(10, 0.5) \%>\%
+     add_binary_decisions() \%>\%
+     add_default_solver(verbose = FALSE) \%T>\%
+     run_calculations()
 
 # create a copies of p and add targets just like before
 p1 <- p \%>\% add_relative_targets(0.1)
@@ -70,8 +74,10 @@ s2 <- system.time({solve(p1); solve(p2); solve(p3)})
 print(s1) # time spent without running preliminary calculations
 print(s2) # time spent after running preliminary calculations
 
-# As we can see, we can save a lot of time by running the preliminary
+# As we can see, we can save time by running the preliminary
 # calculations before making copies of the problem with slightly
-# different constraints.
+# different constraints. Although the time saved in this example
+# is rather small, this is because the example data are very small.
+# We would expect larger time savings for larger datasets.
 }
 }

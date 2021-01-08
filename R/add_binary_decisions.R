@@ -35,7 +35,8 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -48,7 +49,8 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve the problem
 #' s2 <- solve(p2)

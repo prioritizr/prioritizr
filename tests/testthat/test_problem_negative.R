@@ -1,4 +1,4 @@
-context("problem (negative data")
+context("problem (negative data)")
 
 test_that("x=Raster, features=RasterStack", {
   # load data

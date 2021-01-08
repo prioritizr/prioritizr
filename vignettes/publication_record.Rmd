@@ -12,11 +12,12 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
 
-This vignette contains a list of publications that have cited the _prioritizr R_ package. We would love to hear from you if you have used _prioritizr R_ package in your own work. Please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
+This vignette contains a list of publications that have cited or used the _prioritizr R_ package. It may be useful if you are looking for case studies or examples of specific functionality. We would love to hear from you if you have used the _prioritizr R_ package in your own work. Please [file an issue on GitHub](https://github.com/prioritizr/prioritizr/issues/new) so we can add your work to this list.
 
 ## Research articles
 
 ### 2020
+* [Pinsky ML, Rogers LA, Morley JW, and Fr&#246;licher TL (2020) Ocean planning for species on the move provides substantial benefits and requires few trade-offs. _Science Advances_, **6**: eabb8428.](https://doi.org/10.1126/sciadv.abb8428).
 * [Bryant BP, Kelsey TR, Vogl AL, Wolny SA, MacEwan DJ, Selmants PC, Biswas T, and Butterfield HS (2020) Shaping land use change and ecosystem restoration in a water-stressed agricultural landscape to achieve multiple benefits. _Frontiers in Sustainable Food Systems_, **4**: 138.](https://doi.org/10.3389/fsufs.2020.00138)
 * [Flower J, Ramdeen R, Estep A, Thomas LR, Francis S, Goldberg G, Johnson AE, McClintock W, Mendes SR, Mengerink K, and O'Garro M (2020) Marine spatial planning on the Caribbean island of Montserrat: Lessons for data-limited small islands. _Conservation Science and Practice_, **2**: e158.](https://doi.org/10.1111/csp2.158)
 * [Hanson JO, Marques A, Ver&#237;ssimo A, Camacho-Sanchez M, Velo-Ant&#243;n G, Mart&#237;nez-Solano &#205;, and Carvalho SB (2020) Conservation planning for adaptive and neutral evolutionary processes. _Journal of Applied Ecology_, **57**: 2159--2169.](https://doi.org/10.1111/1365-2664.13718)

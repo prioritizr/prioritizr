@@ -105,7 +105,7 @@ solution should not exceed a certain quantity using &quot;&amp;lt;=&quot; values
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -212,8 +212,8 @@ solution should not exceed a certain quantity using <code>"&lt;="</code> values)
     </tr>
     <tr>
       <th>targets</th>
-      <td><p><code>data.frame</code> or <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object. See
-the Details section for more information.</p></td>
+      <td><p><code>data.frame</code> or <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble::tibble()</a></code> object.
+See the Target data format section for more information.</p></td>
     </tr>
     </table>
 
@@ -230,27 +230,46 @@ planning problems require targets with the exception of the maximum cover
 (see <code><a href='add_max_utility_objective.html'>add_max_utility_objective()</a></code>) problems. Attempting to solve
 problems with objectives that require targets without specifying targets
 will throw an error.</p>
+<p>For problems associated with multiple management zones, this function can
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the <code>add_manual_targets()</code>
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.</p>
+    <h2 class="hasAnchor" id="target-data-format"><a class="anchor" href="#target-data-format"></a>Target data format</h2>
+
+    
+
+
 <p>The <code>targets</code> argument should contain the following fields (columns):</p>
 <dl>
 
-<dt><code>"feature"</code></dt><dd><p><code>character</code> name of features in argument
+<dt>feature</dt><dd><p><code>character</code> name of features in argument
 to <code>x</code>.</p></dd>
 
-<dt><code>"zone"</code></dt><dd><p><code>character</code> name of zones in argument to
+<dt>zone</dt><dd><p><code>character</code> name of zones in argument to
 <code>x</code>. This field (column) is optional for arguments to <code>x</code>
 that do not contain multiple zones.</p></dd>
 
-<dt><code>"type"</code></dt><dd><p><code>character</code> describing the type of target.
+<dt>type</dt><dd><p><code>character</code> describing the type of target.
 Acceptable values include <code>"absolute"</code> and <code>"relative"</code>.
 These values correspond to <code><a href='add_absolute_targets.html'>add_absolute_targets()</a></code>,
 and <code><a href='add_relative_targets.html'>add_relative_targets()</a></code> respectively.</p></dd>
 
-<dt><code>"sense"</code></dt><dd><p><code>character</code> sense of the target. Acceptable
+<dt>sense</dt><dd><p><code>character</code> sense of the target. Acceptable
 values include: <code>"&gt;="</code>, <code>"&lt;="</code>, and <code>"="</code>. This field
 (column) is optional and if it is missing then target senses will
 default to <code>"&gt;="</code> values.</p></dd>
 
-<dt><code>"target"</code></dt><dd><p><code>numeric</code> target threshold.</p></dd>
+<dt>target</dt><dd><p><code>numeric</code> target threshold.</p></dd>
 
 
 </dl>
@@ -266,45 +285,16 @@ default to <code>"&gt;="</code> values.</p></dd>
 <span class='co'># load data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
-<span class='co'># create problem with 10 % relative targets</span>
+<span class='co'># create problem with 10% relative targets</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='input'><span class='co'># }</span>
@@ -314,41 +304,12 @@ default to <code>"&gt;="</code> values.</p></dd>
       <span class='fu'>add_manual_targets</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>feature <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span>,
                                     type <span class='op'>=</span> <span class='st'>"relative"</span>, sense <span class='op'>=</span> <span class='st'>"&gt;="</span>,
                                     target <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_manual_targets-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -358,45 +319,16 @@ default to <code>"&gt;="</code> values.</p></dd>
       <span class='fu'>add_manual_targets</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
         feature <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, type <span class='op'>=</span> <span class='st'>"relative"</span>,
         sense <span class='op'>=</span> <span class='st'>"&gt;="</span>, target <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 3 rows, 90 columns and 270 nonzeros
-#&gt; Model fingerprint: 0x2927b007
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 90 columns, 270 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 3 rows, 90 columns, 270 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.890262e+03, 10 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1890.26177    0    3 2337.96175 1890.26177  19.1%     -    0s
-#&gt; H    0     0                    1979.9834775 1890.26177  4.53%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (10 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1979.98 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.979983477518e+03, best bound 1.890261766558e+03, gap 4.5314%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s3</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_manual_targets-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># create problem that aims to secure at least 10 % of the habitat for one</span>
+<span class='co'># create problem that aims to secure at least 10% of the habitat for one</span>
 <span class='co'># feature whilst ensuring that the solution does not capture more than</span>
 <span class='co'># 20 units habitat for different feature</span>
 <span class='co'># create problem with targets set for only a few features</span>
@@ -405,41 +337,12 @@ default to <code>"&gt;="</code> values.</p></dd>
       <span class='fu'>add_manual_targets</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>
         feature <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, type <span class='op'>=</span> <span class='st'>"relative"</span>,
         sense <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"&gt;="</span>, <span class='st'>"&lt;="</span><span class='op'>)</span>, target <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.1</span>, <span class='fl'>0.2</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 2 rows, 90 columns and 180 nonzeros
-#&gt; Model fingerprint: 0x2af48887
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2305.4577086
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.792849e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1792.84895    0    1 2305.45771 1792.84895  22.2%     -    0s
-#&gt; H    0     0                    1944.6433096 1792.84895  7.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1944.64 2305.46 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.944643309632e+03, best bound 1.792848946888e+03, gap 7.8058%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_manual_targets-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -450,42 +353,12 @@ default to <code>"&gt;="</code> values.</p></dd>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_absolute_targets.html'>add_absolute_targets</a></span><span class='op'>(</span><span class='va'>targets_matrix</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xa65df5d2
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+00]
-#&gt; Found heuristic solution: objective 3524.7950998
-#&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.642776e+03, 9 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
-#&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2875.81 3524.8 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s5</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_manual_targets-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -498,42 +371,12 @@ default to <code>"&gt;="</code> values.</p></dd>
 <span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_manual_targets</span><span class='op'>(</span><span class='va'>targets_dataframe</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0xa65df5d2
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+00]
-#&gt; Found heuristic solution: objective 3524.7950998
-#&gt; Presolve removed 7 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 98 rows, 270 columns, 990 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.642776e+03, 9 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 2642.77567    0    5 3524.79510 2642.77567  25.0%     -    0s
-#&gt; H    0     0                    2875.8073247 2642.77567  8.10%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (9 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 2875.81 3524.8 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.875807324677e+03, best bound 2.642775673413e+03, gap 8.1032%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># }</span>
@@ -562,43 +405,12 @@ default to <code>"&gt;="</code> values.</p></dd>
                            zone_names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"z1"</span>, <span class='st'>"z2"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_manual_targets</span><span class='op'>(</span><span class='va'>targets_dataframe2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 92 rows, 180 columns and 540 nonzeros
-#&gt; Model fingerprint: 0xc5634b61
-#&gt; Variable types: 0 continuous, 180 integer (180 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [1e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 17976.253561
-#&gt; Presolve removed 35 rows and 34 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 57 rows, 146 columns, 258 nonzeros
-#&gt; Found heuristic solution: objective 15717.143264
-#&gt; Variable types: 0 continuous, 146 integer (146 binary)
-#&gt; Presolved: 57 rows, 146 columns, 258 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.238651e+04, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 12386.5146    0    1 15717.1433 12386.5146  21.2%     -    0s
-#&gt; H    0     0                    12523.968444 12386.5146  1.10%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 12524 15717.1 17976.3 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.252396844383e+04, best bound 1.238651459270e+04, gap 1.0975%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s7</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_manual_targets-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

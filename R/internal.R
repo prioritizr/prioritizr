@@ -48,8 +48,7 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
   assertthat::assert_that(inherits(x, "data.frame"), isTRUE(ncol(x) == 3),
     isTRUE(all(x[[1]] == round(x[[1]]))), isTRUE(all(x[[2]] == round(x[[2]]))))
   # create sparse amtrix
-  m <- Matrix::sparseMatrix(i = x[[1]], j = x[[2]], x = x[[3]],
-                            giveCsparse = FALSE, ...)
+  m <- triplet_sparse_matrix(i = x[[1]], j = x[[2]], x = x[[3]], ...)
   if (forceSymmetric) {
     # force the matrix to be symmetric
     # we cannot gurantee that the cells that are filled in belong to either
@@ -62,6 +61,30 @@ triplet_dataframe_to_matrix <- function(x, forceSymmetric=FALSE, ...) {
     # return matrix in compressed format
     return(methods::as(m, "dgCMatrix"))
   }
+}
+
+#' Sparse matrix (triplet)
+#'
+#' Create a \pkg{Matrix} triplet sparse matrix object.
+#'
+#' @details
+#' This function is a wrapper for [Matrix::sparseMatrix()] that
+#' is compatible with versions 1.2 and 1.3.
+#'
+#' @param ... passed to [Matrix::sparseMatrix()].
+#
+#' @return [`dgTMatrix-class`] object.
+#'
+#' @noRd
+triplet_sparse_matrix <- function(...) {
+  # prepare arguments for creating matrix
+  if (packageVersion("Matrix") >= 1.3) {
+    args <- list(..., repr = "T")
+  } else {
+    args <- list(..., giveCsparse = FALSE)
+  }
+  # return result
+  do.call(Matrix::sparseMatrix, args)
 }
 
 #' Align text

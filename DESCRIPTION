@@ -1,6 +1,6 @@
 Package: prioritizr
 Type: Package
-Version: 5.0.3.2
+Version: 6.0.0.0
 Title: Systematic Conservation Prioritization in R
 Description: Conservation prioritization using integer
     programming techniques. To solve large-scale problems, users
@@ -70,7 +70,10 @@ Depends:
     sp,
     sf (>= 0.8-0),
     proto
-LinkingTo: Rcpp, RcppArmadillo, BH
+LinkingTo:
+    Rcpp,
+    RcppArmadillo (>= 0.10.1.0.0),
+    BH
 License: GPL-3
 Language: en-US
 Encoding: UTF-8
@@ -163,12 +166,22 @@ Collate:
     'decisions.R'
     'deprecated.R'
     'distribute_load.R'
+    'eval_boundary_summary.R'
+    'eval_connectivity_summary.R'
+    'eval_cost_summary.R'
+    'eval_feature_representation_summary.R'
+    'eval_ferrier_importance.R'
+    'eval_n_summary.R'
+    'problem.R'
+    'eval_rare_richness_importance.R'
+    'presolve_check.R'
+    'solve.R'
+    'eval_replacement_importance.R'
+    'eval_target_coverage_summary.R'
     'fast_extract.R'
     'feature_abundances.R'
     'feature_names.R'
-    'feature_representation.R'
-    'ferrier_score.R'
-    'irreplaceability.R'
+    'importance.R'
     'magrittr-operators.R'
     'marxan_problem.R'
     'misc.R'
@@ -180,21 +193,18 @@ Collate:
     'objectives.R'
     'package.R'
     'penalties.R'
+    'planning_unit_solution_status.R'
     'portfolios.R'
     'predefined_optimization_problem.R'
-    'presolve_check.R'
     'print.R'
-    'problem.R'
     'proximity_matrix.R'
-    'rarity_weighted_richness.R'
-    'solve.R'
-    'replacement_cost.R'
     'rij_matrix.R'
     'run_calculations.R'
     'sf.R'
     'show.R'
     'simulate.R'
     'solvers.R'
+    'summaries.R'
     'targets.R'
     'zone_names.R'
     'zzz.R'

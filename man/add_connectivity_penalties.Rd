@@ -13,9 +13,9 @@
 
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,Matrix}(x, penalty, zones, data)
 
-\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
-
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,data.frame}(x, penalty, zones, data)
+
+\S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,dgCMatrix}(x, penalty, zones, data)
 
 \S4method{add_connectivity_penalties}{ConservationProblem,ANY,ANY,array}(x, penalty, zones, data)
 }
@@ -53,7 +53,7 @@ must explicitly be set to \code{NULL} otherwise an error will be thrown.}
 correspond to the strength of connectivity between
 different planning units. Thus connections between planning units
 that are associated with higher values are more favorable in the solution.
-See the Details section for more information.}
+See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the penalties
@@ -64,15 +64,52 @@ Add penalties to a conservation planning \code{\link[=problem]{problem()}} to fa
 solutions that select planning units with high connectivity between them.
 }
 \details{
-This function uses connectivity data to penalize solutions
-that have low connectivity. It can accommodate symmetric and asymmetric
-relationships between planning units. Although \emph{Marxan}
-\strong{penalizes} connections between planning units with high
-connectivity values, it is important to note that this function
-\strong{favors} connections between planning units with high connectivity
-values. This function was inspired by Beger \emph{et al.} (2010).
+This function adds penalties to conservation planning problem to penalize
+solutions that have low connectivity.
+Specifically, it \strong{favors} pair-wise connections between planning units
+that have high connectivity values.
+It was inspired by Beger \emph{et al.} (2010) and can symmetric and asymmetric
+connectivity relationships between planning units.
 
-The argument to \code{data} can be specified in several different ways:
+The connectivity penalties are calculated using the following equations.
+Let \eqn{I} represent the set of planning units
+(indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
+of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
+represent the decision variable for planning unit \eqn{i} for in zone
+\eqn{z} (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
+argument to \code{data}, and \eqn{W} represent the argument
+to \code{zones}.
+
+If the argument to \code{data} is supplied as a \code{matrix} or
+\code{Matrix} object, then the penalties are calculated as:
+
+\deqn{
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+\times X_{jy} \times D_{ij} \times W_{zy})}{
+sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
+}
+
+Otherwise, if the argument to \code{data} is supplied as a
+\code{data.frame} or \code{array} object, then the penalties are
+calculated as:
+
+\deqn{
+\sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
+\times X_{jy} \times D_{ijzy})}{
+sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dijzy)
+}
+
+Note that when the problem objective is to maximize some measure of
+benefit and not minimize some measure of cost, the term \eqn{-p} is
+replaced with \eqn{p}.
+}
+\section{Data format}{
+
+The argument to \code{data} can be specified using several different formats.
+These formats can be used to describe symmetric or
+asymmetric relationships between planning units.
 
 \describe{
 
@@ -113,41 +150,8 @@ connectivity between planning unit 1 and planning unit 2 when planning
 unit 1 is assigned to zone 3 and planning unit 2 is assigned to zone 4.}
 
 }
-
-The connectivity penalties are calculated using the following equations.
-Let \eqn{I} represent the set of planning units
-(indexed by \eqn{i} or \eqn{j}), \eqn{Z} represent the set
-of management zones (indexed by \eqn{z} or \eqn{y}), and \eqn{X_{iz}}{Xiz}
-represent the decision variable for planning unit \eqn{i} for in zone
-\eqn{z} (e.g. with binary
-values one indicating if planning unit is allocated or not). Also, let
-\eqn{p} represent the argument to \code{penalty}, \eqn{D} represent the
-argument to \code{data}, and \eqn{W} represent the argument
-to \code{zones}.
-
-If the argument to \code{data} is supplied as a \code{matrix} or
-\code{Matrix} object, then the penalties are calculated as:
-
-\deqn{
- \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
- \times X_{jy} \times D_{ij} \times W_{zy})}{
- sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dij * Wzy)
- }
-
-Otherwise, if the argument to \code{data} is supplied as a
-\code{data.frame} or \code{array} object, then the penalties are
-calculated as:
-
-\deqn{
- \sum_{i}^{I} \sum_{j}^{I} \sum_{z}^{Z} \sum_{y}^{Z} (-p \times X_{iz}
- \times X_{jy} \times D_{ijzy})}{
- sum_i^I sum_j^I sum_z^Z sum_y^Z (-p * Xiz * Xjy * Dijzy)
- }
-
-Note that when the problem objective is to maximize some measure of
-benefit and not minimize some measure of cost, the term \eqn{-p} is
-replaced with \eqn{p}.
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(600)
@@ -167,7 +171,8 @@ rescale <- function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
 # create basic problem
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.2)
+      add_relative_targets(0.2) \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create a symmetric connectivity matrix where the connectivity between
 # two planning units corresponds to their shared boundary length
@@ -284,7 +289,7 @@ p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(matrix(0.15, nrow = 5, ncol = 3)) \%>\%
       add_binary_decisions() \%>\%
-      add_default_solver(time_limit = 60)
+      add_default_solver(time_limit = 60, verbose = FALSE)
 
 # create matrix showing which planning units are adjacent to other units
 a_matrix <- adjacency_matrix(sim_pu_zones_stack)

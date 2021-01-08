@@ -30,14 +30,14 @@ vigns:
 	rm -f doc/*.Rmd
 	rm -f inst/doc/*.html
 	rm -f inst/doc/*.Rmd
-	R --slave -e "devtools::build_vignettes()"
+	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);devtools::build_vignettes()"
 	cp -R doc inst/
 	touch inst/doc/.gitkeep
 
 quicksite:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
-	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
+	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = TRUE)"
 	rm docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/
@@ -49,7 +49,7 @@ site:
 	cp docs/favicon.ico /tmp
 	cp docs/logo.png /tmp
 	R --slave -e "pkgdown::clean_site()"
-	R --slave -e "pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
+	R --slave -e "options(rmarkdown.html_vignette.check_title = FALSE);pkgdown::build_site(run_dont_run = TRUE, lazy = FALSE)"
 	rm -f docs/CNAME
 	echo "prioritizr.net\c" >> docs/CNAME
 	cp -R doc inst/

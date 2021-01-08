@@ -11,57 +11,60 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param targets Object that specifies the targets for each feature. See the
-#'   Details section for more information.
+#' @param targets Object that specifies the targets for each feature.
+#'   See the Targets data format section for more information.
 #'
 #' @inherit add_manual_targets return seealso
 #'
-#' @details Targets are used to specify the minimum amount or proportion of a
-#'   feature's distribution that needs to be protected. Most conservation
-#'   planning problems require targets with the exception of the maximum cover
-#'   (see [add_max_cover_objective()]) and maximum utility
-#'   (see [add_max_utility_objective()]) problems. Attempting to solve
-#'   problems with objectives that require targets without specifying targets
-#'   will throw an error.
+#' @details
+#' Targets are used to specify the minimum amount or proportion of a
+#' feature's distribution that needs to be protected. Most conservation
+#' planning problems require targets with the exception of the maximum cover
+#' (see [add_max_cover_objective()]) and maximum utility
+#' (see [add_max_utility_objective()]) problems. Attempting to solve
+#' problems with objectives that require targets without specifying targets
+#' will throw an error.
 #'
-#'   The targets for a problem can be specified in several different ways:
+#' For problems associated with multiple management zones, this function can
+#' be used to set targets that each pertain to a single feature and a single
+#' zone. To set targets which can be met through allocating different
+#' planning units to multiple zones, see the [add_manual_targets()]
+#' function. An example of a target that could be met through allocations
+#' to multiple zones might be where each management zone is expected to
+#' result in a different amount of a feature and the target requires that
+#' the total amount of the feature in all zones must exceed a certain
+#' threshold. In other words, the target does not require that any single
+#' zone secure a specific amount of the feature, but the total amount held
+#' in all zones must secure a specific amount. Thus the target could,
+#' potentially, be met through allocating all planning units to any specific
+#' management zone, or through allocating the planning units to different
+#' combinations of management zones.
 #'
-#'   \describe{
+#' @section Targets data format:
+#' The targets for a problem can be specified using the following formats.
 #'
-#'   \item{`numeric`}{`vector` of target values for each feature.
-#'     Additionally, for convenience, this type of argument can be a single
-#'     value to assign the same target to each feature. Note that this type of
-#'     argument cannot be used to specify targets for problems with multiple
-#'     zones.}
+#' \describe{
 #'
-#'   \item{`matrix`}{containing a target for each feature in each zone.
-#'     Here, each row corresponds to a different feature in argument to
-#'     `x`, each column corresponds to a different zone in argument to
-#'     `x`, and each cell contains the target value for a given feature
-#'     that the solution needs to secure in a given zone.}
+#' \item{`numeric`}{`vector` of target values for each feature.
+#'   Additionally, for convenience, this type of argument can be a single
+#'   value to assign the same target to each feature. Note that this type of
+#'   argument cannot be used to specify targets for problems with multiple
+#'   zones.}
 #'
-#'   \item{`character`}{containing the names of fields (columns) in the
-#'     feature data associated with the argument to `x` that contain
-#'     targets. This type of argument can only be used when the
-#'     feature data associated with `x` is a `data.frame`.
-#'     This argument must contain a field (column) name for each zone.}
+#' \item{`matrix`}{containing a target for each feature in each zone.
+#'   Here, each row corresponds to a different feature in argument to
+#'   `x`, each column corresponds to a different zone in argument to
+#'   `x`, and each cell contains the target value for a given feature
+#'   that the solution needs to secure in a given zone.}
 #'
-#'   }
+#' \item{`character`}{containing the names of fields (columns) in the
+#'   feature data associated with the argument to `x` that contain
+#'   targets. This type of argument can only be used when the
+#'   feature data associated with `x` is a `data.frame`.
+#'   This argument must contain a field (column) name for each zone.}
 #'
-#'   For problems associated with multiple management zones, this function can
-#'   be used to set targets that each pertain to a single feature and a single
-#'   zone. To set targets which can be met through allocating different
-#'   planning units to multiple zones, see the [add_manual_targets()]
-#'   function. An example of a target that could be met through allocations
-#'   to multiple zones might be where each management zone is expected to
-#'   result in a different amount of a feature and the target requires that
-#'   the total amount of the feature in all zones must exceed a certain
-#'   threshold. In other words, the target does not require that any single
-#'   zone secure a specific amount of the feature, but the total amount held
-#'   in all zones must secure a specific amount. Thus the target could,
-#'   potentially, be met through allocating all planning units to any specific
-#'   management zone, or through allocating the planning units to different
-#'   combinations of management zones.
+#' }
+#'
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -73,7 +76,8 @@ NULL
 #' # create simple problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
-#'      add_binary_decisions()
+#'      add_binary_decisions() %>%
+#'      add_default_solver(verbose = FALSE)
 #'
 #' # create problem with targets to secure 3 amounts for each feature
 #' p1 <- p %>% add_absolute_targets(3)
@@ -93,7 +97,8 @@ NULL
 #' # create a problem with multiple management zones
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create a problem with targets that specify an equal amount of each feature
 #' # to be represented in each zone

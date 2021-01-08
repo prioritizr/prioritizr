@@ -57,7 +57,7 @@ print(p1)
 s1 <- solve(p1)
 
 # calculate feature representation
-r1 <- feature_representation(p1, s1)
+r1 <- eval_feature_representation_summary(p1, s1)
 print(r1)
 
 # plot solution
@@ -110,7 +110,7 @@ print(p2)
 s2 <- solve(p2)
 
 # calculate feature representation
-r2 <- feature_representation(p2, s2)
+r2 <- eval_feature_representation_summary(p2, s2)
 print(r2)
 
 # plot solution
@@ -150,7 +150,7 @@ print(p3)
 s3 <- solve(p3)
 
 # calculate feature representation
-r3 <- feature_representation(p3, s3)
+r3 <- eval_feature_representation_summary(p3, s3)
 print(r3)
 
 # plot solution
@@ -197,7 +197,7 @@ print(p4)
 s4 <- solve(p4)
 
 # calculate feature representation
-r4 <- feature_representation(p4, s4)
+r4 <- eval_feature_representation_summary(p4, s4)
 print(r4)
 
 # plot solution
@@ -234,7 +234,7 @@ print(p5)
 s5 <- solve(p5)
 
 # calculate feature representation
-r5 <- feature_representation(p5, s5)
+r5 <- eval_feature_representation_summary(p5, s5)
 print(r5)
 
 # plot solution
@@ -275,7 +275,7 @@ print(p6)
 s6 <- solve(p6)
 
 # calculate feature representation
-r6 <- feature_representation(p6, s6)
+r6 <- eval_feature_representation_summary(p6, s6)
 print(r6)
 
 # plot solution
@@ -309,7 +309,7 @@ print(p7)
 s7 <- solve(p7)
 
 # calculate feature representation
-r7 <- feature_representation(p7, s7)
+r7 <- eval_feature_representation_summary(p7, s7)
 print(r7)
 
 # plot solution

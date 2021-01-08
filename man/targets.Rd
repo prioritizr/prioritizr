@@ -2,10 +2,10 @@
 % Please edit documentation in R/targets.R
 \name{targets}
 \alias{targets}
-\title{Targets}
+\title{Add representation targets}
 \description{
 Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected in the solution.
+distribution that should (ideally) be covered (represented) by a solution.
 }
 \details{
 \strong{Please note that most objectives require targets, and attempting
@@ -37,7 +37,8 @@ data(sim_pu_raster, sim_features)
 # create base problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
-     add_binary_decisions()
+     add_binary_decisions() \%>\%
+     add_default_solver(verbose = FALSE)
 
 # create problem with added relative targets
 p1 <- p \%>\% add_relative_targets(0.1)

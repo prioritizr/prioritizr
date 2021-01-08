@@ -98,7 +98,7 @@ the cost of the solution does not exceed a budget." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -255,137 +255,44 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fl'>1800</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x3fc302bb
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-01, 3e-01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 2e+03]
-#&gt; Found heuristic solution: objective 5.0000000
-#&gt; Found heuristic solution: objective 5.0000000
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; Variable types: 5 continuous, 90 integer (90 binary)
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.979994e-01, 19 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    0.29800    0    1    5.00000    0.29800  94.0%     -    0s
-#&gt; H    0     0                       0.3355266    0.29800  11.2%     -    0s
-#&gt; H    0     0                       0.3322746    0.29800  10.3%     -    0s
-#&gt; H    0     0                       0.3256728    0.29800  8.50%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (19 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 4: 0.325673 0.332275 0.335527 5 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.256727504808e-01, best bound 2.979994451302e-01, gap 8.4973%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_min_shortfall_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
 <span class='co'># create multi-zone problem with minimum shortfall objective,</span>
-<span class='co'># with 10 % representation targets for each feature, and set</span>
+<span class='co'># with 10% representation targets for each feature, and set</span>
 <span class='co'># a budget such that the total maximum expenditure in all zones</span>
 <span class='co'># cannot exceed 3000</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fl'>3000</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
-#&gt; Model fingerprint: 0x0e43d966
-#&gt; Variable types: 15 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-01, 3e-01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+03]
-#&gt; Found heuristic solution: objective 15.0000001
-#&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
-#&gt; Variable types: 15 continuous, 270 integer (270 binary)
-#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 7.061289e+00, 191 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    7.06129    0    2   15.00000    7.06129  52.9%     -    0s
-#&gt; H    0     0                       7.8141129    7.06129  9.63%     -    0s
-#&gt; 
-#&gt; Cleanup yields a better solution
-#&gt; 
-#&gt; Explored 1 nodes (191 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 7.81411 15 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.608292310901e+00, best bound 7.061288609211e+00, gap 7.1896%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_min_shortfall_objective-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create multi-zone problem with minimum shortfall objective,</span>
-<span class='co'># with 10 % representation targets for each feature, and set</span>
+<span class='co'># with 10% representation targets for each feature, and set</span>
 <span class='co'># separate budgets for each management zone</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 108 rows, 285 columns and 1905 nonzeros
-#&gt; Model fingerprint: 0xebe5ba12
-#&gt; Variable types: 15 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-01, 3e-01]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+03]
-#&gt; Found heuristic solution: objective 15.0000001
-#&gt; Found heuristic solution: objective 14.9999999
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
-#&gt; Variable types: 15 continuous, 270 integer (270 binary)
-#&gt; Presolved: 108 rows, 285 columns, 1905 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 0.000000e+00, 37 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt; *    0     0               0       0.0000000    0.00000  0.00%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (37 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 0 15 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 0.000000000000e+00, best bound 0.000000000000e+00, gap 0.0000%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_min_shortfall_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

@@ -30,29 +30,23 @@ NULL
 #' @seealso [solvers].
 #'
 #' @examples
+#' \dontrun{
 #' # load data
 #' data(sim_pu_raster, sim_features)
 #'
 #' # create problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'   add_min_set_objective() %>%
-#'   add_relative_targets(0.1) %>%
-#'   add_binary_decisions()
-#' \dontrun{
-#' # if the package is installed then add solver and generate solution
-#' # note that this solver is skipped on Linux systems due to the fact
-#' # that the lpsymphony package randomly crashes on these systems
-#' if (require(lpsymphony) &
-#'     isTRUE(Sys.info()[["sysname"]] != "Linux")) {
-#'   # specify solver and generate solution
-#'   s <- p %>% add_lpsymphony_solver(time_limit = 5) %>%
-#'              solve()
+#'   add_relative_targets(0.05) %>%
+#'   add_proportion_decisions() %>%
+#'   add_lpsymphony_solver(time_limit = 5, verbose = FALSE)
 #'
-#'   # plot solutions
-#'   plot(stack(sim_pu_raster, s), main = c("planning units", "solution"))
-#' }
-#' }
+#' # generate solution
+#' s <- solve(p)
 #'
+#' # plot solution
+#' plot(s, main = "solution", axes = FALSE, box = FALSE)
+#' }
 #' @name add_lsymphony_solver
 NULL
 

@@ -40,8 +40,8 @@ only considered neighbors if they are both allocated to the same zone.}
 \code{array} object showing which planning units are neighbors with each
 other. The argument defaults to \code{NULL} which means that the
 neighborhood data is calculated automatically using the
-\code{\link[=adjacency_matrix]{adjacency_matrix()}} function. See the Details section for more
-information.}
+\code{\link[=adjacency_matrix]{adjacency_matrix()}} function.
+See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
@@ -57,8 +57,10 @@ This function uses neighborhood data identify solutions that
 surround planning units with a minimum number of neighbors. It
 was inspired by the mathematical formulations detailed in
 Billionnet (2013) and Beyer \emph{et al.} (2016).
+}
+\section{Data format}{
 
-The argument to \code{data} can be specified in several ways:
+The argument to \code{data} can be specified using the following formats:
 
 \describe{
 
@@ -108,6 +110,7 @@ allocated to zones 3 and 4 respectively.}
 
 }
 }
+
 \examples{
 # load data
 data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
@@ -115,7 +118,8 @@ data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 # create minimal problem
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(0.1)
+      add_relative_targets(0.1) \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem with constraints that require 1 neighbor
 # and neighbors are defined using a rook-style neighborhood
@@ -141,7 +145,8 @@ plot(s1, box = FALSE, axes = FALSE,
 # create minimal problem with multiple zones
 p5 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
-      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5))
+      add_relative_targets(matrix(0.1, ncol = 3, nrow = 5)) \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem where selected planning units require at least 2 neighbors
 # for each zone and planning units are only considered neighbors if they

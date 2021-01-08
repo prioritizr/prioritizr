@@ -27,7 +27,7 @@ between the bounds is 1 percent of the upper bound.}
 The solver will return the current best solution when this time limit is
 exceeded.}
 
-\item{presolve}{\code{logical} should the presolver be used to simplify the
+\item{presolve}{\code{logical} attempt to simplify the
 problem before solving it? The default value is \code{TRUE}.}
 
 \item{threads}{\code{integer} number of threads to use for the
@@ -66,30 +66,27 @@ the file path for the \emph{CPLEX} software. For example, on a Linux system,
 this variable can be specified by adding
 \verb{export CPLEX_BIN="/opt/ibm/ILOG/CPLEX_Studio128/cplex/bin/x86-64_linux/cplex"}
 to the \verb{~/.bashrc} file. Note that you may need to change the version
-number in the file parth (i.e. \code{"CPLEX_Studio128"}). For more information
+number in the file path (i.e. \code{"CPLEX_Studio128"}). For more information
 on installing the pkg{cplexAPI} package, please see the
 \href{https://CRAN.R-project.org/package=cplexAPI/INSTALL}{official installation instructions for the package}.
 }
 \examples{
+\dontrun{
 # load data
 data(sim_pu_raster, sim_features)
 
 # create problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
-  add_min_set_objective() \%>\%
-  add_relative_targets(0.1) \%>\%
-  add_binary_decisions()
-\dontrun{
-# if the package is installed then add solver and generate solution
-if (require("cplexAPI")) {
-  # specify solver and generate solution
-  s <- p \%>\% add_cplex_solver(gap = 0.1, time_limit = 5) \%>\%
-             solve()
+     add_min_set_objective() \%>\%
+     add_relative_targets(0.1) \%>\%
+     add_binary_decisions() \%>\%
+     add_cplex_solver(gap = 0.1, time_limit = 5, verbose = FALSE)
 
-  # plot solutions
-  plot(stack(sim_pu_raster, s), main = c("planning units", "solution"),
-       axes = FALSE, box = FALSE)
-}
+# generate solution
+s <- solve(p)
+
+# plot solution
+plot(s, main = "solution", axes = FALSE, box = FALSE)
 }
 }
 \seealso{

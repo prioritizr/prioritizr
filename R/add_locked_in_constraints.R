@@ -19,64 +19,66 @@ NULL
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param locked_in Object that determines which planning units that should be
-#'   locked in. See the Details section for more information.
+#'   locked in. See the Data format section for more information.
 #'
-#' @details The locked planning units can be specified in several different
-#'   ways. Generally, the locked data should correspond to the planning units
-#'   in the argument to `x.` To help make working with
-#'   [`Raster-class`] planning unit data easier,
-#'   the locked data should correspond to cell indices in the
-#'   [`Raster-class`] data. For example, `integer` arguments
-#'   should correspond to cell indices and `logical` arguments should have
-#'   a value for each cell---regardless of which planning unit cells contain
-#'   `NA` values.
+#' @section Data format:
 #'
-#'   \describe{
+#' The locked planning units can be specified using the following formats.
+#' Generally, the locked data should correspond to the planning units
+#' in the argument to `x.` To help make working with
+#' [`Raster-class`] planning unit data easier,
+#' the locked data should correspond to cell indices in the
+#' [`Raster-class`] data. For example, `integer` arguments
+#' should correspond to cell indices and `logical` arguments should have
+#' a value for each cell---regardless of which planning unit cells contain
+#' `NA` values.
 #'
-#'   \item{`integer`}{`vector` of indices pertaining to which
-#'     planning units should be locked for the solution. This argument is only
-#'     compatible with problems that contain a single zone.}
+#' \describe{
 #'
-#'   \item{`logical`}{`vector` containing `TRUE` and/or
-#'     `FALSE` values that indicate which planning units should be locked
-#'     in the solution. This argument is only compatible with problems that
-#'     contain a single zone.}
+#' \item{`integer`}{`vector` of indices pertaining to which
+#'   planning units should be locked for the solution. This argument is only
+#'   compatible with problems that contain a single zone.}
 #'
-#'   \item{`matrix`}{containing `logical` `TRUE` and/or
-#'     `FALSE` values which indicate if certain planning units are
-#'     should be locked to a specific zone in the solution. Each row
-#'     corresponds to a planning unit, each column corresponds to a zone, and
-#'     each cell indicates if the planning unit should be locked to a given
-#'     zone. Thus each row should only contain at most a single `TRUE`
-#'     value.}
+#' \item{`logical`}{`vector` containing `TRUE` and/or
+#'   `FALSE` values that indicate which planning units should be locked
+#'   in the solution. This argument is only compatible with problems that
+#'   contain a single zone.}
 #'
-#'   \item{`character`}{field (column) name(s) that indicate if planning
-#'     units should be locked for the solution. This type of argument is only
-#'     compatible if the planning units in the argument to `x` are a
-#'     [`Spatial-class`], [sf::sf()], or
-#'     `data.frame` object. The fields
-#'     (columns) must have `logical`  (i.e. `TRUE` or `FALSE`)
-#'     values indicating if the planning unit is to be locked for the solution.
-#'     For problems containing multiple zones, this argument should contain
-#'     a field (column) name for each management zone.}
+#' \item{`matrix`}{containing `logical` `TRUE` and/or
+#'   `FALSE` values which indicate if certain planning units are
+#'   should be locked to a specific zone in the solution. Each row
+#'   corresponds to a planning unit, each column corresponds to a zone, and
+#'   each cell indicates if the planning unit should be locked to a given
+#'   zone. Thus each row should only contain at most a single `TRUE`
+#'   value.}
 #'
-#'   \item{[`Spatial-class`] or [sf::sf()]}{
-#'     planning units in `x` that spatially intersect with the
-#'     argument to `y` (according to [intersecting_units()]
-#'     are locked for to the solution. Note that this option is only available
-#'     for problems that contain a single management zone.}
+#' \item{`character`}{field (column) name(s) that indicate if planning
+#'   units should be locked for the solution. This type of argument is only
+#'   compatible if the planning units in the argument to `x` are a
+#'   [`Spatial-class`], [sf::sf()], or
+#'   `data.frame` object. The fields
+#'   (columns) must have `logical`  (i.e. `TRUE` or `FALSE`)
+#'   values indicating if the planning unit is to be locked for the solution.
+#'   For problems containing multiple zones, this argument should contain
+#'   a field (column) name for each management zone.}
 #'
-#'   \item{[`Raster-class`]}{planning units in `x`
-#'     that intersect with non-zero and non-`NA` raster cells are locked
-#'     for the solution. For problems that contain multiple zones, the
-#'     [`Raster-class`] object must contain a layer
-#'     for each zone. Note that for multi-band arguments, each pixel must
-#'     only contain a non-zero value in a single band. Additionally, if the
-#'     cost data in `x` is a [`Raster-class`] object, we
-#'     recommend standardizing `NA` values in this dataset with the cost
-#'     data. In other words, the pixels in `x` that have `NA` values
-#'     should also have `NA` values in the locked data.}
-#'   }
+#' \item{[`Spatial-class`] or [sf::sf()]}{
+#'   planning units in `x` that spatially intersect with the
+#'   argument to `y` (according to [intersecting_units()]
+#'   are locked for to the solution. Note that this option is only available
+#'   for problems that contain a single management zone.}
+#'
+#' \item{[`Raster-class`]}{planning units in `x`
+#'   that intersect with non-zero and non-`NA` raster cells are locked
+#'   for the solution. For problems that contain multiple zones, the
+#'   [`Raster-class`] object must contain a layer
+#'   for each zone. Note that for multi-band arguments, each pixel must
+#'   only contain a non-zero value in a single band. Additionally, if the
+#'   cost data in `x` is a [`Raster-class`] object, we
+#'   recommend standardizing `NA` values in this dataset with the cost
+#'   data. In other words, the pixels in `x` that have `NA` values
+#'   should also have `NA` values in the locked data.}
+#' }
 #'
 #' @inherit add_contiguity_constraints return seealso
 #'
@@ -91,7 +93,8 @@ NULL
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with added locked in constraints using integers
 #' p2 <- p1 %>% add_locked_in_constraints(which(sim_pu_polygons$locked_in))
@@ -114,7 +117,7 @@ NULL
 #' s5 <- solve(p5)
 #'
 #' # plot solutions
-#' par(mfrow = c(3,2), mar = c(0, 0, 4.1, 0))
+#' par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
 #' plot(s1, main = "none locked in")
 #' plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
@@ -130,6 +133,8 @@ NULL
 #' plot(s5, main = "locked in (polygon input)")
 #' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 #'
+#' # reset plot
+#' par(mfrow = c(1, 1))
 #' }
 #'
 #' # create minimal multi-zone problem with spatial data
@@ -138,7 +143,8 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5,
 #'                                   ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create multi-zone problem with locked in constraints using matrix data
 #' locked_matrix <- sim_pu_zones_polygons@data[, c("locked_1", "locked_2",
@@ -181,7 +187,8 @@ NULL
 #' p9 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create raster stack with locked in units
 #' locked_in_stack <- sim_pu_zones_stack[[1]]

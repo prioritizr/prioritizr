@@ -85,6 +85,10 @@ rcpp_set_optimization_problem_shuffled <- function(x) {
     .Call(`_prioritizr_rcpp_set_optimization_problem_shuffled`, x)
 }
 
+rcpp_absolute_amount_held_by_solution <- function(rij_list, targets_list, solution) {
+    .Call(`_prioritizr_rcpp_absolute_amount_held_by_solution`, rij_list, targets_list, solution)
+}
+
 rcpp_add_rij_data <- function(x, rij_list, targets_list, compressed_formulation) {
     .Call(`_prioritizr_rcpp_add_rij_data`, x, rij_list, targets_list, compressed_formulation)
 }
@@ -157,12 +161,20 @@ rcpp_apply_neighbor_constraints <- function(x, connected_data, k) {
     .Call(`_prioritizr_rcpp_apply_neighbor_constraints`, x, connected_data, k)
 }
 
+rcpp_boundary <- function(edge_factor, zones_matrix, boundary_matrix, solution) {
+    .Call(`_prioritizr_rcpp_boundary`, edge_factor, zones_matrix, boundary_matrix, solution)
+}
+
 rcpp_boundary_data <- function(data, strm, str_tree, tolerance = 0.00001) {
     .Call(`_prioritizr_rcpp_boundary_data`, data, strm, str_tree, tolerance)
 }
 
 rcpp_branch_matrix <- function(x) {
     .Call(`_prioritizr_rcpp_branch_matrix`, x)
+}
+
+rcpp_connectivity <- function(data, solution) {
+    .Call(`_prioritizr_rcpp_connectivity`, data, solution)
 }
 
 rcpp_ferrier_score <- function(rij, targets, portfolio_size, out) {

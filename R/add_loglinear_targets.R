@@ -90,7 +90,8 @@ NULL
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
 #'      add_loglinear_targets(10, 0.9, 100, 0.2) %>%
-#'      add_binary_decisions()
+#'      add_binary_decisions() %>%
+#'      add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s <- solve(p)

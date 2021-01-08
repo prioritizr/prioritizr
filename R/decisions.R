@@ -1,7 +1,7 @@
 #' @include internal.R Parameters-proto.R Decision-proto.R
 NULL
 
-#' Specify the type of decisions
+#' Add decision types
 #'
 #' Conservation planning problems involve making decisions on
 #' how different planning units will be managed. These decisions might involve
@@ -56,7 +56,8 @@ NULL
 #' # create basic problem and using the default decision types (binary)
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
-#'       add_relative_targets(0.1)
+#'       add_relative_targets(0.1) %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with manually specified binary decisions
 #' p2 <- p1 %>% add_binary_decisions()

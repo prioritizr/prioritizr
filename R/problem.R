@@ -60,12 +60,12 @@ NULL
 #'     each row corresponds to a different feature. It must also contain the
 #'     following columns:
 #'     \describe{
-#'     \item{`"id"`}{`integer` unique identifier for each feature
+#'     \item{id}{`integer` unique identifier for each feature
 #'       These identifiers are used in the argument to `rij`.}
-#'     \item{`"name"`}{`character` name for each feature.}
-#'     \item{`"prop"`}{`numeric` relative target for each feature
+#'     \item{name}{`character` name for each feature.}
+#'     \item{prop}{`numeric` relative target for each feature
 #'       (optional).}
-#'     \item{`"amount"`}{`numeric` absolute target for each
+#'     \item{amount}{`numeric` absolute target for each
 #'       feature (optional).}
 #'     }
 #'
@@ -104,12 +104,13 @@ NULL
 #'    management zone. Specifically, the argument should contain the following
 #'    columns:
 #'    \describe{
-#'    \item{`"pu"`}{`integer` planning unit identifier.}
-#'    \item{`"species"`}{`integer` feature identifier.}
-#'    \item{`"zone"`}{`integer` zone identifier (optional for
+#'    \item{pu}{`integer` planning unit identifier.}
+#'    \item{species}{`integer` feature identifier.}
+#'    \item{zone}{`integer` zone identifier (optional for
 #'      problems involving a single zone).}
-#'    \item{`"amount"`}{`numeric` amount of the feature in the
+#'    \item{amount}{`numeric` amount of the feature in the
 #'      planning unit.}
+
 #'    }
 #'
 #' @param rij_matrix `list` of `matrix` or
@@ -130,8 +131,8 @@ NULL
 #'   argument should contain the following columns:
 #'   columns:
 #'   \describe{
-#'   \item{`"id"`}{`integer` zone identifier.}
-#'   \item{`"name"`}{`character` zone name.}
+#'   \item{id}{`integer` zone identifier.}
+#'   \item{name}{`character` zone name.}
 #'   }
 #'
 #' @param run_checks `logical` flag indicating whether checks should be
@@ -154,7 +155,7 @@ NULL
 #'   can take a variety of forms, but is typically either occupancy (i.e.
 #'   presence or absence) or area of occurrence within each planning unit.
 #'   Finally, in some types of reserve design models, representation targets
-#'   must be set for each conservation feature, such as 20 % of the current
+#'   must be set for each conservation feature, such as 20% of the current
 #'   extent of cloud forest or 10,000 km^2 of Clouded Leopard habitat
 #'   (see [targets]).
 #'
@@ -204,7 +205,7 @@ NULL
 #' @seealso [constraints], [decisions],
 #'  [objectives] [penalties],
 #'  [portfolios], [solvers], [targets],
-#'  [feature_representation()], [irreplaceability].
+#'  [summaries], [importance].
 #'
 #' @aliases problem,Raster,Raster-method problem,Spatial,Raster-method problem,data.frame,data.frame-method problem,numeric,data.frame-method problem,data.frame,character-method problem,Spatial,character-method problem,Raster,ZonesRaster-method problem,Spatial,ZonesRaster-method problem,Spatial,ZonesCharacter-method problem,data.frame,ZonesCharacter-method problem,matrix,data.frame-method problem,sf,Raster-method problem,sf,ZonesCharacter-method problem,sf,character-method problem,sf,ZonesRaster-method
 #'
@@ -221,32 +222,37 @@ NULL
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' \dontrun{
 #' # create problem using polygon (Spatial) planning unit data
 #' p2 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem using line (Spatial) planning unit data
 #' p3 <- problem(sim_pu_lines, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem using point (Spatial) planning unit data
 #' p4 <- problem(sim_pu_points, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem using polygon (sf) planning unit data
 #' p5 <- problem(sim_pu_sf, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # add columns to polygon planning unit data representing the abundance
 #' # of species inside them
@@ -260,7 +266,8 @@ NULL
 #'               "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # alternatively one can supply pre-processed aspatial data
 #' costs <- sim_pu_polygons$cost
@@ -270,7 +277,8 @@ NULL
 #' p7 <- problem(costs, features, rij_matrix = rij_mat) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # solve problems
 #' s1 <- solve(p1)
@@ -323,7 +331,8 @@ NULL
 #' p8 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s8 <- solve(p8)
@@ -345,7 +354,8 @@ NULL
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s9 <- solve(p9)
@@ -388,7 +398,8 @@ NULL
 #'                cost_column = c("cost_1", "cost_2")) %>%
 #'        add_min_set_objective() %>%
 #'        add_absolute_targets(targets[1:3, 1:2]) %>%
-#'        add_proportion_decisions()
+#'        add_proportion_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # solve problem
 #' s10 <- solve(p10)
@@ -754,7 +765,7 @@ methods::setMethod(
     rij <- lapply(seq_along(zones$id), function(z) {
       r <- rij[rij$zone == z, ]
       Matrix::sparseMatrix(i = r$species, j = r$pu,
-                           x = r$amount, giveCsparse = TRUE,
+                           x = r$amount,
                            index1 = TRUE, use.last.ij = FALSE,
                            dims = c(nrow(features), length(pos)),
                            dimnames = list(features$name, NULL))

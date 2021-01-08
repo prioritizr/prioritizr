@@ -88,7 +88,7 @@ NULL
 #' # searching for the optimal solution to 2 seconds
 #' if (require("Rsymphony")) {
 #'   titles <- c(titles, "Rsymphony (2s)")
-#'   p1 <- p %>% add_rsymphony_solver(time_limit = 2)
+#'   p1 <- p %>% add_rsymphony_solver(time_limit = 2, verbose = FALSE)
 #'   s <- addLayer(s, solve(p1))
 #' }
 #'
@@ -96,21 +96,21 @@ NULL
 #' # searching for the optimal solution to 5 seconds
 #' if (require("Rsymphony")) {
 #'   titles <- c(titles, "Rsymphony (5s)")
-#'   p2 <- p %>% add_rsymphony_solver(time_limit = 5)
+#'   p2 <- p %>% add_rsymphony_solver(time_limit = 5, verbose = FALSE)
 #'   s <- addLayer(s, solve(p2))
 #' }
 #'
 #' # if the gurobi is installed: create problem with added gurobi solver
 #' if (require("gurobi")) {
 #'   titles <- c(titles, "gurobi (5s)")
-#'   p3 <- p %>% add_gurobi_solver(gap = 0.1, presolve = 2, time_limit = 5)
+#'   p3 <- p %>% add_gurobi_solver(time_limit = 5, verbose = FALSE)
 #'   s <- addLayer(s, solve(p3))
 #' }
 #'
 #' # if the cplexAPI is installed: create problem with added cplex solver
 #' if (require("cplexAPI")) {
 #'   titles <- c(titles, "cplexAPI (5s)")
-#'   p4 <- p %>% add_cplex_solver(gap = 0.1, time_limit = 5)
+#'   p4 <- p %>% add_cplex_solver(time_limit = 5, verbose = FALSE)
 #'   s <- addLayer(s, solve(p4))
 #' }
 #'
@@ -120,7 +120,7 @@ NULL
 #' if (require("lpsymphony") &
 #'     isTRUE(Sys.info()[["sysname"]] != "Linux")) {
 #'   titles <- c(titles, "lpsymphony")
-#'   p5 <- p %>% add_lpsymphony_solver(gap = 0.1, time_limit = 10)
+#'   p5 <- p %>% add_lpsymphony_solver(time_limit = 10, verbose = FALSE)
 #'   s <- addLayer(s, solve(p5))
 #' }
 #'

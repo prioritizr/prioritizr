@@ -13,30 +13,30 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param data `data.frame` or [tibble::tibble()] object. See
-#'   the Details section for more information.
+#' @param data `data.frame` or [tibble::tibble()] object.
+#'   See the Data format section for more information.
 #'
-#' @details The argument to `data` must contain the following fields
-#'   (columns):
+#' @section Data format:
+#' The argument to `data` must contain the following fields  (columns):
 #'
-#'   \describe{
+#' \describe{
 #'
-#'   \item{`"pu"`}{`integer` planning unit identifier.}
+#' \item{pu}{`integer` planning unit identifier.}
 #'
-#'   \item{`"zone"`}{`character` names of zones. Note that this
-#'     argument is optional for arguments to `x` that contain a single
-#'     zone.}
+#' \item{zone}{`character` names of zones. Note that this
+#'   argument is optional for arguments to `x` that contain a single
+#'   zone.}
 #'
-#'   \item{`"status"`}{`numeric` values indicating how much
-#'     of each planning unit should be allocated to each zone in the solution.
-#'     For example, the `numeric` values could be binary values (i.e. zero
-#'     or one) for problems containing binary-type decision variables
-#'     (using the [add_binary_decisions()] function). Alternatively,
-#'     the `numeric` values could be proportions (e.g. 0.5) for problems
-#'     containing proportion-type decision variables (using the
-#'     [add_proportion_decisions()]).}
+#' \item{status}{`numeric` values indicating how much
+#'   of each planning unit should be allocated to each zone in the solution.
+#'   For example, the `numeric` values could be binary values (i.e. zero
+#'   or one) for problems containing binary-type decision variables
+#'   (using the [add_binary_decisions()] function). Alternatively,
+#'   the `numeric` values could be proportions (e.g. 0.5) for problems
+#'   containing proportion-type decision variables (using the
+#'   [add_proportion_decisions()]).}
 #'
-#'   }
+#'  }
 #'
 #' @inherit add_contiguity_constraints return seealso
 #'
@@ -52,7 +52,8 @@ NULL
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with locked in constraints using add_locked_constraints
 #' p2 <- p1 %>% add_locked_in_constraints("locked_in")
@@ -85,7 +86,8 @@ NULL
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(matrix(runif(15, 0.1, 0.2), nrow = 5,
 #'                                   ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create data.frame with the following constraints:
 #' # planning units 1, 2, and 3 must be allocated to zone 1 in the solution

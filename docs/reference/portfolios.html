@@ -53,11 +53,15 @@
 
 
 <meta property="og:title" content="Solution portfolios — portfolios" />
-<meta property="og:description" content="Conservation planners often desire a portfolio of solutions
-to present to decision makers. This is because conservation planners
-often do not have access to &quot;perfect&quot; information, such as cost data that
-accurately reflects stakeholder preferences, and so having multiple
-near-optimal solutions can be a useful." />
+<meta property="og:description" content="Conservation planning exercises rarely have access to all the
+data needed to identify the truly perfect solution. This is because
+available data may lack important details
+(e.g. land acquisition costs may be unavailable), contain errors
+(e.g. species presence/absence data may have false positives),
+or key objectives may not be formally incorporated into the
+prioritization process (e.g. future land use requirements).
+As such, conservation planners can help decision makers by providing
+them with a portfolio of solutions to inform their decision." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -100,7 +104,7 @@ near-optimal solutions can be a useful." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -178,24 +182,26 @@ near-optimal solutions can be a useful." />
     </div>
 
     <div class="ref-description">
-    <p>Conservation planners often desire a portfolio of solutions
-to present to decision makers. This is because conservation planners
-often do not have access to "perfect" information, such as cost data that
-accurately reflects stakeholder preferences, and so having multiple
-near-optimal solutions can be a useful.</p>
+    <p>Conservation planning exercises rarely have access to all the
+data needed to identify the <em>truly</em> perfect solution. This is because
+available data may lack important details
+(e.g. land acquisition costs may be unavailable), contain errors
+(e.g. species presence/absence data may have false positives),
+or key objectives may not be formally incorporated into the
+prioritization process (e.g. future land use requirements).
+As such, conservation planners can help decision makers by providing
+them with a portfolio of solutions to inform their decision.</p>
     </div>
 
 
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>All methods for generating portfolios will return solutions that
+    <p>The following portfolios can be added to a conservation planning
+<code><a href='problem.html'>problem()</a></code>.
+Note that all methods for generating portfolios return solutions that
 are within the specified optimality gap.</p>
-<p>The following portfolios can be added to a conservation planning
-<code><a href='problem.html'>problem()</a></code>:</p>
 <dl>
-
-<dt><code>add_default_portfolio</code></dt><dd><p>Generate a single solution.</p></dd>
 
 <dt><code><a href='add_extra_portfolio.html'>add_extra_portfolio()</a></code></dt><dd><p>Generate a portfolio of solutions
 by storing feasible solutions found during the optimization

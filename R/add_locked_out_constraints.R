@@ -18,10 +18,11 @@ NULL
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
 #' @param locked_out Object that determines which planning units that should be
-#'   locked out. See the Details section for more information.
+#'   locked out. See the Data format section for more information.
 #'
 #' @inherit add_contiguity_constraints return seealso
 #' @inherit add_locked_in_constraints details
+#' @inheritSection add_locked_in_constraints Data format
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -34,7 +35,8 @@ NULL
 #' p1 <- problem(sim_pu_polygons, sim_features, "cost") %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create problem with added locked out constraints using integers
 #' p2 <- p1 %>% add_locked_out_constraints(which(sim_pu_polygons$locked_out))
@@ -72,6 +74,9 @@ NULL
 #'
 #' plot(s5, main = "locked out (polygon input)")
 #' plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
+#'
+#' # reset plot
+#' par(mfrow = c(1, 1))
 #' }
 #'
 #' # create minimal multi-zone problem with spatial data
@@ -79,7 +84,8 @@ NULL
 #'               cost_column = c("cost_1", "cost_2", "cost_3")) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create multi-zone problem with locked out constraints using matrix data
 #' locked_matrix <- sim_pu_zones_polygons@data[, c("locked_1", "locked_2",
@@ -123,7 +129,8 @@ NULL
 #' p9 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create raster stack with locked out units
 #' locked_out_stack <- sim_pu_zones_stack[[1]]

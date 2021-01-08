@@ -3,7 +3,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.travis\.yml$
-NEWS.md
 ^gurobi\.log$
 ^revdep$
 ^docs$

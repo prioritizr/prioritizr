@@ -1,3 +1,30 @@
+# prioritizr 6.0.0.0
+
+- New `eval_cost` function to calculate the cost of a solution.
+- New `eval_boundary` function to calculate the exposed boundary length
+  associated with a solution.
+- New `eval_connectivity` function to calculate the connectivity associated
+  with a solution.
+- Deprecated `feature_representation` function. It is now superseded by the
+  `eval_feature_representation` function.
+- New `eval_feature_representation` function to assess how well each
+  feature is represented by a solution. This function is similar to the
+  deprecated `eval_feature_representation` function, except that it
+  follows conventions for other evaluation functions (e.g. `eval_cost`).
+- New `eval_target_representation` function to assess how well each
+  target is met by a solution. This function is similar to the
+  `eval_feature_representation`, except that it corresponds to the targets
+  in a conservation planning problem.
+- Rename `ferrier_score` function as `eval_ferrier_importance` function for
+  consistency.
+- Rename `replacement_cost` function as `eval_replacement_importance` function
+  for consistency.
+- Rename `rarity_weighted_richness` function as `eval_rare_richness_importance`
+  function for consistency.
+- Fix comparability issues with Matrix R package (version 1.3-0) (#172).
+- Add NEWS to build process (#173).
+- Update publication vignette.
+
 # prioritizr 5.0.3.2
 
 - Add Schuster et al. 2020 to documentation to provide information on

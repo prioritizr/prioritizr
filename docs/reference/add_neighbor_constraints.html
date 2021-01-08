@@ -98,7 +98,7 @@ number of neighbors that are also selected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -227,8 +227,8 @@ only considered neighbors if they are both allocated to the same zone.</p></td>
 <code>array</code> object showing which planning units are neighbors with each
 other. The argument defaults to <code>NULL</code> which means that the
 neighborhood data is calculated automatically using the
-<code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. See the Details section for more
-information.</p></td>
+<code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function.
+See the Data format section for more information.</p></td>
     </tr>
     </table>
 
@@ -242,7 +242,11 @@ added to it.</p>
 surround planning units with a minimum number of neighbors. It
 was inspired by the mathematical formulations detailed in
 Billionnet (2013) and Beyer <em>et al.</em> (2016).</p>
-<p>The argument to <code>data</code> can be specified in several ways:</p>
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+<p>The argument to <code>data</code> can be specified using the following formats:</p>
 <dl>
 
 <dt><code>NULL</code></dt><dd><p>neighborhood data should be calculated automatically
@@ -311,7 +315,8 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># create minimal problem</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem with constraints that require 1 neighbor</span>
 <span class='co'># and neighbors are defined using a rook-style neighborhood</span>
@@ -329,146 +334,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
-#&gt; Model fingerprint: 0x0b3d7b91
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2183.0924422
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 95 rows, 90 columns, 828 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 95 rows, 90 columns, 828 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.932118e+03, 25 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1932.11830    0    6 2183.09244 1932.11830  11.5%     -    0s
-#&gt; H    0     0                    1993.6247371 1932.11830  3.09%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (25 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1993.62 2183.09 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.993624737145e+03, best bound 1.932118304023e+03, gap 3.0852%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 95 rows, 90 columns and 828 nonzeros
-#&gt; Model fingerprint: 0x5dab9335
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 3605.4363089
-#&gt; Presolve removed 2 rows and 4 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
-#&gt; Variable types: 0 continuous, 86 integer (86 binary)
-#&gt; Presolved: 93 rows, 86 columns, 798 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.939110e+03, 50 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1939.10993    0   14 3605.43631 1939.10993  46.2%     -    0s
-#&gt; H    0     0                    2416.7011836 1939.10993  19.8%     -    0s
-#&gt;      0     0 1941.28796    0   16 2416.70118 1941.28796  19.7%     -    0s
-#&gt; H    0     0                    2019.4822081 1941.28796  3.87%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 8
-#&gt;   MIR: 1
-#&gt; 
-#&gt; Explored 1 nodes (66 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 2019.48 2416.7 3605.44 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.019482208068e+03, best bound 1.941287964291e+03, gap 3.8720%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 95 rows, 90 columns and 1084 nonzeros
-#&gt; Model fingerprint: 0x02b24172
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 3e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2746.9251892
-#&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
-#&gt; Variable types: 0 continuous, 89 integer (89 binary)
-#&gt; Presolved: 94 rows, 89 columns, 1074 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.933734e+03, 46 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1933.73436    0   12 2746.92519 1933.73436  29.6%     -    0s
-#&gt; H    0     0                    2416.4661768 1933.73436  20.0%     -    0s
-#&gt;      0     0 1938.73344    0   15 2416.46618 1938.73344  19.8%     -    0s
-#&gt; H    0     0                    2406.8778073 1938.73344  19.5%     -    0s
-#&gt; H    0     0                    2012.0737704 1938.73344  3.65%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 5
-#&gt;   MIR: 3
-#&gt;   RLT: 3
-#&gt; 
-#&gt; Explored 1 nodes (59 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 4: 2012.07 2406.88 2416.47 2746.93 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.012073770352e+03, best bound 1.938733436295e+03, gap 3.6450%</div><div class='input'>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic solution"</span>, <span class='st'>"1 neighbor"</span>, <span class='st'>"2 neighbors"</span>, <span class='st'>"3 neighbors"</span><span class='op'>)</span><span class='op'>)</span>
@@ -476,7 +342,8 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># create minimal problem with multiple zones</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem where selected planning units require at least 2 neighbors</span>
 <span class='co'># for each zone and planning units are only considered neighbors if they</span>
@@ -511,136 +378,7 @@ conservation. <em>European Journal of Operational Research</em>, 231:
 <span class='co'># solve problems</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p5</span>, <span class='va'>p6</span>, <span class='va'>p7</span>, <span class='va'>p8</span><span class='op'>)</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>solve</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x60594edc
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 7019.1222763
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.935429e+03, 100 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5935.42867    0   13 7019.12228 5935.42867  15.4%     -    0s
-#&gt; H    0     0                    6082.2792264 5935.42867  2.41%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (100 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 6082.28 7019.12 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.082279226435e+03, best bound 5.935428674960e+03, gap 2.4144%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 375 rows, 270 columns and 2760 nonzeros
-#&gt; Model fingerprint: 0x063f1d09
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 10188.214728
-#&gt; Presolve removed 6 rows and 9 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
-#&gt; Variable types: 0 continuous, 261 integer (261 binary)
-#&gt; Presolved: 369 rows, 261 columns, 2685 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.950461e+03, 263 iterations, 0.01 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5950.46090    0   51 10188.2147 5950.46090  41.6%     -    0s
-#&gt; H    0     0                    7453.2524990 5950.46090  20.2%     -    0s
-#&gt; H    0     0                    6495.8274057 5950.46090  8.40%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (263 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 6495.83 7453.25 10188.2 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.495827405667e+03, best bound 5.950460895938e+03, gap 8.3956%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 375 rows, 270 columns and 2670 nonzeros
-#&gt; Model fingerprint: 0x212b62c8
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 7339.4976993
-#&gt; Presolve removed 91 rows and 3 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 284 rows, 267 columns, 2357 nonzeros
-#&gt; Variable types: 0 continuous, 267 integer (267 binary)
-#&gt; Presolved: 284 rows, 267 columns, 2357 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.941652e+03, 197 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5941.65239    0   25 7339.49770 5941.65239  19.0%     -    0s
-#&gt; H    0     0                    6738.7445245 5941.65239  11.8%     -    0s
-#&gt; H    0     0                    6326.6355905 5941.65239  6.09%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (197 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 6326.64 6738.74 7339.5 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.326635590527e+03, best bound 5.941652389062e+03, gap 6.0851%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 375 rows, 270 columns and 3250 nonzeros
-#&gt; Model fingerprint: 0xc933c78f
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 7926.6786941
-#&gt; Presolve removed 91 rows and 3 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 284 rows, 267 columns, 2647 nonzeros
-#&gt; Variable types: 0 continuous, 267 integer (267 binary)
-#&gt; Presolved: 284 rows, 267 columns, 2647 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.941652e+03, 178 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 5941.65239    0   25 7926.67869 5941.65239  25.0%     -    0s
-#&gt; H    0     0                    6740.4618068 5941.65239  11.9%     -    0s
-#&gt; H    0     0                    6327.3313218 5941.65239  6.10%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (178 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 6327.33 6740.46 7926.68 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 6.327331321838e+03, best bound 5.941652389062e+03, gap 6.0954%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic problem"</span>, <span class='st'>"p6"</span>, <span class='st'>"p7"</span>, <span class='st'>"p8"</span><span class='op'>)</span>
 

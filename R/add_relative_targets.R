@@ -11,10 +11,11 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param targets Object that specifies the targets for each feature. See the
-#'   Details section for more information.
+#' @param targets Object that specifies the targets for each feature.
+#'   See the Targets data format section for more information.
 #'
 #' @inherit add_absolute_targets details return seealso
+#' @inheritSection add_absolute_targets Targets data format
 #'
 #' @examples
 #' # set seed for reproducibility
@@ -26,9 +27,10 @@ NULL
 #' # create base problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
-#'      add_binary_decisions()
+#'      add_binary_decisions() %>%
+#'      add_default_solver(verbose = FALSE)
 #'
-#' # create problem with 10 % targets
+#' # create problem with 10% targets
 #' p1 <- p %>% add_relative_targets(0.1)
 #'
 #' # create problem with varying targets for each feature
@@ -39,13 +41,14 @@ NULL
 #' s <- stack(solve(p1), solve(p2))
 #'
 #' # plot solution
-#' plot(s, main = c("10 % targets", "varying targets"), axes = FALSE,
+#' plot(s, main = c("10% targets", "varying targets"), axes = FALSE,
 #'      box = FALSE)
 #' }
 #' # create a problem with multiple management zones
 #' p3 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create a problem with targets that specify an equal amount of each feature
 #' # to be represented in each zone

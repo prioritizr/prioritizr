@@ -8,6 +8,7 @@
 */
 
 /* .Call calls */
+extern SEXP _prioritizr_rcpp_absolute_amount_held_by_solution(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_add_rij_data(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_add_zones_constraints(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_boundary_penalties(SEXP, SEXP, SEXP, SEXP, SEXP);
@@ -26,8 +27,10 @@ extern SEXP _prioritizr_rcpp_apply_max_utility_objective(SEXP, SEXP, SEXP, SEXP)
 extern SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_min_shortfall_objective(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_apply_neighbor_constraints(SEXP, SEXP, SEXP);
+extern SEXP _prioritizr_rcpp_boundary(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_boundary_data(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_branch_matrix(SEXP);
+extern SEXP _prioritizr_rcpp_connectivity(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_ferrier_score(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_forbid_solution(SEXP, SEXP);
 extern SEXP _prioritizr_rcpp_get_optimization_problem_A(SEXP);
@@ -57,6 +60,7 @@ extern SEXP _prioritizr_rcpp_str_tree_to_sparse_matrix(SEXP);
 extern SEXP _prioritizr_rcpp_summarize_exactextractr(SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_prioritizr_rcpp_absolute_amount_held_by_solution",                  (DL_FUNC) &_prioritizr_rcpp_absolute_amount_held_by_solution,                  3},
     {"_prioritizr_rcpp_add_rij_data",                                      (DL_FUNC) &_prioritizr_rcpp_add_rij_data,                                      4},
     {"_prioritizr_rcpp_add_zones_constraints",                             (DL_FUNC) &_prioritizr_rcpp_add_zones_constraints,                             2},
     {"_prioritizr_rcpp_apply_boundary_penalties",                          (DL_FUNC) &_prioritizr_rcpp_apply_boundary_penalties,                          5},
@@ -75,8 +79,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_prioritizr_rcpp_apply_min_set_objective",                           (DL_FUNC) &_prioritizr_rcpp_apply_min_set_objective,                           3},
     {"_prioritizr_rcpp_apply_min_shortfall_objective",                     (DL_FUNC) &_prioritizr_rcpp_apply_min_shortfall_objective,                     4},
     {"_prioritizr_rcpp_apply_neighbor_constraints",                        (DL_FUNC) &_prioritizr_rcpp_apply_neighbor_constraints,                        3},
+    {"_prioritizr_rcpp_boundary",                                          (DL_FUNC) &_prioritizr_rcpp_boundary,                                          4},
     {"_prioritizr_rcpp_boundary_data",                                     (DL_FUNC) &_prioritizr_rcpp_boundary_data,                                     4},
     {"_prioritizr_rcpp_branch_matrix",                                     (DL_FUNC) &_prioritizr_rcpp_branch_matrix,                                     1},
+    {"_prioritizr_rcpp_connectivity",                                      (DL_FUNC) &_prioritizr_rcpp_connectivity,                                      2},
     {"_prioritizr_rcpp_ferrier_score",                                     (DL_FUNC) &_prioritizr_rcpp_ferrier_score,                                     4},
     {"_prioritizr_rcpp_forbid_solution",                                   (DL_FUNC) &_prioritizr_rcpp_forbid_solution,                                   2},
     {"_prioritizr_rcpp_get_optimization_problem_A",                        (DL_FUNC) &_prioritizr_rcpp_get_optimization_problem_A,                        1},

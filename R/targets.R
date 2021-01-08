@@ -1,10 +1,10 @@
 #' @include internal.R pproto.R ConservationProblem-proto.R
 NULL
 
-#' Targets
+#' Add representation targets
 #'
 #' Targets are used to specify the minimum amount or proportion of a feature's
-#' distribution that needs to be protected in the solution.
+#' distribution that should (ideally) be covered (represented) by a solution.
 #'
 #' **Please note that most objectives require targets, and attempting
 #' to solve a problem that requires targets will throw an error.**
@@ -40,7 +40,8 @@ NULL
 #' # create base problem
 #' p <- problem(sim_pu_raster, sim_features) %>%
 #'      add_min_set_objective() %>%
-#'      add_binary_decisions()
+#'      add_binary_decisions() %>%
+#'      add_default_solver(verbose = FALSE)
 #'
 #' # create problem with added relative targets
 #' p1 <- p %>% add_relative_targets(0.1)

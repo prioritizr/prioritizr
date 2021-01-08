@@ -98,7 +98,7 @@ and form a single contiguous unit." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -221,8 +221,8 @@ are both allocated to the same zone.</p></td>
 object showing which planning units are connected with each
 other. The argument defaults to <code>NULL</code> which means that the
 connection data is calculated automatically using the
-<code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function. See the Details section for more
-information.</p></td>
+<code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function.
+See the Data format section for more information.</p></td>
     </tr>
     </table>
 
@@ -235,7 +235,12 @@ added to it.</p>
     <p>This function uses connection data to identify solutions that
 form a single contiguous unit. It was inspired by the
 mathematical formulations detailed in Önal and Briers (2006).</p>
-<p>The argument to <code>data</code> can be specified in several ways:</p>
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+
+<p>The argument to <code>data</code> can be specified using the following formats.</p>
 <dl>
 
 <dt><code>NULL</code></dt><dd><p>connection data should be calculated automatically
@@ -290,89 +295,15 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem with added connected constraints</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_contiguity_constraints</span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xac25e0fe
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [6e+00, 2e+01]
-#&gt; Found heuristic solution: objective 4544.4850483
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.899056e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3899.05601    0    4 4544.48505 3899.05601  14.2%     -    0s
-#&gt; H    0     0                    3988.8131278 3899.05601  2.25%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 3988.81 4544.49 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.988813127763e+03, best bound 3.899056011987e+03, gap 2.2502%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 236 rows, 234 columns and 1202 nonzeros
-#&gt; Model fingerprint: 0x6b9fa975
-#&gt; Variable types: 0 continuous, 234 integer (234 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 12 rows and 13 columns
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
-#&gt; Variable types: 0 continuous, 221 integer (221 binary)
-#&gt; Presolved: 224 rows, 221 columns, 1022 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.947815e+03, 153 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3947.81491    0   90          - 3947.81491      -     -    0s
-#&gt;      0     0 3952.98944    0   79          - 3952.98944      -     -    0s
-#&gt;      0     0 3969.70422    0   80          - 3969.70422      -     -    0s
-#&gt;      0     0 3972.97474    0   89          - 3972.97474      -     -    0s
-#&gt;      0     0 3982.34764    0   98          - 3982.34764      -     -    0s
-#&gt;      0     0 3982.41767    0   94          - 3982.41767      -     -    0s
-#&gt;      0     0 3984.42060    0   91          - 3984.42060      -     -    0s
-#&gt;      0     0 3984.42060    0   90          - 3984.42060      -     -    0s
-#&gt; H    0     0                    4608.4138755 3984.42060  13.5%     -    0s
-#&gt;      0     2 3984.65223    0   90 4608.41388 3984.65223  13.5%     -    0s
-#&gt; H   27    21                    4285.2176945 3985.13341  7.00%  16.2    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 3
-#&gt;   Clique: 1
-#&gt;   Zero half: 4
-#&gt; 
-#&gt; Explored 28 nodes (834 simplex iterations) in 0.13 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 4285.22 4608.41 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.285217694549e+03, best bound 3.985133414355e+03, gap 7.0028%</div><div class='input'>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"basic solution"</span>, <span class='st'>"connected solution"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>,
      box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -382,8 +313,8 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.2</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>time_limit <span class='op'>=</span> <span class='fl'>30</span>, verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem with added constraints to ensure that the planning units</span>
 <span class='co'># allocated to each zone form a separate contiguous unit</span>
@@ -419,207 +350,7 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>p4</span>, <span class='va'>p5</span>, <span class='va'>p6</span><span class='op'>)</span>, <span class='va'>solve</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x168289c2
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Found heuristic solution: objective 13103.242827
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.199145e+04, 211 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 11991.4483    0   18 13103.2428 11991.4483  8.48%     -    0s
-#&gt; 
-#&gt; Explored 0 nodes (211 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: 13103.2 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.310324282660e+04, best bound 1.199144828715e+04, gap 8.4849%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 801 rows, 705 columns and 3888 nonzeros
-#&gt; Model fingerprint: 0x54884945
-#&gt; Variable types: 0 continuous, 705 integer (705 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 63 rows and 63 columns
-#&gt; Presolve time: 0.04s
-#&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
-#&gt; Variable types: 0 continuous, 642 integer (642 binary)
-#&gt; Presolved: 738 rows, 642 columns, 3270 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.207868e+04, 691 iterations, 0.02 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 12078.6848    0  232          - 12078.6848      -     -    0s
-#&gt;      0     0 12085.1278    0  262          - 12085.1278      -     -    0s
-#&gt;      0     0 12085.1447    0  265          - 12085.1447      -     -    0s
-#&gt;      0     0 12087.6584    0  273          - 12087.6584      -     -    0s
-#&gt;      0     0 12090.4265    0  256          - 12090.4265      -     -    0s
-#&gt;      0     0 12090.5254    0  258          - 12090.5254      -     -    0s
-#&gt;      0     0 12090.5254    0  258          - 12090.5254      -     -    0s
-#&gt;      0     0 12091.6962    0  272          - 12091.6962      -     -    0s
-#&gt;      0     0 12091.8121    0  266          - 12091.8121      -     -    0s
-#&gt;      0     0 12092.4439    0  259          - 12092.4439      -     -    0s
-#&gt;      0     0 12092.6098    0  261          - 12092.6098      -     -    0s
-#&gt;      0     0 12092.6098    0  261          - 12092.6098      -     -    0s
-#&gt;      0     0 12092.6506    0  276          - 12092.6506      -     -    0s
-#&gt;      0     0 12092.8058    0  279          - 12092.8058      -     -    0s
-#&gt;      0     0 12092.8058    0  279          - 12092.8058      -     -    0s
-#&gt;      0     0 12092.8197    0  282          - 12092.8197      -     -    0s
-#&gt;      0     0 12092.8197    0  280          - 12092.8197      -     -    0s
-#&gt;      0     2 12092.8774    0  279          - 12092.8774      -     -    0s
-#&gt; H  353   196                    14281.324921 12107.0007  15.2%  64.3    1s
-#&gt; H  388   213                    14265.457382 12108.7351  15.1%  64.9    1s
-#&gt; H  407   231                    14248.731873 12108.7351  15.0%  62.2    1s
-#&gt; H  556   302                    14240.536054 12109.8197  15.0%  74.4    3s
-#&gt; H  591   298                    14086.811847 12109.8197  14.0%  78.6    3s
-#&gt; H  776   327                    14084.986319 12109.8197  14.0%  78.8    4s
-#&gt;    858   347 12145.9045   26  263 14084.9863 12109.8197  14.0%  78.9    5s
-#&gt; H 1156   386                    14084.426863 12111.7904  14.0%  77.1    6s
-#&gt; H 1210   379                    14082.625213 12111.9268  14.0%  76.0    6s
-#&gt; H 1237   402                    14071.909363 12112.0989  13.9%  76.5    6s
-#&gt; H 1321   434                    13960.361362 12112.8311  13.2%  75.4    7s
-#&gt; H 1329   440                    13957.579264 12112.8311  13.2%  75.0    7s
-#&gt; * 1337   446              57    13954.627210 12112.8311  13.2%  74.6    7s
-#&gt; * 1338   445              56    13952.714715 12112.8311  13.2%  74.6    7s
-#&gt; H 1340   444                    13943.797161 12112.8311  13.1%  74.5    7s
-#&gt; H 1372   468                    13926.909504 12112.9795  13.0%  74.7    7s
-#&gt; H 1399   468                    13733.550399 12113.2482  11.8%  74.2    7s
-#&gt; H 1426   485                    13732.040257 12113.3468  11.8%  74.1    7s
-#&gt; H 1507   497                    13501.418204 12114.2125  10.3%  73.8    8s
-#&gt; H 1978   654                    13351.849112 12119.5487  9.23%  73.5    9s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 7
-#&gt;   Clique: 4
-#&gt;   Inf proof: 10
-#&gt;   Zero half: 22
-#&gt; 
-#&gt; Explored 1979 nodes (146817 simplex iterations) in 9.52 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 10: 13351.8 13501.4 13732 ... 13960.4
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.335184911249e+04, best bound 1.211954868919e+04, gap 9.2294%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 569 rows, 560 columns and 3132 nonzeros
-#&gt; Model fingerprint: 0xc50b65ea
-#&gt; Variable types: 0 continuous, 560 integer (560 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 43 rows and 42 columns
-#&gt; Presolve time: 0.02s
-#&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
-#&gt; Variable types: 0 continuous, 518 integer (518 binary)
-#&gt; Presolved: 526 rows, 518 columns, 2717 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.204897e+04, 467 iterations, 0.01 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 12048.9738    0  123          - 12048.9738      -     -    0s
-#&gt;      0     0 12055.7661    0  163          - 12055.7661      -     -    0s
-#&gt;      0     0 12066.3754    0  196          - 12066.3754      -     -    0s
-#&gt;      0     0 12066.7537    0  208          - 12066.7537      -     -    0s
-#&gt;      0     0 12068.5463    0  225          - 12068.5463      -     -    0s
-#&gt;      0     0 12068.8100    0  233          - 12068.8100      -     -    0s
-#&gt;      0     0 12069.3568    0  241          - 12069.3568      -     -    0s
-#&gt;      0     0 12069.3568    0  241          - 12069.3568      -     -    0s
-#&gt; H    0     0                    14104.597125 12069.3568  14.4%     -    0s
-#&gt; H    0     0                    14094.852035 12069.3568  14.4%     -    0s
-#&gt;      0     2 12069.3646    0  241 14094.8520 12069.3646  14.4%     -    0s
-#&gt; H   85    84                    13139.068116 12069.4349  8.14%  25.6    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 6
-#&gt;   Clique: 3
-#&gt;   Zero half: 7
-#&gt; 
-#&gt; Explored 86 nodes (3062 simplex iterations) in 0.30 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 13139.1 14094.9 14104.6 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.313906811551e+04, best bound 1.206943489459e+04, gap 8.1409%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 945 rows, 850 columns and 4468 nonzeros
-#&gt; Model fingerprint: 0x5b79ada6
-#&gt; Variable types: 0 continuous, 850 integer (850 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 70 rows and 73 columns
-#&gt; Presolve time: 0.07s
-#&gt; Presolved: 875 rows, 777 columns, 3840 nonzeros
-#&gt; Variable types: 0 continuous, 777 integer (777 binary)
-#&gt; Presolve removed 122 rows and 0 columns
-#&gt; Presolved: 753 rows, 777 columns, 3474 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.207105e+04, 875 iterations, 0.02 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 12071.0476    0  229          - 12071.0476      -     -    0s
-#&gt;      0     0 12083.8905    0  211          - 12083.8905      -     -    0s
-#&gt;      0     0 12084.9202    0  249          - 12084.9202      -     -    0s
-#&gt;      0     0 12086.2128    0  262          - 12086.2128      -     -    0s
-#&gt;      0     0 12086.4955    0  263          - 12086.4955      -     -    0s
-#&gt;      0     0 12086.9402    0  271          - 12086.9402      -     -    0s
-#&gt;      0     0 12086.9750    0  270          - 12086.9750      -     -    0s
-#&gt;      0     0 12087.0002    0  244          - 12087.0002      -     -    0s
-#&gt;      0     0 12087.0048    0  267          - 12087.0048      -     -    0s
-#&gt;      0     0 12087.0326    0  250          - 12087.0326      -     -    0s
-#&gt;      0     0 12087.0326    0  242          - 12087.0326      -     -    0s
-#&gt;      0     2 12087.0595    0  242          - 12087.0595      -     -    0s
-#&gt; H   60    47                    13531.146254 12087.0595  10.7%  29.3    0s
-#&gt; H   60    47                    13514.979731 12087.0595  10.6%  29.3    0s
-#&gt; H   87    65                    13512.830309 12087.2931  10.5%  42.3    0s
-#&gt; H  141    76                    13295.350187 12088.0827  9.08%  72.9    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 7
-#&gt;   MIR: 1
-#&gt;   Inf proof: 2
-#&gt;   Zero half: 5
-#&gt; 
-#&gt; Explored 142 nodes (12037 simplex iterations) in 0.99 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 4: 13295.4 13512.8 13515 13531.1 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.329535018732e+04, best bound 1.208808271922e+04, gap 9.0804%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>s2</span>, <span class='va'>category_layer</span><span class='op'>)</span>
 <span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>
 
 <span class='co'># plot solutions</span>
@@ -628,12 +359,12 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
 </div><div class='img'><img src='add_contiguity_constraints-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create a problem that has a main "reserve zone" and a secondary</span>
 <span class='co'># "corridor zone" to connect up import areas. Here, each feature has a</span>
-<span class='co'># target of 30 % of its distribution. If a planning unit is allocated to the</span>
-<span class='co'># "reserve zone", then the prioritization accrues 100 % of the amount of</span>
+<span class='co'># target of 30% of its distribution. If a planning unit is allocated to the</span>
+<span class='co'># "reserve zone", then the prioritization accrues 100% of the amount of</span>
 <span class='co'># each feature in the planning unit. If a planning unit is allocated to the</span>
-<span class='co'># "corridor zone" then the prioritization accrues 40 % of the amount of each</span>
+<span class='co'># "corridor zone" then the prioritization accrues 40% of the amount of each</span>
 <span class='co'># feature in the planning unit. Also, the cost of managing a planning unit</span>
-<span class='co'># in the "corridor zone" is 45 % of that when it is managed as the</span>
+<span class='co'># in the "corridor zone" is 45% of that when it is managed as the</span>
 <span class='co'># "reserve zone". Finally, the problem has constraints which</span>
 <span class='co'># ensure that all of the selected planning units form a single contiguous</span>
 <span class='co'># unit, so that the planning units allocated to the "corridor zone" can</span>
@@ -686,42 +417,12 @@ reserve network. <em>Operations Research</em>, 54: 379--388.</p>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span><span class='op'>(</span><span class='va'>targets</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_contiguity_constraints</span><span class='op'>(</span><span class='va'>z7</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 703 rows, 615 columns and 3172 nonzeros
-#&gt; Model fingerprint: 0xf807d970
-#&gt; Variable types: 0 continuous, 615 integer (615 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [9e-02, 1e+00]
-#&gt;   Objective range  [9e+01, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 2e+01]
-#&gt; Presolve removed 41 rows and 40 columns
-#&gt; Presolve time: 0.08s
-#&gt; Presolved: 662 rows, 575 columns, 2925 nonzeros
-#&gt; Variable types: 0 continuous, 575 integer (575 binary)
-#&gt; Presolve removed 128 rows and 0 columns
-#&gt; Presolved: 534 rows, 575 columns, 2541 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 3.896591e+03, 169 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 3896.59114    0   37          - 3896.59114      -     -    0s
-#&gt; H    0     0                    4021.3095408 3896.59114  3.10%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (302 simplex iterations) in 0.09 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: 4021.31 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.021309540762e+03, best bound 3.896591139934e+03, gap 3.1014%</div><div class='input'>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s7</span>, <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_contiguity_constraints-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>

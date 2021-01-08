@@ -39,7 +39,8 @@ NULL
 #' p1 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets_matrix) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #'
 #' # create another problem that is the same as p1, but has constraints
 #' # to mandate that every planning unit in the solution is assigned to

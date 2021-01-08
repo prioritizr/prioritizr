@@ -19,8 +19,8 @@ add_absolute_targets(x, targets)
 \arguments{
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
-\item{targets}{Object that specifies the targets for each feature. See the
-Details section for more information.}
+\item{targets}{Object that specifies the targets for each feature.
+See the Targets data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the targets added
@@ -42,7 +42,24 @@ planning problems require targets with the exception of the maximum cover
 problems with objectives that require targets without specifying targets
 will throw an error.
 
-The targets for a problem can be specified in several different ways:
+For problems associated with multiple management zones, this function can
+be used to set targets that each pertain to a single feature and a single
+zone. To set targets which can be met through allocating different
+planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
+function. An example of a target that could be met through allocations
+to multiple zones might be where each management zone is expected to
+result in a different amount of a feature and the target requires that
+the total amount of the feature in all zones must exceed a certain
+threshold. In other words, the target does not require that any single
+zone secure a specific amount of the feature, but the total amount held
+in all zones must secure a specific amount. Thus the target could,
+potentially, be met through allocating all planning units to any specific
+management zone, or through allocating the planning units to different
+combinations of management zones.
+}
+\section{Targets data format}{
+
+The targets for a problem can be specified using the following formats.
 
 \describe{
 
@@ -65,22 +82,8 @@ feature data associated with \code{x} is a \code{data.frame}.
 This argument must contain a field (column) name for each zone.}
 
 }
-
-For problems associated with multiple management zones, this function can
-be used to set targets that each pertain to a single feature and a single
-zone. To set targets which can be met through allocating different
-planning units to multiple zones, see the \code{\link[=add_manual_targets]{add_manual_targets()}}
-function. An example of a target that could be met through allocations
-to multiple zones might be where each management zone is expected to
-result in a different amount of a feature and the target requires that
-the total amount of the feature in all zones must exceed a certain
-threshold. In other words, the target does not require that any single
-zone secure a specific amount of the feature, but the total amount held
-in all zones must secure a specific amount. Thus the target could,
-potentially, be met through allocating all planning units to any specific
-management zone, or through allocating the planning units to different
-combinations of management zones.
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -91,7 +94,8 @@ data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 # create simple problem
 p <- problem(sim_pu_raster, sim_features) \%>\%
      add_min_set_objective() \%>\%
-     add_binary_decisions()
+     add_binary_decisions() \%>\%
+     add_default_solver(verbose = FALSE)
 
 # create problem with targets to secure 3 amounts for each feature
 p1 <- p \%>\% add_absolute_targets(3)
@@ -111,7 +115,8 @@ plot(s, main = c("equal targets", "varying targets"), axes = FALSE,
 # create a problem with multiple management zones
 p3 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create a problem with targets that specify an equal amount of each feature
 # to be represented in each zone

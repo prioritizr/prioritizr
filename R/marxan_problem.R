@@ -16,12 +16,12 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{`"id"`}{`integer` unique identifier for each planning unit.
+#'   \item{id}{`integer` unique identifier for each planning unit.
 #'     These identifiers are used in the argument to `puvspr`.}
 #'
-#'   \item{`"cost"`}{`numeric` cost of each planning unit.}
+#'   \item{cost}{`numeric` cost of each planning unit.}
 #'
-#'   \item{`"status"`}{`integer` indicating if each planning unit
+#'   \item{status}{`integer` indicating if each planning unit
 #'     should not be locked in the solution (0) or if it should be locked in
 #'     (2) or locked out (3) of the solution. Although *Marxan* allows
 #'     planning units to be selected in the initial solution (using values of
@@ -41,15 +41,15 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{`"id"`}{`integer` unique identifier for each feature
+#'   \item{id}{`integer` unique identifier for each feature
 #'     These identifiers are used in the argument to `puvspr`.}
 #'
-#'   \item{`"name"`}{`character` name for each feature.}
+#'   \item{name}{`character` name for each feature.}
 #'
-#'   \item{`"prop"`}{`numeric` relative target for each feature
+#'   \item{prop}{`numeric` relative target for each feature
 #'     (optional).}'
 #'
-#'   \item{`"amount"`}{`numeric` absolute target for each
+#'   \item{amount}{`numeric` absolute target for each
 #'     feature (optional).}
 #'
 #'   }
@@ -62,11 +62,11 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{`"pu"`}{`integer` planning unit identifier.}
+#'   \item{pu}{`integer` planning unit identifier.}
 #'
-#'   \item{`"species"`}{`integer` feature identifier.}
+#'   \item{species}{`integer` feature identifier.}
 #'
-#'   \item{`"amount"`}{`numeric` amount of the feature in the
+#'   \item{amount}{`numeric` amount of the feature in the
 #'        planning unit.}
 #'
 #'   }
@@ -80,11 +80,11 @@ NULL
 #'
 #'   \describe{
 #'
-#'   \item{`"id1"`}{`integer` planning unit identifier.}
+#'   \item{id1}{`integer` planning unit identifier.}
 #'
-#'   \item{`"id2"`}{`integer` planning unit identifier.}
+#'   \item{id2}{`integer` planning unit identifier.}
 #'
-#'   \item{`"boundary"`}{`numeric` length of shared boundary
+#'   \item{boundary}{`numeric` length of shared boundary
 #'     between the planning units identified in the previous two columns.}
 #'
 #'   }
@@ -123,7 +123,8 @@ NULL
 #' @examples
 #' # create Marxan problem using Marxan input file
 #' input_file <- system.file("extdata/input.dat", package = "prioritizr")
-#' p1 <- marxan_problem(input_file)
+#' p1 <- marxan_problem(input_file) %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -154,7 +155,8 @@ NULL
 #' head(bound_dat)
 #'
 #' # create problem without the boundary data
-#' p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat)
+#' p2 <- marxan_problem(pu_dat, spec_dat, puvspr_dat) %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
@@ -164,7 +166,8 @@ NULL
 #' }
 #' # create problem with the boundary data and a boundary length modifier
 #' # set to 5
-#' p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5)
+#' p3 <- marxan_problem(pu_dat, spec_dat, puvspr_dat, bound_dat, 5) %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)

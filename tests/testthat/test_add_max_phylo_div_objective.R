@@ -33,8 +33,8 @@ test_that("compile (compressed formulation, single zone)", {
                                      rep(0, n_f),
                                      rep(0, n_br)))
   expect_true(all(o$A()[seq_len(n_f), n_pu + seq_len(n_f)] ==
-    Matrix::sparseMatrix(i = seq_len(n_f), j = seq_len(n_f),
-                         x = (-1 * targ), giveCsparse = FALSE)))
+    triplet_sparse_matrix(i = seq_len(n_f), j = seq_len(n_f),
+                          x = (-1 * targ))))
   expect_true(all(
     o$A()[n_f + 1 + seq_len(n_br), n_pu + seq_len(n_f)] ==
     t(bm)

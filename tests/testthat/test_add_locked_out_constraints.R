@@ -11,7 +11,6 @@ test_that("logical (compile, single zone)", {
        add_locked_out_constraints(locked_out)
   suppressWarnings(o <- compile(p))
   # check that constraints added correctly
-  # check that constraints added correctly
   locked_out_cells <- which(locked_out)
   locked_out_indices <- match(locked_out_cells,
     raster::Which(!is.na(sim_pu_raster), cells = TRUE))
@@ -151,7 +150,7 @@ test_that("integer (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_out_constraints(status) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that solutions match expectations
   expect_true(all(s[[1]][locked_out_ind] == 0))
@@ -293,7 +292,7 @@ test_that("character (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_out_constraints(c("locked_1", "locked_2", "locked_3")) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1[sim_pu_zones_polygons$locked_1] == 0))
@@ -446,7 +445,7 @@ test_that("raster (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_out_constraints(status) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints
   locked_out_cells <- raster::Which(status[[1]] == 1, cells = TRUE)

@@ -112,7 +112,8 @@ print(a3)
 p4 <- p3 \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(a3$relative_abundance) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # attempt to solve the problem, but we will see that this problem is
 # infeasible because the targets cannot be met using only the planning units
@@ -129,7 +130,8 @@ print(a5)
 p5 <- p3 \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(a5$relative_abundance) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 \dontrun{
 # solve the problem
 s5 <- solve(p5)
@@ -141,5 +143,5 @@ plot(s5)
 }
 }
 \seealso{
-\code{\link[=problem]{problem()}}, \code{\link[=feature_representation]{feature_representation()}}.
+\code{\link[=problem]{problem()}}, \code{\link[=eval_feature_representation_summary]{eval_feature_representation_summary()}}.
 }

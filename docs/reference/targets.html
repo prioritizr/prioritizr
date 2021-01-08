@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Targets — targets • prioritizr</title>
+<title>Add representation targets — targets • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,9 +52,9 @@
 
 
 
-<meta property="og:title" content="Targets — targets" />
+<meta property="og:title" content="Add representation targets — targets" />
 <meta property="og:description" content="Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected in the solution." />
+distribution that should (ideally) be covered (represented) by a solution." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -97,7 +97,7 @@ distribution that needs to be protected in the solution." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -169,14 +169,14 @@ distribution that needs to be protected in the solution." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Targets</h1>
+    <h1>Add representation targets</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/targets.R'><code>R/targets.R</code></a></small>
     <div class="hidden name"><code>targets.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Targets are used to specify the minimum amount or proportion of a feature's
-distribution that needs to be protected in the solution.</p>
+distribution that should (ideally) be covered (represented) by a solution.</p>
     </div>
 
 
@@ -218,7 +218,8 @@ minimum amount of each feature required in the prioritization.</p></dd>
 <span class='co'># create base problem</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
      <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+     <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+     <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem with added relative targets</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
@@ -236,132 +237,7 @@ minimum amount of each feature required in the prioritization.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x5f206fcc
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 3e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
-#&gt; Presolve removed 3 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 2 rows, 90 columns, 180 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.589540e+03, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1589.53964    0    1 2145.26789 1589.53964  25.9%     -    0s
-#&gt; H    0     0                    1661.1365494 1589.53964  4.31%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1661.14 2145.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.661136549371e+03, best bound 1.589539637535e+03, gap 4.3101%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xc9d8ab8b
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+01, 2e+01]
-#&gt; Found heuristic solution: objective 11939.016941
-#&gt; Presolve removed 4 rows and 0 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 1 rows, 90 columns, 90 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.047148e+04, 1 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 10471.4792    0    1 11939.0169 10471.4792  12.3%     -    0s
-#&gt; H    0     0                    10531.710068 10471.4792  0.57%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (1 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 10531.7 11939 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.053171006771e+04, best bound 1.047147921397e+04, gap 0.5719%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
      main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"relative targets"</span>, <span class='st'>"absolute targets"</span>, <span class='st'>"loglinear targets"</span>,

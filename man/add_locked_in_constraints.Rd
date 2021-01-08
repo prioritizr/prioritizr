@@ -31,7 +31,7 @@ add_locked_in_constraints(x, locked_in)
 \item{x}{\code{\link[=problem]{problem()}} (i.e. \code{\linkS4class{ConservationProblem}}) object.}
 
 \item{locked_in}{Object that determines which planning units that should be
-locked in. See the Details section for more information.}
+locked in. See the Data format section for more information.}
 }
 \value{
 Object (i.e. \code{\linkS4class{ConservationProblem}}) with the constraints
@@ -49,9 +49,11 @@ planning unit allocations (e.g. proportions), the
 \code{\link[=add_manual_locked_constraints]{add_manual_locked_constraints()}} function can be used to lock
 planning unit allocations to a specific value.
 }
-\details{
-The locked planning units can be specified in several different
-ways. Generally, the locked data should correspond to the planning units
+\section{Data format}{
+
+
+The locked planning units can be specified using the following formats.
+Generally, the locked data should correspond to the planning units
 in the argument to \code{x.} To help make working with
 \code{\linkS4class{Raster}} planning unit data easier,
 the locked data should correspond to cell indices in the
@@ -107,6 +109,7 @@ data. In other words, the pixels in \code{x} that have \code{NA} values
 should also have \code{NA} values in the locked data.}
 }
 }
+
 \examples{
 # set seed for reproducibility
 set.seed(500)
@@ -118,7 +121,8 @@ data(sim_pu_polygons, sim_features, sim_locked_in_raster)
 p1 <- problem(sim_pu_polygons, sim_features, "cost") \%>\%
       add_min_set_objective() \%>\%
       add_relative_targets(0.2) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create problem with added locked in constraints using integers
 p2 <- p1 \%>\% add_locked_in_constraints(which(sim_pu_polygons$locked_in))
@@ -141,7 +145,7 @@ s4 <- solve(p4)
 s5 <- solve(p5)
 
 # plot solutions
-par(mfrow = c(3,2), mar = c(0, 0, 4.1, 0))
+par(mfrow = c(3, 2), mar = c(0, 0, 4.1, 0))
 plot(s1, main = "none locked in")
 plot(s1[s1$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
@@ -157,6 +161,8 @@ plot(s4[s4$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 plot(s5, main = "locked in (polygon input)")
 plot(s5[s5$solution_1 == 1, ], col = "darkgreen", add = TRUE)
 
+# reset plot
+par(mfrow = c(1, 1))
 }
 
 # create minimal multi-zone problem with spatial data
@@ -165,7 +171,8 @@ p6 <- problem(sim_pu_zones_polygons, sim_features_zones,
       add_min_set_objective() \%>\%
       add_absolute_targets(matrix(rpois(15, 1), nrow = 5,
                                   ncol = 3)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create multi-zone problem with locked in constraints using matrix data
 locked_matrix <- sim_pu_zones_polygons@data[, c("locked_1", "locked_2",
@@ -208,7 +215,8 @@ spplot(s8, zcol = "solution", main = "solution", axes = FALSE, box = FALSE)
 p9 <- problem(sim_pu_zones_stack, sim_features_zones) \%>\%
       add_min_set_objective() \%>\%
       add_absolute_targets(matrix(rpois(15, 1), nrow = 5, ncol = 3)) \%>\%
-      add_binary_decisions()
+      add_binary_decisions() \%>\%
+      add_default_solver(verbose = FALSE)
 
 # create raster stack with locked in units
 locked_in_stack <- sim_pu_zones_stack[[1]]

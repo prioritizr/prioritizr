@@ -103,7 +103,7 @@ about how the budget should be allocated." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -206,8 +206,8 @@ about how the budget should be allocated.</p>
     </tr>
     <tr>
       <th>weights</th>
-      <td><p><code>numeric</code> or <code>matrix</code> of weights. See the
-Details section for more information.</p></td>
+      <td><p><code>numeric</code> or <code>matrix</code> of weights.
+See the Weights format section for more information.</p></td>
     </tr>
     </table>
 
@@ -218,7 +218,7 @@ added to it.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Weights can only be applied to problems that have an objective
-that is budget limited (e.g. <code><a href='add_max_cover_objective.html'>add_max_cover_objective()</a></code>). #'
+that is budget limited (e.g. <code><a href='add_max_cover_objective.html'>add_max_cover_objective()</a></code>).
 They can be applied to problems that aim to maximize phylogenetic
 representation (<code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective()</a></code>) to favor the
 representation of specific features over the representation of
@@ -229,6 +229,12 @@ the cheapest solution among multiple optimal solutions. This means
 that the optimization process will favor cheaper solutions over solutions
 that meet feature targets (or occurrences) when feature weights are
 lower than 0.01.</strong></p>
+    <h2 class="hasAnchor" id="weights-format"><a class="anchor" href="#weights-format"></a>Weights format</h2>
+
+    
+
+
+<p>The argument to <code>weights</code> can be specified using the following formats.</p>
 <dl>
 
 <dt><code>numeric</code></dt><dd><p>containing weights for each feature. Note that this
@@ -265,11 +271,12 @@ fulfilling each target.</p></dd>
 
 <span class='co'># create minimal problem that aims to maximize the number of features</span>
 <span class='co'># adequately conserved given a total budget of 3800. Here, each feature</span>
-<span class='co'># needs 20 % of its habitat for it to be considered adequately conserved</span>
+<span class='co'># needs 20% of its habitat for it to be considered adequately conserved</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span>budget <span class='op'>=</span> <span class='fl'>3800</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.2</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create weights that assign higher importance to features with less</span>
 <span class='co'># suitable habitat in the study area</span>
@@ -288,142 +295,7 @@ fulfilling each target.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x15e6d43f
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [4e+03, 4e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 4.909018e+00, 30 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    4.90902    0    6   -0.00000    4.90902      -     -    0s
-#&gt; H    0     0                       1.9979863    4.90902   146%     -    0s
-#&gt; H    0     0                       2.9979659    4.90902  63.7%     -    0s
-#&gt;      0     0    4.90824    0    9    2.99797    4.90824  63.7%     -    0s
-#&gt;      0     0    4.90725    0    9    2.99797    4.90725  63.7%     -    0s
-#&gt;      0     0    4.90713    0   10    2.99797    4.90713  63.7%     -    0s
-#&gt;      0     0    4.90686    0   14    2.99797    4.90686  63.7%     -    0s
-#&gt;      0     0    4.90685    0   14    2.99797    4.90685  63.7%     -    0s
-#&gt;      0     0    4.90599    0   11    2.99797    4.90599  63.6%     -    0s
-#&gt;      0     0    4.90593    0   13    2.99797    4.90593  63.6%     -    0s
-#&gt;      0     0    4.90592    0   14    2.99797    4.90592  63.6%     -    0s
-#&gt;      0     2    4.90477    0   14    2.99797    4.90477  63.6%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 6
-#&gt;   StrongCG: 3
-#&gt;   RLT: 1
-#&gt; 
-#&gt; Explored 8 nodes (231 simplex iterations) in 0.04 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 2.99797 1.99799 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.997965888532e+00, best bound 2.997988029529e+00, gap 0.0007%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0xcde35cb0
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 6e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [4e+03, 4e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Presolved: 6 rows, 95 columns, 545 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 7.747768e+02, 18 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0  774.77680    0    6   -0.00000  774.77680      -     -    0s
-#&gt;      0     0  774.71251    0    9   -0.00000  774.71251      -     -    0s
-#&gt;      0     0  774.69670    0   11   -0.00000  774.69670      -     -    0s
-#&gt;      0     0  774.69259    0   11   -0.00000  774.69259      -     -    0s
-#&gt;      0     0  774.68882    0   11   -0.00000  774.68882      -     -    0s
-#&gt;      0     0  774.68208    0   10   -0.00000  774.68208      -     -    0s
-#&gt;      0     0  774.68139    0   11   -0.00000  774.68139      -     -    0s
-#&gt;      0     0  774.66995    0   13   -0.00000  774.66995      -     -    0s
-#&gt; H    0     0                      45.0511449  774.66995  1620%     -    0s
-#&gt; H    0     0                     153.7082788  774.66995   404%     -    0s
-#&gt;      0     0  774.66871    0   12  153.70828  774.66871   404%     -    0s
-#&gt;      0     0  774.66860    0   13  153.70828  774.66860   404%     -    0s
-#&gt;      0     0  774.65196    0   14  153.70828  774.65196   404%     -    0s
-#&gt;      0     0  774.64180    0   15  153.70828  774.64180   404%     -    0s
-#&gt;      0     0  774.63891    0   16  153.70828  774.63891   404%     -    0s
-#&gt;      0     0  774.58304    0   15  153.70828  774.58304   404%     -    0s
-#&gt;      0     0  774.57292    0   15  153.70828  774.57292   404%     -    0s
-#&gt;      0     0  774.57018    0   15  153.70828  774.57018   404%     -    0s
-#&gt;      0     0  774.56045    0   15  153.70828  774.56045   404%     -    0s
-#&gt; H    0     0                     606.6298845  774.56045  27.7%     -    0s
-#&gt; H    0     0                     715.2870431  774.56045  8.29%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   MIR: 6
-#&gt;   StrongCG: 1
-#&gt;   RLT: 2
-#&gt; 
-#&gt; Explored 1 nodes (157 simplex iterations) in 0.04 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 5: 715.287 606.63 153.708 ... -0
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 7.152870430944e+02, best bound 7.745604502585e+02, gap 8.2867%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 6 rows, 95 columns and 545 nonzeros
-#&gt; Model fingerprint: 0x34972506
-#&gt; Variable types: 0 continuous, 95 integer (95 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [4e+03, 4e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 3 rows and 3 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 3 rows, 92 columns, 272 nonzeros
-#&gt; Variable types: 0 continuous, 92 integer (92 binary)
-#&gt; Presolved: 3 rows, 92 columns, 272 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 2.999981e+02, 23 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0  299.99806    0    2   -0.00000  299.99806      -     -    0s
-#&gt; H    0     0                     199.9980909  299.99806  50.0%     -    0s
-#&gt; H    0     0                     299.9980622  299.99806  0.00%     -    0s
-#&gt;      0     0  299.99806    0    2  299.99806  299.99806  0.00%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (23 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 299.998 199.998 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 2.999980621935e+02, best bound 2.999980621935e+02, gap 0.0000%</div><div class='input'>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"equal weights"</span>, <span class='st'>"rarity weights"</span>, <span class='st'>"manual weights"</span><span class='op'>)</span>,
      axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -435,72 +307,42 @@ fulfilling each target.</p></dd>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"simulated phylogeny"</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create problem with a maximum phylogenetic diversity objective,</span>
-<span class='co'># where each feature needs 10 % of its distribution to be secured for</span>
+<span class='co'># where each feature needs 10% of its distribution to be secured for</span>
 <span class='co'># it to be adequately conserved and a total budget of 1900</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
-#&gt; Model fingerprint: 0x19bea6ab
-#&gt; Variable types: 0 continuous, 103 integer (103 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [4e-06, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
-#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
-#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
-#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
-#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
-#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
-#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
-#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
-#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
-#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 3
-#&gt;   RLT: 1
-#&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 3.53632 2.94027 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s4</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># find which features have their targets met</span>
-<span class='va'>targets_met4</span> <span class='op'>&lt;-</span> <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>s4</span> <span class='op'>*</span> <span class='va'>sim_features</span>, <span class='st'>"sum"</span><span class='op'>)</span> <span class='op'>&gt;</span>
-                <span class='op'>(</span><span class='fl'>0.1</span> <span class='op'>*</span> <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>sim_features</span>, <span class='st'>"sum"</span><span class='op'>)</span><span class='op'>)</span>
-
+<span class='co'># find out which features have their targets met</span>
+<span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r4</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 9</span><span>
+#&gt;   feature met   total_amount absolute_target absolute_held absolute_shortfall
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> layer.1 FALSE         83.3            8.33          5.87               2.46
+#&gt; </span><span style='color: #555555;'>2</span><span> layer.2 TRUE          31.2            3.12          3.18               0   
+#&gt; </span><span style='color: #555555;'>3</span><span> layer.3 FALSE         72.0            7.20          4.39               2.80
+#&gt; </span><span style='color: #555555;'>4</span><span> layer.4 TRUE          42.7            4.27          4.37               0   
+#&gt; </span><span style='color: #555555;'>5</span><span> layer.5 FALSE         56.7            5.67          4.43               1.24
+#&gt;   relative_target relative_held relative_shortfall
+#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>             0.1        0.070</span><span style='text-decoration: underline;'>5</span><span>             0.029</span><span style='text-decoration: underline;'>5</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>             0.1        0.102              0     
+#&gt; </span><span style='color: #555555;'>3</span><span>             0.1        0.061</span><span style='text-decoration: underline;'>1</span><span>             0.038</span><span style='text-decoration: underline;'>9</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span>             0.1        0.102              0     
+#&gt; </span><span style='color: #555555;'>5</span><span>             0.1        0.078</span><span style='text-decoration: underline;'>1</span><span>             0.021</span><span style='text-decoration: underline;'>9</span><span></div><div class='input'>
 <span class='co'># plot the example phylogeny and color the represented features in red</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"represented features"</span>,
      tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
-                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>targets_met4</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>r4</span><span class='op'>$</span><span class='va'>met</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># we can see here that the third feature ("layer.3", i.e.</span>
 <span class='co'># sim_features[[3]]) is not represented in the solution. Let us pretend</span>
@@ -521,59 +363,28 @@ fulfilling each target.</p></dd>
 #&gt; [8] 1.17212960</div><div class='input'><span class='co'># \dontrun{</span>
 <span class='co'># create problem with high weighting for the third feature and solve it</span>
 <span class='va'>s5</span> <span class='op'>&lt;-</span> <span class='va'>p4</span> <span class='op'>%&gt;%</span> <span class='fu'>add_feature_weights</span><span class='op'>(</span><span class='va'>w5</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 14 rows, 103 columns and 565 nonzeros
-#&gt; Model fingerprint: 0x19bea6ab
-#&gt; Variable types: 0 continuous, 103 integer (103 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [4e-06, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 5 rows and 5 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; Variable types: 0 continuous, 98 integer (98 binary)
-#&gt; Presolved: 9 rows, 98 columns, 555 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 5.344516e+00, 23 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    5.34452    0    5   -0.00000    5.34452      -     -    0s
-#&gt;      0     0    5.24678    0    6   -0.00000    5.24678      -     -    0s
-#&gt; H    0     0                       2.9402664    5.24678  78.4%     -    0s
-#&gt;      0     0    5.24429    0    7    2.94027    5.24429  78.4%     -    0s
-#&gt;      0     0    5.24428    0    8    2.94027    5.24428  78.4%     -    0s
-#&gt;      0     0    5.24405    0    8    2.94027    5.24405  78.4%     -    0s
-#&gt;      0     0    5.24401    0    9    2.94027    5.24401  78.4%     -    0s
-#&gt;      0     0    5.24399    0   10    2.94027    5.24399  78.4%     -    0s
-#&gt;      0     0    5.24397    0   10    2.94027    5.24397  78.4%     -    0s
-#&gt;      0     2    5.24023    0   10    2.94027    5.24023  78.2%     -    0s
-#&gt; H    6     3                       3.5363171    4.18960  18.5%   6.8    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Cover: 1
-#&gt;   MIR: 3
-#&gt;   RLT: 1
-#&gt; 
-#&gt; Explored 9 nodes (111 simplex iterations) in 0.02 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 3: 3.53632 2.94027 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 3.536317127664e+00, best bound 3.833000595646e+00, gap 8.3896%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s5</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># find which features have their targets met</span>
-<span class='va'>targets_met5</span> <span class='op'>&lt;-</span> <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>s5</span> <span class='op'>*</span> <span class='va'>sim_features</span>, <span class='st'>"sum"</span><span class='op'>)</span> <span class='op'>&gt;</span>
-                <span class='op'>(</span><span class='fl'>0.1</span> <span class='op'>*</span> <span class='fu'>cellStats</span><span class='op'>(</span><span class='va'>sim_features</span>, <span class='st'>"sum"</span><span class='op'>)</span><span class='op'>)</span>
-
+<span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='eval_target_coverage_summary.html'>eval_target_coverage_summary</a></span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s5</span><span class='op'>)</span>
+<span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 9</span><span>
+#&gt;   feature met   total_amount absolute_target absolute_held absolute_shortfall
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> layer.1 FALSE         83.3            8.33          5.87               2.46
+#&gt; </span><span style='color: #555555;'>2</span><span> layer.2 TRUE          31.2            3.12          3.18               0   
+#&gt; </span><span style='color: #555555;'>3</span><span> layer.3 FALSE         72.0            7.20          4.39               2.80
+#&gt; </span><span style='color: #555555;'>4</span><span> layer.4 TRUE          42.7            4.27          4.37               0   
+#&gt; </span><span style='color: #555555;'>5</span><span> layer.5 FALSE         56.7            5.67          4.43               1.24
+#&gt;   relative_target relative_held relative_shortfall
+#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>             0.1        0.070</span><span style='text-decoration: underline;'>5</span><span>             0.029</span><span style='text-decoration: underline;'>5</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>             0.1        0.102              0     
+#&gt; </span><span style='color: #555555;'>3</span><span>             0.1        0.061</span><span style='text-decoration: underline;'>1</span><span>             0.038</span><span style='text-decoration: underline;'>9</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span>             0.1        0.102              0     
+#&gt; </span><span style='color: #555555;'>5</span><span>             0.1        0.078</span><span style='text-decoration: underline;'>1</span><span>             0.021</span><span style='text-decoration: underline;'>9</span><span></div><div class='input'>
 <span class='co'># plot the example phylogeny and color the represented features in red</span>
 <span class='co'># here we can see that this solution only adequately conserves the</span>
 <span class='co'># third feature. This means that, given the budget, we are faced with the</span>
@@ -581,16 +392,17 @@ fulfilling each target.</p></dd>
 <span class='co'># diverse set of three different features.</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>sim_phylogeny</span>, main <span class='op'>=</span> <span class='st'>"represented features"</span>,
      tip.color <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/replace.html'>replace</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='st'>"black"</span>, <span class='fu'>nlayers</span><span class='op'>(</span><span class='va'>sim_features</span><span class='op'>)</span><span class='op'>)</span>,
-                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>targets_met5</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
+                         <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>r5</span><span class='op'>$</span><span class='va'>met</span><span class='op'>)</span>, <span class='st'>"red"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 <span class='co'># create multi-zone problem with maximum features objective,</span>
-<span class='co'># with 10 % representation targets for each feature, and set</span>
+<span class='co'># with 10% representation targets for each feature, and set</span>
 <span class='co'># a budget such that the total maximum expenditure in all zones</span>
 <span class='co'># cannot exceed 3000</span>
 <span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>3000</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create weights that assign equal weighting for the representation</span>
 <span class='co'># of each feature in each zone except that it does not matter if</span>
@@ -605,95 +417,8 @@ fulfilling each target.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
-#&gt; Model fingerprint: 0xe9518199
-#&gt; Variable types: 0 continuous, 285 integer (285 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [3e-05, 1e+00]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve time: 0.01s
-#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
-#&gt; Variable types: 0 continuous, 285 integer (285 binary)
-#&gt; Presolved: 106 rows, 285 columns, 1905 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 7.938175e+00, 248 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0    7.93818    0   11   -0.00000    7.93818      -     -    0s
-#&gt; H    0     0                       4.9996186    7.93818  58.8%     -    0s
-#&gt;      0     0    7.56188    0   18    4.99962    7.56188  51.2%     -    0s
-#&gt; H    0     0                       4.9996398    7.56188  51.2%     -    0s
-#&gt;      0     0    7.56101    0   19    4.99964    7.56101  51.2%     -    0s
-#&gt;      0     0    7.27065    0   11    4.99964    7.27065  45.4%     -    0s
-#&gt; H    0     0                       4.9996466    7.27065  45.4%     -    0s
-#&gt;      0     0    7.26884    0   12    4.99965    7.26884  45.4%     -    0s
-#&gt;      0     0    7.25820    0   14    4.99965    7.25820  45.2%     -    0s
-#&gt; H    0     0                       4.9996473    7.25820  45.2%     -    0s
-#&gt;      0     0    7.25660    0   16    4.99965    7.25660  45.1%     -    0s
-#&gt;      0     0    7.25580    0   18    4.99965    7.25580  45.1%     -    0s
-#&gt;      0     0    7.25572    0   19    4.99965    7.25572  45.1%     -    0s
-#&gt;      0     0    7.25341    0   21    4.99965    7.25341  45.1%     -    0s
-#&gt;      0     0    7.25246    0   22    4.99965    7.25246  45.1%     -    0s
-#&gt;      0     0    7.25219    0   23    4.99965    7.25219  45.1%     -    0s
-#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
-#&gt;      0     0    7.25144    0   24    4.99965    7.25144  45.0%     -    0s
-#&gt; H    0     0                       4.9996488    7.25144  45.0%     -    0s
-#&gt;      0     2    7.25041    0   24    4.99965    7.25041  45.0%     -    0s
-#&gt; 
-#&gt; Cutting planes:
-#&gt;   Gomory: 1
-#&gt;   Cover: 10
-#&gt;   MIR: 5
-#&gt;   StrongCG: 4
-#&gt;   GUB cover: 1
-#&gt;   RLT: 6
-#&gt; 
-#&gt; Explored 124 nodes (1709 simplex iterations) in 0.17 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 6: 4.99965 4.99965 4.99965 ... -0
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 4.999648781179e+00, best bound 5.312475879683e+00, gap 6.2570%</div><div class='input'><span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 106 rows, 285 columns and 1905 nonzeros
-#&gt; Model fingerprint: 0xbdbcef08
-#&gt; Variable types: 0 continuous, 285 integer (285 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [3e-05, 1e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 3e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 1 rows and 1 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
-#&gt; Variable types: 0 continuous, 284 integer (284 binary)
-#&gt; Presolved: 105 rows, 284 columns, 1814 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.058784e+02, 121 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0  105.87844    0   10   -0.00000  105.87844      -     -    0s
-#&gt; H    0     0                     102.9996465  105.87844  2.79%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (121 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 103 -0 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.029996464541e+02, best bound 1.058784434632e+02, gap 2.7950%</div><div class='input'>
+<span class='va'>s7</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s6</span><span class='op'>)</span>, <span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s7</span><span class='op'>)</span><span class='op'>)</span>,
      main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"equal weights"</span>, <span class='st'>"manual weights"</span><span class='op'>)</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -701,41 +426,21 @@ fulfilling each target.</p></dd>
 <span class='co'># create minimal problem to show the correct method for setting</span>
 <span class='co'># weights for problems with manual targets</span>
 <span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span>budget <span class='op'>=</span> <span class='fl'>1500</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span>budget <span class='op'>=</span> <span class='fl'>3000</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_manual_targets.html'>add_manual_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>feature <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"layer.1"</span>, <span class='st'>"layer.4"</span><span class='op'>)</span>,
                                     type <span class='op'>=</span> <span class='st'>"relative"</span>,
                                     target <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_feature_weights</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>200</span><span class='op'>)</span>, ncol <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 3 rows, 92 columns and 272 nonzeros
-#&gt; Model fingerprint: 0x2bbe4267
-#&gt; Variable types: 0 continuous, 92 integer (92 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 2e+02]
-#&gt;   Objective range  [1e-04, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [2e+03, 2e+03]
-#&gt; Found heuristic solution: objective -0.0000000
-#&gt; Presolve removed 3 rows and 92 columns
-#&gt; Presolve time: 0.00s
-#&gt; Presolve: All rows and columns removed
-#&gt; 
-#&gt; Explored 0 nodes (0 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 1: -0 
-#&gt; No other solutions better than -0
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective -0.000000000000e+00, best bound -0.000000000000e+00, gap 0.0000%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s8</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='add_feature_weights-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

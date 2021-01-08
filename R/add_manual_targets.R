@@ -16,41 +16,37 @@ NULL
 #'
 #' @param x [problem()] (i.e. [`ConservationProblem-class`]) object.
 #'
-#' @param targets `data.frame` or [tibble::tibble()] object. See
-#'   the Details section for more information.
+#' @param targets `data.frame` or [tibble::tibble()] object.
+#'   See the Target data format section for more information.
 #'
-#' @details Targets are used to specify the minimum amount or proportion of a
-#'   feature's distribution that needs to be protected. Most conservation
-#'   planning problems require targets with the exception of the maximum cover
-#'   (see [add_max_cover_objective()]) and maximum utility
-#'   (see [add_max_utility_objective()]) problems. Attempting to solve
-#'   problems with objectives that require targets without specifying targets
-#'   will throw an error.
+#' @inherit add_absolute_targets details
 #'
-#'   The `targets` argument should contain the following fields (columns):
+#' @section Target data format:
 #'
-#'   \describe{
+#'  The `targets` argument should contain the following fields (columns):
 #'
-#'   \item{`"feature"`}{`character` name of features in argument
-#'     to `x`.}
+#' \describe{
 #'
-#'   \item{`"zone"`}{`character` name of zones in argument to
-#'     `x`. This field (column) is optional for arguments to `x`
-#'     that do not contain multiple zones.}
+#' \item{feature}{`character` name of features in argument
+#'   to `x`.}
 #'
-#'   \item{`"type"`}{`character` describing the type of target.
-#'     Acceptable values include `"absolute"` and `"relative"`.
-#'     These values correspond to [add_absolute_targets()],
-#'     and [add_relative_targets()] respectively.}
+#' \item{zone}{`character` name of zones in argument to
+#'   `x`. This field (column) is optional for arguments to `x`
+#'   that do not contain multiple zones.}
 #'
-#'   \item{`"sense"`}{`character` sense of the target. Acceptable
-#'     values include: `">="`, `"<="`, and `"="`. This field
-#'     (column) is optional and if it is missing then target senses will
-#'     default to `">="` values.}
+#' \item{type}{`character` describing the type of target.
+#'   Acceptable values include `"absolute"` and `"relative"`.
+#'   These values correspond to [add_absolute_targets()],
+#'   and [add_relative_targets()] respectively.}
 #'
-#'   \item{`"target"`}{`numeric` target threshold.}
+#' \item{sense}{`character` sense of the target. Acceptable
+#'   values include: `">="`, `"<="`, and `"="`. This field
+#'   (column) is optional and if it is missing then target senses will
+#'   default to `">="` values.}
 #'
-#'   }
+#' \item{target}{`numeric` target threshold.}
+#'
+#' }
 #'
 #' @return Object (i.e. [`ConservationProblem-class`]) with the targets added
 #'   to it.
@@ -64,11 +60,12 @@ NULL
 #' # load data
 #' data(sim_pu_raster, sim_features, sim_pu_zones_stack, sim_features_zones)
 #'
-#' # create problem with 10 % relative targets
+#' # create problem with 10% relative targets
 #' p1 <- problem(sim_pu_raster, sim_features) %>%
 #'       add_min_set_objective() %>%
 #'       add_relative_targets(0.1) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
@@ -82,7 +79,8 @@ NULL
 #'       add_manual_targets(data.frame(feature = names(sim_features),
 #'                                     type = "relative", sense = ">=",
 #'                                     target = 0.1)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s2 <- solve(p2)
@@ -96,7 +94,8 @@ NULL
 #'       add_manual_targets(data.frame(
 #'         feature = names(sim_features)[1:3], type = "relative",
 #'         sense = ">=", target = 0.1)) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s3 <- solve(p3)
@@ -104,7 +103,7 @@ NULL
 #' # plot solution
 #' plot(s3, main = "solution", axes = FALSE, box = FALSE)
 #' }
-#' # create problem that aims to secure at least 10 % of the habitat for one
+#' # create problem that aims to secure at least 10% of the habitat for one
 #' # feature whilst ensuring that the solution does not capture more than
 #' # 20 units habitat for different feature
 #' # create problem with targets set for only a few features
@@ -113,7 +112,8 @@ NULL
 #'       add_manual_targets(data.frame(
 #'         feature = names(sim_features)[1:2], type = "relative",
 #'         sense = c(">=", "<="), target = c(0.1, 0.2))) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s4 <- solve(p4)
@@ -128,7 +128,8 @@ NULL
 #' p5 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_absolute_targets(targets_matrix) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s5 <- solve(p5)
@@ -145,7 +146,8 @@ NULL
 #' p6 <- problem(sim_pu_zones_stack, sim_features_zones) %>%
 #'       add_min_set_objective() %>%
 #'       add_manual_targets(targets_dataframe) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s6 <- solve(p6)
@@ -178,7 +180,8 @@ NULL
 #'                            zone_names = c("z1", "z2"))) %>%
 #'       add_min_set_objective() %>%
 #'       add_manual_targets(targets_dataframe2) %>%
-#'       add_binary_decisions()
+#'       add_binary_decisions() %>%
+#'       add_default_solver(verbose = FALSE)
 #' \dontrun{
 #' # solve problem
 #' s7 <- solve(p7)

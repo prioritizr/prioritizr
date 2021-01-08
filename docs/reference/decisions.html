@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Specify the type of decisions — decisions • prioritizr</title>
+<title>Add decision types — decisions • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,7 +52,7 @@
 
 
 
-<meta property="og:title" content="Specify the type of decisions — decisions" />
+<meta property="og:title" content="Add decision types — decisions" />
 <meta property="og:description" content="Conservation planning problems involve making decisions on
 how different planning units will be managed. These decisions might involve
 turning an entire planning unit into a protected area, turning part
@@ -101,7 +101,7 @@ problem(), then binary decisions will be used by default." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -173,7 +173,7 @@ problem(), then binary decisions will be used by default." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Specify the type of decisions</h1>
+    <h1>Add decision types</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/decisions.R'><code>R/decisions.R</code></a></small>
     <div class="hidden name"><code>decisions.Rd</code></div>
     </div>
@@ -238,7 +238,8 @@ entire area encompassed by any single planning unit.</p></dd>
 <span class='co'># create basic problem and using the default decision types (binary)</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span>
+      <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># create problem with manually specified binary decisions</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
@@ -252,102 +253,7 @@ entire area encompassed by any single planning unit.</p></dd>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x6442bf6e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Found heuristic solution: objective 2337.9617505
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.931582e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1931.58191    0    4 2337.96175 1931.58191  17.4%     -    0s
-#&gt; H    0     0                    1987.3985265 1931.58191  2.81%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1987.4 2337.96 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.987398526526e+03, best bound 1.931581908865e+03, gap 2.8085%
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xb1a01a19
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   3.170407e+01   0.000000e+00      0s
-#&gt;       12    1.9315819e+03   0.000000e+00   0.000000e+00      0s
-#&gt; 
-#&gt; Solved in 12 iterations and 0.00 seconds
-#&gt; Optimal objective  1.931581909e+03
-#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xa17b0799
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [5e-01, 5e-01]
-#&gt;   RHS range        [3e+00, 8e+00]
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-#&gt;        0    0.0000000e+00   3.170407e+01   0.000000e+00      0s
-#&gt;       12    1.9495280e+03   0.000000e+00   0.000000e+00      0s
-#&gt; 
-#&gt; Solved in 12 iterations and 0.00 seconds
-#&gt; Optimal objective  1.949528006e+03</div><div class='input'>
+
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"default (binary)"</span>, <span class='st'>"binary"</span>, <span class='st'>"proportion"</span>,
                  <span class='st'>"semicontinuous (upper = 0.5)"</span><span class='op'>)</span><span class='op'>)</span>

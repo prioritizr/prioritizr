@@ -126,9 +126,9 @@ data(sim_pu_raster, sim_features)
 
 # create minimal problem with no issues
 p1 <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions()
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
 
 # run presolve checks
 # note that no warning is thrown which suggests that we should not
@@ -141,9 +141,9 @@ print(presolve_check(p1))
 sim_pu_raster2 <- sim_pu_raster
 sim_pu_raster2[1] <- 1e+15
 p2 <- problem(sim_pu_raster2, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_binary_decisions()
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_binary_decisions()
 
 # run presolve checks
 # note that a warning is thrown which suggests that we might encounter
@@ -156,10 +156,10 @@ print(presolve_check(p2))
 # issues when trying to solve the it
 cm <- adjacency_matrix(sim_pu_raster)
 p3 <- problem(sim_pu_raster, sim_features) \%>\%
-     add_min_set_objective() \%>\%
-     add_relative_targets(0.1) \%>\%
-     add_connectivity_penalties(1e+15, data = cm) \%>\%
-     add_binary_decisions()
+      add_min_set_objective() \%>\%
+      add_relative_targets(0.1) \%>\%
+      add_connectivity_penalties(1e+15, data = cm) \%>\%
+      add_binary_decisions()
 
 # run presolve checks
 # note that a warning is thrown which suggests that we might encounter

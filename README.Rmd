@@ -128,7 +128,7 @@ After we have built a [`problem`](https://prioritizr.net/reference/problem.html)
 # solve the problem
 s1 <- solve(p1)
 
-# extract the objective (cost of solution in this case)
+# extract the objective
 print(attr(s1, "objective"))
 
 # extract time spent solving the problem
@@ -141,6 +141,16 @@ print(attr(s1, "status"))
 spplot(s1, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
        col.regions = c("grey90", "darkgreen"), xlim = c(-0.1, 1.1),
        ylim = c(-0.1, 1.1))
+```
+
+To evaluate the performance of the solution, we can calculate summary statistics.
+
+```{r "eval_performance"}
+# calculate solution cost
+print(eval_cost_summary(p1, s1[, "solution_1"]), width = Inf)
+
+# calculate information describing how well the targets are met by the solution
+print(eval_target_coverage_summary(p1, s1[, "solution_1"]), width = Inf)
 ```
 
 Although this solution adequately conserves each feature, it is inefficient because it does not consider the fact some of the planning units are already inside protected areas. Since our planning unit data contains information on which planning units are already inside protected areas (in the `"locked_in"` column of the attribute table), we can add constraints to ensure they are prioritized in the solution ([`add_locked_in_constraints`](https://prioritizr.net/reference/add_locked_in_constraints.html)).
@@ -191,20 +201,19 @@ spplot(s4, "solution_1", main = "Solution", at = c(0, 0.5, 1.1),
        ylim = c(-0.1, 1.1))
 ```
 
-Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate irreplaceability scores using the replacement cost method. Under this method, planning units with higher scores are more irreplaceable than those with lower scores. Furthermore, planning units with infinite scores are critical---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
+Now let's explore which planning units selected in the prioritization are most important for meeting our targets as cost-effectively as possible. To achieve this, we will calculate importance (irreplaceability) scores using a version of the replacement cost method. Under this method, planning units with higher scores are more important for meeting the objective of our conservation planning problem than those with lower scores. Furthermore, planning units with infinite scores are irreplaceable---it is impossible to meet our targets without protecting these planning units. Note that we override the solver behavior in the code below to prevent lots of unnecessary text from being output.
 
 ```{r "replacement_cost", fig.height = h, fig.width = w, out.width = ow}
 # solve the problem
 rc <- p4 %>%
       add_default_solver(gap = 0, verbose = FALSE) %>%
-      replacement_cost(s4[, "solution_1"])
+      eval_replacement_importance(s4[, "solution_1"])
 
 # set infinite values as 1.09 so we can plot them
 rc$rc[rc$rc > 100] <- 1.09
 
-# plot the irreplaceability scores
-# planning units that are replaceable are shown in purple, blue, green, and
-# yellow, and planning units that are truly irreplaceable are shown in red
+# plot the importance scores
+# planning units that are truly irreplaceable are shown in red
 spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
        ylim = c(-0.1, 1.1), at = c(seq(0, 0.9, 0.1), 1.01, 1.1),
        col.regions = c("#440154", "#482878", "#3E4A89", "#31688E", "#26828E",
@@ -212,7 +221,7 @@ spplot(rc, "rc", main = "Irreplaceability", xlim = c(-0.1, 1.1),
                        "#FF0000"))
 ```
 
-This short example demonstrates how the _prioritizr R_ package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how irreplaceability scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the _prioritizr R_ package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
+This short example demonstrates how the _prioritizr R_ package can be used to build a minimal conservation problem, how constraints and penalties can be iteratively added to the problem to obtain a solution, and how importance scores can be calculated for the solution to identify critical places. Although we explored just a few different functions for modifying the a conservation problem, the _prioritizr R_ package provides many functions for specifying objectives, constraints, penalties, and decision variables, so that you can build and custom-tailor a conservation planning problem to suit your exact planning scenario.
 
 ## Getting help
 

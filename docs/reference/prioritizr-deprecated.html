@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated functions in the prioritizr package — prioritizr-deprecated • prioritizr</title>
+<title>Deprecation notice — prioritizr-deprecated • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,18 @@
 
 
 
-<meta property="og:title" content="Deprecated functions in the prioritizr package — prioritizr-deprecated" />
-<meta property="og:description" content="The functions listed below are deprecated and will be defunct in the
-near future. Where applicable, alternative functions with similar
-functionality are also listed below." />
+<meta property="og:title" content="Deprecation notice — prioritizr-deprecated" />
+<meta property="og:description" content="The functions listed here are deprecated.
+This means that they once existed in earlier versions of the
+of the prioritizr package, but they have since been removed
+entirely, replaced by other functions, or renamed as other functions
+in newer versions.
+To help make it easier to transition to new versions of the prioritizr
+package, we have listed alternatives for deprecated the functions
+(where applicable).
+If a function is described as being renamed, then this means
+that only the name of the function has changed
+(i.e. the inputs, outputs, and underlying code remain the same)." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -98,7 +106,7 @@ functionality are also listed below." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -170,15 +178,23 @@ functionality are also listed below." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated functions in the <span class="pkg">prioritizr</span> package</h1>
+    <h1>Deprecation notice</h1>
     <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/deprecated.R'><code>R/deprecated.R</code></a></small>
     <div class="hidden name"><code>prioritizr-deprecated.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The functions listed below are deprecated and will be defunct in the
-near future. Where applicable, alternative functions with similar
-functionality are also listed below.</p>
+    <p>The functions listed here are deprecated.
+This means that they once existed in earlier versions of the
+of the <span class="pkg">prioritizr</span> package, but they have since been removed
+entirely, replaced by other functions, or renamed as other functions
+in newer versions.
+To help make it easier to transition to new versions of the <span class="pkg">prioritizr</span>
+package, we have listed alternatives for deprecated the functions
+(where applicable).
+If a function is described as being renamed, then this means
+that only the name of the function has changed
+(i.e. the inputs, outputs, and underlying code remain the same).</p>
     </div>
 
     <pre class="usage"><span class='fu'>add_connected_constraints</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
@@ -193,7 +209,15 @@ functionality are also listed below.</p>
 
 <span class='fu'>add_pool_portfolio</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>connected_matrix</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>connected_matrix</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>feature_representation</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>replacement_cost</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>rarity_weighted_richness</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>ferrier_score</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,35 +228,51 @@ functionality are also listed below.</p>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="add-connected-constraints"><a class="anchor" href="#add-connected-constraints"></a><code>add_connected_constraints</code></h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>this function has been renamed
-to the <code><a href='add_contiguity_constraints.html'>add_contiguity_constraints()</a></code> function.</p>
-    <h2 class="hasAnchor" id="add-corridor-constraints"><a class="anchor" href="#add-corridor-constraints"></a><code>add_corridor_constraints</code></h2>
+    <p>The following functions have been deprecated:</p>
+<dl>
 
-    <p>this function has been
-reimagined as the <code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints()</a></code>
-function.</p>
-    <h2 class="hasAnchor" id="set-number-of-threads"><a class="anchor" href="#set-number-of-threads"></a><code>set_number_of_threads</code></h2>
+<dt><code>add_connected_constraints()</code></dt><dd><p>renamed
+as the <code><a href='add_contiguity_constraints.html'>add_contiguity_constraints()</a></code> function.</p></dd>
 
-    <p>this function is no longer needed now that superior data extraction methods are implemented.
-function.</p>
-    <h2 class="hasAnchor" id="get-number-of-threads"><a class="anchor" href="#get-number-of-threads"></a><code>get_number_of_threads</code></h2>
+<dt><code>add_corridor_constraints()</code></dt><dd><p>replaced by the
+<code><a href='add_feature_contiguity_constraints.html'>add_feature_contiguity_constraints()</a></code> function.</p></dd>
 
-    <p>this function is no longer needed now that superior data extraction methods are implemented.
-function.</p>
-    <h2 class="hasAnchor" id="is-parallel"><a class="anchor" href="#is-parallel"></a><code>is.parallel</code></h2>
+<dt><code>set_number_of_threads()</code></dt><dd><p>no longer needed used with the
+implementation of superior data extraction.</p></dd>
 
-    <p>this function is no longer needed now that superior data extraction methods are implemented.
-function.</p>
-    <h2 class="hasAnchor" id="add-pool-portfolio"><a class="anchor" href="#add-pool-portfolio"></a><code>add_pool_portfolio</code></h2>
+<dt><code>get_number_of_threads()</code></dt><dd><p>no longer needed used with the
+implementation of superior data extraction.</p></dd>
 
-    <p>this function is replaced by <code><a href='add_extra_portfolio.html'>add_extra_portfolio()</a></code> and <code><a href='add_top_portfolio.html'>add_top_portfolio()</a></code>.
-function.</p>
-    <h2 class="hasAnchor" id="connected-matrix"><a class="anchor" href="#connected-matrix"></a><code>connected_matrix</code></h2>
+<dt><code>is.parallel()</code></dt><dd><p>no longer needed used with the
+implementation of superior data extraction</p></dd>
 
-    <p>this function has been renamed as
-the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function.</p>
+<dt><code>add_pool_portfolio()</code></dt><dd><p>replaced by the
+<code><a href='add_extra_portfolio.html'>add_extra_portfolio()</a></code> and <code><a href='add_top_portfolio.html'>add_top_portfolio()</a></code>.</p></dd>
+
+<dt><code>connected_matrix()</code></dt><dd><p>renamed as
+the <code><a href='adjacency_matrix.html'>adjacency_matrix()</a></code> function.</p></dd>
+
+<dt><code>feature_representation()</code></dt><dd><p>replaced by
+the <code><a href='eval_feature_representation_summary.html'>eval_feature_representation_summary()</a></code> function for consistency with
+other functions.</p></dd>
+
+<dt><code>replacement_cost()</code></dt><dd><p>renamed as
+the <code><a href='eval_replacement_importance.html'>eval_replacement_importance()</a></code> function for consistency with
+other functions for evaluating solutions.</p></dd>
+
+<dt><code>rarity_weighted_richness()</code></dt><dd><p>renamed as
+the <code><a href='eval_rare_richness_importance.html'>eval_rare_richness_importance()</a></code> function for consistency with
+other functions for evaluating solutions.</p></dd>
+
+<dt><code>ferrier_score()</code></dt><dd><p>renamed as
+the <code><a href='eval_ferrier_importance.html'>eval_ferrier_importance()</a></code> function for consistency with
+other functions for evaluating solutions.</p></dd>
+
+
+</dl>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

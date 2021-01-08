@@ -139,7 +139,7 @@ test_that("matrix (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(status) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   for (i in seq_len(raster::nlayers(sim_pu_zones_stack)))
@@ -281,7 +281,7 @@ test_that("character (solve, Spatial, multiple zones)", {
        add_relative_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
@@ -323,7 +323,7 @@ test_that("character (solve, multiple zones, proportion decisions)", {
        add_relative_targets(targets) %>%
        add_proportion_decisions() %>%
        add_locked_in_constraints(c("locked_1", "locked_2", "locked_3")) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   expect_true(all(s$solution_1_zone_1 == 1))
@@ -464,7 +464,7 @@ test_that("raster (solve, multiple zones)", {
        add_absolute_targets(targets) %>%
        add_binary_decisions() %>%
        add_locked_in_constraints(status) %>%
-       add_default_solver(verbose = FALSE) %>%
+       add_default_solver(time_limit = 5, verbose = FALSE) %>%
        solve()
   # check that the solution obeys constraints as expected
   for (i in seq_len(raster::nlayers(sim_pu_zones_stack)))
@@ -549,7 +549,7 @@ test_that("spatial (compile, multiple zones)", {
     add_absolute_targets(targets) %>%
     add_binary_decisions() %>%
     add_locked_in_constraints(sim_pu_polygons[1:5, ]) %>%
-    add_default_solver(verbose = FALSE) %>%
+    add_default_solver(time_limit = 5, verbose = FALSE) %>%
     solve()
   })
 })

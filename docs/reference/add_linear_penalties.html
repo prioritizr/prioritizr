@@ -101,7 +101,7 @@ solution cost for minimum set problems; add_min_set_objective()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">5.0.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
       </span>
     </div>
 
@@ -232,15 +232,39 @@ must have a value for each zone.</p></td>
 <code>Raster</code>, <code>matrix</code>, or <code>Matrix</code> object
 containing the data used to penalize solutions. Planning units that are
 associated with higher data values are penalized more strongly
-in the solution. See the Details section for more information.</p></td>
+in the solution. See the Data format section for more information.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function penalizes solutions that have higher values according
-to a specific metric. The argument to <code>data</code> can be specified in
-several different ways:</p>
+to the sum of the penalty values associated with each planning unit,
+weighted by status of each planning unit in the solution.</p>
+<p>Specifically, the linear penalties are calculated using the following
+equations.
+Let \(I\) denote the set of planning units
+(indexed by \(i\)), \(Z\) the set of management zones (indexed by
+\(z\)), and \(X_{iz}\) the decision variable for allocating
+planning unit \(i\) to zone \(z\) (e.g. with binary
+values one indicating if planning unit is allocated or not). Also, let
+\(P_z\) represent the penalty scaling value for zones
+\(z \in Z\) (argument to <code>penalty</code>), and
+\(D_{iz}\) the penalty data for allocating planning unit
+\(i \in I\) to zones \(z \in Z\) (argument to
+<code>data</code> if supplied as a <code>matrix</code> object).</p>
+<p>$$
+\sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
+$$</p>
+<p>Note that when the problem objective is to maximize some measure of
+benefit and not minimize some measure of cost, the term \(P_z\) is
+replaced with \(-P_z\).</p>
+    <h2 class="hasAnchor" id="data-format"><a class="anchor" href="#data-format"></a>Data format</h2>
+
+    
+
+
+<p>The argument to <code>data</code> can be specified using the following formats.</p>
 <dl>
 
 <dt><code>character</code></dt><dd><p>field (column) name(s) that contain the data for
@@ -284,23 +308,6 @@ when it is allocated to a given zone.</p></dd>
 
 </dl>
 
-<p>The linear penalties are calculated using the following equations.
-Let \(I\) denote the set of planning units
-(indexed by \(i\)), \(Z\) the set of management zones (indexed by
-\(z\)), and \(X_{iz}\) the decision variable for allocating
-planning unit \(i\) to zone \(z\) (e.g. with binary
-values one indicating if planning unit is allocated or not). Also, let
-\(P_z\) represent the penalty scaling value for zones
-\(z \in Z\) (argument to <code>penalty</code>), and
-\(D_{iz}\) the penalty data for allocating planning unit
-\(i \in I\) to zones \(z \in Z\) (argument to
-<code>data</code> if supplied as a <code>matrix</code> object).</p>
-<p>$$
- \sum_{i}^{I} \sum_{z}^{Z} P_z \times D_{iz} \times X_{iz}
- $$</p>
-<p>Note that when the problem objective is to maximize some measure of
-benefit and not minimize some measure of cost, the term \(P_z\) is
-replaced with \(-P_z\).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># set seed for reproducibility</span>
@@ -322,7 +329,8 @@ replaced with \(-P_z\).</p>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_polygons</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># print problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
@@ -336,7 +344,7 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;none&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         default</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># create an updated version of the previous problem,</span>
 <span class='co'># with the penalties added to it</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='va'>p1</span> <span class='op'>%&gt;%</span> <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fl'>100</span>, data <span class='op'>=</span> <span class='st'>"penalty_data"</span><span class='op'>)</span>
@@ -353,72 +361,12 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (100)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         default</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve the two problems</span>
 <span class='va'>s1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0xa41351c6
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 2e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2145.2678910
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.732564e+03, 12 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1732.56396    0    4 2145.26789 1732.56396  19.2%     -    0s
-#&gt; H    0     0                    1792.5345202 1732.56396  3.35%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (12 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1792.53 2145.27 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.792534520218e+03, best bound 1.732563961206e+03, gap 3.3456%</div><div class='input'><span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 5 rows, 90 columns and 450 nonzeros
-#&gt; Model fingerprint: 0x87e27a7e
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 9e-01]
-#&gt;   Objective range  [2e+02, 3e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [3e+00, 7e+00]
-#&gt; Found heuristic solution: objective 2744.0718169
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; Variable types: 0 continuous, 90 integer (90 binary)
-#&gt; Presolved: 5 rows, 90 columns, 450 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.899543e+03, 11 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 1899.54252    0    3 2744.07182 1899.54252  30.8%     -    0s
-#&gt; H    0     0                    1919.3437451 1899.54252  1.03%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (11 simplex iterations) in 0.00 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 1919.34 2744.07 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.919343745122e+03, best bound 1.899542519730e+03, gap 1.0317%</div><div class='input'>
+<span class='va'>s2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+
 <span class='co'># plot the solutions and compare them,</span>
 <span class='co'># since we supplied a very high penalty value (i.e. 100), relative</span>
 <span class='co'># to the range of values in the penalty data and the objective function,</span>
@@ -457,7 +405,8 @@ replaced with \(-P_z\).</p>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='va'>targ</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'>add_linear_penalties</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='va'>penalty_stack</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span>
+      <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
 <span class='co'># print problem</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
@@ -472,41 +421,11 @@ replaced with \(-P_z\).</p>
 #&gt; <span class='message'>  constraints:    &lt;none&gt;</span>
 #&gt; <span class='message'>  penalties:      &lt;Linear penalties [penalty (min: 1, max: 1)]&gt;</span>
 #&gt; <span class='message'>  portfolio:      default</span>
-#&gt; <span class='message'>  solver:         default</span></div><div class='input'>
+#&gt; <span class='message'>  solver:         Gurobi [first_feasible (0), gap (0.1), numeric_focus (0), presolve (2), threads (1), time_limit (2147483647), verbose (0)]</span></div><div class='input'>
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problem</span>
 <span class='va'>s3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Gurobi Optimizer version 9.0.2 build v9.0.2rc0 (linux64)
-#&gt; Optimize a model with 105 rows, 270 columns and 1620 nonzeros
-#&gt; Model fingerprint: 0x3583ba52
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Coefficient statistics:
-#&gt;   Matrix range     [2e-01, 1e+00]
-#&gt;   Objective range  [4e+02, 4e+02]
-#&gt;   Bounds range     [1e+00, 1e+00]
-#&gt;   RHS range        [1e+00, 8e+00]
-#&gt; Found heuristic solution: objective 13509.195716
-#&gt; Presolve time: 0.00s
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; Variable types: 0 continuous, 270 integer (270 binary)
-#&gt; Presolved: 105 rows, 270 columns, 1620 nonzeros
-#&gt; 
-#&gt; 
-#&gt; Root relaxation: objective 1.139632e+04, 132 iterations, 0.00 seconds
-#&gt; 
-#&gt;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-#&gt;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-#&gt; 
-#&gt;      0     0 11396.3183    0   17 13509.1957 11396.3183  15.6%     -    0s
-#&gt; H    0     0                    11720.535020 11396.3183  2.77%     -    0s
-#&gt; 
-#&gt; Explored 1 nodes (132 simplex iterations) in 0.01 seconds
-#&gt; Thread count was 1 (of 4 available processors)
-#&gt; 
-#&gt; Solution count 2: 11720.5 13509.2 
-#&gt; 
-#&gt; Optimal solution found (tolerance 1.00e-01)
-#&gt; Best objective 1.172053501993e+04, best bound 1.139631827720e+04, gap 2.7662%</div><div class='input'>
+
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"multi-zone solution"</span>,
      axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
