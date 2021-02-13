@@ -73,6 +73,7 @@ NULL
 #'   same format as the planning unit data in the argument to `x`.
 #'
 #' @examples
+#' \dontrun{
 #' # seed seed for reproducibility
 #' set.seed(600)
 #'
@@ -85,7 +86,6 @@ NULL
 #'       add_relative_targets(0.1) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
 #' # solve problem
 #' s1 <- solve(p1)
 #'
@@ -103,7 +103,6 @@ NULL
 #'
 #' # plot importance scores
 #' plot(rc1, main = "replacement cost", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # since replacement cost scores can take a long time to calculate with
 #' # binary decisions, we can calculate them using proportion-type
@@ -117,7 +116,6 @@ NULL
 #'       add_default_solver(gap = 0, verbose = FALSE)
 #'
 #' # calculate importance scores using proportion type decisions
-#' \dontrun{
 #' rc2 <- eval_replacement_importance(p2, s1)
 #'
 #' # print importance scores based on proportion type decisions
@@ -128,7 +126,6 @@ NULL
 #' # and this confirms that the proportion type decisions are a good
 #' # approximation
 #' plot(rc2, main = "replacement cost", axes = FALSE, box = FALSE)
-#' }
 #'
 #' # create minimal problem with polygon (sf) planning units
 #' p3 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
@@ -159,7 +156,7 @@ NULL
 #'                                   ncol = 3)) %>%
 #'       add_binary_decisions() %>%
 #'       add_default_solver(gap = 0, verbose = FALSE)
-#' \dontrun{
+#'
 #' # solve the problem
 #' s4 <- solve(p4)
 #'
