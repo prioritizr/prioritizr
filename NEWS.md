@@ -1,3 +1,18 @@
+# prioritizr 6.0.0.1
+
+- Update Solution format section documentation for evaluation functions
+  (i.e. all functions starting with `eval_`) to mention that
+  the argument to `solution` should only contain columns that correspond to
+  the solution (#176).
+- Add examples using `sf` data to documentation for importance
+  evaluation functions (#176).
+- Add more helpful error messages when invalid `solution` arguments are
+  supplied to the evaluation functions (#176).
+- Add functionality to calculate importance scores using the Ferrier method
+  with `sf` planning unit data.
+- Fix broken link in `add_manual_targets` documentation.
+- Fix typo in equation for rarity weighted richness documentation.
+
 # prioritizr 6.0.0.0
 
 - New `eval_cost` function to calculate the cost of a solution.

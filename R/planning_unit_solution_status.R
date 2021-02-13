@@ -24,14 +24,21 @@ methods::setMethod(
   methods::signature("ConservationProblem", "numeric"),
   function(x, solution) {
     # assert valid arguments
+    ## data type
     assertthat::assert_that(
       is.numeric(solution),
-      is.numeric(x$data$cost), is.matrix(x$data$cost))
+      is.numeric(x$data$cost),
+      is.matrix(x$data$cost))
+    ## dimensionality
     assertthat::assert_that(
       number_of_total_units(x) == length(solution),
-      number_of_zones(x) == 1,
+      number_of_zones(x) == 1)
+    ## solution values
+    assertthat::assert_that(
       min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1)
+      max(solution, na.rm = TRUE) <= 1,
+      msg = paste("argument to solution should only contain",
+                  "values between zero and one"))
     # extract status
     internal_planning_unit_solution_status(x, matrix(solution, ncol = 1))
 })
@@ -41,14 +48,27 @@ methods::setMethod(
   methods::signature("ConservationProblem", "matrix"),
   function(x, solution) {
     # assert valid arguments
+    ## data types
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
       is.matrix(x$data$cost), is.numeric(x$data$cost))
+    ## number of columns
+    msg <- ifelse(
+      number_of_zones(x) == 1,
+      paste("argument to solution should contain a single column",
+            "with solution values"),
+      paste("argument to solution should contain a column for each",
+            "management zone with solution values"))
+    assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
+    ## number of units
     assertthat::assert_that(
-      number_of_total_units(x) == nrow(solution),
-      number_of_zones(x) == ncol(solution),
+      number_of_total_units(x) == nrow(solution))
+    ## values in the solution
+    assertthat::assert_that(
       min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1)
+      max(solution, na.rm = TRUE) <= 1,
+      msg = paste("argument to solution should only contain columns",
+                  "values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, solution)
 })
@@ -58,15 +78,31 @@ methods::setMethod(
   methods::signature("ConservationProblem", "data.frame"),
   function(x, solution) {
     # assert valid arguments
+    ## data types
     assertthat::assert_that(
       is.data.frame(solution),
       is.data.frame(x$data$cost))
+    ## number of columns
+    msg <- ifelse(
+      number_of_zones(x) == 1,
+      paste("argument to solution should contain a single column",
+            "with solution values"),
+      paste("argument to solution should contain a column for each",
+            "management zone with solution values"))
+    assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
+    ## number of units
     assertthat::assert_that(
-      number_of_zones(x) == ncol(solution),
-      number_of_total_units(x) == nrow(solution),
+      number_of_total_units(x) == nrow(solution))
+    ## solution values
+    assertthat::assert_that(
       is.numeric(unlist(solution)),
+      msg = paste("argument to solution should only contain columns",
+                  "with numeric values"))
+    assertthat::assert_that(
       min(unlist(solution), na.rm = TRUE) >= 0,
-      max(unlist(solution), na.rm = TRUE) <= 1)
+      max(unlist(solution), na.rm = TRUE) <= 1,
+      msg = paste("argument to solution should only contain columns",
+                  "with values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, as.matrix(solution))
 })
@@ -76,17 +112,35 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Spatial"),
   function(x, solution) {
     # assert valid arguments
+    ## data types
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
       class(x$data$cost)[1] == class(solution)[1])
+    ## number of columns
+    msg <- ifelse(
+      number_of_zones(x) == 1,
+      paste("argument to solution should contain a single column",
+            "with solution values"),
+      paste("argument to solution should contain a column for each",
+            "management zone with solution values"))
+    assertthat::assert_that(number_of_zones(x) == ncol(solution), msg = msg)
+    ## number of units
     assertthat::assert_that(
-      number_of_zones(x) == ncol(solution@data),
-      sf::st_crs(x$data$cost@proj4string) == sf::st_crs(solution@proj4string),
-      number_of_total_units(x) == nrow(solution@data),
+      number_of_total_units(x) == nrow(solution@data))
+    ## spatial information
+    assertthat::assert_that(
+      sf::st_crs(x$data$cost@proj4string) == sf::st_crs(solution@proj4string))
+    ## solution values
+    assertthat::assert_that(
       is.numeric(unlist(solution@data)),
+      msg = paste("argument to solution should only contain columns",
+                  "with numeric values"))
+    assertthat::assert_that(
       min(unlist(solution@data), na.rm = TRUE) >= 0,
-      max(unlist(solution@data), na.rm = TRUE) <= 1)
+      max(unlist(solution@data), na.rm = TRUE) <= 1,
+      msg = paste("argument to solution should only contain columns",
+                  "with values between zero and one"))
     # return status
     internal_planning_unit_solution_status(x, as.matrix(solution@data))
 })
@@ -96,16 +150,36 @@ methods::setMethod(
   methods::signature("ConservationProblem", "sf"),
   function(x, solution) {
     # assert valid arguments
+    ## data types
     assertthat::assert_that(
       inherits(solution, "sf"),
       inherits(x$data$cost, "sf"))
+    ## number of columns
+    msg <- ifelse(
+      number_of_zones(x) == 1,
+      paste("argument to solution should contain a single column",
+            "with solution values"),
+      paste("argument to solution should contain a column for each",
+            "management zone with solution values"))
     assertthat::assert_that(
-      sf::st_crs(x$data$cost) == sf::st_crs(solution),
       number_of_zones(x) == ncol(sf::st_drop_geometry(solution)),
-      number_of_total_units(x) == nrow(solution),
+      msg = msg)
+    ## number of units
+    assertthat::assert_that(
+      number_of_total_units(x) == nrow(solution))
+    ## spatial information
+    assertthat::assert_that(
+      sf::st_crs(x$data$cost) == sf::st_crs(solution))
+    ## solution values
+    assertthat::assert_that(
       is.numeric(unlist(sf::st_drop_geometry(solution))),
+      msg = paste("argument to solution should only contain columns",
+                  "with numeric values"))
+    assertthat::assert_that(
       min(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) >= 0,
-      max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1)
+      max(unlist(sf::st_drop_geometry(solution)), na.rm = TRUE) <= 1,
+      msg = paste("argument to solution should only contain columns",
+                  "values between zero and one"))
     # perform calculations
     solution <- sf::st_drop_geometry(solution)
     internal_planning_unit_solution_status(x, as.matrix(solution))
@@ -116,15 +190,23 @@ methods::setMethod(
   methods::signature("ConservationProblem", "Raster"),
   function(x, solution) {
     # assert valid arguments
+    ## data types
     assertthat::assert_that(
       inherits(solution, "Raster"),
       inherits(x$data$cost, "Raster"))
+    ## dimensionality
     assertthat::assert_that(
       number_of_zones(x) == raster::nlayers(solution),
-      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs),
-      is_comparable_raster(x$data$cost, solution[[1]]),
+      is_comparable_raster(x$data$cost, solution[[1]]))
+    ## spatial information
+    assertthat::assert_that(
+      sf::st_crs(x$data$cost@crs) == sf::st_crs(solution@crs))
+    ## values in the solution
+    assertthat::assert_that(
       min(raster::cellStats(solution, "min")) >= 0,
-      max(raster::cellStats(solution, "max")) <= 1)
+      max(raster::cellStats(solution, "max")) <= 1,
+      msg = paste("argument to solution should only contain",
+                  "values between zero and one"))
     # subset planning units with finite cost values
     pos <- x$planning_unit_indices()
     if (raster::nlayers(solution) > 1) {
@@ -133,13 +215,13 @@ methods::setMethod(
       pos2 <- raster::Which(!is.na(solution), cells = TRUE)
     }
     if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA allocations in the",
+      stop("planning units with NA cost data must have NA values in the",
            " solution")
     solution <- solution[pos2]
     if (!is.matrix(solution))
       solution <- matrix(solution, ncol = 1)
     if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(solution))))
-     stop("planning units with NA cost data must have NA allocations in the",
+     stop("planning units with NA cost data must have NA values in the",
           " solution")
     # return status
     solution
@@ -164,11 +246,11 @@ internal_planning_unit_solution_status <- function(x, solution) {
   pos <- x$planning_unit_indices()
   pos2 <- which(rowSums(is.na(solution)) != ncol(solution))
   if (!setequal(pos, pos2))
-    stop("planning units with NA cost data must have NA values in the",
+    stop("planning units with NA cost values must also have NA values in the",
          " solution")
   out <- solution[pos, , drop = FALSE]
   if (!all(is.na(c(x$planning_unit_costs())) == is.na(c(out))))
-    stop("planning units with NA cost data must have NA values in the",
+    stop("planning units with NA cost values must also have NA values in the",
          " solution")
   # force removal of rownames
   rownames(out) <- NULL

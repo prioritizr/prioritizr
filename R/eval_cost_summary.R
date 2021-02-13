@@ -27,45 +27,81 @@ NULL
 #' weighted by the status of each planning unit in the solution.
 #'
 #' @section Solution format:
-#' The argument to `solution` must be in the same format as
-#' the planning unit data in the argument to `x`
-#' (e.g. in terms of data representation, dimensionality, and spatial
-#' attributes).
-#' For example, if the planning unit data in `x` is a `numeric`
-#' vector, then the argument to `solution` must be a `numeric` vector
-#' with the same number of elements.
-#' Similarly, if the planning units in `x` are a `data.frame`, then the
-#' argument to `solution` must also be a `data.frame` with each
-#' column corresponding to a different zone, each row corresponding to a
-#' different planning unit, and cell values corresponding to the solution value.
-#' Additionally, if the planning unit data in `x` is
-#' a [`Raster-class`] object, then the argument to
-#' `solution` must also be a [`Raster-class`] object with
-#' the same dimensionality (rows and columns), resolution, extent, and
-#' coordinate reference system.
-#' Furthermore, if the planning unit data in `x` is a
-#' [`Spatial-class`] or [sf::sf()] object then the
-#' argument to `solution` must also be a [`Spatial-class`]
-#' or [sf::sf()] object (respectively) with the same spatial information
-#' (e.g. polygons and coordinate reference system), and contain columns
-#' corresponding to different zones, and cell values corresponding to the
-#' solution values.
+#' Broadly speaking, the argument to `solution` must be in the same format as
+#' the planning unit data in the argument to `x`.
+#' Further details on the correct format are listed separately
+#' for each of the different planning unit data formats:
 #'
-#' The argument to `solution` must also have missing (`NA`) values for planning
-#' units that have missing (`NA`) cost values.
-#' In other words, the solution must have missing (`NA`) values in the
-#' same elements, cells, or pixels (depending on the cost data format) as the
-#' planning unit cost data.
-#' For example, if the planning unit data are a [`Raster-class`] object,
-#' then the argument to `solution` must have missing (`NA`) values in
-#' the same pixels as the planning unit cost data.
-#' Similarly, if the planning unit data are a
-#' [`Spatial-class`], [sf::sf()], or `data.frame` object, then
-#' the solution must have missing (`NA`) values in the same cells
-#' as the planning unit cost data columns.
-#' If an argument is supplied to `solution` where
-#' the missing (`NA`) values in the argument to solution do not match
-#' those in the planning unit cost data, then an error will be thrown.
+#' \describe{
+#'
+#' \item{`x` has `numeric` planning units}{The argument to `solution` must be a
+#'   `numeric` vector with each element corresponding to a different planning
+#'   unit. It should have the same number of planning units as those
+#'   in the argument to `x`. Additionally, any planning units missing
+#'   cost (`NA`) values should also have missing (`NA`) values in the
+#'   argument to `solution`.
+#' }
+#'
+#' \item{`x` has `matrix` planning units}{The argument to `solution` must be a
+#'   `matrix` vector with each row corresponding to a different planning
+#'   unit, and each column correspond to a different management zone.
+#'   It should have the same number of planning units and zones
+#'   as those in the argument to `x`. Additionally, any planning units
+#'   missing cost (`NA`) values for a particular zone should also have a
+#'   missing (`NA`) values in the argument to `solution`.
+#' }
+#'
+#' \item{`x` has [`Raster-class`] planning units}{The argument to `solution`
+#'   be a [`Raster-class`] object where different grid cells (pixels) correspond
+#'   to different planning units and layers correspond to
+#'   a different management zones. It should have the same dimensionality
+#'   (rows, columns, layers), resolution, extent, and coordinate reference
+#'   system as the planning units in the argument to `x`. Additionally,
+#'   any planning units missing cost (`NA`) values for a particular zone
+#'   should also have missing (`NA`)  values in the argument to `solution`.
+#' }
+#'
+#' \item{`x` has `data.frame` planning units}{The argument to `solution` must
+#'   be a `data.frame` with each column corresponding to a different zone,
+#'   each row corresponding to a different planning unit, and cell values
+#'   corresponding to the solution value. This means that if a `data.frame`
+#'   object containing the solution also contains additional columns, then
+#'   these columns will need to be subsetted prior to using this function
+#'   (see below for example with [sf::sf()] data).
+#'   Additionally, any planning units missing cost
+#'   (`NA`) values for a particular zone should also have missing (`NA`)
+#'   values in the argument to `solution`.
+#' }
+#'
+#' \item{`x` has [`Spatial-class`] planning units}{The argument to `solution`
+#'   must be a [`Spatial-class`] object with each column corresponding to a
+#'   different zone, each row corresponding to a different planning unit, and
+#'   cell values corresponding to the solution value. This means that if the
+#'   [`Spatial-class`] object containing the solution also contains additional
+#'   columns, then these columns will need to be subsetted prior to using this
+#'   function (see below for example with [sf::sf()] data).
+#'   Additionally, the argument to `solution` must also have the same
+#'   coordinate reference system as the planning unit data.
+#'   Furthermore, any planning units missing cost
+#'   (`NA`) values for a particular zone should also have missing (`NA`)
+#'   values in the argument to `solution`.
+#' }
+#'
+#' \item{`x` has [sf::sf()] planning units}{The argument to `solution` must be
+#'   a [sf::sf()] object with each column corresponding to a different
+#'   zone, each row corresponding to a different planning unit, and cell values
+#'   corresponding to the solution value. This means that if the
+#'   [sf::sf()] object containing the solution also contains additional
+#'   columns, then these columns will need to be subsetted prior to using this
+#'   function (see below for example).
+#'   Additionally, the argument to `solution` must also have the same
+#'   coordinate reference system as the planning unit data.
+#'   Furthermore, any planning units missing cost
+#'   (`NA`) values for a particular zone should also have missing (`NA`)
+#'   values in the argument to `solution`.
+#' }
+#'
+#' }
 #'
 #' @return
 #'   [tibble::tibble()] object containing the solution cost.

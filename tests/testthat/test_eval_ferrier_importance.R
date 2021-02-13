@@ -115,7 +115,36 @@ test_that("Spatial (single zone)", {
   expect_equal(names(r1), c("spp1", "spp2", "total"))
   expect_equal(r1$total, r2)
   expect_equivalent(rowSums(r1@data[, -3]), r1@data[[3]])
+})
 
+test_that("sf (single zone)", {
+  # create data
+  data(sim_pu_sf)
+  pu <- sim_pu_sf[1:4, ]
+  pu$id <- seq_len(4)
+  pu$cost <- c(10, 2, NA, 3)
+  pu$spp1 <- c(0, 0, 0, 1)
+  pu$spp2 <- c(10, 5, 10, 6)
+  # create problem
+  p <-
+    problem(pu, c("spp1", "spp2"), cost_column = "cost") %>%
+    add_min_set_objective() %>%
+    add_absolute_targets(c(1, 10)) %>%
+    add_binary_decisions() %>%
+    add_default_solver(gap = 0, verbose = FALSE)
+  # create a solution
+  pu$solution <- c(0, 1, NA, 1)
+  # calculate scores
+  r1 <- eval_ferrier_importance(p, pu[, "solution"])
+  # create correct total scores
+  r2 <- c(0, 0.272683958214909, NA, 1.30274715364078)
+  # run tests
+  expect_is(r1, "sf")
+  expect_equal(ncol(sf::st_drop_geometry(r1)), 3)
+  expect_equal(nrow(r1), 4)
+  expect_equal(names(sf::st_drop_geometry(r1)), c("spp1", "spp2", "total"))
+  expect_equal(r1$total, r2)
+  expect_equivalent(r1$spp1 + r1$spp2, r1$total)
 })
 
 test_that("Raster (single zone)", {

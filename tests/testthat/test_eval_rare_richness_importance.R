@@ -170,6 +170,7 @@ test_that("Raster (single zone)", {
   # create correct result
   r2 <- raster::raster(matrix(c(0, ((5 / 10) / 31), NA,
                                 ((6 / 10) / 31) + (1 / 1)), nrow = 1))
+  names(r2) <- "rwr"
   # run tests
   expect_equal(r, r2)
 })

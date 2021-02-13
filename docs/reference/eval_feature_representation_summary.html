@@ -99,7 +99,7 @@ and each and every zone, within a conservation planning problem." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -264,44 +264,76 @@ by dividing values in the <code>"absolute_held"</code> column by those in the
 
     
 
-<p>The argument to <code>solution</code> must be in the same format as
-the planning unit data in the argument to <code>x</code>
-(e.g. in terms of data representation, dimensionality, and spatial
-attributes).
-For example, if the planning unit data in <code>x</code> is a <code>numeric</code>
-vector, then the argument to <code>solution</code> must be a <code>numeric</code> vector
-with the same number of elements.
-Similarly, if the planning units in <code>x</code> are a <code>data.frame</code>, then the
-argument to <code>solution</code> must also be a <code>data.frame</code> with each
-column corresponding to a different zone, each row corresponding to a
-different planning unit, and cell values corresponding to the solution value.
-Additionally, if the planning unit data in <code>x</code> is
-a <code>Raster</code> object, then the argument to
-<code>solution</code> must also be a <code>Raster</code> object with
-the same dimensionality (rows and columns), resolution, extent, and
-coordinate reference system.
-Furthermore, if the planning unit data in <code>x</code> is a
-<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object then the
-argument to <code>solution</code> must also be a <code>Spatial</code>
-or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object (respectively) with the same spatial information
-(e.g. polygons and coordinate reference system), and contain columns
-corresponding to different zones, and cell values corresponding to the
-solution values.</p>
-<p>The argument to <code>solution</code> must also have missing (<code>NA</code>) values for planning
-units that have missing (<code>NA</code>) cost values.
-In other words, the solution must have missing (<code>NA</code>) values in the
-same elements, cells, or pixels (depending on the cost data format) as the
-planning unit cost data.
-For example, if the planning unit data are a <code>Raster</code> object,
-then the argument to <code>solution</code> must have missing (<code>NA</code>) values in
-the same pixels as the planning unit cost data.
-Similarly, if the planning unit data are a
-<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or <code>data.frame</code> object, then
-the solution must have missing (<code>NA</code>) values in the same cells
-as the planning unit cost data columns.
-If an argument is supplied to <code>solution</code> where
-the missing (<code>NA</code>) values in the argument to solution do not match
-those in the planning unit cost data, then an error will be thrown.</p>
+<p>Broadly speaking, the argument to <code>solution</code> must be in the same format as
+the planning unit data in the argument to <code>x</code>.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:</p>
+<dl>
+
+<dt><code>x</code> has <code>numeric</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>numeric</code> vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to <code>x</code>. Additionally, any planning units missing
+cost (<code>NA</code>) values should also have missing (<code>NA</code>) values in the
+argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>matrix</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>matrix</code> vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to <code>x</code>. Additionally, any planning units
+missing cost (<code>NA</code>) values for a particular zone should also have a
+missing (<code>NA</code>) values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Raster</code> planning units</dt><dd><p>The argument to <code>solution</code>
+be a <code>Raster</code> object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to <code>x</code>. Additionally,
+any planning units missing cost (<code>NA</code>) values for a particular zone
+should also have missing (<code>NA</code>)  values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>data.frame</code> planning units</dt><dd><p>The argument to <code>solution</code> must
+be a <code>data.frame</code> with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a <code>data.frame</code>
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Spatial</code> planning units</dt><dd><p>The argument to <code>solution</code>
+must be a <code>Spatial</code> object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+<code>Spatial</code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> planning units</dt><dd><p>The argument to <code>solution</code> must be
+a <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+
+</dl>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='summaries.html'>summaries</a>.</p></div>
@@ -345,11 +377,11 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate feature representation</span>
 <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span><span>
 #&gt;   summary feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall spp1            5.76          3.12         0.541
-#&gt; </span><span style='color: #555555;'>2</span><span> overall spp2           33            14            0.424</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> overall spp1            5.76          3.12         0.541
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> overall spp2           33            14            0.424</div><div class='input'>
 <span class='co'># let's verify that feature representation calculations are correct</span>
 <span class='co'># by manually performing the calculations and compare the results with r1</span>
 <span class='co'>## calculate total amount for each feature</span>
@@ -392,11 +424,11 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='va'>r1_2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span>
   <span class='va'>p1</span>, <span class='va'>s1_2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span>, drop <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1_2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 2 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 2 x 5</span><span>
 #&gt;   summary feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall spp1            5.76         0.829         0.144
-#&gt; </span><span style='color: #555555;'>2</span><span> overall spp2           33            4             0.121</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> overall spp1            5.76         0.829         0.144
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> overall spp2           33            4             0.121</div><div class='input'>
 <span class='co'># build minimal conservation problem with raster data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -421,14 +453,14 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 5</span><span>
 #&gt;   summary feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall layer.1         83.3          8.91         0.107
-#&gt; </span><span style='color: #555555;'>2</span><span> overall layer.2         31.2          3.13         0.100
-#&gt; </span><span style='color: #555555;'>3</span><span> overall layer.3         72.0          7.34         0.102
-#&gt; </span><span style='color: #555555;'>4</span><span> overall layer.4         42.7          4.35         0.102
-#&gt; </span><span style='color: #555555;'>5</span><span> overall layer.5         56.7          6.01         0.106</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> overall layer.1         83.3          8.91         0.107
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> overall layer.2         31.2          3.13         0.100
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> overall layer.3         72.0          7.34         0.102
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> overall layer.4         42.7          4.35         0.102
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> overall layer.5         56.7          6.01         0.106</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s2</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='eval_feature_representation_summary-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -454,14 +486,14 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 5</span><span>
 #&gt;   summary feature total_amount absolute_held relative_held
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> overall layer.1         74.5          8.05         0.108
-#&gt; </span><span style='color: #555555;'>2</span><span> overall layer.2         28.1          2.83         0.101
-#&gt; </span><span style='color: #555555;'>3</span><span> overall layer.3         64.9          6.65         0.103
-#&gt; </span><span style='color: #555555;'>4</span><span> overall layer.4         38.2          3.87         0.101
-#&gt; </span><span style='color: #555555;'>5</span><span> overall layer.5         50.7          5.41         0.107</div><div class='input'>
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>          </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> overall layer.1         74.5          8.05         0.108
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> overall layer.2         28.1          2.83         0.101
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> overall layer.3         64.9          6.65         0.103
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> overall layer.4         38.2          3.87         0.101
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> overall layer.5         50.7          5.41         0.107</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'>spplot</span><span class='op'>(</span><span class='va'>s3</span>, zcol <span class='op'>=</span> <span class='st'>"solution_1"</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='eval_feature_representation_summary-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -490,29 +522,29 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate feature representation in the solution</span>
 <span class='va'>r4</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span><span class='va'>p4</span>, <span class='va'>s4</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r4</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 20 x 5</span><span>
 #&gt;    summary feature   total_amount absolute_held relative_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> overall feature_1        250.          43.7          0.175
-#&gt; </span><span style='color: #555555;'> 2</span><span> overall feature_2         93.6         16.2          0.173
-#&gt; </span><span style='color: #555555;'> 3</span><span> overall feature_3        216.          36.1          0.167
-#&gt; </span><span style='color: #555555;'> 4</span><span> overall feature_4        128.          23.4          0.183
-#&gt; </span><span style='color: #555555;'> 5</span><span> overall feature_5        170.          30.4          0.179
-#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1  feature_1         83.3         16.0          0.192
-#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1  feature_2         31.2          5.13         0.164
-#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1  feature_3         72.0         13.0          0.181
-#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1  feature_4         42.7          7.06         0.166
-#&gt; </span><span style='color: #555555;'>10</span><span> zone_1  feature_5         56.7         11.2          0.197
-#&gt; </span><span style='color: #555555;'>11</span><span> zone_2  feature_1         83.3         14.7          0.177
-#&gt; </span><span style='color: #555555;'>12</span><span> zone_2  feature_2         31.2          5.03         0.161
-#&gt; </span><span style='color: #555555;'>13</span><span> zone_2  feature_3         72.0         11.7          0.163
-#&gt; </span><span style='color: #555555;'>14</span><span> zone_2  feature_4         42.7          8.02         0.188
-#&gt; </span><span style='color: #555555;'>15</span><span> zone_2  feature_5         56.7         10.4          0.183
-#&gt; </span><span style='color: #555555;'>16</span><span> zone_3  feature_1         83.3         13.0          0.156
-#&gt; </span><span style='color: #555555;'>17</span><span> zone_3  feature_2         31.2          6.08         0.195
-#&gt; </span><span style='color: #555555;'>18</span><span> zone_3  feature_3         72.0         11.4          0.158
-#&gt; </span><span style='color: #555555;'>19</span><span> zone_3  feature_4         42.7          8.33         0.195
-#&gt; </span><span style='color: #555555;'>20</span><span> zone_3  feature_5         56.7          8.87         0.156</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> overall feature_1        250.          43.7          0.175
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> overall feature_2         93.6         16.2          0.173
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> overall feature_3        216.          36.1          0.167
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> overall feature_4        128.          23.4          0.183
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> overall feature_5        170.          30.4          0.179
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> zone_1  feature_1         83.3         16.0          0.192
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> zone_1  feature_2         31.2          5.13         0.164
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> zone_1  feature_3         72.0         13.0          0.181
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> zone_1  feature_4         42.7          7.06         0.166
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> zone_1  feature_5         56.7         11.2          0.197
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> zone_2  feature_1         83.3         14.7          0.177
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> zone_2  feature_2         31.2          5.03         0.161
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> zone_2  feature_3         72.0         11.7          0.163
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> zone_2  feature_4         42.7          8.02         0.188
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> zone_2  feature_5         56.7         10.4          0.183
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> zone_3  feature_1         83.3         13.0          0.156
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> zone_3  feature_2         31.2          6.08         0.195
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> zone_3  feature_3         72.0         11.4          0.158
+#&gt; </span><span style='color: #BCBCBC;'>19</span><span> zone_3  feature_4         42.7          8.33         0.195
+#&gt; </span><span style='color: #BCBCBC;'>20</span><span> zone_3  feature_5         56.7          8.87         0.156</div><div class='input'>
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s4</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 </div><div class='img'><img src='eval_feature_representation_summary-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
@@ -554,29 +586,29 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='va'>r5</span> <span class='op'>&lt;-</span> <span class='fu'>eval_feature_representation_summary</span><span class='op'>(</span>
   <span class='va'>p5</span>, <span class='va'>s5</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 20 x 5</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 20 x 5</span><span>
 #&gt;    summary feature   total_amount absolute_held relative_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> overall feature_1        225.          40.4          0.179
-#&gt; </span><span style='color: #555555;'> 2</span><span> overall feature_2         83.9         13.4          0.159
-#&gt; </span><span style='color: #555555;'> 3</span><span> overall feature_3        195.          33.9          0.174
-#&gt; </span><span style='color: #555555;'> 4</span><span> overall feature_4        114.          18.3          0.161
-#&gt; </span><span style='color: #555555;'> 5</span><span> overall feature_5        154.          27.8          0.181
-#&gt; </span><span style='color: #555555;'> 6</span><span> zone_1  feature_1         75.1         14.3          0.190
-#&gt; </span><span style='color: #555555;'> 7</span><span> zone_1  feature_2         28.0          4.88         0.174
-#&gt; </span><span style='color: #555555;'> 8</span><span> zone_1  feature_3         65.0         12.2          0.188
-#&gt; </span><span style='color: #555555;'> 9</span><span> zone_1  feature_4         38.0          6.25         0.164
-#&gt; </span><span style='color: #555555;'>10</span><span> zone_1  feature_5         51.2          9.55         0.187
-#&gt; </span><span style='color: #555555;'>11</span><span> zone_2  feature_1         75.1         15.0          0.200
-#&gt; </span><span style='color: #555555;'>12</span><span> zone_2  feature_2         28.0          4.61         0.165
-#&gt; </span><span style='color: #555555;'>13</span><span> zone_2  feature_3         65.0         13.2          0.204
-#&gt; </span><span style='color: #555555;'>14</span><span> zone_2  feature_4         38.0          5.65         0.149
-#&gt; </span><span style='color: #555555;'>15</span><span> zone_2  feature_5         51.2         10.3          0.200
-#&gt; </span><span style='color: #555555;'>16</span><span> zone_3  feature_1         75.1         11.1          0.147
-#&gt; </span><span style='color: #555555;'>17</span><span> zone_3  feature_2         28.0          3.89         0.139
-#&gt; </span><span style='color: #555555;'>18</span><span> zone_3  feature_3         65.0          8.45         0.130
-#&gt; </span><span style='color: #555555;'>19</span><span> zone_3  feature_4         38.0          6.42         0.169
-#&gt; </span><span style='color: #555555;'>20</span><span> zone_3  feature_5         51.2          7.96         0.155</div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> overall feature_1        225.          40.4          0.179
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> overall feature_2         83.9         13.4          0.159
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> overall feature_3        195.          33.9          0.174
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> overall feature_4        114.          18.3          0.161
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> overall feature_5        154.          27.8          0.181
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> zone_1  feature_1         75.1         14.3          0.190
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> zone_1  feature_2         28.0          4.88         0.174
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> zone_1  feature_3         65.0         12.2          0.188
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> zone_1  feature_4         38.0          6.25         0.164
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> zone_1  feature_5         51.2          9.55         0.187
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> zone_2  feature_1         75.1         15.0          0.200
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> zone_2  feature_2         28.0          4.61         0.165
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> zone_2  feature_3         65.0         13.2          0.204
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> zone_2  feature_4         38.0          5.65         0.149
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> zone_2  feature_5         51.2         10.3          0.200
+#&gt; </span><span style='color: #BCBCBC;'>16</span><span> zone_3  feature_1         75.1         11.1          0.147
+#&gt; </span><span style='color: #BCBCBC;'>17</span><span> zone_3  feature_2         28.0          3.89         0.139
+#&gt; </span><span style='color: #BCBCBC;'>18</span><span> zone_3  feature_3         65.0          8.45         0.130
+#&gt; </span><span style='color: #BCBCBC;'>19</span><span> zone_3  feature_4         38.0          6.42         0.169
+#&gt; </span><span style='color: #BCBCBC;'>20</span><span> zone_3  feature_5         51.2          7.96         0.155</div><div class='input'>
 <span class='co'># create new column representing the zone id that each planning unit</span>
 <span class='co'># was allocated to in the solution</span>
 <span class='va'>s5</span><span class='op'>$</span><span class='va'>solution</span> <span class='op'>&lt;-</span> <span class='fu'><a href='category_vector.html'>category_vector</a></span><span class='op'>(</span>

@@ -101,7 +101,7 @@ targets." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prioritizr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">6.0.0.1</span>
       </span>
     </div>
 
@@ -329,44 +329,76 @@ zero.</p></dd>
 
     
 
-<p>The argument to <code>solution</code> must be in the same format as
-the planning unit data in the argument to <code>x</code>
-(e.g. in terms of data representation, dimensionality, and spatial
-attributes).
-For example, if the planning unit data in <code>x</code> is a <code>numeric</code>
-vector, then the argument to <code>solution</code> must be a <code>numeric</code> vector
-with the same number of elements.
-Similarly, if the planning units in <code>x</code> are a <code>data.frame</code>, then the
-argument to <code>solution</code> must also be a <code>data.frame</code> with each
-column corresponding to a different zone, each row corresponding to a
-different planning unit, and cell values corresponding to the solution value.
-Additionally, if the planning unit data in <code>x</code> is
-a <code>Raster</code> object, then the argument to
-<code>solution</code> must also be a <code>Raster</code> object with
-the same dimensionality (rows and columns), resolution, extent, and
-coordinate reference system.
-Furthermore, if the planning unit data in <code>x</code> is a
-<code>Spatial</code> or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object then the
-argument to <code>solution</code> must also be a <code>Spatial</code>
-or <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object (respectively) with the same spatial information
-(e.g. polygons and coordinate reference system), and contain columns
-corresponding to different zones, and cell values corresponding to the
-solution values.</p>
-<p>The argument to <code>solution</code> must also have missing (<code>NA</code>) values for planning
-units that have missing (<code>NA</code>) cost values.
-In other words, the solution must have missing (<code>NA</code>) values in the
-same elements, cells, or pixels (depending on the cost data format) as the
-planning unit cost data.
-For example, if the planning unit data are a <code>Raster</code> object,
-then the argument to <code>solution</code> must have missing (<code>NA</code>) values in
-the same pixels as the planning unit cost data.
-Similarly, if the planning unit data are a
-<code>Spatial</code>, <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code>, or <code>data.frame</code> object, then
-the solution must have missing (<code>NA</code>) values in the same cells
-as the planning unit cost data columns.
-If an argument is supplied to <code>solution</code> where
-the missing (<code>NA</code>) values in the argument to solution do not match
-those in the planning unit cost data, then an error will be thrown.</p>
+<p>Broadly speaking, the argument to <code>solution</code> must be in the same format as
+the planning unit data in the argument to <code>x</code>.
+Further details on the correct format are listed separately
+for each of the different planning unit data formats:</p>
+<dl>
+
+<dt><code>x</code> has <code>numeric</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>numeric</code> vector with each element corresponding to a different planning
+unit. It should have the same number of planning units as those
+in the argument to <code>x</code>. Additionally, any planning units missing
+cost (<code>NA</code>) values should also have missing (<code>NA</code>) values in the
+argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>matrix</code> planning units</dt><dd><p>The argument to <code>solution</code> must be a
+<code>matrix</code> vector with each row corresponding to a different planning
+unit, and each column correspond to a different management zone.
+It should have the same number of planning units and zones
+as those in the argument to <code>x</code>. Additionally, any planning units
+missing cost (<code>NA</code>) values for a particular zone should also have a
+missing (<code>NA</code>) values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Raster</code> planning units</dt><dd><p>The argument to <code>solution</code>
+be a <code>Raster</code> object where different grid cells (pixels) correspond
+to different planning units and layers correspond to
+a different management zones. It should have the same dimensionality
+(rows, columns, layers), resolution, extent, and coordinate reference
+system as the planning units in the argument to <code>x</code>. Additionally,
+any planning units missing cost (<code>NA</code>) values for a particular zone
+should also have missing (<code>NA</code>)  values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>data.frame</code> planning units</dt><dd><p>The argument to <code>solution</code> must
+be a <code>data.frame</code> with each column corresponding to a different zone,
+each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if a <code>data.frame</code>
+object containing the solution also contains additional columns, then
+these columns will need to be subsetted prior to using this function
+(see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code>Spatial</code> planning units</dt><dd><p>The argument to <code>solution</code>
+must be a <code>Spatial</code> object with each column corresponding to a
+different zone, each row corresponding to a different planning unit, and
+cell values corresponding to the solution value. This means that if the
+<code>Spatial</code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example with <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> data).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+<dt><code>x</code> has <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> planning units</dt><dd><p>The argument to <code>solution</code> must be
+a <code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object with each column corresponding to a different
+zone, each row corresponding to a different planning unit, and cell values
+corresponding to the solution value. This means that if the
+<code><a href='https://r-spatial.github.io/sf/reference/sf.html'>sf::sf()</a></code> object containing the solution also contains additional
+columns, then these columns will need to be subsetted prior to using this
+function (see below for example).
+Additionally, the argument to <code>solution</code> must also have the same
+coordinate reference system as the planning unit data.
+Furthermore, any planning units missing cost
+(<code>NA</code>) values for a particular zone should also have missing (<code>NA</code>)
+values in the argument to <code>solution</code>.</p></dd>
+
+
+</dl>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='problem.html'>problem()</a></code>, <a href='summaries.html'>summaries</a>.</p></div>
@@ -407,21 +439,21 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate target coverage by the solution</span>
 <span class='va'>r1</span> <span class='op'>&lt;-</span> <span class='fu'>eval_target_coverage_summary</span><span class='op'>(</span><span class='va'>p1</span>, <span class='va'>s1</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r1</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span> <span class='co'># note: `width = Inf` tells R to print all columns</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 9</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 5 x 9</span><span>
 #&gt;   feature met   total_amount absolute_target absolute_held absolute_shortfall
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> layer.1 TRUE          83.3            8.33          8.91                  0
-#&gt; </span><span style='color: #555555;'>2</span><span> layer.2 TRUE          31.2            3.12          3.13                  0
-#&gt; </span><span style='color: #555555;'>3</span><span> layer.3 TRUE          72.0            7.20          7.34                  0
-#&gt; </span><span style='color: #555555;'>4</span><span> layer.4 TRUE          42.7            4.27          4.35                  0
-#&gt; </span><span style='color: #555555;'>5</span><span> layer.5 TRUE          56.7            5.67          6.01                  0
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 TRUE          83.3            8.33          8.91                  0
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 TRUE          31.2            3.12          3.13                  0
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 TRUE          72.0            7.20          7.34                  0
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 TRUE          42.7            4.27          4.35                  0
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 TRUE          56.7            5.67          6.01                  0
 #&gt;   relative_target relative_held relative_shortfall
-#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>             0.1         0.107                  0
-#&gt; </span><span style='color: #555555;'>2</span><span>             0.1         0.100                  0
-#&gt; </span><span style='color: #555555;'>3</span><span>             0.1         0.102                  0
-#&gt; </span><span style='color: #555555;'>4</span><span>             0.1         0.102                  0
-#&gt; </span><span style='color: #555555;'>5</span><span>             0.1         0.106                  0</div><div class='input'>
+#&gt;             </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>             0.1         0.107                  0
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>             0.1         0.100                  0
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>             0.1         0.102                  0
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>             0.1         0.102                  0
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>             0.1         0.106                  0</div><div class='input'>
 <span class='co'># build minimal conservation problem with polygon (sf) data</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_sf</span>, <span class='va'>sim_features</span>, cost_column <span class='op'>=</span> <span class='st'>"cost"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_min_set_objective.html'>add_min_set_objective</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -452,21 +484,21 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='co'># calculate target coverage by the solution</span>
 <span class='va'>r2</span> <span class='op'>&lt;-</span> <span class='fu'>eval_target_coverage_summary</span><span class='op'>(</span><span class='va'>p2</span>, <span class='va'>s2</span><span class='op'>[</span>, <span class='st'>"solution_1"</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r2</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 5 x 9</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 5 x 9</span><span>
 #&gt;   feature met   total_amount absolute_target absolute_held absolute_shortfall
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> layer.1 TRUE          74.5            7.45          8.05                  0
-#&gt; </span><span style='color: #555555;'>2</span><span> layer.2 TRUE          28.1            2.81          2.83                  0
-#&gt; </span><span style='color: #555555;'>3</span><span> layer.3 TRUE          64.9            6.49          6.65                  0
-#&gt; </span><span style='color: #555555;'>4</span><span> layer.4 TRUE          38.2            3.82          3.87                  0
-#&gt; </span><span style='color: #555555;'>5</span><span> layer.5 TRUE          50.7            5.07          5.41                  0
+#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span> layer.1 TRUE          74.5            7.45          8.05                  0
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span> layer.2 TRUE          28.1            2.81          2.83                  0
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span> layer.3 TRUE          64.9            6.49          6.65                  0
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span> layer.4 TRUE          38.2            3.82          3.87                  0
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span> layer.5 TRUE          50.7            5.07          5.41                  0
 #&gt;   relative_target relative_held relative_shortfall
-#&gt;             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span>             0.1         0.108                  0
-#&gt; </span><span style='color: #555555;'>2</span><span>             0.1         0.101                  0
-#&gt; </span><span style='color: #555555;'>3</span><span>             0.1         0.103                  0
-#&gt; </span><span style='color: #555555;'>4</span><span>             0.1         0.101                  0
-#&gt; </span><span style='color: #555555;'>5</span><span>             0.1         0.107                  0</div><div class='input'>
+#&gt;             </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>             0.1         0.108                  0
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>             0.1         0.101                  0
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>             0.1         0.103                  0
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>             0.1         0.101                  0
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>             0.1         0.107                  0</div><div class='input'>
 <span class='co'># build multi-zone conservation problem with polygon (sf) data</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_sf</span>, <span class='va'>sim_features_zones</span>,
               cost_column <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cost_1"</span>, <span class='st'>"cost_2"</span>, <span class='st'>"cost_3"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
@@ -513,41 +545,41 @@ those in the planning unit cost data, then an error will be thrown.</p>
 <span class='va'>r3</span> <span class='op'>&lt;-</span> <span class='fu'>eval_target_coverage_summary</span><span class='op'>(</span>
   <span class='va'>p3</span>, <span class='va'>s3</span><span class='op'>[</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"solution_1_zone_1"</span>, <span class='st'>"solution_1_zone_2"</span>, <span class='st'>"solution_1_zone_3"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 15 x 11</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 15 x 11</span><span>
 #&gt;    feature   zone      sense met   total_amount absolute_target absolute_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1           13.8          15.2 
-#&gt; </span><span style='color: #555555;'> 2</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.82          5.18
-#&gt; </span><span style='color: #555555;'> 3</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.8          12.8 
-#&gt; </span><span style='color: #555555;'> 4</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            5.58          6.56
-#&gt; </span><span style='color: #555555;'> 5</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            9.27         10.2 
-#&gt; </span><span style='color: #555555;'> 6</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.06         14.2 
-#&gt; </span><span style='color: #555555;'> 7</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.23          5.43
-#&gt; </span><span style='color: #555555;'> 8</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.5          13.0 
-#&gt; </span><span style='color: #555555;'> 9</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            6.96          6.98
-#&gt; </span><span style='color: #555555;'>10</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.76          9.23
-#&gt; </span><span style='color: #555555;'>11</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.63         13.2 
-#&gt; </span><span style='color: #555555;'>12</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            5.29          5.30
-#&gt; </span><span style='color: #555555;'>13</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           11.5          11.5 
-#&gt; </span><span style='color: #555555;'>14</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            4.43          6.76
-#&gt; </span><span style='color: #555555;'>15</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.86          8.88
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1           13.8          15.2 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.82          5.18
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.8          12.8 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            5.58          6.56
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            9.27         10.2 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.06         14.2 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.23          5.43
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.5          13.0 
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            6.96          6.98
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.76          9.23
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.63         13.2 
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            5.29          5.30
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           11.5          11.5 
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            4.43          6.76
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.86          8.88
 #&gt;    absolute_shortfall relative_target relative_held relative_shortfall
-#&gt;                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span>                  0           0.183         0.202                  0
-#&gt; </span><span style='color: #555555;'> 2</span><span>                  0           0.173         0.185                  0
-#&gt; </span><span style='color: #555555;'> 3</span><span>                  0           0.198         0.198                  0
-#&gt; </span><span style='color: #555555;'> 4</span><span>                  0           0.147         0.173                  0
-#&gt; </span><span style='color: #555555;'> 5</span><span>                  0           0.181         0.200                  0
-#&gt; </span><span style='color: #555555;'> 6</span><span>                  0           0.121         0.189                  0
-#&gt; </span><span style='color: #555555;'> 7</span><span>                  0           0.151         0.194                  0
-#&gt; </span><span style='color: #555555;'> 8</span><span>                  0           0.193         0.201                  0
-#&gt; </span><span style='color: #555555;'> 9</span><span>                  0           0.183         0.183                  0
-#&gt; </span><span style='color: #555555;'>10</span><span>                  0           0.171         0.180                  0
-#&gt; </span><span style='color: #555555;'>11</span><span>                  0           0.128         0.175                  0
-#&gt; </span><span style='color: #555555;'>12</span><span>                  0           0.189         0.189                  0
-#&gt; </span><span style='color: #555555;'>13</span><span>                  0           0.176         0.177                  0
-#&gt; </span><span style='color: #555555;'>14</span><span>                  0           0.116         0.178                  0
-#&gt; </span><span style='color: #555555;'>15</span><span>                  0           0.173         0.173                  0</div><div class='input'>
+#&gt;                 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>                  0           0.183         0.202                  0
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>                  0           0.173         0.185                  0
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>                  0           0.198         0.198                  0
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>                  0           0.147         0.173                  0
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>                  0           0.181         0.200                  0
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>                  0           0.121         0.189                  0
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>                  0           0.151         0.194                  0
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>                  0           0.193         0.201                  0
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>                  0           0.183         0.183                  0
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>                  0           0.171         0.180                  0
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span>                  0           0.128         0.175                  0
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span>                  0           0.189         0.189                  0
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span>                  0           0.176         0.177                  0
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span>                  0           0.116         0.178                  0
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span>                  0           0.173         0.173                  0</div><div class='input'>
 <span class='co'># create a new column with character values containing the zone names,</span>
 <span class='co'># by extracting these data out of the zone column</span>
 <span class='co'># (which is in list-column format)</span>
@@ -555,41 +587,41 @@ those in the planning unit cost data, then an error will be thrown.</p>
 
 <span class='co'># print r3 again to show the new column</span>
 <span class='fu'><a href='print.html'>print</a></span><span class='op'>(</span><span class='va'>r3</span>, width <span class='op'>=</span> <span class='cn'>Inf</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 15 x 12</span><span>
+</div><div class='output co'>#&gt; </span><span style='color: #949494;'># A tibble: 15 x 12</span><span>
 #&gt;    feature   zone      sense met   total_amount absolute_target absolute_held
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1           13.8          15.2 
-#&gt; </span><span style='color: #555555;'> 2</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.82          5.18
-#&gt; </span><span style='color: #555555;'> 3</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.8          12.8 
-#&gt; </span><span style='color: #555555;'> 4</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            5.58          6.56
-#&gt; </span><span style='color: #555555;'> 5</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            9.27         10.2 
-#&gt; </span><span style='color: #555555;'> 6</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.06         14.2 
-#&gt; </span><span style='color: #555555;'> 7</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.23          5.43
-#&gt; </span><span style='color: #555555;'> 8</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.5          13.0 
-#&gt; </span><span style='color: #555555;'> 9</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            6.96          6.98
-#&gt; </span><span style='color: #555555;'>10</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.76          9.23
-#&gt; </span><span style='color: #555555;'>11</span><span> feature_1 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.63         13.2 
-#&gt; </span><span style='color: #555555;'>12</span><span> feature_2 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            5.29          5.30
-#&gt; </span><span style='color: #555555;'>13</span><span> feature_3 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           11.5          11.5 
-#&gt; </span><span style='color: #555555;'>14</span><span> feature_4 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            4.43          6.76
-#&gt; </span><span style='color: #555555;'>15</span><span> feature_5 </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.86          8.88
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;lgl&gt;</span><span>        </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1           13.8          15.2 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.82          5.18
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.8          12.8 
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            5.58          6.56
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            9.27         10.2 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.06         14.2 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            4.23          5.43
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           12.5          13.0 
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            6.96          6.98
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.76          9.23
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span> feature_1 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          75.1            9.63         13.2 
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span> feature_2 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          28.0            5.29          5.30
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span> feature_3 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          65.0           11.5          11.5 
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span> feature_4 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          38.0            4.43          6.76
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span> feature_5 </span><span style='color: #949494;'>&lt;chr [1]&gt;</span><span> &gt;=    TRUE          51.2            8.86          8.88
 #&gt;    absolute_shortfall relative_target relative_held relative_shortfall zone2 
-#&gt;                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> 
-#&gt; </span><span style='color: #555555;'> 1</span><span>                  0           0.183         0.202                  0 zone_1
-#&gt; </span><span style='color: #555555;'> 2</span><span>                  0           0.173         0.185                  0 zone_1
-#&gt; </span><span style='color: #555555;'> 3</span><span>                  0           0.198         0.198                  0 zone_1
-#&gt; </span><span style='color: #555555;'> 4</span><span>                  0           0.147         0.173                  0 zone_1
-#&gt; </span><span style='color: #555555;'> 5</span><span>                  0           0.181         0.200                  0 zone_1
-#&gt; </span><span style='color: #555555;'> 6</span><span>                  0           0.121         0.189                  0 zone_2
-#&gt; </span><span style='color: #555555;'> 7</span><span>                  0           0.151         0.194                  0 zone_2
-#&gt; </span><span style='color: #555555;'> 8</span><span>                  0           0.193         0.201                  0 zone_2
-#&gt; </span><span style='color: #555555;'> 9</span><span>                  0           0.183         0.183                  0 zone_2
-#&gt; </span><span style='color: #555555;'>10</span><span>                  0           0.171         0.180                  0 zone_2
-#&gt; </span><span style='color: #555555;'>11</span><span>                  0           0.128         0.175                  0 zone_3
-#&gt; </span><span style='color: #555555;'>12</span><span>                  0           0.189         0.189                  0 zone_3
-#&gt; </span><span style='color: #555555;'>13</span><span>                  0           0.176         0.177                  0 zone_3
-#&gt; </span><span style='color: #555555;'>14</span><span>                  0           0.116         0.178                  0 zone_3
-#&gt; </span><span style='color: #555555;'>15</span><span>                  0           0.173         0.173                  0 zone_3</div><div class='input'><span class='co'># }</span>
+#&gt;                 </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> 
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span>                  0           0.183         0.202                  0 zone_1
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span>                  0           0.173         0.185                  0 zone_1
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span>                  0           0.198         0.198                  0 zone_1
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span>                  0           0.147         0.173                  0 zone_1
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span>                  0           0.181         0.200                  0 zone_1
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span>                  0           0.121         0.189                  0 zone_2
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span>                  0           0.151         0.194                  0 zone_2
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span>                  0           0.193         0.201                  0 zone_2
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span>                  0           0.183         0.183                  0 zone_2
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span>                  0           0.171         0.180                  0 zone_2
+#&gt; </span><span style='color: #BCBCBC;'>11</span><span>                  0           0.128         0.175                  0 zone_3
+#&gt; </span><span style='color: #BCBCBC;'>12</span><span>                  0           0.189         0.189                  0 zone_3
+#&gt; </span><span style='color: #BCBCBC;'>13</span><span>                  0           0.176         0.177                  0 zone_3
+#&gt; </span><span style='color: #BCBCBC;'>14</span><span>                  0           0.116         0.178                  0 zone_3
+#&gt; </span><span style='color: #BCBCBC;'>15</span><span>                  0           0.173         0.173                  0 zone_3</div><div class='input'><span class='co'># }</span>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

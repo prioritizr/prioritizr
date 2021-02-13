@@ -70,12 +70,35 @@ NULL
 #' print(fs1)
 #'
 #' # plot total importance scores
-#' plot(fs1, axes = FALSE, box = FALSE)
+#' plot(fs1, main = "Ferrier scores", axes = FALSE, box = FALSE)
+#'
+#' # create minimal problem with polygon (sf) planning units
+#' p2 <- problem(sim_pu_sf, sim_features, cost_column = "cost") %>%
+#'       add_min_set_objective() %>%
+#'       add_relative_targets(0.05) %>%
+#'       add_binary_decisions() %>%
+#'       add_default_solver(gap = 0, verbose = FALSE)
+#'
+#' # solve problem
+#' s2 <- solve(p2)
+#'
+#' # print solution
+#' print(s2)
+#'
+#' # plot solution
+#' plot(s2[, "solution_1"], main = "solution")
+#'
+#' # calculate importance scores
+#' fs2 <- eval_ferrier_importance(p2, s2[, "solution_1"])
+#'
+#' # plot importance scores
+#' plot(fs2, main = "Ferrier scores")
+#'
 #' }
 #'
 #' @inherit eval_replacement_importance seealso
 #'
-#' @aliases eval_ferrier_importance,ConservationProblem,numeric-method eval_ferrier_importance,ConservationProblem,matrix-method eval_ferrier_importance,ConservationProblem,data.frame-method eval_ferrier_importance,ConservationProblem,Spatial-method eval_ferrier_importance,ConservationProblem,Raster-method
+#' @aliases eval_ferrier_importance,ConservationProblem,numeric-method eval_ferrier_importance,ConservationProblem,matrix-method eval_ferrier_importance,ConservationProblem,data.frame-method eval_ferrier_importance,ConservationProblem,Spatial-method eval_ferrier_importance,ConservationProblem,sf-method eval_ferrier_importance,ConservationProblem,Raster-method
 #'
 #' @name eval_ferrier_importance
 #'
@@ -95,27 +118,20 @@ methods::setMethod("eval_ferrier_importance",
   function(x, solution) {
     # assert valid arguments
     assertthat::assert_that(
-      is.numeric(solution), sum(solution, na.rm = TRUE) > 1e-10,
-      is.numeric(x$data$cost), is.matrix(x$data$cost),
-      number_of_total_units(x) == length(solution),
-      number_of_zones(x) == 1,
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA values in the",
-           " solution")
+      is.numeric(solution))
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
     # calculate scores
-    indices <- which(solution[pos] > 1e-10)
-    v <- internal_eval_ferrier_importance(x, indices)
+    v <- internal_eval_ferrier_importance(x, pos)
     # return scores
     out <- matrix(NA_real_, nrow = x$number_of_total_units(),
                   ncol = x$number_of_features() + 1,
                   dimnames = list(NULL, c(x$feature_names(), "total")))
-    out[pos, ] <- 0
-    out[pos[indices], ] <- c(v)
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     out
 })
 
@@ -128,28 +144,20 @@ methods::setMethod("eval_ferrier_importance",
     # assert valid arguments
     assertthat::assert_that(
       is.matrix(solution), is.numeric(solution),
-      sum(solution, na.rm = TRUE) > 1e-10,
-      is.matrix(x$data$cost), is.numeric(x$data$cost),
-      number_of_total_units(x) == nrow(solution),
-      number_of_zones(x) == 1,
-      min(solution, na.rm = TRUE) >= 0,
-      max(solution, na.rm = TRUE) <= 1,
-      ncol(solution) == 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA values in the",
-           " solution")
+      number_of_zones(x) == 1)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
     # calculate scores
-    indices <- which(solution[pos] > 1e-10)
-    v <- internal_eval_ferrier_importance(x, indices)
+    v <- internal_eval_ferrier_importance(x, pos)
     # return scores
     out <- matrix(NA_real_, nrow = x$number_of_total_units(),
                   ncol = x$number_of_features() + 1,
                   dimnames = list(NULL, c(x$feature_names(), "total")))
-    out[pos, ] <- 0
-    out[pos[indices], ] <- c(v)
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     out
 })
 
@@ -162,30 +170,20 @@ methods::setMethod("eval_ferrier_importance",
     # assert valid arguments
     assertthat::assert_that(
       is.data.frame(solution),
-      sum(as.matrix(solution), na.rm = TRUE) >= 1e-10,
-      number_of_zones(x) == 1,
-      number_of_total_units(x) == nrow(solution),
-      is.data.frame(x$data$cost),
-      is.numeric(unlist(solution)),
-      min(unlist(solution), na.rm = TRUE) >= 0,
-      max(unlist(solution), na.rm = TRUE) <= 1,
-      ncol(solution) == 1)
-    # subset planning units with finite cost values
-    solution_matrix <- as.matrix(solution)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution_matrix))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA values in the",
-           " solution")
+      number_of_zones(x) == 1)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
     # calculate scores
-    indices <- which(solution_matrix[pos] > 1e-10)
-    v <- internal_eval_ferrier_importance(x, indices)
+    v <- internal_eval_ferrier_importance(x, pos)
     # return scores
     out <- matrix(NA_real_, nrow = x$number_of_total_units(),
                   ncol = x$number_of_features() + 1,
                   dimnames = list(NULL, c(x$feature_names(), "total")))
-    out[pos, ] <- 0
-    out[pos[indices], ] <- c(v)
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     tibble::as_tibble(out)
 })
 
@@ -199,33 +197,54 @@ methods::setMethod("eval_ferrier_importance",
     assertthat::assert_that(
       inherits(solution, c("SpatialPointsDataFrame", "SpatialLinesDataFrame",
                            "SpatialPolygonsDataFrame")),
-      number_of_zones(x) == 1,
-      number_of_total_units(x) == nrow(solution@data),
-      class(x$data$cost)[1] == class(solution)[1],
-      is.numeric(unlist(solution@data)),
-      min(unlist(solution@data), na.rm = TRUE) >= 0,
-      max(unlist(solution@data), na.rm = TRUE) <= 1,
-      ncol(solution@data) == 1)
-    # subset planning units with finite cost values
-    solution_matrix <- as.matrix(solution@data)
-    pos <- x$planning_unit_indices()
-    pos2 <- which(!is.na(solution_matrix))
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA values in the",
-           " solution")
+      number_of_zones(x) == 1)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
     # calculate scores
-    indices <- which(solution_matrix[pos] > 1e-10)
-    v <- internal_eval_ferrier_importance(x, indices)
+    v <- internal_eval_ferrier_importance(x, pos)
     # return scores
     out <- matrix(NA_real_, nrow = x$number_of_total_units(),
                   ncol = x$number_of_features() + 1,
                   dimnames = list(NULL, c(x$feature_names(), "total")))
-    out[pos, ] <- 0
-    out[pos[indices], ] <- c(v)
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
     out <- as.data.frame(out)
     rownames(out) <- rownames(solution@data)
     solution@data <- out
     solution
+})
+
+#' @name eval_ferrier_importance
+#' @usage \S4method{eval_ferrier_importance}{ConservationProblem,sf}(x, solution)
+#' @rdname eval_ferrier_importance
+methods::setMethod("eval_ferrier_importance",
+  methods::signature("ConservationProblem", "sf"),
+  function(x, solution) {
+    # assert valid arguments
+    assertthat::assert_that(
+      inherits(solution, "sf"),
+      inherits(x$data$cost, "sf"),
+      number_of_zones(x) == 1)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_ferrier_importance(x, pos)
+    # return scores
+    out <- matrix(NA_real_, nrow = x$number_of_total_units(),
+                  ncol = x$number_of_features() + 1,
+                  dimnames = list(NULL, c(x$feature_names(), "total")))
+    out[idx, ] <- 0
+    out[idx[pos], ] <- c(v)
+    out <- tibble::as_tibble(as.data.frame(out))
+    sf::st_as_sf(
+      out, geometry = sf::st_geometry(x$data$cost),
+      crs = sf::st_crs(x$data$cost))
 })
 
 #' @name eval_ferrier_importance
@@ -236,29 +255,19 @@ methods::setMethod("eval_ferrier_importance",
   function(x, solution) {
     assertthat::assert_that(
       inherits(solution, "Raster"),
-      number_of_zones(x) == 1,
-      raster::compareCRS(x$data$cost@crs, solution@crs),
-      is_comparable_raster(x$data$cost, solution[[1]]),
-      min(raster::cellStats(solution, "min")) >= 0,
-      max(raster::cellStats(solution, "max")) <= 1,
-      raster::nlayers(solution) == 1)
-    # subset planning units with finite cost values
-    pos <- x$planning_unit_indices()
-    pos2 <- raster::Which(!is.na(solution), cells = TRUE)
-    if (!setequal(pos, pos2))
-      stop("planning units with NA cost data must have NA values in the",
-           " solution")
-    solution_matrix <- solution[pos2]
-    if (!is.matrix(solution_matrix))
-      solution_matrix <- matrix(solution_matrix, ncol = 1)
-    # calculate replacement costs
-    indices <- which(solution_matrix > 1e-10)
-    v <- internal_eval_ferrier_importance(x, indices)
+      number_of_zones(x) == 1)
+    # extract planning unit solution status
+    status <- planning_unit_solution_status(x, solution)
+    # extract indices
+    idx <- x$planning_unit_indices()
+    pos <- which(status > 1e-10)
+    # calculate scores
+    v <- internal_eval_ferrier_importance(x, pos)
     # return scores
     out <- list(x$data$cost[[1]])[rep(1, ncol(v))]
     for (i in seq_along(out)) {
-      out[[i]][!is.na(out[[i]])] <- 0
-      out[[i]][pos2[indices]] <- v[, i]
+      out[[i]][idx] <- 0
+      out[[i]][idx[pos]] <- v[, i]
     }
     out <- raster::stack(out)
     names(out) <- c(x$feature_names(), "total")
@@ -268,7 +277,7 @@ methods::setMethod("eval_ferrier_importance",
 internal_eval_ferrier_importance <- function(x, indices) {
   assertthat::assert_that(
     inherits(x, "ConservationProblem"),
-    x$number_of_zones() == 1,
+    number_of_zones(x) == 1,
     is.integer(indices), length(indices) > 0)
   assertthat::assert_that(
     !any(x$feature_names() == "total"),
@@ -278,11 +287,14 @@ internal_eval_ferrier_importance <- function(x, indices) {
   rij <- x$data$rij_matrix[[1]]
   targets <- x$feature_targets()
   # validate data
-  assertthat::assert_that(all(targets$sense == ">="),
-                          msg = "all targets must have a >= sense")
-  assertthat::assert_that(all(targets$value >= 0),
+  assertthat::assert_that(
+    all(targets$sense == ">="),
+    msg = "all targets must have a >= sense")
+  assertthat::assert_that(
+    all(targets$value >= 0),
     msg = "all targets must be greater than or equal to zero")
-  assertthat::assert_that(all(rij@x >= 0),
+  assertthat::assert_that(
+    all(rij@x >= 0),
     msg = "all feature values must be greater than or equal to zero")
   # create sparse matrix with output indices to avoid calculations
   # for planning units that are not selected in the solution

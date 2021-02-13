@@ -362,6 +362,7 @@ test_that("Raster (single zone)", {
   r <- eval_replacement_importance(p, s, rescale = FALSE)
   # create correct result
   r2 <- raster::raster(matrix(c(0, 8, NA, Inf), nrow = 1))
+  names(r2) <- "rc"
   # run tests
   expect_equal(r, r2)
 })

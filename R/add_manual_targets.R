@@ -7,7 +7,7 @@ NULL
 #' specifying all the required information for each target. This function
 #' is useful because it can be used to customize all aspects of a target. For
 #' most cases, targets can be specified using the
-#' \code{link{add_absolute_targets}} and [add_relative_targets()]
+#' [add_absolute_targets()] and [add_relative_targets()]
 #' functions. However, this function can be used to (i) mix absolute and
 #' relative targets for different features and zones, (ii) set targets that
 #' pertain to the allocations of planning units in multiple zones, and (iii)
