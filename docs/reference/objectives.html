@@ -54,7 +54,8 @@
 
 <meta property="og:title" content="Add an objective — objectives" />
 <meta property="og:description" content="An objective is used to specify the overall goal of a conservation planning
-problem(). All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
+problem(). All conservation planning problems involve minimizing
+or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
@@ -180,7 +181,8 @@ ensuring that the cost of the reserve network does not exceed the budget." />
 
     <div class="ref-description">
     <p>An objective is used to specify the overall goal of a conservation planning
-<code><a href='problem.html'>problem()</a></code>. All conservation planning problems involve minimizing #' or maximizing some kind of objective. For instance, the planner may require
+<code><a href='problem.html'>problem()</a></code>. All conservation planning problems involve minimizing
+or maximizing some kind of objective. For instance, the planner may require
 a solution that conserves enough habitat for each species while minimizing
 the overall cost of the reserve network. Alternatively, the planner may
 require a solution that maximizes the number of conserved species while
@@ -256,7 +258,7 @@ features as possible without exceeding a budget.</p></dd>
 
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
 <span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
-
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: ape</span></div><div class='input'>
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
 <span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
