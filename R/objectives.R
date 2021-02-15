@@ -30,8 +30,12 @@ NULL
 #'     possible while ensuring that the cost of the solution does not exceed a
 #'     budget.}
 #'
-#'   \item{[add_min_shortfall_objective()]}{Minimize the shortfall
-#'     for as many targets as possible while ensuring that
+#'   \item{[add_min_shortfall_objective()]}{Minimize the overall
+#'     (weighted sum) shortfall for as many targets as possible while ensuring
+#'     that the cost of the solution does not exceed a budget.}
+#'
+#'   \item{[add_min_largest_shortfall_objective()]}{Minimize the
+#'     largest (maximum) shortfall among all targets while ensuring that
 #'     the cost of the solution does not exceed a budget.}
 #'
 #'   \item{[add_max_phylo_div_objective()]}{Maximize the phylogenetic
@@ -70,30 +74,34 @@ NULL
 #'
 #' # create problem with added maximum feature representation objective
 #' p3 <- p %>% add_max_features_objective(1900)
-
+#'
 #' # create problem with added minimum shortfall objective
 #' p4 <- p %>% add_min_shortfall_objective(1900)
 #'
-#' # create problem with added maximum phylogenetic diversity objective
-#' p5 <- p %>% add_max_phylo_div_objective(1900, sim_phylogeny)
+#' # create problem with added minimum largest shortfall objective
+#' p5 <- p %>% add_min_largest_shortfall_objective(1900)
 #'
 #' # create problem with added maximum phylogenetic diversity objective
-#' p6 <- p %>% add_max_phylo_end_objective(1900, sim_phylogeny)
+#' p6 <- p %>% add_max_phylo_div_objective(1900, sim_phylogeny)
+#'
+#' # create problem with added maximum phylogenetic diversity objective
+#' p7 <- p %>% add_max_phylo_end_objective(1900, sim_phylogeny)
 #'
 #' # create problem with added maximum utility objective
 #' # note that this objective does not use targets
-#' p7 <- p %>% add_max_utility_objective(1900)
+#' p8 <- p %>% add_max_utility_objective(1900)
 #'
 #' \dontrun{
 #' # solve problems
 #' s <- stack(solve(p1), solve(p2), solve(p3), solve(p4), solve(p5), solve(p6),
-#'            solve(p7))
+#'            solve(p7), solve(p8))
 #'
 #' # plot solutions
 #' plot(s, axes = FALSE, box = FALSE,
-#'      main = c("minimum set", "maximum coverage", "maximum features",
-#'               "minimum shortfall", "maximum phylogenetic diversity",
-#'               "maximum phylogenetic endemism", "maximum utility"))
+#'      main = c("min set", "max coverage", "max features",
+#'               "min shortfall", "min largest shortfall",
+#'               "max phylogenetic diversity",
+#'               "max phylogenetic endemism", "max utility"))
 #' }
 #' @name objectives
 NULL

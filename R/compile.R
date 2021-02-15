@@ -57,8 +57,9 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
     is.na(compressed_formulation) ||
           assertthat::is.flag(compressed_formulation))
   # sanity checks
-  if (inherits(x$objective,
-               c("MaximumUtilityObjective", "MaximumCoverageObjective")) &
+  targets_not_supported <-
+    c("MaximumUtilityObjective", "MaximumCoverageObjective")
+  if (inherits(x$objective, targets_not_supported) &&
       !is.Waiver(x$targets))
     warning(paste("ignoring targets since the specified objective",
                   "function doesn't use targets"))
@@ -117,8 +118,10 @@ compile.ConservationProblem <- function(x, compressed_formulation = NA, ...) {
   # add penalties to optimization problem
   for (i in x$penalties$ids()) {
     ## run sanity check
-    if (inherits(x$penalties[[i]], "FeatureWeights") &
-        inherits(x$objective, "MinimumSetObjective")) {
+    weights_not_supported <-
+      c("MinimumSetObjective", "MinimumLargestShortfallObjective" )
+    if (inherits(x$penalties[[i]], "FeatureWeights") &&
+        inherits(x$objective, weights_not_supported)) {
       warning(paste("ignoring weights since the specified objective",
                     "function doesn't use weights"))
       next()

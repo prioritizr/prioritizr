@@ -210,8 +210,12 @@ instance of as many features as possible within a given budget.</p></dd>
 possible while ensuring that the cost of the solution does not exceed a
 budget.</p></dd>
 
-<dt><code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective()</a></code></dt><dd><p>Minimize the shortfall
-for as many targets as possible while ensuring that
+<dt><code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective()</a></code></dt><dd><p>Minimize the overall
+(weighted sum) shortfall for as many targets as possible while ensuring
+that the cost of the solution does not exceed a budget.</p></dd>
+
+<dt><code><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective()</a></code></dt><dd><p>Minimize the
+largest (maximum) shortfall among all targets while ensuring that
 the cost of the solution does not exceed a budget.</p></dd>
 
 <dt><code><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective()</a></code></dt><dd><p>Maximize the phylogenetic
@@ -253,29 +257,34 @@ features as possible without exceeding a budget.</p></dd>
 
 <span class='co'># create problem with added maximum feature representation objective</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_features_objective.html'>add_max_features_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+
 <span class='co'># create problem with added minimum shortfall objective</span>
 <span class='va'>p4</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
+<span class='co'># create problem with added minimum largest shortfall objective</span>
+<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_min_largest_shortfall_objective.html'>add_min_largest_shortfall_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p5</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
+<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_div_objective.html'>add_max_phylo_div_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'>Loading required namespace: ape</span></div><div class='input'>
 <span class='co'># create problem with added maximum phylogenetic diversity objective</span>
-<span class='va'>p6</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
+<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_phylo_end_objective.html'>add_max_phylo_end_objective</a></span><span class='op'>(</span><span class='fl'>1900</span>, <span class='va'>sim_phylogeny</span><span class='op'>)</span>
 
 <span class='co'># create problem with added maximum utility objective</span>
 <span class='co'># note that this objective does not use targets</span>
-<span class='va'>p7</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
+<span class='va'>p8</span> <span class='op'>&lt;-</span> <span class='va'>p</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='add_max_utility_objective.html'>add_max_utility_objective</a></span><span class='op'>(</span><span class='fl'>1900</span><span class='op'>)</span>
 
 <span class='co'># \dontrun{</span>
 <span class='co'># solve problems</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/stack.html'>stack</a></span><span class='op'>(</span><span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p1</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p3</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p4</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p5</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p6</span><span class='op'>)</span>,
-           <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span><span class='op'>)</span>
+           <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p7</span><span class='op'>)</span>, <span class='fu'><a href='solve.html'>solve</a></span><span class='op'>(</span><span class='va'>p8</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='output co'>#&gt; <span class='warning'>Warning: ignoring targets since the specified objective function doesn't use targets</span></div><div class='input'>
 <span class='co'># plot solutions</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span>,
-     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"minimum set"</span>, <span class='st'>"maximum coverage"</span>, <span class='st'>"maximum features"</span>,
-              <span class='st'>"minimum shortfall"</span>, <span class='st'>"maximum phylogenetic diversity"</span>,
-              <span class='st'>"maximum phylogenetic endemism"</span>, <span class='st'>"maximum utility"</span><span class='op'>)</span><span class='op'>)</span>
+     main <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"min set"</span>, <span class='st'>"max coverage"</span>, <span class='st'>"max features"</span>,
+              <span class='st'>"min shortfall"</span>, <span class='st'>"min largest shortfall"</span>,
+              <span class='st'>"max phylogenetic diversity"</span>,
+              <span class='st'>"max phylogenetic endemism"</span>, <span class='st'>"max utility"</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='objectives-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>

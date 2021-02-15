@@ -457,6 +457,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_apply_min_largest_shortfall_objective
+bool rcpp_apply_min_largest_shortfall_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs, Rcpp::NumericVector budget);
+RcppExport SEXP _prioritizr_rcpp_apply_min_largest_shortfall_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP, SEXP budgetSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< SEXP >::type x(xSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type targets_list(targets_listSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type costs(costsSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type budget(budgetSEXP);
+    rcpp_result_gen = Rcpp::wrap(rcpp_apply_min_largest_shortfall_objective(x, targets_list, costs, budget));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_apply_min_set_objective
 bool rcpp_apply_min_set_objective(SEXP x, Rcpp::List targets_list, Rcpp::NumericMatrix costs);
 RcppExport SEXP _prioritizr_rcpp_apply_min_set_objective(SEXP xSEXP, SEXP targets_listSEXP, SEXP costsSEXP) {

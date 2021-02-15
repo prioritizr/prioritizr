@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add minimum shortfall objective — add_min_shortfall_objective • prioritizr</title>
+<title>Add minimum largest shortfall objective — add_min_largest_shortfall_objective • prioritizr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -52,10 +52,14 @@
 
 
 
-<meta property="og:title" content="Add minimum shortfall objective — add_min_shortfall_objective" />
+<meta property="og:title" content="Add minimum largest shortfall objective — add_min_largest_shortfall_objective" />
 <meta property="og:description" content="Set the objective of a conservation planning problem() to
-minimize the overall shortfall for as many targets as possible while
-ensuring that the cost of the solution does not exceed a budget." />
+minimize the largest target shortfall while ensuring that
+the cost of the solution does not exceed a budget. Note that if the
+target shortfall for a single feature cannot be decreased beyond a certain
+point (e.g. because all remaining planning units occupied by that feature
+are too costly or are locked out), then solutions may only use a small
+proportion of the specified budget." />
 <meta property="og:image" content="https://prioritizr.net/logo.png" />
 
 
@@ -170,18 +174,22 @@ ensuring that the cost of the solution does not exceed a budget." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add minimum shortfall objective</h1>
-    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_min_shortfall_objective.R'><code>R/add_min_shortfall_objective.R</code></a></small>
-    <div class="hidden name"><code>add_min_shortfall_objective.Rd</code></div>
+    <h1>Add minimum largest shortfall objective</h1>
+    <small class="dont-index">Source: <a href='https://github.com/prioritizr/prioritizr/blob/master/R/add_min_largest_shortfall_objective.R'><code>R/add_min_largest_shortfall_objective.R</code></a></small>
+    <div class="hidden name"><code>add_min_largest_shortfall_objective.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Set the objective of a conservation planning <code><a href='problem.html'>problem()</a></code> to
-minimize the overall shortfall for as many targets as possible while
-ensuring that the cost of the solution does not exceed a budget.</p>
+minimize the largest target shortfall while ensuring that
+the cost of the solution does not exceed a budget. Note that if the
+target shortfall for a single feature cannot be decreased beyond a certain
+point (e.g. because all remaining planning units occupied by that feature
+are too costly or are locked out), then solutions may only use a small
+proportion of the specified budget.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>budget</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_min_largest_shortfall_objective</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>budget</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,50 +219,49 @@ conservation planning problem. Please note that all conservation
 planning problems formulated in the <span class="pkg">prioritizr</span> package require the
 addition of objectives---failing to do so will return an error
 message when attempting to solve problem.</p>
-<p>The minimum shortfall objective aims to
-find the set of planning units that minimize the overall
-(weighted sum) shortfall for the
-representation targets---that is, the fraction of each target that
-remains unmet---for as many features as possible while staying within a
-fixed budget (inspired by Table 1, equation IV, Arponen <em>et al.</em>
-2005). Additionally, weights can be used
-to favor the representation of certain features over other features (see
-<code><a href='add_feature_weights.html'>add_feature_weights()</a></code>.</p>
-<p>The minimum shortfall objective for the reserve design problem can be
-expressed mathematically for a set of planning units (\(I\) indexed by
-\(i\)) and a set of features (\(J\) indexed by \(j\)) as:</p>
-<p>$$\mathit{Minimize} \space  \sum_{j = 1}^{J} w_j \frac{y_j}{t_j} \\
+<p>The minimum largest shortfall objective aims to
+find the set of planning units that minimize the largest
+shortfall for any of the representation targets---that is, the fraction of
+each target that remains unmet---for as many features as possible while
+staying within a fixed budget. This objective is different from the
+minimum shortfall objective (<code><a href='add_min_shortfall_objective.html'>add_min_shortfall_objective()</a></code>) because this
+objective minimizes the largest (maximum) target shortfall,
+whereas the minimum shortfall objective
+minimizes the total (weighted sum) of the target shortfalls.
+Note that this objective function is not compatible with feature weights
+(<code><a href='add_feature_weights.html'>add_feature_weights()</a></code>).</p>
+<p>The minimum largest shortfall objective for the reserve design problem can
+be expressed mathematically for a set of planning units (\(I\)
+indexed by \(i\)) and a set of features (\(J\) indexed by
+\(j\)) as:</p>
+<p>$$\mathit{Minimize} \space l \\
   \mathit{subject \space to} \\
   \sum_{i = 1}^{I} x_i r_{ij} + y_j \geq t_j \forall j \in J \\
+  l \geq \frac{y_j}{t_j} \forall j \in J \\
   \sum_{i = 1}^{I} x_i c_i \leq B$$</p>
 <p>Here, \(x_i\) is the <a href='decisions.html'>decisions</a> variable (e.g.
 specifying whether planning unit \(i\) has been selected (1) or not
 (0)), \(r_{ij}\) is the amount of feature \(j\) in planning
-unit \(i\), \(t_j\) is the representation target for feature
-\(j\), \(y_j\) denotes the representation shortfall for
-the target \(t_j\) for feature \(j\), and \(w_j\) is the
-weight for feature \(j\) (defaults to 1 for all features; see
-<code><a href='add_feature_weights.html'>add_feature_weights()</a></code> to specify weights). Additionally,
-\(B\) is the budget allocated for the solution, \(c_i\) is the
-cost of planning unit \(i\). Note that \(y_j\) is a continuous
-variable bounded between zero and infinity, and denotes the shortfall
-for target \(j\).</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
-
-    <p>Arponen A, Heikkinen RK, Thomas CD, and Moilanen A (2005) The value of
-biodiversity in reserve selection: representation, species weighting, and
-benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
+unit \(i\), and \(t_j\) is the representation target for feature
+\(j\).
+Additionally, \(y_j\) denotes the target shortfall for
+the target \(t_j\) for feature \(j\), and
+\(l\) denotes the largest target shortfall.
+Furthermore, \(B\) is the budget allocated for the solution,
+\(c_i\) is the cost of planning unit \(i\). Note that
+\(y_j\) and \(s\) are continuous variables bounded between zero
+and infinity.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='add_feature_weights.html'>add_feature_weights()</a></code>, <a href='objectives.html'>objectives</a>.</p></div>
+    <div class='dont-index'><p><a href='objectives.html'>objectives</a>.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load data</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span>
 
-<span class='co'># create problem with minimum shortfall objective</span>
+<span class='co'># create problem with minimum largest shortfall objective</span>
 <span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_raster</span>, <span class='va'>sim_features</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fl'>1800</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_min_largest_shortfall_objective</span><span class='op'>(</span><span class='fl'>1800</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -264,14 +271,14 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>s1</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='add_min_shortfall_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='add_min_largest_shortfall_objective-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 
-<span class='co'># create multi-zone problem with minimum shortfall objective,</span>
+<span class='co'># create multi-zone problem with minimum largest shortfall objective,</span>
 <span class='co'># with 10% representation targets for each feature, and set</span>
 <span class='co'># a budget such that the total maximum expenditure in all zones</span>
 <span class='co'># cannot exceed 3000</span>
 <span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fl'>3000</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_min_largest_shortfall_objective</span><span class='op'>(</span><span class='fl'>3000</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -281,12 +288,12 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s2</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='add_min_shortfall_objective-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
-<span class='co'># create multi-zone problem with minimum shortfall objective,</span>
+</div><div class='img'><img src='add_min_largest_shortfall_objective-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+<span class='co'># create multi-zone problem with minimum largest shortfall objective,</span>
 <span class='co'># with 10% representation targets for each feature, and set</span>
 <span class='co'># separate budgets for each management zone</span>
 <span class='va'>p3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='problem.html'>problem</a></span><span class='op'>(</span><span class='va'>sim_pu_zones_stack</span>, <span class='va'>sim_features_zones</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-      <span class='fu'>add_min_shortfall_objective</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+      <span class='fu'>add_min_largest_shortfall_objective</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3000</span>, <span class='fl'>3000</span>, <span class='fl'>3000</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_relative_targets.html'>add_relative_targets</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fl'>0.1</span>, ncol <span class='op'>=</span> <span class='fl'>3</span>, nrow <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_binary_decisions.html'>add_binary_decisions</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
       <span class='fu'><a href='add_default_solver.html'>add_default_solver</a></span><span class='op'>(</span>verbose <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
@@ -296,7 +303,7 @@ benefit functions. <em>Conservation Biology</em>, 19: 2009--2014.</p>
 
 <span class='co'># plot solution</span>
 <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='category_layer.html'>category_layer</a></span><span class='op'>(</span><span class='va'>s3</span><span class='op'>)</span>, main <span class='op'>=</span> <span class='st'>"solution"</span>, axes <span class='op'>=</span> <span class='cn'>FALSE</span>, box <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='img'><img src='add_min_shortfall_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
+</div><div class='img'><img src='add_min_largest_shortfall_objective-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

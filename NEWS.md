@@ -12,6 +12,7 @@
   with `sf` planning unit data.
 - Fix broken link in `add_manual_targets` documentation.
 - Fix typo in equation for rarity weighted richness documentation.
+- New `add_min_largest_shortfall` objective function.
 
 # prioritizr 6.0.0.0
 
